@@ -49,7 +49,7 @@ class html_rsg2_images {
             <div class="clearfix"> </div>
 
             <?php
-            // Search tools bar
+            // ToDo: Search tools bar
             // echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
             ?>
 
@@ -201,11 +201,13 @@ class html_rsg2_images {
 	*
 	* A new record is defined when <var>$row</var> is passed with the <var>id</var>
 	* property set to 0.
-	* @param mosWeblink $row The weblink object
-	* @param array $listsAn array of select lists
-	* @param object $params Parameters
-	* @param string $option The option
+	* @param rsgImagesItem $row The image object
+	* @param array $lists An array of select lists properties (header names)
+	* @param JForm $params JParameters
+	* @param string $option The option (com_rsgallery2)
 	*/
+    // 	html_rsg2_images::editImage( $row, $lists, $params, $option );
+
 	static function editImage( &$row, &$lists, &$params, $option ) {
 		global $rsgOption;
 		jimport("joomla.filter.output");
@@ -395,7 +397,7 @@ class html_rsg2_images {
 							<tr>
 								<td>
 									<!-- Note: ToDo: the $params->render is not available in J3
-										(administrator/components/com_rsgallery2/options/images.html.php lin 344) 
+										(administrator/components/com_rsgallery2/options/images.html.php line 344) 
 										
 									///Try this for J3:
 /*$params2 = new JForm('params');
@@ -597,7 +599,7 @@ foreach( $fields AS $field => $obj ){
 				</tr>
 				<tr>
 					<td>
-					<?php /*echo $params->render();*/?>
+					<?php /*JParameter: ToDo:  echo $params->render();*/?>
 					</td>
 				</tr>
 				</table>
