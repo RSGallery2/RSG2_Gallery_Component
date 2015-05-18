@@ -636,6 +636,8 @@ function saveUploadedImage( $option ) {
 	} else {
 		//Show error message for each error encountered
 		foreach( $errors as $e ) {
+			// ToDo: warnings are depending on fileUtils::importImage Check before
+			// JFactory::getApplication()->enqueueMessage($e->toString()), 'warning');
 			JError::raiseWarning(0, $e->toString());
 		}
 		//If there were more files than errors, assure the user the rest went well

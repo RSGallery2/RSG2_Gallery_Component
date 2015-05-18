@@ -47,13 +47,21 @@ class InstallerModelTemplate extends InstallerModel
 	{
 		jimport('joomla.filesystem.path');
 		if (!$this->template) {
-			return JError::raiseWarning( 500, 'Template not specified' );
+			// return JError::raiseWarning( 500, 'Template not specified' );
+			JFactory::getApplication()->enqueueMessage(
+				'Template not specified'
+				, 'warning');
+			return NULL;
 		}
 
 		$tBaseDir	= JPath::clean(JPATH_RSGALLERY2_SITE .DS. 'templates');
 
 		if (!is_dir( $tBaseDir . DS . $this->template )) {
-			return JError::raiseWarning( 500, 'Template not found' );
+			// return JError::raiseWarning( 500, 'Template not found' );
+			JFactory::getApplication()->enqueueMessage(
+				'Template not found'
+				, 'warning');
+			return NULL;
 		}
 		$lang = JFactory::getLanguage();
 		$lang->load( 'tpl_'.$this->template, JPATH_RSGALLERY2_SITE );

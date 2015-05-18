@@ -57,7 +57,10 @@ class InstallerModelEditCss extends InstallerModel
 
 		if ($content == false)
 		{
-			JError::raiseWarning( 500, JText::sprintf('COM_RSGALLERY2_OPERATION_FAILED_COULD_NOT_OPEN', $client->path.$filename) );
+			// JError::raiseWarning( 500, JText::sprintf('COM_RSGALLERY2_OPERATION_FAILED_COULD_NOT_OPEN', $client->path.$filename) );
+			JFactory::getApplication()->enqueueMessage(
+				JText::sprintf('COM_RSGALLERY2_OPERATION_FAILED_COULD_NOT_OPEN', $client->path.$filename)
+				, 'warning');
 		}
 		
 		$item = new stdClass();
