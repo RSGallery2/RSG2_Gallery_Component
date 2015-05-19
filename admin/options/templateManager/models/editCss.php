@@ -93,6 +93,7 @@ class InstallerModelEditCss extends InstallerModel
 		// Try to make the css file writeable
 		if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0755')) {
 			JError::raiseNotice('SOME_ERROR_CODE', 'Could not make the css file writable');
+				JFactory::getApplication()->enqueueMessage(''), 'notice');
 		}
 		
 		jimport('joomla.filesystem.file');
@@ -101,6 +102,7 @@ class InstallerModelEditCss extends InstallerModel
 		// Try to make the css file unwriteable
 		if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0555')) {
 			JError::raiseNotice('SOME_ERROR_CODE', 'Could not make the css file unwritable');
+				JFactory::getApplication()->enqueueMessage(''), 'notice');
 		}
 		
 		if($return)

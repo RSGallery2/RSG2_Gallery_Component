@@ -105,7 +105,8 @@ class audioUtils extends fileUtils{
         
         if( file_exists( $original )){
             if( !unlink( $original )){
-				JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE').": ".$original);
+				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE').": ".$original);
+				JFactory::getApplication()->enqueueMessage('ERROR_CODE'.JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE').": ".$original), 'notice');
 				return false;
 			}
 		}
@@ -116,8 +117,11 @@ class audioUtils extends fileUtils{
 		$query = 'DELETE FROM `#__rsgallery2_files` WHERE `name` = '. $database->quote($name);
         $database->setQuery($query);
         if( !$database->execute()){
-            JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_DATABASE_ENTRY_FOR_IMAGE').": ".$name);
-			return false;
+            // JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_DATABASE_ENTRY_FOR_IMAGE').": ".$name);
+			JFactory::getApplication()->enqueueMessage('ERROR_CODE'.JText::_('COM_RSGALLERY2_ERROR_DELETING_DATABASE_ENTRY_FOR_IMAGE'.": ".$name), 'notice');
+			
+			return false;				
+
 		}
 		
         galleryUtils::reorderRSGallery('`#__rsgallery2_files`', '`gallery_id` = '. (int) $gallery_id);

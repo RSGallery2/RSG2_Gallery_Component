@@ -1973,6 +1973,7 @@ class migrate_com_rsgallery extends GenericMigrator {
 			if (!$result) {
 				$msg = JText::_('COM_RSGALLERY2_MIGRATE_ERROR_FILLING_ALIAS_GALLERY',$value[id], $value[name]);
 				JError::raiseNotice( 100, $msg);
+				JFactory::getApplication()->enqueueMessage(''), 'notice');
 				$error = true;
 			}
 		}
@@ -1996,6 +1997,7 @@ class migrate_com_rsgallery extends GenericMigrator {
 			if (!$result) {
 				$msg = JText::_('COM_RSGALLERY2_MIGRATE_ERROR_FILLING_ALIAS_ITEM',$value[id], $value[title]);
 				JError::raiseNotice( 100, $msg);
+				JFactory::getApplication()->enqueueMessage(''), 'notice');
 				$error = true;
 			}
 		}
