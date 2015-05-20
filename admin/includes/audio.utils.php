@@ -106,7 +106,7 @@ class audioUtils extends fileUtils{
         if( file_exists( $original )){
             if( !unlink( $original )){
 				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE').": ".$original);
-				JFactory::getApplication()->enqueueMessage('ERROR_CODE'.JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE').": ".$original), 'notice');
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE').": ".$original), 'error');
 				return false;
 			}
 		}
@@ -118,7 +118,7 @@ class audioUtils extends fileUtils{
         $database->setQuery($query);
         if( !$database->execute()){
             // JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_DATABASE_ENTRY_FOR_IMAGE').": ".$name);
-			JFactory::getApplication()->enqueueMessage('ERROR_CODE'.JText::_('COM_RSGALLERY2_ERROR_DELETING_DATABASE_ENTRY_FOR_IMAGE'.": ".$name), 'notice');
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_DATABASE_ENTRY_FOR_IMAGE'.": ".$name), 'error');
 			
 			return false;				
 

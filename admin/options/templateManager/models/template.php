@@ -130,8 +130,8 @@ class InstallerModelTemplate extends InstallerModel
 			
 			// Try to make the params file writeable
 			if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0755')) {
-				JError::raiseNotice('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_COULD_NOT_MAKE_THE_TEMPLATE_PARAMETER_FILE_WRITABLE'));
-				JFactory::getApplication()->enqueueMessage(''), 'notice');
+				//JError::raiseNotice('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_COULD_NOT_MAKE_THE_TEMPLATE_PARAMETER_FILE_WRITABLE'));
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_COULD_NOT_MAKE_THE_TEMPLATE_PARAMETER_FILE_WRITABLE')), 'error');
 				return;
 			}
 			
@@ -139,8 +139,8 @@ class InstallerModelTemplate extends InstallerModel
 			
 			// Try to make the params file unwriteable
 			if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0555')) {
-				JError::raiseNotice('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_COULD_NOT_MAKE_THE_TEMPLATE_PARAMETER_FILE_UNWRITABLE'));
-				JFactory::getApplication()->enqueueMessage(''), 'notice');
+				//JError::raiseNotice('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_COULD_NOT_MAKE_THE_TEMPLATE_PARAMETER_FILE_UNWRITABLE'));
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_COULD_NOT_MAKE_THE_TEMPLATE_PARAMETER_FILE_UNWRITABLE')), 'error');
 				return;
 			}
 			

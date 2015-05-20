@@ -178,8 +178,8 @@ class genericVideoLib{
      * @todo not final yet (No code)
      */
     static function convertVideo($source, $target){
-		JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_ABSTRACT_IMAGE_LIB_NO_RESIZE'));
-				JFactory::getApplication()->enqueueMessage(''), 'notice');
+		//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_ABSTRACT_IMAGE_LIB_NO_RESIZE'));
+		JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_VIDEO_ABSTRACT_IMAGE_LIB_NO_RESIZE')), 'error');
 		return false;
     }
 
@@ -191,8 +191,8 @@ class genericVideoLib{
      * @todo not final yet (No code)
      */
     static function capturePreviewImage($source, $target){
-		JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_ABSTRACT_IMAGE_LIB_NO_RESIZE'));
-				JFactory::getApplication()->enqueueMessage(''), 'notice');
+		//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_ABSTRACT_IMAGE_LIB_NO_RESIZE'));
+		JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_VIDEO_ABSTRACT_IMAGE_LIB_NO_RESIZE')), 'error');
 		return false;
     }    
     /**
@@ -237,8 +237,8 @@ class Ffmpeg extends genericVideoLib{
 			return true;
 		}
 		else{
-			JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_CONVERSION_TO_FVL_ERROR'));
-				JFactory::getApplication()->enqueueMessage(''), 'notice');
+			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_CONVERSION_TO_FVL_ERROR'));
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_VIDEO_CONVERSION_TO_FVL_ERROR')), 'error');
 			return false;
 		}
     }
@@ -272,8 +272,8 @@ class Ffmpeg extends genericVideoLib{
 			return true;
 		}
 		else{
-			JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_CAPTURE_PREVIEW_IMAGE_ERROR'));
-				JFactory::getApplication()->enqueueMessage(''), 'notice');
+			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_CAPTURE_PREVIEW_IMAGE_ERROR'));
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_VIDEO_CAPTURE_PREVIEW_IMAGE_ERROR')), 'error');
 			return false;
 		}
 	}

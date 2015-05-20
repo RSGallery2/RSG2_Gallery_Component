@@ -398,24 +398,24 @@ function removeImages( $cid, $option ) {
         	
         	if( file_exists( $thumb )){
             	if( !JFile::delete( $thumb )){
-				JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_THUMB_IMAGE') ." ". $thumb);
-				JFactory::getApplication()->enqueueMessage(''), 'notice');
+				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_THUMB_IMAGE') ." ". $thumb);
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_THUMB_IMAGE') ." ". $thumb), 'error');
 				$mainframe->redirect( $return );
 				return;
 				}
 			}
 			if( file_exists( $display )){
 				if( !JFile::delete( $display )){
-				JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_DISPLAY_IMAGE') ." ". $display);
-				JFactory::getApplication()->enqueueMessage(''), 'notice');
+				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_DISPLAY_IMAGE') ." ". $display);
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_DISPLAY_IMAGE') ." ". $display), 'error');
 				$mainframe->redirect( $return );
 				return;
 				}
 			}
 			if( file_exists( $original )){
 				if( !JFile::delete( $original )){
-				JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE') ." ". $original);
-				JFactory::getApplication()->enqueueMessage(''), 'notice');
+				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE') ." ". $original);
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE') ." ". $original), 'error');
 				$mainframe->redirect( $return );
 				return;
 				}
@@ -423,16 +423,16 @@ function removeImages( $cid, $option ) {
 			
         	if( file_exists( $WaterMakerDisplay )){
 				if( !JFile::delete( $WaterMakerDisplay )){
-					JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_$WATERMARKED_DISPLAY_IMAGE') ." ". $WaterMakerDisplay);
-				JFactory::getApplication()->enqueueMessage(''), 'notice');
+					//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_$WATERMARKED_DISPLAY_IMAGE') ." ". $WaterMakerDisplay);
+					JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_$WATERMARKED_DISPLAY_IMAGE') ." ". $WaterMakerDisplay), 'error');
 					$mainframe->redirect( $return );
 					return;
 				}
 			}
         	if( file_exists( $WaterMakerOriginal )){
 				if( !JFile::delete( $WaterMakerOriginal )){
-					JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_WATERMARKED_ORIGINAL_IMAGE') ." ". $WaterMakerOriginal);
-				JFactory::getApplication()->enqueueMessage(''), 'notice');
+					//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_WATERMARKED_ORIGINAL_IMAGE') ." ". $WaterMakerOriginal);
+					JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_WATERMARKED_ORIGINAL_IMAGE') ." ". $WaterMakerOriginal), 'error');
 					$mainframe->redirect( $return );
 					return;
 				}
@@ -441,8 +441,8 @@ function removeImages( $cid, $option ) {
 			//Delete from database
 			$row = new rsgImagesItem( $database );
 			if (!$row->delete($id)){
-				JError::raiseNotice('ERROR_CODE', JText::sprintf('COM_RSGALLERY2_ERROR_DELETING_ITEMINFORMATION_DATABASE_ID',$id ));
-				JFactory::getApplication()->enqueueMessage(''), 'notice');
+				//JError::raiseNotice('ERROR_CODE', JText::sprintf('COM_RSGALLERY2_ERROR_DELETING_ITEMINFORMATION_DATABASE_ID',$id ));
+				JFactory::getApplication()->enqueueMessage(JText::sprintf('COM_RSGALLERY2_ERROR_DELETING_ITEMINFORMATION_DATABASE_ID',$id )), 'error');
 				$mainframe->redirect( $return );
 				return;
 			}
