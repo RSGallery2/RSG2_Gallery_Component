@@ -106,7 +106,7 @@ class audioUtils extends fileUtils{
         if( file_exists( $original )){
             if( !unlink( $original )){
 				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE').": ".$original);
-				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE').": ".$original), 'error');
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE').": ".$original, 'error');
 				return false;
 			}
 		}
