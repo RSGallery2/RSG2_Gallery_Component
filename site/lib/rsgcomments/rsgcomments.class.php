@@ -74,7 +74,7 @@ function showButtons() {
 		<?php
 	}
 	?>
-	</div>
+	</div> <!--ToDo: unused div ? please check -->
 	<div style='float: left;'>
 	<select name='menuColor' class='select' onchange='fontColor()'>
 	  	<option><?php echo JText::_('COM_RSGALLERY2_COLOR')?></option>
@@ -310,7 +310,7 @@ function editComment( $item_id ) {
 							//theme_advanced_buttons2 : "link,unlink",
 							theme_advanced_toolbar_location : "top",
 							theme_advanced_toolbar_align : "left",
-							theme_advanced_statusbar_location : "none",
+							theme_advanced_statusbar_location : "none"
 						});
 					</script>
 					<textarea name="tcomment" id="tcomment" style="width:100%"></textarea>
@@ -353,7 +353,7 @@ function editComment( $item_id ) {
 	<tr>
 		<td>&nbsp;</td>
 		<td align="center">
-			<input type="button" class="button" value="<?PHP echo JText::_('COM_RSGALLERY2_SEND_COMMENT');?>" onclick="submitbutton('save')" />
+			<input type="button" class="button" value="<?PHP echo JText::_('COM_RSGALLERY2_SEND_COMMENT');?>" onclick="Joomla.submitbutton('save')" />
 		</td>
 	</tr>
 	</table>
