@@ -71,7 +71,9 @@ class JInstaller_rsgTemplate extends JObject
 
 		// Set the extensions name
 		$name = $root->getElementByPath('name');
-		$name = JFilterInput::clean($name->data(), 'cmd');
+		//$name = JFilterInput::clean($name->data(), 'cmd');
+        $filter = &JFilterInput::getInstance();
+        $name = $filter.clean($name->data(), 'cmd');
 		$this->set('name', $name);
 
 		// Set the template root path

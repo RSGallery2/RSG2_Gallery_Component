@@ -94,7 +94,7 @@ class InstallerModelEditHtml extends InstallerModel
 		if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0755')) {
 			// ToDo: Translate
 			//JError::raiseNotice('SOME_ERROR_CODE', 'Could not make the html file writable');
-			JFactory::getApplication()->enqueueMessage('Could not make the html file writable'), 'error');
+			JFactory::getApplication()->enqueueMessage('Could not make the html file writable', 'error');
 		}
 		
 		jimport('joomla.filesystem.file');
@@ -104,7 +104,7 @@ class InstallerModelEditHtml extends InstallerModel
 		if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0555')) {
 			// ToDo: Translate
 			//JError::raiseNotice('SOME_ERROR_CODE', 'Could not make the html file unwritable');
-			JFactory::getApplication()->enqueueMessage('Could not make the html file unwritable'), 'error');
+			JFactory::getApplication()->enqueueMessage('Could not make the html file unwritable', 'error');
 		}
 		
 		if($return){

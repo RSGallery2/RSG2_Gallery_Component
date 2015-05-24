@@ -14,7 +14,7 @@ defined( '_JEXEC' ) or die();
 require_once( $rsgClasses_path . 'file.utils.php' );
 require_once( $rsgOptions_path . 'images.html.php' );
 require_once( $rsgOptions_path . 'images.class.php' );
-require_once( JPATH_RSGALLERY2_ADMIN . DS . 'admin.rsgallery2.html.php' );
+require_once( JPATH_RSGALLERY2_ADMIN . '/admin.rsgallery2.html.php' );
 
 //$cid = JRequest::getVar("cid", array(), 'default', 'array' );
 $input = JFactory::getApplication()->input;
@@ -399,7 +399,7 @@ function removeImages( $cid, $option ) {
         	if( file_exists( $thumb )){
             	if( !JFile::delete( $thumb )){
 				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_THUMB_IMAGE') ." ". $thumb);
-				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_THUMB_IMAGE') ." ". $thumb), 'error');
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_THUMB_IMAGE') ." ". $thumb, 'error');
 				$mainframe->redirect( $return );
 				return;
 				}
@@ -407,7 +407,7 @@ function removeImages( $cid, $option ) {
 			if( file_exists( $display )){
 				if( !JFile::delete( $display )){
 				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_DISPLAY_IMAGE') ." ". $display);
-				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_DISPLAY_IMAGE') ." ". $display), 'error');
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_DISPLAY_IMAGE') ." ". $display, 'error');
 				$mainframe->redirect( $return );
 				return;
 				}
@@ -415,7 +415,7 @@ function removeImages( $cid, $option ) {
 			if( file_exists( $original )){
 				if( !JFile::delete( $original )){
 				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE') ." ". $original);
-				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE') ." ". $original), 'error');
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE') ." ". $original, 'error');
 				$mainframe->redirect( $return );
 				return;
 				}
@@ -424,7 +424,7 @@ function removeImages( $cid, $option ) {
         	if( file_exists( $WaterMakerDisplay )){
 				if( !JFile::delete( $WaterMakerDisplay )){
 					//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_$WATERMARKED_DISPLAY_IMAGE') ." ". $WaterMakerDisplay);
-					JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_$WATERMARKED_DISPLAY_IMAGE') ." ". $WaterMakerDisplay), 'error');
+					JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_$WATERMARKED_DISPLAY_IMAGE') ." ". $WaterMakerDisplay, 'error');
 					$mainframe->redirect( $return );
 					return;
 				}
@@ -432,7 +432,7 @@ function removeImages( $cid, $option ) {
         	if( file_exists( $WaterMakerOriginal )){
 				if( !JFile::delete( $WaterMakerOriginal )){
 					//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_WATERMARKED_ORIGINAL_IMAGE') ." ". $WaterMakerOriginal);
-					JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_WATERMARKED_ORIGINAL_IMAGE') ." ". $WaterMakerOriginal), 'error');
+					JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_WATERMARKED_ORIGINAL_IMAGE') ." ". $WaterMakerOriginal, 'error');
 					$mainframe->redirect( $return );
 					return;
 				}
@@ -442,7 +442,7 @@ function removeImages( $cid, $option ) {
 			$row = new rsgImagesItem( $database );
 			if (!$row->delete($id)){
 				//JError::raiseNotice('ERROR_CODE', JText::sprintf('COM_RSGALLERY2_ERROR_DELETING_ITEMINFORMATION_DATABASE_ID',$id ));
-				JFactory::getApplication()->enqueueMessage(JText::sprintf('COM_RSGALLERY2_ERROR_DELETING_ITEMINFORMATION_DATABASE_ID',$id )), 'error');
+				JFactory::getApplication()->enqueueMessage(JText::sprintf('COM_RSGALLERY2_ERROR_DELETING_ITEMINFORMATION_DATABASE_ID',$id ), 'error');
 				$mainframe->redirect( $return );
 				return;
 			}
@@ -644,7 +644,7 @@ function saveUploadedImage( $option ) {
 		foreach( $errors as $e ) {
 			// Warnings are depending on fileUtils::importImage -> type imageUploadError
 			// JError::raiseWarning(0, $e->toString());
-			JFactory::getApplication()->enqueueMessage($e->toString()), 'warning');
+			JFactory::getApplication()->enqueueMessage($e->toString(), 'warning');
 		}
 		//If there were more files than errors, assure the user the rest went well
 		if ( count( $errors ) < count( $files ) ) {

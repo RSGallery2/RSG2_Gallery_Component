@@ -64,6 +64,7 @@ class HTML_RSGALLERY{
     
     /**
       * Used by showCP to generate buttons
+     * @param $Id
      * @param string $link URL for button link
      * @param string $image Image name for button image
      * @param string $text Text to show in button
@@ -462,7 +463,7 @@ class HTML_RSGALLERY{
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
-			[&nbsp;<a href="<?php echo $url;?>" style="font-size: 16px; font-weight: bold"><?php echo JText::_('COM_RSGALLERY2_CONTINUE')?></a>&nbsp;]
+			[&nbsp;<a href="<?php echo $url;?>" style="font-size: 16px; font-weight: bold;"><?php echo JText::_('COM_RSGALLERY2_CONTINUE')?></a>&nbsp;]
 			</td>
 		</tr>
 		</table>

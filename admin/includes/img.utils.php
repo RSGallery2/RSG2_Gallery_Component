@@ -428,6 +428,8 @@ class imgUtils extends fileUtils{
         ?>
         </table>
         <?php
+
+        return true;
     }
     
     /**
@@ -545,6 +547,8 @@ class Netpbm extends genericImageLib{
             else
             	return false;
         }
+
+        return true;
     }
 }
 /**
@@ -599,6 +603,8 @@ class ImageMagick extends genericImageLib{
                 return false;
             }
         }
+
+        return true;
     }
 }
 /**
@@ -994,7 +1000,7 @@ class waterMarker extends GD2 {
 	 * Function creates file name of watermarked image using MD5 on name
 	 * Three functions exists for the access of the filename to do the MD5 just once
 	 * @param string $imagename Name of the image in question
-	 * @param string $imagetypeImage type is either 'display' or 'original' and will precide the output filename
+	 * @param string $imagetype Image type is either 'display' or 'original' and will precide the output filename
 	 * @return string MD5 name of watermarked image (example "displayc4cef3bababbff9e68015992ff6b8cbb.jpg")
      * @throws Exception
      */

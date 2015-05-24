@@ -73,8 +73,9 @@ function showButtons() {
 		<a href='javascript:insertUBBTag("<?php echo $tag;?>")'><img border='0' src='<?php echo JURI_SITE;?>/components/com_rsgallery2/lib/rsgcomments/images/<?php echo $filename;?>' class='buttonBB' name='bb' alt='[<?php echo $tag;?>]' /></a>&nbsp;
 		<?php
 	}
+	echo "</div>";
 	?>
-	</div> <!--ToDo: unused div ? please check -->
+
 	<div style='float: left;'>
 	<select name='menuColor' class='select' onchange='fontColor()'>
 	  	<option><?php echo JText::_('COM_RSGALLERY2_COLOR')?></option>

@@ -156,7 +156,7 @@ class html_rsg2_images {
 									</span>
 								</td>
 								<td colspan="2" align="center">
-								<input type="text" name="order[]" <?php echo $disabled; ?> size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center" />
+								<input type="text" name="order[]" <?php echo $disabled; ?> size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center;" />
 								</td>
 								<td>
 									<?php 	if ($can['EditGallery']) { ?>
@@ -308,7 +308,7 @@ class html_rsg2_images {
 								</tr>
 							<?php } ?>
 							<tr>
-								<td valign="top" align="right" witdth="20%">
+								<td valign="top" align="right" width="20%">
 									<?php echo JText::_('COM_RSGALLERY2_DESCRIPTION')?>
 								</td width="80%">
 								<td>
@@ -691,87 +691,90 @@ foreach( $fields AS $field => $obj ){
 
             <div class="clearfix"> </div>
         <table width="100%">
-        <tr>
-            <!-- td width="50">&nbsp;</td-->
-            <td>
-				<th colspan="3"><font size="4"><?php echo JText::_('COM_RSGALLERY2_STEP_1');?></font></th>
-                <table class="adminform">
-                <tr>
-                    <!-- th colspan="3"><font size="4"><?php echo JText::_('COM_RSGALLERY2_STEP_1');?></font></th -->
-					<td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td width="200">
-                        <strong><?php echo JText::_('COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD');?></strong>
-                        <?php
-                            echo JHtml::tooltip( JText::_('COM_RSGALLERY2_BATCH_METHOD_TIP'), JText::_('COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD') );
-                        ?>
-                    </td>
-                    <td width="200">
-                        <input type="radio" value="zip" name="batchmethod" CHECKED/>
-                        <?php echo JText::_('COM_RSGALLERY2_ZIP-FILE'); ?>
-                    </td>
-                    <td width="60%">
-                        <input type="file" name="zip_file" style="border: blue solid 2px; width: 100%; padding-right: 12px;" size="40" />
-                        <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
-                            <?php echo JText::_('COM_RSGALLERY2_UPLOAD_LIMIT_IS').' ' . $size .' '.JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI');?>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="200">&nbsp;
-					</td>
-                    <td width="200">
-                        <input type="radio" value="ftp" name="batchmethod" />
-                        <?php echo JText::_('COM_RSGALLERY2_FTP-PATH');?>&nbsp;<?php echo JHtml::tooltip( JText::_('COM_RSGALLERY2_BATCH_FTP_PATH_OVERL'), JText::_('COM_RSGALLERY2_FTP-PATH')); ?>
-                    </td>
-                    <td>
-						<?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', ""); ?><!-- br -->&nbsp;<?php echo JPATH_SITE.DS; ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="200">&nbsp;
-					</td>
-                    <td width="200">&nbsp;
-					<td width="60%">
-                        <input type="text" name="ftppath" style="border: blue solid 2px; width: 100%; margin-bottom: 0px;
-                            padding-bottom: 0px;" value="<?php echo $FTP_path; ?>" size="30" />
-                        <div style="color:#FF0000;font-weight:bold;font-size:smaller;margin-top: 0px;padding-top: 0px;">
-                            <?php echo JText::_('COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH');?>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">&nbsp;<br /></td>
-					<td>&nbsp;</td>
-                </tr>
-                <tr>
-                <td valign="top"><strong><?php echo JText::_('COM_RSGALLERY2_SPECIFY_GALLERY');?></strong></td>
-                    <td valign="top">
-                        <input type="radio" name="selcat" value="1" CHECKED/>&nbsp;&nbsp;<?php echo JText::_('COM_RSGALLERY2_YES_ALL_ITEMS_IN');?>&nbsp;
-                    </td>
-                    <td valign="top">
-                        <?php echo galleryUtils::galleriesSelectList( null, 'xcat', false, Null, 0, true);?>
-                    </td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td colspan="2"><input type="radio" name="selcat" value="0" />&nbsp;&nbsp;<?php echo JText::_('COM_RSGALLERY2_NO_SPECIFY_GALLERY_PER_IMAGE_IN_STEP_2'); ?></td>
-                </tr>
-                <tr>
-                    <td colspan="3">&nbsp;<br /></td>
-                </tr>
-                <tr class="row1">
+            <tr>
+                <!-- td width="50">&nbsp;</td-->
+                <td>
                     <th colspan="3">
-                        <div align="center" style="visibility: hidden;">
-                        <input type="button" name="something" value="<?php echo JText::_('COM_RSGALLERY2_NEXT_ARROW');?>" onClick="submitbutton('batchupload');" />
-                        </div>
+                        <font size="4"><?php echo JText::_('COM_RSGALLERY2_STEP_1');?></font>
+                    </th>
+                    <table class="adminform">
+                    <tr>
+                        <!-- th colspan="3"><font size="4"><?php echo JText::_('COM_RSGALLERY2_STEP_1');?></font></th -->
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td width="200">
+                            <strong><?php echo JText::_('COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD');?></strong>
+                            <?php
+                                echo JHtml::tooltip( JText::_('COM_RSGALLERY2_BATCH_METHOD_TIP'), JText::_('COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD') );
+                            ?>
+                        </td>
+                        <td width="200">
+                            <input type="radio" value="zip" name="batchmethod" CHECKED/>
+                            <?php echo JText::_('COM_RSGALLERY2_ZIP-FILE'); ?>
+                        </td>
+                        <td width="60%">
+                            <input type="file" name="zip_file" style="border: blue solid 2px; width: 100%; padding-right: 12px;" size="40" />
+                            <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
+                                <?php echo JText::_('COM_RSGALLERY2_UPLOAD_LIMIT_IS').' ' . $size .' '.JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI');?>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="200">&nbsp;</td>
+                        <td width="200">
+                            <input type="radio" value="ftp" name="batchmethod" />
+                            <?php echo JText::_('COM_RSGALLERY2_FTP-PATH');?>&nbsp;<?php echo JHtml::tooltip( JText::_('COM_RSGALLERY2_BATCH_FTP_PATH_OVERL'), JText::_('COM_RSGALLERY2_FTP-PATH')); ?>
+                        </td>
+                        <td>
+                            <?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', ""); ?><!-- br -->&nbsp;<?php echo JPATH_SITE.DS; ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="200">&nbsp;</td>
+                        <td width="60%">
+                            <input type="text" name="ftppath" style="border: blue solid 2px; width: 100%; margin-bottom: 0px;
+                                padding-bottom: 0px;" value="<?php echo $FTP_path; ?>" size="30" />
+                            <div style="color:#FF0000;font-weight:bold;font-size:smaller;margin-top: 0px;padding-top: 0px;">
+                                <?php echo JText::_('COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH');?>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">&nbsp;<br /></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <strong><?php echo JText::_('COM_RSGALLERY2_SPECIFY_GALLERY');?></strong>
+                        </td>
+                        <td valign="top">
+                            <input type="radio" name="selcat" value="1" CHECKED/>&nbsp;&nbsp;<?php echo JText::_('COM_RSGALLERY2_YES_ALL_ITEMS_IN');?>&nbsp;
+                        </td>
+                        <td valign="top">
+                            <?php echo galleryUtils::galleriesSelectList( null, 'xcat', false, Null, 0, true);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td colspan="2">
+                            <input type="radio" name="selcat" value="0" />&nbsp;&nbsp;<?php echo JText::_('COM_RSGALLERY2_NO_SPECIFY_GALLERY_PER_IMAGE_IN_STEP_2'); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">&nbsp;<br /></td>
+                    </tr>
+                    <tr class="row1">
+                        <th colspan="3">
+                            <div align="center" style="visibility: hidden;">
+                                <input type="button" name="something" value="<?php echo JText::_('COM_RSGALLERY2_NEXT_ARROW');?>" onClick="Joomla.submitbutton('batchupload');" />
+                            </div>
                         </th>
-                </tr>
-                </table>
-            </td>
-            <td width="300">&nbsp;</td>
-        </tr>
+                    </tr>
+                    </table>
+                </td>
+                <td width="300">&nbsp;</td>
+            </tr>
         </table>
         <input type="hidden" name="uploaded" value="1" />
         <input type="hidden" name="option" value="com_rsgallery2" />

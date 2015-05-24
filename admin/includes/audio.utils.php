@@ -18,6 +18,9 @@ require_once( $rsgClasses_path . 'file.utils.php' );
 * @author Jonah Braun <Jonah@WhaleHosting.ca>
 */
 class audioUtils extends fileUtils{
+    /**
+     * @return array
+     */
     static function allowedFileTypes(){
         return array('mp3');
     }
@@ -88,7 +91,7 @@ class audioUtils extends fileUtils{
         if( file_exists( JPATH_ROOT.$rsgConfig->get('imgPath_original') . '/' . audioUtils::getAudioName( $name ))){
             return $locale  . $rsgConfig->get('imgPath_original') . '/' . audioUtils::getAudioName( $name );
         }else {
-            return;
+            return "_Not_found";
         }
     }
     
