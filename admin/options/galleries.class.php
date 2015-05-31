@@ -29,11 +29,11 @@ class rsgGalleriesItem extends JTable {
     var $description = null;
 	/** @var boolean */
     var $published = null;
-	/** @var boolean */
+	/** @var int */
     var $checked_out        = null;
-	/** @var time */
+	/** @var datetime */
     var $checked_out_time   = null;
-	/** @var boolean */
+	/** @var int */
     var $ordering = null;
 	/** @var int */
     var $hits = null;
@@ -45,7 +45,7 @@ class rsgGalleriesItem extends JTable {
     var $user = null;
 	/** @var int */
     var $uid = null;
-	/** @var boolean */
+	/** @var string */
     var $allowed = null;
 	/** @var int */
     var $thumb_id = null;

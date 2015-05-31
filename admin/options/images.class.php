@@ -41,11 +41,11 @@ class rsgImagesItem extends JTable {
 	var $comments			= null;
 	/** @var boolean */
 	var $published			= null;
-	/** @var boolean */
+	/** @var int */
 	var $checked_out		= null;
-	/** @var time */
+	/** @var datetime */
 	var $checked_out_time	= null;
-	/** @var boolean */
+	/** @var int */
 	var $ordering			= null;
 	/** @var boolean */
 	var $approved			= null;
