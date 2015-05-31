@@ -254,6 +254,18 @@ class html_rsg2_images {
 		</script>
 		
 		<form action="index.php" method="post" name="adminForm" id="adminForm" class="form-validate">
+            <div class="form-horizontal">
+                <?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'edit')); ?>
+
+                <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'edit',
+                    empty($row->id) ? JText::_('COM_RSG2_NEW', true) : JText::_('COM_RSG2_EDIT', true)); ?>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="row-fluid form-horizontal-desktop">
+
+
+
+
 			<table width="100%">
 				<tr>
 					<td width="60%" valign="top">
