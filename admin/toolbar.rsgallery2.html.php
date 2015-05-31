@@ -46,7 +46,7 @@ class menu_rsg2_submenu{
 		        $rsgOption=='images' AND $task == 'upload');
 			//Items
 			JHtmlSidebar::addEntry(
-				JText::_('COM_RSGALLERY2_SUBMENU_ITEMS'),
+				JText::_('COM_RSGALLERY2_SUBMENU_IMAGES'),
 				'index.php?option=com_rsgallery2&rsgOption=images',
 		        $rsgOption=='images' AND ($task == '' OR $task == 'view_images'));
 		}

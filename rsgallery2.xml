@@ -2,8 +2,8 @@
 <extension type="component" version="3.0"  method="upgrade">
 	<name>com_rsgallery2</name>
 	<author>RSGallery2 Team</author>
-	<creationDate>October 2014</creationDate>
-	<copyright>(c) 2014 RSGallery2 Team</copyright>
+	<creationDate>May 2015</creationDate>
+	<copyright>(c) 2015 RSGallery2 Team</copyright>
 	<license>This component is released under the GNU/GPL License</license>
 	<authorEmail>team@rsgallery2.nl</authorEmail>
 	<authorUrl>http://www.rsgallery2.nl</authorUrl>
