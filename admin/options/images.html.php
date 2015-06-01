@@ -35,7 +35,7 @@ class html_rsg2_images {
 		
 		?>
         <form action="index.php" method="post" name="adminForm" id="adminForm">
-        <!--form action="<?php echo JRoute::_('index.php?option=com_rsg2&view=images'); ?>" method="post" name="adminForm" id="adminForm"-->
+        <!--form action="<?php echo JRoute::_('index.php?option=COM_RSGALLERY2&view=images'); ?>" method="post" name="adminForm" id="adminForm"-->
 
             <?php if (count(JHtmlSidebar::getEntries()) > 0) : ?>
                 <div id="j-sidebar-container" class="span2">
@@ -257,239 +257,246 @@ class html_rsg2_images {
             <div class="form-horizontal">
                 <?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'edit')); ?>
 
-                <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'edit',
-                    empty($row->id) ? JText::_('COM_RSG2_NEW', true) : JText::_('COM_RSG2_EDIT', true)); ?>
-                <div class="row-fluid">
-                    <div class="span6">
-                        <div class="row-fluid form-horizontal-desktop">
+                    <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'edit',
+                        empty($row->id) ? JText::_('COM_RSGALLERY2_NEW', true) : JText::_('COM_RSGALLERY2_EDIT', true)); ?>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="row-fluid form-horizontal-desktop">
+
+                                    <table width="100%">
+                                        <tr>
+                                            <td width="60%" valign="top">
+                                                <table class="adminform">
+                                                    <tr>
+                                                        <th colspan="2">
+                                                            &nbsp;
+                                                            <!-- ?php echo JText::_('COM_RSGALLERY2_DETAILS')? -->
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="20%" align="right"><?php echo JText::_('COM_RSGALLERY2_NAME')?></td>
+                                                        <td width="80%">
+                                                            <input class="text_area required" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title;?>" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="20%" align="right"><?php echo JText::_('COM_RSGALLERY2_ALIAS')?></td>
+                                                        <td width="80%">
+                                                            <input class="text_area" type="text" name="alias" size="50" maxlength="250" value="<?php echo $row->alias;?>" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right">
+                                                        <?php echo JText::_('COM_RSGALLERY2_OWNER');?>
+                                                        </td>
+                                                        <td>
+                                                        <?php echo $lists['userid']; ?>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="20%" align="right"><?php echo JText::_('COM_RSGALLERY2_FILENAME')?></td>
+                                                        <td width="80%"><?php echo $row->name;?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td valign="top" align="right"><?php echo JText::_('COM_RSGALLERY2_GALLERY')?></td>
+                                                        <td><?php echo $lists['gallery_id']; ?></td>
+                                                    </tr>
+                                                    <?php if ($canAdmin) { ?>
+                                                        <tr>
+                                                            <td size="2" align="right">
+                                                                <?php echo JText::_('COM_RSGALLERY2_PERMISSIONS');?>
+                                                            </td>
+                                                            <td>
+                                                                <!--div class="button2-left"-->
+                                                                    <div class="blank">
+                                                                        <button type="button" onclick="document.location.href='#access-rules';">
+                                                                        <?php echo JText::_('JGLOBAL_PERMISSIONS_ANCHOR'); ?></button>
+                                                                    </div>
+                                                                <!--/div-->
+                                                            </td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                    <tr>
+                                                        <td valign="top" align="right" width="20%">
+                                                            <?php echo JText::_('COM_RSGALLERY2_DESCRIPTION')?>
+                                                        </td width="80%">
+                                                        <td>
+                                                            <?php
+                                                                // parameters : area name, content, hidden field, width, height, rows, cols
+                                                                // display($name, $html, $width, $height, $col, $row, $buttons=true, $id=null, $params=array())
+                                                                echo $editor->display('descr',  $row->descr , '50%', '80', '10', '20' ,false);
+                                                            ?>
+                                                        </td>
+                                                    </tr>
+                                                    <?php if ($canEditStateItem) {	?>
+                                                        <tr>
+                                                            <td valign="top" align="right"><?php echo JText::_('COM_RSGALLERY2_ORDERING')?></td>
+                                                            <td><?php echo $lists['ordering']; ?></td>
+                                                        </tr>
+                                                    <?php }	?>
+                                                    <tr>
+                                                        <td valign="top" align="right"><?php echo JText::_('COM_RSGALLERY2_PUBLISHED')?></td>
+                                                        <td><?php echo $lists['published']; ?></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td width="40%" valign="top">
+                                                <table class="adminform">
+                                                    <tr>
+                                                        <th colspan="1"><?php echo JText::_('COM_RSGALLERY2_ITEM_PREVIEW')?></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div align="center">
+                                                            <?php
+                                                            //MK returns rsgItem_image for given item id (or rsgItem_audio)
+                                                            //$item = rsgGalleryManager::getItem( $row->id ); -> getItem deprecated
+                                                            $gallery = rsgGalleryManager::get();
+                                                            $item = $gallery->getItem( $row->id );
+                                                            $original = $item->original();
+                                                            $thumb 		= $item->thumb();
+
+                                                            switch($item->type){
+                                                                case "audio":{
+                                                                ?>
+                                                                <object type="application/x-shockwave-flash" width="400" height="15" data="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=<?php echo $row->name?>&song_url=<?php echo audioUtils::getAudio($row->name)?>"><param name="movie" value="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=<?php echo $item->title;?>&song_url=<?php echo $original->url();?>" /></object>
+                                                                <?php
+                                                                    break;
+                                                                }
+                                                                case "video":{
+                                                                    // OS flv player from http://www.osflv.com
+                                                                ?>
+                                                                <object type="application/x-shockwave-flash"
+                                                                        width="400"
+                                                                        height="300"
+                                                                        data="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/player.swf?movie=<?php echo $display->name; ?>" >
+                                                                        <param name="movie" value="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/player.swf?movie=<?php echo $display->name; ?>" />
+                                                                        <embed src="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/player.swf?movie=<?php echo $display->url(); ?>"
+                                                                                width="400"
+                                                                                height="340"
+                                                                                allowFullScreen="false"
+                                                                                type="application/x-shockwave-flash">
+                                                                </object>
+                                                                <?php
+                                                                    break;
+                                                                }
+                                                                case "image":{
+                                                                    $display	= $item->display();
+                                                                ?>
+                                                                    <img src="<?php echo $display->url() ?>" alt="<?php echo htmlspecialchars( stripslashes( $item->descr ), ENT_QUOTES );?>" />
+                                                                <?php
+                                                                    break;
+                                                                }
+                                                                default:
+                                                                {
+                                                                    ?> Unsuported item <?php
+                                                                    break;
+                                                                }
+                                                            }
+                                                            ?>
+                                                                <br />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <table class="adminform">
+                                                    <tr>
+                                                        <th colspan="1"><?php echo JText::_('COM_RSGALLERY2_PARAMETERS')?></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <!-- Note: ToDo: the $params->render is not available in J3
+                                                                (administrator/components/com_rsgallery2/options/images.html.php line 344)
+
+                                                            ///Try this for J3:
+                                                            /*$params2 = new JForm('params');
+                                                            $params2->loadFile($file);///var_dump($row);
+                                                            $params2->bind( $row->params );
+
+                                                            $fields = $params2->getFieldset('params');
+                                                            foreach( $fields AS $field => $obj ){
+                                                              echo $params2->getLabel( $field, null );
+                                                              echo $params2->getInput( $field, null, null );
+                                                            }*/
+                                                            ///JForm has no render method as used in images.html.php line  343
+
+                                                                -->
+                                                            <?php //echo $params->render();?>&nbsp;
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <table class="adminform">
+                                                    <tr>
+                                                        <th colspan="1"><?php echo JText::_('COM_RSGALLERY2_LINKS_TO_IMAGE')?></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <table width="100%" class="imagelist">
+                                                                <?php if ( $item->type == 'image' || $item->type == "video" ) {?>
+                                                                <tr>
+                                                                    <td width="40%" align="right" valign="top">
+                                                                        <a href="<?php echo $thumb->url();?>" target="_blank" title="<?php echo $item->name;?>">
+                                                                            <?php echo JText::_('COM_RSGALLERY2_THUMB'); ?>
+                                                                        </a>:
+                                                                    </td>
+                                                                    <td><input type="text" name="thumb_url" class="text_area" size="80" value="<?php echo $thumb->url();?>" /></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td width="40%" align="right" valign="top"><a href="<?php echo $display->url();?>" target="_blank" title="<?php echo $item->name;?>"><?php echo JText::_('COM_RSGALLERY2_DISPLAY'); ?></a>:
+                                                                    </td>
+                                                                    <td ><input type="text" name="display_url" class="text_area" size="80" value="<?php echo $display->url();?>" />
+                                                                    </td>
+                                                                </tr>
+                                                                <?php }?>
+                                                                <tr>
+                                                                    <td width="40%" align="right" valign="top"><a href="<?php echo $original->url();?>" target="_blank" title="<?php echo $item->name;?>"><?php echo JText::_('COM_RSGALLERY2_ORIGINAL'); ?></a>:</td>
+                                                                    <td><input type="text" name="original_url" class="text_area" size="80" value="<?php echo $original->url();?>" /></td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    <?php echo JHtml::_('bootstrap.endTab'); ?>
+
+                    <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'misc', JText::_('JLIB_HTML_ACCESS_SUMMARY_DESC_CAPTION', true)); ?>
+                        <?php
+                            //Get form for J!1.6 ACL rules (load library, get path to XML, get specific form)
+                            jimport( 'joomla.form.form' );
+                            JForm::addFormPath(JPATH_ADMINISTRATOR.'/components/com_rsgallery2/models/forms/');
+                            $form = JForm::getInstance('com_rsgallery2.params','item',array( 'load_data' => true ));
+
+                            //Get the data for the form from $row (but only matching XML fields will get data here: asset_id)
+                            $form->bind($row);
+
+                            //Create the rules slider at the bottom of the page
+                        ?>
+
+                        <div class="clr"></div>
+
+                        <?php if ($canAdmin) { ?>
+                            <br/>
+                            <!--div  class="width-100 fltlft" -->
+                            <div  class="fltlft">
+                                <?php echo JHtml::_('sliders.start','permissions-sliders-'.$row->id, array('useCookie'=>1)); ?>
+                                <?php echo JHtml::_('sliders.panel',JText::_('COM_RSGALLERY2_FIELDSET_RULES'), 'access-rules'); ?>
+                                <fieldset class="panelform">
+                                    <?php echo $form->getLabel('rules'); ?>
+                                    <?php echo $form->getInput('rules'); ?>
+                                </fieldset>
+                                <?php echo JHtml::_('sliders.end'); ?>
+                            </div>
+                        <?php } ?>
+                    <?php echo JHtml::_('bootstrap.endTab'); ?>
 
 
-
-
-			<table width="100%">
-				<tr>
-					<td width="60%" valign="top">
-						<table class="adminform">
-							<tr>
-								<th colspan="2">
-									&nbsp;
-									<!-- ?php echo JText::_('COM_RSGALLERY2_DETAILS')? -->
-								</th>
-							</tr>
-							<tr>
-								<td width="20%" align="right"><?php echo JText::_('COM_RSGALLERY2_NAME')?></td>
-								<td width="80%">
-									<input class="text_area required" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title;?>" />
-								</td>
-							</tr>
-							<tr>
-								<td width="20%" align="right"><?php echo JText::_('COM_RSGALLERY2_ALIAS')?></td>
-								<td width="80%">
-									<input class="text_area" type="text" name="alias" size="50" maxlength="250" value="<?php echo $row->alias;?>" />
-								</td>
-							</tr>
-							<tr>
-								<td align="right">
-								<?php echo JText::_('COM_RSGALLERY2_OWNER');?>
-								</td>
-								<td>
-								<?php echo $lists['userid']; ?>
-								</td>
-							</tr>
-							<tr>
-								<td width="20%" align="right"><?php echo JText::_('COM_RSGALLERY2_FILENAME')?></td>
-								<td width="80%"><?php echo $row->name;?></td>
-							</tr>
-							<tr>
-								<td valign="top" align="right"><?php echo JText::_('COM_RSGALLERY2_GALLERY')?></td>
-								<td><?php echo $lists['gallery_id']; ?></td>
-							</tr>
-							<?php if ($canAdmin) { ?>
-								<tr>
-									<td size="2" align="right">
-										<?php echo JText::_('COM_RSGALLERY2_PERMISSIONS');?>
-									</td>
-									<td>
-										<!--div class="button2-left"-->
-											<div class="blank">
-												<button type="button" onclick="document.location.href='#access-rules';">
-												<?php echo JText::_('JGLOBAL_PERMISSIONS_ANCHOR'); ?></button>
-											</div>
-										<!--/div-->
-									</td>
-								</tr>
-							<?php } ?>
-							<tr>
-								<td valign="top" align="right" width="20%">
-									<?php echo JText::_('COM_RSGALLERY2_DESCRIPTION')?>
-								</td width="80%">
-								<td>
-									<?php
-										// parameters : area name, content, hidden field, width, height, rows, cols
-										// display($name, $html, $width, $height, $col, $row, $buttons=true, $id=null, $params=array())
-										echo $editor->display('descr',  $row->descr , '50%', '80', '10', '20' ,false);
-									?>
-								</td>
-							</tr>
-							<?php if ($canEditStateItem) {	?>
-								<tr>
-									<td valign="top" align="right"><?php echo JText::_('COM_RSGALLERY2_ORDERING')?></td>
-									<td><?php echo $lists['ordering']; ?></td>
-								</tr>
-							<?php }	?>
-							<tr>
-								<td valign="top" align="right"><?php echo JText::_('COM_RSGALLERY2_PUBLISHED')?></td>
-								<td><?php echo $lists['published']; ?></td>
-							</tr>
-						</table>
-					</td>
-					<td width="40%" valign="top">
-						<table class="adminform">
-							<tr>
-								<th colspan="1"><?php echo JText::_('COM_RSGALLERY2_ITEM_PREVIEW')?></th>
-							</tr>
-							<tr>
-								<td>
-									<div align="center">
-									<?php
-									//MK returns rsgItem_image for given item id (or rsgItem_audio)
-									//$item = rsgGalleryManager::getItem( $row->id ); -> getItem deprecated
-									$gallery = rsgGalleryManager::get();
-									$item = $gallery->getItem( $row->id );
-									$original = $item->original();
-									$thumb 		= $item->thumb();
-
-									switch($item->type){
-										case "audio":{
-										?>
-										<object type="application/x-shockwave-flash" width="400" height="15" data="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=<?php echo $row->name?>&song_url=<?php echo audioUtils::getAudio($row->name)?>"><param name="movie" value="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/xspf/xspf_player_slim.swf?song_title=<?php echo $item->title;?>&song_url=<?php echo $original->url();?>" /></object>
-										<?php
-											break;
-										}
-										case "video":{
-											// OS flv player from http://www.osflv.com
-										?>
-										<object type="application/x-shockwave-flash"
-												width="400"
-												height="300"
-												data="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/player.swf?movie=<?php echo $display->name; ?>" >
-												<param name="movie" value="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/player.swf?movie=<?php echo $display->name; ?>" />
-												<embed src="<?php echo JURI_SITE ?>/components/com_rsgallery2/flash/player.swf?movie=<?php echo $display->url(); ?>"
-														width="400"
-														height="340"
-														allowFullScreen="false"
-														type="application/x-shockwave-flash">
-										</object>
-										<?php
-											break;
-										}
-										case "image":{
-											$display	= $item->display();
-										?>
-											<img src="<?php echo $display->url() ?>" alt="<?php echo htmlspecialchars( stripslashes( $item->descr ), ENT_QUOTES );?>" />
-										<?php
-											break;
-										}
-										default:
-										{
-											?> Unsuported item <?php
-											break;
-										}
-									}
-									?>
-										<br />
-									</div>
-								</td>
-							</tr>
-						</table>
-						<table class="adminform">
-							<tr>
-								<th colspan="1"><?php echo JText::_('COM_RSGALLERY2_PARAMETERS')?></th>
-							</tr>
-							<tr>
-								<td>
-									<!-- Note: ToDo: the $params->render is not available in J3
-										(administrator/components/com_rsgallery2/options/images.html.php line 344) 
-										
-									///Try this for J3:
-/*$params2 = new JForm('params');
-$params2->loadFile($file);///var_dump($row);
-$params2->bind( $row->params );
-
-$fields = $params2->getFieldset('params');
-foreach( $fields AS $field => $obj ){
-  echo $params2->getLabel( $field, null );
-  echo $params2->getInput( $field, null, null );	
-}*/
-///JForm has no render method as used in images.html.php line  343	
-										
-										-->
-									<?php //echo $params->render();?>&nbsp;
-								</td>
-							</tr>
-						</table>
-						<table class="adminform">
-							<tr>
-								<th colspan="1"><?php echo JText::_('COM_RSGALLERY2_LINKS_TO_IMAGE')?></th>
-							</tr>
-							<tr>
-								<td>
-									<table width="100%" class="imagelist">
-										<?php if ( $item->type == 'image' || $item->type == "video" ) {?>
-										<tr>
-											<td width="40%" align="right" valign="top">
-												<a href="<?php echo $thumb->url();?>" target="_blank" title="<?php echo $item->name;?>">
-													<?php echo JText::_('COM_RSGALLERY2_THUMB'); ?>
-												</a>:
-											</td>
-											<td><input type="text" name="thumb_url" class="text_area" size="80" value="<?php echo $thumb->url();?>" /></td>
-										</tr>
-										<tr>
-											<td width="40%" align="right" valign="top"><a href="<?php echo $display->url();?>" target="_blank" title="<?php echo $item->name;?>"><?php echo JText::_('COM_RSGALLERY2_DISPLAY'); ?></a>:
-											</td>
-											<td ><input type="text" name="display_url" class="text_area" size="80" value="<?php echo $display->url();?>" />
-											</td>
-										</tr>
-										<?php }?>
-										<tr>
-											<td width="40%" align="right" valign="top"><a href="<?php echo $original->url();?>" target="_blank" title="<?php echo $item->name;?>"><?php echo JText::_('COM_RSGALLERY2_ORIGINAL'); ?></a>:</td>
-											<td><input type="text" name="original_url" class="text_area" size="80" value="<?php echo $original->url();?>" /></td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
-
-			<?php
-				//Get form for J!1.6 ACL rules (load library, get path to XML, get specific form)
-				jimport( 'joomla.form.form' );
-				JForm::addFormPath(JPATH_ADMINISTRATOR.'/components/com_rsgallery2/models/forms/');
-				$form = JForm::getInstance('com_rsgallery2.params','item',array( 'load_data' => true ));
-
-				//Get the data for the form from $row (but only matching XML fields will get data here: asset_id)
-				$form->bind($row);
-
-				//Create the rules slider at the bottom of the page
-			?>
-
-			<div class="clr"></div>
-
-			<?php if ($canAdmin) { ?>
-				<br/>
-				<!--div  class="width-100 fltlft" -->
-				<div  class="fltlft">
-					<?php echo JHtml::_('sliders.start','permissions-sliders-'.$row->id, array('useCookie'=>1)); ?>
-					<?php echo JHtml::_('sliders.panel',JText::_('COM_RSGALLERY2_FIELDSET_RULES'), 'access-rules'); ?>
-					<fieldset class="panelform">
-						<?php echo $form->getLabel('rules'); ?>
-						<?php echo $form->getInput('rules'); ?>
-					</fieldset>
-					<?php echo JHtml::_('sliders.end'); ?>
-			  	</div>
-			<?php } ?>
+                <?php echo JHtml::_('bootstrap.endTabSet'); ?>
+            </div>
 
 			<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
 			<input type="hidden" name="name" value="<?php echo $row->name; ?>" />
