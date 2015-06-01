@@ -58,7 +58,7 @@ class html_rsg2_images {
 					<td align="left" width="50%">
 						&nbsp;
 					</td>
-					<td align="right" width="50%">
+					<td align="left" width="50%">
 						<?php echo JText::_('COM_RSGALLERY2_COPY-MOVE')?>
 						<?php echo $lists['move_id'];?>
 						<?php echo JText::_('COM_RSGALLERY2_FILTER')?>
@@ -274,19 +274,19 @@ class html_rsg2_images {
                                                         </th>
                                                     </tr>
                                                     <tr>
-                                                        <td width="20%" align="right"><?php echo JText::_('COM_RSGALLERY2_NAME')?></td>
+                                                        <td width="20%" align="left"><?php echo JText::_('COM_RSGALLERY2_NAME')?></td>
                                                         <td width="80%">
                                                             <input class="text_area required" type="text" name="title" size="50" maxlength="250" value="<?php echo $row->title;?>" />
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td width="20%" align="right"><?php echo JText::_('COM_RSGALLERY2_ALIAS')?></td>
+                                                        <td width="20%" align="left"><?php echo JText::_('COM_RSGALLERY2_ALIAS')?></td>
                                                         <td width="80%">
                                                             <input class="text_area" type="text" name="alias" size="50" maxlength="250" value="<?php echo $row->alias;?>" />
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td align="right">
+                                                        <td align="left">
                                                         <?php echo JText::_('COM_RSGALLERY2_OWNER');?>
                                                         </td>
                                                         <td>
@@ -294,16 +294,16 @@ class html_rsg2_images {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td width="20%" align="right"><?php echo JText::_('COM_RSGALLERY2_FILENAME')?></td>
+                                                        <td width="20%" align="left"><?php echo JText::_('COM_RSGALLERY2_FILENAME')?></td>
                                                         <td width="80%"><?php echo $row->name;?></td>
                                                     </tr>
                                                     <tr>
-                                                        <td valign="top" align="right"><?php echo JText::_('COM_RSGALLERY2_GALLERY')?></td>
+                                                        <td valign="top" align="left"><?php echo JText::_('COM_RSGALLERY2_GALLERY')?></td>
                                                         <td><?php echo $lists['gallery_id']; ?></td>
                                                     </tr>
                                                     <?php if ($canAdmin) { ?>
                                                         <tr>
-                                                            <td size="2" align="right">
+                                                            <td size="2" align="left">
                                                                 <?php echo JText::_('COM_RSGALLERY2_PERMISSIONS');?>
                                                             </td>
                                                             <td>
@@ -317,7 +317,7 @@ class html_rsg2_images {
                                                         </tr>
                                                     <?php } ?>
                                                     <tr>
-                                                        <td valign="top" align="right" width="20%">
+                                                        <td valign="top" align="left" width="20%">
                                                             <?php echo JText::_('COM_RSGALLERY2_DESCRIPTION')?>
                                                         </td width="80%">
                                                         <td>
@@ -330,12 +330,12 @@ class html_rsg2_images {
                                                     </tr>
                                                     <?php if ($canEditStateItem) {	?>
                                                         <tr>
-                                                            <td valign="top" align="right"><?php echo JText::_('COM_RSGALLERY2_ORDERING')?></td>
+                                                            <td valign="top" align="left"><?php echo JText::_('COM_RSGALLERY2_ORDERING')?></td>
                                                             <td><?php echo $lists['ordering']; ?></td>
                                                         </tr>
                                                     <?php }	?>
                                                     <tr>
-                                                        <td valign="top" align="right"><?php echo JText::_('COM_RSGALLERY2_PUBLISHED')?></td>
+                                                        <td valign="top" align="left"><?php echo JText::_('COM_RSGALLERY2_PUBLISHED')?></td>
                                                         <td><?php echo $lists['published']; ?></td>
                                                     </tr>
                                                 </table>
@@ -434,7 +434,7 @@ class html_rsg2_images {
                                                             <table width="100%" class="imagelist">
                                                                 <?php if ( $item->type == 'image' || $item->type == "video" ) {?>
                                                                 <tr>
-                                                                    <td width="40%" align="right" valign="top">
+                                                                    <td width="40%" align="left" valign="top">
                                                                         <a href="<?php echo $thumb->url();?>" target="_blank" title="<?php echo $item->name;?>">
                                                                             <?php echo JText::_('COM_RSGALLERY2_THUMB'); ?>
                                                                         </a>:
@@ -442,14 +442,14 @@ class html_rsg2_images {
                                                                     <td><input type="text" name="thumb_url" class="text_area" size="80" value="<?php echo $thumb->url();?>" /></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td width="40%" align="right" valign="top"><a href="<?php echo $display->url();?>" target="_blank" title="<?php echo $item->name;?>"><?php echo JText::_('COM_RSGALLERY2_DISPLAY'); ?></a>:
+                                                                    <td width="40%" align="left" valign="top"><a href="<?php echo $display->url();?>" target="_blank" title="<?php echo $item->name;?>"><?php echo JText::_('COM_RSGALLERY2_DISPLAY'); ?></a>:
                                                                     </td>
                                                                     <td ><input type="text" name="display_url" class="text_area" size="80" value="<?php echo $display->url();?>" />
                                                                     </td>
                                                                 </tr>
                                                                 <?php }?>
                                                                 <tr>
-                                                                    <td width="40%" align="right" valign="top"><a href="<?php echo $original->url();?>" target="_blank" title="<?php echo $item->name;?>"><?php echo JText::_('COM_RSGALLERY2_ORIGINAL'); ?></a>:</td>
+                                                                    <td width="40%" align="left" valign="top"><a href="<?php echo $original->url();?>" target="_blank" title="<?php echo $item->name;?>"><?php echo JText::_('COM_RSGALLERY2_ORIGINAL'); ?></a>:</td>
                                                                     <td><input type="text" name="original_url" class="text_area" size="80" value="<?php echo $original->url();?>" /></td>
                                                                 </tr>
                                                             </table>
@@ -576,11 +576,11 @@ class html_rsg2_images {
 					</th>
 				</tr>
 				<tr>
-					<td width="20%" align="right"></td>
+					<td width="20%" align="left"></td>
 					<td width="80%"><?php echo $lists['gallery_id']?></td>
 				</tr>
 				<tr>
-					<td valign="top" align="right">
+					<td valign="top" align="left">
 						<?php echo JText::_('COM_RSGALLERY2_GENERIC_DESCRIPTION')?>
 					</td>
 					<td>
@@ -596,7 +596,7 @@ class html_rsg2_images {
 					</th>
 				</tr>
 				<tr>
-					<td  width="20%" valign="top" align="right">
+					<td  width="20%" valign="top" align="left">
 					<?php echo JText::_('COM_RSGALLERY2_ITEMS')?>
 					</td>
 					<td width="80%">
@@ -912,7 +912,7 @@ class html_rsg2_images {
                         <th colspan="2">&nbsp;</th>
                     </tr>
                     <tr>
-                        <td colspan="2" align="right"><?php echo JText::_('COM_RSGALLERY2_DELETE');?> #<?php echo $i - 1;?>: <input type="checkbox" name="delete[<?php echo $i - 1;?>]" value="true" /></td>
+                        <td colspan="2" align="left"><?php echo JText::_('COM_RSGALLERY2_DELETE');?> #<?php echo $i - 1;?>: <input type="checkbox" name="delete[<?php echo $i - 1;?>]" value="true" /></td>
                     </tr>
                     <tr>
                         <td align="center" colspan="2">
