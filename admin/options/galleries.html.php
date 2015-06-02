@@ -353,151 +353,172 @@ class html_rsg2_galleries{
 		
 		<form action="index.php" method="post" name="adminForm" id="adminForm" class="form-validate">
 
-		<table width="100%">
-		<tr>
-			<td width="60%" valign="top">
-				<table class="adminform">
-				<tr>
-					<th colspan="2">
-						&nbsp;
-						<!-- ?php echo JText::_('COM_RSGALLERY2_DETAILS')? -->
-					</th>
-				</tr>
-				<tr>
-					<td width="20%" align="right">
-					<?php echo JText::_('COM_RSGALLERY2_NAME')?>
-					</td>
-					<td width="80%">
-					<input class="text_area required" type="text"  name="name" size="50" maxlength="250" value="<?php echo stripslashes($row->name);?>"/>
-					</td>
-				</tr>
-				<tr>
-					<td width="20%" align="right">
-					<?php echo JText::_('COM_RSGALLERY2_ALIAS')?>
-					</td>
-					<td width="80%">
-					<input class="text_area" type="text" name="alias" size="50" maxlength="250" value="<?php echo stripslashes($row->alias);?>" />
-					</td>
-				</tr>
-				<tr>
-					<td align="right">
-					<?php echo JText::_('COM_RSGALLERY2_OWNER');?>
-					</td>
-					<td>
-					<?php echo $lists['uid']; ?>
-					</td>
-				</tr>
-				<tr>
-					<td size="2" align="right">
-						<?php echo JText::_('JFIELD_ACCESS_LABEL');?>
-					</td>
-					<td>
-						<div>
-						<?php 
-						//3rd argument = id selected, e.g. 1: Public, 2: Registered, etc.
-						echo JHtml::_('access.assetgrouplist', 'access', $row->access);
+            <div class="form-horizontal">
+                <?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'edit')); ?>
+
+                    <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'edit',
+                        empty($row->id) ? JText::_('COM_RSGALLERY2_NEW', true) : JText::_('COM_RSGALLERY2_EDIT', true)); ?>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="row-fluid form-horizontal-desktop">
+
+									<table width="100%">
+										<tr>
+											<td width="60%" valign="top">
+												<table class="adminform">
+												<tr>
+													<th colspan="2">
+														&nbsp;
+														<!-- ?php echo JText::_('COM_RSGALLERY2_DETAILS')? -->
+													</th>
+												</tr>
+												<tr>
+													<td width="20%" align="right">
+													<?php echo JText::_('COM_RSGALLERY2_NAME')?>
+													</td>
+													<td width="80%">
+													<input class="text_area required" type="text"  name="name" size="50" maxlength="250" value="<?php echo stripslashes($row->name);?>"/>
+													</td>
+												</tr>
+												<tr>
+													<td width="20%" align="right">
+													<?php echo JText::_('COM_RSGALLERY2_ALIAS')?>
+													</td>
+													<td width="80%">
+													<input class="text_area" type="text" name="alias" size="50" maxlength="250" value="<?php echo stripslashes($row->alias);?>" />
+													</td>
+												</tr>
+												<tr>
+													<td align="right">
+													<?php echo JText::_('COM_RSGALLERY2_OWNER');?>
+													</td>
+													<td>
+													<?php echo $lists['uid']; ?>
+													</td>
+												</tr>
+												<tr>
+													<td size="2" align="right">
+														<?php echo JText::_('JFIELD_ACCESS_LABEL');?>
+													</td>
+													<td>
+														<div>
+														<?php 
+														//3rd argument = id selected, e.g. 1: Public, 2: Registered, etc.
+														echo JHtml::_('access.assetgrouplist', 'access', $row->access);
+														?>
+														</div>
+													</td>
+												</tr>
+								<?php			if ($canAdmin) { ?>
+												<tr>
+													<td size="2" align="right">
+														<?php echo JText::_('COM_RSGALLERY2_PERMISSIONS');?>
+													</td>
+													<td>
+														<!--div class="button2-left"-->
+														<div class="blank">
+															<button type="button" onclick="document.location.href='#access-rules';">
+															<?php echo JText::_('JGLOBAL_PERMISSIONS_ANCHOR'); ?></button>
+														</div>
+														<!--/div-->
+													</td>
+												</tr>
+								<?php			} ?>
+												<tr>
+													<td valign="top" align="right">
+													<?php echo JText::_('COM_RSGALLERY2_DESCRIPTION')?>
+													</td>
+													<td>
+													<?php
+													// parameters : area name, content, hidden field, width, height, rows, cols
+													echo $editor->display ( 'description',  stripslashes($row->description) , '100%', '300', '10', '20' ,false); 
+													?>
+													</td>
+												</tr>
+												<tr>
+													<td align="right">
+													<?php echo JText::_('COM_RSGALLERY2_PARENT_ITEM');?>
+													</td>
+													<td>
+													<?php echo $lists['parent']; ?>
+													</td>
+												</tr>
+												<tr>
+													<td valign="top" align="right">
+													<?php echo JText::_('COM_RSGALLERY2_GALLERY_THUMBNAIL');?>
+													</td>
+													<td>
+													<?php echo imgUtils::showThumbNames($row->id, $row->thumb_id); ?>
+													</td>
+												</tr>
+										<?php	if ($canEditStateGallery) {	?>
+												<tr>
+													<td valign="top" align="right">
+													<?php echo JText::_('COM_RSGALLERY2_ORDERING');?>
+													</td>
+													<td>
+													<?php echo $lists['ordering']; ?>
+													</td>
+												</tr>
+										<?php	}	?>
+												<tr>
+													<td valign="top" align="right">
+													<?php echo JText::_('COM_RSGALLERY2_PUBLISHED');?>
+													</td>
+													<td>
+													<?php echo $lists['published']; ?>
+													</td>
+												</tr>
+												</table>
+											</td>
+								<!--		<?php // Removed the parameters section of the gallery for J3 (Backend > RSGallery2 > Galleries > Edit a gallery, there used to be an unused Parameters section on the right"?>
+											<td width="40%" valign="top">
+												<table class="adminform">
+												<tr>
+													<th colspan="1">
+													<?php //echo JText::_('COM_RSGALLERY2_PARAMETERS');?>
+													</th>
+												</tr>
+												<tr>
+													<td>
+													<?php //echo $params->render();?>
+													</td>
+												</tr>
+												</table><br/>
+											</td>
+								-->
+										</tr>
+									</table>
+                               </div>
+                            </div>
+                        </div>
+                    <?php echo JHtml::_('bootstrap.endTab'); ?>
+
+                    <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'misc', JText::_('JLIB_HTML_ACCESS_SUMMARY_DESC_CAPTION', true)); ?>
+ 
+		<!-- div class="clr"></div -->
+
+						<?php 	//Create the rules slider at the bottom of the page
+							if ($canAdmin) { 
 						?>
-						</div>
-					</td>
-				</tr>
-<?php			if ($canAdmin) { ?>
-				<tr>
-					<td size="2" align="right">
-						<?php echo JText::_('COM_RSGALLERY2_PERMISSIONS');?>
-					</td>
-					<td>
-						<!--div class="button2-left"-->
-						<div class="blank">
-							<button type="button" onclick="document.location.href='#access-rules';">
-							<?php echo JText::_('JGLOBAL_PERMISSIONS_ANCHOR'); ?></button>
-						</div>
-						<!--/div-->
-					</td>
-				</tr>
-<?php			} ?>
-				<tr>
-					<td valign="top" align="right">
-					<?php echo JText::_('COM_RSGALLERY2_DESCRIPTION')?>
-					</td>
-					<td>
-					<?php
-					// parameters : area name, content, hidden field, width, height, rows, cols
-					echo $editor->display ( 'description',  stripslashes($row->description) , '100%', '300', '10', '20' ,false); 
-					?>
-					</td>
-				</tr>
-				<tr>
-					<td align="right">
-					<?php echo JText::_('COM_RSGALLERY2_PARENT_ITEM');?>
-					</td>
-					<td>
-					<?php echo $lists['parent']; ?>
-					</td>
-				</tr>
-				<tr>
-					<td valign="top" align="right">
-					<?php echo JText::_('COM_RSGALLERY2_GALLERY_THUMBNAIL');?>
-					</td>
-					<td>
-					<?php echo imgUtils::showThumbNames($row->id, $row->thumb_id); ?>
-					</td>
-				</tr>
-		<?php	if ($canEditStateGallery) {	?>
-				<tr>
-					<td valign="top" align="right">
-					<?php echo JText::_('COM_RSGALLERY2_ORDERING');?>
-					</td>
-					<td>
-					<?php echo $lists['ordering']; ?>
-					</td>
-				</tr>
-		<?php	}	?>
-				<tr>
-					<td valign="top" align="right">
-					<?php echo JText::_('COM_RSGALLERY2_PUBLISHED');?>
-					</td>
-					<td>
-					<?php echo $lists['published']; ?>
-					</td>
-				</tr>
-				</table>
-			</td>
-<!--		<?php // Removed the parameters section of the gallery for J3 (Backend > RSGallery2 > Galleries > Edit a gallery, there used to be an unused Parameters section on the right"?>
-			<td width="40%" valign="top">
-				<table class="adminform">
-				<tr>
-					<th colspan="1">
-					<?php //echo JText::_('COM_RSGALLERY2_PARAMETERS');?>
-					</th>
-				</tr>
-				<tr>
-					<td>
-					<?php //echo $params->render();?>
-					</td>
-				</tr>
-				</table><br/>
-			</td>
--->
-		</tr>
-		</table>
+							<br/>
+							<!--div  class="width-100 fltlft" -->
+							<div  class="fltlft">
+								<?php echo JHtml::_('sliders.start','permissions-sliders-'.$row->id, array('useCookie'=>1)); ?>
+								<?php echo JHtml::_('sliders.panel',JText::_('COM_RSGALLERY2_FIELDSET_RULES'), 'access-rules'); ?>	
+									<fieldset class="panelform">
+										<?php echo $form->getLabel('rules'); ?>
+										<?php echo $form->getInput('rules'); ?>
+									</fieldset>
+								<?php echo JHtml::_('sliders.end'); ?>
+							</div>
+				<?php 	} ?>
 
-		<div class="clr"></div>
+                    <?php echo JHtml::_('bootstrap.endTab'); ?>
 
-		<?php 	//Create the rules slider at the bottom of the page
-			if ($canAdmin) { 
-		?>
-			<br/>
-			<!--div  class="width-100 fltlft" -->
-			<div  class="fltlft">
-				<?php echo JHtml::_('sliders.start','permissions-sliders-'.$row->id, array('useCookie'=>1)); ?>
-				<?php echo JHtml::_('sliders.panel',JText::_('COM_RSGALLERY2_FIELDSET_RULES'), 'access-rules'); ?>	
-					<fieldset class="panelform">
-						<?php echo $form->getLabel('rules'); ?>
-						<?php echo $form->getInput('rules'); ?>
-					</fieldset>
-				<?php echo JHtml::_('sliders.end'); ?>
-			</div>
-<?php 	} ?>
+
+                <?php echo JHtml::_('bootstrap.endTabSet'); ?>
+            </div>
 
 		<input type="hidden" name="id" value="<?php echo $row->id; ?>" />
 		<input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" />
