@@ -185,7 +185,7 @@ class html_rsg2_maintenance {
 			    	<th>#</th>
 			        <th><?php echo JText::_('COM_RSGALLERY2_FILENAME');?></th>
 			        <th align="center"><?php echo JText::_('COM_RSGALLERY2_IN-DATABASE');?></th>
-			        <th align="center"><?php echo JText::_('COM_RSGALLERY2_DISPLAY-FOLDER');?></th>
+			        <th align="center"><?php echo JText::_('COM_RSGALLERY2_DISPLAY_BR_FOLDER');?></th>
 		        	<th align="center"><?php echo JText::_('COM_RSGALLERY2_ORIGINAL-FOLDER');?></th>
 			        <th align="center"><?php echo JText::_('COM_RSGALLERY2_THUMB-FOLDER');?></th>
 			        <th>&nbsp;</th>

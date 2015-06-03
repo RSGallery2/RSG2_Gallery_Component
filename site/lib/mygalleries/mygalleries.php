@@ -664,7 +664,7 @@ function editStateItem($id, $newState) {
 	if ($database->execute()) {
 		$mainframe->redirect(JRoute::_( $redirect ), JText::_('COM_RSGALLERY2_DETAILS_SAVED_SUCCESFULLY') );
 	} else {
-		//echo JText::_('COM_RSGALLERY2_ERROR-').mysql_error();
+		//echo JText::_('COM_RSGALLERY2_ERROR_COLON_SPACE').mysql_error();
 		$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_COULD_NOT_UPDATE_IMAGE_DETAILS') );
 	}
 }

@@ -416,7 +416,7 @@ class HTML_RSGALLERY{
 					HTML_RSGALLERY::quickiconDebugButton( 'reallyUninstall', $link, 'db_DelItems.png', JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL') );
 	
 					$link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
-					HTML_RSGALLERY::quickiconDebugButton( 'config_rawEdit', $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_-_RAW_EDIT') );
+					HTML_RSGALLERY::quickiconDebugButton( 'config_rawEdit', $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT') );
 					
 					//Moved Migration Options: only show when debug is on since there are only test migration options and four Joomla 1.0.x options.
                     /*
@@ -424,7 +424,7 @@ class HTML_RSGALLERY{
 					HTML_RSGALLERY::quickiconDebugButton( 'showMigration', $link, 'dbrestore.png', JText::_('COM_RSGALLERY2_MIGRATION_OPTIONS') );
                     */
                     $link = 'index.php?option=com_rsgallery2&task=config_dumpVars';
-                    HTML_RSGALLERY::quickiconDebugButton( 'config_dumpVars', $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_-_VIEW') );
+                    HTML_RSGALLERY::quickiconDebugButton( 'config_dumpVars', $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW') );
                     ?>
                     <div class='rsg2-clr'>&nbsp;</div>
                 </div>

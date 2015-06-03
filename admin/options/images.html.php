@@ -59,7 +59,7 @@ class html_rsg2_images {
 						&nbsp;
 					</td>
 					<td align="left" width="50%">
-						<?php echo JText::_('COM_RSGALLERY2_COPY-MOVE')?>
+						<?php echo JText::_('COM_RSGALLERY2_COPY_SLASH_MOVE')?>
 						<?php echo $lists['move_id'];?>
 						<?php echo JText::_('COM_RSGALLERY2_FILTER')?>
 						<input type="text" name="search" value="<?php echo $search;?>" class="text_area" onChange="document.adminForm.submit();" />
@@ -746,7 +746,7 @@ class html_rsg2_images {
                         <td width="200">&nbsp;</td>
                         <td width="200">
                             <input type="radio" value="ftp" name="batchmethod" />
-                            <?php echo JText::_('COM_RSGALLERY2_FTP-PATH');?>&nbsp;<?php echo JHtml::tooltip( JText::_('COM_RSGALLERY2_BATCH_FTP_PATH_OVERL'), JText::_('COM_RSGALLERY2_FTP-PATH')); ?>
+                            <?php echo JText::_('COM_RSGALLERY2_FTP_PATH');?>&nbsp;<?php echo JHtml::tooltip( JText::_('COM_RSGALLERY2_BATCH_FTP_PATH_OVERL'), JText::_('COM_RSGALLERY2_FTP_PATH')); ?>
                         </td>
                         <td>
                             <?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', ""); ?><!-- br -->&nbsp;<?php echo JPATH_SITE.DS; ?>

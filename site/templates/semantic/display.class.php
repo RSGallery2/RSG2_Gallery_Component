@@ -105,7 +105,7 @@ class rsgDisplay_semantic extends rsgDisplay{
 			}
 			
 			if ($date) {
-				echo JText::_('COM_RSGALLERY2_CREATED-').""; 
+				echo JText::_('COM_RSGALLERY2_CREATED').""; 
 				echo JHTML::_("date", $kid->date,JText::_('COM_RSGALLERY2_DATE_FORMAT_LC3') );
 				?>
 				<br />
