@@ -35,7 +35,7 @@ class html_rsg2_images {
 		
 		?>
         <form action="index.php" method="post" name="adminForm" id="adminForm">
-        <!--form action="<?php echo JRoute::_('index.php?option=COM_RSGALLERY2&view=images'); ?>" method="post" name="adminForm" id="adminForm"-->
+        <!--form action="<?php echo JRoute::_('index.php?option=com_rsgallery2'); ?>" method="post" name="adminForm" id="adminForm"-->
 
             <?php if (count(JHtmlSidebar::getEntries()) > 0) : ?>
                 <div id="j-sidebar-container" class="span2">
@@ -100,10 +100,10 @@ class html_rsg2_images {
 						for ($i=0, $n=count( $rows ); $i < $n; $i++) {
 							$row = &$rows[$i];
 							//Get permissions
-							$can['EditItem']		= $user->authorise('core.edit',		'com_rsgallery2.item.'.$row->id);
-							$can['EditOwnItem']	= $user->authorise('core.edit.own',	'com_rsgallery2.item.'.$row->id) AND ($row->userid == $userId);
+							$can['EditItem']		= $user->authorise('core.edit',      'com_rsgallery2.item.'.$row->id);
+							$can['EditOwnItem']	    = $user->authorise('core.edit.own',	 'com_rsgallery2.item.'.$row->id) AND ($row->userid == $userId);
 							$can['EditStateItem']	= $user->authorise('core.edit.state','com_rsgallery2.item.'.$row->id);
-							$can['EditGallery']		= $user->authorise('core.edit',		'com_rsgallery2.gallery.'.$row->gallery_id);
+							$can['EditGallery']		= $user->authorise('core.edit',		 'com_rsgallery2.gallery.'.$row->gallery_id);
 							$showMoveUpIcon = (($row->gallery_id == @$rows[$i-1]->gallery_id) AND ($can['EditStateItem']));
 							$showMoveDownIcon = (($row->gallery_id == @$rows[$i+1]->gallery_id) AND ($can['EditStateItem']));
 							$disabled = $can['EditStateItem'] ?  '' : 'disabled="disabled"';
@@ -754,6 +754,7 @@ class html_rsg2_images {
                     </tr>
                     <tr>
                         <td width="200">&nbsp;</td>
+                    <td width="200">&nbsp;</td>
                         <td width="60%">
                             <input type="text" name="ftppath" style="border: blue solid 2px; width: 100%; margin-bottom: 0px;
                                 padding-bottom: 0px;" value="<?php echo $FTP_path; ?>" size="30" />
