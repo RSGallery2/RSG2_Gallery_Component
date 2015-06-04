@@ -754,7 +754,7 @@ class html_rsg2_images {
                     </tr>
                     <tr>
                         <td width="200">&nbsp;</td>
-                    <td width="200">&nbsp;</td>
+                    	<td width="200">&nbsp;</td>
                         <td width="60%">
                             <input type="text" name="ftppath" style="border: blue solid 2px; width: 100%; margin-bottom: 0px;
                                 padding-bottom: 0px;" value="<?php echo $FTP_path; ?>" size="30" />
