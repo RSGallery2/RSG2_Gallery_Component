@@ -467,7 +467,7 @@ class html_rsg2_images {
                         </div>
                     <?php echo JHtml::_('bootstrap.endTab'); ?>
 
-                    <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'misc', JText::_('JLIB_HTML_ACCESS_SUMMARY_DESC_CAPTION', true)); ?>
+                    <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'misc', JText::_('COM_RSGALLERY2_PERMISSIONS', true)); ?>
                         <?php
                             //Get form for J!1.6 ACL rules (load library, get path to XML, get specific form)
                             jimport( 'joomla.form.form' );

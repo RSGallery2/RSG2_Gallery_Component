@@ -494,7 +494,7 @@ class html_rsg2_galleries{
                         </div>
                     <?php echo JHtml::_('bootstrap.endTab'); ?>
 
-                    <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'misc', JText::_('JLIB_HTML_ACCESS_SUMMARY_DESC_CAPTION', true)); ?>
+                    <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'misc', JText::_('COM_RSGALLERY2_PERMISSIONS', true)); ?>
  
 		<!-- div class="clr"></div -->
 
