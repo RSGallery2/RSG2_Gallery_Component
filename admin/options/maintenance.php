@@ -357,9 +357,9 @@ function deleteImages() {
 	$name = $input->get( 'name', null, 'STRING');					
 
     if ( imgUtils::deleteImage( $name ) ) {
-    	$txt = JText::_('COM_RSGALLERY2_MAGE-S_DELETED_SUCCESFULLY');
+    	$txt = JText::_('COM_RSGALLERY2_MAGE_S_DELETED_SUCCESFULLY');
     } else {
-    	$txt = JText::_('COM_RSGALLERY2_IMAGE-S_WERE_NOT_DELETED');
+    	$txt = JText::_('COM_RSGALLERY2_IMAGE_S_WERE_NOT_DELETED');
     }
     
     $mainframe->enqueueMessage( $txt );

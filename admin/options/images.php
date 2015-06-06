@@ -26,7 +26,7 @@ switch ($task) {
 		break;
 	
 	case 'batchupload':
-		//HTML_RSGallery::RSGalleryHeader('', JText::_('COM_RSGALLERY2_SUBMENU_BATCH-UPLOAD'));
+		//HTML_RSGallery::RSGalleryHeader('', JText::_('COM_RSGALLERY2_SUBMENU_BATCH_UPLOAD'));
 		batchupload($option);
 		HTML_RSGallery::RSGalleryFooter();
 		break;
@@ -225,6 +225,7 @@ function editImage( $option, $id ) {
 	. "\n WHERE gallery_id = " . (int) $row->gallery_id
 	. "\n ORDER BY ordering"
 	;
+	
 	//$lists['ordering'] 		= JHtml::_('list.specificordering', $row, $id, $query, true );
 	$lists['ordering'] 		= JHtml::_('list.ordering', "", $query, $row, $id, true );
 	// build list of categories
@@ -450,7 +451,7 @@ function removeImages( $cid, $option ) {
 		
 	}
 	// ToDo: Check below text constant
-    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_MAGE-S_DELETED_SUCCESFULLY') );
+    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_MAGE_S_DELETED_SUCCESFULLY') );
 	$mainframe->redirect( $return );
 }
 
@@ -793,7 +794,7 @@ function copyImage( $cid, $option ) {
 
 	//Error handling if necessary
 	if ( count( $errors ) == 0){
-	    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ITEM-S_COPIED_SUCCESSFULLY') );
+	    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ITEM_S_COPIED_SUCCESSFULLY') );
 		$mainframe->redirect( "index.php?option=$option&rsgOption=images" );
 	} else {
 		//Show error message for each error encountered
@@ -880,7 +881,7 @@ function batchupload($option) {
 				}
 			} else {
 				//Error message: file size
-				$mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ZIP-FILE_IS_TOO_BIG') );
+				$mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE_IS_TOO_BIG') );
 				$mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images&task=batchupload");
 			}
 		} else {//not zip thus ftp

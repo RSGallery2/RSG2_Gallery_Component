@@ -24,7 +24,7 @@ class menu_rsg2_submenu{
 		if (!($rsgOption == 'installer')){
 			//Control Panel
 			JHtmlSidebar::addEntry(
-				JText::_('COM_RSGALLERY2_SUBMENU_CONTROL-PANEL'),
+				JText::_('COM_RSGALLERY2_SUBMENU_CONTROL_PANEL'),
 				'index.php?option=com_rsgallery2',
 		        (($rsgOption=='' AND $task == '' )
                     OR ($rsgOption == 'config')
@@ -36,7 +36,7 @@ class menu_rsg2_submenu{
 		        $rsgOption=='galleries' AND $task == '');
 		    //Batch Upload
 			JHtmlSidebar::addEntry(
-				JText::_('COM_RSGALLERY2_SUBMENU_BATCH-UPLOAD'),
+				JText::_('COM_RSGALLERY2_SUBMENU_BATCH_UPLOAD'),
 				'index.php?option=com_rsgallery2&rsgOption=images&task=batchupload',
 		        $rsgOption=='images' AND $task == 'batchupload');
 			//Upload
@@ -101,7 +101,7 @@ class menu_rsg2_images{
 		$galleryId = $input->get( 'gallery_id', 0, 'INT');					
 		$canDo	= Rsgallery2Helper::getActions($galleryId);
 
-        JToolBarHelper::title( JText::_('COM_RSGALLERY2_MANAGE_ITEMS'), 'generic.png' );
+        JToolBarHelper::title( JText::_('COM_RSGALLERY2_MANAGE_IMAGES'), 'generic.png' );
 		
 		if ($canDo->get('core.create')) {
 			JToolBarHelper::custom('move_images','forward.png','forward.png','COM_RSGALLERY2_MOVE_TO', true);

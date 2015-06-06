@@ -184,10 +184,10 @@ class html_rsg2_maintenance {
 			    <tr>
 			    	<th>#</th>
 			        <th><?php echo JText::_('COM_RSGALLERY2_FILENAME');?></th>
-			        <th align="center"><?php echo JText::_('COM_RSGALLERY2_IN-DATABASE');?></th>
+			        <th align="center"><?php echo JText::_('COM_RSGALLERY2_IN_BR_DATABASE');?></th>
 			        <th align="center"><?php echo JText::_('COM_RSGALLERY2_DISPLAY_BR_FOLDER');?></th>
-		        	<th align="center"><?php echo JText::_('COM_RSGALLERY2_ORIGINAL-FOLDER');?></th>
-			        <th align="center"><?php echo JText::_('COM_RSGALLERY2_THUMB-FOLDER');?></th>
+		        	<th align="center"><?php echo JText::_('COM_RSGALLERY2_ORIGINAL_BR_FOLDER');?></th>
+			        <th align="center"><?php echo JText::_('COM_RSGALLERY2_THUMB_FOLDER');?></th>
 			        <th>&nbsp;</th>
 			        <th align="center"><?php echo JText::_('COM_RSGALLERY2_IMAGE');?></th>
 			        <th align="center"><?php echo JText::_('COM_RSGALLERY2_ACTION');?></th>

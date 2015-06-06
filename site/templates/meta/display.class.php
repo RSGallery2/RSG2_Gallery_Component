@@ -532,7 +532,7 @@ class rsgDisplay extends JObject{
                             	</a>
                             	</div>
                             	<div class="rsg2-clr"></div>
-								<div class="rsg2_details"><?php echo JText::_('COM_RSGALLERY2_UPLOADED-') ?>&nbsp;<?php echo JHTML::_("date",$row->date);?></div>
+								<div class="rsg2_details"><?php echo JText::_('COM_RSGALLERY2_UPLOADED_DBLPT') ?>&nbsp;<?php echo JHTML::_("date",$row->date);?></div>
                             </div>
                             </td>
                             <?php

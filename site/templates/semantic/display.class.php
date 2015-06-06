@@ -91,14 +91,14 @@ class rsgDisplay_semantic extends rsgDisplay{
 			}
 			
 			if ($owner) {
-				echo JText::_('COM_RSGALLERY2_OWNER-'); 
+				echo JText::_('COM_RSGALLERY2_OWNER_DBLPT'); 
 				echo $kid->owner;?>
 				<br />
 				<?php
 			} 
 			
 			if ($size) {
-				echo JText::_('COM_RSGALLERY2_SIZE-'); 
+				echo JText::_('COM_RSGALLERY2_SIZE_DBLPT'); 
 				echo galleryUtils::getFileCount($kid->get('id'), $includeKids). ' ' . JText::_('COM_RSGALLERY2_IMAGES');?>
 				<br />
 				<?php

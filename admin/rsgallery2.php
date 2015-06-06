@@ -180,7 +180,7 @@ if( $rsgOption == '' ){
 
 		case "batchuploadX":
 			JFactory::getApplication()->enqueueMessage( 'Marked for removal: batchuploadX', 'Notice' );
-			HTML_RSGallery::RSGalleryHeader('', JText::_('COM_RSGALLERY2_UPLOAD_ZIP-FILE'));
+			HTML_RSGallery::RSGalleryHeader('', JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE'));
 			batch_upload($option, $task);
 			HTML_RSGallery::RSGalleryFooter();
 			break;
@@ -318,7 +318,7 @@ function reallyUninstall(){
 		return;	// 150518 Does not return JError::raiseWarning object $error 
 	} else {
 		passthru( "rm -r ".JPATH_SITE."/images/rsgallery");
-		HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_USED_RM_-R_TO_ATTEMPT_TO_REMOVE_JPATH_SITE_IMAGES_RSGALLERY') );
+		HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_USED_RM_MINUS_R_TO_ATTEMPT_TO_REMOVE_JPATH_SITE_IMAGES_RSGALLERY') );
 
 		processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_acl', JText::_('COM_RSGALLERY2_DROPED_TABLE___RSGALLERY2_GALLERIES') );
 		processAdminSqlQueryVerbosely( 'DROP TABLE IF EXISTS #__rsgallery2_files', JText::_('COM_RSGALLERY2_DROPED_TABLE___RSGALLERY2_FILES') );

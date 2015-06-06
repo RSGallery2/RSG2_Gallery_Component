@@ -678,7 +678,7 @@ class html_rsg2_images {
 				// do field validation
 				if (upload_method == 'zip') {
 					if (form.zip_file.value == '') {
-						alert( "<?php echo JText::_('COM_RSGALLERY2_ZIP-UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN');?>" );
+						alert( "<?php echo JText::_('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN');?>" );
 						return;
 					} else if (form.xcat.value <= 0 && selcat_method == '1') {
 						alert("<?php echo JText::_('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST');?>");
@@ -733,7 +733,7 @@ class html_rsg2_images {
                         </td>
                         <td width="200">
                             <input type="radio" value="zip" name="batchmethod" CHECKED/>
-                            <?php echo JText::_('COM_RSGALLERY2_ZIP-FILE'); ?>
+                            <?php echo JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE'); ?>
                         </td>
                         <td width="60%">
                             <input type="file" name="zip_file" style="border: blue solid 2px; width: 100%; padding-right: 12px;" size="40" />

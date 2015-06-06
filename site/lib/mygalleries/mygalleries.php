@@ -354,7 +354,7 @@ function saveUploadedItem() {
             		$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY') );
         		} else {
             		//Error message
-            		$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_ZIP-FILE_IS_TOO_BIG'));
+            		$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE_IS_TOO_BIG'));
         		}
 				break;
 			case 'image':
@@ -730,8 +730,7 @@ function deleteItems($cid) {
 		}
 	}
 	if ($success) {
-		// ToDo: COM_RSGALLERY2_MAGE-S_DELETED_SUCCESFULLY -> only use '_' instead of '-'
-		$msg = JText::_('COM_RSGALLERY2_MAGE-S_DELETED_SUCCESFULLY');
+		$msg = JText::_('COM_RSGALLERY2_MAGE_S_DELETED_SUCCESFULLY');
 	}
 	$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&rsgOption=myGalleries&Itemid=$Itemid",false), $msg );
 }

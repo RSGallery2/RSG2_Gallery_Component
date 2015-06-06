@@ -363,7 +363,7 @@ class HTML_RSGALLERY{
                 //HTML_RSGALLERY::quickiconButton( $link, 'upload_zip.png', JText::_('COM_RSGALLERY2_JAVA_UPLOADER') );
                 
                 $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=view_images';
-                HTML_RSGALLERY::quickiconButton( $link, 'mediamanager.png', JText::_('COM_RSGALLERY2_MANAGE_ITEMS') );
+                HTML_RSGALLERY::quickiconButton( $link, 'mediamanager.png', JText::_('COM_RSGALLERY2_MANAGE_IMAGES') );
 
                 if ( $canDo->get('core.admin') ){
                     /*
