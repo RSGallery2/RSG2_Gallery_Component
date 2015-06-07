@@ -120,41 +120,41 @@ class HTML_RSGALLERY{
 
         ?>
 
-			<?php if (count(JHtmlSidebar::getEntries()) > 0) : ?>
-                <div id="j-sidebar-container" class="span2">
-                    <?php echo JHtmlSidebar::render( ); ?>
-                </div>
-                <div id="j-main-container" class="span12">
-            <?php else : ?>
-                <div id="j-main-container">
-            <?php endif;?>
-		
-            <div class="clearfix"> </div>
-				<!-- -->
-		
+		<?php if (count(JHtmlSidebar::getEntries()) > 0) : ?>
+			<div id="j-sidebar-container" class="span2">
+				<?php echo JHtmlSidebar::render( ); ?>
+			</div>
+			<div id="j-main-container" class="span12">
+		<?php else : ?>
+			<div id="j-main-container">
+		<?php endif;?>
+	
+		<div class="clearfix"> </div>
+			<!-- -->
+	
         <div id="rsg2-thisform">
             <div id='rsg2-infoTabs'>
-                <table width="100%">
+				<br>
+                <table border="0" width="100%" cellspacing="1" cellpadding="1" style=background-color:#CCCCCC;>
                     <tr>
-                        <td>
-                    <?php
-						jimport( 'joomla.html.html.tabs' );
-						$options = array(
-							'onActive' => 'function(title, description){
-								description.setStyle("display", "block");
-								title.addClass("open").removeClass("closed");
-							}',
-							'onBackground' => 'function(title, description){
-								description.setStyle("display", "none");
-								title.addClass("closed").removeClass("open");
-							}',
-							'startOffset' => 0,  // 0 starts on the first tab, 1 starts the second, etc...
-							'useCookie' => true, // this must not be a string. Don't use quotes.
-						);
-						echo JHtml::_('tabs.start', 'recent', $options);
-						//echo JHtml::_('tabs.panel', JText::_('Categories'), 'panel_1_id');
-						echo JHtml::_('tabs.panel', JText::_('JCATEGORIES'), 'panel_1_id');					
-                        ?>
+                        <td bgcolor="#FFFFFF" colspan="2">
+                            <img src="<?php echo JURI_SITE;?>/administrator/components/com_rsgallery2/images/rsg2-logo.png" align="middle" alt="RSGallery logo"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="120" bgcolor="#FFFFFF"><strong><?php echo JText::_('COM_RSGALLERY2_INSTALLED_VERSION');?></strong></td>
+                        <td bgcolor="#FFFFFF"><a href='index.php?option=com_rsgallery2&task=viewChangelog' title='view changelog'><?php echo $rsgVersion->getVersionOnly(); echo " (".$rsgVersion->getSVNonly().")";?></a></td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#FFFFFF"><strong><?php echo JText::_('COM_RSGALLERY2_LICENSE')?>:</strong></td>
+                        <td bgcolor="#FFFFFF"><a href="http://www.gnu.org/copyleft/gpl.html" target="_blank">GNU GPL</a></td>
+                    </tr>
+                </table>
+				<br />
+                <?php
+					echo JHtml::_('bootstrap.startAccordion', 'slide-example', array('active' => 'slide1'));
+					echo JHtml::_('bootstrap.addSlide', 'slide-example', JText::_('JCATEGORIES'), 'slide1');
+        ?>
                         <table class="adminlist" width="500">
                             <tr>
                                 <th colspan="3"><?php echo JText::_('COM_RSGALLERY2_MOST_RECENTLY_ADDED_GALLERIES'); ?></th>
@@ -171,9 +171,10 @@ class HTML_RSGALLERY{
                                 <th colspan="3">&nbsp;</th>
                             </tr>
                         </table>
-                        <?php
-							echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_ITEMS'), 'Images');
-						?>
+                <?php
+echo JHtml::_('bootstrap.endSlide');
+echo JHtml::_('bootstrap.addSlide', 'slide-example', JText::_('COM_RSGALLERY2_ITEMS'), 'slide2');
+        ?>
                         <table class="adminlist" width="500">
                             <tr>
                                 <th colspan="4"><?php echo JText::_('COM_RSGALLERY2_MOST_RECENTLY_ADDED_ITEMS'); ?></th>
@@ -189,157 +190,137 @@ class HTML_RSGALLERY{
                                 <th colspan="4">&nbsp;</th>
                             </tr>
                         </table>
-                        <?php
-						echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_CREDITS'), 'Credits');
-					?>
+                <?php
+echo JHtml::_('bootstrap.endSlide');
+echo JHtml::_('bootstrap.addSlide', 'slide-example', JText::_('COM_RSGALLERY2_CREDITS'), 'slide3');
+        ?>
 
-                        
-<div id='rsg2-credits'>
-    <h3>Core Team - RSGallery2 4.x</h3>
-	<h4>(Joomla 3.x)</h4>
-    <dl>
-		<dt>2015 - </dt>
-			<dd><b>Johan Ravenzwaaij</b></dd>
-			<dd><b>Mirjam Kaizer</b></dd>
-			<dd><b>Thomas Finnern</b></dd>
-    </dl>
-    
-	<h3>RSGallery2 3.x (Joomla 1.6/1.7/2.5)</h3>
-    <dl>
-		<dt>2011-2014</dt>
-        	<dd><b>Johan Ravenzwaaij</b></dd>
-            <dd><b>Mirjam Kaizer</b></dd>
-    </dl>
-    
-    <h3>Translations</h3>	
-    <dl>
-        <dt>Brazilian Portuguese</dt> 
-			<dd><b>Helio Wakasugui</b></dd>
-		<dt>Croatian</dt> 
-			<dd><b>Tanja</b></dd>
-        <dt>Czech</dt> 
-			<dd><b>David Zirhut</b> <a href='http://www.joomlaportal.cz/'>joomlaportal.za</a></dd>
-			<dd><b>Felix 'eFix' Lauda</b></dd>
-        <dt>Dutch</dt>
-			<dd><b>Tomislav Ribicic</b></dd>
-        	<dd><b>Dani&#235;l Tulp</b> <a href='http://design.danieltulp.nl' target='_blank'></a></dd>
-			<dd><b>Bas</b><a href='http://www.fantasea.nl' target='_blank'>http://www.fantasea.nl</a></dd>
-        	<dd><b>Mirjam Kaizer</b></dd>
-		<dt>Finnish</dt>
-			<dd><b>Antti</b></dd>
-			<dd><b>Ripley</b></dd>
-		<dt>French</dt>
-			<dd><b>Fabien de Silvestre</b></dd>
-        <dt>German</dt> 
-			<dd><b>woelzen</b><a href='http://conseil.silvestre.fr' target='_blank'>http://conseil.silvestre.fr</a></dd>
-			<dd><b>chfrey</b></dd>
-		<dt>Greek</dt>
-			<dd><b>Charis Argyropoulos</b><a href='http://www.symenox.gr' target='_blank'>http://www.symenox.gr</a></dd>
-			<dd><b>George Fakas</b></dd>
-		<dt>Hebrew</dt>
-			<dd><b>Kobi</b></dd>
-			<dd><b>theNoam</b><a href='http://www.theNoam.com/' target='_blank'>http://www.theNoam.com/</a></dd>
-        <dt>Hungarian</dt> 
-			<dd><b>Jozsef Tamas Herczeg</b> <a href='http://www.soft-trans.hu' target='_blank'>SOFT-TRANS</a></dd>
-		<dt>Italian</dt>
-			<dd><b>Michele Monaco</b><a href='http://www.mayavoyage.com' target='_blank'>Maya Voyages</a></dd>
-			<dd><b>Marco Galimberti</b>
-			</dd>
-        <dt>Norwegian</dt> 
-			<dd><b>Ronny Tjelle</b></dd>
-            <dd><b>Steinar Vikholt</b></dd>
-        <dt>Persian</dt> 
-			<dd><b>Joomir</b> <a href='http://www.joomir.com/' target='_blank'>http://www.joomir.com</a></dd>
-		<dt>Polish</dt> 
-			<dd><b>Zbyszek Rosiek</b></dd>
-        <dt>Russian</dt>
-			<dd><b>Ragnaar</b></dd>
-        <dt>Slovenian</dt>
-			<dd><b>Iztok Osredkar</b></dd>
-		<dt>Spanish</dt> 
-			<dd><b>Eb&auml;vs</b> <a href='http://www.ebavs.net/' target='_blank'>eb&auml;vs.net</a></dd>
-        <dt>Traditional Chinese</dt>
-			<dd><b>Sun Yu</b><a href='http://www.meto.com.tw' target='_blank'>Meto</a></dd>
-			<dd><b>Mike Ho</b> <a href='http://www.dogneighbor.com' target='_blank'>http://www.dogneighbor.com</a></dd>
-		<dt>Turkish</dt>
-			<dd><b>Pheadrus</b></dd>
-    </dl>
+						<div id='rsg2-credits'>
+							<h3>Core Team - RSGallery2 4.x</h3>
+							<h4>(Joomla 3.x)</h4>
+							<dl>
+								<dt>2015 - </dt>
+									<dd><b>Johan Ravenzwaaij</b></dd>
+									<dd><b>Mirjam Kaizer</b></dd>
+									<dd><b>Thomas Finnern</b></dd>
+							</dl>
+							
+							<h3>RSGallery2 3.x (Joomla 1.6/1.7/2.5)</h3>
+							<dl>
+								<dt>2011-2014</dt>
+									<dd><b>Johan Ravenzwaaij</b></dd>
+									<dd><b>Mirjam Kaizer</b></dd>
+							</dl>
+							
+							<h3>Translations</h3>	
+							<dl>
+								<dt>Brazilian Portuguese</dt> 
+									<dd><b>Helio Wakasugui</b></dd>
+								<dt>Croatian</dt> 
+									<dd><b>Tanja</b></dd>
+								<dt>Czech</dt> 
+									<dd><b>David Zirhut</b> <a href='http://www.joomlaportal.cz/'>joomlaportal.za</a></dd>
+									<dd><b>Felix 'eFix' Lauda</b></dd>
+								<dt>Dutch</dt>
+									<dd><b>Tomislav Ribicic</b></dd>
+									<dd><b>Dani&#235;l Tulp</b> <a href='http://design.danieltulp.nl' target='_blank'></a></dd>
+									<dd><b>Bas</b><a href='http://www.fantasea.nl' target='_blank'>http://www.fantasea.nl</a></dd>
+									<dd><b>Mirjam Kaizer</b></dd>
+								<dt>Finnish</dt>
+									<dd><b>Antti</b></dd>
+									<dd><b>Ripley</b></dd>
+								<dt>French</dt>
+									<dd><b>Fabien de Silvestre</b></dd>
+								<dt>German</dt> 
+									<dd><b>woelzen</b><a href='http://conseil.silvestre.fr' target='_blank'>http://conseil.silvestre.fr</a></dd>
+									<dd><b>chfrey</b></dd>
+								<dt>Greek</dt>
+									<dd><b>Charis Argyropoulos</b><a href='http://www.symenox.gr' target='_blank'>http://www.symenox.gr</a></dd>
+									<dd><b>George Fakas</b></dd>
+								<dt>Hebrew</dt>
+									<dd><b>Kobi</b></dd>
+									<dd><b>theNoam</b><a href='http://www.theNoam.com/' target='_blank'>http://www.theNoam.com/</a></dd>
+								<dt>Hungarian</dt> 
+									<dd><b>Jozsef Tamas Herczeg</b> <a href='http://www.soft-trans.hu' target='_blank'>SOFT-TRANS</a></dd>
+								<dt>Italian</dt>
+									<dd><b>Michele Monaco</b><a href='http://www.mayavoyage.com' target='_blank'>Maya Voyages</a></dd>
+									<dd><b>Marco Galimberti</b>
+									</dd>
+								<dt>Norwegian</dt> 
+									<dd><b>Ronny Tjelle</b></dd>
+									<dd><b>Steinar Vikholt</b></dd>
+								<dt>Persian</dt> 
+									<dd><b>Joomir</b> <a href='http://www.joomir.com/' target='_blank'>http://www.joomir.com</a></dd>
+								<dt>Polish</dt> 
+									<dd><b>Zbyszek Rosiek</b></dd>
+								<dt>Russian</dt>
+									<dd><b>Ragnaar</b></dd>
+								<dt>Slovenian</dt>
+									<dd><b>Iztok Osredkar</b></dd>
+								<dt>Spanish</dt> 
+									<dd><b>Eb&auml;vs</b> <a href='http://www.ebavs.net/' target='_blank'>eb&auml;vs.net</a></dd>
+								<dt>Traditional Chinese</dt>
+									<dd><b>Sun Yu</b><a href='http://www.meto.com.tw' target='_blank'>Meto</a></dd>
+									<dd><b>Mike Ho</b> <a href='http://www.dogneighbor.com' target='_blank'>http://www.dogneighbor.com</a></dd>
+								<dt>Turkish</dt>
+									<dd><b>Pheadrus</b></dd>
+							</dl>
 
-    <h3>Logo</h3>
-    <dl>
-        <dt>Designer</dt> <dd><b>Cory "ccdog" Webb</b> <a href='http://www.corywebb.com/' target='_blank'>CoryWebb.com</a></dd>
-    </dl>
+							<h3>Logo</h3>
+							<dl>
+								<dt>Designer</dt> <dd><b>Cory "ccdog" Webb</b> <a href='http://www.corywebb.com/' target='_blank'>CoryWebb.com</a></dd>
+							</dl>
 
-	
-	<h3>RSGallery2 2.x (Joomla 1.5.x)</h3>
-    <dl>
-		<dt>2010 (alphabetically)</dt>
-        	<dd>Johan Ravenzwaaij</dd>
-			<dd>Jonah Braun</dd>
-			<dd>Mihir Chhatre <a href="http://www.thoughtfulviewfinder.com">Thoughtfulviewfinder Services </a></dd>
-            <dd>Mirjam Kaizer</dd>
-        <dt>2008-2009</dt>
-		<dt>Project Architect</dt>
-        	<dd>Jonah Braun <a href='http://whalehosting.ca/' target='_blank'>Whale Hosting Inc.</a></dd>
-        <dt>Developers</dt>
-        	<dd>John Caprez</dd>
-        <dt>Community Liaison</dt>
-        	<dd>Dani&#235;l Tulp <a href='http://design.danieltulp.nl/' target='_blank'>DT^2</a></dd>
-    </dl>
-	
-    <h3>RSGallery2 1.x (Joomla 1.0.x, legacy)</h3>
-    <dl>
-        <dt>Creator</dt>
-        	<dd>Ronald Smit</dd>
-        <dt>RSGallery 1.x</dt>
-        	<dd>Andy "Troozers" Stewart</dd>
-            <dd>Richard Foster</dd>
-		<dt>RSGallery2 2005</dt>
-			<dd>Dani&#235;l Tulp</dd>
-			<dd>Jonah Braun</dd>
-			<dd>Tomislav Ribicic</dd>
-		<dt>RSGallery2 2006</dt>
-			<dd>Dani&#235;l Tulp</dd>
-			<dd>Jonah Braun</dd>
-			<dd>Ronald Smit</dd>
-			<dd>Tomislav Ribicic</dd>
-		<dt>RSGallery2 2007</dt>
-			<dd>Dani&#235;l Tulp</dd>
-			<dd>John Caprez</dd>
-			<dd>Jonah Braun</dd>
-			<dd>Jonathan DeLaigle</dd>
-			<dd>Margo Adams</dd>
-			<dd>Ronald Smit</dd>
-		<dt>RSGallery2 2008</dt>
-			<dd>Dan Shaffer 'chefgroovy'</dd>
-		<dt>&nbsp;</dt>
-    </dl>
+							
+							<h3>RSGallery2 2.x (Joomla 1.5.x)</h3>
+							<dl>
+								<dt>2010 (alphabetically)</dt>
+									<dd>Johan Ravenzwaaij</dd>
+									<dd>Jonah Braun</dd>
+									<dd>Mihir Chhatre <a href="http://www.thoughtfulviewfinder.com">Thoughtfulviewfinder Services </a></dd>
+									<dd>Mirjam Kaizer</dd>
+								<dt>2008-2009</dt>
+								<dt>Project Architect</dt>
+									<dd>Jonah Braun <a href='http://whalehosting.ca/' target='_blank'>Whale Hosting Inc.</a></dd>
+								<dt>Developers</dt>
+									<dd>John Caprez</dd>
+								<dt>Community Liaison</dt>
+									<dd>Dani&#235;l Tulp <a href='http://design.danieltulp.nl/' target='_blank'>DT^2</a></dd>
+							</dl>
+							
+							<h3>RSGallery2 1.x (Joomla 1.0.x, legacy)</h3>
+							<dl>
+								<dt>Creator</dt>
+									<dd>Ronald Smit</dd>
+								<dt>RSGallery 1.x</dt>
+									<dd>Andy "Troozers" Stewart</dd>
+									<dd>Richard Foster</dd>
+								<dt>RSGallery2 2005</dt>
+									<dd>Dani&#235;l Tulp</dd>
+									<dd>Jonah Braun</dd>
+									<dd>Tomislav Ribicic</dd>
+								<dt>RSGallery2 2006</dt>
+									<dd>Dani&#235;l Tulp</dd>
+									<dd>Jonah Braun</dd>
+									<dd>Ronald Smit</dd>
+									<dd>Tomislav Ribicic</dd>
+								<dt>RSGallery2 2007</dt>
+									<dd>Dani&#235;l Tulp</dd>
+									<dd>John Caprez</dd>
+									<dd>Jonah Braun</dd>
+									<dd>Jonathan DeLaigle</dd>
+									<dd>Margo Adams</dd>
+									<dd>Ronald Smit</dd>
+								<dt>RSGallery2 2008</dt>
+									<dd>Dan Shaffer 'chefgroovy'</dd>
+								<dt>&nbsp;</dt>
+							</dl>
 
-</div>
-                        <?php
-						echo JHtml::_('tabs.end');
-                        ?>                        </td>
-                            </tr>
-                    <tr>
-                      <td>&nbsp;</td>
-                    </tr>
-                        </table>
-            <br />
-                <table border="0" width="100%" cellspacing="1" cellpadding="1" style=background-color:#CCCCCC;>
-                    <tr>
-                        <td bgcolor="#FFFFFF" colspan="2">
-                            <img src="<?php echo JURI_SITE;?>/administrator/components/com_rsgallery2/images/rsg2-logo.png" align="middle" alt="RSGallery logo"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="120" bgcolor="#FFFFFF"><strong><?php echo JText::_('COM_RSGALLERY2_INSTALLED_VERSION');?></strong></td>
-                        <td bgcolor="#FFFFFF"><a href='index.php?option=com_rsgallery2&task=viewChangelog' title='view changelog'><?php echo $rsgVersion->getVersionOnly(); echo " (".$rsgVersion->getSVNonly().")";?></a></td>
-                    </tr>
-                    <tr>
-                        <td bgcolor="#FFFFFF"><strong><?php echo JText::_('COM_RSGALLERY2_LICENSE')?>:</strong></td>
-                        <td bgcolor="#FFFFFF"><a href="http://www.gnu.org/copyleft/gpl.html" target="_blank">GNU GPL</a></td>
-                    </tr>
-                </table>
+						</div>
+                <?php
+echo JHtml::_('bootstrap.endSlide');
+echo JHtml::_('bootstrap.endAccordion');
+        ?>
             </div>
 
             <div id='cpanel'>
@@ -396,38 +377,38 @@ class HTML_RSGALLERY{
 				}			
                 // if debug is on, display advanced options
                 if( ($rsgConfig->get( 'debug' )) AND ( $canDo->get('core.admin') ) ){ ?>
-                <div id='rsg2-cpanelDebug'>
-                    <div id='DangerZone'>
-                        <h3>
-                            <?php echo JText::_('COM_RSGALLERY2_DANGER_ZONE');?>
-                        </h3>
-                    </div>
-                    <br/>
-					<div id='rsg2-DebugHeader'>
-						<strong>
-							<?php echo JText::_('COM_RSGALLERY2_C_DEBUG_ON');?>
-						</strong>
-					</div>
-                    <?php
-                    $link = 'index.php?option=com_rsgallery2&task=purgeEverything';
-					HTML_RSGALLERY::quickiconDebugButton( 'purgeEverything', $link, 'media_DelItems.png', JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING') );
+					<div id='rsg2-cpanelDebug'>
+						<div id='DangerZone'>
+							<h3>
+								<?php echo JText::_('COM_RSGALLERY2_DANGER_ZONE');?>
+							</h3>
+						</div>
+						<br/>
+						<div id='rsg2-DebugHeader'>
+							<strong>
+								<?php echo JText::_('COM_RSGALLERY2_C_DEBUG_ON');?>
+							</strong>
+						</div>
+						<?php
+						$link = 'index.php?option=com_rsgallery2&task=purgeEverything';
+						HTML_RSGALLERY::quickiconDebugButton( 'purgeEverything', $link, 'media_DelItems.png', JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING') );
 
-                    $link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
-					HTML_RSGALLERY::quickiconDebugButton( 'reallyUninstall', $link, 'db_DelItems.png', JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL') );
-	
-					$link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
-					HTML_RSGALLERY::quickiconDebugButton( 'config_rawEdit', $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT') );
-					
-					//Moved Migration Options: only show when debug is on since there are only test migration options and four Joomla 1.0.x options.
-                    /*
-					$link = 'index.php?option=com_rsgallery2&rsgOption=maintenance&task=showMigration';
-					HTML_RSGALLERY::quickiconDebugButton( 'showMigration', $link, 'dbrestore.png', JText::_('COM_RSGALLERY2_MIGRATION_OPTIONS') );
-                    */
-                    $link = 'index.php?option=com_rsgallery2&task=config_dumpVars';
-                    HTML_RSGALLERY::quickiconDebugButton( 'config_dumpVars', $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW') );
-                    ?>
-                    <div class='rsg2-clr'>&nbsp;</div>
-                </div>
+						$link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
+						HTML_RSGALLERY::quickiconDebugButton( 'reallyUninstall', $link, 'db_DelItems.png', JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL') );
+		
+						$link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
+						HTML_RSGALLERY::quickiconDebugButton( 'config_rawEdit', $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT') );
+						
+						//Moved Migration Options: only show when debug is on since there are only test migration options and four Joomla 1.0.x options.
+						/*
+						$link = 'index.php?option=com_rsgallery2&rsgOption=maintenance&task=showMigration';
+						HTML_RSGALLERY::quickiconDebugButton( 'showMigration', $link, 'dbrestore.png', JText::_('COM_RSGALLERY2_MIGRATION_OPTIONS') );
+						*/
+						$link = 'index.php?option=com_rsgallery2&task=config_dumpVars';
+						HTML_RSGALLERY::quickiconDebugButton( 'config_dumpVars', $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW') );
+						?>
+						<div class='rsg2-clr'>&nbsp;</div>
+					</div>
                 <?php } ?>
                 <div class='rsg2-clr'>&nbsp;</div>
             </div>
