@@ -22,9 +22,9 @@ class HTML_RSGALLERY{
     
     /**
      * use to print a message between HTML_RSGallery::RSGalleryHeader(); and a normal feature.
-     * use for things like deleting an image, where a success message should be displayed and viewImages() called aferwards.
+     * use for things like deleting an image, where a success message should be displayed and viewImages() called afterwards.
      * two css classes are used: rsg-admin-msg, rsg-admin-msg-important
-     * this function replaces newlines with <br> for convienence.
+     * this function replaces newlines with <br> for convenience.
      *  
      * @todo implement css classes in css file
      *  

@@ -1,15 +1,15 @@
 <?php
 /**
-* This file contains the install class for RSGallery2
+* This file contains the install routine for RSGallery2
 * @version $Id: install.class.php 1088 2012-07-05 19:28:28Z mirjam $
 * @package RSGallery2
-* @copyright (C) 2003 - 2011 RSGallery2
+* @copyright (C) 2003 - 2015 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
 
 // no direct access
-defined( '_JEXEC' ) or die();
+defined('_JEXEC') or die;
 
 if(!defined('DS')){
 	define('DS',DIRECTORY_SEPARATOR);

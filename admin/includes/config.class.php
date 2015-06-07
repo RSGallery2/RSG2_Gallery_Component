@@ -172,7 +172,7 @@ class rsgConfig {
 	 * binds a named array/hash to this object
 	 * @param array $array $hash named array
 	 * @param string $ignore
-	 * @return bool|null|string	null is operation was satisfactory, otherwise returns an error
+	 * @return bool|null|string	null if operation was satisfactory, otherwise returns an error
 	 */
 	function _bind( $array, $ignore='' ) {
 		if (!is_array( $array )) {
@@ -192,7 +192,8 @@ class rsgConfig {
      * @param bool $checkSlashes
      * @return bool
      */
-	static function rsgBindArrayToObject( $array, &$obj, $ignore='', $prefix=NULL, $checkSlashes=true )
+	static function rsgBindArrayToObject( $array, &$obj, $ignore='', $prefix=NULL, 
+										  $checkSlashes=true )
 	{
 		if (!is_array( $array ) || !is_object( $obj )) {
 			return (false);
@@ -241,6 +242,7 @@ class rsgConfig {
 		if( !$database->execute() ){
 			// database doesn't exist, use defaults
 			// for this->name = value association (see below)
+			// ToDo: ? May create database table write values and call itself 
 			return;
 		}
 
@@ -248,6 +250,7 @@ class rsgConfig {
         if( !$vars ){
             // database doesn't exist, use defaults
             // for this->name = value association (see below)
+			// ToDo:  create values from default write values and call itself 
             return;
         }
 
