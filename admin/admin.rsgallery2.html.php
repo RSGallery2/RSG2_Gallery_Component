@@ -151,176 +151,176 @@ class HTML_RSGALLERY{
                     </tr>
                 </table>
 				<br />
-                <?php
-					echo JHtml::_('bootstrap.startAccordion', 'slide-example', array('active' => 'slide1'));
-					echo JHtml::_('bootstrap.addSlide', 'slide-example', JText::_('JCATEGORIES'), 'slide1');
-        ?>
-                        <table class="adminlist" width="500">
-                            <tr>
-                                <th colspan="3"><?php echo JText::_('COM_RSGALLERY2_MOST_RECENTLY_ADDED_GALLERIES'); ?></th>
-                            </tr>
-                            <tr>
-                                <td><strong><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?></strong></td>
-                                <td><strong><?php echo JText::_('COM_RSGALLERY2_USER'); ?></strong></td>
-                                <td><strong><?php echo JText::_('COM_RSGALLERY2_ID'); ?></strong></td>
-                            </tr>
-                            <?php // echo galleryUtils::latestCats();
-                                galleryUtils::latestCats();
-                            ?>
-                            <tr>
-                                <th colspan="3">&nbsp;</th>
-                            </tr>
-                        </table>
-                <?php
-echo JHtml::_('bootstrap.endSlide');
-echo JHtml::_('bootstrap.addSlide', 'slide-example', JText::_('COM_RSGALLERY2_ITEMS'), 'slide2');
-        ?>
-                        <table class="adminlist" width="500">
-                            <tr>
-                                <th colspan="4"><?php echo JText::_('COM_RSGALLERY2_MOST_RECENTLY_ADDED_ITEMS'); ?></th>
-                            </tr>
-                            <tr>
-                                <td><strong><?php echo JText::_('COM_RSGALLERY2_FILENAME');?></strong></td>
-                                <td><strong><?php echo JText::_('COM_RSGALLERY2_GALLERY');?></strong></td>
-                                <td><strong><?php echo JText::_('COM_RSGALLERY2_DATE'); ?></strong></td>
-                                <td><strong><?php echo JText::_('COM_RSGALLERY2_USER'); ?></strong></td>
-                            </tr>
-                            <?php galleryUtils::latestImages();?>
-                            <tr>
-                                <th colspan="4">&nbsp;</th>
-                            </tr>
-                        </table>
-                <?php
-echo JHtml::_('bootstrap.endSlide');
-echo JHtml::_('bootstrap.addSlide', 'slide-example', JText::_('COM_RSGALLERY2_CREDITS'), 'slide3');
-        ?>
+            <?php
+                echo JHtml::_('bootstrap.startAccordion', 'slide-example', array('active' => 'slide1'));
+                echo JHtml::_('bootstrap.addSlide', 'slide-example', JText::_('COM_RSGALLERY2_GALLERIES'), 'slide1');
+            ?>
+                <table class="adminlist" width="500">
+                    <tr>
+                        <th colspan="3"><?php echo JText::_('COM_RSGALLERY2_MOST_RECENTLY_ADDED_GALLERIES'); ?></th>
+                    </tr>
+                    <tr>
+                        <td><strong><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?></strong></td>
+                        <td><strong><?php echo JText::_('COM_RSGALLERY2_USER'); ?></strong></td>
+                        <td><strong><?php echo JText::_('COM_RSGALLERY2_ID'); ?></strong></td>
+                    </tr>
+                    <?php // echo galleryUtils::latestCats();
+                        galleryUtils::latestCats();
+                    ?>
+                    <tr>
+                        <th colspan="3">&nbsp;</th>
+                    </tr>
+                </table>
+            <?php
+                echo JHtml::_('bootstrap.endSlide');
+                echo JHtml::_('bootstrap.addSlide', 'slide-example', JText::_('COM_RSGALLERY2_IMAGES'), 'slide2');
+            ?>
+                <table class="adminlist" width="500">
+                    <tr>
+                        <th colspan="4"><?php echo JText::_('COM_RSGALLERY2_MOST_RECENTLY_ADDED_ITEMS'); ?></th>
+                    </tr>
+                    <tr>
+                        <td><strong><?php echo JText::_('COM_RSGALLERY2_FILENAME');?></strong></td>
+                        <td><strong><?php echo JText::_('COM_RSGALLERY2_GALLERY');?></strong></td>
+                        <td><strong><?php echo JText::_('COM_RSGALLERY2_DATE'); ?></strong></td>
+                        <td><strong><?php echo JText::_('COM_RSGALLERY2_USER'); ?></strong></td>
+                    </tr>
+                    <?php galleryUtils::latestImages();?>
+                    <tr>
+                        <th colspan="4">&nbsp;</th>
+                    </tr>
+                </table>
+            <?php
+                echo JHtml::_('bootstrap.endSlide');
+                echo JHtml::_('bootstrap.addSlide', 'slide-example', JText::_('COM_RSGALLERY2_CREDITS'), 'slide3');
+            ?>
 
-						<div id='rsg2-credits'>
-							<h3>Core Team - RSGallery2 4.x</h3>
-							<h4>(Joomla 3.x)</h4>
-							<dl>
-								<dt>2015 - </dt>
-									<dd><b>Johan Ravenzwaaij</b></dd>
-									<dd><b>Mirjam Kaizer</b></dd>
-									<dd><b>Thomas Finnern</b></dd>
-							</dl>
-							
-							<h3>RSGallery2 3.x (Joomla 1.6/1.7/2.5)</h3>
-							<dl>
-								<dt>2011-2014</dt>
-									<dd><b>Johan Ravenzwaaij</b></dd>
-									<dd><b>Mirjam Kaizer</b></dd>
-							</dl>
-							
-							<h3>Translations</h3>	
-							<dl>
-								<dt>Brazilian Portuguese</dt> 
-									<dd><b>Helio Wakasugui</b></dd>
-								<dt>Croatian</dt> 
-									<dd><b>Tanja</b></dd>
-								<dt>Czech</dt> 
-									<dd><b>David Zirhut</b> <a href='http://www.joomlaportal.cz/'>joomlaportal.za</a></dd>
-									<dd><b>Felix 'eFix' Lauda</b></dd>
-								<dt>Dutch</dt>
-									<dd><b>Tomislav Ribicic</b></dd>
-									<dd><b>Dani&#235;l Tulp</b> <a href='http://design.danieltulp.nl' target='_blank'></a></dd>
-									<dd><b>Bas</b><a href='http://www.fantasea.nl' target='_blank'>http://www.fantasea.nl</a></dd>
-									<dd><b>Mirjam Kaizer</b></dd>
-								<dt>Finnish</dt>
-									<dd><b>Antti</b></dd>
-									<dd><b>Ripley</b></dd>
-								<dt>French</dt>
-									<dd><b>Fabien de Silvestre</b></dd>
-								<dt>German</dt> 
-									<dd><b>woelzen</b><a href='http://conseil.silvestre.fr' target='_blank'>http://conseil.silvestre.fr</a></dd>
-									<dd><b>chfrey</b></dd>
-								<dt>Greek</dt>
-									<dd><b>Charis Argyropoulos</b><a href='http://www.symenox.gr' target='_blank'>http://www.symenox.gr</a></dd>
-									<dd><b>George Fakas</b></dd>
-								<dt>Hebrew</dt>
-									<dd><b>Kobi</b></dd>
-									<dd><b>theNoam</b><a href='http://www.theNoam.com/' target='_blank'>http://www.theNoam.com/</a></dd>
-								<dt>Hungarian</dt> 
-									<dd><b>Jozsef Tamas Herczeg</b> <a href='http://www.soft-trans.hu' target='_blank'>SOFT-TRANS</a></dd>
-								<dt>Italian</dt>
-									<dd><b>Michele Monaco</b><a href='http://www.mayavoyage.com' target='_blank'>Maya Voyages</a></dd>
-									<dd><b>Marco Galimberti</b>
-									</dd>
-								<dt>Norwegian</dt> 
-									<dd><b>Ronny Tjelle</b></dd>
-									<dd><b>Steinar Vikholt</b></dd>
-								<dt>Persian</dt> 
-									<dd><b>Joomir</b> <a href='http://www.joomir.com/' target='_blank'>http://www.joomir.com</a></dd>
-								<dt>Polish</dt> 
-									<dd><b>Zbyszek Rosiek</b></dd>
-								<dt>Russian</dt>
-									<dd><b>Ragnaar</b></dd>
-								<dt>Slovenian</dt>
-									<dd><b>Iztok Osredkar</b></dd>
-								<dt>Spanish</dt> 
-									<dd><b>Eb&auml;vs</b> <a href='http://www.ebavs.net/' target='_blank'>eb&auml;vs.net</a></dd>
-								<dt>Traditional Chinese</dt>
-									<dd><b>Sun Yu</b><a href='http://www.meto.com.tw' target='_blank'>Meto</a></dd>
-									<dd><b>Mike Ho</b> <a href='http://www.dogneighbor.com' target='_blank'>http://www.dogneighbor.com</a></dd>
-								<dt>Turkish</dt>
-									<dd><b>Pheadrus</b></dd>
-							</dl>
+                <div id='rsg2-credits'>
+                    <h3>Core Team - RSGallery2 4.x</h3>
+                    <h4>(Joomla 3.x)</h4>
+                    <dl>
+                        <dt>2015 - </dt>
+                            <dd><b>Johan Ravenzwaaij</b></dd>
+                            <dd><b>Mirjam Kaizer</b></dd>
+                            <dd><b>Thomas Finnern</b></dd>
+                    </dl>
 
-							<h3>Logo</h3>
-							<dl>
-								<dt>Designer</dt> <dd><b>Cory "ccdog" Webb</b> <a href='http://www.corywebb.com/' target='_blank'>CoryWebb.com</a></dd>
-							</dl>
+                    <h3>RSGallery2 3.x (Joomla 1.6/1.7/2.5)</h3>
+                    <dl>
+                        <dt>2011-2014</dt>
+                            <dd><b>Johan Ravenzwaaij</b></dd>
+                            <dd><b>Mirjam Kaizer</b></dd>
+                    </dl>
 
-							
-							<h3>RSGallery2 2.x (Joomla 1.5.x)</h3>
-							<dl>
-								<dt>2010 (alphabetically)</dt>
-									<dd>Johan Ravenzwaaij</dd>
-									<dd>Jonah Braun</dd>
-									<dd>Mihir Chhatre <a href="http://www.thoughtfulviewfinder.com">Thoughtfulviewfinder Services </a></dd>
-									<dd>Mirjam Kaizer</dd>
-								<dt>2008-2009</dt>
-								<dt>Project Architect</dt>
-									<dd>Jonah Braun <a href='http://whalehosting.ca/' target='_blank'>Whale Hosting Inc.</a></dd>
-								<dt>Developers</dt>
-									<dd>John Caprez</dd>
-								<dt>Community Liaison</dt>
-									<dd>Dani&#235;l Tulp <a href='http://design.danieltulp.nl/' target='_blank'>DT^2</a></dd>
-							</dl>
-							
-							<h3>RSGallery2 1.x (Joomla 1.0.x, legacy)</h3>
-							<dl>
-								<dt>Creator</dt>
-									<dd>Ronald Smit</dd>
-								<dt>RSGallery 1.x</dt>
-									<dd>Andy "Troozers" Stewart</dd>
-									<dd>Richard Foster</dd>
-								<dt>RSGallery2 2005</dt>
-									<dd>Dani&#235;l Tulp</dd>
-									<dd>Jonah Braun</dd>
-									<dd>Tomislav Ribicic</dd>
-								<dt>RSGallery2 2006</dt>
-									<dd>Dani&#235;l Tulp</dd>
-									<dd>Jonah Braun</dd>
-									<dd>Ronald Smit</dd>
-									<dd>Tomislav Ribicic</dd>
-								<dt>RSGallery2 2007</dt>
-									<dd>Dani&#235;l Tulp</dd>
-									<dd>John Caprez</dd>
-									<dd>Jonah Braun</dd>
-									<dd>Jonathan DeLaigle</dd>
-									<dd>Margo Adams</dd>
-									<dd>Ronald Smit</dd>
-								<dt>RSGallery2 2008</dt>
-									<dd>Dan Shaffer 'chefgroovy'</dd>
-								<dt>&nbsp;</dt>
-							</dl>
+                    <h3>Translations</h3>
+                    <dl>
+                        <dt>Brazilian Portuguese</dt>
+                            <dd><b>Helio Wakasugui</b></dd>
+                        <dt>Croatian</dt>
+                            <dd><b>Tanja</b></dd>
+                        <dt>Czech</dt>
+                            <dd><b>David Zirhut</b> <a href='http://www.joomlaportal.cz/'>joomlaportal.za</a></dd>
+                            <dd><b>Felix 'eFix' Lauda</b></dd>
+                        <dt>Dutch</dt>
+                            <dd><b>Tomislav Ribicic</b></dd>
+                            <dd><b>Dani&#235;l Tulp</b> <a href='http://design.danieltulp.nl' target='_blank'></a></dd>
+                            <dd><b>Bas</b><a href='http://www.fantasea.nl' target='_blank'>http://www.fantasea.nl</a></dd>
+                            <dd><b>Mirjam Kaizer</b></dd>
+                        <dt>Finnish</dt>
+                            <dd><b>Antti</b></dd>
+                            <dd><b>Ripley</b></dd>
+                        <dt>French</dt>
+                            <dd><b>Fabien de Silvestre</b></dd>
+                        <dt>German</dt>
+                            <dd><b>woelzen</b><a href='http://conseil.silvestre.fr' target='_blank'>http://conseil.silvestre.fr</a></dd>
+                            <dd><b>chfrey</b></dd>
+                        <dt>Greek</dt>
+                            <dd><b>Charis Argyropoulos</b><a href='http://www.symenox.gr' target='_blank'>http://www.symenox.gr</a></dd>
+                            <dd><b>George Fakas</b></dd>
+                        <dt>Hebrew</dt>
+                            <dd><b>Kobi</b></dd>
+                            <dd><b>theNoam</b><a href='http://www.theNoam.com/' target='_blank'>http://www.theNoam.com/</a></dd>
+                        <dt>Hungarian</dt>
+                            <dd><b>Jozsef Tamas Herczeg</b> <a href='http://www.soft-trans.hu' target='_blank'>SOFT-TRANS</a></dd>
+                        <dt>Italian</dt>
+                            <dd><b>Michele Monaco</b><a href='http://www.mayavoyage.com' target='_blank'>Maya Voyages</a></dd>
+                            <dd><b>Marco Galimberti</b>
+                            </dd>
+                        <dt>Norwegian</dt>
+                            <dd><b>Ronny Tjelle</b></dd>
+                            <dd><b>Steinar Vikholt</b></dd>
+                        <dt>Persian</dt>
+                            <dd><b>Joomir</b> <a href='http://www.joomir.com/' target='_blank'>http://www.joomir.com</a></dd>
+                        <dt>Polish</dt>
+                            <dd><b>Zbyszek Rosiek</b></dd>
+                        <dt>Russian</dt>
+                            <dd><b>Ragnaar</b></dd>
+                        <dt>Slovenian</dt>
+                            <dd><b>Iztok Osredkar</b></dd>
+                        <dt>Spanish</dt>
+                            <dd><b>Eb&auml;vs</b> <a href='http://www.ebavs.net/' target='_blank'>eb&auml;vs.net</a></dd>
+                        <dt>Traditional Chinese</dt>
+                            <dd><b>Sun Yu</b><a href='http://www.meto.com.tw' target='_blank'>Meto</a></dd>
+                            <dd><b>Mike Ho</b> <a href='http://www.dogneighbor.com' target='_blank'>http://www.dogneighbor.com</a></dd>
+                        <dt>Turkish</dt>
+                            <dd><b>Pheadrus</b></dd>
+                    </dl>
 
-						</div>
-                <?php
-echo JHtml::_('bootstrap.endSlide');
-echo JHtml::_('bootstrap.endAccordion');
-        ?>
+                    <h3>Logo</h3>
+                    <dl>
+                        <dt>Designer</dt> <dd><b>Cory "ccdog" Webb</b> <a href='http://www.corywebb.com/' target='_blank'>CoryWebb.com</a></dd>
+                    </dl>
+
+
+                    <h3>RSGallery2 2.x (Joomla 1.5.x)</h3>
+                    <dl>
+                        <dt>2010 (alphabetically)</dt>
+                            <dd>Johan Ravenzwaaij</dd>
+                            <dd>Jonah Braun</dd>
+                            <dd>Mihir Chhatre <a href="http://www.thoughtfulviewfinder.com">Thoughtfulviewfinder Services </a></dd>
+                            <dd>Mirjam Kaizer</dd>
+                        <dt>2008-2009</dt>
+                        <dt>Project Architect</dt>
+                            <dd>Jonah Braun <a href='http://whalehosting.ca/' target='_blank'>Whale Hosting Inc.</a></dd>
+                        <dt>Developers</dt>
+                            <dd>John Caprez</dd>
+                        <dt>Community Liaison</dt>
+                            <dd>Dani&#235;l Tulp <a href='http://design.danieltulp.nl/' target='_blank'>DT^2</a></dd>
+                    </dl>
+
+                    <h3>RSGallery2 1.x (Joomla 1.0.x, legacy)</h3>
+                    <dl>
+                        <dt>Creator</dt>
+                            <dd>Ronald Smit</dd>
+                        <dt>RSGallery 1.x</dt>
+                            <dd>Andy "Troozers" Stewart</dd>
+                            <dd>Richard Foster</dd>
+                        <dt>RSGallery2 2005</dt>
+                            <dd>Dani&#235;l Tulp</dd>
+                            <dd>Jonah Braun</dd>
+                            <dd>Tomislav Ribicic</dd>
+                        <dt>RSGallery2 2006</dt>
+                            <dd>Dani&#235;l Tulp</dd>
+                            <dd>Jonah Braun</dd>
+                            <dd>Ronald Smit</dd>
+                            <dd>Tomislav Ribicic</dd>
+                        <dt>RSGallery2 2007</dt>
+                            <dd>Dani&#235;l Tulp</dd>
+                            <dd>John Caprez</dd>
+                            <dd>Jonah Braun</dd>
+                            <dd>Jonathan DeLaigle</dd>
+                            <dd>Margo Adams</dd>
+                            <dd>Ronald Smit</dd>
+                        <dt>RSGallery2 2008</dt>
+                            <dd>Dan Shaffer 'chefgroovy'</dd>
+                        <dt>&nbsp;</dt>
+                    </dl>
+
+                </div>
+            <?php
+                echo JHtml::_('bootstrap.endSlide');
+                echo JHtml::_('bootstrap.endAccordion');
+            ?>
             </div>
 
             <div id='cpanel'>
@@ -359,6 +359,7 @@ echo JHtml::_('bootstrap.endAccordion');
     			}
 				
 				// Temporary not for v3.2.0: permissions in front end need to be implemented in next release and this message can then be removed.
+                /*
 				if ($user->authorise('core.admin', 	'com_rsgallery2')){
 					echo '<div style="clear:left;">';
 					echo '<div class="CtrlPanelInfo">';
@@ -374,7 +375,7 @@ echo JHtml::_('bootstrap.endAccordion');
 						echo '</p>';
 					echo '</div>';
 					echo '<div style="clear:left;">';
-				}			
+				} */
                 // if debug is on, display advanced options
                 if( ($rsgConfig->get( 'debug' )) AND ( $canDo->get('core.admin') ) ){ ?>
 					<div id='rsg2-cpanelDebug'>
