@@ -60,6 +60,12 @@ class html_rsg2_config{
 		//$document->addStyleSheet( JURI::base( true )."/components/com_rsgallery2/admin.rsgallery2.css");
 		$document->addStyleSheet( JURI_SITE."administrator/components/com_rsgallery2/template.css");
 		
+		
+        // Define tabs options for version of Joomla! 3.1
+        $tabsOptionsJ31 = array(
+            "active" => "tab1_j31_id" // It is the ID of the active tab.
+        );
+        		
 		$config = $rsgConfig;
 		
 		//Exif tags
@@ -288,15 +294,24 @@ class html_rsg2_config{
 
             <div class="clearfix"> </div>
 			
-		<?php
+		<!--?php
 		echo JHtml::_('tabs.start', 'tab_group_id', $options);
 		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_GENERAL'), 'rsgConfig');
-		?>
-		<table border="0" width="100%">
-			<tr>
-				<td valign="top">
+		?-->
+		<?php echo JHtml::_('bootstrap.startTabSet', 'ID-Tabs-J31-Group', $tabsOptionsJ31);?>			
+			
+			<?php echo JHtml::_('bootstrap.addTab', 'ID-Tabs-J31-Group', 'tab1_j31_id', JText::_('COM_RSGALLERY2_GENERAL')); ?>	
+				<div class="row-fluid">
+
+<?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_general_group', array('active' => 'cfg_general_id_1')); ?>
+		
+	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_general_group', 
+		JText::_('COM_RSGALLERY2_IMAGE_MANIPULATION'), 'cfg_general_id_1'); ?> 
+
+				
 					<fieldset>
-						<legend><?php echo JText::_('COM_RSGALLERY2_GENERAL_SETTINGS') ?></legend>
+					
+					
 						<table width="100%">
 							<tr>
 								<td width="200"><?php echo JText::_('COM_RSGALLERY2_VERSION')?></td>
@@ -343,26 +358,31 @@ class html_rsg2_config{
 							</tr>
 						</table>
 					</fieldset>
-				</td>
-			</tr>
-		</table>
-		<?php
+	<?php echo JHtml::_('bootstrap.endSlide'); ?>
+			
+<?php echo JHtml::_('bootstrap.endAccordion'); ?>	
+
+		<!--?php
 		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_CONTROL_PANEL_TAB_IMAGES'), 'rsgConfig');
 		echo JHtml::_('tabs.start', 'rsgConfig_Images', $options);
 		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_IMAGE_MANIPULATION'), 'rsgConfig_Images');
-		?>
+		?-->
+			</div>						
+		<?php echo JHtml::_('bootstrap.endTab');?>
+						
+		<?php echo JHtml::_('bootstrap.addTab', 'ID-Tabs-J31-Group', 'tab2_j31_id', JText::_('COM_RSGALLERY2_IMAGES')); ?>
+			<div class="row-fluid">
+			<?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_images_group', array('active' => 'cfg_images_id_1')); ?>
+					
+				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', 
+					JText::_('COM_RSGALLERY2_IMAGE_MANIPULATION'), 'cfg_images_id_1'); ?> 
+
 					<fieldset>
 						<table width="100%">
 							<tr>
 								<td width="200"><?php echo JText::_('COM_RSGALLERY2_DISPLAY_PICTURE_WIDTH') ?></td>
 								<td width="78%"><input class="text_area" type="text" name="image_width" size="10" value="<?php echo $config->image_width;?>"/></td>
 							</tr>
-							<!-- Removed after v3.0.2 - was not used
-							<tr>
-								<td><?php //echo JText::_('COM_RSGALLERY2_RESIZE_PORTRAIT_IMAGES_BY_HEIGHT_USING_DISPLAY_PICTURE_WIDTH') ; ?></td>
-								<td><fieldset id="jform_block" class="radio">
-						<?php //echo JHtml::_("select.booleanlist",'resize_portrait_by_height', '', $config->resize_portrait_by_height);?></fieldset></td>
-							</tr>	-->
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_THUMBNAIL_WIDTH') ?></td>
 								<td><input class="text_area" type="text" name="thumb_width" size="10" value="<?php echo $config->thumb_width;?>"/></td>
@@ -386,9 +406,10 @@ class html_rsg2_config{
 							</tr>
 						</table>
 					</fieldset>
-		<?php
-		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_IMAGE_UPLOAD'), 'rsgConfig_Images');
-		?>					
+	<?php echo JHtml::_('bootstrap.endSlide'); ?>
+			
+	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_IMAGE_UPLOAD'), 'cfg_images_id_2'); ?> 
+
 					<fieldset>
 						<table width="100%">
 							<tr>
@@ -419,10 +440,11 @@ class html_rsg2_config{
 							</tr>
 						</table>
 					</fieldset>
-<!--end of addition-->					
-		<?php
-		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_GRAPHICS_LIBRARY'), 'rsgConfig_Images');
-		?>
+
+	<?php echo JHtml::_('bootstrap.endSlide'); ?>
+			
+	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_GRAPHICS_LIBRARY'), 'cfg_images_id_3'); ?> 
+
 					<fieldset>
 						<table width="100%">
 							<tr>
@@ -461,9 +483,11 @@ class html_rsg2_config{
 							</tr>
 						</table>
 					</fieldset>
-		<?php
-		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_IMAGE_STORAGE'), 'rsgConfig_Images');
-		?>
+
+	<?php echo JHtml::_('bootstrap.endSlide'); ?>
+			
+	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_IMAGE_STORAGE'), 'cfg_images_id_4'); ?> 
+
 					<fieldset>
 						<table width="100%">
 							<tr>
@@ -498,9 +522,11 @@ class html_rsg2_config{
 							</tr>	-->
 						</table>
 					</fieldset>
-		<?php
-		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_COMMENTS'), 'rsgConfig_Images');
-		?>
+
+	<?php echo JHtml::_('bootstrap.endSlide'); ?>
+			
+	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_COMMENTS'), 'cfg_images_id_5'); ?> 
+
 					<fieldset>
 						<table width="100%">
 							<tr>
@@ -608,9 +634,9 @@ class html_rsg2_config{
 							</tr>	-->
 						</table>
 					</fieldset>
-		<?php
-		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_VOTING'), 'rsgConfig_Images');
-		?>
+	<?php echo JHtml::_('bootstrap.endSlide'); ?>
+			
+	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_VOTING'), 'cfg_images_id_6'); ?> 
 					<fieldset>
 						<table width="100%">
 							<tr>
@@ -629,15 +655,28 @@ class html_rsg2_config{
 							</tr>
 						</table>
 					</fieldset>
-		<?php
+		<!--?php
 		echo JHtml::_('tabs.end');
 		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_DISPLAY'), 'rsgConfig');
 		echo JHtml::_('tabs.start', 'rsgConfig_Display', $options);
 		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_FRONT_PAGE'), 'rsgConfig_Display2');
-		?>
+		?-->
+	<?php echo JHtml::_('bootstrap.endSlide'); ?>
+			
+<?php echo JHtml::_('bootstrap.endAccordion'); ?>	
+
+				</div>			
+			<?php echo JHtml::_('bootstrap.endTab');?>
+			
+			<?php echo JHtml::_('bootstrap.addTab', 'ID-Tabs-J31-Group', 'tab3_j31_id', JText::_('COM_RSGALLERY2_DISPLAY')); ?>
+				<div class="row-fluid">
+
+<?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_display_group', array('active' => 'cfg_display_id_1')); ?>
+		
+	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group', 
+		JText::_('COM_RSGALLERY2_FRONT_PAGE'), 'cfg_display_id_1'); ?> 
 
 					<fieldset>
-					<legend><?php //echo JText::_('COM_RSGALLERY2_FRONT_PAGE')?></legend>
 					<table width="100%">
 						<tr>
 							<td width="200"><?php echo JText::_('COM_RSGALLERY2_DISPLAY_SEARCH')?></td>
@@ -709,9 +748,11 @@ class html_rsg2_config{
 						</tr>
 					</table>
 					</fieldset>
-		<?php
-		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_IMAGE_DISPLAY'), 'rsgConfig_Display3');
-		?>
+
+	<?php echo JHtml::_('bootstrap.endSlide'); ?>
+			
+	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group', JText::_('COM_RSGALLERY2_IMAGE_DISPLAY'), 'cfg_display_id_2'); ?> 
+
 					<fieldset>
 					<legend><?php //echo JText::_('COM_RSGALLERY2_IMAGE_DISPLAY')?></legend>
 					<table width="100%">
@@ -756,9 +797,11 @@ class html_rsg2_config{
 						</tr>
 					</table>
 					</fieldset>
-		<?php
-		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_IMAGE_ORDER'), 'rsgConfig_Display4');
-		?>
+
+	<?php echo JHtml::_('bootstrap.endSlide'); ?>
+			
+	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group', JText::_('COM_RSGALLERY2_IMAGE_ORDER'), 'cfg_display_id_3'); ?> 
+
 					<fieldset>
 						<legend><?php //echo JText::_('COM_RSGALLERY2_IMAGE_ORDER')?></legend>
 						<table width="100%">
@@ -773,9 +816,10 @@ class html_rsg2_config{
 						</table>
 					</fieldset>
 
-		<?php
-		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_EXIF_SETTINGS'), 'rsgConfig_Display5');
-		?>					
+	<?php echo JHtml::_('bootstrap.endSlide'); ?>
+			
+	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group', JText::_('COM_RSGALLERY2_EXIF_SETTINGS'), 'cfg_display_id_4'); ?> 
+
 					<fieldset>
 						<legend><?php //echo JText::_('COM_RSGALLERY2_EXIF_SETTINGS')?></legend>
 						<table width="100%">
@@ -798,9 +842,10 @@ class html_rsg2_config{
 							</tr>
 						</table>
 					</fieldset>
-		<?php
-		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_GALLERY_VIEW'), 'rsgConfig_Display6');
-		?>	
+
+	<?php echo JHtml::_('bootstrap.endSlide'); ?>
+			
+	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group', JText::_('COM_RSGALLERY2_GALLERY_VIEW'), 'cfg_display_id_5'); ?> 
 					
 					<fieldset>
 						<legend><?php //echo JText::_('COM_RSGALLERY2_GALLERY_VIEW')?></legend>
@@ -836,10 +881,10 @@ class html_rsg2_config{
 						</table>
 					</fieldset>
 
-		<?php
-		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_IMAGE_WATERMARK'), 'rsgConfig_Display7');
-		?>						
-					
+	<?php echo JHtml::_('bootstrap.endSlide'); ?>
+			
+	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group', JText::_('COM_RSGALLERY2_IMAGE_WATERMARK'), 'cfg_display_id_6'); ?> 
+
 					<fieldset>
 					<legend><?php //echo JText::_('COM_RSGALLERY2_IMAGE_WATERMARK')?></legend>
 					<table width="100%">
@@ -902,15 +947,23 @@ class html_rsg2_config{
 						</tr>
 					</table>
 					</fieldset>
-		<?php
-		echo JHtml::_('tabs.end');
-		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_MY_GALLERIES'), 'rsgConfig');
-		?>
-		<table border="0" width="100%">
-			<tr>
-				<td>
+
+	<?php echo JHtml::_('bootstrap.endSlide'); ?>
+			
+<?php echo JHtml::_('bootstrap.endAccordion'); ?>	
+
+				</div>			
+			<?php echo JHtml::_('bootstrap.endTab');?>
+			
+			<?php echo JHtml::_('bootstrap.addTab', 'ID-Tabs-J31-Group', 'tab4_j31_id', JText::_('COM_RSGALLERY2_MY_GALLERIES')); ?>
+				<div class="row-fluid">
+
+<?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_my_galleries_group', array('active' => 'cfg_my_galleries_id_1,cfg_my_galleries_id_2')); ?>
+		
+	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_my_galleries_group', 
+		JText::_('COM_RSGALLERY2_IMAGE_MANIPULATION'), 'cfg_my_galleries_id_1'); ?> 
+
 					<fieldset>
-					<legend><?php echo JText::_('COM_RSGALLERY2_MY_GALLERIES_SETTINGS')?></legend>
 						<table width="100%">
 							<tr>
 								<td width="200">
@@ -944,12 +997,12 @@ class html_rsg2_config{
 							</tr>
 						</table>
 					</fieldset>
-				</td>
-			</tr>
-			<tr>
-				<td>
+
+	<?php echo JHtml::_('bootstrap.endSlide'); ?>
+			
+	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_my_galleries_group', JText::_('COM_RSGALLERY2_IMAGE_UPLOAD'), 'cfg_my_galleries_id_2'); ?> 
+	
 					<fieldset>
-					<legend><?php echo JText::_('COM_RSGALLERY2_USER_SPECIFIC_SETTINGS')?></legend>
 					<table width="100%">
 					<tr>
 						<td width="200">
@@ -969,12 +1022,18 @@ class html_rsg2_config{
 					</tr>
 					</table>
 					</fieldset>
-				</td>
-			</tr>
-		</table>
-		<?php
+
+	<?php echo JHtml::_('bootstrap.endSlide'); ?>
+			
+<?php echo JHtml::_('bootstrap.endAccordion'); ?>	
+		
+		<!--?php
 		echo JHtml::_('tabs.end');
-		?>
+		?-->
+			<?php echo JHtml::_('bootstrap.endTab');?>
+					
+		<?php echo JHtml::_('bootstrap.endTabSet');?>
+
 		<input type="hidden" name="option" value="com_rsgallery2" />
 		<input type="hidden" name="rsgOption" value="config" />
 		<input type="hidden" name="task" value="" />

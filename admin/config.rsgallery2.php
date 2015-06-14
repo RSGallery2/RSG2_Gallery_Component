@@ -18,120 +18,6 @@ defined( '_JEXEC' ) or die();
  */
 class galleryUtils {
 
-    /**
-     * shows proper Joomla path
-     * contributed by Jeckel
-	 * Deprecated? It seems that galleryUtils::showRSPath is not used in v2.1.0 anymore.
-     */
-    /*function showRSPath($catid, $imgid = 0){
-        global $mainframe, $database;
-    
-        if ($catid != 0) {
-//            $database->setQuery('SELECT * FROM `#__rsgallery2_galleries` WHERE `id` = '. (int) $catid);
-            $rows = $database->loadObjectList();
-
-            $cat = $rows[0];
-            $cats = array();
-            array_push($cats, $cat);
-            
-            while ($cat->parent != 0) {
-                $database->setQuery('SELECT * FROM `#__rsgallery2_galleries` WHERE `id` = ' . (int) $cat->parent );
-                $rows = $database->loadObjectList();
-                $cat = $rows[0];
-                array_unshift($cats, $cat);
-            }    // while
-            
-            reset($cats);
-            foreach($cats as $cat) {
-                if ($cat->id == $catid && empty($imgid)) {
-                    $mainframe->appendPathWay($cat->name);
-                } else {
-					$mainframe->appendPathWay('<a href="' .JRoute::_('index.php?option=com_rsgallery2&catid=' . $cat->id ). '">' . $cat->name . '</a>');
-                }    // if
-            }    // foreach
-        }    // if
-        
-        if (!empty($imgid)) {
-//            $database->setQuery('SELECT `title` FROM `#__rsgallery2_files` WHERE `id` = '. (int) $imgid);
-            $imgTitle = $database->loadResult();
-            $mainframe->appendPathWay($imgTitle);
-        }    // if
-        
-    }/**/
-
-    /**
-     * Shows random images for display on main page
-	 * Seems to be deprecated
-     */
-    /*function showRandom() {
-    $database = JFactory::getDBO();
-
-//    $database->setQuery("SELECT file.gallery_id, file.ordering, file.id, file.name, file.descr".
-                        " FROM #__rsgallery2_files file, #__rsgallery2_galleries gal".
-                        " WHERE file.gallery_id= (int) gal.id and gal.published=1".
-                        " ORDER BY rand() limit 3");
-    $rows = $database->loadObjectList();
-
-    HTML_RSGALLERY::showRandom($rows);
-    }/**/
-
-    /**
-     * Shows latest uploaded images for display on main page
-	 * Seems to be deprecated
-     */
-    /*function showLatest() {
-    $database = JFactory::getDBO();
-    
-//    $database->setQuery("SELECT file.gallery_id, file.ordering, file.id, file.name, file.descr".
-                        " FROM #__rsgallery2_files file, #__rsgallery2_galleries gal".
-                        " WHERE file.gallery_id= (int) gal.id and gal.published=1".
-                        " ORDER BY file.date DESC limit 3");
-    $rows = $database->loadObjectList();
-    
-    HTML_RSGALLERY::showLatest($rows);
-    }/**/
-    
-    /**
-     * Shows a dropdownlist with all categories, owned by the logged in user
-     * @param int $s_id Category ID to show the current category selected. Defaults to 0.
-     * @param int $uid User ID of the owner of the gallery
-     * @param string $selectname Name of select form element
-     * @return string HTML representation of dropdown box
-     * @todo Make all categories visible if user is Super Administrator
-	 * Seems to be no longer used in v3(RC1)
-     */
-    /*function showCategories($s_id = 0, $uid, $selectname = 'i_cat') {
-		global $dropdown_html;
-		$database = JFactory::getDBO();
-		$database->setQuery('SELECT * FROM `#__rsgallery2_galleries` WHERE `parent` = 0 AND `uid` = '. (int) $uid .' ORDER BY `ordering` ASC');
-		$rows = $database->loadObjectList();
-		$dropdown_html = "<select name=\"$selectname\"><option value=\"0\" SELECTED>".JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST')."</option>\n";
-
-		foreach ($rows as $row)
-			{
-			$id = $row->id;
-			$database->setQuery('SELECT * FROM `#__rsgallery2_galleries` WHERE `parent` = '. (int) $id .' AND `uid` = '. (int) $uid .' ORDER BY `ordering` ASC');
-			$rows2 = $database->loadObjectList();
-
-			if (!isset($s_id))
-				{
-				$s_id=0;
-				}
-			$dropdown_html .= "<option value=\"$row->id\"";
-			if ($row->id == $s_id)
-				$dropdown_html .= " SELECTED>";
-			else
-				$dropdown_html .= ">";
-			$dropdown_html .=  $row->name."</option>\n";
-
-			foreach($rows2 as $row2)
-				{
-				$dropdown_html .= "<option value=\"$row2->id\">-->$row2->name</option>\n";
-				}
-			}
-			echo $dropdown_html."</select>";
-	}*/
-    
 	/**
 	 * Show gallery select list according to the permissions of the logged in user
 	 * @param string $action  Action type
@@ -526,60 +412,6 @@ class galleryUtils {
 				$i++;
 		}
     }
-
-	/**
-     * Seems to be no longer used in v3.1.0, so removed it for v3.1.1
-     */
-/*    function addHit($id) {
-        $database = JFactory::getDBO();
-        //Get hits from DB
-        $database->setQuery('SELECT `hits` FROM `#__rsgallery2_files` WHERE `id` = '. (int) $id);
-        $hits = $database->loadResult();
-        $hits++;
-        $database->setQuery('UPDATE `#__rsgallery2_files` SET `hits` = '. (int) $hits. ' WHERE `id` = '. (int) $id);
-        if ($database->execute()) {
-            return(1);//OK
-		} else {
-            return(0);//Not OK
-		}
-	}/**/
-
-	/**
-     * Seems to be no longer used in v3.1.0, so removed it for v3.1.1
-     */    
-/*    function addCatHit($hid)
-        {
-        $database = JFactory::getDBO();
-        //Get hits from DB
-        $database->setQuery('SELECT `hits` FROM `#__rsgallery2_galleries` WHERE `id` = '. (int) $hid);
-        $hits = $database->loadResult();
-        $hits++;
-        $database->setQuery('UPDATE `#__rsgallery2_galleries` SET `hits` = '. (int) $hits. ' WHERE `id` = '. (int) $hid);
-        if ($database->execute()) {
-            return(1);//OK
-		} else {
-            return(0);//Not OK
-		}
-	}/**/
-
-	/**
-     * Seems to be no longer used in v3.1.0, so removed it for v3.1.1
-     */ 	
-/*    function showRating($id) {
-        $database = JFactory::getDBO();
-        $database->setQuery('SELECT * FROM `#__rsgallery2_files` WHERE `id` = '. (int) $id);
-        $values = array(JText::_('COM_RSGALLERY2_NO_RATING'),JText::_('COM_RSGALLERY2_NBSP;VERY_BADNBSP;'),JText::_('COM_RSGALLERY2_NBSP;BADNBSP;'),JText::_('COM_RSGALLERY2_NBSP;OKNBSP;'),JText::_('COM_RSGALLERY2_NBSP;GOODNBSP;'),JText::_('COM_RSGALLERY2_NBSP;VERY_GOODNBSP;'));
-        $rows = $database->loadObjectList();
-        $images = "";
-        foreach ($rows as $row) {
-            $average = $row->rating/$row->votes;
-            $average1 = round($average);
-            for ($t = 1; $t <= $average1; $t++) {
-                $images .= "<img src=\"JURI_SITE/images/M_images/rating_star.png\">&nbsp;";
-			}
-		}
-            return $images;
-	}/**/
         
 	/**
 	 * @param $xid
@@ -594,21 +426,21 @@ class galleryUtils {
 		$database->setQuery($query);
 		$rows = $database->loadObjectList();
 		if (count($rows) > 0)
-			{
+		{
 			foreach ($rows as $row)
-				{
+			{
 				$gallery_id = $row->gallery_id;
 				if ($gallery_id == $xid)
-					{
+				{
 					echo JText::_('COM_RSGALLERY2_NEW-');
 					break;
-					}
 				}
 			}
+		}
 		else
-			{
+		{
 			echo "";
-			}
+		}
 	}
     
     /**
@@ -1047,21 +879,6 @@ class galleryUtils {
 	    }
 	    return $string;
 	}
-
-	/* Not used 20150128
-	 * @param string $type User type like Addmin super admin ...
-	 * @return bool
-	 *
-	static function isUserType($type = "Super Administrator") {
-		global $my;
-		// Since version 1.6 Joomla has a flexible ACL system, which makes $user->usertype deprecated!
-		if ($my->usertype == $type) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	/**/
 
    /**
 	* Method to return a list of all galleries that a user has permission for a given action
