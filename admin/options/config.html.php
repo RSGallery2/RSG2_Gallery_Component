@@ -294,10 +294,6 @@ class html_rsg2_config{
 
             <div class="clearfix"> </div>
 			
-		<!--?php
-		echo JHtml::_('tabs.start', 'tab_group_id', $options);
-		echo JHtml::_('tabs.panel', JText::_('COM_RSGALLERY2_GENERAL'), 'rsgConfig');
-		?-->
 		<?php echo JHtml::_('bootstrap.startTabSet', 'ID-Tabs-J31-Group', $tabsOptionsJ31);?>			
 			
 			<?php echo JHtml::_('bootstrap.addTab', 'ID-Tabs-J31-Group', 'tab1_j31_id', JText::_('COM_RSGALLERY2_GENERAL')); ?>	
@@ -306,7 +302,7 @@ class html_rsg2_config{
 <?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_general_group', array('active' => 'cfg_general_id_1')); ?>
 		
 	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_general_group', 
-		JText::_('COM_RSGALLERY2_IMAGE_MANIPULATION'), 'cfg_general_id_1'); ?> 
+		JText::_('COM_RSGALLERY2_GENERAL_SETTINGS'), 'cfg_general_id_1'); ?> 
 
 				
 					<fieldset>
@@ -958,12 +954,12 @@ class html_rsg2_config{
 			<?php echo JHtml::_('bootstrap.addTab', 'ID-Tabs-J31-Group', 'tab4_j31_id', JText::_('COM_RSGALLERY2_MY_GALLERIES')); ?>
 				<div class="row-fluid">
 
-<?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_my_galleries_group', array('active' => 'cfg_my_galleries_id_1,cfg_my_galleries_id_2')); ?>
+<?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_my_galleries_group_1', array('active' => 'cfg_my_galleries_id_1')); ?>
 		
-	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_my_galleries_group', 
-		JText::_('COM_RSGALLERY2_IMAGE_MANIPULATION'), 'cfg_my_galleries_id_1'); ?> 
+	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_my_galleries_group_1', 
+		JText::_('COM_RSGALLERY2_MY_GALLERIES_SETTINGS'), 'cfg_my_galleries_id_1'); ?> 
 
-					<fieldset>
+					<fieldset class="form-horizontal">
 						<table width="100%">
 							<tr>
 								<td width="200">
@@ -1000,9 +996,14 @@ class html_rsg2_config{
 
 	<?php echo JHtml::_('bootstrap.endSlide'); ?>
 			
-	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_my_galleries_group', JText::_('COM_RSGALLERY2_IMAGE_UPLOAD'), 'cfg_my_galleries_id_2'); ?> 
+			
+<?php echo JHtml::_('bootstrap.endAccordion'); ?>	
+		
+<?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_my_galleries_group_2', array('active' => 'cfg_my_galleries_id_2')); ?>
+		
+	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_my_galleries_group_2', JText::_('COM_RSGALLERY2_IMAGE_UPLOAD'), 'cfg_my_galleries_id_2'); ?> 
 	
-					<fieldset>
+					<fieldset class="form-horizontal">
 					<table width="100%">
 					<tr>
 						<td width="200">
