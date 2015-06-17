@@ -3,7 +3,7 @@
 * This file handles image manipulation functions RSGallery2
 * @version $Id: file.utils.php 1088 2012-07-05 19:28:28Z mirjam $
 * @package RSGallery2
-* @copyright (C) 2005 - 2011 RSGallery2
+* @copyright (C) 2005 - 2015 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
@@ -596,11 +596,12 @@ class fileHandler {
 	        .JText::_('COM_RSGALLERY2_PLEASE_CHECK_THE_PATH').'<br>'
 	        .JText::_('COM_RSGALLERY2_FTP_PATH').' "'.$source.'"' );
 			$mainframe->redirect( 'index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
-        } else {
-			return $list;            
         }
+		//else {  20150616
+		//	return $list;            
+        //}
 
-        return [];
+        return $list; // filled or empty list
     }
     
     /**

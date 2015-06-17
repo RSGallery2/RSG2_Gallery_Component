@@ -756,7 +756,7 @@ class galleryUtils {
 	static function getChildListArray( $gallery_id, $array = Null) {
 	 	$database = JFactory::getDBO();
 		
-	 	$array[] = $gallery_id;
+	 	$array = $gallery_id;
 
 		$query = $database->getQuery(true);
 		$query->select('id');
@@ -783,7 +783,7 @@ class galleryUtils {
 	static function showFontList() {
 	 	global $rsgConfig;
 
-		$fontlist=[];
+		$fontlist = array();
 
 	 	$selected = $rsgConfig->get('watermark_font');
 	 	$fonts = JFolder::files(JPATH_RSGALLERY2_ADMIN.DS.'fonts', 'ttf');
