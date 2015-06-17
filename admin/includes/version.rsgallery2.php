@@ -20,7 +20,7 @@ class rsgalleryVersion {
     /** @var string Product */
     var $PRODUCT    = 'RSGallery2';
     /** @var int Main Release Level */
-    var $RELEASE    = '4.0.8';				//Main Release Level: x.y for x.y.z
+    var $RELEASE    = '4.0.9';				//Main Release Level: x.y for x.y.z
     /** @var string Development Status */
     var $DEV_STATUS = 'dev';
     /** @var int Sub Release Level */
@@ -31,7 +31,7 @@ class rsgalleryVersion {
     /** @var string Codename */
     var $CODENAME   = '';
     /** @var string Date */
-    var $RELDATE    = '24 May 2015';
+    var $RELDATE    = '18 Jun 2015';
     /** @var string Time */
     var $RELTIME    = '14:00';
     /** @var string Timezone */

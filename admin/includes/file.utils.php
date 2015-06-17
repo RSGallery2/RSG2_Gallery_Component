@@ -590,7 +590,7 @@ class fileHandler {
             }
         }
 		
-		//Return imagelist only when there are images in it, else redirect
+		//Return image list only when there are images in it, else redirect
         if (count($list) == 0) {
 	        $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_NO_FILES_FOUND_TO_PROCESS')
 	        .JText::_('COM_RSGALLERY2_PLEASE_CHECK_THE_PATH').'<br>'
