@@ -152,7 +152,7 @@ class HTML_RSGALLERY{
                 </table>
 				<br />
             <?php
-                echo JHtml::_('bootstrap.startAccordion', 'slide-example', array('active' => 'slide1'));
+                echo JHtml::_('bootstrap.startAccordion', 'slide-example', array('active' => 'slide1', 'toggle' => 'false' ));
                 echo JHtml::_('bootstrap.addSlide', 'slide-example', JText::_('COM_RSGALLERY2_GALLERIES'), 'slide1');
             ?>
                 <table class="adminlist" width="500">
@@ -173,7 +173,10 @@ class HTML_RSGALLERY{
                 </table>
             <?php
                 echo JHtml::_('bootstrap.endSlide');
-                echo JHtml::_('bootstrap.addSlide', 'slide-example', JText::_('COM_RSGALLERY2_IMAGES'), 'slide2');
+                echo JHtml::_('bootstrap.endAccordion');
+				
+                echo JHtml::_('bootstrap.startAccordion', 'slide-example2', array('active' => 'slide2'));
+                echo JHtml::_('bootstrap.addSlide', 'slide-example2', JText::_('COM_RSGALLERY2_IMAGES'), 'slide2');
             ?>
                 <table class="adminlist" width="500">
                     <tr>
@@ -192,7 +195,10 @@ class HTML_RSGALLERY{
                 </table>
             <?php
                 echo JHtml::_('bootstrap.endSlide');
-                echo JHtml::_('bootstrap.addSlide', 'slide-example', JText::_('COM_RSGALLERY2_CREDITS'), 'slide3');
+                echo JHtml::_('bootstrap.endAccordion');
+				
+                echo JHtml::_('bootstrap.startAccordion', 'slide-example3', array('active' => 'slide1'));
+                echo JHtml::_('bootstrap.addSlide', 'slide-example3', JText::_('COM_RSGALLERY2_CREDITS'), 'slide3');
             ?>
 
                 <div id='rsg2-credits'>
