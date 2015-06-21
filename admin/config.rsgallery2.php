@@ -756,7 +756,7 @@ class galleryUtils {
 	static function getChildListArray( $gallery_id, $array = Null) {
 	 	$database = JFactory::getDBO();
 		
-	 	$array = $gallery_id;
+	 	$array[] = $gallery_id;
 
 		$query = $database->getQuery(true);
 		$query->select('id');
