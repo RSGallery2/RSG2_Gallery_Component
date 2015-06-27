@@ -64,7 +64,7 @@
 			<menu view="COM_RSGALLERY2_MENU_ITEMS"
 				link="option=com_rsgallery2&amp;rsgOption=images">COM_RSGALLERY2_MENU_ITEMS</menu>
 			<menu view="COM_RSGALLERY2_MENU_CONFIG"
-				link="option=com_rsgallery2&amp;rsgOption=config&task=showConfig">COM_RSGALLERY2_MENU_CONFIG</menu>
+				link="option=com_rsgallery2&amp;rsgOption=config&amp;task=showConfig">COM_RSGALLERY2_MENU_CONFIG</menu>
 		</submenu>
 
 		<files folder="admin">
