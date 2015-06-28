@@ -138,7 +138,7 @@ class HTML_RSGALLERY{
                 <table border="0" width="100%" cellspacing="1" cellpadding="1" style=background-color:#CCCCCC;>
                     <tr>
                         <td bgcolor="#FFFFFF" colspan="2">
-                            <img src="<?php echo JURI_SITE;?>/administrator/components/com_rsgallery2/images/rsg2-logo.png" align="middle" alt="RSGallery logo"/>
+                            <img src="<?php echo JURI_SITE;?>/administrator/components/com_rsgallery2/images/rsg2-logo.png" align="middle" alt="RSGallery2 logo"/>
                         </td>
                     </tr>
                     <tr>
