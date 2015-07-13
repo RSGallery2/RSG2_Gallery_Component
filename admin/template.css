@@ -195,6 +195,28 @@ span.unwritable  {
 	white-space: nowrap;
 }
 
+
+td > fieldset > div.controls {
+
+	float: left; /**/
+/*	background-color: lightblue; /* #ffd; */
+/*	float: right; /**/
+}
+
+td > fieldset > div.controls > label  {
+	/* display: table-cell; /**/
+/*	background-color: greenyellow; /* #ffd; */
+	float: left; /**/
+}
+
+
+td > fieldset > div.controls > label  > input {
+	/* display: table-cell; /**/
+	background-color: greenyellow; /* #ffd; */
+	float: left; /**/
+}
+
+
 /* -- OVERALL STYLES ----------------------------- */
 
 /* Header */
@@ -1142,7 +1164,7 @@ label#paramsusermode-lbl,
 label#paramsphishing-resistant-lbl,
 label#paramsmulti-factor-lbl,
 label#paramsmulti-factor-physical-lbl,
-paramslang_mode-lbl {
+label#paramslang_mode-lbl {
 	min-width: 200px;
 }
 
