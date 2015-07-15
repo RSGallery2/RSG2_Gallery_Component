@@ -45,7 +45,7 @@ class html_rsg2_galleries{
 		
         ?>
         <form action="index.php" method="post" name="adminForm" id="adminForm">
-		<!--form action="<?php echo JRoute::_('index.php?option=com_rsg2&view=galleries'); ?>" method="post" name="adminForm" id="adminForm"-->
+		<!--form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=galleries'); ?>" method="post" name="adminForm" id="adminForm"-->
             <?php if (count(JHtmlSidebar::getEntries()) > 0) : ?>
                 <div id="j-sidebar-container" class="span2">
                     <?php echo JHtmlSidebar::render( ); ?>
