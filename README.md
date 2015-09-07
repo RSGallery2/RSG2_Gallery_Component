@@ -1,15 +1,49 @@
 # RSGallery2_Component
-RSGallery2 is one of several gallery extensions/components for the well known CMS Joomla! 
+RSGallery2 is one of several gallery extensions/components for the well known CMS Joomla!
 
-About RSGallery2
+## About RSGallery2
+RSGallery is around since the Mambo days and is orginally developed by Ronald Smit. Since then RSGallery2 has evolved with the joomla contentmanagement into what it is nowadays.
 
-RSGallery2 is one of several gallery extensions/components for the well known CMS Joomla! RSGallery is around since the Mambo days and is orginally developed by Ronald Smit. Since then, RSGallery has evolved into what it is nowadays. Although always developing, RSGallery2 is produced with the user in mind first.
+RSGallery2 is released by the GPL licence and will be **free to use** (as in free beer).
 
-RSGallery2 is released by the GPL licence and will be free to use (as in free beer). If you like the project and want to give something back, please help out other users in the forums and share your code.
+## Features
+The component and several plugins / modules feature following functions
+* Gallery view with sub galleries
+* User galleries on front end
+* slideshow
+* Latest images
+*
+
+## Downloads
+First the component itelf is needed. You will want to download the "component". The modules and plugins are optional. Please check the variuos modules and plugins out
+
+The downloads can be found here on github on the release of every project
+
+
+## Documantation
+
+
+
+
+
+
+## Forum
+
+Active forum in www.rsgallery2.nl
+
+
+## History
+The project started in the mambo days and got really big in J1.5!. Due to reasons unknown (to me Thomas Finnern) the access to the site rsgallery2.net got lost and it was not accessible for some time.
+
+
+#Actual state:
+
+
+
+# Help is welcome
+
+If you like the project and want to give something back, please help out other users in the forums and share your code.
 
 RSGallery2 is a project run by volunteers. People who just love Joomla and this gallery component. So RSGallery2 needs you! How? By reporting bugs and problems in the forum, by answering questions of other users on the forum, by submitting fixes for bugs, by writing documentation... where? On www.rsgallery2.nl!
 
-Downloads are on the wiki of this component
-
-You will want to download the "component". The modules and plugins are optional.
-
+//Downloads are on the wiki of this component
