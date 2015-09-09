@@ -10,33 +10,51 @@ RSGallery2 is released by the GPL licence and will be **free to use** (as in fre
 The component and several plugins / modules feature following functions
 * Gallery view with sub galleries
 * User galleries on front end
-* slideshow
+* Slideshow(s)
 * Latest images
-*
+* ...
 
 ## Downloads
-First the component itelf is needed. You will want to download the "component". The modules and plugins are optional. Please check the variuos modules and plugins out
+First the component itself is needed. You will want to download the "RSGallery2_Component". The modules and plugins are optional. Please check out the various modules and plugins
 
-The downloads can be found here on github on the release of every project
-
-
-## Documantation
+The downloads can be found here on github under "releases" in every project
 
 
+## Documentation
+
+%To be filed out%
 
 
 
+#Site: Gallery view
+
+%link to image%
+
+#Backend control panel:
+
+%linkl to image%
 
 ## Forum
 
-Active forum in www.rsgallery2.nl
+Active forum in http://www.rsgallery2.nl/
 
 
 ## History
-The project started in the mambo days and got really big in J1.5!. Due to reasons unknown (to me Thomas Finnern) the access to the site rsgallery2.net got lost and it was not accessible for some time.
-
+The project started in the mambo days and got really big in J1.5!. Due to reasons unknown (to me Thomas Finnern) the access to the site www.rsgallery2.net got lost and it was not accessible for some time.
+...
+To be continued
 
 #Actual state:
+The components are released for Jommla! 3.x
+The softare is regularly evolving and changing
+We are in a continuous process to improve parts here and there
+If you have any suggestion please use the forum http://www.rsgallery2.nl
+
+
+
+
+
+
 
 
 
