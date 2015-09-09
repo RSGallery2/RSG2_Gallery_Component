@@ -32,7 +32,7 @@ The downloads can be found here on github under "releases" in every project
 
 #Backend control panel:
 
-%linkl to image%
+![RSGallery2 control panel](https://cloud.githubusercontent.com/assets/7040580/9760250/c666941c-56f3-11e5-88a3-b2fbb5abb55a.png)
 
 ## Forum
 
