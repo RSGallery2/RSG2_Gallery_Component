@@ -45,9 +45,12 @@ Active forum in http://www.rsgallery2.nl/
 ## History
 Incomplete (Gathered or imagined by me, Thomas Finnern)
 
-The project started in the mambo days and got really big in J!1.5. Due to reasons unknown the access to the site www.rsgallery2.net got lost and it was not accessible for some time. Mirjam and "locutusweb" arrainged for a restart on rsgallery2.nl but the connection to the former developers and their interrest was gone
+The project started in the mambo days and got really big in J!1.5. Due to reasons unknown the access to the site www.rsgallery2.net got lost and it was not accessible for some time. Mirjam and "locutusweb" arrainged for a restart on rsgallery2.nl but the connection to the former developers and their interrest was gone.
+
 Mirjam got the version running under J!2.5 and did a great Job supporting user on the forum. While starting to upgrade for J!3x she got a baby and does now only user maintenance. I finished her task. (First version 16.04.2015)
+
 ...
+
 To be continued
 
 ## Actual state:
