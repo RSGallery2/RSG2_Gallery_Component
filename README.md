@@ -18,11 +18,12 @@ The component and several plugins / modules feature following functions
 First the component itself is needed. You will want to download the "RSGallery2_Component". The modules and plugins are optional. Please check out the various modules and plugins
 
 The downloads can be found here on github under "releases" in every project
+An overview can be seen on the wiki of this component
 
 
 ## Documentation
 
-%To be filed out%
+%To be filled out%
 
 
 
@@ -40,14 +41,16 @@ Active forum in http://www.rsgallery2.nl/
 
 
 ## History
-The project started in the mambo days and got really big in J1.5!. Due to reasons unknown (to me Thomas Finnern) the access to the site www.rsgallery2.net got lost and it was not accessible for some time.
+Incomplete (Gathered or imagined by me, Thomas Finnern)
+The project started in the mambo days and got really big in J1.5!. Due to reasons unknown the access to the site www.rsgallery2.net got lost and it was not accessible for some time. Mirjam and "locutusweb" arrainged for a restart on rsgallery2.nl but the connection to the former developers and their interrest was gone
+Mirjam got the version running under J!2.5 and did a great Job supporting user on the forum. While starting to upgrade for J!3x she got a baby and does now only user maintenance. I finished her task. (First version 16.04.2015)
 ...
 To be continued
 
 #Actual state:
-The components are released for Jommla! 3.x
-The softare is regularly evolving and changing
-We are in a continuous process to improve parts here and there
+The components are released for Joomla! 3.x
+The softare is regularly evolving and changing.
+We are in a continuous process to improve parts here and there.
 If you have any suggestion please use the forum http://www.rsgallery2.nl
 
 
@@ -64,4 +67,3 @@ If you like the project and want to give something back, please help out other u
 
 RSGallery2 is a project run by volunteers. People who just love Joomla and this gallery component. So RSGallery2 needs you! How? By reporting bugs and problems in the forum, by answering questions of other users on the forum, by submitting fixes for bugs, by writing documentation... where? On www.rsgallery2.nl!
 
-//Downloads are on the wiki of this component
