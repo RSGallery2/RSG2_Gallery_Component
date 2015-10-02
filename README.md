@@ -2,7 +2,7 @@
 RSGallery2 is one of several gallery extensions/components for the well known CMS Joomla!
 
 ## About RSGallery2
-RSGallery is around since the Mambo days and is orginally developed by Ronald Smit. Since then RSGallery2 has evolved with the joomla contentmanagement into what it is nowadays.
+RSGallery is around since the Mambo days and is orginally developed by Ronald Smit. Since then RSGallery2 has evolved with the joomla content management into what it is nowadays.
 
 RSGallery2 is released by the GPL licence and will be **free to use** (as in free beer).
 
@@ -12,6 +12,7 @@ The component and several plugins / modules feature following functions
 * User galleries on front end
 * Slideshow(s)
 * Latest images
+* Several additional modules and plugins
 * ...
 
 ## Downloads
@@ -42,7 +43,7 @@ Active forum in http://www.rsgallery2.nl/
 
 ## History
 Incomplete (Gathered or imagined by me, Thomas Finnern)
-The project started in the mambo days and got really big in J1.5!. Due to reasons unknown the access to the site www.rsgallery2.net got lost and it was not accessible for some time. Mirjam and "locutusweb" arrainged for a restart on rsgallery2.nl but the connection to the former developers and their interrest was gone
+The project started in the mambo days and got really big in J!1.5. Due to reasons unknown the access to the site www.rsgallery2.net got lost and it was not accessible for some time. Mirjam and "locutusweb" arrainged for a restart on rsgallery2.nl but the connection to the former developers and their interrest was gone
 Mirjam got the version running under J!2.5 and did a great Job supporting user on the forum. While starting to upgrade for J!3x she got a baby and does now only user maintenance. I finished her task. (First version 16.04.2015)
 ...
 To be continued
@@ -66,4 +67,3 @@ If you have any suggestion please use the forum http://www.rsgallery2.nl
 If you like the project and want to give something back, please help out other users in the forums and share your code.
 
 RSGallery2 is a project run by volunteers. People who just love Joomla and this gallery component. So RSGallery2 needs you! How? By reporting bugs and problems in the forum, by answering questions of other users on the forum, by submitting fixes for bugs, by writing documentation... where? On www.rsgallery2.nl!
-
