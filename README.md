@@ -32,6 +32,7 @@ An overview can be seen on the wiki of this component
 #Site: Gallery view
 
 %link to image%
+![lovelocksgallery 01](https://cloud.githubusercontent.com/assets/7040580/10307011/60de773e-6c2b-11e5-8008-1061454e6720.png)
 
 #Backend control panel:
 
