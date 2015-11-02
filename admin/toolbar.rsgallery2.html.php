@@ -34,6 +34,11 @@ class menu_rsg2_submenu{
 				JText::_('COM_RSGALLERY2_SUBMENU_GALLERIES'),
 				'index.php?option=com_rsgallery2&rsgOption=galleries',
 		        $rsgOption=='galleries' AND $task == '');
+			//Upload view
+			JHtmlSidebar::addEntry(
+				JText::_('COM_RSGALLERY2_SUBMENU_UPLOAD'),
+				'index.php?option=com_rsgallery2&view=upload',
+		        $rsgOption=='images' AND $task == 'upload');
 		    //Batch Upload
 			JHtmlSidebar::addEntry(
 				JText::_('COM_RSGALLERY2_SUBMENU_BATCH_UPLOAD'),

@@ -877,12 +877,14 @@ function batchupload($option) {
 				$ziplist = $uploadfile->extractArchive($zip_file);//MK// [todo] [check extractArchive]
 				if (!$ziplist){
 					//Extracting archive failed
-					$mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images&task=batchupload");
+// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
+					$mainframe->redirect('index.php?option=com_rsgallery2&view=upload' ); // Todo: More information fail ?
 				}
 			} else {
 				//Error message: file size
 				$mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE_IS_TOO_BIG') );
-				$mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images&task=batchupload");
+// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
+				$mainframe->redirect('index.php?option=com_rsgallery2&view=upload' ); // Todo: More information fail ?
 			}
 		} else {//not zip thus ftp
 			$ziplist = $uploadfile->handleFTP($ftppath);
@@ -932,10 +934,11 @@ function save_batchupload() {
 		 in_array('-1', $category)) 
 	{
 	    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ALERT_NOCATSELECTED') );
-        $mainframe->redirect("index.php?option=com_rsgallery2&task=batchupload");
+// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
+		$mainframe->redirect('index.php?option=com_rsgallery2&view=upload' ); // Todo: More information fail ?
 	}
 
-     for($i=0;$i<$teller;$i++) {
+    for($i=0;$i<$teller;$i++) {
         //If image is marked for deletion, delete and continue with next iteration
         if (isset($delete[$i]) AND ($delete[$i] == 'true')) {
             //Delete file from server

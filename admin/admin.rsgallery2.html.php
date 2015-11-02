@@ -339,6 +339,9 @@ class HTML_RSGALLERY{
                 $link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
                 HTML_RSGALLERY::quickiconButton( $link, 'categories.png', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
 
+                $link = 'index.php?option=com_rsgallery2&view=upload';
+                HTML_RSGALLERY::quickiconButton( $link, 'upload.png', JText::_('COM_RSGALLERY2_UPLOAD') );
+
                 $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=batchupload';
                 HTML_RSGALLERY::quickiconButton( $link, 'upload_zip.png', JText::_('COM_RSGALLERY2_BATCH_UPLOAD') );
                 
