@@ -651,8 +651,10 @@ function saveUploadedImage( $option ) {
 		if ( count( $errors ) < count( $files ) ) {
 			echo "<br>".JText::_('COM_RSGALLERY2_THE_REST_OF_YOUR_FILES_WERE_UPLOADED_FINE');
 		}
-		$mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images&task=upload");
-	}		
+		
+// OneUploadForm $mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images&task=upload");
+		$mainframe->redirect('index.php?option=com_rsgallery2&view=upload&task=upload' ); // Todo: More information fail ?
+	} 
 }
 
 /**
