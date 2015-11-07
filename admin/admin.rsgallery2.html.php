@@ -364,19 +364,20 @@ class HTML_RSGALLERY{
                     $link = 'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig';
                     // HTML_RSGALLERY::quickIconButton( $link, 'config.png',  JText::_('COM_RSGALLERY2_CONFIGURATION') );
                     //HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-cog',  JText::_('COM_RSGALLERY2_CONFIGURATION') );
-					HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-cog',  JText::_('COM_RSGALLERY2_CONFIGURATION') );
+					HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-cog clsProperties',  JText::_('COM_RSGALLERY2_CONFIGURATION') );
                 }
 
                 $link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
                 //HTML_RSGALLERY::quickIconButton( $link, 'categories.png', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
 				//HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-grid', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
-				HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-images', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
+				HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-images clsGalleries', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
 
                 $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=batchupload';
-                HTML_RSGALLERY::quickIconButton( $link, 'upload_zip.png', JText::_('COM_RSGALLERY2_BATCH_UPLOAD') );
+                //HTML_RSGALLERY::quickIconButton( $link, 'upload_zip.png clsBatchUpload', JText::_('COM_RSGALLERY2_BATCH_UPLOAD') );
+                HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-upload clsBatchUpload', JText::_('COM_RSGALLERY2_BATCH_UPLOAD') );
                 
                 $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=upload';
-                HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-upload', JText::_('COM_RSGALLERY2_UPLOAD') );
+                HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-upload clsUpload', JText::_('COM_RSGALLERY2_UPLOAD') );
 
 				//Java Uploader: not implemented at this point, so removed
                 //$link = 'index.php?option=com_rsgallery2&rsgOption=jumploader';
@@ -384,7 +385,7 @@ class HTML_RSGALLERY{
                 
                 $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=view_images';
                 //HTML_RSGALLERY::quickIconButton( $link, 'mediamanager.png', JText::_('COM_RSGALLERY2_MANAGE_IMAGES') );
-                HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-image', JText::_('COM_RSGALLERY2_MANAGE_IMAGES') );
+                HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-image clsImages', JText::_('COM_RSGALLERY2_MANAGE_IMAGES') );
 
                 if ( $canDo->get('core.admin') ){
                     /*
@@ -392,10 +393,12 @@ class HTML_RSGALLERY{
                     HTML_RSGALLERY::quickIconButton( $link, 'dbrestore.png', JText::_('COM_RSGALLERY2_CONSOLIDATE_DATABASE') );
     				*/
     				$link = 'index.php?option=com_rsgallery2&rsgOption=maintenance';
-					HTML_RSGALLERY::quickIconButton( $link, 'maintenance.png', JText::_('COM_RSGALLERY2_MAINTENANCE'));
+					//HTML_RSGALLERY::quickIconButton( $link, 'maintenance.png clsMaintenance', JText::_('COM_RSGALLERY2_MAINTENANCE'));
+					HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-screwdriver clsMaintenance', JText::_('COM_RSGALLERY2_MAINTENANCE'));
 					
 					$link = 'index.php?option=com_rsgallery2&rsgOption=installer';
-					HTML_RSGALLERY::quickIconButton( $link, 'template.png', JText::_('COM_RSGALLERY2_TEMPLATE_MANAGER'));
+					//HTML_RSGALLERY::quickIconButton( $link, 'template.png clsTemplate', JText::_('COM_RSGALLERY2_TEMPLATE_MANAGER'));
+					HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-scissors clsTemplate', JText::_('COM_RSGALLERY2_TEMPLATE_MANAGER'));
     			}
 				
 				// Temporary not for v3.2.0: permissions in front end need to be implemented in next release and this message can then be removed.

@@ -129,7 +129,7 @@ div.iconMoonImage {
 /*	margin:15px 10px; /**/
 /*	padding: 10px; /**/
 	text-align: center; /**/
-	color:red; /**/
+/*	color:red; /**/
 	/*border: none; /**/
 /*	border: solid 2px green; /**/
 	/* background: red; /**/
@@ -142,6 +142,38 @@ div.iconMoonImage > SPAN {
 	padding: 20px 0 10px 0; /**/
 	position: relative;
 	left: -12px;
+}
+
+div.iconMoonImage > SPAN.clsProperties {
+	color:blue; /**/
+}
+	
+div.iconMoonImage > SPAN.clsGalleries {
+	color:green; /**/
+}
+	
+div.iconMoonImage > SPAN.clsBatchUpload {
+	color:green; /**/
+}
+	
+div.iconMoonImage > SPAN.clsUpload {
+	color:green; /**/
+}
+	
+div.iconMoonImage > SPAN.clsBatchUpload {
+	color:green; /**/
+}
+	
+div.iconMoonImage > SPAN.clsImages {
+	color:green; /**/
+}
+	
+div.iconMoonImage > SPAN.clsMaintenance {
+	color:red; /**/
+}
+	
+div.iconMoonImage > SPAN.clsTemplate{
+	color:blue; /**/
 }
 	
 div.CtrlPanelInfo {
