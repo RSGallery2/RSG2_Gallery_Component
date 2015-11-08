@@ -49,7 +49,7 @@
 
 	<administration>
 		<menu view="com_rsgallery2" 
-		img="components/com_rsgallery2/images/rsg2_menu.png">COM_RSGALLERY2_MENU</menu>
+			img="components/com_rsgallery2/images/rsg2_menu.png">COM_RSGALLERY2_MENU</menu>
 		<submenu>
 			<!-- Note that all & must be escaped to &amp; for the file to be valid XML and be parsed by the installer -->
 			<menu view="COM_RSGALLERY2_MENU_CONTROL_PANEL" 
