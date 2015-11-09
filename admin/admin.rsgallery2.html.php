@@ -395,6 +395,7 @@ class HTML_RSGALLERY{
     				$link = 'index.php?option=com_rsgallery2&rsgOption=maintenance';
 					//HTML_RSGALLERY::quickIconButton( $link, 'maintenance.png clsMaintenance', JText::_('COM_RSGALLERY2_MAINTENANCE'));
 					HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-screwdriver clsMaintenance', JText::_('COM_RSGALLERY2_MAINTENANCE'));
+					//HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-cogs clsMaintenance', JText::_('COM_RSGALLERY2_MAINTENANCE'));
 					
 					$link = 'index.php?option=com_rsgallery2&rsgOption=installer';
 					//HTML_RSGALLERY::quickIconButton( $link, 'template.png clsTemplate', JText::_('COM_RSGALLERY2_TEMPLATE_MANAGER'));
