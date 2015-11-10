@@ -147,6 +147,43 @@ if( $view != '' ) {
 	$input = JFactory::getApplication()->input; 
 	$task = $input->get('task');
 	
+	if($Rsg2DebugActive)
+	{
+		//$Delim = "\n";
+		$Delim = " ";
+		// show active task
+		$DebTxt = "==> base.rsg2.php".$Delim ."----------".$Delim;
+
+		if (strlen ($task)) {
+			$DebTxt = $DebTxt . "\$task: '$task''" . $Delim;
+		}
+	/*
+		if (strlen ($option)) {
+			$DebTxt = $DebTxt . "\$option: $option".$Delim;
+		}
+		if (strlen ($catid)) {
+			$DebTxt = $DebTxt . "\$catid: $catid".$Delim;
+		}
+		if (strlen ($firstCid)) {
+			$DebTxt = $DebTxt . "\$firstCid: $firstCid".$Delim;
+		}
+		if (strlen ($id)) {
+			$DebTxt = $DebTxt . "\$id: $id".$Delim;
+		}
+		if (strlen ($rsgOption)) {
+			$DebTxt = $DebTxt . "\$rsgOption: $rsgOption".$Delim;
+		}
+		if (strlen ($view)) {
+			$DebTxt = $DebTxt . "\$rsgOption: $view".$Delim;
+		}
+	*/
+
+		JLog::add($DebTxt); //, JLog::DEBUG);
+	}
+
+	$controller->execute($task);
+	$controller->redirect();
+
 }
 else
 {
