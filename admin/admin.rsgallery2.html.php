@@ -47,17 +47,43 @@ class HTML_RSGALLERY{
       * @param string $image Image name for button image
       * @param string $text Text to show in button
       */
-    static function quickiconButton( $link, $image, $text ) {
+    static function quickIconButton( $link, $image, $text ) {
 		?>
         <div style="float:left;">
-        <div class="icon">
-            <a href="<?php echo $link; ?>">
-                <div class="iconimage">
-					<?php echo JHtml::image('administrator/components/com_rsgallery2/images/'.$image, $text); ?>
-                </div>
-                <?php echo $text; ?>
-            </a>
+			<div class="icon">
+				<a href="<?php echo $link; ?>">
+					<div class="iconimage">
+						<?php echo JHtml::image('administrator/components/com_rsgallery2/images/'.$image, $text); ?>
+					</div>
+					<?php echo $text; ?>
+				</a>
+			</div>
         </div>
+        <?php
+    }
+    
+    /**
+      * Used by showCP to generate buttons.  
+	  * Uses icomoon font to display the main icon of the button
+      * @param string $link URL for button link
+      * @param string $imageClass Class name for icomoon image
+      * @param string $text Text to show in button
+      */
+    static function quickIconMoonButton( $link, $imageClass, $text ) {
+		?>
+        <div style="float:left;">
+			<div class="iconMoon">
+				<a href="<?php echo $link; ?>">
+					<div class="iconMoonImage">
+					
+						<!--span class="<?php echo $imageClass ?>" style="font-size:40px;"> </span-->
+						<span class="<?php echo $imageClass ?>" style="font-size:40px;"></span>
+						<!-- i class="icon-search"  style="font-size:24px;></i -->
+						
+					</div>
+					<?php echo $text; ?>
+				</a>
+			</div>
         </div>
         <?php
     }
@@ -69,7 +95,7 @@ class HTML_RSGALLERY{
      * @param string $image Image name for button image
      * @param string $text Text to show in button
       */
-    static function quickiconDebugButton($Id, $link, $image, $text ) {
+    static function quickIconDebugButton($Id, $link, $image, $text ) {
 		?>
         <div style="float:left;">
             <div class="debugicon">
@@ -83,7 +109,7 @@ class HTML_RSGALLERY{
         </div>
         <?php
     }
-    
+
     /**
      * Shows the RSGallery control panel in backend.
      * @todo complete translation tags
@@ -117,7 +143,9 @@ class HTML_RSGALLERY{
             });
         ";
         $doc->addScriptDeclaration($script);
-
+		// ICO Moon
+		// $doc->addStyleSheet($this->baseurl.'/media/jui/css/icomoon.css');
+		
         ?>
 
 		<?php if (count(JHtmlSidebar::getEntries()) > 0) : ?>
@@ -331,40 +359,47 @@ class HTML_RSGALLERY{
 
             <div id='cpanel'>
                 <?php
+				
                 if ( $canDo->get('core.admin') ){
                     $link = 'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig';
-                    HTML_RSGALLERY::quickiconButton( $link, 'config.png',  JText::_('COM_RSGALLERY2_CONFIGURATION') );
+                    // HTML_RSGALLERY::quickIconButton( $link, 'config.png',  JText::_('COM_RSGALLERY2_CONFIGURATION') );
+                    //HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-cog',  JText::_('COM_RSGALLERY2_CONFIGURATION') );
+					HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-cog clsProperties',  JText::_('COM_RSGALLERY2_CONFIGURATION') );
                 }
 
                 $link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
-                HTML_RSGALLERY::quickiconButton( $link, 'categories.png', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
-
-                $link = 'index.php?option=com_rsgallery2&view=upload';
-                HTML_RSGALLERY::quickiconButton( $link, 'upload.png', JText::_('COM_RSGALLERY2_UPLOAD') );
+                //HTML_RSGALLERY::quickIconButton( $link, 'categories.png', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
+				//HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-grid', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
+				HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-images clsGalleries', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
 
                 $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=batchupload';
-                HTML_RSGALLERY::quickiconButton( $link, 'upload_zip.png', JText::_('COM_RSGALLERY2_BATCH_UPLOAD') );
+                //HTML_RSGALLERY::quickIconButton( $link, 'upload_zip.png clsBatchUpload', JText::_('COM_RSGALLERY2_BATCH_UPLOAD') );
+                HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-upload clsBatchUpload', JText::_('COM_RSGALLERY2_BATCH_UPLOAD') );
                 
                 $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=upload';
-                HTML_RSGALLERY::quickiconButton( $link, 'upload.png', JText::_('COM_RSGALLERY2_UPLOAD') );
+                HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-upload clsUpload', JText::_('COM_RSGALLERY2_UPLOAD') );
 
 				//Java Uploader: not implemented at this point, so removed
                 //$link = 'index.php?option=com_rsgallery2&rsgOption=jumploader';
-                //HTML_RSGALLERY::quickiconButton( $link, 'upload_zip.png', JText::_('COM_RSGALLERY2_JAVA_UPLOADER') );
+                //HTML_RSGALLERY::quickIconButton( $link, 'upload_zip.png', JText::_('COM_RSGALLERY2_JAVA_UPLOADER') );
                 
                 $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=view_images';
-                HTML_RSGALLERY::quickiconButton( $link, 'mediamanager.png', JText::_('COM_RSGALLERY2_MANAGE_IMAGES') );
+                //HTML_RSGALLERY::quickIconButton( $link, 'mediamanager.png', JText::_('COM_RSGALLERY2_MANAGE_IMAGES') );
+                HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-image clsImages', JText::_('COM_RSGALLERY2_MANAGE_IMAGES') );
 
                 if ( $canDo->get('core.admin') ){
                     /*
                     $link = 'index.php?option=com_rsgallery2&task=consolidate_db';
-                    HTML_RSGALLERY::quickiconButton( $link, 'dbrestore.png', JText::_('COM_RSGALLERY2_CONSOLIDATE_DATABASE') );
+                    HTML_RSGALLERY::quickIconButton( $link, 'dbrestore.png', JText::_('COM_RSGALLERY2_CONSOLIDATE_DATABASE') );
     				*/
     				$link = 'index.php?option=com_rsgallery2&rsgOption=maintenance';
-					HTML_RSGALLERY::quickiconButton( $link, 'maintenance.png', JText::_('COM_RSGALLERY2_MAINTENANCE'));
+					//HTML_RSGALLERY::quickIconButton( $link, 'maintenance.png clsMaintenance', JText::_('COM_RSGALLERY2_MAINTENANCE'));
+					HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-screwdriver clsMaintenance', JText::_('COM_RSGALLERY2_MAINTENANCE'));
+					//HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-cogs clsMaintenance', JText::_('COM_RSGALLERY2_MAINTENANCE'));
 					
 					$link = 'index.php?option=com_rsgallery2&rsgOption=installer';
-					HTML_RSGALLERY::quickiconButton( $link, 'template.png', JText::_('COM_RSGALLERY2_TEMPLATE_MANAGER'));
+					//HTML_RSGALLERY::quickIconButton( $link, 'template.png clsTemplate', JText::_('COM_RSGALLERY2_TEMPLATE_MANAGER'));
+					HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-scissors clsTemplate', JText::_('COM_RSGALLERY2_TEMPLATE_MANAGER'));
     			}
 				
 				// Temporary not for v3.2.0: permissions in front end need to be implemented in next release and this message can then be removed.
@@ -401,21 +436,21 @@ class HTML_RSGALLERY{
 						</div>
 						<?php
 						$link = 'index.php?option=com_rsgallery2&task=purgeEverything';
-						HTML_RSGALLERY::quickiconDebugButton( 'purgeEverything', $link, 'media_DelItems.png', JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING') );
+						HTML_RSGALLERY::quickIconDebugButton( 'purgeEverything', $link, 'media_DelItems.png', JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING') );
 
 						$link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
-						HTML_RSGALLERY::quickiconDebugButton( 'reallyUninstall', $link, 'db_DelItems.png', JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL') );
+						HTML_RSGALLERY::quickIconDebugButton( 'reallyUninstall', $link, 'db_DelItems.png', JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL') );
 		
 						$link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
-						HTML_RSGALLERY::quickiconDebugButton( 'config_rawEdit', $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT') );
+						HTML_RSGALLERY::quickIconDebugButton( 'config_rawEdit', $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT') );
 						
 						//Moved Migration Options: only show when debug is on since there are only test migration options and four Joomla 1.0.x options.
 						/*
 						$link = 'index.php?option=com_rsgallery2&rsgOption=maintenance&task=showMigration';
-						HTML_RSGALLERY::quickiconDebugButton( 'showMigration', $link, 'dbrestore.png', JText::_('COM_RSGALLERY2_MIGRATION_OPTIONS') );
+						HTML_RSGALLERY::quickIconDebugButton( 'showMigration', $link, 'dbrestore.png', JText::_('COM_RSGALLERY2_MIGRATION_OPTIONS') );
 						*/
 						$link = 'index.php?option=com_rsgallery2&task=config_dumpVars';
-						HTML_RSGALLERY::quickiconDebugButton( 'config_dumpVars', $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW') );
+						HTML_RSGALLERY::quickIconDebugButton( 'config_dumpVars', $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW') );
 						?>
 						<div class='rsg2-clr'>&nbsp;</div>
 					</div>
@@ -492,7 +527,7 @@ class HTML_RSGALLERY{
                                 <div id='cpanel'>
                                     <?php
                                     $link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
-                                    HTML_RSGALLERY::quickiconButton( $link, 'categories.png', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
+                                    HTML_RSGALLERY::quickIconButton( $link, 'categories.png', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
                                     ?>
                                 </div>
 			        		</td>
