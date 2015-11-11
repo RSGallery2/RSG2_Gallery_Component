@@ -4,7 +4,7 @@ defined( '_JEXEC' ) or die;
 
 jimport('joomla.application.component.view');
 
-class Rsg2ViewUploadSingle extends JViewLegacy
+class Rsgallery2ViewUpload extends JViewLegacy
 {
 
 	public function display ($tpl = null)
@@ -12,7 +12,7 @@ class Rsg2ViewUploadSingle extends JViewLegacy
 	
 		$form = $this->get('Form');
 		// $item = $this->get('Item');
-		Rsg2Helper::addSubMenu('uploadSingle'); 
+//		Rsg2Helper::addSubMenu('uploadSingle'); 
 		
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) 
@@ -38,7 +38,7 @@ class Rsg2ViewUploadSingle extends JViewLegacy
 	protected function addToolbar ()
 	{
 		//JToolBarHelper::TitleText ("Test01");
-		JToolBarHelper::title(JText::_('COM_RSG2_MENU_UPLOAD'), 'generic.png');
+//		JToolBarHelper::title(JText::_('COM_RSG2_MENU_UPLOAD'), 'generic.png');
 		//$input = JFactory::getApplication()->input;
 		
 		//$link = 'index.php?option=COM_RSG2&rsgOption=images&task=batchupload';
