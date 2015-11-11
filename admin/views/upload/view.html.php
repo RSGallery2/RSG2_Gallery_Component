@@ -1,15 +1,19 @@
 <?php
 
 defined( '_JEXEC' ) or die;
-
+	
 jimport('joomla.application.component.view');
 
 class Rsgallery2ViewUpload extends JViewLegacy
 {
+	protected $form;
+	
+	// [Single images], [Zip file], [local server (ftp) path], 
+	//    future: folder (PC), ??? FTP,  ??? URL
+	protected $ActiveSelection; 
 
 	public function display ($tpl = null)
 	{
-	
 		$form = $this->get('Form');
 		// $item = $this->get('Item');
 //		Rsg2Helper::addSubMenu('uploadSingle'); 
@@ -30,13 +34,13 @@ class Rsgallery2ViewUpload extends JViewLegacy
 
 		parent::display ($tpl);
 		
-		// Set the document
-		$this->setDocument();		
 	}
 
 	
 	protected function addToolbar ()
 	{
+		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MENU_UPLOAD'), 'generic.png');
+
 		//JToolBarHelper::TitleText ("Test01");
 //		JToolBarHelper::title(JText::_('COM_RSG2_MENU_UPLOAD'), 'generic.png');
 		//$input = JFactory::getApplication()->input;
@@ -58,9 +62,10 @@ class Rsgallery2ViewUpload extends JViewLegacy
      *
      * @return void
      */
-    protected function setDocument() 
+/*    protected function setDocument() 
     {
             $document = JFactory::getDocument();
-            $document->setTitle(JText::_('COM_RSG2_MENU_UPLOAD'));
+            $document->setTitle(JText::_('COM_RSGALLERY2_MENU_UPLOAD'));
     }
+*/
 }
