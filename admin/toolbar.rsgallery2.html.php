@@ -20,10 +20,11 @@ class menu_rsg2_submenu{
 	 */
 	static function addRSG2Submenu($rsgOption = '', $task = '') {
 
-		//The template manager (still) has its own submenu
+		// The template manager (still) has its own submenu
 		if (!($rsgOption == 'installer')){
 			//Control Panel
 			JHtmlSidebar::addEntry(
+				'<span class="icon-home-2" >  </span>'.
 				JText::_('COM_RSGALLERY2_SUBMENU_CONTROL_PANEL'),
 				'index.php?option=com_rsgallery2',
 		        (($rsgOption=='' AND $task == '' )
@@ -31,6 +32,7 @@ class menu_rsg2_submenu{
                     OR ($rsgOption == 'maintenance') ));
 		    //Galleries
 			JHtmlSidebar::addEntry(
+				'<span class="icon-images" >  </span>'.
 				JText::_('COM_RSGALLERY2_SUBMENU_GALLERIES'),
 				'index.php?option=com_rsgallery2&rsgOption=galleries',
 		        $rsgOption=='galleries' AND $task == '');
@@ -41,16 +43,20 @@ class menu_rsg2_submenu{
 		        $rsgOption=='images' AND $task == 'upload');
 		    //Batch Upload
 			JHtmlSidebar::addEntry(
+				'<span class="icon-upload" > </span>'.
+				'<span class="icon-upload" > </span>'.
 				JText::_('COM_RSGALLERY2_SUBMENU_BATCH_UPLOAD'),
 				'index.php?option=com_rsgallery2&rsgOption=images&task=batchupload',
 		        $rsgOption=='images' AND $task == 'batchupload');
 			//Upload
 			JHtmlSidebar::addEntry(
+				'<span class="icon-upload" >  </span>'.
 				JText::_('COM_RSGALLERY2_SUBMENU_UPLOAD'),
 				'index.php?option=com_rsgallery2&rsgOption=images&task=upload',
 		        $rsgOption=='images' AND $task == 'upload');
 			//Items
 			JHtmlSidebar::addEntry(
+				'<span class="icon-image" >  </span>'.
 				JText::_('COM_RSGALLERY2_SUBMENU_IMAGES'),
 				'index.php?option=com_rsgallery2&rsgOption=images',
 		        $rsgOption=='images' AND ($task == '' OR $task == 'view_images'));
