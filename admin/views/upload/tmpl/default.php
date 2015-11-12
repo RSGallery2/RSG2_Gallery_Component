@@ -111,7 +111,7 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 					</div>
 				</div>
 				<div class="form-actions">
-					<button class="btn btn-primary" type="button" onclick="Joomla.submitbutton()"><?php echo JText::_('COM_INSTALLER_UPLOAD_AND_INSTALL'); ?></button>
+					<button class="btn btn-primary" type="button" onclick="Joomla.submitbutton()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?></button>
 				</div>
 			</fieldset>
 			<?php echo JHtml::_('bootstrap.endTab'); ?>
@@ -134,8 +134,9 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 
 			<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'url', JText::_('COM_RSGALLERY2_UPLOAD_FROM_FOLDER_SERVER', true)); ?>
 				<fieldset class="uploadform">
+				<legend><?php echo JText::_('COM_RSGALLERY2_UPLOAD_FROM_FOLDER_PATH_ON_SERVER'); ?></legend>
 				<div class="control-group">
-					<label for="install_directory" class="control-label"><?php echo JText::_('COM_INSTALLER_INSTALL_DIRECTORY'); ?></label>
+					<label for="install_directory" class="control-label"><?php echo JText::_('COM_RSGALLERY2_FTP_PATH'); ?></label>
 					<div class="controls">
 						<input type="text" id="install_directory" name="install_directory" class="span5 input_box" size="70" value="install.directory" />
 					</div>

@@ -39,7 +39,8 @@ class Rsgallery2ViewUpload extends JViewLegacy
 	
 	protected function addToolbar ()
 	{
-		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MENU_UPLOAD'), 'generic.png');
+		// COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD
+		JToolBarHelper::title(JText::_('COM_RSGALLERY2_SUBMENU_UPLOAD'), 'generic.png');
 
 		//JToolBarHelper::TitleText ("Test01");
 //		JToolBarHelper::title(JText::_('COM_RSG2_MENU_UPLOAD'), 'generic.png');
