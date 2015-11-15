@@ -1,0 +1,29 @@
+					<!-- Specify gallery -->
+					<div class="control-group">
+						<label class="control-label" for="radio"><?php echo JText::_('COM_RSGALLERY2_SPECIFY_GALLERY'); ?></label>
+						<div class="controls">
+							<label class="radio" for="radios-1">
+								<input type="radio" name="radioUseStep1" id="radios-1" value="1" onchange="getVals(this, 'radio');" 
+									<?php 
+										if ($this->bYesAllImgInStep1)
+										{
+											echo " checked";
+										}	
+									?>
+								>
+								<?php echo JText::_('COM_RSGALLERY2_YES_ALL_ITEMS_IN');?>
+							</label>
+							<label class="radio" for="radios-0">
+								<input type="radio" name="radioUseStep1" id="radios-0" value="0" onchange="getVals(this, 'radio');" 
+									<?php 
+										if (! $this->bYesAllImgInStep1)
+										{
+											echo " checked";
+										}	
+									?>
+								>
+								<?php echo JText::_('COM_RSGALLERY2_NO_SPECIFY_GALLERY_PER_IMAGE_IN_STEP_2'); ?>
+							</label>
+							<p id="pRadio"></p>
+						</div>
+					</div>

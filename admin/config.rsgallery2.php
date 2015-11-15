@@ -20,13 +20,14 @@ class galleryUtils {
 
 	/**
 	 * Show gallery select list according to the permissions of the logged in user
-	 * @param string $action  Action type
+	 * @param string $action  Action type (permission)
 	 * @param string $select_name Name of the select box, defaults to 'catid'
 	 * @param integer $gallery_id ID of selected gallery
 	 * @param string $js Additional select tag attributes
 	 * @param bool $showTopGallery  show Top Gallery to select, default no
 	 */
-	static function showUserGalSelectList($action = '', $select_name = 'catid', $gallery_id = null, $js = '',$showTopGallery = false) {
+	static function showUserGalSelectList($action = '', $select_name = 'catid', $gallery_id = null, 
+		$js = '', $showTopGallery = false) {
 		$user = JFactory::getUser();
 
 		//Get gallery Id's where action is permitted and write to string
@@ -37,10 +38,12 @@ class galleryUtils {
 		if ($showTopGallery) {
 			$dropdown_html .= "<option value=0";
 			// Disable when action not allowed or user not owner
-			if (!$user->authorise($action, 'com_rsgallery2'))
+			if (!$user->authorise($action, 'com_rsgallery2')) {
 				$dropdown_html .= ' disabled="disabled"';
-			if ($gallery_id == 0)
+			}
+			if ($gallery_id == 0) {
 				$dropdown_html .= ' selected="selected"';
+			}
 			$dropdown_html .= ' >- '.JText::_('COM_RSGALLERY2_TOP_GALLERY').' -</option>';
 		}
 		

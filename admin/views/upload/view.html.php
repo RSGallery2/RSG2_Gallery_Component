@@ -9,15 +9,26 @@ class Rsgallery2ViewUpload extends JViewLegacy
 	protected $form;
 	
 	// [Single images], [Zip file], [local server (ftp) path], 
-	//    future: folder (PC), ??? FTP,  ??? URL
-	protected $ActiveSelection; 
-
+	//    ToDo: future image upload sources: folder (PC), ??? FTP,  ??? URL
+	protected $ActiveSelection; // ToDo: Activate in html of view 
+	
+	protected $bYesAllImgInStep1;
+	protected $UploadLimit;
+	protected $LastFtpUploadPath;
+	
+	// ToDo: Config -> update gallery selection preselect latest gallery
+	// ToDo: Config -> update gallery selection preselect last used gallery ? show combo opened for n entries
+	
 	public function display ($tpl = null)
 	{
 		$form = $this->get('Form');
 		// $item = $this->get('Item');
 //		Rsg2Helper::addSubMenu('uploadSingle'); 
 		
+	//	$Config = array ('upload_maxsize' => '21M'); // ToDo: Replace with value
+		$this->bYesAllImgInStep1 = true; // ToDo: From config last selection ...
+		$this->UploadLimit = "*21M"; // ToDo: collect info 
+		$this->LastFtpUploadPath = "*Last used FTP path ";  // ToDo: From config last selection ...
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) 
 		{
