@@ -187,7 +187,11 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 					
 					<!-- One gallery for all images -->
 					<div class="control-group">
-						<label class="control-label" for="specify_all_img"><?php echo JText::_('COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES'); ?></label>
+						<div class="control-label">
+							<label id="" class="hasTooltip" for="specify_all_img" title="" 
+								data-original-title="<strong>Strong text</strong><br />Select whether . If Yes, the ."
+								><?php echo JText::_('COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES'); ?></label>
+						</div>
 						<div class="controls">
 							<!--fieldset id="jform_offline" class="radio btn-group btn-group-yesno">
 								<input id="jform_offline0" type="radio" value="1" name="jform[offline]">
