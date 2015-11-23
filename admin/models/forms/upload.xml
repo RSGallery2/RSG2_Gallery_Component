@@ -6,7 +6,7 @@
 		id				= "SelectGalleries01"
 		name			= "SelectGalleries01"
 		type			= "GallerySelect"
-		label			= ""
+		label			= "testUpload"
 		translate_label	= "true"
 		class			= "inputbox"
 </form>

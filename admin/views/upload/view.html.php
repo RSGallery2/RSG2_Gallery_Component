@@ -22,6 +22,8 @@ class Rsgallery2ViewUpload extends JViewLegacy
 	public function display ($tpl = null)
 	{
 		$form = $this->get('Form');
+		var_dump($form);
+
 		// $item = $this->get('Item');
 //		Rsg2Helper::addSubMenu('uploadSingle'); 
 		

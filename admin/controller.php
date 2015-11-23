@@ -1,11 +1,17 @@
 <?php
 defined('_JEXEC') or die;
 
-// Include the JLog class.
-jimport('joomla.log.log');
+global $Rsg2DebugActive;
 
-// identify active file
-JLog::add('==> base.controller.php ');
+$Rsg2DebugActive = true; // ToDo: $rsgConfig->get('debug');
+if ($Rsg2DebugActive)
+{
+    // Include the JLog class.
+    jimport('joomla.log.log');
+    
+    // identify active file
+    JLog::add('==> base.controller.php ');
+}
 
 // import Joomla controller library
 jimport('joomla.application.component.controller');
@@ -42,11 +48,11 @@ class Rsgallery2Controller extends JControllerLegacy
 */
 		
 /* ToDo:: Activate following: book extension entwickeln  page 208
-		if ($view == 'rsg2' && $layout == 'edit' && !$this->checkEditId('com_rsg2.edit.rsgallery2', $id))
+		if ($view == 'rsg2' && $layout == 'edit' && !$this->checkEditId('com_rsgallery2.edit.rsgallery2', $id))
 		{
 			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id));
 			$this->setMessage($this->getError(), 'error');
-			$this->setRedirect(JRoute::_('index.php?option=com_rsg2&view=rsgallery2s', false));
+			$this->setRedirect(JRoute::_('index.php?option=com_rsgallery2&view=rsgallery2s', false));
 
 			return false;
 		}
