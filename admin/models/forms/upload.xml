@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!-- $Id$ -->
+<form>
+	<!-- Gallery selection -->
+	<field
+		id				= "SelectGalleries01"
+		name			= "SelectGalleries01"
+		type			= "GallerySelect"
+		label			= ""
+		translate_label	= "true"
+		class			= "inputbox"
+</form>
