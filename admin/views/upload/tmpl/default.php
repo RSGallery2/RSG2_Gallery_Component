@@ -257,7 +257,7 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 							<div id="zip_upload_galleries_chzn" class="chzn-container chzn-container-single chzn-container-single-nosearch" style="width: 420px;" title="">
 								<!-- header --> 
 								<a class="chzn-single" tabindex="-1">
-									<span>- Please select -</span>
+									<span>- Please select 2 -</span>
 									<div>
 										<b></b>
 									</div>
