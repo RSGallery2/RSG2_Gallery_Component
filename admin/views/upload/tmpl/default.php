@@ -17,7 +17,8 @@ JHtml::_('bootstrap.tooltip');
 //$doc->addScript(JUri::root() . 'templates/' . $template . '/template.js');
 //JHtml::_('bootstrap.tooltip');
 //JHtml::_('behavior.multiselect');
-//JHtml::_('formbehavior.chosen', 'select');
+
+JHtml::_('formbehavior.chosen', 'select');
  
 JText::script('COM_INSTALLER_MSG_INSTALL_PLEASE_SELECT_A_PACKAGE');
 JText::script('COM_INSTALLER_MSG_INSTALL_PLEASE_SELECT_A_DIRECTORY');
@@ -280,8 +281,10 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 					<div class="control-group">
 						<div class="control-label"><?php 
 						var_dump($this->form);
-						echo $this->form->getLabel ('SelectGalleries01'); ?></div>
-						<div class="controls"><?php echo $this->form->getInput ('SelectGalleries01'); ?></div>
+//						echo $this->form->getLabel ('SelectGalleries01'); ?></div>
+						<div class="controls"><?php 
+						//echo $this->form->getInput ('SelectGalleries01'); 
+						?></div>
 					</div>
 					
 					<!-- Action button -->
