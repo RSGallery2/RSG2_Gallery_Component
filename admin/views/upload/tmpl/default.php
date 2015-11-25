@@ -119,6 +119,41 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 		});
 	}); 
 	
+	$(document).ready(function()
+	{
+		$('*[rel=tooltip]').tooltip()
+
+		// Turn radios into btn-group
+		$('.radio.btn-group label').addClass('btn');
+		$(".btn-group label:not(.active)").click(function()
+		{
+			var label = $(this);
+			var input = $('#' + label.attr('for'));
+
+			if (!input.prop('checked')) {
+				label.closest('.btn-group').find("label").removeClass('active btn-success btn-danger btn-primary');
+				if (input.val() == '') {
+					label.addClass('active btn-primary');
+				} else if (input.val() == 0) {
+					label.addClass('active btn-danger');
+				} else {
+					label.addClass('active btn-success');
+				}
+				input.prop('checked', true);
+			}
+		});
+		$(".btn-group input[checked=checked]").each(function()
+		{
+			if ($(this).val() == '') {
+				$("label[for=" + $(this).attr('id') + "]").addClass('active btn-primary');
+			} else if ($(this).val() == 0) {
+				$("label[for=" + $(this).attr('id') + "]").addClass('active btn-danger');
+			} else {
+				$("label[for=" + $(this).attr('id') + "]").addClass('active btn-success');
+			}
+		});
+	})
+
 </script>
 <style type="text/css">
 	#loading {
@@ -165,11 +200,14 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 					<button class="btn btn-primary" type="button" onclick="Joomla.submitbuttonSingle()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?></button>
 					<!--a href="" /-->
 				</div>
-				
-				
+							
 			</fieldset>
 			<?php echo JHtml::_('bootstrap.endTab'); ?>
 
+			
+			
+			
+			
 			<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'upload_zip_pc', JText::_('COM_RSGALLERY2_UPLOAD_FROM_PC_ZIP', true)); ?>
 				<fieldset class="uploadform">
 					<legend><?php echo JText::_('COM_RSGALLERY2_UPLOAD_FROM_PC_ZIP_FROM_LOCAL_PC'); ?></legend>
@@ -201,13 +239,6 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 								<label class="btn active btn-danger" for="jform_offline1">No</label>
 							</fieldset  btn active btn-success -->
 							<fieldset id="specify_all_img" class="radio btn-group btn-group-yesno">
-								<input id="specify_all_img0" type="radio" value="1" name="specify_all_img"<?php 
-										if ($this->bYesAllImgInStep1)
-										{
-											echo ' checked="checked"';
-										}	
-									?>
-								>
 								<label 
 								class="btn <?php 
 										if ($this->bYesAllImgInStep1)
@@ -215,8 +246,8 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 											echo " active btn-success";
 										}	
 									?>" for="specify_all_img0">Yes</label>
-								<input id="specify_all_img1" type="radio" value="0" name="specify_all_img"<?php 
-										if (! $this->bYesAllImgInStep1)
+								<input id="specify_all_img0" type="radio" value="1" name="specify_all_img"<?php 
+										if ($this->bYesAllImgInStep1)
 										{
 											echo ' checked="checked"';
 										}	
@@ -229,8 +260,31 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 											echo " active btn-danger";
 										}	
 									?>" for="specify_all_img1">No</label>
+								<input id="specify_all_img1" type="radio" value="0" name="specify_all_img"<?php 
+										if (! $this->bYesAllImgInStep1)
+										{
+											echo ' checked="checked"';
+										}	
+									?>
+								>
 									
 							</fieldset>
+							
+<fieldset id="myEdit" class="radio btn-group">
+                                        <input type="radio" id="myEdit0" value="1" name="myEdit">
+                                        <label for="myEdit0" class="btn">Yes</label>
+                                        <input type="radio" id="myEdit1" value="0" name="myEdit">
+                                        <label for="myEdit1" class="btn btn-danger">No</label>
+</fieldset>
+
+							<fieldset id="specify_all_img" class="radio btn-group">
+										<input id="specify_all_img0" type="radio" value="1" name="specify_all_img">
+										<label class="btn" for="specify_all_img0">Yes</label>
+										<input id="specify_all_img1" type="radio" value="0" name="specify_all_img">
+										<label class="btn" for="specify_all_img1">No</label>									
+							</fieldset>
+							
+							
 								<!-- black base path -->
 								<!-- div style="color:#000000;font-weight:bold;font-size:smaller;margin-top: 0px;padding-top: 0px;">
 									<?php echo JText::sprintf('COM_RSGALLERY2_NO_SPECIFY_GALLERY_PER_IMAGE_IN_STEP_2', ""); ?>
@@ -305,6 +359,31 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
                             <div style="color:#FF0000;font-weight:bold;font-size:smaller;margin-top: 0px;padding-top: 0px;">
                                 <?php echo JText::_('COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH');?>
                             </div>
+							
+<div class="controls">
+    <div class="radio btn-group">
+        <input type="radio" checked="checked"><label class="btn active btn-danger">Male</label>
+        <input type="radio"><label class="btn">Female</label>
+    </div>
+</div>
+
+
+    <fieldset id="multilang" class="radio btn-group btn-group-yesno">
+                            <input type="radio" id="multilang0" name="editor[multilang]" value="1">
+                            <label for="multilang0" class="btn active btn-success">????????</label>
+                            <input type="radio" id="multilang1" name="editor[multilang]" value="0">
+                            <label for="multilang1" class="btn">?????????</label>
+      </fieldset>
+
+	  
+<fieldset id="myEdit" class="radio btn-group">
+                                        <input type="radio" id="myEdit0" value="1" name="myEdit">
+                                        <label for="myEdit0" class="btn">Yes</label>
+                                        <input type="radio" id="myEdit1" value="0" name="myEdit">
+                                        <label for="myEdit1" class="btn btn-danger">No</label>
+</fieldset>
+
+	  
 							<!-- black base path -->
                             <!--div style="color:#000000;font-weight:bold;font-size:smaller;margin-top: 0px;padding-top: 0px;">
 	                            <?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', ""); ?>&nbsp;<?php echo JPATH_SITE; ?>
