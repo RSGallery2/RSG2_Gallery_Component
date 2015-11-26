@@ -24,6 +24,10 @@ JText::script('COM_INSTALLER_MSG_INSTALL_PLEASE_SELECT_A_PACKAGE');
 JText::script('COM_INSTALLER_MSG_INSTALL_PLEASE_SELECT_A_DIRECTORY');
 JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL'); 
 
+
+// $checked  = empty($this->value) ? ' checked="checked"' : '';
+ 
+
 ?>
 
 <script type="text/javascript">
@@ -118,7 +122,8 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 			'display':  'none'
 		});
 	}); 
-	
+
+/**	
 	$(document).ready(function()
 	{
 		$('*[rel=tooltip]').tooltip()
@@ -153,6 +158,7 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 			}
 		});
 	})
+/**/
 
 </script>
 <style type="text/css">
@@ -203,9 +209,6 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 							
 			</fieldset>
 			<?php echo JHtml::_('bootstrap.endTab'); ?>
-
-			
-			
 			
 			
 			<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'upload_zip_pc', JText::_('COM_RSGALLERY2_UPLOAD_FROM_PC_ZIP', true)); ?>
@@ -239,6 +242,16 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 								<label class="btn active btn-danger" for="jform_offline1">No</label>
 							</fieldset  btn active btn-success -->
 							<fieldset id="specify_all_img" class="radio btn-group btn-group-yesno">
+								<input id="specify_all_img0" type="radio" value="1" name="specify_all_img"
+								
+								<?php 
+										if ($this->bYesAllImgInStep1)
+										{
+											echo ' checked="checked"';
+										}	
+									?>
+								>
+								
 								<label 
 								class="btn <?php 
 										if ($this->bYesAllImgInStep1)
@@ -246,8 +259,8 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 											echo " active btn-success";
 										}	
 									?>" for="specify_all_img0">Yes</label>
-								<input id="specify_all_img0" type="radio" value="1" name="specify_all_img"<?php 
-										if ($this->bYesAllImgInStep1)
+								<input id="specify_all_img1" type="radio" value="0" name="specify_all_img"<?php 
+										if (! $this->bYesAllImgInStep1)
 										{
 											echo ' checked="checked"';
 										}	
@@ -260,22 +273,15 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 											echo " active btn-danger";
 										}	
 									?>" for="specify_all_img1">No</label>
-								<input id="specify_all_img1" type="radio" value="0" name="specify_all_img"<?php 
-										if (! $this->bYesAllImgInStep1)
-										{
-											echo ' checked="checked"';
-										}	
-									?>
-								>
 									
 							</fieldset>
 							
-<fieldset id="myEdit" class="radio btn-group">
+							<fieldset id="myEdit" class="radio btn-group btn-group-yesno">
                                         <input type="radio" id="myEdit0" value="1" name="myEdit">
                                         <label for="myEdit0" class="btn">Yes</label>
                                         <input type="radio" id="myEdit1" value="0" name="myEdit">
                                         <label for="myEdit1" class="btn btn-danger">No</label>
-</fieldset>
+							</fieldset>
 
 							<fieldset id="specify_all_img" class="radio btn-group">
 										<input id="specify_all_img0" type="radio" value="1" name="specify_all_img">

@@ -1,0 +1,30 @@
+<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'params', JText::_('COM_BESTIA_ITEM_PARAMS', true)); ?>
+
+	<?php $links=false;	?>
+		<?php foreach ($this->form->getFieldset('params') as $field): ?>	            
+		<?php
+		
+		
+		if($links==true) {
+		echo "<div class='span6'>";
+		//echo $field->label;
+		echo $field->input;
+		echo "</div>";
+		$links=false;
+		}
+		
+		if($links==false) {
+			echo "<div class='span6'>";
+			//links
+			//echo $field->label;
+			echo $field->input;
+			echo "</div>";
+			$links=true;
+		}               
+		
+		?>
+		
+	<?php endforeach; ?>
+	
+	
+<?php echo JHtml::_('bootstrap.endTab'); ?>	
