@@ -1,6 +1,9 @@
 <?php
 defined('_JEXEC') or die;
 
+/**
+ *  @param bool
+ */
 global $Rsg2DebugActive;
 
 $Rsg2DebugActive = true; // ToDo: $rsgConfig->get('debug');

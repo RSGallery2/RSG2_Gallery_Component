@@ -10,7 +10,7 @@
 		<field
 			name			= "name"
 			type			= "text"
-			label           = "COM_RSG2_NAME"
+			label           = "COM_RSGALLERY2_NAME"
 			description     = ""
 			maxlength       = "250"
 			filter          = ""
@@ -20,7 +20,7 @@
 		<field
 			name			= "alias"
 			type			= "text"
-			label           = "COM_RSG2_ALIAS"
+			label           = "COM_RSGALLERY2_ALIAS"
 			description     = ""
 			maxlength       = "250"
 			filter          = ""
@@ -30,7 +30,7 @@
 		<field
 			name			= "uid"
 			type			= "user"
-			label           = "COM_RSG2_OWNER"
+			label           = "COM_RSGALLERY2_OWNER"
 			description     = ""
 			filter			= "unset"
 		/>
@@ -43,7 +43,7 @@
 		<field
 			name			= "description"
 			type			= "editor"
-			label           = "COM_RSG2_DESCRIPTION"
+			label           = "COM_RSGALLERY2_DESCRIPTION"
 			description     = ""
 			width 			= "30%"
 			height 			= "20"
@@ -56,30 +56,30 @@
         <field
 			name			= "parent"
 			type			= "ParentGalleryList"
-			label           = "COM_RSG2_PARENT_ITEM"
+			label           = "COM_RSGALLERY2_PARENT_ITEM"
 			filter          = "integer"
 			height 			= "450"
 			size			= "10"
         >
-			<!--option value="-1" >COM_RSG2_SELECT_GALLERY</option-->
-			<option value="0" >COM_RSG2_TOP_GALLERY</option>
+			<!--option value="-1" >COM_RSGALLERY2_SELECT_GALLERY</option-->
+			<option value="0" >COM_RSGALLERY2_TOP_GALLERY</option>
 		</field>	
 
 		<field
 			name			= "thumb_id"
 			type			= "RsgGalleryThumbList"
-			label           = "COM_RSG2_GALLERY_THUMBNAIL"
+			label           = "COM_RSGALLERY2_GALLERY_THUMBNAIL"
 			filter			= "integer"
 			size			= "1"
         >
-			<!--option value="-1" >COM_RSG2_SELECT_GALLERY</option-->
+			<!--option value="-1" >COM_RSGALLERY2_SELECT_GALLERY</option-->
 			<option value="0" >COM_RSGALLERY2_MINUS_RANDOM_THUMBNAIL_MINUS</option>
 		</field>	
 
 		<field
 			name			= "ordering"
 			type			= "RsgGalleryOrderingList"
-			label           = "COM_RSG2_ORDERING"
+			label           = "COM_RSGALLERY2_ORDERING"
 			filter          = "integer"
 			size			= "1"
 		>
@@ -109,14 +109,14 @@
 		<field
 			name			= "ordering"
 			type			= "text"
-			label           = "COM_RSG2_ORDERING"
+			label           = "COM_RSGALLERY2_ORDERING"
 		/>
 
 		<field
 			name			= "published"
 			type			= "radio"
 			class="btn-group btn-group-yesno"
-			label           = "COM_RSG2_PUBLISHED"
+			label           = "COM_RSGALLERY2_PUBLISHED"
 			default			= "1" 
 			description     = ""
 		>
