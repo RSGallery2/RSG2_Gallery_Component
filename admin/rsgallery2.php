@@ -210,15 +210,23 @@ if( $rsgOption == '' ){
 			HTML_RSGallery::RSGalleryFooter();
 			break;
 		case "controlPanel":
+			HTML_RSGallery::showCP();
+			HTML_RSGallery::RSGalleryFooter();
+			break;
 		default:
-			//HTML_RSGallery::showCP();
-			//HTML_RSGallery::RSGalleryFooter();
-			
-			// No old RSG2 task: Use standard Joomla! path
-            $controller	= JControllerLegacy::getInstance('rsgallery2');
-            $controller->execute($task);
-            $controller->redirect();
-
+			// View not found [name, type, prefix]: rsgallery2, html, rsgallery2View 
+			if ($task=='') 
+			{
+				HTML_RSGallery::showCP();
+				HTML_RSGallery::RSGalleryFooter();
+			}
+			else
+			{
+				// No old RSG2 task: Use standard Joomla! path
+				$controller	= JControllerLegacy::getInstance('rsgallery2');
+				$controller->execute($task);
+				$controller->redirect();
+			}
 			break;
 	}
 }
