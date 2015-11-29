@@ -7,7 +7,7 @@
 	<license>This component is released under the GNU/GPL License</license>
 	<authorEmail>team@rsgallery2.nl</authorEmail>
 	<authorUrl>http://www.rsgallery2.nl</authorUrl>
-	<version>4.0.9</version>
+	<version>4.1.0</version>
 	<description>COM_RSGALLERY2_XML_DESCRIPTION</description>
 
 	<scriptfile>install.rsgallery2.php</scriptfile>
@@ -49,18 +49,18 @@
 
 	<administration>
 		<menu view="com_rsgallery2" 
-			img="components/com_rsgallery2/images/rsg2_menu.png">COM_RSGALLERY2_MENU</menu>
+			img="administrator/components/com_rsgallery2/images/rsg2_menu.png">COM_RSGALLERY2_MENU</menu>
 		<submenu>
 			<!-- Note that all & must be escaped to &amp; for the file to be valid XML and be parsed by the installer -->
 			<menu view="COM_RSGALLERY2_MENU_CONTROL_PANEL" 
 				img="class:config"
 				link="option=com_rsgallery2">COM_RSGALLERY2_MENU_CONTROL_PANEL</menu>
+			<menu view="COM_RSGALLERY2_MENU_GALLERIES" 
+				link="option=com_rsgallery2&amp;rsgOption=galleries">COM_RSGALLERY2_MENU_GALLERIES</menu>
 			<menu view="COM_RSGALLERY2_MENU_BATCH_UPLOAD" 
 				link="option=com_rsgallery2&amp;rsgOption=images&amp;task=batchupload">COM_RSGALLERY2_MENU_BATCH_UPLOAD</menu>
 			<menu view="COM_RSGALLERY2_MENU_UPLOAD" 
 				link="option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">COM_RSGALLERY2_MENU_UPLOAD</menu>
-			<menu view="COM_RSGALLERY2_MENU_GALLERIES" 
-				link="option=com_rsgallery2&amp;rsgOption=galleries">COM_RSGALLERY2_MENU_GALLERIES</menu>
 			<menu view="COM_RSGALLERY2_MENU_ITEMS"
 				link="option=com_rsgallery2&amp;rsgOption=images">COM_RSGALLERY2_MENU_ITEMS</menu>
 			<menu view="COM_RSGALLERY2_MENU_CONFIG"
@@ -93,6 +93,23 @@
 		</files>
 
 		<languages folder="admin">
+			<language tag="da-DK">language/da-DK/da-DK.com_rsgallery2.ini</language>
+			<language tag="de-DE">language/de-DE/de-DE.com_rsgallery2.ini</language>
+			<language tag="el-GR">language/el-GR/el-GR.com_rsgallery2.ini</language>
+			<language tag="en-GB">language/en-GB/en-GB.com_rsgallery2.ini</language>
+			<language tag="es-ES">language/es-ES/es-ES.com_rsgallery2.ini</language>
+			<language tag="fa-IR">language/fa-IR/fa-IR.com_rsgallery2.ini</language>
+			<language tag="fi-FI">language/fi-FI/fi-FI.com_rsgallery2.ini</language>
+			<language tag="fr-FR">language/fr-FR/fr-FR.com_rsgallery2.ini</language>
+			<language tag="he-IL">language/he-IL/he-IL.com_rsgallery2.ini</language>
+			<language tag="hr-HR">language/hr-HR/hr-HR.com_rsgallery2.ini</language>
+			<language tag="hu-HU">language/hu-HU/hu-HU.com_rsgallery2.ini</language>
+			<language tag="it-IT">language/it-IT/it-IT.com_rsgallery2.ini</language>
+			<language tag="nb-NO">language/nb-NO/nb-NO.com_rsgallery2.ini</language>
+			<language tag="nl-NL">language/nl-NL/nl-NL.com_rsgallery2.ini</language>
+			<language tag="pt-BR">language/pt-BR/pt-BR.com_rsgallery2.ini</language>
+			<language tag="sl-SI">language/sl-SI/sl-SI.com_rsgallery2.ini</language>
+			<language tag="tr-TR">language/tr-TR/tr-TR.com_rsgallery2.ini</language>
 			<language tag="da-DK">language/da-DK/da-DK.com_rsgallery2.sys.ini</language>
 			<language tag="de-DE">language/de-DE/de-DE.com_rsgallery2.sys.ini</language>
 			<language tag="el-GR">language/el-GR/el-GR.com_rsgallery2.sys.ini</language>

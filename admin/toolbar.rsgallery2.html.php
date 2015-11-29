@@ -49,12 +49,14 @@ class menu_rsg2_submenu{
 				JText::_('COM_RSGALLERY2_SUBMENU_UPLOAD'),
 				'index.php?option=com_rsgallery2&rsgOption=images&task=upload',
 		        $rsgOption=='images' AND $task == 'upload');
-			//Items
+			//Items /images
 			JHtmlSidebar::addEntry(
 				'<span class="icon-image" >  </span>'.
 				JText::_('COM_RSGALLERY2_SUBMENU_IMAGES'),
 				'index.php?option=com_rsgallery2&rsgOption=images',
 		        $rsgOption=='images' AND ($task == '' OR $task == 'view_images'));
+
+			// ToDo: add config
 		}
 	}
 }

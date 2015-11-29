@@ -12,63 +12,115 @@
 defined( '_JEXEC' ) or die( );
 
 /**
- * Version information class, based on the Joomla version class
+ * Version information class. Lives from the manifest file which it loads
+ * (formely based on the Joomla version class)
  * @package RSGallery2
  */
 class rsgalleryVersion {
+	// ToDO: Create singleton
+	
 	//Note: also set version number in config.class.php function rsgConfig
     /** @var string Product */
     var $PRODUCT    = 'RSGallery2';
     /** @var int Main Release Level */
-    var $RELEASE    = '4.0.9';				//Main Release Level: x.y for x.y.z
+    var $RELEASE    = '4.0.999';				//Main Release Level: x.y.z
     /** @var string Development Status */
-    var $DEV_STATUS = 'dev';
-    /** @var int Sub Release Level */
-    var $DEV_LEVEL  = '0';					//Dev level z for x.y.z
+//    var $DEV_STATUS = 'dev';
     /** @var int build Number */
     // var $BUILD      = 'SVN 1098';
-    var $BUILD      = 'GitHub';
+//    var $BUILD      = 'GitHub';
     /** @var string Codename */
-    var $CODENAME   = '';
+//    var $CODENAME   = '';
     /** @var string Date */
     var $RELDATE    = '18 Jun 2015';
     /** @var string Time */
-    var $RELTIME    = '14:00';
+//    var $RELTIME    = '14:00';
     /** @var string Timezone */
-    var $RELTZ      = 'UTC';
+//    var $RELTZ      = 'UTC';
     /** @var string Copyright Text */
     var $COPYRIGHT  = '&copy; 2005 - 2015 <strong><a class="rsg2-footer" href="http://www.rsgallery2.nl">RSGallery2</a></strong>. All rights reserved.';
     /** @var string URL */
     var $URL        = '<strong><a class="rsg2-footer" href="http://www.rsgallery2.nl">RSGallery2</a></strong>';
     /** @var string Whether site is a production = 1 or demo site = 0: 1 is default */
-    var $SITE       = 1;
+//    var $SITE       = 1;
     /** @var string Whether site has restricted functionality mostly used for demo sites: 0 is default */
-    var $RESTRICT   = 0;
+//    var $RESTRICT   = 0;
     /** @var string Whether site is still in development phase (disables checks for /installation folder) - should be set to 0 for package release: 0 is default */
-    var $SVN        = 0;
+//    var $SVN        = 0;
 
+	function __construct ()
+	{
+		//--- collect data from manifest -----------------
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+	
+		$query->select('manifest_cache');
+		$query->from($db->quoteName('#__extensions'));
+		//$query->where('name = "com_rsgallery2"');
+		$query->where('element = "com_rsgallery2"');
+		$db->setQuery($query);
+
+		// manifest Array ( 
+		//	[name] => com_rsg2 
+		//	[type] => component 
+		//	[creationDate] => July 2014 
+		//	[author] => RSGallery2 Team 
+		//	[copyright] => (c) 2014 RSGallery2 Team 
+		//	[authorEmail] => team@rsgallery2.nl 
+		//	[authorUrl] => http://www.rsgallery2.nl 
+		//	[version] => 1.0.2 
+		//	[description] => COM_RSGALLERY2_XML_DESCRIPTION 
+		//	[group] => 
+		//	[filename] => rsg2 
+		//) 
+		
+		$manifest = json_decode($db->loadResult(), true);
+		
+		//--- assign data from manifest -----------------
+
+		//	[name] => com_rsg2 
+		$this->PRODUCT		= $manifest['name'];
+		//	[creationDate] => July 2014 
+		$this->RELDATE		= $manifest['creationDate'];		
+		//	[author] => RSGallery2 Team 
+		$this->AUTHOR		= $manifest['author']; 
+		//	[copyright] => (c) 2014 RSGallery2 Team 
+		$this->COPYRIGHT	= $manifest['copyright'];
+		//	[authorEmail] => team@rsgallery2.nl 
+		$this->EMAIL 		= $manifest['authorEmail'];
+		//	[authorUrl] => http://www.rsgallery2.nl 
+		// Old: = '<strong><a class="rsg2-footer" href="http://www.rsgallery2.nl">RSGallery2</a></strong>';
+		$this->URL			= $manifest['authorUrl']; 
+		//	[version] => 1.0.2 
+		$this->RELEASE 		= $manifest['version'];	
+		//	[description] => COM_RSGALLERY2_XML_DESCRIPTION 
+		$this->DESCRIPTION 	= $manifest['description'];	
+	}
+		
     /**
      * @return string Long format version
      */
     function getLongVersion() {
-        return $this->PRODUCT .' '. $this->RELEASE .'.'. $this->DEV_LEVEL .' '
-            . $this->DEV_STATUS
-            .' [ '.$this->CODENAME .' ] '. $this->RELDATE .' '
-            . $this->RELTIME .' '. $this->RELTZ;
+        return $this->PRODUCT .' '. $this->RELEASE.' '
+//            . $this->DEV_STATUS
+            .' [ '.$this->CODENAME .' ] '
+			. $this->RELDATE .' '
+//            . $this->RELTIME .' '. $this->RELTZ
+			;
     }
 
     /**
      * @return string Short version format
      */
     function getShortVersion() {
-        return $this->PRODUCT . ' ' . $this->RELEASE .'.'. $this->DEV_LEVEL .' '.$this->DEV_STATUS . ' - '.$this->BUILD.'<br />'.$this->COPYRIGHT;
+        return $this->PRODUCT . ' ' . $this->RELEASE . '<br />' . $this->COPYRIGHT;
     }
 
     /**
      * @return string PHP standardized version format
      */
     function getVersionOnly() {
-        return $this->RELEASE .'.'. $this->DEV_LEVEL;
+        return $this->RELEASE ;
     }
     
     /**
@@ -77,16 +129,19 @@ class rsgalleryVersion {
      * @return int -1 (lower), 0 (equal) or 1 (higher)
      */
     function checkVersion($version) {
-        $check = version_compare($version, $this->RELEASE .'.'. $this->DEV_LEVEL);
+        $check = version_compare($version, $this->RELEASE);
         return $check;
     }
 
     /**
-     * return svn number
+     * return svn number (git ... )
      * @return int
      */
+	 
 	function getSVNonly() {
-		return $this->BUILD;
+		//return $this->BUILD;
+		return ""; // ToDo: Tryy extra line in manifest data
 	}
+	/**/
 }
 ?>

@@ -45,6 +45,7 @@ rsgInstance::instance( 'request', false );
 //Load Tooltips
 JHtml::_('behavior.tooltip');
 
+// getActions / $extension = 'com_rsgallery2';
 require_once JPATH_COMPONENT.'/helpers/rsgallery2.php';
 
 //Access check
@@ -61,9 +62,11 @@ $document = JFactory::getDocument();
 $document->addStyleSheet( JURI_SITE."administrator/components/com_rsgallery2/admin.rsgallery2.css");
 
 //require_once( JApplicationHelper::getPath('admin_html') );
+// class HTML_RSGALLERY / showCP / RSGallerySidebar / showUploadStep1
 require_once(JPATH_COMPONENT.'/admin.rsgallery2.html.php');///J3
 
-global $opt, $catid, $uploadStep, $numberOfUploads, $e_id ;
+global $opt, $catid, $uploadStep, $numberOfUploads, $e_id, $view;
+
 $input =JFactory::getApplication()->input;
 //$task				= JRequest::getCmd('task');
 $task               = $input->get( 'task', '', 'CMD');		
@@ -71,6 +74,8 @@ $task               = $input->get( 'task', '', 'CMD');
 $option             = strtolower($input->get( 'option', '', 'CMD'));		
 //$catid			= JRequest::getInt('catid', null);
 $catid              = $input->get( 'catid', null, 'INT');		
+// ...
+$view               = $input->get( 'view', null, 'CMD');		
 
 //$uploadStep			= JRequest::getInt('uploadStep', 0 );
 $uploadStep = $input->get( 'uploadStep', 0, 'INT');		
@@ -99,11 +104,13 @@ if($Rsg2DebugActive)
     $DebTxt = $DebTxt . "\$firstCid: $firstCid".$Delim;
     $DebTxt = $DebTxt . "\$id: $id".$Delim;
     $DebTxt = $DebTxt . "\$rsgOption: $rsgOption".$Delim;
+    $DebTxt = $DebTxt . "\$view: $view".$Delim;
 
     JLog::add($DebTxt); //, JLog::DEBUG);
 }
 
 ///Get the toolbar in here for J3 compatibility (since toolbar.rsgallery2.php is no longer autoloaded)
+// Toolbar ==> 1.) rsgOption 2.) Tasks -> views 
 require_once( JPATH_COMPONENT.'/toolbar.rsgallery2.php');
 
 /**
@@ -137,7 +144,6 @@ switch( $rsgOption ) {
 // these tasks require admin or super admin privileges.
 if( $rsgOption == '' ){
 	// 140701 original: switch ( JRequest::getCmd('task', null) ){
-	$task = $input->get( 'task', '', 'CMD');		
 	switch ( $task ){
 		//Special/debug tasks
 		case 'purgeEverything':
@@ -204,6 +210,9 @@ if( $rsgOption == '' ){
 			HTML_RSGallery::RSGalleryFooter();
 			break;
 		case "controlPanel":
+			HTML_RSGallery::showCP();
+			HTML_RSGallery::RSGalleryFooter();
+			break;
 		default:
 			HTML_RSGallery::showCP();
 			HTML_RSGallery::RSGalleryFooter();
