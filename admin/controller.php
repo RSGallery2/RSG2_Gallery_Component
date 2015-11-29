@@ -32,22 +32,24 @@ class Rsgallery2Controller extends JControllerLegacy
 	public function display($cachable = false, $urlparams = false)
 	{
 
-//		require_once JPATH_COMPONENT.'/helpers/rsg2.php';
-
-/*		$view   = $this->input->get('view', 'rsg2');
-//		JLog::add('  base.controller.view: ', json_encode($view));
+//	ToDo: Use 	require_once JPATH_COMPONENT.'/helpers/rsg2.php';
+/*
+		$view   = $this->input->get('view', 'rsg2');
+		JLog::add('  base.controller.view: ', json_encode($view));
 		
-//		$layout = $this->input->get('layout', 'default');
+		$layout = $this->input->get('layout', 'default');
 		JLog::add('  base.controller.layout: ', json_encode($layout));
 		
 		$id     = $this->input->getInt('id');
 		JLog::add('  base.controller.id: ', json_encode($id));
+*/		
+		if($Rsg2DebugActive)
+		{
+			$task = $this->input->get('task');
+			JLog::add('  base.controller.task: ', json_encode($task));
+		}
 		
-		$task = $this->input->get('task');
-		JLog::add('  base.controller.task: ', json_encode($task));
-*/
-		
-/* ToDo:: Activate following: book extension entwickeln  page 208
+/* ToDo: Activate following: book extension entwickeln  page 208
 		if ($view == 'rsg2' && $layout == 'edit' && !$this->checkEditId('com_rsgallery2.edit.rsgallery2', $id))
 		{
 			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id));
