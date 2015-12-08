@@ -34,6 +34,10 @@ if( isset( $rsgConfig ))
 	return;
 }
 
+// Needed by rsgConfig
+require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'version.rsgallery2.php');
+$rsgVersion = new rsgalleryVersion();
+
 // Initialize the rsg config file
 require_once(JPATH_RSGALLERY2_ADMIN . '/includes/config.class.php');
 $rsgConfig = new rsgConfig();
@@ -47,9 +51,6 @@ define('JPATH_WATERMARKED', JPATH_ROOT. str_replace('/', DS , $rsgConfig->get('i
 $rsgOptions_path = JPATH_RSGALLERY2_ADMIN .DS. 'options' .DS;
 $rsgClasses_path = JPATH_RSGALLERY2_ADMIN .DS. 'includes' . DS;
     
-require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'version.rsgallery2.php');
-$rsgVersion = new rsgalleryVersion();
-
 //include ACL class
 require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'access.class.php');
 // include authorisation check class

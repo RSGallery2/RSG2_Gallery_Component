@@ -21,6 +21,8 @@ jimport('joomla.log.log');
 //require_once( $rsgClasses_path . 'file.utils.php' );
 
 global $rsgConfig;
+global $rsgVersion;
+
 if( !isset( $rsgConfig )){
     
 	JLog::add('require once: config /version', JLog::DEBUG);
