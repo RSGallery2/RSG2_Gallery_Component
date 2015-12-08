@@ -21,8 +21,14 @@ class Rsgallery2ViewUpload extends JViewLegacy
 	
 	public function display ($tpl = null)
 	{
-		$form = $this->get('Form');
-		var_dump($form);
+		$xmlFile = JPATH_COMPONENT . '/models/forms/upload.xml';
+		echo $xmlFile.'<BR>';
+		echo 'file_exists: "' . json_encode(file_exists ($xmlFile)).'"'.'<BR>';
+		$xmlFile = '/xampp/htdocs/Joomla3x/administrator/components/com_rsgallery2/models/forms/upload.xml';
+		echo $xmlFile.'<BR>';
+		echo 'file_exists: "' . json_encode(file_exists ($xmlFile)).'"'.'<BR>';
+//		$this->form = JForm::getInstance('uploadForm', $xmlFile);
+//		var_dump($this->form);
 
 		// $item = $this->get('Item');
 //		Rsg2Helper::addSubMenu('uploadSingle'); 
