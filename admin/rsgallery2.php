@@ -214,15 +214,34 @@ if( $rsgOption == '' ){
 			HTML_RSGallery::RSGalleryFooter();
 			break;
 		default:
-			// View not found [name, type, prefix]: rsgallery2, html, rsgallery2View 
-			if ($task=='') 
+			// old RSG2 task not defined or complete new task ?
+
+			//--- Use old or new MVC type ----------------------------
+			$IsCallNewMvcType = false;
+			// View not found ? [name, type, prefix]: rsgallery2, html, rsgallery2View 
+			if ($view != '') 
 			{
+			    $IsCallNewMvcType = true;
+			}
+
+			if ($IsCallNewMvcType == false) 
+			{
+		        // Log it for information 
+                if($Rsg2DebugActive)
+                {
+			        $DeBtxt = 'Unknown Task: "' . $task . '" in rsgallery2.php';
+			        JLog::add($DebTxt); //, JLog::DEBUG);
+                }
+
+				// Fallback: Old standard view
 				HTML_RSGallery::showCP();
 				HTML_RSGallery::RSGalleryFooter();
 			}
 			else
 			{
-				// No old RSG2 task: Use standard Joomla! path
+				//--- New MVC view/ ... Handling --------------------------
+
+				// New RSGallery2 views as MVC: Use standard Joomla! path
 				$controller	= JControllerLegacy::getInstance('rsgallery2');
 				$controller->execute($task);
 				$controller->redirect();
