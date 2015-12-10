@@ -22,18 +22,19 @@ class Rsgallery2ViewUpload extends JViewLegacy
 	public function display ($tpl = null)
 	{
 		$xmlFile = JPATH_COMPONENT . '/models/forms/upload.xml';
-		echo $xmlFile.'<BR>';
-		echo 'file_exists: "' . json_encode(file_exists ($xmlFile)).'"'.'<BR>';
+		//echo $xmlFile.'<BR>';
+		//echo 'file_exists: "' . json_encode(file_exists ($xmlFile)).'"'.'<BR>';
 		$xmlFile = '/xampp/htdocs/Joomla3x/administrator/components/com_rsgallery2/models/forms/upload.xml';
-		echo $xmlFile.'<BR>';
-		echo 'file_exists: "' . json_encode(file_exists ($xmlFile)).'"'.'<BR>';
-//		$this->form = JForm::getInstance('uploadForm', $xmlFile);
+		//$xmlFile = '/xampp/htdocs/Joomla3x/administrator/components/com_rsgallery2/models/forms/group.xml';
+		//echo $xmlFile.'<BR>';
+		//echo 'file_exists: "' . json_encode(file_exists ($xmlFile)).'"'.'<BR>';
+		$form = JForm::getInstance('upload', $xmlFile);
 //		var_dump($this->form);
 
 		// $item = $this->get('Item');
 //		Rsg2Helper::addSubMenu('uploadSingle'); 
 		
-	//	$Config = array ('upload_maxsize' => '21M'); // ToDo: Replace with value
+//		$Config = array ('upload_maxsize' => '21M'); // ToDo: Replace with value
 		$this->bYesAllImgInStep1 = true; // ToDo: From config last selection ...
 		$this->UploadLimit = "*21M"; // ToDo: collect info 
 		$this->LastFtpUploadPath = "*Last used FTP path ";  // ToDo: From config last selection ...
@@ -51,8 +52,7 @@ class Rsgallery2ViewUpload extends JViewLegacy
 		$this->addToolbar ();
 		$this->sidebar = JHtmlSidebar::render ();
 
-		parent::display ($tpl);
-		
+		parent::display ($tpl);		
 	}
 
 	

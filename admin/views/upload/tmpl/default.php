@@ -27,7 +27,8 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 
 // $checked  = empty($this->value) ? ' checked="checked"' : '';
  
-
+//var_dump(form);
+var_dump($this->form);
 ?>
 
 <script type="text/javascript">
@@ -301,7 +302,12 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 									
 							
 							<!-- select gallery combo -->
-							
+							<?php
+								$fieldSets = $this->form->getFieldsets();
+								foreach ($fieldSets as $name => $fieldSet) {
+									echo $this->form->renderFieldset($name);
+								}							
+							?>
 						</div>
 					</div>
 					
@@ -340,7 +346,7 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 					 
 					<div class="control-group">
 						<div class="control-label"><?php 
-						var_dump($this->form);
+//						var_dump($this->form);
 //						echo $this->form->getLabel ('SelectGalleries01'); ?></div>
 						<div class="controls"><?php 
 						//echo $this->form->getInput ('SelectGalleries01'); 

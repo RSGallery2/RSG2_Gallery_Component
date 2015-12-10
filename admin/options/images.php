@@ -654,7 +654,7 @@ function saveUploadedImage( $option ) {
 		
 // OneUploadForm $mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images&task=upload");
 		$mainframe->redirect('index.php?option=com_rsgallery2&view=upload&task=upload' ); // Todo: More information fail ?
-	} 
+	}		
 }
 
 /**
@@ -940,7 +940,7 @@ function save_batchupload() {
 		$mainframe->redirect('index.php?option=com_rsgallery2&view=upload' ); // Todo: More information fail ?
 	}
 
-    for($i=0;$i<$teller;$i++) {
+     for($i=0;$i<$teller;$i++) {
         //If image is marked for deletion, delete and continue with next iteration
         if (isset($delete[$i]) AND ($delete[$i] == 'true')) {
             //Delete file from server
