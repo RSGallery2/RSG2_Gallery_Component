@@ -26,9 +26,7 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 
 
 // $checked  = empty($this->value) ? ' checked="checked"' : '';
- 
-//var_dump(form);
-var_dump($this->form);
+
 ?>
 
 <script type="text/javascript">
@@ -228,89 +226,15 @@ var_dump($this->form);
 						</div>
 					</div>
 					
-					<!-- One gallery for all images -->
-					<div class="control-group">
-						<div class="control-label">
-							<label id="" class="hasTooltip" for="specify_all_img" title="" 
-								data-original-title="<strong>Strong text</strong><br />Select whether . If Yes, the ."
-								><?php echo JText::_('COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES'); ?></label>
-						</div>
-						<div class="controls">
-							<!--fieldset id="jform_offline" class="radio btn-group btn-group-yesno">
-								<input id="jform_offline0" type="radio" value="1" name="jform[offline]">
-								<label class="btn" for="jform_offline0">Yes</label>
-								<input id="jform_offline1" type="radio" checked="checked" value="0" name="jform[offline]">
-								<label class="btn active btn-danger" for="jform_offline1">No</label>
-							</fieldset  btn active btn-success -->
-							<fieldset id="specify_all_img" class="radio btn-group btn-group-yesno">
-								<input id="specify_all_img0" type="radio" value="1" name="specify_all_img"
-								
-								<?php 
-										if ($this->bYesAllImgInStep1)
-										{
-											echo ' checked="checked"';
-										}	
-									?>
-								>
-								
-								<label 
-								class="btn <?php 
-										if ($this->bYesAllImgInStep1)
-										{
-											echo " active btn-success";
-										}	
-									?>" for="specify_all_img0">Yes1</label>
-								<input id="specify_all_img1" type="radio" value="0" name="specify_all_img"<?php 
-										if (! $this->bYesAllImgInStep1)
-										{
-											echo ' checked="checked"';
-										}	
-									?>
-								>
-								<label 
-								class="btn"<?php 
-										if ($this->bYesAllImgInStep1)
-										{
-											echo " btn-danger";
-										}	
-									?>" for="specify_all_img1">No1</label>
-									
-							</fieldset>
-							
-							<fieldset id="myEdit" class="radio btn-group btn-group-yesno">
-                                        <input type="radio" id="myEdit0" value="1" name="myEdit">
-                                        <label for="myEdit0" class="btn">Yes2</label>
-                                        <input type="radio" id="myEdit1" value="0" name="myEdit">
-                                        <label for="myEdit1" class="btn btn-danger">No2</label>
-							</fieldset>
-
-							<fieldset id="specify_all_img" class="radio btn-group">
-										<input id="specify_all_img0" type="radio" value="1" name="specify_all_img">
-										<label class="btn" for="specify_all_img0">Yes3</label>
-										<input id="specify_all_img1" type="radio" value="0" name="specify_all_img">
-										<label class="btn" for="specify_all_img1">No3</label>									
-							</fieldset>
-							
-							
-								<!-- black base path -->
-								<!-- div style="color:#000000;font-weight:bold;font-size:smaller;margin-top: 0px;padding-top: 0px;">
-									<?php echo JText::sprintf('COM_RSGALLERY2_NO_SPECIFY_GALLERY_PER_IMAGE_IN_STEP_2', ""); ?>
-								</div-->
-								<div style="color:#000000;font-size:smaller;margin-top: 0px;padding-top: 0px;">
-									<?php echo JText::sprintf('COM_RSGALLERY2_NO_SPECIFY_GALLERY_PER_IMAGE_IN_STEP_2', ""); ?>
-								</div>
-									
-							
-							<!-- select gallery combo -->
-							<?php
-								$fieldSets = $this->form->getFieldsets();
-								foreach ($fieldSets as $name => $fieldSet) {
-									echo $this->form->renderFieldset($name);
-								}							
-							?>
-						</div>
-					</div>
-					
+					<!-- select gallery combo -->
+					<?php
+						$fieldSets = $this->form->getFieldsets();
+						foreach ($fieldSets as $name => $fieldSet) {
+							echo $this->form->renderFieldset($name);
+						}							
+					?>
+			
+			
 					<!-- Specify gallery -->
 					<div class="control-group">
 						<label class="control-label" for="zip_upload_galleries"><?php echo JText::_('COM_RSGALLERY2_SPECIFY_GALLERY'); ?></label>
