@@ -233,50 +233,10 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 							echo $this->form->renderFieldset($name);
 						}							
 					?>
-			
-			
 					<!-- Specify gallery -->
-					<div class="control-group">
-						<label class="control-label" for="zip_upload_galleries"><?php echo JText::_('COM_RSGALLERY2_SPECIFY_GALLERY'); ?></label>
-						<div class="controls">
-							<select id="zip_upload_galleries" class="chzn-done" name="select_zip_upload_galleries" data-placeholder="Only when first is empty)*" style="display: none;">
-								<option value="-1" selected="selected" >- Please select -</option>
-								<option value="0">Theater 1</option>
-								<option value="1">Theater 2</option>
-							</select>
-							<div id="zip_upload_galleries_chzn" class="chzn-container chzn-container-single chzn-container-single-nosearch" style="width: 420px;" title="">
-								<!-- header --> 
-								<a class="chzn-single" tabindex="-1">
-									<span>- Please select 2 -</span>
-									<div>
-										<b></b>
-									</div>
-								</a>
-								<div class="chzn-drop">
-									<div class="chzn-search">
-										<input type="text" autocomplete="off" readonly="">
-									</div>
-									<ul class="chzn-results">
-										<li class="active-result result-selected" data-option-array-index="0" style="">- Please select -<li>
-										<li class="active-result" data-option-array-index="1" style="">Theater 1</li>
-										<li class="active-result" data-option-array-index="2" style="">Theater 2</li>
-									</ul>
-								</div>
-							</div>
-
-						</div>
-					</div>
-					
+			
+			
 					 
-					<div class="control-group">
-						<div class="control-label"><?php 
-//						var_dump($this->form);
-//						echo $this->form->getLabel ('SelectGalleries01'); ?></div>
-						<div class="controls"><?php 
-						//echo $this->form->getInput ('SelectGalleries01'); 
-						?></div>
-					</div>
-					
 					<!-- Action button -->
 					<div class="form-actions">
 						<button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonZipPc()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE'); ?></button>

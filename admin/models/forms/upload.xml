@@ -2,22 +2,31 @@
 <!-- $Id$ -->
 <form>
 	<fieldset name="upload_zip">	
-		<field name="all_img_in_step1" type="radio" default="0"
-			label="COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
-			description="COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
-			class="btn-group btn-group-yesno">
+		<field 
+			name         = "all_img_in_step1" 
+			type         = "radio" 
+			default      = "0"
+			label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+			description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+			class        = "btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 		<!-- Gallery selection -->
 		<field
-			id				= "SelectGalleries01"
-			name			= "SelectGalleries01"
-			type			= "GallerySelect"
-			label			= "TestUpload"
+			id           = "SelectGalleries01"
+			name         = "SelectGalleries01"
+			type         = "GallerySelectList"
+			label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
+			description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
+			required     = "true"
+			class        = "inputbox"
+			addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+		/>
+		<!-- 
 			translate_label	= "true"
 			class			= "inputbox"
-		/>
+		-->
 
 	</fieldset>
 </form>
