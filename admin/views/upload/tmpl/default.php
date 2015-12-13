@@ -226,16 +226,10 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 						</div>
 					</div>
 					
-					<!-- select gallery combo -->
 					<?php
-						$fieldSets = $this->form->getFieldsets();
-						foreach ($fieldSets as $name => $fieldSet) {
-							echo $this->form->renderFieldset($name);
-						}							
+						// All in one, Specify gallery
+						echo $this->form->renderFieldset('upload_zip');
 					?>
-					<!-- Specify gallery -->
-			
-			
 					 
 					<!-- Action button -->
 					<div class="form-actions">
@@ -255,40 +249,17 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
                             <div style="color:#FF0000;font-weight:bold;font-size:smaller;margin-top: 0px;padding-top: 0px;">
                                 <?php echo JText::_('COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH');?>
                             </div>
-							
-<div class="controls">
-    <div class="radio btn-group">
-        <input type="radio" checked="checked"><label class="btn active btn-danger">Male</label>
-        <input type="radio"><label class="btn">Female</label>
-    </div>
-</div>
-
-
-    <fieldset id="multilang" class="radio btn-group btn-group-yesno">
-                            <input type="radio" id="multilang0" name="editor[multilang]" value="1">
-                            <label for="multilang0" class="btn active btn-success">????????</label>
-                            <input type="radio" id="multilang1" name="editor[multilang]" value="0">
-                            <label for="multilang1" class="btn">?????????</label>
-      </fieldset>
-
-	  
-<fieldset id="myEdit" class="radio btn-group">
-                                        <input type="radio" id="myEdit0" value="1" name="myEdit">
-                                        <label for="myEdit0" class="btn">Yes</label>
-                                        <input type="radio" id="myEdit1" value="0" name="myEdit">
-                                        <label for="myEdit1" class="btn btn-danger">No</label>
-</fieldset>
-
-	  
-							<!-- black base path -->
-                            <!--div style="color:#000000;font-weight:bold;font-size:smaller;margin-top: 0px;padding-top: 0px;">
-	                            <?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', ""); ?>&nbsp;<?php echo JPATH_SITE; ?>
-                            </div -->
                             <div style="color:#000000;font-size:smaller;margin-top: 0px;padding-top: 0px;">
 	                            <?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', ""); ?><!-- br -->&nbsp;<?php echo JPATH_SITE; ?>
                             </div>
-						</div>
-					</div>
+                        </div>
+                    </div>
+														
+					<?php
+						// All in one, Specify gallery
+						echo $this->form->renderFieldset('upload_zip');
+					?>
+	  
 					<div class="form-actions">
 						<button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES'); ?></button>
 					</div>
