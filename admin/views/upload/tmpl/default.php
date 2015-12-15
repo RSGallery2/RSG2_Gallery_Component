@@ -202,10 +202,30 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 					</div>
 				</div-->
 				<div class="form-actions">
-					<button class="btn btn-primary" type="button" onclick="Joomla.submitbuttonSingle()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?></button>
+					<!--button class="btn btn-primary" type="button" onclick="Joomla.submitbuttonSingle()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?></button -->
+					<!-- ok button class="btn btn-primary" type="button" onclick="Joomla.submitbuttonSingle()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?></button -->
 					<!--a href="" /-->
-				</div>
-							
+					<a class="btn btn-primary" title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>" 
+						href="index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">
+						<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>
+					</a>
+					
+<?php 
+/*					
+		$html[] = parent::getInput()
+			. '<a class="btn modal" title="' . JText::_('COM_MODULES_CHANGE_POSITION_TITLE') . '"  href="' . $link
+			. '" rel="{handler: \'iframe\', size: {x: 800, y: 450}}">'
+			
+			. JText::_('COM_MODULES_CHANGE_POSITION_BUTTON') . '</a>'; 			$html[] = '<a'
+				. ' class="btn hasTooltip' . ($value ? '' : ' hidden') . '"'
+				. ' href="index.php?option=com_categories&layout=modal&tmpl=component&task=category.edit&id=' . $value . '"'
+				. ' target="_blank"'
+				. ' title="' . JHtml::tooltipText('COM_CATEGORIES_EDIT_CATEGORY') . '" >'
+				. '<span class="icon-edit"></span>' . JText::_('JACTION_EDIT')
+				. '</a>';
+ 				</div>
+*/
+?>							
 			</fieldset>
 			<?php echo JHtml::_('bootstrap.endTab'); ?>
 			
@@ -271,6 +291,12 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 			<input type="hidden" name="type" value="" />
 			<input type="hidden" name="installtype" value="upload" />
 			<input type="hidden" name="task" value="rsgallery2.upload" /> 			
+			<!-- input type="hidden" name="task" value="batchupload" /-->
+
+			<input type="hidden" name="uploaded" value="1" />
+			<input type="hidden" name="option" value="com_rsgallery2" />
+			<!--input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" /-->
+			<input type="hidden" name="boxchecked" value="0" />
 							
 			<?php echo JHtml::_('form.token'); ?>
 		</form>

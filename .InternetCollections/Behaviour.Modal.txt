@@ -1,0 +1,28 @@
+Joomla 2.5 eigene Lightbox aktivieren durch JHTML::_('behavior.modal');
+
+Um die Joomla 2.5 eigene Lightbox einzusetzen gehen Sie wie folgt vor.
+Melden Sie sich im Joomla Backend an und editieren Sie Ihr Joomla Template.
+ 
+Klicken Sie als 1. oben im Menü auf Erweiterungen und dann auf Templates.
+Im Joomla Template Bereich klicken Sie nun oben rechts neben Stile auf Templates. 
+ 
+Wählen Sie nun Ihr Joomla Template zum Editieren aus, indem Sie auf den Namen des Joomla Templates klicken.
+In Template Bereich sehen Sie jetzt eine Auflistung der Stylesheets und die Template Hauptdateien.
+Klicken Sie auf Hauptdatei bearbeiten und fügen Sie JHTML::_('behavior.modal'); noch vor 
+ 
+?>
+<!DOCTYPE html 
+ 
+ein:
+
+
+JHTML::_('behavior.modal');
+?>
+!DOCTYPE html 
+ 
+Speichern Sie Ihre Joomla Template Änderung und wechseln Sie nun in den Joomla Beitrag der ein Bild mit Lightbox enthalten soll.
+Laden Sie wie gewohnt ein Bild in Ihren Beitrag, setzen Sie die gewünschten Abmessungen und die Bildposition im Joomla Beitrag. Wenn Sie alle Änderungen gemacht haben, klicken Sie erneut das gewünschte Bild an und wählen Sie das Link Symbol im Joomla Editor aus. Geben Sie als CSS Class:
+ 
+modal
+ 
+ein, speichern Sie den Joomla Beitrag. Zum Test wechseln Sie zu Ihrer Internetseite und testen Sie ob die Änderung und Aktivierung der Joomla eigenen Lightbox funktioniert hat.
