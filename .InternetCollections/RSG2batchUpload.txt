@@ -1,0 +1,54 @@
+
+[RSGallery2.php]
+$rsgOption ) {
+    case 'images':
+        require_once( $rsgOptions_path . 'images.php' );
+    	break;
+
+	[images.php]
+	
+    $zip_file = $input->files->get('zip_file', array(), 'FILES'); //
+	$FTP_path  = $rsgConfig->get('ftp_path');
+yyy
+	
+	switch ($task) {
+	case 'batchupload':
+		//HTML_RSGallery::RSGalleryHeader('', JText::_('COM_RSGALLERY2_SUBMENU_BATCH_UPLOAD'));
+		batchupload($option);
+		HTML_RSGallery::RSGalleryFooter();
+		break;
+		
+
+	function batchupload($option) {  // Otion -> URL starts with index
+		if (isset($uploaded)) {//true when form in step 1 of batchupload is submitted
+			if ($batchmethod == "zip") {
+				if ($uploadfile->checkSize($zip_file) == 1) {
+					//$ziplist = $uploadfile->handleZIP($zip_file);//MK// [change] [handleZIP uses PclZip that is no longer in J1.6]
+					$ziplist = $uploadfile->extractArchive($zip_file);//MK// [todo] [check extractArchive]
+					if (!$ziplist){
+						//Extracting archive failed
+	// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
+						$mainframe->redirect('index.php?option=com_rsgallery2&view=upload' ); // Todo: More information fail ?
+					}
+				} else {
+					//Error message: file size
+					$mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE_IS_TOO_BIG') );
+	// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
+					$mainframe->redirect('index.php?option=com_rsgallery2&view=upload' ); // Todo: More information fail ?
+				}
+			} else {//not zip thus ftp
+				$ziplist = $uploadfile->handleFTP($ftppath);
+			}
+			html_rsg2_images::batchupload_2($ziplist, $uploadfile->extractDir);//Step 2 in batchupload process >> images.html.php
+		} else {
+			html_rsg2_images::batchupload($option);//Step 1 in batchupload process >> images.html.php
+		}
+
+		
+	
+	
+	
+	
+	
+ToDo:
+ ! requestCatCreation	
