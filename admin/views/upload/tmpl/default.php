@@ -288,17 +288,16 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 
 			<?php echo JHtml::_('bootstrap.endTabSet'); ?>
 
-			<input type="hidden" name="type" value="" />
-			<input type="hidden" name="installtype" value="upload" />
-			<input type="hidden" name="task" value="rsgallery2.upload" /> 			
-			<!-- input type="hidden" name="task" value="batchupload" /-->
-
-			<input type="hidden" name="uploaded" value="1" />
-			<input type="hidden" name="option" value="com_rsgallery2" />
-			<!--input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" /-->
-			<input type="hidden" name="boxchecked" value="0" />
-							
 			<?php echo JHtml::_('form.token'); ?>
+			
+			<!--input type="hidden" value="1" name="uploaded"-->
+			<input type="hidden" value="0" name="uploaded">
+			<input type="hidden" value="com_rsgallery2" name="option">
+			<input type="hidden" value="images" name="rsgOption">
+			<!--input type="hidden" value="batchupload" name="task"-->
+			<input type="hidden" value="" name="task">
+			<input type="hidden" value="0" name="boxchecked">
+			
 		</form>
 	</div>
 	<div id="loading"></div>

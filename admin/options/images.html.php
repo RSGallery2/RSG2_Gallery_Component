@@ -841,7 +841,7 @@ class html_rsg2_images {
         //$xcat 			= JRequest::getInt('xcat'  , null);
 		$xcat           = $input->get( 'xcat', null, 'INT');
         //$batchmethod 	= JRequest::getVar('batchmethod'  , null);
-		$batchmethod 		= $input->get( 'batchmethod', null, 'STRING');
+		$batchmethod    = $input->get('batchmethod', '', 'STRING');		
         ?>
 		<script language="javascript" type="text/javascript">
         Joomla.submitbutton = function(task) {
