@@ -688,7 +688,7 @@ class html_rsg2_images {
 					}
 				} else if (upload_method == 'ftp') {
 					if (form.ftppath.value == '') {
-						alert( " <?php echo JText::_('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP-PATH_PROVIDED');?>" );	
+						alert( " <?php echo JText::_('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');?>" );	
 						return;
 					} else if (form.xcat.value <= 0 && selcat_method == '1') {
 						alert("<?php echo JText::_('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST');?>");

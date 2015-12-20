@@ -7,13 +7,13 @@ $rsgOption ) {
 
 	[images.php]
 	
-    $zip_file = $input->files->get('zip_file', array(), 'FILES'); //
-	$FTP_path  = $rsgConfig->get('ftp_path');
-    $batchmethod    = $input->get( 'batchmethod', '', 'CMD');		
+    $zip_file    = $input->files->get('zip_file', array(), 'FILES'); //
+	$FTP_path    = $rsgConfig->get('ftp_path');
+    $batchmethod = $input->get( 'batchmethod', '', 'CMD');		
 	// batchupload_2
-	$batchmethod 		= $input->get( 'batchmethod', null, 'STRING');
-	$uploaded		= $input->get( 'uploaded', null, 'BOOL');		
-	$selcat         = $input->get( 'selcat', null, 'INT');					
+	$batchmethod = $input->get( 'batchmethod', null, 'STRING');
+	$uploaded	 = $input->get( 'uploaded', null, 'BOOL');		
+	$selcat      = $input->get( 'selcat', null, 'INT');					
 
 	
 >> Start with FTP upload

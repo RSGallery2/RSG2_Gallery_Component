@@ -20,13 +20,52 @@ JHtml::_('bootstrap.tooltip');
 
 JHtml::_('formbehavior.chosen', 'select');
  
-JText::script('COM_INSTALLER_MSG_INSTALL_PLEASE_SELECT_A_PACKAGE');
-JText::script('COM_INSTALLER_MSG_INSTALL_PLEASE_SELECT_A_DIRECTORY');
-JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL'); 
+JText::script('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN');
+JText::script('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST');
+JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED'); 
 
+$js = <<<SCRIPTHERE
+	jQuery(document).ready(function() {
+		
+	}); 
+SCRIPTHERE;
+/*
+		jQuery("#SelectGalleries_01").on("change", "#chosen", function() {
+			console.log("onchange: " + this.value);
+			alert ("onchange: " + this.value);
+		};
+*/
 
+JFactory::getDocument()->addScriptDeclaration($js)
+
+/*
 // $checked  = empty($this->value) ? ' checked="checked"' : '';
+JFactory::getDocument()->addScriptDeclaration(
+/*
+	/* Select first tab
+	jQuery(document).ready(function() {
+		jQuery("#configTabs a:first").tab("show");
+	});
+	'
+	* /
+'	
+jQuery(document).ready(function() {
+	if ($("#TestTask").length){
+		alert("found");
+	}
+	else
+	{
+		alert("not found");
+	}
 
+	$("#TestTask").val("border-color");
+	$("#TestTask").css("border-color","red");
+	$("#TestTask").css("border-width","10px");
+	 $("#TestTask").css("border-width","10px");
+}
+'
+); 
+*/
 ?>
 
 <script type="text/javascript">
@@ -51,39 +90,93 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 	
 	Joomla.submitbuttonZipPc = function()
 	{
-/*		var form = document.getElementById('adminForm');
+		// alert('Upload from local Zip PC: use ...');
 
-		// do field validation
-		if (form.install_directory.value == "") {
-			alert(Joomla.JText._('COM_INSTALLER_MSG_INSTALL_PLEASE_SELECT_A_DIRECTORY'));
+		var form = document.getElementById('adminForm');
+
+//		alert('install_url.value= "' + form.install_url.value + '"');
+		// do field validation input id="install_url" class="input_box" type="file" size="57" name="install_url"
+		if (form.install_url.value == "") {
+			alert(Joomla.JText._('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN'));
 		}
 		else
 		{
-			jQuery('#loading').css('display', 'block');
+			// $('#selectBox > option:selected').text();
+			// SelectGalleries_01_chzn result-selected
+			
+			// alert('SelectGalleries_01.value= "' + String(form.SelectGalleries_01.value) + '"');
+			
+			var GalleryId = -1; // form.SelectGalleries_01.value == ""			
+			
+			GalleryId = jQuery('#SelectGalleries_01').chosen().val();
+			// GalleryId = jQuery("#SelectGalleries_01 .chosen-select").val();
+			 
+			alert('GalleryId: ' + GalleryId);
+			
+			if (GalleryId < 1) {
+				alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
+			}
+			else
+			{
+				// jQuery('#loading').css('display', 'block');
 
-			form.installtype.value = 'folder';
-			form.submit();
+				form.TestTask.value = 'xxx'; // upload.uploadZipFile
+				form.batchmethod.value = 'zip';
+				form.zip_file.value = form.install_url.value;
+				form.selcath.value = GalleryId;
+				// form.submit();
+			}
 		}
+/*
+		// $('input[type=button][value~=task]')
+
+		$("#TestTask").val('border-color');
+		// $("#TestTask").css('border-color','red');
 */
-		alert('Upload from local Zip PC: use ...');
+		// alert('Upload from local Zip PC: use ...');
 	};
 	
 	Joomla.submitbuttonFolderServer = function()
-	{
-/*		var form = document.getElementById('adminForm');
+	{		
+		var form = document.getElementById('adminForm');
 
-		// do field validation
+//		alert('install_directory.value= "' + form.install_directory.value + '"');
+		// do field validation input id="install_directory" class="input_box" type="file" size="57" name="install_directory"
 		if (form.install_directory.value == "") {
-			alert(Joomla.JText._('COM_INSTALLER_MSG_INSTALL_PLEASE_SELECT_A_DIRECTORY'));
+			alert(Joomla.JText._('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED'));
 		}
 		else
 		{
-			jQuery('#loading').css('display', 'block');
+			// $('#selectBox > option:selected').text();
+			// SelectGalleries_01_chzn result-selected
+			
+			// $selcat      = $input->get( 'selcat', null, 'INT');
+			var GalleryId = -1; // form.SelectGalleries_02.value == ""
+			
+			GalleryId = jQuery('#SelectGalleries_02').chosen().val();
+			// ? two selections ? GalleryId = jQuery("#SelectGalleries_02 .chosen-select").val();
+			 
+			alert('GalleryId: ' + GalleryId);
+			
+//			alert('SelectGalleries_02.value= "' + String(form.SelectGalleries_02.value) + '"');
+			if (GalleryId < 1) {
+				alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
+			}
+			else
+			{
+				// jQuery('#loading').css('display', 'block');
 
-			form.installtype.value = 'folder';
-			form.submit();
-		}
-*/
+				form.TestTask.value = 'folder';
+				batchmethod = 'FTP';
+				form.ftp_path.value = form.install_directory.value;
+				form.selcath.value = GalleryId;
+				// form.submit();
+			}
+		}		
+		
+		
+//		$("#TestTask").val('border-color');
+
 		alert('Upload images from remote server : use ...');
 	};
 	
@@ -294,9 +387,13 @@ JText::script('COM_INSTALLER_MSG_INSTALL_ENTER_A_URL');
 			<input type="hidden" value="0" name="uploaded">
 			<input type="hidden" value="com_rsgallery2" name="option">
 			<input type="hidden" value="images" name="rsgOption">
-			<!--input type="hidden" value="batchupload" name="task"-->
-			<input type="hidden" value="" name="task">
+			<input id="TestTask" value="" name="task">
 			<input type="hidden" value="0" name="boxchecked">
+
+			<input value="" name="zip_file">
+			<input value="" name="ftp_path">
+			<input value="" name="batchmethod">
+			<input value="" name="selcat">
 			
 		</form>
 	</div>
