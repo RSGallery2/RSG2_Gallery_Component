@@ -11,6 +11,8 @@
 // no direct access
 defined( '_JEXEC' ) or die();
 
+global $Rsg2DebugActive;
+
 require_once( $rsgClasses_path . 'file.utils.php' );
 require_once( $rsgOptions_path . 'images.html.php' );
 require_once( $rsgOptions_path . 'images.class.php' );
@@ -860,7 +862,24 @@ function batchupload($option) {
 
 	//$xcat 			= JRequest::getInt('xcat', null);
 	$xcat           = $input->get( 'xcat', null, 'INT');					
-	
+
+	if($Rsg2DebugActive)
+	{
+		//$Delim = "\n";
+		$Delim = " ";
+		// show active task
+		$DebTxt = "==> images.batchupload.php".$Delim ."----------".$Delim;
+//		$DebTxt = $DebTxt . "\$task: $task".$Delim;
+		$DebTxt = $DebTxt . "\$batchmethod: $batchmethod".$Delim;
+//		$DebTxt = $DebTxt . "\$config: $config".$Delim;
+		$DebTxt = $DebTxt . "\$uploaded: $uploaded".$Delim;
+//		$DebTxt = $DebTxt . "\$selcat: $selcat".$Delim;
+		$DebTxt = $DebTxt . "\$xcat: $xcat".$Delim;
+		$DebTxt = $DebTxt . "\$ftppath: $ftppath".$Delim;
+
+		JLog::add($DebTxt); //, JLog::DEBUG);
+	}
+
 	//Check if at least one gallery exists, if not link to gallery creation
 	$database->setQuery( "SELECT id FROM #__rsgallery2_galleries" );
 	$database->execute();

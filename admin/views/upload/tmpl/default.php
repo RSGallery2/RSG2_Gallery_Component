@@ -1,7 +1,7 @@
 <?php 
 /**
 * @package RSGallery2
-* @copyright (C) 2003 - 2012 RSGallery2
+* @copyright (C) 2003 - 2015 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
  */
@@ -24,184 +24,23 @@ JText::script('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN');
 JText::script('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST');
 JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED'); 
 
+/*
 $js = <<<SCRIPTHERE
 	jQuery(document).ready(function() {
 		
 	}); 
 SCRIPTHERE;
-/*
+
 		jQuery("#SelectGalleries_01").on("change", "#chosen", function() {
 			console.log("onchange: " + this.value);
 			alert ("onchange: " + this.value);
 		};
-*/
-
-JFactory::getDocument()->addScriptDeclaration($js)
-
-/*
-// $checked  = empty($this->value) ? ' checked="checked"' : '';
-JFactory::getDocument()->addScriptDeclaration(
-/*
-	/* Select first tab
-	jQuery(document).ready(function() {
-		jQuery("#configTabs a:first").tab("show");
-	});
-	'
-	* /
-'	
-jQuery(document).ready(function() {
-	if ($("#TestTask").length){
-		alert("found");
-	}
-	else
-	{
-		alert("not found");
-	}
-
-	$("#TestTask").val("border-color");
-	$("#TestTask").css("border-color","red");
-	$("#TestTask").css("border-width","10px");
-	 $("#TestTask").css("border-width","10px");
-}
-'
-); 
+JFactory::getDocument()->addScriptDeclaration($js)		
 */
 ?>
 
 <script type="text/javascript">
-	Joomla.submitbuttonSingle = function()
-	{
-/*		var form = document.getElementById('adminForm');
 
-		// do field validation
-		if (form.install_package.value == "") {
-			alert(Joomla.JText._('COM_INSTALLER_MSG_INSTALL_PLEASE_SELECT_A_PACKAGE'));
-		}
-		else
-		{
-			jQuery('#loading').css('display', 'block');
-
-			form.installtype.value = 'upload';
-			form.submit();
-		}
-*/
-		alert('Upload single images: use ...');
-	};
-	
-	Joomla.submitbuttonZipPc = function()
-	{
-		// alert('Upload from local Zip PC: use ...');
-
-		var form = document.getElementById('adminForm');
-
-//		alert('install_url.value= "' + form.install_url.value + '"');
-		// do field validation input id="install_url" class="input_box" type="file" size="57" name="install_url"
-		if (form.install_url.value == "") {
-			alert(Joomla.JText._('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN'));
-		}
-		else
-		{
-			// $('#selectBox > option:selected').text();
-			// SelectGalleries_01_chzn result-selected
-			
-			// alert('SelectGalleries_01.value= "' + String(form.SelectGalleries_01.value) + '"');
-			
-			var GalleryId = -1; // form.SelectGalleries_01.value == ""			
-			
-			GalleryId = jQuery('#SelectGalleries_01').chosen().val();
-			// GalleryId = jQuery("#SelectGalleries_01 .chosen-select").val();
-			 
-			alert('GalleryId: ' + GalleryId);
-			
-			if (GalleryId < 1) {
-				alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
-			}
-			else
-			{
-				// jQuery('#loading').css('display', 'block');
-
-				form.TestTask.value = 'xxx'; // upload.uploadZipFile
-				form.batchmethod.value = 'zip';
-				form.zip_file.value = form.install_url.value;
-				form.selcath.value = GalleryId;
-				// form.submit();
-			}
-		}
-/*
-		// $('input[type=button][value~=task]')
-
-		$("#TestTask").val('border-color');
-		// $("#TestTask").css('border-color','red');
-*/
-		// alert('Upload from local Zip PC: use ...');
-	};
-	
-	Joomla.submitbuttonFolderServer = function()
-	{		
-		var form = document.getElementById('adminForm');
-
-//		alert('install_directory.value= "' + form.install_directory.value + '"');
-		// do field validation input id="install_directory" class="input_box" type="file" size="57" name="install_directory"
-		if (form.install_directory.value == "") {
-			alert(Joomla.JText._('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED'));
-		}
-		else
-		{
-			// $('#selectBox > option:selected').text();
-			// SelectGalleries_01_chzn result-selected
-			
-			// $selcat      = $input->get( 'selcat', null, 'INT');
-			var GalleryId = -1; // form.SelectGalleries_02.value == ""
-			
-			GalleryId = jQuery('#SelectGalleries_02').chosen().val();
-			// ? two selections ? GalleryId = jQuery("#SelectGalleries_02 .chosen-select").val();
-			 
-			alert('GalleryId: ' + GalleryId);
-			
-//			alert('SelectGalleries_02.value= "' + String(form.SelectGalleries_02.value) + '"');
-			if (GalleryId < 1) {
-				alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
-			}
-			else
-			{
-				// jQuery('#loading').css('display', 'block');
-
-				form.TestTask.value = 'folder';
-				batchmethod = 'FTP';
-				form.ftp_path.value = form.install_directory.value;
-				form.selcath.value = GalleryId;
-				// form.submit();
-			}
-		}		
-		
-		
-//		$("#TestTask").val('border-color');
-
-		alert('Upload images from remote server : use ...');
-	};
-	
-/*
-	Joomla.submitbuttonZipPc = function()
-	{
-		var form = document.getElementById('adminForm');
-
-		// do field validation
-		if (form.install_directory.value == "") {
-			alert(Joomla.JText._('COM_INSTALLER_MSG_INSTALL_PLEASE_SELECT_A_DIRECTORY'));
-		}
-		else
-		{
-			jQuery('#loading').css('display', 'block');
-
-			form.installtype.value = 'folder';
-			form.submit();
-		}
-	};
-	
-	.....
-	
- */
- 
 	// Add spindle-wheel for installations:
 	jQuery(document).ready(function($) {
 		var outerDiv = $('#installer-install');
@@ -215,44 +54,87 @@ jQuery(document).ready(function() {
 		});
 	}); 
 
-/**	
-	$(document).ready(function()
+
+	/*
+	Joomla.submitbuttonSingle = function()
 	{
-		$('*[rel=tooltip]').tooltip()
-
-		// Turn radios into btn-group
-		$('.radio.btn-group label').addClass('btn');
-		$(".btn-group label:not(.active)").click(function()
+		alert('Upload single images: use ...');
+	};
+	*/
+	
+	Joomla.submitbuttonZipPc = function()
+	{
+		var form = document.getElementById('adminForm');
+		
+		var zip_path = form.install_url.value;
+		var GalleryId = jQuery('#SelectGalleries_01').chosen().val();		
+		var bOneGalleryName4All = jQuery('input[name="all_img_in_step1"]:checked').val();		
+		
+		// No file path given
+		if (zip_path == "") {
+			alert(Joomla.JText._('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN'));
+		}
+		else
 		{
-			var label = $(this);
-			var input = $('#' + label.attr('for'));
-
-			if (!input.prop('checked')) {
-				label.closest('.btn-group').find("label").removeClass('active btn-success btn-danger btn-primary');
-				if (input.val() == '') {
-					label.addClass('active btn-primary');
-				} else if (input.val() == 0) {
-					label.addClass('active btn-danger');
-				} else {
-					label.addClass('active btn-success');
-				}
-				input.prop('checked', true);
+			// Is invalid gallerId selected ? 
+			if (bOneGalleryName4All && (GalleryId < 1)) {
+				alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
 			}
-		});
-		$(".btn-group input[checked=checked]").each(function()
+			else
+			{
+				// ==> base.rsgallery2.php ---------- $task: batchupload $option: com_rsgallery2 $catid: $firstCid: 0 $id: 0 $rsgOption: images $view: 
+				// ==> images.batchupload.php ---------- $batchmethod: zip $uploaded: 1 $xcat: 1 $xcat: 19 $ftppath: 
+				
+				// yes transfer files ...
+				form.task.value = 'batchupload'; // upload.uploadZipFile
+				form.batchmethod.value = 'zip';
+				form.zip_file.value = zip_path;
+				form.ftp_path.value = "";
+				form.xcat.value = GalleryId;
+				form.selcat.value= bOneGalleryName4All;
+				
+				//jQuery('#loading').css('display', 'block');
+				//form.submit();
+			}
+		}
+	};
+	
+	Joomla.submitbuttonFolderServer = function()
+	{		
+		var form = document.getElementById('adminForm');
+
+		var ftp_path = form.install_directory.value;
+		var GalleryId = jQuery('#SelectGalleries_01').chosen().val();		
+		var bOneGalleryName4All = jQuery('input[name="all_img_in_step1"]:checked').val();		
+				
+		// ftp path is not given
+		if (ftp_path == "") {
+			alert(Joomla.JText._('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED'));
+		}
+		else
 		{
-			if ($(this).val() == '') {
-				$("label[for=" + $(this).attr('id') + "]").addClass('active btn-primary');
-			} else if ($(this).val() == 0) {
-				$("label[for=" + $(this).attr('id') + "]").addClass('active btn-danger');
-			} else {
-				$("label[for=" + $(this).attr('id') + "]").addClass('active btn-success');
+			// Is invalid gallerId selected ? 
+			if (bOneGalleryName4All && (GalleryId < 1)) {
+				alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
 			}
-		});
-	})
-/**/
+			else
+			{
+				// yes transfer files ...
+				form.task.value = 'batchupload'; // upload.uploadZipFile
+				form.batchmethod.value = 'FTP';
+				form.zip_file.value = "";
+				form.ftp_path.value = ftp_path;
+				form.xcat.value = GalleryId;				
+				form.selcat.value= "0";
 
+				//jQuery('#loading').css('display', 'block');
+				//form.submit();
+			}
+		}				
+	};
+	
 </script>
+
 <style type="text/css">
 	#loading {
 		background: rgba(255, 255, 255, .8) url('<?php echo JHtml::_('image', 'jui/ajax-loader.gif', '', null, true, true); ?>') 50% 15% no-repeat;
@@ -387,12 +269,13 @@ jQuery(document).ready(function() {
 			<input type="hidden" value="0" name="uploaded">
 			<input type="hidden" value="com_rsgallery2" name="option">
 			<input type="hidden" value="images" name="rsgOption">
-			<input id="TestTask" value="" name="task">
 			<input type="hidden" value="0" name="boxchecked">
 
+			<input value="" name="task">
 			<input value="" name="zip_file">
 			<input value="" name="ftp_path">
 			<input value="" name="batchmethod">
+			<input value="" name="xcat">
 			<input value="" name="selcat">
 			
 		</form>
