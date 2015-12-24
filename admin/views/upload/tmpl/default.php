@@ -37,6 +37,28 @@ SCRIPTHERE;
 		};
 JFactory::getDocument()->addScriptDeclaration($js)		
 */
+
+/*
+//	var_dump ($this->form);
+//	print_r ( $this->form);
+print_r ( $this);
+
+echo "Upload: " . $this->form.UploadLimit;
+echo "Upload: " . $this->form->UploadLimit;
+
+*/
+/**/
+echo "<pre>";
+/**/
+//foreach ($form->getGroup($fieldsname) as $field){
+foreach ($this->form->getGroup('upload_zip') as $field) {
+	echo $field->label . ' ' . $field->input;
+}
+/**/
+echo 'test';
+echo "</pre>";
+/**/
+
 ?>
 
 <script type="text/javascript">
@@ -143,11 +165,12 @@ JFactory::getDocument()->addScriptDeclaration($js)
 		-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity = 80);
 		filter: alpha(opacity = 80);
 	}
-	
+/*
 	.j-jed-message {
 		margin-bottom: 40px;
 		line-height: 2em;
 		color:#333333;
+*/
 	}
 </style>
  
@@ -271,12 +294,12 @@ JFactory::getDocument()->addScriptDeclaration($js)
 			<input type="hidden" value="images" name="rsgOption">
 			<input type="hidden" value="0" name="boxchecked">
 
-			<input value="" name="task">
-			<input value="" name="zip_file">
-			<input value="" name="ftp_path">
-			<input value="" name="batchmethod">
-			<input value="" name="xcat">
-			<input value="" name="selcat">
+			<input type="hidden" value="" name="task">
+			<input type="hidden" value="" name="zip_file">
+			<input type="hidden" value="" name="ftp_path">
+			<input type="hidden" value="" name="batchmethod">
+			<input type="hidden" value="" name="xcat">
+			<input type="hidden" value="" name="selcat">
 			
 		</form>
 	</div>

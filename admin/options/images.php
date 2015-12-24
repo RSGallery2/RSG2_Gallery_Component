@@ -819,7 +819,9 @@ function copyImage( $cid, $option ) {
  * @throws Exception
  */
 function batchupload($option) {
+	global $Rsg2DebugActive;
 	global $rsgConfig;
+
 	$database  = JFactory::getDBO();
 	$mainframe = JFactory::getApplication();
 	$FTP_path  = $rsgConfig->get('ftp_path');
