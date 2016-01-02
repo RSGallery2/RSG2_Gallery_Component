@@ -1,0 +1,152 @@
+How to watermark images with png’s alphablending enabled?
+
+Solution:
+view source
+print
+?
+01
+	function image_overlap($background, $foreground, $overlapX=-1, $overlapY=-1) {
+02
+	    $insertWidth = imagesx($foreground);
+03
+	    $insertHeight = imagesy($foreground);
+04
+	 
+05
+	    $imageWidth = imagesx($background);
+06
+	    $imageHeight = imagesy($background);
+07
+	 
+08
+	    $overlapX = ($overlapX == -1) ? $imageWidth-$insertWidth-5 : $overlapX;
+09
+	    $overlapY = ($overlapY == -1) ? $imageHeight-$insertHeight-5 : $overlapY;
+10
+	 
+11
+	    imagecolortransparent($foreground,imagecolorat($foreground,0,0));
+12
+	    imagecopymerge($background,$foreground,$overlapX,$overlapY,0,0,$insertWidth,$insertHeight,100);
+13
+	 
+14
+	    return $background;
+15
+	}
+16
+	function watermark($src,$watermark,$src_format,$quality=75) {
+17
+	    if (file_exists($src)) {
+18
+	        _o("Watermarking: ".$src."...",1);
+19
+	        switch ($src_format) {
+20
+	            case "jpg":
+21
+	                $src_img=imagecreatefromjpeg($src);
+22
+	                break;
+23
+	            case "gif":
+24
+	                $src_img=imagecreatefromgif($src);
+25
+	                break;
+26
+	            case "bmp":
+27
+	                $src_img=imagecreatefrombmp($src);
+28
+	                break;
+29
+	            case "png":
+30
+	                $src_img=imagecreatefrompng($src);
+31
+	                break;
+32
+	            default:
+33
+	                die("Unknown format");
+34
+	        }
+35
+	 
+36
+	        // prepare source
+37
+	        $src_size=getimagesize($src);
+38
+	        $img=imagecreatetruecolor($src_size[0],$src_size[1]);
+39
+	        imagecopyresampled($img,$src_img,0,0,0,0,$src_size[0],$src_size[1],$src_size[0],$src_size[1]);
+40
+	        @ imagealphablending($img,true);
+41
+	 
+42
+	        // load watermark
+43
+	        $watermark_size=getimagesize($watermark);
+44
+	        $watermark_img=imagecreatefrompng($watermark);
+45
+	        @ imagealphablending($wartermark_img,true);
+46
+	 
+47
+	        // apply watermark
+48
+	        $img=image_overlap($img,$watermark_img);
+49
+	        imagecopy($img,$watermark_img,0,0,0,0,0,0);
+50
+	 
+51
+	        imagedestroy($src_img);
+52
+	        imagedestroy($watermark_img);
+53
+	 
+54
+	        switch ($src_format) {
+55
+	            case "jpg":
+56
+	                imagejpeg($img,$src,$quality);
+57
+	                break;
+58
+	            case "gif":
+59
+	                imagegif($img,$src);
+60
+	                break;
+61
+	            case "bmp":
+62
+	                imagebmp($img,$src);
+63
+	                break;
+64
+	            case "png":
+65
+	                imagepng($img,$src,$quality);
+66
+	                break;
+67
+	        }
+68
+	 
+69
+	        imagedestroy($img);
+70
+	    } else {
+71
+	        die("Watermark: Source don't exists -- ".$src);
+72
+	    }
+73
+	}
