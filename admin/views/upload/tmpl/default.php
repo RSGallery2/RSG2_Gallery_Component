@@ -125,7 +125,7 @@ echo "</pre>";
 		var form = document.getElementById('adminForm');
 
 		var ftp_path = form.ftp_path.value;
-		var GalleryId = jQuery('#SelectGalleries_01').chosen().val();		
+		var GalleryId = jQuery('#SelectGalleries_02').chosen().val();		
 		var bOneGalleryName4All = jQuery('input[name="all_img_in_step1"]:checked').val();		
 				
 		// ftp path is not given
@@ -145,7 +145,7 @@ echo "</pre>";
 				form.batchmethod.value = 'FTP';
 				form.ftppath.value = ftp_path;
 				form.xcat.value = GalleryId;				
-				form.selcat.value= "0";
+				form.selcat.value= bOneGalleryName4All;
 
 				jQuery('#loading').css('display', 'block');
 				form.submit();
