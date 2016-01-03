@@ -843,20 +843,6 @@ function batchupload($option) {
 
     $zip_file = $input->files->get('zip_file', array(), 'FILES'); //
 
-	// getPath does not allow a slash at the end and no absolute paths
-	// $ftppath 		= JRequest::getVar('ftppath', null);
-	// $ftppath 		= $input->getPath( 'ftppath', null);
-	// $ftppath 		= $input->get( 'ftppath', null, 'RAW');
-	// if(substr($ftppath, -1) == '/' || substr($ftppath, -1) == '\\') {
-	// 	$ftppath = substr($ftppath, 0, -1);
-	// 	$input->set( 'ftppath', $ftppath);
-	// }
-	// $ftppath 		= $input->getPath( 'ftppath', null);
-	// $ftppath 		= $input->get( 'ftppath', null, 'PATH');
-	// $ftppath .= '/';
-	// $ftppath 		= $input->get( 'ftppath', null, 'RAW');
-	// if(substr($ftppath, -1) == '/' || substr($ftppath, -1) == '\\') {
-
 	$ftppath = $input->get( 'ftppath', null, 'RAW');
 	if(substr($ftppath, -1) != '/' && substr($ftppath, -1) == '\\') {
 		$ftppath .= '/';
@@ -869,19 +855,38 @@ function batchupload($option) {
 	{
 		//$Delim = "\n";
 		$Delim = " ";
-		// show active task
-		$DebTxt = "==> images.batchupload.php".$Delim ."----------".$Delim;
-//		$DebTxt = $DebTxt . "\$task: $task".$Delim;
-		$DebTxt = $DebTxt . "\$batchmethod: $batchmethod".$Delim;
-//		$DebTxt = $DebTxt . "\$config: $config".$Delim;
-		$DebTxt = $DebTxt . "\$uploaded: $uploaded".$Delim;
-//		$DebTxt = $DebTxt . "\$selcat: $selcat".$Delim;
-		$DebTxt = $DebTxt . "\$xcat: $xcat".$Delim;
-		$DebTxt = $DebTxt . "\$ftppath: $ftppath".$Delim;
+		// show active parameters
+		$DebTxt = "==> images.batchupload.php$Delim----------$Delim";
+		$DebTxt = $DebTxt . "\$batchmethod: ".$batchmethod."$Delim";
+//		$DebTxt = $DebTxt . "\$config: ".$config."$Delim";
+		$DebTxt = $DebTxt . "\$uploaded: ".$uploaded."$Delim";
+		$DebTxt = $DebTxt . "\$selcat: ".$selcat."$Delim";
+		$DebTxt = $DebTxt . "\$xcat: ".$xcat."$Delim";
+		$DebTxt = $DebTxt . "\$ftppath: ".$ftppath."$Delim";
+		// array
+		$DebTxt = $DebTxt . "\$zip_file: ". json_encode($zip_file)."$Delim";;
 
 		JLog::add($DebTxt); //, JLog::DEBUG);
 	}
 
+	//-----------------------------------------------------
+	// Handle session data
+	if (isset($uploaded)) {//true when form in step 1 of batchupload is submitted
+		$app = JFactory::getApplication();
+
+		if ($batchmethod == "zip") {
+			$LastUploadedZip = $app->setUserState('com_rsgallery2.last_used_uploaded_zip', $zip_file);
+		}
+		else
+		{
+			if ($batchmethod == "FTP") {
+				$LastFtpUploadPath = $app->setUserState('com_rsgallery2.last_used_ftp_path', $ftppath);
+			}
+/*			else
+			{
+			}
+*/		}
+	}
 	//Check if at least one gallery exists, if not link to gallery creation
 	$database->setQuery( "SELECT id FROM #__rsgallery2_galleries" );
 	$database->execute();
@@ -893,21 +898,29 @@ function batchupload($option) {
 	//New instance of fileHandler
 	$uploadfile = new fileHandler();
 	
-	if (isset($uploaded)) {//true when form in step 1 of batchupload is submitted
+	if (isset($uploaded)) {// true when form in step 1 of batchupload is submitted
 		if ($batchmethod == "zip") {
-			if ($uploadfile->checkSize($zip_file) == 1) {
-				//$ziplist = $uploadfile->handleZIP($zip_file);//MK// [change] [handleZIP uses PclZip that is no longer in J1.6]
-				$ziplist = $uploadfile->extractArchive($zip_file);//MK// [todo] [check extractArchive]
-				if (!$ziplist){
-					//Extracting archive failed
-// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
-					$mainframe->redirect('index.php?option=com_rsgallery2&view=upload' ); // Todo: More information fail ?
+			// file found ?
+			if (count($zip_file) > 0) { // if (is_array($zip_file)) {
+				if ($uploadfile->checkSize($zip_file) == 1) {
+					//$ziplist = $uploadfile->handleZIP($zip_file);//MK// [change] [handleZIP uses PclZip that is no longer in J1.6]
+					$ziplist = $uploadfile->extractArchive($zip_file);//MK// [todo] [check extractArchive]
+					if (!$ziplist) {
+						// Extracting archive failed
+						// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
+						$mainframe->redirect('index.php?option=com_rsgallery2&view=upload'); // Todo: More information fail ?
+					}
+				} else {
+					// Error message: file size
+					$mainframe->enqueueMessage(JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE_IS_TOO_BIG'));
+					// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
+					$mainframe->redirect('index.php?option=com_rsgallery2&view=upload'); // Todo: More information fail ?
 				}
 			} else {
-				//Error message: file size
-				$mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE_IS_TOO_BIG') );
-// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
-				$mainframe->redirect('index.php?option=com_rsgallery2&view=upload' ); // Todo: More information fail ?
+				// Error message: file name not given
+				$mainframe->enqueueMessage(JText::_('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN'));
+				// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
+				$mainframe->redirect('index.php?option=com_rsgallery2&view=upload'); // Todo: More information fail ?
 			}
 		} else {//not zip thus ftp
 			$ziplist = $uploadfile->handleFTP($ftppath);

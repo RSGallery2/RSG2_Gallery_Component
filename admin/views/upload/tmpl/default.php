@@ -88,7 +88,7 @@ echo "</pre>";
 	{
 		var form = document.getElementById('adminForm');
 		
-		var zip_path = form.install_url.value;
+		var zip_path = form.zip_file.value;
 		var GalleryId = jQuery('#SelectGalleries_01').chosen().val();		
 		var bOneGalleryName4All = jQuery('input[name="all_img_in_step1"]:checked').val();		
 		
@@ -110,13 +110,12 @@ echo "</pre>";
 				// yes transfer files ...
 				form.task.value = 'batchupload'; // upload.uploadZipFile
 				form.batchmethod.value = 'zip';
-				form.zip_file.value = zip_path;
-				form.ftp_path.value = "";
+				form.ftppath.value = "";
 				form.xcat.value = GalleryId;
 				form.selcat.value= bOneGalleryName4All;
 				
-				//jQuery('#loading').css('display', 'block');
-				//form.submit();
+				jQuery('#loading').css('display', 'block');
+				form.submit();
 			}
 		}
 	};
@@ -125,7 +124,7 @@ echo "</pre>";
 	{		
 		var form = document.getElementById('adminForm');
 
-		var ftp_path = form.install_directory.value;
+		var ftp_path = form.ftp_path.value;
 		var GalleryId = jQuery('#SelectGalleries_01').chosen().val();		
 		var bOneGalleryName4All = jQuery('input[name="all_img_in_step1"]:checked').val();		
 				
@@ -144,13 +143,12 @@ echo "</pre>";
 				// yes transfer files ...
 				form.task.value = 'batchupload'; // upload.uploadZipFile
 				form.batchmethod.value = 'FTP';
-				form.zip_file.value = "";
-				form.ftp_path.value = ftp_path;
+				form.ftppath.value = ftp_path;
 				form.xcat.value = GalleryId;				
 				form.selcat.value= "0";
 
-				//jQuery('#loading').css('display', 'block');
-				//form.submit();
+				jQuery('#loading').css('display', 'block');
+				form.submit();
 			}
 		}				
 	};
@@ -184,7 +182,7 @@ echo "</pre>";
 		<div id="j-main-container">
 	<?php endif;?>
    
-		<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=upload'); ?>" method="post" name="adminForm" id="adminForm"  class="form-horizontal" >
+		<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=upload'); ?>" method="post" name="adminForm" id="adminForm"  enctype="multipart/form-data" class="form-validate form-horizontal" >
 
 			<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'upload_zip_pc')); ?> 
 			
@@ -234,10 +232,10 @@ echo "</pre>";
 
 					<!-- Zip filename -->
 					<div class="control-group">
-						<label for="install_url" class="control-label"><?php echo JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE'); ?></label>
+						<label for="zip_file" class="control-label"><?php echo JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE'); ?></label>
 						<div class="controls">
-							<!--input type="text" id="install_url" name="install_url" class="span5 input_box" size="70" value="http://" /-->
-							<input class="input_box" id="install_url" name="install_url" type="file" size="57" />
+							<!--input type="text" id="zip_file" name="zip_file" class="span5 input_box" size="70" value="http://" /-->
+							<input type="file" class="input_box" id="zip_file" name="zip_file" size="57" />
                             <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
                                 <?php echo JText::_('COM_RSGALLERY2_UPLOAD_LIMIT_IS').' ' . $this->UploadLimit .' '.JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI');?>
                             </div>
@@ -260,9 +258,9 @@ echo "</pre>";
 				<fieldset class="uploadform">
 					<legend><?php echo JText::_('COM_RSGALLERY2_UPLOAD_FROM_FOLDER_PATH_ON_SERVER'); ?></legend>
 					<div class="control-group">
-						<label for="install_directory" class="control-label"><?php echo JText::_('COM_RSGALLERY2_FTP_PATH'); ?></label>
+						<label for="ftp_path" class="control-label"><?php echo JText::_('COM_RSGALLERY2_FTP_PATH'); ?></label>
 						<div class="controls">
-							<input type="text" id="install_directory" name="install_directory" class="span5 input_box" size="70" value="<?php echo $this->LastFtpUploadPath;?>" />
+							<input type="text" id="ftp_path" name="ftp_path" class="span5 input_box" size="70" value="<?php echo $this->LastFtpUploadPath;?>" />
 							<!-- red size -->
                             <div style="color:#FF0000;font-weight:bold;font-size:smaller;margin-top: 0px;padding-top: 0px;">
                                 <?php echo JText::_('COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH');?>
@@ -288,15 +286,13 @@ echo "</pre>";
 
 			<?php echo JHtml::_('form.token'); ?>
 			
-			<!--input type="hidden" value="1" name="uploaded"-->
-			<input type="hidden" value="0" name="uploaded">
 			<input type="hidden" value="com_rsgallery2" name="option">
 			<input type="hidden" value="images" name="rsgOption">
 			<input type="hidden" value="0" name="boxchecked">
 
+			<input type="hidden" value="1" name="uploaded">
 			<input type="hidden" value="" name="task">
-			<input type="hidden" value="" name="zip_file">
-			<input type="hidden" value="" name="ftp_path">
+			<input type="hidden" value="" name="ftppath">
 			<input type="hidden" value="" name="batchmethod">
 			<input type="hidden" value="" name="xcat">
 			<input type="hidden" value="" name="selcat">

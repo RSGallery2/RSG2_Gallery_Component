@@ -832,16 +832,17 @@ class html_rsg2_images {
 		
 		$input =JFactory::getApplication()->input;
 		
-		$database = JFactory::getDBO();
+		// not used: $database = JFactory::getDBO();
         //Get variables from form
         //$selcat 		= JRequest::getInt('selcat'  , null);
 		$selcat         = $input->get( 'selcat', null, 'INT');
         //$ftppath 		= JRequest::getVar('ftppath'  , null);
-		$ftppath 		= $input->get( 'ftppath', null, 'PATH');
+		// not used: $ftppath 		= $input->get( 'ftppath', null, 'PATH');
         //$xcat 			= JRequest::getInt('xcat'  , null);
+		// gallery ID
 		$xcat           = $input->get( 'xcat', null, 'INT');
         //$batchmethod 	= JRequest::getVar('batchmethod'  , null);
-		$batchmethod    = $input->get('batchmethod', '', 'STRING');		
+		// not used: $batchmethod    = $input->get('batchmethod', '', 'STRING');
         ?>
 		<script language="javascript" type="text/javascript">
         Joomla.submitbutton = function(task) {
