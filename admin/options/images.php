@@ -119,6 +119,7 @@ switch ($task) {
  */
 function showImages( $option ) {
 	global $mosConfig_list_limit;
+
 	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	
@@ -127,8 +128,8 @@ function showImages( $option ) {
 	$limitstart = intval( $mainframe->getUserStateFromRequest( "view{$option}limitstart", 'limitstart', 0 ) );
 	$search 	= $mainframe->getUserStateFromRequest( "search{$option}", 'search', '' );
 	$search 	= $database->escape( trim( strtolower( $search ) ) );
-	$where = array();
 
+	$where = array();
 	if ($gallery_id > 0) {
 		$where[] = "a.gallery_id = $gallery_id";
 	}
@@ -138,9 +139,9 @@ function showImages( $option ) {
 
 	// get the total number of records
 	$query = "SELECT COUNT(1)"
-	. "\n FROM #__rsgallery2_files AS a"
-	. (count( $where ) ? "\n WHERE " . implode( ' AND ', $where ) : "")
-	;
+		. "\n FROM #__rsgallery2_files AS a"
+		. (count( $where ) ? "\n WHERE " . implode( ' AND ', $where ) : "")
+		;
 	$database->setQuery( $query );
 	$total = $database->loadResult();
 
@@ -170,6 +171,7 @@ function showImages( $option ) {
 	$javascript = 'onchange="document.adminForm.submit();"';
 	$lists['gallery_id'] = galleryUtils::galleriesSelectList( $gallery_id, 'gallery_id', false, $javascript );
 	$lists['move_id'] = galleryUtils::galleriesSelectList( $gallery_id, 'move_id', false, '', 0 );
+
 	html_rsg2_images::showImages( $option, $rows, $lists, $search, $pageNav );
 	
 	return true;

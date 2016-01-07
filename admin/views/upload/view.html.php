@@ -54,9 +54,13 @@ class Rsgallery2ViewUpload extends JViewLegacy
 			$this->ActiveSelection = 'upload_zip_pc';
 		}
 
+		// 0: default, 1: enable, 2: disable
+		$IsUseOneGalleryNameForAllImages = $UploadModel->getIsUseOneGalleryNameForAllImages ();
 		if (empty ($IsUseOneGalleryNameForAllImages)) {
-			$IsUseOneGalleryNameForAllImages = $UploadModel->getIsUseOneGalleryNameForAllImages ();
 			$IsUseOneGalleryNameForAllImages = '1';
+		}
+		if ($IsUseOneGalleryNameForAllImages == '2') {
+			$IsUseOneGalleryNameForAllImages = '0';
 		}
 
 		//--- Pre select latest gallery ?  ------------------------

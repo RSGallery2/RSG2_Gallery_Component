@@ -61,6 +61,7 @@ class html_rsg2_images {
 					<td align="left" width="50%">
 						<?php echo JText::_('COM_RSGALLERY2_COPY_SLASH_MOVE')?>
 						<?php echo $lists['move_id'];?>
+						<br>
 						<?php echo JText::_('COM_RSGALLERY2_FILTER')?>
 						<input type="text" name="search" value="<?php echo $search;?>" class="text_area" onChange="document.adminForm.submit();" />
 						<?php echo $lists['gallery_id'];?>
@@ -210,6 +211,8 @@ class html_rsg2_images {
 
 	static function editImage( &$row, &$lists, &$params, $option ) {
 		global $rsgOption;
+		global $display;
+
 		jimport("joomla.filter.output");
 		JHtml::_('behavior.formvalidation');
 		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES );

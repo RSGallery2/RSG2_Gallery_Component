@@ -372,7 +372,7 @@ class HTML_RSGALLERY{
 				//HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-grid', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
 				HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-images clsGalleries', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
 
-                $link = 'index.php?option=com_rsgallery2&rsgOption=images&view=upload';
+                $link = 'index.php?option=com_rsgallery2&view=upload';
                 HTML_RSGALLERY::quickIconMoonButton( $link, 'icon-upload clsUpload', JText::_('COM_RSGALLERY2_UPLOAD') );
 
 				//Java Uploader: not implemented at this point, so removed
