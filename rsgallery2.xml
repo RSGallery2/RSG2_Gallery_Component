@@ -7,7 +7,7 @@
 	<license>This component is released under the GNU/GPL License</license>
 	<authorEmail>team@rsgallery2.nl</authorEmail>
 	<authorUrl>http://www.rsgallery2.nl</authorUrl>
-	<version>4.0.9</version>
+	<version>4.1.0</version>
 	<description>COM_RSGALLERY2_XML_DESCRIPTION</description>
 
 	<scriptfile>install.rsgallery2.php</scriptfile>
@@ -57,12 +57,8 @@
 				link="option=com_rsgallery2">COM_RSGALLERY2_MENU_CONTROL_PANEL</menu>
 			<menu view="COM_RSGALLERY2_MENU_GALLERIES" 
 				link="option=com_rsgallery2&amp;rsgOption=galleries">COM_RSGALLERY2_MENU_GALLERIES</menu>
-			<menu view="Test_Upload_View" 
-				link="option=com_rsgallery2&amp;view=upload">Test_Upload</menu>
-			<menu view="COM_RSGALLERY2_MENU_BATCH_UPLOAD" 
-				link="option=com_rsgallery2&amp;rsgOption=images&amp;task=batchupload">COM_RSGALLERY2_MENU_BATCH_UPLOAD</menu>
 			<menu view="COM_RSGALLERY2_MENU_UPLOAD" 
-				link="option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">COM_RSGALLERY2_MENU_UPLOAD</menu>
+				link="option=com_rsgallery2&amp;view=upload">COM_RSGALLERY2_MENU_UPLOAD</menu>
 			<menu view="COM_RSGALLERY2_MENU_ITEMS"
 				link="option=com_rsgallery2&amp;rsgOption=images">COM_RSGALLERY2_MENU_ITEMS</menu>
 			<menu view="COM_RSGALLERY2_MENU_CONFIG"

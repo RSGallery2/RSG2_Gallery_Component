@@ -235,8 +235,6 @@ if( $rsgOption == '' ){
 			        JLog::add($DebTxt); //, JLog::DEBUG);
                 }
 
-				echo 'Fallback';
-
 				// Fallback: Old standard view
 				HTML_RSGallery::showCP();
 				HTML_RSGallery::RSGalleryFooter();
