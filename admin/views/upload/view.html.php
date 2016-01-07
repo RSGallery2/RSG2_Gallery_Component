@@ -3,17 +3,20 @@
 defined( '_JEXEC' ) or die;
 	
 jimport('joomla.application.component.view');
+jimport('joomla.application.component.model');
+
+JModelLegacy::addIncludePath(JPATH_COMPONENT.'/models');
 
 class Rsgallery2ViewUpload extends JViewLegacy
 {
 	protected $form;
+
 	// [Single images], [Zip file], [local server (ftp) path],
-	//    ToDo: future image upload sources: folder (PC), ??? FTP,  ??? URL
-	protected $ActiveSelection; // ToDo: Activate in html of view 
+	protected $ActiveSelection; // ToDo: Activate in html of view
 	
 	protected $UploadLimit;
-	protected $LastFtpUploadPath;
-	protected $LastUploadedZip;
+	protected $FtpUploadPath;
+	// protected $LastUsedUploadZip;
 
 	// ToDo: Config -> update gallery selection preselect latest gallery  (User input ...)
 	// ToDo: Config -> update gallery selection preselect last used gallery ? show combo opened for n entries
@@ -23,31 +26,55 @@ class Rsgallery2ViewUpload extends JViewLegacy
 		$xmlFile = JPATH_COMPONENT . '/models/forms/upload.xml';
 		$form = JForm::getInstance('upload', $xmlFile);
 
-
-/*
-		$this->LastFtpUploadPath = "*Last used FTP path ...";  // ToDo: From config last selection ...
-*/
-
-/*
-		$app = JFactory::getApplication();
-		$app->setUserState('com_users.reset.user', $user->id);
-		$userId = $app->getUserState('com_users.reset.user');
-
-		$session = JFactory::getSession();
-		$session->set('registry',   new JRegistry('session'));
-*/
 		$this->UploadLimit = round( ini_get('upload_max_filesize') * 1.024 );
 
-		// ToDo: assign from last selection $app->setUserState('com_rsgallery2.last_used_ftp_path');
-		$app = JFactory::getApplication();
-		$this->LastFtpUploadPath = $app->getUserState('com_rsgallery2.last_used_ftp_path');
-		$this->LastUploadedZip = $app->getUserState('com_rsgallery2.last_used_uploaded_zip');
+		//--- FtpUploadPath ------------------------
+
+		$UploadModel = JModelLegacy::getInstance ('upload', 'rsgallery2Model');
+
+		// Retrieve path from config
+		$FtpUploadPath = $UploadModel->getFtpPath ();
+		// On empty use last successful
+		if (empty ($FtpUploadPath)) {
+			$FtpUploadPath = $UploadModel->getLastUsedFtpPath();
+		}
+		$this->FtpUploadPath = $FtpUploadPath;
+
+		//--- LastUsedUploadZip ------------------------
+
+		// Not possible to set input variable in HTML so it is not collected
+		// $this->LastUploadedZip = $app->getUserState('com_rsgallery2.last_used_uploaded_zip');
+		// $LastUsedUploadZip->getLastUsedUploadZip();
+
+		//--- Config requests ------------------------
+
+		// register 'upload_single', 'upload_zip_pc', 'upload_folder_server'
+		$this->ActiveSelection = $UploadModel->getLastUpdateType ();
+		if (empty ($this->ActiveSelection)) {
+			$this->ActiveSelection = 'upload_zip_pc';
+		}
+
+		if (empty ($IsUseOneGalleryNameForAllImages)) {
+			$IsUseOneGalleryNameForAllImages = $UploadModel->getIsUseOneGalleryNameForAllImages ();
+			$IsUseOneGalleryNameForAllImages = '1';
+		}
+
+		//--- Pre select latest gallery ?  ------------------------
+
+		$IdGallerySelect = -1; //No selection
+
+		$IsPreSelectLatestGallery = $UploadModel->getIsPreSelectLatestGallery ();
+
+		$IsPreSelectLatestGallery = 1; // test
+		if ($IsPreSelectLatestGallery) {
+			$IdGallerySelect = $UploadModel->getIdLatestGallery();
+		}
 
 		// upload_zip, upload_folder
 		$formParam = array(
-			'all_img_in_step1'=>'1',
-			'SelectGalleries01' =>'1', // ToDo retrieve newest gallery id in module
-			'SelectGalleries02' =>'1'
+			'all_img_in_step1' => $IsUseOneGalleryNameForAllImages,
+			'SelectGalleries01' => $IdGallerySelect,
+			'SelectGalleries02' => $IdGallerySelect
 		);
 
 		$form->bind ($formParam);
@@ -74,6 +101,6 @@ class Rsgallery2ViewUpload extends JViewLegacy
 	{
 		// COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD
 		JToolBarHelper::title(JText::_('COM_RSGALLERY2_SUBMENU_UPLOAD'), 'generic.png');
-
 	}
 }
+

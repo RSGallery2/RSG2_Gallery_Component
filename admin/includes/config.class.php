@@ -391,5 +391,4 @@ class rsgConfig {
 		$null = null;
 		return $null;
 	}
-	
 }
