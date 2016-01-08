@@ -91,7 +91,7 @@ class rsgallery2ModelImages extends JModelList
         foreach ($rows as $row) {
             $ImgInfo = array();
             $ImgInfo['name'] = $row->name;
-            $ImgInfo['gallery'] = rsg2ModelImages::getParentGalleryName ($row->gallery_id);
+            $ImgInfo['gallery'] = rsgallery2ModelImages::getParentGalleryName ($row->gallery_id);
             $ImgInfo['date'] = $row->date;
             $ImgInfo['user'] = rsg2Common::getUsernameFromId ($row->userid);
 
@@ -134,7 +134,7 @@ class rsgallery2ModelImages extends JModelList
         foreach ($rows as $row) {
             $ImgInfo = new stdClass;
             $ImgInfo['name'] = $row->name;
-            $ImgInfo['gallery'] = rsg2ModelImages::getParentGalleryName ($row->gallery_id);
+            $ImgInfo['gallery'] = rsgallery2ModelImages::getParentGalleryName ($row->gallery_id);
             $ImgInfo['date'] = $row->date;
             $ImgInfo['user'] = rsg2Common::getUsernameFromId ($row->userid);
 

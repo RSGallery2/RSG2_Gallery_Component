@@ -1,6 +1,7 @@
 
 div.iconimage img {
-	margin:0px auto; /**/
+/*	margin:0px auto; /**/
+    margin:0px 16px; /**/
 	/*border: none; /**/
 	/*background: red; /**/
 }
@@ -36,7 +37,7 @@ div.iconimage img {
     margin:0 auto; /**/
 }
 
-. rsg2-container-icon-set {
+.rsg2-container-icon-set {
 	/* background-color:lightblue; /**/
 /*	margin:10px 10px; /**/
 /*    margin:auto; /**/
@@ -58,7 +59,8 @@ div.iconimage img {
 
     padding-left: 30px; /**/
     padding-right: 30px; /**/
-    margin-left: -20px; /**/
+    margin-top: 20px; /**/
+    margin-left: 0px; /**/
 
 }
 
@@ -80,30 +82,25 @@ div.iconimage img {
     /* margin-right: auto; /**/
 }
 
-.rsg2-cpanelDebug{
-	margin-top: 20px; /**/
-	margin-left: 10px; /**/
-	margin-right: 20px; /**/
-    clear: left;
-    border: 1px dashed #d00;
-    /* background-color: #df3e3e; /**/
-    border-radius: 3px;
-    /* padding: 10px; /**/
-	display: block; /**/
+.greybackground {
+    background-color: #f7f8f9;
+    border: 1px solid #d5d5d5;
+    padding: 3px 15px;
 }
 
-.rsg2-cpanelDebug .DangerZone{
-    /* background-color: red; /**/
-    background-color: #df3e3e; /**/
-    color: white; /**/
-    /* padding: 30px; /**/
-    padding: 5px; /**/
-	/* margin-left: 30px; /**/
-    border-radius: 3px 3px 0px 0px;
+.rsg2_icon_container {
+    /* background-color:lightblue; /**/
+    margin:10px 10px; /**/
+    /*    margin:auto; /**/
+    margin-left: 30px; /**/
+    /* float: left; /**/
 }
 
-.rsg2-DebugHeader {
-	margin: 10px; /**/
-	margin-left: 40px; /**/
+.accordion-heading {
+    background-color: white; /**/
+}
+
+.accordion-inner table caption {
+    color: #3071a9; /**/
 }
 
