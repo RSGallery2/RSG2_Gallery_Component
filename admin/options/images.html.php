@@ -59,12 +59,13 @@ class html_rsg2_images {
 						&nbsp;
 					</td>
 					<td align="left" width="50%">
-						<?php echo JText::_('COM_RSGALLERY2_COPY_SLASH_MOVE')?>
-						<?php echo $lists['move_id'];?>
-						<br>
 						<?php echo JText::_('COM_RSGALLERY2_FILTER')?>
 						<input type="text" name="search" value="<?php echo $search;?>" class="text_area" onChange="document.adminForm.submit();" />
+						<?php echo JText::_('COM_RSGALLERY2_SELECT_GALLERY')?>
 						<?php echo $lists['gallery_id'];?>
+						<br>
+						<?php echo JText::_('COM_RSGALLERY2_COPY_SLASH_MOVE')?>
+						<?php echo $lists['move_id'];?>
 					</td>
 				</tr>
 			</table>

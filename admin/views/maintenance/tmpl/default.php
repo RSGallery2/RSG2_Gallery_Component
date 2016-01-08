@@ -25,15 +25,15 @@ $script = "
 			return confirm('" . JText::_('COM_RSGALLERY2_CONFIRM_CONSIDER_BACKUP_OR_CONTINUE') . "'); 
 		}); 
 
-		$('.config_rawEdit').on('click', function () { 
+/*		$('.editConfigRaw').on('click', function () {
+			return confirm('" . JText::_('COM_RSGALLERY2_CONFIRM_CONSIDER_BACKUP_OR_CONTINUE') . "'); 
+		}); 
+*/
+		$('.purgeImagesAndData').on('click', function () {
 			return confirm('" . JText::_('COM_RSGALLERY2_CONFIRM_CONSIDER_BACKUP_OR_CONTINUE') . "'); 
 		}); 
 
-		$('.purgeEverything').on('click', function () { 
-			return confirm('" . JText::_('COM_RSGALLERY2_CONFIRM_CONSIDER_BACKUP_OR_CONTINUE') . "'); 
-		}); 
-
-		$('.reallyUninstall').on('click', function () { 
+		$('.uninstallDataTables').on('click', function () {
 			return confirm('" . JText::_('COM_RSGALLERY2_CONFIRM_CONSIDER_BACKUP_OR_CONTINUE')  . "'); 
 		}); 
 	}); 
@@ -127,27 +127,36 @@ function quickIconMoonBar( $link, $imageClass, $title, $text = "", $addClass = '
 							quickiconBar( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW'),
 								JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT').'                        ',
 								'viewConfigPlain');
-							?>
-						<?php
-							//$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
-							$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB';
-							quickiconBar( $link, 'blockdevice.png',
-								JText::_('COM_RSGALLERY2_MAINT_CONSOLDB'), JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT'),
-									'consolidateDB');						
 						?>
+
 						<?php
-							//$link =  'index.php?option=com_rsgallery2&amp;task=maintenance.regenerateThumbs';
-							$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs';
-							quickiconBar( $link, 'menu.png',
-								JText::_('COM_RSGALLERY2_MAINT_REGEN'), JText::_('COM_RSGALLERY2_MAINT_REGEN_TXT'),
+							if($this->UserIsRoot ) {
+						?>
+
+								<?php
+								//$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
+								$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB';
+								quickiconBar($link, 'blockdevice.png',
+									JText::_('COM_RSGALLERY2_MAINT_CONSOLDB'), JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT'),
+									'consolidateDB');
+								?>
+								<?php
+								//$link =  'index.php?option=com_rsgallery2&amp;task=maintenance.regenerateThumbs';
+								$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs';
+								quickiconBar($link, 'menu.png',
+									JText::_('COM_RSGALLERY2_MAINT_REGEN'), JText::_('COM_RSGALLERY2_MAINT_REGEN_TXT'),
 									'regenerateThumbs');
-						?>
+								?>
+								<?php
+								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.optimizeDB';
+								$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=optimizeDB';
+								quickiconBar($link, 'db_optimize.png', JText::_('COM_RSGALLERY2_MAINT_OPTDB'),
+									JText::_('COM_RSGALLERY2_MAINT_OPTDB_TXT'),
+									'optimizeDB');
+								?>
+
 							<?php
-							// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.optimizeDB';
-							$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=optimizeDB';
-							quickiconBar( $link, 'db_optimize.png', JText::_('COM_RSGALLERY2_MAINT_OPTDB'),
-								JText::_('COM_RSGALLERY2_MAINT_OPTDB_TXT'),
-								'optimizeDB');
+							}
 							?>
 
 							<?php
@@ -155,18 +164,13 @@ function quickIconMoonBar( $link, $imageClass, $title, $text = "", $addClass = '
 
 							quickIconMoonBar( $link, 'icon-scissors clsTemplate', JText::_('COM_RSGALLERY2_TEMPLATE_MANAGER'),
 								JText::_('COM_RSGALLERY2_TEMPLATE_EXPLANATION'),
-								'optimizeDB');
+								'templateManager');
 							?>
-
 
 						</div>
 					</div>
 				</div>
 									
-			<?php
-				if( ($Rsg2DebugActive) AND ( $this->UserIsRoot ) ){
-			?>
-			
 				<div class="row-fluid span6 rsg2_container_icon_set">
 					<div class="icons-panel danger">
 						<div class="row-fluid">
@@ -175,39 +179,52 @@ function quickIconMoonBar( $link, $imageClass, $title, $text = "", $addClass = '
 									<?php echo JText::_('COM_RSGALLERY2_DANGER_ZONE');?>
 								</h3>
 							</div>
-							<div class='icons-panel-info'>
-								<strong>
-									<?php echo JText::_('COM_RSGALLERY2_C_DEBUG_ON');?>
-								</strong>
-							</div>
+							<?php
+								if( $this->UserIsRoot ) {
+							?>
+									<div class='icons-panel-info'>
+										<strong>
+											<?php echo JText::_('COM_RSGALLERY2_C_DEBUG_ON'); ?>
+										</strong>
+									</div>
 
-						<?php
-                            //$link = 'index.php?option=com_rsgallery2&amp;view=configRawEdit';
-                            //$link = 'index.php?option=com_rsgallery2&amp;view=configRaw&amp;layout=edit';
-							$link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
-							quickiconBar( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT'),
-									JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'),
-									'editConfigRaw');
-						?>
-						<?php
-							//$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.purgeImagesAndData';
-							$link = 'index.php?option=com_rsgallery2&task=purgeEverything';
-							quickiconBar( $link, 'media_DelItems.png', JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING') ,
-									JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING_TXT'),
-									'purgeImagesAndData');
-						?>
-						<?php
-							//$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.removeImagesAndData';
-							$link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
-							quickiconBar( $link, 'db_DelItems.png', JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL') ,
-									JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL_TXT'),
-									'removeImagesAndData');
-						?>
+									<?php
+									//$link = 'index.php?option=com_rsgallery2&amp;view=configRawEdit';
+									//$link = 'index.php?option=com_rsgallery2&amp;view=configRaw&amp;layout=edit';
+									$link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
+									quickiconBar($link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT'),
+										JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'),
+										'editConfigRaw');
+									?>
+									<?php
+										if($Rsg2DebugActive){
+									?>
+
+											<?php
+											//$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.purgeImagesAndData';
+											$link = 'index.php?option=com_rsgallery2&task=purgeEverything';
+											quickiconBar($link, 'media_DelItems.png', JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING'),
+												JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING_TXT'),
+												'purgeImagesAndData');
+											?>
+											<?php
+											//$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.removeImagesAndData';
+											$link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
+											quickiconBar($link, 'db_DelItems.png', JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL'),
+												JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL_TXT'),
+												'uninstallDataTables');
+											?>
+									<?php
+										} else {
+											echo JText::_('COM_RSGALLERY2_MORE_FUNCTIONS_WITH_DEBUG_ON');
+										}
+									?>
+							<?php
+								}
+							?>
+
 						</div>
 					</div>
-				<?php
-					}
-				?>
                 </div>
             </div>
 
