@@ -884,7 +884,7 @@ function batchupload($option) {
 
 		if ($batchmethod == "zip") {
 			$app->setUserState('com_rsgallery2.last_used_uploaded_zip', $zip_file);
-			$UploadModel->setLastUsedZipFile($zip_file);
+			// $UploadModel->setLastUsedZipFile($zip_file);
 			$UploadModel->setLastUpdateType ('upload_zip_pc');
 		}
 		else
