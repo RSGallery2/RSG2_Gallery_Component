@@ -46,10 +46,12 @@ div.iconimage img {
     vertical-align: middle; /**/
 }
 
-.grey-background {
-    background-color: #f7f8f9;
-    border: 1px solid #d5d5d5;
-    padding: 3px;
+.rsg2_icon_container {
+    /* background-color:lightblue; /**/
+    margin:10px 10px; /**/
+    /*    margin:auto; /**/
+    margin-left: 30px; /**/
+    /* float: left; /**/
 }
 
 .rsg2logo-container {
@@ -61,6 +63,7 @@ div.iconimage img {
     padding-right: 30px; /**/
     margin-top: 20px; /**/
     margin-left: 0px; /**/
+    margin-bottom: 0px; /**/
 
 }
 
@@ -82,18 +85,17 @@ div.iconimage img {
     /* margin-right: auto; /**/
 }
 
-.greybackground {
-    background-color: #f7f8f9;
+.greyBackground {
+/*    background-color: #f7f8f9; /**/
+    background-color: #e7e8e9; /**/
     border: 1px solid #d5d5d5;
     padding: 3px 15px;
 }
 
-.rsg2_icon_container {
-    /* background-color:lightblue; /**/
-    margin:10px 10px; /**/
-    /*    margin:auto; /**/
-    margin-left: 30px; /**/
-    /* float: left; /**/
+.clsInfoAccordion{
+    /*    background-color: #f7f8f9; /**/
+    background-color: white; /**/
+    margin-top: 10px; /**/
 }
 
 .accordion-heading {

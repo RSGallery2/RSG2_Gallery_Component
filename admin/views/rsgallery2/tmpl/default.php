@@ -6,36 +6,11 @@ JHtml::_('behavior.tooltip');
 global $Rsg2DebugActive;
 
 /**
-  * Used by showCP to generate buttons
-  * @param string $link URL for button link
-  * @param string $image Image name for button image
-  * @param string $text Text to show in button
-  * @param string $addClass additional class id
-  */
-function RsgButton( $link, $image, $text, $addClass='' ) {
-	?>
-	<!--div class="span2 "-->
-    <div style="float:left;">
-		<div class="rsg2_icon_container">
-			<div class="rsg2icon<?php echo ' '.$addClass; ?>">
-				<a href="<?php echo $link; ?>">
-					<div class="iconimage">
-						<?php echo JHtml::image('administrator/components/com_rsgallery2/images/'.$image, $text); ?>
-					</div>
-					<?php echo $text; ?>
-				</a>
-			</div>
-		</div>
-	</div>
-	<?php
-}
-
-/**
-  * Used by showCP to generate buttons.  
-  * Uses icomoon font to display the main icon of the button
+  * Used to generate buttons. Uses iconmoon font to display the main icon of the button
   * @param string $link URL for button link
   * @param string $imageClass Class name for icomoon image
   * @param string $text Text to show in button
+  * @param string $addClass Additional class to style the element
   */
 function RsgIconMoonButton( $link, $imageClass, $text, $addClass='') {
 	?>
@@ -58,25 +33,8 @@ function RsgIconMoonButton( $link, $imageClass, $text, $addClass='') {
 }
 
 /**
- * Used by showCP to generate buttons
- * @param string $link URL for button link
- * @param string $image Image name for button image
- * @param string $text Text to show in button
+ * @param $infoGalleries
  */
-function RsgDebugButton($link, $image, $text ) {
-    RsgButton( $link, $image, $text, "debugicon");
-}
-
-/**
- * Used by showCP to generate buttons
- * @param string $link URL for button link
- * @param string $image Image name for button image
- * @param string $text Text to show in button
- */
-function RsgIconMoonDebugButton($link, $image, $text ) {
-    RsgIconMoonButton( $link, $image, $text, "debugicon");
-}
-
 function DisplayInfoGalleries ($infoGalleries) {
 
     // exit if no data given
@@ -251,7 +209,7 @@ $doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/
         <div id="j-main-container">
     <?php endif;?>
 
-        <div class="row greybackground">
+        <div class="row greyBackground">
             <div class="span12">
                 <div class="row-fluid">
                     <?php
@@ -300,7 +258,7 @@ $doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/
 			</div>
 			<div class="span12">
 				<div class="row-fluid">
-					<div class="span4">
+					<div class="span4 clsInfoAccordion">
 						 <?php
 							echo JHtml::_('bootstrap.startAccordion', 'slide-example', array('active' => 'slide1', 'toggle' => 'false' ));
 							echo JHtml::_('bootstrap.addSlide', 'slide-example', JText::_('COM_RSGALLERY2_GALLERIES'), 'slide1');
@@ -312,7 +270,7 @@ $doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/
 							echo JHtml::_('bootstrap.endAccordion');
 						?>
 					</div>
-					<div class="span8">			
+					<div class="span8 clsInfoAccordion">
 						 <?php
 							echo JHtml::_('bootstrap.startAccordion', 'slide-example2', array('active' => 'slide2'));
 							echo JHtml::_('bootstrap.addSlide', 'slide-example2', JText::_('COM_RSGALLERY2_IMAGES'), 'slide2');
@@ -324,7 +282,12 @@ $doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/
 							echo JHtml::_('bootstrap.endAccordion');							
 						?>
 					</div>
-					<div class="span6">
+                </div>
+            </div>
+            <br>
+            <div class="span12">
+                <div class="row-fluid">
+					<div class="span6 clsInfoAccordion">
 						 <?php
 							echo JHtml::_('bootstrap.startAccordion', 'slide-example3', array('active' => 'slide1'));
 							echo JHtml::_('bootstrap.addSlide', 'slide-example3', JText::_('COM_RSGALLERY2_CREDITS'), 'slide3');
@@ -350,9 +313,7 @@ $doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/
 	</div>	
 	
 	<?php			
-		echo $this->FootetText;
+		echo $this->FooterText;
 	?>
-
-	
 </form>
 

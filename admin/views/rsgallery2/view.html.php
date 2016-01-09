@@ -6,12 +6,13 @@ jimport ('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 
 //require (JUri::root(true).'/administrator/components/com_rsgallery2/helpers/CreditsEnumaration.php');
-//require ('helpers/CreditsEnumaration.php');
-//require_once JPATH_ADMINISTRATOR . '/components/com_rsgallery2/helpers/rsg2Common.php';
-require_once JPATH_ADMINISTRATOR . '/components/com_rsgallery2/includes/version.rsgallery2.php';
-require_once JPATH_ADMINISTRATOR . '/components/com_rsgallery2/helpers/CreditsEnumaration.php';
-require_once JPATH_ADMINISTRATOR . '/components/com_rsgallery2/models/images.php';
-require_once JPATH_ADMINISTRATOR . '/components/com_rsgallery2/models/galleries.php';
+
+//require_once JPATH_ADMINISTRATOR . '/components/com_rsgallery2/includes/version.rsgallery2.php';
+require_once JPATH_COMPONENT . '/includes/version.rsgallery2.php';
+
+require_once JPATH_COMPONENT . '/helpers/CreditsEnumaration.php';
+require_once JPATH_COMPONENT . '/models/images.php';
+require_once JPATH_COMPONENT . '/models/galleries.php';
 
 class Rsgallery2ViewRsgallery2 extends JViewLegacy
 {
@@ -24,7 +25,7 @@ class Rsgallery2ViewRsgallery2 extends JViewLegacy
 	protected $LastGalleries;
 	protected $Rsg2Version;
 	
-	protected $FootetText;
+	protected $FooterText;
 	
 	protected $form;
 	protected $sidebar;
@@ -53,7 +54,7 @@ class Rsgallery2ViewRsgallery2 extends JViewLegacy
 		$Rsg2Version = new rsgalleryVersion();
 		
 		$this->Rsg2Version = $Rsg2Version->getLongVersion(); // getShortVersion, getVersionOnly				
-		$this->FootetText = $this->RSGallery2Footer ($Rsg2Version->getCopyrightVersion());
+		$this->FooterText = $this->RSGallery2Footer ($Rsg2Version->getCopyrightVersion());
 		
 		$form = $this->get('Form');
 		
@@ -77,7 +78,7 @@ class Rsgallery2ViewRsgallery2 extends JViewLegacy
 		$this->form = $form;
         	
 		//$this->addToolbar ();
-		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MENU_CONTROL_PANEL'), 'config');
+		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MENU_CONTROL_PANEL'), 'home-2');
 		$this->sidebar = JHtmlSidebar::render ();
 
 		parent::display ($tpl);
