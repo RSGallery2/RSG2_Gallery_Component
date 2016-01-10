@@ -39,6 +39,6 @@ if ($Rsg2DebugActive)
 	JLog::add('Start rsgallery2.php in site: debug active in RSGallery2'); //, JLog::DEBUG);
 }
 
-// create a new instance of RSGallery2
+// Create a new instance of RSGallery2
 rsgInstance::instance();
 	
