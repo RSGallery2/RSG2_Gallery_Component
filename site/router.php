@@ -35,6 +35,8 @@ function Rsgallery2BuildRoute(&$query) {
 	
 	Rsgallery2InitConfig();
 
+// ToDo: As this is an entry point --> activate debug Log
+
 	$segments	= array();
 	
 	//Now define non-advanced SEF as v2 way and advanced SEF as v3 way

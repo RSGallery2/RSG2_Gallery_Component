@@ -24,6 +24,8 @@ class Rsgallery2ControllerRsgallery2 extends JControllerForm
 {
 	function galleries()
 	{
+		global $Rsg2DebugActive;
+
 		if($Rsg2DebugActive)
 		{
 			JLog::add('==> ctrl.rsgallery2.php/function galleries');
@@ -34,6 +36,8 @@ class Rsgallery2ControllerRsgallery2 extends JControllerForm
 
 	function ClearRsg2DbItems ()
 	{
+		global $Rsg2DebugActive;
+
 		if($Rsg2DebugActive)
 		{
 			JLog::add('==> ctrl.rsgallery2.php/function ClearRsg2DbItems');
@@ -92,6 +96,8 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
 
 	function DeleteAllRsg2Images ()
 	{
+		global $Rsg2DebugActive;
+
 		if($Rsg2DebugActive)
 		{
 			JLog::add('==> ctrl.rsgallery2.php/function DeleteAllRsg2Images');
@@ -108,6 +114,8 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
 
 	function ConsolidateDatabase ()
 	{
+		global $Rsg2DebugActive;
+
 		if($Rsg2DebugActive)
 		{
 			JLog::add('==> ctrl.rsgallery2.php/function ConsolidateDatabase');
@@ -125,6 +133,8 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
 	
 	function RegenerateFromImages ()
 	{
+		global $Rsg2DebugActive;
+
 		if($Rsg2DebugActive)
 		{
 			JLog::add('==> ctrl.rsgallery2.php/function RegenerateFromImages');
@@ -142,6 +152,8 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
 	
 	function OptimizeDatabase ()
 	{
+		global $Rsg2DebugActive;
+
 		if($Rsg2DebugActive)
 		{
 			JLog::add('==> ctrl.rsgallery2.php/function OptimizeDatabase');
