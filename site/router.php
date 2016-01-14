@@ -35,6 +35,8 @@ function Rsgallery2BuildRoute(&$query) {
 	
 	Rsgallery2InitConfig();
 
+// ToDo: As this is an entry point --> activate debug Log
+
 	$segments	= array();
 	
 	//Now define non-advanced SEF as v2 way and advanced SEF as v3 way
@@ -486,12 +488,18 @@ function Rsgallery2GetItemIdFromGalleryIdAndLimitstart($gid,$limitstart){
  * Gets the configuration settings for RSGallery
  */
 function Rsgallery2InitConfig() {
-	global $config;
+	global $config, $rsgVersion;
 	
 	if($config == null){
 		if (!defined('JPATH_RSGALLERY2_ADMIN')){
 			define('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT. DS .'administrator' . DS . 'components' . DS . 'com_rsgallery2');
 		}
+
+		// Needed by rsgConfig
+		require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'version.rsgallery2.php');
+		$rsgVersion = new rsgalleryVersion();
+
+		// Initialize the rsg config file
 		require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'config.class.php');
 		$config = new rsgConfig();
 	}

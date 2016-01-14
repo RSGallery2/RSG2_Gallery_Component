@@ -1,0 +1,41 @@
+
+Joomla form fields and rules. The right way 
+ Roberto Segura -   11 September 2014  
+  
+
+1 Comment 
+
+
+So you have been developing Joomla! extensions for some time and you thought you knew how to use fields & rules? Probably like me you were doing it wrong.
+
+These are the two most common mistakes I've seen:
+
+1. You are storing your fields in your component folder
+
+Hey! Fields are intended to be reusable. You use fields on your backend, frontend, modules, menu items... If your extension is big enough you should store them in a library so you don't have to use that addfieldpath pointing to your component everywhere. Only use component folder when the field is strictly private for that application.
+
+Create a library in Joomla! is super easy and you will have a powerful base system to grow up. I create libraries for almost every project I work on because:
+
+•Autoloading. You define a prefix on the library and autoloading starts working. I hate when I see that  require_once everywhere! Load the library on your extension entry point and forget about dependencies. 
+•Shared tools. We are talking about fields and rules but this applies to everything. If you have a helper that you call everywhere put it inside the library and start using it with autoloading.
+•Shared language strings. You have a field on your component backend and then you call it from the frontend. Oh yes! you have to define again the strings! Why not store some shared language strings for fields, errors,etc. on the library? Load library's language on the library bootstrap and that's all.
+•Testing. When you have all your main code on a library it's easy to know what and where has to be tested.
+•Contributors' kit. Someone wants to contribute a module or plugin that works with your extension... isn't it better that all the reusable parts you want them to use are inside a library? It's like 'Hey here is the kit to start developing something for this'. It tells a lot about the project when you see that.
+
+If you decide to start using libaries I've created a sample library at Github to try to help developers to use them. When using a library remember:
+
+•You cannot call your library on menu items. So in your view XML remember to use addfieldpath pointing to your library fields path.
+•Always require your library in top of your fields/rules. If your field is rendered on a menu item you will be able to keep using your libraries classes and languages inside the field.
+
+2. You are using the "J" prefix
+
+Yes. Most of us create class fields with names like JFormFieldCountry or JFormFieldProduct prefix. Did you know that the J prefix was intended to be used within the core?
+
+You should use your own prefix like PrefixFormFieldCountry or PrefixFormFieldProduct. Why?
+
+•Avoid conflicts. You defined a JFormFieldCountry and someone else decides to create it and use a system plugin to load it everywhere (it happened to me). So you end not being able to use your own field. Or maybe next Joomla! version comes with a standard field with the same name you are using. Most developers try to avoid that using prefixes in the wrong place like JFormFieldPfcountry (being Pf a prefix they apply to all the fields). Isn't that a terrible class name?
+•Extend core fields. You found a bug on the JFormFieldList form field and then you decided to stop using it. Or maybe you just want to replace something that is hardcoded on the field. Or even better... you want to add new functionallities like using JLayout for your fields. Isn't easy to use PrefixFormFieldList and replace all your type="list" calls with type="prefix.list"?
+•Extend core rules. Same concept than for fields but to extend/override validations when needed. In this case you need to use validate="prefix.email" instead of validate="email".
+•Compatibility. Joomla! supports prefixes in both J2.5.x & J3.x series so you don't have to worry about compatibility.
+
+Did you already know it? That's great! Then help me to spread it so we can see more libraries and prefixed form fields/rules out there.

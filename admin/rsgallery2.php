@@ -9,6 +9,8 @@
 */
 defined( '_JEXEC' ) or die();
 
+global $Rsg2DebugActive;
+
 // Initialize RSG2 core functionality
 require_once( JPATH_COMPONENT.'/init.rsgallery2.php' );
 
@@ -67,7 +69,7 @@ require_once(JPATH_COMPONENT.'/admin.rsgallery2.html.php');///J3
 
 global $opt, $catid, $uploadStep, $numberOfUploads, $e_id, $view;
 
-$input =JFactory::getApplication()->input;
+$input              = JFactory::getApplication()->input;
 //$task				= JRequest::getCmd('task');
 $task               = $input->get( 'task', '', 'CMD');		
 //$option			= strtolower(JRequest::getCmd('option'));
@@ -77,18 +79,18 @@ $catid              = $input->get( 'catid', null, 'INT');
 // ...
 $view               = $input->get( 'view', null, 'CMD');		
 
-//$uploadStep			= JRequest::getInt('uploadStep', 0 );
-$uploadStep = $input->get( 'uploadStep', 0, 'INT');		
-//$numberOfUploads	= JRequest::getInt('numberOfUploads', 1 );
-$numberOfUploads = $input->get( 'numberOfUploads', 1, 'INT');		
+//$uploadStep		 = JRequest::getInt('uploadStep', 0 );
+$uploadStep         = $input->get( 'uploadStep', 0, 'INT');		
+//$numberOfUploads	 = JRequest::getInt('numberOfUploads', 1 );
+$numberOfUploads     = $input->get( 'numberOfUploads', 1, 'INT');		
 
-//$firstCid = JRequest::getInt('cid', 0);
-$firstCid = $input->get( 'cid', 0, 'INT');					
-//$id     = JRequest::getInt('id', 0 );
-$id     = $input->get( 'id', 0, 'INT');					
+//$firstCid           = JRequest::getInt('cid', 0);
+$firstCid            = $input->get( 'cid', 0, 'INT');					
+//$id                 = JRequest::getInt('id', 0 );
+$id                  = $input->get( 'id', 0, 'INT');					
 
-//$rsgOption = JRequest::getCmd('rsgOption', null );
-$rsgOption = $input->get( 'rsgOption', null, 'CMD');		
+//$rsgOption          = JRequest::getCmd('rsgOption', null );
+$rsgOption           = $input->get( 'rsgOption', null, 'CMD');		
 
 $my = JFactory::getUser();
 
@@ -214,8 +216,14 @@ if( $rsgOption == '' ){
 			HTML_RSGallery::RSGalleryFooter();
 			break;
 		default:
-			HTML_RSGallery::showCP();
-			HTML_RSGallery::RSGalleryFooter();
+
+			//--- New MVC view/ ... Handling --------------------------
+
+			// New RSGallery2 views as MVC: Use standard Joomla! path
+			$controller	= JControllerLegacy::getInstance('rsgallery2');
+			$controller->execute($task);
+			$controller->redirect();
+
 			break;
 	}
 }

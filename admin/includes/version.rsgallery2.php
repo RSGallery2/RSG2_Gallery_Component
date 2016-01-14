@@ -38,9 +38,9 @@ class rsgalleryVersion {
     /** @var string Timezone */
 //    var $RELTZ      = 'UTC';
     /** @var string Copyright Text */
-    var $COPYRIGHT  = '&copy; 2005 - 2015 <strong><a class="rsg2-footer" href="http://www.rsgallery2.nl">RSGallery2</a></strong>. All rights reserved.';
+    var $COPYRIGHT  = '&copy; 2005 - 2015';
     /** @var string URL */
-    var $URL        = '<strong><a class="rsg2-footer" href="http://www.rsgallery2.nl">RSGallery2</a></strong>';
+    var $URL        = '<strong><a class="rsg2-footer" href="http://www.rsgallery2.org">RSGallery2</a></strong>';
     /** @var string Whether site is a production = 1 or demo site = 0: 1 is default */
 //    var $SITE       = 1;
     /** @var string Whether site has restricted functionality mostly used for demo sites: 0 is default */
@@ -66,8 +66,8 @@ class rsgalleryVersion {
 		//	[creationDate] => July 2014 
 		//	[author] => RSGallery2 Team 
 		//	[copyright] => (c) 2014 RSGallery2 Team 
-		//	[authorEmail] => team@rsgallery2.nl 
-		//	[authorUrl] => http://www.rsgallery2.nl 
+		//	[authorEmail] => team@rsgallery2.nl
+		//	[authorUrl] => http://www.rsgallery2.org 
 		//	[version] => 1.0.2 
 		//	[description] => COM_RSGALLERY2_XML_DESCRIPTION 
 		//	[group] => 
@@ -101,10 +101,12 @@ class rsgalleryVersion {
      * @return string Long format version
      */
     function getLongVersion() {
-        return $this->PRODUCT .' '. $this->RELEASE.' '
-//            . $this->DEV_STATUS
-            .' [ '.$this->CODENAME .' ] '
-			. $this->RELDATE .' '
+        return $this->PRODUCT . '     '
+			. ' [' . $this->RELEASE . '] '
+//            . $this->DEV_STATUS . ' '
+//            . $this->AUTHOR . ' '
+//            . ' [ '.$this->CODENAME .' ] ' . ' '
+			. '(' . $this->RELDATE . ')' . ' '
 //            . $this->RELTIME .' '. $this->RELTZ
 			;
     }
@@ -116,6 +118,15 @@ class rsgalleryVersion {
         return $this->PRODUCT . ' ' . $this->RELEASE . '<br />' . $this->COPYRIGHT;
     }
 
+    /**
+     * @return string Short version format
+     */
+    function getCopyrightVersion() {
+        return $this->PRODUCT . ' ' . $this->RELEASE . '<br />' 
+			. $this->COPYRIGHT . ' <strong><a class="rsg2-footer" href="http://www.rsgallery2.org">RSGallery2</a></strong>. All rights reserved.';
+    }
+	
+	
     /**
      * @return string PHP standardized version format
      */

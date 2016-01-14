@@ -16,13 +16,13 @@ if( isset( $_REQUEST['rsgOption'] ))
 else
     $rsgOption = '';
 
-//require_once( JApplicationHelper::getPath('toolbar_html') );///J25
+// require_once( JApplicationHelper::getPath('toolbar_html') );///J25
 require_once( JPATH_ADMINISTRATOR . '/components/com_rsgallery2/toolbar.rsgallery2.html.php');///J3
 
 // Only show RSG2 submenu in the backend
 $app = JFactory::getApplication();
 if ($app->isAdmin()){
-	menu_rsg2_submenu::addRSG2Submenu($rsgOption, $task);
+	menu_rsg2_submenu::addRSG2Submenu($rsgOption, $task, $view);
 	switch( $rsgOption ){
 		case 'images':
 			switch ( $task ) {

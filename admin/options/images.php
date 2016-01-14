@@ -11,6 +11,8 @@
 // no direct access
 defined( '_JEXEC' ) or die();
 
+global $Rsg2DebugActive;
+
 require_once( $rsgClasses_path . 'file.utils.php' );
 require_once( $rsgOptions_path . 'images.html.php' );
 require_once( $rsgOptions_path . 'images.class.php' );
@@ -34,7 +36,8 @@ switch ($task) {
 	case 'save_batchupload':
 		save_batchupload();
         break;
-        
+
+		// Single upload ?
 	case 'upload':
 		uploadImage( $option );
 		break;
@@ -116,6 +119,7 @@ switch ($task) {
  */
 function showImages( $option ) {
 	global $mosConfig_list_limit;
+
 	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	
@@ -124,8 +128,8 @@ function showImages( $option ) {
 	$limitstart = intval( $mainframe->getUserStateFromRequest( "view{$option}limitstart", 'limitstart', 0 ) );
 	$search 	= $mainframe->getUserStateFromRequest( "search{$option}", 'search', '' );
 	$search 	= $database->escape( trim( strtolower( $search ) ) );
-	$where = array();
 
+	$where = array();
 	if ($gallery_id > 0) {
 		$where[] = "a.gallery_id = $gallery_id";
 	}
@@ -135,9 +139,9 @@ function showImages( $option ) {
 
 	// get the total number of records
 	$query = "SELECT COUNT(1)"
-	. "\n FROM #__rsgallery2_files AS a"
-	. (count( $where ) ? "\n WHERE " . implode( ' AND ', $where ) : "")
-	;
+		. "\n FROM #__rsgallery2_files AS a"
+		. (count( $where ) ? "\n WHERE " . implode( ' AND ', $where ) : "")
+		;
 	$database->setQuery( $query );
 	$total = $database->loadResult();
 
@@ -167,6 +171,7 @@ function showImages( $option ) {
 	$javascript = 'onchange="document.adminForm.submit();"';
 	$lists['gallery_id'] = galleryUtils::galleriesSelectList( $gallery_id, 'gallery_id', false, $javascript );
 	$lists['move_id'] = galleryUtils::galleriesSelectList( $gallery_id, 'move_id', false, '', 0 );
+
 	html_rsg2_images::showImages( $option, $rows, $lists, $search, $pageNav );
 	
 	return true;
@@ -577,6 +582,7 @@ function cancelImage( $option ) {
  */
 function uploadImage( $option ) {
 	$database = JFactory::getDBO();
+
 	//Check if there are galleries created
 	$database->setQuery( "SELECT id FROM #__rsgallery2_galleries" );
     $database->execute();
@@ -584,8 +590,16 @@ function uploadImage( $option ) {
         HTML_RSGALLERY::requestCatCreation( );
         return;
     }
-    
-	//Create gallery selectlist
+
+	//--- Handle session data -------------------------------------------
+
+	jimport('joomla.application.component.model');
+	JModelLegacy::addIncludePath(JPATH_COMPONENT.'/models');
+
+	$UploadModel = JModelLegacy::getInstance ('upload', 'rsgallery2Model');
+	$UploadModel->setLastUpdateType ('upload_single');
+
+	// Create gallery selectlist
 	$lists['gallery_id'] = galleryUtils::galleriesSelectList( NULL, 'gallery_id', false , Null, 0, true);
 	html_rsg2_images::uploadImage( $lists, $option );
 }
@@ -651,8 +665,10 @@ function saveUploadedImage( $option ) {
 		if ( count( $errors ) < count( $files ) ) {
 			echo "<br>".JText::_('COM_RSGALLERY2_THE_REST_OF_YOUR_FILES_WERE_UPLOADED_FINE');
 		}
-		$mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images&task=upload");
-	}		
+		
+// OneUploadForm $mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images&task=upload");
+		$mainframe->redirect('index.php?option=com_rsgallery2&view=upload&task=upload' ); // Todo: More information fail ?
+	} 
 }
 
 /**
@@ -815,50 +831,72 @@ function copyImage( $cid, $option ) {
  * @throws Exception
  */
 function batchupload($option) {
+	global $Rsg2DebugActive;
 	global $rsgConfig;
+
 	$database  = JFactory::getDBO();
 	$mainframe = JFactory::getApplication();
 	$FTP_path  = $rsgConfig->get('ftp_path');
 
 	//Retrieve data from submit form
 	$input =JFactory::getApplication()->input;
-	//$batchmethod 	= JRequest::getCmd('batchmethod', null);
-	$batchmethod    = $input->get( 'batchmethod', '', 'CMD');		
+	$batchmethod    = $input->get('batchmethod', '', 'STRING');
 	$config         = get_object_vars( $rsgConfig );
-	//$uploaded 		= JRequest::getBool('uploaded', null);
-	$uploaded		= $input->get( 'uploaded', null, 'BOOL');		
-	//$selcat 		= JRequest::getInt('selcat', null);
-	$selcat         = $input->get( 'selcat', null, 'INT');					
-	//$zip_file 		= JRequest::getVar('zip_file', null, 'FILES');
-    //$OldZipFile 	= JRequest::getVar('zip_file', null, 'FILES');
-    // ToDo: see above upload ->getArray() ??
-	//$zip_file00 	= $input->get( 'zip_file', null, 'FILES');
-    //$zip_file01     = $input->files->get('zip_file', array(), 'FILES'); //
-
+	$uploaded		= $input->get( 'uploaded', null, 'BOOL');
+	$selcat         = $input->get( 'selcat', null, 'INT');
     $zip_file = $input->files->get('zip_file', array(), 'FILES'); //
-
-	// getPath does not allow a slash at the end and no absolute paths
-	// $ftppath 		= JRequest::getVar('ftppath', null);
-	// $ftppath 		= $input->getPath( 'ftppath', null);
-	// $ftppath 		= $input->get( 'ftppath', null, 'RAW');
-	// if(substr($ftppath, -1) == '/' || substr($ftppath, -1) == '\\') {
-	// 	$ftppath = substr($ftppath, 0, -1);
-	// 	$input->set( 'ftppath', $ftppath);
-	// }
-	// $ftppath 		= $input->getPath( 'ftppath', null);
-	// $ftppath 		= $input->get( 'ftppath', null, 'PATH');
-	// $ftppath .= '/';
-	// $ftppath 		= $input->get( 'ftppath', null, 'RAW');
-	// if(substr($ftppath, -1) == '/' || substr($ftppath, -1) == '\\') {
 
 	$ftppath = $input->get( 'ftppath', null, 'RAW');
 	if(substr($ftppath, -1) != '/' && substr($ftppath, -1) == '\\') {
 		$ftppath .= '/';
 	}
 
-	//$xcat 			= JRequest::getInt('xcat', null);
-	$xcat           = $input->get( 'xcat', null, 'INT');					
-	
+	$xcat           = $input->get( 'xcat', null, 'INT');
+
+	if($Rsg2DebugActive)
+	{
+		//$Delim = "\n";
+		$Delim = " ";
+		// show active parameters
+		$DebTxt = "==> images.batchupload.php$Delim----------$Delim";
+		$DebTxt = $DebTxt . "\$batchmethod: ".$batchmethod."$Delim";
+//		$DebTxt = $DebTxt . "\$config: ".$config."$Delim";
+		$DebTxt = $DebTxt . "\$uploaded: ".$uploaded."$Delim";
+		$DebTxt = $DebTxt . "\$selcat: ".$selcat."$Delim";
+		$DebTxt = $DebTxt . "\$xcat: ".$xcat."$Delim";
+		$DebTxt = $DebTxt . "\$ftppath: ".$ftppath."$Delim";
+		// array
+		$DebTxt = $DebTxt . "\$zip_file: ". json_encode($zip_file)."$Delim";;
+
+		JLog::add($DebTxt); //, JLog::DEBUG);
+	}
+
+	//--- Handle session data -------------------------------------------
+
+	jimport('joomla.application.component.model');
+	JModelLegacy::addIncludePath(JPATH_COMPONENT.'/models');
+
+	$UploadModel = JModelLegacy::getInstance ('upload', 'rsgallery2Model');
+
+	// Batchupload is requested, data given
+	if (isset($uploaded)) {
+		$app = JFactory::getApplication();
+
+		if ($batchmethod == "zip") {
+			$app->setUserState('com_rsgallery2.last_used_uploaded_zip', $zip_file);
+			// $UploadModel->setLastUsedZipFile($zip_file);
+			$UploadModel->setLastUpdateType ('upload_zip_pc');
+		}
+		else
+		{
+			if ($batchmethod == "FTP") {
+				$app->setUserState('com_rsgallery2.last_used_ftp_path', $ftppath);
+				$UploadModel->setLastUsedFtpPath($ftppath);
+				$UploadModel->setLastUpdateType ('upload_folder_server');
+			}
+		}
+	}
+
 	//Check if at least one gallery exists, if not link to gallery creation
 	$database->setQuery( "SELECT id FROM #__rsgallery2_galleries" );
 	$database->execute();
@@ -866,30 +904,49 @@ function batchupload($option) {
 		HTML_RSGALLERY::requestCatCreation( );
 		return;
 	}
-	
-	//New instance of fileHandler
-	$uploadfile = new fileHandler();
-	
-	if (isset($uploaded)) {//true when form in step 1 of batchupload is submitted
+
+	// Batchupload is requested, data given
+	if (isset($uploaded)) {
+
+		//--- collect file list ----------------------
+
+		//New instance of fileHandler
+		$uploadfile = new fileHandler();
+
+		// Upload zip files ?
 		if ($batchmethod == "zip") {
-			if ($uploadfile->checkSize($zip_file) == 1) {
-				//$ziplist = $uploadfile->handleZIP($zip_file);//MK// [change] [handleZIP uses PclZip that is no longer in J1.6]
-				$ziplist = $uploadfile->extractArchive($zip_file);//MK// [todo] [check extractArchive]
-				if (!$ziplist){
-					//Extracting archive failed
-					$mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images&task=batchupload");
+			// file found ?
+			if (count($zip_file) > 0) { // if (is_array($zip_file)) {
+				if ($uploadfile->checkSize($zip_file) == 1) {
+					//$ziplist = $uploadfile->handleZIP($zip_file);//MK// [change] [handleZIP uses PclZip that is no longer in J1.6]
+					$ziplist = $uploadfile->extractArchive($zip_file);//MK// [todo] [check extractArchive]
+					if (!$ziplist) {
+						// Extracting archive failed
+						// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
+						$mainframe->redirect('index.php?option=com_rsgallery2&view=upload'); // Todo: More information fail ?
+					}
+				} else {
+					// Error message: file size
+					$mainframe->enqueueMessage(JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE_IS_TOO_BIG'));
+					// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
+					$mainframe->redirect('index.php?option=com_rsgallery2&view=upload'); // Todo: More information fail ?
 				}
 			} else {
-				//Error message: file size
-				$mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE_IS_TOO_BIG') );
-				$mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images&task=batchupload");
+				// Error message: file name not given
+				$mainframe->enqueueMessage(JText::_('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN'));
+				// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
+				$mainframe->redirect('index.php?option=com_rsgallery2&view=upload'); // Todo: More information fail ?
 			}
-		} else {//not zip thus ftp
+		} else {
+			//not zip thus ftp
 			$ziplist = $uploadfile->handleFTP($ftppath);
 		}
+
 		html_rsg2_images::batchupload_2($ziplist, $uploadfile->extractDir);//Step 2 in batchupload process
 	} else {
-		html_rsg2_images::batchupload($option);//Step 1 in batchupload process
+		// Select upload type (Old) Todo: Remove if not used by "Mygalleries"
+		// Step 0 in batchupload process
+		html_rsg2_images::batchupload($option);
 	}
 }//End function
 
@@ -932,10 +989,11 @@ function save_batchupload() {
 		 in_array('-1', $category)) 
 	{
 	    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ALERT_NOCATSELECTED') );
-        $mainframe->redirect("index.php?option=com_rsgallery2&task=batchupload");
+// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
+		$mainframe->redirect('index.php?option=com_rsgallery2&view=upload' ); // Todo: More information fail ?
 	}
 
-     for($i=0;$i<$teller;$i++) {
+    for($i=0;$i<$teller;$i++) {
         //If image is marked for deletion, delete and continue with next iteration
         if (isset($delete[$i]) AND ($delete[$i] == 'true')) {
             //Delete file from server

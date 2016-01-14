@@ -1,0 +1,108 @@
+
+div.iconimage img {
+/*	margin:0px auto; /**/
+    margin:0px 16px; /**/
+	/*border: none; /**/
+	/*background: red; /**/
+}
+	
+.rsg2icon{
+/*	border: 5px; /**/
+	/* margin:10px 10px; /**/
+    /* margin:10px auto; /**/
+    margin:5px 10px; /* auto; /**/
+    /* float:left; /**/
+    /* width: 80px; /**/
+	min-width: 70px; /**/
+    height: 80px; /**/
+    padding: 10px; /**/
+	background-color: white; /**/
+	/* background-color: red; /**/
+	text-align: center; /**/
+	border-radius: 8px; /**/	
+	box-shadow: 2px 2px 1px #888888; /**/
+}
+
+.rsg2icon:hover {
+    border: 15px; /**/
+    background-color: lightblue;
+    border-color: black;
+}
+
+.debugicon{
+    height: 140px; /**/
+}
+
+.rsg2-container-icon {
+    margin:0 auto; /**/
+}
+
+.rsg2-container-icon-set {
+	/* background-color:lightblue; /**/
+/*	margin:10px 10px; /**/
+/*    margin:auto; /**/
+/*    margin-left: 30px; /**/
+    /* float: left; /**/
+    vertical-align: middle; /**/
+}
+
+.rsg2_icon_container {
+    /* background-color:lightblue; /**/
+    margin:10px 10px; /**/
+    /*    margin:auto; /**/
+    margin-left: 30px; /**/
+    /* float: left; /**/
+}
+
+.rsg2logo-container {
+    border: 1px solid #d5d5d5;
+    border-radius: 2px; /**/
+    background-color: white; /**/
+
+    padding-left: 30px; /**/
+    padding-right: 30px; /**/
+    margin-top: 20px; /**/
+    margin-left: 0px; /**/
+    margin-bottom: 0px; /**/
+
+}
+
+.rsg2logo {
+	/* width: 100%; /**/
+	/* margin:10px 16px; /**/
+	/* margin:auto; /**/
+	margin-top: 10px; /**/
+	margin-left: 0px; /**/
+	padding: 10px; /**/
+    background-color: white; /**/
+	border-radius: 2px; /**/	
+}
+
+.rsg2logo > img {
+
+    display: block;
+/*    margin-left: 10; /**/
+    /* margin-right: auto; /**/
+}
+
+.greyBackground {
+/*    background-color: #f7f8f9; /**/
+    background-color: #e7e8e9; /**/
+    border: 1px solid #d5d5d5;
+    padding: 3px 15px;
+}
+
+.clsInfoAccordion{
+    /*    background-color: #f7f8f9; /**/
+    background-color: white; /**/
+    margin-top: 10px; /**/
+}
+
+.accordion-heading {
+    background-color: white; /**/
+}
+
+.accordion-inner table caption {
+    color: #3071a9; /**/
+}
+

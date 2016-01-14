@@ -59,11 +59,13 @@ class html_rsg2_images {
 						&nbsp;
 					</td>
 					<td align="left" width="50%">
-						<?php echo JText::_('COM_RSGALLERY2_COPY_SLASH_MOVE')?>
-						<?php echo $lists['move_id'];?>
 						<?php echo JText::_('COM_RSGALLERY2_FILTER')?>
 						<input type="text" name="search" value="<?php echo $search;?>" class="text_area" onChange="document.adminForm.submit();" />
+						<?php echo JText::_('COM_RSGALLERY2_SELECT_GALLERY')?>
 						<?php echo $lists['gallery_id'];?>
+						<br>
+						<?php echo JText::_('COM_RSGALLERY2_COPY_SLASH_MOVE')?>
+						<?php echo $lists['move_id'];?>
 					</td>
 				</tr>
 			</table>
@@ -210,6 +212,8 @@ class html_rsg2_images {
 
 	static function editImage( &$row, &$lists, &$params, $option ) {
 		global $rsgOption;
+		global $display;
+
 		jimport("joomla.filter.output");
 		JHtml::_('behavior.formvalidation');
 		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES );
@@ -688,7 +692,7 @@ class html_rsg2_images {
 					}
 				} else if (upload_method == 'ftp') {
 					if (form.ftppath.value == '') {
-						alert( " <?php echo JText::_('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP-PATH_PROVIDED');?>" );	
+						alert( " <?php echo JText::_('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');?>" );	
 						return;
 					} else if (form.xcat.value <= 0 && selcat_method == '1') {
 						alert("<?php echo JText::_('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST');?>");
@@ -832,16 +836,17 @@ class html_rsg2_images {
 		
 		$input =JFactory::getApplication()->input;
 		
-		$database = JFactory::getDBO();
+		// not used: $database = JFactory::getDBO();
         //Get variables from form
         //$selcat 		= JRequest::getInt('selcat'  , null);
 		$selcat         = $input->get( 'selcat', null, 'INT');
         //$ftppath 		= JRequest::getVar('ftppath'  , null);
-		$ftppath 		= $input->get( 'ftppath', null, 'PATH');
+		// not used: $ftppath 		= $input->get( 'ftppath', null, 'PATH');
         //$xcat 			= JRequest::getInt('xcat'  , null);
+		// gallery ID
 		$xcat           = $input->get( 'xcat', null, 'INT');
         //$batchmethod 	= JRequest::getVar('batchmethod'  , null);
-		$batchmethod 		= $input->get( 'batchmethod', null, 'STRING');
+		// not used: $batchmethod    = $input->get('batchmethod', '', 'STRING');
         ?>
 		<script language="javascript" type="text/javascript">
         Joomla.submitbutton = function(task) {

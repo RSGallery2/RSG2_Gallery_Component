@@ -180,6 +180,10 @@ class html_rsg2_config{
 		$uploadState[] = JHtml::_("select.option", 0, JText::_('JUNPUBLISHED'));
 		$uploadState[] = JHtml::_("select.option", 1, JText::_('JPUBLISHED'));
 
+		$PreSelectOneGallery[] = JHtml::_("select.option", 0, JText::_('COM_RSGALLERY2_DEFAULT'));
+		$PreSelectOneGallery[] = JHtml::_("select.option", 1, JText::_('JYES'));
+		$PreSelectOneGallery[] = JHtml::_("select.option", 2, JText::_('JNO'));
+
 		// watermark
 		$watermarkAngles[] = JHtml::_("select.option",'0','0');
 		$watermarkAngles[] = JHtml::_("select.option",'45','45');
@@ -227,6 +231,7 @@ class html_rsg2_config{
 		$watermarkTransparency[] = JHtml::_("select.option",'30','30');
 		$watermarkTransparency[] = JHtml::_("select.option",'40','40');
 		$watermarkTransparency[] = JHtml::_("select.option",'50','50');
+		$watermarkTransparency[] = JHtml::_("select.option",'50','50');
 		$watermarkTransparency[] = JHtml::_("select.option",'60','60');
 		$watermarkTransparency[] = JHtml::_("select.option",'70','70');
 		$watermarkTransparency[] = JHtml::_("select.option",'80','80');
@@ -247,8 +252,8 @@ class html_rsg2_config{
 		if (function_exists('gd_info'))
 			{
 			$gd_info = gd_info();
-			$freetype = $gd_info['FreeType Support'];
-			if ($freetype == 1)
+			$freeType = $gd_info['FreeType Support'];
+			if ($freeType == 1)
 				$freeTypeSupport = "<div style=\"color:#009933;\">". JText::_('COM_RSGALLERY2_FREETYPE_LIBRARY_INSTALLED_WATERMARK_IS_POSSIBLE'). "</div>";
 			else
 				$freeTypeSupport = "<div style=\"color:#FF0000;\">". JText::_('COM_RSGALLERY2_FREETYPE_LIBRARY_NOT_INSTALLED_WATERMARK_DOES_NOT_WORK')."</div>";
@@ -281,7 +286,7 @@ class html_rsg2_config{
                 Joomla.submitform( pressbutton );
 			}
 		</script>
-		<form action="index.php" method="post" name="adminForm" id="adminForm">
+		<form action="index.php" method="post" name="adminForm" id="adminForm" enctype="multipart/form-data" class="form-validate form-horizontal">
             
 			<?php if (count(JHtmlSidebar::getEntries()) > 0) : ?>
                 <div id="j-sidebar-container" class="span2">
@@ -304,10 +309,7 @@ class html_rsg2_config{
 	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_general_group', 
 		JText::_('COM_RSGALLERY2_GENERAL_SETTINGS'), 'cfg_general_id_1'); ?> 
 
-				
 					<fieldset>
-					
-					
 						<table width="100%">
 							<tr>
 								<td width="200"><?php echo JText::_('COM_RSGALLERY2_VERSION')?></td>
@@ -326,8 +328,8 @@ class html_rsg2_config{
                                     <?php echo JText::_('COM_RSGALLERY2_DEBUG') ?>
                                 </td>
 								<td>
-                                    <fieldset id="jform_block" class="radio">
-                                        <?php echo JHtml::_("select.booleanlist",'debug', '', $config->debug); ?>
+                                    <fieldset id="jform_block" class="radio btn-group btn-group-yesno">
+                                        <?php echo JHtml::_("select.booleanlist",'debug', 'class="inputbox"', $config->debug); ?>
                                     </fieldset>
                                     <br />
                                 </td>
@@ -347,7 +349,7 @@ class html_rsg2_config{
                                     <?php echo JText::_('COM_RSGALLERY2_ADVANCED_SEF_ALL_CATEGORY_NAMES_AND_ITEM_TITLES_MUST_BE_UNIQUE'); ?>
                                 </td>
 								<td>
-                                    <fieldset id="jform_block" class="radio">
+                                    <fieldset id="jform_block" class="radio btn-group btn-group-yesno">
                                         <?php echo JHtml::_("select.booleanlist",'advancedSef', '', $config->advancedSef); ?>
                                     </fieldset>
 								</td>
@@ -421,19 +423,61 @@ class html_rsg2_config{
 								</td>
 							</tr>
 							<tr>
-								<td width="200"><?php echo JHtml::tooltip(JText::_('COM_RSGALLERY2_RSG2_IPTC_TOOLTIP'), JText::_('COM_RSGALLERY2_RSG2_IPTC_TOOLTIP_TITLE'), 
-                    '', JText::_('COM_RSGALLERY2_RSG2_USE_IPTC')); ?></td>
-								<td width="78%"><fieldset id="jform_block" class="radio">
-						<?php echo JHtml::_("select.booleanlist",'useIPTCinformation', '', $config->useIPTCinformation);?></fieldset></td>
+								<td width="200">
+									<?php echo JHtml::tooltip(JText::_('COM_RSGALLERY2_RSG2_IPTC_TOOLTIP'),
+										JText::_('COM_RSGALLERY2_RSG2_IPTC_TOOLTIP_TITLE'),
+					                    '', JText::_('COM_RSGALLERY2_RSG2_USE_IPTC')); ?>
+								</td>
+								<td width="78%">
+									<fieldset id="jform_block" class="radio btn-group btn-group-yesno">
+										<?php echo JHtml::_("select.booleanlist",'useIPTCinformation', '', $config->useIPTCinformation);?>
+									</fieldset>
+								</td>
 							</tr>
 							<tr>
-								<td width="200"><?php echo JHtml::tooltip(JText::_('COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP'), JText::_('COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP_TITLE'), 
-                    '', JText::_('COM_RSGALLERY2_DEFAULT_UPLOAD_STATE')); ?>
+								<td width="200"><?php echo JHtml::tooltip(JText::_('COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP'),
+										JText::_('COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP_TITLE'),
+                    					'', JText::_('COM_RSGALLERY2_DEFAULT_UPLOAD_STATE')); ?>
 								</td>
-								<td width="78%"><fieldset id="jform_block" class="radio">
-									<?php echo JHtml::_("select.genericlist",$uploadState, 'uploadState','','value', 'text', $config->uploadState)?></fieldset>
+								<td width="78%">
+									<fieldset id="jform_block" class="radio">
+										<?php echo JHtml::_("select.genericlist",$uploadState, 'uploadState','','value',
+											'text', $config->uploadState)?>
+									</fieldset>
 								</td>
 							</tr>
+
+							<tr>
+								<td width="200">
+									<?php echo JHtml::tooltip(JText::_('COM_RSGALLERY2_PRESELECT_ONE_GALLERY_FOR_ALL_IMAGES_PRESELECT'),
+										JText::_('COM_RSGALLERY2_PRESELECT_ONE_GALLERY_FOR_ALL_IMAGES_LABEL'),
+										'', JText::_('COM_RSGALLERY2_PRESELECT_ONE_GALLERY_FOR_ALL_IMAGES_LABEL')); ?>
+								</td>
+								<td width="78%">
+									<fieldset id="jform_block" class="radio">
+										<?php echo JHtml::_("select.genericlist", $PreSelectOneGallery, 'IsUseOneGalleryNameForAllImages','','value',
+											'text', $config->IsUseOneGalleryNameForAllImages)?>
+									</fieldset>
+								</td>
+
+							</tr>
+
+							<tr>
+								<td width="200">
+									<?php echo JHtml::tooltip(JText::_('COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_DESC'),
+										JText::_('COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_LABEL'),
+										'', JText::_('COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_LABEL')); ?>
+								</td>
+								<td width="78%">
+                                    <fieldset id="jform_block" class="radio btn-group btn-group-yesno">
+                                        <?php echo JHtml::_("select.booleanlist", 'IsPreSelectLatestGallery', 'class="inputbox"',
+                                        	$config->IsPreSelectLatestGallery); ?>
+									</fieldset>
+								</td>
+
+							</tr>
+
+
 						</table>
 					</fieldset>
 
@@ -488,7 +532,7 @@ class html_rsg2_config{
 						<table width="100%">
 							<tr>
 								<td width="200"><?php echo JText::_('COM_RSGALLERY2_KEEP_ORIGINAL_IMAGE') ?></td>
-								<td width="78%"><fieldset id="jform_block" class="radio">
+								<td width="78%"><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 						<?php echo JHtml::_("select.booleanlist",'keepOriginalImage', '', $config->keepOriginalImage)?></fieldset></td>
 							</tr>
 							<tr>
@@ -511,7 +555,7 @@ class html_rsg2_config{
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_CREATE_DIRECTORIES_IF_THEY_DONT_EXIST') ?></td>
 								<td>
-									<fieldset id="jform_block" class="radio">
+									<fieldset id="jform_block" class="radio  btn-group btn-group-yesno">
 									<?php //echo JHtml::_("select.booleanlist",'createImgDirs', '', $config->createImgDirs)?>
 									</fieldset>
 								</td>
@@ -534,7 +578,7 @@ class html_rsg2_config{
 								<td><?php echo JText::_('COM_RSGALLERY2_USE_CAPTCHA_COMMENT_FORM')?>
 								</td>	
 								<td>
-									<fieldset id="jform_block" class="radio">
+									<fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 									<?php echo JHtml::_("select.booleanlist",'comment_security', '', $config->comment_security)?>
 									</fieldset>
 								</td>
@@ -599,7 +643,7 @@ class html_rsg2_config{
 												<?php echo JText::_('COM_RSGALLERY2_CAPTCHA_CASE_SENSITIVE');?>
 											</td>
 											<td>
-												<fieldset id="jform_block" class="radio">
+												<fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 												<?php echo JHtml::_("select.booleanlist",'captcha_case_sensitive', '', $config->captcha_case_sensitive)?>
 												</fieldset>
 											</td>
@@ -625,7 +669,7 @@ class html_rsg2_config{
 							<!--
 							<tr>
 								<td><?php //echo JText::_('COM_RSGALLERY2_USER_CAN_ONLY_COMMENT_ONCE')." (".JText::_('COM_RSGALLERY2_NOT_WORKING_YET').")";?></td>
-								<td><fieldset id="jform_block" class="radio">
+								<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 						<?php //echo JHtml::_("select.booleanlist",'comment_once', '', $config->comment_once)?></fieldset></td>
 							</tr>	-->
 						</table>
@@ -642,7 +686,7 @@ class html_rsg2_config{
 							</tr>
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_USER_CAN_ONLY_VOTE_ONCE_COOKIE_BASED');?></td>
-								<td><fieldset id="jform_block" class="radio">
+								<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 						<?php echo JHtml::_("select.booleanlist",'voting_once', '', $config->voting_once)?></fieldset></td>
 							</tr>
 							<tr>
@@ -676,32 +720,32 @@ class html_rsg2_config{
 					<table width="100%">
 						<tr>
 							<td width="200"><?php echo JText::_('COM_RSGALLERY2_DISPLAY_SEARCH')?></td>
-							<td width="78%"><fieldset id="jform_block" class="radio">
+							<td width="78%"><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 							<?php echo JHtml::_("select.booleanlist", 'displaySearch', '', $config->displaySearch)?></fieldset></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_RANDOM')?></td>
-							<td><fieldset id="jform_block" class="radio">
+							<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 							<?php echo JHtml::_("select.booleanlist",'displayRandom', '', $config->displayRandom)?></fieldset></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_LATEST')?></td>
-							<td><fieldset id="jform_block" class="radio">
+							<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 							<?php echo JHtml::_("select.booleanlist",'displayLatest', '', $config->displayLatest)?></fieldset></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_BRANDING')?></td>
-							<td><fieldset id="jform_block" class="radio">
+							<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 							<?php echo JHtml::_("select.booleanlist",'displayBranding','', $config->displayBranding)?></fieldset></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_DOWNLOADLINK')?></td>
-							<td><fieldset id="jform_block" class="radio">
+							<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 							<?php echo JHtml::_("select.booleanlist",'displayDownload','', $config->displayDownload)?></fieldset></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_STATUS_ICONS')?></td>
-							<td><fieldset id="jform_block" class="radio">
+							<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 							<?php echo JHtml::_("select.booleanlist",'displayStatus', '', $config->displayStatus)?></fieldset></td>
 						</tr>
 						<tr>
@@ -714,7 +758,7 @@ class html_rsg2_config{
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_SLIDESHOW')?></td>
-							<td><fieldset id="jform_block" class="radio">
+							<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 							<?php echo JHtml::_("select.booleanlist",'displaySlideshow', '', $config->displaySlideshow)?></fieldset></td>
 						</tr>
 						<tr>
@@ -723,22 +767,22 @@ class html_rsg2_config{
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_OWNER_INFORMATION'); ?></td>
-							<td><fieldset id="jform_block" class="radio">
+							<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 							<?php echo JHtml::_("select.booleanlist",'showGalleryOwner', '', $config->showGalleryOwner)?></fieldset></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_NUMBER_OF_ITEMS_IN_GALLERY');?></td>
-							<td><fieldset id="jform_block" class="radio">
+							<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 							<?php echo JHtml::_("select.booleanlist",'showGallerySize', '', $config->showGallerySize)?></fieldset></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_NUMBER_OF_ITEMS_IN_GALLERY_INCLUDE_KIDS');?></td>
-							<td><fieldset id="jform_block" class="radio">
+							<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 							<?php echo JHtml::_("select.booleanlist",'includeKids', '', $config->includeKids)?></fieldset></td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_CREATION_DATE');?></td>
-							<td><fieldset id="jform_block" class="radio">
+							<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 							<?php echo JHtml::_("select.booleanlist",'showGalleryDate', '', $config->showGalleryDate)?></fieldset>
 							</td>
 						</tr>
@@ -754,7 +798,7 @@ class html_rsg2_config{
 					<table width="100%">
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_SLIDESHOW_IMAGE_DISPLAY')?></td>
-							<td><fieldset id="jform_block" class="radio">
+							<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 							<?php echo JHtml::_("select.booleanlist",'displaySlideshowImageDisplay', '', $config->displaySlideshowImageDisplay)?></fieldset>
 							</td>
 						</tr>
@@ -769,25 +813,25 @@ class html_rsg2_config{
 						</tr>	-->
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_DESCRIPTION')?></td>
-							<td><fieldset id="jform_block" class="radio">
+							<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 							<?php echo JHtml::_("select.booleanlist",'displayDesc', '', $config->displayDesc)?></fieldset>
 							</td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_HITS')?></td>
-							<td><fieldset id="jform_block" class="radio">
+							<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 							<?php echo JHtml::_("select.booleanlist",'displayHits', '', $config->displayHits)?></fieldset>
 							</td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_VOTING')?></td>
-							<td><fieldset id="jform_block" class="radio">
+							<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 							<?php echo JHtml::_("select.booleanlist",'displayVoting', '', $config->displayVoting)?></fieldset>
 							</td>
 						</tr>
 						<tr>
 							<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_COMMENTS')?></td>
-							<td><fieldset id="jform_block" class="radio">
+							<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 							<?php echo JHtml::_("select.booleanlist",'displayComments', '', $config->displayComments)?></fieldset>
 							</td>
 						</tr>
@@ -824,7 +868,7 @@ class html_rsg2_config{
 									<?php echo JText::_('COM_RSGALLERY2_DISPLAY_EXIF_DATA')?>
 								</td>
 								<td width="78%">
-									<fieldset id="jform_block" class="radio">
+									<fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 									<?php echo JHtml::_("select.booleanlist",'displayEXIF', '', $config->displayEXIF)?></fieldset>
 								</td>
 							</tr>
@@ -864,13 +908,13 @@ class html_rsg2_config{
 							</tr>
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_SHOW_IMAGE_NAME_BELOW_THUMBNAIL')?></td>
-								<td><fieldset id="jform_block" class="radio">
+								<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 								<?php echo JHtml::_("select.booleanlist", 'display_thumbs_showImgName','', $config->display_thumbs_showImgName )?></fieldset>
 								</td>
 							</tr>
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_DISPLAY_SLIDESHOW_GALLERY_VIEW')?></td>
-								<td><fieldset id="jform_block" class="radio">
+								<td><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 								<?php echo JHtml::_("select.booleanlist", 'displaySlideshowGalleryView','', $config->displaySlideshowGalleryView )?></fieldset>
 								</td>
 							</tr>
@@ -894,7 +938,7 @@ class html_rsg2_config{
 								<?php echo JText::_('COM_RSGALLERY2_DISPLAY_WATERMARK')?>
 							</td>
 							<td width="78%">
-								<fieldset id="jform_block" class="radio">
+								<fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 								<?php echo JHtml::_("select.booleanlist",'watermark','', $config->watermark)?>
 								</fieldset>
 							</td>
@@ -944,11 +988,11 @@ class html_rsg2_config{
 					</table>
 					</fieldset>
 
-	<?php echo JHtml::_('bootstrap.endSlide'); ?>
+            	<?php echo JHtml::_('bootstrap.endSlide'); ?>
 			
-<?php echo JHtml::_('bootstrap.endAccordion'); ?>	
+            <?php echo JHtml::_('bootstrap.endAccordion'); ?>
 
-				</div>			
+			</div>
 			<?php echo JHtml::_('bootstrap.endTab');?>
 			
 			<?php echo JHtml::_('bootstrap.addTab', 'ID-Tabs-J31-Group', 'tab4_j31_id', JText::_('COM_RSGALLERY2_MY_GALLERIES')); ?>
@@ -967,7 +1011,7 @@ class html_rsg2_config{
 							'', JText::_('COM_RSGALLERY2_SHOW_MY_GALLERIES')); ?>
 								</td>
 								<td width="78%">
-									<fieldset id="jform_block" class="radio">
+									<fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 									<?php echo JHtml::_("select.booleanlist",'show_mygalleries', '', $config->show_mygalleries)?></fieldset>
 								</td>
 							</tr>
@@ -977,7 +1021,7 @@ class html_rsg2_config{
 							'', JText::_('COM_RSGALLERY2_SHOW_ONLY_OWN_ITEMS_IN_MY_GALLERIES')); ?>
 								</td>
 								<td width="78%">
-									<fieldset id="jform_block" class="radio">
+									<fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 									<?php echo JHtml::_("select.booleanlist",'show_mygalleries_onlyOwnItems', '', $config->show_mygalleries_onlyOwnItems)?></fieldset>
 								</td>
 							</tr>
@@ -987,7 +1031,7 @@ class html_rsg2_config{
 							'', JText::_('COM_RSGALLERY2_SHOW_ONLY_OWN_GALLERIES_IN_MY_GALLERIES')); ?>
 								</td>
 								<td width="78%">
-									<fieldset id="jform_block" class="radio">
+									<fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 									<?php echo JHtml::_("select.booleanlist",'show_mygalleries_onlyOwnGalleries', '', $config->show_mygalleries_onlyOwnGalleries)?></fieldset>
 								</td>
 							</tr>
@@ -1031,6 +1075,7 @@ class html_rsg2_config{
 		<!--?php
 		echo JHtml::_('tabs.end');
 		?-->
+			</div>
 			<?php echo JHtml::_('bootstrap.endTab');?>
 					
 		<?php echo JHtml::_('bootstrap.endTabSet');?>
@@ -1038,7 +1083,10 @@ class html_rsg2_config{
 		<input type="hidden" name="option" value="com_rsgallery2" />
 		<input type="hidden" name="rsgOption" value="config" />
 		<input type="hidden" name="task" value="" />
+		</div>
 		</form>
+
+
 		<!-- Fix for Firefox browser -->
 		<div style='clear:both;line-height:0px;'>&nbsp;</div>
 		<?php

@@ -6,7 +6,7 @@ defined('_JEXEC') or die;
  */
 global $Rsg2DebugActive;
 
-$Rsg2DebugActive = true; // ToDo: $rsgConfig->get('debug');
+// $Rsg2DebugActive = true; // ToDo: $rsgConfig->get('debug');
 if ($Rsg2DebugActive)
 {
     // Include the JLog class.
@@ -45,13 +45,15 @@ class Rsgallery2Controller extends JControllerLegacy
 		
 		$id     = $this->input->getInt('id');
 		JLog::add('  base.controller.id: ', json_encode($id));
-*/		
+*/	
+/*
 		if($Rsg2DebugActive)
 		{
 			$task = $this->input->get('task');
 			JLog::add('  base.controller.task: ', json_encode($task));
 		}
-		
+*/
+
 /* ToDo: Activate following: book extension entwickeln  page 208
 		if ($view == 'rsg2' && $layout == 'edit' && !$this->checkEditId('com_rsgallery2.edit.rsgallery2', $id))
 		{

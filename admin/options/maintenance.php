@@ -406,7 +406,8 @@ function regenerateImage() {
 		$name = $input->get( 'name', null, 'STRING');
 	} else {
 	    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_NO_FILEINFORMATION_FOUND_THIS_SHOULD_NEVER_HAPPEN') );
-		$mainframe->redirect("index.php?option=com_rsgallery2&task=batchupload");
+// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
+		$mainframe->redirect('index.php?option=com_rsgallery2&view=upload' ); // Todo: More information fail ?
 	}
 	
 	//Just for readability of code

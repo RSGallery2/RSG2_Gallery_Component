@@ -329,7 +329,9 @@ class rsgGallery extends JObject{
 	function thumb( ){
 		// check if we need to find out what it is first
 		if( $this->thumb == null ){
-			if( $this->thumb_id == 0 ){
+//			if( $this->thumb_id == 0 ){
+			// Not defined or zero
+			if( empty ($this->thumb_id) ){
 				// thumbnail not set, use random
 				$items = $this->items();
 				if( count( $items ) == 0 )

@@ -136,6 +136,10 @@ class rsgConfig {
     //var $voting					= 1;		//deprecated: v3.0.2 uses permissions
     var $voting_once			= 1;
     var $cookie_prefix			= "rsgvoting_";
+	var $IsUseOneGalleryNameForAllImages = 1;
+	var $IsPreSelectLatestGallery = 0;
+
+
 
     /**
      * constructor
@@ -391,5 +395,4 @@ class rsgConfig {
 		$null = null;
 		return $null;
 	}
-	
 }
