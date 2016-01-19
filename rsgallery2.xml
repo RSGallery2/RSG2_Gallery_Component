@@ -131,12 +131,6 @@
 
 
 	<updateservers>
-		<!-- Note: No spaces or line breaks allowed between the server tags -->
-		<!-- 
-	<server type="extension" priority="1" name="RSGallery2 Update Site">http://.../update/rsgallery2.xml</server>
-	on http://joomlacode.org/gf/project/embedchessboard/scmsvn/?action=browse&path=%2Ftrunk%2Fjoomla-1.6%2Fembedchessboard.xml&view=markup
-	it says
-	<server type="extension" priority="1" name="EmbedChessboard update site">http://anonymous:doesnotmatter@joomlacode.org/svn/embedchessboard/trunk/joomla-1.6-update</server>
-	-->
+		<server type="extension" priority="1" name="Github RSGallery2 component updates">http://releases.rsgallery2.org/RSG2_component_update.xml</server>
 	</updateservers>  
 </extension>
