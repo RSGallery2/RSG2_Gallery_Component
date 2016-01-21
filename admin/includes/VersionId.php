@@ -8,33 +8,31 @@
 **/
 
 // no direct access
-defined('_JEXEC') or die;
+//defined('_JEXEC') or die;
 
 class VersionId {
 	public $IdParts = array ();
 	
-	void function  __construct ($strId) {
-		this->AssignId ($strId);
+	public function  __construct ($strId) {
+		$this->AssignId ($strId);
 	}
 	
-	void function AssignId ($strId){
+	public function AssignId ($strId){
 		$this->IdParts = array ();
 		if(!empty($strId)) {
-			$this->IdParts = split ('.');
+			$this->IdParts = explode ('.', $strId);
 		}
 	}
 	
 	
-	function Count () {
-		return count ($IdParts);
+	public function Count () {
+		return count ($this->IdParts);
 	}
 	
-	function compare ($otherId)
+	public function Compare ($otherId)
 	{
-		$Idx = 0;
-		
-		$LengthId = count($IdParts);
-		$LengthOther = $otherId.Count();
+		$LengthId = count($this->IdParts);
+		$LengthOther = $otherId->Count();
 			
 		$Length = $LengthId;
 		if ($Length > $LengthOther) {
@@ -42,20 +40,18 @@ class VersionId {
 		}
 		
 		// Compare array elements 
-		for ($Idx = 0; $Idx < $Length; Idx++) {
-			if($IdParts[$Idx] != $otherId.IdParts[$Idx]) {
-				return $IdParts[$Idx] > $otherId.IdParts[$Idx];
+		for ($Idx = 0; $Idx < $Length; $Idx++) {
+			if($this->IdParts[$Idx] != $otherId->IdParts[$Idx]) {
+				return $this->IdParts[$Idx] > $otherId->IdParts[$Idx];
 			}
 		}
 		
 		// compare length 
-		return $LengthId > $LengthOther;
+		return $LengthId > $LengthOther;		
+	}	
 		
 		
-		
-		
-	}
+	
 
-	test
 }
 
