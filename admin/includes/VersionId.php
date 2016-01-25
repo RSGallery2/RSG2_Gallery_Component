@@ -1,6 +1,6 @@
 <?php
 /**
-* Version ID like 4.0.9 will be kept in parts so it can be compared with other ID of same class
+* Version IDs like 4.0.9 will be kept in parts so it can be compared with other ID of same class
 * @package RSGallery2
 * @copyright (C) 2016 - 2016 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -33,22 +33,38 @@ interface Comparator
 
 class VersionId implements Comparator {
 	protected $IdParts = array ();
-	
+
+    /**
+     * VersionId constructor.
+     * @param string $strId Version id like "1.4.0.2"
+     */
 	public function  __construct ($strId) {
 		$this->AssignId ($strId);
 	}
-	
+
+    /**
+     * @param string $strId Version id like "1.4.0.2"
+     */
 	public function AssignId ($strId){
 		$this->IdParts = array ();
 		if(!empty($strId)) {
 			$this->IdParts = explode ('.', $strId);
 		}
 	}
-	
+
+    /**
+     * @return int depth of version id '1' -> 1, '1.1' -> 2,  '1.1.1' -> 3
+     */
 	public function Count () {
 		return count ($this->IdParts);
 	}
-	
+
+    /**
+     * General comparison of version strings
+     * @param VersionId $firstId
+     * @param VersionId $secondId
+     * @return int returns -1, 0, or 1
+     */
 	public static function Compare ($firstId, $secondId)
 	{
 		$LengthFirst = count($firstId->IdParts);
@@ -62,7 +78,6 @@ class VersionId implements Comparator {
 		// Compare array elements 
 		for ($Idx = 0; $Idx < $Length; $Idx++) {
 			if($firstId->IdParts[$Idx] != $secondId->IdParts[$Idx]) {
-				//return $firstId->IdParts[$Idx] > $secondId->IdParts[$Idx];
                 $a = $firstId->IdParts[$Idx];
                 $b = $secondId->IdParts[$Idx];
                 return ($a < $b) ? -1 : (($a > $b) ? 1 : 0);
@@ -75,22 +90,42 @@ class VersionId implements Comparator {
         return ($a < $b) ? -1 : (($a > $b) ? 1 : 0);
 	}
 
+    /**
+     * @param VersionId $secondId
+     * @return bool
+     */
     public function IsBiggerThen ($secondId) {
         return (VersionId::Compare ($this, $secondId) > 0);
     }
 
+    /**
+     * @param VersionId $secondId
+     * @return bool
+     */
     public function IsBiggerOrEqualThen ($secondId) {
         return (VersionId::Compare ($this, $secondId) >= 0);
     }
 
+    /**
+     * @param VersionId $secondId
+     * @return bool
+     */
     public function IsSmallerThen ($secondId) {
         return (VersionId::Compare ($this, $secondId) < 0);
     }
 
+    /**
+     * @param $secondId
+     * @return bool
+     */
     public function IsSmallerOrEqualThen ($secondId) {
         return (VersionId::Compare ($this, $secondId) <= 0);
     }
 
+    /**
+     * @param VersionId $secondId
+     * @return bool
+     */
     public function IsEqualTo ($secondId) {
         return (VersionId::Compare ($this, $secondId) == 0);
     }
