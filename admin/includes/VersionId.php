@@ -69,14 +69,33 @@ class VersionId implements Comparator {
 			}
 		}
 		
-		// compare length 
+		// Compare length
         $a = $LengthFirst;
         $b = $LengthSecond;
         return ($a < $b) ? -1 : (($a > $b) ? 1 : 0);
 	}
-		
-		
-	
+
+    public function IsBiggerThen ($secondId) {
+        return (VersionId::Compare ($this, $secondId) > 0);
+    }
+
+    public function IsBiggerOrEqualThen ($secondId) {
+        return (VersionId::Compare ($this, $secondId) >= 0);
+    }
+
+    public function IsSmallerThen ($secondId) {
+        return (VersionId::Compare ($this, $secondId) < 0);
+    }
+
+    public function IsSmallerOrEqualThen ($secondId) {
+        return (VersionId::Compare ($this, $secondId) <= 0);
+    }
+
+    public function IsEqualTo ($secondId) {
+        return (VersionId::Compare ($this, $secondId) == 0);
+    }
+
+
 
 }
 
