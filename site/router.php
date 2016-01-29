@@ -19,9 +19,6 @@
 		If page then add ‘as’ concatenated with page value
   */
 
-  if(!defined('DS')){
-	define('DS',DIRECTORY_SEPARATOR);
-}
 
 /**
  * @param $query
@@ -117,7 +114,7 @@ function Rsgallery2BuildRoute(&$query) {
 			}
 		}	
 	} else {//not advancedSEF
-		static $items;
+		// static $items;
 
 
 		//Find gid from menu --> $menuGid (can be an independent function)
@@ -131,7 +128,7 @@ function Rsgallery2BuildRoute(&$query) {
 		}
 		$menuGid	= (empty($menuItem->execute['gid'])) ? null : $menuItem->execute['gid'];
 
-		$itemid		= isset($query['Itemid']) ? $query['Itemid'] : null;
+		//$itemid		= isset($query['Itemid']) ? $query['Itemid'] : null;
 
 		// rename catId to gId	//catId could be leftover from versions before 1.14.x
 		if(isset($query['catid'])){
@@ -184,6 +181,8 @@ function Rsgallery2ParseRoute($segments) {
 	//Note: segments show up like: '6:testimage' instead of expected '5-testimage' (don't know why)
 	//Get config values
 	global $config;
+
+	$vars	= array();
 	
 	Rsgallery2InitConfig();
 
@@ -234,7 +233,6 @@ function Rsgallery2ParseRoute($segments) {
 				//error
 		}
 	} else {//not advancedSEF
-		$vars	= array();
 		
 		// Get the active menu item.
 		//$menu	= JSite::getMenu();
@@ -310,12 +308,13 @@ function Rsgallery2GetGalleryName($gid){
 		$query = 'SELECT `alias` FROM `#__rsgallery2_galleries` WHERE `id`='. (int) $gid;
 		$dbo->setQuery($query);
 		$result = $dbo->execute();
+		
 		if($dbo->getNumRows($result) != 1){
 			// Gallery alias was not unique or is unknown, use the numeric value instead.
 			$segment = $gid;
 		}
 		else{			
-			$segment = $dbo->loadResult($result);
+			$segment = $dbo->loadResult();
 		}
 	} else {// No advanced SEF
 		$segment = $gid;
@@ -334,15 +333,22 @@ function Rsgallery2GetGalleryName($gid){
 function Rsgallery2GetCategoryId($categoryName){
 	//Get config values
 	global $config;
-	
+
 	Rsgallery2InitConfig();
 	
 	// fetch the gallery id from the database if advanced sef is active
+	/* old
 	if($config->get("advancedSef") == true) {
 		//not used
 	} else {
 		$id = $categoryName;
 	}
+	*/
+	
+	if($config->get("advancedSef") != true) {
+		$id = $categoryName;
+	}
+
 	return $id;
 }
 
@@ -360,9 +366,15 @@ function Rsgallery2GetItemId($itemName){
 	Rsgallery2InitConfig();
 	
 	// fetch the gallery id from the database if advanced sef is active
+	/* old
 	if($config->get("advancedSef") == true) {
 		//not used
-	} else{
+	} else {
+		$id = $categoryName;
+	}
+	*/
+
+	if($config->get("advancedSef") != true) {
 		$id = $itemName;
 	}
 	
@@ -395,7 +407,7 @@ function Rsgallery2GetItemName($id){
 			// Item id not found (or found multiple times?!)
 			$segment = $id;
 		} else{			
-			$segment = $dbo->loadResult($result);
+			$segment = $dbo->loadResult();
 		}
 	} else {
 		$segment = $id;
@@ -426,7 +438,7 @@ function Rsgallery2GetGalleryIdFromItemId($id){
 	$countRows = $dbo->getNumRows($result);
 	if ($countRows == 1) {
 		// Item id not found (or found multiple times?!)
-		$gid = $dbo->loadResult($result);
+		$gid = $dbo->loadResult();
 	} else {
 		//Redirect user and display error...
 		if ($countRows == 0) {			
@@ -492,15 +504,15 @@ function Rsgallery2InitConfig() {
 	
 	if($config == null){
 		if (!defined('JPATH_RSGALLERY2_ADMIN')){
-			define('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT. DS .'administrator' . DS . 'components' . DS . 'com_rsgallery2');
+			define('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT. '/' .'administrator' . '/' . 'components' . '/' . 'com_rsgallery2');
 		}
 
 		// Needed by rsgConfig
-		require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'version.rsgallery2.php');
+		require_once(JPATH_RSGALLERY2_ADMIN . '/' . 'includes' . '/' . 'version.rsgallery2.php');
 		$rsgVersion = new rsgalleryVersion();
 
 		// Initialize the rsg config file
-		require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'config.class.php');
+		require_once(JPATH_RSGALLERY2_ADMIN . '/' . 'includes' . '/' . 'config.class.php');
 		$config = new rsgConfig();
 	}
 }

@@ -9,6 +9,8 @@
 */
 defined( '_JEXEC' ) or die();
 
+global $rsgConfig;
+
 // Initialize RSG2 core functionality
 require_once( JPATH_SITE ."/administrator/components/com_rsgallery2/init.rsgallery2.php" );
 
