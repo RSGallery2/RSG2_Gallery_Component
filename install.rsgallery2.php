@@ -65,6 +65,15 @@ class com_rsgallery2InstallerScript
 
 // ToDO: #__schemas" Tabelle reparieren ??? -> http://vi-solutions.de/de/enjoy-joomla-blog/116-knowledgbase-tutorials
 
+	protected $newRelease;
+	protected $oldRelease;
+	protected $minimum_joomla_release;
+	protected $actual_joomla_release;
+
+	// 	protected $;
+	// 	protected $;
+	// 	protected $;
+
     /**
      * @param $type
      * @param $parent
@@ -98,7 +107,7 @@ class com_rsgallery2InstallerScript
         JLog::add('Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release, JLog::DEBUG);
         JLog::add('Current Joomla version = ' . $this->actual_joomla_release, JLog::DEBUG);
  
-       // Abort if the current Joomla release is older
+        // Abort if the current Joomla release is older
         if (version_compare( $this->actual_joomla_release, $this->minimum_joomla_release, 'lt' )) {
             echo '    Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release;
             echo '    Current Joomla version = ' . $this->actual_joomla_release;
@@ -119,7 +128,7 @@ class com_rsgallery2InstallerScript
 					Jerror::raiseWarning(null, 'Incorrect version sequence. Cannot upgrade ' . $rel);
 					return false;
 			}
-
+			
 			$NextLine = JText::_('COM_RSGALLERY2_PREFLIGHT_UPDATE_TEXT') . ' ' . $rel;
 			echo '<br/>' . $NextLine . '<br/>';
 			JLog::add($NextLine, JLog::DEBUG);
@@ -166,6 +175,19 @@ class com_rsgallery2InstallerScript
 				$db->setQuery($query);
 				$db->execute();
 			}
+			
+			//--------------------------------------------------------------------------------
+			// Check for old version where additional action is needed
+			// Removes issue when a user directly upgrades from J1.5 to J3
+			//--------------------------------------------------------------------------------
+			
+			if (version_compare ($this->oldRelease, '3.2.0', 'lt' )) {
+			
+				require_once( JPATH_SITE . '/administrator/components/com_rsgallery2/includes/install.upgrade.To.03.02.00.php' );
+				$upgrade_to_03_02_00 = new upgrade_com_rsgallery2_03_02_00 ();
+				$failed = $upgrade_to_03_02_00->upgrade ($this->oldRelease);
+			}			
+			
         }
         else 
 		{ // $type == 'install'
@@ -233,8 +255,9 @@ class com_rsgallery2InstallerScript
      */
 	function update($parent)
 	{
-		JLog::add('function update', JLog::DEBUG);
+		JLog::add('do update', JLog::DEBUG);
 		
+		require_once( JPATH_SITE . '/administrator/components/com_rsgallery2/includes/VersionId.php' );
 		require_once( JPATH_SITE . '/administrator/components/com_rsgallery2/includes/install.class.php' );
 		
 		// now that we know a previous rsg2 was installed, we need to reload it's config
@@ -242,7 +265,7 @@ class com_rsgallery2InstallerScript
 		$rsgConfig = new rsgConfig();
 
 	
-		//Initialize install
+		// Initialize install
 		$rsgInstall = new rsgInstall();		
 		/** /
 		JLog::add('freshInstall', JLog::DEBUG);
@@ -356,6 +379,7 @@ class com_rsgallery2InstallerScript
 					$db = JFactory::getDbo();
 					$db->setQuery('SELECT params FROM #__extensions WHERE name = "com_rsgallery2"');
 					$params = json_decode( $db->loadResult(), true );
+					
 					// add the new variable(s) to the existing one(s)
 					foreach ( $param_array as $name => $value ) {
 							$params[ (string) $name ] = (string) $value;
