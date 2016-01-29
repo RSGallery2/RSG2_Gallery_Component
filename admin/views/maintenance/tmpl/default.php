@@ -155,10 +155,11 @@ function quickIconMoonBar( $link, $imageClass, $title, $text = "", $addClass = '
 									'optimizeDB');
 								?>
 								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.CompareDb2SqlFile';
+								$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.compareDb2SqlFile';
 								//$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=CompareDb2SqlFile';
-								quickiconBar($link, 'db_optimize.png', JText::_('COM_RSGALLERY2_COMPARET_DB_TO_SQL_FILE'),
-									JText::_('COM_RSGALLERY2_COMPARET_DB_TO_SQL_DESC'),
+								//$link = 'index.php?option=com_rsgallery2&amp;task=compareDb2SqlFile';
+								quickiconBar($link, 'db_optimize.png', JText::_('COM_RSGALLERY2_COMPARE_DB_TO_SQL_FILE'),
+									JText::_('COM_RSGALLERY2_COMPARE_DB_TO_SQL_DESC'),
 									'compareDb2SqlFile');
 								?>
 

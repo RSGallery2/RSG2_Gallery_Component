@@ -17,14 +17,28 @@ jimport('joomla.application.component.controlleradmin');
 
 class Rsgallery2ControllerMaintenance extends JControllerAdmin
 {
+
+	/**
+	 * Constructor.
+	 *
+	 * @param   array  $config  An optional associative array of configuration settings.
+	 *
+	 * @see     JController
+	 * @since
+	 */
+	public function __construct($config = array())
+	{
+		parent::__construct($config);
+	}
+
 	function consolidateDB()
 	{
         $msg = "consolidateDB: ";
         $msgType = 'notice';
 
-        echo 'consolidateDB';
+        echo 'consolidateDB: Not implemented yet';
 
-        $this->setRedirect('index.php?option=com_rsg2&view=maintenance', $msg, $msgType);
+        $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
     }
 
 	function regenerateThumbs()
@@ -32,9 +46,9 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
         $msg = "regenerateThumbs: ";
         $msgType = 'notice';
 
-        echo 'regenerateThumbs';
+        echo 'regenerateThumbs: Not implemented yet';
 
-        $this->setRedirect('index.php?option=com_rsg2&view=maintenance', $msg, $msgType);
+        $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
 	function optimizeDB()
@@ -42,9 +56,9 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
         $msg = "optimizeDB: ";
         $msgType = 'notice';
 
-        echo 'optimizeDB';
+        echo 'optimizeDB': Not implemented yet;
 
-        $this->setRedirect('index.php?option=com_rsg2&view=maintenance', $msg, $msgType);
+        $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
 	function viewConfigPlain()
@@ -52,9 +66,9 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
         $msg = "viewConfigPlain: ";
         $msgType = 'notice';
 
-        echo 'config_dumpVars';
+        echo 'config_dumpVars: Not implemented yet';
 
-        $this->setRedirect('index.php?option=com_rsg2&view=maintenance', $msg, $msgType);
+        $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
 	function editConfigRaw()
@@ -62,9 +76,9 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
         $msg = "editConfigRaw: ";
         $msgType = 'notice';
 
-        echo 'config_rawEdit';
+        echo 'config_rawEdit: Not implemented yet';
 
-        $this->setRedirect('index.php?option=com_rsg2&view=maintenance', $msg, $msgType);
+        $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
 	function purgeImagesAndData()
@@ -84,7 +98,7 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
             // replace newlines with html line breaks.
             str_replace('\n', '<br>', $msg);
 
-//            $this->setRedirect('index.php?option=com_rsg2&view=maintenance', $msg, $msgType);
+//            $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
         } else {
 
             //--- delete all images ----------------------------------------
@@ -121,7 +135,7 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 
         }
 
-        $this->setRedirect('index.php?option=com_rsg2&view=maintenance', $msg, $msgType);
+        $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
 	function removeImagesAndData()
@@ -141,7 +155,7 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 			// replace newlines with html line breaks.
 			str_replace('\n', '<br>', $msg);			
 
-			$this->setRedirect('index.php?option=com_rsg2&view=maintenance', $msg, $msgType);
+			$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 		} else {
 
             //--- delete all images ----------------------------------------
@@ -181,12 +195,22 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 			str_replace('\n', '<br>', $msg);			
 */
 
-			$this->setRedirect('index.php?option=com_rsg2&view=maintenance', $msg, $msgType);
+			$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 		}
 
 	}
-	
-	
+
+	function compareDb2SqlFile()
+	{
+		$msg = "compareDb2SqlFile: ";
+		$msgType = 'notice';
+
+		echo 'compareDb2SqlFile: Not implemented yet';
+
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+	}
+
+
 }
 
 

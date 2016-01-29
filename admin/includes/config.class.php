@@ -187,6 +187,7 @@ class rsgConfig {
 	}
 
     /**
+     *
      * @param $array
      * @param $obj
      * @param string $ignore
@@ -200,6 +201,7 @@ class rsgConfig {
 		if (!is_array( $array ) || !is_object( $obj )) {
 			return (false);
 		}
+
 		foreach (get_object_vars($obj) as $k => $v)
 		{
 			if( substr( $k, 0, 1 ) != '_' )
@@ -312,29 +314,28 @@ class rsgConfig {
 	}
 
 	/**
-	 * @param string $varname name of variable
+	 * @param string $varName name of variable
 	 * @return mixed the requested variable
 	 */
-	function get($varname){
-		return $this->$varname;
+	function get($varName){
+		return $this->$varName;
 	}
     
     /**
-     * @param string $varname name of variable
-     * @param var new value
-	 * @param $value
+     * @param string $varName name of variable
+ 	 * @param object $value new value
      */
-    function set( $varname, $value ){
-        $this->$varname = $value;
+    function set( $varName, $value ){
+        $this->$varName = $value;
     }
     
     /**
-     * @param string $varname name of variable
+     * @param string $varName name of variable
      * @return mixed the default value of requested variable
      */
-    static function getDefault( $varname ){
+    static function getDefault( $varName ){
         $defaultConfig = new rsgConfig( false );
-        return $defaultConfig->get( $varname );
+        return $defaultConfig->get( $varName );
     }
 
 	/**
