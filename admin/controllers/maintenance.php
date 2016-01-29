@@ -56,7 +56,7 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
         $msg = "optimizeDB: ";
         $msgType = 'notice';
 
-        echo 'optimizeDB': Not implemented yet;
+		echo 'optimizeDB: Not implemented yet';
 
         $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
