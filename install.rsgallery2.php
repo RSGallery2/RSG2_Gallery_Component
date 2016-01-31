@@ -148,14 +148,14 @@ class com_rsgallery2InstallerScript
 					. ' AND ' . $db->quoteName('name') . ' = ' . $db->quote('com_rsgallery2'));
             $db->setQuery($query);		
 			$Rsg2id = $db->loadResult();
-			JLog::add('Rsg2id: ' . $Rsg2id, JLog::DEBUG);
+			JLog::add('Rsg2id for Schema: ' . $Rsg2id, JLog::DEBUG);
 
 			//--- Read SchemaVersion ------------------			
             //--- Check if entry in _schemas table exists ------------------
 			
-			$query->clear();
-			$query->select('count(*)');
-			$query->from($db->quoteName('#__schemas'))
+			$query->clear()
+				->select('count(*)');
+				->from($db->quoteName('#__schemas'))
                 ->where($db->quoteName('extension_id') . ' = ' . $db->quote($Rsg2id));
 			$db->setQuery($query);
 			$SchemaVersionCount = $db->loadResult();
@@ -168,17 +168,17 @@ class com_rsgallery2InstallerScript
 				JLog::add('Create RSG2 version in __schemas: ', JLog::DEBUG);
 				
 				//	UPDATE #__schemas SET version_id = 'NEWVERSION' WHERE extension_id = 700	
-				$query->clear();
-				$query->insert($db->quoteName('#__schemas'));
-				$query->columns(array($db->quoteName('extension_id'), $db->quoteName('version_id')));
-				$query->values($Rsg2id . ', ' . $db->quote($this->oldRelease));
+				$query->clear()
+					->insert($db->quoteName('#__schemas'));
+					->columns(array($db->quoteName('extension_id'), $db->quoteName('version_id')));
+					->values($Rsg2id . ', ' . $db->quote($this->oldRelease));
 				$db->setQuery($query);
 				$db->execute();
 			}
 			
 			//--------------------------------------------------------------------------------
-			// Check for old version where additional action is needed
-			// Removes issue when a user directly upgrades from J1.5 to J3
+			// Check for old version where additional db action is needed
+			// Shall care for issue(s) when a user directly upgrades from J1.5 to J3
 			//--------------------------------------------------------------------------------
 			
 			if (version_compare ($this->oldRelease, '3.2.0', 'lt' )) {
