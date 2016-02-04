@@ -79,18 +79,20 @@ $catid              = $input->get( 'catid', null, 'INT');
 // ...
 $view               = $input->get( 'view', null, 'CMD');		
 
-//$uploadStep		 = JRequest::getInt('uploadStep', 0 );
-$uploadStep         = $input->get( 'uploadStep', 0, 'INT');		
-//$numberOfUploads	 = JRequest::getInt('numberOfUploads', 1 );
-$numberOfUploads     = $input->get( 'numberOfUploads', 1, 'INT');		
+//$uploadStep		= JRequest::getInt('uploadStep', 0 );
+$uploadStep         = $input->get( 'uploadStep', 0, 'INT');
+//$numberOfUploads	= JRequest::getInt('numberOfUploads', 1 );
+$numberOfUploads    = $input->get( 'numberOfUploads', 1, 'INT');
 
-//$firstCid           = JRequest::getInt('cid', 0);
-$firstCid            = $input->get( 'cid', 0, 'INT');					
-//$id                 = JRequest::getInt('id', 0 );
-$id                  = $input->get( 'id', 0, 'INT');					
+//$firstCid         = JRequest::getInt('cid', 0);
+//$firstCid         = $input->get( 'cid', 0, 'INT');
+//$firstCid         = $input->get( 'cid', 0, 'INT');
+$testCid            = $input->get( 'cid', array(), 'ARRAY');
+//$id               = JRequest::getInt('id', 0 );
+$id                 = $input->get( 'id', 0, 'INT');
 
-//$rsgOption          = JRequest::getCmd('rsgOption', null );
-$rsgOption           = $input->get( 'rsgOption', null, 'CMD');		
+//$rsgOption        = JRequest::getCmd('rsgOption', null );
+$rsgOption          = $input->get( 'rsgOption', null, 'CMD');
 
 $my = JFactory::getUser();
 
@@ -103,7 +105,8 @@ if($Rsg2DebugActive)
     $DebTxt = $DebTxt . "\$task: $task".$Delim;
     $DebTxt = $DebTxt . "\$option: $option".$Delim;
     $DebTxt = $DebTxt . "\$catid: $catid".$Delim;
-    $DebTxt = $DebTxt . "\$firstCid: $firstCid".$Delim;
+    //$DebTxt = $DebTxt . "\$firstCid: $firstCid".$Delim;
+	$DebTxt = $DebTxt . "\$testCid: ".implode(",", $testCid).$Delim;
     $DebTxt = $DebTxt . "\$id: $id".$Delim;
     $DebTxt = $DebTxt . "\$rsgOption: $rsgOption".$Delim;
     $DebTxt = $DebTxt . "\$view: $view".$Delim;

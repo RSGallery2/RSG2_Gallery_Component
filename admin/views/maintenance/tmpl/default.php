@@ -205,7 +205,7 @@ function quickIconMoonBar( $link, $imageClass, $title, $text = "", $addClass = '
 										'editConfigRaw');
 									?>
 									<?php
-										if($Rsg2DebugActive){
+										// if($Rsg2DebugActive){
 									?>
 
 											<?php
@@ -223,9 +223,9 @@ function quickIconMoonBar( $link, $imageClass, $title, $text = "", $addClass = '
 												'uninstallDataTables');
 											?>
 									<?php
-										} else {
-											echo JText::_('COM_RSGALLERY2_MORE_FUNCTIONS_WITH_DEBUG_ON');
-										}
+										//} else {
+										//	echo JText::_('COM_RSGALLERY2_MORE_FUNCTIONS_WITH_DEBUG_ON');
+										//}
 									?>
 							<?php
 								}

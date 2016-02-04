@@ -705,7 +705,7 @@ class html_rsg2_images {
         }
         </script>
 
-        <form name="adminForm" action="index.php" method="post" enctype="multipart/form-data" class="form-validate">
+        <form action="index.php" method="post" name="adminForm"  id="adminForm" enctype="multipart/form-data" class="form-validate">
             <?php if (count(JHtmlSidebar::getEntries()) > 0) : ?>
                 <div id="j-sidebar-container" class="span2">
                     <?php echo JHtmlSidebar::render( ); ?>

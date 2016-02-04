@@ -223,14 +223,16 @@ class html_rsg2_galleries{
 	 */
     static function removeWarn( $galleries ){
         global $rsgOption;
+	    global $rsgConfig;
+
 		//$option = JRequest::getCmd('option');
         $input =JFactory::getApplication()->input;
 		$option = $input->get( 'option', '', 'CMD');
 
-// ToDo FIX: Undefined $rsgConfig
+		// ToDo FIX: Undefined $rsgConfig
         $config = get_object_vars( $rsgConfig );
         ?>
-        <form action="index.php" method="post" name="adminForm">
+        <form action="index.php" method="post" name="adminForm" id="adminForm">
         <input type="hidden" name="option" value="<?php echo $option;?>" />
         <input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" />
         <input type="hidden" name="task" value="" />

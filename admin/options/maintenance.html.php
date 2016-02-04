@@ -111,7 +111,7 @@ class html_rsg2_maintenance {
 	        }
 	    </script>
 		
-		<form name="adminForm" method="post" action="index.php">
+		<form action="index.php" method="post" name="adminForm" id="adminForm">
 		<table width="500">
 			<tr>
 				<td>
@@ -165,7 +165,7 @@ class html_rsg2_maintenance {
 	    	alert('Database creation does not work yet!');
 	    }	    
 	    </script>
-	    <form method="post" action="index.php?option=com_rsgallery2&rsgOption=maintenance&task=createDbEntries" name="adminForm">
+	    <form action="index.php?option=com_rsgallery2&rsgOption=maintenance&task=createDbEntries" method="post" name="adminForm" id="adminForm">
 	    <input type="hidden" name="t_id" value="" />
 	    <input type="hidden" name="g_id" value="" />
 	    <table width="100%" border="0">
