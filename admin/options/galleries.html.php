@@ -45,7 +45,7 @@ class html_rsg2_galleries{
 		
         ?>
         <form action="index.php" method="post" name="adminForm" id="adminForm">
-		<!--form action="<?php echo JRoute::_('index.php?option=com_rsg2&view=galleries'); ?>" method="post" name="adminForm" id="adminForm"-->
+		<!--form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=galleries'); ?>" method="post" name="adminForm" id="adminForm"-->
             <?php if (count(JHtmlSidebar::getEntries()) > 0) : ?>
                 <div id="j-sidebar-container" class="span2">
                     <?php echo JHtmlSidebar::render( ); ?>
@@ -223,6 +223,8 @@ class html_rsg2_galleries{
 	 */
     static function removeWarn( $galleries ){
         global $rsgOption;
+	    global $rsgConfig;
+
 		//$option = JRequest::getCmd('option');
         $input =JFactory::getApplication()->input;
 		$option = $input->get( 'option', '', 'CMD');
@@ -230,7 +232,7 @@ class html_rsg2_galleries{
 // ToDo FIX: Undefined $rsgConfig
         $config = get_object_vars( $rsgConfig );
         ?>
-        <form action="index.php" method="post" name="adminForm">
+        <form action="index.php" method="post" name="adminForm" id="adminForm">
         <input type="hidden" name="option" value="<?php echo $option;?>" />
         <input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" />
         <input type="hidden" name="task" value="" />

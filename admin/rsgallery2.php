@@ -9,6 +9,8 @@
 */
 defined( '_JEXEC' ) or die();
 
+global $Rsg2DebugActive;
+
 // Initialize RSG2 core functionality
 require_once( JPATH_COMPONENT.'/init.rsgallery2.php' );
 
@@ -45,6 +47,7 @@ rsgInstance::instance( 'request', false );
 //Load Tooltips
 JHtml::_('behavior.tooltip');
 
+// getActions / $extension = 'com_rsgallery2';
 require_once JPATH_COMPONENT.'/helpers/rsgallery2.php';
 
 //Access check
@@ -78,7 +81,9 @@ $uploadStep = $input->get( 'uploadStep', 0, 'INT');
 $numberOfUploads = $input->get( 'numberOfUploads', 1, 'INT');		
 
 //$firstCid = JRequest::getInt('cid', 0);
-$firstCid = $input->get( 'cid', 0, 'INT');					
+//$firstCid         = $input->get( 'cid', 0, 'INT');
+//$firstCid         = $input->get( 'cid', 0, 'INT');
+$testCid            = $input->get( 'cid', array(), 'ARRAY');
 //$id     = JRequest::getInt('id', 0 );
 $id     = $input->get( 'id', 0, 'INT');					
 
@@ -96,7 +101,8 @@ if($Rsg2DebugActive)
     $DebTxt = $DebTxt . "\$task: $task".$Delim;
     $DebTxt = $DebTxt . "\$option: $option".$Delim;
     $DebTxt = $DebTxt . "\$catid: $catid".$Delim;
-    $DebTxt = $DebTxt . "\$firstCid: $firstCid".$Delim;
+    //$DebTxt = $DebTxt . "\$firstCid: $firstCid".$Delim;
+	$DebTxt = $DebTxt . "\$testCid: ".implode(",", $testCid).$Delim;
     $DebTxt = $DebTxt . "\$id: $id".$Delim;
     $DebTxt = $DebTxt . "\$rsgOption: $rsgOption".$Delim;
 
@@ -137,7 +143,6 @@ switch( $rsgOption ) {
 // these tasks require admin or super admin privileges.
 if( $rsgOption == '' ){
 	// 140701 original: switch ( JRequest::getCmd('task', null) ){
-	$task = $input->get( 'task', '', 'CMD');		
 	switch ( $task ){
 		//Special/debug tasks
 		case 'purgeEverything':

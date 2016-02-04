@@ -29,9 +29,13 @@ $app =JFactory::getApplication();
 define('JURI_SITE', $app->isSite() ? JUri::base() : JUri::root());
 
 // check if this file has been included yet.
-if( isset( $rsgConfig )) return;
+if( isset( $rsgConfig )) 
+{	
+	return;
+}
 
-// initialize the rsg config file
+
+// Initialize the rsg config file
 require_once(JPATH_RSGALLERY2_ADMIN . '/includes/config.class.php');
 $rsgConfig = new rsgConfig();
 

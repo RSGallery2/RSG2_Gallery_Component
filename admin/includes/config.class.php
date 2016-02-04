@@ -147,7 +147,7 @@ class rsgConfig {
         // global $rsgVersion;
         // $this->version = $rsgVersion->getVersionOnly();
         //$this->version = '3.2.0';
-        $this->version = '4.0.9';
+        $this->version = '4.0.10';
 
         if( $loadFromDB )
             $this->_loadConfig();
@@ -185,6 +185,7 @@ class rsgConfig {
 	}
 
     /**
+     *
      * @param $array
      * @param $obj
      * @param string $ignore
@@ -198,6 +199,7 @@ class rsgConfig {
 		if (!is_array( $array ) || !is_object( $obj )) {
 			return (false);
 		}
+
 		foreach (get_object_vars($obj) as $k => $v)
 		{
 			if( substr( $k, 0, 1 ) != '_' )
@@ -392,6 +394,5 @@ class rsgConfig {
 		}
 		$null = null;
 		return $null;
-	}
-	
+	}	
 }

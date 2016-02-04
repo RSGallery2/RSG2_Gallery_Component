@@ -247,8 +247,8 @@ class html_rsg2_config{
 		if (function_exists('gd_info'))
 			{
 			$gd_info = gd_info();
-			$freetype = $gd_info['FreeType Support'];
-			if ($freetype == 1)
+			$freeType = $gd_info['FreeType Support'];
+			if ($freeType == 1)
 				$freeTypeSupport = "<div style=\"color:#009933;\">". JText::_('COM_RSGALLERY2_FREETYPE_LIBRARY_INSTALLED_WATERMARK_IS_POSSIBLE'). "</div>";
 			else
 				$freeTypeSupport = "<div style=\"color:#FF0000;\">". JText::_('COM_RSGALLERY2_FREETYPE_LIBRARY_NOT_INSTALLED_WATERMARK_DOES_NOT_WORK')."</div>";
@@ -304,10 +304,7 @@ class html_rsg2_config{
 	<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_general_group', 
 		JText::_('COM_RSGALLERY2_GENERAL_SETTINGS'), 'cfg_general_id_1'); ?> 
 
-				
 					<fieldset>
-					
-					
 						<table width="100%">
 							<tr>
 								<td width="200"><?php echo JText::_('COM_RSGALLERY2_VERSION')?></td>
@@ -326,8 +323,8 @@ class html_rsg2_config{
                                     <?php echo JText::_('COM_RSGALLERY2_DEBUG') ?>
                                 </td>
 								<td>
-                                    <fieldset id="jform_block" class="radio">
-                                        <?php echo JHtml::_("select.booleanlist",'debug', '', $config->debug); ?>
+                                    <fieldset id="jform_block" class="radio btn-group btn-group-yesno">
+                                        <?php echo JHtml::_("select.booleanlist",'debug', 'class="inputbox"', $config->debug); ?>
                                     </fieldset>
                                     <br />
                                 </td>
@@ -347,7 +344,7 @@ class html_rsg2_config{
                                     <?php echo JText::_('COM_RSGALLERY2_ADVANCED_SEF_ALL_CATEGORY_NAMES_AND_ITEM_TITLES_MUST_BE_UNIQUE'); ?>
                                 </td>
 								<td>
-                                    <fieldset id="jform_block" class="radio">
+                                    <fieldset id="jform_block" class="radio btn-group btn-group-yesno">
                                         <?php echo JHtml::_("select.booleanlist",'advancedSef', '', $config->advancedSef); ?>
                                     </fieldset>
 								</td>
@@ -423,7 +420,7 @@ class html_rsg2_config{
 							<tr>
 								<td width="200"><?php echo JHtml::tooltip(JText::_('COM_RSGALLERY2_RSG2_IPTC_TOOLTIP'), JText::_('COM_RSGALLERY2_RSG2_IPTC_TOOLTIP_TITLE'), 
                     '', JText::_('COM_RSGALLERY2_RSG2_USE_IPTC')); ?></td>
-								<td width="78%"><fieldset id="jform_block" class="radio">
+								<td width="78%"><fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 						<?php echo JHtml::_("select.booleanlist",'useIPTCinformation', '', $config->useIPTCinformation);?></fieldset></td>
 							</tr>
 							<tr>
@@ -511,7 +508,7 @@ class html_rsg2_config{
 							<tr>
 								<td><?php echo JText::_('COM_RSGALLERY2_CREATE_DIRECTORIES_IF_THEY_DONT_EXIST') ?></td>
 								<td>
-									<fieldset id="jform_block" class="radio">
+									<fieldset id="jform_block" class="radio  btn-group btn-group-yesno">
 									<?php //echo JHtml::_("select.booleanlist",'createImgDirs', '', $config->createImgDirs)?>
 									</fieldset>
 								</td>
@@ -534,7 +531,7 @@ class html_rsg2_config{
 								<td><?php echo JText::_('COM_RSGALLERY2_USE_CAPTCHA_COMMENT_FORM')?>
 								</td>	
 								<td>
-									<fieldset id="jform_block" class="radio">
+									<fieldset id="jform_block" class="radio btn-group btn-group-yesno">
 									<?php echo JHtml::_("select.booleanlist",'comment_security', '', $config->comment_security)?>
 									</fieldset>
 								</td>

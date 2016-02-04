@@ -59,7 +59,7 @@ if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2')) {
 			optimizeDB();
 			break;
 		
-		/* Migration calls */
+		/* Migration calls ToDo: deprecated * /
 		case 'showMigration':
 			HTML_RSGALLERY::RSGalleryHeader('cpanel', JText::_('COM_RSGALLERY2_MIGRATION_OPTIONS'));
 			showMigration();
@@ -68,7 +68,7 @@ if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2')) {
 		case 'doMigration':
 			doMigration();
 			break;
-			
+			/**/
 		case 'test':
 			test();
 			break;
@@ -102,6 +102,7 @@ function test() {
 /**
  * Shows Migration main screen
  * It shows detected gallerysystem and offers a migration option
+ * @deprecated ToDo: remove
  */
 function showMigration() {
     require_once(JPATH_RSGALLERY2_ADMIN.'/includes/install.class.php');
@@ -128,9 +129,11 @@ function showMigration() {
     	}
 	}
 }
+/**/
 
 /**
  * @throws Exception
+ * @deprecated ToDo: remove
  */
 function doMigration() {
 	//$type  	= JRequest::getVar('type', null);
@@ -143,6 +146,7 @@ function doMigration() {
 	$migrate = new $migrate_class;
 	$migrate->migrate();
 }
+/**/
 
 /**
  * Shows Control Panel for maintenance of RSGallery2

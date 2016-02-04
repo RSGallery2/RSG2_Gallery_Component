@@ -11,6 +11,8 @@
 // no direct access
 defined( '_JEXEC' ) or die();
 
+global $Rsg2DebugActive;
+
 require_once( $rsgClasses_path . 'file.utils.php' );
 require_once( $rsgOptions_path . 'images.html.php' );
 require_once( $rsgOptions_path . 'images.class.php' );
@@ -35,6 +37,7 @@ switch ($task) {
 		save_batchupload();
         break;
         
+		// Single upload ?
 	case 'upload':
 		uploadImage( $option );
 		break;
@@ -116,6 +119,7 @@ switch ($task) {
  */
 function showImages( $option ) {
 	global $mosConfig_list_limit;
+
 	$mainframe = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	
@@ -124,8 +128,8 @@ function showImages( $option ) {
 	$limitstart = intval( $mainframe->getUserStateFromRequest( "view{$option}limitstart", 'limitstart', 0 ) );
 	$search 	= $mainframe->getUserStateFromRequest( "search{$option}", 'search', '' );
 	$search 	= $database->escape( trim( strtolower( $search ) ) );
-	$where = array();
 
+	$where = array();
 	if ($gallery_id > 0) {
 		$where[] = "a.gallery_id = $gallery_id";
 	}
@@ -167,6 +171,7 @@ function showImages( $option ) {
 	$javascript = 'onchange="document.adminForm.submit();"';
 	$lists['gallery_id'] = galleryUtils::galleriesSelectList( $gallery_id, 'gallery_id', false, $javascript );
 	$lists['move_id'] = galleryUtils::galleriesSelectList( $gallery_id, 'move_id', false, '', 0 );
+
 	html_rsg2_images::showImages( $option, $rows, $lists, $search, $pageNav );
 	
 	return true;
@@ -577,6 +582,7 @@ function cancelImage( $option ) {
  */
 function uploadImage( $option ) {
 	$database = JFactory::getDBO();
+
 	//Check if there are galleries created
 	$database->setQuery( "SELECT id FROM #__rsgallery2_galleries" );
     $database->execute();
@@ -815,7 +821,9 @@ function copyImage( $cid, $option ) {
  * @throws Exception
  */
 function batchupload($option) {
+	global $Rsg2DebugActive;
 	global $rsgConfig;
+
 	$database  = JFactory::getDBO();
 	$mainframe = JFactory::getApplication();
 	$FTP_path  = $rsgConfig->get('ftp_path');
@@ -823,7 +831,7 @@ function batchupload($option) {
 	//Retrieve data from submit form
 	$input =JFactory::getApplication()->input;
 	//$batchmethod 	= JRequest::getCmd('batchmethod', null);
-	$batchmethod    = $input->get( 'batchmethod', '', 'CMD');		
+	$batchmethod    = $input->get('batchmethod', '', 'STRING');		
 	$config         = get_object_vars( $rsgConfig );
 	//$uploaded 		= JRequest::getBool('uploaded', null);
 	$uploaded		= $input->get( 'uploaded', null, 'BOOL');		

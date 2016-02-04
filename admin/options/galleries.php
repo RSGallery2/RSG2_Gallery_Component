@@ -10,6 +10,8 @@
 
 defined( '_JEXEC' ) or die();
 
+use Joomla\Utilities\ArrayHelper;
+
 require_once( $rsgOptions_path . 'galleries.html.php' );
 require_once( $rsgOptions_path . 'galleries.class.php' );
 require_once( $rsgOptions_path . 'images.class.php' );
@@ -541,8 +543,8 @@ function saveOrder( &$cid ) {
 	// $order 		= JRequest::getVar( 'order', array(0), 'post', 'array' );
 	$input =JFactory::getApplication()->input;
 	$order = $input->post->get( 'order', array(), 'ARRAY');
-	JArrayHelper::toInteger($order, array(0));
-
+//  JArrayHelper::toInteger($order, array(0));
+	ArrayHelper::toInteger($order, array(0));
 	$row 		= new rsgGalleriesItem( $database );
 	
 	$conditions = array();

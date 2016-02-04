@@ -66,11 +66,11 @@ class rsgGallery extends JObject{
 	var $items = null;
 
 //     misc other generated variables
-	/** @var the thumbnail object representing the gallery.  generated on demand!  use thumb() */
+	/** @var object the thumbnail object representing the gallery.  generated on demand!  use thumb() */
 	var $thumb = null;
 	/** @var string containing the html image code */
 	var $thumbHTML = null;
-	/** @var url to go to this gallery from the frontend */
+	/** @var string url to go to this gallery from the frontend */
 	var $url = null;
 	var $status = null;
 
@@ -80,6 +80,9 @@ class rsgGallery extends JObject{
      * @param mixed|null $row (rsgGallery parameters as associatian array)
      */
     function __construct( $row ){
+	    // call Grandpa's constructor
+	    JObject::__construct();
+
 		$this->row = $row;
 
 		// bind db row to this object
@@ -116,9 +119,9 @@ class rsgGallery extends JObject{
 	 */
 	function hasNewImages($days = 7){
 		$database = JFactory::getDBO();
-		$lastweek  = mktime (0, 0, 0, date("m"),    date("d") - $days, date("Y"));
-		$lastweek = date("Y-m-d H:m:s",$lastweek);
-		$query = 'SELECT * FROM `#__rsgallery2_files` WHERE `date` >= '. $database->quote($lastweek). ' AND `gallery_id` = '. (int) $this->id .' AND `published` = 1';
+		$lastWeek  = mktime (0, 0, 0, date("m"),    date("d") - $days, date("Y"));
+		$lastWeek = date("Y-m-d H:m:s", $lastWeek);
+		$query = 'SELECT * FROM `#__rsgallery2_files` WHERE `date` >= '. $database->quote($lastWeek). ' AND `gallery_id` = '. (int) $this->id .' AND `published` = 1';
 		$database->setQuery($query);
 		$database->execute();
 
@@ -329,7 +332,9 @@ class rsgGallery extends JObject{
 	function thumb( ){
 		// check if we need to find out what it is first
 		if( $this->thumb == null ){
-			if( $this->thumb_id == 0 ){
+//			if( $this->thumb_id == 0 ){
+			// Not defined or zero
+			if( empty ($this->thumb_id) ){
 				// thumbnail not set, use random
 				$items = $this->items();
 				if( count( $items ) == 0 )

@@ -20,7 +20,7 @@ class rsgalleryVersion {
     /** @var string Product */
     var $PRODUCT    = 'RSGallery2';
     /** @var int Main Release Level */
-    var $RELEASE    = '4.0.9';				//Main Release Level: x.y for x.y.z
+    var $RELEASE    = '4.0.10';				//Main Release Level: x.y for x.y.z
     /** @var string Development Status */
     var $DEV_STATUS = 'dev';
     /** @var int Sub Release Level */
@@ -37,7 +37,7 @@ class rsgalleryVersion {
     /** @var string Timezone */
     var $RELTZ      = 'UTC';
     /** @var string Copyright Text */
-    var $COPYRIGHT  = '&copy; 2005 - 2015 <strong><a class="rsg2-footer" href="http://www.rsgallery2.nl">RSGallery2</a></strong>. All rights reserved.';
+    var $COPYRIGHT  = '&copy; 2005 - 2016 <strong><a class="rsg2-footer" href="http://www.rsgallery2.nl">RSGallery2</a></strong>. All rights reserved.';
     /** @var string URL */
     var $URL        = '<strong><a class="rsg2-footer" href="http://www.rsgallery2.nl">RSGallery2</a></strong>';
     /** @var string Whether site is a production = 1 or demo site = 0: 1 is default */

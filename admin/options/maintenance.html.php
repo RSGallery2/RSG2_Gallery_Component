@@ -110,13 +110,16 @@ class html_rsg2_maintenance {
 	            }
 	        }
 	    </script>
-		<form name="adminForm" method="post" action="index.php">
+		
+		<form action="index.php" method="post" name="adminForm" id="adminForm">
 		<table width="500">
 		<tr>
 			<td>
 			<table class="adminform">
 				<tr>
-					<td valign="top" width="300"><p><?php echo JText::_('COM_RSGALLERY2_SELECT_GALLERIES_TO_REGENERATE_THUMBNAILS_FROM')?></p></td>
+							<td valign="top" width="300">
+								<p><?php echo JText::_('COM_RSGALLERY2_SELECT_GALLERIES_TO_REGENERATE_THUMBNAILS_FROM')?></p>
+							</td>
 					<td valign="top">
 						<fieldset>
 						<legend><?php echo JText::_('COM_RSGALLERY2_SELECT_GALLERY')?></legend>
@@ -137,6 +140,7 @@ class html_rsg2_maintenance {
 			</td>
 		</tr>
 		</table>
+		
 		<input type="hidden" name="option" value="com_rsgallery2" />
 		<input type="hidden" name="rsgOption" value="maintenance" />
 	    <input type="hidden" name="task" value="" />
@@ -161,7 +165,7 @@ class html_rsg2_maintenance {
 	    	alert('Database creation does not work yet!');
 	    }	    
 	    </script>
-	    <form method="post" action="index.php?option=com_rsgallery2&rsgOption=maintenance&task=createDbEntries" name="adminForm">
+	    <form action="index.php?option=com_rsgallery2&rsgOption=maintenance&task=createDbEntries" method="post" name="adminForm" id="adminForm">
 	    <input type="hidden" name="t_id" value="" />
 	    <input type="hidden" name="g_id" value="" />
 	    <table width="100%" border="0">
