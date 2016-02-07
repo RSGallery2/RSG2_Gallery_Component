@@ -156,16 +156,18 @@ class html_rsg2_galleries{
                                         echo stripslashes($row->treename);
                                     } else {
                                         ?>
-                                        <a href="<?php echo $link; ?>" name="Edit Gallery">
-                                        <?php echo stripslashes($row->treename); ?>
+                                        <a href="<?php echo $link; ?>" name="Edit Gallery" class="gallery-link" >
+                                            <?php echo stripslashes($row->treename); ?>
                                         </a>
                                         <?php
                                     }
                                     ?>
-
-                                    <a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$row->id); ?>" >
-                                        <img src="<?php echo 'templates/bluestork/images/j_arrow.png';?>" style="margin: 0px 20px;" alt="<?php echo JText::_('COM_RSGALLERY2_ITEMS'); ?>" />
-                                    </a>
+									&nbsp;&nbsp;&nbsp;
+	                                <a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$row->id); ?>"
+		                                title="<?php echo JText::_('COM_RSGALLERY2_ITEMS'); ?>"
+	                                >
+		                                (&nbsp;<sub><span class="icon-image" style="font-size: 1.6em;"></span></sub>)
+	                                </a>
 
                                 </td>
                                 <td align="center">
