@@ -552,7 +552,7 @@ class html_rsg2_images {
 		<?php 
 		require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'script.php');
 		?>
-		<form action="<?php echo JRoute::_('index.php'); ?>" method="post" name="adminForm" id="uploadForm" enctype="multipart/form-data" class="form-validate">
+		<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&task=upload'); ?>" method="post" name="adminForm" id="uploadForm" enctype="multipart/form-data" class="form-validate">
 		<table class="adminheading">
 		<tr>
 			<th>
@@ -705,7 +705,7 @@ class html_rsg2_images {
         }
         </script>
 
-        <form action="index.php" method="post" name="adminForm"  id="adminForm" enctype="multipart/form-data" class="form-validate">
+        <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload'); ?>" method="post" name="adminForm"  id="adminForm" enctype="multipart/form-data" class="form-validate">
             <?php if (count(JHtmlSidebar::getEntries()) > 0) : ?>
                 <div id="j-sidebar-container" class="span2">
                     <?php echo JHtmlSidebar::render( ); ?>
@@ -740,7 +740,7 @@ class html_rsg2_images {
                             <?php echo JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE'); ?>
                         </td>
                         <td width="60%">
-                            <input type="file" name="zip_file" style="border: blue solid 2px; width: 100%; padding-right: 12px;" size="40" />
+                            <input type="file" class="input_box" id="zip_file" name="zip_file" style="border: blue solid 2px; width: 100%; padding-right: 12px;" size="57" />
                             <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
                                 <?php echo JText::_('COM_RSGALLERY2_UPLOAD_LIMIT_IS').' ' . $size .' '.JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI');?>
                             </div>
@@ -760,8 +760,8 @@ class html_rsg2_images {
                         <td width="200">&nbsp;</td>
                     	<td width="200">&nbsp;</td>
                         <td width="60%">
-                            <input type="text" name="ftppath" style="border: blue solid 2px; width: 100%; margin-bottom: 0px;
-                                padding-bottom: 0px;" value="<?php echo $FTP_path; ?>" size="30" />
+                            <input type="text" id="ftppath" name="ftppath" style="border: blue solid 2px; width: 100%; margin-bottom: 0px;
+                                padding-bottom: 0px;"  class="input_box" value="<?php echo $FTP_path; ?>" size="70" />
                             <div style="color:#FF0000;font-weight:bold;font-size:smaller;margin-top: 0px;padding-top: 0px;">
                                 <?php echo JText::_('COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH');?>
                             </div>
@@ -803,11 +803,11 @@ class html_rsg2_images {
                 <td width="300">&nbsp;</td>
             </tr>
         </table>
-        <input type="hidden" name="uploaded" value="1" />
         <input type="hidden" name="option" value="com_rsgallery2" />
         <input type="hidden" name="rsgOption" value="<?php echo $rsgOption;?>" />
-        <input type="hidden" name="task" value="batchupload" />
         <input type="hidden" name="boxchecked" value="0" />
+        <input type="hidden" name="uploaded" value="1" />
+        <input type="hidden" name="task" value="batchupload" />
         </form>
         <?php
         }
