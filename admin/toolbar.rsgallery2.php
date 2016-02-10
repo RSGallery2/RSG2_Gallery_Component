@@ -11,6 +11,7 @@
 defined( '_JEXEC' ) or die();
 
 // RSG2 is a meta component.  joomla calls components options, RSG2 calls it's components rsgOptions
+// ToDo: Use input like on every other place
 if( isset( $_REQUEST['rsgOption'] ))
     $rsgOption = $_REQUEST['rsgOption'];
 else

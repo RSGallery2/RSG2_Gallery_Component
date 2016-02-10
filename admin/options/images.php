@@ -880,6 +880,12 @@ function batchupload($option) {
 	
 	if (isset($uploaded)) {//true when form in step 1 of batchupload is submitted
 		if ($batchmethod == "zip") {
+			if(count($zip_file) < 1) {
+				//Error message: file not found
+				$mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_NO_FILE_TO_UPLOAD_PRESENT') );
+				$mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images&task=batchupload");
+			}
+
 			if ($uploadfile->checkSize($zip_file) == 1) {
 				//$ziplist = $uploadfile->handleZIP($zip_file);//MK// [change] [handleZIP uses PclZip that is no longer in J1.6]
 				$ziplist = $uploadfile->extractArchive($zip_file);//MK// [todo] [check extractArchive]
