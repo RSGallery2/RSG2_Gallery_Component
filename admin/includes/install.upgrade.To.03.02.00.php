@@ -25,7 +25,7 @@ global $rsgVersion;
  * It cares only for data itself not for the table structure
  * @package RSGallery2
  */
-class upgrade_com_rsgallery2_03_02_00 { // extends GenericMigrator {
+class upgrade_com_rsgallery2_03_02_00 { // extends GenericMigrator { // old: migrate_com_rsgallery
     /* public functions */
     
 	/*
@@ -257,7 +257,7 @@ class upgrade_com_rsgallery2_03_02_00 { // extends GenericMigrator {
 
 		return $failed;
 	} // end of function upgradeTo_3_2_0
-}	//end class migrate_com_rsgallery
+}	//end class upgrade_com_rsgallery2_03_02_00 old: migrate_com_rsgallery
 
 /**
  * (Stripped) Class for the comments plugin - only here for converting comments from 2.2.1 to 2.3.0

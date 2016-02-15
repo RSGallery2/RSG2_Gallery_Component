@@ -154,7 +154,7 @@ class com_rsgallery2InstallerScript
             //--- Check if entry in _schemas table exists ------------------
 			
 			$query->clear()
-				->select('count(*)');
+				->select('count(*)')
 				->from($db->quoteName('#__schemas'))
                 ->where($db->quoteName('extension_id') . ' = ' . $db->quote($Rsg2id));
 			$db->setQuery($query);
@@ -169,8 +169,8 @@ class com_rsgallery2InstallerScript
 				
 				//	UPDATE #__schemas SET version_id = 'NEWVERSION' WHERE extension_id = 700	
 				$query->clear()
-					->insert($db->quoteName('#__schemas'));
-					->columns(array($db->quoteName('extension_id'), $db->quoteName('version_id')));
+					->insert($db->quoteName('#__schemas'))
+					->columns(array($db->quoteName('extension_id'), $db->quoteName('version_id')))
 					->values($Rsg2id . ', ' . $db->quote($this->oldRelease));
 				$db->setQuery($query);
 				$db->execute();
@@ -277,6 +277,10 @@ class com_rsgallery2InstallerScript
 		{*/
 		$rsgInstall->writeInstallMsg( JText::sprintf('COM_RSGALLERY2_MIGRATING_FROM_RSGALLERY2', $rsgConfig->get( 'version' )) , 'ok');
 
+		/* May be used later. Actual versions older then "3.2.0" are checked in preflight
+			if (version_compare ($this->oldRelease, '3.2.0', 'lt' )) {
+
+		actual 
 		JLog::add('Before migrate', JLog::DEBUG);
 
 		//Initialize rsgallery migration
@@ -293,7 +297,7 @@ class com_rsgallery2InstallerScript
 			$result = print_r( $result, true );
 			$rsgInstall->writeInstallMsg( JText::_('COM_RSGALLERY2_FAILURE')."\n<br><pre>$result\n</pre>", 'error');
 		}
-
+		*/
 		
 		JLog::add('view update text', JLog::DEBUG);
 		echo '<p>' . JText::_('COM_RSGALLERY2_UPDATE_TEXT') . '</p>';
