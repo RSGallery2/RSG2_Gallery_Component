@@ -45,23 +45,23 @@
 	</files>
 
 	<languages folder="site/language">
-		<language tag="da-DK">language/da-DK/da-DK.com_rsgallery2.ini</language>
-		<language tag="de-DE">language/de-DE/de-DE.com_rsgallery2.ini</language>
-		<language tag="el-GR">language/el-GR/el-GR.com_rsgallery2.ini</language>
-		<language tag="en-GB">language/en-GB/en-GB.com_rsgallery2.ini</language>
-		<language tag="es-ES">language/es-ES/es-ES.com_rsgallery2.ini</language>
-		<language tag="fa-IR">language/fa-IR/fa-IR.com_rsgallery2.ini</language>
-		<language tag="fi-FI">language/fi-FI/fi-FI.com_rsgallery2.ini</language>
-		<language tag="fr-FR">language/fr-FR/fr-FR.com_rsgallery2.ini</language>
-		<language tag="he-IL">language/he-IL/he-IL.com_rsgallery2.ini</language>
-		<language tag="hr-HR">language/hr-HR/hr-HR.com_rsgallery2.ini</language>
-		<language tag="hu-HU">language/hu-HU/hu-HU.com_rsgallery2.ini</language>
-		<language tag="it-IT">language/it-IT/it-IT.com_rsgallery2.ini</language>
-		<language tag="nb-NO">language/nb-NO/nb-NO.com_rsgallery2.ini</language>
-		<language tag="nl-NL">language/nl-NL/nl-NL.com_rsgallery2.ini</language>
-		<language tag="pt-BR">language/pt-BR/pt-BR.com_rsgallery2.ini</language>
-		<language tag="sl-SI">language/sl-SI/sl-SI.com_rsgallery2.ini</language>
-		<language tag="tr-TR">language/tr-TR/tr-TR.com_rsgallery2.ini</language>
+		<language tag="da-DK">da-DK/da-DK.com_rsgallery2.ini</language>
+		<language tag="de-DE">de-DE/de-DE.com_rsgallery2.ini</language>
+		<language tag="el-GR">el-GR/el-GR.com_rsgallery2.ini</language>
+		<language tag="en-GB">en-GB/en-GB.com_rsgallery2.ini</language>
+		<language tag="es-ES">es-ES/es-ES.com_rsgallery2.ini</language>
+		<language tag="fa-IR">fa-IR/fa-IR.com_rsgallery2.ini</language>
+		<language tag="fi-FI">fi-FI/fi-FI.com_rsgallery2.ini</language>
+		<language tag="fr-FR">fr-FR/fr-FR.com_rsgallery2.ini</language>
+		<language tag="he-IL">he-IL/he-IL.com_rsgallery2.ini</language>
+		<language tag="hr-HR">hr-HR/hr-HR.com_rsgallery2.ini</language>
+		<language tag="hu-HU">hu-HU/hu-HU.com_rsgallery2.ini</language>
+		<language tag="it-IT">it-IT/it-IT.com_rsgallery2.ini</language>
+		<language tag="nb-NO">nb-NO/nb-NO.com_rsgallery2.ini</language>
+		<language tag="nl-NL">nl-NL/nl-NL.com_rsgallery2.ini</language>
+		<language tag="pt-BR">pt-BR/pt-BR.com_rsgallery2.ini</language>
+		<language tag="sl-SI">sl-SI/sl-SI.com_rsgallery2.ini</language>
+		<language tag="tr-TR">tr-TR/tr-TR.com_rsgallery2.ini</language>
     </languages>
 	
 	
@@ -94,10 +94,13 @@
 			<folder>models</folder>
 			<folder>options</folder>
 			<folder>sql</folder>
+			<folder>css</folder>
 			<folder>views</folder>
+			<folder>controllers</folder>
 			<filename>index.html</filename>
 			<filename>access.xml</filename>
 			<filename>config.xml</filename>
+			<filename>controller.php</filename>
 			<filename>admin.rsgallery2.css</filename>
 			<filename>admin.rsgallery2.html.php</filename>
 			<filename>rsgallery2.php</filename>
@@ -111,41 +114,41 @@
 		</files>
 
 		
-		<languages folder="admin">
-			<language tag="da-DK">language/da-DK/da-DK.com_rsgallery2.ini</language>
-			<language tag="de-DE">language/de-DE/de-DE.com_rsgallery2.ini</language>
-			<language tag="el-GR">language/el-GR/el-GR.com_rsgallery2.ini</language>
-			<language tag="en-GB">language/en-GB/en-GB.com_rsgallery2.ini</language>
-			<language tag="es-ES">language/es-ES/es-ES.com_rsgallery2.ini</language>
-			<language tag="fa-IR">language/fa-IR/fa-IR.com_rsgallery2.ini</language>
-			<language tag="fi-FI">language/fi-FI/fi-FI.com_rsgallery2.ini</language>
-			<language tag="fr-FR">language/fr-FR/fr-FR.com_rsgallery2.ini</language>
-			<language tag="he-IL">language/he-IL/he-IL.com_rsgallery2.ini</language>
-			<language tag="hr-HR">language/hr-HR/hr-HR.com_rsgallery2.ini</language>
-			<language tag="hu-HU">language/hu-HU/hu-HU.com_rsgallery2.ini</language>
-			<language tag="it-IT">language/it-IT/it-IT.com_rsgallery2.ini</language>
-			<language tag="nb-NO">language/nb-NO/nb-NO.com_rsgallery2.ini</language>
-			<language tag="nl-NL">language/nl-NL/nl-NL.com_rsgallery2.ini</language>
-			<language tag="pt-BR">language/pt-BR/pt-BR.com_rsgallery2.ini</language>
-			<language tag="sl-SI">language/sl-SI/sl-SI.com_rsgallery2.ini</language>
-			<language tag="tr-TR">language/tr-TR/tr-TR.com_rsgallery2.ini</language>
-			<language tag="da-DK">language/da-DK/da-DK.com_rsgallery2.sys.ini</language>
-			<language tag="de-DE">language/de-DE/de-DE.com_rsgallery2.sys.ini</language>
-			<language tag="el-GR">language/el-GR/el-GR.com_rsgallery2.sys.ini</language>
-			<language tag="en-GB">language/en-GB/en-GB.com_rsgallery2.sys.ini</language>
-			<language tag="es-ES">language/es-ES/es-ES.com_rsgallery2.sys.ini</language>
-			<language tag="fa-IR">language/fa-IR/fa-IR.com_rsgallery2.sys.ini</language>
-			<language tag="fi-FI">language/fi-FI/fi-FI.com_rsgallery2.sys.ini</language>
-			<language tag="fr-FR">language/fr-FR/fr-FR.com_rsgallery2.sys.ini</language>
-			<language tag="he-IL">language/he-IL/he-IL.com_rsgallery2.sys.ini</language>
-			<language tag="hr-HR">language/hr-HR/hr-HR.com_rsgallery2.sys.ini</language>
-			<language tag="hu-HU">language/hu-HU/hu-HU.com_rsgallery2.sys.ini</language>
-			<language tag="it-IT">language/it-IT/it-IT.com_rsgallery2.sys.ini</language>
-			<language tag="nb-NO">language/nb-NO/nb-NO.com_rsgallery2.sys.ini</language>
-			<language tag="nl-NL">language/nl-NL/nl-NL.com_rsgallery2.sys.ini</language>
-			<language tag="pt-BR">language/pt-BR/pt-BR.com_rsgallery2.sys.ini</language>
-			<language tag="sl-SI">language/sl-SI/sl-SI.com_rsgallery2.sys.ini</language>
-			<language tag="tr-TR">language/tr-TR/tr-TR.com_rsgallery2.sys.ini</language>
+		<languages folder="admin/language">
+			<language tag="da-DK">da-DK/da-DK.com_rsgallery2.ini</language>
+			<language tag="de-DE">de-DE/de-DE.com_rsgallery2.ini</language>
+			<language tag="el-GR">el-GR/el-GR.com_rsgallery2.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_rsgallery2.ini</language>
+			<language tag="es-ES">es-ES/es-ES.com_rsgallery2.ini</language>
+			<language tag="fa-IR">fa-IR/fa-IR.com_rsgallery2.ini</language>
+			<language tag="fi-FI">fi-FI/fi-FI.com_rsgallery2.ini</language>
+			<language tag="fr-FR">fr-FR/fr-FR.com_rsgallery2.ini</language>
+			<language tag="he-IL">he-IL/he-IL.com_rsgallery2.ini</language>
+			<language tag="hr-HR">hr-HR/hr-HR.com_rsgallery2.ini</language>
+			<language tag="hu-HU">hu-HU/hu-HU.com_rsgallery2.ini</language>
+			<language tag="it-IT">it-IT/it-IT.com_rsgallery2.ini</language>
+			<language tag="nb-NO">nb-NO/nb-NO.com_rsgallery2.ini</language>
+			<language tag="nl-NL">nl-NL/nl-NL.com_rsgallery2.ini</language>
+			<language tag="pt-BR">pt-BR/pt-BR.com_rsgallery2.ini</language>
+			<language tag="sl-SI">sl-SI/sl-SI.com_rsgallery2.ini</language>
+			<language tag="tr-TR">tr-TR/tr-TR.com_rsgallery2.ini</language>
+			<language tag="da-DK">da-DK/da-DK.com_rsgallery2.sys.ini</language>
+			<language tag="de-DE">de-DE/de-DE.com_rsgallery2.sys.ini</language>
+			<language tag="el-GR">el-GR/el-GR.com_rsgallery2.sys.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_rsgallery2.sys.ini</language>
+			<language tag="es-ES">es-ES/es-ES.com_rsgallery2.sys.ini</language>
+			<language tag="fa-IR">fa-IR/fa-IR.com_rsgallery2.sys.ini</language>
+			<language tag="fi-FI">fi-FI/fi-FI.com_rsgallery2.sys.ini</language>
+			<language tag="fr-FR">fr-FR/fr-FR.com_rsgallery2.sys.ini</language>
+			<language tag="he-IL">he-IL/he-IL.com_rsgallery2.sys.ini</language>
+			<language tag="hr-HR">hr-HR/hr-HR.com_rsgallery2.sys.ini</language>
+			<language tag="hu-HU">hu-HU/hu-HU.com_rsgallery2.sys.ini</language>
+			<language tag="it-IT">it-IT/it-IT.com_rsgallery2.sys.ini</language>
+			<language tag="nb-NO">nb-NO/nb-NO.com_rsgallery2.sys.ini</language>
+			<language tag="nl-NL">nl-NL/nl-NL.com_rsgallery2.sys.ini</language>
+			<language tag="pt-BR">pt-BR/pt-BR.com_rsgallery2.sys.ini</language>
+			<language tag="sl-SI">sl-SI/sl-SI.com_rsgallery2.sys.ini</language>
+			<language tag="tr-TR">tr-TR/tr-TR.com_rsgallery2.sys.ini</language>
 		</languages>
 
 	</administration>
