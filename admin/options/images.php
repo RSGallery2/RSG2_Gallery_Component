@@ -844,7 +844,8 @@ function batchupload($option) {
 	$config         = get_object_vars( $rsgConfig );
 	$uploaded		= $input->get( 'uploaded', null, 'BOOL');
 	$selcat         = $input->get( 'selcat', null, 'INT');
-    $zip_file = $input->files->get('zip_file', array(), 'FILES'); //
+	// $files = $input->files->get('zip_file');
+    $zip_file       = $input->files->get('zip_file', array(), 'FILES'); //
 
 	$ftppath = $input->get( 'ftppath', null, 'RAW');
 	if(substr($ftppath, -1) != '/' && substr($ftppath, -1) == '\\') {
@@ -897,6 +898,7 @@ function batchupload($option) {
 		}
 	}
 
+	// ToDo: move to view with message before
 	//Check if at least one gallery exists, if not link to gallery creation
 	$database->setQuery( "SELECT id FROM #__rsgallery2_galleries" );
 	$database->execute();

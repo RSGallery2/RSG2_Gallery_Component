@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Id$ -->
-<form>
+<form enctype="multipart/form-data">
 	<fieldset name="upload_zip">	
 		<field 
 			id           = "all_img_in_step1_01"

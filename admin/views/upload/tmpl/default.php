@@ -71,7 +71,9 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
 				form.ftppath.value = "";
 				form.xcat.value = GalleryId;
 				form.selcat.value= bOneGalleryName4All;
-				
+
+				alert('zip_path= "' + zip_path + '"');
+
 				jQuery('#loading').css('display', 'block');
 				form.submit();
 			}
