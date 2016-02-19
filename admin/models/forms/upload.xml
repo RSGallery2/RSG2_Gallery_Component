@@ -4,7 +4,7 @@
 	<fieldset name="upload_zip">	
 		<field 
 			id           = "all_img_in_step1_01"
-			name         = "all_img_in_step1" 
+			name         = "all_img_in_step1_01" 
 			type         = "radio" 
 			default      = "0"
 			label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
@@ -33,7 +33,7 @@
 	<fieldset name="upload_folder">	
 		<field 
 			id           = "all_img_in_step1_02"
-			name         = "all_img_in_step1" 
+			name         = "all_img_in_step1_02" 
 			type         = "radio" 
 			default      = "0"
 			label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"

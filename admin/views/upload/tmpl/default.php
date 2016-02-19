@@ -50,9 +50,11 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
 		var form = document.getElementById('adminForm');
 		
 		var zip_path = form.zip_file.value;
-		var GalleryId = jQuery('#SelectGalleries_01').chosen().val();		
-		var bOneGalleryName4All = jQuery('input[name="all_img_in_step1"]:checked').val();		
-		
+		var GalleryId = jQuery('#SelectGalleries_01').chosen().val();
+		alert ('GalleryId1: ' + GalleryId)
+		var bOneGalleryName4All = jQuery('input[name="all_img_in_step1"]:checked').val();
+		alert ('bOneGalleryName4All: ' + bOneGalleryName4All)
+
 		// No file path given
 		if (zip_path == "") {
 			alert(Joomla.JText._('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN'));
@@ -72,8 +74,6 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
 				form.xcat.value = GalleryId;
 				form.selcat.value= bOneGalleryName4All;
 
-				alert('zip_path= "' + zip_path + '"');
-
 				jQuery('#loading').css('display', 'block');
 				form.submit();
 			}
@@ -84,10 +84,13 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
 	{		
 		var form = document.getElementById('adminForm');
 
+		var GalleryId = jQuery('#SelectGalleries_02').chosen().val();
+
 		var ftp_path = form.ftp_path.value;
-		var GalleryId = jQuery('#SelectGalleries_02').chosen().val();		
-		var bOneGalleryName4All = jQuery('input[name="all_img_in_step1"]:checked').val();		
-				
+		alert ('GalleryId2: ' + GalleryId)
+		var bOneGalleryName4All = jQuery('input[name="all_img_in_step1"]:checked').val();
+		alert ('bOneGalleryName4All: ' + bOneGalleryName4All)
+
 		// ftp path is not given
 		if (ftp_path == "") {
 			alert(Joomla.JText._('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED'));
@@ -207,7 +210,7 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
 
 						<?php
 							// All in one, Specify gallery
-							echo $this->form->renderFieldset('upload_zip');
+							echo $this->form->renderFieldset('upload_folder');
 						?>
 
 						<div class="form-actions">

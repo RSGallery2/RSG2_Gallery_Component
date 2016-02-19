@@ -421,12 +421,15 @@ class fileHandler {
 			$mainframe->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_IN_UPLOAD'), 'error');
 		}
 
-		//Before extracting upload the archive to /JOOMLAROOT/images/rsgallery/tmp/ with JFile::upload(). It transfers a file from the source file path to the destination path. Filename is made safe.
+		// Before extracting upload the archive to /JOOMLAROOT/images/rsgallery/tmp/ with JFile::upload().
+        // It transfers a file from the source file path to the destination path. Filename is made safe.
 		$fileDestination = JPATH_ROOT.DS.'images'.DS.'rsgallery'.DS.'tmp'.DS.JFile::makeSafe(basename($archive['name']));
 		// Move uploaded file (this is truely uploading the file)
-		if (!JFile::upload($archive['tmp_name'], $fileDestination)){
+        // *.zip needs $allow_unsafe = true since J3.4.x
+        // upload(string $src, string $dest, boolean $use_streams = false, boolean $allow_unsafe = false, boolean $safeFileOptions = array()) : boolean
+		if (!JFile::upload($archive['tmp_name'], $fileDestination, false, true)){
 			$uploadError	= 1;
-			$mainframe->enqueueMessage(JText::_('COM_RSGALLERY2_UNABLE_TO_TRANSFER_FILE_TO_UPLOAD_TO_SERVER').'destination: '.$fileDestination, 'error');
+			$mainframe->enqueueMessage(JText::_('COM_RSGALLERY2_UNABLE_TO_TRANSFER_FILE_TO_UPLOAD_TO_SERVER').' destination: '.$fileDestination, 'error');
 		}
 
 		//If there was an upload error: return, else get ready to exctract the archive

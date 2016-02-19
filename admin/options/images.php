@@ -844,8 +844,9 @@ function batchupload($option) {
 	$config         = get_object_vars( $rsgConfig );
 	$uploaded		= $input->get( 'uploaded', null, 'BOOL');
 	$selcat         = $input->get( 'selcat', null, 'INT');
-	// $files = $input->files->get('zip_file');
-    $zip_file       = $input->files->get('zip_file', array(), 'FILES'); //
+	//	$zip_file       = $input->files->get('zip_file', array(), 'FILES');
+	// 'FILES' is ignored as a *.zip file marked bad from function  isSafeFile inside get
+	$zip_file       = $input->files->get('zip_file', array(), 'raw');
 
 	$ftppath = $input->get( 'ftppath', null, 'RAW');
 	if(substr($ftppath, -1) != '/' && substr($ftppath, -1) == '\\') {
