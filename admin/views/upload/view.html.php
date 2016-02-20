@@ -20,7 +20,11 @@ class Rsgallery2ViewUpload extends JViewLegacy
 
 	// ToDo: Config -> update gallery selection preselect latest gallery  (User input ...)
 	// ToDo: Config -> update gallery selection preselect last used gallery ? show combo opened for n entries
-	
+
+	/**
+	 * @param null $tpl
+	 * @return bool
+	 */
 	public function display ($tpl = null)
 	{
 		$xmlFile = JPATH_COMPONENT . '/models/forms/upload.xml';
@@ -74,9 +78,10 @@ class Rsgallery2ViewUpload extends JViewLegacy
 
 		// upload_zip, upload_folder
 		$formParam = array(
-			'all_img_in_step1' => $IsUseOneGalleryNameForAllImages,
-			'SelectGalleries01' => $IdGallerySelect,
-			'SelectGalleries02' => $IdGallerySelect
+			'all_img_in_step1_01' => $IsUseOneGalleryNameForAllImages,
+			'all_img_in_step1_02' => $IsUseOneGalleryNameForAllImages,
+			'SelectGalleries01_01' => $IdGallerySelect,
+			'SelectGalleries02_02' => $IdGallerySelect
 		);
 
 		$form->bind ($formParam);
@@ -95,7 +100,7 @@ class Rsgallery2ViewUpload extends JViewLegacy
 		$this->addToolbar ();
 		$this->sidebar = JHtmlSidebar::render ();
 
-		parent::display ($tpl);		
+		return parent::display ($tpl);
 	}
 
 	

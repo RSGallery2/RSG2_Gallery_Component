@@ -51,9 +51,13 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
 		
 		var zip_path = form.zip_file.value;
 		var GalleryId = jQuery('#SelectGalleries_01').chosen().val();
-		alert ('GalleryId1: ' + GalleryId)
-		var bOneGalleryName4All = jQuery('input[name="all_img_in_step1"]:checked').val();
-		alert ('bOneGalleryName4All: ' + bOneGalleryName4All)
+		var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_01"]:checked').val();
+//		var OutTxt = ''
+//			+ 'GalleryId1: ' + GalleryId + '\r\n'
+//			+ 'bOneGalleryName4All: ' + bOneGalleryName4All + '\r\n'
+//			+ 'zip_path: ' + zip_path + '\r\n'
+//		;
+//		alert (OutTxt);
 
 		// No file path given
 		if (zip_path == "") {
@@ -85,11 +89,15 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
 		var form = document.getElementById('adminForm');
 
 		var GalleryId = jQuery('#SelectGalleries_02').chosen().val();
-
 		var ftp_path = form.ftp_path.value;
-		alert ('GalleryId2: ' + GalleryId)
-		var bOneGalleryName4All = jQuery('input[name="all_img_in_step1"]:checked').val();
-		alert ('bOneGalleryName4All: ' + bOneGalleryName4All)
+		var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_02"]:checked').val();
+
+//		var OutTxt = ''
+//			+ 'GalleryId2: ' + GalleryId + '\r\n'
+//			+ 'bOneGalleryName4All: ' + bOneGalleryName4All + '\r\n'
+//			+ 'ftp_path: ' + ftp_path + '\r\n'
+//		;
+//		alert (OutTxt);
 
 		// ftp path is not given
 		if (ftp_path == "") {
