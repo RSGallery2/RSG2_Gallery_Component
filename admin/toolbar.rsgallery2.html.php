@@ -3,7 +3,7 @@
 * RSGallery2 Toolbar Menu HTML
 * @version $Id: toolbar.rsgallery2.html.php 1085 2012-06-24 13:44:29Z mirjam $
 * @package RSGallery2
-* @copyright (C) 2003 - 2011 RSGallery2
+* @copyright (C) 2003 - 2016 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 **/
 

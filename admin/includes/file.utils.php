@@ -3,7 +3,7 @@
 * This file handles image manipulation functions RSGallery2
 * @version $Id: file.utils.php 1088 2012-07-05 19:28:28Z mirjam $
 * @package RSGallery2
-* @copyright (C) 2005 - 2015 RSGallery2
+* @copyright (C) 2005 - 2016 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */

@@ -3,7 +3,7 @@
 * Item class
 * @version $Id: video.php 1011 2011-01-26 15:36:02Z mirjam $
 * @package RSGallery2
-* @copyright (C) 2005 - 2006 RSGallery2
+* @copyright (C) 2005 - 2016 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */

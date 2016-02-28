@@ -5,7 +5,7 @@
 * 
 * @version $Id: CreditsEnumaration.php  2012-07-09 18:52:20Z mirjam $
 * @package RSGallery2
-* @copyright (C) 2003 - 2015 RSGallery2
+* @copyright (C) 2003 - 2016 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */

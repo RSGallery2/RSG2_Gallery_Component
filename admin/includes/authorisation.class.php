@@ -3,7 +3,7 @@
 * Authorisation Manager Class for RSGallery2
 * @version $Id$
 * @package RSGallery2
-* @copyright (C) 2005 - 2012 rsgallery2.net
+* @copyright (C) 2005 - 2016 rsgallery2.net
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */

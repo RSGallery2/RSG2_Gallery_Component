@@ -3,7 +3,7 @@
 * This file handles gallery manipulation functions for RSGallery2
 * @version $Id: gallery.manager.php 1085 2012-06-24 13:44:29Z mirjam $
 * @package RSGallery2
-* @copyright (C) 2005 - 2011 RSGallery2
+* @copyright (C) 2005 - 2016 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
