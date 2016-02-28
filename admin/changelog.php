@@ -34,6 +34,36 @@ Legend:
 		 
 ---------------- Recent ----------------
 
+  
+* --------------- 4.0.9 -- 2015-05-15 -------------
+
+^ Redesigned control panel
+  * Changed icons to material design
+  * Reordered layout
+  * Moved some input to maintenance (Templates ++)
+  * Less icons
+  * Control panel is now a MVC view
+^ Redesigned maintenance 
+  * Two columns Maintenance/ Danger zone
+	* Maintenance: Changes with no danger and Templates
+	* Danger zone: Section to remove data tables,   
+  * Maintenance is now a MVC view
+^ Redesigned upload
+  * One start page for all upload packages 
+  * Design like joomla upload
+  * Upload is now a MVC view
+^ Version info is now fetched from manifest file
+
+# upload of zip files was prevented by joomla as unsecure
+# 
+  
+* --------------- 4.0.9 -- 2015-05-15 -------------
+
+    Fixed XML Manifest file
+    Improved control panel view
+
+	! Issue: On J3.4 i needed to transfer the binaries with FTP as direct zip installation did not work.
+
 * --------------- 4.0.8 -- 2015-05-15 -------------
 15.05.2015 finnern
 
