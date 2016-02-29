@@ -13,16 +13,16 @@ if ($Rsg2DebugActive)
 	jimport('joomla.log.log');
 	
 	// identify active file
-	JLog::add('==> ctrl.ctrl.rsgallery2.php ');
+	JLog::add('==> ctrl.ctrl.upload.php ');
 }
 
 jimport('joomla.application.component.controllerform');
 
 // ToDo: Check which functions are used
 
-class Rsgallery2ControllerRsgallery2 extends JControllerForm
+class Rsgallery2ControllerUpload extends JControllerForm
 {
-
+	
 
 
 }
