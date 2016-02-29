@@ -35,7 +35,7 @@ Legend:
 ---------------- Recent ----------------
 
   
-* --------------- 4.0.9 -- 2015-05-15 -------------
+* --------------- 4.1.0 -- 2016-02-29 -------------
 
 ^ Redesigned control panel
   * Changed icons to material design
@@ -55,7 +55,7 @@ Legend:
 ^ Version info is now fetched from manifest file
 
 # upload of zip files was prevented by joomla as unsecure
-# 
+ 
   
 * --------------- 4.0.9 -- 2015-05-15 -------------
 
