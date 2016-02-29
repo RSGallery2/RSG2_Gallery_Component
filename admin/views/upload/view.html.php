@@ -15,6 +15,7 @@ class Rsgallery2ViewUpload extends JViewLegacy
 	protected $ActiveSelection; // ToDo: Activate in html of view
 	
 	protected $UploadLimit;
+	protected $PostMaxSize;
 	protected $FtpUploadPath;
 	// protected $LastUsedUploadZip;
 
@@ -31,6 +32,7 @@ class Rsgallery2ViewUpload extends JViewLegacy
 		$form = JForm::getInstance('upload', $xmlFile);
 
 		$this->UploadLimit = round( ini_get('upload_max_filesize') * 1.024 );
+		$this->PostMaxSize = round( ini_get('post_max_size') * 1.024 );
 
 		//--- FtpUploadPath ------------------------
 
