@@ -134,6 +134,15 @@ function quickIconMoonBar( $link, $imageClass, $title, $text = "", $addClass = '
 						?>
 
 								<?php
+								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.viewConfigPlain';
+								// $link = 'index.php?option=com_rsgallery2&amp;view=configRaw';
+								$link = 'index.php?option=com_rsgallery2&view=maintenance.viewConfigPlain';
+								quickiconBar( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW'),
+									JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT').'                        ',
+									'New: viewConfigPlain');
+								?>
+
+								<?php
 								//$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
 								$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB';
 								quickiconBar($link, 'blockdevice.png',
