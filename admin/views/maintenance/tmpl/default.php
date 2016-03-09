@@ -120,37 +120,18 @@ function quickIconMoonBar( $link, $imageClass, $title, $text = "", $addClass = '
 									<?php echo JText::_('COM_RSGALLERY2_FUNCTIONS_MAY_CHANGE_DATA');?>
 								</strong>
 							</div>
-						<?php
-							// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.viewConfigPlain';
-							// $link = 'index.php?option=com_rsgallery2&amp;view=configRaw';
-							$link = 'index.php?option=com_rsgallery2&task=config_dumpVars';
+							<?php
+							$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawView';
 							quickiconBar( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIGURATION_VARIABLES'),
 								JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT').'                        ',
-								'viewConfigPlain');
-						?>
+								// JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW').'                        ',
+								'New: viewConfigPlain');
+							?>
 
-						<?php
+
+							<?php
 							if($this->UserIsRoot ) {
-						?>
-
-								<?php
-								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.viewConfigPlain';
-								// $link = 'index.php?option=com_rsgallery2&amp;view=configRaw';
-								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawView';
-								quickiconBar( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIGURATION_VARIABLES'),
-									JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT').'                        ',
-									// JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW').'                        ',
-									'New: viewConfigPlain');
-								?>
-
-								<?php
-								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.viewConfigPlain';
-								// $link = 'index.php?option=com_rsgallery2&amp;view=configRaw';
-								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawEdit';
-								quickiconBar( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'),
-									JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT').'                        ',
-									'New: Config Standard (Prepared but not Ready)');
-								?>
+							?>
 
 								<?php
 								$link = 'index.php?option=com_rsgallery2&amp;view=config';
@@ -221,6 +202,15 @@ function quickIconMoonBar( $link, $imageClass, $title, $text = "", $addClass = '
 											<?php echo JText::_('COM_RSGALLERY2_ONLY_WHEN_YOU_KNOW_WHAT_YOU_ARE_DOING'); ?>
 										</strong>
 									</div>
+
+									<?php
+									// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.viewConfigPlain';
+									// $link = 'index.php?option=com_rsgallery2&amp;view=configRaw';
+									$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawEdit';
+									quickiconBar( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'),
+										JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT').'                        ',
+										'New: Config Standard (Prepared but not Ready)');
+									?>
 
 									<?php
 									//$link = 'index.php?option=com_rsgallery2&amp;view=configRawEdit';

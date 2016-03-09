@@ -10,6 +10,30 @@ global $Rsg2DebugActive;
 //$doc = JFactory::getDocument();
 //$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
 
+/**
+ * Echos an input field for config variables
+ * @param string $name name of config variable
+ * @param string $value of config variable
+ */
+function configInputField($name='unknown', $value='') {
+?>
+
+	<div class="control-group">
+		<label class="control-label" for="<?php echo $name?>"><?php echo $name?>:</label>
+		<div class="controls">
+			<input id="ftp_path" class="span5 input_box" type="text" value="<?php echo $value?>" size="70" name="<?php echo $name?>">
+		</div>
+	</div>
+
+<?php
+	/*
+	<td>version</td>
+	<td>
+		<input type="text" value="4.1.0" name="version">
+	</td>
+	*/
+}
+
 
 ?>
 
@@ -28,21 +52,19 @@ global $Rsg2DebugActive;
 
 				<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'ConfigRawView')); ?>
 
-				<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'ConfigRawView', JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT', true)); ?>
+					<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'ConfigRawView', JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT', true)); ?>
 
-				<legend><?php echo JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'); ?></legend>
+						<legend><?php echo JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'); ?></legend>
+						<?php
 
-				<?php
+							$configVars = get_object_vars($this->rsgConfigData);
+							foreach ($configVars as $name => $value) {
 
-				//echo '<pre>';
-				//    print_r( get_object_vars($this->rsgConfigData) );
-				//echo '</pre>';
-				echo '<pre>';
-				echo json_encode(get_object_vars($this->rsgConfigData), JSON_PRETTY_PRINT);
-				echo '</pre>';
-				?>
+								configInputField ($name, $value);
+							}
+						?>
 
-				<?php echo JHtml::_('bootstrap.endTab'); ?>
+					<?php echo JHtml::_('bootstrap.endTab'); ?>
 
 				<?php echo JHtml::_('bootstrap.endTabSet'); ?>
 
@@ -51,48 +73,8 @@ global $Rsg2DebugActive;
 
 				<input type="hidden" name="task" value="" /-->
 				<?php echo JHtml::_('form.token'); ?>
-		</div>
 			</form>
 		</div>
 	<div id="loading"></div>
 </div>
 </div>
-
-		<div>
-			<h1>  Config raw edit not ready</h1>
-        </div>
-
-
-
-		<div>
-			<h1> XX Config raw view not ready</h1>
-			<br>
-			COM_RSGALLERY2_CONFIGURATION_RAW_VIEW
-			<br>
-			COM_RSGALLERY2_CONFIG_MINUS_VIEW
-			<br>
-			COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT
-			<br>
-			COM_RSGALLERY2_MENU_CONFIG
-			<br>
-
-			sub title
-			<br>
-			COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT
-			<br>
-			COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT
-			<br>
-		</div>
-
-
-
-        <div>
-			<!--input type="hidden" name="option" value="com_rsgallery2" />
-			<input type="hidden" name="rsgOption" value="maintenance" />
-
-            <input type="hidden" name="task" value="" /-->
-            <?php echo JHtml::_('form.token'); ?>
-        </div>
-    </div>
-</form>
-

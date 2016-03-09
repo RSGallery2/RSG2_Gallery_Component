@@ -43,8 +43,12 @@ class Rsgallery2ViewConfig extends JViewLegacy
 		
 		// Assign the Data
 		// $this->form = $form;
-        	
-		$this->addToolbar ();
+
+		// different toolbar on different layouts
+		$Layout = JFactory::getApplication()->input->get('layout');
+
+
+		$this->addToolbar ($Layout);
 		$this->sidebar = JHtmlSidebar::render ();
 
 		parent::display ($tpl);
@@ -64,10 +68,32 @@ class Rsgallery2ViewConfig extends JViewLegacy
 		return $canAdmin;
 	}
 
-	protected function addToolbar ()
+	protected function addToolbar ($Layout='default')
 	{
-		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
-			. ':' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'), 'screwdriver'); // 'maintenance');
+		switch ($Layout)
+		{
+			case 'RawView':
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
+					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'), 'screwdriver'); // 'maintenance');
+				JToolBarHelper::cancel('cancelRawView');
+				break;
+			case 'RawEdit':
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
+					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'), 'screwdriver'); // 'maintenance');
+				JToolBarHelper::apply('config_rawEdit_apply');
+				JToolBarHelper::save('config_rawEdit_save');
+				JToolBarHelper::cancel('cancelRawEdit');
+				break;
+			// case 'default':
+			default:
+				JToolBarHelper::title(JText::_('yyyy COM_RSGALLERY2_MAINTENANCE')
+					. ':' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'), 'screwdriver'); // 'maintenance');
+				JToolBarHelper::apply('config_rawEdit_apply');
+				JToolBarHelper::save('config_rawEdit_save');
+				JToolBarHelper::cancel('cancelConfig');
+				break;
+		}
+
 	}
 }
 

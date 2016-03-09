@@ -51,7 +51,7 @@ class menu_rsg2_submenu{
 
 			// ToDo: add config
 
-			if ($view = 'config')
+			if ($view == 'config')
 			{
 				// Maintenance
 				JHtmlSidebar::addEntry(

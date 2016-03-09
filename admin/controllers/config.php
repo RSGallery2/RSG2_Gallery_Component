@@ -26,7 +26,7 @@ class Rsg2ControllerConfig extends JControllerForm
 		return true;
 	}
 
-	public function cancelRaw($key = null) {
+	public function cancelRawView($key = null) {
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		$link = 'index.php?option=com_rsgallery2&view=maintenance';
@@ -35,8 +35,14 @@ class Rsg2ControllerConfig extends JControllerForm
 		return true;
 	}
 
+	public function cancelRawEdit($key = null) {
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
+		$link = 'index.php?option=com_rsgallery2&view=maintenance';
+		$this->setRedirect($link);
 
+		return true;
+	}
 
 
 }
