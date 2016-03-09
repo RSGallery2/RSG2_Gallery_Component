@@ -12,8 +12,6 @@ defined( '_JEXEC' ) or die();
 
 JHtml::_('bootstrap.tooltip'); 
 
-//JHtml::_('bootstrap.tooltip');
-
 JHtml::_('formbehavior.chosen', 'select');
  
 JText::script('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN');
@@ -144,16 +142,17 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
 </style>
  
 <div id="installer-install" class="clearfix">
-<?php if (!empty( $this->sidebar)) : ?>
-	<div id="j-sidebar-container" class="span2">
-		<?php echo $this->sidebar; ?>
-	</div>
-	<div id="j-main-container" class="span10">
-<?php else : ?>
-	<div id="j-main-container">
-<?php endif;?>
+	<?php if (!empty( $this->sidebar)) : ?>
+		<div id="j-sidebar-container" class="span2">
+			<?php echo $this->sidebar; ?>
+		</div>
+		<div id="j-main-container" class="span10">
+	<?php else : ?>
+		<div id="j-main-container">
+	<?php endif;?>
    
-		<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=upload'); ?>" method="post" name="adminForm" id="adminForm"  enctype="multipart/form-data" class="form-validate form-horizontal" >
+		<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=upload'); ?>"
+			method="post" name="adminForm" id="adminForm"  enctype="multipart/form-data" class="form-validate form-horizontal" >
 
 			<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => $this->ActiveSelection)); ?>
 
@@ -232,8 +231,6 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
 
 			<?php echo JHtml::_('bootstrap.endTabSet'); ?>
 
-			<?php echo JHtml::_('form.token'); ?>
-
 			<input type="hidden" value="com_rsgallery2" name="option">
 			<input type="hidden" value="images" name="rsgOption">
 			<input type="hidden" value="0" name="boxchecked">
@@ -245,8 +242,12 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
 			<input type="hidden" value="" name="xcat">
 			<input type="hidden" value="" name="selcat">
 
+			<?php echo JHtml::_('form.token'); ?>
+
 		</form>
 	</div>
 	<div id="loading"></div>
+	</div>
 </div>
+
 

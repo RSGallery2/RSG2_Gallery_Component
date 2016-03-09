@@ -136,26 +136,25 @@ function quickIconMoonBar( $link, $imageClass, $title, $text = "", $addClass = '
 								<?php
 								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.viewConfigPlain';
 								// $link = 'index.php?option=com_rsgallery2&amp;view=configRaw';
-								$link = 'index.php?option=com_rsgallery2&view=maintenance.ConfigPlain';
-								quickiconBar( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW'),
+								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawView';
+								quickiconBar( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIGURATION_VARIABLES'),
 									JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT').'                        ',
+									// JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW').'                        ',
 									'New: viewConfigPlain');
 								?>
-
-								<!--?php
-								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.viewConfigPlain';
-								// $link = 'index.php?option=com_rsgallery2&amp;view=configRaw';
-								$link = 'index.php?option=com_rsgallery2&view=maintenance.ConfigRawEdit';
-								quickiconBar( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW'),
-									JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT').'                        ',
-									'New: viewConfig Raw Edit');
-								?-->
 
 								<?php
 								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.viewConfigPlain';
 								// $link = 'index.php?option=com_rsgallery2&amp;view=configRaw';
-								$link = 'index.php?option=com_rsgallery2&view=config';
-								quickiconBar( $link, 'menu.png', JText::_(COM_RSGALLERY2_CONFIGURATION_RAW_EDIT),
+								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawEdit';
+								quickiconBar( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'),
+									JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT').'                        ',
+									'New: Config Standard (Prepared but not Ready)');
+								?>
+
+								<?php
+								$link = 'index.php?option=com_rsgallery2&amp;view=config';
+								quickiconBar( $link, 'menu.png', JText::_('COM_RSGALLERY2_CONFIGURATION'),
 									JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT').'                        ',
 									'New: Config Standard (Prepared but not Ready)');
 								?>

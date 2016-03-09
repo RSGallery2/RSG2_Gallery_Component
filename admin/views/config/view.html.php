@@ -5,13 +5,16 @@ defined( '_JEXEC' ) or die;
 jimport ('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 
-class Rsgallery2ViewMaintenance extends JViewLegacy
-{	
+class Rsgallery2ViewConfig extends JViewLegacy
+{
+
 	// ToDo: Use other rights instead of core.admin -> IsRoot ?
 	// core.admin is the permission used to control access to 
 	// the global config
 	protected $UserIsRoot;
 	protected $sidebar;
+
+	protected $rsgConfigData;
 
 	//------------------------------------------------
 	public function display ($tpl = null)
@@ -20,7 +23,11 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 		
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
-	
+
+		global $rsgConfig;
+		$this->rsgConfigData = $rsgConfig;
+
+
 //		$form = $this->get('Form');
 
 		//--- begin to display --------------------------------------------
@@ -59,7 +66,8 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 
 	protected function addToolbar ()
 	{
-		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE'), 'screwdriver'); // 'maintenance');
+		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
+			. ':' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'), 'screwdriver'); // 'maintenance');
 	}
 }
 

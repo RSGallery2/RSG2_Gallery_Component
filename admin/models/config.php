@@ -8,7 +8,9 @@ jimport('joomla.application.component.modeladmin');
 /**
  * 
  */
-class rsgallery2ModelConfig extends  JModelAdmin  // JModelForm 
+class rsgallery2ModelConfig extends JModelLegacy  // JModelForm
+//class rsgallery2ModelConfig extends JModelForm
+//class rsgallery2ModelConfig extends JModelAdmin  // JModelForm
 {
     protected $text_prefix = 'COM_RSGallery2';
 	protected $IsDebugActive;
@@ -17,6 +19,7 @@ class rsgallery2ModelConfig extends  JModelAdmin  // JModelForm
      * retrieves state if debug is activated on user config
      * @return bool
      */
+	/*
     public static function getIsDebugActive()
     {
 		if (!isset($this->IsDebugActive)) {
@@ -31,4 +34,8 @@ class rsgallery2ModelConfig extends  JModelAdmin  // JModelForm
 
 		return $this->IsDebugActive;
     }
+	*/
+
+
+
 }

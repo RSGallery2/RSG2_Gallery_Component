@@ -9,18 +9,27 @@ if ($Rsg2DebugActive)
 //	jimport('joomla.log.log');
 
 	// identify active file
-	JLog::add('==> ctrl.configRaw.php ');
+	JLog::add('==> ctrl.config.php ');
 }
 
 jimport('joomla.application.component.controllerform');
 
-class Rsg2ControllerConfigRaw extends JControllerForm
+class Rsg2ControllerConfig extends JControllerForm
 {
 
 	public function cancel($key = null) {
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-		$link = 'index.php?option=com_rsg2&view=maintenance';
+		$link = 'index.php?option=com_rsgallery2';
+		$this->setRedirect($link);
+
+		return true;
+	}
+
+	public function cancelRaw($key = null) {
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		$link = 'index.php?option=com_rsgallery2&view=maintenance';
 		$this->setRedirect($link);
 
 		return true;

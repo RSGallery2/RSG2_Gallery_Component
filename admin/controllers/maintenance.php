@@ -31,18 +31,6 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 		parent::__construct($config);
 	}
 
-	function galleries()
-	{
-		global $Rsg2DebugActive;
-
-		if($Rsg2DebugActive)
-		{
-			JLog::add('==> ctrl.rsgallery2.php/function galleries');
-		}
-		//$this->setRedirect('index.php?option=com_rsgallery2&view=galleries');
-		//$this->redirect();
-	}	
-
 	function ClearRsg2DbItems ()
 	{
 		global $Rsg2DebugActive;

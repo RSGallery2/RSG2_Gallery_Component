@@ -10,6 +10,7 @@ JModelLegacy::addIncludePath(JPATH_COMPONENT.'/models');
 class Rsgallery2ViewUpload extends JViewLegacy
 {
 	protected $form;
+	protected $sidebar;
 
 	// [Single images], [Zip file], [local server (ftp) path],
 	protected $ActiveSelection; // ToDo: Activate in html of view
