@@ -363,63 +363,59 @@
 		-->
 
 	</fieldset>
-	<fieldset name="MyGalleries_setting">
+	<fieldset name="Mygalleries_setting">
 		<field
-				id           = "all_img_in_step1_02"
-				name         = "all_img_in_step1_02"
+				id           = "show_mygalleries"
+				name         = "show_mygalleries"
 				type         = "radio"
 				default      = "0"
-				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
-				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				label        = "COM_RSGALLERY2_SHOW_MY_GALLERIES"
+				description  = "COM_RSGALLERY2_SHOW_MY_GALLERIES_TOOLTIP"
 				class        = "btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
-		<!-- Gallery selection -->
 		<field
-				id           = "SelectGalleries_02"
-				name         = "SelectGalleries02"
-				type         = "GallerySelectList"
-				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
-				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
-				required     = "true"
-				class        = "inputbox"
-				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
-		/>
-		<!--
-			translate_label	= "true"
-			class			= "inputbox"
-		-->
+				id           = "show_mygalleries_onlyOwnItems"
+				name         = "show_mygalleries_onlyOwnItems"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_SHOW_ONLY_OWN_ITEMS_IN_MY_GALLERIES"
+				description  = "COM_RSGALLERY2_SHOW_ONLY_OWN_ITEMS_IN_MY_GALLERIES_TOOLTIP"
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+				id           = "show_mygalleries_onlyOwnGalleries"
+				name         = "show_mygalleries_onlyOwnGalleries"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_SHOW_ONLY_OWN_GALLERIES_IN_MY_GALLERIES"
+				description  = "COM_RSGALLERY2_SHOW_ONLY_OWN_GALLERIES_IN_MY_GALLERIES_TOOLTIP"
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
 
 	</fieldset>
-	<fieldset name="MyGalleries_upload">
+	<fieldset name="Mygalleries_upload">
 		<field
-				id           = "all_img_in_step1_02"
-				name         = "all_img_in_step1_02"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
-				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
-				class        = "btn-group btn-group-yesno">
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
-		</field>
-		<!-- Gallery selection -->
-		<field
-				id           = "SelectGalleries_02"
-				name         = "SelectGalleries02"
-				type         = "GallerySelectList"
-				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
-				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
-				required     = "true"
-				class        = "inputbox"
-				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+				name="uu_maxCat"
+				type="text"
+				label="COM_RSGALLERY2_MAXIMUM_NUMBER_OF_GALLERIES_A_USER_CAN_HAVE"
+				description=""
+				filter="string"
+				size="20"
 		/>
-		<!--
-			translate_label	= "true"
-			class			= "inputbox"
-		-->
-
+		<field
+				name="uu_maxImages"
+				type="text"
+				label="COM_RSGALLERY2_MAX_NUMBERS_OF_PICTURES_A_USER_CAN_HAVE"
+				description=""
+				filter="string"
+				size="20"
+		/>
 	</fieldset>
 	<fieldset name="Sozial media">
 		<field

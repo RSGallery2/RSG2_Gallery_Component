@@ -128,29 +128,60 @@ JHtml::_('formbehavior.chosen', 'select');
 
 				<?php echo JHtml::_('bootstrap.addTab', 'Config', 'Display', JText::_('COM_RSGALLERY2_DISPLAY', false)); ?>
 
-				<legend><?php echo JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'); ?></legend>
 				<strong><?php echo JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT'); ?></strong>
+
+                <?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_display_group', array('active' => 'cfg_display_id_1')); ?>
+
+                <?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group',
+                    JText::_('COM_RSGALLERY2_FRONT_PAGE'), 'cfg_display_id_1'); ?>
 
                 <?php
                 echo $this->form->renderFieldset('Display_frontPage');
                 ?>
+
+                <?php echo JHtml::_('bootstrap.endSlide'); ?>
+
+                <?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group', JText::_('COM_RSGALLERY2_IMAGE_DISPLAY'), 'cfg_display_id_2'); ?>
+
                 <?php
                 echo $this->form->renderFieldset('Display_imageDisplay');
                 ?>
+
+                <?php echo JHtml::_('bootstrap.endSlide'); ?>
+
+                <?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group', JText::_('COM_RSGALLERY2_IMAGE_ORDER'), 'cfg_display_id_3'); ?>
+
                 <?php
                 echo $this->form->renderFieldset('Display_imageOrder');
                 ?>
+
+                <?php echo JHtml::_('bootstrap.endSlide'); ?>
+
+                <?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group', JText::_('COM_RSGALLERY2_EXIF_SETTINGS'), 'cfg_display_id_4'); ?>
+
                 <?php
                 echo $this->form->renderFieldset('Display_exifSettings');
                 ?>
+
+                <?php echo JHtml::_('bootstrap.endSlide'); ?>
+
+                <?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group', JText::_('COM_RSGALLERY2_GALLERY_VIEW'), 'cfg_display_id_5'); ?>
+
                 <?php
                 echo $this->form->renderFieldset('Display_galleryView');
                 ?>
+
+                <?php echo JHtml::_('bootstrap.endSlide'); ?>
+
+                <?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group', JText::_('COM_RSGALLERY2_IMAGE_WATERMARK'), 'cfg_display_id_6'); ?>
+
                 <?php
                 echo $this->form->renderFieldset('Display_imageWatermark');
                 ?>
 
+                <?php echo JHtml::_('bootstrap.endSlide'); ?>
 
+                <?php echo JHtml::_('bootstrap.endAccordion'); ?>
 
                 <?php echo JHtml::_('bootstrap.endTab'); ?>
 
@@ -159,6 +190,7 @@ JHtml::_('formbehavior.chosen', 'select');
                 <?php echo JHtml::_('bootstrap.addTab', 'Config', 'Mygalleries', JText::_('COM_RSGALLERY2_MY_GALLERIES', false)); ?>
 
 				<legend><?php echo JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'); ?></legend>
+
                 <?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_my_galleries_group_1', array('active' => 'cfg_my_galleries_id_1')); ?>
 
                 <?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_my_galleries_group_1',
