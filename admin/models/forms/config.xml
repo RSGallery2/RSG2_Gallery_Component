@@ -189,180 +189,466 @@
 			class			= "inputbox"
 		-->
 	</fieldset>
+
+<!-- Start ******************************************************************-->
+
 	<fieldset name="Display_frontPage">
 		<field
-				id           = "all_img_in_step1_02"
-				name         = "all_img_in_step1_02"
+				id           = "displaySearch"
+				name         = "displaySearch"
 				type         = "radio"
 				default      = "0"
-				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
-				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				label        = "COM_RSGALLERY2_DISPLAY_SEARCH"
+				description  = ""
 				class        = "btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
-		<!-- Gallery selection -->
+
 		<field
-				id           = "SelectGalleries_02"
-				name         = "SelectGalleries02"
-				type         = "GallerySelectList"
-				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
-				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
-				required     = "true"
-				class        = "inputbox"
-				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
-		/>
-		<!--
-			translate_label	= "true"
-			class			= "inputbox"
-		-->
+				id           = "displayRandom"
+				name         = "displayRandom"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_RANDOM"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id           = "displayLatest"
+				name         = "displayLatest"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_LATEST"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id           = "displayBranding"
+				name         = "displayBranding"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_BRANDING"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id           = "displayDownload"
+				name         = "displayDownload"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_DOWNLOADLINK"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id           = "displayStatus"
+				name         = "displayStatus"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_STATUS_ICONS"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id           = "dispLimitbox"
+				name         = "dispLimitbox"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_GALLERY_LIMITBOX"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id           = "galcountNrs"
+				name         = "galcountNrs"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DEFAULT_NUMBER_OF_GALLERIES_ON_FRONTPAGE"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id           = "displaySlideshow"
+				name         = "displaySlideshow"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_SLIDESHOW"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id           = "current_slideshow"
+				name         = "current_slideshow"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_SELECT_SLIDESHOW"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id           = "showGalleryOwner"
+				name         = "showGalleryOwner"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_OWNER_INFORMATION"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id           = "showGallerySize"
+				name         = "showGallerySize"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_NUMBER_OF_ITEMS_IN_GALLERY"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id           = "includeKids"
+				name         = "includeKids"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_NUMBER_OF_ITEMS_IN_GALLERY_INCLUDE_KIDS"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id           = "showGalleryDate"
+				name         = "showGalleryDate"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_CREATION_DATE"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
 
 	</fieldset>
+
+
 	<fieldset name="Display_imageDisplay">
 		<field
-				id           = "all_img_in_step1_02"
-				name         = "all_img_in_step1_02"
+				id           = "displaySlideshowImageDisplay"
+				name         = "displaySlideshowImageDisplay"
 				type         = "radio"
 				default      = "0"
-				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
-				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				label        = "COM_RSGALLERY2_DISPLAY_SLIDESHOW_IMAGE_DISPLAY"
+				description  = ""
 				class        = "btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
-		<!-- Gallery selection -->
+
 		<field
-				id           = "SelectGalleries_02"
-				name         = "SelectGalleries02"
-				type         = "GallerySelectList"
-				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
-				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
-				required     = "true"
-				class        = "inputbox"
-				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
-		/>
-		<!--
-			translate_label	= "true"
-			class			= "inputbox"
-		-->
+				id           = "displayPopup"
+				name         = "displayPopup"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_POPUP_STYLE"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id           = "displayDesc"
+				name         = "displayDesc"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_DESCRIPTION"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id           = "displayHits"
+				name         = "displayHits"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_HITS"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id           = "displayVoting"
+				name         = "displayVoting"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_VOTING"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id           = "displayComments"
+				name         = "displayComments"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_COMMENTS"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
 
 	</fieldset>
 	<fieldset name="Display_imageOrder">
 		<field
-				id           = "all_img_in_step1_02"
-				name         = "all_img_in_step1_02"
+				id           = "filter_order"
+				name         = "filter_order"
 				type         = "radio"
 				default      = "0"
-				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
-				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				label        = "COM_RSGALLERY2_ORDER_IMAGES_BY"
+				description  = ""
 				class        = "btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
-		<!-- Gallery selection -->
-		<field
-				id           = "SelectGalleries_02"
-				name         = "SelectGalleries02"
-				type         = "GallerySelectList"
-				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
-				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
-				required     = "true"
-				class        = "inputbox"
-				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
-		/>
-		<!--
-			translate_label	= "true"
-			class			= "inputbox"
-		-->
-
+        <field
+                id           = "filter_order_Dir"
+                name         = "filter_order_Dir"
+                type         = "radio"
+                default      = "0"
+                label        = "COM_RSGALLERY2_ORDER_DIRECTION"
+                description  = ""
+                class        = "btn-group btn-group-yesno">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
 	</fieldset>
+
 	<fieldset name="Display_exifSettings">
 		<field
-				id           = "all_img_in_step1_02"
-				name         = "all_img_in_step1_02"
+				id           = "displayEXIF"
+				name         = "displayEXIF"
 				type         = "radio"
 				default      = "0"
-				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
-				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				label        = "COM_RSGALLERY2_DISPLAY_EXIF_DATA"
+				description  = ""
 				class        = "btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
-		<!-- Gallery selection -->
-		<field
-				id           = "SelectGalleries_02"
-				name         = "SelectGalleries02"
-				type         = "GallerySelectList"
-				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
-				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
-				required     = "true"
-				class        = "inputbox"
-				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
-		/>
-		<!--
-			translate_label	= "true"
-			class			= "inputbox"
-		-->
-
+        <field
+                id           = "exif"
+                name         = "exif"
+                type         = "radio"
+                default      = "0"
+                label        = "COM_RSGALLERY2_SELECT_EXIF_TAGS_TO_DISPLAY"
+                description  = ""
+                class        = "btn-group btn-group-yesno">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
 	</fieldset>
+
 	<fieldset name="Display_galleryView">
-		<field
-				id           = "all_img_in_step1_02"
-				name         = "all_img_in_step1_02"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
-				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
-				class        = "btn-group btn-group-yesno">
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
-		</field>
-		<!-- Gallery selection -->
-		<field
-				id           = "SelectGalleries_02"
-				name         = "SelectGalleries02"
-				type         = "GallerySelectList"
-				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
-				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
-				required     = "true"
-				class        = "inputbox"
-				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
-		/>
-		<!--
-			translate_label	= "true"
-			class			= "inputbox"
-		-->
-
+        <field
+                id           = "display_thumbs_style"
+                name         = "display_thumbs_style"
+                type         = "radio"
+                default      = "0"
+                label        = "COM_RSGALLERY2_THUMBNAIL_STYLE_USE_FLOAT_FOR_VARIABLE_WIDTH_TEMPLATES"
+                description  = ""
+                class        = "btn-group btn-group-yesno">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field
+                id           = "display_thumbs_floatDirection"
+                name         = "display_thumbs_floatDirection"
+                type         = "radio"
+                default      = "0"
+                label        = "COM_RSGALLERY2_DIRECTION_ONLY_WORKS_FOR_FLOAT"
+                description  = ""
+                class        = "btn-group btn-group-yesno">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field
+                id           = "display_thumbs_colsPerPage"
+                name         = "display_thumbs_colsPerPage"
+                type         = "radio"
+                default      = "0"
+                label        = "COM_RSGALLERY2_NUMBER_OF_THUMBNAIL_COLUMNS_ONLY_FOR_TABLE"
+                description  = ""
+                class        = "btn-group btn-group-yesno">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field
+                id           = "display_thumbs_maxPerPage"
+                name         = "display_thumbs_maxPerPage"
+                type         = "radio"
+                default      = "0"
+                label        = "COM_RSGALLERY2_THUMBNAILS_PER_PAGE"
+                description  = ""
+                class        = "btn-group btn-group-yesno">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field
+                id           = "display_thumbs_showImgName"
+                name         = "display_thumbs_showImgName"
+                type         = "radio"
+                default      = "0"
+                label        = "COM_RSGALLERY2_SHOW_IMAGE_NAME_BELOW_THUMBNAIL"
+                description  = ""
+                class        = "btn-group btn-group-yesno">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field
+                id           = "displaySlideshowGalleryView"
+                name         = "displaySlideshowGalleryView"
+                type         = "radio"
+                default      = "0"
+                label        = "COM_RSGALLERY2_DISPLAY_SLIDESHOW_GALLERY_VIEW"
+                description  = ""
+                class        = "btn-group btn-group-yesno">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
 	</fieldset>
+
+
 	<fieldset name="Display_imageWatermark">
-		<field
-				id           = "all_img_in_step1_02"
-				name         = "all_img_in_step1_02"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
-				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
-				class        = "btn-group btn-group-yesno">
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
-		</field>
-		<!-- Gallery selection -->
-		<field
-				id           = "SelectGalleries_02"
-				name         = "SelectGalleries02"
-				type         = "GallerySelectList"
-				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
-				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
-				required     = "true"
-				class        = "inputbox"
-				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
-		/>
-		<!--
-			translate_label	= "true"
-			class			= "inputbox"
-		-->
-
+        <field
+                id           = "watermark"
+                name         = "watermark"
+                type         = "radio"
+                default      = "0"
+                label        = "COM_RSGALLERY2_DISPLAY_WATERMARK"
+                description  = ""
+                class        = "btn-group btn-group-yesno">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field
+                id           = "showFontList"
+                name         = "showFontList"
+                type         = "radio"
+                default      = "0"
+                label        = "COM_RSGALLERY2_FONT"
+                description  = ""
+                class        = "btn-group btn-group-yesno">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field
+                id           = "watermark_text"
+                name         = "watermark_text"
+                type         = "radio"
+                default      = "0"
+                label        = "COM_RSGALLERY2_WATERMARK_TEXT"
+                description  = ""
+                class        = "btn-group btn-group-yesno">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field
+                id           = "watermark_font_size"
+                name         = "watermark_font_size"
+                type         = "radio"
+                default      = "0"
+                label        = "COM_RSGALLERY2_WATERMARK_FONT_SIZE"
+                description  = ""
+                class        = "btn-group btn-group-yesno">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field
+                id           = "watermark_angle"
+                name         = "watermark_angle"
+                type         = "radio"
+                default      = "0"
+                label        = "COM_RSGALLERY2_WATERMARK_TEXT_ANGLE"
+                description  = ""
+                class        = "btn-group btn-group-yesno">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field
+                id           = "watermark_position"
+                name         = "watermark_position"
+                type         = "radio"
+                default      = "0"
+                label        = "COM_RSGALLERY2_WATERMARK_POSITION"
+                description  = ""
+                class        = "btn-group btn-group-yesno">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field
+                id           = "watermark_transparency"
+                name         = "watermark_transparency"
+                type         = "radio"
+                default      = "0"
+                label        = "COM_RSGALLERY2_WATERMARK_TRANSPARENCY"
+                description  = ""
+                class        = "btn-group btn-group-yesno">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field
+                id           = "imgPath_watermarked"
+                name         = "imgPath_watermarked"
+                type         = "radio"
+                default      = "0"
+                label        = "COM_RSGALLERY2_WATERMARKED_IMAGE_PATH"
+                description  = ""
+                class        = "btn-group btn-group-yesno">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
 	</fieldset>
+
 	<fieldset name="Mygalleries_setting">
 		<field
 				id           = "show_mygalleries"
