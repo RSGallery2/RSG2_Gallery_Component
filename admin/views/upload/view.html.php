@@ -23,6 +23,7 @@ class Rsgallery2ViewUpload extends JViewLegacy
 	// ToDo: Config -> update gallery selection preselect latest gallery  (User input ...)
 	// ToDo: Config -> update gallery selection preselect last used gallery ? show combo opened for n entries
 
+	//------------------------------------------------
 	/**
 	 * @param null $tpl
 	 * @return bool

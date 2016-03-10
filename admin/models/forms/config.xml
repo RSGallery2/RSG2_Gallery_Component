@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id$ -->
+<form enctype="multipart/form-data">
+	<fieldset name="General">
+		<field name="intro_text" type="editor"
+			   label="COM_RSGALLERY2_INTRODUCTION_TEXT"
+			   description="COM_CONTENT_FIELD_ARTICLETEXT_DESC"
+			   filter="JComponentHelper::filterText"
+			   buttons="false"
+		/>
+		<field
+			id           = "debug"
+			name         = "debug"
+			type         = "radio" 
+			default      = "0"
+			label        = "COM_RSGALLERY2_DEBUG"
+			description  = "COM_RSGALLERY2_DEBUG_ACTIVATED_INFO"
+			class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+				id           = "advancedSef"
+				name         = "advancedSef"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_ADVANCED_SEF_ALL_CATEGORY_NAMES_AND_ITEM_TITLES_MUST_BE_UNIQUE"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+	</fieldset>
+	<fieldset name="Images_manipulation">
+		<field
+				id           = "all_img_in_step1_02"
+				name         = "all_img_in_step1_02"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<!-- Gallery selection -->
+		<field
+				id           = "SelectGalleries_02"
+				name         = "SelectGalleries02"
+				type         = "GallerySelectList"
+				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
+				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
+				required     = "true"
+				class        = "inputbox"
+				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+		/>
+		<!-- 
+			translate_label	= "true"
+			class			= "inputbox"
+		-->
+	</fieldset>
+	<fieldset name="Images_upload">
+		<field
+				id           = "all_img_in_step1_02"
+				name         = "all_img_in_step1_02"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<!-- Gallery selection -->
+		<field
+				id           = "SelectGalleries_02"
+				name         = "SelectGalleries02"
+				type         = "GallerySelectList"
+				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
+				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
+				required     = "true"
+				class        = "inputbox"
+				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+		/>
+		<!--
+			translate_label	= "true"
+			class			= "inputbox"
+		-->
+	</fieldset>
+	<fieldset name="Images_graficsLibrary">
+		<field
+				id           = "all_img_in_step1_02"
+				name         = "all_img_in_step1_02"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<!-- Gallery selection -->
+		<field
+				id           = "SelectGalleries_02"
+				name         = "SelectGalleries02"
+				type         = "GallerySelectList"
+				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
+				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
+				required     = "true"
+				class        = "inputbox"
+				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+		/>
+		<!--
+			translate_label	= "true"
+			class			= "inputbox"
+		-->
+	</fieldset>
+	<fieldset name="Images_storage">
+		<field
+				id           = "all_img_in_step1_02"
+				name         = "all_img_in_step1_02"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<!-- Gallery selection -->
+		<field
+				id           = "SelectGalleries_02"
+				name         = "SelectGalleries02"
+				type         = "GallerySelectList"
+				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
+				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
+				required     = "true"
+				class        = "inputbox"
+				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+		/>
+		<!--
+			translate_label	= "true"
+			class			= "inputbox"
+		-->
+	</fieldset>
+	<fieldset name="Images_comments">
+		<field
+				id           = "all_img_in_step1_02"
+				name         = "all_img_in_step1_02"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<!--
+			translate_label	= "true"
+			class			= "inputbox"
+		-->
+	</fieldset>
+	<fieldset name="Images_voting">
+		<field
+				id           = "all_img_in_step1_02"
+				name         = "all_img_in_step1_02"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<!-- Gallery selection -->
+		<field
+				id           = "SelectGalleries_02"
+				name         = "SelectGalleries02"
+				type         = "GallerySelectList"
+				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
+				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
+				required     = "true"
+				class        = "inputbox"
+				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+		/>
+		<!--
+			translate_label	= "true"
+			class			= "inputbox"
+		-->
+	</fieldset>
+	<fieldset name="Display_frontPage">
+		<field
+				id           = "all_img_in_step1_02"
+				name         = "all_img_in_step1_02"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<!-- Gallery selection -->
+		<field
+				id           = "SelectGalleries_02"
+				name         = "SelectGalleries02"
+				type         = "GallerySelectList"
+				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
+				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
+				required     = "true"
+				class        = "inputbox"
+				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+		/>
+		<!--
+			translate_label	= "true"
+			class			= "inputbox"
+		-->
+
+	</fieldset>
+	<fieldset name="Display_imageDisplay">
+		<field
+				id           = "all_img_in_step1_02"
+				name         = "all_img_in_step1_02"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<!-- Gallery selection -->
+		<field
+				id           = "SelectGalleries_02"
+				name         = "SelectGalleries02"
+				type         = "GallerySelectList"
+				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
+				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
+				required     = "true"
+				class        = "inputbox"
+				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+		/>
+		<!--
+			translate_label	= "true"
+			class			= "inputbox"
+		-->
+
+	</fieldset>
+	<fieldset name="Display_imageOrder">
+		<field
+				id           = "all_img_in_step1_02"
+				name         = "all_img_in_step1_02"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<!-- Gallery selection -->
+		<field
+				id           = "SelectGalleries_02"
+				name         = "SelectGalleries02"
+				type         = "GallerySelectList"
+				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
+				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
+				required     = "true"
+				class        = "inputbox"
+				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+		/>
+		<!--
+			translate_label	= "true"
+			class			= "inputbox"
+		-->
+
+	</fieldset>
+	<fieldset name="Display_exifSettings">
+		<field
+				id           = "all_img_in_step1_02"
+				name         = "all_img_in_step1_02"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<!-- Gallery selection -->
+		<field
+				id           = "SelectGalleries_02"
+				name         = "SelectGalleries02"
+				type         = "GallerySelectList"
+				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
+				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
+				required     = "true"
+				class        = "inputbox"
+				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+		/>
+		<!--
+			translate_label	= "true"
+			class			= "inputbox"
+		-->
+
+	</fieldset>
+	<fieldset name="Display_galleryView">
+		<field
+				id           = "all_img_in_step1_02"
+				name         = "all_img_in_step1_02"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<!-- Gallery selection -->
+		<field
+				id           = "SelectGalleries_02"
+				name         = "SelectGalleries02"
+				type         = "GallerySelectList"
+				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
+				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
+				required     = "true"
+				class        = "inputbox"
+				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+		/>
+		<!--
+			translate_label	= "true"
+			class			= "inputbox"
+		-->
+
+	</fieldset>
+	<fieldset name="Display_imageWatermark">
+		<field
+				id           = "all_img_in_step1_02"
+				name         = "all_img_in_step1_02"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<!-- Gallery selection -->
+		<field
+				id           = "SelectGalleries_02"
+				name         = "SelectGalleries02"
+				type         = "GallerySelectList"
+				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
+				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
+				required     = "true"
+				class        = "inputbox"
+				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+		/>
+		<!--
+			translate_label	= "true"
+			class			= "inputbox"
+		-->
+
+	</fieldset>
+	<fieldset name="MyGalleries_setting">
+		<field
+				id           = "all_img_in_step1_02"
+				name         = "all_img_in_step1_02"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<!-- Gallery selection -->
+		<field
+				id           = "SelectGalleries_02"
+				name         = "SelectGalleries02"
+				type         = "GallerySelectList"
+				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
+				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
+				required     = "true"
+				class        = "inputbox"
+				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+		/>
+		<!--
+			translate_label	= "true"
+			class			= "inputbox"
+		-->
+
+	</fieldset>
+	<fieldset name="MyGalleries_upload">
+		<field
+				id           = "all_img_in_step1_02"
+				name         = "all_img_in_step1_02"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<!-- Gallery selection -->
+		<field
+				id           = "SelectGalleries_02"
+				name         = "SelectGalleries02"
+				type         = "GallerySelectList"
+				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
+				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
+				required     = "true"
+				class        = "inputbox"
+				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+		/>
+		<!--
+			translate_label	= "true"
+			class			= "inputbox"
+		-->
+
+	</fieldset>
+	<fieldset name="Sozial media">
+		<field
+				id           = "all_img_in_step1_02"
+				name         = "all_img_in_step1_02"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<!-- Gallery selection -->
+		<field
+				id           = "SelectGalleries_02"
+				name         = "SelectGalleries02"
+				type         = "GallerySelectList"
+				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
+				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
+				required     = "true"
+				class        = "inputbox"
+				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+		/>
+		<!--
+			translate_label	= "true"
+			class			= "inputbox"
+		-->
+
+	</fieldset>
+</form>

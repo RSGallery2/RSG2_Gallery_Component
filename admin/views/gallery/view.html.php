@@ -4,9 +4,6 @@ defined( '_JEXEC' ) or die;
 
 jimport ('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
-jimport('joomla.application.component.model');
-
-JModelLegacy::addIncludePath(JPATH_COMPONENT.'/models');
 
 class Rsgallery2ViewConfig extends JViewLegacy
 {
@@ -14,22 +11,14 @@ class Rsgallery2ViewConfig extends JViewLegacy
 	// ToDo: Use other rights instead of core.admin -> IsRoot ?
 	// core.admin is the permission used to control access to 
 	// the global config
-	protected $form;
+	protected $UserIsRoot;
 	protected $sidebar;
 
 	protected $rsgConfigData;
-	protected $UserIsRoot;
 
 	//------------------------------------------------
-	/**
-	 * @param null $tpl
-	 * @return bool
-	 */
 	public function display ($tpl = null)
-	{
-		$xmlFile = JPATH_COMPONENT . '/models/forms/config.xml';
-		$form = JForm::getInstance('upload', $xmlFile);
-
+	{	
 		//--- get needed data ------------------------------------------
 		
 		// Check rights of user
@@ -58,8 +47,6 @@ class Rsgallery2ViewConfig extends JViewLegacy
 		// different toolbar on different layouts
 		$Layout = JFactory::getApplication()->input->get('layout');
 
-		// Assign the Data
-		$this->form = $form;
 
 		$this->addToolbar ($Layout);
 		$this->sidebar = JHtmlSidebar::render ();
@@ -87,22 +74,23 @@ class Rsgallery2ViewConfig extends JViewLegacy
 		{
 			case 'RawView':
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
-					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'), 'screwdriver');
-				JToolBarHelper::cancel('config.cancel_rawView');
+					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'), 'screwdriver'); // 'maintenance');
+				JToolBarHelper::cancel('cancelRawView');
 				break;
 			case 'RawEdit':
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
-					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'), 'screwdriver');
-				JToolBarHelper::apply('\'config.apply_rawEdit');
-				JToolBarHelper::save('\'config.save_rawEdit');
-				JToolBarHelper::cancel('\'config.cancel_RawEdit');
+					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'), 'screwdriver'); // 'maintenance');
+				JToolBarHelper::apply('config_rawEdit_apply');
+				JToolBarHelper::save('config_rawEdit_save');
+				JToolBarHelper::cancel('cancelRawEdit');
 				break;
 			// case 'default':
 			default:
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_CONFIGURATION'), 'cog');
-				JToolBarHelper::apply('\'config.apply');
-				JToolBarHelper::save('\'config.save');
-				JToolBarHelper::cancel('\'config.cancel');
+				JToolBarHelper::title(JText::_('yyyy COM_RSGALLERY2_MAINTENANCE')
+					. ':' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'), 'screwdriver'); // 'maintenance');
+				JToolBarHelper::apply('config_rawEdit_apply');
+				JToolBarHelper::save('config_rawEdit_save');
+				JToolBarHelper::cancel('cancelConfig');
 				break;
 		}
 
