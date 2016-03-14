@@ -221,16 +221,11 @@ if( $rsgOption == '' ){
 		default:
 
 			//--- New MVC view/ ... Handling --------------------------
-/*
-			// don't know why but i have to strip first part of task when in form of controller.task
-			if (strpos($task, '.') !== FALSE)
-			{
-				$task = explode ('.', $task) [1];
-			}
-*/
 			// New RSGallery2 views as MVC: Use standard Joomla! path
 			$controller	= JControllerLegacy::getInstance('rsgallery2');
-			$controller->execute($task);
+
+			// $task may have been changed inside JControllerLegacy::getInstance
+			$controller->execute($input->get( 'task', '', 'CMD'));
 			$controller->redirect();
 
 			break;
