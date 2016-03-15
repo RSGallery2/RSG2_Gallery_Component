@@ -23,6 +23,7 @@
 			required     = "true"
 			class        = "inputbox"
 			addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+			size         = "4"
 		/>
 		<!-- 
 			translate_label	= "true"
@@ -38,7 +39,7 @@
 			default      = "0"
 			label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
 			description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
-			class        = "btn-group btn-group-yesno">
+			class        = "btn-group btn-group-yesno span5">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -50,8 +51,9 @@
 			label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
 			description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
 			required     = "true"
-			class        = "inputbox"
+			class        = "inputbox span5"
 			addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+			size         = "4"
 		/>
 		<!-- 
 			translate_label	= "true"

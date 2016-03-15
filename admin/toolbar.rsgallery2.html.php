@@ -61,9 +61,15 @@ class menu_rsg2_submenu{
 					false);
 			}
 
-
-
-
+			if (substr($view, 5) == 'maint')
+			{
+				// Maintenance
+				JHtmlSidebar::addEntry(
+					'<span class="icon-screwdriver" >  </span>'.
+					JText::_('COM_RSGALLERY2_MAINTENANCE'),
+					'index.php?option=com_rsgallery2&view=maintenance',
+					true);
+			}
 
 
 		} // installer

@@ -162,8 +162,9 @@ function quickIconMoonBar( $link, $imageClass, $title, $text = "", $addClass = '
 									'regenerateThumbs');
 								?>
 								<?php
-								$link =  'index.php?option=com_rsgallery2&amp;task=maintenance.regenerateThumbs';
 								//$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs';
+								//$link =  'index.php?option=com_rsgallery2&amp;task=maintenance.regenerateThumbs';
+								$link =  'index.php?option=com_rsgallery2&amp;view=maintRegenerateImages';
 								quickiconBar($link, 'menu.png',
 									JText::_('COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY'), JText::_('COM_RSGALLERY2_MAINT_REGEN_TXT'),
 									'regenerateThumbs');

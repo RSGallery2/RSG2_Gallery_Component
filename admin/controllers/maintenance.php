@@ -31,13 +31,60 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 		parent::__construct($config);
 	}
 
+	public function Cancel ()
+	{
+        /*
+        global $Rsg2DebugActive;
+
+		if($Rsg2DebugActive)
+		{
+			JLog::add('==> ctrl.maintenance.php/function Cancel');
+		}
+
+		$msg = 'All RSG2 Images and thumbs are deleted. ';
+		// $app->redirect($link, $msg, $msgType='message');
+        */
+        $msg = '';
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg);
+	}
+
+    function RegenerateImagesDisplay ()
+    {
+        global $Rsg2DebugActive;
+
+        if($Rsg2DebugActive)
+        {
+            JLog::add('==> ctrl.maintenance.php/function RegenerateImagesDisplay');
+        }
+
+        $msg = 'Regenerate display images done. '; // executeRegenerateThumbImages
+        $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg);
+    }
+
+    function RegenerateImagesThumb ()
+    {
+        global $Rsg2DebugActive;
+
+        if($Rsg2DebugActive)
+        {
+            JLog::add('==> ctrl.maintenance.php/function RegenerateImagesThumb');
+        }
+
+        $msg = 'Regenerate display images done. '; // executeRegenerateThumbImages
+        $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg);
+    }
+
+
+
+
+    //-------------------------------------------------
 	function ClearRsg2DbItems ()
 	{
 		global $Rsg2DebugActive;
 
 		if($Rsg2DebugActive)
 		{
-			JLog::add('==> ctrl.rsgallery2.php/function ClearRsg2DbItems');
+			JLog::add('==> ctrl.maintenance.php/function ClearRsg2DbItems');
 		}
 		
 		$msg = 'Database entries are deleted. ';
@@ -97,7 +144,7 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
 
 		if($Rsg2DebugActive)
 		{
-			JLog::add('==> ctrl.rsgallery2.php/function DeleteAllRsg2Images');
+			JLog::add('==> ctrl.maintenance.php/function DeleteAllRsg2Images');
 		}
 		
 		$msg = 'All RSG2 Images and thumbs are deleted. ';
@@ -115,29 +162,10 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
 
 		if($Rsg2DebugActive)
 		{
-			JLog::add('==> ctrl.rsgallery2.php/function ConsolidateDatabase');
+			JLog::add('==> ctrl.maintenance.php/function ConsolidateDatabase');
 		}
 		
 		$msg = 'RSG2 database is consolidated. ';
-		// $app->redirect($link, $msg, $msgType='message');
-
-		//$this->setRedirect('index.php?option=com_rsgallery2&view=rsg2.default_maintenance', $msg);
-		$this->setRedirect('index.php?option=com_rsgallery2&view=rsg2', $msg);
-		//$this->redirect();
-	}
-
-	
-	
-	function RegenerateFromImages ()
-	{
-		global $Rsg2DebugActive;
-
-		if($Rsg2DebugActive)
-		{
-			JLog::add('==> ctrl.rsgallery2.php/function RegenerateFromImages');
-		}
-		
-		$msg = 'Regeneration from exiting image done. ';
 		// $app->redirect($link, $msg, $msgType='message');
 
 		//$this->setRedirect('index.php?option=com_rsgallery2&view=rsg2.default_maintenance', $msg);
@@ -153,7 +181,7 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
 
 		if($Rsg2DebugActive)
 		{
-			JLog::add('==> ctrl.rsgallery2.php/function OptimizeDatabase');
+			JLog::add('==> ctrl.maintenance.php/function OptimizeDatabase');
 		}
 		
 		$msg = 'RSG2 database is reorganized. ';

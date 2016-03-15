@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id$ -->
+<form enctype="multipart/form-data">
+	<fieldset name="regenerateGallerySelection">
+		<!-- Gallery selection -->
+		<field
+			name         = "SelectGalleries"
+			type         = "GallerySelectList"
+			label        = "COM_RSGALLERY2_SPECIFY_GALLERIES_LABEL"
+			description  = "COM_RSGALLERY2_SELECT_GALLERIES_TO_REGENERATE_THUMBNAILS_FROM"
+			required     = "true"
+			class        = "inputbox"
+			addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+			multiple     = "true"
+			size         = "4"
+		/>
+		<!-- 
+			translate_label	= "true"
+			class			= "inputbox"
+		-->
+
+	</fieldset>
+</form>
