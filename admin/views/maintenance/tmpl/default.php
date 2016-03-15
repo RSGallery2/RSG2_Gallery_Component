@@ -2,6 +2,7 @@
 defined( '_JEXEC' ) or die();
 
 JHtml::_('behavior.tooltip');
+// ToDo: Activate tooltips on every button
 
 global $Rsg2DebugActive;
 
@@ -69,7 +70,7 @@ function quickiconBar( $link, $image, $title, $text = "", $addClass = '' ) {
  /**
   * Used by showCP to generate buttons
   * @param string $link URL for button link
-  * @param string $image Image name for button image
+  * @param string $imageClass Image name for button image
   * @param string $title Command title
   * @param string $text Command explaining text
   * @param string $addClass
@@ -150,7 +151,7 @@ function quickIconMoonBar( $link, $imageClass, $title, $text = "", $addClass = '
 								<?php
 								$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
 								quickiconBar($link, 'blockdevice.png',
-									JText::_('COM_RSGALLERY2_MAINT_CONSOLDB'), JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT'),
+									JText::_('COM_RSGALLERY2_MAINT_CONSOLIDATE_IMAGE_DATABASE'), JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT'),
 									'consolidateDB');
 								?>
 								<?php
@@ -164,7 +165,7 @@ function quickIconMoonBar( $link, $imageClass, $title, $text = "", $addClass = '
 								$link =  'index.php?option=com_rsgallery2&amp;task=maintenance.regenerateThumbs';
 								//$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=regenerateThumbs';
 								quickiconBar($link, 'menu.png',
-									JText::_('COM_RSGALLERY2_MAINT_REGEN'), JText::_('COM_RSGALLERY2_MAINT_REGEN_TXT'),
+									JText::_('COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY'), JText::_('COM_RSGALLERY2_MAINT_REGEN_TXT'),
 									'regenerateThumbs');
 								?>
 								<?php

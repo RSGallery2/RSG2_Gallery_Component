@@ -32,7 +32,7 @@ JHtml::_('formbehavior.chosen', 'select');
 		<div id="j-main-container">
 			<?php endif;?>
 
-			<form action="<?php JRoute::_('index.php?option=com_rsgallery2&view=config'); ?>"
+			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=config'); ?>"
 				  method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
 
 				<?php echo JHtml::_('bootstrap.startTabSet', 'Config', array('active' => 'Images')); ?>
