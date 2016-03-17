@@ -303,7 +303,7 @@ class galleryUtils {
 	            //Specific thumbnail
 	            $thumb_name = galleryUtils::getFileNameFromId($thumb_id);
 	        }
-	        $thumb_html = "<img $imgatt src=\"".imgUtils::getImgThumb($thumb_name)."\" alt=\"\" />";
+	        $thumb_html = "<img $imgatt src=\"".imgUtils::getImgThumbPath($thumb_name)."\" alt=\"\" />";
 	    }
 	    return $thumb_html;
     }

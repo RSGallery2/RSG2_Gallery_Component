@@ -15,9 +15,12 @@ class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
 	protected $form;
 	protected $sidebar;
 
-	protected $rsgConfigData;
+	//protected $rsgConfigData;
 	protected $UserIsRoot;
 
+	protected $ImageWidth;
+	protected $thumbWidth;
+	
 	//------------------------------------------------
 	/**
 	 * @param null $tpl
@@ -34,10 +37,9 @@ class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
 
 		global $rsgConfig;
-		$this->rsgConfigData = $rsgConfig;
-
-
-//		$form = $this->get('Form');
+		// $this->rsgConfigData = $rsgConfig;
+		$this->imageWidth = $rsgConfig->get('image_width');
+		$this->thumbWidth = $rsgConfig->get('thumb_width');
 
 		//--- begin to display --------------------------------------------
 		
@@ -85,11 +87,12 @@ class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
         JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE') . ': ' . JText::_('COM_RSGALLERY2_MAINT_REGEN'), 'screwdriver');
 
         if ($UserIsRoot) {
-            JToolBarHelper::custom('maintenance.RegenerateImagesDisplay','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY', false);
-            JToolBarHelper::custom('maintenance.RegenerateImagesThumb','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_THUMBS', false);
+            JToolBarHelper::custom('maintRegenerate.RegenerateImagesDisplay','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY', false);
+            JToolBarHelper::custom('maintRegenerate.RegenerateImagesThumb','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_THUMBS', false);
             // JToolBarHelper::spacer();
         }
 
+        JToolBarHelper::cancel('maintRegenerate.cancel');
         JToolBarHelper::cancel('maintenance.cancel');
 //        JToolBarHelper::spacer();
 //        JToolBarHelper::help( 'screen.rsgallery2',true);

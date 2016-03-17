@@ -35,7 +35,7 @@ class rsg2_maintenance {
     	}
     	$image = array_rand($imgname);
 
-    	$imgdata = getimagesize( imgUtils::getImgThumb($imgname[$image], true) );
+    	$imgdata = getimagesize( imgUtils::getImgThumbPath($imgname[$image], true) );
     	if ( $imgdata[0] == $rsgConfig->get('thumb_width') ) {
     		return false;
     	} else {
@@ -56,7 +56,7 @@ class rsg2_maintenance {
     	}
     	$image = array_rand($imgname);
 
-    	$imgdata = getimagesize( imgUtils::getImgDisplay($imgname[$image], true) );
+    	$imgdata = getimagesize( imgUtils::getImgDisplayPath($imgname[$image], true) );
     	if ( $imgdata[0] == $rsgConfig->get('image_width') ) {
     		return false;
     	} else {

@@ -46,35 +46,21 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
         */
         $msg = '';
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg);
+
+
 	}
 
-    function RegenerateImagesDisplay ()
+    /**
+     * Checks if user has root status (is re.admin')
+     *
+     * @return	bool
+     */
+    function IsUserRoot ()
     {
-        global $Rsg2DebugActive;
-
-        if($Rsg2DebugActive)
-        {
-            JLog::add('==> ctrl.maintenance.php/function RegenerateImagesDisplay');
-        }
-
-        $msg = 'Regenerate display images done. '; // executeRegenerateThumbImages
-        $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg);
+        $user = JFactory::getUser();
+        $canAdmin = $user->authorise('core.admin');
+        return $canAdmin;
     }
-
-    function RegenerateImagesThumb ()
-    {
-        global $Rsg2DebugActive;
-
-        if($Rsg2DebugActive)
-        {
-            JLog::add('==> ctrl.maintenance.php/function RegenerateImagesThumb');
-        }
-
-        $msg = 'Regenerate display images done. '; // executeRegenerateThumbImages
-        $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg);
-    }
-
-
 
 
     //-------------------------------------------------

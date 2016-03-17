@@ -247,7 +247,7 @@ class html_rsg2_maintenance {
                             ?>
                             <td>&nbsp;</td>
                             <td>
-                                <img src="<?php echo imgUtils::getImgThumb( $name );?>" name="image" width="<?php echo $rsgConfig->get('thumb_width')?>" alt="<?php echo $name;?>"/>
+                                <img src="<?php echo imgUtils::getImgThumbPath( $name );?>" name="image" width="<?php echo $rsgConfig->get('thumb_width')?>" alt="<?php echo $name;?>"/>
                             </td>
                             <td align="center">
                                 <a href="index.php?option=com_rsgallery2&rsgOption=maintenance&task=deleteImages&name=<?php echo $name;?>"><?php echo '[&nbsp;'.JText::_('COM_RSGALLERY2_DELETE_FROM_DATABASE').'&nbsp;]'?></a><br />
@@ -322,7 +322,7 @@ class html_rsg2_maintenance {
 			            	<input type="hidden" name="name[]" value="<?php echo $diff;?>" />
 			            </td>
 			            <td>
-			            	<img src="<?php echo imgUtils::getImgThumb( $diff );?>" name="image" width="<?php echo $rsgConfig->get('thumb_width')?>" />
+			            	<img src="<?php echo imgUtils::getImgThumbPath( $diff );?>" name="image" width="<?php echo $rsgConfig->get('thumb_width')?>" />
 			            </td>
 			            <td align="center">
 			                <a href="javascript:void();" onClick="javascript:db_create();"><?php echo '[&nbsp;'.JText::_('COM_RSGALLERY2_CREATE_DATABASE_ENTRY').'&nbsp;]';?></a><br />

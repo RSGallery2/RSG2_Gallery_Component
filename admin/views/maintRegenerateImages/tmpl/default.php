@@ -38,7 +38,7 @@ JHtml::_('formbehavior.chosen', 'select');
  					<fieldset class="regenerateImages">
 						<legend><?php echo JText::_('COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY'); ?></legend>
 
-                        <!-- List ionfo  -->
+                        <!-- List info  -->
                         <div class="control-group">
                             <label for="zip_file" class="control-label"> </label>
                             <div class="controls">
@@ -49,19 +49,25 @@ JHtml::_('formbehavior.chosen', 'select');
                             </div>
                         </div>
 
+
+                        <!-- Specify galleries  -->
                         <?php
-                        // All in one, Specify gallery
-                        echo $this->form->renderFieldset('regenerateGallerySelection');
+                            echo $this->form->renderFieldset('regenerateGallerySelection');
                         ?>
 
+                        <div class="control-group">
+                            <label for="xxx" class="control-label"><?php echo JText::_('COM_RSGALLERY2_CONFIGURATION');?>:</label>
+                            <div class="controls" class="span5">
+                                <?php echo JText::sprintf('COM_RSGALLERY2_NEW_WIDTH_DISPLAY', $this->imageWidth)?>.
+                                <?php echo JText::sprintf('COM_RSGALLERY2_NEW_WIDTH_THUMB', $this->thumbWidth)?>
+                            </div>
+                        </div>
 
                         <!-- Action button -->
 						<div class="form-actions">
-							<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('maintenance.RegenerateImagesDisplay')"><?php echo JText::_('COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY'); ?></button>
+							<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('maintRegenerate.RegenerateImagesDisplay')"><?php echo JText::_('COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY'); ?></button>
                             &nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('maintenance.RegenerateImagesThumb')"><?php echo JText::_('COM_RSGALLERY2_MAINT_REGEN_THUMBS'); ?></button>
-
-
+                            <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('maintRegenerate.RegenerateImagesThumb')"><?php echo JText::_('COM_RSGALLERY2_MAINT_REGEN_THUMBS'); ?></button>
 						</div>
 					</fieldset>
 				<?php echo JHtml::_('bootstrap.endTab'); ?>
