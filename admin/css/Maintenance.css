@@ -102,6 +102,20 @@ figure img {
 	display: inline-block; /**/
 }
 
+/**/
+figure span {
+	float: left;
+/*	border: 1px solid #003bb3; /**/
+/*	border-radius: 4px; /**/
+	/*	display: table; /**/
+	/*	display: block; /**/
+	margin: auto 10px; /**/
+/*	padding: auto 10px; /**/
+/*	padding: 10px; /**/
+	padding: 10px 10px 20px 10px; /**/
+	display: inline-block; /**/
+}
+
 
 figure .clsTemplate {
 	float: left; /**/
