@@ -181,6 +181,24 @@ figure .clsTemplate {
 }
 
 
+figure .iconMoon01 {
+	float: left; /**/
+
+// padding: 20px; /**/
+	padding: 25px 0px 20px 10px; /**/
+	display: inline-block; /**/
+	color: #3071a9;
+}
+
+figure .iconMoon02 {
+	float: left; /**/
+
+// padding: 20px; /**/
+	padding: 25px 10px 20px 0px; /**/
+	display: inline-block; /**/
+	color: #3071a9;
+}
+
 
 
 
