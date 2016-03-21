@@ -20,6 +20,8 @@ class Rsgallery2ViewConfig extends JViewLegacy
 	protected $rsgConfigData;
 	protected $UserIsRoot;
 
+	protected $rsgVersion;
+
 	//------------------------------------------------
 	/**
 	 * @param null $tpl
@@ -38,6 +40,7 @@ class Rsgallery2ViewConfig extends JViewLegacy
 		global $rsgConfig;
 		$this->rsgConfigData = $rsgConfig;
 
+		$this->rsgVersion = $rsgConfig->version; // "Version 04.01.00";
 
 //		$form = $this->get('Form');
 

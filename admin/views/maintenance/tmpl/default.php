@@ -161,7 +161,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 
 								<?php
 								$link = 'index.php?option=com_rsgallery2&amp;view=config';
-								quickiconBar( $link, 'menu.png',
+								quickTwoIconMoonBar ($link, 'icon-cog', 'icon-cog',
 									JText::_('COM_RSGALLERY2_CONFIGURATION'),
 									JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT').'                        ',
 									'tempStandardconfigEdit');

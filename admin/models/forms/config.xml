@@ -34,31 +34,37 @@
 	</fieldset>
 	<fieldset name="Images_manipulation">
 		<field
-				id           = "all_img_in_step1_02"
-				name         = "all_img_in_step1_02"
-				type         = "radio"
+				name         = "image_width"
+				type         = "text"
 				default      = "0"
-				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
-				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				label        = "COM_RSGALLERY2_DISPLAY_PICTURE_WIDTH"
+				description  = ""
 				class        = "btn-group btn-group-yesno">
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
 		</field>
-		<!-- Gallery selection -->
 		<field
-				id           = "SelectGalleries_02"
-				name         = "SelectGalleries02"
-				type         = "GallerySelectList"
-				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
-				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
-				required     = "true"
-				class        = "inputbox"
-				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
-		/>
-		<!-- 
-			translate_label	= "true"
-			class			= "inputbox"
-		-->
+				name         = "thumb_width"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_PICTURE_WIDTH"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+		</field>
+		<field
+				name         = "thumb_style"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_PICTURE_WIDTH"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+		</field>
+		<field
+				name         = "jpegQuality"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_PICTURE_WIDTH"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+		</field>
 	</fieldset>
 	<fieldset name="Images_upload">
 		<field
