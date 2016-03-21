@@ -1,0 +1,73 @@
+
+
+Detecting a “Touch Screen” Device Using Modernizr [Quicktip]
+------------------------------------------------------------------
+
+function is_touch_device() {
+  return 'ontouchstart' in window        // works on most browsers 
+      || navigator.maxTouchPoints;       // works on IE10/11 and Surface
+};
+
+
+I like this one:
+
+function isTouchDevice(){
+    return typeof window.ontouchstart !== 'undefined';
+}
+
+alert(isTouchDevice());
+shareimprove this answer
+1	 	
+Very concise, I like it – frenchie Apr 6 '13 at 1:22
+12	 	
+There is no need to use a ternary expression to return a boolean. Simply use the expression to return the boolean. function isTouchDevice(){ return (window.ontouchstart !== undefined); } – Tim Vermaelen Jun 13 '13 at 15:08 
+1	 	
+You could also just use: var isTouch = 'ontouchstart' in window;, however this does not work with latest Chrome(v31), var isTouch = 'createTouch' in window.document; is still working. – Olivier Jan 19 '14 at 15:55
+1	 	
+As already mentioned in the comments of the previously accepted question. "Modernizr does not test for touch screens. It tests for the existence of touch events in the browser". Your function is technically hasTouchEvents() not isTouchDevice() – hexalys Feb 1 '14 at 3:28 
+  	 	
+Note that similar methods testing only touchstart will fail to recognize Surface as a touch device because IE uses pointer events instead. – CookieMonster Mar 18 '14 at 13:22
+
+--------------------------------------------------------------------------
+
+You can then add this Modernizr.touch in your script. Here is a simple example to tell whether the device supports for touch.
+
+if (Modernizr.touch) { 
+    alert('Touch Screen');
+} else { 
+    alert('No Touch Screen');
+}
+
+
+========================================================
+-----------------------------------------------------
+How about determining whether to use a mobile layout based on device width, like CSS frameworks such as Twitter Bootstrap do? This way, you can design for small devices using jQuery mobile and for others with vanilla jQuery? Testing with yepNope or similar still applies, I think.
+
+-----------------------
+Its hard to detect whether your device is mobile or tablet or huge screen with touch, but to start with
+
+Use script to detect from http://detectmobilebrowsers.com/
+Test using http://yepnopejs.com/
+Like this (should work for jQuery script from http://detectmobilebrowsers.com/) :
+
+yepnope({
+  test : jQuery.browser.mobile,
+  yep  : 'mobile_specific.js',
+  nope : ['normal.js','blah.js']
+});
+EDIT:
+
+Also have a look at https://github.com/borismus/device.js, for loading content based on conditions. I am not sure whether it will allow you to load conditional JS files.
+
+shareimprove this answer
+edited Jul 5 '12 at 14:43
+answered Jul 5 '12 at 11:16
+
+Nachiket
+2,61532945
+  	 	
+thank you, although the function i found to detect mobile browsers seems to work, detectmobilebrowsers surely is much more better :) my principal problem is how to load JQuery scripts based on that condition :( – giocarmine Jul 5 '12 at 12:25
+  	 	
+use normal Javascript link provided in detectmobilebrowser.com – Nachiket Jul 5 '12 at 14:44
+  	 	
+it seems that maybe i really don't need to do a conditional loading of js scripts, so i think that all the links you have provided are more than i need :) thank you again! – giocarmine Jul 5 '12 at 15:34
