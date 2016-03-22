@@ -48,9 +48,9 @@ JHtml::_('formbehavior.chosen', 'select');
                                 JText::_('COM_RSGALLERY2_GENERAL_SETTINGS'), 'cfg_general_id_1'); ?>
 
                                     <div class="control-group">
-                                        <label class="control-label" for="<?php echo JText::_('COM_RSGALLERY2_VERSION')?>"><?php echo JText::_('COM_RSGALLERY2_VERSION')?>:</label>
+                                        <label class="control-label" for="VersionId"><?php echo JText::_('COM_RSGALLERY2_VERSION') . ':&nbsp;'. $this->rsgVersion;?></label>
                                         <div class="controls">
-                                            <label id="<?php echo JText::_('COM_RSGALLERY2_VERSION')?>" class="span5 input_box" type="text"><?php echo $this->rsgVersion;?></label>
+                                            <label id="VersionId" class="span5 input_box" type="text"></label>
                                         </div>
                                     </div>
 
@@ -77,8 +77,18 @@ JHtml::_('formbehavior.chosen', 'select');
                                 <?php
                                 echo $this->form->renderFieldset('Images_manipulation');
                                 ?>
+                <! extra info -->
+                <div class="control-group">
+                    <label class="control-label" for="allowedFileTypes"><?php echo JText::_('COM_RSGALLERY2_ALLOWED_FILETYPES')?>:</label>
+                    <div class="controls">
+                        <label id="allowedFileTypes" class="span5 input_box" type="text">
+                            <?php echo implode(", ", $this->allowedFileTypes); ?>
+                        </label>
+                    </div>
+                </div>
 
-                            <?php echo JHtml::_('bootstrap.endSlide'); ?>
+
+                <?php echo JHtml::_('bootstrap.endSlide'); ?>
 
                             <?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_IMAGE_UPLOAD'), 'cfg_images_id_2'); ?>
 

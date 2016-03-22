@@ -43,7 +43,5 @@ class Rsg2ControllerConfig extends JControllerForm
 
 		return true;
 	}
-
-
 }
 

@@ -21,6 +21,7 @@ class Rsgallery2ViewConfig extends JViewLegacy
 	protected $UserIsRoot;
 
 	protected $rsgVersion;
+	protected $allowedFileTypes;
 
 	//------------------------------------------------
 	/**
@@ -41,6 +42,7 @@ class Rsgallery2ViewConfig extends JViewLegacy
 		$this->rsgConfigData = $rsgConfig;
 
 		$this->rsgVersion = $rsgConfig->version; // "Version 04.01.00";
+		$this->allowedFileTypes = imgUtils::allowedFileTypes ();
 
 //		$form = $this->get('Form');
 
@@ -96,16 +98,16 @@ class Rsgallery2ViewConfig extends JViewLegacy
 			case 'RawEdit':
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
 					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'), 'screwdriver');
-				JToolBarHelper::apply('\'config.apply_rawEdit');
-				JToolBarHelper::save('\'config.save_rawEdit');
-				JToolBarHelper::cancel('\'config.cancel_RawEdit');
+				JToolBarHelper::apply('config.apply_rawEdit');
+				JToolBarHelper::save('config.save_rawEdit');
+				JToolBarHelper::cancel('config.cancel_RawEdit');
 				break;
 			// case 'default':
 			default:
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_CONFIGURATION'), 'cog');
-				JToolBarHelper::apply('\'config.apply');
-				JToolBarHelper::save('\'config.save');
-				JToolBarHelper::cancel('\'config.cancel');
+				JToolBarHelper::apply('config.apply');
+				JToolBarHelper::save('config.save');
+				JToolBarHelper::cancel('config.cancel');
 				break;
 		}
 

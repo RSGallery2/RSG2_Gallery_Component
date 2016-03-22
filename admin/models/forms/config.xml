@@ -45,7 +45,7 @@
 				name         = "thumb_width"
 				type         = "text"
 				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_PICTURE_WIDTH"
+				label        = "COM_RSGALLERY2_THUMBNAIL_WIDTH"
 				description  = ""
 				class        = "btn-group btn-group-yesno">
 		</field>
@@ -53,7 +53,7 @@
 				name         = "thumb_style"
 				type         = "text"
 				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_PICTURE_WIDTH"
+				label        = "COM_RSGALLERY2_THUMBNAIL_STYLE"
 				description  = ""
 				class        = "btn-group btn-group-yesno">
 		</field>
@@ -61,10 +61,24 @@
 				name         = "jpegQuality"
 				type         = "text"
 				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_PICTURE_WIDTH"
+				label        = "COM_RSGALLERY2_JPEG_QUALITY_PERCENTAGE"
 				description  = ""
 				class        = "btn-group btn-group-yesno">
 		</field>
+		<!-- field
+				name         = "allowedFileTypes"
+				type         = "list"
+				default      = "0"
+				label        = "COM_RSGALLERY2_ALLOWED_FILETYPES"
+				description  = ""
+				class        = "chzn-color-state"
+				size         = "3"
+			>
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+			<option value="2">JARCHIVED</option>
+			<option value="-2">JTRASHED</option>
+		</field -->
 	</fieldset>
 	<fieldset name="Images_upload">
 		<field
