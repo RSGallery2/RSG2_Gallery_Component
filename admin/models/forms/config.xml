@@ -39,7 +39,7 @@
 				default      = "0"
 				label        = "COM_RSGALLERY2_DISPLAY_PICTURE_WIDTH"
 				description  = ""
-				class        = "btn-group btn-group-yesno">
+				class        = "">
 		</field>
 		<field
 				name         = "thumb_width"
@@ -47,15 +47,18 @@
 				default      = "0"
 				label        = "COM_RSGALLERY2_THUMBNAIL_WIDTH"
 				description  = ""
-				class        = "btn-group btn-group-yesno">
+				class        = "">
 		</field>
 		<field
 				name         = "thumb_style"
-				type         = "text"
+				type         = "list"
 				default      = "0"
 				label        = "COM_RSGALLERY2_THUMBNAIL_STYLE"
 				description  = ""
-				class        = "btn-group btn-group-yesno">
+				class        = ""
+		>
+			<option value="0">COM_RSGALLERY2_PROPORTIONAL</option>
+			<option value="1">COM_RSGALLERY2_SQUARE</option>
 		</field>
 		<field
 				name         = "jpegQuality"
@@ -63,7 +66,7 @@
 				default      = "0"
 				label        = "COM_RSGALLERY2_JPEG_QUALITY_PERCENTAGE"
 				description  = ""
-				class        = "btn-group btn-group-yesno">
+				class        = "">
 		</field>
 		<!-- field
 				name         = "allowedFileTypes"
@@ -82,31 +85,97 @@
 	</fieldset>
 	<fieldset name="Images_upload">
 		<field
-				id           = "all_img_in_step1_02"
-				name         = "all_img_in_step1_02"
-				type         = "radio"
+				name         = "ftp_path"
+				type         = "text"
 				default      = "0"
-				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
-				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
-				class        = "btn-group btn-group-yesno">
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
+				label        = "COM_RSGALLERY2_FTP_PATH"
+				description  = "COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH"
+				class        = "">
 		</field>
-		<!-- Gallery selection -->
 		<field
-				id           = "SelectGalleries_02"
-				name         = "SelectGalleries02"
-				type         = "GallerySelectList"
-				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
-				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
-				required     = "true"
-				class        = "inputbox"
-				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
-		/>
-		<!--
-			translate_label	= "true"
-			class			= "inputbox"
-		-->
+				name         = "useIPTCinformation"
+				type         = "text"
+				default      = "0"
+				label        = ""
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+		</field>
+		<field
+				name         = "uploadState"
+				type         = "text"
+				default      = "0"
+				label        = ""
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+		</field>
+		<field
+				name         = "IsUseOneGalleryNameForAllImages"
+				type         = "text"
+				default      = "0"
+				label        = ""
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+		</field>
+		<field
+				name         = "IsPreSelectLatestGallery"
+				type         = "text"
+				default      = "0"
+				label        = ""
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+		</field>
+		<field
+				name         = "imageMagick_path"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_IMAGEMAGICK_PATH"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+		</field>
+		<field
+				name         = "netpbm_path"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_NETPBM_PATH"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+		</field>
+		<field
+				name         = "videoConverter_path"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_VIDEO_CONVERTER_PATH"
+				description  = "COM_RSGALLERY2_PAREN_EXAMPLE"
+				class        = "btn-group btn-group-yesno">
+		</field>
+		<field
+				name         = "videoConverter_param"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_VIDEO_CONVERTER_PARAMETERS"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+		</field>
+		<field
+				name         = "videoConverter_thumbParam"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_THUMBNAIL_EXTRACTION_PARAMETERS"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+		</field>
+		<field
+				name         = "videoConverter_extension"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_VIDEO_OUTPUT_TYPE"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+		</field>
+
+
+
+
 	</fieldset>
 	<fieldset name="Images_graficsLibrary">
 		<field

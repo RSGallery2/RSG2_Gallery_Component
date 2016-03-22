@@ -92,6 +92,17 @@ JHtml::_('formbehavior.chosen', 'select');
 
                             <?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_IMAGE_UPLOAD'), 'cfg_images_id_2'); ?>
 
+                <td width="200">
+                    <?php echo JText::_('COM_RSGALLERY2_FTP_PATH') ?>
+                </td>
+                <td>
+                    <?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', JPATH_SITE.DS); ?><br />
+                    <input class="text_area" type="text" name="ftp_path" size="50" style="width: 98%;" value="<?php echo $config->ftp_path?>"/><br/><br/>
+                    <div style="color:#FF0000;font-weight:bold;font-size:smaller;margin-top: 0px;padding-top: 0px;">
+                        <?php echo JText::_('COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH');?>
+                    </div>
+                </td>
+
                                 <?php
                                 echo $this->form->renderFieldset('Images_upload');
                                 ?>
