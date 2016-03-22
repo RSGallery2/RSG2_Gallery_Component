@@ -21,7 +21,7 @@ function configInputField($name='unknown', $value='') {
 	<div class="control-group">
 		<label class="control-label" for="<?php echo $name?>"><?php echo $name?>:</label>
 		<div class="controls">
-			<input id="<?php echo $name?>" class="span5 input_box" type="text"
+			<input id="<?php echo $name?>" class="input-xxlarge input_box" type="text"
 				value="<?php echo $value?>" size="70" name="<?php echo $name?>">
 		</div>
 	</div>
