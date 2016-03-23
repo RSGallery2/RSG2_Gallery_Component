@@ -85,20 +85,6 @@
 	</fieldset>
 	<fieldset name="Images_upload">
 		<field
-				name         = "graphicsLib"
-				type         = "list"
-				default      = "0"
-				label        = "COM_RSGALLERY2_GRAPHICS_LIBRARY"
-				description  = ""
-				class        = ""
-				size         = "3"
-		>
-			<option value="0">*GD2</option>
-			<option value="1">*ImageMagick</option>
-			<option value="2">*NETPBM</option>
-			<option value="2">*ToDo:Separate field type needed</option>
-		</field>
-		<field
 				name         = "ftp_path"
 				type         = "text"
 				default      = "0"
@@ -154,6 +140,20 @@
 	</fieldset>
 	<fieldset name="Images_graficsLibrary">
 		<field
+				name         = "graphicsLib"
+				type         = "list"
+				default      = "0"
+				label        = "COM_RSGALLERY2_GRAPHICS_LIBRARY"
+				description  = ""
+				class        = ""
+				size         = "3"
+		>
+			<option value="0">*GD2</option>
+			<option value="1">*ImageMagick</option>
+			<option value="2">*NETPBM</option>
+			<option value="2">*ToDo:Separate field type needed</option>
+		</field>
+		<field
 				name         = "imageMagick_path"
 				type         = "text"
 				default      = "0"
@@ -206,76 +206,154 @@
 	</fieldset>
 	<fieldset name="Images_storage">
 		<field
-				id           = "all_img_in_step1_02"
-				name         = "all_img_in_step1_02"
+				name         = "keepOriginalImage"
 				type         = "radio"
 				default      = "0"
-				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
-				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				label        = "COM_RSGALLERY2_KEEP_ORIGINAL_IMAGE"
+				description  = ""
 				class        = "btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
-		<!-- Gallery selection -->
 		<field
-				id           = "SelectGalleries_02"
-				name         = "SelectGalleries02"
-				type         = "GallerySelectList"
-				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
-				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
-				required     = "true"
-				class        = "inputbox"
-				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
-		/>
-		<!--
-			translate_label	= "true"
-			class			= "inputbox"
-		-->
+				name         = "imgPath_original"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_ORIGINAL_IMAGE_PATH"
+				description  = ""
+				class        = "">
+		</field>
+		<field
+				name         = "imgPath_display"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_DISPLAY_IMAGE_PATH"
+				description  = ""
+				class        = "">
+		</field>
+		<field
+				name         = "imgPath_thumb"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_THUMB_PATH"
+				description  = ""
+				class        = "">
+		</field>
 	</fieldset>
 	<fieldset name="Images_comments">
 		<field
-				id           = "all_img_in_step1_02"
-				name         = "all_img_in_step1_02"
+				name         = "comment_security"
 				type         = "radio"
 				default      = "0"
-				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
-				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				label        = "COM_RSGALLERY2_USE_CAPTCHA_COMMENT_FORM"
+				description  = ""
 				class        = "btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
-		<!--
-			translate_label	= "true"
-			class			= "inputbox"
-		-->
+		<field
+				name         = "captcha_type"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_CAPTCHA_TYPE"
+				description  = ""
+				class        = "">
+		</field>
+		<field
+				name         = "captcha_image_height"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_CAPTCHA_IMAGE_HEIGHT"
+				description  = ""
+				class        = "">
+		</field>
+		<field
+				name         = "captcha_perturbation"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_CAPTCHA_PERTURBATION"
+				description  = ""
+				class        = "">
+		</field>
+		<field
+				name         = "captcha_num_lines"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_CAPTCHA_NUM_LINES"
+				description  = ""
+				class        = "">
+		</field>
+		<field
+				name         = "captcha_image_bg_color"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_CAPTCHA_IMAGE_BG_COLOR"
+				description  = ""
+				class        = "">
+		</field>
+		<field
+				name         = "captcha_text_color"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_CAPTCHA_TEXT_COLOR"
+				description  = ""
+				class        = "">
+		</field>
+		<field
+				name         = "captcha_line_color"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_CAPTCHA_LINE_COLOR"
+				description  = ""
+				class        = "">
+		</field>
+		<field
+				name         = "captcha_case_sensitive"
+				type         = "radio"
+				default      = "0"
+				label        = "COM_RSGALLERY2_CAPTCHA_CASE_SENSITIVE"
+				description  = ""
+				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				name         = "captcha_charset"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_CAPTCHA_CHARSET"
+				description  = ""
+				class        = "">
+		</field>
+		<field
+				name         = "captcha_code_length"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_CAPTCHA_CODE_LENGTH"
+				description  = ""
+				class        = "">
+		</field>
 	</fieldset>
 	<fieldset name="Images_voting">
 		<field
-				id           = "all_img_in_step1_02"
-				name         = "all_img_in_step1_02"
+				name         = "voting_once"
 				type         = "radio"
 				default      = "0"
-				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
-				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
+				label        = "COM_RSGALLERY2_USER_CAN_ONLY_VOTE_ONCE_COOKIE_BASED"
+				description  = ""
 				class        = "btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
-		<!-- Gallery selection -->
 		<field
-				id           = "SelectGalleries_02"
-				name         = "SelectGalleries02"
-				type         = "GallerySelectList"
-				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
-				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
-				required     = "true"
-				class        = "inputbox"
-				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
-		/>
-		<!--
-			translate_label	= "true"
-			class			= "inputbox"
-		-->
+				name         = "cookie_prefix"
+				type         = "text"
+				default      = "0"
+				label        = "COM_RSGALLERY2_COOKIE_PREFIX"
+				description  = ""
+				class        = "">
+		</field>
 	</fieldset>
 
 <!-- Start ******************************************************************-->
