@@ -85,6 +85,20 @@
 	</fieldset>
 	<fieldset name="Images_upload">
 		<field
+				name         = "graphicsLib"
+				type         = "list"
+				default      = "0"
+				label        = "COM_RSGALLERY2_GRAPHICS_LIBRARY"
+				description  = ""
+				class        = ""
+				size         = "3"
+		>
+			<option value="0">*GD2</option>
+			<option value="1">*ImageMagick</option>
+			<option value="2">*NETPBM</option>
+			<option value="2">*ToDo:Separate field type needed</option>
+		</field>
+		<field
 				name         = "ftp_path"
 				type         = "text"
 				default      = "0"
@@ -94,42 +108,57 @@
 		</field>
 		<field
 				name         = "useIPTCinformation"
-				type         = "text"
+				type         = "radio"
 				default      = "0"
-				label        = ""
-				description  = ""
+				label        = "COM_RSGALLERY2_RSG2_USE_IPTC"
+				description  = "COM_RSGALLERY2_RSG2_IPTC_TOOLTIP"
 				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field
 				name         = "uploadState"
-				type         = "text"
-				default      = "0"
-				label        = ""
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				type="list"
+				class="chzn-color-state"
+				default="1"
+				size="1"
+				label="COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP_TITLE"
+				description="COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP">
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+			<option value="2">JARCHIVED</option>
+			<option value="-2">JTRASHED</option>
 		</field>
 		<field
 				name         = "IsUseOneGalleryNameForAllImages"
-				type         = "text"
+				type         = "radio"
 				default      = "0"
-				label        = ""
-				description  = ""
+				label        = "COM_RSGALLERY2_PRESELECT_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+				description  = "COM_RSGALLERY2_PRESELECT_ONE_GALLERY_FOR_ALL_IMAGES_PRESELECT"
 				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field
 				name         = "IsPreSelectLatestGallery"
-				type         = "text"
+				type         = "radio"
 				default      = "0"
-				label        = ""
-				description  = ""
+				label        = "COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_LABEL"
+				description  = "COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_DESC"
 				class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
+
+
+	</fieldset>
+	<fieldset name="Images_graficsLibrary">
 		<field
 				name         = "imageMagick_path"
 				type         = "text"
 				default      = "0"
 				label        = "COM_RSGALLERY2_IMAGEMAGICK_PATH"
-				description  = ""
+				description  = "COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_LABEL"
 				class        = "btn-group btn-group-yesno">
 		</field>
 		<field
@@ -174,36 +203,6 @@
 		</field>
 
 
-
-
-	</fieldset>
-	<fieldset name="Images_graficsLibrary">
-		<field
-				id           = "all_img_in_step1_02"
-				name         = "all_img_in_step1_02"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
-				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
-				class        = "btn-group btn-group-yesno">
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
-		</field>
-		<!-- Gallery selection -->
-		<field
-				id           = "SelectGalleries_02"
-				name         = "SelectGalleries02"
-				type         = "GallerySelectList"
-				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
-				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
-				required     = "true"
-				class        = "inputbox"
-				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
-		/>
-		<!--
-			translate_label	= "true"
-			class			= "inputbox"
-		-->
 	</fieldset>
 	<fieldset name="Images_storage">
 		<field

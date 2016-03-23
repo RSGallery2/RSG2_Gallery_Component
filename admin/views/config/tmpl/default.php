@@ -77,7 +77,7 @@ JHtml::_('formbehavior.chosen', 'select');
                                 <?php
                                 echo $this->form->renderFieldset('Images_manipulation');
                                 ?>
-                <! extra info -->
+                <!-- extra info -->
                 <div class="control-group">
                     <label class="control-label" for="allowedFileTypes"><?php echo JText::_('COM_RSGALLERY2_ALLOWED_FILETYPES')?>:</label>
                     <div class="controls">
@@ -91,7 +91,7 @@ JHtml::_('formbehavior.chosen', 'select');
                 <?php echo JHtml::_('bootstrap.endSlide'); ?>
 
                             <?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_IMAGE_UPLOAD'), 'cfg_images_id_2'); ?>
-
+                <?php /*
                 <td width="200">
                     <?php echo JText::_('COM_RSGALLERY2_FTP_PATH') ?>
                 </td>
@@ -102,7 +102,8 @@ JHtml::_('formbehavior.chosen', 'select');
                         <?php echo JText::_('COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH');?>
                     </div>
                 </td>
-
+                */
+                ?>
                                 <?php
                                 echo $this->form->renderFieldset('Images_upload');
                                 ?>
