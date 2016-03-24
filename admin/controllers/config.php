@@ -14,10 +14,10 @@ if ($Rsg2DebugActive)
 
 jimport('joomla.application.component.controllerform');
 
-class Rsg2ControllerConfig extends JControllerForm
+class Rsgallery2ControllerConfig extends JControllerForm
 {
 
-			public function cancel($key = null) {
+	public function cancel($key = null) {
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		$link = 'index.php?option=com_rsgallery2';
