@@ -27,8 +27,11 @@ $controller = new InstallerController( array(
 // 140701 original: $controller->set('task_type', JRequest::getCmd('type'));
 // 140701 original: $controller->execute( JRequest::getCmd('task') );
 $input =JFactory::getApplication()->input;
+
 $type = $input->get( 'type', '', 'CMD');		
-$task = $input->get( 'task', '', 'CMD');			
 $controller->set('task_type', $type);
+
+$task = $input->get( 'task', '', 'CMD');			
 $controller->execute( $task );
+
 $controller->redirect();
