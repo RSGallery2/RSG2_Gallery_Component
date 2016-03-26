@@ -17,7 +17,7 @@ defined( '_JEXEC' ) or die();
  */
 class rsg2_maintenance {
 
-    function rsg2_maintenance() {
+    function __construct() {
     	
     }
     

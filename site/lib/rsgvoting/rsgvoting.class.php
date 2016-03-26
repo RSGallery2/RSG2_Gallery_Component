@@ -12,7 +12,7 @@ defined( '_JEXEC' ) or die();
 
 class rsgVoting {
 
-    function rsgVoting() {
+    function __construct() {
     }
     
     static function showVoting( $option = "com_rsgallery2") {

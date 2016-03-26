@@ -62,7 +62,7 @@ class rsgInstall {
     var $allowedExt;
     
     /** Constructor */
-    function rsgInstall(){
+    function __construct(){
 
 		JLog::add('Constructor rsgInstall class', JLog::DEBUG);
 		

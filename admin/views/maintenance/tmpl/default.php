@@ -42,7 +42,7 @@ $doc->addScriptDeclaration($script);
 
 
  /**
-  * Used by showCP to generate buttons
+  * Used to generate buttons
   * @param string $link URL for button link
   * @param string $image Image name for button image
   * @param string $title Command title
@@ -67,9 +67,9 @@ function quickiconBar( $link, $image, $title, $text = "", $addClass = '' ) {
 }
 
  /**
-  * Used by showCP to generate buttons
+ * Used to generate buttons with icomoon icon
   * @param string $link URL for button link
-  * @param string $image Image name for button image
+ * @param string $imageClass Image name for button image
   * @param string $title Command title
   * @param string $text Command explaining text
   * @param string $addClass

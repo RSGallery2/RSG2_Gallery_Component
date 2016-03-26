@@ -23,7 +23,7 @@ class rsgComments {
  * Constructor
  */
  
- function rsgComments() {
+ function __construct() {
  	$this->_buttons = array(
 		"b" 	=> "ubb_bold.gif",
 		"i" 	=> "ubb_italicize.gif",

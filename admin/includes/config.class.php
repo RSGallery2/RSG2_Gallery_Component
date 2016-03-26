@@ -258,19 +258,9 @@ class rsgConfig {
 		
 		foreach ($vars as $v) {
             if ($v['name'] != "") {
-				//if(is_array ($v['value'])) {
-				//	echo '<br>';
-				//	echo json_encode($v['name']) . '<br>';
-				//	echo json_encode($v['value']); // . '<br>';
-				//}
-				// echo json_encode ($this) . '<br>';
-                //$this->$v['name'] = $v['value'];	
-				$k = $v['name'];
-                $this->$k = $v['value'];					
-				//echo json_encode ($this) . '<br>';
+                $this->$v['name'] = $v['value'];
             }
         }
-		
 	}
 
 	/**

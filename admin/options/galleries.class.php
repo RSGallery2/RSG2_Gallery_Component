@@ -57,7 +57,7 @@ class rsgGalleriesItem extends JTable {
     /**
     * @param database $db  A database connector object
     */
-    function rsgGalleriesItem( &$db ) {
+    function __construct( &$db ) {
 		parent::__construct('#__rsgallery2_galleries', 'id', $db );
     }
     /** 

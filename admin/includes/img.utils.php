@@ -53,7 +53,6 @@ class imgUtils extends fileUtils{
       * @return true if successfull, false if error
       */
     static function makeDisplayImage($source, $name='', $width){
-        global $rsgConfig;
 
         if( $name=='' ){
             $parts = pathinfo( $source );
@@ -78,10 +77,12 @@ class imgUtils extends fileUtils{
         $target = JPATH_THUMB . DS . imgUtils::getImgNameThumb( $name );
         
         if ( $rsgConfig->get('thumb_style') == 1 && $rsgConfig->get('graphicsLib') == 'gd2'){
-            return GD2::createSquareThumb( $source, $target, $rsgConfig->get('thumb_width') );
+            $result = GD2::createSquareThumb( $source, $target, $rsgConfig->get('thumb_width') );
         } else {
-            return imgUtils::resizeImage( $source, $target, $rsgConfig->get('thumb_width') );
+            $result = imgUtils::resizeImage( $source, $target, $rsgConfig->get('thumb_width') );
         }
+
+        return $result;
     }
 
     
@@ -315,7 +316,7 @@ class imgUtils extends fileUtils{
 		}
 		
 		//Delete the current item
-		$row = new rsgImagesItem( $database );
+		$row = new rsgImagesItem( $database ); // ToDO: wrong parameter here
 		if ($id){	//When upload goes wrong, there is no item in the database when this function is called to remove the thumb/display/original images + database entry
 			if (!$row->delete($id)){
 				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ITEMINFORMATION_DATABASE')) ;
@@ -331,41 +332,48 @@ class imgUtils extends fileUtils{
     }
     
     /**
+     * Creates path of original image or if not exist of the display image
       * @param string $name name of the image
       * @param bool $local return a local path instead of URL
       * @return string complete URL of the image
       */
     static function getImgOriginal($name, $local=false){
-        global  $rsgConfig, $mainframe ;
+        global  $rsgConfig;
         
 		$locale = $local? JPATH_ROOT : JURI_SITE;
+		// $locale = trim($locale, '/');	//Mirjam: removed trim, getimagesize in GD::resizeImage needs preceeding / in path
         	
-		//$locale = trim($locale, '/');	//Mirjam: removed trim, getimagesize in GD::resizeImage needs preceeding / in path
-        // if original image exists return that, otherwise $keepOriginalImage is false and and we return the display image instead.
+        // if original image exists return original, otherwise return the display image instead.
+        // Original does exist
         if( file_exists( JPATH_ROOT.$rsgConfig->get('imgPath_original') . '/' . $name )){
-            return $locale . $rsgConfig->get('imgPath_original') . '/' . rawurlencode($name);
+            $imagePath =  $locale . $rsgConfig->get('imgPath_original') . '/' . rawurlencode($name);
         }else {
-            return $locale . $rsgConfig->get('imgPath_display') . '/' . rawurlencode( imgUtils::getImgNameDisplay( $name ));
+            $imagePath = $locale . $rsgConfig->get('imgPath_display') . '/' .  rawurlencode(imgUtils::getImgNameDisplay ($name));
         }
+
+        return $imagePath;
     }
     
     /**
+      * Creates URL of display image or if not exist of the original image
       * @param string $name name of the image
       * @param bool $local return a local path instead of URL
       * @return string complete URL of the image
       */
     static function getImgDisplay($name, $local=false){
-		global  $rsgConfig,$mainframe;
+		global  $rsgConfig;
         
         $locale = $local? JPATH_ROOT : JURI_SITE;
 		$locale = trim($locale, '/');	
 		
-        // if display image exists return that, otherwise the original image width <= $display_width so we return the original image instead.
+        // if display image exists return display, otherwise return the original image instead
         if( file_exists( JPATH_ROOT.$rsgConfig->get('imgPath_display') . '/' . imgUtils::getImgNameDisplay( $name ))){
-            return $locale . $rsgConfig->get('imgPath_display') . '/' . rawurlencode( imgUtils::getImgNameDisplay( $name ));
+            $imagePath = $locale . $rsgConfig->get('imgPath_display') . '/' . rawurlencode (imgUtils::getImgNameDisplay( $name ));
         }else {
-            return $locale . $rsgConfig->get('imgPath_original') . '/' . rawurlencode($name);
+            $imagePath = $locale . $rsgConfig->get('imgPath_original') . '/' . rawurlencode ($name);
         }
+
+        return $imagePath;
     }
     
     /**
@@ -374,16 +382,18 @@ class imgUtils extends fileUtils{
       * @return string complete URL of the image
       */
     static function getImgThumb($name, $local=false){
-        global  $rsgConfig, $mainframe;
+        global  $rsgConfig;
         $locale = $local? JPATH_ROOT : JURI_SITE;
 		$locale = trim($locale, '/');	
 		
         // if thumb image exists return that, otherwise the original image width <= $thumb_width so we return the original image instead.
         if( file_exists( JPATH_ROOT.$rsgConfig->get('imgPath_thumb') . '/' . imgUtils::getImgNameThumb( $name ))){
-            return $locale  . $rsgConfig->get('imgPath_thumb') . '/' . rawurlencode( imgUtils::getImgNameThumb( $name ));
+            $imagePath = $locale  . $rsgConfig->get('imgPath_thumb') . '/' . rawurlencode (imgUtils::getImgNameThumb( $name ));
         }else {
-            return $locale  . $rsgConfig->get('imgPath_original') . '/' . rawurlencode($name);
+            $imagePath = $locale  . $rsgConfig->get('imgPath_original') . '/' . rawurlencode ($name);
         }
+
+        return $imagePath;
     }
     
     /**
@@ -437,7 +447,7 @@ class imgUtils extends fileUtils{
      * @param int $id Gallery ID
      * @param int $current_id Currently selected thumbnail
      * @param string $selectname
-     * @return HTML representation of a selectbox
+     * @return string HTML representation of a selectbox
      * @todo Also offer the possiblity to select thumbs from subgalleries
      */
     static function showThumbNames($id, $current_id, $selectname = 'thumb_id') {
@@ -636,17 +646,19 @@ class GD2 extends genericImageLib{
 			JFactory::getApplication()->enqueueMessage($source ." ". JText::_('COM_RSGALLERY2_IS_NOT_A_VALID_IMAGE_OR_IMAGENAME'), 'error');
 			return false;
         }
-        list( $sourceWidth, $sourceHeight, $type, $attr ) = $imgInfo;
+        //list( $sourceWidth, $sourceHeight, $type, $attr ) = $imgInfo;
+        list( $sourceWidth, $sourceHeight, $type) = $imgInfo;
 
         // convert $type into a usable string
         $type = $imageTypes[$type];
         
         // check if we can read this type of file
-        if( !function_exists( "imagecreatefrom$type" )){
+        if( !function_exists( 'imagecreatefrom' . $type )){
             //JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_GD2_DOES_NOT_SUPPORT_READING_IMAGE_TYPE').' '.$type);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_GD2_DOES_NOT_SUPPORT_READING_IMAGE_TYPE').' '.$type, 'error');
 			return false;
         }
+
 		// Determine target sizes: the $targetWidth that is put in this function is actually
 		// the size of the largest side of the image, with that calculate the other side:
 		// - landscape: function input $targetWidth is the actual $targetWidht

@@ -50,7 +50,29 @@ class menu_rsg2_submenu{
 		        $rsgOption=='images' AND ($task == '' OR $task == 'view_images'));
 
 			// ToDo: add config
+
+			if ($view == 'config')
+			{
+				// Maintenance
+				JHtmlSidebar::addEntry(
+					'<span class="icon-screwdriver" >  </span>'.
+					JText::_('COM_RSGALLERY2_MAINTENANCE'),
+					'index.php?option=com_rsgallery2&view=maintenance',
+					false);
 		}
+
+			if (substr($view, 5) == 'maint')
+			{
+				// Maintenance
+				JHtmlSidebar::addEntry(
+					'<span class="icon-screwdriver" >  </span>'.
+					JText::_('COM_RSGALLERY2_MAINTENANCE'),
+					'index.php?option=com_rsgallery2&view=maintenance',
+					true);
+			}
+
+
+		} // installer
 	}
 }
 

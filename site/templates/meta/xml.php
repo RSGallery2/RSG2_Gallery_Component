@@ -9,10 +9,10 @@ class rsgXmlGalleryTemplate_generic{
     var $gallery;
 
     /**
-        class constructor
+        constructor
         @param rsgGallery $gallery object
     **/
-    function rsgXmlGalleryTemplate_generic( $gallery ){
+    function __construct( $gallery ){
         $this->gallery = $gallery;
     }
 

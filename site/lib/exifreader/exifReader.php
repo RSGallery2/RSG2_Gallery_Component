@@ -360,7 +360,7 @@ class phpExifReader {
      * @param string File name to be parsed.
      *
      */
-    function phpExifReader($file = "") {
+    function __construct($file = "") {
       $this->timeStart = $this->getmicrotime();
       if(!empty($file)) {
         $this->file = $file;

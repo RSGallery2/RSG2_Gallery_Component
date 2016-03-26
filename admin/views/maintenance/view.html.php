@@ -11,6 +11,7 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 	// core.admin is the permission used to control access to 
 	// the global config
 	protected $UserIsRoot; 	
+	protected $sidebar;
 	
 	//------------------------------------------------
 	public function display ($tpl = null)

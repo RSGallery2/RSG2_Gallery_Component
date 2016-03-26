@@ -10,6 +10,7 @@ JModelLegacy::addIncludePath(JPATH_COMPONENT.'/models');
 class Rsgallery2ViewUpload extends JViewLegacy
 {
 	protected $form;
+	protected $sidebar;
 
 	// [Single images], [Zip file], [local server (ftp) path],
 	protected $ActiveSelection; // ToDo: Activate in html of view
@@ -22,6 +23,7 @@ class Rsgallery2ViewUpload extends JViewLegacy
 	// ToDo: Config -> update gallery selection preselect latest gallery  (User input ...)
 	// ToDo: Config -> update gallery selection preselect last used gallery ? show combo opened for n entries
 
+	//------------------------------------------------
 	/**
 	 * @param null $tpl
 	 * @return bool
