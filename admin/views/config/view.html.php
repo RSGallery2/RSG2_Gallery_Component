@@ -15,6 +15,7 @@ class Rsgallery2ViewConfig extends JViewLegacy
 	// core.admin is the permission used to control access to 
 	// the global config
 	protected $form;
+	protected $item;
 	protected $sidebar;
 
 	protected $rsgConfigData;
@@ -30,10 +31,14 @@ class Rsgallery2ViewConfig extends JViewLegacy
 	 */
 	public function display ($tpl = null)
 	{
-		$xmlFile = JPATH_COMPONENT . '/models/forms/config.xml';
-		$form = JForm::getInstance('upload', $xmlFile);
-
-		//--- get needed data ------------------------------------------
+		//--- get needed form data ------------------------------------------
+		
+		// $xmlFile = JPATH_COMPONENT . '/models/forms/config.xml';
+		// $form = JForm::getInstance('config', $xmlFile);
+		$this->form = $this->get('Form');
+		$this->item = $this->get('Item'); 
+			
+		//--- get needed extra config data ------------------------------------------
 		
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
@@ -64,7 +69,7 @@ class Rsgallery2ViewConfig extends JViewLegacy
 		$Layout = JFactory::getApplication()->input->get('layout');
 
 		// Assign the Data
-		$this->form = $form;
+		// $this->form = $form;
 
 		$this->addToolbar ($Layout);
 		$this->sidebar = JHtmlSidebar::render ();

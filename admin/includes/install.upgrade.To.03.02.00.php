@@ -269,7 +269,7 @@ class rsgCommentsOld {
 	/**
 	 * Constructor
 	 */
-	function rsgCommentsOld() {
+	function __construct() {
 		global $mainframe;
 		$this->_buttons = array(
 		"b" 	=> "ubb_bold.gif",

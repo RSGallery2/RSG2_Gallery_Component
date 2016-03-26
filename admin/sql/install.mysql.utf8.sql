@@ -2,6 +2,10 @@
 # install sql for RSGallery2
 #
 
+CREATE TABLE IF NOT EXISTS `#__rsgallery2_dummy_is_eaten` (
+  `id` int(9) unsigned NOT NULL auto_increment,
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
 CREATE TABLE IF NOT EXISTS `#__rsgallery2_galleries` (
   `id` int(11) NOT NULL auto_increment,
   `parent` int(11) NOT NULL default 0,

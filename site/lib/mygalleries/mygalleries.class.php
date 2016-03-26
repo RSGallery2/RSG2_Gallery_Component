@@ -12,7 +12,7 @@ defined( '_JEXEC' ) or die();
 
 class myGalleries {
 
-   	function myGalleries() {
+   	function __construct() {
 
    	}
    	
