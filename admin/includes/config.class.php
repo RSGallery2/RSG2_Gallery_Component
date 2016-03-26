@@ -139,14 +139,12 @@ class rsgConfig {
 	var $IsUseOneGalleryNameForAllImages = 1;
 	var $IsPreSelectLatestGallery = 0;
 
-
-
     /**
      * constructor
      * @param bool $loadFromDB true loads config from db, false will retain defaults
      * @todo: fix why we can't get the version from $rsgVersion!
      */
-    function rsgConfig( $loadFromDB = true ){
+    function __construct( $loadFromDB = true ){
         // get version
         global $rsgVersion;
         $this->version = $rsgVersion->getVersionOnly();
@@ -257,12 +255,22 @@ class rsgConfig {
 			// ToDo:  create values from default write values and call itself 
             return;
         }
-
+		
 		foreach ($vars as $v) {
             if ($v['name'] != "") {
-                $this->$v['name'] = $v['value'];
+				//if(is_array ($v['value'])) {
+				//	echo '<br>';
+				//	echo json_encode($v['name']) . '<br>';
+				//	echo json_encode($v['value']); // . '<br>';
+				//}
+				// echo json_encode ($this) . '<br>';
+                //$this->$v['name'] = $v['value'];	
+				$k = $v['name'];
+                $this->$k = $v['value'];					
+				//echo json_encode ($this) . '<br>';
             }
         }
+		
 	}
 
 	/**
