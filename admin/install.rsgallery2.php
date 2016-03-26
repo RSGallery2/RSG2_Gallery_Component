@@ -222,7 +222,7 @@ class com_rsgallery2InstallerScript
      */
 	function install($parent)
 	{
-		JLog::add('install', JLog::DEBUG);
+		JLog::add('function install', JLog::DEBUG);
 		
 		require_once( JPATH_SITE . '/administrator/components/com_rsgallery2/includes/install.class.php' );
 

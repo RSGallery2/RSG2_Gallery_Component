@@ -34,7 +34,7 @@ class imageUploadError{
      * @param string $f Filename for which the error was found
      * @param string $e Error message
      */
-    function ImageUploadError($f, $e){
+    function __construct($f, $e){
         $this->filename=$f;
         $this->error=$e;
     }
@@ -69,7 +69,7 @@ class imageUploadError{
 class fileUtils{
 	
 	/** Constructor */
-	function fileUtils() {
+	function __construct() {
 		//$this->allowedFiles = $this->allowedFileTypes();
 	}
 	
@@ -188,7 +188,7 @@ class fileHandler {
     var $extractDir;
     
     /** Constructor */
-    function fileHandler() {
+    function __construct() {
         global $rsgConfig;
         $this->protectedFiles = array('.','..','index.html','Helvetica.afm', 'original_temp.jpg', 'display_temp.jpg');
         $this->allowedFiles = array('jpg','gif','png','avi','flv','mpg');
