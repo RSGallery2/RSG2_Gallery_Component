@@ -11,6 +11,7 @@ jimport('joomla.application.component.helper');
 //class Rsgallery2ModelConfig extends JModelLegacy  // JModelForm
 //class rsgallery2ModelConfig extends JModelForm
 class Rsgallery2ModelConfig extends JModelAdmin  // JModelForm
+//class rsgallery2ModelConfig extends JModelList
 {
     //protected $text_prefix = 'COM_RSGallery2';
     //protected $text_prefix = 'RSGallery2';
@@ -63,9 +64,55 @@ class Rsgallery2ModelConfig extends JModelAdmin  // JModelForm
 
         return $data;
     }
- 	
 	
+	/**
+	 * Method to get a single record.
+	 *
+	 * @param   integer  $pk  The id of the primary key.
+	 *
+	 * @return  mixed  Object on success, false on failure.
+	 * /
+	public function getItem($pk = null)
+	{
+		$items = parent::getItems(); 
+			
+		if ($items === false)
+		{
+			return false;
+		}
+
+		// This should be an array with at least one element
+		if (!is_array($items) || !isset($items[0]))
+		{
+			return $items;
+		}
+ 			
+ /*	
+			// Convert the params field to an array.
+			$registry = new Registry;
+			$registry->loadString($item->attribs);
+			$item->attribs = $registry->toArray();
+ * /
+
 	
+		// Access check
+		//$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		$canManage	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
+		if (!$canManage) {
+		
+			$this->setError(JText::_('JERROR_ALERTNOAUTHOR'));
+
+			return false;
+		}
+
+		// All good, return the items array
+		return $items; 		
+	}
+/**/
+
+
+
+ 
 	/*
 	protected function prepareTable($table)
 	{

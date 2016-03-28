@@ -316,7 +316,7 @@ class imgUtils extends fileUtils{
 		}
 		
 		// Delete the current item
-		$row = new rsgImagesItem( $database ); // ToDO: wrong parameter here
+		$row = new rsgImagesItem( $database ); // ToDO: wrong paramete here
 		if ($id){	//When upload goes wrong, there is no item in the database when this function is called to remove the thumb/display/original images + database entry
 			if (!$row->delete($id)){
 				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ITEMINFORMATION_DATABASE')) ;
