@@ -260,9 +260,11 @@ class rsgConfig {
 
 		foreach ($vars as $v) {
             if ($v['name'] != "") {
-                $this->$v['name'] = $v['value'];
+                // $this->$v['name'] = $v['value'];
+				$k = $v['name'];
+                $this->$k = $v['value'];					
             }
-        }
+        }		
 	}
 
 	/**
