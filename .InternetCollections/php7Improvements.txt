@@ -1,0 +1,8 @@
+
+----------------------------------
+$my_obj->$this_row['id']->id = $this_row['id'];
+fixed for PHP7, it will become:
+$my_obj->{$this_row['id']}->id = $this_row['id'];
+----------------------------------
+
+
