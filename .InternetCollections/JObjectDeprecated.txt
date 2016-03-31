@@ -1,0 +1,10 @@
+
+
+Quote from @Bakual on Github:
+
+There is no class to replace it. JObject is a historic class which isn't 
+really needed anymore with current PHP versions.
+The error handling should instead be done using exceptions. 
+Other than that it only contains some setter and getter methods. 
+Either create own set/get methods in your class or use for example 
+our Registry class if you need more advanced property handling.
