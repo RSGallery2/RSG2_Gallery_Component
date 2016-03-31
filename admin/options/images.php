@@ -540,20 +540,22 @@ function publishImages( $cid=null, $publish=1,  $option ) {
 /**
  * Moves the order of a record
  * @param int $uid
- * @param $inc The increment to reorder by
+ * @param int $inc The increment to reorder by
  * @param $option
  * @throws Exception
  */
 function orderImages( $uid, $inc, $option ) {
 	global  $rsgOption;
-	$mainframe = JFactory::getApplication();
+	
+	$app = JFactory::getApplication();
+		
 	$database = JFactory::getDBO();
 	
 	$row = new rsgImagesItem( $database );
 	$row->load( (int)$uid );
 	$row->move( $inc, "gallery_id = $row->gallery_id" );
 
-	$mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
+	$app->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 }
 
 /**
@@ -616,7 +618,7 @@ function saveUploadedImage( $option ) {
 	//$title = JRequest::getVar('title'  , array(), 'default', 'array');// We get an array of titles here  
 	$title = $input->get( 'title', array(), 'ARRAY');		
 	//$descr = JRequest::getVar('descr'  , '', 'post', 'string', JREQUEST_ALLOWRAW); 
-	$descr = $input->post->get( 'descr', '', RAW);
+	$descr = $input->post->get( 'descr', '', 'RAW');
 	//$gallery_id = JRequest::getInt('gallery_id'  , '');
 	$gallery_id = $input->get( 'gallery_id', 0, 'INT');
     // Old deprecated below: Each of 5 properties like name error .. had its own array

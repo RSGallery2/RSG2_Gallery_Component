@@ -131,10 +131,10 @@ img.status{
 */
 
 .rsg2_slideshow{
-width:100%;
-text-align:center;
- padding: 2;
- margin:0;
+	width:100%;
+	text-align:center;
+	padding: 2px;
+    margin:0;
 }
 
 #rsg2-adminButtons img {

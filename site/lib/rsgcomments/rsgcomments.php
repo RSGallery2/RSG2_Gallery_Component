@@ -51,7 +51,7 @@ function test( $option ) {
 
 /**
  * Saves a comment to the database
- * @param option from URL
+ * @param string option from URL
  * @todo Implement system to allow only one comment per user.
  */
 function saveComment( $option ) {
@@ -66,9 +66,9 @@ function saveComment( $option ) {
 	//$rsgOption	= JRequest::getCmd('rsgOption'  , '');
 	$rsgOption = $input->get( 'rsgOption', null, 'CMD');		
 	// $subject 	= $database->quote(JRequest::getString('ttitle', ''));	// Used in sql!
-	$subject 	= $database->quote($input->get( 'ttitle', '', 'STRING'););	// Used in sql!
+	$subject 	= $database->quote($input->get( 'ttitle', '', 'STRING'));	// Used in sql!
 	//$user_name	= $database->quote(JRequest::getString('tname', ''));	// Used in sql!
-	$user_name 	= $database->quote($input->get( 'tname', '', 'STRING'););	// Used in sql!
+	$user_name 	= $database->quote($input->get( 'tname', '', 'STRING'));	// Used in sql!
 	//$item_id 	= JRequest::getInt( 'item_id'  , '');
 	$item_id    = $input->get( 'item_id', 0, 'INT');		
 	//$gid 		= JRequest::getInt( 'gid'  , '');
@@ -87,7 +87,7 @@ function saveComment( $option ) {
 	
 	//Retrieve comment, filter it, do some more tests, get it database ready...
 	//$comment 	= JRequest::getVar('tcomment','','POST','STRING',JREQUEST_ALLOWHTML); 
-	$comment 	= $input->post->get( 'tcomment', '',HTML); 
+	$comment 	= $input->post->get( 'tcomment', '', 'HTML'); 
 	
 	//	Clean the comment with the filter: strong, emphasis, underline (not a with attrib href for now)
 	$allowedTags 		= array('strong','em','u','p','br');
@@ -138,7 +138,7 @@ function saveComment( $option ) {
 		$securimage = new Securimage();
 		//Check if user input is correct
 		//$captcha_code = JRequest::getString('captcha_code','','POST');
-		$captcha_code = $input->post->get( 'captcha_code', '', STRING);
+		$captcha_code = $input->post->get( 'captcha_code', '', 'STRING');
 		
 		if ($securimage->check($captcha_code) == false) {
 			// The code was incorrect, go back (IE loses comment, Firefox & Safari keep it)

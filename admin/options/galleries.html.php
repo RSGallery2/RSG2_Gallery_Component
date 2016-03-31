@@ -333,10 +333,10 @@ class html_rsg2_galleries{
 			
 			if (document.formvalidator.isValid(document.id('adminForm'))) {
 				Joomla.submitform(task);
-				return;
+				// return;
 			} else {
 				alert( "<?php echo JText::_('COM_RSGALLERY2_YOU_MUST_PROVIDE_A_GALLERY_NAME');?>" );
-				return;
+				//return;
 			}
 
             return;

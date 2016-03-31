@@ -14,12 +14,16 @@ Tim Novinger for finding the image extension problem (fixed by an strtolower())
 
 $max_height = 1000;
 $max_width = 2000;
+// ToDo: ? use Jinput ... in all cases 
 if (isset($_GET["imgfile"]))
 {
 	if (function_exists(get_magic_quotes_gpc) && get_magic_quotes_gpc())
 	{
 	    $image = stripslashes( $_GET["imgfile"] );
-	} else  $image = $_GET["imgfile"];
+	} else
+	{
+		$image = $_GET["imgfile"];
+	}
 	if (isset($_GET["max_width"])) { if($_GET["max_width"] < 2000) $max_width = $_GET["max_width"]; }
 	if (isset($_GET["max_height"])) { if($_GET["max_height"] < 1000) $max_height = $_GET["max_height"]; }
 	

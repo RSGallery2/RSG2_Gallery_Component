@@ -327,7 +327,7 @@ function Rsgallery2GetGalleryName($gid){
  * Converts a category SEF alias to its id
  * 
  *  @param string $categoryName mixed SEF alias or id of the category
- *	@return int id of the category
+ *	@return string id of the category
  * 
  **/
 function Rsgallery2GetCategoryId($categoryName){
@@ -347,6 +347,10 @@ function Rsgallery2GetCategoryId($categoryName){
 	
 	if($config->get("advancedSef") != true) {
 		$id = $categoryName;
+	}
+	else
+	{
+		$id = '';
 	}
 
 	return $id;
@@ -377,7 +381,11 @@ function Rsgallery2GetItemId($itemName){
 	if($config->get("advancedSef") != true) {
 		$id = $itemName;
 	}
-	
+	else
+	{
+		$id = '';
+	}
+
 	return $id;
 }
 
@@ -427,8 +435,11 @@ function Rsgallery2GetGalleryIdFromItemId($id){
 	global $config;
 
 	Rsgallery2InitConfig();
+
+	// Set standard return value
+	$gid = 0;
 	
-	// Getch the gallery id (gid) from the database based on the id of an item
+	// fetch the gallery id (gid) from the database based on the id of an item
 	$dbo = JFactory::getDBO();
 	$query = 'SELECT `gallery_id` FROM `#__rsgallery2_files` WHERE `id`='. (int) $id;
 	$result = $dbo->execute($query);
@@ -437,7 +448,7 @@ function Rsgallery2GetGalleryIdFromItemId($id){
 	$result = $dbo->execute();
 	$countRows = $dbo->getNumRows($result);
 	if ($countRows == 1) {
-		// Item id not found (or found multiple times?!)
+		// Item id found (or found multiple times?!)
 		$gid = $dbo->loadResult();
 	} else {
 		//Redirect user and display error...
@@ -463,10 +474,12 @@ function Rsgallery2GetGalleryIdFromItemId($id){
  *	@return int Id of the item (id)
  * @throws Exception
  */
-function Rsgallery2GetItemIdFromGalleryIdAndLimitstart($gid,$limitstart){
+function Rsgallery2GetItemIdFromGalleryIdAndLimitstart($gid, $limitstart){
 	//Get config values
 	global $config;
 	Rsgallery2InitConfig();
+
+	$id = 0;
 	
 	// Getch the gallery id (gid) from the database based on the id of an item
 	$dbo = JFactory::getDBO();
@@ -474,6 +487,7 @@ function Rsgallery2GetItemIdFromGalleryIdAndLimitstart($gid,$limitstart){
 	$query->select('id');
 	$query->from('#__rsgallery2_files');
 	$query->where('`gallery_id`='. (int) $gid);
+	
 	// Only for superadministrators this includes the unpublished items
 	if (!JFactory::getUser()->authorise('core.admin','com_rsgallery2')) {
 		$query->where('`published` = 1');

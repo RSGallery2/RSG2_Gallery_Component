@@ -421,7 +421,7 @@ function showComments( $item_id ) {
 				<hr />
 				<?php echo $comment['comment']; ?>
 				<?php if ( $deleteComment ): ?>
-					<div style="float:right;"><a href="javascript:void(0);" onclick="javascript:delComment(<?php echo $comment['id'];?>, <?php echo $comment['item_id'];?>, <?php echo $catid;?>);"><?php echo JText::_('COM_RSGALLERY2_DELETE_COMMENT')?></a></div>
+					<div style="float:right;"><a href="javascript:void(0);" onclick="delComment(<?php echo $comment['id'];?>, <?php echo $comment['item_id'];?>, <?php echo $catid;?>);"><?php echo JText::_('COM_RSGALLERY2_DELETE_COMMENT')?></a></div>
 				<?php endif; ?>
 				</td>
 			</tr>
