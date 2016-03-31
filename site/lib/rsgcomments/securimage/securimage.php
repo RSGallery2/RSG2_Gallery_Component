@@ -370,11 +370,11 @@ class Securimage
             }
         }
 
-        $this->image_bg_color  = $this->initColor($this->image_bg_color,  '#ffffff');
-        $this->text_color      = $this->initColor($this->text_color,      '#616161');
-        $this->line_color      = $this->initColor($this->line_color,      '#616161');
-        $this->noise_color     = $this->initColor($this->noise_color,     '#616161');
-        $this->signature_color = $this->initColor($this->signature_color, '#616161');
+        $this->image_bg_color  = $this->initColor($this->image_bg_color,  new Securimage_Color('#ffffff'));
+        $this->text_color      = $this->initColor($this->text_color,      new Securimage_Color('#616161'));
+        $this->line_color      = $this->initColor($this->line_color,      new Securimage_Color('#616161'));
+        $this->noise_color     = $this->initColor($this->noise_color,     new Securimage_Color('#616161'));
+        $this->signature_color = $this->initColor($this->signature_color, new Securimage_Color('#616161'));
 
         if ($this->ttf_file == null) {
             $this->ttf_file = $this->securimage_path . '/AHGBold.ttf';
@@ -1321,7 +1321,7 @@ class Securimage
     /**
      * Convert an html color code to a Securimage_Color
      * @param string $color
-     * @param Securimage_Color $default The defalt color to use if $color is invalid
+     * @param Securimage_Color $default The default color to use if $color is invalid
      */
     protected function initColor($color, $default)
     {

@@ -208,8 +208,6 @@
 	cursor: pointer;
 	z-index:10;
 	filter:alpha(opacity=20);
-	-moz-opacity:0.2;
-	-khtml-opacity: 0.2;
 	opacity: 0.2;
 }
 
@@ -221,8 +219,6 @@
 .jdGallery a.right:hover, .jdGallery a.left:hover
 {
 	filter:alpha(opacity=80);
-	-moz-opacity:0.8;
-	-khtml-opacity: 0.8;
 	opacity: 0.8;
 }
 
@@ -262,8 +258,6 @@
 	cursor: pointer;
 	z-index: 10;
 	background: none;
-	-moz-opacity:0.8;
-	-khtml-opacity: 0.8;
 	opacity: 0.8;
 }
 
@@ -290,8 +284,6 @@
 	color: #fff;
 	cursor: pointer;
 	opacity: .4;
-	-moz-opacity: .4;
-	-khtml-opacity: 0.4;
 	filter:alpha(opacity=40);
 }
 

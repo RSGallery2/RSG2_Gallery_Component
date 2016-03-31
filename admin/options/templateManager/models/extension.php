@@ -87,13 +87,9 @@ class InstallerModel extends JModelLegacy
 	 * Remove (uninstall) an extension
 	 *
 	 * @static
-	 * @param	array	An array of identifiers
+	 * @param	array $eid An array of identifiers
 	 * @return	boolean	True on success
 	 * @since 1.0
-	 */
-	/**
-	 * @param array $eid, ids in the form id => client_id
-	 * @return bool
 	 * @throws Exception
 	 */
 	function remove($eid=array())

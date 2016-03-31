@@ -55,7 +55,7 @@ $firstImage = $firstImage->display();
 			</a>
 		</div>
 	<?php endif; ?>
-	<img name="stage" class="PlayerImage" src="<?php echo $firstImage->url(); ?>" style="filter: revealtrans(); font-size:12;">
+	<img name="stage" class="PlayerImage" src="<?php echo $firstImage->url(); ?>" style="filter: revealtrans(); font-size:12px;">
 </div>
 
 <div style="visibility:hidden;">

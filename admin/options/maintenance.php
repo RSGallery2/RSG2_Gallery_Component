@@ -166,23 +166,22 @@ function regenerateImages() {
 }
 /**
  * Function will regenerate thumbs for a specific gallery or set of galleries
- * @todo Check if width really changed, else no resize needed. 
  * Perhaps by sampling the oldest thumb from the gallery and checking dimensions against current setting. 
  */
 /**
  * @throws Exception
  */
 function executeRegenerateThumbImages() {
-	global $rsgConfig;
-	$mainframe =& JFactory::getApplication();
+//	global $rsgConfig;
+	$app = JFactory::getApplication();
 	$error = 0;
 	//$gid = JRequest::getVar( 'gid', array());
 	$input =JFactory::getApplication()->input;
 	$gid = $input->get( 'gid', array(), 'ARRAY'); 
 
 	if ( empty($gid) ) {
-	    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_NO_GALLERY_SELECTED' ) );
-		$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs");
+	    $app->enqueueMessage( JText::_('COM_RSGALLERY2_NO_GALLERY_SELECTED' ) );
+		$app->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs");
 		return;
 	}
 
@@ -190,14 +189,14 @@ function executeRegenerateThumbImages() {
     	if ($id > 0) {
     		//Check if resize is really needed. It takes a lot of resources when changing thumbs when dimensions did not change!
     		if ( !rsg2_maintenance::thumbSizeChanged($id) ) {
-				$mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_THUMBNAIL_SIZE_DID_NOT_CHANGE_REGENERATION_NOT_NEEDED') );
-				$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs");
+				$app->enqueueMessage( JText::_('COM_RSGALLERY2_THUMBNAIL_SIZE_DID_NOT_CHANGE_REGENERATION_NOT_NEEDED') );
+				$app->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs");
 				return;
 			} else {
 				$gallery = rsgGalleryManager::_get($id);
 				$images = $gallery->items();
 				foreach ($images as $image) {
-					$imagename = imgUtils::getImgOriginal($image->name, true);
+					$imagename = imgUtils::getImgOriginalPath($image->name, true);
 					if (!imgUtils::makeThumbImage($imagename)) {
 						//Error counter
 						$error++;
@@ -211,8 +210,8 @@ function executeRegenerateThumbImages() {
     } else {
 		$msg = JText::_('COM_RSGALLERY2_MAINT_REGEN_NO_ERRORS');
     }
-    $mainframe->enqueueMessage( $msg );
-    $mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs");
+    $app->enqueueMessage( $msg );
+    $app->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs");
 }
 /**
  * Function will regenerate display images for a specific gallery or set of galleries
@@ -221,30 +220,32 @@ function executeRegenerateThumbImages() {
  */
 function executeRegenerateDisplayImages() {
 	global $rsgConfig;
-	$mainframe =& JFactory::getApplication();
-	$error = 0;
+	$app = JFactory::getApplication();
+
 	//$gid = JRequest::getVar( 'gid', array());
 	$input =JFactory::getApplication()->input;
 	$gid = $input->get( 'gid', array(), 'ARRAY'); 
+	
 	if ( empty($gid) ) {
-	    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_NO_GALLERY_SELECTED') );
-		$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs");
+	    $app->enqueueMessage( JText::_('COM_RSGALLERY2_NO_GALLERY_SELECTED') );
+		$app->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs");
 		return;
 	}
 
+    $error = 0;
 	foreach ($gid as $id) {
     	if ($id > 0) {
 			$gallery = rsgGalleryManager::_get($id);
 			$images = $gallery->items();
+            // All Images
 			foreach ($images as $image) {
 				//Get full path of the original image, e.g. 
 				//  "C:\xampp\htdocs\images\rsgallery\original\test space in name.jpg" or 
 				//  "/public_html/httpdocs/images/rsgallery/original/test space in name.jpg"
-				//  So get path not URL (2nd argument "local" false in getImgOriginal)
+				//  So get path not URL (2nd argument "local" false in getImgOriginalPath)
 				//  clean it (get correct Directory Seperator and remove double slashes)
 				//  and convert "%20" to spaces: " " with rawurldecode.
-				$originalImageFullPath = imgUtils::getImgOriginal($image->name, true);
-				$originalImageFullPath = rawurldecode(JPath::clean($originalImageFullPath));
+				$originalImageFullPath = imgUtils::getImgOriginalPath($image->name, true);
 				//Get the name of the image
 				$parts = pathinfo( $originalImageFullPath );
 				$newName = $parts['basename'];
@@ -252,7 +253,7 @@ function executeRegenerateDisplayImages() {
 				$width = getimagesize( $originalImageFullPath );
 				if( !$width ){
 					//error (no width found)
-					$mainframe->enqueueMessage(JText::sprintf('COM_RSGALLERY2_COULD_NOT_CREATE_DISPLAY_IMAGE_WITH_NOT_FOUND', $newName), $type= 'error');
+					$app->enqueueMessage(JText::sprintf('COM_RSGALLERY2_COULD_NOT_CREATE_DISPLAY_IMAGE_WITH_NOT_FOUND', $newName), $type= 'error');
 					$error++;
 				} else {
 					//the actual image width and height and its max
@@ -272,7 +273,7 @@ function executeRegenerateDisplayImages() {
 					//If creation of image failed: let user know
 					if( !$result ){
 					//	imgUtils::deleteImage( $newName );
-						$mainframe->enqueueMessage(JText::sprintf('COM_RSGALLERY2_COULD_NOT_CREATE_DISPLAY_IMAGE', $newName), $type= 'error');
+						$app->enqueueMessage(JText::sprintf('COM_RSGALLERY2_COULD_NOT_CREATE_DISPLAY_IMAGE', $newName), $type= 'error');
 						$error++;
 					}
 				}
@@ -284,8 +285,8 @@ function executeRegenerateDisplayImages() {
     } else {
 		$msg = JText::_('COM_RSGALLERY2_MAINT_REGEN_NO_ERRORS');
     }
-    $mainframe->enqueueMessage( $msg );
-    $mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs");
+    $app->enqueueMessage( $msg );
+    $app->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=regenerateThumbs");
 }
 
 /**
@@ -301,7 +302,7 @@ function consolidateDB() {
  */
 function createImages() {
 	global $rsgConfig;
-	$mainframe =& JFactory::getApplication();
+	$app = JFactory::getApplication();
 	$input =JFactory::getApplication()->input;
 
 	//Check if id or name is set
@@ -314,8 +315,9 @@ function createImages() {
 		//$name    = JRequest::getVar( 'name', null);
 		$name = $input->get( 'name', null, 'STRING');					
 	} else {
-	    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_NO_FILEINFORMATION_FOUND_THIS_SHOULD_NEVER_HAPPEN') );
-		$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance");
+	    $app->enqueueMessage( JText::_('COM_RSGALLERY2_NO_FILEINFORMATION_FOUND_THIS_SHOULD_NEVER_HAPPEN') );
+		$app->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance");
+		return;
 	}
 	
 	//Just for readability of code
@@ -325,8 +327,8 @@ function createImages() {
 	
 	//If only thumb exists, no generation possible so redirect.
 	if (!file_exists($original) AND !file_exists($display) AND file_exists($thumb) ) {
-	    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_MAINT_REGEN_ONLY_THUMB') );
-		$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB");
+	    $app->enqueueMessage( JText::_('COM_RSGALLERY2_MAINT_REGEN_ONLY_THUMB') );
+		$app->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB");
 		return;
 	}
 	//Go make images
@@ -346,16 +348,15 @@ function createImages() {
 	        imgUtils::makeThumbImage($display);
 	    }
 	}
-    $mainframe->enqueueMessage( $name.' '.JText::_('COM_RSGALLERY2_MAINT_REGEN_SUCCESS') );
-	$mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB");
+    $app->enqueueMessage( $name.' '.JText::_('COM_RSGALLERY2_MAINT_REGEN_SUCCESS') );
+	$app->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB");
 }
 
 /**
  * @throws Exception
  */
 function deleteImages() {
-	$mainframe =& JFactory::getApplication();
-	$database = JFactory::getDBO();
+	$app = JFactory::getApplication();
 	//$name = JRequest::getVar('name', null);
 	$input =JFactory::getApplication()->input;
 	$name = $input->get( 'name', null, 'STRING');					
@@ -366,8 +367,8 @@ function deleteImages() {
     	$txt = JText::_('COM_RSGALLERY2_IMAGE_S_WERE_NOT_DELETED');
     }
     
-    $mainframe->enqueueMessage( $txt );
-    $mainframe->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB");
+    $app->enqueueMessage( $txt );
+    $app->redirect("index.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB");
 }
 
 /**
@@ -380,7 +381,7 @@ function createDbEntries() {
 	//$t_id = JRequest::getVar('t_id'  , null);
 	$t_id = $input->get( 't_id', null); 
     // $gid = JRequest::getInt('gallery_id'  , null);
-	$gallery_id = $input->get( 'gallery_id', 0, 'INT');	
+	//$gallery_id = $input->get( 'gallery_id', 0, 'INT');
     echo "<pre>";
     print_r($name);
     echo "</pre>";
@@ -393,9 +394,9 @@ function createDbEntries() {
  * @throws Exception
  */
 function regenerateImage() {
-	$mainframe =& JFactory::getApplication();
+	$app = JFactory::getApplication();
 	global $rsgConfig;
-	$database = JFactory::getDBO();
+	//$database = JFactory::getDBO();
 	$input =JFactory::getApplication()->input;
 	
 	//Check if id or name is set
@@ -409,9 +410,10 @@ function regenerateImage() {
 		//$name    = JRequest::getVar( 'name', null);
 		$name = $input->get( 'name', null, 'STRING');
 	} else {
-	    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_NO_FILEINFORMATION_FOUND_THIS_SHOULD_NEVER_HAPPEN') );
-// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
-		$mainframe->redirect('index.php?option=com_rsgallery2&view=upload' ); // Todo: More information fail ?
+	    $app->enqueueMessage( JText::_('COM_RSGALLERY2_NO_FILEINFORMATION_FOUND_THIS_SHOULD_NEVER_HAPPEN') );
+// OneUploadForm $app->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
+		$app->redirect('index.php?option=com_rsgallery2&view=upload' ); // Todo: More information on fail ?
+		return;
 	}
 	
 	//Just for readability of code
@@ -442,7 +444,7 @@ function regenerateImage() {
  * @throws Exception
  */
 function optimizeDB() {
-	$mainframe =& JFactory::getApplication();
+	$app = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	
 	require_once(JPATH_ROOT . DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "includes" . DS . "install.class.php");
@@ -452,7 +454,7 @@ function optimizeDB() {
 		$database->setQuery("OPTIMIZE TABLE $table");
 		$database->execute();
 	}
-    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_MAINT_OPTIMIZE_SUCCESS') );
-	$mainframe->redirect("index.php?option=com_rsgallery2&amp;rsgOption=maintenance");
+    $app->enqueueMessage( JText::_('COM_RSGALLERY2_MAINT_OPTIMIZE_SUCCESS') );
+	$app->redirect("index.php?option=com_rsgallery2&amp;rsgOption=maintenance");
 }
 ?>
