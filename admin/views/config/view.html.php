@@ -18,7 +18,7 @@ class Rsgallery2ViewConfig extends JViewLegacy
 	protected $item;
 	protected $sidebar;
 
-	protected $rsgConfigData;
+	//protected $rsgConfigData;
 	protected $UserIsRoot;
 
 	protected $rsgVersion;
@@ -44,7 +44,7 @@ class Rsgallery2ViewConfig extends JViewLegacy
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
 
 		global $rsgConfig;
-		$this->rsgConfigData = $rsgConfig;
+		//$this->rsgConfigData = $rsgConfig;
 
 		$this->rsgVersion = $rsgConfig->version; // "Version 04.01.00";
 		$this->allowedFileTypes = imgUtils::allowedFileTypes ();

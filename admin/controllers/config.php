@@ -57,8 +57,9 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		$item=$model->save($key);
 
 		//$this->setRedirect(JRoute::_('index.php?option=com_portfoliogallery&view=portfoliogalleries', false),"Saved");
+// ToDo: use JRoute::_(..., false)	  ->   $link = JRoute::_('index.php?option=com_foo&ctrl=bar',false);
 		$link = 'index.php?option=com_rsgallery2';
-		$this->setRedirect($link, false),"*Data Saved");
+		$this->setRedirect($link, "*Data Saved");
     }  	
 	
 	function apply(){
@@ -67,7 +68,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		 
 		// $this->setRedirect(JRoute::_('index.php?option=com_rsgallery2&view=config', false), "*Data Saved");
 		$link = 'index.php?option=com_rsgallery2&view=config';
-		$this->setRedirect($link, false),"*Data Saved");
+		$this->setRedirect($link, "*Data Saved");
     }  
 }
 

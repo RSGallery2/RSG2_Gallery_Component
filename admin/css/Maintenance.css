@@ -150,6 +150,10 @@ figure .clsTemplate {
 	border: 1px solid #d00;
 }
 
+.developer {
+	border: 1px solid green;
+}
+
 .icons-panel .dangerZone{
 	/* background-color: red; /**/
 	background-color: #df3e3e; /**/
@@ -163,6 +167,16 @@ figure .clsTemplate {
 .icons-panel .repairZone{
 	/* background-color: red; /**/
 	background-color: DodgerBlue; /**/
+	color: white; /**/
+	/* padding: 30px; /**/
+	padding: 5px; /**/
+	margin-left: 0px; /**/
+	border-radius: 3px 3px 0px 0px;
+}
+
+.icons-panel .developerZone{
+	/* background-color: red; /**/
+	background-color: green; /**/
 	color: white; /**/
 	/* padding: 30px; /**/
 	padding: 5px; /**/

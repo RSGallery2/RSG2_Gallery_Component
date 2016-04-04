@@ -160,14 +160,6 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 							?>
 
 								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;view=config';
-								quickTwoIconMoonBar ($link, 'icon-cog', 'icon-cog',
-									JText::_('COM_RSGALLERY2_CONFIGURATION'),
-									JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT').'                        ',
-									'tempStandardconfigEdit');
-								?>
-
-								<?php
 								//$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
 								$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB';
 								quickiconBar($link, 'blockdevice.png',
@@ -247,14 +239,6 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 									</div>
 
 									<?php
-									$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawEdit';
-									quickTwoIconMoonBar ($link, 'icon-cog', 'icon-edit',
-										JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'),
-										JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT').'                   (Not Ready)     ',
-										'editConfigRaw');
-									?>
-
-									<?php
 									//$link = 'index.php?option=com_rsgallery2&amp;view=configRawEdit';
 									//$link = 'index.php?option=com_rsgallery2&amp;view=configRaw&amp;layout=edit';
 									$link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
@@ -296,8 +280,6 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 					</div>
                 </div>
 
-				<div id="divider4Newsection" class="clearfix">
-
 				<div class="row-fluid span6 rsg2_container_icon_set">
 					<div class="icons-panel developer">
 						<div class="row-fluid">
@@ -322,6 +304,14 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 									JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'),
 									JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT').'                   (Not Ready)     ',
 									'editConfigRaw');
+								?>
+
+								<?php
+								$link = 'index.php?option=com_rsgallery2&amp;view=config';
+								quickTwoIconMoonBar ($link, 'icon-cog', 'icon-cog',
+									JText::_('COM_RSGALLERY2_CONFIGURATION'),
+									JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT').'                        ',
+									'tempStandardconfigEdit');
 								?>
 
 							<?php

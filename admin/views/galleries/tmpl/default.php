@@ -13,7 +13,7 @@ global $Rsg2DebugActive;
 
 ?>
 
-<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=config'); ?>"
+<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=galleries'); ?>"
       method="post" name="adminForm" id="adminForm">
 
 <?php if (!empty( $this->sidebar)) : ?>

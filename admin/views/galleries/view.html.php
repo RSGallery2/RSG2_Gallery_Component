@@ -5,7 +5,7 @@ defined( '_JEXEC' ) or die;
 jimport ('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 
-class Rsgallery2ViewConfig extends JViewLegacy
+class Rsgallery2ViewGalleries extends JViewLegacy
 {
 
 	// ToDo: Use other rights instead of core.admin -> IsRoot ?
