@@ -238,7 +238,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 								</h3>
 							</div>
 							<?php
-								if( $this->UserIsRoot ) {
+							if( $this->debugActive ) {
 							?>
 									<div class='icons-panel-info'>
 										<strong>
@@ -295,7 +295,48 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 						</div>
 					</div>
                 </div>
-            </div>
+
+				<div id="divider4Newsection" class="clearfix">
+
+				<div class="row-fluid span6 rsg2_container_icon_set">
+					<div class="icons-panel developer">
+						<div class="row-fluid">
+							<div class="icons-panel-title developerZone">
+								<h3>
+									<?php echo JText::_('COM_RSGALLERY2_DEVELOPER_ZONE');?>
+								</h3>
+							</div>
+							<?php
+							// if( $this->debugActive ) {
+							if (true) {
+							?>
+								<div class='icons-panel-info'>
+									<strong>
+										<?php echo JText::_('COM_RSGALLERY2_ONLY_WHEN_YOU_KNOW_WHAT_YOU_ARE_DOING'); ?>
+									</strong>
+								</div>
+
+								<?php
+								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawEdit';
+								quickTwoIconMoonBar ($link, 'icon-cog', 'icon-edit',
+									JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'),
+									JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT').'                   (Not Ready)     ',
+									'editConfigRaw');
+								?>
+
+							<?php
+							//} else {
+							//	echo JText::_('COM_RSGALLERY2_MORE_FUNCTIONS_WITH_DEBUG_ON');
+							//}
+							?>
+							<?php
+							}
+							?>
+
+						</div>
+					</div>
+				</div>
+			</div>
 
             <!--div class='rsg2-clr'>&nbsp;</div -->
 

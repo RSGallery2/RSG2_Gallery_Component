@@ -11,16 +11,20 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 	// core.admin is the permission used to control access to 
 	// the global config
 	protected $UserIsRoot;
+	protected $debugActive;
 	protected $sidebar;
 
 	//------------------------------------------------
 	public function display ($tpl = null)
-	{	
+	{
+		global $rsgConfig;
+		
 		//--- get needed data ------------------------------------------
 		
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
-	
+		$this->debugActive = $rsgConfig->get('debug');
+
 //		$form = $this->get('Form');
 
 		//--- begin to display --------------------------------------------
