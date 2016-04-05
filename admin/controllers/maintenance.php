@@ -45,9 +45,10 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 		// $app->redirect($link, $msg, $msgType='message');
         */
         $msg = '';
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg);
+		$msgType = 'notice';
 
-
+		// ToDo: Use Jroute before link for setRedirect
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
     /**
@@ -74,6 +75,12 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 		}
 		
 		$msg = 'Database entries are deleted. ';
+		$msgType = 'notice';
+
+		$msg .= '!!! Not implemented yet !!!';
+
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+
 		// $app->redirect($link, $msg, $msgType='message');
 		
 /*		
@@ -117,11 +124,8 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
   2                values('04','Celia',    'Rice',    to_date('19821024','YYYYMMDD'), to_date('19990421','YYYYMMDD'), 2344.78, 'Vancouver','Manager')
   3  /
 
-*/		
-
-		//$this->setRedirect('index.php?option=com_rsgallery2&view=rsg2.default_maintenance', $msg);
-		$this->setRedirect('index.php?option=com_rsgallery2&view=rsg2', $msg);
-		//$this->redirect();
+*/
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
 	function DeleteAllRsg2Images ()
@@ -134,11 +138,11 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
 		}
 		
 		$msg = 'All RSG2 Images and thumbs are deleted. ';
-		// $app->redirect($link, $msg, $msgType='message');
+		$msgType = 'notice';
 
-		//$this->setRedirect('index.php?option=com_rsgallery2&view=rsg2.default_maintenance', $msg);
-		$this->setRedirect('index.php?option=com_rsgallery2&view=rsg2', $msg);
-		//$this->redirect();
+		$msg .= '!!! Not implemented yet !!!';
+
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
 
@@ -152,11 +156,11 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
 		}
 		
 		$msg = 'RSG2 database is consolidated. ';
-		// $app->redirect($link, $msg, $msgType='message');
+		$msgType = 'notice';
 
-		//$this->setRedirect('index.php?option=com_rsgallery2&view=rsg2.default_maintenance', $msg);
-		$this->setRedirect('index.php?option=com_rsgallery2&view=rsg2', $msg);
-		//$this->redirect();
+		$msg .= '!!! Not implemented yet !!!';
+
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
 	
@@ -171,11 +175,11 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
 		}
 		
 		$msg = 'RSG2 database is reorganized. ';
-		// $app->redirect($link, $msg, $msgType='message');
+		$msgType = 'notice';
 
-		//$this->setRedirect('index.php?option=com_rsgallery2&view=rsg2.default_maintenance', $msg);
-		$this->setRedirect('index.php?option=com_rsgallery2&view=rsg2', $msg);
-		//$this->redirect();
+		$msg .= '!!! Not implemented yet !!!';
+
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
 	
@@ -184,9 +188,9 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
         $msg = "consolidateDB: ";
         $msgType = 'notice';
 
-        echo 'consolidateDB: Not implemented yet';
+		$msg .= '!!! Not implemented yet !!!';
 
-        $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
     }
 
 	function regenerateThumbs()
@@ -194,9 +198,9 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
         $msg = "regenerateThumbs: ";
         $msgType = 'notice';
 
-        echo 'regenerateThumbs: Not implemented yet';
+		$msg .= '!!! Not implemented yet !!!';
 
-        $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
 	function optimizeDB()
@@ -204,9 +208,9 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
         $msg = "optimizeDB: ";
         $msgType = 'notice';
 
-		echo 'optimizeDB: Not implemented yet';
+		$msg .= '!!! Not implemented yet !!!';
 
-        $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
 	function viewConfigPlain()
@@ -214,9 +218,9 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
         $msg = "viewConfigPlain: ";
         $msgType = 'notice';
 
-        echo 'config_dumpVars: Not implemented yet';
+		$msg .= '!!! Not implemented yet !!!';
 
-        $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
 	function editConfigRaw()
@@ -224,15 +228,19 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
         $msg = "editConfigRaw: ";
         $msgType = 'notice';
 
-        echo 'config_rawEdit: Not implemented yet';
+		$msg .= '!!! Not implemented yet !!!';
 
-        $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
 	function purgeImagesAndData()
 	{
         $msg = "removeImagesAndData: ";
         $msgType = 'notice';
+
+		$msg .= '!!! Not implemented yet !!!';
+
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 
         //Access check
         $canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
@@ -290,7 +298,12 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
 	{
 		$msg = "removeImagesAndData: ";
 		$msgType = 'notice';
-		
+
+		$msg .= '!!! Not implemented yet !!!';
+
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+
+
 		//Access check
 		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
 		if (!$canAdmin) {
@@ -353,7 +366,7 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
 		$msg = "compareDb2SqlFile: ";
 		$msgType = 'notice';
 
-		echo 'compareDb2SqlFile: Not implemented yet';
+		$msg .= '!!! Not implemented yet !!!';
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}

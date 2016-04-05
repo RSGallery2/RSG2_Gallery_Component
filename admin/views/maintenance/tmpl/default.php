@@ -194,16 +194,6 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 									JText::_('COM_RSGALLERY2_MAINT_OPTDB_TXT'),
 									'optimizeDB');
 								?>
-								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.compareDb2SqlFile';
-								//$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=CompareDb2SqlFile';
-								//$link = 'index.php?option=com_rsgallery2&amp;task=compareDb2SqlFile';
-								quickiconBar($link, 'db_optimize.png',
-									JText::_('COM_RSGALLERY2_COMPARE_DB_TO_SQL_FILE'),
-									JText::_('COM_RSGALLERY2_COMPARE_DB_TO_SQL_DESC'),
-									'compareDb2SqlFile');
-								?>
-
 							<?php
 							}
 							?>
@@ -221,7 +211,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 					</div>
 				</div>
 									
-				<div class="row-fluid span6 rsg2_container_icon_set">
+				<div class="row span6 rsg2_container_icon_set">
 					<div class="icons-panel danger">
 						<div class="row-fluid">
 							<div class="icons-panel-title dangerZone">
@@ -267,6 +257,24 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 												JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL_TXT'),
 												'uninstallDataTables');
 											?>
+
+											<?php
+											$link =  'index.php?option=com_rsgallery2&amp;task=maintenance.RegenerateImages';
+											quickTwoIconMoonBar ($link, 'icon-image', 'icon-loop',
+												JText::_('COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY'),
+												JText::_('COM_RSGALLERY2_MAINT_REGEN_TXT').'                        ',
+												'regenerateThumbs');
+											?>
+
+
+											<?php
+											// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.optimizeDB';
+											$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.optimizeDB';
+											quickiconBar($link, 'db_optimize.png',
+												JText::_('COM_RSGALLERY2_MAINT_OPTDB'),
+												JText::_('COM_RSGALLERY2_MAINT_OPTDB_TXT'),
+												'optimizeDB');
+											?>
 									<?php
 										//} else {
 										//	echo JText::_('COM_RSGALLERY2_MORE_FUNCTIONS_WITH_DEBUG_ON');
@@ -279,8 +287,14 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 						</div>
 					</div>
                 </div>
+			</div>
+		</div>
 
-				<div class="row-fluid span6 rsg2_container_icon_set">
+		<div class="clearfix"></div>
+
+		<div class="row-fluid grey-background">
+			<div class="container-fluid grey-background">
+				<div class="row span6 rsg2_container_icon_set">
 					<div class="icons-panel developer">
 						<div class="row-fluid">
 							<div class="icons-panel-title developerZone">
@@ -304,6 +318,16 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 									JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'),
 									JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT').'                   (Not Ready)     ',
 									'editConfigRaw');
+								?>
+
+								<?php
+								$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.compareDb2SqlFile';
+								//$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=CompareDb2SqlFile';
+								//$link = 'index.php?option=com_rsgallery2&amp;task=compareDb2SqlFile';
+								quickiconBar($link, 'db_optimize.png',
+									JText::_('COM_RSGALLERY2_COMPARE_DB_TO_SQL_FILE'),
+									JText::_('COM_RSGALLERY2_COMPARE_DB_TO_SQL_DESC'),
+									'compareDb2SqlFile');
 								?>
 
 								<?php

@@ -18,7 +18,7 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 	public function display ($tpl = null)
 	{
 		global $rsgConfig;
-		
+
 		//--- get needed data ------------------------------------------
 		
 		// Check rights of user
