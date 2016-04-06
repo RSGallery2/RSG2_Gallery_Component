@@ -179,7 +179,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 
 								<?php
 								$link =  'index.php?option=com_rsgallery2&amp;view=maintRegenerateImages';
-								quickTwoIconMoonBar ($link, 'icon-image', 'icon-loop',
+								quickTwoIconMoonBar ($link, 'icon-image', 'icon-wand',
 									JText::_('COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY'),
 									JText::_('COM_RSGALLERY2_MAINT_REGEN_TXT').'                        ',
 									'regenerateThumbs');
@@ -220,7 +220,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 								</h3>
 							</div>
 							<?php
-							if( $this->debugActive ) {
+								if( $this->debugActive ) {
 							?>
 									<div class='icons-panel-info'>
 										<strong>
@@ -241,40 +241,22 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 										// if($Rsg2DebugActive){
 									?>
 
-											<?php
-											//$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.purgeImagesAndData';
-											$link = 'index.php?option=com_rsgallery2&task=purgeEverything';
-											quickiconBar($link, 'media_DelItems.png',
-												JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING'),
-												JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING_TXT'),
-												'purgeImagesAndData');
-											?>
-											<?php
-											//$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.removeImagesAndData';
-											$link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
-											quickiconBar($link, 'db_DelItems.png',
-												JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL'),
-												JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL_TXT'),
-												'uninstallDataTables');
-											?>
-
-											<?php
-											$link =  'index.php?option=com_rsgallery2&amp;task=maintenance.RegenerateImages';
-											quickTwoIconMoonBar ($link, 'icon-image', 'icon-loop',
-												JText::_('COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY'),
-												JText::_('COM_RSGALLERY2_MAINT_REGEN_TXT').'                        ',
-												'regenerateThumbs');
-											?>
-
-
-											<?php
-											// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.optimizeDB';
-											$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.optimizeDB';
-											quickiconBar($link, 'db_optimize.png',
-												JText::_('COM_RSGALLERY2_MAINT_OPTDB'),
-												JText::_('COM_RSGALLERY2_MAINT_OPTDB_TXT'),
-												'optimizeDB');
-											?>
+									<?php
+									//$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.purgeImagesAndData';
+									$link = 'index.php?option=com_rsgallery2&task=purgeEverything';
+									quickiconBar($link, 'media_DelItems.png',
+										JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING'),
+										JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING_TXT'),
+										'purgeImagesAndData');
+									?>
+									<?php
+									//$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.removeImagesAndData';
+									$link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
+									quickiconBar($link, 'db_DelItems.png',
+										JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL'),
+										JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL_TXT'),
+										'uninstallDataTables');
+									?>
 									<?php
 										//} else {
 										//	echo JText::_('COM_RSGALLERY2_MORE_FUNCTIONS_WITH_DEBUG_ON');
@@ -290,22 +272,21 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 			</div>
 		</div>
 
-		<div class="clearfix"></div>
+		<?php
+		if( $this->developActive ) {
+		?>
+			<div class="clearfix"></div>
 
-		<div class="row-fluid grey-background">
-			<div class="container-fluid grey-background">
-				<div class="row span6 rsg2_container_icon_set">
-					<div class="icons-panel developer">
-						<div class="row-fluid">
-							<div class="icons-panel-title developerZone">
-								<h3>
-									<?php echo JText::_('COM_RSGALLERY2_DEVELOPER_ZONE');?>
-								</h3>
-							</div>
-							<?php
-							// if( $this->debugActive ) {
-							if (true) {
-							?>
+			<div class="row-fluid grey-background">
+				<div class="container-fluid grey-background">
+					<div class="row span6 rsg2_container_icon_set">
+						<div class="icons-panel developer">
+							<div class="row-fluid">
+								<div class="icons-panel-title developerZone">
+									<h3>
+										<?php echo JText::_('COM_RSGALLERY2_DEVELOPER_ZONE');?>
+									</h3>
+								</div>
 								<div class='icons-panel-info'>
 									<strong>
 										<?php echo JText::_('COM_RSGALLERY2_ONLY_WHEN_YOU_KNOW_WHAT_YOU_ARE_DOING'); ?>
@@ -338,21 +319,35 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 									'tempStandardconfigEdit');
 								?>
 
-							<?php
-							//} else {
-							//	echo JText::_('COM_RSGALLERY2_MORE_FUNCTIONS_WITH_DEBUG_ON');
-							//}
-							?>
-							<?php
-							}
-							?>
 
+								<?php
+								$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.purgeImagesAndData';
+								//$link = 'index.php?option=com_rsgallery2&task=purgeEverything';
+								quickTwoIconMoonBar ($link, 'icon-database ', 'icon-purge',
+//								quickiconBar($link, 'media_DelItems.png',
+									JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING'),
+									JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING_TXT'),
+									'purgeImagesAndData');
+								?>
+								<?php
+								$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.removeImagesAndData';
+								//$link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
+								quickTwoIconMoonBar ($link, 'icon-database ', 'icon-delete',
+//								quickiconBar($link, 'db_DelItems.png',
+									JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL'),
+									JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL_TXT'),
+									'uninstallDataTables');
+								?>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			<?php
+			}
+			?>
 
-            <!--div class='rsg2-clr'>&nbsp;</div -->
+
+				<!--div class='rsg2-clr'>&nbsp;</div -->
 
         </div>
 
