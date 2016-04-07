@@ -3,7 +3,7 @@
 * This file contains the install routine for RSGallery2
 * @version $Id: install.rsgallery2.php 1011 2011-01-26 15:36:02Z mirjam $
 * @package RSGallery2
-* @copyright (C) 2003 - 2015 RSGallery2
+* @copyright (C) 2003 - 2016 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 **/
@@ -222,7 +222,7 @@ class com_rsgallery2InstallerScript
      */
 	function install($parent)
 	{
-		JLog::add('install', JLog::DEBUG);
+		JLog::add('function install', JLog::DEBUG);
 		
 		require_once( JPATH_SITE . '/administrator/components/com_rsgallery2/includes/install.class.php' );
 
