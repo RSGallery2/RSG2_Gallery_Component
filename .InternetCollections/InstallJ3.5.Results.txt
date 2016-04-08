@@ -1,4 +1,19 @@
+J3.4.8 3.5.1
+    Duplicate column name 'requireReset' SQL=ALTER TABLE `mmbty_users` ADD COLUMN `requireReset` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'Require user to reset password on next login' AFTER `otep`; 
 
+Call stack	
+#		Function		Location	
+1		JApplicationCms->execute()		C:\xampp\htdocs\Joomla3x\administrator\index.php:51	
+2		JApplicationAdministrator->doExecute()		C:\xampp\htdocs\Joomla3x\libraries\cms\application\cms.php:257	
+3		JApplicationAdministrator->dispatch()		C:\xampp\htdocs\Joomla3x\libraries\cms\application\administrator.php:152	
+4		JComponentHelper::renderComponent()		C:\xampp\htdocs\Joomla3x\libraries\cms\application\administrator.php:98	
+5		JComponentHelper::executeComponent()		C:\xampp\htdocs\Joomla3x\libraries\cms\component\helper.php:380	
+6		require_once()		C:\xampp\htdocs\Joomla3x\libraries\cms\component\helper.php:405	
+7		JControllerLegacy->execute()		C:\xampp\htdocs\Joomla3x\administrator\components\com_joomlaupdate\joomlaupdate.php:18	
+8		JoomlaupdateControllerUpdate->finalise()		C:\xampp\htdocs\Joomla3x\libraries\legacy\controller\legacy.php:728	
+9		JoomlaupdateModelDefault->finaliseUpgrade()		C:\xampp\htdocs\Joomla3x\administrator\components\com_joomlaupdate\controllers\update.php:99	
+10		JInstaller->parseSchemaUpdates()		C:\xampp\htdocs\Joomla3x\administrator\components\com_joomlaupdate\models\default.php:678	
+11		JDatabaseDriverMysqli->execute()		C:\xampp\htdocs\Joomla3x\libraries\cms\installer\installer.php:1180
 
 J3.5
 1146 Table 'fith_joomla35.#__redirect_links' doesn't exist SQL=ALTER TABLE `#__redirect_links` ADD COLUMN `header` smallint(3) NOT NULL DEFAULT 301; 
