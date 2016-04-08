@@ -217,7 +217,7 @@ $doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/
                             //$link = 'index.php?option=com_rsgallery2&amp;view=config';
                             $link = 'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig';
                             //RsgButton( $link, 'config.png',  JText::_('COM_RSGALLERY2_CONFIGURATION') );
-                            RsgIconMoonButton( $link, 'icon-cog clsProperties',  JText::_('COM_RSGALLERY2_CONFIGURATION') );
+                            RsgIconMoonButton( $link, 'icon-equalizer clsProperties',  JText::_('COM_RSGALLERY2_CONFIGURATION') );
                         }
 
                         //$link = 'index.php?option=com_rsgallery2&amp;view=galleries';

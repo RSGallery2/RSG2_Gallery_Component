@@ -238,27 +238,22 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
         $msg = "removeImagesAndData: ";
         $msgType = 'notice';
 
-		$msg .= '!!! Not implemented yet !!!';
+//		$msg .= '!!! Not implemented yet !!!';
 
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
-
-        //Access check
+		//Access check
         $canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
-        if (!$canAdmin) {
-            // return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
-//			JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+		if (!$canAdmin) {
+			//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
             $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
             $msgType = 'warning';
-//			return;	// 150518 Does not return JError::raiseWarning object $error
-
             // replace newlines with html line breaks.
             str_replace('\n', '<br>', $msg);
-
-//            $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
         } else {
 
-            //--- delete all images ----------------------------------------
-/*
+			$msg .= '!!! Not implemented yet !!!';
+
+			//--- delete all images ----------------------------------------
+/**
             $fullPath_thumb = JPATH_ROOT.$rsgConfig->get('imgPath_thumb') . '/';
             $fullPath_display = JPATH_ROOT.$rsgConfig->get('imgPath_display') . '/';
             $fullPath_original = JPATH_ROOT.$rsgConfig->get('imgPath_original') . '/';
@@ -283,11 +278,10 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
             }
 
             //--- delete images reference in db ---------------------------------
-            $msg .= this->removeImageReferences();
+            $msg .= $this->removeImageReferences();
 
-
-            $msg .= ( JText::_('COM_RSGALLERY2_PURGED'), true );
-*/
+            $msg .= ( JText::_('COM_RSGALLERY2_PURGED', true );
+/**/
 
         }
 
@@ -299,27 +293,25 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
 		$msg = "removeImagesAndData: ";
 		$msgType = 'notice';
 
-		$msg .= '!!! Not implemented yet !!!';
+//		$msg .= '!!! Not implemented yet !!!';
 
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
-
+//		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 
 		//Access check
 		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
 		if (!$canAdmin) {
-			// return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
-//			JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+			//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 			$msgType = 'warning';
-//			return;	// 150518 Does not return JError::raiseWarning object $error 
-			
 			// replace newlines with html line breaks.
-			str_replace('\n', '<br>', $msg);			
-
-			$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+			str_replace('\n', '<br>', $msg);
 		} else {
 
-            //--- delete all images ----------------------------------------
+			$msg .= '!!! Not implemented yet !!!';
+
+			// needs rsgconfig
+
+			//--- delete all images ----------------------------------------
 /*
             $fullPath_thumb = JPATH_ROOT.$rsgConfig->get('imgPath_thumb') . '/';
 //ToDo:            Check 4 valid path !
@@ -356,9 +348,9 @@ SQL> insert into Employee(ID,  First_Name, Last_Name, Start_Date,               
 			str_replace('\n', '<br>', $msg);			
 */
 
-			$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 		}
 
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
 	function compareDb2SqlFile()

@@ -43,6 +43,34 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		return true;
 	}
 
+	public function apply_rawEdit($key = null) {
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		$link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
+		$this->setRedirect($link);
+
+		$msg = "apply_rawEdit: ";
+		$msgType = 'notice';
+
+		$msg .= '!!! Not implemented yet !!!';
+
+		$this->setRedirect($link, $msg, $msgType);
+	}
+
+	public function save_rawEdit($key = null) {
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		$link = 'index.php?option=com_rsgallery2&view=maintenance';
+		$this->setRedirect($link);
+
+		$msg = "save_rawEdit: ";
+		$msgType = 'notice';
+
+		$msg .= '!!! Not implemented yet !!!';
+
+		$this->setRedirect($link, $msg, $msgType);
+	}
+
 	public function cancel_rawEdit($key = null) {
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
@@ -51,8 +79,9 @@ class Rsgallery2ControllerConfig extends JControllerForm
 
 		return true;
 	}
-	
-    public function save($key = null, $urlVar = null) {
+
+
+	public function save($key = null, $urlVar = null) {
 		$model = $this->getModel('Config');
 		$item=$model->save($key);
 

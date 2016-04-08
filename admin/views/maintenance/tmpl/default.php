@@ -149,7 +149,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 							</div>
 							<?php
 							$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawView';
-							quickTwoIconMoonBar ($link, 'icon-cog', 'icon-eye',
+							quickTwoIconMoonBar ($link, 'icon-equalizer', 'icon-eye',
 								JText::_('COM_RSGALLERY2_CONFIGURATION_VARIABLES'),
 								JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT').'                        ',
 								'viewConfigRaw');
@@ -184,7 +184,6 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 									JText::_('COM_RSGALLERY2_MAINT_REGEN_TXT').'                        ',
 									'regenerateThumbs');
 								?>
-
 
 								<?php
 								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.optimizeDB';
@@ -295,7 +294,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 
 								<?php
 								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawEdit';
-								quickTwoIconMoonBar ($link, 'icon-cog', 'icon-edit',
+								quickTwoIconMoonBar ($link, 'icon-equalizer', 'icon-edit',
 									JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'),
 									JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT').'                   (Not Ready)     ',
 									'editConfigRaw');
@@ -305,15 +304,23 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 								$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.compareDb2SqlFile';
 								//$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=CompareDb2SqlFile';
 								//$link = 'index.php?option=com_rsgallery2&amp;task=compareDb2SqlFile';
-								quickiconBar($link, 'db_optimize.png',
+								quickTwoIconMoonBar ($link, 'icon-database', 'icon-book',
 									JText::_('COM_RSGALLERY2_COMPARE_DB_TO_SQL_FILE'),
 									JText::_('COM_RSGALLERY2_COMPARE_DB_TO_SQL_DESC'),
 									'compareDb2SqlFile');
 								?>
 
 								<?php
+								$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.optimizeDB';
+								quickTwoIconMoonBar ($link, 'icon-database', 'icon-checkbox-checked',
+									JText::_('COM_RSGALLERY2_MAINT_OPTDB'),
+									JText::_('COM_RSGALLERY2_MAINT_OPTDB_TXT'),
+									'optimizeDB');
+								?>
+
+								<?php
 								$link = 'index.php?option=com_rsgallery2&amp;view=config';
-								quickTwoIconMoonBar ($link, 'icon-cog', 'icon-cog',
+								quickTwoIconMoonBar ($link, 'icon-equalizer', 'icon-cog',
 									JText::_('COM_RSGALLERY2_CONFIGURATION'),
 									JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT').'                        ',
 									'tempStandardconfigEdit');
