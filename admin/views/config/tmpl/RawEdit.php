@@ -70,9 +70,9 @@ function configInputField($name='unknown', $value='') {
 				<?php echo JHtml::_('bootstrap.endTabSet'); ?>
 
 				<!--input type="hidden" name="option" value="com_rsgallery2" />
-				<input type="hidden" name="rsgOption" value="maintenance" />
+				<input type="hidden" name="rsgOption" value="maintenance" /-->
 
-				<input type="hidden" name="task" value="" /-->
+				<input type="hidden" name="task" value="" />
 				<?php echo JHtml::_('form.token'); ?>
 			</form>
 		</div>
