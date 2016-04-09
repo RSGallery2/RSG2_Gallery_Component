@@ -63,9 +63,7 @@
 		<language tag="sl-SI">sl-SI/sl-SI.com_rsgallery2.ini</language>
 		<language tag="tr-TR">tr-TR/tr-TR.com_rsgallery2.ini</language>
     </languages>
-	
-	
-	
+		
 	<administration>
 		<menu view="com_rsgallery2" 
 			img="administrator/components/com_rsgallery2/images/rsg2_menu.png">COM_RSGALLERY2_MENU</menu>
@@ -82,6 +80,8 @@
 				link="option=com_rsgallery2&amp;rsgOption=images">COM_RSGALLERY2_MENU_ITEMS</menu>
 			<menu view="COM_RSGALLERY2_MENU_CONFIG"
 				link="option=com_rsgallery2&amp;rsgOption=config&amp;task=showConfig">COM_RSGALLERY2_MENU_CONFIG</menu>
+			<menu view="COM_RSGALLERY2_MENU_MAINTENANCE"
+				link="option=com_rsgallery2&amp;view=maintenance">COM_RSGALLERY2_MENU_MAINTENANCE</menu>
 		</submenu>
 
 		<files folder="admin">

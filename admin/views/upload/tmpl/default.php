@@ -10,10 +10,10 @@
 
 defined( '_JEXEC' ) or die(); 
 
-JHtml::_('bootstrap.tooltip'); 
+JHtml::_('bootstrap.tooltip');
+//JHtml::_('formbehavior.chosen', 'select');
+JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'=>3));
 
-JHtml::_('formbehavior.chosen', 'select');
- 
 JText::script('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN');
 JText::script('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST');
 JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED'); 

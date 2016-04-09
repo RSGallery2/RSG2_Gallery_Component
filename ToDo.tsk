@@ -6,6 +6,13 @@
 //   '*': Standard (8)
 //   '+': Nice to have (16)
 //   '!': Error (32)
+
+- ToDo: *:: config: parameter developer view yes/no
+- ToDo: *:: config: parameter watermarked path 
+- ToDo: *:: config: parameter watermarked path create / index.php ...
+
+- ToDo: **++::--- before 2016 04.08 ----------------------------------------------------
+- ToDo: *:: 
 - ToDo: **++::JRequest::setVar replace with ...
 - ToDo: **+++:: search for ToDo: deprecated 
 - ToDo: **+::JParameter ? $this->params = new JParameter($content, $xml, 'template'); wrong parameter number ? 
