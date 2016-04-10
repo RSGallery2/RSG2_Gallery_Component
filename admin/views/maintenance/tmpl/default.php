@@ -328,7 +328,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 
 
 								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.purgeImagesAndData';
+								$link = 'index.php?option=com_rsgallery2&amp;task=MaintCleanUp.purgeImagesAndData';
 								//$link = 'index.php?option=com_rsgallery2&task=purgeEverything';
 								quickTwoIconMoonBar ($link, 'icon-database ', 'icon-purge',
 //								quickiconBar($link, 'media_DelItems.png',
@@ -337,7 +337,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 									'purgeImagesAndData');
 								?>
 								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.removeImagesAndData';
+								$link = 'index.php?option=com_rsgallery2&amp;task=MaintCleanUp.removeImagesAndData';
 								//$link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
 								quickTwoIconMoonBar ($link, 'icon-database ', 'icon-delete',
 //								quickiconBar($link, 'db_DelItems.png',

@@ -9,7 +9,7 @@ if ($Rsg2DebugActive)
 	jimport('joomla.log.log');
 
 	// identify active file
-	JLog::add('==> ctrl.maintenanc.php ');
+	JLog::add('==> ctrl.maintCleanUp.php ');
 }
 
 
@@ -40,10 +40,6 @@ class Rsgallery2ControllerMaintCleanUp extends JControllerAdmin
 
 		return $model;
 	}
-
-	
-	
-	
 	
 	function purgeImagesAndData()
 	{
@@ -62,12 +58,10 @@ class Rsgallery2ControllerMaintCleanUp extends JControllerAdmin
             str_replace('\n', '<br>', $msg);
         } else {
 
-			$msg .= '!!! Not implemented yet !!!';
-
 			//--- Delete all images -------------------------------
 			
 			$imageModel = $this->getModel ('MaintImageFiles');
-			$msg .= $imageModel->RemoveImagesInFolder ();
+			$msg .= $imageModel->removeAllImageFiles ();
 			
 			//--- delete images reference in database ---------------
 			
@@ -76,6 +70,7 @@ class Rsgallery2ControllerMaintCleanUp extends JControllerAdmin
 			
 			//--- purge message -------------------------------------
             $msg .= '\n' . JText::_('COM_RSGALLERY2_PURGED', true );
+
         }
 
         $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
@@ -100,15 +95,10 @@ class Rsgallery2ControllerMaintCleanUp extends JControllerAdmin
 			str_replace('\n', '<br>', $msg);
 		} else {
 
-			$msg .= '!!! Not implemented yet !!!';
-
-
-			$msg .= '!!! Not implemented yet !!!';
-
 			//--- Delete all images -------------------------------
 			
 			$imageModel = $this->getModel ('MaintImageFiles');
-			$msg .= $imageModel->RemoveImagesInFolder ();
+			$msg .= $imageModel->removeAllImageFiles ();
 			
 			//--- delete images reference in database ---------------
 			
@@ -145,7 +135,8 @@ class Rsgallery2ControllerMaintCleanUp extends JControllerAdmin
 
 		}
 
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+		//$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+		$this->setRedirect('index.php?option=com_installer', $msg, $msgType);
 	}
 
 	
