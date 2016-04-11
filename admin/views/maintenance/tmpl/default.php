@@ -241,17 +241,17 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 									?>
 
 									<?php
-									//$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.purgeImagesAndData';
-									$link = 'index.php?option=com_rsgallery2&task=purgeEverything';
-									quickiconBar($link, 'media_DelItems.png',
+									$link = 'index.php?option=com_rsgallery2&amp;task=MaintCleanUp.purgeImagesAndData';
+									//$link = 'index.php?option=com_rsgallery2&task=purgeEverything';
+									quickTwoIconMoonBar ($link, 'icon-database ', 'icon-purge',
 										JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING'),
 										JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING_TXT'),
 										'purgeImagesAndData');
 									?>
 									<?php
-									//$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.removeImagesAndData';
-									$link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
-									quickiconBar($link, 'db_DelItems.png',
+									$link = 'index.php?option=com_rsgallery2&amp;task=MaintCleanUp.removeImagesAndData';
+									//$link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
+									quickTwoIconMoonBar ($link, 'icon-database ', 'icon-delete',
 										JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL'),
 										JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL_TXT'),
 										'uninstallDataTables');
@@ -327,24 +327,6 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 								?>
 
 
-								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;task=MaintCleanUp.purgeImagesAndData';
-								//$link = 'index.php?option=com_rsgallery2&task=purgeEverything';
-								quickTwoIconMoonBar ($link, 'icon-database ', 'icon-purge',
-//								quickiconBar($link, 'media_DelItems.png',
-									JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING'),
-									JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING_TXT'),
-									'purgeImagesAndData');
-								?>
-								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;task=MaintCleanUp.removeImagesAndData';
-								//$link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
-								quickTwoIconMoonBar ($link, 'icon-database ', 'icon-delete',
-//								quickiconBar($link, 'db_DelItems.png',
-									JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL'),
-									JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL_TXT'),
-									'uninstallDataTables');
-								?>
 							</div>
 						</div>
 					</div>

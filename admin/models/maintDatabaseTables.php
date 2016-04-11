@@ -29,7 +29,11 @@ class rsgallery2ModelMaintDatabaseTables extends  JModelList
     }
 
     /**
-     * Deletes all Tables of RSG2 in preparation of of deinstall/reinstall
+     * Deletes all Tables of RSG2 in preparation of of uninstall/reinstall
+     *
+     * This deletion (dropping) leads to an unwanted effect:
+     * The uninstall part of joomla can't be opened as the tables are missing
+     * ToDo: Better would be to remove the comments before the drop commands in  the file uninstall.mysql.utf8.sql
      * @return string $msg
      */
     public function removeAllTables ()
