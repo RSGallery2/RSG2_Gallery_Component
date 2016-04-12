@@ -253,7 +253,8 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 									//$link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
 									quickTwoIconMoonBar ($link, 'icon-database ', 'icon-delete',
 										JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL'),
-										JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL_TXT'),
+										'<del>' . JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL_TXT') . '</del><br>'
+										. JText::_('COM_RSGALLERY2_C_TODO_UNINSTALL_TXT'),
 										'uninstallDataTables');
 									?>
 									<?php
