@@ -379,7 +379,7 @@ class rsgDisplay extends JObject{
             <?php
         } else {
             ?>
-			<img class="rsg2-displayImage"  src="<?php echo imgUtils::getImgDisplay($name); ?>" alt="<?php echo $title; ?>" title="<?php echo $title; ?>"  />
+			<img class="rsg2-displayImage"  src="<?php echo imgUtils::getImgDisplayPath($name); ?>" alt="<?php echo $title; ?>" title="<?php echo $title; ?>"  />
             <?php
         }
     }
@@ -488,7 +488,7 @@ class rsgDisplay extends JObject{
                             <div class="shadow-box">
                             	<div class="img-shadow">
                             	<a href="<?php echo $url;?>">
-								<img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->title;?>" width="<?php echo $rsgConfig->get('thumb_width');?>" />
+								<img src="<?php echo imgUtils::getImgThumbPath($row->name);?>" alt="<?php echo $row->title;?>" width="<?php echo $rsgConfig->get('thumb_width');?>" />
                                 </a>
                             	</div>
                                 <div class="rsg2-clr"></div>
@@ -528,7 +528,7 @@ class rsgDisplay extends JObject{
                             <div class="shadow-box">
                             	<div class="img-shadow">
                             	<a href="<?php echo $url;?>">
-								<img src="<?php echo imgUtils::getImgThumb($row->name);?>" alt="<?php echo $row->title;?>" width="<?php echo $rsgConfig->get('thumb_width');?>"  />
+								<img src="<?php echo imgUtils::getImgThumbPath($row->name);?>" alt="<?php echo $row->title;?>" width="<?php echo $rsgConfig->get('thumb_width');?>"  />
                             	</a>
                             	</div>
                             	<div class="rsg2-clr"></div>

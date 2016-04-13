@@ -749,7 +749,7 @@ class myGalleries {
 						//galleryUtils::showCategories(NULL, $my->id, 'gallery_id');
 						?>
 					</td>
-					<td rowspan="3"><img src="<?php echo imgUtils::getImgThumb($filename); ?>" alt="<?php echo $title; ?>"  /></td>
+					<td rowspan="3"><img src="<?php echo imgUtils::getImgThumbPath($filename); ?>" alt="<?php echo $title; ?>"  /></td>
 				</tr>
 				<tr>
 					<td align="left"><?php echo JText::_('COM_RSGALLERY2_FILENAME'); ?></td>
