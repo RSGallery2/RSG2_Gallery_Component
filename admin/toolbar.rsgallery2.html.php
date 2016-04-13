@@ -111,7 +111,7 @@ class menu_rsg2_images{
 	 *
 	 */
     static function upload() {
-		JToolBarHelper::title( JText::_('COM_RSGALLERY2_UPLOAD'), 'generic.png' );
+		JToolBarHelper::title(  JText::_('COM_RSGALLERY2_ITEM') . ' ' . JText::_('COM_RSGALLERY2_UPLOAD'), 'generic.png' );
         JToolBarHelper::spacer();
         JToolBarHelper::custom('save_upload','upload.png','upload.png','COM_RSGALLERY2_UPLOAD', false);
         JToolBarHelper::spacer();
