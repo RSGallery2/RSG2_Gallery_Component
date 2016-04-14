@@ -69,12 +69,24 @@ class menu_rsg2_submenu{
 
 			if (substr($view, 0, 5) == 'maint')
 			{
-				// In maintenance add config
-				JHtmlSidebar::addEntry(
-					'<span class="icon-equalizer" >  </span>'.
-					JText::_('COM_RSGALLERY2_CONFIGURATION'),
-					'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig',
-					false);
+				if ($view == 'maintenance' )
+				{
+					// In maintenance add config
+					JHtmlSidebar::addEntry(
+						'<span class="icon-equalizer" >  </span>' .
+						JText::_('COM_RSGALLERY2_CONFIGURATION'),
+						'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig',
+						false);
+				}
+				else
+				{
+					// In config add maintenance
+					JHtmlSidebar::addEntry(
+						'<span class="icon-screwdriver" >  </span>' .
+						JText::_('COM_RSGALLERY2_MAINTENANCE'),
+						'index.php?option=com_rsgallery2&view=maintenance',
+						false);
+				}
 			}
 
 
