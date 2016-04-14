@@ -66,7 +66,7 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 			$app->redirect("index.php?option=com_rsgallery2&amp;rsgOption=maintenance");
 /**/
 
-			$tables = getTableListFromSqlFile();
+			$tables = $this->getTableListFromSqlFile();
 
 			$db = JFactory::getDBO();
 			$query = $db->getQuery(true);
@@ -78,7 +78,7 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 			}
 
 			//--- optimized message -------------------------------------
-            $msg .= JText::_('COM_RSGALLERY2_MAINT_OPTIMIZE_SUCCESS', true );
+            $msg .=  '<br>' . JText::_('COM_RSGALLERY2_MAINT_OPTIMIZE_SUCCESS', true );
         }
 
         $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
