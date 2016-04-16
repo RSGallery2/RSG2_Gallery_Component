@@ -262,14 +262,67 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 			</div>
 		</div>
 
+		<div class="row-fluid grey-background">
+			<div class="container-fluid grey-background">
+
+				<div class="row span6 rsg2_container_icon_set">
+					<div class="icons-panel upgrade">
+						<div class="row-fluid">
+							<div class="icons-panel-title upgradeZone">
+								<h3>
+									<?php echo JText::_('COM_RSGALLERY2_UPGRADE_ZONE');?>
+								</h3>
+								<?php echo JText::_('COM_RSGALLERY2_UPGRADE_ZONE_DESCRIPTION');?>
+							</div>
+
+							<?php
+							$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.compareDb2SqlFile';
+							//$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=CompareDb2SqlFile';
+							//$link = 'index.php?option=com_rsgallery2&amp;task=compareDb2SqlFile';
+							quickTwoIconMoonBar ($link, 'icon-database', 'icon-book',
+								JText::_('COM_RSGALLERY2_COMPARE_DB_TO_SQL_FILE'),
+								JText::_('COM_RSGALLERY2_COMPARE_DB_TO_SQL_DESC'),
+								'compareDb2SqlFile');
+							?>
+
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row span6 rsg2_container_icon_set">
+					<div class="icons-panel test">
+						<div class="row-fluid">
+							<div class="icons-panel-title testZone">
+								<h3>
+									<?php echo JText::_('COM_RSGALLERY2_TEST_ZONE');?>
+								</h3>
+								<?php echo JText::_('COM_RSGALLERY2_TEST_ZONE_DESCRIPTION');?>
+							</div>
+
+							<?php
+							$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.compareDb2SqlFile';
+							//$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=CompareDb2SqlFile';
+							//$link = 'index.php?option=com_rsgallery2&amp;task=compareDb2SqlFile';
+							quickTwoIconMoonBar ($link, 'icon-database', 'icon-book',
+								JText::_('COM_RSGALLERY2_COMPARE_DB_TO_SQL_FILE'),
+								JText::_('COM_RSGALLERY2_COMPARE_DB_TO_SQL_DESC'),
+								'compareDb2SqlFile');
+							?>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
 		<?php
 		if( $this->developActive ) {
 		?>
-			<div class="clearfix"></div>
-
-			<div class="row-fluid grey-background">
-				<div class="container-fluid grey-background">
-					<div class="row span6 rsg2_container_icon_set">
+		<div class="row-fluid grey-background">
+			<div class="container-fluid grey-background">
+				<div class="row span6 rsg2_container_icon_set">
 						<div class="icons-panel developer">
 							<div class="row-fluid">
 								<div class="icons-panel-title developerZone">
@@ -301,16 +354,6 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 								?>
 
 								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.compareDb2SqlFile';
-								//$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=CompareDb2SqlFile';
-								//$link = 'index.php?option=com_rsgallery2&amp;task=compareDb2SqlFile';
-								quickTwoIconMoonBar ($link, 'icon-database', 'icon-book',
-									JText::_('COM_RSGALLERY2_COMPARE_DB_TO_SQL_FILE'),
-									JText::_('COM_RSGALLERY2_COMPARE_DB_TO_SQL_DESC'),
-									'compareDb2SqlFile');
-								?>
-
-								<?php
 								$link = 'index.php?option=com_rsgallery2&amp;view=config';
 								quickTwoIconMoonBar ($link, 'icon-equalizer', 'icon-cog',
 									JText::_('COM_RSGALLERY2_CONFIGURATION'),
@@ -323,14 +366,10 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 						</div>
 					</div>
 				</div>
-			<?php
-			}
-			?>
-
-
-				<!--div class='rsg2-clr'>&nbsp;</div -->
-
-        </div>
+	        </div>
+		<?php
+		}
+		?>
 
         <div>
 			<input type="hidden" name="option" value="com_rsgallery2" />
