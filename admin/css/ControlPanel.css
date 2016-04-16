@@ -1,37 +1,95 @@
 
-div.iconimage img {
-/*	margin:0px auto; /**/
-    margin:0px 16px; /**/
-	/*border: none; /**/
-	/*background: red; /**/
-}
-	
-.rsg2icon{
-/*	border: 5px; /**/
-	/* margin:10px 10px; /**/
-    /* margin:10px auto; /**/
-    margin:5px 10px; /* auto; /**/
+.icon{
+	border: 5px; /**/
+	margin:10px 10px; /**/
+	/* margin:10px auto; /**/
     /* float:left; /**/
-    /* width: 80px; /**/
-	min-width: 70px; /**/
+    width: 80px; /**/
     height: 80px; /**/
     padding: 10px; /**/
 	background-color: white; /**/
-	/* background-color: red; /**/
 	text-align: center; /**/
 	border-radius: 8px; /**/	
 	box-shadow: 2px 2px 1px #888888; /**/
 }
 
-.rsg2icon:hover {
-    border: 15px; /**/
-    background-color: lightblue;
-    border-color: black;
+.iconMoon{
+	border: 5px; /**/
+	margin:10px 10px; /**/
+	/* margin:10px auto; /**/
+    /* float:left; /**/
+    width: 80px; /**/
+    height: 80px; /**/
+    padding: 10px; /**/
+	background-color: white; /**/
+	text-align: center; /**/
+	border-radius: 8px; /**/	
+	box-shadow: 2px 2px 1px #888888; /**/
 }
 
-.debugicon{
-    height: 140px; /**/
+/*
+div.iconimage {
+	margin:0px auto;
+	}
+*/
+div.iconimage img {
+	margin:0px 16px; /**/
+	/*border: none; /**/
+	/* background: red; /**/
 }
+	
+div.iconMoonImage {
+/*	margin:15px 10px; /**/
+/*	padding: 10px; /**/
+	text-align: center; /**/
+/*	color:red; /**/
+	/*border: none; /**/
+/*	border: solid 2px green; /**/
+	/* background: red; /**/
+}
+
+div.iconMoonImage > SPAN {
+	/* border: solid 2px red; /**/
+	/* padding: 60px; /**/
+	/* margin: 60px; /**/
+	padding: 20px 0 10px 0; /**/
+	position: relative;
+	left: -12px;
+}
+
+div.iconMoonImage > SPAN.clsProperties {
+	color:blue; /**/
+}
+	
+div.iconMoonImage > SPAN.clsGalleries {
+	color:green; /**/
+}
+	
+div.iconMoonImage > SPAN.clsBatchUpload {
+	color:green; /**/
+}
+	
+div.iconMoonImage > SPAN.clsUpload {
+	color:green; /**/
+}
+	
+div.iconMoonImage > SPAN.clsBatchUpload {
+	color:green; /**/
+}
+	
+div.iconMoonImage > SPAN.clsImages {
+	color:green; /**/
+}
+	
+div.iconMoonImage > SPAN.clsMaintenance {
+	color:red; /**/
+}
+	
+div.iconMoonImage > SPAN.clsTemplate{
+	color:blue; /**/
+}
+	
+
 
 .rsg2-container-icon {
     margin:0 auto; /**/

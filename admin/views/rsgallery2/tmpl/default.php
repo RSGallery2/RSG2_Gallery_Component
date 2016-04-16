@@ -122,12 +122,7 @@ function DisplayInfoImages ($infoImages) {
 
 function DisplayInfoRsgallery2 ($Rsg2Version)
 {
-    /*
-        // Rsgallery Info area
-        echo '<div class="row">';
-    */
     // Logo
-
     echo '<row>';
     echo '<div class="rsg2logo-container">';
     echo '<div class="rsg2logo">';
@@ -187,14 +182,10 @@ function DisplayInfoRsgallery2 ($Rsg2Version)
     return;
 }
 
-// public static $extension = 'COM_RSGallery2';
-
+/**/
 $doc = JFactory::getDocument();
-//$doc->addStyleSheet ("administrator/components/com_rsgallery2/admin.rsgallery2.css");
-//$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/admin.rsgallery2.css");
-//$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/admin.rsg2.01.old.css");
-$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/admin.rsg2.css");
-
+$doc->addStyleSheet( JURI_SITE."administrator/components/com_rsgallery2/css/ControlPanel.css");
+/**/
 
 ?>
 
@@ -214,32 +205,23 @@ $doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/
                 <div class="row-fluid">
                     <?php
                         if ( $this->UserIsRoot ){
-                            //$link = 'index.php?option=com_rsgallery2&amp;view=config';
                             $link = 'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig';
-                            //RsgButton( $link, 'config.png',  JText::_('COM_RSGALLERY2_CONFIGURATION') );
                             RsgIconMoonButton( $link, 'icon-equalizer clsProperties',  JText::_('COM_RSGALLERY2_CONFIGURATION') );
                         }
 
-                        //$link = 'index.php?option=com_rsgallery2&amp;view=galleries';
                         $link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
-                        //RsgButton( $link, 'categories.png', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
                         RsgIconMoonButton( $link, 'icon-images clsGalleries', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
 
                         $link = 'index.php?option=com_rsgallery2&view=upload';
-                        //RsgButton( $link, 'upload.png', JText::_('COM_RSGALLERY2_UPLOAD') );
                         RsgIconMoonButton( $link, 'icon-upload clsUpload', JText::_('COM_RSGALLERY2_UPLOAD') );
-/**/
-                        // $link = 'index.php?option=com_rsgallery2&amp;view=images';
+
                         $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=view_images';
-                        //RsgButton( $link, 'mediamanager.png', JText::_('COM_RSGALLERY2_MANAGE_IMAGES') );
                         RsgIconMoonButton( $link, 'icon-image clsImages', JText::_('COM_RSGALLERY2_MANAGE_IMAGES') );
-/**/					
+
                         if ( $this->UserIsRoot ){
                             $link = 'index.php?option=com_rsgallery2&view=maintenance';
-							//RsgButton( $link, 'maintenance.png', JText::_('COM_RSGALLERY2_MAINTENANCE'));
 							RsgIconMoonButton( $link, 'icon-screwdriver clsMaintenance', JText::_('COM_RSGALLERY2_MAINTENANCE'));
 						}
-/**/
                     ?>
                 </div>
 			</div>
@@ -305,15 +287,17 @@ $doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/
 				</div>
 			</div>					
 		</div>
+            <?php
+            echo $this->FooterText;
+            ?>
 	</div>
 	
     <div>
 		<input type="hidden" name="task" value="" />
 		<?php echo JHtml::_('form.token'); ?>
-	</div>	
-	
-	<?php			
-		echo $this->FooterText;
-	?>
+	</div>
+
+
+
 </form>
 

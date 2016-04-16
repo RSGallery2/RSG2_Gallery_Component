@@ -12,6 +12,8 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 	// the global config
 	protected $UserIsRoot;
 	protected $debugActive;
+	protected $upgradeActive;
+	protected $testActive;
 	protected $developActive;
 	protected $sidebar;
 
@@ -25,8 +27,10 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
 		$this->debugActive = $rsgConfig->get('debug');
+		$this->upgradeActive = false; // false / true;
+		$this->testActive = false; // false / true;
 		$this->developActive = true; // false / true;
-		
+
 //		$form = $this->get('Form');
 
 		//--- begin to display --------------------------------------------
@@ -47,8 +51,6 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 		$this->sidebar = JHtmlSidebar::render ();
 
 		parent::display ($tpl);
-
-        return;
 	}
 
 	/**

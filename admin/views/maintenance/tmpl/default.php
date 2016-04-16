@@ -12,16 +12,17 @@ $doc = JFactory::getDocument();
 $doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
 
 // Purge / delete of database variables should be confirmed 
-$script = " 
+$script = "
 	jQuery(document).ready(function($){ 
-		$('.consolidateDB').on('click', function () { 
+/*		$('.consolidateDB').on('click', function () {
 			return confirm('" . JText::_('COM_RSGALLERY2_CONFIRM_CONSIDER_BACKUP_OR_CONTINUE') . "'); 
 		}); 
-
+*/
+/*
 		$('.regenerateThumbs').on('click', function () { 
 			return confirm('" . JText::_('COM_RSGALLERY2_CONFIRM_CONSIDER_BACKUP_OR_CONTINUE') . "'); 
 		}); 
-
+*/
 /*		$('.optimizeDB').on('click', function () { 
 			return confirm('" . JText::_('COM_RSGALLERY2_CONFIRM_CONSIDER_BACKUP_OR_CONTINUE') . "'); 
 		}); 
@@ -134,12 +135,12 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 
         <div class="row-fluid grey-background">
             <div class="container-fluid grey-background">
-				<div class="row span6 rsg2-container-icon-set">
+				<div class="row span4 rsg2-container-icon-set">
 					<div class="icons-panel repair">
 						<div class="row-fluid">
 							<div class="icons-panel-title repairZone">
 								<h3>
-									<?php echo JText::_('COM_RSGALLERY2_REPAIR');?>
+									<?php echo JText::_('COM_RSGALLERY2_REPAIR_ZONE');?>
 								</h3>
 							</div>
 							<div class='icons-panel-info'>
@@ -200,7 +201,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 					</div>
 				</div>
 									
-				<div class="row span6 rsg2_container_icon_set">
+				<div class="row span4 rsg2_container_icon_set">
 					<div class="icons-panel danger">
 						<div class="row-fluid">
 							<div class="icons-panel-title dangerZone">
@@ -259,20 +260,29 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 						</div>
 					</div>
                 </div>
+		<!--
 			</div>
 		</div>
 
 		<div class="row-fluid grey-background">
 			<div class="container-fluid grey-background">
-
-				<div class="row span6 rsg2_container_icon_set">
+		-->
+				<?php
+				if( $this->testActive ) {
+				?>
+				<div class="row span4 rsg2_container_icon_set">
 					<div class="icons-panel upgrade">
 						<div class="row-fluid">
 							<div class="icons-panel-title upgradeZone">
 								<h3>
 									<?php echo JText::_('COM_RSGALLERY2_UPGRADE_ZONE');?>
 								</h3>
-								<?php echo JText::_('COM_RSGALLERY2_UPGRADE_ZONE_DESCRIPTION');?>
+							</div>
+
+							<div class='icons-panel-info'>
+								<strong>
+									<?php echo JText::_('COM_RSGALLERY2_UPGRADE_ZONE_DESCRIPTION');?>
+								</strong>
 							</div>
 
 							<?php
@@ -288,16 +298,27 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 						</div>
 					</div>
 				</div>
+				<?php
+					}
+				?>
 
 
-				<div class="row span6 rsg2_container_icon_set">
+				<?php
+				if( $this->testActive ) {
+				?>
+				<div class="row span4 rsg2_container_icon_set">
 					<div class="icons-panel test">
 						<div class="row-fluid">
 							<div class="icons-panel-title testZone">
 								<h3>
 									<?php echo JText::_('COM_RSGALLERY2_TEST_ZONE');?>
 								</h3>
-								<?php echo JText::_('COM_RSGALLERY2_TEST_ZONE_DESCRIPTION');?>
+							</div>
+
+							<div class='icons-panel-info'>
+								<strong>
+									<?php echo JText::_('COM_RSGALLERY2_TEST_ZONE_DESCRIPTION');?>
+								</strong>
 							</div>
 
 							<?php
@@ -313,16 +334,21 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 						</div>
 					</div>
 				</div>
+				<?php
+					}
+				?>
+				<!--
 
 			</div>
 		</div>
 
-		<?php
-		if( $this->developActive ) {
-		?>
 		<div class="row-fluid grey-background">
 			<div class="container-fluid grey-background">
-				<div class="row span6 rsg2_container_icon_set">
+				-->
+				<?php
+					if( $this->developActive ) {
+				?>
+				<div class="row span4 rsg2_container_icon_set">
 						<div class="icons-panel developer">
 							<div class="row-fluid">
 								<div class="icons-panel-title developerZone">
@@ -365,11 +391,11 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 							</div>
 						</div>
 					</div>
-				</div>
-	        </div>
-		<?php
-		}
-		?>
+				<?php
+					}
+				?>
+			</div>
+		</div>
 
         <div>
 			<input type="hidden" name="option" value="com_rsgallery2" />
