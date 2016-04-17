@@ -23,7 +23,7 @@ function DisplayImageDataTable ($ImagesData) {
     // exit if no data given
     if (count($ImagesData) == 0)
     {
-        echo '<h2>' . JText::_('COM_RSGALLERY2_NO_INCONSISTENCIES_IN_DATABASE').'/<h2>';
+        echo '<h2>' . JText::_('COM_RSGALLERY2_NO_INCONSISTENCIES_IN_DATABASE').'</h2><br>';
         return;
     }
 
