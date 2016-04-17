@@ -537,9 +537,19 @@ var gallery = {
 	fillCarousel: function() {
 		try {
 			this.constructThumbnails();
-			this.carouselInner.normalWidth = ((this.maxIter * (this.options.thumbWidth + this.options.thumbSpacing + 2))+this.options.thumbSpacing) + "px";
+			/* was suddenly too short (around thumbSpacing - 1,7)
+			this.carouselInner.normalWidth =
+			    ((this.maxIter * (this.options.thumbWidth + this.options.thumbSpacing + 2))
+				+ this.options.thumbSpacing);
+			/**
+			this.carouselInner.normalWidth =
+				(this.maxIter * (this.options.thumbWidth + 2*this.options.thumbSpacing + 1));
+			/**/
+			this.carouselInner.normalWidth = Math.ceil(
+				(this.maxIter * (this.options.thumbWidth + 2*this.options.thumbSpacing + 0.3)));
+			/**/
 			if (this.options.carouselHorizontal)
-				this.carouselInner.style.width = this.carouselInner.normalWidth;
+				this.carouselInner.style.width = "" + this.carouselInner.normalWidth + "px";
 		}
 		catch (err) 
 		{
