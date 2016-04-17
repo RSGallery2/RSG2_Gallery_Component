@@ -14,6 +14,73 @@ global $Rsg2DebugActive;
 
 JHtml::_('formbehavior.chosen', 'select');
 
+
+/**
+ * @param $ImageData
+ */
+function DisplayImageDataTable ($ImagesData) {
+/**
+    // exit if no data given
+    if (count($ImagesData) == 0)
+    {
+        echo JText::_('COM_RSGALLERY2_NO_INCONSISTENCIES_IN_DATABASE');
+        return;
+    }
+/**/
+
+// Header ----------------------------------
+
+    echo '<table class="table table-striped table-condensed">';
+    echo '    <caption>'.JText::_('COM_RSGALLERY2_CONSDB_NOTICE????').'</caption>';
+    echo '    <thead>';
+    echo '        <tr>';
+    echo '            <th>' . 'Index checkbox'. '</th>';
+    echo '            <th>'.JText::_('COM_RSGALLERY2_FILENAME Image name').'</th>';
+    echo '            <th>'.JText::_('COM_RSGALLERY2_IN_BR_DATABASE').'</th>';
+    echo '            <th>'.JText::_('COM_RSGALLERY2_DISPLAY_BR_FOLDER').'</th>';
+    echo '            <th>'.JText::_('COM_RSGALLERY2_ORIGINAL_BR_FOLDER').'</th>';
+    echo '            <th>'.JText::_('COM_RSGALLERY2_THUMB_FOLDER').'</th>';
+    echo '            <th>'.JText::_('COM_RSGALLERY2_WATERMARK_FOLDER').'</th>';
+    echo '            <th>'.'&nbsp; parent gallery'.'</th>';
+    echo '            <th>'.JText::_('COM_RSGALLERY2_IMAGE').'</th>';
+    echo '            <th>'.JText::_('COM_RSGALLERY2_ACTION').'</th>';
+    echo '        </tr>';
+    echo '    </thead>';
+
+        //--- data ----------------------------------
+
+    echo '    <tbody>';
+
+    $Idx = -1;
+    foreach ($ImagesData as $ImageData) {
+        $Idx += 1;
+
+        echo '        <tr>';
+        echo '            <td>' . 'Index checkbox'. '</td>';
+        echo '            <td>' . $ImageData['imageName'] . '</td>';
+        echo '            <td>' . $ImageData['IsImageInDatabase'] . '</td>';
+        echo '            <td>' . $ImageData['IsDisplayImageFound'] . '</td>';
+        echo '            <td>' . $ImageData['IsOrignalImageFound'] . '</td>';
+        echo '            <td>' . $ImageData['IsThumbImageFound'] . '</td>';
+        echo '            <td>' . $ImageData['IsWatermarkImageFound'] . '</td>';
+        echo '            <td>' . $ImageData['ParentGalleryId'] . '</td>';
+        echo '            <td>' . 'Image' . '</td>';
+        echo '            <td>' . 'Buttons' . '</td>';
+        echo '        </tr>';
+    }
+/**/	
+    echo '    </tbody>';
+
+    //--- footer ----------------------------------
+    echo '</table>';
+
+    return;
+}
+
+
+
+
+
 ?>
 
 <div id="installer-install" class="clearfix">
@@ -49,9 +116,6 @@ JHtml::_('formbehavior.chosen', 'select');
 
 
 
-					    <span>Filename</span> <span>In database</span> <span>Display folder</span> <span>Original folder</span> <span>Thumb folder</span> <span>Image</span> <span>Action
-
-
                         <!-- div class="control-group">
                             <label for="xxx" class="control-label"><?php echo JText::_('COM_RSGALLERY2_CONFIGURATION');?>:</label>
                             <div class="controls" class="span5">
@@ -67,7 +131,24 @@ JHtml::_('formbehavior.chosen', 'select');
                             <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('maintRegenerate.RegenerateImagesThumb')"><?php echo JText::_('COM_RSGALLERY2_MAINT_REGEN_THUMBS'); ?></button>
 						</div-->
 					</fieldset>
-				<?php echo JHtml::_('bootstrap.endTab'); ?>
+					
+					<div class="span12">
+						<div class="row-fluid">
+							<div class="span4 clsInfoAccordion">
+							 <?php
+								// Info about last uploaded galleries
+                                DisplayImageDataTable ($this->DisplayImageData);
+							?>
+							</div>
+						</div>
+					</div>
+					<br>
+
+                       <a href="index.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB">Refresh</a>
+
+
+
+                <?php echo JHtml::_('bootstrap.endTab'); ?>
 
 			<?php echo JHtml::_('bootstrap.endTabSet'); ?>
 

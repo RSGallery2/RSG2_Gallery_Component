@@ -18,6 +18,7 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 	//protected $rsgConfigData;
 	protected $UserIsRoot;
 
+	protected $DisplayImageData;
 
 	//------------------------------------------------
 	/**
@@ -33,32 +34,37 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 		
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
-/*
-		global $rsgConfig;
-		// $this->rsgConfigData = $rsgConfig;
-		$this->imageWidth = $rsgConfig->get('image_width');
-		$this->thumbWidth = $rsgConfig->get('thumb_width');
 
-		//--- begin to display --------------------------------------------
+		$this->DisplayImageData = $this->GetDisplayImageData ();
 
-//		Rsg2Helper::addSubMenu('rsg2');
+		/*
+                global $rsgConfig;
+                // $this->rsgConfigData = $rsgConfig;
+                $this->imageWidth = $rsgConfig->get('image_width');
+                $this->thumbWidth = $rsgConfig->get('thumb_width');
 
-		// Check for errors.
-		if (count($errors = $this->get('Errors')))
-		{
-			JError::raiseError(500, implode('<br />', $errors));
-			return false;
-		}
 
-		// Assign the Data
-		// $this->form = $form;
+                //--- begin to display --------------------------------------------
 
-		// different toolbar on different layouts
-		// $Layout = JFactory::getApplication()->input->get('layout');
+        //		Rsg2Helper::addSubMenu('rsg2');
 
-		// Assign the Data
-//		$this->form = $form;
-*/
+                // Check for errors.
+                if (count($errors = $this->get('Errors')))
+                {
+                    JError::raiseError(500, implode('<br />', $errors));
+                    return false;
+                }
+
+                // Assign the Data
+                // $this->form = $form;
+
+                // different toolbar on different layouts
+                // $Layout = JFactory::getApplication()->input->get('layout');
+
+                // Assign the Data
+        //		$this->form = $form;
+        */
+
 		$this->addToolbar ($this->UserIsRoot); //$Layout);
 		$this->sidebar = JHtmlSidebar::render ();
 
@@ -121,6 +127,56 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 		}
 		*/
 	}
+
+
+	private function GetDisplayImageData () {
+
+		$DisplayImageData = array ();
+
+		$ImagesData = [];
+		$ImagesData['imageName'] = 'image1';
+		$ImagesData['IsImageInDatabase'] =  true;
+		$ImagesData['IsDisplayImageFound'] =  false;
+		$ImagesData['IsOrignalImageFound'] =  false;
+		$ImagesData['IsThumbImageFound'] =  false;
+		$ImagesData['IsWatermarkImageFound'] =  false;
+		$ImagesData['ParentGalleryId'] =  '2';
+
+		$DisplayImageData [] = $ImagesData;
+
+		$ImagesData = [];
+		$ImagesData['imageName'] = 'image2';
+		$ImagesData['IsImageInDatabase'] =  true;
+		$ImagesData['IsDisplayImageFound'] =  true;
+		$ImagesData['IsOrignalImageFound'] =  true;
+		$ImagesData['IsThumbImageFound'] =  true;
+		$ImagesData['IsWatermarkImageFound'] =  false;
+		$ImagesData['ParentGalleryId'] =  '2';
+
+		$DisplayImageData [] = $ImagesData;
+
+		$ImagesData = [];
+		$ImagesData['imageName'] = 'image3';
+		$ImagesData['IsImageInDatabase'] =  true;
+		$ImagesData['IsDisplayImageFound'] =  false;
+		$ImagesData['IsOrignalImageFound'] =  false;
+		$ImagesData['IsThumbImageFound'] =  false;
+		$ImagesData['IsWatermarkImageFound'] =  false;
+		$ImagesData['ParentGalleryId'] =  '2';
+
+		$DisplayImageData [] = $ImagesData;
+
+
+
+
+
+		return $DisplayImageData;
+	}
+
+
+
+
+
 }
 
 
