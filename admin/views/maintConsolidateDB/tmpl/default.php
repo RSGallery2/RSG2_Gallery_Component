@@ -19,14 +19,13 @@ JHtml::_('formbehavior.chosen', 'select');
  * @param $ImageData
  */
 function DisplayImageDataTable ($ImagesData) {
-/**
+
     // exit if no data given
     if (count($ImagesData) == 0)
     {
-        echo JText::_('COM_RSGALLERY2_NO_INCONSISTENCIES_IN_DATABASE');
+        echo '<h2>' . JText::_('COM_RSGALLERY2_NO_INCONSISTENCIES_IN_DATABASE').'/<h2>';
         return;
     }
-/**/
 
 // Header ----------------------------------
 
@@ -103,14 +102,14 @@ function DisplayImageDataTable ($ImagesData) {
  					<fieldset class="regenerateImages">
 						<legend><?php echo JText::_('COM_RSGALLERY2_MAINT_CONSOLIDATE_IMAGE_DATABASE'); ?></legend>
 
+                        <div>
+                            <strong><?php echo JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT');?></strong>
+                        </div>
                         <!-- List info  -->
                         <div class="control-group">
                             <label for="zip_file" class="control-label"> </label>
                             <div class="controls">
                                 <!--input type="text" id="zip_file" name="zip_file" class="span5 input_box" size="70" value="http://" /-->
-                                <div class="span5">
-                                    <strong><?php echo JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT');?></strong>
-                                </div>
                             </div>
                         </div>
 
@@ -134,17 +133,23 @@ function DisplayImageDataTable ($ImagesData) {
 					
 					<div class="span12">
 						<div class="row-fluid">
-							<div class="span4 clsInfoAccordion">
+							<!-- div class="span4 clsInfoAccordion" -->
 							 <?php
 								// Info about last uploaded galleries
                                 DisplayImageDataTable ($this->DisplayImageData);
 							?>
-							</div>
+							<!-- /div -->
 						</div>
 					</div>
 					<br>
 
-                       <a href="index.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB">Refresh</a>
+
+
+                <div class="form-actions">
+                    <a href="index.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB">Refresh</a>
+                    <button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES'); ?></button>
+                    <button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES'); ?></button>
+                </div>
 
 
 

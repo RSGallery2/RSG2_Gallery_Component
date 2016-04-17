@@ -35,7 +35,9 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
 
-		$this->DisplayImageData = $this->GetDisplayImageData ();
+		$ConsoliateModel = JModelLegacy::getInstance ('MaintConsolidateDB', 'rsgallery2Model');
+
+		$this->DisplayImageData = $ConsoliateModel->GetDisplayImageData ();
 
 		/*
                 global $rsgConfig;
@@ -127,52 +129,6 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 		}
 		*/
 	}
-
-
-	private function GetDisplayImageData () {
-
-		$DisplayImageData = array ();
-
-		$ImagesData = [];
-		$ImagesData['imageName'] = 'image1';
-		$ImagesData['IsImageInDatabase'] =  true;
-		$ImagesData['IsDisplayImageFound'] =  false;
-		$ImagesData['IsOrignalImageFound'] =  false;
-		$ImagesData['IsThumbImageFound'] =  false;
-		$ImagesData['IsWatermarkImageFound'] =  false;
-		$ImagesData['ParentGalleryId'] =  '2';
-
-		$DisplayImageData [] = $ImagesData;
-
-		$ImagesData = [];
-		$ImagesData['imageName'] = 'image2';
-		$ImagesData['IsImageInDatabase'] =  true;
-		$ImagesData['IsDisplayImageFound'] =  true;
-		$ImagesData['IsOrignalImageFound'] =  true;
-		$ImagesData['IsThumbImageFound'] =  true;
-		$ImagesData['IsWatermarkImageFound'] =  false;
-		$ImagesData['ParentGalleryId'] =  '2';
-
-		$DisplayImageData [] = $ImagesData;
-
-		$ImagesData = [];
-		$ImagesData['imageName'] = 'image3';
-		$ImagesData['IsImageInDatabase'] =  true;
-		$ImagesData['IsDisplayImageFound'] =  false;
-		$ImagesData['IsOrignalImageFound'] =  false;
-		$ImagesData['IsThumbImageFound'] =  false;
-		$ImagesData['IsWatermarkImageFound'] =  false;
-		$ImagesData['ParentGalleryId'] =  '2';
-
-		$DisplayImageData [] = $ImagesData;
-
-
-
-
-
-		return $DisplayImageData;
-	}
-
 
 
 
