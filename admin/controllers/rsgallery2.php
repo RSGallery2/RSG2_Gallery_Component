@@ -22,6 +22,18 @@ jimport('joomla.application.component.controllerform');
 
 class Rsgallery2ControllerRsgallery2 extends JControllerForm
 {
+	/**
+	 * Constructor.
+	 *
+	 * @param   array  $config  An optional associative array of configuration settings.
+	 *
+	 * @see     JController
+	 * @since
+	 */
+	public function __construct($config = array())
+	{
+		parent::__construct($config);
+	}
 
 
 
