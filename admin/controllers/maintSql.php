@@ -100,9 +100,27 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 
 		// Read file to auto use in the future
 
-
-
 		return $TableList;
+	}
+
+	function compareDb2SqlFile()
+	{
+		$msg = "compareDb2SqlFile: ";
+		$msgType = 'notice';
+
+		$msg .= '!!! Not implemented yet !!!';
+
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+	}
+
+	function createGalleryAccessField()
+	{
+		$msg = "createGalleryAccessField: ";
+		$msgType = 'notice';
+
+		$msg .= '!!! Not implemented yet !!!';
+
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
 

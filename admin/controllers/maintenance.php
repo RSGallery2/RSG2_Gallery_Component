@@ -127,17 +127,6 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
-	function compareDb2SqlFile()
-	{
-		$msg = "compareDb2SqlFile: ";
-		$msgType = 'notice';
-
-		$msg .= '!!! Not implemented yet !!!';
-
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
-	}
-
-
 }
 
 
