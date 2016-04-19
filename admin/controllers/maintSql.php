@@ -31,6 +31,14 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 	}
 
 	/**
+	 * Proxy for getModel.
+	 */
+	public function getModel($name = 'maintSql', $prefix = 'Rsgallery2Model', $config = array('ignore_request' => true))
+	{
+		return parent::getModel($name, $prefix, $config);
+	}
+
+	/**
 	 *
 	 */
 	public function optimizeDB()
@@ -65,6 +73,9 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 			$app->enqueueMessage( JText::_('COM_RSGALLERY2_MAINT_OPTIMIZE_SUCCESS') );
 			$app->redirect("index.php?option=com_rsgallery2&amp;rsgOption=maintenance");
 /**/
+
+// ToDO: move to model !!!
+
 
 			$tables = $this->getTableListFromSqlFile();
 
@@ -130,6 +141,46 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 		    And my gallery images make a path or url...
 		*/
 
+
+/*
+		$model = $this->getModel('Config');
+		$item=$model->save($key);
+*/
+
+
+// ToDO: move to model !!!
+
+		$table  = '#__rsgallery2_galleries';
+
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(true);
+
+		$query = 'SHOW COLUMNS FROM ' . $table;
+		$db->setQuery($query);
+		$ColumnExist = $db->loadObject();
+
+		/*
+                $result = mysql_query("SHOW COLUMNS FROM `table` LIKE 'fieldname'");
+                $exists = (mysql_num_rows($result))?TRUE:FALSE;
+
+				$result = 'SHOW COLUMNS IN ' . $wordArray[2] . ' WHERE field = ' . $this->fixQuote($wordArray[5]);
+				$this->queryType = 'ADD_COLUMN';
+				$this->msgElements = array($this->fixQuote($wordArray[2]), $this->fixQuote($wordArray[5]));
+
+		*/
+
+
+
+
+		/*
+		   `access` int(10) unsigned DEFAULT NULL,
+
+			ALTER TABLE yourtable ADD q6 VARCHAR( 255 ) after q5
+
+		 	$table  = 'your table name';
+ 			$column = 'q6'
+ 			$add = mysql_query("ALTER TABLE $table ADD $column VARCHAR( 255 ) NOT NULL");
+        */
 
 		$msg .= '!!! Not implemented yet !!!';
 
