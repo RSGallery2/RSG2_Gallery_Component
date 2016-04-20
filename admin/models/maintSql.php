@@ -4,6 +4,10 @@ defined('_JEXEC') or die('Restricted access');
 
 // import Joomla modelform library
 jimport('joomla.application.component.modeladmin');
+
+// Joel Lipman Jdatabase
+
+
 /**
  * 
  */
@@ -13,7 +17,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 
 	function createGalleryAccessField()
 	{
-		$msg = "createGalleryAccessField: ";
+		$msg = "Model: createGalleryAccessField: ";
 		$msgType = 'notice';
 
 		/*
@@ -34,44 +38,52 @@ class Rsgallery2ModelMaintSql extends  JModelList
 				$item=$model->save($key);
 		*/
 
-
-// ToDO: move to model !!!
-
 		$table  = '#__rsgallery2_galleries';
+		$field = 'accessB';
 
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-		$query = 'SHOW COLUMNS FROM ' . $table;
-		$db->setQuery($query);
-		$ColumnExist = $db->loadObject();
-
 		/*
-                $result = mysql_query("SHOW COLUMNS FROM `table` LIKE 'fieldname'");
-                $exists = (mysql_num_rows($result))?TRUE:FALSE;
-
-				$result = 'SHOW COLUMNS IN ' . $wordArray[2] . ' WHERE field = ' . $this->fixQuote($wordArray[5]);
-				$this->queryType = 'ADD_COLUMN';
-				$this->msgElements = array($this->fixQuote($wordArray[2]), $this->fixQuote($wordArray[5]));
-
+		$result = mysql_query("SHOW COLUMNS FROM `table` LIKE 'fieldname'");
+		$exists = (mysql_num_rows($result))?TRUE:FALSE;
 		*/
+		$query = 'SHOW COLUMNS FROM ' . $table . ' LIKE ' . $db->quote($field) ;
+		$db->setQuery($query);
+		$AccessField = $db->loadObject();
+		$ColumnExist = isset($AccessField);
+		$msg .= '<br>' . '$ColumnExist: ' . json_encode ($ColumnExist);
+
+		// Create teble column
+		if (!$ColumnExist)
+		{
+			/*
+               `access` int(10) unsigned DEFAULT NULL,
+
+                ALTER TABLE yourtable ADD q6 VARCHAR( 255 ) after q5
+
+                 $table  = 'your table name';
+                 $column = 'q6'
+                 $add = mysql_query("ALTER TABLE $table ADD $column VARCHAR( 255 ) NOT NULL");
+            */
 
 
 
 
-		/*
-		   `access` int(10) unsigned DEFAULT NULL,
 
-			ALTER TABLE yourtable ADD q6 VARCHAR( 255 ) after q5
 
-		 	$table  = 'your table name';
- 			$column = 'q6'
- 			$add = mysql_query("ALTER TABLE $table ADD $column VARCHAR( 255 ) NOT NULL");
-        */
+		}
 
-		$msg .= '!!! Not implemented yet !!!';
+		// Assign all access values to one
+		if (!$ColumnExist)
+		{
 
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+
+
+
+
+		}
+		return $msg;
 	}
 
 
