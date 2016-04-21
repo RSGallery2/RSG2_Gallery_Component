@@ -39,22 +39,36 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		*/
 
 		$table  = '#__rsgallery2_galleries';
-		$field = 'accessB';
+		$field = 'access';
 
 		$db = JFactory::getDBO();
-		$query = $db->getQuery(true);
+		// $query = $db->getQuery(true);
 
 		/*
 		$result = mysql_query("SHOW COLUMNS FROM `table` LIKE 'fieldname'");
 		$exists = (mysql_num_rows($result))?TRUE:FALSE;
 		*/
 		$query = 'SHOW COLUMNS FROM ' . $table . ' LIKE ' . $db->quote($field) ;
+		$msg .= '<br>' . '$query: ' . json_encode ($query);
 		$db->setQuery($query);
 		$AccessField = $db->loadObject();
 		$ColumnExist = isset($AccessField);
 		$msg .= '<br>' . '$ColumnExist: ' . json_encode ($ColumnExist);
 
-		// Create teble column
+		// test code
+		if ($ColumnExist) {
+			// ALTER TABLE t2 DROP COLUMN c, DROP COLUMN d;
+			$query = 'ALTER TABLE ' . $table . ' DROP COLUMN ' . $field ;
+			$msg .= '<br>' . '$query: ' . json_encode ($query);
+			$db->setQuery($query);
+			$result = $db->execute();
+			$msg .= '<br>' . '$result (drop): ' . json_encode ($result);
+
+			$ColumnExist = false;
+		}
+
+
+		// Create table column
 		if (!$ColumnExist)
 		{
 			/*
@@ -65,20 +79,35 @@ class Rsgallery2ModelMaintSql extends  JModelList
                  $table  = 'your table name';
                  $column = 'q6'
                  $add = mysql_query("ALTER TABLE $table ADD $column VARCHAR( 255 ) NOT NULL");
+
+				$db = JFactory::getDBO();
+				$sql = "ALTER TABLE #__shoutbox ADD COLUMN user_id int(11) NOT NULL DEFAULT '0'";
+				$db->setQuery($sql);
+				$result = $db->query()
+
+				 $db = JFactory::getDbo();
+				$query='ALTER TABLE `#__virtuemart_categories_en_gb` ADD `short_desc` varchar(1200)';
+				$db->setQuery($query);
+				$result = $db->query();
             */
 
-
-
-
-
-
+			//   `access` int(10) unsigned DEFAULT NULL
+			$query = 'ALTER TABLE ' . $table . ' ADD ' . $field . ' INT  (10) UNSIGNED DEFAULT NULL';
+			$msg .= '<br>' . '$query: ' . json_encode ($query);
+			$db->setQuery($query);
+			$ColumnExist = $db->execute();
+			$msg .= '<br>' . '$result (Add): ' . json_encode ($result);
 		}
 
-		// Assign all access values to one
-		if (!$ColumnExist)
+		// Set all access values to '1'
+		if ($ColumnExist)
 		{
-
-
+			// update your_table set likes = null
+			$query = 'UPDATE ' . $table . ' SET ' . $field . '=1';
+			$msg .= '<br>' . '$query: ' . json_encode ($query);
+			$db->setQuery($query);
+			$result = $db->execute();
+			$msg .= '<br>' . '$result (update): ' . json_encode ($result);
 
 
 
