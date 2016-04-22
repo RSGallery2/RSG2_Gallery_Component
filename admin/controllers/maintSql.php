@@ -46,95 +46,65 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
         $msg = "optimizeDB: ";
         $msgType = 'notice';
 
-//		$msg .= '!!! Not implemented yet !!!';
-
 		// Access check
         $canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
 		if (!$canAdmin) {
-			//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
             $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
             $msgType = 'warning';
             // replace newlines with html line breaks.
             str_replace('\n', '<br>', $msg);
         } else {
 
-			//--- optimize all tables -------------------------------
-/**
-			$app = JFactory::getApplication();
-			$database = JFactory::getDBO();
-
-			require_once(JPATH_ROOT . DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "includes" . DS . "install.class.php");
-			$install = new rsgInstall();
-			$tables = $install->tablelistNew;
-			foreach ($tables as $table) {
-				$database->setQuery("OPTIMIZE TABLE $table");
-				$database->execute();
-			}
-			$app->enqueueMessage( JText::_('COM_RSGALLERY2_MAINT_OPTIMIZE_SUCCESS') );
-			$app->redirect("index.php?option=com_rsgallery2&amp;rsgOption=maintenance");
-/**/
-
-// ToDO: move to model !!!
-
-
-			$tables = $this->getTableListFromSqlFile();
-
-			$db = JFactory::getDBO();
-			$query = $db->getQuery(true);
-
-			foreach ($tables as $table) {
-				$msg .= 'Table ' . $table . '<br>';
-				$db->setQuery('OPTIMIZE TABLE ' . $db->quoteName($table));
-				$db->execute();
-			}
-
-			//--- optimized message -------------------------------------
-            $msg .=  '<br>' . JText::_('COM_RSGALLERY2_MAINT_OPTIMIZE_SUCCESS', true );
+			// Model tells if successful
+			$model = $this->getModel('maintSql');
+			$msg .= $model->optimizeDB();
         }
 
         $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
-	/**
-	 * Reads installed sql file to retrieve all table anmes
-	 * ToDO: Actual the read of the file is simulated -> implement read ....
-	 * @return string [] Table names
-	 */
-	private function getTableListFromSqlFile()
-	{
-		$TableList = array(
-			'#__rsgallery2_galleries',
-			'#__rsgallery2_files',
-			'#__rsgallery2_comments',
-			'#__rsgallery2_config',
-			'#__rsgallery2_acl');
-
-		// Read file to auto use in the future
-
-		return $TableList;
-	}
-
-	function compareDb2SqlFile()
+	public function createMissingSqlFields()
 	{
 		$msg = "compareDb2SqlFile: ";
 		$msgType = 'notice';
+
+		// Access check
+		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		if (!$canAdmin) {
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
+
+			// Model tells if successful
+			$model = $this->getModel('maintSql');
+			$msg .= $model->createMissingSqlFields();
+		}
 
 		$msg .= '!!! Not implemented yet !!!';
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
-	function createGalleryAccessField()
+	public function createGalleryAccessField()
 	{
 		$msg = "createGalleryAccessField: ";
 		$msgType = 'notice';
 
+		// Access check
+		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		if (!$canAdmin) {
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
 
-		$model = $this->getModel('maintSql');
-		$msg .= $model->createGalleryAccessField();
-
-
-		$msg .= '<br>' . '!!! Not implemented yet !!!';
+			// Model tells if successful
+			$model = $this->getModel('maintSql');
+			$msg .= $model->createGalleryAccessField();
+		}
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}

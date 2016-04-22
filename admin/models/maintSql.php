@@ -15,10 +15,36 @@ class Rsgallery2ModelMaintSql extends  JModelList
 {
 //    protected $text_prefix = 'COM_RSG2';
 
-	function createGalleryAccessField()
+
+	/**
+	 *
+	 */
+	public function optimizeDB()
 	{
-		$msg = "Model: createGalleryAccessField: ";
-		$msgType = 'notice';
+		$msg = "optimizeDB: " . '<br>';
+
+		$tables = $this->getTableListFromSqlFile();
+
+		$db = JFactory::getDbo();
+
+		//--- optimize all tables -------------------------------
+
+		foreach ($tables as $table) {
+			$msg .= 'Table ' . $table . '<br>';
+			$db->setQuery('OPTIMIZE TABLE ' . $db->quoteName($table));
+			$db->execute();
+		}
+
+		//--- optimized message -------------------------------------
+		$msg .=  '<br>' . JText::_('COM_RSGALLERY2_MAINT_OPTIMIZE_SUCCESS', true );
+
+		return $msg;
+	}
+
+	public function createGalleryAccessField()
+	{
+		// $msg = "Model: createGalleryAccessField: " . '<br>';
+		$msg = '';
 
 		/*
 			1054 Unknown column 'access' in 'field list' SQL=INSERT INTO `afs_rsgallery2_galleries`
@@ -30,12 +56,6 @@ class Rsgallery2ModelMaintSql extends  JModelList
 			After that i simply go through to afs_rsgallery2_galleries table and create a new field
 		    called "access" and then set then value "1" for access via update query.
 		    And my gallery images make a path or url...
-		*/
-
-
-		/*
-				$model = $this->getModel('Config');
-				$item=$model->save($key);
 		*/
 
 		$table  = '#__rsgallery2_galleries';
@@ -116,6 +136,78 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	}
 
 
+	/**
+	 * Original table names
+	 * Reads installed sql file to retrieve all table anmes
+	 * ToDO: Actual the read of the file is simulated -> implement read ....
+	 * @return string [] Table names
+	 */
+	private function getTableListFromSqlFile()
+	{
+		$TableList = array(
+			'#__rsgallery2_galleries',
+			'#__rsgallery2_files',
+			'#__rsgallery2_comments',
+			'#__rsgallery2_config',
+			'#__rsgallery2_acl');
+
+		// Read file to auto use in the future
+
+		return $TableList;
+	}
+
+
+
+
+
+	public function createMissingSqlFields()
+	{
+		$msg = "Model: createMissingSqlFields: " . '<br>';
+		// $msg = '';
+
+		$tables = $this->getTableListFromSqlFile();
+
+		$msg .= 'Check for missing tables<br>';
+		//--- create table if not exist
+		foreach ($tables as $table) {
+			$msg .= '   Table ' . $table . '<br>';
+			// Original tabel names
+			$msg .= createNotExistingTable($table);
+		}
+
+		$msg .= 'Check for missing files (columns) in tables<br>';
+		//--- create table if not exist
+		foreach ($tables as $table) {
+			$msg .= '   Table ' . $table . '<br>';
+			// Original columns
+			$columns = getColumnsOfTable($table, $nnn, $mmm);
+			$msg .= createNotExistingTable($table);
+		}
+
+
+
+
+
+		return $msg;
+	}
+
+	// * Original table names
+	public function createNotExistingTable($table)
+	{
+		$msg = "Model: createMissingSqlFields: " . '<br>';
+
+
+		return $msg;
+	}
+
+	// * Original table names
+	public function getColumnsOfTable($table, $nnn, $mmm)
+	{
+		$msg = "Model: createMissingSqlFields: " . '<br>';
+
+
+		return $msg;
+	}
 
 
 }
