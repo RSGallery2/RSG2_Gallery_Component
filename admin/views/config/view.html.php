@@ -103,9 +103,9 @@ class Rsgallery2ViewConfig extends JViewLegacy
 			case 'RawEdit':
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
 					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'), 'screwdriver');
-				JToolBarHelper::apply('config.apply_rawEdit');
-				JToolBarHelper::save('config.save_rawEdit');
-				JToolBarHelper::cancel('config.cancel_RawEdit');
+				JToolBarHelper::apply ('config.apply_rawEdit');
+				JToolBarHelper::save  ('config.save_rawEdit');
+				JToolBarHelper::cancel('config.cancel_rawEdit');
 				break;
 			// case 'default':
 			default:

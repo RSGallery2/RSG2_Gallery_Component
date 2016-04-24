@@ -6,7 +6,8 @@
 	border: 1px solid #DDD;
 	border-radius: 8px; /**/
 
-	margin: 10px 20px;
+/*	margin: 10px 20px; /**/
+	margin: 5px 10px; /**/
 /*	padding: 7px; /**/
 	/*	width: 80%; /**/
 
@@ -80,17 +81,18 @@ figcaption {
 	text-align:left; /**/
 /*	text-align:justify; /**/
 
-/*	float: right; /**/
+	float: right; /**/
+/*	float: left; /**/
 /*	margin: 5px; /**/
 /*	border: 1px solid lightseagreen; /**/
 	border-radius: 4px; /**/
-	padding: 7px;
+/*	padding: 7px; /**/
 /*	display: block; /**/
 }
 
 /**/
 figure img {
-	float: left;
+/*	float: left; /**/
 /*	border: 1px solid #003bb3; /**/
 /*	border-radius: 4px; /**/
 	/*	display: table; /**/
@@ -98,21 +100,22 @@ figure img {
 /*	margin: auto 10px; /**/
 /*	padding: auto 10px; /**/
 /*	padding: 10px; /**/
-	padding: 5px 10px 20px 10px; /**/
+/*	padding: 10px 10px 20px 10px; /**/
 	display: inline-block; /**/
 }
 
 /**/
 figure span {
-	float: left;
+/*	float: left;  /**/
 /*	border: 1px solid #003bb3; /**/
 /*	border-radius: 4px; /**/
 	/*	display: table; /**/
 	/*	display: block; /**/
-/*	margin: 5px 10px; /**/
+/*	margin: auto 10px; /**/
 /*	padding: auto 10px; /**/
 /*	padding: 10px; /**/
-	padding: 0px 10px 0px 10px; /**/
+/*	padding: 10px 10px 20px 10px; /**/
+/*	padding: 5px 5px 20px 5px; /**/
 	display: inline-block; /**/
 }
 
@@ -129,6 +132,7 @@ figure .clsTemplate {
 .maint-title {
 	/* font-weight: bold; /**/
 	/* color: black; /**/
+/*	float: right; /**/
 	color: blue;
 }
 
@@ -223,16 +227,17 @@ figure .clsTemplate {
 
 
 figure .iconMoon01 {
-	float: left; /**/
-	padding: 10px 0px 20px 10px; /**/
-	display: inline-block; /**/
+/*	float: left; /**/
+/*	padding: 25px 0px 20px 10px; /**/
+	padding: 10px 0px 10px 0px; /**/
+/*	display: inline-block; /**/
 	color: #3071a9;
 }
 
 figure .iconMoon02 {
-	float: left; /**/
-	padding: 10px 10px 20px 15px; /**/
-	display: inline-block; /**/
+/*	float: left; /**/
+	padding: 10px 0px 10px 15px; /**/
+/*	display: inline-block; /**/
 	color: #3071a9;
 }
 

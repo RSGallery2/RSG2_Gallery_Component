@@ -59,7 +59,7 @@ function quickiconBar( $link, $image, $title, $text = "", $addClass = '' ) {
 					<?php echo JHtml::image('administrator/components/com_rsgallery2/images/'.$image, $text); ?>
 					<figcaption class="rsg2-text">
 						<span class="maint-title"><?php echo $title;?></span>
-						<br>
+						<!--br-->
 						<span class="maint-text"><?php echo $text;?></span>
 					</figcaption>
 				</figure>
@@ -84,7 +84,7 @@ function quickIconMoonBar( $link, $imageClass, $title, $text = "", $addClass = '
 				<span class="<?php echo $imageClass ?>" style="font-size:40px;"></span>
 				<figcaption class="rsg2-text">
 					<span class="maint-title"><?php echo $title;?></span>
-					<br>
+					<!--br-->
 					<span class="maint-text"><?php echo $text;?></span>
 				</figcaption>
 			</figure>
@@ -110,7 +110,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 				<span class="<?php echo $imageClass2 ?> iconMoon02" style="font-size:30px;"></span>
 				<figcaption class="rsg2-text">
 					<span class="maint-title"><?php echo $title;?></span>
-					<br>
+					<!--br-->
 					<span class="maint-text"><?php echo $text;?></span>
 				</figcaption>
 			</figure>
@@ -219,16 +219,11 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 									</div>
 
 									<?php
-									//$link = 'index.php?option=com_rsgallery2&amp;view=configRawEdit';
-									//$link = 'index.php?option=com_rsgallery2&amp;view=configRaw&amp;layout=edit';
-									$link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
-									quickiconBar($link, 'menu.png',
-										JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT'),
-										JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'),
+									$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawEdit';
+									quickTwoIconMoonBar ($link, 'icon-equalizer', 'icon-edit',
+										JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'),
+										JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT').'                   (Not Ready)     ',
 										'editConfigRaw');
-									?>
-									<?php
-										// if($Rsg2DebugActive){
 									?>
 
 									<?php
@@ -287,7 +282,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 
 							<?php
 							$link = 'index.php?option=com_rsgallery2&amp;task=maintSql.createGalleryAccessField';
-							quickTwoIconMoonBar ($link, 'icon-database', 'icon-book',
+							quickTwoIconMoonBar ($link, 'icon-database', 'icon-wrench',
 								JText::_('COM_RSGALLERY2_CREATE_GALLERY_ACCESS_FIELD'),
 								JText::_('COM_RSGALLERY2_CREATE_GALLERY_ACCESS_FIELD_DESCRIPTION'),
 								'createGalleryAccessField');
@@ -369,14 +364,6 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 								?>
 
 								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawEdit';
-								quickTwoIconMoonBar ($link, 'icon-equalizer', 'icon-edit',
-									JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'),
-									JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT').'                   (Not Ready)     ',
-									'editConfigRaw');
-								?>
-
-								<?php
 								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
 								$link = 'index.php?option=com_rsgallery2&amp;view=maintConsolidateDB';
 								quickTwoIconMoonBar ($link, 'icon-database', 'icon-checkbox-checked',
@@ -393,6 +380,13 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 									'tempStandardconfigEdit');
 								?>
 
+								<?php
+								$link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
+								quickiconBar($link, 'menu.png',
+									JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT'),
+									JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'),
+									'editConfigRaw');
+								?>
 
 							</div>
 						</div>

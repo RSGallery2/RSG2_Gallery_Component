@@ -58,31 +58,31 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		return true;
 	}
 
-	public function apply_rawEdit($key = null) {
+	public function apply_rawEdit() {
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-		$link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
-		$this->setRedirect($link);
-
-		$msg = "apply_rawEdit: ";
+		$msg = "apply_rawEdit: " . '<br>';
 		$msgType = 'notice';
 
-		$msg .= '!!! Not implemented yet !!!';
+		$model = $this->getModel('ConfigRaw');
+		$msg .= $model->save();
 
+//		$msg .= '!!! Not implemented yet !!!';
+
+		$link = 'index.php?option=com_rsgallery2&view=config&layout=RawEdit';
 		$this->setRedirect($link, $msg, $msgType);
 	}
 
-	public function save_rawEdit($key = null) {
+	public function save_rawEdit() {
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-		$link = 'index.php?option=com_rsgallery2&view=maintenance';
-		$this->setRedirect($link);
-
-		$msg = "save_rawEdit: ";
+		$msg = "save_rawEdit: " . '<br>';
 		$msgType = 'notice';
 
-		$msg .= '!!! Not implemented yet !!!';
-
+		$model = $this->getModel('ConfigRaw');
+		$msg .= $model->save();
+		
+		$link = 'index.php?option=com_rsgallery2&view=maintenance';
 		$this->setRedirect($link, $msg, $msgType);
 	}
 
@@ -98,7 +98,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
 
 	public function save($key = null, $urlVar = null) {
 		$model = $this->getModel('Config');
-		$item=$model->save($key);
+		$xxx=$model->save($key);
 
 		//$this->setRedirect(JRoute::_('index.php?option=com_portfoliogallery&view=portfoliogalleries', false),"Saved");
 // ToDo: use JRoute::_(..., false)	  ->   $link = JRoute::_('index.php?option=com_foo&ctrl=bar',false);

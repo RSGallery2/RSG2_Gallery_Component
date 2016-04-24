@@ -19,6 +19,19 @@ function configInputField($name='unknown', $value='') {
 ?>
 
 	<div class="control-group">
+		<div class="control-label">
+			<label  id="jform_<?php echo $name?>-lbl" class="jform_control-label"
+				for="jform_<?php echo $name?>"><?php echo $name?>:</label>
+		</div>
+		<div class="controls">
+			<input id="jform_<?php echo $name?>" class="input-xxlarge input_box" type="text"
+				value="<?php echo $value?>" size="70" name="jform[<?php echo $name?>] aria-invalid="false">
+		</div>
+	</div>
+
+<?php
+	/*
+	<div class="control-group">
 		<label class="control-label" for="<?php echo $name?>"><?php echo $name?>:</label>
 		<div class="controls">
 			<input id="<?php echo $name?>" class="input-xxlarge input_box" type="text"
@@ -26,8 +39,6 @@ function configInputField($name='unknown', $value='') {
 		</div>
 	</div>
 
-<?php
-	/*
 	<td>version</td>
 	<td>
 		<input type="text" value="4.1.0" name="version">
@@ -59,6 +70,7 @@ function configInputField($name='unknown', $value='') {
 						<?php
 
 							$configVars = get_object_vars($this->rsgConfigData);
+							ksort($configVars);
 							foreach ($configVars as $name => $value) {
 
 								configInputField ($name, $value);

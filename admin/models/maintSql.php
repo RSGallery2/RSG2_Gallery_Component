@@ -46,7 +46,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		// $msg = "Model: createGalleryAccessField: " . '<br>';
 		$msg = '';
 
-		/*
+		/*  RSGallery2 user
 			1054 Unknown column 'access' in 'field list' SQL=INSERT INTO `afs_rsgallery2_galleries`
 		         (`id`,`parent`,`name`,`alias`,`description`,`published`,`checked_out`,
 		          `checked_out_time`,`ordering`,`hits`,`date`,`params`,`user`,`uid`,`allowed`,
@@ -61,13 +61,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		$table  = '#__rsgallery2_galleries';
 		$field = 'access';
 
-		$db = JFactory::getDBO();
-		// $query = $db->getQuery(true);
-
-		/*
-		$result = mysql_query("SHOW COLUMNS FROM `table` LIKE 'fieldname'");
-		$exists = (mysql_num_rows($result))?TRUE:FALSE;
-		*/
+		$db = JFactory::getDbo();
 		$query = 'SHOW COLUMNS FROM ' . $table . ' LIKE ' . $db->quote($field) ;
 		$msg .= '<br>' . '$query: ' . json_encode ($query);
 		$db->setQuery($query);
@@ -116,7 +110,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 			$msg .= '<br>' . '$query: ' . json_encode ($query);
 			$db->setQuery($query);
 			$ColumnExist = $db->execute();
-			$msg .= '<br>' . '$result (Add): ' . json_encode ($result);
+			$msg .= '<br>' . '$ColumnExist (Add): ' . json_encode ($ColumnExist);
 		}
 
 		// Set all access values to '1'
