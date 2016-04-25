@@ -6,9 +6,7 @@
 	border: 1px solid #DDD;
 	border-radius: 8px; /**/
 
-/*	margin: 10px 20px; /**/
-/*	margin: 5px 10px; /**/
-	margin: 5px 15px; /**/
+	margin: 10px 20px;
 /*	padding: 7px; /**/
 	/*	width: 80%; /**/
 
@@ -86,7 +84,7 @@ figcaption {
 /*	margin: 5px; /**/
 /*	border: 1px solid lightseagreen; /**/
 	border-radius: 4px; /**/
-/*	padding: 7px;  /**/
+	padding: 7px;
 /*	display: block; /**/
 }
 
@@ -100,8 +98,7 @@ figure img {
 /*	margin: auto 10px; /**/
 /*	padding: auto 10px; /**/
 /*	padding: 10px; /**/
-/*	padding: 5px 10px 20px 10px; /**/
-	padding: 5px 0px 20px 0px; /**/
+	padding: 5px 10px 20px 10px; /**/
 	display: inline-block; /**/
 }
 
@@ -115,8 +112,7 @@ figure span {
 /*	margin: 5px 10px; /**/
 /*	padding: auto 10px; /**/
 /*	padding: 10px; /**/
-/*	padding: 0px 10px 0px 10px; /**/
-/*	padding: 0px 10px 0px 10px; /**/
+	padding: 0px 10px 0px 10px; /**/
 	display: inline-block; /**/
 }
 
@@ -228,15 +224,15 @@ figure .clsTemplate {
 
 figure .iconMoon01 {
 	float: left; /**/
-	padding: 10px 0px 10px 0px; /**/
-/*	display: inline-block; /**/
+	padding: 10px 0px 20px 10px; /**/
+	display: inline-block; /**/
 	color: #3071a9;
 }
 
 figure .iconMoon02 {
 	float: left; /**/
-	padding: 10px 15px 15px 10px; /**/
-/*	display: inline-block; /**/
+	padding: 10px 10px 20px 15px; /**/
+	display: inline-block; /**/
 	color: #3071a9;
 }
 
