@@ -356,10 +356,10 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 								</div>
 
 								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;task=maintSql.compareDb2SqlFile';
+								$link = 'index.php?option=com_rsgallery2&amp;task=maintSql.completeSqlTables';
 								quickTwoIconMoonBar ($link, 'icon-database', 'icon-book',
-									JText::_('COM_RSGALLERY2_COMPARE_DB_TO_SQL_FILE'),
-									JText::_('COM_RSGALLERY2_COMPARE_DB_TO_SQL_DESC'),
+									JText::_('COM_RSGALLERY2_COMPLETE_SQL_TABLES'),
+									JText::_('COM_RSGALLERY2_COMPLETE_SQL_TABLES_DESC'),
 									'compareDb2SqlFile');
 								?>
 

@@ -21,7 +21,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	 */
 	public function optimizeDB()
 	{
-		$msg = "optimizeDB: " . '<br>';
+		$msg = "model:optimizeDB: " . '<br>';
 
 		$tables = $this->getTableListFromSqlFile();
 
@@ -40,6 +40,8 @@ class Rsgallery2ModelMaintSql extends  JModelList
 
 		return $msg;
 	}
+
+
 
 	public function createGalleryAccessField()
 	{
@@ -151,6 +153,37 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	}
 
 
+	public function completeSqlTables()
+	{
+		$msg = 'model:completeSqlTables: ' . '<br>';
+
+		/*
+		$tables = $this->getTableListFromSqlFile();
+
+		$db = JFactory::getDbo();
+
+		//--- optimize all tables -------------------------------
+
+		foreach ($tables as $table) {
+			$msg .= 'Table ' . $table . '<br>';
+			$db->setQuery('OPTIMIZE TABLE ' . $db->quoteName($table));
+			$db->execute();
+		}
+
+		//--- optimized message -------------------------------------
+		$msg .=  '<br>' . JText::_('COM_RSGALLERY2_MAINT_OPTIMIZE_SUCCESS', true );
+		/**/
+
+		$this->createMissingSqlFields ();
+
+		$msg .= '!!! Not implemented yet !!!' . '<br>';
+
+
+		return $msg;
+	}
+
+
+
 
 
 
@@ -166,7 +199,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		foreach ($tables as $table) {
 			$msg .= '   Table ' . $table . '<br>';
 			// Original tabel names
-			$msg .= createNotExistingTable($table);
+			$msg .= $this->createNotExistingTable($table);
 		}
 
 		$msg .= 'Check for missing files (columns) in tables<br>';
@@ -174,8 +207,8 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		foreach ($tables as $table) {
 			$msg .= '   Table ' . $table . '<br>';
 			// Original columns
-			$columns = getColumnsOfTable($table, $nnn, $mmm);
-			$msg .= createNotExistingTable($table);
+			$columns = $this->getColumnsOfTable($table, $nnn, $mmm);
+			$msg .= $this->createNotExistingTable($table);
 		}
 
 
