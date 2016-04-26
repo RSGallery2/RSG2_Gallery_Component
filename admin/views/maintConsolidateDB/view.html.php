@@ -35,9 +35,11 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
 
-		$ConsoliateModel = JModelLegacy::getInstance ('MaintConsolidateDB', 'rsgallery2Model');
+		$ConsolidateModel = JModelLegacy::getInstance ('MaintConsolidateDB', 'rsgallery2Model');
 
-		$this->DisplayImageData = $ConsoliateModel->GetDisplayImageData ();
+		$this->DisplayImageData = $ConsolidateModel->GetDisplayImageData ();
+
+		echo json_encode($this->DisplayImageData);
 
 		/*
                 global $rsgConfig;

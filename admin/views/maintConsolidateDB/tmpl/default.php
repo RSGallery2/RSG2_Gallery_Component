@@ -21,11 +21,13 @@ JHtml::_('formbehavior.chosen', 'select');
 function DisplayImageDataTable ($ImagesData) {
 
     // exit if no data given
+	/*
     if (count($ImagesData) == 0)
     {
         echo '<h2>' . JText::_('COM_RSGALLERY2_NO_INCONSISTENCIES_IN_DATABASE').'</h2><br>';
         return;
     }
+	*/
 
 // Header ----------------------------------
 
@@ -39,7 +41,7 @@ function DisplayImageDataTable ($ImagesData) {
     echo '            <th>'.JText::_('COM_RSGALLERY2_DISPLAY_BR_FOLDER').'</th>';
     echo '            <th>'.JText::_('COM_RSGALLERY2_ORIGINAL_BR_FOLDER').'</th>';
     echo '            <th>'.JText::_('COM_RSGALLERY2_THUMB_FOLDER').'</th>';
-    echo '            <th>'.JText::_('COM_RSGALLERY2_WATERMARK_FOLDER').'</th>';
+//    echo '            <th>'.JText::_('COM_RSGALLERY2_WATERMARK_FOLDER').'</th>';
     echo '            <th>'.'&nbsp; parent gallery'.'</th>';
     echo '            <th>'.JText::_('COM_RSGALLERY2_IMAGE').'</th>';
     echo '            <th>'.JText::_('COM_RSGALLERY2_ACTION').'</th>';
@@ -49,7 +51,7 @@ function DisplayImageDataTable ($ImagesData) {
         //--- data ----------------------------------
 
     echo '    <tbody>';
-
+/**/
     $Idx = -1;
     foreach ($ImagesData as $ImageData) {
         $Idx += 1;
@@ -61,7 +63,7 @@ function DisplayImageDataTable ($ImagesData) {
         echo '            <td>' . $ImageData['IsDisplayImageFound'] . '</td>';
         echo '            <td>' . $ImageData['IsOrignalImageFound'] . '</td>';
         echo '            <td>' . $ImageData['IsThumbImageFound'] . '</td>';
-        echo '            <td>' . $ImageData['IsWatermarkImageFound'] . '</td>';
+//        echo '            <td>' . $ImageData['IsWatermarkImageFound'] . '</td>';
         echo '            <td>' . $ImageData['ParentGalleryId'] . '</td>';
         echo '            <td>' . 'Image' . '</td>';
         echo '            <td>' . 'Buttons' . '</td>';
