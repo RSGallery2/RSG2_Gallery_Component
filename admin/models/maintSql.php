@@ -61,20 +61,14 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		*/
 
 		$table  = '#__rsgallery2_galleries';
-		$field = 'access';
+		$ColumnName = 'access';
 
-		$db = JFactory::getDbo();
-		$query = 'SHOW COLUMNS FROM ' . $table . ' LIKE ' . $db->quote($field) ;
-		$msg .= '<br>' . '$query: ' . json_encode ($query);
-		$db->setQuery($query);
-		$AccessField = $db->loadObject();
-		$ColumnExist = isset($AccessField);
-		$msg .= '<br>' . '$ColumnExist: ' . json_encode ($ColumnExist);
+		$ColumnExist = IsColumnExisting($table, $ColumnName);
 
-		// test code
+		// !!! test code -> delete actual column (field)
 		if ($ColumnExist) {
 			// ALTER TABLE t2 DROP COLUMN c, DROP COLUMN d;
-			$query = 'ALTER TABLE ' . $table . ' DROP COLUMN ' . $field ;
+			$query = 'ALTER TABLE ' . $table . ' DROP COLUMN ' . $ColumnName ;
 			$msg .= '<br>' . '$query: ' . json_encode ($query);
 			$db->setQuery($query);
 			$result = $db->execute();
@@ -87,48 +81,54 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		// Create table column
 		if (!$ColumnExist)
 		{
-			/*
-               `access` int(10) unsigned DEFAULT NULL,
-
-                ALTER TABLE yourtable ADD q6 VARCHAR( 255 ) after q5
-
-                 $table  = 'your table name';
-                 $column = 'q6'
-                 $add = mysql_query("ALTER TABLE $table ADD $column VARCHAR( 255 ) NOT NULL");
-
-				$db = JFactory::getDBO();
-				$sql = "ALTER TABLE #__shoutbox ADD COLUMN user_id int(11) NOT NULL DEFAULT '0'";
-				$db->setQuery($sql);
-				$result = $db->query()
-
-				 $db = JFactory::getDbo();
-				$query='ALTER TABLE `#__virtuemart_categories_en_gb` ADD `short_desc` varchar(1200)';
-				$db->setQuery($query);
-				$result = $db->query();
-            */
-
-			//   `access` int(10) unsigned DEFAULT NULL
-			$query = 'ALTER TABLE ' . $table . ' ADD ' . $field . ' INT  (10) UNSIGNED DEFAULT NULL';
-			$msg .= '<br>' . '$query: ' . json_encode ($query);
-			$db->setQuery($query);
-			$ColumnExist = $db->execute();
-			$msg .= '<br>' . '$ColumnExist (Add): ' . json_encode ($ColumnExist);
+			$ColumnProperties = 'INT  (10) UNSIGNED DEFAULT NULL';
+			createNotExistingColumn($table, $ColumnName, $ColumnProperties, $ColumnExist);
 		}
 
 		// Set all access values to '1'
 		if ($ColumnExist)
 		{
 			// update your_table set likes = null
-			$query = 'UPDATE ' . $table . ' SET ' . $field . '=1';
+			$query = 'UPDATE ' . $table . ' SET ' . $ColumnName . '=1';
 			$msg .= '<br>' . '$query: ' . json_encode ($query);
 			$db->setQuery($query);
 			$result = $db->execute();
 			$msg .= '<br>' . '$result (update): ' . json_encode ($result);
-
-
-
 		}
 		return $msg;
+	}
+
+
+	// *
+	public function IsColumnExisting($table, $ColumnName)
+	{
+		$IsColumnExisting = false;
+
+		$db = JFactory::getDbo();
+		$query = 'SHOW COLUMNS FROM ' . $table . ' LIKE ' . $db->quote($ColumnName) ;
+		// $msg .= '<br>' . '$query: ' . json_encode ($query);
+		$db->setQuery($query);
+		$AccessField = $db->loadObject();
+		$IsColumnExisting = isset($AccessField);
+		// $msg .= '<br>' . '$ColumnExist: ' . json_encode ($ColumnExist);
+
+		retrun $IsColumnExisting;
+	}
+
+	// *
+	public function createNotExistingColumn($table, $ColumnName, $ColumnProperties, &$IsColumnCreated)
+	{
+		$msg = "Model: createNotExistingColumn: ";
+
+		$db = JFactory::getDbo();
+
+		$query = 'ALTER TABLE ' . $table . ' ADD ' . $ColumnName . ' ' . $ColumnProperties;
+		$msg .= '<br>' . '$query: ' . json_encode ($query);
+		$db->setQuery($query);
+		$IsColumnCreated = $db->execute();
+		$msg .= '<br>' . '$IsColumnCreated (Added): ' . json_encode ($IsColumnCreated);
+
+		return $msg . '<br>';
 	}
 
 
@@ -192,48 +192,76 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		$msg = "Model: createMissingSqlFields: " . '<br>';
 		// $msg = '';
 
+		// Original table names
 		$tables = $this->getTableListFromSqlFile();
 
 		$msg .= 'Check for missing tables<br>';
-		//--- create table if not exist
+
+		//--- creates all tables if not exist ----------------------
+
 		foreach ($tables as $table) {
 			$msg .= '   Table ' . $table . '<br>';
-			// Original tabel names
-			$msg .= $this->createNotExistingTable($table);
+
+			// Create table column
+			$TableExist = $this->IsTableExisting($table);
+			if (!$TableExist) {
+				$msg .= $this->createNotExistingTable($table);
+			}
 		}
 
 		$msg .= 'Check for missing files (columns) in tables<br>';
-		//--- create table if not exist
+
+		//--- create not exisitn columns if not exist -----------------
+
 		foreach ($tables as $table) {
 			$msg .= '   Table ' . $table . '<br>';
+
 			// Original columns
-			$columns = $this->getColumnsOfTable($table, $nnn, $mmm);
-			$msg .= $this->createNotExistingTable($table);
+			$columns = $this->getColumnsPropertiesOfTable($table);
+
+			// Create all not existing table columns
+			foreach ($columns as $ColumnName => $ColumnProperties)
+			{
+				// Create table column
+				$ColumnExist = $this->IsColumnExisting($table, $ColumnName);
+				if (!$ColumnExist)
+				{
+					$msg .= $this->createNotExistingColumn($table, $ColumnName, $ColumnProperties, $ColumnExist);
+					if (!$ColumnExist) {
+						$msg .= '   failed to create ' . $table . ':' . $ColumnName . '<br>';
+					}
+				}
+			}
 		}
 
-
-
-
-
 		return $msg;
 	}
 
-	// * Original table names
+	//
 	public function createNotExistingTable($table)
 	{
-		$msg = "Model: createMissingSqlFields: " . '<br>';
+		$msg = "Model: createNotExistingTable: " . '<br>';
 
 
 		return $msg;
 	}
 
 	// * Original table names
-	public function getColumnsOfTable($table, $nnn, $mmm)
+	public function getColumnsPropertiesOfTable($table)
 	{
-		$msg = "Model: createMissingSqlFields: " . '<br>';
+//		$msg = "Model: createMissingSqlFields: " . '<br>';
+
+//		$ColumnName, $ColumnProperties
 
 
-		return $msg;
+//		return $msg;
+
+		$ColumnsProperties = array ();
+
+		// Test data
+		$ColumnsProperties['access'] = 'INT  (10) UNSIGNED DEFAULT NULL';
+
+		return ColumnsProperties;
 	}
 
 
