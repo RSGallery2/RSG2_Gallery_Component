@@ -1,4 +1,11 @@
-<?php // no direct access
+<?php 
+/**
+ * @package RSGallery2
+ * @copyright (C) 2003 - 2016 RSGallery2
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * RSGallery is Free Software
+ */
+
 defined( '_JEXEC' ) or die();
 
 JHtml::_('behavior.tooltip');

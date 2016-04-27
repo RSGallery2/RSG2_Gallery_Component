@@ -84,7 +84,7 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 
             $DisplayImageData = array ();
 
-        return;
+        // return;
 
         $ImagesData = [];
         $ImagesData['imageName'] = 'image1';
@@ -99,7 +99,7 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 
         $ImagesData = [];
         $ImagesData['imageName'] = 'image2';
-        $ImagesData['IsImageInDatabase'] =  true;
+        $ImagesData['IsImageInDatabase'] =  false;
         $ImagesData['IsDisplayImageFound'] =  true;
         $ImagesData['IsOrignalImageFound'] =  true;
         $ImagesData['IsThumbImageFound'] =  true;
@@ -111,7 +111,7 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
         $ImagesData = [];
         $ImagesData['imageName'] = 'image3';
         $ImagesData['IsImageInDatabase'] =  true;
-        $ImagesData['IsDisplayImageFound'] =  false;
+        $ImagesData['IsDisplayImageFound'] =  true;
         $ImagesData['IsOrignalImageFound'] =  false;
         $ImagesData['IsThumbImageFound'] =  false;
         $ImagesData['IsWatermarkImageFound'] =  false;
@@ -119,7 +119,16 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 
         $DisplayImageData [] = $ImagesData;
 
+        $ImagesData = [];
+        $ImagesData['imageName'] = 'image4';
+        $ImagesData['IsImageInDatabase'] =  true;
+        $ImagesData['IsDisplayImageFound'] =  false;
+        $ImagesData['IsOrignalImageFound'] =  false;
+        $ImagesData['IsThumbImageFound'] =  true;
+        $ImagesData['IsWatermarkImageFound'] =  true;
+        $ImagesData['ParentGalleryId'] =  '3';
 
+        $DisplayImageData [] = $ImagesData;
 
 
 

@@ -14,6 +14,8 @@ global $Rsg2DebugActive;
 
 JHtml::_('formbehavior.chosen', 'select');
 
+$doc = JFactory::getDocument();
+$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/ConsolidateDb.css");
 
 /**
  * @param $ImageData
@@ -21,30 +23,33 @@ JHtml::_('formbehavior.chosen', 'select');
 function DisplayImageDataTable ($ImagesData) {
 
     // exit if no data given
-	/*
     if (count($ImagesData) == 0)
     {
         echo '<h2>' . JText::_('COM_RSGALLERY2_NO_INCONSISTENCIES_IN_DATABASE').'</h2><br>';
         return;
     }
-	*/
 
 // Header ----------------------------------
 
     echo '<table class="table table-striped table-condensed">';
-    echo '    <caption>'.JText::_('COM_RSGALLERY2_CONSDB_NOTICE????').'</caption>';
+	// echo '    <caption>'.JText::_('COM_RSGALLERY2_MISSING_IMAGE_REFERENCES_LIST').'</caption>';
+	echo '    <caption><h3>'.JText::_('COM_RSGALLERY2_MISSING_IMAGE_REFERENCES_LIST').'</h3></caption>';
     echo '    <thead>';
     echo '        <tr>';
-    echo '            <th>' . 'Index checkbox'. '</th>';
-    echo '            <th>'.JText::_('COM_RSGALLERY2_FILENAME Image name').'</th>';
-    echo '            <th>'.JText::_('COM_RSGALLERY2_IN_BR_DATABASE').'</th>';
-    echo '            <th>'.JText::_('COM_RSGALLERY2_DISPLAY_BR_FOLDER').'</th>';
-    echo '            <th>'.JText::_('COM_RSGALLERY2_ORIGINAL_BR_FOLDER').'</th>';
-    echo '            <th>'.JText::_('COM_RSGALLERY2_THUMB_FOLDER').'</th>';
-//    echo '            <th>'.JText::_('COM_RSGALLERY2_WATERMARK_FOLDER').'</th>';
+//    echo '            <th>' . 'Index checkbox'. '</th>'; class="center" width="1%"
+
+	echo '            <th>' . '<input class="hasTooltip" type="checkbox" onclick="Joomla.checkAll(this)" title="" value="" 
+					name="checkall-toggle" data-original-title="Check All">';
+
+    echo '            <th>'.JText::_('COM_RSGALLERY2_FILENAME').'</th>';
+    echo '            <th class="center">'.JText::_('COM_RSGALLERY2_IN_BR_DATABASE').'</th>';
+    echo '            <th class="center">'.JText::_('COM_RSGALLERY2_DISPLAY_BR_FOLDER').'</th>';
+    echo '            <th class="center">'.JText::_('COM_RSGALLERY2_ORIGINAL_BR_FOLDER').'</th>';
+    echo '            <th class="center">'.JText::_('COM_RSGALLERY2_THUMB_FOLDER').'</th>';
+//    echo '            <th class="center">'.JText::_('COM_RSGALLERY2_WATERMARK_FOLDER').'</th>';
     echo '            <th>'.'&nbsp; parent gallery'.'</th>';
-    echo '            <th>'.JText::_('COM_RSGALLERY2_IMAGE').'</th>';
-    echo '            <th>'.JText::_('COM_RSGALLERY2_ACTION').'</th>';
+    echo '            <th class="center">'.JText::_('COM_RSGALLERY2_IMAGE').'</th>';
+//    echo '            <th>'.JText::_('COM_RSGALLERY2_ACTION').'</th>';
     echo '        </tr>';
     echo '    </thead>';
 
@@ -57,16 +62,67 @@ function DisplayImageDataTable ($ImagesData) {
         $Idx += 1;
 
         echo '        <tr>';
-        echo '            <td>' . 'Index checkbox'. '</td>';
+        //echo '            <td>' . 'Index checkbox'. '</td>';
+	    echo '            <td>' .
+		    '<input id="cb' . $Idx . '2" type="checkbox" onclick="Joomla.isChecked(this.checked);" value="'
+		            . $Idx . '5" name="cid[]">';
+
+
         echo '            <td>' . $ImageData['imageName'] . '</td>';
-        echo '            <td>' . $ImageData['IsImageInDatabase'] . '</td>';
-        echo '            <td>' . $ImageData['IsDisplayImageFound'] . '</td>';
-        echo '            <td>' . $ImageData['IsOrignalImageFound'] . '</td>';
-        echo '            <td>' . $ImageData['IsThumbImageFound'] . '</td>';
-//        echo '            <td>' . $ImageData['IsWatermarkImageFound'] . '</td>';
-        echo '            <td>' . $ImageData['ParentGalleryId'] . '</td>';
-        echo '            <td>' . 'Image' . '</td>';
-        echo '            <td>' . 'Buttons' . '</td>';
+
+	    // echo '            <td>' . $ImageData['IsImageInDatabase'] . '</td>';
+	    if ($ImageData['IsImageInDatabase']) {
+		    echo '<td class="center"><span class="icon-ok "> </span> </td>';
+	    }
+	    else
+	    {
+		    echo '<td class="center"><span class="icon-cancel "> </span> </td>';
+	    }
+
+	    //echo '            <td>' . $ImageData['IsDisplayImageFound'] . '</td>';
+	    if ($ImageData['IsDisplayImageFound']) {
+		    echo '<td class="center"><span class="icon-ok"> </span> </td>';
+	    }
+	    else
+	    {
+		    echo '<td class="center"><span class="icon-cancel"> </span> </td>';
+	    }
+
+	    //echo '            <td>' . $ImageData['IsOrignalImageFound'] . '</td>';
+	    if ($ImageData['IsOrignalImageFound']) {
+		    echo '<td class="center"><span class="icon-ok"> </span> </td>';
+	    }
+	    else
+	    {
+		    echo '<td class="center"><span class="icon-cancel"> </span> </td>';
+	    }
+
+	    //echo '            <td>' . $ImageData['IsThumbImageFound'] . '</td>';
+	    if ($ImageData['IsThumbImageFound']) {
+		    echo '<td class="center"><span class="icon-ok"> </span> </td>';
+	    }
+	    else
+	    {
+		    echo '<td class="center"><span class="icon-cancel"> </span></td>';
+	    }
+
+/*
+      //echo '            <td>' . $ImageData['IsWatermarkImageFound'] . '</td>';
+	    if ($ImageData['IsWatermarkImageFound']) {
+		    echo '<td class="center"><span class="icon-ok" </td>';
+	    }
+	    else
+	    {
+		    echo '<td class="center"><span class="icon-cancel" </td>';
+	    }
+*/
+
+	    echo '            <td>' . $ImageData['ParentGalleryId'] . '</td>';
+
+
+
+	    echo '            <td>' . 'Image' . '</td>';
+        //echo '            <td>' . 'Buttons' . '</td>';
         echo '        </tr>';
     }
 /**/	
