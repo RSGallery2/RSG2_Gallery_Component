@@ -47,8 +47,11 @@ function DisplayImageDataTable ($ImagesData) {
     echo '            <th class="center">'.JText::_('COM_RSGALLERY2_ORIGINAL_BR_FOLDER').'</th>';
     echo '            <th class="center">'.JText::_('COM_RSGALLERY2_THUMB_FOLDER').'</th>';
 //    echo '            <th class="center">'.JText::_('COM_RSGALLERY2_WATERMARK_FOLDER').'</th>';
-    echo '            <th>'.'&nbsp; parent gallery'.'</th>';
+    echo '            <th class="center">'.JText::_('COM_RSGALLERY2_PARENT_BR_GALLERY').'</th>';
     echo '            <th class="center">'.JText::_('COM_RSGALLERY2_IMAGE').'</th>';
+
+
+
 //    echo '            <th>'.JText::_('COM_RSGALLERY2_ACTION').'</th>';
     echo '        </tr>';
     echo '    </thead>';
@@ -57,6 +60,14 @@ function DisplayImageDataTable ($ImagesData) {
 
     echo '    <tbody>';
 /**/
+
+
+// ToDo: Notify for icomoon images
+//       alt="'.JText::_('COM_RSGALLERY2_IMAGE_IN_FOLDER').'"
+//       alt="'.JText::_('COM_RSGALLERY2_IMAGE_NOT_IN_FOLDER').'"
+
+
+
     $Idx = -1;
     foreach ($ImagesData as $ImageData) {
         $Idx += 1;
@@ -88,8 +99,8 @@ function DisplayImageDataTable ($ImagesData) {
 		    echo '<td class="center"><span class="icon-cancel"> </span> </td>';
 	    }
 
-	    //echo '            <td>' . $ImageData['IsOrignalImageFound'] . '</td>';
-	    if ($ImageData['IsOrignalImageFound']) {
+	    //echo '            <td>' . $ImageData['IsOriginalImageFound'] . '</td>';
+	    if ($ImageData['IsOriginalImageFound']) {
 		    echo '<td class="center"><span class="icon-ok"> </span> </td>';
 	    }
 	    else
@@ -117,11 +128,14 @@ function DisplayImageDataTable ($ImagesData) {
 	    }
 */
 
-	    echo '            <td>' . $ImageData['ParentGalleryId'] . '</td>';
+	    echo '            <td class="center">' . $ImageData['ParentGalleryId'] . '</td>';
 
 
 
-	    echo '            <td>' . 'Image' . '</td>';
+//	    echo '            <td>' . 'Image' . '</td>';
+	    echo '            <td class="center">'.'<img width="80" alt="'. $ImageData['imageName']
+		                            . '" name="image" src="'.$ImageData['ImagePath'].'">'.'</td>';
+
         //echo '            <td>' . 'Buttons' . '</td>';
         echo '        </tr>';
     }
@@ -199,15 +213,22 @@ function DisplayImageDataTable ($ImagesData) {
 							<!-- /div -->
 						</div>
 					</div>
-					<br>
 
+					<div class="form-actions">
+						<br>
+					</div>
 
-
-                <div class="form-actions">
-                    <a href="index.php?option=com_rsgallery2&rsgOption=maintenance&task=consolidateDB">Refresh</a>
-                    <button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES'); ?></button>
-                    <button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES'); ?></button>
-                </div>
+	                <div class="form-actions">
+		                <button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_CREATE_MISSING_IMAGES'); ?></button>
+		                <button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_DELETE_FROM_FILESYSTEM'); ?></button>
+		                <button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_CREATE_DATABASE_ENTRIES'); ?></button>
+		                <button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_DELETE_IMAGES'); ?></button>
+		                <button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_ASSIGN_GALLLERY'); ?></button>
+	                </div>
+					<div class="form-actions">
+		                <button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_REFRESH'); ?></button>
+		                <button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_(''); ?></button>
+	                </div>
 
 
 
