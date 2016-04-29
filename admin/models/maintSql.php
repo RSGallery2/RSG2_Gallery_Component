@@ -249,7 +249,90 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		return $msg;
 	}
 
-	// * Original table names
+
+
+
+
+    public function XXX
+    {
+        $msg = ": " . '<br>';
+
+        $sqlfile = $this->getPath('extension_root') . '/' . trim($file);
+
+        // Check that sql files exists before reading. Otherwise raise error for rollback
+        if (!file_exists($sqlfile))
+        {
+            JLog::add(JText::sprintf('JLIB_INSTALLER_ERROR_SQL_FILENOTFOUND', $sqlfile), JLog::WARNING, 'jerror');
+
+            return false;
+        }
+
+        $buffer = file_get_contents($sqlfile);
+
+        // Graceful exit and rollback if read not successful
+        if ($buffer === false)
+        {
+            JLog::add(JText::_('JLIB_INSTALLER_ERROR_SQL_READBUFFER'), JLog::WARNING, 'jerror');
+
+            return false;
+        }
+
+        // Create an array of queries from the sql file
+        $queries = JDatabaseDriver::splitSql($buffer);
+
+        if (count($queries) == 0)
+        {
+            // No queries to process
+            return 0;
+        }
+
+        // Process each query in the $queries array (split out of sql file).
+        foreach ($queries as $query)
+        {
+            // If we don't have UTF-8 Multibyte support we'll have to convert queries to plain UTF-8
+            if ($doUtf8mb4ToUtf8)
+            {
+                $query = $this->convertUtf8mb4QueryToUtf8($query);
+            }
+
+            $db->setQuery($query);
+
+            if (!$db->execute())
+            {
+                JLog::add(JText::sprintf('JLIB_INSTALLER_ERROR_SQL_ERROR', $db->stderr(true)), JLog::WARNING, 'jerror');
+
+                return false;
+            }
+
+            $update_count++;
+        }
+
+        return $msg;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // * Original table names
 	public function getColumnsPropertiesOfTable($table)
 	{
 //		$msg = "Model: createMissingSqlFields: " . '<br>';
