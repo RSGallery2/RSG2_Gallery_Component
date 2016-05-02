@@ -29,18 +29,18 @@ class SqlInstallFile
 	 * @var string []
 	 */
 
-	yyyy keep queries as assiciative list name _> query
-	protected $queries;
+	protected $tableQueries;
+	protected $namedQueries;
 
 	/**
 	 * @var string []
 	 */
-	private $tableList;
+	private $tableNamesList;
 
 	/**
 	 * @var string [] Tables[][column IDs][additional Properties]
 	 */
-	private $ContentObject;
+	private $tablePropertiesList;
 
 	/*------------------------------------------------------------------------------------
 	__construct()
@@ -49,8 +49,7 @@ class SqlInstallFile
 	{
 		$this->sqlPathFileName = $fileName;
 	}
-	
-
+    
 	/*------------------------------------------------------------------------------------
 	__construct()
 	------------------------------------------------------------------------------------*/	
@@ -70,7 +69,7 @@ class SqlInstallFile
 
 	private function extractQueries (){
 
-		if (empty($this->queries))
+		if (empty($this->tableQueries))
 		{
 			// Check that sql files exists before reading. Otherwise raise error for rollback
 			if (!file_exists($this->sqlPathFileName))
@@ -91,46 +90,46 @@ class SqlInstallFile
 			}
 
 			// Create an array of queries from the sql file
-			$this->queries = JDatabaseDriver::splitSql($buffer);
+			$this->tableQueries = JDatabaseDriver::splitSql($buffer);
 		}
 
-		return $this->queries;
+		return $this->tableQueries;
 	}
 
-	public function getTableList()
+	public function getTableNamesList()
 	{
 		// Create only once
-		if (empty ($this->tableList))
+		if (empty ($this->tableNamesList))
 		{
-			/* ToDo: Read file to auto use in the future
-			$this->tableList = array(
-				'#__rsgallery2_galleries',
-				'#__rsgallery2_files',
-				'#__rsgallery2_comments',
-				'#__rsgallery2_config',
-				'#__rsgallery2_acl');
-			/**/
-
-			// file needs to be read
-			if (empty ($this->queries))
+			// Does file need to be read
+			if (empty ($this->tableQueries))
 			{
-				$this->queries = $this->extractQueries();
-			}
-
-			// Process each query in the $queries array (split out of sql file).
-			foreach ($this->queries as $query)
-			{
-				$TableName = $this->ExtractTableNameFromQuery($query);
-				if (!empty ($TableName))
-				{
-					$this->tableList[] = $TableName;
-				}
+				// sets $this->tableQueries and $this->namedQueries
+				$this->getQueries ();
 			}
 		}
 
-		return $this->tableList;
+		return $this->tableNamesList;
 	}
 
+	private function getQueries ()
+	{
+		$this->tableQueries = $this->extractQueries();
+		$this->namedQueries = null;
+		
+		// Process each query in the $queries array (split out of sql file).
+		foreach ($this->tableQueries as $query) {
+			$tableName = $this->ExtractTableNameFromQuery($query);
+			if (!empty ($tableName)) {
+				$this->tableNamesList[] = $tableName;
+				// Access query by name
+				$this->namedQueries [$tableName] = $query;
+			}
+		}
+
+		return $this->tableQueries;
+	}	
+		
 	private function ExtractTableNameFromQuery ($query)
 	{
 		// check if command matches (nearly) a table command
@@ -232,90 +231,55 @@ class SqlInstallFile
 		return $Properties;
 	}
 
-	public function getContentObject ()
+	public function getTablePropertiesList ()
 	{
 		// Create only once
-		if (empty ($this->ContentObject))
+		if (empty ($this->tablePropertiesList))
 		{
 			// file needs to be read
-			if (empty ($this->queries))
+			if (empty ($this->tableQueries))
 			{
-				$this->queries = $this->extractQueries();
+				// sets $this->tableQueries and $this->namedQueries
+				$this->getQueries ();
 			}
 
-			// if (count($this->queries) == 0)
-			if (empty ($this->queries))
+			// if (count($this->tableQueries) == 0)
+			if (empty ($this->tableQueries))
 			{
 				// No queries to process
 				return false;
 			}
-/**
-			if (empty ($this->tableList))
-			{
 
-				getTableList();
-			}
-			if (empty ($this->tableList))
+			// Assign queries and their properties to Content object 
+			foreach ($this->namedQueries as $tableName => $query)
 			{
-				// No table found
-				return false;
-			}
-/**/
-			if (empty ($this->tableList))
-			{
-				$IsTableExisting = false;
-			}
-			else
-			{
-				$IsTableExisting = true;
-			}
-
-			// Process each query in the $queries array (split out of sql file).
-			foreach ($this->queries as $query)
-			{
-				$TableName = $this->ExtractTableNameFromQuery ($query);
-				if (!empty ($TableName))
-				{
-					if(!$IsTableExisting)
-					{
-						$this->tableList[] = $TableName;
-					}
-
-					// $msg .= 'Property name: "' . $TableProperty->name . '" -> ';
-					//$msg .= 'Properties: "' . $TableProperty->properties . '"<br>';
-
-					$TableProperties = $this->ExtractTablePropertiesFromQuery ($query);
-					$this->ContentObject [$TableName] = $TableProperties;
-				}
+				$TableProperties = $this->ExtractTablePropertiesFromQuery ($query);
+				$this->tablePropertiesList [$tableName] = $TableProperties;
 			}
 		}
 
-		return $this->ContentObject;
+		return $this->namedQueries;
 	}
 
 	public function getTableQuery ($tableName)
 	{
-		if (empty ($this->ContentObject))
+		if (empty ($this->tablePropertiesList))
 		{
-			$this->getContentObject ();
+			$this->getTablePropertiesList ();
 		}
-
-
-
+            
+        return $this->tablePropertiesList [$tableName];
 	}
 
 	public function getColumnsPropertiesOfTable ($tableName)
 	{
-		if (empty ($this->ContentObject))
+		if (empty ($this->tablePropertiesList))
 		{
-			$this->getContentObject ();
+			$this->getTablePropertiesList ();
 		}
 
 
-
-
-
-
+        return $this->tablePropertiesList [$tableName];
 	}
 
 

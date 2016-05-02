@@ -27,15 +27,15 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		$msg = "model:optimizeDB: " . '<br>';
 
 		$sqlFile = new SqlInstallFile ();
-		$tables = $sqlFile->getTableList();
+		$tableNames = $sqlFile->getTableNamesList();
 
 		$db = JFactory::getDbo();
 
 		//--- optimize all tables -------------------------------
 
-		foreach ($tables as $table) {
-			$msg .= 'Table ' . $table . '<br>';
-			$db->setQuery('OPTIMIZE TABLE ' . $db->quoteName($table));
+		foreach ($tableNames as $tableName) {
+			$msg .= 'Table ' . $tableName . '<br>';
+			$db->setQuery('OPTIMIZE TABLE ' . $db->quoteName($tableName));
 			$db->execute();
 		}
 
@@ -153,8 +153,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	 * it will be created. Then the existance of the single columns are checked
 	 *
 	 * ToDo: find columns which are not needed any more
-	 * 
-*@return string
+	 * @return string
 	 */
 	public function completeSqlTables()
 	{
@@ -165,7 +164,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		
 		//--- Check for not existing tables and create them --------
 
-		$tableNames = $sqlFile->getTableList();
+		$tableNames = $sqlFile->getTableNamesList();
 
 		$msg .= 'Check for missing tables' . '<br>';
 		foreach ($tableNames as $tableName) {
@@ -196,7 +195,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		$query = $sqlFile->getTableQuery ($tableName);
 		if (!empty ($query))
 		{
-			$msg .= '<br>' . '$query: ' . json_encode($query);
+//			$msg .= '<br>' . '$query: ' . json_encode($query);
 
 			$db = JFactory::getDbo();
 			$db->setQuery($query);
@@ -209,6 +208,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 			else
 			{
 				$msg .= '!!! Table: ' . $tableName . ' not created !!!' . '<br>';
+                $msg .= '<br>' . '$query: ' . json_encode($query);
 			}
 		}
 		else
@@ -231,15 +231,15 @@ class Rsgallery2ModelMaintSql extends  JModelList
         $columns = $sqlFile->getColumnsPropertiesOfTable($tableName);
 
         // Create all not existing table columns
-        foreach ($columns as $ColumnName => $ColumnProperties)
+        foreach ($columns as $columnName => $columnProperties)
         {
             // Create table column
-            $ColumnExist = $this->IsColumnExisting($tableName, $ColumnName);
-            if (!$ColumnExist)
+            $columnExist = $this->IsColumnExisting($tableName, $columnName);
+            if (!$columnExist)
             {
-                $msg .= $this->createNotExistingColumn($tableName, $ColumnName, $ColumnProperties, $ColumnExist);
-                if (!$ColumnExist) {
-                    $msg .= '   failed to create ' . $tableName . ':' . $ColumnName . '<br>';
+                $msg .= $this->createNotExistingColumn($tableName, $columnName, $columnProperties, $columnExist);
+                if (!$columnExist) {
+                    $msg .= '   failed to create ' . $tableName . ':' . $columnName . '<br>';
                 }
             }
         }
