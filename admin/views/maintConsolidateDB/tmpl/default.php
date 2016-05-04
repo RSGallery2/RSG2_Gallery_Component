@@ -148,8 +148,11 @@ function DisplayImageDataTable ($ImagesData) {
     return;
 }
 
-
-
+// ToDo: Use buttons on red icons to immediately do actions
+// http://stackoverflow.com/questions/14413916/custom-status-button-in-joomla-component
+//<td class="center">
+//	<a class="btn btn-micro active hasTooltip" href="javascript:void(0);" onclick="return listItemTask('cb0','categories.unpublish')" title="Unpublish Item"><span class="icon-publish"></span></a>
+//</td>
 
 
 ?>
