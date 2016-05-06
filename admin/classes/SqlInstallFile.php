@@ -45,8 +45,12 @@ class SqlInstallFile
 	/*------------------------------------------------------------------------------------
 	__construct()
 	------------------------------------------------------------------------------------*/	
-	public function __construct($fileName=JPATH_COMPONENT_ADMINISTRATOR.'/sql/install.mysql.utf8.sql')
+	public function __construct($fileName='')
 	{
+		if ($fileName == '') {
+			$fileName = JPATH_COMPONENT_ADMINISTRATOR.'/sql/install.mysql.utf8.sql';
+		}
+
 		$this->sqlPathFileName = $fileName;
 	}
     
@@ -170,6 +174,7 @@ class SqlInstallFile
 				$ColumnProperties = $this->ExtractColumnPropertiesFromLine($queryLine);
 				if (!empty ($ColumnProperties))
 				{
+					//$TableProperties [$ColumnProperties->name] = $ColumnProperties->properties;
 					$TableProperties [] = $ColumnProperties;
 				}
 			}
@@ -258,7 +263,7 @@ class SqlInstallFile
 			}
 		}
 
-		return $this->namedQueries;
+		return $this->tablePropertiesList;
 	}
 
 	public function getTableQuery ($tableName)

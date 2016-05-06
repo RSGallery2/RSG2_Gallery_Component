@@ -62,15 +62,15 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		    And my gallery images make a path or url...
 		*/
 
-		$table  = '#__rsgallery2_galleries';
+		$tableName  = '#__rsgallery2_galleries';
 		$ColumnName = 'access';
 
-		$ColumnExist = IsColumnExisting($table, $ColumnName);
+		$ColumnExist = IsColumnExisting($tableName, $ColumnName);
 
 		// !!! test code -> delete actual column (field)
 		if ($ColumnExist) {
 
-			$result = $this->DeleteColumn($table, $ColumnName);
+			$result = $this->DeleteColumn($tableName, $ColumnName);
 			$msg .= '<br>' . '$result (drop): ' . json_encode ($result);
 
 			$ColumnExist = false;
@@ -81,7 +81,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		if (!$ColumnExist)
 		{
 			$ColumnProperties = 'INT  (10) UNSIGNED DEFAULT NULL';
-			createNotExistingColumn($table, $ColumnName, $ColumnProperties, $ColumnExist);
+			createNotExistingColumn($tableName, $ColumnName, $ColumnProperties, $ColumnExist);
 		}
 
 		// Set all access values to '1'
@@ -90,7 +90,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 
 			$db = JFactory::getDbo();
 			// update your_table set likes = null
-			$query = 'UPDATE ' . $table . ' SET ' . $ColumnName . '=1';
+			$query = 'UPDATE ' . $tableName . ' SET ' . $ColumnName . '=1';
 			$msg .= '<br>' . '$query: ' . json_encode ($query);
 			$db->setQuery($query);
 			$result = $db->execute();
@@ -101,11 +101,11 @@ class Rsgallery2ModelMaintSql extends  JModelList
 
 
 	// *
-	private function DeleteColumn($table, $ColumnName)
+	private function DeleteColumn($tableName, $ColumnName)
 	{
 		$db = JFactory::getDbo();
 		// ALTER TABLE t2 DROP COLUMN c, DROP COLUMN d;
-		$query = 'ALTER TABLE ' . $table . ' DROP COLUMN ' . $ColumnName ;
+		$query = 'ALTER TABLE ' . $tableName . ' DROP COLUMN ' . $ColumnName ;
 		// $msg .= '<br>' . '$query: ' . json_encode ($query);
 		$db->setQuery($query);
 		$result = $db->execute();
@@ -114,29 +114,86 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	}
 
 	// *
-	private function IsColumnExisting($table, $ColumnName)
+	private function IsColumnExisting($tableName, $ColumnName)
 	{
 		$IsColumnExisting = false;
 
+		$db = JFactory::getDBO();
+		$columns = $db->getTableColumns($tableName);
+		$IsColumnExisting = isset($columns[$ColumnName]);
+
+/*
+
 		$db = JFactory::getDbo();
-		$query = 'SHOW COLUMNS FROM ' . $table . ' LIKE ' . $db->quote($ColumnName) ;
+		$query = 'SHOW COLUMNS FROM ' . $tableName . ' LIKE ' . $db->quote($ColumnName) ;
 		// $msg .= '<br>' . '$query: ' . json_encode ($query);
 		$db->setQuery($query);
 		$AccessField = $db->loadObject();
 		$IsColumnExisting = isset($AccessField);
 		// $msg .= '<br>' . '$ColumnExist: ' . json_encode ($ColumnExist);
-
+*/
 		return $IsColumnExisting;
 	}
 
-	// *
-	public function createNotExistingColumn($table, $ColumnName, $ColumnProperties, &$IsColumnCreated)
+	//
+	public function IsTableExisting ($tableName)
+	{
+		$IsTableExisting = false;
+
+		$db = JFactory::getDbo();
+		$prefix = $db->getPrefix();
+
+		$dbTableName = str_replace ('#__', $prefix, $tableName);
+
+		$tables = $db->getTableList();
+		// print_r($tables);
+
+		$IsTableExisting = in_array ($dbTableName, $tables);
+
+		return $IsTableExisting;
+	}
+
+	/*
+			$IsTableExisting = false;
+			// without table identifier
+			$tableNameShort = substr ($tableName, 3);
+			foreach ($tables as $existingTable)
+			{
+				$pos = strpos($existingTable, $tableNameShort);
+				if ($pos !== false)
+				{
+					$IsTableExisting = true;
+					break;
+				}
+			}
+	*/
+//		$IsTableExisting = in_array($tableName  , $tables);
+
+	/*
+			// $query = 'SELECT 1 FROM  x' . $tableName . ' LIMIT 1 ';
+			$query = 'SHOW TABLES LIKE x' . $tableName;
+			// $msg .= '<br>' . '$query: ' . json_encode ($query);
+			$db->setQuery($query);
+			$AccessTable = $db->loadObject();
+
+			$IsTableExisting = isset($AccessTable);
+			// $msg .= '<br>' . '$ColumnExist: ' . json_encode ($ColumnExist);
+	*/
+
+	//
+	public function createNotExistingColumn($tableName, $ColumnName, $ColumnProperties, &$IsColumnCreated)
 	{
 		$msg = "Model: createNotExistingColumn: ";
 
 		$db = JFactory::getDbo();
 
-		$query = 'ALTER TABLE ' . $table . ' ADD ' . $ColumnName . ' ' . $ColumnProperties;
+
+		$query = "ALTER TABLE #__shoutbox ADD COLUMN user_id int(11) NOT NULL DEFAULT '0'";
+		$query = 'ALTER TABLE `#__virtuemart_categories_en_gb` ADD `short_desc` varchar(1200)';
+		$query = "ALTER TABLE #__test_plugin ADD linkimageflag varchar(10) NOT NULL";
+
+		$query = 'ALTER TABLE `' . $tableName . '` ADD `' . $ColumnName . '` ' . $ColumnProperties.properties;
+
 		$msg .= '<br>' . '$query: ' . json_encode ($query);
 		$db->setQuery($query);
 		$IsColumnCreated = $db->execute();
@@ -187,6 +244,8 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		return $msg;
 	}
 
+
+
 	//
 	public function createNotExistingTable($tableName, $sqlFile)
 	{
@@ -231,8 +290,11 @@ class Rsgallery2ModelMaintSql extends  JModelList
         $columns = $sqlFile->getColumnsPropertiesOfTable($tableName);
 
         // Create all not existing table columns
-        foreach ($columns as $columnName => $columnProperties)
+        foreach ($columns as $column)
         {
+	        $columnName = $column->name;
+	        $columnProperties = $column->properties;
+
             // Create table column
             $columnExist = $this->IsColumnExisting($tableName, $columnName);
             if (!$columnExist)
