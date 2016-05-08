@@ -227,6 +227,7 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
             {
                 $MissingLocation = true;
                 $ImagesData['IsDisplayImageFound'] =  false;
+                $ImagesData['ImagePath'] =  '';
             }
 
             if (in_array($BaseFile, $files_original))
@@ -252,7 +253,23 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
             if ($MissingLocation)
             {
                 $ImagesData['ParentGalleryId'] = '';
-                $ImagesData['ImagePath'] =  '';
+
+                // Assign most significant (matching destinatinó0n) image
+//                $ImagesData['ImagePath'] =  '';
+
+
+                if($ImagesData['IsOriginalImageFound']){
+                    $ImagesData['ImagePath'] =  '';
+                }
+
+                if($ImagesData['IsDisplayImageFound']){
+                    $ImagesData['ImagePath'] =  '';
+                }
+
+                if($ImagesData['IsThumbImageFound']){
+                    $ImagesData['ImagePath'] =  '';
+                }
+
 
                 $DisplayImageData [] = $ImagesData;
             }
