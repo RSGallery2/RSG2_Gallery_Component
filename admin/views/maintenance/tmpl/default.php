@@ -295,6 +295,14 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 								'createGalleryAccessField');
 							?>
 
+							<?php
+							$link = 'index.php?option=com_rsgallery2&amp;task=maintSql.completeSqlTables';
+							quickTwoIconMoonBar ($link, 'icon-database', 'icon-book',
+								JText::_('COM_RSGALLERY2_COMPLETE_SQL_TABLES'),
+								JText::_('COM_RSGALLERY2_COMPLETE_SQL_TABLES_DESC'),
+								'compareDb2SqlFile');
+							?>
+
 						</div>
 					</div>
 				</div>
@@ -361,14 +369,6 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 										<?php echo JText::_('COM_RSGALLERY2_ONLY_WHEN_YOU_KNOW_WHAT_YOU_ARE_DOING'); ?>
 									</strong>
 								</div>
-
-								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;task=maintSql.completeSqlTables';
-								quickTwoIconMoonBar ($link, 'icon-database', 'icon-book',
-									JText::_('COM_RSGALLERY2_COMPLETE_SQL_TABLES'),
-									JText::_('COM_RSGALLERY2_COMPLETE_SQL_TABLES_DESC'),
-									'compareDb2SqlFile');
-								?>
 
 								<?php
 								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';

@@ -8,7 +8,6 @@ jimport('joomla.application.component.modeladmin');
 // access to the content of the install.mysql.utf8.sql file
 require_once( JPATH_COMPONENT.'/classes/SqlInstallFile.php ' );
 
-
 // Joel Lipman Jdatabase
 
 /**
@@ -141,44 +140,14 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		$IsTableExisting = false;
 
 		$db = JFactory::getDbo();
-		$prefix = $db->getPrefix();
-
-		$dbTableName = str_replace ('#__', $prefix, $tableName);
+		$dbTableName = $db->replacePrefix($tableName);
 
 		$tables = $db->getTableList();
-		// print_r($tables);
 
 		$IsTableExisting = in_array ($dbTableName, $tables);
 
 		return $IsTableExisting;
 	}
-
-	/*
-			$IsTableExisting = false;
-			// without table identifier
-			$tableNameShort = substr ($tableName, 3);
-			foreach ($tables as $existingTable)
-			{
-				$pos = strpos($existingTable, $tableNameShort);
-				if ($pos !== false)
-				{
-					$IsTableExisting = true;
-					break;
-				}
-			}
-	*/
-//		$IsTableExisting = in_array($tableName  , $tables);
-
-	/*
-			// $query = 'SELECT 1 FROM  x' . $tableName . ' LIMIT 1 ';
-			$query = 'SHOW TABLES LIKE x' . $tableName;
-			// $msg .= '<br>' . '$query: ' . json_encode ($query);
-			$db->setQuery($query);
-			$AccessTable = $db->loadObject();
-
-			$IsTableExisting = isset($AccessTable);
-			// $msg .= '<br>' . '$ColumnExist: ' . json_encode ($ColumnExist);
-	*/
 
 	//
 	public function createNotExistingColumn($tableName, $ColumnName, $ColumnProperties, &$IsColumnCreated)
@@ -188,11 +157,15 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		$db = JFactory::getDbo();
 
 
-		$query = "ALTER TABLE #__shoutbox ADD COLUMN user_id int(11) NOT NULL DEFAULT '0'";
-		$query = 'ALTER TABLE `#__virtuemart_categories_en_gb` ADD `short_desc` varchar(1200)';
-		$query = "ALTER TABLE #__test_plugin ADD linkimageflag varchar(10) NOT NULL";
+		//$query = "ALTER TABLE #__shoutbox ADD COLUMN user_id int(11) NOT NULL DEFAULT '0'";
+		//$query = 'ALTER TABLE `#__virtuemart_categories_en_gb` ADD `short_desc` varchar(1200)';
+		//$query = "ALTER TABLE #__test_plugin ADD linkimageflag varchar(10) NOT NULL";
 
-		$query = 'ALTER TABLE `' . $tableName . '` ADD `' . $ColumnName . '` ' . $ColumnProperties.properties;
+		//   `access` int(10) unsigned DEFAULT NULL
+		//$query = 'ALTER TABLE ' . $table . ' ADD ' . $ColumnName . ' ' . $ColumnProperties;
+		//$query = 'ALTER TABLE ' . $tableName . ' ADD ' . $ColumnName . ' ' . $ColumnProperties.properties;
+
+		$query = 'ALTER TABLE ' . $db->quoteName($tableName) . ' ADD ' . $db->quoteName($ColumnName) . ' ' . $ColumnProperties;
 
 		$msg .= '<br>' . '$query: ' . json_encode ($query);
 		$db->setQuery($query);
