@@ -258,7 +258,6 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
             }
         }
 
-
         return $DisplayImageData;
     }
 

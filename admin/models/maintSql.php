@@ -8,6 +8,8 @@ jimport('joomla.application.component.modeladmin');
 // access to the content of the install.mysql.utf8.sql file
 require_once( JPATH_COMPONENT.'/classes/SqlInstallFile.php ' );
 
+// ToDo: write all to logfile
+
 // Joel Lipman Jdatabase
 
 /**
@@ -211,8 +213,6 @@ class Rsgallery2ModelMaintSql extends  JModelList
 				$msg .= $this->createMissingSqlFieldsInTable ($tableName, $sqlFile);
 			}
 		}
-
-		$msg .= '!!! Not implemented yet !!!' . '<br>';
 
 		return $msg;
 	}
