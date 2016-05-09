@@ -21,15 +21,25 @@ SqlInstallFile
 
 ------------------------------------------------------------------------------------*/
 
+/**
+ * Class SqlInstallFile
+ */
 class SqlInstallFile
 {
+    /**
+     * @var string
+     */
 	protected $sqlPathFileName; //
 
 	/**
-	 * @var string []
+	 * @var string [] list of 'create table queries'
 	 */
-
 	protected $tableQueries;
+
+    /**
+     * Same as table queries but in form table name -> query
+     * @var array[string]string list of 'create table queries'
+     */
 	protected $namedQueries;
 
 	/**
@@ -53,24 +63,12 @@ class SqlInstallFile
 
 		$this->sqlPathFileName = $fileName;
 	}
-    
-	/*------------------------------------------------------------------------------------
-	__construct()
-	------------------------------------------------------------------------------------*/	
-	/*
-	public static function FromFile ($file='') 
-	{
-    	$instance = new self();
-		$instance LoadFile ($file);
-		return $instance;
-	}
-	/**
 
-	public function LoadFile ($file='')
-    {
-    }
-	/**/
-
+    /**
+     * Extract the queries in the sql associated file
+     * It will be a list of create table queries
+     * @return bool|string[] list of create table queries
+     */
 	private function extractQueries (){
 
 		if (empty($this->tableQueries))
@@ -100,6 +98,9 @@ class SqlInstallFile
 		return $this->tableQueries;
 	}
 
+    /**
+     * @return string[] list of table names from sql queries file
+     */
 	public function getTableNamesList()
 	{
 		// Create only once
@@ -116,6 +117,11 @@ class SqlInstallFile
 		return $this->tableNamesList;
 	}
 
+    /**
+     * Extract the queries in the sql associated file if not already existing
+     * Creates the named list additionally
+     * @return bool|string[] list of 'create table queries'
+     */
 	private function getQueries ()
 	{
 		$this->tableQueries = $this->extractQueries();
@@ -132,8 +138,13 @@ class SqlInstallFile
 		}
 
 		return $this->tableQueries;
-	}	
-		
+	}
+
+    /**
+     * Extracts the used table name from the given query
+     * @param string $query
+     * @return string
+     */
 	private function ExtractTableNameFromQuery ($query)
 	{
 		// check if command matches (nearly) a table command
@@ -157,7 +168,11 @@ class SqlInstallFile
 		return $tableName;
 	}
 
-
+    /**
+     * ToDO: continue yyyyyyyyyyyyyyyyyy
+     * @param $query
+     * @return array
+     */
 	private function ExtractTablePropertiesFromQuery ($query)
 	{
 		$TableProperties = array ();
