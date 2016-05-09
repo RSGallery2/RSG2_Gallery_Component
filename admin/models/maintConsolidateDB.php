@@ -200,6 +200,8 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
     private function CreateDisplayImageData ($AllFiles, $DbImageList,
         $files_display, $files_original, $files_thumb)
     {
+        global $rsgConfig;
+
         $DisplayImageData = array();
 
         foreach ($AllFiles as $BaseFile)
@@ -227,7 +229,6 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
             {
                 $MissingLocation = true;
                 $ImagesData['IsDisplayImageFound'] =  false;
-                $ImagesData['ImagePath'] =  '';
             }
 
             if (in_array($BaseFile, $files_original))
@@ -259,15 +260,15 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 
 
                 if($ImagesData['IsOriginalImageFound']){
-                    $ImagesData['ImagePath'] =  '';
+                    $ImagesData['ImagePath'] = $rsgConfig->get('imgPath_original') . '/' . $ImagesData['imageName'];
                 }
 
                 if($ImagesData['IsDisplayImageFound']){
-                    $ImagesData['ImagePath'] =  '';
+                    $ImagesData['ImagePath'] =  $rsgConfig->get('imgPath_display') . '/' . $ImagesData['imageName'] . '.jpg';
                 }
 
                 if($ImagesData['IsThumbImageFound']){
-                    $ImagesData['ImagePath'] =  '';
+                    $ImagesData['ImagePath'] = $rsgConfig->get('imgPath_thumb') . '/' . $ImagesData['imageName'] . '.jpg';
                 }
 
 
@@ -277,6 +278,9 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 
         return $DisplayImageData;
     }
+
+
+
 
 
 

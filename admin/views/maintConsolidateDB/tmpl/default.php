@@ -134,9 +134,9 @@ function DisplayImageDataTable ($ImagesData) {
 
 //	    echo '            <td>' . 'Image' . '</td>';
 	    echo '            <td class="center">'.'<img width="80" alt="'. $ImageData['imageName']
-		                            . '" name="image" src="'.$ImageData['ImagePath'].'">'.'</td>';
+		                            . '" name="image" src="'.JUri::root(true).$ImageData['ImagePath'].'">'.'</td>';
 
-        //echo '            <td>' . 'Buttons' . '</td>';
+        //echo '            <td>' . 'Buttons' . '</td>'; JURI_SITE
         echo '        </tr>';
     }
 /**/	
