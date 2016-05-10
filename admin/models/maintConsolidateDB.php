@@ -16,8 +16,8 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
     {
         global $rsgConfig;
 
-        $this->DbImageList  = $this->DbImageList ();
-        $this->DbImageNames = $this->GetDbImageNames ();
+        $this->DbImageList  = $this->getDbImageList ();  // Is tunneld to create it only once
+        $this->DbImageNames = $this->getDbImageNames ();
         $this->DbImageNames = array_map('strtolower', $this->DbImageNames);
 
         $files_display  = $this->getFilenameArray($rsgConfig->get('imgPath_display'));
@@ -40,7 +40,10 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
         return $DisplayImageData;
     }
 
-    private function DbImageList () {
+    /**
+     * @return string [] name / gallery ID
+     */
+    private function getDbImageList () {
         /*
 				$database = JFactory::getDBO();
 				//Load all image names from DB in array
@@ -60,7 +63,10 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
         return $DbImageList;
     }
 
-    private function GetDbImageNames () {
+    /**
+     * @return string [] image file names
+     */
+    private function getDbImageNames () {
         /*
 				$database = JFactory::getDBO();
 				//Load all image names from DB in array
@@ -135,69 +141,15 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
     }
 
 
-
-
-    public function GetDummyDisplayImageData () {
-
-
-            $DisplayImageData = array ();
-
-        // return;
-
-        $ImagesData = [];
-        $ImagesData['imageName'] = $this->DbImageList[0]['name'];
-        $ImagesData['IsImageInDatabase'] =  true;
-        $ImagesData['IsDisplayImageFound'] =  false;
-        $ImagesData['IsOriginalImageFound'] =  false;
-        $ImagesData['IsThumbImageFound'] =  false;
-        $ImagesData['IsWatermarkImageFound'] =  false;
-        $ImagesData['ParentGalleryId'] = $this->DbImageList[3]['gallery_id'];;
-        $ImagesData['ImagePath'] =  'http://127.0.0.1/Joomla3x/images/rsgallery/thumb/Dia_1992_10_Nr001.jpg.jpg';
-
-        $DisplayImageData [] = $ImagesData;
-
-        $ImagesData = [];
-        $ImagesData['imageName'] = $this->DbImageList[1]['name'];
-        $ImagesData['IsImageInDatabase'] =  false;
-        $ImagesData['IsDisplayImageFound'] =  true;
-        $ImagesData['IsOriginalImageFound'] =  true;
-        $ImagesData['IsThumbImageFound'] =  true;
-        $ImagesData['IsWatermarkImageFound'] =  false;
-        $ImagesData['ParentGalleryId'] = $this->DbImageList[1]['gallery_id'];;
-        $ImagesData['ImagePath'] =  'http://127.0.0.1/Joomla3x/images/rsgallery/thumb/Dia_1992_10_Nr002.jpg.jpg';
-
-        $DisplayImageData [] = $ImagesData;
-
-        $ImagesData = [];
-        $ImagesData['imageName'] = $this->DbImageList[2]['name'];;
-        $ImagesData['IsImageInDatabase'] =  true;
-        $ImagesData['IsDisplayImageFound'] =  true;
-        $ImagesData['IsOriginalImageFound'] =  false;
-        $ImagesData['IsThumbImageFound'] =  false;
-        $ImagesData['IsWatermarkImageFound'] =  false;
-        $ImagesData['ParentGalleryId'] = $this->DbImageList[2]['gallery_id'];
-        $ImagesData['ImagePath'] =  'http://127.0.0.1/Joomla3x/images/rsgallery/thumb/Dia_1992_10_Nr003.jpg.jpg';
-
-        $DisplayImageData [] = $ImagesData;
-
-        $ImagesData = [];
-        $ImagesData['imageName'] = $this->DbImageList[3]['name'];
-        $ImagesData['IsImageInDatabase'] =  true;
-        $ImagesData['IsDisplayImageFound'] =  false;
-        $ImagesData['IsOriginalImageFound'] =  false;
-        $ImagesData['IsThumbImageFound'] =  true;
-        $ImagesData['IsWatermarkImageFound'] =  true;
-        $ImagesData['ParentGalleryId'] = $this->DbImageList[3]['gallery_id'];
-        $ImagesData['ImagePath'] =  'http://127.0.0.1/Joomla3x/images/rsgallery/thumb/Dia_1992_10_Nr004.jpg.jpg';
-
-        $DisplayImageData [] = $ImagesData;
-
-
-
-        return $DisplayImageData;
-    }
-
-    private function CreateDisplayImageData ($AllFiles, $DbImageList,
+    /**
+     * @param string [] $AllFiles file names
+     * @param string [] $DbImageNames in lower case
+     * @param $files_display
+     * @param $files_original
+     * @param $files_thumb
+     * @return array
+     */
+    private function CreateDisplayImageData ($AllFiles, $DbImageNames,
         $files_display, $files_original, $files_thumb)
     {
         global $rsgConfig;
@@ -211,7 +163,7 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
             $ImagesData = [];
             $ImagesData['imageName'] = $BaseFile;
 
-            if (in_array($BaseFile, $DbImageList))
+            if (in_array($BaseFile, $DbImageNames))
             {
                 $ImagesData['IsImageInDatabase'] = true;
             }
@@ -253,10 +205,24 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 
             if ($MissingLocation)
             {
-                $ImagesData['ParentGalleryId'] = '';
+                //--- ImagePath ----------------------------------------------------
+
+                if ($ImagesData['IsImageInDatabase'] == true)
+                {
+                    $ImagesData['ParentGalleryId'] = 0; // $this->getParentGalleryIdFromImageName ($BaseFile);
+                }
+                else
+                {
+                    // Not existing
+                    $ImagesData['ParentGalleryId'] = -1; // '0';
+                }
+
+
+
+                //--- ImagePath ----------------------------------------------------
 
                 // Assign most significant (matching destinatinó0n) image
-//                $ImagesData['ImagePath'] =  '';
+                $ImagesData['ImagePath'] =  '';
 
 
                 if($ImagesData['IsOriginalImageFound']){
@@ -279,8 +245,26 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
         return $DisplayImageData;
     }
 
+    /**
+     * @param string $BaseFile Name of image
+     *
+    private function getParentGalleryIdFromImageName ($BaseFile)
+    {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery (true);
+
+        $query->select($db->quoteName(array('name', 'gallery_id')))
+            ->from($db->quoteName('#__rsgallery2_files'));
+
+        $db->setQuery($query);
+        $DbImageList =  $db->loadAssocList();
+
+        return $DbImageList;
 
 
+
+    }
+    /**/
 
 
 
