@@ -209,7 +209,7 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 
                 if ($ImagesData['IsImageInDatabase'] == true)
                 {
-                    $ImagesData['ParentGalleryId'] = 0; // $this->getParentGalleryIdFromImageName ($BaseFile);
+                    $ImagesData['ParentGalleryId'] = $this->getParentGalleryIdFromImageName ($BaseFile);
                 }
                 else
                 {
@@ -247,22 +247,41 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 
     /**
      * @param string $BaseFile Name of image
-     *
+     */
     private function getParentGalleryIdFromImageName ($BaseFile)
     {
+        $ParentGalleryId = -1;
+
         $db = JFactory::getDbo();
         $query = $db->getQuery (true);
-
+/*
         $query->select($db->quoteName(array('name', 'gallery_id')))
-            ->from($db->quoteName('#__rsgallery2_files'));
+            ->from($db->quoteName('#__rsgallery2_files'))
+            ->where('name = ' . $db->quote($BaseFile))
+        ;
 
         $db->setQuery($query);
         $DbImageList =  $db->loadAssocList();
 
-        return $DbImageList;
+        if(! empty ($DbImageList))
+        {
+            $ParentGalleryId = $DbImageList[0]->gallery_id;
+        }
+/**/
 
+        $query->select($db->quoteName('gallery_id'))
+            ->from($db->quoteName('#__rsgallery2_files'))
+            ->where('name = ' . $db->quote($BaseFile));
+        $db->setQuery($query);
+        //$DbGalleryId =  $db->loadAssocList();
+        $DbGalleryId =  $db->loadResult();
 
+        if(! empty ($DbGalleryId))
+        {
+            $ParentGalleryId = $DbGalleryId;
+        }
 
+        return $ParentGalleryId;
     }
     /**/
 
