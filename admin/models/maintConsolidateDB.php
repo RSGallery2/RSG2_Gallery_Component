@@ -25,14 +25,6 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
         $files_thumb    = $this->getFilenameArray($rsgConfig->get('imgPath_thumb'));
         $files_merged    = array_unique(array_merge($this->DbImageNames, $files_display,$files_original,$files_thumb));
 
-/*
-        // echo '$DbImageList' . json_encode($this->DbImageList) . '<br>';
-        echo '$DbImageNames' . json_encode($this->DbImageNames) . '<br>';
-        echo '$files_display' . json_encode($files_display) . '<br>';
-        echo '$files_original' . json_encode($files_original) . '<br>';
-        echo '$files_thumb' . json_encode($files_thumb) . '<br>';
-        echo '$files_merged' . json_encode($files_merged) . '<br>';
-*/
         // $DisplayImageData = $this->GetDummyDisplayImageData ();
         $DisplayImageData = $this->CreateDisplayImageData ($files_merged, $this->DbImageNames,
             $files_display, $files_original, $files_thumb);
@@ -254,20 +246,6 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 
         $db = JFactory::getDbo();
         $query = $db->getQuery (true);
-/*
-        $query->select($db->quoteName(array('name', 'gallery_id')))
-            ->from($db->quoteName('#__rsgallery2_files'))
-            ->where('name = ' . $db->quote($BaseFile))
-        ;
-
-        $db->setQuery($query);
-        $DbImageList =  $db->loadAssocList();
-
-        if(! empty ($DbImageList))
-        {
-            $ParentGalleryId = $DbImageList[0]->gallery_id;
-        }
-/**/
 
         $query->select($db->quoteName('gallery_id'))
             ->from($db->quoteName('#__rsgallery2_files'))
@@ -285,6 +263,5 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
     }
     /**/
 
-
-
 }
+

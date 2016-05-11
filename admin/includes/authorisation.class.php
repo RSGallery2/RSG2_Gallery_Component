@@ -1,11 +1,11 @@
 <?php
 /**
-* Authorisation Manager Class for RSGallery2
-* @version $Id$
-* @package RSGallery2
-* @copyright (C) 2005 - 2016 rsgallery2.net
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-* RSGallery2 is Free Software
+ * Authorisation Manager Class for RSGallery2
+ * @version $Id$
+ * @package RSGallery2
+ * @copyright (C) 2005 - 2016 rsgallery2
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt 
+ * RSGallery2 is Free Software
 */
 
 defined( '_JEXEC' ) or die();
