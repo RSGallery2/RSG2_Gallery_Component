@@ -123,7 +123,13 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		return $result;
 	}
 
-	// *
+	/**
+	 * Is column existing in table in DB
+	 * @param string $tableName
+	 * @param string $ColumnName
+	 *
+	 * @return bool
+	 */
 	private function IsColumnExisting($tableName, $ColumnName)
 	{
 		$IsColumnExisting = false;
@@ -145,17 +151,21 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		return $IsColumnExisting;
 	}
 
-	//
+	/**
+	 * Is table existing in DB
+	 * @param string $tableName
+	 * @return bool
+	 */
 	public function IsTableExisting ($tableName)
 	{
 		$IsTableExisting = false;
 
 		$db = JFactory::getDbo();
 		$dbTableName = $db->replacePrefix($tableName);
-
-		$tables = $db->getTableList();
-
-		$IsTableExisting = in_array ($dbTableName, $tables);
+		
+		$dbTables= $db->getTableList();
+		
+		$IsTableExisting = in_array ($dbTableName, $dbTables);
 
 		return $IsTableExisting;
 	}
@@ -310,8 +320,38 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		$errors [] = "Table 'mmbty_user_keys' does not have column 'user_id' with type varchar(150). (From file 3.5.1-2016-03-25.sql.)";
 		$errors [] = "The Joomla! Core database tables have not been converted yet to UTF-8 Multibyte (utf8mb4)";
 
+		$missingTableNames = check4TableMissing ();
+		
+		
 		return $errors;
 	}
 
+	public function check4TableMissing ()
+	{
+		$missingTableNames = array ();
+
+		// d:\xampp\htdocs\Joomla3x\administrator\components\com_rsgallery2\sql\install.mysql.utf8.sql
+		$sqlFile = new SqlInstallFile ();
+
+		//--- Check for not existing tables and create them --------
+
+		if(empty ($this->tables))
+		{
+			$this->tables = $db->getTableList();
+		}
+
+
+		$tableNames = $sqlFile->getTableNamesList();
+
+		foreach ($tableNames as $tableName) {
+			// Create table if not existing
+			$TableExist = $this->IsTableExisting($tableName);
+			if (!$TableExist) {
+				$missingTableNames [$tableName];
+			}
+		}
+
+		return $missingTableNames;
+	}
 
 }
