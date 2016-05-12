@@ -8,18 +8,18 @@ jimport('joomla.application.component.model');
 
 JModelLegacy::addIncludePath(JPATH_COMPONENT.'/models');
 
-class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
+class Rsgallery2ViewMaintDatabase extends JViewLegacy
 {
 	// core.admin is the permission used to control access to
 	// the global config
-	protected $form;
+//	protected $form;
 	protected $sidebar;
 
 	//protected $rsgConfigData;
 	protected $UserIsRoot;
 
-	protected $ImageWidth;
-	protected $thumbWidth;
+//	protected $ImageWidth;
+//	protected $thumbWidth;
 	
 	//------------------------------------------------
 	/**
@@ -30,17 +30,21 @@ class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
 	{
 		global $rsgConfig;
 
-		$xmlFile = JPATH_COMPONENT . '/models/forms/maintregenerateimages.xml';
-		$this->form = JForm::getInstance('maintRegenerateImages', $xmlFile);
+//		$xmlFile = JPATH_COMPONENT . '/models/forms/maintregenerateimages.xml';
+//		$this->form = JForm::getInstance('maintRegenerateImages', $xmlFile);
 
 		//--- get needed data ------------------------------------------
 		
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
 
-		// $this->rsgConfigData = $rsgConfig;
-		$this->imageWidth = $rsgConfig->get('image_width');
-		$this->thumbWidth = $rsgConfig->get('thumb_width');
+//		// $this->rsgConfigData = $rsgConfig;
+//		$this->imageWidth = $rsgConfig->get('image_width');
+//		$this->thumbWidth = $rsgConfig->get('thumb_width');
+
+		$DatabaseModel = JModelLegacy::getInstance ('MaintSql', 'rsgallery2Model');
+		// .... $DatabaseModel ->
+
 
 		//--- begin to display --------------------------------------------
 		
@@ -85,15 +89,16 @@ class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
 	protected function addToolbar ($UserIsRoot) //$Layout='default')
 	{
         // Title
-        JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE') . ': ' . JText::_('COM_RSGALLERY2_MAINT_REGEN'), 'screwdriver');
+        JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE') . ': ' . JText::_('JLIB_FORM_VALUE_SESSION_DATABASE'), 'screwdriver');
 
         if ($UserIsRoot) {
-            JToolBarHelper::custom('maintRegenerate.RegenerateImagesDisplay','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY', false);
-            JToolBarHelper::custom('maintRegenerate.RegenerateImagesThumb','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_THUMBS', false);
+			JToolbarHelper::custom('database.fix', 'refresh', 'refresh', 'COM_INSTALLER_TOOLBAR_DATABASE_FIX', false);
+//			JToolBarHelper::custom('maintRegenerate.RegenerateImagesDisplay','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY', false);
+//            JToolBarHelper::custom('maintRegenerate.RegenerateImagesThumb','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_THUMBS', false);
             // JToolBarHelper::spacer();
         }
 
-        JToolBarHelper::cancel('maintRegenerate.cancel');
+//        JToolBarHelper::cancel('maintRegenerate.cancel');
         JToolBarHelper::cancel('maintenance.cancel');
 //        JToolBarHelper::spacer();
 //        JToolBarHelper::help( 'screen.rsgallery2',true);

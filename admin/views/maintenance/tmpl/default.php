@@ -371,6 +371,14 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 								</div>
 
 								<?php
+								$link = 'index.php?option=com_rsgallery2&amp;view=maintDatabase';
+								quickTwoIconMoonBar ($link, 'icon-database', 'icon-book',
+									JText::_('JLIB_FORM_VALUE_SESSION_DATABASE'),
+									JText::_('COM_RSGALLERY2_COMPLETE_SQL_TABLES_DESC'),
+									'compareDb2SqlFile');
+								?>
+
+								<?php
 								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
 								$link = 'index.php?option=com_rsgallery2&amp;view=maintConsolidateDB';
 								quickTwoIconMoonBar ($link, 'icon-database', 'icon-checkbox-checked',
