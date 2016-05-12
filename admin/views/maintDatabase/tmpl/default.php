@@ -12,13 +12,14 @@ JHtml::_('behavior.tooltip');
 
 global $Rsg2DebugActive;
 
-JHtml::_('formbehavior.chosen', 'select');
-
-
+// JHtml::_('formbehavior.chosen', 'select');
 
 ?>
 
-<div id="installer-install" class="clearfix">
+<div id="maintenance-database" class="clearfix">
+	<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=maintDatabase'); ?>"
+		method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
+
 	<?php if (!empty( $this->sidebar)) : ?>
         <div id="j-sidebar-container" class="span2">
 	        <?php echo $this->sidebar; ?>
@@ -28,37 +29,41 @@ JHtml::_('formbehavior.chosen', 'select');
 		<div id="j-main-container">
 	<?php endif;?>
 
-			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=maintRegenerateImages'); ?>"
-				  method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
+		<?php if ($this->errorCount === 0) : ?>
+			<div class="alert alert-info">
+				<a class="close" data-dismiss="alert" href="#">&times;</a>
+				<?php echo JText::_('COM_RSGALLERY2_MSG_DATABASE_OK'); ?>
+			</div>
+			<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'other')); ?>
+		<?php else : ?>
 
-			<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'regenerateImages')); ?>
+			<div class="alert alert-error">
+				<a class="close" data-dismiss="alert" href="#">&times;</a>
+				<?php echo JText::_('COM_RSGALLERY2_MSG_DATABASE_ERRORS'); ?>
+			</div>
+			
+			<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'problems')); ?>
 
-				<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'regenerateImages', JText::_('COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY', true)); ?>
+				<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'problems', JText::plural('COM_RSGALLERY2_MSG_N_DATABASE_ERROR_PANEL', $this->errorCount)); ?>
 
- 					<fieldset class="regenerateImages">
-						<legend><?php echo JText::_('COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY'); ?></legend>
+ 					<fieldset class="panelform">
+					    <ul>
+						    <?php foreach ($this->errors as $line)
+						    {
+							    echo '<li>' . $line . '</li>';
+						    }
 
-                        <!-- List info  -->
-                        <div class="control-group">
-                            <label for="zip_file" class="control-label"> </label>
-                            <div class="controls">
-                                <!--input type="text" id="zip_file" name="zip_file" class="span5 input_box" size="70" value="http://" /-->
-                                <div class="span5">
-                                    <strong><?php echo JText::_('COM_RSGALLERY2_SELECT_GALLERIES_TO_REGENERATE_THUMBNAILS_FROM');?></strong>
-                                </div>
-                            </div>
-                        </div>
+						    ?>
+					    </ul>
 					</fieldset>
 				<?php echo JHtml::_('bootstrap.endTab'); ?>
+		<?php endif; ?>
 
-			<?php echo JHtml::_('bootstrap.endTabSet'); ?>
+		<?php echo JHtml::_('bootstrap.endTabSet'); ?>
+		<input type="hidden" value="" name="task">
 
-			<input type="hidden" value="" name="task">
+		<?php echo JHtml::_('form.token'); ?>
 
-			<?php echo JHtml::_('form.token'); ?>
-
-           </form>
-        </div>
-	<div id="loading"></div>
-</div>
+		</div>
+	</form>
 </div>
