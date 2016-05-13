@@ -28,22 +28,31 @@ class Rsgallery2ModelMaintSql extends  JModelList
 {
 //    protected $text_prefix = 'COM_RSG2';
 
-	protected $tableList;
+	//protected $tableList;
+	protected $tableNames;
+	protected $sqlFile;
+
 	/**
-	 *
+	 * Runs optimization for each table 
+	 * @return string operation messages
 	 */
 	public function optimizeDB()
 	{
 		$msg = "model:optimizeDB: " . '<br>';
 
-		$sqlFile = new SqlInstallFile ();
-		$tableNames = $sqlFile->getTableNamesList();
+		if (empty($this->sqlFile)) {
+			$this->sqlFile = new SqlInstallFile ();
+		}
+
+		if (empty($this->tableNames)) {
+			$this->tableNames = $this->sqlFile->getTableNamesList();
+		}
 
 		$db = JFactory::getDbo();
 
 		//--- optimize all tables -------------------------------
 
-		foreach ($tableNames as $tableName) {
+		foreach ($this->tableNames as $tableName) {
 			$msg .= 'Table ' . $tableName . '<br>';
 			$db->setQuery('OPTIMIZE TABLE ' . $db->quoteName($tableName));
 			$db->execute();
@@ -55,6 +64,10 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		return $msg;
 	}
 
+	/**
+	 * Creates table columns acces in table galleries and sets all values to '1'
+	 * @return string operation messages
+	 */
 	public function createGalleryAccessField()
 	{
 		// $msg = "Model: createGalleryAccessField: " . '<br>';
@@ -73,49 +86,69 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		*/
 
 		$tableName  = '#__rsgallery2_galleries';
-		$ColumnName = 'access';
+		$columnName = 'access';
 
-		$ColumnExist = IsColumnExisting($tableName, $ColumnName);
+		$columnExist = IsColumnExisting($tableName, $columnName);
 
-		// !!! test code -> delete actual column (field)
-		if ($ColumnExist) {
+		/* !!! test code -> delete actual column (field)
+		if ($columnExist) {
 
-			$result = $this->DeleteColumn($tableName, $ColumnName);
+			$result = $this->DeleteColumn($tableName, $columnName);
 			$msg .= '<br>' . '$result (drop): ' . json_encode ($result);
 
-			$ColumnExist = false;
+			$columnExist = false;
 		}
-
+		/**/
 
 		// Create table column
-		if (!$ColumnExist)
+		if (!$columnExist)
 		{
-			$ColumnProperties = 'INT  (10) UNSIGNED DEFAULT NULL';
-			createNotExistingColumn($tableName, $ColumnName, $ColumnProperties, $ColumnExist);
+			$msg = "Creating not existing column: ";
+			$columnProperties = 'INT  (10) UNSIGNED DEFAULT NULL';
+			$columnExist = $this->createColumn($tableName, $columnName, $columnProperties);
+			// $msg .= '<br>' . '$IsColumnCreated : ' . json_encode ($columnExist);
+			if (!$columnExist) {
+				$msg .= '<br>' . '!!! Failed to create Column: ' . $columnName;
+			} else {
+				$msg .= '<br>' . 'Created Column: ' . $columnName;
+			}
+		}
+		else
+		{
+			$msg .= '<br>' . 'Column was existing: ' . $columnName;
 		}
 
 		// Set all access values to '1'
-		if ($ColumnExist)
+		if ($columnExist)
 		{
-
+			$msg .= '<br>' . 'Did set all access values to 1';
+			
 			$db = JFactory::getDbo();
+			
 			// update your_table set likes = null
-			$query = 'UPDATE ' . $tableName . ' SET ' . $ColumnName . '=1';
-			$msg .= '<br>' . '$query: ' . json_encode ($query);
+			$query = 'UPDATE ' . $tableName . ' SET ' . $columnName . '=1';
+			//$msg .= '<br>' . '$query: ' . json_encode ($query);
 			$db->setQuery($query);
 			$result = $db->execute();
+
 			$msg .= '<br>' . '$result (update): ' . json_encode ($result);
 		}
+		
 		return $msg;
 	}
 
 
-	// *
-	private function DeleteColumn($tableName, $ColumnName)
+	/**
+	 * DeleteColumn
+	 * @param string $tableName
+	 * @param string $columnName
+	 * @return mixed
+	 */
+	private function DeleteColumn($tableName, $columnName)
 	{
 		$db = JFactory::getDbo();
 		// ALTER TABLE t2 DROP COLUMN c, DROP COLUMN d;
-		$query = 'ALTER TABLE ' . $tableName . ' DROP COLUMN ' . $ColumnName ;
+		$query = 'ALTER TABLE ' . $tableName . ' DROP COLUMN ' . $columnName ;
 		// $msg .= '<br>' . '$query: ' . json_encode ($query);
 		$db->setQuery($query);
 		$result = $db->execute();
@@ -126,28 +159,18 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	/**
 	 * Is column existing in table in DB
 	 * @param string $tableName
-	 * @param string $ColumnName
-	 *
+	 * @param string $columnName
 	 * @return bool
 	 */
-	private function IsColumnExisting($tableName, $ColumnName)
+	private function IsColumnExisting($tableName, $columnName)
 	{
 		$IsColumnExisting = false;
 
+		// Column mames of table in DB
 		$db = JFactory::getDBO();
 		$columns = $db->getTableColumns($tableName);
-		$IsColumnExisting = isset($columns[$ColumnName]);
+		$IsColumnExisting = isset($columns[$columnName]);
 
-/*
-
-		$db = JFactory::getDbo();
-		$query = 'SHOW COLUMNS FROM ' . $tableName . ' LIKE ' . $db->quote($ColumnName) ;
-		// $msg .= '<br>' . '$query: ' . json_encode ($query);
-		$db->setQuery($query);
-		$AccessField = $db->loadObject();
-		$IsColumnExisting = isset($AccessField);
-		// $msg .= '<br>' . '$ColumnExist: ' . json_encode ($ColumnExist);
-*/
 		return $IsColumnExisting;
 	}
 
@@ -170,38 +193,36 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		return $IsTableExisting;
 	}
 
-	//
-	public function createNotExistingColumn($tableName, $ColumnName, $ColumnProperties, &$IsColumnCreated)
+	/**
+	 * createColumn
+	 * @param string $tableName
+	 * @param string $columnName
+	 * @param string $columnProperties
+	 * @return bool
+	 */
+	public function createColumn($tableName, $columnName, $columnProperties)
 	{
-		$msg = "Model: createNotExistingColumn: ";
-
 		$db = JFactory::getDbo();
 
+		$query = 'ALTER TABLE ' . $db->quoteName($tableName) . ' ADD ' . $db->quoteName($columnName) . ' ' . $columnProperties;
 
-		//$query = "ALTER TABLE #__shoutbox ADD COLUMN user_id int(11) NOT NULL DEFAULT '0'";
-		//$query = 'ALTER TABLE `#__virtuemart_categories_en_gb` ADD `short_desc` varchar(1200)';
-		//$query = "ALTER TABLE #__test_plugin ADD linkimageflag varchar(10) NOT NULL";
-
-		//   `access` int(10) unsigned DEFAULT NULL
-		//$query = 'ALTER TABLE ' . $table . ' ADD ' . $ColumnName . ' ' . $ColumnProperties;
-		//$query = 'ALTER TABLE ' . $tableName . ' ADD ' . $ColumnName . ' ' . $ColumnProperties.properties;
-
-		$query = 'ALTER TABLE ' . $db->quoteName($tableName) . ' ADD ' . $db->quoteName($ColumnName) . ' ' . $ColumnProperties;
-
-		$msg .= '<br>' . '$query: ' . json_encode ($query);
 		$db->setQuery($query);
-		$IsColumnCreated = $db->execute();
-		$msg .= '<br>' . '$IsColumnCreated (Added): ' . json_encode ($IsColumnCreated);
+		$result = $db->execute();
 
-		return $msg . '<br>';
+		$IsColumnCreated = ! empty($result);
+
+		return $IsColumnCreated;
 	}
-	
+
+
+ToDo: check following lines
+
 	/*------------------------------------------------------------------------------------
 	completeSqlTables()
 	------------------------------------------------------------------------------------*/
 	/**
 	 * does go through each table of the sql field if it does not exist then
-	 * it will be created. Then the existance of the single columns are checked
+	 * it will be created. Then the existence of the single columns are checked
 	 *
 	 * ToDo: find columns which are not needed any more
 	 * @return string
@@ -291,7 +312,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
             $columnExist = $this->IsColumnExisting($tableName, $columnName);
             if (!$columnExist)
             {
-                $msg .= $this->createNotExistingColumn($tableName, $columnName, $columnProperties, $columnExist);
+                $msg .= $this->createColumn($tableName, $columnName, $columnProperties, $columnExist);
                 if (!$columnExist) {
                     $msg .= '   failed to create ' . $tableName . ':' . $columnName . '<br>';
                 }
