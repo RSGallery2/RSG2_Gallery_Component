@@ -33,39 +33,44 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	protected $sqlFile;
 
 	/**
-	 * Runs optimization for each table 
+	 * Runs optimization for each table
+	 *
 	 * @return string operation messages
 	 */
 	public function optimizeDB()
 	{
 		$msg = "model:optimizeDB: " . '<br>';
 
-		if (empty($this->sqlFile)) {
+		if (empty($this->sqlFile))
+		{
 			$this->sqlFile = new SqlInstallFile ();
 		}
 
-		if (empty($this->tableNames)) {
-			$this->tableNames = $this->sqlFile->getTableNamesList();
+		if (empty($this->tableNames))
+		{
+			$this->tableNames = $this->sqlFile->getTableNames();
 		}
 
 		$db = JFactory::getDbo();
 
 		//--- optimize all tables -------------------------------
 
-		foreach ($this->tableNames as $tableName) {
+		foreach ($this->tableNames as $tableName)
+		{
 			$msg .= 'Table ' . $tableName . '<br>';
 			$db->setQuery('OPTIMIZE TABLE ' . $db->quoteName($tableName));
 			$db->execute();
 		}
 
 		//--- optimized message -------------------------------------
-		$msg .=  '<br>' . JText::_('COM_RSGALLERY2_MAINT_OPTIMIZE_SUCCESS', true );
+		$msg .= '<br>' . JText::_('COM_RSGALLERY2_MAINT_OPTIMIZE_SUCCESS', true);
 
 		return $msg;
 	}
 
 	/**
 	 * Creates table columns acces in table galleries and sets all values to '1'
+	 *
 	 * @return string operation messages
 	 */
 	public function createGalleryAccessField()
@@ -103,13 +108,16 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		// Create table column
 		if (!$columnExist)
 		{
-			$msg = "Creating not existing column: ";
+			$msg              = "Creating not existing column: ";
 			$columnProperties = 'INT  (10) UNSIGNED DEFAULT NULL';
-			$columnExist = $this->createColumn($tableName, $columnName, $columnProperties);
+			$columnExist      = $this->createColumn($tableName, $columnName, $columnProperties);
 			// $msg .= '<br>' . '$IsColumnCreated : ' . json_encode ($columnExist);
-			if (!$columnExist) {
+			if (!$columnExist)
+			{
 				$msg .= '<br>' . '!!! Failed to create Column: ' . $columnName;
-			} else {
+			}
+			else
+			{
 				$msg .= '<br>' . 'Created Column: ' . $columnName;
 			}
 		}
@@ -122,33 +130,34 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		if ($columnExist)
 		{
 			$msg .= '<br>' . 'Did set all access values to 1';
-			
+
 			$db = JFactory::getDbo();
-			
+
 			// update your_table set likes = null
 			$query = 'UPDATE ' . $tableName . ' SET ' . $columnName . '=1';
 			//$msg .= '<br>' . '$query: ' . json_encode ($query);
 			$db->setQuery($query);
 			$result = $db->execute();
 
-			$msg .= '<br>' . '$result (update): ' . json_encode ($result);
+			$msg .= '<br>' . '$result (update): ' . json_encode($result);
 		}
-		
+
 		return $msg;
 	}
 
-
 	/**
 	 * DeleteColumn
+	 *
 	 * @param string $tableName
 	 * @param string $columnName
+	 *
 	 * @return mixed
 	 */
 	private function DeleteColumn($tableName, $columnName)
 	{
 		$db = JFactory::getDbo();
 		// ALTER TABLE t2 DROP COLUMN c, DROP COLUMN d;
-		$query = 'ALTER TABLE ' . $tableName . ' DROP COLUMN ' . $columnName ;
+		$query = 'ALTER TABLE ' . $tableName . ' DROP COLUMN ' . $columnName;
 		// $msg .= '<br>' . '$query: ' . json_encode ($query);
 		$db->setQuery($query);
 		$result = $db->execute();
@@ -157,122 +166,145 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	}
 
 	/**
+	 * Is table existing in DB
+	 *
+	 * @param string $tableName
+	 *
+	 * @return bool
+	 */
+	public function IsTableExisting($tableName)
+	{
+		$IsTableExisting = false;
+
+		if(!empty ($tableName))
+		{
+			$db = JFactory::getDbo();
+
+			// $this->SqlTableNamesReplace4Prefix ($tableName);
+			$dbTableName = $db->replacePrefix($tableName);
+			$dbTables    = $db->getTableList();
+
+			$IsTableExisting = in_array($dbTableName, $dbTables);
+		}
+
+		return $IsTableExisting;
+	}
+
+	/**
 	 * Is column existing in table in DB
+	 *
 	 * @param string $tableName
 	 * @param string $columnName
+	 *
 	 * @return bool
 	 */
 	private function IsColumnExisting($tableName, $columnName)
 	{
 		$IsColumnExisting = false;
 
-		// Column mames of table in DB
 		$db = JFactory::getDBO();
-		$columns = $db->getTableColumns($tableName);
+
+		// Column names of table in DB
+		$columns          = $db->getTableColumns($tableName);
 		$IsColumnExisting = isset($columns[$columnName]);
 
 		return $IsColumnExisting;
 	}
 
 	/**
-	 * Is table existing in DB
-	 * @param string $tableName
-	 * @return bool
-	 */
-	public function IsTableExisting ($tableName)
-	{
-		$IsTableExisting = false;
-
-		$db = JFactory::getDbo();
-		$dbTableName = $db->replacePrefix($tableName);
-		
-		$dbTables= $db->getTableList();
-		
-		$IsTableExisting = in_array ($dbTableName, $dbTables);
-
-		return $IsTableExisting;
-	}
-
-	/**
 	 * createColumn
+	 *
 	 * @param string $tableName
 	 * @param string $columnName
 	 * @param string $columnProperties
+	 *
 	 * @return bool
 	 */
 	public function createColumn($tableName, $columnName, $columnProperties)
 	{
 		$db = JFactory::getDbo();
 
+		// create column
 		$query = 'ALTER TABLE ' . $db->quoteName($tableName) . ' ADD ' . $db->quoteName($columnName) . ' ' . $columnProperties;
-
 		$db->setQuery($query);
 		$result = $db->execute();
 
-		$IsColumnCreated = ! empty($result);
+		$IsColumnCreated = !empty($result);
 
 		return $IsColumnCreated;
 	}
 
 
-ToDo: check following lines
-
 	/*------------------------------------------------------------------------------------
 	completeSqlTables()
 	------------------------------------------------------------------------------------*/
 	/**
-	 * does go through each table of the sql field if it does not exist then
-	 * it will be created. Then the existence of the single columns are checked
-	 *
+	 * Checks the existence of each table from the sql queries. If the table does not
+	 * exist then it will be created. Afterwards the existence of the single columns
+	 * are checked and repaired too
 	 * ToDo: find columns which are not needed any more
+	 *
 	 * @return string
 	 */
 	public function completeSqlTables()
 	{
 		$msg = 'model:completeSqlTables: ' . '<br>';
-		
-		// d:\xampp\htdocs\Joomla3x\administrator\components\com_rsgallery2\sql\install.mysql.utf8.sql
-		$sqlFile = new SqlInstallFile ();
-		
-		//--- Check for not existing tables and create them --------
 
-		$tableNames = $sqlFile->getTableNamesList();
+		// d:\xampp\htdocs\Joomla3x\administrator\components\com_rsgallery2\sql\install.mysql.utf8.sql
+		if (empty($this->sqlFile))
+		{
+			$this->sqlFile = new SqlInstallFile ();
+		}
+
+		//--- Check for not existing tables and create them --------
+		if (empty($this->tableNames))
+		{
+			$this->tableNames = $this->sqlFile->getTableNames();
+		}
 
 		$msg .= 'Check for missing tables' . '<br>';
-		foreach ($tableNames as $tableName) {
+		foreach ($this->tableNames as $tableName)
+		{
 			$msg .= '   Table ' . $tableName . '<br>';
 
 			// Create table if not existing
 			$TableExist = $this->IsTableExisting($tableName);
-			if (!$TableExist) {
-				$msg .= $this->createNotExistingTable($tableName, $sqlFile);
+			if (!$TableExist)
+			{
+				$msg .= $this->createNotExistingTable($tableName, $this->sqlFile);
 			}
 			else
 			{
 				// Table exists -> check all columns
-				$msg .= $this->createMissingSqlFieldsInTable ($tableName, $sqlFile);
+				$msg .= $this->createMissingSqlFieldsInTable($tableName, $this->sqlFile);
 			}
 		}
 
 		return $msg;
 	}
 
-
-
-	//
+	/**
+	 * @param string $tableName
+	 * @param        $sqlFile
+	 * ToDo: Remove messages (should be generated in calling functions
+	 *
+	 * @return string
+	 */
 	public function createNotExistingTable($tableName, $sqlFile)
 	{
 		$msg = "Model: createNotExistingTable: " . '<br>';
 
-		$query = $sqlFile->getTableQuery ($tableName);
+		$query = $sqlFile->getTableQuery($tableName);
 		if (!empty ($query))
 		{
 //			$msg .= '<br>' . '$query: ' . json_encode($query);
 
 			$db = JFactory::getDbo();
-			$db->setQuery($query);
-			$IsTableCreated = $db->execute();
 
+			$db->setQuery($query);
+			$result = $db->execute();
+
+			$IsTableCreated = !empty ($result);
 			if ($IsTableCreated)
 			{
 				$msg .= 'Table: ' . $tableName . ' created successful' . '<br>';
@@ -280,7 +312,7 @@ ToDo: check following lines
 			else
 			{
 				$msg .= '!!! Table: ' . $tableName . ' not created !!!' . '<br>';
-                $msg .= '<br>' . '$query: ' . json_encode($query);
+				$msg .= '<br>' . '$query: ' . json_encode($query);
 			}
 		}
 		else
@@ -291,6 +323,14 @@ ToDo: check following lines
 		return $msg;
 	}
 
+	/**
+	 *
+	 * @param $tableName
+	 * @param $sqlFile
+	 * ToDo: Remove messages (should be generated in calling functions
+	 *
+	 * @return string
+	 */
 	public function createMissingSqlFieldsInTable($tableName, $sqlFile)
 	{
 		$msg = "Model: createMissingSqlFields: " . '   Table ' . $tableName . '<br>';
@@ -299,33 +339,34 @@ ToDo: check following lines
 
 		//--- create not existing columns if not exist -----------------
 
-        // Original columns
-        $columns = $sqlFile->getColumnsPropertiesOfTable($tableName);
+		// Original columns
+		$columns = $sqlFile->getColumnsPropertiesOfTable($tableName);
 
-        // Create all not existing table columns
-        foreach ($columns as $column)
-        {
-	        $columnName = $column->name;
-	        $columnProperties = $column->properties;
+		// Create all not existing table columns
+		foreach ($columns as $column)
+		{
+			$columnName       = $column->name;
+			$columnProperties = $column->properties;
 
-            // Create table column
-            $columnExist = $this->IsColumnExisting($tableName, $columnName);
-            if (!$columnExist)
-            {
-                $msg .= $this->createColumn($tableName, $columnName, $columnProperties, $columnExist);
-                if (!$columnExist) {
-                    $msg .= '   failed to create ' . $tableName . ':' . $columnName . '<br>';
-                }
-            }
-        }
+			// Create table column
+			$columnExist = $this->IsColumnExisting($tableName, $columnName);
+			if (!$columnExist)
+			{
+				$msg .= $this->createColumn($tableName, $columnName, $columnProperties, $columnExist);
+				if (!$columnExist)
+				{
+					$msg .= '   failed to create ' . $tableName . ':' . $columnName . '<br>';
+				}
+			}
+		}
 
 		return $msg;
 	}
 
-	public function check4Errors ()
+	public function check4Errors()
 	{
-		$errors = array ();
-
+		$errors = array();
+/*
 		$errors [] = "Database schema version (3.3.6-2014-09-30) does not match CMS version (3.5.1-2016-03-29).";
 		$errors [] = "Table 'mmbty_redirect_links' does not have column 'hits'. (From file 2.5.5.sql.)";
 		$errors [] = "Table 'mmbty_redirect_links' does not have column 'header'. (From file 3.4.0-2014-09-16.sql.)";
@@ -340,39 +381,322 @@ ToDo: check following lines
 		$errors [] = "Table 'mmbty_redirect_links' does not have index 'idx_old_url'. (From file 3.5.0-2016-03-01.sql.)";
 		$errors [] = "Table 'mmbty_user_keys' does not have column 'user_id' with type varchar(150). (From file 3.5.1-2016-03-25.sql.)";
 		$errors [] = "The Joomla! Core database tables have not been converted yet to UTF-8 Multibyte (utf8mb4)";
+*/
+		$db = JFactory::getDbo();
 
-		$missingTableNames = check4TableMissing ();
-		
-		
+		/*----------------------------------------------
+		Missing tables
+		----------------------------------------------*/
+
+		$missingTableNames = $this->check4MissingTables();
+//		echo '<br>$missingTableNames: ' . json_encode($missingTableNames);
+//		echo '<br>$missingTable empty: ' . empty($missingTableNames);
+
+		foreach ($missingTableNames as $missingTableName)
+		{
+			// ToDo: better output
+			// $errors [] = "Missing Table: " . $missingTableName;
+			$errors [] = JText::sprintf('COM_RSGALLERY2_MSG_DATABASE_MISSING_TABLE',
+				'',
+				$db->quote($missingTableName));
+		}
+//		echo '<br>';
+
+		/*----------------------------------------------
+		Missing columns
+		----------------------------------------------*/
+
+		$missingColumns = $this->check4MissingColumns();
+//		echo '<br>$missingColumnNames: ' . json_encode($missingColumns);
+//		echo '<br>$missingColumn empty: ' . empty($missingColumns);
+
+		foreach ($missingColumns as $missingColumnName => $missingTableName)
+		{
+			// ToDo: better output
+			//$errors [] = "Missing Column: ' . $missingColumnName . ' in table: " . $missingTableName;
+			$errors [] = JText::sprintf('COM_RSGALLERY2_MSG_DATABASE_MISSING_COLUMN',
+				'',
+				$db->quote($missingTableName),
+				$db->quote($missingColumnName));
+		}
+//		echo '<br>';
+
+		/*----------------------------------------------
+		ToDo: Wrong column types
+		Wrong column types
+		----------------------------------------------*/
+
+		/*----------------------------------------------
+		Superfluous tables		
+		----------------------------------------------*/
+
+		$superfluousTableNames = $this->check4SuperfluousTables();
+//		echo '<br>$superfluousTableNames: ' . json_encode($superfluousTableNames);
+//		echo '<br>$superfluousTable empty: ' . empty($superfluousTableNames);
+
+		foreach ($superfluousTableNames as $superfluousTableName)
+		{
+			// ToDo: better output
+			//$errors [] = "Superfluous Table: " . $superfluousTableName;
+			$errors [] = JText::sprintf('COM_RSGALLERY2_MSG_DATABASE_SUPERFLUOUS_TABLE',
+				'',
+				$db->quote($superfluousTableName));
+		}
+//		echo '<br>';
+
+		/*----------------------------------------------
+		Superfluous columns
+		----------------------------------------------*/
+
+		$superfluousColumns = $this->check4SuperfluousColumns();
+//		echo '<br>$superfluousColumnNames: ' . json_encode($superfluousColumns);
+//		echo '<br>$superfluousColumn empty: ' . empty($superfluousColumns);
+
+		foreach ($superfluousColumns as $superfluousColumnName => $superfluousTableName)
+		{
+			// ToDo: better output
+			//$errors [] = "Superfluous Column: ' . $superfluousColumnName . ' in table: " . $superfluousTableName;
+			$errors [] = JText::sprintf('COM_RSGALLERY2_MSG_DATABASE_SUPERFLUOUS_COLUMN',
+				'',
+				$db->quote($superfluousTableName),
+				$db->quote($superfluousColumnName));
+		}
+//		echo '<br>';
+//		echo '<br>';
+
 		return $errors;
 	}
 
-	public function check4TableMissing ()
+	/**
+	 *
+	 * @return string [] List of missing table names
+	 */
+	public function check4MissingTables()
 	{
-		$missingTableNames = array ();
+		$missingTableNames = array();
 
 		// d:\xampp\htdocs\Joomla3x\administrator\components\com_rsgallery2\sql\install.mysql.utf8.sql
-		$sqlFile = new SqlInstallFile ();
-
-		//--- Check for not existing tables and create them --------
-
-		if(empty ($this->tables))
+		if (empty($this->sqlFile))
 		{
-			$this->tables = $db->getTableList();
+			$this->sqlFile = new SqlInstallFile ();
 		}
 
+		if (empty($this->tableNames))
+		{
+			$this->tableNames = $this->sqlFile->getTableNames();
+		}
 
-		$tableNames = $sqlFile->getTableNamesList();
-
-		foreach ($tableNames as $tableName) {
-			// Create table if not existing
+		foreach ($this->tableNames as $tableName)
+		{
 			$TableExist = $this->IsTableExisting($tableName);
-			if (!$TableExist) {
-				$missingTableNames [$tableName];
+			// Save table name if not existing
+			if (!$TableExist)
+			{
+				$missingTableNames [] = $tableName;
 			}
 		}
 
 		return $missingTableNames;
 	}
 
+	/**
+	 *
+	 * @return array
+	 */
+	public function check4MissingColumns()
+	{
+		$missingColumnNames = array();
+
+		// d:\xampp\htdocs\Joomla3x\administrator\components\com_rsgallery2\sql\install.mysql.utf8.sql
+		if (empty($this->sqlFile))
+		{
+			$this->sqlFile = new SqlInstallFile ();
+		}
+
+		if (empty($this->tableNames))
+		{
+			$this->tableNames = $this->sqlFile->getTableNames();
+		}
+
+		foreach ($this->tableNames as $tableName)
+		{
+			$TableExist = $this->IsTableExisting($tableName);
+			// Save table name if not existing
+			if ($TableExist)
+			{
+				$missingColumns = $this->check4MissingColumnsInTable($tableName, $this->sqlFile);
+				if (!empty ($missingColumns))
+				{
+					foreach ($missingColumns as $missingColumn)
+					{
+						$missingColumnNames [$missingColumn] = $tableName;
+					}
+				}
+			}
+		}
+
+		return $missingColumnNames;
+	}
+
+	public function check4MissingColumnsInTable($tableName, $sqlFile)
+	{
+		$missingColumns = array();
+
+		// Original columns
+		$sqlColumnNames = $sqlFile->getTableColumns($tableName);
+
+		// Create all not existing table columns
+		foreach ($sqlColumnNames as $columnName)
+		{
+			$columnExist = $this->IsColumnExisting($tableName, $columnName);
+			// Save Column name if not existing
+			if (!$columnExist)
+			{
+				$missingColumns [] = $columnName;
+			}
+		}
+
+		return $missingColumns;
+	}
+
+	/**
+	 * Collects all superfluous table names
+	 * @return string [] superfluous table names, may be empty
+	 */
+	public function check4SuperfluousTables()
+	{
+		$superfluousTableNames = array();
+
+		// d:\xampp\htdocs\Joomla3x\administrator\components\com_rsgallery2\sql\install.mysql.utf8.sql
+		if (empty($this->sqlFile))
+		{
+			$this->sqlFile = new SqlInstallFile ();
+		}
+
+		if (empty($this->tableNames))
+		{
+			$this->tableNames = $this->sqlFile->getTableNames();
+		}
+
+		// Replace '#__' with db table prefix
+		$sqlTableNamesWithPrefix = $this->SqlTableNamesReplace4Prefix ($this->tableNames);
+
+		$db = JFactory::getDbo();
+
+		// table name begins with #__rsgallery2
+		$StartRsgDbName = $db->replacePrefix('#__rsgallery2_');
+
+		$dbTableNames = $db->getTableList();
+
+		// All db table names
+		foreach ($dbTableNames as $dbTableName) {
+			// db table name matches rsgallery2 start
+			if (substr($dbTableName, 0, strlen($StartRsgDbName)) === $StartRsgDbName) {
+				// Old table name missing in new sql definition ?
+				if(! in_array ($dbTableName, $sqlTableNamesWithPrefix)) {
+					$superfluousTableNames [] = $dbTableName;
+				}
+			}
+		}
+
+		return $superfluousTableNames;
+	}
+
+	public function check4SuperfluousColumns()
+	{
+		$superfluousColumns = array();
+
+		// d:\xampp\htdocs\Joomla3x\administrator\components\com_rsgallery2\sql\install.mysql.utf8.sql
+		if (empty($this->sqlFile))
+		{
+			$this->sqlFile = new SqlInstallFile ();
+		}
+
+		if (empty($this->tableNames))
+		{
+			$this->tableNames = $this->sqlFile->getTableNames();
+		}
+
+		foreach ($this->tableNames as $tableName)
+		{
+			$TableExist = $this->IsTableExisting($tableName);
+			// Save table name if not existing
+			if ($TableExist)
+			{
+				$nextSuperfluousColumns = $this->check4SuperfluousColumn($tableName, $this->sqlFile);
+				if(! empty ($nextSuperfluousColumns)) {
+					foreach ($nextSuperfluousColumns as $nextSuperfluousColumn)
+					{
+						$superfluousColumns [$nextSuperfluousColumn] = $tableName;
+					}
+				}
+			}
+		}
+
+		return $superfluousColumns;
+	}
+
+
+	public function check4SuperfluousColumn($tableName, $sqlFile)
+	{
+		$superfluousColumnNames = array ();
+
+		$db = JFactory::getDbo();
+
+		// Column names of table in DB
+		$dbColumnNames = $db->getTableColumns($tableName);
+
+		// Original columns
+		$sqlColumnNames = $sqlFile->getTableColumns($tableName);
+
+		// All db table names
+		foreach ($dbColumnNames as $dbColumnName => $dbColumnProperties) {
+			// Old column name missing in new sql definition ?
+			if(! in_array ($dbColumnName, $sqlColumnNames)) {
+				$superfluousColumnNames [] = $dbColumnName;
+			}
+		}
+
+		return $superfluousColumnNames;
+	}
+
+	/**
+	 * Replaces the '#--' in front of component table names
+	 * with the matching database name
+	 * @param string [] $tableNames
+	 * @return string [] replaced table names
+	 */
+	private function SqlTableNamesReplace4Prefix ($tableNames)
+	{
+		$SqlTableNamesWithPrefix = array ();
+
+		$db = JFactory::getDbo();
+
+		foreach ($tableNames as $tableName)
+		{
+			$SqlTableNamesWithPrefix[] = $db->replacePrefix($tableName);
+		}
+
+		return $SqlTableNamesWithPrefix;
+	}
+
+	/**
+	 * Replaces the '#--' in front of component table names
+	 * with the matching database name
+	 * @param string $tableName
+	 * @return string
+	 */
+	private function SqlTableNameReplace4Prefix ($tableName)
+	{
+		$db = JFactory::getDbo();
+
+		$SqlTableNameWithPrefix = $db->replacePrefix($tableName);
+
+		return $SqlTableNameWithPrefix;
+	}
+
+
 }
+
+
+

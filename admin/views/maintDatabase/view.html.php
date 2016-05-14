@@ -49,8 +49,14 @@ class Rsgallery2ViewMaintDatabase extends JViewLegacy
 
 		// .... $DatabaseModel ->
 
-		$this->errorCount = 4;
-
+		$this->errorCount = 0;
+		if(empty($this->errors)) {
+			$this->errorCount = 0;
+		}
+		else
+		{
+			$this->errorCount = count ($this->errors);
+		}
 		//--- begin to display --------------------------------------------
 		
 //		Rsg2Helper::addSubMenu('rsg2'); 
