@@ -54,7 +54,12 @@ class SqlInstallFile
 
 	/*------------------------------------------------------------------------------------
 	__construct()
-	------------------------------------------------------------------------------------*/	
+	------------------------------------------------------------------------------------*/
+	/**
+	 * SqlInstallFile constructor.
+	 *
+	 * @param string $fileName
+	 */
 	public function __construct($fileName='')
 	{
 		if ($fileName == '') {
@@ -130,11 +135,16 @@ class SqlInstallFile
 		return $tableName;
 	}
 
-    /**
-     * ToDO: continue doc yyyyyyyyyyyyyyyyyy
-     * @param $query
-     * @return array
-     */
+	/**
+	 * @param $query
+	 *
+	 * @return array
+	 */
+	/**
+	 * ToDO: continue doc yyyyyyyyyyyyyyyyyy
+	 * @param $query
+	 * @return array
+	 */
 	private function ExtractTablePropertiesFromQuery ($query)
 	{
 		$TableProperties = array ();
@@ -160,7 +170,11 @@ class SqlInstallFile
 		return $TableProperties;
 	}
 
-
+	/**
+	 * @param $queryLine
+	 *
+	 * @return stdClass|string
+	 */
 	private function ExtractColumnPropertiesFromLine ($queryLine)
 	{
 		$Properties = new stdClass();
@@ -178,9 +192,15 @@ class SqlInstallFile
 	}
 
 	//  `asset_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'FK to the #__assets table.',
+	/**
+	 * @param $queryLine
+	 * @param $EndPos
+	 *
+	 * @return string
+	 */
 	private function ExtractColumnNameFromQueryLine ($queryLine, &$EndPos)
 	{
-		$tableName = '';
+		$clumnName = '';
 
 		// ToDo: May be done with regular expression in one go
 		// find beginning of name
@@ -192,21 +212,62 @@ class SqlInstallFile
 			if ($StartPos == 0) {
 				// Extract to end of name
 				$EndPos = strpos($queryLine, "`", $StartPos + 1);
-				$tableName = substr($queryLine, $StartPos + 1, $EndPos - $StartPos - 1);
+				$clumnName = substr($queryLine, $StartPos + 1, $EndPos - $StartPos - 1);
 			}
 		}
 
-		return $tableName;
+		return $clumnName;
 	}
 
 	//  `asset_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'FK to the #__assets table.',
 	// First part must be already defined
+	/**
+	 * @param $queryLine
+	 * @param $StartPos
+	 *
+	 * @return string
+	 */
 	private function ExtractColumnPropertiesFromQueryLine ($queryLine, $StartPos)
 	{
 		// Find end of line -> ','
 		$EndPos = strpos($queryLine, ",", $StartPos);
+		$PropertyLine = substr ($queryLine, $StartPos, $EndPos - $StartPos);
 
-		$Properties = substr ($queryLine, $StartPos, $EndPos - $StartPos);
+		// `id` int(11) NOT NULL auto_increment,
+		// `parent` int(11) NOT NULL default 0,
+		// `name` varchar(255) NOT NULL default '',
+		// `description` text NOT NULL,
+		// `published` tinyint(1) NOT NULL default '0',
+		// `uid` int(11) unsigned NOT NULL default '0',
+		// `params` text,
+		// ...
+
+		//--- Just return type + signed ----------------------
+
+/* debug *
+		$TestPos = strpos($queryLine, 'params', 0);
+		if ($TestPos !== FALSE) {
+			$Properties = ' text';
+		}
+/**/
+		// after type before NOT
+		$EndPos = strpos($PropertyLine, ' ', 0);
+		if($EndPos === FALSE)
+		{
+			$EndPos = strlen ($PropertyLine);
+		}
+		$Properties = substr($PropertyLine, 0, $EndPos);
+
+		// May contain (number). Remove it
+		$EndPos = strpos($Properties, '(', 0);
+		if($EndPos !== FALSE)
+		{
+			$Properties = substr($PropertyLine, 0, $EndPos);
+		}
+
+		if (strpos($queryLine, 'unsigned', $EndPos) !== FALSE) {
+			$Properties .= ' unsigned';
+		}
 
 		return $Properties;
 	}
@@ -285,8 +346,34 @@ class SqlInstallFile
 	public function getTableColumns ($tableName)
 	{
 		$ColumnNames = array ();
-		
-		$tablePropertiesList = $this->getTablePropertiesList (); 
+
+		$tablePropertiesList = $this->getTablePropertiesList ();
+		if (! empty ($tablePropertiesList))
+		{
+			$tableProperties = $tablePropertiesList [$tableName];
+
+			if (! empty ($tableProperties))
+			{
+				foreach ($tableProperties as $name => $property)
+				{
+					$ColumnNames [$name] = $property;
+				}
+			}
+		}
+
+		return $ColumnNames;
+	}
+
+	/**
+	 * @param $tableName
+	 *
+	 * @return array
+	 */
+	public function getTableColumnNames ($tableName)
+	{
+		$ColumnNames = array ();
+
+		$tablePropertiesList = $this->getTablePropertiesList ();
 		if (! empty ($tablePropertiesList))
 		{
 			$tableProperties = $tablePropertiesList [$tableName];
@@ -299,7 +386,7 @@ class SqlInstallFile
 				}
 			}
 		}
-		
+
 		return $ColumnNames;
 	}
 
@@ -325,7 +412,7 @@ class SqlInstallFile
 	}
 
 	/**
-	 * @return string[]string
+	 * @return string[]
 	 */
 	public function getTablePropertiesList ()
 	{
@@ -347,6 +434,11 @@ class SqlInstallFile
 		return $this->tablePropertiesList;
 	}
 
+	/**
+	 * @param $tableName
+	 *
+	 * @return array|string
+	 */
 	public function getColumnsPropertiesOfTable ($tableName)
 	{
 		$ColumnsProperties = array ();
@@ -359,10 +451,7 @@ class SqlInstallFile
 		
 		return $ColumnsProperties;
 	}
-
-
-
-
+	
 }
 
 
