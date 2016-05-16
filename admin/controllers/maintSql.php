@@ -43,7 +43,7 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 	 */
 	public function optimizeDB()
 	{
-        $msg = "Ctrl:optimizeDB: ";
+		$msg = '<strong>' . JText::_('COM_RSGALLERY2_MAINT_OPTDB') . ':</strong><br>';
         $msgType = 'notice';
 
 		// Access check
@@ -63,8 +63,10 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
         $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
+/*
 	public function createMissingSqlFields()
 	{
+		$msg = '<strong>' . JText::_('COM_RSGALLERY2_MAINT_OPTDB') . ':</strong><br>';
 		$msg = "Ctrl:compareDb2SqlFile: ";
 		$msgType = 'notice';
 
@@ -86,10 +88,11 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
+*/
 
 	public function createGalleryAccessField()
 	{
-		$msg = "Ctrl:createGalleryAccessField: ";
+		$msg = '<strong>' . JText::_('COM_RSGALLERY2_CREATE_GALLERY_ACCESS_FIELD') . ':</strong><br>';
 		$msgType = 'notice';
 
 		// Access check
@@ -109,9 +112,9 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
-	public function completeSqlTables()
+	public function repairSqlTables()
 	{
-		$msg = "Ctrl:completeSqlTables: ";
+		$msg = '<strong>' . JText::_('COM_RSGALLERY2_DATABASE_REPAIR_DESC') . ':</strong><br>';
 		$msgType = 'notice';
 
 		// Access check
@@ -125,14 +128,12 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 
 			// Model tells if successful
 			$model = $this->getModel('maintSql');
-			$msg .= $model->completeSqlTables();
+			$msg .= $model->repairSqlTables();
 		}
 
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+		// Back to check of database
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintDatabase', $msg, $msgType);
 	}
 
-
-
-
-
 }
+

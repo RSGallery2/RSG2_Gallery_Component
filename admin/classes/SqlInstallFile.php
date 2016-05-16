@@ -200,7 +200,7 @@ class SqlInstallFile
 	 */
 	private function ExtractColumnNameFromQueryLine ($queryLine, &$EndPos)
 	{
-		$clumnName = '';
+		$columnName = '';
 
 		// ToDo: May be done with regular expression in one go
 		// find beginning of name
@@ -212,11 +212,11 @@ class SqlInstallFile
 			if ($StartPos == 0) {
 				// Extract to end of name
 				$EndPos = strpos($queryLine, "`", $StartPos + 1);
-				$clumnName = substr($queryLine, $StartPos + 1, $EndPos - $StartPos - 1);
+				$columnName = substr($queryLine, $StartPos + 1, $EndPos - $StartPos - 1);
 			}
 		}
 
-		return $clumnName;
+		return $columnName;
 	}
 
 	//  `asset_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'FK to the #__assets table.',

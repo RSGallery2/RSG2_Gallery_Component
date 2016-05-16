@@ -103,7 +103,7 @@ class Rsgallery2ViewMaintDatabase extends JViewLegacy
         JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE') . ': ' . JText::_('JLIB_FORM_VALUE_SESSION_DATABASE'), 'screwdriver');
 
         if ($UserIsRoot) {
-			JToolbarHelper::custom('maintSql.completeSqlTables', 'refresh', 'refresh', 'COM_RSGALLERY2_FIX', false);
+			JToolbarHelper::custom('maintSql.repairSqlTables', 'refresh', 'refresh', 'COM_RSGALLERY2_FIX', false);
 //			JToolBarHelper::custom('maintRegenerate.RegenerateImagesDisplay','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY', false);
 //            JToolBarHelper::custom('maintRegenerate.RegenerateImagesThumb','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_THUMBS', false);
             // JToolBarHelper::spacer();

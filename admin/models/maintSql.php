@@ -39,6 +39,10 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	 * @var
 	 */
 	protected $sqlFile;
+	/**
+	 * @var
+	 */
+	protected $db;
 
 	/**
 	 * Runs optimization for each table
@@ -47,7 +51,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	 */
 	public function optimizeDB()
 	{
-		$msg = "model:optimizeDB: " . '<br>';
+		$msg = ''; //  "model:optimizeDB: " . '<br>';
 
 		if (empty($this->sqlFile))
 		{
@@ -101,69 +105,71 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		$tableName  = '#__rsgallery2_galleries';
 		$columnName = 'access';
 
-		$columnExist = $this->IsColumnExisting($tableName, $columnName);
+		$IsColumnExisting  = $this->IsColumnExisting($tableName, $columnName);
 
 		/* !!! test code -> delete actual column (field)
-		if ($columnExist) {
+		if ($IsColumnExisting ) {
 
 			$result = $this->DeleteColumn($tableName, $columnName);
-			$msg .= '<br>' . '$result (drop): ' . json_encode ($result);
+			$msg .= '<br>' . ' Debug extra delete column: ' . json_encode ($result);
 
-			$columnExist = false;
+			$IsColumnExisting = false;
 		}
 		/**/
 
 		// Create table column
-		if (!$columnExist)
+		if (!$IsColumnExisting)
 		{
 			$msg              = "Creating not existing column: ";
 			$columnProperties = 'INT  (10) UNSIGNED DEFAULT NULL';
-			$columnExist      = $this->createColumn($tableName, $columnName, $columnProperties);
+			$isColumnExisting = $this->createSqlFileColumn($tableName, $columnName, $columnProperties);
 			// $msg .= '<br>' . '$IsColumnCreated : ' . json_encode ($columnExist);
-			if (!$columnExist)
+			if (!$isColumnExisting)
 			{
-				$msg .= '<br>' . '!!! Failed to create Column: ' . $columnName;
+				$msg .= '!!! Failed to create Column: ' . $columnName . '<br>';
 			}
 			else
 			{
-				$msg .= '<br>' . 'Created Column: ' . $columnName;
+				$msg .= 'Created Column: ' . $columnName . '<br>';
 			}
 		}
 		else
 		{
-			$msg .= '<br>' . 'Column was existing: ' . $columnName;
+			$msg .= 'Column was existing: ' . $columnName . '<br>';
 		}
 
 		// Set all access values to '1'
-		if ($columnExist)
+		if ($isColumnExisting)
 		{
 			$msg .= '<br>' . 'Did set all access values to 1';
 
 			$db = JFactory::getDbo();
 
-			// update your_table set likes = null
-			$query = 'UPDATE ' . $tableName . ' SET ' . $columnName . '=1';
-			//$msg .= '<br>' . '$query: ' . json_encode ($query);
-			$db->setQuery($query);
+			$query = $db->getQuery(true);
 
-			/* toDO Use following:
-			 $query = $db->getQuery(true);
-			 $query->update($db->quoteName('#__my_users'))
-			       ->set(array($db->quoteName('name') . '=\'JoÃ«l\'', $db->quoteName('username') . '=\'joel.lipman\''))
-			       ->where(array($db->quoteName('user_id') . '=42'));
-			 $db->setQuery($query);
-			*/
+			//$query = 'UPDATE ' . $db->quoteName($tableName) . ' SET ' . $db->quoteName($columnName) . '=1';
+			$query->update($db->quoteName($tableName))
+			      ->set($db->quoteName($columnName) . '=\'1\'');
+			$db->setQuery($query);
+			/**/
 
 			$result = $db->execute();
-
-			$msg .= '<br>' . '$result (update): ' . json_encode($result);
+			$IsSuccessful = ! empty ($result);
+			if ($IsSuccessful)
+			{
+				$msg .= 'Assigned `1` to every row in column ' . $columnName . '<br>';
+			}
+			else
+			{
+				$msg .= '!!! Failed to assign `1` to every row in column: ' . $columnName . '<br>';
+			}
 		}
 
 		return $msg;
 	}
 
 	/**
-	 * DeleteColumn
+	 * Delete Column
 	 *
 	 * @param string $tableName
 	 * @param string $columnName
@@ -174,12 +180,13 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	{
 		$db = JFactory::getDbo();
 		// ALTER TABLE t2 DROP COLUMN c, DROP COLUMN d;
-		$query = 'ALTER TABLE ' . $tableName . ' DROP COLUMN ' . $columnName;
-		// $msg .= '<br>' . '$query: ' . json_encode ($query);
+		$query = 'ALTER TABLE ' . $db->quoteName($tableName) . ' DROP COLUMN ' . $db->quoteName($columnName);
 		$db->setQuery($query);
 		$result = $db->execute();
 
-		return $result;
+		$IsColumnDeleted = !empty($result);
+
+		return $IsColumnDeleted;
 	}
 
 	/**
@@ -189,7 +196,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	 *
 	 * @return bool
 	 */
-	public function IsTableExisting($tableName)
+	public function IsSqlTableExisting($tableName)
 	{
 		$IsTableExisting = false;
 
@@ -204,6 +211,26 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		}
 
 		return $IsTableExisting;
+	}
+
+	/**
+	 * Delete table 
+	 *
+	 * @param string $tableName
+	 *
+	 * @return bool success of delete
+	 */
+	private function deleteTable($tableName)
+	{
+		$db = JFactory::getDbo();
+		// ALTER TABLE t2 DROP COLUMN c, DROP COLUMN d;
+		$query = 'DROP Table ' . $db->quoteName($tableName);
+		$db->setQuery($query);
+		$result = $db->execute();
+
+		$IsTableDeleted = !empty($result);
+
+		return $IsTableDeleted;
 	}
 
 	/**
@@ -236,7 +263,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	 *
 	 * @return bool
 	 */
-	public function createColumn($tableName, $columnName, $columnProperties)
+	public function createSqlFileColumn($tableName, $columnName, $columnProperties)
 	{
 		$db = JFactory::getDbo();
 
@@ -252,47 +279,126 @@ class Rsgallery2ModelMaintSql extends  JModelList
 
 
 	/*------------------------------------------------------------------------------------
-	completeSqlTables()
+	repairSqlTables()
 	------------------------------------------------------------------------------------*/
 	/**
-	 * Checks the existence of each table from the sql queries. If the table does not
-	 * exist then it will be created. Afterwards the existence of the single columns
-	 * are checked and repaired too
-	 * ToDo: find columns which are not needed any more
+	 * The function will be called from Maintenance Database if a mismatch between database and
+	 * component sql file is found.
+	 * It will check and repair following issues
+	 *    * Missing tables -> create
+	 *    * Missing columns -> create
+	 *    * Superfluous tables -> delete
+	 *    * Superfluous columns -> delete
+	 *    * ToDO: Wrong column types -> !!! not fixed
 	 *
-	 * @return string
+	 * @return string with info about operation (successfull/failed)
 	 */
-	public function completeSqlTables()
+	public function repairSqlTables()
 	{
-		$msg = 'model:completeSqlTables: ' . '<br>';
+		$msg = ''; //  'model:completeSqlTables: ' . '<br>';
 
-		// d:\xampp\htdocs\Joomla3x\administrator\components\com_rsgallery2\sql\install.mysql.utf8.sql
 		if (empty($this->sqlFile))
 		{
 			$this->sqlFile = new SqlInstallFile ();
 		}
 
-		//--- Check for not existing tables and create them --------
-		if (empty($this->tableNames))
-		{
-			$this->tableNames = $this->sqlFile->getTableNames();
-		}
+		/*----------------------------------------------
+		Missing tables
+		----------------------------------------------*/
 
-		$msg .= 'Check for missing tables' . '<br>';
-		foreach ($this->tableNames as $tableName)
+		$missingTableNames = $this->check4MissingTables();
+//		if(! empty ($missingTableNames))
+//		{
+		foreach ($missingTableNames as $missingTableName)
 		{
-			$msg .= '   Table ' . $tableName . '<br>';
-
-			// Create table if not existing
-			$TableExist = $this->IsTableExisting($tableName);
-			if (!$TableExist)
+			$msg .= 'Fix missing Table name: ' . $missingTableName . '<br>';
+			$IsTableCreated = $this->createSqlFileTable($missingTableName, $this->sqlFile);
+			if ($IsTableCreated)
 			{
-				$msg .= $this->createNotExistingTable($tableName, $this->sqlFile);
+				$msg .= 'Table: ' . $missingTableName . ' created successful' . '<br>';
 			}
 			else
 			{
-				// Table exists -> check all columns
-				$msg .= $this->createMissingSqlFieldsInTable($tableName, $this->sqlFile);
+				$msg .= '!!! Table: ' . $missingTableName . ' not created !!!' . '<br>';
+			}
+		}
+
+		/*----------------------------------------------
+		Missing columns
+		----------------------------------------------*/
+
+		$missingColumns = $this->check4MissingColumns();
+		foreach ($missingColumns as $missingColumnName => $missingTableName)
+		{
+			// Get column type from sql file
+			$TableColumnsProperties = $this->sqlFile->getTableColumns ($missingTableName);
+			$TableColumnsProperty = $TableColumnsProperties [$missingColumnName];
+			// create column
+			$IsColumnCreated = $this->createSqlFileColumn($missingTableName, $missingColumnName, $TableColumnsProperty);
+			if ($IsColumnCreated)
+			{
+				$msg .= 'Column: ' . $missingColumnName . ' in table  '. $missingTableName . ' created successful' . '<br>';
+			}
+			else
+			{
+				$msg .= '!!! Column: ' . $missingColumnName . ' in table  '. $missingTableName . ' not created !!!' . '<br>';
+			}
+		}
+
+		/*----------------------------------------------
+		ToDo: Wrong column types
+		Wrong column types
+		----------------------------------------------*/
+
+		$wrongColumnTypes = $this->check4WrongColumnTypes();
+		if(! empty ($wrongColumnTypes))
+		{
+			foreach ($wrongColumnTypes as $wrongColumnTableName => $columnTypes)
+			{
+				foreach ($columnTypes as $wrongColumnName => $deltaColumnType)
+				{
+
+					$msg .= '!!! Wrong column type for : ' . $wrongColumnName . ' in table  ' . $wrongColumnTableName . ' not created !!!' . '<br>';
+				}
+			}
+
+			$msg .= 'Wrong column type are not repaired automatically. Please check info and do it by hand (phpmyadmin)' . '<br>';
+		}
+
+		/*----------------------------------------------
+		Superfluous tables
+		----------------------------------------------*/
+
+		$superfluousTableNames = $this->check4SuperfluousTables();
+		foreach ($superfluousTableNames as $superfluousTableName)
+		{
+			$IsTableDeleted = $this->deleteTable ($superfluousTableName);
+			if ($IsTableDeleted)
+			{
+				$msg .= 'Table: ' . $superfluousTableName . ' deleted successful' . '<br>';
+			}
+			else
+			{
+				$msg .= '!!! Table: ' . $superfluousTableName . ' not deleted !!!' . '<br>';
+			}
+		}
+
+
+		/*----------------------------------------------
+		Superfluous columns
+		----------------------------------------------*/
+
+		$superfluousColumns = $this->check4SuperfluousColumns();
+		foreach ($superfluousColumns as $superfluousColumnName => $superfluousTableName)
+		{
+			$IsColumnDeleted = $this->DeleteColumn ($superfluousTableName, $superfluousColumnName);
+			if ($IsColumnDeleted)
+			{
+				$msg .= 'Column: ' . $superfluousColumnName . ' in table  '. $superfluousTableName . ' deleted successful' . '<br>';
+			}
+			else
+			{
+				$msg .= '!!! Column: ' . $superfluousColumnName . ' in table  '. $superfluousTableName . ' not deleted !!!' . '<br>';
 			}
 		}
 
@@ -304,79 +410,38 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	 * @param        $sqlFile
 	 * ToDo: Remove messages (should be generated in calling functions
 	 *
-	 * @return string
+	 * @return boolean
 	 */
-	public function createNotExistingTable($tableName, $sqlFile)
+	public function createSqlFileTable($tableName, $sqlFile)
 	{
-		$msg = "Model: createNotExistingTable: " . '<br>';
+		$IsTableCreated = false;
 
+		// Direct command (query) from sql file
 		$query = $sqlFile->getTableQuery($tableName);
 		if (!empty ($query))
 		{
-//			$msg .= '<br>' . '$query: ' . json_encode($query);
-
 			$db = JFactory::getDbo();
 
 			$db->setQuery($query);
 			$result = $db->execute();
 
 			$IsTableCreated = !empty ($result);
-			if ($IsTableCreated)
+			if (!$IsTableCreated)
 			{
-				$msg .= 'Table: ' . $tableName . ' created successful' . '<br>';
+				// ToDO: Log
 			}
 			else
 			{
-				$msg .= '!!! Table: ' . $tableName . ' not created !!!' . '<br>';
-				$msg .= '<br>' . '$query: ' . json_encode($query);
+				// ToDO: Log
 			}
 		}
 		else
 		{
-			$msg .= '!!! Query for Table: ' . $tableName . ' not found !!!' . '<br>';
+			// ToDO: Log
+			JFactory::getApplication()->enqueueMessage('!!! Query for Table: ' . $tableName . ' not found !!!', 'warning');
 		}
 
-		return $msg;
-	}
-
-	/**
-	 *
-	 * @param $sqlTableName
-	 * @param $sqlFile
-	 * ToDo: Remove messages (should be generated in calling functions
-	 *
-	 * @return string
-	 */
-	public function createMissingSqlFieldsInTable($sqlTableName, $sqlFile)
-	{
-		$msg = "Model: createMissingSqlFields: " . '   Table ' . $sqlTableName . '<br>';
-
-		$msg .= 'Check for missing COLUMN IN TABLE <br>';
-
-		//--- create not existing columns  -----------------
-
-		// Original columns
-		$columns = $sqlFile->getColumnsPropertiesOfTable($sqlTableName);
-
-		// Create all not existing table columns
-		foreach ($columns as $column)
-		{
-			$columnName       = $column->name;
-			$columnProperties = $column->properties;
-
-			// Create table column
-			$columnExist = $this->IsColumnExisting($sqlTableName, $columnName);
-			if (!$columnExist)
-			{
-				$msg .= $this->createColumn($sqlTableName, $columnName, $columnProperties, $columnExist);
-				if (!$columnExist)
-				{
-					$msg .= '   failed to create ' . $sqlTableName . ':' . $columnName . '<br>';
-				}
-			}
-		}
-
-		return $msg;
+		return $IsTableCreated;
 	}
 
 	/**
@@ -385,22 +450,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	public function check4Errors()
 	{
 		$errors = array();
-/*
-		$errors [] = "Database schema version (3.3.6-2014-09-30) does not match CMS version (3.5.1-2016-03-29).";
-		$errors [] = "Table 'mmbty_redirect_links' does not have column 'hits'. (From file 2.5.5.sql.)";
-		$errors [] = "Table 'mmbty_redirect_links' does not have column 'header'. (From file 3.4.0-2014-09-16.sql.)";
-		$errors [] = "Table 'mmbty_session' does not have column 'session_id' with type varchar(191). (From file 3.5.0-2015-07-01.sql.)";
-		$errors [] = "Table 'mmbty_user_keys' does not have column 'series' with type varchar(191). (From file 3.5.0-2015-07-01.sql.)";
-		$errors [] = "Table 'mmbty_contentitem_tag_map' should not have index 'idx_tag'. (From file 3.5.0-2015-10-26.sql.)";
-		$errors [] = "Table 'mmbty_contentitem_tag_map' should not have index 'idx_type'. (From file 3.5.0-2015-10-26.sql.)";
-		$errors [] = "Table 'mmbty_redirect_links' should not have index 'idx_link_old'. (From file 3.5.0-2016-03-01.sql.)";
-		$errors [] = "Table 'mmbty_redirect_links' does not have column 'old_url' with type VARCHAR(2048). (From file 3.5.0-2016-03-01.sql.)";
-		$errors [] = "Table 'mmbty_redirect_links' does not have column 'new_url' with type VARCHAR(2048). (From file 3.5.0-2016-03-01.sql.)";
-		$errors [] = "Table 'mmbty_redirect_links' does not have column 'referer' with type VARCHAR(2048). (From file 3.5.0-2016-03-01.sql.)";
-		$errors [] = "Table 'mmbty_redirect_links' does not have index 'idx_old_url'. (From file 3.5.0-2016-03-01.sql.)";
-		$errors [] = "Table 'mmbty_user_keys' does not have column 'user_id' with type varchar(150). (From file 3.5.1-2016-03-25.sql.)";
-		$errors [] = "The Joomla! Core database tables have not been converted yet to UTF-8 Multibyte (utf8mb4)";
-*/
+
 		$db = JFactory::getDbo();
 
 		/*----------------------------------------------
@@ -431,28 +481,16 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		}
 
 		/*----------------------------------------------
-		ToDo: Wrong column types
 		Wrong column types
 		----------------------------------------------*/
 
 		$wrongColumnTypes = $this->check4WrongColumnTypes();
-//		echo '<br>$wrongColumnTypes: ' . json_encode($wrongColumnTypes);
-//		echo '<br>$wrongColumnTypes empty: ' . empty($wrongColumnTypes);
 
 		foreach ($wrongColumnTypes as $wrongColumnTableName => $columnTypes)
 		{
-//			echo '<br>$TableName: ' . json_encode($wrongColumnTableName);
-//			echo '<br>$columnTypes: ' . json_encode($columnTypes);
 
 			foreach ($columnTypes as $wrongColumnName => $deltaColumnType)
 			{
-//				echo '<br>&nbsp&nbsp&nbsp$columnName: ' . json_encode($wrongColumnName);
-//				echo '<br>$deltaColumnTypes: ' . json_encode($deltaColumnTypes);
-
-//				foreach ($deltaColumnTypes as $deltaColumnType)
-//				{
-//					echo '<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp$ExpectedProperty: ' . $deltaColumnType->ExpectedProperty;
-//					echo '<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp$ExistingProperty: ' . $deltaColumnType->ExistingProperty;
 
 				$errors [] = JText::sprintf('COM_RSGALLERY2_MSG_DATABASE_WRONG_COLUMN_TYPE',
 					'',
@@ -460,24 +498,10 @@ class Rsgallery2ModelMaintSql extends  JModelList
 					$db->quote($wrongColumnName),
 					$db->quote($deltaColumnType->ExpectedProperty),
 					$db->quote($deltaColumnType->ExistingProperty));
-
-
-//				}
 			}
 
-			//
-			//$errors [] = "Superfluous Table: " . $wrongColumnType;
-/*
-			$errors [] = JText::sprintf('COM_RSGALLERY2_MSG_DATABASE_SUPERFLUOUS_TABLE',
-				'',
-				$db->quote($wrongColumnType));
-*/
-			echo '<br>';
 		}
 //		echo '<br>';
-
-		echo '<br>';
-
 
 		/*----------------------------------------------
 		Superfluous tables		
@@ -530,7 +554,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 
 		foreach ($this->tableNames as $tableName)
 		{
-			$TableExist = $this->IsTableExisting($tableName);
+			$TableExist = $this->IsSqlTableExisting($tableName);
 			// Save table name if not existing
 			if (!$TableExist)
 			{
@@ -562,7 +586,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 
 		foreach ($this->tableNames as $tableName)
 		{
-			$TableExist = $this->IsTableExisting($tableName);
+			$TableExist = $this->IsSqlTableExisting($tableName);
 			// Save table name if not existing
 			if ($TableExist)
 			{
@@ -670,7 +694,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 
 		foreach ($this->tableNames as $tableName)
 		{
-			$TableExist = $this->IsTableExisting($tableName);
+			$TableExist = $this->IsSqlTableExisting($tableName);
 			// Save table name if not existing
 			if ($TableExist)
 			{
@@ -768,7 +792,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 
 		foreach ($this->tableNames as $tableName)
 		{
-			$TableExist = $this->IsTableExisting($tableName);
+			$TableExist = $this->IsSqlTableExisting($tableName);
 			// Save table name if not existing
 			if ($TableExist)
 			{
