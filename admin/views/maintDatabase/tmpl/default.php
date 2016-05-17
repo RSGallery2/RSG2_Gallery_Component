@@ -35,6 +35,11 @@ global $Rsg2DebugActive;
 				<?php echo JText::_('COM_RSGALLERY2_MSG_DATABASE_OK'); ?>
 			</div>
 			<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'other')); ?>
+
+			<div class="form-actions">
+				<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('maintenance.cancel')"><?php echo JText::_('JCANCEL'); ?></button>
+			</div>
+
 		<?php else : ?>
 
 			<div class="alert alert-error">
@@ -56,7 +61,13 @@ global $Rsg2DebugActive;
 						    ?>
 					    </ul>
 					</fieldset>
-				<?php echo JHtml::_('bootstrap.endTab'); ?>
+
+					<div class="form-actions">
+						<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('maintSql.repairSqlTables')"><?php echo JText::_('COM_RSGALLERY2_FIX'); ?></button>
+						<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('maintenance.cancel')"><?php echo JText::_('JCANCEL'); ?></button>
+					</div>
+
+			<?php echo JHtml::_('bootstrap.endTab'); ?>
 		<?php endif; ?>
 
 		<?php echo JHtml::_('bootstrap.endTabSet'); ?>

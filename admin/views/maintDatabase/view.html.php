@@ -77,7 +77,7 @@ class Rsgallery2ViewMaintDatabase extends JViewLegacy
 		// Assign the Data
 //		$this->form = $form;
 
-		$this->addToolbar ($this->UserIsRoot); //$Layout);
+		$this->addToolbar ($this->UserIsRoot, $this->errorCount); //$Layout);
 		$this->sidebar = JHtmlSidebar::render ();
 
 		parent::display ($tpl);
@@ -87,6 +87,7 @@ class Rsgallery2ViewMaintDatabase extends JViewLegacy
 
 	/**
 	 * Checks if user has root status (is re.admin')
+	 * If errors are detected repair is enabled
 	 *
 	 * @return	bool
 	 */		
@@ -97,48 +98,19 @@ class Rsgallery2ViewMaintDatabase extends JViewLegacy
 		return $canAdmin;
 	}
 
-	protected function addToolbar ($UserIsRoot) //$Layout='default')
+	protected function addToolbar ($UserIsRoot, $errorCount) //$Layout='default')
 	{
         // Title
         JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE') . ': ' . JText::_('JLIB_FORM_VALUE_SESSION_DATABASE'), 'screwdriver');
 
         if ($UserIsRoot) {
-			JToolbarHelper::custom('maintSql.repairSqlTables', 'refresh', 'refresh', 'COM_RSGALLERY2_FIX', false);
-//			JToolBarHelper::custom('maintRegenerate.RegenerateImagesDisplay','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY', false);
-//            JToolBarHelper::custom('maintRegenerate.RegenerateImagesThumb','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_THUMBS', false);
-            // JToolBarHelper::spacer();
-        }
-
-//        JToolBarHelper::cancel('maintRegenerate.cancel');
-        JToolBarHelper::cancel('maintenance.cancel');
-//        JToolBarHelper::spacer();
-//        JToolBarHelper::help( 'screen.rsgallery2',true);
-
-
-		/*
-		switch ($Layout)
-		{
-			case 'RawView':
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
-					. ': ' . JText::_('COM_RSGALLERY2_MAINT_REGEN'), 'screwdriver');
-				JToolBarHelper::cancel('config.cancel_rawView');
-				break;
-			case 'RawEdit':
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
-					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'), 'screwdriver');
-				JToolBarHelper::apply('\'config.apply_rawEdit');
-				JToolBarHelper::save('\'config.save_rawEdit');
-				JToolBarHelper::cancel('\'config.cancel_RawEdit');
-				break;
-			// case 'default':
-			default:
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_CONFIGURATION'), 'cog');
-				JToolBarHelper::apply('\'config.apply');
-				JToolBarHelper::save('\'config.save');
-				JToolBarHelper::cancel('\'config.cancel');
-				break;
+			if ($errorCount > 0) {
+				JToolbarHelper::custom('maintSql.repairSqlTables', 'refresh', 'refresh', 'COM_RSGALLERY2_FIX', false);
+				// JToolBarHelper::spacer();
+			}
 		}
-		*/
+
+        JToolBarHelper::cancel('maintenance.cancel');
 	}
 }
 
