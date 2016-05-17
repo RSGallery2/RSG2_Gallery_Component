@@ -75,7 +75,7 @@ function DisplayImageDataTable ($ImagesData) {
 		echo '        <tr>';
 		//echo '            <td>' . 'Index checkbox'. '</td>';
 		echo '            <td>' .
-			'<input id="cb' . $Idx . '2" type="checkbox" onclick="Joomla.isChecked(this.checked);" value="'
+			'<input id="cb' . $Idx . '" type="checkbox" onclick="Joomla.isChecked(this.checked);" value="'
 			. $Idx . '5" name="cid[]">';
 
 
@@ -156,16 +156,16 @@ function DisplayImageDataTable ($ImagesData) {
 ?>
 
 <div id="installer-install" class="clearfix">
-	<?php if (!empty( $this->sidebar)) : ?>
-        <div id="j-sidebar-container" class="span2">
-	        <?php echo $this->sidebar; ?>
-        </div>
-        <div id="j-main-container" class="span10">
-    <?php else : ?>
-		<div id="j-main-container">
-	<?php endif;?>
+<?php if (!empty( $this->sidebar)) : ?>
+	<div id="j-sidebar-container" class="span2">
+		<?php echo $this->sidebar; ?>
+	</div>
+	<div id="j-main-container" class="span10">
+<?php else : ?>
+	<div id="j-main-container">
+<?php endif;?>
 
-			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=maintConsolidateDB'); ?>"
+		<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=maintConsolidateDB'); ?>"
 				  method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
 
 			<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'consolidateDB')); ?>
@@ -232,17 +232,15 @@ function DisplayImageDataTable ($ImagesData) {
 	                </div>
 
 
-
                 <?php echo JHtml::_('bootstrap.endTab'); ?>
 
 			<?php echo JHtml::_('bootstrap.endTabSet'); ?>
 
-			<input type="hidden" value="" name="task">
+			<input type="hidden" value="" name="task" />
+			<input type="hidden" name="boxchecked" value="0" />
 
 			<?php echo JHtml::_('form.token'); ?>
 
-           </form>
-        </div>
-	<div id="loading"></div>
-</div>
+        </form>
+	</div>
 </div>
