@@ -255,10 +255,9 @@ function editComment( $item_id ) {
 	$editor = JEditor::getInstance($editor);
 	?>
 	<script type="text/javascript">
-	        // old:function submitbutton(pressbutton){
-	        Joomla.submitbutton = function(pressbutton) {
+	        Joomla.submitbutton = function(pressButton) {
             var form = document.rsgcommentform;
-            if (pressbutton == 'cancel') {
+            if (pressButton == 'cancel') {
                 form.reset();
                 return;
             }
@@ -297,6 +296,7 @@ function editComment( $item_id ) {
 		<td><?php echo JText::_('COM_RSGALLERY2_COMMENT_TEXT');?>:</td>
 		<td>
 			<?php 
+			/**
 				//Get Joomla! configuration setting: is TinyMCE used as editor?
 				//$app =& JFactory::getApplication();
 				//if ( $app->getCfg('editor') == 'tinymce'){
@@ -320,6 +320,35 @@ function editComment( $item_id ) {
 					// parameters : control name, content, width, height, cols, rows, show editor buttons, params
 				//	echo $editor->display('tcomment',  '' , '300px', '100px', '8', '20' ,false) ;
 				//}
+			/**/
+
+			// Get global editor
+			$config = JFactory::getConfig();
+			$globalEditor = $config->get('editor');
+
+			// Get user editor
+			$userEditor = JFactory::getUser()->getParam("editor");
+
+			if($userEditor && $userEditor!== 'JEditor') {
+				$selected_editor = $userEditor;
+			} else {
+				$selected_editor = $globalEditor;
+			}
+
+			$editor = JEditor::getInstance($selected_editor);
+
+			// set editor parameter
+			$params = array( 'smilies'=> '1' ,
+				'style'  => '1' ,
+				'layer'  => '0' ,
+				'table'  => '0' ,
+				'clear_entities'=>'0',
+				'mode' => '1'
+			);
+
+			// display: (control name, content, width, height, columns, rows, show bottom buttons, id, asset, author, params)
+			echo $editor->display('tcomment', '???', '300px', '100px', '8', '20', false, null, null, null, $params);
+			/**/
 			?>
 		</td>
 	</tr>
