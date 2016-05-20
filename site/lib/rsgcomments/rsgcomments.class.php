@@ -249,10 +249,22 @@ function editComment( $item_id ) {
 	$doc->addScript(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/js/client.js");
 	$doc->addStyleSheet(JURI_SITE."/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css");
 	$gid=galleryUtils::getCatIdFromFileId($item_id);//galleryid gid used to be named catid
-	
-	//$editor =& JFactory::getEditor();
-	$editor = JFactory::getConfig()->get('editor'); // name of editor ?
-	$editor = JEditor::getInstance($editor);
+
+	// Get global editor
+	$config = JFactory::getConfig();
+	$globalEditor = $config->get('editor');
+
+	// Get user editor
+	$userEditor = JFactory::getUser()->getParam("editor");
+
+	// Prefer user editor if possible
+	if($userEditor && $userEditor!== 'JEditor') {
+		$selected_editor = $userEditor;
+	} else {
+		$selected_editor = $globalEditor;
+	}
+
+	$editor = JEditor::getInstance($selected_editor);
 	?>
 	<script type="text/javascript">
 	        Joomla.submitbutton = function(pressButton) {
@@ -296,59 +308,17 @@ function editComment( $item_id ) {
 		<td><?php echo JText::_('COM_RSGALLERY2_COMMENT_TEXT');?>:</td>
 		<td>
 			<?php 
-			/**
-				//Get Joomla! configuration setting: is TinyMCE used as editor?
-				//$app =& JFactory::getApplication();
-				//if ( $app->getCfg('editor') == 'tinymce'){
-					// Get TinyMCE, but with limited number of buttons
-					?>
-					<script type="text/javascript">
-						tinyMCE.init({
-							mode : "textareas",
-							theme : "advanced",
-							width : "300",
-							theme_advanced_buttons1 : "bold,italic,underline",
-							//theme_advanced_buttons2 : "link,unlink",
-							theme_advanced_toolbar_location : "top",
-							theme_advanced_toolbar_align : "left",
-							theme_advanced_statusbar_location : "none"
-						});
-					</script>
-					<textarea name="tcomment" id="tcomment" style="width:100%"></textarea>
-					<?php
-				//} else {
-					// parameters : control name, content, width, height, cols, rows, show editor buttons, params
-				//	echo $editor->display('tcomment',  '' , '300px', '100px', '8', '20' ,false) ;
-				//}
-			/**/
+				// set editor parameter
+				$params = array( 'smilies'=> '1' ,
+					'style'  => '1' ,
+					'layer'  => '0' ,
+					'table'  => '0' ,
+					'clear_entities'=>'0',
+					'mode' => '1'
+				);
 
-			// Get global editor
-			$config = JFactory::getConfig();
-			$globalEditor = $config->get('editor');
-
-			// Get user editor
-			$userEditor = JFactory::getUser()->getParam("editor");
-
-			if($userEditor && $userEditor!== 'JEditor') {
-				$selected_editor = $userEditor;
-			} else {
-				$selected_editor = $globalEditor;
-			}
-
-			$editor = JEditor::getInstance($selected_editor);
-
-			// set editor parameter
-			$params = array( 'smilies'=> '1' ,
-				'style'  => '1' ,
-				'layer'  => '0' ,
-				'table'  => '0' ,
-				'clear_entities'=>'0',
-				'mode' => '1'
-			);
-
-			// display: (control name, content, width, height, columns, rows, show bottom buttons, id, asset, author, params)
-			echo $editor->display('tcomment', '???', '300px', '100px', '8', '20', false, null, null, null, $params);
-			/**/
+				// display: (control name, content, width, height, columns, rows, show bottom buttons, id, asset, author, params)
+				echo $editor->display('tcomment', '', '300px', '100px', '8', '20', false, null, null, null, $params);
 			?>
 		</td>
 	</tr>
