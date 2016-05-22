@@ -79,7 +79,8 @@ EOD;
                 echo $item['name'];
             echo '</td>';
             echo '<td>';
-                echo "<img src='". imgUtils::getImgThumbPath($item['name']) ."' width='30' height='30' />";
+                //echo "<img src='". imgUtils::getImgThumbPath($item['name']) ."' width='30' height='30' />";
+                echo "<img src='". imgUtils::getImgThumb($item['name']) ."' width='30' height='30' />";
             echo '</td>';
             echo "</tr>";
         }

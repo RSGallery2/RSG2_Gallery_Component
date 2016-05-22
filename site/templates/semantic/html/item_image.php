@@ -7,10 +7,12 @@ global $rsgConfig;
 	$watermark = $rsgConfig->get('watermark');
 
 	$imageOriginalUrl = $watermark ? waterMarker::showMarkedImage( $item->name, 'original' ) : 
-		imgUtils::getImgOriginalPath( $item->name );
+		//imgUtils::getImgOriginalPath( $item->name );
+		imgUtils::getImgOriginal( $item->name );
 		
 	$imageUrl = $watermark ? waterMarker::showMarkedImage( $item->name ) : 
-		imgUtils::getImgDisplayPath( $item->name );
+		//imgUtils::getImgDisplayPath( $item->name );
+		imgUtils::getImgDisplay( $item->name );
 
 	switch ($rsgConfig->get('displayPopup')) {
 		//No popup
