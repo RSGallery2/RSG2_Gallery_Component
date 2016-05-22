@@ -258,7 +258,8 @@ class imgUtils extends fileUtils{
 
         //check if original image needs to be kept, otherwise delete it.
         if ( !$rsgConfig->get('keepOriginalImage') ) {
-            JFile::delete( imgUtils::getImgOriginalPath( $newName, true ) );
+	        // JFile::delete( imgUtils::getImgOriginalPath ($newName, true));
+	        JFile::delete (imgUtils::getImgOriginal ($newName, true));
         }
 
         return true;
@@ -337,7 +338,8 @@ class imgUtils extends fileUtils{
      * @param bool $local return a local path instead of URL
      * @return string complete URL of the image
      */
-    static function getImgOriginalPath($name, $local=false){
+//	static function getImgOriginalPath($name, $local=false){
+	static function getImgOriginal($name, $local=false){
         global  $rsgConfig;
 
 		$locale = $local ? JPATH_ROOT : JURI_SITE;
@@ -360,7 +362,8 @@ class imgUtils extends fileUtils{
       * @param bool $local return a local path instead of URL
       * @return string complete URL of the image
       */
-    static function getImgDisplayPath($name, $local=false){
+//	static function getImgDisplayPath($name, $local=false){
+	static function getImgDisplay($name, $local=false){
 		global  $rsgConfig;
         
         $locale = $local ? JPATH_ROOT : JURI_SITE;
@@ -381,7 +384,8 @@ class imgUtils extends fileUtils{
       * @param bool $local return a local path instead of URL
       * @return string complete URL of the image
       */
-    static function getImgThumbPath($name, $local=false){
+	//static function getImgThumbPath($name, $local=false){
+	static function getImgThumb($name, $local=false){
         global  $rsgConfig;
         $locale = $local? JPATH_ROOT : JURI_SITE;
 		$locale = trim($locale, '/');	

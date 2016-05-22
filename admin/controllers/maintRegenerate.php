@@ -122,7 +122,8 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
                 // All Images
                 foreach ($images as $image) {
                     // URL to orignal (or display)
-                    $ImagePathOriginal = imgUtils::getImgOriginalPath($image->name, true);
+	                //$ImagePathOriginal = imgUtils::getImgOriginalPath($image->name, true);
+	                $ImagePathOriginal = imgUtils::getImgOriginal($image->name, true);
 
                     //Get the name of the image
                     $parts = pathinfo( $ImagePathOriginal );
@@ -240,7 +241,8 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
                 } else {
 					//--- All images ------------------------------
                     foreach ($images as $image) {
-                        $imageName = imgUtils::getImgOriginalPath($image->name, true);
+	                    //$imageName = imgUtils::getImgOriginalPath($image->name, true);
+	                    $imageName = imgUtils::getImgOriginal($image->name, true);
                         if (!imgUtils::makeThumbImage($imageName)) {
                             //Error counter
                             $error++;
@@ -275,7 +277,8 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 		$RandomIdx = rand(0, count($images)-1);
 		$imageName = $images [$RandomIdx]->name;
 
-		$imageSize = getimagesize( imgUtils::getImgThumbPath($imageName, true) );
+		//$imageSize = getimagesize( imgUtils::getImgThumbPath($imageName, true) );
+		$imageSize = getimagesize( imgUtils::getImgThumb($imageName, true) );
 		if ( $imageSize[0] == $rsgConfig->get('thumb_width') ) {
 			return false;
 		} else {
@@ -297,7 +300,8 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
         $RandomIdx = rand(0, count($images)-1);
         $imageName = $images [$RandomIdx]->name;
 
-        $imageSize = getimagesize( imgUtils::getImgDisplayPath($imageName, true) );
+		//$imageSize = getimagesize( imgUtils::getImgDisplayPath($imageName, true) );
+		$imageSize = getimagesize( imgUtils::getImgDisplay($imageName, true) );
 		if ( $imageSize[0] == $rsgConfig->get('image_width') ) {
 			return false;
 		} else {

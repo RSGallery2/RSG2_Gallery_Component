@@ -29,7 +29,7 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 		$this->debugActive = $rsgConfig->get('debug');
 		$this->upgradeActive = true; // false / true;
 		$this->testActive = false; // false / true;
-		$this->developActive = true; // false / true;
+		$this->developActive = false; // false / true;
 
 //		$form = $this->get('Form');
 

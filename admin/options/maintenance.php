@@ -201,7 +201,8 @@ function executeRegenerateThumbImages() {
 				$gallery = rsgGalleryManager::_get($id);
 				$images = $gallery->items();
 				foreach ($images as $image) {
-					$imagename = imgUtils::getImgOriginalPath($image->name, true);
+					//$imagename = imgUtils::getImgOriginalPath($image->name, true);
+					$imagename = imgUtils::getImgOriginal($image->name, true);
 					if (!imgUtils::makeThumbImage($imagename)) {
 						//Error counter
 						$error++;
@@ -250,7 +251,8 @@ function executeRegenerateDisplayImages() {
 				//  So get path not URL (2nd argument "local" false in getImgOriginalPath)
 				//  clean it (get correct Directory Seperator and remove double slashes)
 				//  and convert "%20" to spaces: " " with rawurldecode.
-				$originalImageFullPath = imgUtils::getImgOriginalPath($image->name, true);
+				//$originalImageFullPath = imgUtils::getImgOriginalPath($image->name, true);
+				$originalImageFullPath = imgUtils::getImgOriginal($image->name, true);
 				//Get the name of the image
 				$parts = pathinfo( $originalImageFullPath );
 				$newName = $parts['basename'];
