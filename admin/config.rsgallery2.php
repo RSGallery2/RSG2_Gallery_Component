@@ -32,23 +32,22 @@ class galleryUtils {
 
 		//Get gallery Id's where action is permitted and write to string
 		$galleriesAllowed = galleryUtils::getAuthorisedGalleries($action);
+		$dropDown_html = '<select name="'.$select_name.'" '.$js.'><option value="-1" selected="selected" >'.JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST').'</option>';
 
-		$dropdown_html = '<select name="'.$select_name.'" '.$js.'><option value="-1" selected="selected" >'.JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST').'</option>';
-		
 		if ($showTopGallery) {
-			$dropdown_html .= "<option value=0";
+			$dropDown_html .= "<option value=0";
 			// Disable when action not allowed or user not owner
 			if (!$user->authorise($action, 'com_rsgallery2')) {
-				$dropdown_html .= ' disabled="disabled"';
+				$dropDown_html .= ' disabled="disabled"';
 			}
 			if ($gallery_id == 0) {
-				$dropdown_html .= ' selected="selected"';
+				$dropDown_html .= ' selected="selected"';
 			}
-			$dropdown_html .= ' >- '.JText::_('COM_RSGALLERY2_TOP_GALLERY').' -</option>';
+			$dropDown_html .= ' >- '.JText::_('COM_RSGALLERY2_TOP_GALLERY').' -</option>';
 		}
 		
-		$dropdown_html .= galleryUtils::addToGalSelectList(0, 0, $gallery_id, $galleriesAllowed);
-		echo $dropdown_html."</select>";
+		$dropDown_html .= galleryUtils::addToGalSelectList(0, 0, $gallery_id, $galleriesAllowed);
+		echo $dropDown_html."</select>";
 	}
 	
 	/**
@@ -64,20 +63,20 @@ class galleryUtils {
 		//Get gallery Id's where create is allowed and write to string
 		$galleriesAllowed = rsgAuthorisation::authorisationCreate_galleryList();
 
-		$dropdown_html = '<select name="'.$select_name.'" '.$js.'><option value="-1" selected="selected" >'.JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST').'</option>';
+		$dropDown_html = '<select name="'.$select_name.'" '.$js.'><option value="-1" selected="selected" >'.JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST').'</option>';
 		
 		if ($showTopGallery) {
-			$dropdown_html .= "<option value=0";
+			$dropDown_html .= "<option value=0";
 			// Disable Top gallery when no create permission for component
 			if (!$user->authorise('core.create', 'com_rsgallery2'))
-				$dropdown_html .= ' disabled="disabled"';
+				$dropDown_html .= ' disabled="disabled"';
 			if ($gallery_id == 0)
-				$dropdown_html .= ' selected="selected"';
-			$dropdown_html .= ' >- '.JText::_('COM_RSGALLERY2_TOP_GALLERY').' -</option>';
+				$dropDown_html .= ' selected="selected"';
+			$dropDown_html .= ' >- '.JText::_('COM_RSGALLERY2_TOP_GALLERY').' -</option>';
 		}
 		
-		$dropdown_html .= galleryUtils::addToGalSelectList(0, 0, $gallery_id, $galleriesAllowed);
-		echo $dropdown_html."</select>";
+		$dropDown_html .= galleryUtils::addToGalSelectList(0, 0, $gallery_id, $galleriesAllowed);
+		echo $dropDown_html."</select>";
 	}
 
 	/**
@@ -91,34 +90,34 @@ class galleryUtils {
 	static function addToGalSelectList($level, $galid, $gallery_id, $galleriesAllowed) {
 		// provided by Klaas on Dec.13.2007
 		$database = JFactory::getDBO();		
-		$dropdown_html = "";
+		$dropDown_html = "";
 
 		$query = 'SELECT * FROM `#__rsgallery2_galleries` WHERE `parent` = '. (int) $galid .' ORDER BY `ordering` ASC';
 		$database->setQuery($query);
 
 		$rows = $database->loadObjectList();
 		foreach ($rows as $row) {
-			$dropdown_html .= "<option value=\"$row->id\"";
+			$dropDown_html .= "<option value=\"$row->id\"";
 			// Disable when action not allowed and disallowed parent is not current parent
 			if (!in_array($row->id, $galleriesAllowed)){
 				if ($row->id != $gallery_id) {
-					$dropdown_html .= ' disabled="disabled"';
+					$dropDown_html .= ' disabled="disabled"';
 				}
 			}
 			if ($row->id == $gallery_id)
-				$dropdown_html .= ' selected="selected"';
+				$dropDown_html .= ' selected="selected"';
 
-			$dropdown_html .= " >";
+			$dropDown_html .= " >";
 			$indent = "";
 			for ($i = 0; $i < $level; $i++) {
 				$indent .= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 			}
 			if ($level)
 				$indent .= "|--&nbsp;";
-			$dropdown_html .=  $indent.$row->name."</option>\n";
-			$dropdown_html .=  galleryUtils::addToGalSelectList($level + 1, $row->id, $gallery_id, $galleriesAllowed);
+			$dropDown_html .=  $indent.$row->name."</option>\n";
+			$dropDown_html .=  galleryUtils::addToGalSelectList($level + 1, $row->id, $gallery_id, $galleriesAllowed);
 		}
-		return $dropdown_html;
+		return $dropDown_html;
 	}
 	
     /** //MK// [todo] only for allowed parents...
@@ -303,7 +302,8 @@ class galleryUtils {
 	            //Specific thumbnail
 	            $thumb_name = galleryUtils::getFileNameFromId($thumb_id);
 	        }
-	        $thumb_html = "<img $imgatt src=\"".imgUtils::getImgThumbPath($thumb_name)."\" alt=\"\" />";
+	        //$thumb_html = "<img $imgatt src=\"".imgUtils::getImgThumbPath($thumb_name)."\" alt=\"\" />";
+	        $thumb_html = "<img $imgatt src=\"".imgUtils::getImgThumb($thumb_name)."\" alt=\"\" />";
 	    }
 	    return $thumb_html;
     }
