@@ -107,9 +107,30 @@
 			name			= "name"
             type			= "RsgImageView"
             label           = "COM_RSG2_ITEM_PREVIEW"
-
         />
 
+	    <!-- asset_id: needed for the Calculated Settings of the Rules to work correctly -->
+	    <field 
+		    name			= "asset_id"
+		    type			= "hidden"
+		    filter			= "unset"
+        />
+    
+	
+	    <!-- rules: needed for the rules -->
+	    <field
+		    id				= "rules"
+		    name			= "rules"
+		    type			= "rules"
+		    label			= ""
+		    translate_label	= "false"
+		    filter			= "rules"
+		    validate		= "rules"
+		    class			= "inputbox"
+		    component		= "com_rsgallery2"
+		    section			= "item"
+        />
+		
         <!-- field
             name			= "params"
             type			= "text"
@@ -231,25 +252,6 @@
 		    name			= "extension"
 		    type			= "hidden"/>
     
-	    <!-- asset_id: needed for the Calculated Settings of the Rules to work correctly -->
-	    <field 
-		    name			= "asset_id"
-		    type			= "hidden"
-		    filter			= "unset"/>
-    
-	    <!-- rules: needed for the rules -->
-	    <field
-		    id				= "rules"
-		    name			= "rules"
-		    type			= "rules"
-		    label			= ""
-		    translate_label	= "false"
-		    filter			= "rules"
-		    validate		= "rules"
-		    class			= "inputbox"
-		    component		= "com_rsgallery2"
-		    section			= "item"/>
-
         <field
             name			= ""
             type			= ""
