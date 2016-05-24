@@ -52,7 +52,11 @@ class galleryUtils {
 	
 	/**
 	 * Show gallery select list according to the permissions of the logged in user
+	 *
+	 * permissions Create Own
+	 *
 	 * @param string $select_name Name of the select box, defaults to 'catid'
+	 *                Used 2016.05.24 'gallery_id', 'parent'
 	 * @param integer $gallery_id ID of selected gallery
 	 * @param string $js Additional select tag attributes
 	 * @param bool $showTopGallery show Top Gallery to select, default no
