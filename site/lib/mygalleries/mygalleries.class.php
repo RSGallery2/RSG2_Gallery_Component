@@ -271,7 +271,9 @@ class myGalleries {
 				</td>
 				<td>
 					<?php 
-					//Show all galleries where galleries without ceate permission are disabled, select name is 'gallery_id', no gallery is selected, no additional select atributes, don't showTopGallery
+					// Show all galleries where galleries without create permission are disabled, 
+					// select name is 'gallery_id', no gallery is selected, 
+					// no additional select attributes, don't showTopGallery
 					galleryUtils::showUserGalSelectListCreateAllowed('gallery_id');
 					//Deprecated:
 					//galleryUtils::galleriesSelectList(null, 'gallery_id', false);*/
