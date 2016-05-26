@@ -40,12 +40,12 @@ Legend:
      -> Repair zone: View config, improve db and images
 	 -> Danger zone: Configuration raw edit, purge data and delete all images
 	 -> Upgrade zone: (from 1.x or 2.x) Repair misssing database tables, ... 
-  * Maintenance new in Upgrade zone: Compare actual DB with requierd 
+  * New in Maintenance->Upgrade zone: Compare actual DB with requierd 
      RSG2 sql file and fix any discrepancies
   * Maintenance design with icomoon icons
-  * Rewitten code
-     Every function with two icomoon icons on the "button" is completely 
-	 written anew
+  * Rewritten code
+     Every function (button) with two icomoon icons on the "button" 
+	 is completely written anew
   * Basic checks and changes for running under PHP7
 	 
 # Edit of forms 'gallery' and 'images' missed the permission selection 
