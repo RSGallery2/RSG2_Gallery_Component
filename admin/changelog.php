@@ -1,7 +1,6 @@
 <?php
 /**
 * Changelog for RSGallery2
-* @version $Id: changelog.php 1096 2012-07-31 11:27:31Z mirjam $
 * @package RSGallery2
 * @copyright (C) 2003 - 2016 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -12,7 +11,9 @@
 defined( '_JEXEC' ) or die();
 ?>
 
-Check for the latest version of RSGallery2 at http://www.rsgallery2.nl/
+-> Check for the latest version of RSGallery2 at https://github.com/RSGallery2/RSGallery2_Component/releases
+-> Comments and questions in forum http://www.rsgallery2.org/
+-> Documentation (soon) http://documentation.rsgallery2.org
 
 1. Changelog
 ------------
@@ -29,11 +30,27 @@ Legend:
 ^ -> Change
 - -> Removed
 ! -> Note
-
-
 		 
 ---------------- Recent ----------------
 
+* --------------- 4.2.0 -- 2016-05-26 -------------
+
+^ Redesigned maintenance section (form)
+  * Maintenance has now three zones
+     -> Repair zone: View config, improve db and images
+	 -> Danger zone: Configuration raw edit, purge data and delete all images
+	 -> Upgrade zone: (from 1.x or 2.x) Repair misssing database tables, ... 
+  * Maintenance new in Upgrade zone: Compare actual DB with requierd 
+     RSG2 sql file and fix any discrepancies
+  * Maintenance design with icomoon icons
+  * Rewitten code
+     Every function with two icomoon icons on the "button" is completely 
+	 written anew
+  * Basic checks and changes for running under PHP7
+	 
+# Edit of forms 'gallery' and 'images' missed the permission selection 
+# Images in header of slideshow were arranged in two rows instead of one
+  
   
 * --------------- 4.1.0 -- 2016-02-29 -------------
 
