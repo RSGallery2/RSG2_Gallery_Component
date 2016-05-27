@@ -11,8 +11,6 @@ defined( '_JEXEC' ) or die();
 JHtml::_('behavior.tooltip');
 // ToDo: Activate tooltips on every button
 
-global $Rsg2DebugActive;
-
 // public static $extension = 'COM_RSG2';
 
 $doc = JFactory::getDocument();
@@ -85,7 +83,7 @@ function quickiconBar( $link, $image, $title, $text = "", $addClass = '' ) {
  */
 function quickIconMoonBar( $link, $imageClass, $title, $text = "", $addClass = '' ) {
 	?>
-	<div class="rsg2-icon-bar">
+	<div class="rsg2-icon-bar button">
 		<a href="<?php echo $link; ?>" class="<?php echo $addClass; ?>" >
 			<figure class="rsg2-icon">
 				<span class="<?php echo $imageClass ?>" style="font-size:40px;"></span>

@@ -25,10 +25,11 @@
 	text-align: center; /**/
 	border-radius: 8px; /**/	
 	box-shadow: 2px 2px 1px #888888; /**/
+	float:left; /**/
 }
 
 .iconMoon:hover{
-	border-color: darkgreen; /**/
+	border-color: green; /**/
 /*	background-color: blue; /**/
 /*	border: 1px solid #c24733;  /**/
 

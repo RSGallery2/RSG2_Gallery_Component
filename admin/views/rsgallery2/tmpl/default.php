@@ -14,22 +14,17 @@ global $Rsg2DebugActive;
   */
 function RsgIconMoonButton( $link, $imageClass, $text, $addClass='') {
 	?>
-	<!--div class="span2 "-->
-    <div style="float:left;">
-		<div class="iconMoon">
-			<a href="<?php echo $link; ?>">
-				<div class="iconMoonImage<?php echo ' '.$addClass; ?>">
+	<div class="iconMoon button">
+		<a href="<?php echo $link; ?>">
+			<div class="iconMoonImage<?php echo ' '.$addClass; ?>">
 
-					<!--span class="<?php echo $imageClass ?>" style="font-size:40px;"> </span-->
-					<span class="<?php echo $imageClass ?>" style="font-size:40px;"></span>
-					<!-- i class="icon-search"  style="font-size:24px;></i -->
-					
-				</div>
-				<?php echo $text; ?>
-			</a>
-		</div>
+				<span class="<?php echo $imageClass ?>" style="font-size:40px;"></span>
+
+			</div>
+			<?php echo $text; ?>
+		</a>
 	</div>
-    <?php
+	<?php
 }
 
 /**
@@ -126,7 +121,7 @@ function DisplayInfoRsgallery2 ($Rsg2Version)
     echo '<row>';
     echo '<div class="rsg2logo-container">';
     echo '<div class="rsg2logo">';
-    echo '  <img src="'.JUri::root(true).'/administrator/components/com_rsgallery2/images/rsg2-logo.png" align="middle" alt="RSGallery2 logo" />';
+	echo '  <img src="'.JUri::root(true).'/administrator/components/com_rsgallery2/images/rsg2-logo.png" align="middle" alt="RSGallery2 logo" /> ';
     echo '</div>';
     /**/
 //    echo '<table class="table table-striped">';
