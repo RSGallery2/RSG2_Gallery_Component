@@ -14,7 +14,7 @@
 }
 
 .iconMoon{
-	border: 5px; /**/
+	border: 5px solid lightgrey; /**/
 	margin:10px 10px; /**/
 	/* margin:10px auto; /**/
     /* float:left; /**/
@@ -26,6 +26,24 @@
 	border-radius: 8px; /**/	
 	box-shadow: 2px 2px 1px #888888; /**/
 }
+
+.iconMoon:hover{
+	border-color: darkgreen; /**/
+/*	background-color: blue; /**/
+/*	border: 1px solid #c24733;  /**/
+
+}
+
+.iconMoon a:link    {
+	color : #808080;
+}
+
+/**/
+.iconMoon a:active  {
+	/*	color : darkred; /**/
+	background-color: sandybrown;
+}
+
 
 /*
 div.iconimage {
