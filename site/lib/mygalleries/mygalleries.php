@@ -380,6 +380,8 @@ function saveUploadedItem() {
 				}
 				break;
 			case 'error':
+				$msg = JText::_('COM_RSGALLERY2_ERROR_IN_UPLOAD') . $i_file['name'];
+				JFactory::getApplication()->enqueueMessage($msg, 'error');
 			default:
 				$mainframe->redirect( $redirect , JText::_('COM_RSGALLERY2_WRONG_IMAGE_FORMAT_WE_WILL_REDIRECT_YOU_TO_THE_UPLOAD_SCREEN') );
 				break;
