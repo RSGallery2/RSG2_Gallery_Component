@@ -282,9 +282,16 @@ class rsgAuthorisation{
 					} 
 				}
 			} else {
-				// Parent gallery id is 0 (no need to check for create own and ownership)
+				// ? wrong: ? Parent gallery id is 0 (no need to check for create own and ownership)
+				// Permission joomla create ?
 				if ($user->authorise('core.create', 'com_rsgallery2')){
 					$allowed = true;
+				}
+				else {
+					// Permission RSG2 create own ?
+					if ($user->authorise('rsgallery2.create.own', 'com_rsgallery2')){
+						$allowed = true;
+					}
 				}
 			}
 		}
