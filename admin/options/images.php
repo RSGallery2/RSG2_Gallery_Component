@@ -335,7 +335,7 @@ function saveImage( $option, $redirect = true ) {
 		jimport( 'joomla.form.form' );
 		// Add a path for the form XML and get the form instantiated
 		JForm::addFormPath(JPATH_ADMINISTRATOR.'/components/com_rsgallery2/models/forms/');
-		$form = &JForm::getInstance('com_rsgallery2.params','item',array( 'load_data' => false ));
+		$form = JForm::getInstance('com_rsgallery2.params','item',array( 'load_data' => false ));
 		// Filter $data which means that for $data['rules'] the Null values are removed
 		$data = $form->filter($data);
 		if (isset($data['rules']) && is_array($data['rules'])) {
