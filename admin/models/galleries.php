@@ -66,39 +66,51 @@ class rsgallery2ModelGalleries extends JModelList
     {
         $latest = array();
 
-        // Create a new query object.
-        $db = JFactory::getDBO();
-        $query = $db->getQuery(true);
-
-        //$query = 'SELECT * FROM `#__rsgallery2_files` WHERE (`date` >= '. $database->quote($lastweek)
-        //	.' AND `published` = 1) ORDER BY `id` DESC LIMIT 0,5';
-
-        $query
-            ->select('*')
-            ->from($db->quoteName('#__rsgallery2_galleries'))
-            ->order($db->quoteName('id') . ' DESC');
-
-        // $limit > 0 will limit the number of lines returned
-        if ($limit && (int) $limit > 0)
+        try
         {
-            $query->setLimit($limit);
+            // Create a new query object.
+            $db    = JFactory::getDBO();
+            $query = $db->getQuery(true);
+
+            //$query = 'SELECT * FROM `#__rsgallery2_files` WHERE (`date` >= '. $database->quote($lastweek)
+            //	.' AND `published` = 1) ORDER BY `id` DESC LIMIT 0,5';
+
+            $query
+                ->select('*')
+                ->from($db->quoteName('#__rsgallery2_galleries'))
+                ->order($db->quoteName('id') . ' DESC');
+
+            // $limit > 0 will limit the number of lines returned
+            if ($limit && (int) $limit > 0)
+            {
+                $query->setLimit($limit);
+            }
+
+            $db->setQuery($query);
+            $rows = $db->loadObjectList();
+
+            foreach ($rows as $row)
+            {
+                $ImgInfo         = array();
+                $ImgInfo['name'] = $row->name;
+                $ImgInfo['id']   = $row->id;
+                $ImgInfo['user'] = rsg2Common::getUsernameFromId($row->uid);
+
+                $latest[] = $ImgInfo;
+            }
         }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing query: "' . $query . '"' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-        $db->setQuery($query);
-        $rows = $db->loadObjectList();
-
-        foreach ($rows as $row) {
-            $ImgInfo = array();
-            $ImgInfo['name'] = $row->name;
-            $ImgInfo['id'] = $row->id;
-            $ImgInfo['user'] = rsg2Common::getUsernameFromId ($row->uid);
-
-            $latest[] = $ImgInfo;
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
         }
 
         return $latest;
     }
-
 
     /**
      * This function will retrieve the data of the n last uploaded images

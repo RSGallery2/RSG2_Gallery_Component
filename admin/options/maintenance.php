@@ -73,12 +73,17 @@ if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2')) {
 			test();
 			break;
 		default:
+            /*
             // menu_rsg2_submenu::addRSG2Submenu ();
             HTML_RSGALLERY::RSGallerySidebar();
 			HTML_RSGALLERY::RSGalleryHeader('cpanel', JText::_('COM_RSGALLERY2_MAINT_HEADER'));
 			showMaintenanceCP( $option );
 			HTML_RSGALLERY::RSGalleryFooter();
-			break;
+			*/
+            $msg = 'Unexpected maintenance task: "' . $task . '"';
+    		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg);
+
+            break;
 	}	// end task switch
 }
 
@@ -166,7 +171,7 @@ function regenerateImages() {
 }
 /**
  * Function will regenerate thumbs for a specific gallery or set of galleries
- * Perhaps by sampling the oldest thumb from the gallery and checking dimensions against current setting. 
+ * Perhaps by sampling the oldest thumb from the gallery and checking dimensions against current setting.
  */
 /**
  * @throws Exception
@@ -196,7 +201,8 @@ function executeRegenerateThumbImages() {
 				$gallery = rsgGalleryManager::_get($id);
 				$images = $gallery->items();
 				foreach ($images as $image) {
-					$imagename = imgUtils::getImgOriginalPath($image->name, true);
+					//$imagename = imgUtils::getImgOriginalPath($image->name, true);
+					$imagename = imgUtils::getImgOriginal($image->name, true);
 					if (!imgUtils::makeThumbImage($imagename)) {
 						//Error counter
 						$error++;
@@ -245,7 +251,8 @@ function executeRegenerateDisplayImages() {
 				//  So get path not URL (2nd argument "local" false in getImgOriginalPath)
 				//  clean it (get correct Directory Seperator and remove double slashes)
 				//  and convert "%20" to spaces: " " with rawurldecode.
-				$originalImageFullPath = imgUtils::getImgOriginalPath($image->name, true);
+				//$originalImageFullPath = imgUtils::getImgOriginalPath($image->name, true);
+				$originalImageFullPath = imgUtils::getImgOriginal($image->name, true);
 				//Get the name of the image
 				$parts = pathinfo( $originalImageFullPath );
 				$newName = $parts['basename'];
@@ -416,7 +423,7 @@ function regenerateImage() {
 		return;
 	}
 	
-	//Just for readability of code
+	// Just for readability of code
 	$original = JPATH_ORIGINAL . DS . $name;
 	$display  = JPATH_DISPLAY . DS . imgUtils::getImgNameDisplay($name);
 	$thumb    = JPATH_THUMB . DS . imgUtils::getImgNameThumb($name);

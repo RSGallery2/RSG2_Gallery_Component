@@ -361,7 +361,7 @@ class html_rsg2_galleries{
                 <?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'edit')); ?>
 
                     <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'edit',
-                        empty($row->id) ? JText::_('COM_RSGALLERY2_NEW', true) : JText::_('COM_RSGALLERY2_EDIT', true)); ?>
+                        empty($row->id) ? JText::_('COM_RSGALLERY2_NEW', true) : JText::_('COM_RSGALLERY2_EDIT', true) ); ?>
                         <div class="row-fluid">
                             <div class="span6">
                                 <div class="row-fluid form-horizontal-desktop">

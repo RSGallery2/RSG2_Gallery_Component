@@ -10,10 +10,10 @@
 
 defined( '_JEXEC' ) or die(); 
 
-JHtml::_('bootstrap.tooltip'); 
+JHtml::_('bootstrap.tooltip');
+//JHtml::_('formbehavior.chosen', 'select');
+JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'=>3));
 
-JHtml::_('formbehavior.chosen', 'select');
- 
 JText::script('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN');
 JText::script('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST');
 JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED'); 
@@ -142,14 +142,14 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
 </style>
  
 <div id="installer-install" class="clearfix">
-<?php if (!empty( $this->sidebar)) : ?>
-	<div id="j-sidebar-container" class="span2">
-		<?php echo $this->sidebar; ?>
-	</div>
-	<div id="j-main-container" class="span10">
-<?php else : ?>
-	<div id="j-main-container">
-<?php endif;?>
+	<?php if (!empty( $this->sidebar)) : ?>
+		<div id="j-sidebar-container" class="span2">
+			<?php echo $this->sidebar; ?>
+		</div>
+		<div id="j-main-container" class="span10">
+	<?php else : ?>
+		<div id="j-main-container">
+	<?php endif;?>
    
 		<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=upload'); ?>"
 			method="post" name="adminForm" id="adminForm"  enctype="multipart/form-data" class="form-validate form-horizontal" >
@@ -247,7 +247,7 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
 		</form>
 	</div>
 	<div id="loading"></div>
-</div>
+	</div>
 </div>
 
 

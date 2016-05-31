@@ -59,9 +59,10 @@ if (!$canManage) {
 	return;	// 150518 Does not return JError::raiseWarning object $error 
 }
 
+/*
 $document = JFactory::getDocument();
-//$document->addStyleSheet( JURI::base( true )."/components/com_rsgallery2/admin.rsgallery2.css");
 $document->addStyleSheet( JURI_SITE."administrator/components/com_rsgallery2/admin.rsgallery2.css");
+/**/
 
 //require_once( JApplicationHelper::getPath('admin_html') );
 // class HTML_RSGALLERY / showCP / RSGallerySidebar / showUploadStep1

@@ -20,6 +20,13 @@ class menu_rsg2_submenu{
 	 */
 	static function addRSG2Submenu($rsgOption = '', $task = '', $view = '') {
 
+/**	
+		echo '$rsgOption = "' . $rsgOption . '"<br>';
+		echo '$task = "'      . $task      . '"<br>';
+		echo '$view = "'      . $view      . '"<br>';
+		echo '<br><br><br><br><br>';
+/**/	
+	
 		// The template manager (still) has its own submenu
 		if (!($rsgOption == 'installer')){
 			// Control Panel
@@ -49,26 +56,37 @@ class menu_rsg2_submenu{
 				'index.php?option=com_rsgallery2&rsgOption=images',
 		        $rsgOption=='images' AND ($task == '' OR $task == 'view_images'));
 
-			// ToDo: add config
-
-			if ($view == 'config')
+	
+			if ($view == 'config' || $rsgOption == 'config')
 			{
-				// Maintenance
+				// In config add maintenance
 				JHtmlSidebar::addEntry(
 					'<span class="icon-screwdriver" >  </span>'.
 					JText::_('COM_RSGALLERY2_MAINTENANCE'),
 					'index.php?option=com_rsgallery2&view=maintenance',
 					false);
-		}
+			}
 
-			if (substr($view, 5) == 'maint')
+			if (substr($view, 0, 5) == 'maint')
 			{
-				// Maintenance
-				JHtmlSidebar::addEntry(
-					'<span class="icon-screwdriver" >  </span>'.
-					JText::_('COM_RSGALLERY2_MAINTENANCE'),
-					'index.php?option=com_rsgallery2&view=maintenance',
-					true);
+				if ($view == 'maintenance' )
+				{
+					// In maintenance add config
+					JHtmlSidebar::addEntry(
+						'<span class="icon-equalizer" >  </span>' .
+						JText::_('COM_RSGALLERY2_CONFIGURATION'),
+						'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig',
+						false);
+				}
+				else
+				{
+					// In config add maintenance
+					JHtmlSidebar::addEntry(
+						'<span class="icon-screwdriver" >  </span>' .
+						JText::_('COM_RSGALLERY2_MAINTENANCE'),
+						'index.php?option=com_rsgallery2&view=maintenance',
+						false);
+				}
 			}
 
 
@@ -105,7 +123,7 @@ class menu_rsg2_images{
 	 *
 	 */
     static function upload() {
-		JToolBarHelper::title( JText::_('COM_RSGALLERY2_UPLOAD'), 'generic.png' );
+		JToolBarHelper::title(  JText::_('COM_RSGALLERY2_ITEM') . ' ' . JText::_('COM_RSGALLERY2_UPLOAD'), 'generic.png' );
         JToolBarHelper::spacer();
         JToolBarHelper::custom('save_upload','upload.png','upload.png','COM_RSGALLERY2_UPLOAD', false);
         JToolBarHelper::spacer();

@@ -553,14 +553,6 @@ class html_rsg2_images {
 		require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'script.php');
 		?>
 		<form action="<?php echo JRoute::_('index.php'); ?>" method="post" name="adminForm" id="uploadForm" enctype="multipart/form-data" class="form-validate">
-		<table class="adminheading">
-		<tr>
-			<th>
-			<?php echo JText::_('COM_RSGALLERY2_ITEM')?>&nbsp;
-			<?php echo JText::_('COM_RSGALLERY2_UPLOAD')?>
-			</th>
-		</tr>
-		</table>
 
                 <?php if (count(JHtmlSidebar::getEntries()) > 0) : ?>
                     <div id="j-sidebar-container" class="span2">

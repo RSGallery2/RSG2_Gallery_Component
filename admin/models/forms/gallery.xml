@@ -103,7 +103,27 @@
 			<option value="-2">JTRASHED</option>			
 		</field>	
 
-
+	    <!-- asset_id: needed for the Calculated Settings of the Rules to work correctly -->
+	    <field 
+		    name			= "asset_id"
+		    type			= "hidden"
+		    filter			= "unset"
+        />
+    
+	    <!-- rules: needed for the rules -->
+	    <field
+		    id				= "rules"
+		    name			= "rules"
+		    type			= "rules"
+		    label			= ""
+		    translate_label	= "false"
+		    filter			= "rules"
+		    validate		= "rules"
+		    class			= "inputbox"
+		    component		= "com_rsgallery2"
+		    section			= "gallery"
+        />
+		
         <!-- ==================================================================== -->
 		<!--
 		<field
@@ -165,17 +185,10 @@
             label           = ""
         />
 
-        <field
-            name			= "asset_id"
-            type			= "hidden"
-            label           = ""
-        />
-
-        < field
-            name			= ""
-            type			= ""
-            label           = ""
-            />
+	    <field
+		    name			= "extension"
+		    type			= "hidden"/>
+    
 
         <field
             name			= ""

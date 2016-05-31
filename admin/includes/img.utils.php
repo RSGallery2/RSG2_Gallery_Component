@@ -258,7 +258,8 @@ class imgUtils extends fileUtils{
 
         //check if original image needs to be kept, otherwise delete it.
         if ( !$rsgConfig->get('keepOriginalImage') ) {
-            JFile::delete( imgUtils::getImgOriginal( $newName, true ) );
+	        // JFile::delete( imgUtils::getImgOriginalPath ($newName, true));
+	        JFile::delete (imgUtils::getImgOriginal ($newName, true));
         }
 
         return true;
@@ -315,7 +316,7 @@ class imgUtils extends fileUtils{
 			}
 		}
 		
-		//Delete the current item
+		// Delete the current item
 		$row = new rsgImagesItem( $database ); // ToDO: wrong parameter here
 		if ($id){	//When upload goes wrong, there is no item in the database when this function is called to remove the thumb/display/original images + database entry
 			if (!$row->delete($id)){
@@ -333,16 +334,17 @@ class imgUtils extends fileUtils{
     
     /**
      * Creates path of original image or if not exist of the display image
-      * @param string $name name of the image
-      * @param bool $local return a local path instead of URL
-      * @return string complete URL of the image
-      */
-    static function getImgOriginal($name, $local=false){
+     * @param string $name name of the image
+     * @param bool $local return a local path instead of URL
+     * @return string complete URL of the image
+     */
+//	static function getImgOriginalPath($name, $local=false){
+	static function getImgOriginal($name, $local=false){
         global  $rsgConfig;
-        
-		$locale = $local? JPATH_ROOT : JURI_SITE;
+
+		$locale = $local ? JPATH_ROOT : JURI_SITE;
 		// $locale = trim($locale, '/');	//Mirjam: removed trim, getimagesize in GD::resizeImage needs preceeding / in path
-        	
+
         // if original image exists return original, otherwise return the display image instead.
         // Original does exist
         if( file_exists( JPATH_ROOT.$rsgConfig->get('imgPath_original') . '/' . $name )){
@@ -360,10 +362,11 @@ class imgUtils extends fileUtils{
       * @param bool $local return a local path instead of URL
       * @return string complete URL of the image
       */
-    static function getImgDisplay($name, $local=false){
+//	static function getImgDisplayPath($name, $local=false){
+	static function getImgDisplay($name, $local=false){
 		global  $rsgConfig;
         
-        $locale = $local? JPATH_ROOT : JURI_SITE;
+        $locale = $local ? JPATH_ROOT : JURI_SITE;
 		$locale = trim($locale, '/');	
 		
         // if display image exists return display, otherwise return the original image instead
@@ -381,7 +384,8 @@ class imgUtils extends fileUtils{
       * @param bool $local return a local path instead of URL
       * @return string complete URL of the image
       */
-    static function getImgThumb($name, $local=false){
+	//static function getImgThumbPath($name, $local=false){
+	static function getImgThumb($name, $local=false){
         global  $rsgConfig;
         $locale = $local? JPATH_ROOT : JURI_SITE;
 		$locale = trim($locale, '/');	
@@ -663,9 +667,9 @@ class GD2 extends genericImageLib{
 		// the size of the largest side of the image, with that calculate the other side:
 		// - landscape: function input $targetWidth is the actual $targetWidht
 		// - portrait: function input $targetWidth is the height to achieve, so switch!
-		if( $sourceWidth > $sourceHeight ) {	//landscape
+		if( $sourceWidth > $sourceHeight ) {	// landscape
 			$targetHeight = ( $targetWidth / $sourceWidth ) * $sourceHeight;
-		} else {								//portrait or square
+		} else {								// portrait or square
 			$targetHeight = $targetWidth;
 			$targetWidth = ( $targetHeight / $sourceHeight ) * $sourceWidth;
 		}
@@ -721,8 +725,8 @@ class GD2 extends genericImageLib{
         
         //Get details on original image
         $imgdata = getimagesize($source);
-        $width_orig     = $imgdata[0];
-        $height_orig    = $imgdata[1];
+        //$width_orig     = $imgdata[0];
+        //$height_orig    = $imgdata[1];
         $ext            = $imgdata[2];
         
         switch($ext)

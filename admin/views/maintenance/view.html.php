@@ -10,39 +10,36 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 	// ToDo: Use other rights instead of core.admin -> IsRoot ?
 	// core.admin is the permission used to control access to 
 	// the global config
-	protected $UserIsRoot; 	
+	protected $UserIsRoot;
+	protected $debugActive;
+	protected $dangerActive;
+	protected $upgradeActive;
+	protected $testActive;
+	protected $developActive;
 	protected $sidebar;
-	
+
 	//------------------------------------------------
 	public function display ($tpl = null)
-	{	
+	{
+		global $rsgConfig;
+
 		//--- get needed data ------------------------------------------
 		
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
-	
-//		$form = $this->get('Form');
+		$this->debugActive = $rsgConfig->get('debug');
+
+		$this->dangerActive = true; // false / true;
+		$this->upgradeActive = true; // false / true;
+		$this->testActive = false; // false / true;
+		$this->developActive = false; // false / true;
 
 		//--- begin to display --------------------------------------------
 		
-//		Rsg2Helper::addSubMenu('rsg2'); 
-		
-		// Check for errors.
-		if (count($errors = $this->get('Errors'))) 
-		{
-			JError::raiseError(500, implode('<br />', $errors));
-			return false;
-		}
-		
-		// Assign the Data
-		// $this->form = $form;
-        	
 		$this->addToolbar ();
 		$this->sidebar = JHtmlSidebar::render ();
 
 		parent::display ($tpl);
-
-        return;
 	}
 
 	/**
