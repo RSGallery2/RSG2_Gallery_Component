@@ -215,7 +215,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 								</h3>
 							</div>
 							<?php
-								if( $this->debugActive ) {
+								if( $this->dangerActive ) {
 							?>
 									<div class='icons-panel-info'>
 										<strong>
