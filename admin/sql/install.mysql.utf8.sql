@@ -1,7 +1,3 @@
-#
-# install sql for RSGallery2
-#
-
 CREATE TABLE IF NOT EXISTS `#__rsgallery2_galleries` (
   `id` int(11) NOT NULL auto_increment,
   `parent` int(11) NOT NULL default 0,
