@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.modeladmin');
 
 // access to the content of the install.mysql.utf8.sql file
-require_once( JPATH_COMPONENT_ADMINISTRATOR.'/classes/SqlInstallFile.php ' );
+require_once (JPATH_COMPONENT_ADMINISTRATOR . '/classes/sqlinstallfile.php');
 
 // ToDo: write repairs to logfile
 // ToDo: assign db once
