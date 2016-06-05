@@ -1,3 +1,7 @@
+﻿---
+--- galleries
+---
+
 CREATE TABLE IF NOT EXISTS `#__rsgallery2_galleries` (
   `id` int(11) NOT NULL auto_increment,
   `parent` int(11) NOT NULL default 0,
@@ -19,6 +23,10 @@ CREATE TABLE IF NOT EXISTS `#__rsgallery2_galleries` (
   `access` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+---
+--- images
+---
 
 CREATE TABLE IF NOT EXISTS `#__rsgallery2_files` (
   `id` int(9) unsigned NOT NULL auto_increment,
@@ -45,6 +53,10 @@ CREATE TABLE IF NOT EXISTS `#__rsgallery2_files` (
   KEY `id` (`id`)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+---
+--- comments
+---
+
 CREATE TABLE IF NOT EXISTS `#__rsgallery2_comments` (
   `id` int(11) NOT NULL auto_increment,
   `user_id` int(11) NOT NULL,
@@ -65,12 +77,21 @@ CREATE TABLE IF NOT EXISTS `#__rsgallery2_comments` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+---
+--- configuration
+---
+
 CREATE TABLE IF NOT EXISTS `#__rsgallery2_config` (
   `id` int(9) unsigned NOT NULL auto_increment,
   `name` text NOT NULL,
   `value` text NOT NULL,
  PRIMARY KEY `id` (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+---
+--- acl permissions
+---
 
 CREATE TABLE IF NOT EXISTS `#__rsgallery2_acl` (
   `id` int(11) NOT NULL auto_increment,
