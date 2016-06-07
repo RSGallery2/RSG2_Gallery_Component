@@ -33,9 +33,13 @@ An overview can be seen on the wiki of this component
 
 ![lovelocksgallery 01](https://cloud.githubusercontent.com/assets/7040580/10307011/60de773e-6c2b-11e5-8008-1061454e6720.png)
 
-#Backend control panel:
+#Backend Control Panel panel:
 
-![RSGallery2 control panel](https://cloud.githubusercontent.com/assets/7040580/9760250/c666941c-56f3-11e5-88a3-b2fbb5abb55a.png)
+![rsgallery2controlpanel](https://cloud.githubusercontent.com/assets/7040580/15866364/8ce88422-2cde-11e6-8119-86ed585bfcfc.png)
+
+#Backend Maintenance view
+
+![rsgallery2maintenance 02](https://cloud.githubusercontent.com/assets/7040580/15866405/bcb2bb96-2cde-11e6-828f-3952e4fe6cb7.png)
 
 ## Forum
 
