@@ -8,7 +8,8 @@
 
 defined( '_JEXEC' ) or die();
 
-JHtml::_('behavior.tooltip');
+// ToDo: remove all JHtml::_('behavior.tooltip'); use JHtml::_('bootstrap.tooltip');
+JHtml::_('bootstrap.tooltip');
 
 global $Rsg2DebugActive;
 
@@ -17,6 +18,79 @@ JHtml::_('formbehavior.chosen', 'select');
 $doc = JFactory::getDocument();
 $doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/ConsolidateDb.css");
 
+?>
+
+// JFactory::getDocument()->addScriptDeclaration('
+
+<script type="text/javascript">
+
+	/*
+	Deselect all (checkboxes)
+	*/
+	Joomla.checkNone = function() {
+
+		alert ('checkNone');
+
+/**
+		if (typeof jQuery == 'undefined') {
+			// jQuery is not loaded
+			alert ('jquery not loaded');
+		} else {
+			// jQuery is loaded
+			alert ('jquery loaded');
+		}
+/**/
+		var ids = '';
+
+		// alert ('a');
+		// window.parent.jQuery("a").each(function() {
+		window.parent.jQuery(".db_missing").each(function() {
+			// alert ('b1');
+			var id = window.parent.jQuery(this).attr('id');
+			// alert ('b2');
+			if (id != undefined && id != "") {
+				// alert ('b3');
+				// alert('id: ' + id);
+				// alert ('b4');
+				ids = ids + (ids.length > 0 ? "," + id : id);
+				// alert ('b5');
+				// deactivate the image in row
+				this.checked = false;
+				// alert ('b6');
+			}
+		});
+		alert(ids);
+		
+		return true;
+	};
+
+	// create database entry for one image item
+	// Other checkboxes are already disabled
+	Joomla.createDbEntry = function(checkbox) {
+
+		alert ('createDbEntry: ' +  checkbox.id);
+
+		// Activate the image in row
+		window.parent.jQuery("#" + checkbox.id).each(function() {
+			alert ('b1');
+			this.checked = true;
+			alert ('b2');
+		});
+		alert ('c');
+
+		var form = document.getElementById('adminForm');
+		form.task.value = 'MaintConsolidateDb.createDbEntries';
+		alert ('d');
+
+		form.submit();
+		alert ('e');
+	}
+
+</script>
+
+<?php
+
+//  );
 /**
  * @param $ImageData
  */
@@ -84,8 +158,66 @@ function DisplayImageDataTable ($ImagesData) {
 		// echo '            <td>' . $ImageData['IsImageInDatabase'] . '</td>';
 		if ($ImageData['IsImageInDatabase']) {
 			echo '<td class="center"><span class="icon-ok "> </span> </td>';
-		} else {
-			echo '<td class="center"><span class="icon-cancel "> </span> </td>';
+		} else
+		{
+			// echo '<td class="center"><span class="icon-cancel "> </span> </td>';
+
+			$html = array ();
+			$html[] = '<td class="center">';
+			$html[] = '     <a class="btn btn-micro jgrid hasTooltip db_missing" ';
+			$html[] = '         id="db' . $Idx . '" ';
+			$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_DATABASE_ENTRY').'" ';
+			$html[] = '         onclick="Joomla.checkNone(this); return Joomla.createDbEntry(this);"';
+			$html[] = '     >';
+			$html[] = '         <span class="icon-database"></span>';
+			$html[] = '     </a>';
+			$html[] = '</td>';
+
+			echo implode(' ', $html);
+
+			$html = array ();
+			$html[] = '';
+			$html[] = '';
+			$html[] = '';
+			$html[] = '';
+			$html[] = '';
+			$html[] = '';
+			$html[] = '';
+
+			//echo htmlentities($html);
+
+			/*
+			echo '<td class="center">';
+			echo '		<a class="btn btn-micro active hasTooltip" title=""';
+			echo '			onclick="return listItemTask(\'cb1\',\'categories.unpublish\')"';
+			echo '            href="javascript:void(0);" data-original-title="Unpublish Item">';
+			echo '			<span class="icon-publish"></span>';
+			echo '		</a>';
+			echo '	</td>';
+			/**/
+			/**
+			 * $html[] = '<a class="btn btn-micro' . ($active_class == 'publish' ? ' active' : '') . ($tip ? ' hasTooltip' : '') . '"';
+			 * $html[] = ' href="javascript:void(0);" onclick="return listItemTask(\'' . $checkbox . $i . '\',\'' . $prefix . $task . '\')"';
+			 * $html[] = $tip ? ' title="' . $title . '"' : '';
+			 * $html[] = '>';
+			 * $html[] = '<span class="icon-' . $active_class . '"></span>';
+			 * $html[] = '</a>';
+			 *
+			 * $html[] = '<td class="order" align="center">';
+			 * $html[] = '     <span class="order-up">';
+			 * $html[] = '         <a title="<?php echo WFText::_(\'WF_PROFILES_MOVE_UP\');?>" href="#" class="btn btn-micro jgrid"><i class="icon-uparrow icon-chevron-up"></i></a>';
+			 * $html[] = '     </span>';
+			 * $html[] = '      <span class="order-down">';
+			 * $html[] = '         <a title="<?php echo WFText::_(\'WF_PROFILES_MOVE_DOWN\');?>" href="#" class="btn btn-micro jgrid"><i class="icon-downarrow icon-chevron-down"></i></a>';
+			 * $html[] = '     </span>';
+			 * $html[] = '     <?php $disabled = $n > 1 ? \'\' : \'disabled="disabled"\'; ?>';
+			 * $html[] = '<input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" <?php echo $disabled ?> class="text_area" style="text-align: center" />';
+			 * $html[] = '</td>';
+			 * $html[] = '<a href="#" onclick="return listItemTask(\'cb' . $i . '\',\'' . $state[1] . '\')" class="btn btn-micro hasTooltip'
+			 * . ($value == 1 ? ' active' : '') . '" title="' . JHtml::tooltipText($state[3]) . '"><span class="icon-' . $icon . '"></span></a>';
+			 * $html[] = '<a class="btn btn-micro hasTooltip disabled' . ($value == 1 ? ' active' : '') . '" title="' . JHtml::tooltipText($state[2])
+			 * . '"><span class="icon-' . $icon . '"></span></a>';
+			 * /**/
 		}
 
 		//echo '            <td>' . $ImageData['IsDisplayImageFound'] . '</td>';
