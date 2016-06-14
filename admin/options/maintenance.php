@@ -249,7 +249,7 @@ function executeRegenerateDisplayImages() {
 				//  "C:\xampp\htdocs\images\rsgallery\original\test space in name.jpg" or 
 				//  "/public_html/httpdocs/images/rsgallery/original/test space in name.jpg"
 				//  So get path not URL (2nd argument "local" false in getImgOriginalPath)
-				//  clean it (get correct Directory Seperator and remove double slashes)
+				//  clean it (get correct Directory Separator and remove double slashes)
 				//  and convert "%20" to spaces: " " with rawurldecode.
 				//$originalImageFullPath = imgUtils::getImgOriginalPath($image->name, true);
 				$originalImageFullPath = imgUtils::getImgOriginal($image->name, true);

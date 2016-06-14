@@ -32,7 +32,7 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 		$this->dangerActive = true; // false / true;
 		$this->upgradeActive = true; // false / true;
 		$this->testActive = false; // false / true;
-		$this->developActive = false; // false / true;
+		$this->developActive = true; // false / true;
 
 		//--- begin to display --------------------------------------------
 		
