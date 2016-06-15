@@ -263,5 +263,20 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
     }
     /**/
 
+    public function createDbEntries () {
+        $msg = "model.createDbEntries: " . '<br>';
+
+
+
+
+        //--- optimized message -------------------------------------
+        $msg .= '<br>' . JText::_('COM_RSGALLERY2_MAINT_OPTIMIZE_SUCCESS', true);
+
+        return $msg;
+    }
+
+
+
+
 }
 
