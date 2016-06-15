@@ -20,8 +20,6 @@ $doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/
 
 ?>
 
-// JFactory::getDocument()->addScriptDeclaration('
-
 <script type="text/javascript">
 
 	/*
@@ -72,18 +70,18 @@ $doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/
 
 		// Activate the image in row
 		window.parent.jQuery("#" + checkbox.id).each(function() {
-			alert ('b1');
+//			alert ('b1');
 			this.checked = true;
-			alert ('b2');
+//			alert ('b2');
 		});
-		alert ('c');
+//		alert ('c');
 
 		var form = document.getElementById('adminForm');
 		form.task.value = 'MaintConsolidateDb.createDbEntries';
-		alert ('d');
+//		alert ('d');
 
 		form.submit();
-		alert ('e');
+//		alert ('e');
 	}
 
 </script>
@@ -372,7 +370,6 @@ function DisplayImageDataTable ($ImagesData) {
 			<input type="hidden" name="boxchecked" value="0" />
 
 			<?php echo JHtml::_('form.token'); ?>
-
         </form>
 	</div>
 </div>

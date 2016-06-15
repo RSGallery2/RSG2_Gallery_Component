@@ -39,7 +39,7 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 
 		$this->DisplayImageData = $ConsolidateModel->GetDisplayImageData ();
 
-		echo json_encode($this->DisplayImageData);
+		// echo json_encode($this->DisplayImageData);
 
 		/*
                 global $rsgConfig;

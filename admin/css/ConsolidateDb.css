@@ -7,4 +7,8 @@ SPAN.icon-ok {
 SPAN.icon-cancel {
 	color:red; /**/
 }
-	
+
+a.db_missing {
+	color:red; /**/
+}
+

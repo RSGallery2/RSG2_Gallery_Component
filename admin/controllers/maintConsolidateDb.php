@@ -30,7 +30,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		parent::__construct($config);
 	}
 
-    public function getModel($name = 'xMaintCleanUp',
+    public function getModel($name = 'maintConsolidateDB',
  							 $prefix = 'rsgallery2Model', 
   							 $config = array())
 	{
@@ -45,10 +45,9 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 	 *
 	 */
 	public function createDbEntries () {
-		JFactory::getApplication()->enqueueMessage('!!! createDbEntries <br> ', 'warning');
-
-		$msg = "createDbEntries: ";
+		$msg = "controller.createDbEntries: ";
 		$msgType = 'notice';
+
 		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
 		if (!$canAdmin) {
 			//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
@@ -57,13 +56,19 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 			// replace newlines with html line breaks.
 			str_replace('\n', '<br>', $msg);
 		} else {
-			
-			
-			
+
+
+			// Model tells if successful
+			$model = $this->getModel('maintConsolidateDB');
+			$msg .= $model->createDbEntries();
+
 			
 		}
 
-		$this->setRedirect('index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB', $msg, $msgType);
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
+
+// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
+// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
 	}
 
 	
