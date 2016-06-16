@@ -110,22 +110,106 @@ function DisplayImageDataTable ($ImagesData) {
     echo '        <tr>';
 //    echo '            <th>' . 'Index checkbox'. '</th>'; class="center" width="1%"
 
-	echo '            <th>' . '<input class="hasTooltip" type="checkbox" onclick="Joomla.checkAll(this)" title="" value="" 
-					name="checkall-toggle" data-original-title="Check All">';
+//	echo '            <th>' . '<input class="hasTooltip" type="checkbox" onclick="Joomla.checkAll(this)" title="" value=""
+//					name="checkall-toggle" data-original-title="Check All">'.'</th>';
 
-    echo '            <th>'.JText::_('COM_RSGALLERY2_FILENAME').'</th>';
+	echo '            <th>'.JText::_('Select all').'</th>';
+	echo '            <th>'.JText::_('COM_RSGALLERY2_FILENAME').'</th>';
     echo '            <th class="center">'.JText::_('COM_RSGALLERY2_IN_BR_DATABASE').'</th>';
     echo '            <th class="center">'.JText::_('COM_RSGALLERY2_DISPLAY_BR_FOLDER').'</th>';
     echo '            <th class="center">'.JText::_('COM_RSGALLERY2_ORIGINAL_BR_FOLDER').'</th>';
     echo '            <th class="center">'.JText::_('COM_RSGALLERY2_THUMB_FOLDER').'</th>';
-//    echo '            <th class="center">'.JText::_('COM_RSGALLERY2_WATERMARK_FOLDER').'</th>';
+// ToDo:   echo '            <th class="center">'.JText::_('COM_RSGALLERY2_WATERMARK_FOLDER').'</th>';
+	echo '            <th class="center">'.JText::_('COM_RSGALLERY2_DELETE_IMAGES').'</th>';
     echo '            <th class="center">'.JText::_('COM_RSGALLERY2_PARENT_BR_GALLERY').'</th>';
     echo '            <th class="center">'.JText::_('COM_RSGALLERY2_IMAGE').'</th>';
 
-
-
-//    echo '            <th>'.JText::_('COM_RSGALLERY2_ACTION').'</th>';
     echo '        </tr>';
+
+// Second row with command buttons
+
+	echo '        <tr>';
+	echo '            <th>' . '<input class="hasTooltip" type="checkbox" onclick="Joomla.checkAll(this)" title="" value="" 
+					name="checkall-toggle" data-original-title="Check All">'.'</th>';
+	echo '            <th class="align-right">'.JText::_('Tasks').'</th>';
+
+	if(true){ //$this->IsHeaderActive4DB){
+		$html = array ();
+		$html[] = '<th class="center">';
+		$html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
+		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_DATABASE_ENTRIES').'" ';
+		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.createDbEntries();"';
+		$html[] = '     >';
+		$html[] = '         <span class="icon-database"></span>';
+		$html[] = '     </a>';
+		$html[] = '</th>';
+
+		echo implode(' ', $html);
+	} else {
+		echo '            <th class="center">'.''.'</th>';
+	}
+	if(true){ //$this->IsHeaderActive4Display){
+		$html = array ();
+		$html[] = '<th class="center">';
+		$html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
+		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_MISSING_IMAGES').'" ';
+		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.createDbEntries();"';
+		$html[] = '     >';
+		$html[] = '         <span class="icon-image"></span>';
+		$html[] = '     </a>';
+		$html[] = '</th>';
+
+		echo implode(' ', $html);
+	} else {
+		echo '            <th class="center">'.''.'</th>';
+	}
+	if(true){ //$this->IsHeaderActive4Original){
+		$html = array ();
+		$html[] = '<th class="center">';
+		$html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
+		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_MISSING_IMAGES').'" ';
+		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.createDbEntries();"';
+		$html[] = '     >';
+		$html[] = '         <span class="icon-image"></span>';
+		$html[] = '     </a>';
+		$html[] = '</th>';
+
+		echo implode(' ', $html);
+	} else {
+		echo '            <th class="center">'.''.'</th>';
+	}
+	if(true){ //$this->IsHeaderActive4Thumb){
+		$html = array ();
+		$html[] = '<th class="center">';
+		$html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
+		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_MISSING_IMAGES').'" ';
+		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.createDbEntries();"';
+		$html[] = '     >';
+		$html[] = '         <span class="icon-image"></span>';
+		$html[] = '     </a>';
+		$html[] = '</th>';
+
+		echo implode(' ', $html);
+	} else {
+		echo '            <th class="center">'.''.'</th>';
+	}
+	if (true){ //$this->IsHeaderActive4Parent){
+		$html = array ();
+		$html[] = '<th class="center">';
+		$html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
+		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_ASSIGN_GALLLERY').'" ';
+		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.createDbEntries();"';
+		$html[] = '     >';
+		$html[] = '         <span class="icon-images"></span>';
+		$html[] = '     </a>';
+		$html[] = '</th>';
+
+		echo implode(' ', $html);
+	} else {
+		echo '            <th class="center">'.''.'</th>';
+	}
+
+	echo '        </tr>';
     echo '    </thead>';
 
         //--- data ----------------------------------
@@ -220,7 +304,8 @@ function DisplayImageDataTable ($ImagesData) {
 
 		//echo '            <td>' . $ImageData['IsDisplayImageFound'] . '</td>';
 		if ($ImageData['IsDisplayImageFound']) {
-			echo '<td class="center"><span class="icon-ok"> </span> </td>';
+			// echo '<td class="center"><span class="icon-ok"> </span> </td>';
+			echo '<td class="center"><i class="icon-ok hasTooltip" title="" data-original-title="display image found"></i></td>';
 		} else {
 			echo '<td class="center"><span class="icon-cancel"> </span> </td>';
 		}
