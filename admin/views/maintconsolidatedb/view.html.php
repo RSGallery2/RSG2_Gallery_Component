@@ -20,11 +20,16 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 
 	protected $DisplayImageData;
 
+	/**
 	protected $IsHeaderActive4DB;
 	protected $IsHeaderActive4Display;
 	protected $IsHeaderActive4Original;
 	protected $IsHeaderActive4Thumb;
 	protected $IsHeaderActive4Parent;
+	/**/
+
+	protected $IsAnyDbRefMissing; // header
+
 
 	//------------------------------------------------
 	/**
