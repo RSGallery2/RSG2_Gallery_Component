@@ -356,7 +356,7 @@ function DisplayImageDataTable ($ImagesData) {
 		}
 		// Image is defined
 		if ($ImageData->ImagePath != '') {
-			echo '            <td class="center">' . '<img width="80" alt="' . $ImageData->->imageName
+			echo '            <td class="center">' . '<img width="80" alt="' . $ImageData->imageName
 				. '" name="image" src="' . JUri::root(true) . $ImageData->ImagePath . '">' . '</td>';
 		}
 		else{
