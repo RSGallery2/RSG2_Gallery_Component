@@ -50,13 +50,6 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 
 		$this->DisplayImageData = $ConsolidateModel->GetDisplayImageData ();
 
-		// debug settings only
-		$this->IsHeaderActive4DB = true;
-		$this->IsHeaderActive4Display = true;
-		$this->IsHeaderActive4Original = true;
-		$this->IsHeaderActive4Thumb = true;
-		$this->IsHeaderActive4Parent = true;
-
 		// echo json_encode($this->DisplayImageData);
 
 		/*

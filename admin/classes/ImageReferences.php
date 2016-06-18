@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 /**
 * access to the content of the 'install.mysql.utf8.sql' file
 * @package Rsgallery2
@@ -13,6 +13,9 @@ defined('_JEXEC') or die;
 // Include the JLog class.
 jimport('joomla.log.log');
 
+// access to the content of the install.mysql.utf8.sql file
+require_once (JPATH_COMPONENT_ADMINISTRATOR . '/classes/ImageReference.php');
+
 
 /*------------------------------------------------------------------------------------
 ImageReferences
@@ -21,19 +24,24 @@ ImageReferences
 
 ------------------------------------------------------------------------------------*/
 
+
 /**
  * Class ImageReferences
  */
 class ImageReferences
 {
     /**
-     * @var 
+     * @var ImageReference [] 
      */
-
+    protected $ImageReferences;
+    
+    
+    
+    
     protected $DbImageList; // 'name', 'gallery_id'
     protected $DbImageNames; // Name in lower case ?
 
-    public function GetDisplayImageData ()
+    public function CollectImageReferences ()
     {
         global $rsgConfig;
 
@@ -173,83 +181,60 @@ class ImageReferences
         {
             $MissingLocation = false;
 
-            $ImagesData = [];
-            $ImagesData['imageName'] = $BaseFile;
+            $ImagesData = new ImageReference();
+            $ImagesData->imageName = $BaseFile;
 
             if (in_array($BaseFile, $DbImageNames))
             {
-                $ImagesData['IsImageInDatabase'] = true;
-            }
-            else
-            {
-                $MissingLocation = true;
-                $ImagesData['IsImageInDatabase'] =  false;
+                $ImagesData->IsImageInDatabase = true;
             }
 
             if (in_array($BaseFile, $files_display))
             {
-                $ImagesData['IsDisplayImageFound'] =  true;
-            }
-            else
-            {
-                $MissingLocation = true;
-                $ImagesData['IsDisplayImageFound'] =  false;
+                $ImagesData->IsDisplayImageFound =  true;
             }
 
             if (in_array($BaseFile, $files_original))
             {
-                $ImagesData['IsOriginalImageFound'] =  true;
-            }
-            else
-            {
-                $MissingLocation = true;
-                $ImagesData['IsOriginalImageFound'] =  false;
+                $ImagesData->IsOriginalImageFound =  true;
             }
 
             if (in_array($BaseFile, $files_thumb))
             {
-                $ImagesData['IsThumbImageFound'] =  true;
-            }
-            else
-            {
-                $MissingLocation = true;
-                $ImagesData['IsThumbImageFound'] =  false;
+                $ImagesData->IsThumbImageFound =  true;
             }
 
-            if ($MissingLocation)
+//            if ($MissingLocation)
+            if ($ImagesData->IsOneLocationMissing ())
             {
                 //--- ImagePath ----------------------------------------------------
 
-                if ($ImagesData['IsImageInDatabase'] == true)
+                if ($ImagesData->IsImageInDatabase == true)
                 {
-                    $ImagesData['ParentGalleryId'] = $this->getParentGalleryIdFromImageName ($BaseFile);
+                    $ImagesData->ParentGalleryId = $this->getParentGalleryIdFromImageName ($BaseFile);
                 }
                 else
                 {
                     // Not existing
-                    $ImagesData['ParentGalleryId'] = -1; // '0';
+                    // $ImagesData->ParentGalleryId = -1; // '0';
                 }
-
-
 
                 //--- ImagePath ----------------------------------------------------
 
-                // Assign most significant (matching destinatinó0n) image
-                $ImagesData['ImagePath'] =  '';
-
-
-                if($ImagesData['IsOriginalImageFound']){
-                    $ImagesData['ImagePath'] = $rsgConfig->get('imgPath_original') . '/' . $ImagesData['imageName'];
+                // Assign most significant (matching destinatination) image
+                $ImagesData->ImagePath =  '';
+                
+                if($ImagesData->IsOriginalImageFound){
+                    $ImagesData->imagePath = $rsgConfig->get('imgPath_original') . '/' . $ImagesData->imageName;
                 }
 
-                if($ImagesData['IsDisplayImageFound']){
-                    $ImagesData['ImagePath'] =  $rsgConfig->get('imgPath_display') . '/' . $ImagesData['imageName'] . '.jpg';
+                if($ImagesData->IsDisplayImageFound){
+                    $ImagesData->imagePath =  $rsgConfig->get('imgPath_display') . '/' . $ImagesData->imageName . '.jpg';
                 }
 
-                if($ImagesData['IsThumbImageFound']){
-                    $ImagesData['ImagePath'] = $rsgConfig->get('imgPath_thumb') . '/' . $ImagesData['imageName'] . '.jpg';
+                if($ImagesData->IsThumbImageFound){
+                    $ImagesData->imagePath = $rsgConfig->get('imgPath_thumb') . '/' . $ImagesData->imageName . '.jpg';
                 }
-
 
                 $DisplayImageData [] = $ImagesData;
             }

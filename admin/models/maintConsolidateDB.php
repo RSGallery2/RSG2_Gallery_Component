@@ -15,19 +15,33 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 {
 
     /**
+     * @var ImageReference []
+     */
+    protected $ImageReferenceList;
+
+    public function GetDisplayImageData () {
+
+        if (empty($this->ImageReferences))
+        {
+            $this->CreateDisplayImageData ();
+        }
+
+        return $this->ImageReferences;
+    }
+
+
+    /**
      * Runs optimization for each table
      *
      * @return string operation messages
      */
-    public function ()
+    public function CreateDisplayImageData ()
     {
         $msg = ''; //  ": " . '<br>';
 
-        if (empty($this->sqlFile))
-        {
-            $this->sqlFile = new SqlInstallFile ();
-        }
-
+        //
+        $ImageReferences = new ImageReferences ();
+        $this->ImageReferenceList = $ImageReferences->CollectImageReferences ();
 
         return $msg;
     }

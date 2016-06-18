@@ -90,7 +90,7 @@ $doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/
 
 //  );
 /**
- * @param $ImageData
+ * @param ImageReference $ImageData
  */
 function DisplayImageDataTable ($ImagesData) {
 
@@ -248,10 +248,10 @@ function DisplayImageDataTable ($ImagesData) {
 			. $Idx . '5" name="cid[]">';
 
 
-		echo '            <td>' . $ImageData['imageName'] . '</td>';
+		echo '            <td>' . $ImageData->imageName . '</td>';
 
-		// echo '            <td>' . $ImageData['IsImageInDatabase'] . '</td>';
-		if ($ImageData['IsImageInDatabase']) {
+		// echo '            <td>' . $ImageData->IsImageInDatabase . '</td>';
+		if ($ImageData->IsImageInDatabase) {
 			echo '<td class="center"><span class="icon-ok "> </span> </td>';
 		} else
 		{
@@ -315,31 +315,31 @@ function DisplayImageDataTable ($ImagesData) {
 			 * /**/
 		}
 
-		//echo '            <td>' . $ImageData['IsDisplayImageFound'] . '</td>';
-		if ($ImageData['IsDisplayImageFound']) {
+		//echo '            <td>' . $ImageData->IsDisplayImageFound . '</td>';
+		if ($ImageData->IsDisplayImageFound) {
 			// echo '<td class="center"><span class="icon-ok"> </span> </td>';
 			echo '<td class="center"><i class="icon-ok hasTooltip" title="" data-original-title="display image found"></i></td>';
 		} else {
 			echo '<td class="center"><span class="icon-cancel"> </span> </td>';
 		}
 
-		//echo '            <td>' . $ImageData['IsOriginalImageFound'] . '</td>';
-		if ($ImageData['IsOriginalImageFound']) {
+		//echo '            <td>' . $ImageData->IsOriginalImageFound . '</td>';
+		if ($ImageData->IsOriginalImageFound) {
 			echo '<td class="center"><span class="icon-ok"> </span> </td>';
 		} else {
 			echo '<td class="center"><span class="icon-cancel"> </span> </td>';
 		}
 
-		//echo '            <td>' . $ImageData['IsThumbImageFound'] . '</td>';
-		if ($ImageData['IsThumbImageFound']) {
+		//echo '            <td>' . $ImageData->IsThumbImageFound . '</td>';
+		if ($ImageData->IsThumbImageFound) {
 			echo '<td class="center"><span class="icon-ok"> </span> </td>';
 		} else {
 			echo '<td class="center"><span class="icon-cancel"> </span></td>';
 		}
 
 		/*
-              //echo '            <td>' . $ImageData['IsWatermarkImageFound'] . '</td>';
-                if ($ImageData['IsWatermarkImageFound']) {
+              //echo '            <td>' . $ImageData->IsWatermarkImageFound . '</td>';
+                if ($ImageData->IsWatermarkImageFound) {
                     echo '<td class="center"><span class="icon-ok" </td>';
                 }
                 else
@@ -348,16 +348,16 @@ function DisplayImageDataTable ($ImagesData) {
                 }
         */
 
-		if ($ImageData['ParentGalleryId'] > -1) {
-			echo '            <td class="center">' . $ImageData['ParentGalleryId'] . '</td>';
+		if ($ImageData->ParentGalleryId > -1) {
+			echo '            <td class="center">' . $ImageData->ParentGalleryId . '</td>';
 		}
 		else {
 			echo '            <td class="center"><span class="icon-cancel"></td>';
 		}
 		// Image is defined
-		if ($ImageData['ImagePath'] != '') {
-			echo '            <td class="center">' . '<img width="80" alt="' . $ImageData['imageName']
-				. '" name="image" src="' . JUri::root(true) . $ImageData['ImagePath'] . '">' . '</td>';
+		if ($ImageData->ImagePath != '') {
+			echo '            <td class="center">' . '<img width="80" alt="' . $ImageData->->imageName
+				. '" name="image" src="' . JUri::root(true) . $ImageData->ImagePath . '">' . '</td>';
 		}
 		else{
 			echo '            <td class="center"><span class="icon-cancel"></td>';
