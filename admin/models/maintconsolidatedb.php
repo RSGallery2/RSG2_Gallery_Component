@@ -26,7 +26,7 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
             $this->CreateDisplayImageData ();
         }
 
-        return $this->ImageReferences;
+        return $this->ImageReferenceList;
     }
 
 
