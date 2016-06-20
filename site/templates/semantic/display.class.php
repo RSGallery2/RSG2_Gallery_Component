@@ -235,11 +235,18 @@ class rsgDisplay_semantic extends rsgDisplay{
 			// no items to display, so we can return;
 			return;
 		}
-		//Old rights management. If user is owner or user is Super Administrator, you can edit this gallery
-		if(( $my->id <> 0 ) and (( $this->gallery->uid == $my->id ) OR ( $my->usertype == 'Super Administrator' )))
+		// Rights management. If user is owner or user is Super Administrator, you can edit this gallery
+		// ToDo: Check authorise below. Looks like reference to gallery is needed for core.edit.own
+		if((( $my->id <> 0 ) && ( $this->gallery->uid == $my->id) && ($my->authorise('core.edit.own', 'com_rsgallery2')))
+			// OR ( $my->usertype == 'Super Administrator' )))
+				|| $my->authorise('core.admin', 'com_rsgallery2')
+				|| $my->authorise('core.edit', 'com_rsgallery2')
+				) {
 			$this->allowEdit = true;
-		else
-			$this->allowEdit = true;
+		}
+		else {
+			$this->allowEdit = false;
+		}
 
 		switch( $rsgConfig->get( 'display_thumbs_style' )){
 			case 'float':
