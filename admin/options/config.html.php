@@ -327,10 +327,9 @@ class html_rsg2_config{
                                     <?php echo JText::_('COM_RSGALLERY2_DEBUG') ?>
                                 </td>
 								<td>
-                                    <fieldset id="jform_block" class="radio btn-group btn-group-yesno">
-                                        <?php echo JHtml::_("select.booleanlist",'debug', 'class="inputbox"', $config->debug); ?>
-                                    </fieldset>
-                                    <br />
+									<fieldset id="jform_debug" class="radio btn-group btn-group-yesno">
+										<?php echo JHtml::_("select.booleanlist",'debug', 'class="inputbox"', $config->debug); ?>
+									</fieldset>
                                 </td>
                             </tr>
                             <tr>
@@ -348,7 +347,7 @@ class html_rsg2_config{
                                     <?php echo JText::_('COM_RSGALLERY2_ADVANCED_SEF_ALL_CATEGORY_NAMES_AND_ITEM_TITLES_MUST_BE_UNIQUE'); ?>
                                 </td>
 								<td>
-                                    <fieldset id="jform_block" class="radio btn-group btn-group-yesno">
+                                    <fieldset id="jform_advancedSef" class="radio btn-group btn-group-yesno">
                                         <?php echo JHtml::_("select.booleanlist",'advancedSef', '', $config->advancedSef); ?>
                                     </fieldset>
 								</td>
@@ -428,7 +427,7 @@ class html_rsg2_config{
 					                    '', JText::_('COM_RSGALLERY2_RSG2_USE_IPTC')); ?>
 								</td>
 								<td width="78%">
-									<fieldset id="jform_block" class="radio btn-group btn-group-yesno">
+									<fieldset id="jform_useIPTCinformation" class="radio btn-group btn-group-yesno">
 										<?php echo JHtml::_("select.booleanlist",'useIPTCinformation', '', $config->useIPTCinformation);?>
 									</fieldset>
 								</td>
@@ -473,10 +472,7 @@ class html_rsg2_config{
                                         	$config->IsPreSelectLatestGallery); ?>
 									</fieldset>
 								</td>
-
 							</tr>
-
-
 						</table>
 					</fieldset>
 

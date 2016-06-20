@@ -131,7 +131,7 @@ function DisplayImageDataTable ($ImagesData) {
 	echo '        <tr>';
 	echo '            <th>' . '<input class="hasTooltip" type="checkbox" onclick="Joomla.checkAll(this)" title="" value="" 
 					name="checkall-toggle" data-original-title="Check All">'.'</th>';
-	echo '            <th class="align-right">'.JText::_('Tasks').'</th>';
+	echo '            <th class="align-right">'.''.'</th>';
 
 	if(true){ //$this->IsHeaderActive4DB){
 		$html = array ();
@@ -200,21 +200,31 @@ function DisplayImageDataTable ($ImagesData) {
 		$html[] = '     >';
 		$html[] = '         <span class="icon-delete"></span>';
 		$html[] = '     </a>';
-		$html[] = '</th>';
-
-		echo implode(' ', $html);
-//	} else {
-//		echo '            <th class="center">'.''.'</th>';
-//	}
-	if (true){ //$this->IsHeaderActive4Parent){
-		$html = array ();
-		$html[] = '<th class="center">';
 		$html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
 		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_ASSIGN_GALLLERY').'" ';
 		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.createDbEntries();"';
 		$html[] = '     >';
 		$html[] = '         <span class="icon-images"></span>';
 		$html[] = '     </a>';
+		$html[] = '</th>';
+
+		echo implode(' ', $html);
+//	} else {
+//		echo '            <th class="center">'.''.'</th>';
+//	}
+	if (true){ // parent gallery){
+		$html = array ();
+		$html[] = '<th class="center">';
+		$html[] = '</th>';
+
+		echo implode(' ', $html);
+	} else {
+		echo '            <th class="center">'.''.'</th>';
+	}
+
+	if (true){ // image){
+		$html = array ();
+		$html[] = '<th class="center">';
 		$html[] = '</th>';
 
 		echo implode(' ', $html);
