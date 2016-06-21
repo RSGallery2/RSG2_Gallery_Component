@@ -18,7 +18,10 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 	//protected $rsgConfigData;
 	protected $UserIsRoot;
 
-	protected $DisplayImageData;
+	/**
+	 * @var ImageReferences
+	 */
+	protected $ImageReferences;
 
 	/**
 	protected $IsHeaderActive4DB;
@@ -48,14 +51,7 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 
 		$ConsolidateModel = JModelLegacy::getInstance ('MaintConsolidateDB', 'rsgallery2Model');
 
-		$this->DisplayImageData = $ConsolidateModel->GetDisplayImageData ();
-
-		// debug settings only
-		$this->IsHeaderActive4DB = true;
-		$this->IsHeaderActive4Display = true;
-		$this->IsHeaderActive4Original = true;
-		$this->IsHeaderActive4Thumb = true;
-		$this->IsHeaderActive4Parent = true;
+		$this->ImageReferences = $ConsolidateModel->GetImageReferences ();
 
 		// echo json_encode($this->DisplayImageData);
 

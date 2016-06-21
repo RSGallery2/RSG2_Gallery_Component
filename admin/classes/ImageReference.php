@@ -119,12 +119,15 @@ class ImageReference
                !$this->IsDisplayImageFound
             || !$this->IsOriginalImageFound
             || !$this->IsThumbImageFound;
-        
-        if($this->UseWatermarked)
+
+        // Location of watermarked is only counting when no other
+        // image is missing. But then there is an other image already
+        // missing
+/*        if($this->UseWatermarked)
         {
             $IsImageMissing |= !$this->IsWatermarkedImageFound;
         }
-        
+*/
         return $IsImageMissing;
     }
 

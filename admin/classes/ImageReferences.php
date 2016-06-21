@@ -126,15 +126,22 @@ class ImageReferences
 
         $files_display  = $this->getFilenameArray($rsgConfig->get('imgPath_display'));
         $files_original = $this->getFilenameArray($rsgConfig->get('imgPath_original'));
-        $files_thumb    = $this->getFilenameArray($rsgConfig->get('imgPath_thumb'));
+	    $files_thumb    = $this->getFilenameArray($rsgConfig->get('imgPath_thumb'));
 
-        $files_merged    = array_unique(array_merge($this->DbImageNames, $files_display,
-            $files_original, $files_thumb));
+	    // Watermarked: Start with empty array
+	    $files_watermarked = array ();
+	    if($this->UseWatermarked)
+	    {
+		    $files_watermarked = $this->getFilenameArray($rsgConfig->get('imgPath_watermarked'));
+	    }
+
+		$files_merged    = array_unique(array_merge($this->DbImageNames, $files_display,
+            $files_original, $files_thumb, $files_watermarked));
 
         //--- Create image data from collection -----------------------------------
 
         $msg .= $this->CreateImagesData ($files_merged, $this->DbImageNames,
-                        $files_display, $files_original, $files_thumb);
+                        $files_display, $files_original, $files_thumb, $files_watermarked);
 
         return $msg;
     }
@@ -250,7 +257,7 @@ class ImageReferences
      * @return string Message
      */
     private function CreateImagesData ($AllFiles, $DbImageNames,
-        $files_display, $files_original, $files_thumb)
+        $files_display, $files_original, $files_thumb, $files_watermarked)
     {
         global $rsgConfig;
 
@@ -279,10 +286,15 @@ class ImageReferences
                 $ImagesData->IsOriginalImageFound = true;
             }
 
-            if (in_array($BaseFile, $files_thumb))
-            {
-                $ImagesData->IsThumbImageFound = true;
-            }
+	        if (in_array($BaseFile, $files_thumb))
+	        {
+		        $ImagesData->IsThumbImageFound = true;
+	        }
+
+	        if (in_array($BaseFile, $files_watermarked))
+	        {
+		        $ImagesData->IsWatermarkedImageFound = true;
+	        }
 
 //            if ($MissingLocation)
             if ($ImagesData->IsOneLocationMissing())
