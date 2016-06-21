@@ -59,7 +59,11 @@ class ImageReference
      * @var int
      */
     public $ParentGalleryId;
-
+    
+    /**
+     * @var bool
+     */
+    public $UseWatermarked;
 
     /*------------------------------------------------------------------------------------
 	__construct()
@@ -79,40 +83,55 @@ class ImageReference
         $this->IsWatermarkedImageFound = false;
 
         $this->ParentGalleryId = -1;
+
+        $this->UseWatermarked = false;
     }
 
     /**
-     * ImageReference constructor. Assigns name and path of base image
+     * ImageReference constructor. Tells if watermarked images shall be checked too
      *
-     * @param string $imageName
-     * @param string $imagePath
+     * @param bool $watermarked
      */
-    public function __construct2($imageName, $imagePath) {
+    public function __construct1($watermarked) {
 
         __construct();
-
-        $this->imageName = $imageName;
-        $this->imagePath = $imagePath;
+    
+        $this->UseWatermarked = $watermarked;
     }
-
+    
     public function IsAnyLocationExisting () {
-        return
+        $IsImageExisting =
                $this->IsDisplayImageFound
             || $this->IsOriginalImageFound
             || $this->IsThumbImageFound
             || $this->IsWatermarkedImageFound;
+
+        if($this->UseWatermarked)
+        {
+            $IsImageExisting |= $this->IsWatermarkedImageFound;
+        }
+        
+        return $IsImageExisting;
     }
 
     public function IsOneLocationMissing () {
-        return
-            !$this->IsDisplayImageFound
+        $IsImageMissing =
+               !$this->IsDisplayImageFound
             || !$this->IsOriginalImageFound
             || !$this->IsThumbImageFound;
-//            || $this->IsWatermarkedImageFound;
+        
+        if($this->UseWatermarked)
+        {
+            $IsImageMissing |= !$this->IsWatermarkedImageFound;
+        }
+        
+        return $IsImageMissing;
     }
 
+ /*   
     public function IsWatermarkLocationMissing () {
-        return !$this->IsWatermarkedImageFound;
+        return !$this->IsWatermarkedImageFound; 
     }
+ */
 
 }

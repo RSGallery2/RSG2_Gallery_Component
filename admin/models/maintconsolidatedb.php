@@ -15,18 +15,18 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 {
 
     /**
-     * @var ImageReference []
+     * @var ImageReferences
      */
-    protected $ImageReferenceList;
+    protected $ImageReferences;
 
-    public function GetDisplayImageData () {
+    public function GetImageReferences () {
 
         if (empty($this->ImageReferences))
         {
             $this->CreateDisplayImageData ();
         }
 
-        return $this->ImageReferenceList;
+        return $this->ImageReferences;
     }
 
 
@@ -41,11 +41,87 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 
         //
         $ImageReferences = new ImageReferences ();
-        $this->ImageReferenceList = $ImageReferences->CollectImageReferences ();
+        $this->ImageReferences = $ImageReferences;
+
+        // Include watermarked files to search and check for missing 
+        $ImageReferences->UseWatermarked = $this->IsWatermarkActive();
+        $ImageReferences->UseWatermarked = true; // ToDO: remove
+        
+        try
+        {
+            $msg .= $ImageReferences->CollectImageReferences();
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing CollectImageReferences: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
 
         return $msg;
     }
 
+
+    /**
+     * retrieves state if debug is activated on user config
+     * @return bool
+     */
+    /*
+	public static function getIsDebugActive()
+	{
+		if (!empty($this->IsDebugActive)) {
+			$db =  JFactory::getDbo();
+			$query = $db->getQuery (true)
+				->select ($db->quoteName('value'))
+				->from($db->quoteName('#__rsgallery2_config'))
+				->where($db->quoteName('name')." = ".$db->quote('debug'));
+			$db->setQuery($query);
+			$this->IsDebugActive  = $db->loadResult();
+		}
+
+		return $this->IsDebugActive;
+	}
+	*/
+
+
+    /**
+     * Tells if watermark is activated on user config
+     * @return bool
+     */
+    public function IsWatermarkActive()
+    {
+        if (empty($this->IsWatermarkActive))
+        {
+            $this->IsWatermarkActive = false;
+
+            try
+            {
+                $db    = JFactory::getDbo();
+                $query = $db->getQuery(true)
+                    ->select($db->quoteName('value'))
+                    ->from($db->quoteName('#__rsgallery2_config'))
+                    ->where($db->quoteName('name') . " = " . $db->quote('watermark'));
+                $db->setQuery($query);
+
+                $this->IsWatermarkActive = $db->loadResult();
+            }
+            catch (RuntimeException $e)
+            {
+                $OutTxt = '';
+                $OutTxt .= 'Error executing query: "' . $query . '"' . '<br>';
+                $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+                $app = JFactory::getApplication();
+                $app->enqueueMessage($OutTxt, 'error');
+                
+            }
+        }
+
+        return $this->IsWatermarkActive;
+    }
 
 
 

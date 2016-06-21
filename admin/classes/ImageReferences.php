@@ -33,17 +33,92 @@ class ImageReferences
     /**
      * @var ImageReference [] 
      */
-    protected $ImageReferences;
-    
-    
-    
-    
+    protected $ImageReferenceList;
+
+    /**
+     * @var bool
+     */
+	protected $IsAnyImageMissingInDB;
+    protected $IsAnyImageMissingInDisplay;
+    protected $IsAnyImageMissingInOriginal;
+    protected $IsAnyImageMissingInThumb;
+    protected $IsAnyImageMissingInWatermarked;
+
+	protected $IsAnyOneLocationMissing;
+    /**
+     * @var []
+     */
     protected $DbImageList; // 'name', 'gallery_id'
+    /**
+     * @var []
+     */
     protected $DbImageNames; // Name in lower case ?
 
+    /**
+     * @var bool
+     */
+    public $UseWatermarked;
+
+
+    /*------------------------------------------------------------------------------------
+	__construct()
+	------------------------------------------------------------------------------------*/
+    /**
+     * ImageReference constructor. init all variables
+     */
+    public function __construct()
+    {
+        $this->ImageReferences = array ();
+        
+        $this->IsAnyImageMissingInDB = false;
+        $this->IsAnyImageMissingInDisplay = false;
+        $this->IsAnyImageMissingInOriginal = false;
+        $this->IsAnyImageMissingInThumb = false;
+        $this->IsAnyImageMissingInWatermarked = false;
+	    $this->IsAnyOneLocationMissing = false;
+	    
+        $this->UseWatermarked = false;
+    }
+
+    /**
+     * ImageReference constructor. Tells if watermarked images shall be checked too
+     *
+     * @param bool $watermarked
+     */
+    public function __construct1($watermarked) {
+
+        __construct();
+
+        $this->UseWatermarked = $watermarked;
+    }
+
+	public function getImageReferenceList () {
+
+		// ??? if empty -> CollectImageReferences ...
+
+
+
+		return $this->ImageReferenceList;
+	}
+
+	// shall only be used for IsAny...
+	public function __get($property) {
+		if (property_exists($this, $property)) {
+			return $this->$property;
+		}
+	}
+
+
+    /**
+     * @return string message of creating the data if any 
+     */
     public function CollectImageReferences ()
     {
         global $rsgConfig;
+
+        $msg = '';
+
+        //--- Collect data ----------------------------------------------------
 
         $this->DbImageList  = $this->getDbImageList ();  // Is tunneled to create it only once
         $this->DbImageNames = $this->getDbImageNames ();
@@ -52,13 +127,16 @@ class ImageReferences
         $files_display  = $this->getFilenameArray($rsgConfig->get('imgPath_display'));
         $files_original = $this->getFilenameArray($rsgConfig->get('imgPath_original'));
         $files_thumb    = $this->getFilenameArray($rsgConfig->get('imgPath_thumb'));
-        $files_merged    = array_unique(array_merge($this->DbImageNames, $files_display,$files_original,$files_thumb));
 
-        // $DisplayImageData = $this->GetDummyDisplayImageData ();
-        $DisplayImageData = $this->CreateDisplayImageData ($files_merged, $this->DbImageNames,
-            $files_display, $files_original, $files_thumb);
+        $files_merged    = array_unique(array_merge($this->DbImageNames, $files_display,
+            $files_original, $files_thumb));
 
-        return $DisplayImageData;
+        //--- Create image data from collection -----------------------------------
+
+        $msg .= $this->CreateImagesData ($files_merged, $this->DbImageNames,
+                        $files_display, $files_original, $files_thumb);
+
+        return $msg;
     }
 
     /**
@@ -168,14 +246,15 @@ class ImageReferences
      * @param $files_display
      * @param $files_original
      * @param $files_thumb
-     * @return array
+     * 
+     * @return string Message
      */
-    private function CreateDisplayImageData ($AllFiles, $DbImageNames,
+    private function CreateImagesData ($AllFiles, $DbImageNames,
         $files_display, $files_original, $files_thumb)
     {
         global $rsgConfig;
 
-        $DisplayImageData = array();
+        $this->ImageReferenceList = array();
 
         foreach ($AllFiles as $BaseFile)
         {
@@ -183,6 +262,7 @@ class ImageReferences
 
             $ImagesData = new ImageReference();
             $ImagesData->imageName = $BaseFile;
+	        $ImagesData->UseWatermarked = $this->UseWatermarked;
 
             if (in_array($BaseFile, $DbImageNames))
             {
@@ -191,27 +271,27 @@ class ImageReferences
 
             if (in_array($BaseFile, $files_display))
             {
-                $ImagesData->IsDisplayImageFound =  true;
+                $ImagesData->IsDisplayImageFound = true;
             }
 
             if (in_array($BaseFile, $files_original))
             {
-                $ImagesData->IsOriginalImageFound =  true;
+                $ImagesData->IsOriginalImageFound = true;
             }
 
             if (in_array($BaseFile, $files_thumb))
             {
-                $ImagesData->IsThumbImageFound =  true;
+                $ImagesData->IsThumbImageFound = true;
             }
 
 //            if ($MissingLocation)
-            if ($ImagesData->IsOneLocationMissing ())
+            if ($ImagesData->IsOneLocationMissing())
             {
                 //--- ImagePath ----------------------------------------------------
 
                 if ($ImagesData->IsImageInDatabase == true)
                 {
-                    $ImagesData->ParentGalleryId = $this->getParentGalleryIdFromImageName ($BaseFile);
+                    $ImagesData->ParentGalleryId = $this->getParentGalleryIdFromImageName($BaseFile);
                 }
                 else
                 {
@@ -221,26 +301,71 @@ class ImageReferences
 
                 //--- ImagePath ----------------------------------------------------
 
-                // Assign most significant (matching destinatination) image
-                $ImagesData->ImagePath =  '';
-                
-                if($ImagesData->IsOriginalImageFound){
+                // Assign most significant (matching destination) image
+                $ImagesData->ImagePath = '';
+
+                if ($ImagesData->IsOriginalImageFound)
+                {
                     $ImagesData->imagePath = $rsgConfig->get('imgPath_original') . '/' . $ImagesData->imageName;
                 }
 
-                if($ImagesData->IsDisplayImageFound){
-                    $ImagesData->imagePath =  $rsgConfig->get('imgPath_display') . '/' . $ImagesData->imageName . '.jpg';
+                if ($ImagesData->IsDisplayImageFound)
+                {
+                    $ImagesData->imagePath = $rsgConfig->get('imgPath_display') . '/' . $ImagesData->imageName . '.jpg';
                 }
 
-                if($ImagesData->IsThumbImageFound){
+                if ($ImagesData->IsThumbImageFound)
+                {
                     $ImagesData->imagePath = $rsgConfig->get('imgPath_thumb') . '/' . $ImagesData->imageName . '.jpg';
                 }
 
-                $DisplayImageData [] = $ImagesData;
+                $this->ImageReferenceList [] = $ImagesData;
             }
         }
 
-        return $DisplayImageData;
+        //--- Set column bits: Is one entry missing in column ? --------------------------------------
+
+        $this->IsAnyImageMissingInDB = false;
+        foreach ($this->ImageReferenceList as $ImageReference)
+        {
+            $this->IsAnyImageMissingInDB |= !$ImageReference->IsImageInDatabase;
+        }
+
+        $this->IsAnyImageMissingInDisplay = false;
+        foreach ($this->ImageReferenceList as $ImageReference)
+        {
+            $this->IsAnyImageMissingInDisplay |= !$ImageReference->IsDisplayImageFound;
+        }
+
+        $this->IsAnyImageMissingInOriginal = false;
+        foreach ($this->ImageReferenceList as $ImageReference)
+        {
+            $this->IsAnyImageMissingInOriginal |= !$ImageReference->IsOriginalImageFound;
+        }
+
+        $this->IsAnyImageMissingInThumb = false;
+        foreach ($this->ImageReferenceList as $ImageReference)
+        {
+            $this->IsAnyImageMissingInThumb |= !$ImageReference->IsThumbImageFound;
+        }
+
+	    $this->IsAnyOneLocationMissing = false;
+	    foreach ($this->ImageReferenceList as $ImageReference)
+	    {
+		    $this->IsAnyOneLocationMissing |= $ImageReference->IsOneLocationMissing();
+	    }
+	    
+        $this->IsAnyImageMissingInWatermarked = false;
+
+        if ($this->UseWatermarked)
+        {
+            foreach ($this->ImageReferenceList as $ImageReference)
+            {
+                $this->IsAnyImageMissingInWatermarked |= !$ImageReference->IsWatermarkedImageFound;
+            }
+        }
+        
+        return '' ;
     }
 
     /**
