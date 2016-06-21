@@ -90,18 +90,22 @@ $doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/
 
 //  );
 /**
- * @param ImageReference $ImageData
+ * @param ImageReferences $ImageReferences
  */
-function DisplayImageDataTable ($ImagesData) {
+function DisplayImageDataTable ($ImageReferences) {
+
+	$ImageReferenceList = $ImageReferences->getImageReferenceList();
 
     // exit if no data given
-    if (count($ImagesData) == 0)
+    if (count($ImageReferenceList) == 0)
     {
         echo '<h2>' . JText::_('COM_RSGALLERY2_NO_INCONSISTENCIES_IN_DATABASE').'</h2><br>';
         return;
     }
 
-// Header ----------------------------------
+//-------------------------------------
+// Header
+//-------------------------------------
 
     echo '<table class="table table-striped table-condensed">';
 	// echo '    <caption>'.JText::_('COM_RSGALLERY2_MISSING_IMAGE_REFERENCES_LIST').'</caption>';
@@ -119,251 +123,282 @@ function DisplayImageDataTable ($ImagesData) {
     echo '            <th class="center">'.JText::_('COM_RSGALLERY2_DISPLAY_BR_FOLDER').'</th>';
     echo '            <th class="center">'.JText::_('COM_RSGALLERY2_ORIGINAL_BR_FOLDER').'</th>';
     echo '            <th class="center">'.JText::_('COM_RSGALLERY2_THUMB_FOLDER').'</th>';
-// ToDo:   echo '            <th class="center">'.JText::_('COM_RSGALLERY2_WATERMARK_FOLDER').'</th>';
+	if($ImageReferences->UseWatermarked)
+	{
+		echo '            <th class="center">'.JText::_('COM_RSGALLERY2_WATERMARK_BR_FOLDER').'</th>';
+	}
+
 	echo '            <th class="center">'.JText::_('COM_RSGALLERY2_ACTION').'</th>';
     echo '            <th class="center">'.JText::_('COM_RSGALLERY2_PARENT_BR_GALLERY').'</th>';
     echo '            <th class="center">'.JText::_('COM_RSGALLERY2_IMAGE').'</th>';
 // COM_RSGALLERY2_DELETE_IMAGES
     echo '        </tr>';
 
+//-------------------------------------
 // Second row with command buttons
+//-------------------------------------
 
-	echo '        <tr>';
-	echo '            <th>' . '<input class="hasTooltip" type="checkbox" onclick="Joomla.checkAll(this)" title="" value="" 
-					name="checkall-toggle" data-original-title="Check All">'.'</th>';
-	echo '            <th class="align-right">'.''.'</th>';
+	echo '<tr>'; // start of row
 
-	if(true){ //$this->IsHeaderActive4DB){
-		$html = array ();
-		$html[] = '<th class="center">';
+	$html = array (); // Check all
+	$html[] = '<th class="center">';
+	$html[] = '    <input class="hasTooltip" type="checkbox" onclick="Joomla.checkAll(this)" ';
+	$html[] = '        value="" name="checkall-toggle" data-original-title="Select All" ';
+	$html[] = '        title="' . JHtml::tooltipText('COM_RSGALLERY2_SELECT_DESELECT_ALL').'" ';
+	$html[] = '    >';
+	$html[] = '</th>';
+	echo implode(' ', $html);
+
+	$html = array (); // filename
+	$html[] = '<th class="align-left">';
+	$html[] = ''; // empty
+	$html[] = '</th>';
+	echo implode(' ', $html);
+
+	$html = array ();
+	$html[] = '<th class="center">'; // In database
+	if($ImageReferences->IsAnyImageMissingInDB){
 		$html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
 		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_DATABASE_ENTRIES').'" ';
 		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.createDbEntries();"';
 		$html[] = '     >';
 		$html[] = '         <span class="icon-database"></span>';
 		$html[] = '     </a>';
-		$html[] = '</th>';
-
-		echo implode(' ', $html);
-	} else {
-		echo '            <th class="center">'.''.'</th>';
 	}
-/*
-	if(true){ //$this->IsHeaderActive4Display){
-		$html = array ();
-		$html[] = '<th class="center">';
-		$html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
-		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_MISSING_IMAGES').'" ';
-		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.createDbEntries();"';
-		$html[] = '     >';
-		$html[] = '         <span class="icon-image"></span>';
-		$html[] = '     </a>';
-		$html[] = '</th>';
+	$html[] = '</th>';
+	echo implode(' ', $html);
 
-		echo implode(' ', $html);
-	} else {
-		echo '            <th class="center">'.''.'</th>';
-	}
-	if(true){ //$this->IsHeaderActive4Original){
-		$html = array ();
-		$html[] = '<th class="center">';
-		$html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
-		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_MISSING_IMAGES').'" ';
-		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.createDbEntries();"';
-		$html[] = '     >';
-		$html[] = '         <span class="icon-image"></span>';
-		$html[] = '     </a>';
-		$html[] = '</th>';
-
-		echo implode(' ', $html);
-	} else {
-		echo '            <th class="center">'.''.'</th>';
-	}
-/**/
 	echo '            <th class="center">'.''.'</th>'; // display
 	echo '            <th class="center">'.''.'</th>'; // original
 	echo '            <th class="center">'.''.'</th>'; // thumb
 
+	if($ImageReferences->UseWatermarked)
+	{
+		echo '            <th class="center">' . '' . '</th>'; // watermarked
+	}
 
-//	if(true){ //$this->IsHeaderActive4Thumb){
-		$html = array ();
-		$html[] = '<th class="center">';
+	$html = array (); // action
+	$html[] = '<th class="center">';
+	if($ImageReferences->IsAnyOneLocationMissing)
+	{
 		$html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
-		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_MISSING_IMAGES').'" ';
-		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.createDbEntries();"';
+		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_MISSING_IMAGES') . '" ';
+		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.createAllImages();"';
 		$html[] = '     >';
 		$html[] = '         <span class="icon-image"></span>';
 		$html[] = '     </a>';
+	}
+	//if($ImageReferences->)
+	{
 		$html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
-		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_DELETE_IMAGES').'" ';
-		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.createDbEntries();"';
+		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_DELETE_IMAGES') . '" ';
+		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.deleteAllImages();"';
 		$html[] = '     >';
 		$html[] = '         <span class="icon-delete"></span>';
 		$html[] = '     </a>';
+	}
+	// if($ImageReferences->)
+	{
 		$html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
-		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_ASSIGN_GALLLERY').'" ';
-		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.createDbEntries();"';
+		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_ASSIGN_GALLLERY') . '" ';
+		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.assignAllGalleries();"';
 		$html[] = '     >';
 		$html[] = '         <span class="icon-images"></span>';
 		$html[] = '     </a>';
-		$html[] = '</th>';
-
-		echo implode(' ', $html);
-//	} else {
-//		echo '            <th class="center">'.''.'</th>';
-//	}
-	if (true){ // parent gallery){
-		$html = array ();
-		$html[] = '<th class="center">';
-		$html[] = '</th>';
-
-		echo implode(' ', $html);
-	} else {
-		echo '            <th class="center">'.''.'</th>';
 	}
+	$html[] = '</th>';
+	echo implode(' ', $html);
 
-	if (true){ // image){
-		$html = array ();
-		$html[] = '<th class="center">';
-		$html[] = '</th>';
+	// ToDo: Button hide column and Mobile hide
+	$html = array (); // parent gallery
+	$html[] = '<th class="center">';
+	$html[] = '</th>';
+	echo implode(' ', $html);
 
-		echo implode(' ', $html);
-	} else {
-		echo '            <th class="center">'.''.'</th>';
-	}
+	// ToDo: Button hide column and Mobile hide
+	$html = array (); // image
+	$html[] = '<th class="center">';
+	$html[] = '</th>';
+	echo implode(' ', $html);
 
-	echo '        </tr>';
+	echo '        </tr>'; // end of row
     echo '    </thead>';
 
-        //--- data ----------------------------------
+//-------------------------------------
+// table body
+//-------------------------------------
 
-    echo '    <tbody>';
-/**/
-
-
-// ToDo: Notify for icomoon images
-//       alt="'.JText::_('COM_RSGALLERY2_IMAGE_IN_FOLDER').'"
-//       alt="'.JText::_('COM_RSGALLERY2_IMAGE_NOT_IN_FOLDER').'"
-
-
+	echo '    <tbody>';
 
     $Idx = -1;
-    foreach ($ImagesData as $ImageData) {
+    foreach ($ImageReferenceList as $ImageData) {
 		$Idx += 1;
 
-		echo '        <tr>';
-		//echo '            <td>' . 'Index checkbox'. '</td>';
-		echo '            <td>' .
-			'<input id="cb' . $Idx . '" type="checkbox" onclick="Joomla.isChecked(this.checked);" value="'
-			. $Idx . '5" name="cid[]">';
+//-------------------------------------
+// Next data row
+//-------------------------------------
+
+	    echo '        <tr>'; // start of row
+
+	    $html = array (); // Check all
+	    $html[] = '<td class="center">';
+	    $html[] = '    <input id="cb' . $Idx . '" class="hasTooltip" type="checkbox" ';
+	    $html[] = '        value="' . $Idx . '" name="cid[]" data-original-title="Select row" ';
+	    $html[] = '        onclick="Joomla.isChecked(this.checked);"';
+	    $html[] = '        title="' . JHtml::tooltipText('COM_RSGALLERY2_SELECT_DESELECT_ROW').'" ';
+	    $html[] = '    >';
+	    $html[] = '</td>';
+	    echo implode(' ', $html);
 
 
+	    $html = array (); // filename
 		echo '            <td>' . $ImageData->imageName . '</td>';
 
-		// echo '            <td>' . $ImageData->IsImageInDatabase . '</td>';
+	    // database entry found
 		if ($ImageData->IsImageInDatabase) {
-			echo '<td class="center"><span class="icon-ok "> </span> </td>';
+			$html = array (); // database
+			$html[] = '<td class="center">';
+			$html[] = '    <i class="icon-ok hasTooltip" data-original-title="database entry found" ';
+			$html[] = '      title="' . JHtml::tooltipText('COM_RSGALLERY2_DATABASE_ENTRY_FOUND') .'" ';
+			$html[] = '    />';
+			$html[] = '</td>';
+			echo implode(' ', $html);
 		} else
 		{
-			// echo '<td class="center"><span class="icon-cancel "> </span> </td>';
-
-			$html = array ();
+			// Not found -> button
+			$html   = array(); // database
 			$html[] = '<td class="center">';
 			$html[] = '     <a class="btn btn-micro jgrid hasTooltip db_missing" ';
 			$html[] = '         id="db' . $Idx . '" ';
-			$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_DATABASE_ENTRY').'" ';
+			$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_DATABASE_ENTRY') . '" ';
 			$html[] = '         onclick="Joomla.checkNone(this); return Joomla.createDbEntry(this);"';
 			$html[] = '     >';
 			$html[] = '         <span class="icon-database"></span>';
 			$html[] = '     </a>';
 			$html[] = '</td>';
-
 			echo implode(' ', $html);
-
-			$html = array ();
-			$html[] = '';
-			$html[] = '';
-			$html[] = '';
-			$html[] = '';
-			$html[] = '';
-			$html[] = '';
-			$html[] = '';
-
-			//echo htmlentities($html);
-
-			/*
-			echo '<td class="center">';
-			echo '		<a class="btn btn-micro active hasTooltip" title=""';
-			echo '			onclick="return listItemTask(\'cb1\',\'categories.unpublish\')"';
-			echo '            href="javascript:void(0);" data-original-title="Unpublish Item">';
-			echo '			<span class="icon-publish"></span>';
-			echo '		</a>';
-			echo '	</td>';
-			/**/
-			/**
-			 * $html[] = '<a class="btn btn-micro' . ($active_class == 'publish' ? ' active' : '') . ($tip ? ' hasTooltip' : '') . '"';
-			 * $html[] = ' href="javascript:void(0);" onclick="return listItemTask(\'' . $checkbox . $i . '\',\'' . $prefix . $task . '\')"';
-			 * $html[] = $tip ? ' title="' . $title . '"' : '';
-			 * $html[] = '>';
-			 * $html[] = '<span class="icon-' . $active_class . '"></span>';
-			 * $html[] = '</a>';
-			 *
-			 * $html[] = '<td class="order" align="center">';
-			 * $html[] = '     <span class="order-up">';
-			 * $html[] = '         <a title="<?php echo WFText::_(\'WF_PROFILES_MOVE_UP\');?>" href="#" class="btn btn-micro jgrid"><i class="icon-uparrow icon-chevron-up"></i></a>';
-			 * $html[] = '     </span>';
-			 * $html[] = '      <span class="order-down">';
-			 * $html[] = '         <a title="<?php echo WFText::_(\'WF_PROFILES_MOVE_DOWN\');?>" href="#" class="btn btn-micro jgrid"><i class="icon-downarrow icon-chevron-down"></i></a>';
-			 * $html[] = '     </span>';
-			 * $html[] = '     <?php $disabled = $n > 1 ? \'\' : \'disabled="disabled"\'; ?>';
-			 * $html[] = '<input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" <?php echo $disabled ?> class="text_area" style="text-align: center" />';
-			 * $html[] = '</td>';
-			 * $html[] = '<a href="#" onclick="return listItemTask(\'cb' . $i . '\',\'' . $state[1] . '\')" class="btn btn-micro hasTooltip'
-			 * . ($value == 1 ? ' active' : '') . '" title="' . JHtml::tooltipText($state[3]) . '"><span class="icon-' . $icon . '"></span></a>';
-			 * $html[] = '<a class="btn btn-micro hasTooltip disabled' . ($value == 1 ? ' active' : '') . '" title="' . JHtml::tooltipText($state[2])
-			 * . '"><span class="icon-' . $icon . '"></span></a>';
-			 * /**/
 		}
 
-		//echo '            <td>' . $ImageData->IsDisplayImageFound . '</td>';
+	    // display entry found
 		if ($ImageData->IsDisplayImageFound) {
-			// echo '<td class="center"><span class="icon-ok"> </span> </td>';
-			echo '<td class="center"><i class="icon-ok hasTooltip" title="" data-original-title="display image found"></i></td>';
+			$html = array ();
+			$html[] = '<td class="center">';
+			$html[] = '    <i class="icon-ok hasTooltip" data-original-title="display image found" ';
+			$html[] = '      title="' . JHtml::tooltipText('COM_RSGALLERY2_DISPLAY_IMAGE_FOUND') .'" ';
+			$html[] = '    />';
+			$html[] = '</td>';
+			echo implode(' ', $html);
 		} else {
-			echo '<td class="center"><span class="icon-cancel"> </span> </td>';
+			$html = array (); // database
+			$html[] = '<td class="center">';
+			$html[] = '    <i class="icon-cancel hasTooltip" data-original-title="display image not found" ';
+			$html[] = '      title="' . JHtml::tooltipText('COM_RSGALLERY2_DISPLAY_IMAGE_NOT_FOUND') .'" ';
+			$html[] = '    />';
+			$html[] = '</td>';
+			echo implode(' ', $html);
 		}
 
-		//echo '            <td>' . $ImageData->IsOriginalImageFound . '</td>';
+		// original image found
 		if ($ImageData->IsOriginalImageFound) {
-			echo '<td class="center"><span class="icon-ok"> </span> </td>';
+			$html = array ();
+			$html[] = '<td class="center">';
+			$html[] = '    <i class="icon-ok hasTooltip" data-original-title="original image found" ';
+			$html[] = '      title="' . JHtml::tooltipText('COM_RSGALLERY2_ORIGINAL_IMAGE_FOUND') .'" ';
+			$html[] = '    />';
+			$html[] = '</td>';
+			echo implode(' ', $html);
 		} else {
-			echo '<td class="center"><span class="icon-cancel"> </span> </td>';
+			$html = array (); // database
+			$html[] = '<td class="center">';
+			$html[] = '    <i class="icon-cancel hasTooltip" data-original-title="original image not found" ';
+			$html[] = '      title="' . JHtml::tooltipText('COM_RSGALLERY2_ORIGINAL_IMAGE_NOT_FOUND') .'" ';
+			$html[] = '    />';
+			$html[] = '</td>';
+			echo implode(' ', $html);
 		}
 
-		//echo '            <td>' . $ImageData->IsThumbImageFound . '</td>';
+	    // thumb image found
 		if ($ImageData->IsThumbImageFound) {
-			echo '<td class="center"><span class="icon-ok"> </span> </td>';
+			$html = array ();
+			$html[] = '<td class="center">';
+			$html[] = '    <i class="icon-ok hasTooltip" data-original-title="thumb image found" ';
+			$html[] = '      title="' . JHtml::tooltipText('COM_RSGALLERY2_THUMB_IMAGE_FOUND') .'" ';
+			$html[] = '    />';
+			$html[] = '</td>';
+			echo implode(' ', $html);
 		} else {
-			echo '<td class="center"><span class="icon-cancel"> </span></td>';
+			$html = array (); // database
+			$html[] = '<td class="center">';
+			$html[] = '    <i class="icon-cancel hasTooltip" data-original-title="original image not found" ';
+			$html[] = '      title="' . JHtml::tooltipText('COM_RSGALLERY2_THUMB_IMAGE_NOT_FOUND') .'" ';
+			$html[] = '    />';
+			$html[] = '</td>';
+			echo implode(' ', $html);
 		}
 
-		/*
-              //echo '            <td>' . $ImageData->IsWatermarkImageFound . '</td>';
-                if ($ImageData->IsWatermarkImageFound) {
-                    echo '<td class="center"><span class="icon-ok" </td>';
-                }
-                else
-                {
-                    echo '<td class="center"><span class="icon-cancel" </td>';
-                }
-        */
+	    // Watermark
+        if ($ImageData->IsWatermarkedImageFound) {
+	        $html = array ();
+	        $html[] = '<td class="center">';
+	        $html[] = '    <i class="icon-ok hasTooltip" data-original-title="thumb image found" ';
+	        $html[] = '      title="' . JHtml::tooltipText('COM_RSGALLERY2_WATERMARK_IMAGE_FOUND') .'" ';
+	        $html[] = '    />';
+	        $html[] = '</td>';
+	        echo implode(' ', $html);
+        } else {
+	        $html = array (); // database
+	        $html[] = '<td class="center">';
+	        $html[] = '    <i class="icon-cancel hasTooltip" data-original-title="original image not found" ';
+	        $html[] = '      title="' . JHtml::tooltipText('COM_RSGALLERY2_WATERMARK_IMAGE_NOT_FOUND') .'" ';
+	        $html[] = '    />';
+	        $html[] = '</td>';
+	        echo implode(' ', $html);
+        }
 
-		if ($ImageData->ParentGalleryId > -1) {
+	    $html = array (); // action
+	    $html[] = '<th class="center">';
+	    if($ImageReferences->IsAnyOneLocationMissing)
+	    {
+		    $html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
+		    $html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_MISSING_IMAGES') . '" ';
+		    $html[] = '         onclick="Joomla.checkNone(this); return Joomla.createRowDbEntry();"';
+		    $html[] = '     >';
+		    $html[] = '         <span class="icon-image"></span>';
+		    $html[] = '     </a>';
+	    }
+	    //if($ImageReferences->)
+	    {
+		    $html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
+		    $html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_DELETE_IMAGES') . '" ';
+		    $html[] = '         onclick="Joomla.checkNone(this); return Joomla.deleteRowDbEntry();"';
+		    $html[] = '     >';
+		    $html[] = '         <span class="icon-delete"></span>';
+		    $html[] = '     </a>';
+	    }
+	    // if($ImageReferences->)
+	    {
+		    $html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
+		    $html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_ASSIGN_GALLLERY') . '" ';
+		    $html[] = '         onclick="Joomla.checkNone(this); return Joomla.assignRowGalleries();"';
+		    $html[] = '     >';
+		    $html[] = '         <span class="icon-images"></span>';
+		    $html[] = '     </a>';
+	    }
+	    $html[] = '</th>';
+	    echo implode(' ', $html);
+
+
+	    $html = array (); // parent gallery
+
+	    if ($ImageData->ParentGalleryId > -1) {
 			echo '            <td class="center">' . $ImageData->ParentGalleryId . '</td>';
 		}
 		else {
 			echo '            <td class="center"><span class="icon-cancel"></td>';
 		}
+
+	    $html = array (); // image
+
 		// Image is defined
 		if ($ImageData->ImagePath != '') {
 			echo '            <td class="center">' . '<img width="80" alt="' . $ImageData->imageName
@@ -447,7 +482,7 @@ function DisplayImageDataTable ($ImagesData) {
 							<!-- div class="span4 clsInfoAccordion" -->
 							 <?php
 								// Info about last uploaded galleries
-                                DisplayImageDataTable ($this->DisplayImageData);
+                                DisplayImageDataTable ($this->ImageReferences);
 							?>
 							<!-- /div -->
 						</div>
