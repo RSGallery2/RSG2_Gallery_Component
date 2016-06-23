@@ -360,7 +360,7 @@ function DisplayImageDataTable ($ImageReferences) {
 	    if($ImageReferences->IsAnyOneLocationMissing)
 	    {
 		    $html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
-		    $html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_MISSING_IMAGES') . '" ';
+		    $html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_MISSING_IMAGES_IN_ROW') . '" ';
 		    $html[] = '         onclick="Joomla.checkNone(this); return Joomla.createRowDbEntry();"';
 		    $html[] = '     >';
 		    $html[] = '         <span class="icon-image"></span>';
@@ -369,7 +369,7 @@ function DisplayImageDataTable ($ImageReferences) {
 	    //if($ImageReferences->)
 	    {
 		    $html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
-		    $html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_DELETE_IMAGES') . '" ';
+		    $html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_DELETE_IMAGES_IN_ROW') . '" ';
 		    $html[] = '         onclick="Joomla.checkNone(this); return Joomla.deleteRowDbEntry();"';
 		    $html[] = '     >';
 		    $html[] = '         <span class="icon-delete"></span>';
@@ -378,7 +378,7 @@ function DisplayImageDataTable ($ImageReferences) {
 	    // if($ImageReferences->)
 	    {
 		    $html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
-		    $html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_ASSIGN_GALLLERY') . '" ';
+		    $html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_ASSIGN_GALLLERY_IN_ROW') . '" ';
 		    $html[] = '         onclick="Joomla.checkNone(this); return Joomla.assignRowGalleries();"';
 		    $html[] = '     >';
 		    $html[] = '         <span class="icon-images"></span>';
@@ -400,9 +400,9 @@ function DisplayImageDataTable ($ImageReferences) {
 	    $html = array (); // image
 
 		// Image is defined
-		if ($ImageData->ImagePath != '') {
+	    if ($ImageData->imagePath !== '') {
 			echo '            <td class="center">' . '<img width="80" alt="' . $ImageData->imageName
-				. '" name="image" src="' . JUri::root(true) . $ImageData->ImagePath . '">' . '</td>';
+				. '" name="image" src="' . JUri::root(true) . $ImageData->imagePath . '">' . '</td>';
 		}
 		else{
 			echo '            <td class="center"><span class="icon-cancel"></td>';

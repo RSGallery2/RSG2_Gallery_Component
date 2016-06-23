@@ -314,7 +314,7 @@ class ImageReferences
                 //--- ImagePath ----------------------------------------------------
 
                 // Assign most significant (matching destination) image
-                $ImagesData->ImagePath = '';
+                $ImagesData->imagePath = '';
 
                 if ($ImagesData->IsOriginalImageFound)
                 {
