@@ -108,8 +108,7 @@ function DisplayImageDataTable ($ImageReferences) {
 //-------------------------------------
 
     echo '<table class="table table-striped table-condensed">';
-	// echo '    <caption>'.JText::_('COM_RSGALLERY2_MISSING_IMAGE_REFERENCES_LIST').'</caption>';
-	echo '    <caption><h3>'.JText::_('COM_RSGALLERY2_MISSING_IMAGE_REFERENCES_LIST').'</h3></caption>';
+	echo '    <caption><h3>'.JText::_('COM_RSGALLERY2_MISSING_IMAGE_REFERENCES_LIST').'</h3></caption><br>';
     echo '    <thead>';
     echo '        <tr>';
 //    echo '            <th>' . 'Index checkbox'. '</th>'; class="center" width="1%"
@@ -179,10 +178,10 @@ function DisplayImageDataTable ($ImageReferences) {
 
 	$html = array (); // action
 	$html[] = '<th class="center">';
-	if($ImageReferences->IsAnyOneLocationMissing)
+	if($ImageReferences->IsAnyOneImageMissing)
 	{
 		$html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
-		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_MISSING_IMAGES') . '" ';
+		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_SELECTED_MISSING_IMAGES') . '" ';
 		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.createAllImages();"';
 		$html[] = '     >';
 		$html[] = '         <span class="icon-image"></span>';
@@ -191,7 +190,7 @@ function DisplayImageDataTable ($ImageReferences) {
 	//if($ImageReferences->)
 	{
 		$html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
-		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_DELETE_IMAGES') . '" ';
+		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_DELETE_SELECTED_IMAGES') . '" ';
 		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.deleteAllImages();"';
 		$html[] = '     >';
 		$html[] = '         <span class="icon-delete"></span>';
@@ -200,7 +199,7 @@ function DisplayImageDataTable ($ImageReferences) {
 	// if($ImageReferences->)
 	{
 		$html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
-		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_ASSIGN_GALLLERY') . '" ';
+		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_ASSIGN_SELECTED_GALLLERIES') . '" ';
 		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.assignAllGalleries();"';
 		$html[] = '     >';
 		$html[] = '         <span class="icon-images"></span>';
@@ -357,7 +356,7 @@ function DisplayImageDataTable ($ImageReferences) {
 
 	    $html = array (); // action
 	    $html[] = '<th class="center">';
-	    if($ImageReferences->IsAnyOneLocationMissing)
+	    if($ImageData->IsMainImageMissing (ImageReference::dontCareForWatermarked) )
 	    {
 		    $html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
 		    $html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_MISSING_IMAGES_IN_ROW') . '" ';
@@ -498,12 +497,19 @@ function DisplayImageDataTable ($ImageReferences) {
 		                <button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_CREATE_DATABASE_ENTRIES'); ?></button>
 		                <button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_DELETE_IMAGES'); ?></button>
 		                <button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_ASSIGN_GALLLERY'); ?></button>
-	                </div>
-					<div class="form-actions">
-		                <button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_REFRESH'); ?></button>
-		                <button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_(''); ?></button>
+		                <button type="button" class="btn btn-primary" onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_create complete image set'); ?></button>
 	                </div>
 
+					<fieldset class="refresh">
+						<!--legend><?php echo JText::_('COM_RSGALLERY2_REFRESH_TEXT'); ?></legend-->
+						<div class="form-actions">
+							<a class="btn btn-primary" title="<?php echo JText::_('COM_RSGALLERY2_REFRESH'); ?>"
+								href="index.php?option=com_rsgallery2&amp;view=maintConsolidateDB">
+								<?php echo JText::_('COM_RSGALLERY2_REFRESH'); ?>
+							</a>
+
+						</div>
+					</fieldset>
 
                 <?php echo JHtml::_('bootstrap.endTab'); ?>
 
