@@ -65,6 +65,10 @@ class ImageReference
      */
     public $UseWatermarked;
 
+    //--- constants -----------------------------------------
+    const dontCareForWatermarked = 0;
+    const careForWatermarked = 0;
+
     /*------------------------------------------------------------------------------------
 	__construct()
 	------------------------------------------------------------------------------------*/
@@ -98,41 +102,58 @@ class ImageReference
     
         $this->UseWatermarked = $watermarked;
     }
-    
-    public function IsAnyLocationExisting () {
+
+    /**
+     * @return bool
+     */
+    public function IsAnyImageExisting ($careForWatermarked = ImageReference::dontCareForWatermarked) {
         $IsImageExisting =
                $this->IsDisplayImageFound
             || $this->IsOriginalImageFound
             || $this->IsThumbImageFound
             || $this->IsWatermarkedImageFound;
 
-        if($this->UseWatermarked)
+        // Image of watermarked is only counting when no other
+        // image is missing.
+        if ($careForWatermarked)
         {
-            $IsImageExisting |= $this->IsWatermarkedImageFound;
+            if ($this->UseWatermarked)
+            {
+                $IsImageExisting |= $this->IsWatermarkedImageFound;
+            }
         }
         
         return $IsImageExisting;
     }
 
-    public function IsOneLocationMissing () {
+    /*
+     *
+     * watermarked images are not missing as such. watermarked images will be created when displaying image
+     * @param bool $careForWatermarked
+     * @return bool
+     */
+    public function IsMainImageMissing ($careForWatermarked = ImageReference::dontCareForWatermarked)
+    {
         $IsImageMissing =
-               !$this->IsDisplayImageFound
+            !$this->IsDisplayImageFound
             || !$this->IsOriginalImageFound
             || !$this->IsThumbImageFound;
 
-        // Location of watermarked is only counting when no other
-        // image is missing. But then there is an other image already
-        // missing
-/*        if($this->UseWatermarked)
+        // Image of watermarked is only counting when no other
+        // image is missing.
+        if ($careForWatermarked)
         {
-            $IsImageMissing |= !$this->IsWatermarkedImageFound;
+            if ($this->UseWatermarked)
+            {
+                $IsImageMissing |= !$this->IsWatermarkedImageFound;
+            }
         }
-*/
+
         return $IsImageMissing;
     }
 
  /*   
-    public function IsWatermarkLocationMissing () {
+    public function IsWatermarkImageMissing () {
         return !$this->IsWatermarkedImageFound; 
     }
  */

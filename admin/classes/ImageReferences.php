@@ -44,7 +44,7 @@ class ImageReferences
     protected $IsAnyImageMissingInThumb;
     protected $IsAnyImageMissingInWatermarked;
 
-	protected $IsAnyOneLocationMissing;
+	protected $IsAnyOneImageMissing;
     /**
      * @var []
      */
@@ -75,7 +75,7 @@ class ImageReferences
         $this->IsAnyImageMissingInOriginal = false;
         $this->IsAnyImageMissingInThumb = false;
         $this->IsAnyImageMissingInWatermarked = false;
-	    $this->IsAnyOneLocationMissing = false;
+	    $this->IsAnyOneImageMissing = false;
 	    
         $this->UseWatermarked = false;
     }
@@ -265,7 +265,7 @@ class ImageReferences
 
         foreach ($AllFiles as $BaseFile)
         {
-            $MissingLocation = false;
+            $MissingImage = false;
 
             $ImagesData = new ImageReference();
             $ImagesData->imageName = $BaseFile;
@@ -296,8 +296,11 @@ class ImageReferences
 		        $ImagesData->IsWatermarkedImageFound = true;
 	        }
 
-//            if ($MissingLocation)
-            if ($ImagesData->IsOneLocationMissing())
+	        //-------------------------------------------------
+	        // Does file need to be handled ?
+	        //-------------------------------------------------
+	        // "dont care" used as watermarked images are not missing as such. watermarked images will be created when displaying image
+            if ($ImagesData->IsMainImageMissing(ImageReference::dontCareForWatermarked) || !$ImagesData->IsImageInDatabase)
             {
                 //--- ImagePath ----------------------------------------------------
 
@@ -326,12 +329,17 @@ class ImageReferences
                     $ImagesData->imagePath = $rsgConfig->get('imgPath_display') . '/' . $ImagesData->imageName . '.jpg';
                 }
 
-                if ($ImagesData->IsThumbImageFound)
-                {
-                    $ImagesData->imagePath = $rsgConfig->get('imgPath_thumb') . '/' . $ImagesData->imageName . '.jpg';
-                }
+	            if ($ImagesData->IsThumbImageFound)
+	            {
+		            $ImagesData->imagePath = $rsgConfig->get('imgPath_thumb') . '/' . $ImagesData->imageName . '.jpg';
+	            }
 
-                $this->ImageReferenceList [] = $ImagesData;
+	            if ($ImagesData->IsWatermarkedImageFound)
+	            {
+		            $ImagesData->imagePath = $rsgConfig->get('imgPath_watermarked') . '/' . $ImagesData->imageName; // . '.jpg';
+	            }
+
+	            $this->ImageReferenceList [] = $ImagesData;
             }
         }
 
@@ -361,10 +369,11 @@ class ImageReferences
             $this->IsAnyImageMissingInThumb |= !$ImageReference->IsThumbImageFound;
         }
 
-	    $this->IsAnyOneLocationMissing = false;
+	    $this->IsAnyOneImageMissing = false;
 	    foreach ($this->ImageReferenceList as $ImageReference)
 	    {
-		    $this->IsAnyOneLocationMissing |= $ImageReference->IsOneLocationMissing();
+		    // dont care as watermarked images are not missing as such. watermarked images will be created when displaying image
+		    $this->IsAnyOneImageMissing |= $ImageReference->IsMainImageMissing(ImageReference::dontCareForWatermarked);
 	    }
 	    
         $this->IsAnyImageMissingInWatermarked = false;

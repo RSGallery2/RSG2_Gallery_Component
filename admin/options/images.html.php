@@ -92,6 +92,8 @@ class html_rsg2_images {
 								<?php echo JHtml::_('grid.order',  $rows); ?>
 							</th>
 							<th width="15%" align="left"><?php echo JText::_('COM_RSGALLERY2_GALLERY')?></th>
+							<th width="5%"><?php echo JText::_('COM_RSGALLERY2_COMMENTS')?></th>
+							<th width="5%"><?php echo JText::_('COM_RSGALLERY2_VOTES')?></th>
 							<th width="5%"><?php echo JText::_('COM_RSGALLERY2_HITS')?></th>
 							<th width=""><?php echo JText::_('COM_RSGALLERY2_DATE__TIME')?></th>
 						</tr>
@@ -158,7 +160,10 @@ class html_rsg2_images {
 									</span>
 								</td>
 								<td colspan="2" align="center">
-								<input type="text" name="order[]" <?php echo $disabled; ?> size="5" value="<?php echo $row->ordering; ?>" class="text_area" style="text-align: center;" />
+									<input type="text" name="order[]" <?php echo $disabled; ?> size="5"
+										value="<?php echo $row->ordering; ?>"
+										width="32"
+										class="text_area" style="text-align: center; width: 75px;" />
 								</td>
 								<td>
 									<?php 	if ($can['EditGallery']) { ?>
@@ -168,6 +173,12 @@ class html_rsg2_images {
 									<?php 	} else {
 												echo $row->category;
 											}	?>
+								</td>
+								<td align="left">
+									<?php echo $row->comments; ?>
+								</td>
+								<td align="left">
+									<?php echo $row->votes; ?>
 								</td>
 								<td align="left">
 									<?php echo $row->hits; ?>

@@ -378,6 +378,24 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 								?>
 
 								<?php
+								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
+								$link = 'index.php?option=com_rsgallery2&amp;view=maintRemoveLogFiles';
+								quickTwoIconMoonBar ($link, 'icon-file-check', 'icon-file-remove',
+									JText::_('COM_RSGALLERY2_REMOVE_LOG_FILES'),
+									JText::_('COM_RSGALLERY2_REMOVE_LOG_FILES_TXT'),
+									'consolidateDB');
+								?>
+
+								<?php
+								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
+								$link = 'index.php?option=com_rsgallery2&amp;view=maintRemoveInstallLeftovers';
+								quickTwoIconMoonBar ($link, 'icon-upload', 'icon-file-remove',
+									JText::_('COM_RSGALLERY2_REMOVE_INSTALLATION_LEFTOVERS'),
+									JText::_('COM_RSGALLERY2_REMOVE_INSTALLATION_LEFTOVERS_TXT'),
+									'consolidateDB');
+								?>
+
+								<?php
 								$link = 'index.php?option=com_rsgallery2&amp;view=config';
 								quickTwoIconMoonBar ($link, 'icon-equalizer', 'icon-cog',
 									JText::_('COM_RSGALLERY2_CONFIGURATION'),
@@ -392,6 +410,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 									JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'),
 									'editConfigRaw');
 								?>
+
 
 							</div>
 						</div>
