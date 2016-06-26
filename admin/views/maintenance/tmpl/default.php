@@ -396,6 +396,15 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 								?>
 
 								<?php
+								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
+								$link = 'index.php?option=com_rsgallery2&amp;task=maintSql.updateCommentsVoting';
+								quickTwoIconMoonBar ($link, 'icon-comment', 'icon-wand',
+									JText::_('COM_RSGALLERY2_UPDATE_COMMENTS_AND_VOTING'),
+									JText::_('COM_RSGALLERY2_UPDATE_COMMENTS_AND_VOTING_TXT'),
+									'consolidateDB');
+								?>
+
+								<?php
 								$link = 'index.php?option=com_rsgallery2&amp;view=config';
 								quickTwoIconMoonBar ($link, 'icon-equalizer', 'icon-cog',
 									JText::_('COM_RSGALLERY2_CONFIGURATION'),
