@@ -863,27 +863,58 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		$query = $db->getQuery(true);
 
 		//--- find mismatch in comments number ---------------------------
-/*
-		$query->select ();
 
-		// build the SQL query
-		$query->select($db->quoteName(array('p.user_id', 'u.username', 'u.real_name')));
-		$query->from($db->quoteName('#__user_profiles p'));
-		$query->join('INNER', $db->quoteName('#__users', 'u') . ' ON (' . $db->quoteName('u.id') . ' = ' . $db->quoteName('p.user_id') . ')')
-		$query->where($db->quoteName('u.real_name') . ' LIKE '. $db->quote('\'%smith%\''));
-		$query->order('u.real_name ASC');
+		// list of images
+		$query->select ($db->quoteName(array('id', 'comments')))
+			->from($db->quoteName('#__rsgallery2_files'));
 
+		$db->setQuery($query);
 		// Load the results as a list of stdClass objects (see later for more options on retrieving data).
 		$rows = $db->loadObjectList();
 
-		// Retrieve each value in the ObjectList
-		foreach( $rows as $row ) {
-			$this_user_id = $row->user_id;
-			$this_user_name = $row->username;
-			$this_user_realname = $row->real_name;
+		foreach ($rows as $row) {
+			$msg .=  'id: ' . $row->id . ' comments: ' . $row->comments;
+
+
+			$query = $db->getQuery(true);
+			$query->select ($db->quoteName('item_id'))
+				->from($db->quoteName('#__rsgallery2_comments'))
+				->where($db->quoteName('item_id') . ' = '. $row->id);
+			$db->setQuery($query);
+
+			$my_count = $db->getNumRows();
+
+			$Brows = $db->loadObjectList();
+			
+			$msg .=  ' found: ' . $my_count;
+			$msg .= '<br>';
+
+
 		}
 
-/**/
+
+
+		/*
+				$query->select ();
+
+				// build the SQL query
+				$query->select($db->quoteName(array('p.user_id', 'u.username', 'u.real_name')));
+				$query->from($db->quoteName('#__user_profiles p'));
+				$query->join('INNER', $db->quoteName('#__users', 'u') . ' ON (' . $db->quoteName('u.id') . ' = ' . $db->quoteName('p.user_id') . ')')
+				$query->where($db->quoteName('u.real_name') . ' LIKE '. $db->quote('\'%smith%\''));
+				$query->order('u.real_name ASC');
+
+				// Load the results as a list of stdClass objects (see later for more options on retrieving data).
+				$rows = $db->loadObjectList();
+
+				// Retrieve each value in the ObjectList
+				foreach( $rows as $row ) {
+					$this_user_id = $row->user_id;
+					$this_user_name = $row->username;
+					$this_user_realname = $row->real_name;
+				}
+
+		/**/
 
 		//--- optimized message -------------------------------------
 		// $msg .= '<br>' . JText::_('COM_RSGALLERY2_MAINT_OPTIMIZE_SUCCESS', true);
