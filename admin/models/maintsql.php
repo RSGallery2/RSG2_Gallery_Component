@@ -891,6 +891,28 @@ class Rsgallery2ModelMaintSql extends  JModelList
 				$msg .=  ' $commentCount: ' . $commentCount . ' xxxx';
 
 				$msg .= '<br>';
+/*
+				$db = JFactory::getDbo();
+				$query = $db->getQuery(true);
+				$query->update($db->quoteName('#__my_users'))
+					->set(array($db->quoteName('name') . '=\'JoÃ«l\'', $db->quoteName('username') . '=\'joel.lipman\''))
+					->where(array($db->quoteName('user_id') . '=42'));
+				$db->setQuery($query);
+				$result = $db->query();
+/**/
+
+
+
+
+
+
+
+
+
+
+
+
+
 			}
 
 
