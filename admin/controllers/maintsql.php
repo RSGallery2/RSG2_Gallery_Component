@@ -137,9 +137,9 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 
 	public function updateCommentsVoting()
 	{
-		$msg = '<strong>' . JText::_('updateCommentsVoting') . ':</strong><br>';
+		$msg = '<strong>Ctrl:' . JText::_('updateCommentsVoting') . ':</strong><br>';
 		$msgType = 'notice';
-/*
+
 		// Access check
 		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
 		if (!$canAdmin) {
@@ -151,9 +151,9 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 
 			// Model tells if successful
 			$model = $this->getModel('maintSql');
-			$msg .= $model->repairSqlTables();
+			$msg .= $model->updateComments();
 		}
-*/
+
 		// Back to check of database
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}

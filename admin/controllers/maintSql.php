@@ -135,5 +135,28 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintDatabase', $msg, $msgType);
 	}
 
+	public function updateCommentsVoting()
+	{
+		$msg = '<strong>Ctrl:' . JText::_('updateCommentsVoting') . ':</strong><br>';
+		$msgType = 'notice';
+
+		// Access check
+		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		if (!$canAdmin) {
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
+
+			// Model tells if successful
+			$model = $this->getModel('maintSql');
+			$msg .= $model->updateComments();
+		}
+
+		// Back to check of database
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+	}
+
 }
 
