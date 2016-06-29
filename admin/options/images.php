@@ -120,13 +120,15 @@ switch ($task) {
 function showImages( $option ) {
 	global $mosConfig_list_limit;
 
-	$mainframe = JFactory::getApplication();
+	require_once JPATH_ADMINISTRATOR . '/components/com_rsgallery2/models/images.php';
+
+	$app = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	
-	$gallery_id = intval( $mainframe->getUserStateFromRequest( "gallery_id{$option}", 'gallery_id', 0 ) );
-	$limit      = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->get('list_limit'), 'int');
-	$limitstart = intval( $mainframe->getUserStateFromRequest( "view{$option}limitstart", 'limitstart', 0 ) );
-	$search 	= $mainframe->getUserStateFromRequest( "search{$option}", 'search', '' );
+	$gallery_id = intval( $app->getUserStateFromRequest( "gallery_id{$option}", 'gallery_id', 0 ) );
+	$limit      = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('list_limit'), 'int');
+	$limitstart = intval( $app->getUserStateFromRequest( "view{$option}limitstart", 'limitstart', 0 ) );
+	$search 	= $app->getUserStateFromRequest( "search{$option}", 'search', '' );
 	$search 	= $database->escape( trim( strtolower( $search ) ) );
 
 	$where = array();
@@ -167,6 +169,16 @@ function showImages( $option ) {
 		return false;
 	}
 
+	// add comment count to each image
+	if(!empty ($rows)) {
+		foreach ($rows as $row) {
+			$CommentCount = rsgallery2ModelImages::getCommentCount($row->id);
+			if(!empty ($CommentCount)) {
+				$row->comments = $CommentCount;
+			}
+		}
+	}
+
 	// build list of categories
 	$javascript = 'onchange="document.adminForm.submit();"';
 	$lists['gallery_id'] = galleryUtils::galleriesSelectList( $gallery_id, 'gallery_id', false, $javascript );
@@ -187,7 +199,7 @@ function editImage( $option, $id ) {
     global $rsgOption;
 	$my = JFactory::getUser();
 	$database = JFactory::getDBO();
-	$mainframe = JFactory::getApplication();
+	$app = JFactory::getApplication();
 	
 	$lists = array();
 	
@@ -202,14 +214,14 @@ function editImage( $option, $id ) {
 	$canEditStateItem = $my->authorise('core.edit.state','com_rsgallery2.item.'.$row->id);
 
 	if (!$canEditItem){
-        $mainframe->enqueueMessage( JText::_('JERROR_ALERTNOAUTHOR'), 'error' );
-		$mainframe->redirect( "index.php?option=$option&rsgOption=images" );
+        $app->enqueueMessage( JText::_('JERROR_ALERTNOAUTHOR'), 'error' );
+		$app->redirect( "index.php?option=$option&rsgOption=images" );
 	}
 	
 	// fail if checked out not by 'me'
 	if ($row->isCheckedOut( $my->id )) {
-	    $mainframe->enqueueMessage( JText::sprintf('COM_RSGALLERY2_MODULE_CURRENTLY_EDITED',$row->title ));
-		$mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
+	    $app->enqueueMessage( JText::sprintf('COM_RSGALLERY2_MODULE_CURRENTLY_EDITED',$row->title ));
+		$app->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 	}
 
 	if ($id) {
@@ -282,7 +294,7 @@ foreach( $fields AS $field => $obj ){
  */
 function saveImage( $option, $redirect = true ) {
 	global  $rsgOption;
-	$mainframe = JFactory::getApplication();
+	$app = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	$my = JFactory::getUser();
 
@@ -362,9 +374,9 @@ function saveImage( $option, $redirect = true ) {
 	
 	if ($redirect){
 		if ($task == 'save'){
-			$mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
+			$app->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 		} else { //apply
-			$mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption&task=editA&hidemainmenu=1&id=$row->id" );
+			$app->redirect( "index.php?option=$option&rsgOption=$rsgOption&task=editA&hidemainmenu=1&id=$row->id" );
 		}
 	}
 }
@@ -378,7 +390,7 @@ function saveImage( $option, $redirect = true ) {
 */
 function removeImages( $cid, $option ) {
 	global  $rsgOption, $rsgConfig;
-	$mainframe = JFactory::getApplication();
+	$app = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	
 	$return="index.php?option=$option&rsgOption=images";
@@ -406,7 +418,7 @@ function removeImages( $cid, $option ) {
             	if( !JFile::delete( $thumb )){
 				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_THUMB_IMAGE') ." ". $thumb);
 				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_THUMB_IMAGE') ." ". $thumb, 'error');
-				$mainframe->redirect( $return );
+				$app->redirect( $return );
 				return;
 				}
 			}
@@ -414,7 +426,7 @@ function removeImages( $cid, $option ) {
 				if( !JFile::delete( $display )){
 				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_DISPLAY_IMAGE') ." ". $display);
 				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_DISPLAY_IMAGE') ." ". $display, 'error');
-				$mainframe->redirect( $return );
+				$app->redirect( $return );
 				return;
 				}
 			}
@@ -422,7 +434,7 @@ function removeImages( $cid, $option ) {
 				if( !JFile::delete( $original )){
 				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE') ." ". $original);
 				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE') ." ". $original, 'error');
-				$mainframe->redirect( $return );
+				$app->redirect( $return );
 				return;
 				}
 			}
@@ -431,7 +443,7 @@ function removeImages( $cid, $option ) {
 				if( !JFile::delete( $WaterMakerDisplay )){
 					//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_$WATERMARKED_DISPLAY_IMAGE') ." ". $WaterMakerDisplay);
 					JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_$WATERMARKED_DISPLAY_IMAGE') ." ". $WaterMakerDisplay, 'error');
-					$mainframe->redirect( $return );
+					$app->redirect( $return );
 					return;
 				}
 			}
@@ -439,7 +451,7 @@ function removeImages( $cid, $option ) {
 				if( !JFile::delete( $WaterMakerOriginal )){
 					//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_WATERMARKED_ORIGINAL_IMAGE') ." ". $WaterMakerOriginal);
 					JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_WATERMARKED_ORIGINAL_IMAGE') ." ". $WaterMakerOriginal, 'error');
-					$mainframe->redirect( $return );
+					$app->redirect( $return );
 					return;
 				}
 			}
@@ -449,15 +461,15 @@ function removeImages( $cid, $option ) {
 			if (!$row->delete($id)){
 				//JError::raiseNotice('ERROR_CODE', JText::sprintf('COM_RSGALLERY2_ERROR_DELETING_ITEMINFORMATION_DATABASE_ID',$id ));
 				JFactory::getApplication()->enqueueMessage(JText::sprintf('COM_RSGALLERY2_ERROR_DELETING_ITEMINFORMATION_DATABASE_ID',$id ), 'error');
-				$mainframe->redirect( $return );
+				$app->redirect( $return );
 				return;
 			}
 		}
 		
 	}
 	// ToDo: Check below text constant
-    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_MAGE_S_DELETED_SUCCESFULLY') );
-	$mainframe->redirect( $return );
+    $app->enqueueMessage( JText::_('COM_RSGALLERY2_MAGE_S_DELETED_SUCCESFULLY') );
+	$app->redirect( $return );
 }
 
 /**
@@ -467,7 +479,7 @@ function removeImages( $cid, $option ) {
  * @throws Exception
  */
 function moveImages( $cid, $option ) {
-	$mainframe = JFactory::getApplication();
+	$app = JFactory::getApplication();
 	$database = JFactory::getDBO();
 
 	//Get gallery id to move item(s) to
@@ -496,7 +508,7 @@ function moveImages( $cid, $option ) {
 		}
 	}
 
-	$mainframe->redirect( "index.php?option=$option&rsgOption=images", '' );
+	$app->redirect( "index.php?option=$option&rsgOption=images", '' );
 }
 
 /**
@@ -508,7 +520,7 @@ function moveImages( $cid, $option ) {
  */
 function publishImages( $cid=null, $publish=1,  $option ) {
 	global  $rsgOption;
-	$mainframe = JFactory::getApplication();
+	$app = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	$my = JFactory::getUser();
 
@@ -535,7 +547,7 @@ function publishImages( $cid=null, $publish=1,  $option ) {
 		$row = new rsgImagesItem( $database );
 		$row->checkin( $cid[0] );
 	}
-	$mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=$rsgOption" );
+	$app->redirect( "index.php?option=com_rsgallery2&rsgOption=$rsgOption" );
 }
 /**
  * Moves the order of a record
@@ -565,7 +577,7 @@ function orderImages( $uid, $inc, $option ) {
  */
 function cancelImage( $option ) {
 	global $rsgOption;
-	$mainframe = JFactory::getApplication();
+	$app = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	
 	$row = new rsgImagesItem( $database );
@@ -575,7 +587,7 @@ function cancelImage( $option ) {
     $row->bind( $input->post->getArray() );
 
 	$row->checkin();
-	$mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
+	$app->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 }
 
 /**
@@ -612,7 +624,7 @@ function uploadImage( $option ) {
  */
 function saveUploadedImage( $option ) {
 	global $id, $rsgOption;
-	$mainframe = JFactory::getApplication();
+	$app = JFactory::getApplication();
 	$input =JFactory::getApplication()->input;
 	
 	//$title = JRequest::getVar('title'  , array(), 'default', 'array');// We get an array of titles here  
@@ -654,8 +666,8 @@ function saveUploadedImage( $option ) {
 	}
 	//Error handling if necessary
 	if ( count( $errors ) == 0){
-        $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY') );
-		$mainframe->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
+        $app->enqueueMessage( JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY') );
+		$app->redirect( "index.php?option=$option&rsgOption=$rsgOption" );
 	} else {
 		//Show error message for each error encountered
 		foreach( $errors as $e ) {
@@ -668,8 +680,8 @@ function saveUploadedImage( $option ) {
 			echo "<br>".JText::_('COM_RSGALLERY2_THE_REST_OF_YOUR_FILES_WERE_UPLOADED_FINE');
 		}
 		
-// OneUploadForm $mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images&task=upload");
-		$mainframe->redirect('index.php?option=com_rsgallery2&view=upload&task=upload' ); // Todo: More information fail ?
+// OneUploadForm $app->redirect( "index.php?option=com_rsgallery2&rsgOption=images&task=upload");
+		$app->redirect('index.php?option=com_rsgallery2&view=upload&task=upload' ); // Todo: More information fail ?
 	} 
 }
 
@@ -680,7 +692,7 @@ function saveUploadedImage( $option ) {
  * @throws Exception
  */
 function resetHits ( &$cid ) {
-	$mainframe = JFactory::getApplication();
+	$app = JFactory::getApplication();
 	$database = JFactory::getDBO();
 
 	//Reset hits
@@ -695,8 +707,8 @@ function resetHits ( &$cid ) {
 		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 	}
 
-    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_HITS_RESET_TO_ZERO_SUCCESFULL') );
-	$mainframe->redirect( "index.php?option=com_rsgallery2&rsgOption=images" );
+    $app->enqueueMessage( JText::_('COM_RSGALLERY2_HITS_RESET_TO_ZERO_SUCCESFULL') );
+	$app->redirect( "index.php?option=com_rsgallery2&rsgOption=images" );
 }
 
 /**
@@ -704,7 +716,7 @@ function resetHits ( &$cid ) {
  * @throws Exception
  */
 function saveOrder( &$cid ) {
-	$mainframe = JFactory::getApplication();
+	$app = JFactory::getApplication();
 	$database = JFactory::getDBO();
 
 	$total		= count( $cid );
@@ -748,8 +760,8 @@ function saveOrder( &$cid ) {
 	$cache->clean( 'com_rsgallery2' );
 
 	$msg 	= JText::_('COM_RSGALLERY2_NEW_ORDERING_SAVED');
-    $mainframe->enqueueMessage( $msg );
-	$mainframe->redirect( 'index.php?option=com_rsgallery2&rsgOption=images');
+    $app->enqueueMessage( $msg );
+	$app->redirect( 'index.php?option=com_rsgallery2&rsgOption=images');
 } // saveOrder
 
 /**
@@ -759,7 +771,7 @@ function saveOrder( &$cid ) {
  * @throws Exception
  */
 function copyImage( $cid, $option ) {
-	$mainframe = JFactory::getApplication();
+	$app = JFactory::getApplication();
 	$database = JFactory::getDBO();
 
 	//For each error that is found, store error message in array
@@ -812,8 +824,8 @@ function copyImage( $cid, $option ) {
 
 	//Error handling if necessary
 	if ( count( $errors ) == 0){
-	    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ITEM_S_COPIED_SUCCESSFULLY') );
-		$mainframe->redirect( "index.php?option=$option&rsgOption=images" );
+	    $app->enqueueMessage( JText::_('COM_RSGALLERY2_ITEM_S_COPIED_SUCCESSFULLY') );
+		$app->redirect( "index.php?option=$option&rsgOption=images" );
 	} else {
 		//Show error message for each error encountered
 		foreach( $errors as $e ) {
@@ -837,7 +849,7 @@ function batchupload($option) {
 	global $rsgConfig;
 
 	$database  = JFactory::getDBO();
-	$mainframe = JFactory::getApplication();
+	$app = JFactory::getApplication();
 	$FTP_path  = $rsgConfig->get('ftp_path');
 
 	//Retrieve data from submit form
@@ -927,20 +939,20 @@ function batchupload($option) {
 					$ziplist = $uploadfile->extractArchive($zip_file);//MK// [todo] [check extractArchive]
 					if (!$ziplist) {
 						// Extracting archive failed
-						// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
-						$mainframe->redirect('index.php?option=com_rsgallery2&view=upload'); // Todo: More information fail ?
+						// OneUploadForm $app->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
+						$app->redirect('index.php?option=com_rsgallery2&view=upload'); // Todo: More information fail ?
 					}
 				} else {
 					// Error message: file size
-					$mainframe->enqueueMessage(JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE_IS_TOO_BIG'));
-					// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
-					$mainframe->redirect('index.php?option=com_rsgallery2&view=upload'); // Todo: More information fail ?
+					$app->enqueueMessage(JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE_IS_TOO_BIG'));
+					// OneUploadForm $app->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
+					$app->redirect('index.php?option=com_rsgallery2&view=upload'); // Todo: More information fail ?
 				}
 			} else {
 				// Error message: file name not given
-				$mainframe->enqueueMessage(JText::_('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN'));
-				// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
-				$mainframe->redirect('index.php?option=com_rsgallery2&view=upload'); // Todo: More information fail ?
+				$app->enqueueMessage(JText::_('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN'));
+				// OneUploadForm $app->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
+				$app->redirect('index.php?option=com_rsgallery2&view=upload'); // Todo: More information fail ?
 			}
 		} else {
 			//not zip thus ftp
@@ -960,7 +972,7 @@ function batchupload($option) {
  */
 function save_batchupload() {
     global  $rsgConfig;
-	$mainframe = JFactory::getApplication();
+	$app = JFactory::getApplication();
 	$database = JFactory::getDBO();
     //Try to bypass max_execution_time as set in php.ini
     set_time_limit(0);
@@ -993,9 +1005,9 @@ function save_batchupload() {
     if ( in_array('0', $category) || 
 		 in_array('-1', $category)) 
 	{
-	    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ALERT_NOCATSELECTED') );
-// OneUploadForm $mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
-		$mainframe->redirect('index.php?option=com_rsgallery2&view=upload' ); // Todo: More information fail ?
+	    $app->enqueueMessage( JText::_('COM_RSGALLERY2_ALERT_NOCATSELECTED') );
+// OneUploadForm $app->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
+		$app->redirect('index.php?option=com_rsgallery2&view=upload' ); // Todo: More information fail ?
 	}
 
     for($i=0;$i<$teller;$i++) {
@@ -1035,7 +1047,7 @@ function save_batchupload() {
         }
     } else {
         //Everything went smoothly, back to Control Panel
-	    $mainframe->enqueueMessage( JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY') );
-		$mainframe->redirect("index.php?option=com_rsgallery2" );
+	    $app->enqueueMessage( JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY') );
+		$app->redirect("index.php?option=com_rsgallery2" );
     }
 }
