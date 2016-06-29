@@ -92,9 +92,9 @@ class html_rsg2_images {
 								<?php echo JHtml::_('grid.order',  $rows); ?>
 							</th>
 							<th width="15%" align="left"><?php echo JText::_('COM_RSGALLERY2_GALLERY')?></th>
-							<th width="5%"><?php echo JText::_('COM_RSGALLERY2_COMMENTS')?></th>
-							<th width="5%"><?php echo JText::_('COM_RSGALLERY2_VOTES')?></th>
-							<th width="5%"><?php echo JText::_('COM_RSGALLERY2_HITS')?></th>
+							<th width="2%"><?php echo JText::_('COM_RSGALLERY2_COMMENTS')?></th>
+							<th width="2%"><?php echo JText::_('COM_RSGALLERY2_VOTES')?></th>
+							<th width="2%"><?php echo JText::_('COM_RSGALLERY2_HITS')?></th>
 							<th width=""><?php echo JText::_('COM_RSGALLERY2_DATE__TIME')?></th>
 						</tr>
 					</thead>

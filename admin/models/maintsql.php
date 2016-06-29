@@ -925,6 +925,40 @@ class Rsgallery2ModelMaintSql extends  JModelList
 
 		return $msg;
 	}
+
+	private function getCommentCount ($ImageId)
+	{
+		$commentCount = 0;
+
+		try {
+			$db = JFactory::getDbo();
+			$query = $db->getQuery(true);
+
+			$query->select ($db->quoteName('item_id'))
+				->from($db->quoteName('#__rsgallery2_comments'))
+				->where($db->quoteName('item_id') . ' = '. $ImageId);
+			$db->setQuery($query);
+
+			$commentRows = $db->loadObjectList();
+			$commentCount = count ($commentRows);
+		}
+
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing query: "' . $query . '" in getCommentCount' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $commentCount;
+	}
+
+
+
+
 }
 
 

@@ -149,12 +149,12 @@ function showImages( $option ) {
 	$pageNav = new JPagination( $total, $limitstart, $limit  );
 
 	$query = "SELECT a.*, cc.name AS category, u.name AS editor"
-	. "\n FROM #__rsgallery2_files AS a"
-	. "\n LEFT JOIN #__rsgallery2_galleries AS cc ON cc.id = a.gallery_id"
-	. "\n LEFT JOIN #__users AS u ON u.id = a.checked_out"
-	. ( count( $where ) ? "\n WHERE " . implode( ' AND ', $where ) : "")
-	. "\n ORDER BY a.gallery_id, a.ordering"
-	;
+		. "\n FROM #__rsgallery2_files AS a"
+		. "\n LEFT JOIN #__rsgallery2_galleries AS cc ON cc.id = a.gallery_id"
+		. "\n LEFT JOIN #__users AS u ON u.id = a.checked_out"
+		. ( count( $where ) ? "\n WHERE " . implode( ' AND ', $where ) : "")
+		. "\n ORDER BY a.gallery_id, a.ordering"
+		;
 	
 	try
 	{
