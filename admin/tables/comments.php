@@ -26,4 +26,7 @@ class Rsgallery2TableComments extends JTable
 		// id, name, value
 		parent::__construct('#__rsgallery2_comments', 'id', $db);
 	}
+	
+	
+	
 }
