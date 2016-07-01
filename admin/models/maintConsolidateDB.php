@@ -111,11 +111,12 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
             catch (RuntimeException $e)
             {
                 $OutTxt = '';
-                $OutTxt .= 'Error executing query: "' . $query . '" in IsWatermarkActive' . '<br>';
+                $OutTxt .= 'Error executing query: "' . $query . '"' . '<br>';
                 $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
                 $app = JFactory::getApplication();
                 $app->enqueueMessage($OutTxt, 'error');
+                
             }
         }
 
