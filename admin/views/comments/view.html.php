@@ -44,6 +44,13 @@ class Rsgallery2ViewComments extends JViewLegacy
 
 		$this->items         = $this->get('Items');
 
+		// Check for errors.
+		if (count($errors = $this->get('Errors')))
+		{
+			JError::raiseError(500, implode('<br />', $errors));
+			return false;
+		}
+
 
 
 

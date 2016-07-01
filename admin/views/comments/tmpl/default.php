@@ -41,6 +41,12 @@ JHtml::_('formbehavior.chosen', 'select');
                     </div>
                 <?php else : ?>
 
+                    foreach ($this->items as $comment) {
+
+                        echo encode_json ($comment) . '<br>';
+
+                    }
+
 
                 <?php endif;?>
             </form>

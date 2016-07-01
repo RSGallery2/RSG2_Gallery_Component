@@ -18,7 +18,7 @@ class Rsgallery2ModelComments extends JModelList
 
 	// save raw ...
 	public function save() {
-		$msg = "Rsgallery2ModelConfigRaw: ";
+		$msg = "Rsgallery2ModelCommentsSave: ";
 
 		$input =JFactory::getApplication()->input;
 		//$jform = $input->get( 'jform', array(), 'ARRAY');
