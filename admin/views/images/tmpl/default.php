@@ -31,9 +31,9 @@ JHtml::_('formbehavior.chosen', 'select');
 		<div id="j-main-container">
 	<?php endif;?>
 
-			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=comments'); ?>"
-				  method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
-
+            <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=images'); ?>"
+                  method="post" name="adminForm" id="adminForm"class="form-validate form-horizontal" >
+            
                 <?php if (empty($this->items)) : ?>
                     <div class="alert alert-no-items">
                         <?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
@@ -54,4 +54,3 @@ JHtml::_('formbehavior.chosen', 'select');
 
 	<div id="loading"></div>
 </div>
-

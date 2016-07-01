@@ -16,11 +16,11 @@ if ($Rsg2DebugActive)
 
 jimport('joomla.application.component.controlleradmin');
 
-class Rsgallery2ControllerComments extends JControllerAdmin
+class Rsgallery2ControllerImages extends JControllerAdmin
 {
 
-	public function getModel($name = 'Comment',
- 							 $prefix = 'Rsgallery2Model',
+	public function getModel($name = 'Image', 
+ 							 $prefix = 'Rsgallery2Model', 
   							 $config = array('ignore_request' => true))
 	{
 		$model = parent::getModel($name, $prefix, $config);

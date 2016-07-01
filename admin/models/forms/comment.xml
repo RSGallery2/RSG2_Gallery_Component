@@ -10,7 +10,7 @@
 		<field
 			name			= "title"
 			type			= "text"
-			label           = "COM_RSG2_NAME"
+			label           = "COM_RSGALLERY2_NAME"
 			description     = ""
 			maxlength       = "250"
 			filter          = ""
@@ -20,7 +20,7 @@
 		<field
 			name			= "alias"
 			type			= "text"
-			label           = "COM_RSG2_ALIAS"
+			label           = "COM_RSGALLERY2_ALIAS"
 			description     = ""
 			maxlength       = "250"
 			filter          = ""
@@ -30,7 +30,7 @@
 		<field
 			name			= "uid"
 			type			= "user"
-			label           = "COM_RSG2_OWNER"
+			label           = "COM_RSGALLERY2_OWNER"
 			description     = ""
 		/>
 
@@ -38,7 +38,7 @@
 		<field
 			name			= "name"
 			type			= "text"
-			label           = "COM_RSG2_FILENAME"
+			label           = "COM_RSGALLERY2_FILENAME"
 			description     = ""
 			maxlength       = "250"
 			filter          = ""
@@ -50,13 +50,13 @@
         <field
 			name			= "gallery_id"
 			type			= "GalleryList"
-			label           = "COM_RSG2_GALLERY"
+			label           = "COM_RSGALLERY2_GALLERY"
 			filter          = "integer"
 			height 			= "450"
 			size			= "10"
         >
-			<option value="-1" >COM_RSG2_SELECT_GALLERY</option>
-			<option value="0" >COM_RSG2_TOP_GALLERY</option>
+			<option value="-1" >COM_RSGALLERY2_SELECT_GALLERY</option>
+			<option value="0" >COM_RSGALLERY2_TOP_GALLERY</option>
 		</field>	
 
 		<!-- parameters
@@ -68,7 +68,7 @@
 		<field
 			name			= "description"
 			type			= "editor"
-			label           = "COM_RSG2_DESCRIPTION"
+			label           = "COM_RSGALLERY2_DESCRIPTION"
 			description     = ""
 			filter          = "safehtml"
 			class			= "span5"
@@ -78,7 +78,7 @@
 		<field
 			name			= "ordering"
 			type			= "RsgImageOrderingList"
-			label           = "COM_RSG2_ORDERING"
+			label           = "COM_RSGALLERY2_ORDERING"
 			filter          = "integer"
 			size			= "1"
 		>
@@ -106,7 +106,7 @@
         <field 
 			name			= "name"
             type			= "RsgImageView"
-            label           = "COM_RSG2_ITEM_PREVIEW"
+            label           = "COM_RSGALLERY2_ITEM_PREVIEW"
         />
 
 	    <!-- asset_id: needed for the Calculated Settings of the Rules to work correctly -->
@@ -134,7 +134,7 @@
         <!-- field
             name			= "params"
             type			= "text"
-            label           = "COM_RSG2_PARAMETERS"
+            label           = "COM_RSGALLERY2_PARAMETERS"
 
 			description     = ""
 			maxlength       = "250"
@@ -145,7 +145,7 @@
         <!--field
             name			= "image_folders"
             type			= "ImageFolders"
-            label           = "COM_RSG2_LINKS_TO_IMAGE"
+            label           = "COM_RSGALLERY2_LINKS_TO_IMAGE"
             /-->
 
 
@@ -154,7 +154,7 @@
 		<!-- field
 			name			= "gallery_id"
 			type			= "text"
-			label           = "COM_RSG2_PUBLISHED"
+			label           = "COM_RSGALLERY2_PUBLISHED"
 			description     = ""
 			maxlength       = "250"
 			filter          = ""
@@ -227,7 +227,7 @@
         <field
                 name			= "ordering"
                 type			= "text"
-                label           = "COM_RSG2_ORDERING"
+                label           = "COM_RSGALLERY2_ORDERING"
                 />
 
         <field

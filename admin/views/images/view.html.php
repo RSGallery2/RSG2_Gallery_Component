@@ -2,13 +2,11 @@
 
 defined( '_JEXEC' ) or die;
 
-jimport('joomla.html.html.bootstrap');
+jimport ('joomla.html.html.bootstrap');
 // jimport('joomla.application.component.view');
 // jimport('joomla.application.component.model');
 
-// JModelLegacy::addIncludePath(JPATH_COMPONENT.'/models');
-
-class Rsgallery2ViewComments extends JViewLegacy
+class Rsgallery2ViewImages extends JViewLegacy
 {
 
 	// ToDo: Use other rights instead of core.admin -> IsRoot ?
@@ -26,9 +24,9 @@ class Rsgallery2ViewComments extends JViewLegacy
 
 	//------------------------------------------------
 	public function display ($tpl = null)
-	{
+	{	
 		//--- get needed form data ------------------------------------------
-
+		
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
 
@@ -48,7 +46,7 @@ class Rsgallery2ViewComments extends JViewLegacy
 //		// different toolbar on different layouts
 //		$Layout = JFactory::getApplication()->input->get('layout');
 //
-		//$this->addToolbar ($Layout);
+//		$this->addToolbar ($Layout);
 		$this->addToolbar ();
 		$this->sidebar = JHtmlSidebar::render ();
 
@@ -74,7 +72,7 @@ class Rsgallery2ViewComments extends JViewLegacy
 		switch ($Layout)
 		{
 			default:
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_COMMENTS'), 'comment');
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_IMAGES'), 'image');
 //				JToolBarHelper::apply('config.apply');
 //				JToolBarHelper::save('config.save');
 //				JToolBarHelper::cancel('config.cancel');

@@ -10,16 +10,17 @@ if ($Rsg2DebugActive)
 	jimport('joomla.log.log');
 
 	// identify active file
-	JLog::add('==> ctrl.image.php ');
+	JLog::add('==> ctrl.galleries.php ');
 }
 /**/
 
 jimport('joomla.application.component.controlleradmin');
 
-class Rsgallery2ControllerComments extends JControllerAdmin
+class Rsgalleries2ControllerGalleries extends JControllerAdmin
 {
 
-	public function getModel($name = 'Comment',
+	public function getModel($name = 'Gallery', 
+ 							 $prefix = 'rsg2Model', 
  							 $prefix = 'Rsgallery2Model',
   							 $config = array('ignore_request' => true))
 	{
@@ -27,5 +28,5 @@ class Rsgallery2ControllerComments extends JControllerAdmin
 
 		return $model;
 	}
-
+ 
 }

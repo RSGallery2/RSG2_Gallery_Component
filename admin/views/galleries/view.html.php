@@ -1,9 +1,16 @@
-<?php
+<?php // no direct access
+/**
+ * @package RSGallery2
+ * @copyright (C) 2003 - 2016 RSGallery2
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * RSGallery is Free Software
+ */
 
 defined( '_JEXEC' ) or die;
 
 jimport ('joomla.html.html.bootstrap');
-jimport('joomla.application.component.view');
+// jimport('joomla.application.component.view');
+// jimport('joomla.application.component.model');
 
 class Rsgallery2ViewGalleries extends JViewLegacy
 {
@@ -11,28 +18,28 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 	// ToDo: Use other rights instead of core.admin -> IsRoot ?
 	// core.admin is the permission used to control access to 
 	// the global config
+	
 	protected $UserIsRoot;
 	protected $sidebar;
 
-	protected $rsgConfigData;
+	protected $items;
+	protected $pagination;
+	protected $state;
+
+//	protected $rsgConfigData;
 
 	//------------------------------------------------
 	public function display ($tpl = null)
 	{	
-		//--- get needed data ------------------------------------------
+		//--- get needed form data ------------------------------------------
 		
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
 
-		global $rsgConfig;
-		$this->rsgConfigData = $rsgConfig;
+//		global $rsgConfig;
+//		$this->rsgConfigData = $rsgConfig;
 
-
-//		$form = $this->get('Form');
-
-		//--- begin to display --------------------------------------------
-		
-//		Rsg2Helper::addSubMenu('rsg2'); 
+		$this->items = $this->get('Items');
 		
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) 
@@ -41,14 +48,12 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 			return false;
 		}
 		
-		// Assign the Data
-		// $this->form = $form;
 
-		// different toolbar on different layouts
-		$Layout = JFactory::getApplication()->input->get('layout');
-
-
-		$this->addToolbar ($Layout);
+//		// different toolbar on different layouts
+//		$Layout = JFactory::getApplication()->input->get('layout');
+//
+//		$this->addToolbar ($Layout);
+		$this->addToolbar ();
 		$this->sidebar = JHtmlSidebar::render ();
 
 		parent::display ($tpl);
@@ -72,25 +77,11 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 	{
 		switch ($Layout)
 		{
-			case 'RawView':
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
-					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'), 'screwdriver'); // 'maintenance');
-				JToolBarHelper::cancel('cancelRawView');
-				break;
-			case 'RawEdit':
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
-					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'), 'screwdriver'); // 'maintenance');
-				JToolBarHelper::apply('config_rawEdit_apply');
-				JToolBarHelper::save('config_rawEdit_save');
-				JToolBarHelper::cancel('cancelRawEdit');
-				break;
-			// case 'default':
 			default:
-				JToolBarHelper::title(JText::_('yyyy COM_RSGALLERY2_MAINTENANCE')
-					. ':' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'), 'screwdriver'); // 'maintenance');
-				JToolBarHelper::apply('config_rawEdit_apply');
-				JToolBarHelper::save('config_rawEdit_save');
-				JToolBarHelper::cancel('cancelConfig');
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_GALLERIES'), 'images');
+//				JToolBarHelper::apply('config.apply');
+//				JToolBarHelper::save('config.save');
+//				JToolBarHelper::cancel('config.cancel');
 				break;
 		}
 

@@ -328,13 +328,27 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 							</div>
 
 							<?php
-							$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.compareDb2SqlFile';
-							//$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=CompareDb2SqlFile';
-							//$link = 'index.php?option=com_rsgallery2&amp;task=compareDb2SqlFile';
-							quickTwoIconMoonBar ($link, 'icon-database', 'icon-book',
-								JText::_('COM_RSGALLERY2_COMPARE_DB_TO_SQL_FILE'),
-								JText::_('COM_RSGALLERY2_COMPARE_DB_TO_SQL_DESC'),
-								'compareDb2SqlFile');
+							$link = 'index.php?option=com_rsgallery2&amp;view=comments';
+							quickTwoIconMoonBar ($link, 'icon-comment', 'icon-list-2',
+								JText::_('COM_RSGALLERY2_COMMENTS'),
+								JText::_('COM_RSGALLERY2_COMMENTS_TXT'),
+								'consolidateDB');
+							?>
+
+							<?php
+							$link = 'index.php?option=com_rsgallery2&amp;view=images';
+							quickTwoIconMoonBar ($link, 'icon-image', 'icon-list-2',
+								JText::_('COM_RSGALLERY2_IMAGES'),
+								JText::_('List of images: Check it out'),
+								'consolidateDB');
+							?>
+
+							<?php
+							$link = 'index.php?option=com_rsgallery2&amp;view=galleries';
+							quickTwoIconMoonBar ($link, 'icon-comment', 'icon-list-2',
+								JText::_('COM_RSGALLERY2_GALLERIES'),
+								JText::_('List of galleries: Check it out'),
+								'consolidateDB');
 							?>
 
 						</div>
@@ -367,16 +381,6 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 										<?php echo JText::_('COM_RSGALLERY2_ONLY_WHEN_YOU_KNOW_WHAT_YOU_ARE_DOING'); ?>
 									</strong>
 								</div>
-
-								<?php
-								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
-								// $link = 'index.php?option=com_rsgallery2&amp;view=comments&amp;layout=commentsList';
-								$link = 'index.php?option=com_rsgallery2&amp;view=comments';
-								quickTwoIconMoonBar ($link, 'icon-comment', 'icon-edit',
-									JText::_('COM_RSGALLERY2_COMMENTS'),
-									JText::_('COM_RSGALLERY2_COMMENTS_TXT'),
-									'consolidateDB');
-								?>
 
 								<?php
 								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';

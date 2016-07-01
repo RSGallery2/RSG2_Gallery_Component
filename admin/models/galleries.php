@@ -1,18 +1,43 @@
 <?php
 // No direct access to this file
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
-require_once JPATH_ADMINISTRATOR . '/components/com_rsgallery2/helpers/rsg2Common.php';
-
-// import the Joomla model list library
-jimport('joomla.application.component.modellist');
 /**
  * Galleries Model
  */
 class rsgallery2ModelGalleries extends JModelList
 {
+	public function __construct($config = array())
+	{
+		if (empty($config['filter_fields']))
+		{
+
+			$config['filter_fields'] = array(
+				'id', 'a.id',
+				'user_id', 'a.user_id',
+				'user_name', 'a.user_name',
+				'user_ip', 'a.user_ip',
+				'parent_id', 'a.parent_id',
+				'item_id', 'a.item_id',
+				'item_table', 'a.item_table',
+				'datetime', 'a.datetime',
+				'subject', 'a.subject',
+				'comment', 'a.comment',
+				'published', 'a.published',
+				'checked_out', 'a.checked_out',
+				'checked_out_time', 'a.checked_out_time',
+				'ordering', 'a.ordering',
+				'params', 'a.params',
+				'hits', 'a.hits'
+			);
+		}
+
+		parent::__construct($config);
+	}
+
+
 	/**
-	 * Method to build an SQL query to load the galleries list data.
+	 * Method to build an SQL query to load the list data.
 	 *
 	 * @return      string  An SQL query
 	 */
@@ -159,10 +184,5 @@ class rsgallery2ModelGalleries extends JModelList
     }
 
 
-
-
-
 }
-
-
 
