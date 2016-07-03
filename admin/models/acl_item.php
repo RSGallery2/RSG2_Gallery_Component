@@ -5,7 +5,7 @@ defined('_JEXEC') or die;
 /**
  * 
  */
-class Rsgallery2ModelComment extends JModelAdmin
+class Rsgallery2ModelAcl_item extends JModelAdmin
 {
     protected $text_prefix = 'COM_RSGALLERY2';
 
@@ -18,7 +18,7 @@ class Rsgallery2ModelComment extends JModelAdmin
 	 * @return      JTable  A database object
 	 * @since       2.5
 	 */
-	public function getTable($type = 'Comment', $prefix = 'Rsgallery2Table', $config = array()) 
+	public function getTable($type = 'Acl_item', $prefix = 'Rsgallery2Table', $config = array()) 
 	{
 		return JTable::getInstance($type, $prefix, $config);
 	}
@@ -34,7 +34,7 @@ class Rsgallery2ModelComment extends JModelAdmin
 	public function getForm($data = array(), $loadData = true) 
 	{
 		$options = array('control' => 'jform', 'load_data' => $loadData);
-		$form = $this->loadForm('com_rsgallery2.comment', 'comment', 
+		$form = $this->loadForm('com_rsgallery2.acl_item', 'acl_item', 
 			array('control' => 'jform', 'load_data' -> $loadData));
 		if (empty($form)) 
 		{

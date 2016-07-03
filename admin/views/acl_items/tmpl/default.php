@@ -55,49 +55,52 @@ $ListDirn = '';
 							`id`
 							</th>
 							<th width="1%" class="center">
-							`user_id`
+								`gallery_id`
 							</th>
 							<th width="1%" class="center">
-							`user_name`
+								`parent_id`
 							</th>
 							<th width="1%" class="center">
-							`user_ip`
+								`public_view`
 							</th>
 							<th width="1%" class="center">
-							`parent_id`
+								`public_up_mod_img`
 							</th>
 							<th width="1%" class="center">
-							`item_id`
+								`public_del_img`
 							</th>
 							<th width="1%" class="center">
-							`item_table`
+								`public_create_mod_gal`
 							</th>
 							<th width="1%" class="center">
-							`datetime`
+								`public_del_gal`
 							</th>
 							<th width="1%" class="center">
-							`subject`
+								`public_vote_view`
 							</th>
 							<th width="1%" class="center">
-							`comment`
+								`public_vote_vote`
 							</th>
 							<th width="1%" class="center">
-							`published`
+								`registered_view`
 							</th>
 							<th width="1%" class="center">
-							`checked_out`
+								`registered_up_mod_img`
 							</th>
 							<th width="1%" class="center">
-							`checked_out_time`
+								`registered_del_img`
 							</th>
 							<th width="1%" class="center">
-							`ordering`
+								`registered_create_mod_gal`
 							</th>
 							<th width="1%" class="center">
-							`params`
+								`registered_del_gal`
 							</th>
 							<th width="1%" class="center">
-							`hits`
+								`registered_vote_view`
+							</th>
+							<th width="1%" class="center">
+								`registered_vote_vote`
 							</th>
 						</tr>
 					</thead>
@@ -105,7 +108,7 @@ $ListDirn = '';
 
 				<?php
 
-                    foreach ($this->items as $comment) {
+                    foreach ($this->items as $acl) {
 //	                    echo json_encode($comment) . '<br>';
 				?>
 
@@ -116,52 +119,55 @@ $ListDirn = '';
 		                    </td>
 
 		                    <td width="1%" class="center">
-	                            <?php echo $comment->id; ?>
+	                            <?php echo $acl->id; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->user_id; ?>
+			                    <?php echo $acl->gallery_id; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->user_name; ?>
+			                    <?php echo $acl->parent_id; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->user_ip; ?>
+			                    <?php echo $acl->public_view; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->parent_id; ?>
+			                    <?php echo $acl->public_up_mod_img; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->item_id; ?>
+			                    <?php echo $acl->public_del_img; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->item_table; ?>
+			                    <?php echo $acl->public_create_mod_gal; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->datetime; ?>
+			                    <?php echo $acl->public_del_gal; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->subject; ?>
+			                    <?php echo $acl->public_vote_view; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->comment; ?>
+			                    <?php echo $acl->public_vote_vote; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->published; ?>
+			                    <?php echo $acl->registered_view; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->checked_out; ?>
+			                    <?php echo $acl->registered_up_mod_img; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->checked_out_time; ?>
+			                    <?php echo $acl->registered_del_img; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->ordering; ?>
+			                    <?php echo $acl->registered_create_mod_gal; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->params; ?>
+			                    <?php echo $acl->registered_del_gal; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->hits; ?>
+			                    <?php echo $acl->registered_vote_view; ?>
+		                    </td>
+		                    <td width="1%" class="center">
+			                    <?php echo $acl->registered_vote_vote; ?>
 		                    </td>
 	                    </tr>
 
