@@ -9,7 +9,8 @@
 defined( '_JEXEC' ) or die();
 
 // ToDo: remove all JHtml::_('behavior.tooltip'); use JHtml::_('bootstrap.tooltip');
-JHtml::_('bootstrap.tooltip');
+// JHtml::_('behavior.tooltip');
+JHtml::_('bootstrap.tooltip'); 
 
 global $Rsg2DebugActive;
 
