@@ -11,11 +11,14 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 	// core.admin is the permission used to control access to 
 	// the global config
 	protected $UserIsRoot;
-	protected $debugActive;
+	
 	protected $dangerActive;
+	protected $rawDbActive;
 	protected $upgradeActive;
 	protected $testActive;
 	protected $developActive;
+	protected $debugActive;
+	
 	protected $sidebar;
 
 	//------------------------------------------------
@@ -29,6 +32,7 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
 		$this->debugActive = $rsgConfig->get('debug');
 
+		$this->rawDbActive = true; // false / true;
 		$this->dangerActive = true; // false / true;
 		$this->upgradeActive = true; // false / true;
 		$this->testActive = true; // false / true;

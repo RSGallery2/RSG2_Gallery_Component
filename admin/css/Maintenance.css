@@ -165,7 +165,11 @@ figure .clsTemplate {
 }
 
 .test {
-	border: 1px solid yellow;
+	border: 1px solid #96a918;
+}
+
+.rawDb {
+	border: 1px solid darkorange;
 }
 
 .icons-panel .dangerZone{
@@ -209,6 +213,16 @@ figure .clsTemplate {
 }
 
 .icons-panel .testZone{
+	/* background-color: red; /**/
+	background-color: #96a918; /**/
+	color: white; /**/
+	/* padding: 30px; /**/
+	padding: 5px; /**/
+	margin-left: 0px; /**/
+	border-radius: 3px 3px 0px 0px;
+}
+
+.icons-panel .rawDbZone{
 	/* background-color: red; /**/
 	background-color: darkorange; /**/
 	color: white; /**/
