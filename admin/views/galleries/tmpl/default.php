@@ -52,7 +52,7 @@ $ListDirn = '';
 			            </th>
 
 			            <th width="1%" class="center">
-				            `id`
+				            ID
 			            </th>
 			            <th width="1%" class="center">
 				            `user_id`
@@ -61,7 +61,7 @@ $ListDirn = '';
 				            `parent`
 			            </th>
 			            <th width="1%" class="center">
-				            `name`
+				            <?php echo JText::_('COM_RSGALLERY2_NAME')?>
 			            </th>
 			            <th width="1%" class="center">
 				            `alias`
@@ -70,7 +70,7 @@ $ListDirn = '';
 				            `description`
 			            </th>
 			            <th width="1%" class="center">
-				            `published`
+				            <?php echo JText::_('COM_RSGALLERY2_PUBLISHED')?>
 			            </th>
 			            <th width="1%" class="center">
 				            `checked_out`
@@ -85,7 +85,7 @@ $ListDirn = '';
 			                `date`
 			            </th>
 			            <th width="1%" class="center">
-			                `hits`
+				            <?php echo JText::_('COM_RSGALLERY2_HITS')?>
 			            </th>
 			            <th width="1%" class="center">
 			                `params`
@@ -106,7 +106,7 @@ $ListDirn = '';
 			                `asset_id`
 			            </th>
 			            <th width="1%" class="center">
-			                `access`
+				            <?php echo JText::_('JGRID_HEADING_ACCESS')?>
 			            </th>
 
 			            <?php
