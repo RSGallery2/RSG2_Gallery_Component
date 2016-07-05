@@ -119,7 +119,10 @@ $ListDirn = '';
 		                    </td>
 
 		                    <td width="1%" class="center">
-	                            <?php echo $acl->id; ?>
+								<?php
+								$link = JRoute::_("index.php?option=com_rsgallery2&view=acl_item&id=".$acl->id);
+								echo '<a href="' . $link . '"">' . $acl->id . '</a>';
+								?>
 		                    </td>
 		                    <td width="1%" class="center">
 			                    <?php echo $acl->gallery_id; ?>

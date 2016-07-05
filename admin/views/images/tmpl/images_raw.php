@@ -125,10 +125,16 @@ $ListDirn = '';
 				                </td>
 
 				                <td width="1%" class="center">
-					                <?php echo $image->id; ?>
+									<?php
+									$link = JRoute::_("index.php?option=com_rsgallery2&view=image&id=".$image->id);
+									echo '<a href="' . $link . '"">' . $image->id . '</a>';
+									?>
 				                </td>
 				                <td width="1%" class="center">
-					                <?php echo $image->name; ?>
+									<?php
+									$link = JRoute::_("index.php?option=com_rsgallery2&view=image&id=".$image->id);
+									echo '<a href="' . $link . '"">' . $image->name . '</a>';
+									?>
 				                </td>
 				                <td width="1%" class="center">
 					                <?php echo $image->alias; ?>

@@ -116,8 +116,11 @@ $ListDirn = '';
 		                    </td>
 
 		                    <td width="1%" class="center">
-	                            <?php echo $comment->id; ?>
-		                    </td>
+								<?php
+									$link = JRoute::_("index.php?option=com_rsgallery2&view=comment&id=".$comment->id);
+									echo '<a href="' . $link . '"">' . $comment->id . '</a>';
+								?>
+							</td>
 		                    <td width="1%" class="center">
 			                    <?php echo $comment->user_id; ?>
 		                    </td>
