@@ -35,7 +35,7 @@ class Rsgallery2ModelAcl_item extends JModelAdmin
 	{
 		$options = array('control' => 'jform', 'load_data' => $loadData);
 		$form = $this->loadForm('com_rsgallery2.acl_item', 'acl_item', 
-			array('control' => 'jform', 'load_data' -> $loadData));
+			array('control' => 'jform', 'load_data' => $loadData));
 		if (empty($form)) 
 		{
 			return false;

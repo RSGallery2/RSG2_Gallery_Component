@@ -35,7 +35,7 @@ class Rsgallery2ModelComment extends JModelAdmin
 	{
 		$options = array('control' => 'jform', 'load_data' => $loadData);
 		$form = $this->loadForm('com_rsgallery2.comment', 'comment', 
-			array('control' => 'jform', 'load_data' -> $loadData));
+			array('control' => 'jform', 'load_data' => $loadData));
 		if (empty($form)) 
 		{
 			return false;
