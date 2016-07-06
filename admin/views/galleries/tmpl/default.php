@@ -9,10 +9,13 @@
 defined( '_JEXEC' ) or die;
 
 JHtml::_('bootstrap.tooltip');
+JHtml::_('behavior.multiselect');
 JHtml::_('formbehavior.chosen', 'select');
 
 global $Rsg2DebugActive;
 
+$listOrder = $this->escape($this->state->get('list.ordering'));
+$listDirn  = $this->escape($this->state->get('list.direction'));
 
 // public static $extension = 'COM_RSG2';
 
@@ -43,7 +46,7 @@ $ListDirn = '';
                     </div>
                 <?php else : ?>
 
-	            <table class="table table-striped" id="commentsList">
+				<table class="table table-striped" id="commentsList">
 		            <tbody>
 		            <tr>
 
@@ -51,10 +54,11 @@ $ListDirn = '';
 				            <?php echo JHtml::_('grid.checkall'); ?>
 			            </th>
 
-			            <th width="1%" class="center">
-				            ID
-			            </th>
-			            <th width="1%" class="center">
+						<th width="1%" style="min-width:55px" class="nowrap center">
+							<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'a.state', $listDirn, $listOrder); ?>
+						</th>
+
+						<th width="1%" class="center">
 				            `user_id`
 			            </th>
 			            <th width="1%" class="center">
@@ -68,9 +72,6 @@ $ListDirn = '';
 			            </th>
 			            <th width="1%" class="center">
 				            `description`
-			            </th>
-			            <th width="1%" class="center">
-				            <?php echo JText::_('COM_RSGALLERY2_PUBLISHED')?>
 			            </th>
 			            <th width="1%" class="center">
 				            `checked_out`
@@ -111,76 +112,79 @@ $ListDirn = '';
 
 			            <?php
 
-			            foreach ($this->items as $gallery) {
+			            foreach ($this->items as $i => $item) {
 			            //	                    echo json_encode($comment) . '<br>';
 			            ?>
 
-		            <tr>
+		            <tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->id; ?>">
 
-			            <td width="1%" class="center">
-				            <?php echo JHtml::_('grid.checkall'); ?>
-			            </td>
+						<td width="1%" class="center">
+							<?php echo JHtml::_('grid.id', $i, $item->id); ?>
+						</td>
 
-			            <td width="1%" class="center">
+						<td width="1%" class="center">
+							<?php echo $item->published; ?>
+							<?php echo JHtml::_('jgrid.published', $item->state, $i, 'articles.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
+						</td>
+
+						<td width="1%" class="center">
 							<?php
-							$link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&id=".$gallery->id);
-							echo '<a href="' . $link . '"">' . $gallery->id . '</a>';
+							$link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&id=".$item->id);
+							echo '<a href="' . $link . '"">' . $item->id . '</a>';
 							?>
 			            </td>
 
 			            <td width="1%" class="center">
-				            <?php echo $gallery->parent; ?>
+				            <?php echo $item->parent; ?>
 			            </td>
 			            <td width="1%" class="center">
 							<?php
-							$link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&id=".$gallery->id);
-							echo '<a href="' . $link . '"">' . $gallery->name . '</a>';
+							$link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&id=".$item->id);
+							$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=galleries&amp;task=editA&amp;hidemainmenu=1&amp;id=".$item->id);
+							echo '<a class="gallery-link" name="Edit Gallery" href="' . $link . '"">' . $item->name . '</a>';
 							?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->alias; ?>
+				            <?php echo $item->alias; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->description; ?>
+				            <?php echo $item->description; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->published; ?>
+				            <?php echo $item->checked_out; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->checked_out; ?>
+				            <?php echo $item->checked_out_time; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->checked_out_time; ?>
+				            <?php echo $item->ordering; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->ordering; ?>
+				            <?php echo $item->date; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->date; ?>
+				            <?php echo $item->hits; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->hits; ?>
+				            <?php echo $item->params; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->params; ?>
+				            <?php echo $item->user; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->user; ?>
+				            <?php echo $item->uid; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->uid; ?>
+				            <?php echo $item->allowed; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->allowed; ?>
+				            <?php echo $item->thumb_id; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->thumb_id; ?>
+				            <?php echo $item->asset_id; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->asset_id; ?>
-			            </td>
-			            <td width="1%" class="center">
-				            <?php echo $gallery->access; ?>
+				            <?php echo $item->access; ?>
 			            </td>
 
 
