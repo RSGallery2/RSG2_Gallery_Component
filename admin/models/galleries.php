@@ -127,7 +127,7 @@ class rsgallery2ModelGalleries extends JModelList
         catch (RuntimeException $e)
         {
             $OutTxt = '';
-            $OutTxt .= 'Error executing query: "' . $query . '"' . '<br>';
+            $OutTxt .= 'latestGalleries: Error executing query: "' . $query . '"' . '<br>';
             $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
             $app = JFactory::getApplication();
@@ -183,6 +183,42 @@ class rsgallery2ModelGalleries extends JModelList
         return $latest;
     }
 
+    /**
+     * @param $galleryId
+     * returns the total number of items in the given gallery.
+     * @return int
+     */
+    public static function countImages ($galleryId)
+    {
+        $imageCount = 0;
 
+        try
+        {
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+
+            $query->select('count(1)');
+            $query->from('#__rsgallery2_files');
+            $query->where('gallery_id='. (int) $galleryId);
+            // Only for superadministrators this includes the unpublished items
+            if (!JFactory::getUser()->authorise('core.admin','com_rsgallery2'))
+                $query->where('published = 1');
+            $db->setQuery($query);
+
+            $imageCount = $db->loadResult();
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'countImages: Error executing query: "' . $query . '"' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+
+        return $imageCount;
+    }
 }
 

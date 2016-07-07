@@ -12,6 +12,8 @@ JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.multiselect');
 JHtml::_('formbehavior.chosen', 'select');
 
+
+
 global $Rsg2DebugActive;
 
 $listOrder = $this->escape($this->state->get('list.ordering'));
@@ -65,7 +67,7 @@ $ListDirn = '';
 							<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'a.state', $listDirn, $listOrder); ?>
 						</th>
 
-			            <th width="1%" class="center">
+			            <th width="10%" class="center">
 				            <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'a.name', $listDirn, $listOrder); ?>
 			            </th>
 
@@ -73,15 +75,28 @@ $ListDirn = '';
 				            <?php echo JText::_('COM_RSGALLERY2_IMAGES'); ?>&nbsp;
 			            </th>
 
-			            <th width="10%" class="nowrap hidden-phone">
+			            <th width="1%" class="nowrap hidden-phone">
 				            <?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_ACCESS', 'a.access', $listDirn, $listOrder); ?>
 			            </th>
 
-			            <th width="10%" class="nowrap hidden-phone">
+			            <th width="1%" class="nowrap hidden-phone">
 				            <?php echo JHtml::_('searchtools.sort',  'JAUTHOR', 'a.created_by', $listDirn, $listOrder); ?>
 			            </th>
 
-			            <th width="10%" class="nowrap hidden-phone">
+
+						<th width="1%" class="center">
+							<?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'a.ordering', $listDirn, $listOrder); ?>
+						</th>
+
+						<th width="1%" class="center">
+							`items`
+						</th>
+
+
+
+
+
+						<th width="10%" class="nowrap hidden-phone">
 				            <?php echo JHtml::_('searchtools.sort', 'JDATE', 'a.created', $listDirn, $listOrder); ?>
 			            </th>
 
@@ -196,6 +211,9 @@ $ListDirn = '';
 							            title="<?php echo JText::_('COM_RSGALLERY2_IMAGES_LIST'); ?>"
 						            >
 							            (&nbsp;<sub><span class="icon-image" style="font-size: 1.6em;"></span></sub>)
+
+										<?php echo $this->GalleriesModel->countImages ($item->id); ?>
+
 						            </a>
 				            </td>
 
@@ -205,9 +223,22 @@ $ListDirn = '';
 					            <!--?php echo $this->escape($item->access_level); ?-->
 				            </td>
 
-				            <td class="small hidden-phone">
-					            <?php echo $this->escape($authorName->name); ?></a>
-				            </td>
+							<td class="small hidden-phone">
+								<?php echo $this->escape($authorName->name); ?></a>
+							</td>
+
+
+
+							<th width="1%" class="center">
+								<?php echo $item->ordering; ?>
+							</th>
+
+							<th width="1%" class="center">
+								`items`
+							</th>
+
+
+
 
 				            <td class="nowrap small hidden-phone">
 					            <?php echo JHtml::_('date', $item->date, JText::_('DATE_FORMAT_LC4')); ?>
@@ -229,48 +260,48 @@ $ListDirn = '';
 				            <!--
 
 
-														<td width="1%" class="center">
-															<?php echo $item->parent; ?>
-														</td>
-														<td width="1%" class="center">
-															<?php echo $item->alias; ?>
-														</td>
-														<td width="1%" class="center">
-															<?php echo $item->description; ?>
-														</td>
-														<td width="1%" class="center">
-															<?php echo $item->checked_out; ?>
-														</td>
-														<td width="1%" class="center">
-															<?php echo $item->checked_out_time; ?>
-														</td>
-														<td width="1%" class="center">
-															<?php echo $item->ordering; ?>
-														</td>
-														<td width="1%" class="center">
-															<?php echo $item->hits; ?>
-														</td>
-														<td width="1%" class="center">
-															<?php echo $item->params; ?>
-														</td>
-														<td width="1%" class="center">
-															<?php echo $item->user; ?>
-														</td>
-														<td width="1%" class="center">
-															<?php echo $item->uid; ?>
-														</td>
-														<td width="1%" class="center">
-															<?php echo $item->allowed; ?>
-														</td>
-														<td width="1%" class="center">
-															<?php echo $item->thumb_id; ?>
-														</td>
-														<td width="1%" class="center">
-															<?php echo $item->asset_id; ?>
-														</td>
-														<td width="1%" class="center">
-															<?php echo $item->access; ?>
-														</td>
+							<td width="1%" class="center">
+								<?php echo $item->parent; ?>
+							</td>
+							<td width="1%" class="center">
+								<?php echo $item->alias; ?>
+							</td>
+							<td width="1%" class="center">
+								<?php echo $item->description; ?>
+							</td>
+							<td width="1%" class="center">
+								<?php echo $item->checked_out; ?>
+							</td>
+							<td width="1%" class="center">
+								<?php echo $item->checked_out_time; ?>
+							</td>
+							<td width="1%" class="center">
+								<?php echo $item->ordering; ?>
+							</td>
+							<td width="1%" class="center">
+								<?php echo $item->hits; ?>
+							</td>
+							<td width="1%" class="center">
+								<?php echo $item->params; ?>
+							</td>
+							<td width="1%" class="center">
+								<?php echo $item->user; ?>
+							</td>
+							<td width="1%" class="center">
+								<?php echo $item->uid; ?>
+							</td>
+							<td width="1%" class="center">
+								<?php echo $item->allowed; ?>
+							</td>
+							<td width="1%" class="center">
+								<?php echo $item->thumb_id; ?>
+							</td>
+							<td width="1%" class="center">
+								<?php echo $item->asset_id; ?>
+							</td>
+							<td width="1%" class="center">
+								<?php echo $item->access; ?>
+							</td>
 
 							-->
 

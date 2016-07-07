@@ -10,7 +10,9 @@ defined( '_JEXEC' ) or die;
 
 jimport ('joomla.html.html.bootstrap');
 // jimport('joomla.application.component.view');
-// jimport('joomla.application.component.model');
+jimport('joomla.application.component.model');
+
+JModelLegacy::addIncludePath(JPATH_COMPONENT.'/models');
 
 class Rsgallery2ViewGalleries extends JViewLegacy
 {
@@ -22,6 +24,7 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 	protected $UserIsRoot;
 	protected $sidebar;
 
+	protected $GalleriesModel;
 	protected $items;
 	protected $pagination;
 	protected $state;
@@ -35,6 +38,8 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 		
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
+
+		$this->GalleriesModel = JModelLegacy::getInstance ('galleries', 'rsgallery2Model');
 
 //		global $rsgConfig;
 //		$this->rsgConfigData = $rsgConfig;
