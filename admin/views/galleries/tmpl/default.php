@@ -72,7 +72,7 @@ $ListDirn = '';
 			            </th>
 
 			            <th width="1%" class="center">
-				            <?php echo JText::_('COM_RSGALLERY2_IMAGES'); ?>&nbsp;
+				            <?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_IMAGES', 'a.images', $listDirn, $listOrder); ?>
 			            </th>
 
 			            <th width="1%" class="nowrap hidden-phone">
@@ -86,13 +86,8 @@ $ListDirn = '';
 
 						<th width="1%" class="center">
 							<?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'a.ordering', $listDirn, $listOrder); ?>
+							&nbsp;<button id="filter_go" onclick="this.form.submit();" class="btn btn-micro" title="<?php echo "test title"; ?>"><i class="icon-save"></i></button>
 						</th>
-
-						<th width="1%" class="center">
-							`items`
-						</th>
-
-
 
 
 
@@ -187,6 +182,7 @@ $ListDirn = '';
 							</td>
 				            <td width="10%" class="left has-context">
 					            <!--div class="pull-left break-word" -->
+					            <strong>
 						            <?php
 						            if ($canEdit || $canEditOwn)
 						            {
@@ -204,17 +200,29 @@ $ListDirn = '';
 						            }
 
 						            ?>
+						        </strong>
 				            </td>
 
 				            <td width="5%" class="center">
-						            <a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id); ?>"
-							            title="<?php echo JText::_('COM_RSGALLERY2_IMAGES_LIST'); ?>"
-						            >
-							            (&nbsp;<sub><span class="icon-image" style="font-size: 1.6em;"></span></sub>)
+					            <?php
+					            $imageCount = $this->GalleriesModel->countImages ($item->id);
+					            ?>
 
-										<?php echo $this->GalleriesModel->countImages ($item->id); ?>
+					            <a class="badge <?php if ($imageCount > 0) echo "badge-success"; ?>" href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id); ?>"
+						                title="<?php echo JText::_('COM_RSGALLERY2_IMAGES_LIST'); ?>"
+					                >
+							            <?php
+							            echo $imageCount;
+							            ?>
+					            </a>
 
-						            </a>
+				            </td>
+
+				            <?php if (isset($this->items[0]) && property_exists($this->items[0], 'count_published')) : ?>
+				            <td class="center btns hidden-phone">
+				            </td>
+				            <?php endif;?>
+
 				            </td>
 
 				            <td class="small hidden-phone">
@@ -230,14 +238,13 @@ $ListDirn = '';
 
 
 							<th width="1%" class="center">
-								<?php echo $item->ordering; ?>
+								<div class="form-group">
+									<label class="hidden" for="ordering_<?php echo $i; ?>">Ordering</label>
+									<input class="input-mini" type="number" min="0" step="1" class="form-control" id="ordering_<?php echo $i; ?>"
+										placeholder="<?php echo $item->ordering; ?>">
+									</input>
+								</div>
 							</th>
-
-							<th width="1%" class="center">
-								`items`
-							</th>
-
-
 
 
 				            <td class="nowrap small hidden-phone">
