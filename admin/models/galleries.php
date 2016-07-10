@@ -138,7 +138,7 @@ class rsgallery2ModelGalleries extends JModelList
     }
 
     /**
-     * This function will retrieve the data of the n last uploaded images
+     * This function will retrieve the data of the n last uploaded galleries
      * @param int $limit > 0 will limit the number of lines returned
      * @return array rows with image name, gallery name, date, and user name as rows
      */

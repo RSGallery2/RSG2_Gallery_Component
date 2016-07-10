@@ -20,7 +20,6 @@ class Rsgalleries2ControllerGalleries extends JControllerAdmin
 {
 
 	public function getModel($name = 'Gallery', 
- 							 $prefix = 'rsg2Model', 
  							 $prefix = 'Rsgallery2Model',
   							 $config = array('ignore_request' => true))
 	{

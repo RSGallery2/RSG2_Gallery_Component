@@ -167,7 +167,8 @@ class html_rsg2_images {
 								</td>
 								<td>
 									<?php 	if ($can['EditGallery']) { ?>
-										<a href="<?php echo $row->cat_link; ?>" title="Edit Image">
+										<a href="<?php echo $row->cat_link; ?>"
+											title="<?php echo JText::_('COM_RSGALLERY2_EDIT_GALLERY');?>">
 									<?php 		echo $row->category; ?>
 										</a>
 									<?php 	} else {

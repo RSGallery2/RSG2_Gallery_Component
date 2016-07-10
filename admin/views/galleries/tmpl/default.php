@@ -9,9 +9,8 @@
 defined( '_JEXEC' ) or die;
 
 JHtml::_('bootstrap.tooltip');
-JHtml::_('behavior.multiselect');
+// JHtml::_('behavior.multiselect');
 JHtml::_('formbehavior.chosen', 'select');
-
 
 
 global $Rsg2DebugActive;
@@ -55,8 +54,8 @@ $ListDirn = '';
                     </div>
                 <?php else : ?>
 
-				<table class="table table-striped" id="commentsList">
-		            <tbody>
+				<table class="table table-striped" id="galleriesList">
+		            <thead>
 		            <tr>
 
 			            <th width="1%" class="center">
@@ -105,55 +104,9 @@ $ListDirn = '';
 			            </th>
 
 
-			            <!--
-
-			            <th width="1%" class="center">
-				            `parent`
-			            </th>
-			            <th width="1%" class="center">
-				            `alias`
-			            </th>
-			            <th width="1%" class="center">
-				            `description`
-			            </th>
-			            <th width="1%" class="center">
-				            `checked_out`
-			            </th>
-			            <th width="1%" class="center">
-				            `checked_out_time`
-			            </th>
-			            <th width="1%" class="center">
-				            `ordering`
-			            </th>
-			            <th width="1%" class="center">
-			                `date`
-			            </th>
-			            <th width="1%" class="center">
-				            <?php echo JText::_('COM_RSGALLERY2_HITS')?>
-			            </th>
-			            <th width="1%" class="center">
-			                `params`
-			            </th>
-			            <th width="1%" class="center">
-				            `user`
-			            </th>
-			            <th width="1%" class="center">
-				            `uid`
-			            </th>
-			            <th width="1%" class="center">
-				            `allowed`
-			            </th>
-			            <th width="1%" class="center">
-				            `thumb_id`
-			            </th>
-			            <th width="1%" class="center">
-			                `asset_id`
-			            </th>
-			            <th width="1%" class="center">
-				            <?php echo JText::_('JGRID_HEADING_ACCESS')?>
-			            </th>
--->
 			         </tr>
+		                </thead>
+		                <tbody>
 
 		            <?php
 
@@ -166,9 +119,7 @@ $ListDirn = '';
 			            $canEditOwn  = true;
 
 			            $authorName = JFactory::getUser($item->uid);
-
-
-
+			            
 		            ?>
 
 			            <tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->id; ?>">
@@ -220,6 +171,8 @@ $ListDirn = '';
 
 				            <?php if (isset($this->items[0]) && property_exists($this->items[0], 'count_published')) : ?>
 				            <td class="center btns hidden-phone">
+
+
 				            </td>
 				            <?php endif;?>
 
@@ -236,15 +189,14 @@ $ListDirn = '';
 							</td>
 
 
-
-							<th width="1%" class="center">
+							<td width="1%" class="center">
 								<div class="form-group">
 									<label class="hidden" for="ordering_<?php echo $i; ?>">Ordering</label>
 									<input class="input-mini" type="number" min="0" step="1" class="form-control" id="ordering_<?php echo $i; ?>"
 										placeholder="<?php echo $item->ordering; ?>">
 									</input>
 								</div>
-							</th>
+							</td>
 
 
 				            <td class="nowrap small hidden-phone">

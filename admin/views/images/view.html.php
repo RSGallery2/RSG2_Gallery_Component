@@ -1,4 +1,10 @@
 <?php
+/**
+ * @package RSGallery2
+ * @copyright (C) 2003 - 2016 RSGallery2
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * RSGallery is Free Software
+ */
 
 defined( '_JEXEC' ) or die;
 
@@ -8,7 +14,6 @@ jimport ('joomla.html.html.bootstrap');
 
 class Rsgallery2ViewImages extends JViewLegacy
 {
-
 	// ToDo: Use other rights instead of core.admin -> IsRoot ?
 	// core.admin is the permission used to control access to 
 	// the global config
@@ -34,6 +39,8 @@ class Rsgallery2ViewImages extends JViewLegacy
 //		$this->rsgConfigData = $rsgConfig;
 
 		$this->items = $this->get('Items');
+		$this->pagination    = $this->get('Pagination');
+		$this->state         = $this->get('State');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))

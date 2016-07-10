@@ -82,6 +82,7 @@ class Rsgallery2ModelImages extends JModelList
         return $name;
     }
 
+
     /**
      * This function will retrieve the data of the n last uploaded images
      * @param int $limit > 0 will limit the number of lines returned
@@ -91,6 +92,8 @@ class Rsgallery2ModelImages extends JModelList
     {
         $latest = array();
 
+        try
+        {
         // Create a new query object.
         $db = JFactory::getDBO();
         $query = $db->getQuery(true);
@@ -121,11 +124,25 @@ class Rsgallery2ModelImages extends JModelList
 
             $latest[] = $ImgInfo;
         }
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'latestImageses: Error executing query: "' . $query . '"' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
 
         return $latest;
     }
 
-
+    /**
+     * This function will retrieve the data of the n last uploaded images
+     * @param int $limit > 0 will limit the number of lines returned
+     * @return array rows with image name, gallery name, date, and user name as rows
+     */
     public static function lastWeekImages($limit)
     {
         $latest = array();
@@ -168,6 +185,13 @@ class Rsgallery2ModelImages extends JModelList
         return $latest;
     }
 
+    /**
+     *
+     * 
+     * @param $galleryId
+     * returns the total number of items in the given gallery.
+     * @return int
+     */
     public static function getCommentCount ($ImageId)
     {
         $commentCount = 0;
@@ -197,9 +221,7 @@ class Rsgallery2ModelImages extends JModelList
 
         return $commentCount;
     }
-
-
-
+/**/
 
 }
 

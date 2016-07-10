@@ -16,7 +16,6 @@ JModelLegacy::addIncludePath(JPATH_COMPONENT.'/models');
 
 class Rsgallery2ViewGalleries extends JViewLegacy
 {
-
 	// ToDo: Use other rights instead of core.admin -> IsRoot ?
 	// core.admin is the permission used to control access to 
 	// the global config
