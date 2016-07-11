@@ -75,7 +75,9 @@ class Rsgallery2ModelComments extends JModelList
 		// Query for all galleries.
 		$query
 			->select('*')
-			->from('#__rsgallery2_comments');
+			->from('#__rsgallery2_comments')
+			->order('item_id')
+			;
 
 		return $query;
 	}
