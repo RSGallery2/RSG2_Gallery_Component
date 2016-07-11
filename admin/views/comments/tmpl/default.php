@@ -9,6 +9,7 @@
 defined( '_JEXEC' ) or die;
 
 JHtml::_('bootstrap.tooltip');
+JHtml::_('behavior.multiselect');
 JHtml::_('formbehavior.chosen', 'select');
 
 global $Rsg2DebugActive;
@@ -18,8 +19,8 @@ global $Rsg2DebugActive;
 //$doc = JFactory::getDocument();
 //$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
 
-$listOrder = '';
-$ListDirn = '';
+$listOrder = $this->escape($this->state->get('list.ordering'));
+$listDirn  = $this->escape($this->state->get('list.direction'));
 
 ?>
 
@@ -107,7 +108,13 @@ $ListDirn = '';
 
                     foreach ($this->items as $comment) {
 //	                    echo json_encode($comment) . '<br>';
-				?>
+						if($i > 5)
+						{
+							break;
+						}
+						//			            $authorName = JFactory::getUser($item->uid);
+						?>
+
 
 	                    <tr>
 

@@ -9,21 +9,19 @@
 defined( '_JEXEC' ) or die;
 
 JHtml::_('bootstrap.tooltip');
+JHtml::_('behavior.multiselect');
 JHtml::_('formbehavior.chosen', 'select');
 
 
 global $Rsg2DebugActive;
-
-$listOrder = $this->escape($this->state->get('list.ordering'));
-$listDirn  = $this->escape($this->state->get('list.direction'));
 
 // public static $extension = 'COM_RSG2';
 
 //$doc = JFactory::getDocument();
 //$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
 
-$listOrder = '';
-$ListDirn = '';
+$listOrder = $this->escape($this->state->get('list.ordering'));
+$listDirn  = $this->escape($this->state->get('list.direction'));
 
 ?>
 

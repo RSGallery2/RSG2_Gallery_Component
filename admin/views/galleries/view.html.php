@@ -1,4 +1,4 @@
-<?php // no direct access
+<?php
 /**
  * @package RSGallery2
  * @copyright (C) 2003 - 2016 RSGallery2
@@ -6,6 +6,7 @@
  * RSGallery is Free Software
  */
 
+// no direct access
 defined( '_JEXEC' ) or die;
 
 jimport ('joomla.html.html.bootstrap');
