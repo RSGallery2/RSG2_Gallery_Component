@@ -120,7 +120,10 @@ class Rsgallery2ModelImages extends JModelList
             $ImgInfo['name'] = $row->name;
             $ImgInfo['gallery'] = rsgallery2ModelImages::getParentGalleryName ($row->gallery_id);
             $ImgInfo['date'] = $row->date;
-            $ImgInfo['user'] = rsg2Common::getUsernameFromId ($row->userid);
+
+            //$ImgInfo['user'] = rsgallery2ModelGalleries::getUsernameFromId($row->userid);
+            $user = JFactory::getUser($row->userid);
+            $ImgInfo['user'] = $user->get('username');
 
             $latest[] = $ImgInfo;
         }

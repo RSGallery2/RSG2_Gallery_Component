@@ -57,32 +57,6 @@ class rsgallery2ModelGalleries extends JModelList
 	}
 
     /**
-     * This function will retrieve the user name based on the user id
-     * @param int $uid user id
-     * @return string the username
-     * @todo isn't there a joomla function for this?
-     */
-    static function getUsernameFromId($uid) {  // ToDO: Move to somewhere else
-        // Create a new query object.
-        $db = JFactory::getDBO();
-        $query = $db->getQuery(true);
-
-        //$query = 'SELECT `username` FROM `#__users` WHERE `id` = '. (int) $uid;
-
-        // Query for user with $uid.
-        $query
-            ->select('username')
-            ->from($db->quoteName('#__users'))
-            ->where($db->quoteName('id') .' = ' . (int)$uid);
-
-        $db->setQuery($query);
-        $name = $db->loadResult();
-
-        return $name;
-    }
-
-
-    /**
      * This function will retrieve the data of the n last uploaded images
      * @param int $limit > 0 will limit the number of lines returned
      * @return array rows with image name, gallery name, date, and user name as rows
@@ -119,7 +93,10 @@ class rsgallery2ModelGalleries extends JModelList
                 $ImgInfo         = array();
                 $ImgInfo['name'] = $row->name;
                 $ImgInfo['id']   = $row->id;
-                $ImgInfo['user'] = rsg2Common::getUsernameFromId($row->uid);
+
+                //$ImgInfo['user'] = rsgallery2ModelGalleries::getUsernameFromId($row->uid);
+                $user = JFactory::getUser($row->uid);
+                $ImgInfo['user'] = $user->get('username');
 
                 $latest[] = $ImgInfo;
             }
@@ -175,7 +152,10 @@ class rsgallery2ModelGalleries extends JModelList
             $ImgInfo = array();
             $ImgInfo['name'] = $row->name;
             $ImgInfo['id'] = $row->id;
-            $ImgInfo['user'] = rsg2Common::getUsernameFromId ($row->uid);
+
+            //$ImgInfo['user'] = rsgallery2ModelGalleries::getUsernameFromId($row->uid);
+            $user = JFactory::getUser($row->uid);
+            $ImgInfo['user'] = $user->get('username');
 
             $latest[] = $ImgInfo;
         }
@@ -220,5 +200,6 @@ class rsgallery2ModelGalleries extends JModelList
 
         return $imageCount;
     }
-}
+
+} // class
 
