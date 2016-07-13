@@ -14,20 +14,10 @@ class Rsgallery2ModelComments extends JModelList
 
 			$config['filter_fields'] = array(
 				'id', 'a.id',
-				'user_id', 'a.user_id',
-				'user_name', 'a.user_name',
-				'user_ip', 'a.user_ip',
-				'parent_id', 'a.parent_id',
 				'item_id', 'a.item_id',
-				'item_table', 'a.item_table',
-				'datetime', 'a.datetime',
-				'subject', 'a.subject',
+				'user_name', 'a.user_name',
 				'comment', 'a.comment',
-				'published', 'a.published',
-				'checked_out', 'a.checked_out',
-				'checked_out_time', 'a.checked_out_time',
-				'ordering', 'a.ordering',
-				'params', 'a.params',
+				'user_ip', 'a.user_ip',
 				'hits', 'a.hits'
 			);
 		}

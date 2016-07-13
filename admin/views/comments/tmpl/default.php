@@ -60,16 +60,21 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 								</th>
 
 								<th width="10%" class="center">
-									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'a.name', $listDirn, $listOrder); ?>
+									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'a.user_name', $listDirn, $listOrder); ?>
+								</th>
+
+								<th width="10%" class="center">
+									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_USER_IP', 'a.user_ip', $listDirn, $listOrder); ?>
 								</th>
 
 
 
-
-
+								<th width="1%" class="nowrap hidden-phone">
+									<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'a.hits', $listDirn, $listOrder); ?>
+								</th>
 
 								<th width="1%" class="nowrap hidden-phone">
-								<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
+									<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
 							</th>
 
 						</tr>
@@ -99,25 +104,26 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 			                        <?php echo $comment->item_id; ?>
 		                        </td>
 
-		                        <td width="1%" class="center">
+		                        <td width="1%" class="">
 			                        <?php echo $comment->comment; ?>
 		                        </td>
 
 
-		                        <td width="1%" class="center">
-			                        <?php echo $comment->user_name; ?>
-		                        </td>
+								<td width="1%" class="center">
+									<?php echo $comment->user_name; ?>
+								</td>
 
+								<td width="1%" class="center">
+									<?php echo $comment->user_ip; ?>
+								</td>
 
+								<td class="hidden-phone">
+									<?php echo (int) $comment->hits; ?>
+								</td>
 
-
-
-
-		                        <td width="1%" class="center">
+								<td class="hidden-phone">
 			                        <?php echo $comment->id; ?>
 		                        </td>
-
-
 
 	                        </tr>
 
