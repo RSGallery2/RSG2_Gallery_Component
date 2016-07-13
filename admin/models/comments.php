@@ -11,18 +11,61 @@ class Rsgallery2ModelComments extends JModelList
 	{
 		if (empty($config['filter_fields']))
 		{
-
 			$config['filter_fields'] = array(
 				'id', 'a.id',
 				'item_id', 'a.item_id',
-				'user_name', 'a.user_name',
 				'comment', 'a.comment',
+				'user_name', 'a.user_name',
 				'user_ip', 'a.user_ip',
 				'hits', 'a.hits'
 			);
 		}
 
 		parent::__construct($config);
+	}
+
+	/**
+	 * Method to auto-populate the model state.
+	 *
+	 * Note. Calling getState in this method will result in recursion.
+	 *
+	 * @param   string  $ordering   An optional ordering field.
+	 * @param   string  $direction  An optional direction (asc|desc).
+	 *
+	 * @return  void
+	 *
+	 * @since   1.6
+	 */
+	protected function populateState($ordering = 'a.id', $direction = 'desc')
+	{
+		$app = JFactory::getApplication();
+
+		$search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
+		$this->setState('filter.search', $search);
+
+		// List state information.
+		parent::populateState($ordering, $direction);
+	}
+
+	/**
+	 * Method to get a store id based on model configuration state.
+	 *
+	 * This is necessary because the model is used by the component and
+	 * different modules that might need different sets of data or different
+	 * ordering requirements.
+	 *
+	 * @param   string  $id  A prefix for the store id.
+	 *
+	 * @return  string  A store id.
+	 *
+	 * @since   1.6
+	 */
+	protected function getStoreId($id = '')
+	{
+		// Compile the store id.
+		$id .= ':' . $this->getState('filter.search');
+
+		return parent::getStoreId($id);
 	}
 
 
@@ -68,6 +111,17 @@ class Rsgallery2ModelComments extends JModelList
 			->from('#__rsgallery2_comments')
 			->order('item_id')
 			;
+
+		$search = $this->getState('filter.search');
+		if(!empty($search)) {
+			$search = $db->quote('%' . $db->escape($search, true) . '%');
+			$query->where(
+				'comment LIKE ' . $search
+				. ' OR user_name LIKE ' . $search
+				. ' OR user_ip LIKE ' . $search
+				. ' OR item_id LIKE ' . $search
+			);
+		}
 
 		return $query;
 	}

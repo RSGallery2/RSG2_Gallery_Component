@@ -44,6 +44,7 @@ class Rsgallery2ViewComments extends JViewLegacy
 //		$this->rsgConfigData = $rsgConfig;
 
 		$this->items = $this->get('Items');
+		
 		$this->pagination    = $this->get('Pagination');
 		$this->state         = $this->get('State');
 
