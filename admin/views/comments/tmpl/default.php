@@ -54,7 +54,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 								<span class="icon-remove"></span><?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?></button>
 						</div>
 					</div>
-					<hr class="hr-condensed" />
+					<!--hr class="hr-condensed" />
 					<div class="filters">
 						<select name="filter_access" class="input-medium" onchange="this.form.submit()">
 							<option value=""><?php echo JText::_('JOPTION_SELECT_ACCESS');?></option>
@@ -83,7 +83,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 								<?php echo JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language'));?>
 							</select>
 						<?php endif; ?>
-					</div>
+					</div -->
 				</fieldset>
 
 				<?php if (empty($this->items)) : ?>
@@ -100,30 +100,30 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 									<?php echo JHtml::_('grid.checkall'); ?>
 								</th>
 
-								<th width="1%" class="center">
-									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_IMAGE', 'a.item_id', $listDirn, $listOrder); ?>
+								<th width="5%" class="center">
+									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_IMAGE', 'item_id', $listDirn, $listOrder); ?>
 								</th>
 
 								<th width="20%" class="center">
-									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_COMMENTS', 'a.comment', $listDirn, $listOrder); ?>
+									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_COMMENTS', 'comment', $listDirn, $listOrder); ?>
 								</th>
 
 								<th width="10%" class="center">
-									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'a.user_name', $listDirn, $listOrder); ?>
+									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'user_name', $listDirn, $listOrder); ?>
 								</th>
 
 								<th width="10%" class="center">
-									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_USER_IP', 'a.user_ip', $listDirn, $listOrder); ?>
+									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_USER_IP', 'user_ip', $listDirn, $listOrder); ?>
 								</th>
 
 
 
 								<th width="1%" class="nowrap hidden-phone">
-									<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'a.hits', $listDirn, $listOrder); ?>
+									<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
 								</th>
 
 								<th width="1%" class="nowrap hidden-phone">
-									<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
+									<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder); ?>
 							</th>
 
 						</tr>
