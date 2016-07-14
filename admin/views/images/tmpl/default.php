@@ -36,7 +36,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 	<?php endif;?>
 
             <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=images'); ?>"
-                  method="post" name="adminForm" id="adminForm"class="form-validate form-horizontal" >
+                  method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
 
 	            <fieldset class="filter">
 		            <div class="btn-toolbar">

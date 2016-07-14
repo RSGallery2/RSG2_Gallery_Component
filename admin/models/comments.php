@@ -13,22 +13,46 @@ class Rsgallery2ModelComments extends JModelList
 		{
 			/**
 			$config['filter_fields'] = array(
-				'id', 'a.id',
-				'item_id', 'a.item_id',
-				'comment', 'a.comment',
-				'user_name', 'a.user_name',
-				'user_ip', 'a.user_ip',
-				'hits', 'a.hits'
+			'id', 'a.id',
+			'item_id', 'a.item_id',
+			'comment', 'a.comment',
+			'user_name', 'a.user_name',
+			'user_ip', 'a.user_ip',
+			'hits', 'a.hits'
 			);
 			/**/
+
+			/**
 			$config['filter_fields'] = array(
-				'id',
-				'item_id',
-				'comment',
-				'user_name',
-				'user_ip',
-				'hits'
+			'id',
+			'item_id',
+			'comment',
+			'user_name',
+			'user_ip',
+			'hits'
 			);
+			/**/
+
+			/**/
+			$config['filter_fields'] = array(
+				'id','id',
+				'user_id','user_id',
+				'user_name','user_name',
+				'user_ip','user_ip',
+				'parent_id','parent_id',
+				'item_id','item_id',
+				'item_table','item_table',
+				'datetime','datetime',
+				'subject','subject',
+				'comment','comment',
+				'published','published',
+				'checked_out','checked_out',
+				'checked_out_time','checked_out_time',
+				'ordering','ordering',
+				'params','params',
+				'hits','hits'
+			);
+			/**/
 		}
 
 		parent::__construct($config);
@@ -117,11 +141,24 @@ class Rsgallery2ModelComments extends JModelList
 		$query->from('#__rsgallery2_comments AS a');
 /**/
 		// Query for all galleries.
+/*
 		$query
 			->select('*')
 			->from('#__rsgallery2_comments')
 	//		->order('item_id')
 			;
+*/
+		$actState =
+			$this->getState(
+				'list.select',
+				'id, user_id, user_name, user_ip, parent_id, item_id, '
+				. 'item_table, datetime, subject, comment, published, '
+				. 'checked_out, checked_out_time, ordering, params, hits');
+
+//		echo json_encode($actState) . '<br>';
+
+		$query->select($actState);
+		$query->from('#__rsgallery2_comments');
 
 		$search = $this->getState('filter.search');
 		if(!empty($search)) {
@@ -134,9 +171,17 @@ class Rsgallery2ModelComments extends JModelList
 			);
 		}
 
+/**
 		$sort = $this->getState('list.ordering');
 		$order = $this->getState('list.direction');
 		$query->order($db->escape($sort) . ' ' . $db->escape($order));
+/**/
+		$query->order($db->escape($this->getState('list.ordering', 'item_id')).' '.
+			$db->escape($this->getState('list.direction', 'DESC')));
+
+
+//		echo '$query: ' . json_encode($query) . '<br>';
+
 
 		return $query;
 	}

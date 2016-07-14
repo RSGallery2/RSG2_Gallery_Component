@@ -19,8 +19,8 @@ global $Rsg2DebugActive;
 //$doc = JFactory::getDocument();
 //$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
 
-$listOrder = $this->escape($this->state->get('list.ordering'));
-$listDirn  = $this->escape($this->state->get('list.direction'));
+$sortColumn = $this->escape($this->state->get('list.ordering'));
+$sortDirection  = $this->escape($this->state->get('list.direction')); //Column
 
 ?>
 
@@ -92,38 +92,39 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 	                </div>
                 <?php else : ?>
 
-					<table class="table table-striped" id="commentsList">
+					<table class="table table-striped table-hover" id="commentsList">
 						<thead>
 							<tr>
+								<th width="1%"><?php echo JText::_( 'COM_RSGALLERY2_NUM' ); ?></th>
 
 								<th width="1%" class="center">
 									<?php echo JHtml::_('grid.checkall'); ?>
 								</th>
 
 								<th width="5%" class="center">
-									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_IMAGE', 'item_id', $listDirn, $listOrder); ?>
+									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_IMAGE', 'item_id', $sortDirection, $sortColumn); ?>
 								</th>
 
 								<th width="20%" class="center">
-									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_COMMENTS', 'comment', $listDirn, $listOrder); ?>
+									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_COMMENTS', 'comment', $sortDirection, $sortColumn); ?>
 								</th>
 
 								<th width="10%" class="center">
-									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'user_name', $listDirn, $listOrder); ?>
+									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'user_name', $sortDirection, $sortColumn); ?>
 								</th>
 
 								<th width="10%" class="center">
-									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_USER_IP', 'user_ip', $listDirn, $listOrder); ?>
+									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_USER_IP', 'user_ip', $sortDirection, $sortColumn); ?>
 								</th>
 
 
 
 								<th width="1%" class="nowrap hidden-phone">
-									<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
+									<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'hits', $sortDirection, $sortColumn); ?>
 								</th>
 
 								<th width="1%" class="nowrap hidden-phone">
-									<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder); ?>
+									<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $sortDirection, $sortColumn); ?>
 							</th>
 
 						</tr>
@@ -139,6 +140,10 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 					<tbody>
 						<?php
 
+
+						// echo json_encode($this->items) . '<br>';
+
+
                         foreach ($this->items as $i => $comment) {
 //	                        echo json_encode($comment) . '<br>';
 							if($i > 5)
@@ -151,6 +156,9 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 
 
 	                        <tr>
+		                        <td>
+			                        <?php echo $this->pagination->getRowOffset($i); ?>
+		                        </td>
 
 			                    <td width="1%" class="center">
 				                    <?php echo JHtml::_('grid.checkall'); ?>
@@ -197,8 +205,8 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 				<div>
 					<input type="hidden" name="task" value="" />
 					<input type="hidden" name="boxchecked" value="0" />
-					<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
-					<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
+					<input type="hidden" name="filter_order" value="<?php echo $sortColumn; ?>" />
+					<input type="hidden" name="filter_order_Dir" value="<?php echo $sortDirection; ?>" />
 
 					<?php echo JHtml::_('form.token'); ?>
 
