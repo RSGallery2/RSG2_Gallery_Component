@@ -70,7 +70,7 @@ class Rsgallery2ModelComments extends JModelList
 	 *
 	 * @since   1.6
 	 */
-	protected function populateState($ordering = 'item_id', $direction = 'desc')
+	protected function populateState($ordering = array ('item_id', 'datetime'), $direction = 'desc')
 	{
 		// $app = JFactory::getApplication();
 
@@ -115,47 +115,13 @@ class Rsgallery2ModelComments extends JModelList
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-	/*
-		// Select the required fields from the table.
-		$query->select(
-			$this->getState(
-				'list.select',
-				'a.id',
-				'a.user_id',
-				'a.user_name',
-				'a.user_ip',
-				'a.parent_id',
-				'a.item_id',
-				'a.item_table',
-				'a.datetime',
-				'a.subject',
-				'a.comment',
-				'a.published',
-				'a.checked_out',
-				'a.checked_out_time',
-				'a.ordering',
-				'a.params',
-				'a.hits'
-			)
-		);
-		$query->from('#__rsgallery2_comments AS a');
-/**/
 		// Query for all galleries.
-/*
-		$query
-			->select('*')
-			->from('#__rsgallery2_comments')
-	//		->order('item_id')
-			;
-*/
 		$actState =
 			$this->getState(
 				'list.select',
 				'id, user_id, user_name, user_ip, parent_id, item_id, '
 				. 'item_table, datetime, subject, comment, published, '
 				. 'checked_out, checked_out_time, ordering, params, hits');
-
-//		echo json_encode($actState) . '<br>';
 
 		$query->select($actState);
 		$query->from('#__rsgallery2_comments');
@@ -176,8 +142,11 @@ class Rsgallery2ModelComments extends JModelList
 		$order = $this->getState('list.direction');
 		$query->order($db->escape($sort) . ' ' . $db->escape($order));
 /**/
-		$query->order($db->escape($this->getState('list.ordering', 'item_id')).' '.
-			$db->escape($this->getState('list.direction', 'DESC')));
+		// Add the list ordering clause.
+		$orderCol = $this->state->get('list.ordering', array ('item_id', 'datetime'));
+		$orderDirn = $this->state->get('list.direction', 'desc');
+
+		$query->order($db->escape($orderCol . ' ' . $orderDirn));
 
 
 //		echo '$query: ' . json_encode($query) . '<br>';

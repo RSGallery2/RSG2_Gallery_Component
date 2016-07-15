@@ -105,6 +105,11 @@ $sortDirection  = $this->escape($this->state->get('list.direction')); //Column
 									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_IMAGE', 'item_id', $sortDirection, $sortColumn); ?>
 								</th>
 
+
+								<th width="5%" class="center">
+									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_TITLE', 'subject', $sortDirection, $sortColumn); ?>
+								</th>
+
 								<th width="20%" class="center">
 									<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_COMMENTS', 'comment', $sortDirection, $sortColumn); ?>
 								</th>
@@ -168,9 +173,13 @@ $sortDirection  = $this->escape($this->state->get('list.direction')); //Column
 			                        <?php echo $comment->item_id; ?>
 		                        </td>
 
-		                        <td width="1%" class="">
-			                        <?php echo $comment->comment; ?>
-		                        </td>
+								<td width="1%" class="">
+									<?php echo $comment->subject; ?>
+								</td>
+
+								<td width="1%" class="">
+									<?php echo $comment->comment; ?>
+								</td>
 
 
 								<td width="1%" class="center">
