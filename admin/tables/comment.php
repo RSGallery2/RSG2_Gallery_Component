@@ -19,14 +19,22 @@ class Rsgallery2TableComment extends JTable
 	/**
 	 * Constructor
 	 *
-	 * @param   JDatabaseDriver  &$db  A database connector object
+	 * @param   JDatabaseDriver &$db A database connector object
 	 */
 	function __construct(&$db)
 	{
 		// id, name, value
 		parent::__construct('#__rsgallery2_comments', 'id', $db);
 	}
-	
-	
-	
+
+	public function bind($array, $ignore = array())
+	{
+		return parent::bind($array, $ignore);
+	}
+
+	public function store($updateNulls = false)
+	{
+
+		return parent::store($updateNulls);
+	}
 }

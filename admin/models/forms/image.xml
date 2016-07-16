@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Id$ -->
 <form>
-	<fieldset name ="image_1st_col">	
+	<fieldset name ="image_1st_col">
 		<field
-			name			= "id"
-			type			= "hidden"
+				name="id"
+				type="text"
+				class="readonly"
+				label="JGLOBAL_FIELD_ID_LABEL"
+				description ="JGLOBAL_FIELD_ID_DESC"
+				default="0"
+				readonly="true"
+				filter="unset"
 		/>
 
 		<field

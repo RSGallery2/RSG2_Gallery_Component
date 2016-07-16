@@ -70,7 +70,7 @@ class Rsgallery2ModelComments extends JModelList
 	 *
 	 * @since   1.6
 	 */
-	protected function populateState($ordering = array ('item_id', 'datetime'), $direction = 'desc')
+	protected function populateState($ordering = 'item_id, datetime', $direction = 'desc')
 	{
 		// $app = JFactory::getApplication();
 
@@ -143,7 +143,7 @@ class Rsgallery2ModelComments extends JModelList
 		$query->order($db->escape($sort) . ' ' . $db->escape($order));
 /**/
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', array ('item_id', 'datetime'));
+		$orderCol = $this->state->get('list.ordering', 'item_id, datetime');
 		$orderDirn = $this->state->get('list.direction', 'desc');
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));

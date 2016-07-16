@@ -68,4 +68,11 @@ class Rsgallery2ModelComment extends JModelAdmin
     }
     */
 
+	// ToDo:
+	protected function prepareTable ($table)
+	{
+		$table->subject = htmlspecialchars_decode($table->subject, ENT_QUOTES);
+		$table->comment = htmlspecialchars_decode($table->comment, ENT_QUOTES);
+	}
+
 }

@@ -149,7 +149,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction')); //Column
 						// echo json_encode($this->items) . '<br>';
 
 
-                        foreach ($this->items as $i => $comment) {
+                        foreach ($this->items as $i => $item) {
 //	                        echo json_encode($comment) . '<br>';
 							if($i > 5)
 							{
@@ -170,41 +170,47 @@ $sortDirection  = $this->escape($this->state->get('list.direction')); //Column
 			                    </td>
 
 		                        <td width="1%" class="center">
-			                        <?php echo $comment->item_id; ?>
+			                        <?php
+			                        $link = JRoute::_("index.php?option=com_rsgallery2&view=comment&id=".$item->id);
+			                        echo '<a href="' . $link . '"">' . $item->id . '</a>';
+			                        ?>
 		                        </td>
 
+
 								<td width="1%" class="">
-									<?php echo $comment->subject; ?>
+									<?php
+									$link = JRoute::_("index.php?option=com_rsgallery2&view=comment&id=".$item->id);
+									echo '<a href="' . $link . '"">' . $item->subject . '</a>';
+									?>
 								</td>
 
 								<td width="1%" class="">
-									<?php echo $comment->comment; ?>
+									<?php echo $item->comment; ?>
 								</td>
 
 
 								<td width="1%" class="center">
-									<?php echo $comment->user_name; ?>
+									<?php echo $item->user_name; ?>
 								</td>
 
 								<td width="1%" class="center">
-									<?php echo $comment->user_ip; ?>
+									<?php echo $item->user_ip; ?>
 								</td>
 
 								<td class="hidden-phone">
-									<?php echo (int) $comment->hits; ?>
+									<?php echo (int) $item->hits; ?>
 								</td>
 
 								<td class="hidden-phone">
-			                        <?php echo $comment->id; ?>
+			                        <?php echo $item->id; ?>
 		                        </td>
 
 	                        </tr>
 
-					<?php
-                    }
-					?>
+						<?php
+	                    }
+						?>
 
-				</tr>
 					</tbody>
 				</table>
 

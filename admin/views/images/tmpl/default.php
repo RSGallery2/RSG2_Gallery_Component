@@ -180,7 +180,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 							            <?php
 							            $link = JRoute::_("index.php?option=com_rsgallery2&view=item&id=".$item->id);
 
-							            $link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=galleries&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
+							            $link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
 							            echo '<a href="' . $link . '"">' . $item->id . '</a>';
 							            ?>
 						            </td>

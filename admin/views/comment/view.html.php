@@ -5,7 +5,7 @@ defined( '_JEXEC' ) or die;
 jimport ('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 
-class Rsgallery2ViewGallery extends JViewLegacy
+class Rsgallery2ViewComment extends JViewLegacy
 {
 
 	// ToDo: Use other rights instead of core.admin -> IsRoot ?
@@ -13,6 +13,9 @@ class Rsgallery2ViewGallery extends JViewLegacy
 	// the global config
 	protected $UserIsRoot;
 	protected $sidebar;
+	
+	protected $item;
+	protected $form;
 
 	protected $rsgConfigData;
 
@@ -27,28 +30,26 @@ class Rsgallery2ViewGallery extends JViewLegacy
 		global $rsgConfig;
 		$this->rsgConfigData = $rsgConfig;
 
+		$this->item = $this->get('Item');
+		$errors= $this->form = $this->get('Form');
 
-//		$form = $this->get('Form');
+		$this->state = $this->get('State');
 
-		//--- begin to display --------------------------------------------
-		
-//		Rsg2Helper::addSubMenu('rsg2'); 
-		
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) 
+		if (count($errors = $this->get('Errors')))
 		{
-			JError::raiseError(500, implode('<br />', $errors));
+			JError::raiseError(500, implode("\n", $errors));
+
 			return false;
 		}
-		
+
 		// Assign the Data
 		// $this->form = $form;
 
 		// different toolbar on different layouts
 		$Layout = JFactory::getApplication()->input->get('layout');
-
-
 		$this->addToolbar ($Layout);
+
 		$this->sidebar = JHtmlSidebar::render ();
 
 		parent::display ($tpl);
@@ -86,11 +87,17 @@ class Rsgallery2ViewGallery extends JViewLegacy
 				break;
 			// case 'default':
 			default:
-				JToolBarHelper::title(JText::_('yyyy COM_RSGALLERY2_MAINTENANCE')
-					. ':' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'), 'screwdriver'); // 'maintenance');
-				JToolBarHelper::apply('config_rawEdit_apply');
-				JToolBarHelper::save('config_rawEdit_save');
-				JToolBarHelper::cancel('cancelConfig');
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_EDIT_COMMENT', 'comment')); 
+				JToolBarHelper::apply('comment.apply');
+				JToolBarHelper::save('comment.save');
+				if(empty($this->item->id))
+				{
+					JToolBarHelper::cancel('comment.cancel');
+				}
+				else
+				{
+					JToolBarHelper::cancel('comment.cancel', '  JTOOLBAR_CLOSE');
+				}
 				break;
 		}
 

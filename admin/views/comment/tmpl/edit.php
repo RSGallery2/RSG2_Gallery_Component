@@ -14,7 +14,10 @@ global $Rsg2DebugActive;
 
 ?>
 
-<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=gallery'); ?>"
+<form action="<?php echo JRoute::_('index.php?option=com_banners&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="banner-form" class="form-validate">
+	
+<!--form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&layout=edit&id='.$this->item->id; ?>' -->
+<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=comment&id='.$this->item->id; ?>"
       method="post" name="adminForm" id="adminForm">
 
 <?php if (!empty( $this->sidebar)) : ?>
