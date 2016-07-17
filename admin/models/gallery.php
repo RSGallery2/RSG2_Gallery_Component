@@ -7,8 +7,6 @@ defined('_JEXEC') or die;
  */
 class Rsgallery2ModelGallery extends  JModelAdmin
 {
-    protected $text_prefix = 'COM_RSGALLERY2';
-
 	/**
 	 * Returns a reference to a Table object, always creating it.
 	 *
@@ -18,7 +16,7 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 	 * @return      JTable  A database object
 	 * @since       2.5
 	 */
-	public function getTable($type = 'Galleries', $prefix = 'rsg2Table', $config = array()) 
+	public function getTable($type = 'Gallery', $prefix = 'Rsgallery2Table', $config = array()) 
 	{
 		return JTable::getInstance($type, $prefix, $config);
 	}

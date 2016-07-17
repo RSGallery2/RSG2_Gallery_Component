@@ -14,7 +14,7 @@ defined('_JEXEC') or die();
  *
  * @since  0.0.1
  */
-class Rsgallery2TableComments extends JTable
+class Rsgallery2TableGallery extends JTable
 {
 	/**
 	 * Constructor
@@ -24,7 +24,7 @@ class Rsgallery2TableComments extends JTable
 	function __construct(&$db)
 	{
 		// id, name, value
-		parent::__construct('#__rsgallery2_comments', 'id', $db);
+		parent::__construct('#__rsgallery2_galleries', 'id', $db);
 	}
 	
 	

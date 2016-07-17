@@ -14,6 +14,9 @@ class Rsgallery2ViewGallery extends JViewLegacy
 	protected $UserIsRoot;
 	protected $sidebar;
 
+	protected $item;
+	protected $form;
+
 	protected $rsgConfigData;
 
 	//------------------------------------------------
@@ -28,27 +31,27 @@ class Rsgallery2ViewGallery extends JViewLegacy
 		$this->rsgConfigData = $rsgConfig;
 
 
-//		$form = $this->get('Form');
+		$this->item = $this->get('Item');
+		$errors= $this->form = $this->get('Form');
 
-		//--- begin to display --------------------------------------------
-		
-//		Rsg2Helper::addSubMenu('rsg2'); 
-		
+		$this->state = $this->get('State');
+
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) 
+		if (count($errors = $this->get('Errors')))
 		{
-			JError::raiseError(500, implode('<br />', $errors));
+			JError::raiseError(500, implode("\n", $errors));
+
 			return false;
 		}
-		
+
 		// Assign the Data
 		// $this->form = $form;
 
+
 		// different toolbar on different layouts
 		$Layout = JFactory::getApplication()->input->get('layout');
-
-
 		$this->addToolbar ($Layout);
+
 		$this->sidebar = JHtmlSidebar::render ();
 
 		parent::display ($tpl);

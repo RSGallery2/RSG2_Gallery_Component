@@ -8,16 +8,16 @@
 				class="readonly"
 				label="JGLOBAL_FIELD_ID_LABEL"
 				description ="JGLOBAL_FIELD_ID_DESC"
+				size="10"
 				default="0"
 				readonly="true"
-				filter="unset"
 		/>
 
 		<field
 			name			= "name"
 			type			= "text"
-			label           = "COM_RSGALLERY2_NAME"
-			description     = ""
+			label           = "COM_RSGALLERY2_GALLERY_NAME"
+			description     = "COM_RSGALLERY2_GALLERY_NAME"
 			maxlength       = "250"
 			filter          = ""
 			size            = "60"

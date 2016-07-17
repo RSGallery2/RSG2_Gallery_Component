@@ -123,7 +123,7 @@ $ListDirn = '';
 
 			            <td width="1%" class="center">
 							<?php
-							$link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&id=".$gallery->id);
+							$link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=".$gallery->id);
 							echo '<a href="' . $link . '"">' . $gallery->id . '</a>';
 							?>
 			            </td>
@@ -133,7 +133,7 @@ $ListDirn = '';
 			            </td>
 			            <td width="1%" class="center">
 							<?php
-							$link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&id=".$gallery->id);
+							$link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=".$gallery->id);
 							echo '<a href="' . $link . '"">' . $gallery->name . '</a>';
 							?>
 			            </td>

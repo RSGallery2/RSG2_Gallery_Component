@@ -44,12 +44,10 @@ class Rsgallery2ViewAcl_items extends JViewLegacy
 			return false;
 		}
 
+		// different toolbar on different layouts
+		$Layout = JFactory::getApplication()->input->get('layout');
+		$this->addToolbar ($Layout);
 
-//		// different toolbar on different layouts
-//		$Layout = JFactory::getApplication()->input->get('layout');
-//
-		//$this->addToolbar ($Layout);
-		$this->addToolbar ();
 		$this->sidebar = JHtmlSidebar::render ();
 
 		parent::display ($tpl);
@@ -73,11 +71,17 @@ class Rsgallery2ViewAcl_items extends JViewLegacy
 	{
 		switch ($Layout)
 		{
+			case 'acls_raw':
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_RAW_ACLS_TXT'), 'eye-close');
+				JToolBarHelper::editList('acl_item.edit');
+				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'acl_item.delete', 'JTOOLBAR_EMPTY_TRASH'); 				
+				break;
+
 			default:
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_ACCESS_CONTROL'), 'eye-close');
-//				JToolBarHelper::apply('config.apply');
-//				JToolBarHelper::save('config.save');
-//				JToolBarHelper::cancel('config.cancel');
+				JToolBarHelper::addNew('acl_item.add');
+				JToolBarHelper::editList('acl_item.edit');
+				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'acl_item.delete', 'JTOOLBAR_EMPTY_TRASH'); 				
 				break;
 		}
 

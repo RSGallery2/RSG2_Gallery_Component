@@ -178,10 +178,8 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 						            <?php
 						            if ($canEdit || $canEditOwn)
 						            {
-							            $link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&id=" . $item->id);
-							            $link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=galleries&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
-							            // echo '<a class="gallery-link" name="Edit Gallery" href="' . $link . '">' . $item->name . '</a>';
-
+							            $link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=" . $item->id);
+							            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=galleries&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
 							            echo '<a class="hasTooltip" href="' . $link  . '" title="' . JText::_('JACTION_EDIT') . '">';
 										echo '    ' . $this->escape($item->name);
 							            echo '</a>';

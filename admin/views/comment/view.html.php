@@ -73,18 +73,6 @@ class Rsgallery2ViewComment extends JViewLegacy
 	{
 		switch ($Layout)
 		{
-			case 'RawView':
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
-					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'), 'screwdriver'); // 'maintenance');
-				JToolBarHelper::cancel('cancelRawView');
-				break;
-			case 'RawEdit':
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
-					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'), 'screwdriver'); // 'maintenance');
-				JToolBarHelper::apply('config_rawEdit_apply');
-				JToolBarHelper::save('config_rawEdit_save');
-				JToolBarHelper::cancel('cancelRawEdit');
-				break;
 			// case 'default':
 			default:
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_EDIT_COMMENT', 'comment')); 
@@ -96,7 +84,7 @@ class Rsgallery2ViewComment extends JViewLegacy
 				}
 				else
 				{
-					JToolBarHelper::cancel('comment.cancel', '  JTOOLBAR_CLOSE');
+					JToolBarHelper::cancel('comment.cancel');
 				}
 				break;
 		}

@@ -178,28 +178,30 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 
 						            <td width="1%" class="center">
 							            <?php
-							            $link = JRoute::_("index.php?option=com_rsgallery2&view=item&id=".$item->id);
-
+							            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
 							            $link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
 							            echo '<a href="' . $link . '"">' . $item->id . '</a>';
 							            ?>
 						            </td>
 						            <td width="1%" class="center">
 							            <?php
-							            $link = JRoute::_("index.php?option=com_rsgallery2&view=item&id=".$item->id);
+							            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
+							            $link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
 							            echo '<a href="' . $link . '"">' . $item->title . '</a>';
 							            ?>
 						            </td>
 						            <td width="1%" class="center">
 							            <?php
-							            $link = JRoute::_("index.php?option=com_rsgallery2&view=item&id=".$item->id);
+							            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
+							            $link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
 							            echo '<a href="' . $link . '"">' . $item->name . '</a>';
 							            ?>
 						            </td>
 
 						            <td width="1%" class="center">
 							            <?php
-							            $link = 'index.php?option=com_rsgallery2&rsgOption=galleries&task=editA&hidemainmenu=1&id='. $item->gallery_id;
+							            $link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=".$item->gallery_id);
+							            $link = JRoute::_("index.php?option=com_rsgallery2&rsgOption=galleries&task=editA&hidemainmenu=1&id=". $item->gallery_id);
 							            echo '<a href="' . $link . '"">' . $item->gallery_id . '</a>';
 							            ?>
 						            </td>

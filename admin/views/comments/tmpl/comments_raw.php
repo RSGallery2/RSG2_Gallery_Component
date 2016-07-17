@@ -105,8 +105,8 @@ $ListDirn = '';
 
 				<?php
 
-                    foreach ($this->items as $comment) {
-//	                    echo json_encode($comment) . '<br>';
+                    foreach ($this->items as $item) {
+//	                    echo json_encode($item) . '<br>';
 				?>
 
 	                    <tr>
@@ -117,54 +117,54 @@ $ListDirn = '';
 
 		                    <td width="1%" class="center">
 								<?php
-								$link = JRoute::_("index.php?option=com_rsgallery2&view=comment&id=".$comment->id);
-								echo '<a href="' . $link . '"">' . $comment->id . '</a>';
+								$link = JRoute::_("index.php?option=com_rsgallery2&view=comment&layout=edit&id=".$item->id);
+								echo '<a href="' . $link . '"">' . $item->id . '</a>';
 								?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->user_id; ?>
+			                    <?php echo $item->user_id; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->user_name; ?>
+			                    <?php echo $item->user_name; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->user_ip; ?>
+			                    <?php echo $item->user_ip; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->parent_id; ?>
+			                    <?php echo $item->parent_id; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->item_id; ?>
+			                    <?php echo $item->item_id; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->item_table; ?>
+			                    <?php echo $item->item_table; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->datetime; ?>
+			                    <?php echo $item->datetime; ?>
+		                    </td>
+		                    <td width="5%" class="center">
+			                    <?php echo $item->subject; ?>
+		                    </td>
+		                    <td width="20%" class="center">
+			                    <?php echo $item->comment; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->subject; ?>
+			                    <?php echo $item->published; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->comment; ?>
+			                    <?php echo $item->checked_out; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->published; ?>
+			                    <?php echo $item->checked_out_time; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->checked_out; ?>
+			                    <?php echo $item->ordering; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->checked_out_time; ?>
+			                    <?php echo $item->params; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $comment->ordering; ?>
-		                    </td>
-		                    <td width="1%" class="center">
-			                    <?php echo $comment->params; ?>
-		                    </td>
-		                    <td width="1%" class="center">
-			                    <?php echo $comment->hits; ?>
+			                    <?php echo $item->hits; ?>
 		                    </td>
 	                    </tr>
 

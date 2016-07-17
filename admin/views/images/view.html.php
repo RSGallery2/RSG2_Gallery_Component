@@ -49,12 +49,10 @@ class Rsgallery2ViewImages extends JViewLegacy
 			return false;
 		}
 
+		// different toolbar on different layouts
+		$Layout = JFactory::getApplication()->input->get('layout');
+		$this->addToolbar ($Layout);
 
-//		// different toolbar on different layouts
-//		$Layout = JFactory::getApplication()->input->get('layout');
-//
-//		$this->addToolbar ($Layout);
-		$this->addToolbar ();
 		$this->sidebar = JHtmlSidebar::render ();
 
 		parent::display ($tpl);
@@ -78,11 +76,17 @@ class Rsgallery2ViewImages extends JViewLegacy
 	{
 		switch ($Layout)
 		{
+			case 'images_raw':
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_RAW_IMAGES_TXT'), 'image');
+				JToolBarHelper::editList('image.edit');
+				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'image.delete', 'JTOOLBAR_EMPTY_TRASH');
+				break;
+
 			default:
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_IMAGES'), 'image');
-//				JToolBarHelper::apply('config.apply');
-//				JToolBarHelper::save('config.save');
-//				JToolBarHelper::cancel('config.cancel');
+				JToolBarHelper::addNew('image.add');
+				JToolBarHelper::editList('image.edit');
+				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'image.delete', 'JTOOLBAR_EMPTY_TRASH'); 				
 				break;
 		}
 

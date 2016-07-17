@@ -171,7 +171,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction')); //Column
 
 		                        <td width="1%" class="center">
 			                        <?php
-			                        $link = JRoute::_("index.php?option=com_rsgallery2&view=comment&id=".$item->id);
+			                        $link = JRoute::_("index.php?option=com_rsgallery2&view=comment&layout=edit&id=".$item->id);
 			                        echo '<a href="' . $link . '"">' . $item->id . '</a>';
 			                        ?>
 		                        </td>
@@ -179,7 +179,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction')); //Column
 
 								<td width="1%" class="">
 									<?php
-									$link = JRoute::_("index.php?option=com_rsgallery2&view=comment&id=".$item->id);
+									$link = JRoute::_("index.php?option=com_rsgallery2&view=comment&layout=edit&id=".$item->id);
 									echo '<a href="' . $link . '"">' . $item->subject . '</a>';
 									?>
 								</td>

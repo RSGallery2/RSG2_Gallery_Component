@@ -111,7 +111,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		 $item=$model->save('');
 		 
 		// $this->setRedirect(JRoute::_('index.php?option=com_rsgallery2&view=config', false), "*Data Saved");
-		$link = 'index.php?option=com_rsgallery2&view=config';
+		$link = 'index.php?option=com_rsgallery2&view=config&amp;layout=edit';
 		$this->setRedirect($link, "*Data Saved");
     }  
 }

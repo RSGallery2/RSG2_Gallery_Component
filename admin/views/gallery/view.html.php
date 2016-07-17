@@ -14,6 +14,9 @@ class Rsgallery2ViewGallery extends JViewLegacy
 	protected $UserIsRoot;
 	protected $sidebar;
 
+	protected $item;
+	protected $form;
+
 	protected $rsgConfigData;
 
 	//------------------------------------------------
@@ -28,27 +31,27 @@ class Rsgallery2ViewGallery extends JViewLegacy
 		$this->rsgConfigData = $rsgConfig;
 
 
-//		$form = $this->get('Form');
+		$this->item = $this->get('Item');
+		$errors= $this->form = $this->get('Form');
 
-		//--- begin to display --------------------------------------------
-		
-//		Rsg2Helper::addSubMenu('rsg2'); 
-		
+		$this->state = $this->get('State');
+
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) 
+		if (count($errors = $this->get('Errors')))
 		{
-			JError::raiseError(500, implode('<br />', $errors));
+			JError::raiseError(500, implode("\n", $errors));
+
 			return false;
 		}
-		
+
 		// Assign the Data
 		// $this->form = $form;
 
+
 		// different toolbar on different layouts
 		$Layout = JFactory::getApplication()->input->get('layout');
-
-
 		$this->addToolbar ($Layout);
+
 		$this->sidebar = JHtmlSidebar::render ();
 
 		parent::display ($tpl);
@@ -72,25 +75,20 @@ class Rsgallery2ViewGallery extends JViewLegacy
 	{
 		switch ($Layout)
 		{
-			case 'RawView':
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
-					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'), 'screwdriver'); // 'maintenance');
-				JToolBarHelper::cancel('cancelRawView');
-				break;
-			case 'RawEdit':
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
-					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'), 'screwdriver'); // 'maintenance');
-				JToolBarHelper::apply('config_rawEdit_apply');
-				JToolBarHelper::save('config_rawEdit_save');
-				JToolBarHelper::cancel('cancelRawEdit');
-				break;
 			// case 'default':
 			default:
-				JToolBarHelper::title(JText::_('yyyy COM_RSGALLERY2_MAINTENANCE')
-					. ':' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'), 'screwdriver'); // 'maintenance');
-				JToolBarHelper::apply('config_rawEdit_apply');
-				JToolBarHelper::save('config_rawEdit_save');
-				JToolBarHelper::cancel('cancelConfig');
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_EDIT_GALLERY', 'images'));
+				JToolBarHelper::apply('gallery.apply');
+				JToolBarHelper::save('gallery.save');
+				JToolbarHelper::save2new('gallery.save2new'); 
+				if(empty($this->item->id))
+				{
+					JToolBarHelper::cancel('gallery.cancel');
+				}
+				else
+				{
+					JToolBarHelper::cancel('gallery.cancel');
+				}
 				break;
 		}
 

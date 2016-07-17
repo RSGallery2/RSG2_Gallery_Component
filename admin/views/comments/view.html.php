@@ -54,13 +54,11 @@ class Rsgallery2ViewComments extends JViewLegacy
 			JError::raiseError(500, implode('<br />', $errors));
 			return false;
 		}
+		
+		// different toolbar on different layouts
+		$Layout = JFactory::getApplication()->input->get('layout');
+		$this->addToolbar ($Layout);
 
-
-//		// different toolbar on different layouts
-//		$Layout = JFactory::getApplication()->input->get('layout');
-//
-		//$this->addToolbar ($Layout);
-		$this->addToolbar ();
 		$this->sidebar = JHtmlSidebar::render ();
 
 		parent::display ($tpl);
@@ -84,11 +82,18 @@ class Rsgallery2ViewComments extends JViewLegacy
 	{
 		switch ($Layout)
 		{
+			case 'comments_raw':
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_RAW_COMMENTS_TXT'), 'comment');
+				JToolBarHelper::editList('comment.edit');
+				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'comment.delete', 'JTOOLBAR_EMPTY_TRASH'); 				
+				break;
+
 			default:
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_COMMENTS'), 'comment');
 				JToolBarHelper::addNew('comment.add');
 				JToolBarHelper::editList('comment.edit');
-				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'comment.delete', 'JTOOLBAR_EMPTY_TRASH'); 				break;
+				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'comment.delete', 'JTOOLBAR_EMPTY_TRASH'); 				
+				break;
 		}
 
 	}

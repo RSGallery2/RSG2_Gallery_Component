@@ -6,37 +6,48 @@ JHtml::_('bootstrap.tooltip');
 
 global $Rsg2DebugActive;
 
-// public static $extension = 'COM_RSG2';
+JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+JHtml::_('behavior.formvalidator');
+JHtml::_('behavior.keepalive'); 
+JHtml::_('formbehavior.chosen', 'select');
 
-//$doc = JFactory::getDocument();
-//$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
-
-
+JFactory::getDocument()->addScriptDeclaration('
+	Joomla.submitbutton = function(task)
+	{
+		if (task == "comment.cancel" || document.formvalidator.isValid(document.getElementById("item-form")))
+		{
+			Joomla.submitform(task, document.getElementById("item-form"));
+		}
+	};
+');
 ?>
 
-<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=gallery'); ?>"
-      method="post" name="adminForm" id="adminForm">
+<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=gallery&layout=edit&id=' . (int) $this->item->id); ?>"
+	method="post" name="adminForm" id="item-form" class="form-validate">
 
-<?php if (!empty( $this->sidebar)) : ?>
-	<div id="j-sidebar-container" class="span2">
-		<?php echo $this->sidebar; ?>
+	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
+
+	<div class="form-horizontal">
+		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
+
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', empty($this->item->id) ? JText::_('COM_RSGALLERY2_NEW_COMMENT') : JText::_('COM_RSGALLERY2_COMMENT')); ?>
+		<div class="row-fluid">
+			<div class="span9">
+				<?php
+				echo $this->form->getControlGroups('gallery_1st_col');
+				?>
+			</div>
+			<!--div class="span3">
+				<?php echo JLayoutHelper::render('joomla.edit.global', $this); ?>
+			</div-->
+		</div>
+		<?php echo JHtml::_('bootstrap.endTab'); ?>
+
+		<?php echo JHtml::_('bootstrap.endTabSet'); ?>
 	</div>
-	<div id="j-main-container" class="span10">
-<?php else : ?>
-	<div id="j-main-container">
-<?php endif;?>
 
-		<div>
-			<h1> standard config edit not ready</h1>
-        </div>
+	<input type="hidden" name="task" value="" />
+	<?php echo JHtml::_('form.token'); ?>
 
-        <div>
-			<!--input type="hidden" name="option" value="com_rsgallery2" />
-			<input type="hidden" name="rsgOption" value="maintenance" />
-
-            <input type="hidden" name="task" value="" /-->
-            <?php echo JHtml::_('form.token'); ?>
-        </div>
-    </div>
 </form>
 

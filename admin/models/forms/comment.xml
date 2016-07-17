@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Id$ -->
 <form>
-	<fieldset name ="image_1st_col">
+	<fieldset name ="comment">
 		<field
 				name="id"
-				type="text"
-				class="readonly"
-				label="JGLOBAL_FIELD_ID_LABEL"
-				description ="JGLOBAL_FIELD_ID_DESC"
-				default="0"
-				readonly="true"
-				filter="unset"
-		/>
-		<field name="title"
 		       type="text"
-		       label="JGLOBAL_TITLE"
-		       description="JFIELD_TITLE_DESC"
-		       class="input-xxlarge input-large-text"
-		       size="40"
-		       required="true" />
+		       class="readonly"
+		       label="JGLOBAL_FIELD_ID_LABEL"
+		       description ="JGLOBAL_FIELD_ID_DESC"
+		       size="10"
+		       default="0"
+		       readonly="true"
+		/>
 
 		<field
-			name			= "user_id"
-			type			= "user"
-			label           = "COM_RSGALLERY2_OWNER"
-			description     = ""
+				name="subject"
+				type="text"
+				label="JGLOBAL_TITLE"
+				description="JFIELD_TITLE_DESC"
+				class="input-xxlarge input-large-text"
+				size="120"
+				required="true"
 		/>
 
+		<field
+				name="user_id"
+				type="user"
+				label="JGRID_HEADING_CREATED_BY"
+				description="JGLOBAL_FIELD_CREATED_BY_DESC"
+		/>
 
 		<field
 				name			= "user_name"
 				type			= "text"
-				label           = "COM_RSGALLERY2_USERNAME"
-				description     = ""
+				label           = "JGLOBAL_FIELD_CREATED_BY_ALIAS_LABEL"
+				description     = "JGLOBAL_FIELD_CREATED_BY_ALIAS_DESC"
 				maxlength       = "250"
 				filter          = ""
 				size            = "60"
-				class			= "readonly"
 				readonly		= "true"
 		/>
 
@@ -44,33 +45,32 @@
 				name			= "user_ip"
 				type			= "text"
 				label           = "COM_RSGALLERY2_USER_IP"
-				description     = ""
+				description     = "COM_RSGALLERY2_COMMENT_USER_IP_DESC"
 				maxlength       = "50"
 				filter          = ""
 				size            = "60"
-				class			= "readonly"
 				readonly		= "true"
 		/>
 
 		<field
 				name="parent_id"
 				type="categoryedit"
-				label="COM_CATEGORIES_FIELD_PARENT_LABEL"
-				description="COM_CATEGORIES_FIELD_PARENT_DESC"
+				label="COM_RSGALLERY2_COMMENT_PARENT_COMMENT"
+				description="COM_RSGALLERY2_COMMENT_PARENT_ID_DESC"
 		/>
 
 		<field
 				name="item_id"
 				type="categoryedit"
-				label="COM_CATEGORIES_ITEM_ID_LABEL"
-				description="COM_CATEGORIES_ITEM_ID_DESC"
+				label="COM_RSGALLERY2_IMAGE_ID"
+				description="COM_RSGALLERY2_COMMENT_IMAGE_ID_DESC"
 		/>
 
 		<field
 				name="item_table"
 				type="text"
-				label="COM_RSGALLERY2_COMMENTS_FIELD_ITEM_TABLE_LABEL"
-				description="COM_RSGALLERY2_COMMENTS_FIELD_ITEM_TABLE_DESC"
+				label="COM_RSGALLERY2_COMMENT_COMPONENT"
+				description="COM_RSGALLERY2_COMMENT_COMPONENT_DESC"
 				class="inputbox"
 				size="50"
 				maxlength="50"
@@ -80,8 +80,8 @@
 		<field
 				name="datetime"
 				type="calendar"
-				label="COM_RSGALLERY2_COMMENTS_FIELD_DATETIME_LABEL"
-				description="COM_RSGALLERY2_COMMENTS_FIELD_DATETIME_DESC"
+				label="JGLOBAL_FIELD_CREATED_DESC"
+				description="JGLOBAL_FIELD_CREATED_LABEL"
 				class="inputbox"
 				size="22"
 				maxlength="25"
@@ -90,19 +90,9 @@
 		/>
 
 		<field
-				name="subject"
-				type="text"
-				label="COM_RSGALLERY2_COMMENTS_FIELD_SUBJECT_LABEL"
-				description="COM_RSGALLERY2_COMMENTS_FIELD_SUBJECT_DESC"
-				class="inputbox"
-				size="100"
-				maxlength="100"
-		/>
-
-		<field
 				name="comment"
 				type="editor"
-				label="COM_RSGALLERY2_COMMENTS_FIELD_COMMENT_LABEL"
+				label="COM_RSGALLERY2_ACCESS_COMPONENT_COMMENT"
 				description="COM_RSGALLERY2_COMMENTS_FIELD_COMMENT_DESC"
 				width="100%"
 				height="250"
@@ -111,14 +101,19 @@
 				default=""
 		/>
 
-		<field
-				name="published"
-				type="checkbox"
-				label="COM_RSGALLERY2_COMMENTS_FIELD_PUBLISHED_LABEL"
-				description="COM_RSGALLERY2_COMMENTS_FIELD_PUBLISHED_DESC"
-				class="inputbox"
-				value="1"
-		/>
+		<field name="published" type="list" label="JSTATUS"
+		       description="JFIELD_PUBLISHED_DESC" class="chzn-color-state"
+		       filter="intval" size="1" default="1"
+		>
+			<option value="1">
+				JPUBLISHED</option>
+			<option value="0">
+				JUNPUBLISHED</option>
+			<option value="2">
+				JARCHIVED</option>
+			<option value="-2">
+				JTRASHED</option>
+		</field>
 
 		<field
 				name="checked_out"
@@ -131,15 +126,23 @@
 				filter="unset"
 		/>
 
-		<field
-				name="ordering"
-				label="JFIELD_ORDERING_LABEL"
-				description="JFIELD_ORDERING_DESC"
-				type="testgallery01ordering"
-				table="#__testgallery01_commentses"
+		<field name="ordering"
+		       type="text"
+		       label="JFIELD_ORDERING_LABEL"
+		       description="JFIELD_ORDERING_DESC"
+		       size="6"
+		       default="0"
 		/>
 
-		<field
+		<field name="ordering"
+		       type="text"
+		       label="JFIELD_ORDERING_LABEL"
+		       description="JFIELD_ORDERING_DESC"
+		       size="6"
+		       default="0"
+		/>
+
+		<!--field
 				name="params"
 				type="text"
 				label="COM_RSGALLERY2_COMMENTS_FIELD_PARAMS_LABEL"
@@ -147,18 +150,16 @@
 				class="inputbox"
 				size="100"
 				maxlength="100"
+		/-->
+
+		<field name="hits"
+		       type="text"
+		       label="JGLOBAL_HITS"
+		       description="COM_CONTENT_FIELD_HITS_DESC"
+		       class="readonly" size="6"
+		       readonly="true" filter="unset"
 		/>
 
-		<field
-				name="hits"
-				type="text"
-				label="JGLOBAL_HITS"
-				description="COM_RSGALLERY2_COMMENTS_FIELD_HITS_DESC"
-				class="readonly"
-				size="6"
-				readonly="true"
-				filter="unset"
-		/>
 	</fieldset>
 	
 	<!-- fieldset 
