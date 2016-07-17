@@ -3,7 +3,7 @@
 * This file contains Comments logic
 * @version $Id: rsgcomments.php 1096 2012-07-31 11:27:31Z mirjam $
 * @package RSGallery2
-* @copyright (C) 2003 - 2011 RSGallery2
+* @copyright (C) 2003 - 2016 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
@@ -99,7 +99,7 @@ function saveComment( $option ) {
 	$testFailed = false;
 	if (preg_match_all('/target="(.....)/',$comment,$matches)) {
 		foreach ($matches[1] as $match) {
-			// allowed are target="_self" and target="_blank" (whitch has one letter too many)
+			// allowed are target="_self" and target="_blank" (which has one letter too many)
 			if (($match != "_self") AND ($match != "_blan")) {
 				$testFailed = true;
 			}
