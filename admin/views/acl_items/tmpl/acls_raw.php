@@ -114,8 +114,8 @@ $ListDirn = '';
 
 	                    <tr>
 
-		                    <td width="1%" class="center">
-			                    <?php echo JHtml::_('grid.checkall'); ?>
+		                    <td class="center">
+			                    <?php echo JHtml::_('grid.id', $i, $item->id); ?>
 		                    </td>
 
 		                    <td width="1%" class="center">

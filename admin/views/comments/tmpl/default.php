@@ -145,9 +145,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction')); //Column
 					<tbody>
 						<?php
 
-
 						// echo json_encode($this->items) . '<br>';
-
 
                         foreach ($this->items as $i => $item) {
 //	                        echo json_encode($comment) . '<br>';
@@ -165,9 +163,9 @@ $sortDirection  = $this->escape($this->state->get('list.direction')); //Column
 			                        <?php echo $this->pagination->getRowOffset($i); ?>
 		                        </td>
 
-			                    <td width="1%" class="center">
-				                    <?php echo JHtml::_('grid.checkall'); ?>
-			                    </td>
+		                        <td class="center">
+			                        <?php echo JHtml::_('grid.id', $i, $item->id); ?>
+		                        </td>
 
 		                        <td width="1%" class="center">
 			                        <?php
