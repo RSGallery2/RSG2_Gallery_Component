@@ -37,7 +37,13 @@ $sortDirection  = $this->escape($this->state->get('list.direction')); //Column
 			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=comments'); ?>"
 				  method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
 
-				<fieldset class="filter">
+
+				<?php
+				// Search tools bar
+				echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
+				?>
+
+				<!--fieldset class="filter">
 					<div class="btn-toolbar">
 						<div class="btn-group">
 							<label for="filter_search">
@@ -83,8 +89,8 @@ $sortDirection  = $this->escape($this->state->get('list.direction')); //Column
 								<?php echo JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language'));?>
 							</select>
 						<?php endif; ?>
-					</div -->
-				</fieldset>
+					</div >
+				</fieldset -->
 
 				<?php if (empty($this->items)) : ?>
 	                <div class="alert alert-no-items">

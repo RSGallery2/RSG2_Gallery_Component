@@ -105,7 +105,7 @@ $ListDirn = '';
 
 				<?php
 
-                    foreach ($this->items as $item) {
+                    foreach ($this->items as $i => $item) {
 //	                    echo json_encode($item) . '<br>';
 				?>
 

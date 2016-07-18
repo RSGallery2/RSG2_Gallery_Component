@@ -114,7 +114,7 @@ $ListDirn = '';
 
 		                <?php
 
-		                foreach ($this->items as $image) {
+		                foreach ($this->items as $i => $image) {
 //	                    echo json_encode($comment) . '<br>';
 			                ?>
 

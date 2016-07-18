@@ -108,7 +108,7 @@ $ListDirn = '';
 
 				<?php
 
-                    foreach ($this->items as $acl) {
+                    foreach ($this->items as $i => $acl) {
 //	                    echo json_encode($comment) . '<br>';
 				?>
 

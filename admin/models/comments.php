@@ -137,11 +137,17 @@ class Rsgallery2ModelComments extends JModelList
 			);
 		}
 
-/**
-		$sort = $this->getState('list.ordering');
-		$order = $this->getState('list.direction');
-		$query->order($db->escape($sort) . ' ' . $db->escape($order));
-/**/
+		// Filter by published state
+		$published = $this->getState('filter.published');
+		if (is_numeric($published))
+		{
+			$query->where('published = ' . (int) $published);
+		}
+		elseif ($published === '')
+		{
+			$query->where('(published IN (0, 1))');
+		}
+
 		// Add the list ordering clause.
 		$orderCol = $this->state->get('list.ordering', 'item_id, datetime');
 		$orderDirn = $this->state->get('list.direction', 'desc');

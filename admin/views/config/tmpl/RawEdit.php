@@ -60,7 +60,7 @@ function configInputField($name='unknown', $value='') {
 		<div id="j-main-container">
 	<?php endif;?>
 
-			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=config'); ?>"
+			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=config&amp;layout=RawEdit'); ?>"
 			      method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
 
 				<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'ConfigRawView')); ?>
