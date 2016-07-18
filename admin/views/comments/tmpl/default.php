@@ -38,10 +38,10 @@ $sortDirection  = $this->escape($this->state->get('list.direction')); //Column
 				  method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
 
 
-				<?php
+				<!--?php
 				// Search tools bar
 				echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
-				?>
+				?-->
 
 				<!--fieldset class="filter">
 					<div class="btn-toolbar">

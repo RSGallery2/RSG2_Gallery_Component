@@ -108,7 +108,7 @@ $ListDirn = '';
 
 				<?php
 
-                    foreach ($this->items as $i => $acl) {
+                    foreach ($this->items as $i => $item) {
 //	                    echo json_encode($comment) . '<br>';
 				?>
 
@@ -120,57 +120,57 @@ $ListDirn = '';
 
 		                    <td width="1%" class="center">
 								<?php
-								$link = JRoute::_("index.php?option=com_rsgallery2&view=acl_item&layout=edit&id=".$acl->id);
-								echo '<a href="' . $link . '"">' . $acl->id . '</a>';
+								$link = JRoute::_("index.php?option=com_rsgallery2&view=acl_item&layout=edit&id=".$item->id);
+								echo '<a href="' . $link . '"">' . $item->id . '</a>';
 								?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $acl->gallery_id; ?>
+			                    <?php echo $item->gallery_id; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $acl->parent_id; ?>
+			                    <?php echo $item->parent_id; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $acl->public_view; ?>
+			                    <?php echo $item->public_view; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $acl->public_up_mod_img; ?>
+			                    <?php echo $item->public_up_mod_img; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $acl->public_del_img; ?>
+			                    <?php echo $item->public_del_img; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $acl->public_create_mod_gal; ?>
+			                    <?php echo $item->public_create_mod_gal; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $acl->public_del_gal; ?>
+			                    <?php echo $item->public_del_gal; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $acl->public_vote_view; ?>
+			                    <?php echo $item->public_vote_view; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $acl->public_vote_vote; ?>
+			                    <?php echo $item->public_vote_vote; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $acl->registered_view; ?>
+			                    <?php echo $item->registered_view; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $acl->registered_up_mod_img; ?>
+			                    <?php echo $item->registered_up_mod_img; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $acl->registered_del_img; ?>
+			                    <?php echo $item->registered_del_img; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $acl->registered_create_mod_gal; ?>
+			                    <?php echo $item->registered_create_mod_gal; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $acl->registered_del_gal; ?>
+			                    <?php echo $item->registered_del_gal; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $acl->registered_vote_view; ?>
+			                    <?php echo $item->registered_vote_view; ?>
 		                    </td>
 		                    <td width="1%" class="center">
-			                    <?php echo $acl->registered_vote_vote; ?>
+			                    <?php echo $item->registered_vote_vote; ?>
 		                    </td>
 	                    </tr>
 

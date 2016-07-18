@@ -13,7 +13,6 @@ JHtml::_('formbehavior.chosen', 'select');
 
 global $Rsg2DebugActive;
 
-
 // public static $extension = 'COM_RSG2';
 
 //$doc = JFactory::getDocument();
@@ -44,7 +43,7 @@ $ListDirn = '';
                 <?php else : ?>
 
 	            <table class="table table-striped" id="commentsList">
-		            <tbody>
+		                <thead>
 		            <tr>
 
 			            <th width="1%" class="center">
@@ -108,10 +107,13 @@ $ListDirn = '';
 			            <th width="1%" class="center">
 			                `access`
 			            </th>
+		                </tr>
+		                </thead>
+		                <tbody>
 
 			            <?php
 
-			            foreach ($this->items as $i => $gallery) {
+			            foreach ($this->items as $i => $item) {
 			            //	                    echo json_encode($comment) . '<br>';
 			            ?>
 
@@ -123,85 +125,65 @@ $ListDirn = '';
 
 			            <td width="1%" class="center">
 							<?php
-							$link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=".$gallery->id);
-							echo '<a href="' . $link . '"">' . $gallery->id . '</a>';
+							$link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=".$item->id);
+							echo '<a href="' . $link . '"">' . $item->id . '</a>';
 							?>
 			            </td>
 
 			            <td width="1%" class="center">
-				            <?php echo $gallery->parent; ?>
+				            <?php echo $item->parent; ?>
 			            </td>
 			            <td width="1%" class="center">
 							<?php
-							$link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=".$gallery->id);
-							echo '<a href="' . $link . '"">' . $gallery->name . '</a>';
+							$link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=".$item->id);
+							echo '<a href="' . $link . '"">' . $item->name . '</a>';
 							?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->alias; ?>
+				            <?php echo $item->alias; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->description; ?>
+				            <?php echo $item->description; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->published; ?>
+				            <?php echo $item->published; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->checked_out; ?>
+				            <?php echo $item->checked_out; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->checked_out_time; ?>
+				            <?php echo $item->checked_out_time; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->ordering; ?>
+				            <?php echo $item->ordering; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->date; ?>
+				            <?php echo $item->date; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->hits; ?>
+				            <?php echo $item->hits; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->params; ?>
+				            <?php echo $item->params; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->user; ?>
+				            <?php echo $item->user; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->uid; ?>
+				            <?php echo $item->uid; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->allowed; ?>
+				            <?php echo $item->allowed; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->thumb_id; ?>
+				            <?php echo $item->thumb_id; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->asset_id; ?>
+				            <?php echo $item->asset_id; ?>
 			            </td>
 			            <td width="1%" class="center">
-				            <?php echo $gallery->access; ?>
+				            <?php echo $item->access; ?>
 			            </td>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		            </tr>
 
 		            <?php
@@ -213,7 +195,6 @@ $ListDirn = '';
 	            </table>
 
                 <?php endif;?>
-
             </form>
 
         </div>

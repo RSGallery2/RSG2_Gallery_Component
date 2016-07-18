@@ -45,7 +45,7 @@ $ListDirn = '';
 
 				<table class="table table-striped" id="commentsList">
 					<thead>
-						<tr>
+						<tr>    
 
 							<th width="1%" class="center">
 								<?php echo JHtml::_('grid.checkall'); ?>

@@ -8,19 +8,19 @@
 				class="readonly"
 				label="JGLOBAL_FIELD_ID_LABEL"
 				description ="JGLOBAL_FIELD_ID_DESC"
+		       size="10"
 				default="0"
 				readonly="true"
-				filter="unset"
 		/>
 
 		<field
 			name			= "title"
 			type			= "text"
-			label           = "COM_RSGALLERY2_NAME"
-			description     = ""
-			maxlength       = "250"
-			filter          = ""
-			size            = "60"
+			label           = "JGLOBAL_TITLE"
+			description     = "JFIELD_TITLE_DESC"
+				class="input-xxlarge input-large-text"
+				size="120"
+				required="true"
 		/>
 
 		<field
@@ -137,144 +137,6 @@
 		    section			= "item"
         />
 		
-        <!-- field
-            name			= "params"
-            type			= "text"
-            label           = "COM_RSGALLERY2_PARAMETERS"
-
-			description     = ""
-			maxlength       = "250"
-			filter          = ""
-			size            = "60"
-            /-->
-
-        <!--field
-            name			= "image_folders"
-            type			= "ImageFolders"
-            label           = "COM_RSGALLERY2_LINKS_TO_IMAGE"
-            /-->
-
-
-<!-- ==================================================================== -->
-
-		<!-- field
-			name			= "gallery_id"
-			type			= "text"
-			label           = "COM_RSGALLERY2_PUBLISHED"
-			description     = ""
-			maxlength       = "250"
-			filter          = ""
-			size            = "60"
-		/>
-
-
-
-		<field
-			name			= "title"
-			type			= "text"
-			label           = ""
-			description     = ""
-			maxlength       = "250"
-			filter          = ""
-			size            = "60"
-		/>
-
-
-        <field
-                name			= "hits"
-                type			= "hidden"
-                label           = ""
-                />
-
-
-        <field
-                name			= "date"
-                type			= "hidden"
-                label           = ""
-                />
-
-
-        <field
-                name			= "rating"
-                type			= ""
-                label           = ""
-                />
-
-        <field
-                name			= "votes"
-                type			= ""
-                label           = ""
-                />
-
-        <field
-                name			= "gallery_id"
-                type			= ""
-                label           = ""
-                />
-
-        <field
-                name			= "published"
-                type			= ""
-                label           = ""
-                />
-
-        <field
-                name			= "checked_out"
-                type			= "hidden"
-                label           = ""
-                />
-
-        <field
-                name			= "checked_out_time"
-                type			= "hidden"
-                label           = ""
-                />
-
-        <field
-                name			= "ordering"
-                type			= "text"
-                label           = "COM_RSGALLERY2_ORDERING"
-                />
-
-        <field
-                name			= "approved"
-                type			= "text"
-                label           = ""
-                />
-
-        <field
-                name			= "userid"
-                type			= "hidden"
-                label           = ""
-                />
-
-        <field
-                name			= "params"
-                type			= "text"
-                label           = ""
-                />
-
-	    <field
-		    name			= "extension"
-		    type			= "hidden"/>
-    
-        <field
-            name			= ""
-            type			= ""
-            label           = ""
-            />
-
-        <field
-            name			= ""
-            type			= ""
-            label           = ""
-            />
-
-        <field
-			name			= ""
-			type			= ""
-			label           = ""
-		/ -->
 
     </fieldset>
 	

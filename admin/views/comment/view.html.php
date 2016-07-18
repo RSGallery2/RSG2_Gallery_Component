@@ -31,7 +31,7 @@ class Rsgallery2ViewComment extends JViewLegacy
 		$this->rsgConfigData = $rsgConfig;
 
 		$this->item = $this->get('Item');
-		$errors= $this->form = $this->get('Form');
+		$this->form = $this->get('Form');
 
 		$this->state = $this->get('State');
 

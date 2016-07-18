@@ -34,7 +34,7 @@ JFactory::getDocument()->addScriptDeclaration('
 		<div class="row-fluid">
 			<div class="span9">
 				<?php
-				echo $this->form->getControlGroups('comment');
+				echo $this->form->getControlGroups('image_1st_col');
 				?>
 			</div>
 			<!--div class="span3">

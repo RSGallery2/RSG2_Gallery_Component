@@ -42,7 +42,6 @@ $ListDirn = '';
                     </div>
                 <?php else : ?>
 
-
 	                <table class="table table-striped" id="commentsList">
 		                <thead>
 		                <tr>
@@ -114,7 +113,7 @@ $ListDirn = '';
 
 		                <?php
 
-		                foreach ($this->items as $i => $image) {
+		                foreach ($this->items as $i => $item) {
 //	                    echo json_encode($comment) . '<br>';
 			                ?>
 
@@ -126,66 +125,66 @@ $ListDirn = '';
 
 				                <td width="1%" class="center">
 									<?php
-									$link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$image->id);
-									echo '<a href="' . $link . '"">' . $image->id . '</a>';
+									$link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
+									echo '<a href="' . $link . '"">' . $item->id . '</a>';
 									?>
 				                </td>
 				                <td width="1%" class="center">
 									<?php
-									$link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$image->id);
-									echo '<a href="' . $link . '"">' . $image->name . '</a>';
+									$link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
+									echo '<a href="' . $link . '"">' . $item->name . '</a>';
 									?>
 				                </td>
 				                <td width="1%" class="center">
-					                <?php echo $image->alias; ?>
+					                <?php echo $item->alias; ?>
 				                </td>
 				                <td width="1%" class="center">
-					                <?php echo $image->descr; ?>
+					                <?php echo $item->descr; ?>
 				                </td>
 				                <td width="1%" class="center">
-					                <?php echo $image->gallery_id; ?>
+					                <?php echo $item->gallery_id; ?>
 				                </td>
 				                <td width="1%" class="center">
-					                <?php echo $image->title; ?>
+					                <?php echo $item->title; ?>
 				                </td>
 				                <td width="1%" class="center">
-					                <?php echo $image->hits; ?>
+					                <?php echo $item->hits; ?>
 				                </td>
 				                <td width="1%" class="center">
-					                <?php echo $image->date; ?>
+					                <?php echo $item->date; ?>
 				                </td>
 				                <td width="1%" class="center">
-					                <?php echo $image->rating; ?>
+					                <?php echo $item->rating; ?>
 				                </td>
 				                <td width="1%" class="center">
-					                <?php echo $image->votes; ?>
+					                <?php echo $item->votes; ?>
 				                </td>
 				                <td width="1%" class="center">
-					                <?php echo $image->comments; ?>
+					                <?php echo $item->comments; ?>
 				                </td>
 				                <td width="1%" class="center">
-					                <?php echo $image->published; ?>
+					                <?php echo $item->published; ?>
 				                </td>
 				                <td width="1%" class="center">
-					                <?php echo $image->checked_out; ?>
+					                <?php echo $item->checked_out; ?>
 				                </td>
 				                <td width="1%" class="center">
-					                <?php echo $image->checked_out_time; ?>
+					                <?php echo $item->checked_out_time; ?>
 				                </td>
 				                <td width="1%" class="center">
-					                <?php echo $image->ordering; ?>
+					                <?php echo $item->ordering; ?>
 				                </td>
 				                <td width="1%" class="center">
-					                <?php echo $image->approved; ?>
+					                <?php echo $item->approved; ?>
 				                </td>
 				                <td width="1%" class="center">
-					                <?php echo $image->userid; ?>
+					                <?php echo $item->userid; ?>
 				                </td>
 				                <td width="1%" class="center">
-					                <?php echo $image->params; ?>
+					                <?php echo $item->params; ?>
 				                </td>
 				                <td width="1%" class="center">
-					                <?php echo $image->asset_id; ?>
+					                <?php echo $item->asset_id; ?>
 				                </td>
 			                </tr>
 

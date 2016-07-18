@@ -5,7 +5,7 @@ defined( '_JEXEC' ) or die;
 jimport ('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 
-class Rsgallery2ViewGallery extends JViewLegacy
+class Rsgallery2ViewImage extends JViewLegacy
 {
 
 	// ToDo: Use other rights instead of core.admin -> IsRoot ?
@@ -30,9 +30,8 @@ class Rsgallery2ViewGallery extends JViewLegacy
 		global $rsgConfig;
 		$this->rsgConfigData = $rsgConfig;
 
-
 		$this->item = $this->get('Item');
-		$errors= $this->form = $this->get('Form');
+		$this->form = $this->get('Form');
 
 		$this->state = $this->get('State');
 
@@ -46,7 +45,6 @@ class Rsgallery2ViewGallery extends JViewLegacy
 
 		// Assign the Data
 		// $this->form = $form;
-
 
 		// different toolbar on different layouts
 		$Layout = JFactory::getApplication()->input->get('layout');
