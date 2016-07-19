@@ -72,6 +72,9 @@ class Rsgallery2ViewImage extends JViewLegacy
 
 	protected function addToolbar ($Layout='default')
 	{
+		
+		echo  '<br>' . '$Layout= "' . $Layout .'"' . '<br>';
+		
 		switch ($Layout)
 		{
 
