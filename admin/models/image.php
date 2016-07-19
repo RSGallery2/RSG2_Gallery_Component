@@ -5,7 +5,7 @@ defined('_JEXEC') or die;
 /**
  * 
  */
-class RsgalleryModelImage extends  JModelAdmin
+class Rsgallery2ModelImage extends  JModelAdmin
 {
     protected $text_prefix = 'COM_RSGALLERY2';
 

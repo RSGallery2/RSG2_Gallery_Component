@@ -30,6 +30,7 @@ class Rsgallery2ViewImage extends JViewLegacy
 		global $rsgConfig;
 		$this->rsgConfigData = $rsgConfig;
 
+
 		$this->item = $this->get('Item');
 		$this->form = $this->get('Form');
 
@@ -73,6 +74,10 @@ class Rsgallery2ViewImage extends JViewLegacy
 	{
 		switch ($Layout)
 		{
+
+
+
+
 			// case 'default':
 			default:
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_EDIT_IMAGE', 'image'));
