@@ -95,14 +95,10 @@
 			<option value="0" >JUNPUBLISHED</option>
 			<option value="-2">JTRASHED</option>			
 		</field>	
-
 		<field
 				name="id"
 			type			= "hidden"
 		/>
-
-
-
     </fieldset>	
 	
 	<fieldset name ="image_2nd_col">	
