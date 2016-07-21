@@ -33,10 +33,35 @@ JFactory::getDocument()->addScriptDeclaration('
 
 		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', empty($this->item->id) ? JText::_('COM_RSGALLERY2_NEW_COMMENT') : JText::_('COM_RSGALLERY2_COMMENT')); ?>
 		<div class="row-fluid">
-			<div class="span9">
+			<div class="span6">
 				<?php
 				echo $this->form->getControlGroups('image_1st_col');
 				?>
+			</div>
+			<!--div class="span3">
+				<?php echo JLayoutHelper::render('joomla.edit.global', $this); ?>
+			</div-->
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<?php
+				echo $this->form->getControlGroups('image_2nd_col');
+				?>
+			</div>
+		</div>
+		<?php echo JHtml::_('bootstrap.endTab'); ?>
+
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', '2nd_col', JText::_('COM_RSGALLERY2_FIELDSET_RULES')); ?>
+		<div class="row-fluid">
+			<div class="span6">
+				<fieldset class="panelform">
+				<?php
+					// echo $this->form->getControlGroups('image_2nd_col');
+				?>
+                <?php echo $this->form->getLabel('rules'); ?>
+				<?php echo $this->form->getInput('rules'); ?>
+
+				</fieldset>
 			</div>
 			<!--div class="span3">
 				<?php echo JLayoutHelper::render('joomla.edit.global', $this); ?>

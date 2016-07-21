@@ -73,15 +73,9 @@ class Rsgallery2ViewImage extends JViewLegacy
 	protected function addToolbar ($Layout='default')
 	{
 		
-		echo  '<br>' . '$Layout= "' . $Layout .'"' . '<br>';
-		
 		switch ($Layout)
 		{
-
-
-
-
-			// case 'default':
+			case 'edit':
 			default:
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_EDIT_IMAGE', 'image'));
 				JToolBarHelper::apply('image.apply');
@@ -97,7 +91,6 @@ class Rsgallery2ViewImage extends JViewLegacy
 				}
 				break;
 		}
-
 	}
 }
 
