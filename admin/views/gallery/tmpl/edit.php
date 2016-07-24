@@ -25,21 +25,37 @@ JFactory::getDocument()->addScriptDeclaration('
 <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=gallery&layout=edit&id=' . (int) $this->item->id); ?>"
 	method="post" name="adminForm" id="item-form" class="form-validate">
 
-	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
-
-	<div class="form-horizontal">
+	<div class="test">
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
 
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', empty($this->item->id) ? JText::_('COM_RSGALLERY2_NEW_COMMENT') : JText::_('COM_RSGALLERY2_COMMENT')); ?>
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', empty($this->item->id) ? JText::_('COM_RSGALLERY2_NEW') : JText::_('COM_RSGALLERY2_EDIT')); ?>
 		<div class="row-fluid">
-			<div class="span9">
+			<div class="span6 form-horizontal">
+				<fieldset class="adminform">
 				<?php
 				echo $this->form->getControlGroups('gallery_1st_col');
 				?>
+				</fieldset>
 			</div>
-			<!--div class="span3">
-				<?php echo JLayoutHelper::render('joomla.edit.global', $this); ?>
-			</div-->
+			<div class="span3">
+				<fieldset class="adminform">
+					<?php
+					echo $this->form->getControlGroups('gallery_2nd_col');
+					?>
+				</fieldset>
+			</div>
+		</div>
+		<?php echo JHtml::_('bootstrap.endTab'); ?>
+
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', '2nd_col', JText::_('COM_RSGALLERY2_PERMISSIONS')); ?>
+		<div class="row-fluid">
+			<div class="span10">
+				<fieldset class="panelform">
+					<?php
+					echo $this->form->getControlGroups('permission_col');
+					?>
+				</fieldset>
+			</div>
 		</div>
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
 

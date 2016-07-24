@@ -314,21 +314,6 @@ class html_rsg2_images {
                                             <td valign="top" align="left"><?php echo JText::_('COM_RSGALLERY2_GALLERY')?></td>
                                             <td><?php echo $lists['gallery_id']; ?></td>
                                         </tr>
-                                        <?php if ($canAdmin) { ?>
-                                            <tr>
-                                                <td size="2" align="left">
-                                                    <?php echo JText::_('COM_RSGALLERY2_PERMISSIONS');?>
-                                                </td>
-                                                <td>
-                                                    <!--div class="button2-left"-->
-                                                        <div class="blank">
-                                                            <button type="button" onclick="document.location.href='#access-rules';">
-                                                            <?php echo JText::_('JGLOBAL_PERMISSIONS_ANCHOR'); ?></button>
-                                                        </div>
-                                                    <!--/div-->
-                                                </td>
-                                            </tr>
-                                        <?php } ?>
                                         <tr>
                                             <td valign="top" align="left" width="20%">
                                                 <?php echo JText::_('COM_RSGALLERY2_DESCRIPTION')?>
@@ -416,6 +401,7 @@ class html_rsg2_images {
                                             </td>
                                         </tr>
                                     </table>
+	                                <br>
                                     <table class="adminform">
                                         <tr>
                                             <th colspan="1"><?php echo JText::_('COM_RSGALLERY2_PARAMETERS')?></th>
@@ -442,6 +428,7 @@ class html_rsg2_images {
                                             </td>
                                         </tr>
                                     </table>
+	                                <br>
                                     <table> <!--table class="adminform"-->
                                         <!-- Check out http://jsfiddle.net/TQvg8/ -->
                                         <tr>
@@ -483,7 +470,7 @@ class html_rsg2_images {
                         </div>
                     <?php echo JHtml::_('bootstrap.endTab'); ?>
 
-                    <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'misc', JText::_('COM_RSGALLERY2_PERMISSIONS', true)); ?>
+                    <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'misc', JText::_('COM_RSGALLERY2_IMAGE_PERMISSION', true)); ?>
                         <?php
                             //Get form for J!1.6 ACL rules (load library, get path to XML, get specific form)
                             jimport( 'joomla.form.form' );

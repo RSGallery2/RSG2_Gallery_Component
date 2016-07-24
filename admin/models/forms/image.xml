@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Id$ -->
 <form>
-	<fieldset name ="image_1st_col">
+	<fieldset name ="image_1st_col" class="form-horizontal">
 		<field
 			name			= "title"
 			type			= "text"
 			label           = "COM_RSGALLERY2_NAME"
 			description     = "JFIELD_TITLE_DESC"
-				class="input-xxlarge input-large-text"
-				size="120"
-				required="true"
+			class           = "input-large-text input-xxlarge"
+			size="120"
+			required="true"
 		/>
 
 		<field
@@ -18,17 +18,10 @@
 			label           = "COM_RSGALLERY2_ALIAS"
 			description     = ""
 			maxlength       = "250"
+			class           = "input-xxlarge"
 			filter          = ""
 			size            = "60"
 		/>
-		
-		<field
-			name			= "userid"
-			type			= "user"
-			label           = "COM_RSGALLERY2_OWNER"
-			description     = ""
-		/>
-
 
 		<field
 			name			= "name"
@@ -38,8 +31,8 @@
 			maxlength       = "250"
 			filter          = ""
 			size            = "60"
-			class			= "readonly"
-			readonly		= "true"			
+			class           = "readonly input-xxlarge"
+			readonly		= "true"
 		/>
 
         <field
@@ -49,17 +42,12 @@
 			filter          = "integer"
 			height 			= "450"
 			size			= "10"
+			class           = "input-xxlarge"
         >
 			<option value="-1" >COM_RSGALLERY2_SELECT_GALLERY</option>
 			<option value="0" >COM_RSGALLERY2_TOP_GALLERY</option>
 		</field>	
 
-		<!-- parameters
-			Bad size			= "10"
-		
-			height 			= "150"
-			width 			= "30%"		
-		-->
 		<field
 			name			= "description"
 			type			= "editor"
@@ -71,44 +59,75 @@
 		/>
 
 		<field
-			name			= "ordering"
-			type			= "RsgImageOrderingList"
-			label           = "COM_RSGALLERY2_ORDERING"
-			filter          = "integer"
-			size			= "1"
-		>
-			<option value   = "0" >JGLOBAL_NEWITEMSLAST_DESC</option>
-		</field>	
-			
-		<field
-			name            = "published"
-			type            = "radio"
-			class           = "btn-group btn-group-yesno"
-			id              = "published"
-			label           = "JSTATUS"
-			description     = "JFIELD_PUBLISHED_DESC"
-			size            = "1"
-			default         = "1"
-			filter          = "integer"
-		>
-			<option value="1" >JPUBLISHED</option>
-			<option value="0" >JUNPUBLISHED</option>
-			<option value="-2">JTRASHED</option>			
-		</field>	
-		<field
-				name="id"
+			name="id"
 			type			= "hidden"
 		/>
     </fieldset>	
 	
-	<fieldset name ="image_2nd_col">	
-        <field 
+	<fieldset name ="image_2nd_col" class="form-vertical">
+        <!--field
 			name			= "name"
             type			= "RsgImageView"
             label           = "COM_RSGALLERY2_ITEM_PREVIEW"
-        />
+        /-->
+		<field name="name"
+		       type="media"
+		       directory="rsgallery/display"
+		       preview="true"
 
-	    <!-- asset_id: needed for the Calculated Settings of the Rules to work correctly -->
+		/>
+		<field
+				name            = "published"
+				type            = "list"
+				class           = "chzn-color-state  input-xlarge"
+				id              = "published"
+				label           = "JSTATUS"
+				description     = "JFIELD_PUBLISHED_DESC"
+				size            = "3"
+				default         = "1"
+				filter          = "integer"
+		>
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+			<option value="2">JARCHIVED</option>
+			<option value="-2">JTRASHED</option>
+		</field>
+		<field
+				name			= "ordering"
+				type			= "RsgImageOrderingList"
+				label           = "COM_RSGALLERY2_ORDERING"
+				filter          = "integer"
+				size			= "1"
+				class           = "input-xxlarge"
+		>
+			<option value   = "0" >JGLOBAL_NEWITEMSLAST_DESC</option>
+		</field>
+		<field
+				name			= "userid"
+				type			= "user"
+				label           = "COM_RSGALLERY2_OWNER"
+				description     = ""
+		/>
+
+
+
+		<!--field
+			name			= "params"
+			type			= "text"
+			label           = "test"
+		/-->
+		<!--field
+			label           = "COM_RSGALLERY2_PARAMETERS"
+			description     = "COM_RSGALLERY2_PARAMETERS_DESC"
+			class           = "input-large-text input-xlarge"
+			size            = "120"
+		/field-->
+
+
+	</fieldset>
+
+	<fieldset name ="permission_col">
+	<!-- asset_id: needed for the Calculated Settings of the Rules to work correctly -->
 	    <field 
 		    name			= "asset_id"
 		    type			= "hidden"
@@ -129,8 +148,6 @@
 		    component		= "com_rsgallery2"
 		    section			= "item"
         />
-		
-
     </fieldset>
 	
 	<!-- fieldset 

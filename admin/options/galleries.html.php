@@ -413,21 +413,6 @@ class html_rsg2_galleries{
 														</div>
 													</td>
 												</tr>
-								<?php			if ($canAdmin) { ?>
-												<tr>
-													<td size="2" align="right">
-														<?php echo JText::_('COM_RSGALLERY2_PERMISSIONS');?>
-													</td>
-													<td>
-														<!--div class="button2-left"-->
-														<div class="blank">
-															<button type="button" onclick="document.location.href='#access-rules';">
-															<?php echo JText::_('JGLOBAL_PERMISSIONS_ANCHOR'); ?></button>
-														</div>
-														<!--/div-->
-													</td>
-												</tr>
-								<?php			} ?>
 												<tr>
 													<td valign="top" align="right">
 													<?php echo JText::_('COM_RSGALLERY2_DESCRIPTION')?>

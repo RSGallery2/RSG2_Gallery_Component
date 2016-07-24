@@ -3,22 +3,12 @@
 <form>
 	<fieldset name ="gallery_1st_col">
 		<field
-				name="id"
-				type="text"
-				class="readonly"
-				label="JGLOBAL_FIELD_ID_LABEL"
-				description ="JGLOBAL_FIELD_ID_DESC"
-				size="10"
-				default="0"
-				readonly="true"
-		/>
-
-		<field
 			name			= "name"
 			type			= "text"
 			label           = "COM_RSGALLERY2_GALLERY_NAME"
 			description     = "COM_RSGALLERY2_GALLERY_NAME"
 			maxlength       = "250"
+			class           = "input-large-text input-xxlarge"
 			filter          = ""
 			size            = "60"
 		/>
@@ -29,17 +19,11 @@
 			label           = "COM_RSGALLERY2_ALIAS"
 			description     = ""
 			maxlength       = "250"
+			class           = "input-xxlarge"
 			filter          = ""
 			size            = "60"
 		/>
 		
-		<field
-			name			= "uid"
-			type			= "user"
-			label           = "COM_RSGALLERY2_OWNER"
-			description     = ""
-			filter			= "unset"
-		/>
 		<field
 			name			= "access"
 			type			= "accesslevel"
@@ -80,7 +64,31 @@
         >
 			<!--option value="-1" >COM_RSGALLERY2_SELECT_GALLERY</option-->
 			<option value="0" >COM_RSGALLERY2_MINUS_RANDOM_THUMBNAIL_MINUS</option>
-		</field>	
+		</field>
+
+		<field
+				name="id"
+				type			= "hidden"
+		/>
+
+	</fieldset>
+
+	<fieldset name ="gallery_2nd_col">
+		<field
+				name            = "published"
+				type            = "radio"
+				class           = "btn-group btn-group-yesno"
+				id              = "published"
+				label           = "JSTATUS"
+				description     = "JFIELD_PUBLISHED_DESC"
+				size            = "1"
+				default         = "1"
+				filter          = "integer"
+		>
+			<option value="1" >JPUBLISHED</option>
+			<option value="0" >JUNPUBLISHED</option>
+			<option value="-2">JTRASHED</option>
+		</field>
 
 		<field
 			name			= "ordering"
@@ -91,46 +99,44 @@
 		>
 			<option value   = "0" >JOPTION_ORDER_FIRST</option>
 			<!--option value   = "99999" >JOPTION_ORDER_LAST</option-->
-		</field>	
-			
-		<field
-			name            = "published"
-			type            = "radio"
-			class           = "btn-group btn-group-yesno"
-			id              = "published"
-			label           = "JSTATUS"
-			description     = "JFIELD_PUBLISHED_DESC"
-			size            = "1"
-			default         = "1"
-			filter          = "integer"
-		>
-			<option value="1" >JPUBLISHED</option>
-			<option value="0" >JUNPUBLISHED</option>
-			<option value="-2">JTRASHED</option>			
-		</field>	
+		</field>
 
-	    <!-- asset_id: needed for the Calculated Settings of the Rules to work correctly -->
-	    <field 
-		    name			= "asset_id"
-		    type			= "hidden"
-		    filter			= "unset"
-        />
-    
-	    <!-- rules: needed for the rules -->
-	    <field
-		    id				= "rules"
-		    name			= "rules"
-		    type			= "rules"
-		    label			= ""
-		    translate_label	= "false"
-		    filter			= "rules"
-		    validate		= "rules"
-		    class			= "inputbox"
-		    component		= "com_rsgallery2"
-		    section			= "gallery"
-        />
-		
-        <!-- ==================================================================== -->
+		<field
+				name			= "uid"
+				type			= "user"
+				label           = "COM_RSGALLERY2_OWNER"
+				description     = ""
+				filter			= "unset"
+		/>
+	</fieldset>
+
+
+	<fieldset name ="permission_col">
+		<!-- asset_id: needed for the Calculated Settings of the Rules to work correctly -->
+		<field
+				name			= "asset_id"
+				type			= "hidden"
+				filter			= "unset"
+		/>
+
+
+		<!-- rules: needed for the rules -->
+		<field
+				id				= "rules"
+				name			= "rules"
+				type			= "rules"
+				label			= ""
+				translate_label	= "false"
+				filter			= "rules"
+				validate		= "rules"
+				class			= "inputbox"
+				component		= "com_rsgallery2"
+				section			= "item"
+		/>
+	</fieldset>
+
+	<fieldset name="test">
+		<!-- ==================================================================== -->
 		<!--
 		<field
 			name			= "ordering"
@@ -201,66 +207,7 @@
             type			= ""
             label           = ""
             />
-
-        <field
-            name			= ""
-            type			= ""
-            label           = ""
-            />
-
-        <field
-            name			= ""
-            type			= ""
-            label           = ""
-            />
-
-        <field
-            name			= ""
-            type			= ""
-            label           = ""
-            />
-
-        <field
-            name			= ""
-            type			= ""
-            label           = ""
-            />
-
-        <field
-            name			= ""
-            type			= ""
-            label           = ""
-            />
-
-        <field
-            name			= ""
-            type			= ""
-            label           = ""
-            />
-
-        <field
-            name			= ""
-            type			= ""
-            label           = ""
-            />
-
-        <field
-            name			= ""
-            type			= ""
-            label           = ""
-            />
-
-        <field
-            name			= ""
-            type			= ""
-            label           = ""
-            />
-
-        <field
-            name			= ""
-            type			= ""
-            label           = ""
-    	/ -->
+-->
 
 	</fieldset>	
 </form>
