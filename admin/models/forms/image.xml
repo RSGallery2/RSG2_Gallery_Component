@@ -6,7 +6,7 @@
 			name			= "title"
 			type			= "text"
 			label           = "COM_RSGALLERY2_NAME"
-			description     = "JFIELD_TITLE_DESC"
+			description     = "COM_RSGALLERY2_IMAGE_NAME"
 			class           = "input-large-text input-xxlarge"
 			size="120"
 			required="true"
@@ -18,7 +18,7 @@
 			label           = "COM_RSGALLERY2_ALIAS"
 			description     = ""
 			maxlength       = "250"
-			class           = "input-xxlarge"
+			class           = "input-xlarge"
 			filter          = ""
 			size            = "60"
 		/>
@@ -31,7 +31,7 @@
 			maxlength       = "250"
 			filter          = ""
 			size            = "60"
-			class           = "readonly input-xxlarge"
+			class           = "readonly input-large"
 			readonly		= "true"
 		/>
 
@@ -42,10 +42,10 @@
 			filter          = "integer"
 			height 			= "450"
 			size			= "10"
-			class           = "input-xxlarge"
+			class           = "input-large"
         >
 			<option value="-1" >COM_RSGALLERY2_SELECT_GALLERY</option>
-			<option value="0" >COM_RSGALLERY2_TOP_GALLERY</option>
+			<option value="0"  >COM_RSGALLERY2_TOP_GALLERY</option>
 		</field>	
 
 		<field
@@ -54,12 +54,12 @@
 			label           = "COM_RSGALLERY2_DESCRIPTION"
 			description     = ""
 			filter          = "safehtml"
-			class			= "span5"
-			rows            = "10"
+			class			= "span5 small"
+			rows            = "5"
 		/>
 
 		<field
-			name="id"
+			name            = "id"
 			type			= "hidden"
 		/>
     </fieldset>	
@@ -98,7 +98,7 @@
 				label           = "COM_RSGALLERY2_ORDERING"
 				filter          = "integer"
 				size			= "1"
-				class           = "input-xxlarge"
+				class           = "input-xlarge"
 		>
 			<option value   = "0" >JGLOBAL_NEWITEMSLAST_DESC</option>
 		</field>

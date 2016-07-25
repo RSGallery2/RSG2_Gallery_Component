@@ -34,10 +34,13 @@ JFactory::getDocument()->addScriptDeclaration('
 		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general',
 			empty($this->item->id) ? JText::_('COM_RSGALLERY2_NEW') : JText::_('COM_RSGALLERY2_EDIT')); ?>
 		<div class="row-fluid">
-			<div class="span7 form-horizontal">
+			<div class="span6 form-horizontal">
 				<fieldset class="adminform">
 					<?php
-					echo $this->form->getControlGroups('image_1st_col');
+					echo $this->form->renderField('name');
+					echo $this->form->renderField('gallery_id');
+					echo $this->form->renderField('description');
+					echo $this->form->renderField('id');
 					?>
 				</fieldset>
 			</div>
@@ -50,9 +53,12 @@ JFactory::getDocument()->addScriptDeclaration('
 				<BR>
 				<BR>
 				<fieldset class="adminform">
-				<?php
-				echo $this->form->getControlGroups('image_2nd_col');
-				?>
+					<?php
+					echo $this->form->renderField('image_2nd_col name');
+					echo $this->form->renderField('published');
+					echo $this->form->renderField('ordering');
+					echo $this->form->renderField('userid');
+					?>
 				</fieldset>
 
 				<?php echo JText::_('COM_RSGALLERY2_LINKS_TO_IMAGE')?>

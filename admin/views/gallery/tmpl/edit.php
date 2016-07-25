@@ -25,20 +25,37 @@ JFactory::getDocument()->addScriptDeclaration('
 <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=gallery&layout=edit&id=' . (int) $this->item->id); ?>"
 	method="post" name="adminForm" id="item-form" class="form-validate">
 
+	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
+
 	<div class="test">
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
 
 		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', empty($this->item->id) ? JText::_('COM_RSGALLERY2_NEW') : JText::_('COM_RSGALLERY2_EDIT')); ?>
 		<div class="row-fluid">
-			<div class="span6 form-horizontal">
+			<div class="span6">
 				<fieldset class="adminform">
-				<?php
-				echo $this->form->getControlGroups('gallery_1st_col');
-				?>
+					<?php
+					echo $this->form->renderField('parent');
+					echo $this->form->renderField('thumb_id');
+					echo $this->form->renderField('description');
+
+					echo $this->form->renderField('id');
+					?>
+
+					<?php
+					echo $this->form->getControlGroups('gallery_1st_col');
+					?>
 				</fieldset>
 			</div>
 			<div class="span3">
 				<fieldset class="adminform">
+					<?php
+					echo $this->form->renderField('');
+					echo $this->form->renderField('published');
+					echo $this->form->renderField('ordering');
+					echo $this->form->renderField('access');
+					echo $this->form->renderField('userid');
+					?>
 					<?php
 					echo $this->form->getControlGroups('gallery_2nd_col');
 					?>

@@ -5,8 +5,8 @@
 		<field
 			name			= "name"
 			type			= "text"
-			label           = "COM_RSGALLERY2_GALLERY_NAME"
-			description     = "COM_RSGALLERY2_GALLERY_NAME"
+			label           = "COM_RSGALLERY2_NAME"
+			description     = "COM_RSGALLERY2_NAME"
 			maxlength       = "250"
 			class           = "input-large-text input-xxlarge"
 			filter          = ""
@@ -19,7 +19,7 @@
 			label           = "COM_RSGALLERY2_ALIAS"
 			description     = ""
 			maxlength       = "250"
-			class           = "input-xxlarge"
+			class           = "input-xlarge"
 			filter          = ""
 			size            = "60"
 		/>
@@ -35,12 +35,9 @@
 			type			= "editor"
 			label           = "COM_RSGALLERY2_DESCRIPTION"
 			description     = ""
-			width 			= "30%"
-			height 			= "20"
 			rows 			= "5"
-			cols   			= "10"			
 			filter          = "safehtml"
-			class			= "span6 small"
+			class			= "span5 small"
 		/>
 
         <field
