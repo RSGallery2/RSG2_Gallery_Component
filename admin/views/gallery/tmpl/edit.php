@@ -35,15 +35,9 @@ JFactory::getDocument()->addScriptDeclaration('
 			<div class="span6">
 				<fieldset class="adminform">
 					<?php
-					echo $this->form->renderField('parent');
-					echo $this->form->renderField('thumb_id');
 					echo $this->form->renderField('description');
 
 					echo $this->form->renderField('id');
-					?>
-
-					<?php
-					echo $this->form->getControlGroups('gallery_1st_col');
 					?>
 				</fieldset>
 			</div>
@@ -53,11 +47,10 @@ JFactory::getDocument()->addScriptDeclaration('
 					echo $this->form->renderField('');
 					echo $this->form->renderField('published');
 					echo $this->form->renderField('ordering');
+					echo $this->form->renderField('thumb_id');
+					echo $this->form->renderField('uid');
 					echo $this->form->renderField('access');
-					echo $this->form->renderField('userid');
-					?>
-					<?php
-					echo $this->form->getControlGroups('gallery_2nd_col');
+					echo $this->form->renderField('parent');
 					?>
 				</fieldset>
 			</div>

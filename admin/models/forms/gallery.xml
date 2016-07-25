@@ -23,13 +23,14 @@
 			filter          = ""
 			size            = "60"
 		/>
-		
+
 		<field
-			name			= "access"
-			type			= "accesslevel"
-			label           = "JFIELD_ACCESS_LABEL"
+				name="access"
+				type="accesslevel"
+				label="JFIELD_ACCESS_LABEL"
+				description="JFIELD_ACCESS_DESC"
 		/>
-		
+
 		<field
 			name			= "description"
 			type			= "editor"
@@ -73,17 +74,18 @@
 	<fieldset name ="gallery_2nd_col">
 		<field
 				name            = "published"
-				type            = "radio"
-				class           = "btn-group btn-group-yesno"
+				type            = "list"
+				class           = "chzn-color-state  input-xlarge"
 				id              = "published"
 				label           = "JSTATUS"
 				description     = "JFIELD_PUBLISHED_DESC"
-				size            = "1"
+				size            = "3"
 				default         = "1"
 				filter          = "integer"
 		>
-			<option value="1" >JPUBLISHED</option>
-			<option value="0" >JUNPUBLISHED</option>
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+			<option value="2">JARCHIVED</option>
 			<option value="-2">JTRASHED</option>
 		</field>
 
