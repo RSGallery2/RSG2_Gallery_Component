@@ -157,7 +157,7 @@ figure .clsTemplate {
 }
 
 .developer {
-	border: 1px solid green;
+	border: 1px solid #3056ff;
 }
 
 .upgrade {
@@ -170,6 +170,10 @@ figure .clsTemplate {
 
 .rawDb {
 	border: 1px solid darkorange;
+}
+
+.rsg2Zone {
+	border: 1px solid green;
 }
 
 .icons-panel .dangerZone{
@@ -194,7 +198,7 @@ figure .clsTemplate {
 
 .icons-panel .developerZone{
 	/* background-color: red; /**/
-	background-color: green; /**/
+	background-color: #3056ff; /**/
 	color: white; /**/
 	/* padding: 30px; /**/
 	padding: 5px; /**/
@@ -225,6 +229,16 @@ figure .clsTemplate {
 .icons-panel .rawDbZone{
 	/* background-color: red; /**/
 	background-color: darkorange; /**/
+	color: white; /**/
+	/* padding: 30px; /**/
+	padding: 5px; /**/
+	margin-left: 0px; /**/
+	border-radius: 3px 3px 0px 0px;
+}
+
+.icons-panel .rsg2Zone{
+	/* background-color: red; /**/
+	background-color: green; /**/
 	color: white; /**/
 	/* padding: 30px; /**/
 	padding: 5px; /**/
