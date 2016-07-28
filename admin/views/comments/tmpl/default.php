@@ -19,8 +19,8 @@ global $Rsg2DebugActive;
 //$doc = JFactory::getDocument();
 //$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
 
-$sortColumn = $this->escape($this->state->get('list.ordering'));
-$sortDirection  = $this->escape($this->state->get('list.direction')); //Column
+$sortColumn = $this->escape($this->state->get('list.ordering'));  //Column
+$sortDirection  = $this->escape($this->state->get('list.direction'));
 
 ?>
 
