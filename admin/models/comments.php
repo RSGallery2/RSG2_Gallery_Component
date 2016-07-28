@@ -11,46 +11,24 @@ class Rsgallery2ModelComments extends JModelList
 	{
 		if (empty($config['filter_fields']))
 		{
-			/**
-			$config['filter_fields'] = array(
-			'id', 'a.id',
-			'item_id', 'a.item_id',
-			'comment', 'a.comment',
-			'user_name', 'a.user_name',
-			'user_ip', 'a.user_ip',
-			'hits', 'a.hits'
-			);
-			/**/
-
-			/**
-			$config['filter_fields'] = array(
-			'id',
-			'item_id',
-			'comment',
-			'user_name',
-			'user_ip',
-			'hits'
-			);
-			/**/
-
 			/**/
 			$config['filter_fields'] = array(
-				'id','id',
-				'user_id','user_id',
-				'user_name','user_name',
-				'user_ip','user_ip',
-				'parent_id','parent_id',
-				'item_id','item_id',
-				'item_table','item_table',
-				'datetime','datetime',
-				'subject','subject',
-				'comment','comment',
-				'published','published',
-				'checked_out','checked_out',
-				'checked_out_time','checked_out_time',
-				'ordering','ordering',
-				'params','params',
-				'hits','hits'
+				'id', // 'id',
+//				'user_id', // 'user_id',
+				'user_name', // 'user_name',
+				'user_ip', // 'user_ip',
+//				'parent_id', // 'parent_id',
+				'item_id', // 'item_id',
+//				'item_table', // 'item_table',
+// ToDO: add				'datetime', // 'datetime',
+				'subject', // 'subject',
+				'comment', // 'comment',
+// ToDo: add				'published', // 'published',
+//				'checked_out', // 'checked_out',
+//				'checked_out_time', // 'checked_out_time',
+//				'ordering', // 'ordering',
+//				'params', // 'params',
+				'hits' // ,'hits'
 			);
 			/**/
 		}
@@ -70,7 +48,8 @@ class Rsgallery2ModelComments extends JModelList
 	 *
 	 * @since   1.6
 	 */
-	protected function populateState($ordering = 'item_id, datetime', $direction = 'desc')
+	// ToDo: protected function populateState($ordering = 'item_id, datetime', $direction = 'desc')
+	protected function populateState($ordering = 'item_id', $direction = 'desc')
 	{
 		// $app = JFactory::getApplication();
 
@@ -119,9 +98,15 @@ class Rsgallery2ModelComments extends JModelList
 		$actState =
 			$this->getState(
 				'list.select',
+/**
 				'id, user_id, user_name, user_ip, parent_id, item_id, '
 				. 'item_table, datetime, subject, comment, published, '
-				. 'checked_out, checked_out_time, ordering, params, hits');
+				. 'checked_out, checked_out_time, ordering, params, hits'
+/**/
+				'id, user_name, user_ip, item_id, '
+				. 'subject, comment, '
+				. 'hits'
+		 	);
 
 		$query->select($actState);
 		$query->from('#__rsgallery2_comments');
@@ -138,6 +123,7 @@ class Rsgallery2ModelComments extends JModelList
 		}
 
 		// Filter by published state
+		/**
 		$published = $this->getState('filter.published');
 		if (is_numeric($published))
 		{
@@ -147,9 +133,11 @@ class Rsgallery2ModelComments extends JModelList
 		{
 			$query->where('(published IN (0, 1))');
 		}
+		/**/
 
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', 'item_id, datetime');
+//		$orderCol = $this->state->get('list.ordering', 'item_id, datetime');
+		$orderCol = $this->state->get('list.ordering', 'item_id');
 		$orderDirn = $this->state->get('list.direction', 'desc');
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));
