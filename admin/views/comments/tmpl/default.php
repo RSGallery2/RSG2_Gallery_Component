@@ -19,8 +19,8 @@ global $Rsg2DebugActive;
 //$doc = JFactory::getDocument();
 //$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
 
-$sortColumn = $this->escape($this->state->get('list.ordering'));  //Column
-$sortDirection  = $this->escape($this->state->get('list.direction'));
+$sortColumn = $this->escape($this->state->get('list.ordering'));
+$sortDirection  = $this->escape($this->state->get('list.direction')); //Column
 
 ?>
 
@@ -41,6 +41,19 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 				<?php
 				// Search tools bar
 				echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
+				echo JLayoutHelper::render('joomla.searchtools.default', $data, null, array('component' => 'none'));
+				echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this, 'options' => array('filterButton' => false)));
+
+
+				I managed to add options as below
+JLayoutHelper::render(
+	'joomla.searchtools.default',
+	array('view' => $this,
+		'options' => array('filtersHidden' =>$hidden)));
+
+
+If $hidden is set as 0 then the search tools will not be hidden. I set this variable appropriately based on the selected filter values.
+
 				?>
 
 				<!--fieldset class="filter">
