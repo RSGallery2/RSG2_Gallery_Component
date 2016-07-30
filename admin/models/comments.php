@@ -14,20 +14,27 @@ class Rsgallery2ModelComments extends JModelList
 			/**/
 			$config['filter_fields'] = array(
 				'id', // 'id',
-//				'user_id', // 'user_id',
+//
+				'user_id', // 'user_id',
 				'user_name', // 'user_name',
 				'user_ip', // 'user_ip',
-//				'parent_id', // 'parent_id',
+//
+				'parent_id', // 'parent_id',
 				'item_id', // 'item_id',
-//				'item_table', // 'item_table',
-// ToDO: add				'datetime', // 'datetime',
+//
+				'item_table', // 'item_table',
+				'datetime', // 'datetime',
 				'subject', // 'subject',
 				'comment', // 'comment',
-// ToDo: add				'published', // 'published',
-//				'checked_out', // 'checked_out',
-//				'checked_out_time', // 'checked_out_time',
-//				'ordering', // 'ordering',
-//				'params', // 'params',
+				'published', // 'published',
+//
+				'checked_out', // 'checked_out',
+//
+				'checked_out_time', // 'checked_out_time',
+//
+				'ordering', // 'ordering',
+//
+				'params', // 'params',
 				'hits' // ,'hits'
 			);
 			/**/
@@ -56,6 +63,10 @@ class Rsgallery2ModelComments extends JModelList
 		$search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search',
 			'', 'string');
 		$this->setState('filter.search', $search);
+
+//		$authorId = $this->getUserStateFromRequest($this->context . '.filter.user_id', 'filter_author_id');
+//		$this->setState('filter.author_id', $authorId);
+
 
 		// List state information.
 		parent::populateState($ordering, $direction);
@@ -98,14 +109,9 @@ class Rsgallery2ModelComments extends JModelList
 		$actState =
 			$this->getState(
 				'list.select',
-/**
 				'id, user_id, user_name, user_ip, parent_id, item_id, '
 				. 'item_table, datetime, subject, comment, published, '
 				. 'checked_out, checked_out_time, ordering, params, hits'
-/**/
-				'id, user_name, user_ip, item_id, '
-				. 'subject, comment, '
-				. 'hits'
 		 	);
 
 		$query->select($actState);
