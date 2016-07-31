@@ -474,7 +474,7 @@ class imgUtils extends fileUtils{
             return;
         }
 
-        $dropdown_html = "<select name=\"$selectname\"><option value=\"0\" SELECTED>- Random thumbnail -</option>\n";
+        $dropdown_html = "<select name=\"$selectname\"><option value=\"0\" SELECTED>".JText::_('COM_RSGALLERY2_MINUS_RANDOM_THUMBNAIL_MINUS')."</option>\n";
         if (!isset($current_id)) {
             $current_id = 0;
         }
