@@ -19,8 +19,8 @@ global $Rsg2DebugActive;
 //$doc = JFactory::getDocument();
 //$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
 
-$sortColumn = $this->escape($this->state->get('list.ordering'));
-$sortDirection  = $this->escape($this->state->get('list.direction')); //Column
+$sortColumn = $this->escape($this->state->get('list.ordering')); //Column
+$sortDirection  = $this->escape($this->state->get('list.direction'));
 
 ?>
 
@@ -37,15 +37,12 @@ $sortDirection  = $this->escape($this->state->get('list.direction')); //Column
 			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=comments'); ?>"
 				  method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
 
-
 				<?php
 				// Search tools bar
 				echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
 				//echo JLayoutHelper::render('joomla.searchtools.default', $data, null, array('component' => 'none'));
 				// I managed to add options as always open
 				//echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this, 'options' => array('filtersHidden' => false ($hidden) (true/false) )));
-
-
 				?>
 
 
@@ -181,7 +178,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction')); //Column
 								</td>
 
 								<td class="hidden-phone">
-			                        <?php echo $item->id; ?>
+					            <?php echo (int) $item->id; ?>
 		                        </td>
 
 	                        </tr>

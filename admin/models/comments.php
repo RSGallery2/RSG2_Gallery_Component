@@ -11,33 +11,24 @@ class Rsgallery2ModelComments extends JModelList
 	{
 		if (empty($config['filter_fields']))
 		{
-			/**/
 			$config['filter_fields'] = array(
-				'id', // 'id',
-//
-				'user_id', // 'user_id',
-				'user_name', // 'user_name',
-				'user_ip', // 'user_ip',
-//
-				'parent_id', // 'parent_id',
-				'item_id', // 'item_id',
-//
-				'item_table', // 'item_table',
-				'datetime', // 'datetime',
-				'subject', // 'subject',
-				'comment', // 'comment',
-				'published', // 'published',
-//
-				'checked_out', // 'checked_out',
-//
-				'checked_out_time', // 'checked_out_time',
-//
-				'ordering', // 'ordering',
-//
-				'params', // 'params',
-				'hits' // ,'hits'
+				'id', // 'a.id',
+				'user_id', // 'a.user_id',
+				'user_name', // 'a.user_name',
+				'user_ip', // 'a.user_ip',
+				'parent_id', // 'a.parent_id',
+				'item_id', // 'a.item_id',
+				'item_table', // 'a.item_table',
+				'datetime', // 'a.datetime',
+				'subject', // 'a.subject',
+				'comment', // 'a.comment',
+				'published', // 'a.published',
+				'checked_out', // 'a.checked_out',
+				'checked_out_time', // 'a.checked_out_time',
+				'ordering', // 'a.ordering',
+				'params', // 'a.params',
+				'hits' //, 'a.hits'
 			);
-			/**/
 		}
 
 		parent::__construct($config);
@@ -147,10 +138,6 @@ class Rsgallery2ModelComments extends JModelList
 		$orderDirn = $this->state->get('list.direction', 'desc');
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));
-
-
-//		echo '$query: ' . json_encode($query) . '<br>';
-
 
 		return $query;
 	}
