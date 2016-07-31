@@ -19,8 +19,8 @@ global $Rsg2DebugActive;
 //$doc = JFactory::getDocument();
 //$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
 
-$sortColumn = $this->escape($this->state->get('list.ordering'));
-$sortDirection  = $this->escape($this->state->get('list.direction')); //Column
+$sortColumn = $this->escape($this->state->get('list.ordering')); //Column
+$sortDirection  = $this->escape($this->state->get('list.direction'));
 
 ?>
 
@@ -55,6 +55,9 @@ $sortDirection  = $this->escape($this->state->get('list.direction')); //Column
 					<table class="table table-striped table-hover" id="commentsList">
 					<thead>
 						<tr>
+								<th width="1%">
+									<?php echo JText::_( 'COM_RSGALLERY2_NUM' ); ?>
+								</th>
 
 							<th width="1%" class="center">
 								<?php echo JHtml::_('grid.checkall'); ?>
@@ -113,17 +116,26 @@ $sortDirection  = $this->escape($this->state->get('list.direction')); //Column
 							</th>
 						</tr>
 					</thead>
+					<tfoot>
+						<tr>
+							<td colspan="15">
+								<?php echo $this->pagination->getListFooter(); ?>
+							</td>
+						</tr>
+					</tfoot>
 					<tbody>
-
 				<?php
 
                     foreach ($this->items as $acl) {
 //	                    echo json_encode($comment) . '<br>';
 				?>
+	                        <tr>
+		                        <td>
+			                        <?php echo $this->pagination->getRowOffset($i); ?>
+		                        </td>
 
-	                    <tr>
 
-		                    <td class="center">
+							<td width="1%" class="center">
 			                    <?php echo JHtml::_('grid.id', $i, $item->id); ?>
 		                    </td>
 

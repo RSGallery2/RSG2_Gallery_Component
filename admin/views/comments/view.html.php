@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @package RSGallery2
  * @copyright (C) 2003 - 2016 RSGallery2
@@ -11,14 +10,9 @@
 defined( '_JEXEC' ) or die;
 
 jimport('joomla.html.html.bootstrap');
-// jimport('joomla.application.component.view');
-jimport('joomla.application.component.model');
-
-JModelLegacy::addIncludePath(JPATH_COMPONENT.'/models');
 
 class Rsgallery2ViewComments extends JViewLegacy
 {
-
 	// ToDo: Use other rights instead of core.admin -> IsRoot ?
 	// core.admin is the permission used to control access to 
 	// the global config

@@ -55,7 +55,9 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 					<table class="table table-striped table-hover" id="commentsList">
 						<thead>
 							<tr>
-								<th width="1%"><?php echo JText::_( 'COM_RSGALLERY2_NUM' ); ?></th>
+								<th width="1%">
+									<?php echo JText::_( 'COM_RSGALLERY2_NUM' ); ?>
+								</th>
 
 								<th width="1%" class="center">
 									<?php echo JHtml::_('grid.checkall'); ?>
@@ -113,19 +115,8 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 					<tbody>
 						<?php
 
-						// echo json_encode($this->items) . '<br>';
-
                         foreach ($this->items as $i => $item) {
-//	                        echo json_encode($comment) . '<br>';
-							if($i > 5)
-							{
-//							    break;
-							}
-	                    
-							//			            $authorName = JFactory::getUser($item->uid);
 							?>
-
-
 	                        <tr>
 		                        <td>
 			                        <?php echo $this->pagination->getRowOffset($i); ?>

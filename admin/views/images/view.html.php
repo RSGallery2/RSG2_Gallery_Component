@@ -6,11 +6,10 @@
  * RSGallery is Free Software
  */
 
+// no direct access
 defined( '_JEXEC' ) or die;
 
 jimport ('joomla.html.html.bootstrap');
-// jimport('joomla.application.component.view');
-// jimport('joomla.application.component.model');
 
 class Rsgallery2ViewImages extends JViewLegacy
 {
@@ -39,8 +38,12 @@ class Rsgallery2ViewImages extends JViewLegacy
 //		$this->rsgConfigData = $rsgConfig;
 
 		$this->items = $this->get('Items');
+		
 		$this->pagination    = $this->get('Pagination');
 		$this->state         = $this->get('State');
+
+		$this->filterForm    = $this->get('FilterForm');
+		$this->activeFilters = $this->get('ActiveFilters');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))

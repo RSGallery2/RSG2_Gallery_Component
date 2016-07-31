@@ -1,16 +1,18 @@
 <?php
+/**
+ * @package RSGallery2
+ * @copyright (C) 2003 - 2016 RSGallery2
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * RSGallery is Free Software
+ */
 
+// no direct access
 defined( '_JEXEC' ) or die;
 
 jimport('joomla.html.html.bootstrap');
-// jimport('joomla.application.component.view');
-// jimport('joomla.application.component.model');
-
-// JModelLegacy::addIncludePath(JPATH_COMPONENT.'/models');
 
 class Rsgallery2ViewAcl_items extends JViewLegacy
 {
-
 	// ToDo: Use other rights instead of core.admin -> IsRoot ?
 	// core.admin is the permission used to control access to 
 	// the global config
@@ -36,6 +38,12 @@ class Rsgallery2ViewAcl_items extends JViewLegacy
 //		$this->rsgConfigData = $rsgConfig;
 
 		$this->items = $this->get('Items');
+
+		$this->pagination    = $this->get('Pagination');
+		$this->state         = $this->get('State');
+
+		$this->filterForm    = $this->get('FilterForm');
+		$this->activeFilters = $this->get('ActiveFilters');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))

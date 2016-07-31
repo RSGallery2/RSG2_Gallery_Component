@@ -19,8 +19,8 @@ global $Rsg2DebugActive;
 //$doc = JFactory::getDocument();
 //$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
 
-$listOrder = $this->escape($this->state->get('list.ordering')); //Column
-$listDirn  = $this->escape($this->state->get('list.direction'));
+$sortColumn = $this->escape($this->state->get('list.ordering')); //Column
+$sortDirection  = $this->escape($this->state->get('list.direction'));
 
 ?>
 
@@ -55,62 +55,67 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 				<table class="table table-striped table-hover" id="galleriesList">
 		            <thead>
 		            <tr>
+								<th width="1%">
+									<?php echo JText::_( 'COM_RSGALLERY2_NUM' ); ?>
+								</th>
 
 			            <th width="1%" class="center">
 				            <?php echo JHtml::_('grid.checkall'); ?>
 			            </th>
 
 						<th width="1%" style="min-width:55px" class="nowrap center">
-							<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'a.state', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'a.state', $sortDirection, $sortColumn); ?>
 						</th>
 
 			            <th width="10%" class="center">
-				            <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'a.name', $listDirn, $listOrder); ?>
+				            <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'a.name', $sortDirection, $sortColumn); ?>
 			            </th>
 
 			            <th width="1%" class="center">
-				            <?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_IMAGES', 'a.images', $listDirn, $listOrder); ?>
+				            <?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_IMAGES', 'a.images', $sortDirection, $sortColumn); ?>
 			            </th>
 
 			            <th width="1%" class="nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_ACCESS', 'a.access', $listDirn, $listOrder); ?>
+				            <?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_ACCESS', 'a.access', $sortDirection, $sortColumn); ?>
 			            </th>
 
 			            <th width="1%" class="nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort',  'JAUTHOR', 'a.created_by', $listDirn, $listOrder); ?>
+				            <?php echo JHtml::_('searchtools.sort',  'JAUTHOR', 'a.created_by', $sortDirection, $sortColumn); ?>
 			            </th>
 
 
 						<th width="1%" class="center">
-							<?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'a.ordering', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'a.ordering', $sortDirection, $sortColumn); ?>
 							&nbsp;<button id="filter_go" onclick="this.form.submit();" class="btn btn-micro" title="<?php echo "test title"; ?>"><i class="icon-save"></i></button>
 						</th>
 
-
-
 						<th width="10%" class="nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort', 'JDATE', 'a.created', $listDirn, $listOrder); ?>
+				            <?php echo JHtml::_('searchtools.sort', 'JDATE', 'a.created', $sortDirection, $sortColumn); ?>
 			            </th>
 
 
 			            <th width="1%" class="nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'a.hits', $listDirn, $listOrder); ?>
+				            <?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'a.hits', $sortDirection, $sortColumn); ?>
 			            </th>
 
 			            <th width="1%" class="nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
+				            <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $sortDirection, $sortColumn); ?>
 			            </th>
-
 
 			         </tr>
-		                </thead>
-		                <tbody>
 
+		                </thead>
+					<tfoot>
+						<tr>
+							<td colspan="15">
+								<?php echo $this->pagination->getListFooter(); ?>
+							</td>
+						</tr>
+					</tfoot>
+		                <tbody>
 		            <?php
 
 		            foreach ($this->items as $i => $item) {
-		            //	                    echo json_encode($comment) . '<br>';
-
 			            //$canChange  = $user->authorise('core.edit.state', 'com_content.article.' . $item->id) && $canCheckin;
 			            $canChange  = true;
 			            $canEdit  = true;
@@ -119,8 +124,11 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 			            $authorName = JFactory::getUser($item->uid);
 			            
 		            ?>
+	                        <tr>
+		                        <td>
+			                        <?php echo $this->pagination->getRowOffset($i); ?>
+		                        </td>
 
-			            <tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->id; ?>">
 
 							<td width="1%" class="center">
 								<?php echo JHtml::_('grid.id', $i, $item->id); ?>

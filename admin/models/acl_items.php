@@ -11,30 +11,58 @@ class Rsgallery2ModelAcl_items extends JModelList
 	{
 		if (empty($config['filter_fields']))
 		{
-
 			$config['filter_fields'] = array(
-				'id', 'a.id',
-				'user_id', 'a.user_id',
-				'user_name', 'a.user_name',
-				'user_ip', 'a.user_ip',
-				'parent_id', 'a.parent_id',
-				'item_id', 'a.item_id',
-				'item_table', 'a.item_table',
-				'datetime', 'a.datetime',
-				'subject', 'a.subject',
-				'comment', 'a.comment',
-				'published', 'a.published',
-				'checked_out', 'a.checked_out',
-				'checked_out_time', 'a.checked_out_time',
-				'ordering', 'a.ordering',
-				'params', 'a.params',
-				'hits', 'a.hits'
+				'id', // 'a.id',
+				'gallery_id', // 'a.gallery_id', 
+				'parent_id', // 'a.parent_id', 
+				'public_view', // 'a.public_view', 
+				'public_up_mod_img', // 'a.public_up_mod_img', 
+				'public_del_img', // 'a.public_del_img', 
+				'public_create_mod_gal', // 'a.public_create_mod_gal', 
+				'public_del_gal', // 'a.public_del_gal', 
+				'public_vote_view', // 'a.public_vote_view', 
+				'public_vote_vote', // 'a.public_vote_vote', 
+				'registered_view', // 'a.registered_view', 
+				'registered_up_mod_img', // 'a.registered_up_mod_img', 
+				'registered_del_img', // 'a.registered_del_img', 
+				'registered_create_mod_gal', // 'a.registered_create_mod_gal', 
+				'registered_del_gal', // 'a.registered_del_gal', 
+				'registered_vote_view', // 'a.registered_vote_view', 
+				'registered_vote_vote', // 'a.registered_vote_vote', 
 			);
 		}
 
 		parent::__construct($config);
 	}
 
+	/**
+	 * Method to auto-populate the model state.
+	 *
+	 * Note. Calling getState in this method will result in recursion.
+	 *
+	 * @param   string  $ordering   An optional ordering field.
+	 * @param   string  $direction  An optional direction (asc|desc).
+	 *
+	 * @return  void
+	 *
+	 * @since   1.6
+	 */
+	// ToDo: protected function populateState($ordering = 'item_id, datetime', $direction = 'desc')
+	protected function populateState($ordering = 'id', $direction = 'desc')
+	{
+		// $app = JFactory::getApplication();
+
+		$search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search',
+			'', 'string');
+		$this->setState('filter.search', $search);
+
+//		$authorId = $this->getUserStateFromRequest($this->context . '.filter.user_id', 'filter_author_id');
+//		$this->setState('filter.author_id', $authorId);
+
+
+		// List state information.
+		parent::populateState($ordering, $direction);
+	}
 
 	/**
 	 * Method to build an SQL query to load the list data.
@@ -47,35 +75,41 @@ class Rsgallery2ModelAcl_items extends JModelList
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-	/*
-		// Select the required fields from the table.
-		$query->select(
+		// Query for all galleries.
+		$actState =
 			$this->getState(
 				'list.select',
-				'a.id',
-				'a.user_id',
-				'a.user_name',
-				'a.user_ip',
-				'a.parent_id',
-				'a.item_id',
-				'a.item_table',
-				'a.datetime',
-				'a.subject',
-				'a.comment',
-				'a.published',
-				'a.checked_out',
-				'a.checked_out_time',
-				'a.ordering',
-				'a.params',
-				'a.hits'
-			)
-		);
-		$query->from('#__rsgallery2_comments AS a');
+				'id, gallery_id, parent_id, public_view, '
+				. 'public_up_mod_img, public_del_img, '
+				. 'public_create_mod_gal, public_del_gal, '
+				. 'public_vote_view, public_vote_vote, '
+				. 'registered_view, registered_up_mod_img, '
+				. 'registered_del_img, registered_create_mod_gal, '
+				. 'registered_del_gal, registered_vote_view, '
+				. 'registered_vote_vote'
+			);
+		$query->select($actState);
+		
+		$query->from('#__rsgallery2_acl);
+		
+		$search = $this->getState('filter.search');
+		if(!empty($search)) {
+/**
+			$search = $db->quote('%' . $db->escape($search, true) . '%');
+			$query->where(
+				'comment LIKE ' . $search
+				. ' OR user_name LIKE ' . $search
+				. ' OR user_ip LIKE ' . $search
+				. ' OR item_id LIKE ' . $search
+			);
 /**/
-		// Query for all galleries.
-		$query
-			->select('*')
-			->from('#__rsgallery2_acl');
+		}
+
+		// Add the list ordering clause.
+		$orderCol = $this->state->get('list.ordering', 'id');
+		$orderDirn = $this->state->get('list.direction', 'desc');
+
+		$query->order($db->escape($orderCol . ' ' . $orderDirn));
 
 		return $query;
 	}

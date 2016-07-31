@@ -104,8 +104,8 @@ class Rsgallery2ModelComments extends JModelList
 				. 'item_table, datetime, subject, comment, published, '
 				. 'checked_out, checked_out_time, ordering, params, hits'
 		 	);
-
 		$query->select($actState);
+
 		$query->from('#__rsgallery2_comments');
 
 		$search = $this->getState('filter.search');
@@ -133,10 +133,8 @@ class Rsgallery2ModelComments extends JModelList
 		/**/
 
 		// Add the list ordering clause.
-//		$orderCol = $this->state->get('list.ordering', 'item_id, datetime');
 		$orderCol = $this->state->get('list.ordering', 'item_id');
 		$orderDirn = $this->state->get('list.direction', 'desc');
-
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));
 
 		return $query;
