@@ -13,24 +13,25 @@ class rsgallery2ModelGalleries extends JModelList
 		{   
 			// todo Use own db variables
 			$config['filter_fields'] = array(
-				'id', // 'a.id',
-				'parent', // 'a.parent',  
-				'name', // 'a.name'
-				'alias', // 'a.alias'
-				'description', // 'a.description'
-				'published', // 'a.published'
-				'checked_out', // 'a.'
-				'checked_out_time', // 'a.'
-				'ordering', // 'a.'
-				'date', // 'a.'
-				'hits', // 'a.hits'
-				'params', // 'a.'
-				'user', // 'a.'
-				'uid', // 'a.uid'
-				'allowed', // 'a.allowed'
-				'thumb_id', // 'a.'
-				'asset_id', // 'a.asset_id'
-				'access' //, 'a.access'
+				'id', 'a.id',
+				'parent', 'a.parent',
+				'name', 'a.name',
+				'alias', 'a.alias',
+				'description', 'a.description',
+				'published', 'a.published',
+				'checked_out', 'a.checked_out',
+				'checked_out_time', 'a.checked_out_time',
+				'ordering', 'a.ordering',
+				'date', 'a.date',
+				'hits', 'a.hits',
+				'params', 'a.params',
+				'user', 'a.user',
+				'uid', 'a.uid',
+				'allowed', 'a.allowed',
+				'thumb_id', 'a.thumb_id',
+				'asset_id', 'a.asset_id',
+				'access', 'a.access'
+				, 'image_count', 'b.image_count'
 			);
 		}
 
@@ -49,7 +50,7 @@ class rsgallery2ModelGalleries extends JModelList
 	 *
 	 * @since   1.6
 	 */
-	protected function populateState($ordering = 'id', $direction = 'desc')
+	protected function populateState($ordering = 'a.id', $direction = 'desc')
 	{
 		// $app = JFactory::getApplication();
 
@@ -80,14 +81,47 @@ class rsgallery2ModelGalleries extends JModelList
 		$actState =
 			$this->getState(
 				'list.select',
-				'id, parent, name, alias, description, published, '
-				. 'checked_out, checked_out_time, ordering, date, '
-				. 'hits, params, user, uid, allowed, thumb_id, '
-				. 'asset_id, access'
+				'a.id, a.parent, a.name, a.alias, a.description, a.published, '
+				. 'a.checked_out, a.checked_out_time, a.ordering, a.date, '
+				. 'a.hits, a.params, a.user, a.uid, a.allowed, a.thumb_id, '
+				. 'a.asset_id, a.access '
+//				. ', b.gallery_id'
 		 	);
 		$query->select($actState);
 		
-        $query->from('#__rsgallery2_galleries');
+        $query->from('#__rsgallery2_galleries as a'); // as a');
+
+		/**
+		// Join over the images for counting
+		// DISTINCT -> unique
+		$query->select('COUNT(*) as image_count')
+			->join('LEFT', '#__rsgallery2_files AS img ON img.gallery_id = a.id');
+		/**
+		$query->select('COUNT(img.id) AS image_count')
+			->join('LEFT', $db->quoteName('#__rsgallery2_files', 'img')
+				. ' ON ' . $db->qn('img.gallery_id') . ' = ' . $db->qn('a.id')
+			);
+		/**
+		$query->select('COUNT(img.id)>1 AS image_count')
+			->join('LEFT', $db->quoteName('#__rsgallery2_files', 'img')
+				. ' ON ' . $db->qn('img.gallery_id') . ' = ' . $db->qn('a.id')
+			);
+		/**
+		$query->select('COUNT(img.gallery_id) AS image_count')
+			->join('FULL', $db->quoteName('#__rsgallery2_files', 'img')
+				. ' ON ' . $db->qn('img.gallery_id') . ' = ' . $db->qn('a.id')
+			);
+		/**
+		$query->select('COUNT(img.gallery_id) AS image_count')
+			->join('LEFT', $db->quoteName('#__rsgallery2_files', 'img')
+				. ' ON ' . $db->qn('img.gallery_id') . ' LIKE  ' . $db->qn('a.id')
+			);
+		/**/
+		$query->select('COUNT(*) AS image_count')
+			->join('LEFT', '#__rsgallery2_files AS b ON b.gallery_id = a.id'
+			);
+		/**/
+
 
 		$search = $this->getState('filter.search');
 		if(!empty($search)) {
@@ -103,7 +137,7 @@ class rsgallery2ModelGalleries extends JModelList
 		}
 
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', 'id');
+		$orderCol = $this->state->get('list.ordering', 'a.id');
 		$orderDirn = $this->state->get('list.direction', 'desc');
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));

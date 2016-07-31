@@ -64,42 +64,42 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 			            </th>
 
 						<th width="1%" style="min-width:55px" class="nowrap center">
-							<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'published', $sortDirection, $sortColumn); ?>
+							<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'a.published', $sortDirection, $sortColumn); ?>
 						</th>
 
 			            <th width="10%" class="center">
-				            <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'name', $sortDirection, $sortColumn); ?>
+				            <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'a.name', $sortDirection, $sortColumn); ?>
 			            </th>
 
 			            <th width="1%" class="center">
-				            <?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_IMAGES', 'images', $sortDirection, $sortColumn); ?>
+				            <?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_IMAGES', 'a.images', $sortDirection, $sortColumn); ?>
 			            </th>
 
 			            <th width="1%" class="center nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_ACCESS', 'access', $sortDirection, $sortColumn); ?>
+				            <?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_ACCESS', 'a.access', $sortDirection, $sortColumn); ?>
 			            </th>
 
 			            <th width="1%" class="center nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort',  'JAUTHOR', 'created_by', $sortDirection, $sortColumn); ?>
+				            <?php echo JHtml::_('searchtools.sort',  'JAUTHOR', 'a.created_by', $sortDirection, $sortColumn); ?>
 			            </th>
 
 
 						<th width="1%" class="center">
-							<?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'ordering', $sortDirection, $sortColumn); ?>
+							<?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'a.ordering', $sortDirection, $sortColumn); ?>
 							&nbsp;<button id="filter_go" onclick="this.form.submit();" class="btn btn-micro" title="<?php echo "test title"; ?>"><i class="icon-save"></i></button>
 						</th>
 
 						<th width="1%" class="center nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_DATE__TIME', 'created', $sortDirection, $sortColumn); ?>
+				            <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_DATE__TIME', 'a.created', $sortDirection, $sortColumn); ?>
 			            </th>
 
 
 			            <th width="1%" class="center nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'hits', $sortDirection, $sortColumn); ?>
+				            <?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'a.hits', $sortDirection, $sortColumn); ?>
 			            </th>
 
 			            <th width="1%" class="center nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $sortDirection, $sortColumn); ?>
+				            <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $sortDirection, $sortColumn); ?>
 			            </th>
 
 			         </tr>
@@ -160,7 +160,8 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 				            <td width="5%" class="center">
 					            <?php
-					            $imageCount = $this->GalleriesModel->countImages ($item->id);
+					            // $imageCount = $this->GalleriesModel->countImages ($item->id);
+					            $imageCount = $item->image_count;
 					            ?>
 
 					            <a class="badge <?php if ($imageCount > 0) echo "badge-success"; ?>" href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id); ?>"
