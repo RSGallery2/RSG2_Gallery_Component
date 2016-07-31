@@ -135,6 +135,20 @@ class Rsgallery2ModelComments extends JModelList
 		// Add the list ordering clause.
 		$orderCol = $this->state->get('list.ordering', 'item_id');
 		$orderDirn = $this->state->get('list.direction', 'desc');
+
+		/** ToDo: when sorted by image id the comments shall be ordered by date ? ...
+		if ($orderCol == 'a.ordering' || $orderCol == 'category_title')
+		{
+			$orderCol = 'c.title ' . $orderDirn . ', a.ordering';
+		}
+		/**/
+		if ($orderCol == 'item_id')
+		{
+			$orderCol = 'item_id ' . $orderDirn . ', datetime desc';
+			// $orderCol = 'item_id ' . $orderDirn . ', datetime asc';
+			$orderDirn = '';
+		}
+
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));
 
 		return $query;

@@ -17,6 +17,17 @@
 			>
 			<option value="">JOPTION_SELECT_PUBLISHED</option>
 		</field>
+		
+		<field
+			name="access"
+			type="accesslevel"
+			label="JOPTION_FILTER_ACCESS"
+			description="JOPTION_FILTER_ACCESS_DESC"
+			onchange="this.form.submit();"
+			>
+			<option value="">JOPTION_SELECT_ACCESS</option>
+		</field>
+		
 	</fields>
 	<fields name="list">
 		<field
@@ -28,39 +39,31 @@
 			default="item_id DESC"
 			>
 			<option value="">JGLOBAL_SORT_BY</option>
-			
-			
-Status 	
-Name 	
-Images 	
-Access 	
-Author 	
-Order  
-Date 	
-Hits 	
-ID			
-
-			<option value="item_id ASC">COM_RSGALLERY2_IMAGE_ID_ASC</option>
-			<option value="item_id DESC">COM_RSGALLERY2_IMAGE_ID_DESC</option>
-
-			<option value="subject ASC">JGLOBAL_TITLE_ASC</option>
-			<option value="subject DESC">JGLOBAL_TITLE_DESC</option>
-
-			<option value="comment ASC">COM_RSGALLERY2_COMMENT_ASC</option>
-			<option value="comment DESC">COM_RSGALLERY2_COMMENT_DESC</option>
-
-			<option value="user_name ASC">JAUTHOR_ASC</option>
-			<option value="user_name DESC">JAUTHOR_DESC</option>
-
-			<option value="user_ip ASC">COM_RSGALLERY2_USER_IP_ASC</option>
-			<option value="user_ip DESC">COM_RSGALLERY2_USER_IP_DESC</option>
+						
+			<option value="ordering ASC">JGRID_HEADING_ORDERING_ASC</option>
+			<option value="ordering DESC">JGRID_HEADING_ORDERING_DESC</option>Order  
 
 			<option value="datetime ASC">JDATE_ASC</option>
 			<option value="datetime DESC">JDATE_ASC</option>
 
+			<option value="uid ASC">JAUTHOR_ASC</option>
+			<option value="uid DESC">JAUTHOR_DESC</option>
+			
+			<option value="name ASC">COM_RSGALLERY2_NAME_ASC</option>
+			<option value="name DESC">COM_RSGALLERY2_NAME_DESC</option>
+			
 			<option value="published ASC">JSTATUS_ASC</option>
 			<option value="published DESC">JSTATUS_DESC</option>
-
+			
+			<option value="name ASC">COM_RSGALLERY2_NAME_ASC</option>
+			<option value="name DESC">COM_RSGALLERY2_NAME_DESC</option>
+			
+			<option value="images_count ASC">COM_RSGALLERY2_IMAGES_COUNT_ASC</option>
+			<option value="images_count DESC">COM_RSGALLERY2_IMAGES_COUNT_DESC</option>
+			
+			<option value="access_level ASC">JGRID_HEADING_ACCESS_ASC</option>
+			<option value="access_level DESC">JGRID_HEADING_ACCESS_DESC</option>
+			
 			<option value="hits ASC">JGLOBAL_HITS_ASC</option>
 			<option value="hits DESC">JGLOBAL_HITS_DESC</option>
 

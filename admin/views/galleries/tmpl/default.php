@@ -64,42 +64,42 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 			            </th>
 
 						<th width="1%" style="min-width:55px" class="nowrap center">
-							<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'a.state', $sortDirection, $sortColumn); ?>
+							<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'published', $sortDirection, $sortColumn); ?>
 						</th>
 
 			            <th width="10%" class="center">
-				            <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'a.name', $sortDirection, $sortColumn); ?>
+				            <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'name', $sortDirection, $sortColumn); ?>
 			            </th>
 
 			            <th width="1%" class="center">
-				            <?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_IMAGES', 'a.images', $sortDirection, $sortColumn); ?>
+				            <?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_IMAGES', 'images', $sortDirection, $sortColumn); ?>
 			            </th>
 
-			            <th width="1%" class="nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_ACCESS', 'a.access', $sortDirection, $sortColumn); ?>
+			            <th width="1%" class="center nowrap hidden-phone">
+				            <?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_ACCESS', 'access', $sortDirection, $sortColumn); ?>
 			            </th>
 
-			            <th width="1%" class="nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort',  'JAUTHOR', 'a.created_by', $sortDirection, $sortColumn); ?>
+			            <th width="1%" class="center nowrap hidden-phone">
+				            <?php echo JHtml::_('searchtools.sort',  'JAUTHOR', 'created_by', $sortDirection, $sortColumn); ?>
 			            </th>
 
 
 						<th width="1%" class="center">
-							<?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'a.ordering', $sortDirection, $sortColumn); ?>
+							<?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'ordering', $sortDirection, $sortColumn); ?>
 							&nbsp;<button id="filter_go" onclick="this.form.submit();" class="btn btn-micro" title="<?php echo "test title"; ?>"><i class="icon-save"></i></button>
 						</th>
 
-						<th width="10%" class="nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort', 'JDATE', 'a.created', $sortDirection, $sortColumn); ?>
+						<th width="1%" class="center nowrap hidden-phone">
+				            <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_DATE__TIME', 'created', $sortDirection, $sortColumn); ?>
 			            </th>
 
 
-			            <th width="1%" class="nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'a.hits', $sortDirection, $sortColumn); ?>
+			            <th width="1%" class="center nowrap hidden-phone">
+				            <?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'hits', $sortDirection, $sortColumn); ?>
 			            </th>
 
-			            <th width="1%" class="nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $sortDirection, $sortColumn); ?>
+			            <th width="1%" class="center nowrap hidden-phone">
+				            <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $sortDirection, $sortColumn); ?>
 			            </th>
 
 			         </tr>
@@ -183,9 +183,9 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 				            </td>
 
 				            <td class="small hidden-phone">
-					            ??
 					            <!--?php echo $item->access_level;?-->
 					            <!--?php echo $this->escape($item->access_level); ?-->
+								<?php echo $this->escape($item->access); ?> 
 				            </td>
 
 							<td class="small hidden-phone">
@@ -204,10 +204,8 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 
 				            <td class="nowrap small hidden-phone">
-					            <?php echo JHtml::_('date', $item->date, JText::_('DATE_FORMAT_LC4')); ?>
+					            <?php echo JHtml::_('date', $item->date, JText::_('COM_RSGALLERY2_DATE_FORMAT_WITH_TIME')); ?>
 				            </td>
-
-
 
 				            <td class="hidden-phone">
 					            <?php echo (int) $item->hits; ?>
