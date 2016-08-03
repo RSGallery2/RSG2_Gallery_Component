@@ -72,7 +72,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 			            </th>
 
 			            <th width="1%" class="center">
-				            <?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_IMAGES', 'a.images', $sortDirection, $sortColumn); ?>
+				            <?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_IMAGES', 'image_count', $sortDirection, $sortColumn); ?>
 			            </th>
 
 			            <th width="1%" class="center nowrap hidden-phone">
@@ -160,13 +160,13 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 				            <td width="5%" class="center">
 					            <?php
-								$imageCount = -1;
+								$imageCount = 0;
 					            // $imageCount = $this->GalleriesModel->countImages ($item->id);
 								if (!empty($item->image_count))
 					                $imageCount = $item->image_count;
 					            ?>
 
-					            <a class="badge <?php if ($imageCount >= 0) {echo "badge-success";}else{echo "badge-inverse";} ?>"
+					            <a class="badge <?php if ($imageCount > 0) {echo "badge-success";}else{echo "badge-inverse";} ?>"
 								   href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id); ?>"
 								   title="<?php echo JText::_('COM_RSGALLERY2_IMAGES_LIST'); ?>"
 								>
