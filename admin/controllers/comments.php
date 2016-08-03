@@ -16,7 +16,7 @@ if ($Rsg2DebugActive)
 
 jimport('joomla.application.component.controlleradmin');
 
-class Rsgallery2ControllerComments extends JControllerAdmin
+class Rsgallery2ControllerComments extends JModelList
 {
 
 	public function getModel($name = 'Comment',
