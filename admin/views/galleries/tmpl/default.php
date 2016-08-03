@@ -163,7 +163,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 								$imageCount = -1;
 					            // $imageCount = $this->GalleriesModel->countImages ($item->id);
 								if (!empty($item->image_count))
-					            $imageCount = $item->image_count;
+					                $imageCount = $item->image_count;
 					            ?>
 
 					            <a class="badge <?php if ($imageCount >= 0) {echo "badge-success";}else{echo "badge-inverse";} ?>"

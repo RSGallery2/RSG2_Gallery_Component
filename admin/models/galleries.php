@@ -122,18 +122,24 @@ class rsgallery2ModelGalleries extends JModelList
 			->join('LEFT', '#__rsgallery2_files AS b ON b.gallery_id = a.id'
 			);
 		/**/
-        /**/
+		/* tut nicht *
+		$query->select('COUNT(img.*) as image_count')
+			->join('LEFT', '#__rsgallery2_files AS img ON img.gallery_id = a.id'
+			);
+		/**/
+        /* OK *
         $query->select('COUNT(img.id) as image_count')
             ->join('LEFT', '#__rsgallery2_files AS img ON img.gallery_id = a.id'
             );
 		/**/
 
-        /**
-        $query->select('COUNT(img.*) as image_count')
-            ->join('LEFT', '#__rsgallery2_files AS img ON img.gallery_id = a.id'
-            );
+		/* OK */
+		$query->select('COUNT(img.gallery_id) as image_count')
+			->join('LEFT', '#__rsgallery2_files AS img ON img.gallery_id = a.id'
+			);
 		/**/
-        $query->group($query->qn('a.id'));
+
+		$query->group($query->qn('a.id'));
 
 
 		$search = $this->getState('filter.search');
