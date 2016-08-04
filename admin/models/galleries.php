@@ -139,6 +139,12 @@ class rsgallery2ModelGalleries extends JModelList
 			);
 		/**/
 
+		// Join over the asset groups.
+		$query->select('ag.title AS access_level')
+			->join('LEFT', '#__viewlevels AS ag ON ag.id = a.access');
+
+
+
 		$query->group($query->qn('a.id'));
 
 

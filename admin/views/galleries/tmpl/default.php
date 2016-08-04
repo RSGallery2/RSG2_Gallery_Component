@@ -138,7 +138,19 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 							</td>
 
 							<td width="1%" class="center">
-								<?php echo JHtml::_('jgrid.published', $item->published, $i); //, 'articles.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
+								<!--?php echo JHtml::_('jgrid.published', $item->published, $i); //, 'articles.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?-->
+								<div class="btn-group">
+									<?php echo JHtml::_('jgrid.published', $item->state, $i, 'articles.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
+									<!--?php echo JHtml::_('contentadministrator.featured', $item->featured, $i, $canChange); ?-->
+									<?php // Create dropdown items and render the dropdown list.
+									if ($canChange)
+									{
+										JHtml::_('actionsdropdown.' . ((int) $item->state === 2 ? 'un' : '') . 'archive', 'cb' . $i, 'articles');
+										JHtml::_('actionsdropdown.' . ((int) $item->state === -2 ? 'un' : '') . 'trash', 'cb' . $i, 'articles');
+										echo JHtml::_('actionsdropdown.render', $this->escape($item->title));
+									}
+									?>
+								</div> 							
 							</td>
 				            <td width="10%" class="left has-context">
 					            <!--div class="pull-left break-word" -->
@@ -197,7 +209,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 								} ?>
 
 
-								</td>
+				            </td>
 
 				            <?php if (isset($this->items[0]) && property_exists($this->items[0], 'count_published')) : ?>
 				            <td class="center btns hidden-phone">
@@ -210,8 +222,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 				            <td class="small hidden-phone">
 					            <!--?php echo $item->access_level;?-->
-					            <!--?php echo $this->escape($item->access_level); ?-->
-								<?php echo $this->escape($item->access); ?> 
+					            <?php echo $this->escape($item->access_level); ?>
 				            </td>
 
 							<td class="small hidden-phone">
