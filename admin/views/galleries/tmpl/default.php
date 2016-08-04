@@ -36,6 +36,9 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
             <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=galleries'); ?>"
                   method="post" name="adminForm" id="adminForm"class="form-validate form-horizontal" >
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Access&nbsp;order&nbsp;searchtools&nbsp;Status different in article&nbsp;Parts !! <br>
+
+
 
 				<?php
 				// Search tools bar
@@ -164,18 +167,37 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 					            // $imageCount = $this->GalleriesModel->countImages ($item->id);
 								if (!empty($item->image_count))
 					                $imageCount = $item->image_count;
-					            ?>
 
-					            <a class="badge <?php if ($imageCount > 0) {echo "badge-success";}else{echo "badge-inverse";} ?>"
-								   href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id); ?>"
-								   title="<?php echo JText::_('COM_RSGALLERY2_IMAGES_LIST'); ?>"
-								>
-									<?php
-									echo $imageCount;
+								if ($imageCount == 0) {
 									?>
-					            </a>
+									<a class="badge badge-inverse">
+										0
+									</a>
+									<?php
+								} else {
+									?>
+						            <a class="badge badge-success"
+									   href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id); ?>"
+									   title="<?php echo JText::_('COM_RSGALLERY2_IMAGES_LIST'); ?>"
+									>
+										<?php
+										echo $imageCount;
+										?>
+					        	    </a>
+									<!--
+									&nbsp;
+									<a
+									   href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id); ?>"
+									   title="<?php echo JText::_('COM_RSGALLERY2_IMAGES_LIST'); ?>"
+									>
+										<sub><span class="icon-image" style="font-size: 1.6em;"></span></sub>
+									</a>
+									-->
+								<?php
+								} ?>
 
-				            </td>
+
+								</td>
 
 				            <?php if (isset($this->items[0]) && property_exists($this->items[0], 'count_published')) : ?>
 				            <td class="center btns hidden-phone">

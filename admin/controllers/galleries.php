@@ -16,7 +16,7 @@ if ($Rsg2DebugActive)
 
 jimport('joomla.application.component.controlleradmin');
 
-class Rsgalleries2ControllerGalleries extends JControllerAdmin
+class Rsgallery2ControllerGalleries extends JControllerAdmin
 {
 
 	public function getModel($name = 'Gallery', 

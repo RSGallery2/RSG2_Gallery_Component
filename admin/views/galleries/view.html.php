@@ -84,16 +84,21 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 		{
 			case 'comments_raw':
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_RAW_COMMENTS_TXT'), 'images');
+
 				JToolBarHelper::editList('gallery.edit');
 				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'gallery.delete', 'JTOOLBAR_EMPTY_TRASH'); 				
 				break;
 
 			default:
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_GALLERIES'), 'images');
+
 				JToolBarHelper::addNew('gallery.add');
 				JToolBarHelper::editList('gallery.edit');
 //				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'galleries.delete', 'JTOOLBAR_EMPTY_TRASH');
 				JToolBarHelper::deleteList('', 'galleries.delete');
+
+				JToolbarHelper::publish('galleries.publish', 'JTOOLBAR_PUBLISH', true);
+				JToolbarHelper::unpublish('galleries.unpublish', 'JTOOLBAR_UNPUBLISH', true);
 
 				break;
 		}
