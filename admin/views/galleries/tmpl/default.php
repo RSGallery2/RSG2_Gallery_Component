@@ -36,7 +36,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
             <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=galleries'); ?>"
                   method="post" name="adminForm" id="adminForm"class="form-validate form-horizontal" >
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Access&nbsp;order&nbsp;searchtools&nbsp;Status different in article&nbsp;Parts !! <br>
+                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Needed changes:</strong>&nbsp;order&nbsp;searchtools&nbsp;Status as renamed variable:different in article&nbsp;publish_up/don as sql var &nbsp;Parts !! <br> <br>
 
 
 
@@ -70,7 +70,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 							<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'a.published', $sortDirection, $sortColumn); ?>
 						</th>
 
-			            <th width="10%" class="center">
+			            <th width="10%" class="">
 				            <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'a.name', $sortDirection, $sortColumn); ?>
 			            </th>
 
@@ -89,7 +89,9 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 						<th width="1%" class="center">
 							<?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'a.ordering', $sortDirection, $sortColumn); ?>
-							&nbsp;<button id="filter_go" onclick="this.form.submit();" class="btn btn-micro" title="<?php echo "test title"; ?>"><i class="icon-save"></i></button>
+							&nbsp;<button id="filter_go" onclick="this.form.submit();" class="btn btn-micro" title="<?php echo JText::_( 'COM_RSGALLERY2_ASSIGN_CHANGED_ORDER'); ?>">
+                                <i class="icon-save"></i>
+                            </button>
 						</th>
 
 						<th width="1%" class="center nowrap hidden-phone">
@@ -138,8 +140,11 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 							</td>
 
 							<td width="1%" class="center">
-								<!--?php echo JHtml::_('jgrid.published', $item->published, $i); //, 'articles.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?-->
-								<div class="btn-group">
+								<?php echo JHtml::_('jgrid.published', $item->published, $i); //, 'articles.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
+                                <?php
+                                /**
+                                ?>
+                                <div class="btn-group">
 									<?php echo JHtml::_('jgrid.published', $item->state, $i, 'articles.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
 									<!--?php echo JHtml::_('contentadministrator.featured', $item->featured, $i, $canChange); ?-->
 									<?php // Create dropdown items and render the dropdown list.
@@ -150,7 +155,9 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 										echo JHtml::_('actionsdropdown.render', $this->escape($item->title));
 									}
 									?>
-								</div> 							
+								</div>
+                                /**/
+                                ?>
 							</td>
 				            <td width="10%" class="left has-context">
 					            <!--div class="pull-left break-word" -->
@@ -211,21 +218,12 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 				            </td>
 
-				            <?php if (isset($this->items[0]) && property_exists($this->items[0], 'count_published')) : ?>
-				            <td class="center btns hidden-phone">
-
-
-				            </td>
-				            <?php endif;?>
-
-				            </td>
-
-				            <td class="small hidden-phone">
+				            <td class="small hidden-phone center">
 					            <!--?php echo $item->access_level;?-->
 					            <?php echo $this->escape($item->access_level); ?>
 				            </td>
 
-							<td class="small hidden-phone">
+							<td class="small hidden-phone center">
 								<?php echo $this->escape($authorName->name); ?></a>
 							</td>
 
@@ -233,22 +231,23 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 							<td width="1%" class="center">
 								<div class="form-group">
 									<label class="hidden" for="ordering_<?php echo $i; ?>">Ordering</label>
-									<input class="input-mini" type="number" min="0" step="1" class="form-control" id="ordering_<?php echo $i; ?>"
+                                    <!--input type="text" style="display:none" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order " /-->
+                                    <input type="number" class="input-mini" name="order[]" min="0" step="1" class="form-control" id="ordering_<?php echo $i; ?>"
 										placeholder="<?php echo $item->ordering; ?>">
 									</input>
 								</div>
 							</td>
 
 
-				            <td class="nowrap small hidden-phone">
+				            <td class="nowrap small hidden-phone center">
 					            <?php echo JHtml::_('date', $item->date, JText::_('COM_RSGALLERY2_DATE_FORMAT_WITH_TIME')); ?>
 				            </td>
 
-				            <td class="hidden-phone">
+				            <td class="hidden-phone center">
 					            <?php echo (int) $item->hits; ?>
 				            </td>
 
-				            <td class="hidden-phone">
+				            <td class="hidden-phone center">
 					            <?php echo (int) $item->id; ?>
 				            </td>
 
