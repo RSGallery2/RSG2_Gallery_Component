@@ -14,13 +14,30 @@ JHtml::_('formbehavior.chosen', 'select');
 
 global $Rsg2DebugActive;
 
-// public static $extension = 'COM_RSG2';
-
-//$doc = JFactory::getDocument();
-//$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
-
 $sortColumn = $this->escape($this->state->get('list.ordering')); //Column
 $sortDirection  = $this->escape($this->state->get('list.direction'));
+
+?>
+<script type="text/javascript">
+
+	// Add spindle-wheel for installations:
+	jQuery(document).ready(function($) {
+		//alert ("assign");
+
+		jQuery(".changeOrder").bind('keyup mouseup',
+			function () {
+				alert("changed");
+			}
+		);
+
+		//alert ("done");
+	});
+
+</script>
+
+<?php
+
+
 
 ?>
 
@@ -89,7 +106,10 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 						<th width="1%" class="center">
 							<?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'a.ordering', $sortDirection, $sortColumn); ?>
-							&nbsp;<button id="filter_go" onclick="this.form.submit();" class="btn btn-micro" title="<?php echo JText::_( 'COM_RSGALLERY2_ASSIGN_CHANGED_ORDER'); ?>">
+							&nbsp;yyy&nbsp;
+							<button id="filter_go" class="btn btn-micro"
+								onclick="Joomla.checkNone(this);"
+								title="<?php echo JText::_( 'COM_RSGALLERY2_ASSIGN_CHANGED_ORDER'); ?>">
                                 <i class="icon-save"></i>
                             </button>
 						</th>
@@ -232,8 +252,8 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 								<div class="form-group">
 									<label class="hidden" for="ordering_<?php echo $i; ?>">Ordering</label>
                                     <!--input type="text" style="display:none" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order " /-->
-                                    <input type="number" class="input-mini" name="order[]" min="0" step="1" class="form-control" id="ordering_<?php echo $i; ?>"
-										placeholder="<?php echo $item->ordering; ?>">
+                                    <input type="number" class="input-mini changeOrder" name="order[]" min="0" step="1" class="form-control" id="ordering_<?php echo $i; ?>"
+										value="<?php echo $item->ordering; ?>">
 									</input>
 								</div>
 							</td>
