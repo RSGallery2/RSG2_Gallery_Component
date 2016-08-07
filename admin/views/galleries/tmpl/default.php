@@ -20,13 +20,146 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 ?>
 <script type="text/javascript">
 
-	// Add spindle-wheel for installations:
+
+	//This will sort your array
+	function SortByIntValue(a, b){
+		var aValue = parseInt($(a).value, 10);
+		var bValue = parseInt($(b).value, 10);
+		return aValue - bValue;
+	}
+
+
+	// :
 	jQuery(document).ready(function($) {
 		//alert ("assign");
 
-		jQuery(".changeOrder").bind('keyup mouseup',
-			function () {
-				alert("changed");
+		jQuery(".changeOrder").on('keyup mouseup',
+			function (event) {
+				var Idx;
+				var element;
+
+				event.preventDefault();
+
+//				alert($( this ).text());
+//				alert(event.target.nodeName);
+				var actElement = event.target;
+//				var actId = actElement.id;
+
+				// Empty input
+				if (actElement.value == '') {
+					return;
+				}
+
+				var strActValue = actElement.value;
+				var actValue = parseInt(actElement.value);
+
+//				alert('Id: ' + actElement.id + ' value: ' + actElement.value);
+
+				// Negative value will be corrected to lowest value
+				if (actValue < 1) {
+					actValue = 1;
+					actElement.value = actValue;
+				}
+/**/
+				var Ordering = jQuery(".changeOrder");
+				var Count = Ordering.length;
+
+				// Value higher than the count will be set to highest possible
+				if (actValue > Count) {
+					actValue = Count;
+					actElement.value = actValue;
+				}
+
+
+				var OutTxt ='';
+/**
+				for (Idx = 0; Idx < Count; Idx++) {
+					element = Ordering[Idx];
+
+					OutTxt += element.value + ",";
+//					alert ("Idx: " + Idx + " " + "Value:" + element.value)
+//					if (Idx == 3)
+//						break;
+				}
+				alert(OutTxt);
+/**/
+
+				// Sort array asc
+				Ordering.sort(SortByIntValue);
+/**
+				// Print array order
+				OutTxt +='\n';
+				for (Idx = 0; Idx < Count; Idx++) {
+					element = Ordering[Idx];
+
+					OutTxt += element.value + ",";
+//					alert ("Idx: " + Idx + " " + "Value:" + element.value)
+//					if (Idx == 3)
+//						break;
+				}
+//				alert(OutTxt);
+
+/**/
+
+				// assign changed ordering values
+				var ChangeOld = 0;
+				for (Idx = 1; Idx <= Count; Idx++) {
+					element = Ordering[Idx-1];
+
+					var strIdx = Idx.toString();
+					// not matching the changed element
+					if (strActValue != element.value)
+					{
+						// Value different to expected so set it
+						// The orderingIdx should be the Idx value
+						if(element.value != strIdx)
+						{
+							element.value = strIdx;
+						}
+					}
+					else
+					{
+						// Undefined up or down ?
+						// UP: Missing
+						if (ChangeOld == 0)
+						{
+//							alert ("IDX: " + Idx + " " + "Value: " + parseInt(element.value));
+
+							// New id moved up, hole found
+							if (Idx < parseInt(element.value))
+							{
+								ChangeOld = Idx;
+							}
+							else
+							{
+								// Down: Move old element up
+								ChangeOld = Idx+1;
+							}
+						}
+
+						// On Old element assign changed value
+						if (actElement.id != element.id)
+						{
+							element.value = ChangeOld.toString();
+						}
+					}
+				}
+
+				// Print array order
+				OutTxt +='\n';
+				for (Idx = 0; Idx < Count; Idx++) {
+					element = Ordering[Idx];
+
+					OutTxt += element.value + ",";
+//					alert ("Idx: " + Idx + " " + "Value:" + element.value)
+//					if (Idx == 3)
+//						break;
+				}
+//				alert(OutTxt);
+
+/**/
+
+//				alert("changed");
 			}
 		);
 
@@ -252,7 +385,9 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 								<div class="form-group">
 									<label class="hidden" for="ordering_<?php echo $i; ?>">Ordering</label>
                                     <!--input type="text" style="display:none" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order " /-->
-                                    <input type="number" class="input-mini changeOrder" name="order[]" min="0" step="1" class="form-control" id="ordering_<?php echo $i; ?>"
+                                    <input type="number" class="input-mini form-control changeOrder"
+	                                    name="order[]" min="0" step="1"
+	                                    id="ordering_<?php echo $item->id; ?>"
 										value="<?php echo $item->ordering; ?>">
 									</input>
 								</div>
