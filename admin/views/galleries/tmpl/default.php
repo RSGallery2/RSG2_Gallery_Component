@@ -106,9 +106,9 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 						<th width="1%" class="center">
 							<?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'a.ordering', $sortDirection, $sortColumn); ?>
-							&nbsp;yyy&nbsp;
+							&nbsp
 							<button id="filter_go" class="btn btn-micro"
-								onclick="Joomla.checkNone(this);"
+								onclick="Joomla.submitbutton('galleries.saveOrdering')"
 								title="<?php echo JText::_( 'COM_RSGALLERY2_ASSIGN_CHANGED_ORDER'); ?>">
                                 <i class="icon-save"></i>
                             </button>

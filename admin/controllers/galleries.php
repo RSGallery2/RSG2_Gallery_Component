@@ -27,5 +27,22 @@ class Rsgallery2ControllerGalleries extends JControllerAdmin
 
 		return $model;
 	}
+
+
+	public function saveOrdering ()
+	{
+		//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+		$msg = "saveOrder: ";
+		$msgType = 'notice';
+
+		$msg .= '!!! Not implemented yet !!!';
+
+
+
+
+
+		$this->setRedirect('index.php?option=com_rsgallery2&view=galleries', $msg, $msgType);
+	}
  
 }
+
