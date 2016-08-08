@@ -385,8 +385,9 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 								<div class="form-group">
 									<label class="hidden" for="ordering_<?php echo $i; ?>">Ordering</label>
                                     <!--input type="text" style="display:none" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order " /-->
-                                    <input type="number" class="input-mini form-control changeOrder"
-	                                    name="order[]" min="0" step="1"
+                                    <input name="order[]" type="number"
+                                        class="input-mini form-control changeOrder"
+	                                    min="0" step="1"
 	                                    id="ordering_<?php echo $item->id; ?>"
 										value="<?php echo $item->ordering; ?>">
 									</input>
@@ -404,6 +405,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 				            <td class="hidden-phone center">
 					            <?php echo (int) $item->id; ?>
+                                <input type="hidden" name="ids[]" value="<?php echo (int) $item->id; ?>" />
 				            </td>
 
 			            </tr>
