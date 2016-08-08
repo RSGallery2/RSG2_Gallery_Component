@@ -89,51 +89,9 @@ class rsgallery2ModelGalleries extends JModelList
 		 	);
 		$query->select($actState);
 
-        // $query->from('#__rsgallery2_galleries as a'); // as a');
         $query->from('#__rsgallery2_galleries as a'); // as a');
 
-		/**
-		// Join over the images for counting
-		// DISTINCT -> unique
-		$query->select('COUNT(*) as image_count')
-			->join('LEFT', '#__rsgallery2_files AS img ON img.gallery_id = a.id');
-		/**
-		$query->select('COUNT(img.id) AS image_count')
-			->join('LEFT', $db->quoteName('#__rsgallery2_files', 'img')
-				. ' ON ' . $db->qn('img.gallery_id') . ' = ' . $db->qn('a.id')
-			);
-		/**
-		$query->select('COUNT(img.id)>1 AS image_count')
-			->join('LEFT', $db->quoteName('#__rsgallery2_files', 'img')
-				. ' ON ' . $db->qn('img.gallery_id') . ' = ' . $db->qn('a.id')
-			);
-		/**
-		$query->select('COUNT(img.gallery_id) AS image_count')
-			->join('FULL', $db->quoteName('#__rsgallery2_files', 'img')
-				. ' ON ' . $db->qn('img.gallery_id') . ' = ' . $db->qn('a.id')
-			);
-		/**
-		$query->select('COUNT(img.gallery_id) AS image_count')
-			->join('LEFT', $db->quoteName('#__rsgallery2_files', 'img')
-				. ' ON ' . $db->qn('img.gallery_id') . ' LIKE  ' . $db->qn('a.id')
-			);
-		/**
-		$query->select('COUNT(*) AS image_count')
-			->join('LEFT', '#__rsgallery2_files AS b ON b.gallery_id = a.id'
-			);
-		/**/
-		/* tut nicht *
-		$query->select('COUNT(img.*) as image_count')
-			->join('LEFT', '#__rsgallery2_files AS img ON img.gallery_id = a.id'
-			);
-		/**/
-        /* OK *
-        $query->select('COUNT(img.id) as image_count')
-            ->join('LEFT', '#__rsgallery2_files AS img ON img.gallery_id = a.id'
-            );
-		/**/
-
-		/* OK */
+		/*  */
 		$query->select('COUNT(img.gallery_id) as image_count')
 			->join('LEFT', '#__rsgallery2_files AS img ON img.gallery_id = a.id'
 			);
@@ -142,8 +100,6 @@ class rsgallery2ModelGalleries extends JModelList
 		// Join over the asset groups.
 		$query->select('ag.title AS access_level')
 			->join('LEFT', '#__viewlevels AS ag ON ag.id = a.access');
-
-
 
 		$query->group($query->qn('a.id'));
 

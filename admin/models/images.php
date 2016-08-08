@@ -13,31 +13,30 @@ class Rsgallery2ModelImages extends JModelList
 		{
 
 			$config['filter_fields'] = array(
-				'id', //'a.id',
-				'name', // 'a.name', 
-				'alias', // 'a.alias', 
-				'descr', // 'a.descr', 
-				'gallery_id', // 'a.gallery_id', 
-				'title', // 'a.title', 
-				'hits', // 'a.hits', 
-				'date', // 'a.date', 
-				'rating', // 'a.rating', 
-				'votes', // 'a.votes', 
-				'comments', // 'a.comments', 
-				'published', // 'a.published', 
-				'checked_out', // 'a.checked_out', 
-				'checked_out_time', // 'a.checked_out_time', 
-				'ordering', // 'a.ordering', 
-				'approved', // 'a.approved', 
-				'userid', // 'a.userid', 
-				'params', // 'a.params', 
-				'asset_id', //, 'a.asset_id', 
+				'id', 'a.id',
+				'name',  'a.name', 
+				'alias',  'a.alias', 
+				'descr',  'a.descr', 
+				'gallery_id',  'a.gallery_id', 
+				'title', 'a.title', 
+				'hits', 'a.hits', 
+				'date', 'a.date', 
+				'rating', 'a.rating', 
+				'votes', 'a.votes', 
+				'comments', 'a.comments', 
+				'published', 'a.published', 
+				'checked_out', 'a.checked_out', 
+				'checked_out_time', 'a.checked_out_time', 
+				'ordering', 'a.ordering', 
+				'approved',  'a.approved', 
+				'userid',  'a.userid', 
+				'params', 'a.params', 
+				'asset_id', 'a.asset_id'
 			);
 		}
 
 		parent::__construct($config);
 	}
-
 
 	/**
 	 * Method to auto-populate the model state.
@@ -52,7 +51,7 @@ class Rsgallery2ModelImages extends JModelList
 	 * @since   1.6
 	 */
 	// ToDo: protected function populateState($ordering = 'item_id, datetime', $direction = 'desc')
-	protected function populateState($ordering = 'id', $direction = 'desc')
+	protected function populateState($ordering = 'a.id', $direction = 'desc')
 	{
 		// $app = JFactory::getApplication();
 
@@ -83,10 +82,10 @@ class Rsgallery2ModelImages extends JModelList
 		$actState =
 			$this->getState(
 				'list.select',
-				'id, name, alias, descr, gallery_id, title, hits, '
-				. 'date, rating, votes, comments, published, '
-				. 'checked_out, checked_out_time, ordering, '
-				. 'approved, userid, params, asset_id'
+				'a.id, a.name, a.alias, a.descr, a.gallery_id, a.title, a.hits, '
+				. 'a.date, a.rating, a.votes, a.comments, a.published, '
+				. 'a.checked_out, a.checked_out_time, a.ordering, '
+				. 'a.approved, a.userid, a.params, a.asset_id'
 		 	);
 		$query->select($actState);
 		
@@ -106,7 +105,7 @@ class Rsgallery2ModelImages extends JModelList
 		}
 
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', 'id');
+		$orderCol = $this->state->get('list.ordering', 'a.id');
 		$orderDirn = $this->state->get('list.direction', 'desc');
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));

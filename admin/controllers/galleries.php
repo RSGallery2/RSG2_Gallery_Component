@@ -35,8 +35,7 @@ class Rsgallery2ControllerGalleries extends JControllerAdmin
 		$msg = "saveOrder: ";
 		$msgType = 'notice';
 
-		try{
-
+		try {
 
 			$input = JFactory::getApplication()->input;
 			$orders = $input->post->get( 'order', array(), 'ARRAY');
@@ -44,28 +43,44 @@ class Rsgallery2ControllerGalleries extends JControllerAdmin
 
 			$OutTxt = '';
 
+			/*
 			$msg .= "<br>" . "isset(orders): " . isset($orders);
 			$msg .= "<br>" . "is_array(orders): " . is_array($orders);
 
 			$msg .= "<br>" . "isset(ids): " . isset($ids);
 			$msg .= "<br>" . "is_array(ids): " . is_array($ids);
-
+			/**/
 
 			$CountOrders = count($ids);
-			$msg .= "<br>" . "$CountOrders: " . $CountOrders;
+			//$msg .= "<br>" . "$CountOrders: " . $CountOrders;
 			$CountIds = count($ids);
-			$msg .= "<br>" . "$CountIds: " . $CountIds;
+			//$msg .= "<br>" . "$CountIds: " . $CountIds;
 
-
+			/*
 			$OutTxt = '';
 			for ($idx = 0; $idx < $CountIds; $idx++) {
 				$msg .= '<br>' . 'ID: ' . $ids[$idx] . ' ' . 'Order: ' . $orders[$idx];
 			}
 			$msg .= "<br>";
+			/**/
 
 
+			$db = JFactory::getDbo();
+			$query = $db->getQuery(true);
 
 
+			for ($idx = 0; $idx < $CountIds; $idx++) {
+				$id = $ids[$idx];
+				$orderIdx = $orders[$idx];
+
+				$query->clear();
+
+				$query->update($db->quoteName('#__rsgallery2_galleries'))
+					->set(array($db->quoteName('ordering') . '=' . $orderIdx))
+					->where(array($db->quoteName('id') . '='. $id));
+
+				$db->execute($query);
+			}
 		}
 		catch (RuntimeException $e)
 		{

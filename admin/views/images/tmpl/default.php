@@ -81,8 +81,14 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 
 				                <th width="1%" class="center">
-					                <?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'ordering', $sortDirection, $sortColumn); ?>
-					                &nbsp;<button id="filter_go" onclick="this.form.submit();" class="btn btn-micro" title="<?php echo "test title"; ?>"><i class="icon-save"></i></button>
+					                <?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'a.ordering', $sortDirection, $sortColumn); ?>
+					                &nbsp
+					                <button id="filter_go" class="btn btn-micro"
+						                onclick="Joomla.submitbutton('images.saveOrdering')"
+						                title="<?php echo JText::_( 'COM_RSGALLERY2_ASSIGN_CHANGED_ORDER'); ?>">
+						                <i class="icon-save"></i>
+					                </button>
+
 				                </th>
 
 
