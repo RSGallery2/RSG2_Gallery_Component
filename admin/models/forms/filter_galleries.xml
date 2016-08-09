@@ -27,7 +27,7 @@
 		>
 			<option value="">JOPTION_SELECT_AUTHOR</option>
 		</field>
-		
+
 		<field
 			name="access"
 			type="accesslevel"
@@ -37,10 +37,6 @@
 			>
 			<option value="">JOPTION_SELECT_ACCESS</option>
 		</field>
-
-		author
-
-		
 	</fields>
 	<fields name="list">
 		<field

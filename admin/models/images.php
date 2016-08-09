@@ -89,17 +89,16 @@ class Rsgallery2ModelImages extends JModelList
 		 	);
 		$query->select($actState);
 		
-        $query->from('#__rsgallery2_files');
+        $query->from('#__rsgallery2_files as a');
 
 		$search = $this->getState('filter.search');
 		if(!empty($search)) {
-/**
+/**/
 			$search = $db->quote('%' . $db->escape($search, true) . '%');
 			$query->where(
-				'comment LIKE ' . $search
-				. ' OR user_name LIKE ' . $search
-				. ' OR user_ip LIKE ' . $search
-				. ' OR item_id LIKE ' . $search
+				'a.name LIKE ' . $search
+				. ' OR a.date LIKE ' . $search
+				. ' OR a.descr LIKE ' . $search
 			);
 /**/
 		}
