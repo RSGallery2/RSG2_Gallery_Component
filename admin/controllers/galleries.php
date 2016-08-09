@@ -41,29 +41,8 @@ class Rsgallery2ControllerGalleries extends JControllerAdmin
 			$orders = $input->post->get( 'order', array(), 'ARRAY');
 			$ids = $input->post->get( 'ids', array(), 'ARRAY');
 
-			$OutTxt = '';
-
-			/*
-			$msg .= "<br>" . "isset(orders): " . isset($orders);
-			$msg .= "<br>" . "is_array(orders): " . is_array($orders);
-
-			$msg .= "<br>" . "isset(ids): " . isset($ids);
-			$msg .= "<br>" . "is_array(ids): " . is_array($ids);
-			/**/
-
-			$CountOrders = count($ids);
-			//$msg .= "<br>" . "$CountOrders: " . $CountOrders;
+			// $CountOrders = count($ids);
 			$CountIds = count($ids);
-			//$msg .= "<br>" . "$CountIds: " . $CountIds;
-
-			/**/
-			$OutTxt = '';
-			for ($idx = 0; $idx < $CountIds; $idx++) {
-				$msg .= '<br>' . 'ID: ' . $ids[$idx] . ' ' . 'Order: ' . $orders[$idx];
-			}
-			$msg .= "<br>";
-			/**/
-
 
 			$db = JFactory::getDbo();
             $query = $db->getQuery(true);
@@ -81,9 +60,7 @@ class Rsgallery2ControllerGalleries extends JControllerAdmin
 					->where(array($db->quoteName('id') . '='. $id));
 
 				$result = $db->execute($query);
-                //$msg .= "<br>" . "Query $result: " . $result;
                 $msg .= "<br>" . "Query : " . $query->__toString();
-                //$msg .= "<br>" . 'Query  $result: : ' . $result->__toString();
                 $msg .= "<br>" . 'Query  $result: : ' . json_encode($result);
 			}
             $msg .= "<br>";
@@ -114,7 +91,7 @@ class Rsgallery2ControllerGalleries extends JControllerAdmin
 		// $order 		= JRequest::getVar( 'order', array(0), 'post', 'array' );
 		$input = JFactory::getApplication()->input;
 		$order = $input->post->get( 'order', array(), 'ARRAY');
-//  JArrayHelper::toInteger($order, array(0));
+		//  JArrayHelper::toInteger($order, array(0));
 		ArrayHelper::toInteger($order, array(0));
 		$row 		= new rsgGalleriesItem( $database );
 

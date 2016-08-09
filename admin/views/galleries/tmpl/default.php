@@ -169,8 +169,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 </script>
 
 <?php
-
-
+// ToDo: <strong>Needed changes:</strong>&nbsp;Status as renamed variable:different in article&nbsp;publish_up/don as sql var &nbsp;Parts !! <br> <br>
 
 ?>
 
@@ -186,10 +185,6 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
             <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=galleries'); ?>"
                   method="post" name="adminForm" id="adminForm"class="form-validate form-horizontal" >
-                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Needed changes:</strong>&nbsp;order&nbsp;searchtools&nbsp;Status as renamed variable:different in article&nbsp;publish_up/don as sql var &nbsp;Parts !! <br> <br>
-
-
-
 				<?php
 				// Search tools bar
 				echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
@@ -197,7 +192,6 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 				// I managed to add options as always open
 				//echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this, 'options' => array('filtersHidden' => false ($hidden) (true/false) )));
 				?>
-
 
 	            <?php if (empty($this->items)) : ?>
                     <div class="alert alert-no-items">

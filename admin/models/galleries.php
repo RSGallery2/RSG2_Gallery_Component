@@ -106,15 +106,12 @@ class rsgallery2ModelGalleries extends JModelList
 
 		$search = $this->getState('filter.search');
 		if(!empty($search)) {
-/**
 			$search = $db->quote('%' . $db->escape($search, true) . '%');
 			$query->where(
-				'comment LIKE ' . $search
-				. ' OR user_name LIKE ' . $search
-				. ' OR user_ip LIKE ' . $search
-				. ' OR item_id LIKE ' . $search
+				'a.name LIKE ' . $search
+				. ' OR a.user LIKE ' . $search
+				. ' OR a.date LIKE ' . $search
 			);
-/**/
 		}
 
 		// Add the list ordering clause.
