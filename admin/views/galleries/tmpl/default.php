@@ -193,6 +193,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 				//echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this, 'options' => array('filtersHidden' => false ($hidden) (true/false) )));
 				?>
 
+                <strong>Needed changes:</strong>&nbsp;order by groups ? See categories, treename see categories&nbsp;Parts !! <br> <br>
 	            <?php if (empty($this->items)) : ?>
                     <div class="alert alert-no-items">
                         <?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
@@ -201,62 +202,62 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 				<table class="table table-striped table-hover" id="galleriesList">
 		            <thead>
-		            <tr>
-						<th width="1%">
-							<?php echo JText::_( 'COM_RSGALLERY2_NUM' ); ?>
-						</th>
+                        <tr>
+                            <th width="1%">
+                                <?php echo JText::_( 'COM_RSGALLERY2_NUM' ); ?>
+                            </th>
 
-			            <th width="1%" class="center">
-				            <?php echo JHtml::_('grid.checkall'); ?>
-			            </th>
+                            <th width="1%" class="center">
+                                <?php echo JHtml::_('grid.checkall'); ?>
+                            </th>
 
-						<th width="1%" style="min-width:55px" class="nowrap center">
-							<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'a.published', $sortDirection, $sortColumn); ?>
-						</th>
+                            <th width="1%" style="min-width:55px" class="nowrap center">
+                                <?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'a.published', $sortDirection, $sortColumn); ?>
+                            </th>
 
-			            <th width="10%" class="">
-				            <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'a.name', $sortDirection, $sortColumn); ?>
-			            </th>
+                            <th width="10%" class="">
+                                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'a.name', $sortDirection, $sortColumn); ?>
+                            </th>
 
-			            <th width="1%" class="center">
-				            <?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_IMAGES', 'image_count', $sortDirection, $sortColumn); ?>
-			            </th>
+                            <th width="1%" class="center">
+                                <?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_IMAGES', 'image_count', $sortDirection, $sortColumn); ?>
+                            </th>
 
-			            <th width="1%" class="center nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_ACCESS', 'a.access', $sortDirection, $sortColumn); ?>
-			            </th>
+                            <th width="1%" class="center nowrap hidden-phone">
+                                <?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_ACCESS', 'a.access', $sortDirection, $sortColumn); ?>
+                            </th>
 
-			            <th width="1%" class="center nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort',  'JAUTHOR', 'a.created_by', $sortDirection, $sortColumn); ?>
-			            </th>
-
-
-						<th width="1%" class="center">
-							<?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'a.ordering', $sortDirection, $sortColumn); ?>
-							&nbsp
-							<button id="filter_go" class="btn btn-micro"
-								onclick="Joomla.submitbutton('galleries.saveOrdering')"
-								title="<?php echo JText::_( 'COM_RSGALLERY2_ASSIGN_CHANGED_ORDER'); ?>">
-                                <i class="icon-save"></i>
-                            </button>
-						</th>
-
-						<th width="1%" class="center nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_DATE__TIME', 'a.created', $sortDirection, $sortColumn); ?>
-			            </th>
+                            <th width="1%" class="center nowrap hidden-phone">
+                                <?php echo JHtml::_('searchtools.sort',  'JAUTHOR', 'a.created_by', $sortDirection, $sortColumn); ?>
+                            </th>
 
 
-			            <th width="1%" class="center nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'a.hits', $sortDirection, $sortColumn); ?>
-			            </th>
+                            <th width="1%" class="center">
+                                <?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'a.ordering', $sortDirection, $sortColumn); ?>
+                                &nbsp
+                                <button id="filter_go" class="btn btn-micro"
+                                    onclick="Joomla.submitbutton('galleries.saveOrdering')"
+                                    title="<?php echo JText::_( 'COM_RSGALLERY2_ASSIGN_CHANGED_ORDER'); ?>">
+                                    <i class="icon-save"></i>
+                                </button>
+                            </th>
 
-			            <th width="1%" class="center nowrap hidden-phone">
-				            <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $sortDirection, $sortColumn); ?>
-			            </th>
+                            <th width="1%" class="center nowrap hidden-phone">
+                                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_DATE__TIME', 'a.created', $sortDirection, $sortColumn); ?>
+                            </th>
 
-			         </tr>
 
-		                </thead>
+                            <th width="1%" class="center nowrap hidden-phone">
+                                <?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'a.hits', $sortDirection, $sortColumn); ?>
+                            </th>
+
+                            <th width="1%" class="center nowrap hidden-phone">
+                                <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $sortDirection, $sortColumn); ?>
+                            </th>
+
+                        </tr>
+
+                    </thead>
 					<tfoot>
 						<tr>
 							<td colspan="15">
@@ -272,8 +273,16 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 			            $canChange  = true;
 			            $canEdit  = true;
 			            $canEditOwn  = true;
+/*
+                        // Get permissions
+                        $can['EditGallery']		= $user->authorise('core.edit',		'com_rsgallery2.gallery.'.$row->id);
+                        $can['EditOwnGallery']	= $user->authorise('core.edit.own',	'com_rsgallery2.gallery.'.$row->id) AND ($row->uid == $userId);
+                        $can['EditStateGallery']	= $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$row->id);
 
-			            $authorName = JFactory::getUser($item->uid);
+                        $CanOrder = .. Check parent
+                        $treename
+*/
+                        $authorName = JFactory::getUser($item->uid);
 			            
 		            ?>
 	                        <tr>
