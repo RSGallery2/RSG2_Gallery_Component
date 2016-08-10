@@ -51,7 +51,7 @@ class Rsgallery2ControllerGalleries extends JControllerAdmin
 			for ($idx = 0; $idx < $CountIds; $idx++) {
 				$id = $ids[$idx];
 				$orderIdx = $orders[$idx];
-                $msg .= "<br>" . '$id: ' . $id . '$orderIdx: ' . $orderIdx;
+                // $msg .= "<br>" . '$id: ' . $id . '$orderIdx: ' . $orderIdx;
 
 				$query->clear();
 
@@ -60,10 +60,10 @@ class Rsgallery2ControllerGalleries extends JControllerAdmin
 					->where(array($db->quoteName('id') . '='. $id));
 
 				$result = $db->execute($query);
-                $msg .= "<br>" . "Query : " . $query->__toString();
-                $msg .= "<br>" . 'Query  $result: : ' . json_encode($result);
+                //$msg .= "<br>" . "Query : " . $query->__toString();
+                //$msg .= "<br>" . 'Query  $result: : ' . json_encode($result);
 			}
-            $msg .= "<br>";
+            // $msg .= "<br>";
 
             $msg .= JText::_( 'COM_RSGALLERY2_NEW_ORDERING_SAVED' );
 		}
@@ -124,5 +124,7 @@ class Rsgallery2ControllerGalleries extends JControllerAdmin
 		$mainframe->redirect( 'index.php?option=com_rsgallery2&rsgOption=galleries');
 	} // saveOrder
 /**/
+
+
 }
 

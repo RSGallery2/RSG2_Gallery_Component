@@ -41,37 +41,17 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 			$orders = $input->post->get( 'order', array(), 'ARRAY');
 			$ids = $input->post->get( 'ids', array(), 'ARRAY');
 
-			$OutTxt = '';
-
-			/*
-			$msg .= "<br>" . "isset(orders): " . isset($orders);
-			$msg .= "<br>" . "is_array(orders): " . is_array($orders);
-
-			$msg .= "<br>" . "isset(ids): " . isset($ids);
-			$msg .= "<br>" . "is_array(ids): " . is_array($ids);
-			/**/
-
-			$CountOrders = count($ids);
-			//$msg .= "<br>" . "$CountOrders: " . $CountOrders;
+			// $CountOrders = count($ids);
 			$CountIds = count($ids);
-			//$msg .= "<br>" . "$CountIds: " . $CountIds;
-
-			/*
-			$OutTxt = '';
-			for ($idx = 0; $idx < $CountIds; $idx++) {
-				$msg .= '<br>' . 'ID: ' . $ids[$idx] . ' ' . 'Order: ' . $orders[$idx];
-			}
-			$msg .= "<br>";
-			/**/
-
 
 			$db = JFactory::getDbo();
 			$query = $db->getQuery(true);
-
+            $db->setQuery($query);
 
 			for ($idx = 0; $idx < $CountIds; $idx++) {
 				$id = $ids[$idx];
 				$orderIdx = $orders[$idx];
+                // $msg .= "<br>" . '$id: ' . $id . '$orderIdx: ' . $orderIdx;
 
 				$query->clear();
 
@@ -79,8 +59,13 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 					->set(array($db->quoteName('ordering') . '=' . $orderIdx))
 					->where(array($db->quoteName('id') . '='. $id));
 
-				$db->execute($query);
+				$result = $db->execute($query);
+                //$msg .= "<br>" . "Query : " . $query->__toString();
+                //$msg .= "<br>" . 'Query  $result: : ' . json_encode($result);
 			}
+            // $msg .= "<br>";
+
+            $msg .= JText::_( 'COM_RSGALLERY2_NEW_ORDERING_SAVED' );
 		}
 		catch (RuntimeException $e)
 		{
@@ -96,7 +81,7 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=galleries', $msg, $msgType);
 	}
+
+
 }
-
-
 
