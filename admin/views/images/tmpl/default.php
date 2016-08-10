@@ -167,6 +167,9 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 							            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
 							            $link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
 							            echo '<a href="' . $link . '"">' . $item->title . '</a>';
+										// <!--img class= "tooltips-link" title="TESTING" etc etc etc code /-->
+							            // <?php echo JHTML::tooltip('This is a tooltip attached to text', 'Text Tooltip Title', 'tooltip.png');?>
+
 							            ?>
 						            </td>
 						            <td width="1%" class="center">

@@ -32,8 +32,8 @@ class html_rsg2_images {
 		$option = $input->get( 'option', '', 'CMD');		
 		$user 	= JFactory::getUser();
 		$userId = $user->id;
-		
 		?>
+		
         <form action="index.php" method="post" name="adminForm" id="adminForm">
         <!--form action="<?php echo JRoute::_('index.php?option=com_rsgallery2'); ?>" method="post" name="adminForm" id="adminForm"-->
 

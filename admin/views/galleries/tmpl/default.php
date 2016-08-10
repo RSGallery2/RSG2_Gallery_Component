@@ -17,6 +17,13 @@ global $Rsg2DebugActive;
 $sortColumn = $this->escape($this->state->get('list.ordering')); //Column
 $sortDirection  = $this->escape($this->state->get('list.direction'));
 
+$user = JFactory::getUser();
+$userId = $user->id;
+
+//$canAdmin = $user->authorise('core.admin', 'com_rsgallery2');
+//$canEditStateGallery = $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$row->id);
+
+
 ?>
 <script type="text/javascript">
 
@@ -265,30 +272,30 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 							</td>
 						</tr>
 					</tfoot>
-		                <tbody>
-		            <?php
+	                <tbody>
+			            <?php
 
-		            foreach ($this->items as $i => $item) {
-			            //$canChange  = $user->authorise('core.edit.state', 'com_content.article.' . $item->id) && $canCheckin;
-			            $canChange  = true;
-			            $canEdit  = true;
-			            $canEditOwn  = true;
-/*
-                        // Get permissions
-                        $can['EditGallery']		= $user->authorise('core.edit',		'com_rsgallery2.gallery.'.$row->id);
-                        $can['EditOwnGallery']	= $user->authorise('core.edit.own',	'com_rsgallery2.gallery.'.$row->id) AND ($row->uid == $userId);
-                        $can['EditStateGallery']	= $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$row->id);
-
-                        $CanOrder = .. Check parent
-                        $treename
-*/
-                        $authorName = JFactory::getUser($item->uid);
-			            
-		            ?>
-	                        <tr>
-		                        <td>
-			                        <?php echo $this->pagination->getRowOffset($i); ?>
-		                        </td>
+			            foreach ($this->items as $i => $item) {
+				            //$canChange  = $user->authorise('core.edit.state', 'com_content.article.' . $item->id) && $canCheckin;
+				            $canChange  = true;
+				            $canEdit  = true;
+				            $canEditOwn  = true;
+	/**/
+	                        // Get permissions
+	                        $canEditGallery      = $user->authorise('core.edit',      'com_rsgallery2.gallery.'.$item->id);
+	                        $canEditOwnGallery   = $user->authorise('core.edit.own',  'com_rsgallery2.gallery.'.$item->id) AND ($item->uid == $userId);
+	                        $canEditStateGallery = $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$item->id);
+	/**
+	                        $CanOrder = .. Check parent
+	                        $treename
+	/**/
+	                        $authorName = JFactory::getUser($item->uid);
+				            /**/
+				        ?>
+	                    <tr>
+	                        <td>
+		                        <?php echo $this->pagination->getRowOffset($i); ?>
+	                        </td>
 
 
 							<td width="1%" class="center">
@@ -319,6 +326,12 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 					            <!--div class="pull-left break-word" -->
 					            <strong>
 						            <?php
+/*
+						            //Checked out and not owning this item OR not allowed to edit (own) gallery: show name, else show linked name
+						            if ( $row->checked_out && ( $row->checked_out != $user->id ) OR !($can['EditGallery'] OR $can['EditOwnGallery'])) {
+						            echo stripslashes($row->treename);
+/**/
+
 						            if ($canEdit || $canEditOwn)
 						            {
 							            $link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=" . $item->id);
@@ -370,8 +383,6 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 									-->
 								<?php
 								} ?>
-
-
 				            </td>
 
 				            <td class="small hidden-phone center">
@@ -413,9 +424,9 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 			            </tr>
 
-		            <?php
-		            }
-		            ?>
+			            <?php
+			            }
+			            ?>
 
 		            </tbody>
 	            </table>

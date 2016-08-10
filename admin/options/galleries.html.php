@@ -381,23 +381,23 @@ class html_rsg2_galleries{
 													<?php echo JText::_('COM_RSGALLERY2_NAME')?>
 													</td>
 													<td width="80%">
-													<input class="text_area required" type="text"  name="name" size="50" maxlength="250" value="<?php echo stripslashes($row->name);?>"/>
+														<input class="text_area required" type="text"  name="name" size="50" maxlength="250" value="<?php echo stripslashes($row->name);?>"/>
 													</td>
 												</tr>
 												<tr>
 													<td width="20%" align="right">
-													<?php echo JText::_('COM_RSGALLERY2_ALIAS')?>
+														<?php echo JText::_('COM_RSGALLERY2_ALIAS')?>
 													</td>
 													<td width="80%">
-													<input class="text_area" type="text" name="alias" size="50" maxlength="250" value="<?php echo stripslashes($row->alias);?>" />
+														<input class="text_area" type="text" name="alias" size="50" maxlength="250" value="<?php echo stripslashes($row->alias);?>" />
 													</td>
 												</tr>
 												<tr>
 													<td align="right">
-													<?php echo JText::_('COM_RSGALLERY2_OWNER');?>
+														<?php echo JText::_('COM_RSGALLERY2_OWNER');?>
 													</td>
 													<td>
-													<?php echo $lists['uid']; ?>
+														<?php echo $lists['uid']; ?>
 													</td>
 												</tr>
 												<tr>
