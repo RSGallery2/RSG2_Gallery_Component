@@ -54,9 +54,6 @@ $ListDirn = '';
 				            `id`
 			            </th>
 			            <th width="1%" class="center">
-				            `user_id`
-			            </th>
-			            <th width="1%" class="center">
 				            `parent`
 			            </th>
 			            <th width="1%" class="center">
@@ -129,7 +126,7 @@ $ListDirn = '';
 							echo '<a href="' . $link . '"">' . $item->id . '</a>';
 							?>
 			            </td>
-
+						
 			            <td width="1%" class="center">
 				            <?php echo $item->parent; ?>
 			            </td>
