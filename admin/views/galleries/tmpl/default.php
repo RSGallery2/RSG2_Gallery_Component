@@ -358,7 +358,7 @@ $userId = $user->id;
 
 								if ($imageCount == 0) {
 									?>
-									<a class="badge badge-inverse">
+									<a class="badge ">
 										0
 									</a>
 									<?php
@@ -372,15 +372,14 @@ $userId = $user->id;
 										echo $imageCount;
 										?>
 					        	    </a>
-									<!--
-									&nbsp;
+
 									<a
 									   href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id); ?>"
 									   title="<?php echo JText::_('COM_RSGALLERY2_IMAGES_LIST'); ?>"
 									>
-										<sub><span class="icon-image" style="font-size: 1.6em;"></span></sub>
+										<sub><span class="icon-arrow-right-2" style="font-size: 1.6em;"></span></sub>
 									</a>
-									-->
+
 								<?php
 								} ?>
 				            </td>
