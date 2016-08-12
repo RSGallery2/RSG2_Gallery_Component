@@ -35,6 +35,9 @@ class Rsgallery2ControllerGalleries extends JControllerAdmin
 		$msg = "saveOrder: ";
 		$msgType = 'notice';
 
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+
 		try {
 
 			$input = JFactory::getApplication()->input;
@@ -64,6 +67,10 @@ class Rsgallery2ControllerGalleries extends JControllerAdmin
                 //$msg .= "<br>" . 'Query  $result: : ' . json_encode($result);
 			}
             // $msg .= "<br>";
+
+
+
+
 
             $msg .= JText::_( 'COM_RSGALLERY2_NEW_ORDERING_SAVED' );
 		}
