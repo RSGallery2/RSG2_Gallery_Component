@@ -66,6 +66,21 @@ class rsgallery2ModelGalleries extends JModelList
 		parent::populateState($ordering, $direction);
 	}
 
+    /**
+     * A protected method to get a set of ordering conditions.
+     *
+     * @param   object  $table A record object.
+     *
+     * @return  array   An array of conditions to add to add to ordering queries.
+     */
+    protected function getReorderConditions($table)
+    {
+        $condition = array();
+        $condition[] = 'parent = ' . (int) $table->parent;
+
+        return $condition;
+    }
+
 	/**
 	 * Method to build an SQL query to load the list data.
 	 *
@@ -115,10 +130,22 @@ class rsgallery2ModelGalleries extends JModelList
 		}
 
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', 'a.id');
-		$orderDirn = $this->state->get('list.direction', 'desc');
 
-		$query->order($db->escape($orderCol . ' ' . $orderDirn));
+        //  RESG old  . " ORDER BY parent, ordering"
+        //$orderCol = $this->state->get('list.ordering', 'a.id');
+        $orderCol = $this->state->get('list.ordering', 'a.parent, a.ordering');
+		$orderDirn = $this->state->get('list.direction', 'desc');
+        /**
+        if ($orderCol == 'a.parent')
+        {
+            $orderCol = 'a.parent ' . $orderDirn . ', a.ordering';
+        }
+        /**/
+        if ($orderCol == 'a.title')
+        {
+            $orderCol = 'a.parent ' . $orderDirn . ', a.ordering';
+        }
+        $query->order($db->escape($orderCol . ' ' . $orderDirn));
 
         return $query;
 	}
@@ -267,6 +294,25 @@ class rsgallery2ModelGalleries extends JModelList
 
         return $imageCount;
     }
+
+
+    /**
+     * @param $items : like items in $this->items = $this->get('Items');
+     * The assoc list shall enable to easily create an parent depth
+     * returns assoc list gallery_id -> parent
+     * @return list[]
+     */
+    public static function createParentList ($items)
+    {
+        $ParentReferences = new object;
+
+        foreach ($items as $item) {
+            $ParentReferences [$item->id] = $item->parent;
+        }
+
+        return $ParentReferences;
+    }
+
 
 } // class
 
