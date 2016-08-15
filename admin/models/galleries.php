@@ -131,24 +131,114 @@ class rsgallery2ModelGalleries extends JModelList
 
 		// Add the list ordering clause.
 
-        //  RESG old  . " ORDER BY parent, ordering"
-        //$orderCol = $this->state->get('list.ordering', 'a.id');
-        $orderCol = $this->state->get('list.ordering', 'a.parent, a.ordering');
+        // changes need change above too -> populateState
+        $orderCol = $this->state->get('list.ordering', 'a.id');
+        // $orderCol = $this->state->get('list.ordering', 'a.parent, a.ordering');
 		$orderDirn = $this->state->get('list.direction', 'desc');
         /**
         if ($orderCol == 'a.parent')
         {
             $orderCol = 'a.parent ' . $orderDirn . ', a.ordering';
         }
-        /**/
+        /**
         if ($orderCol == 'a.title')
         {
             $orderCol = 'a.parent ' . $orderDirn . ', a.ordering';
         }
+        /**/
         $query->order($db->escape($orderCol . ' ' . $orderDirn));
 
         return $query;
 	}
+
+
+    /**
+     * Saves changed manual ordering of galleries
+     *
+     * @throws Exception
+     */
+    public function saveOrdering()
+    {
+        $msg = "Model:saveOrdering: ";
+
+        try {
+
+            $input = JFactory::getApplication()->input;
+            $orders = $input->post->get( 'order', array(), 'ARRAY');
+            $ids = $input->post->get( 'ids', array(), 'ARRAY');
+
+            // $CountOrders = count($ids);
+            $CountIds = count($ids);
+
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true);
+            $db->setQuery($query);
+
+            for ($idx = 0; $idx < $CountIds; $idx++) {
+                $id = $ids[$idx];
+                $orderIdx = $orders[$idx];
+                // $msg .= "<br>" . '$id: ' . $id . '$orderIdx: ' . $orderIdx;
+
+                $query->clear();
+
+                $query->update($db->quoteName('#__rsgallery2_galleries'))
+                    ->set(array($db->quoteName('ordering') . '=' . $orderIdx))
+                    ->where(array($db->quoteName('id') . '='. $id));
+
+                $result = $db->execute($query);
+                //$msg .= "<br>" . "Query : " . $query->__toString();
+                //$msg .= "<br>" . 'Query  $result: : ' . json_encode($result);
+            }
+            // $msg .= "<br>";
+
+
+yyy         parent->$this->saveOrdering();
+
+
+
+
+            $msg .= JText::_( 'COM_RSGALLERY2_NEW_ORDERING_SAVED' );
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing saveOrdering: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+    }
+
+    /**
+     * Method to save the reordered nested set tree.
+     * First we save the new order values in the lft values of the changed ids.
+     * Then we invoke the table rebuild to implement the new ordering.
+     *
+     * @param   array    $idArray    An array of primary key ids.
+     *
+     * @return  boolean  False on failure or error, True otherwise
+     *
+     * @since   1.6
+     */
+    public function saveOrder($idArray = null, $lft_array = null)
+    {
+        // Get an instance of the table object.
+        $table = $this->getTable();
+
+        if (!$table->saveorder($idArray, $lft_array))
+        {
+            $this->setError($table->getError());
+
+            return false;
+        }
+
+        // Clear the cache
+        $this->cleanCache();
+
+        return true;
+    }
 
     /**
      * This function will retrieve the data of the n last uploaded images

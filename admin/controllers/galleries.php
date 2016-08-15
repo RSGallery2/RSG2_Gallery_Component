@@ -19,69 +19,50 @@ jimport('joomla.application.component.controlleradmin');
 class Rsgallery2ControllerGalleries extends JControllerAdmin
 {
 
-	public function getModel($name = 'Gallery', 
- 							 $prefix = 'Rsgallery2Model',
-  							 $config = array('ignore_request' => true))
+	public function getModel($name = 'Gallery',
+							 $prefix = 'Rsgallery2Model',
+							 $config = array('ignore_request' => true))
 	{
 		$model = parent::getModel($name, $prefix, $config);
 
 		return $model;
 	}
 
-
-	public function saveOrdering ()
+	/**
+	 * Saves changed manual ordering of galleries
+	 *
+	 * @throws Exception
+	 */
+	public function saveOrdering()
 	{
 		//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-		$msg = "saveOrder: ";
+		$msg = "Control:saveOrdering: ";
 		$msgType = 'notice';
 
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
+		if (!$canAdmin) {
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
 
-		try {
-
-			$input = JFactory::getApplication()->input;
-			$orders = $input->post->get( 'order', array(), 'ARRAY');
-			$ids = $input->post->get( 'ids', array(), 'ARRAY');
-
-			// $CountOrders = count($ids);
-			$CountIds = count($ids);
-
-			$db = JFactory::getDbo();
-            $query = $db->getQuery(true);
-            $db->setQuery($query);
-
-			for ($idx = 0; $idx < $CountIds; $idx++) {
-				$id = $ids[$idx];
-				$orderIdx = $orders[$idx];
-                // $msg .= "<br>" . '$id: ' . $id . '$orderIdx: ' . $orderIdx;
-
-				$query->clear();
-
-				$query->update($db->quoteName('#__rsgallery2_galleries'))
-					->set(array($db->quoteName('ordering') . '=' . $orderIdx))
-					->where(array($db->quoteName('id') . '='. $id));
-
-				$result = $db->execute($query);
-                //$msg .= "<br>" . "Query : " . $query->__toString();
-                //$msg .= "<br>" . 'Query  $result: : ' . json_encode($result);
+			try {
+				// Model tells if successful
+				$model = $this->getModel('galleries');
+				$msg .= $model->saveOrdering();
 			}
-            // $msg .= "<br>";
+			catch (RuntimeException $e) {
+				$OutTxt = '';
+				$OutTxt .= 'Error executing saveOrdering: "' . '<br>';
+				$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-
-
-
-
-            $msg .= JText::_( 'COM_RSGALLERY2_NEW_ORDERING_SAVED' );
-		}
-		catch (RuntimeException $e)
-		{
-			$OutTxt = '';
-			$OutTxt .= 'Error executing saveOrdering: "' . '<br>';
-			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-			$app = JFactory::getApplication();
-			$app->enqueueMessage($OutTxt, 'error');
+				$app = JFactory::getApplication();
+				$app->enqueueMessage($OutTxt, 'error');
+			}
 		}
 
 		$msg .= '!!! Not implemented yet !!!';
@@ -89,7 +70,36 @@ class Rsgallery2ControllerGalleries extends JControllerAdmin
 		$this->setRedirect('index.php?option=com_rsgallery2&view=galleries', $msg, $msgType);
 	}
 
-/**
+	/**
+	 *
+	 */
+	public function optimizeDB()
+	{
+		$msg = '<strong>' . JText::_('COM_RSGALLERY2_MAINT_OPTDB') . ':</strong><br>';
+		$msgType = 'notice';
+
+		// Access check
+		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		if (!$canAdmin) {
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
+
+			// Model tells if successful
+			$model = $this->getModel('maintSql');
+			$msg .= $model->optimizeDB();
+		}
+
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+	}
+
+
+
+
+
+	/**
 	function saveOrder( &$cid ) {
 		$mainframe =& JFactory::getApplication();
 		$database = JFactory::getDBO();
