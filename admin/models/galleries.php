@@ -66,21 +66,6 @@ class rsgallery2ModelGalleries extends JModelList
 		parent::populateState($ordering, $direction);
 	}
 
-    /**
-     * A protected method to get a set of ordering conditions.
-     *
-     * @param   object  $table A record object.
-     *
-     * @return  array   An array of conditions to add to add to ordering queries.
-     */
-    protected function getReorderConditions($table)
-    {
-        $condition = array();
-        $condition[] = 'parent = ' . (int) $table->parent;
-
-        return $condition;
-    }
-
 	/**
 	 * Method to build an SQL query to load the list data.
 	 *
@@ -151,6 +136,34 @@ class rsgallery2ModelGalleries extends JModelList
         return $query;
 	}
 
+/*
+	function saveOrder($cid)
+	{
+		JArrayHelper::toInteger($cid);
+		$total = count($cid);
+		$order = JRequest::getVar( ‘order’, array(0), ‘post’, ‘array’ );
+
+		JArrayHelper::toInteger($order, array(0));
+		$row = $this->getTable(”);
+		// update ordering values
+		for ($i = 0; $i < $total; $i++)
+		{
+			$row->load((int) $cid[$i]);
+			if ($row->ordering != $order[$i])
+			{
+				$row->ordering = $order[$i];
+				if (!$row->store())
+				{
+					$this->setError($this->_db->getErrorMsg());
+
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+/**/
 
     /**
      * Saves changed manual ordering of galleries
@@ -192,7 +205,7 @@ class rsgallery2ModelGalleries extends JModelList
             // $msg .= "<br>";
 
 
-yyy         parent->$this->saveOrdering();
+//	         parent::reorder();
 
 
 

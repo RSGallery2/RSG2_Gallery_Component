@@ -67,4 +67,19 @@ class Rsgallery2ModelGallery extends  JModelAdmin
     }
     */
 
+	/**
+	 * A protected method to get a set of ordering conditions.
+	 *
+	 * @param   object  $table A record object.
+	 *
+	 * @return  array   An array of conditions to add to add to ordering queries.
+	 */
+	protected function getReorderConditions($table)
+	{
+		$condition = array();
+		$condition[] = 'parent = ' . (int) $table->parent;
+
+		return $condition;
+	}
+
 }

@@ -285,7 +285,37 @@ $userId = $user->id;
 	                        $canEditGallery      = $user->authorise('core.edit',      'com_rsgallery2.gallery.'.$item->id);
 	                        $canEditOwnGallery   = $user->authorise('core.edit.own',  'com_rsgallery2.gallery.'.$item->id) AND ($item->uid == $userId);
 	                        $canEditStateGallery = $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$item->id);
-	/**
+
+
+				            $Depth = 0;
+				            $PreTitle = '';
+				            $parent = $item;
+				            while ($parent->parent != 0 && $Depth < 10)
+				            {
+					            $PreTitle = '[' . $parent->parent  . '] ' . $PreTitle ;
+					            $Depth += 1;
+					            $found = false;
+					            foreach ($this->items as $checkItem)
+					            {
+						            if($checkItem->id == $parent->parent){
+							            $parent = $checkItem;
+							            $found = true;
+
+							            break;
+						            }
+					            }
+
+					            if (!$found) {
+						            break;
+					            }
+				            }
+
+							if($PreTitle != '')
+							{
+								$PreTitle .= ' ';
+							}
+
+				            /**
 	                        $CanOrder = .. Check parent
 	                        $treename
 	/**/
@@ -337,11 +367,11 @@ $userId = $user->id;
 							            $link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=" . $item->id);
 							            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=galleries&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
 							            echo '<a class="hasTooltip" href="' . $link  . '" title="' . JText::_('JACTION_EDIT') . '">';
-										echo '    ' . $this->escape($item->name);
+										echo '    ' . $PreTitle . $this->escape($item->name);
 							            echo '</a>';
 						            } else {
 							            echo '<span title="' . JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias)) . '">';
-						                echo '    ' . $this->escape($item->name);
+						                echo '    ' . $PreTitle . $this->escape($item->name);
 							            echo '</span>';
 						            }
 
