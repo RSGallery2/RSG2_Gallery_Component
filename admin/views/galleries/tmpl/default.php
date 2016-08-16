@@ -200,7 +200,6 @@ $userId = $user->id;
 				//echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this, 'options' => array('filtersHidden' => false ($hidden) (true/false) )));
 				?>
 
-                <strong>Needed changes:</strong>&nbsp;order by groups ? See categories, treename see categories&nbsp;Parts !! <br> <br>
 	            <?php if (empty($this->items)) : ?>
                     <div class="alert alert-no-items">
                         <?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
