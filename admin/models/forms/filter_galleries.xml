@@ -52,8 +52,8 @@
 			<option value="ordering ASC">JGRID_HEADING_ORDERING_ASC</option>
 			<option value="ordering DESC">JGRID_HEADING_ORDERING_DESC</option>Order  
 
-			<option value="datetime ASC">JDATE_ASC</option>
-			<option value="datetime DESC">JDATE_ASC</option>
+			<option value="date ASC">JDATE_ASC</option>
+			<option value="date DESC">JDATE_DESC</option>
 
 			<option value="uid ASC">JAUTHOR_ASC</option>
 			<option value="uid DESC">JAUTHOR_DESC</option>
@@ -67,8 +67,8 @@
 			<option value="name ASC">COM_RSGALLERY2_NAME_ASC</option>
 			<option value="name DESC">COM_RSGALLERY2_NAME_DESC</option>
 			
-			<option value="images_count ASC">COM_RSGALLERY2_IMAGES_COUNT_ASC</option>
-			<option value="images_count DESC">COM_RSGALLERY2_IMAGES_COUNT_DESC</option>
+			<option value="image_count ASC">COM_RSGALLERY2_IMAGES_COUNT_ASC</option>
+			<option value="image_count DESC">COM_RSGALLERY2_IMAGES_COUNT_DESC</option>
 			
 			<option value="access_level ASC">JGRID_HEADING_ACCESS_ASC</option>
 			<option value="access_level DESC">JGRID_HEADING_ACCESS_DESC</option>

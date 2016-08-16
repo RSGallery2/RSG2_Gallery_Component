@@ -30,8 +30,8 @@ class rsgallery2ModelGalleries extends JModelList
 				'allowed', 'a.allowed',
 				'thumb_id', 'a.thumb_id',
 				'asset_id', 'a.asset_id',
-				'access', 'a.access'
-				, 'image_count', 'b.image_count'
+				'access', 'a.access',
+				'image_count', 'a.image_count'
 			);
 		}
 

@@ -250,7 +250,7 @@ $userId = $user->id;
                             </th>
 
                             <th width="1%" class="center nowrap hidden-phone">
-                                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_DATE__TIME', 'a.created', $sortDirection, $sortColumn); ?>
+                                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_DATE__TIME', 'a.date', $sortDirection, $sortColumn); ?>
                             </th>
 
 
