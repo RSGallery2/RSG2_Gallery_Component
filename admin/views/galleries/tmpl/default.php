@@ -191,7 +191,7 @@ $userId = $user->id;
 	<?php endif;?>
 
             <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=galleries'); ?>"
-                  method="post" name="adminForm" id="adminForm"class="form-validate form-horizontal" >
+                  method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
 				<?php
 				// Search tools bar
 				echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
@@ -292,7 +292,14 @@ $userId = $user->id;
 				            $parent = $item;
 				            while ($parent->parent != 0 && $Depth < 10)
 				            {
-					            $PreTitle = '[' . $parent->parent  . '] ' . $PreTitle ;
+					            // $PreTitle = '[' . $parent->parent  . '] ' . $PreTitle ;
+								$PreTitle =
+									// '[' . $parent->parent  . '] '
+									//' ' . $parent->parent  . ' '
+									//'&nbsp;&nbsp;'
+									'&nbsp;—'
+									//. '<sub><span class="icon-arrow-right-3" style="font-size: 1.6em;"></span></sub>'
+									. $PreTitle ;
 					            $Depth += 1;
 					            $found = false;
 					            foreach ($this->items as $checkItem)
@@ -364,14 +371,19 @@ $userId = $user->id;
 
 						            if ($canEdit || $canEditOwn)
 						            {
+                                        echo $PreTitle;
+
 							            $link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=" . $item->id);
 							            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=galleries&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
 							            echo '<a class="hasTooltip" href="' . $link  . '" title="' . JText::_('JACTION_EDIT') . '">';
-										echo '    ' . $PreTitle . $this->escape($item->name);
-							            echo '</a>';
+										//echo '    ' . $PreTitle . $this->escape($item->name);
+                                        echo $this->escape($item->name);
+                                        echo '</a>';
 						            } else {
+                                        echo $PreTitle;
 							            echo '<span title="' . JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias)) . '">';
-						                echo '    ' . $PreTitle . $this->escape($item->name);
+						                //echo '    ' . $PreTitle . $this->escape($item->name);
+						                echo $this->escape($item->name);
 							            echo '</span>';
 						            }
 
@@ -391,7 +403,13 @@ $userId = $user->id;
 									<a class="badge ">
 										0
 									</a>
-									<?php
+                                    <a disabled="disabled"  onclick="return false;" class="disabled"
+                                        href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id); ?>"
+                                    >
+                                        <sub><span class="icon-arrow-right-2" style="font-size: 1.6em;"></span></sub>
+                                    </a>
+
+                                    <?php
 								} else {
 									?>
 						            <a class="badge badge-success"
@@ -420,19 +438,19 @@ $userId = $user->id;
 				            </td>
 
 							<td class="small hidden-phone center">
-								<?php echo $this->escape($authorName->name); ?></a>
+								<?php echo $this->escape($authorName->name); ?>
 							</td>
 
 
 							<td width="1%" class="center">
 								<div class="form-group">
-									<label class="hidden" for="ordering_<?php echo $i; ?>">Ordering</label>
+									<label class="hidden" for="order[]">Ordering</label>
                                     <!--input type="text" style="display:none" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order " /-->
                                     <input name="order[]" type="number"
                                         class="input-mini form-control changeOrder"
 	                                    min="0" step="1"
 	                                    id="ordering_<?php echo $item->id; ?>"
-										value="<?php echo $item->ordering; ?>">
+										value="<?php echo $item->ordering; ?>"
 									</input>
 								</div>
 							</td>
