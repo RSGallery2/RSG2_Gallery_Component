@@ -27,8 +27,8 @@ class Rsgallery2ModelImages extends JModelList
 				'checked_out', 'a.checked_out', 
 				'checked_out_time', 'a.checked_out_time', 
 				'ordering', 'a.ordering', 
-				'approved',  'a.approved', 
-				'userid',  'a.userid', 
+				'approved', 'a.approved',
+				'userid', 'a.userid',
 				'params', 'a.params', 
 				'asset_id', 'a.asset_id'
 			);
@@ -83,13 +83,14 @@ class Rsgallery2ModelImages extends JModelList
 				'a.id, a.name, a.alias, a.descr, a.gallery_id, a.title, a.hits, '
 				. 'a.date, a.rating, a.votes, a.comments, a.published, '
 				. 'a.checked_out, a.checked_out_time, a.ordering, '
-				. 'a.approved, a.userid, a.params, a.asset_id'
+				. 'a.approved, a.userid, a.params, a.asset_id,'
+				. 'gal.name'
 		 	);
 		$query->select($actState);
 		
         $query->from('#__rsgallery2_files as a');
 
-		/* parent gallery name*/
+		/* parent gallery name */
 		$query->select('gal.name as gallery_name')
 			->join('LEFT', '#__rsgallery2_galleries AS gal ON gal.id = a.gallery_id'
 			);
@@ -102,8 +103,9 @@ class Rsgallery2ModelImages extends JModelList
 			$search = $db->quote('%' . $db->escape($search, true) . '%');
 			$query->where(
 				'a.name LIKE ' . $search
-				. ' OR a.date LIKE ' . $search
 				. ' OR a.descr LIKE ' . $search
+				. ' OR gal.name LIKE ' . $search
+				. ' OR a.date LIKE ' . $search
 			);
 		}
 
@@ -112,6 +114,13 @@ class Rsgallery2ModelImages extends JModelList
         // changes need change above too -> populateState
 		$orderCol = $this->state->get('list.ordering', 'a.id');
 		$orderDirn = $this->state->get('list.direction', 'desc');
+
+	    if ($orderCol == 'a.ordering')
+	    {
+		    $orderCol = 'a.gallery_id ' . $orderDirn . ', a.ordering';
+	    }
+
+
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));
 
