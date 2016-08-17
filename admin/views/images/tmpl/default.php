@@ -64,19 +64,19 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 				                </th>
 
 								<th width="1%" style="min-width:55px" class="nowrap center">
-									<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'published', $sortDirection, $sortColumn); ?>
+									<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'a.published', $sortDirection, $sortColumn); ?>
 								</th>
 
 				                <th width="10%" class="center">
-					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_TITLE', 'title', $sortDirection, $sortColumn); ?>
+					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_TITLE', 'a.title', $sortDirection, $sortColumn); ?>
 				                </th>
 
 				                <th width="10%" class="center">
-					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'name', $sortDirection, $sortColumn); ?>
+					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'a.name', $sortDirection, $sortColumn); ?>
 				                </th>
 
 				                <th width="1%" class="center">
-					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_GALLERY', 'gallery', $sortDirection, $sortColumn); ?>
+					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_GALLERY', 'gallery_name', $sortDirection, $sortColumn); ?>
 				                </th>
 
 
@@ -93,24 +93,24 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 
 				                <th width="1%" class="center nowrap hidden-phone">
-					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_DATE__TIME', 'date', $sortDirection, $sortColumn); ?>
+					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_DATE__TIME', 'a.date', $sortDirection, $sortColumn); ?>
 				                </th>
 
 
 				                <th width="1%" class="center nowrap hidden-phone">
-					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_VOTES', 'votes', $sortDirection, $sortColumn); ?>
+					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_VOTES', 'a.votes', $sortDirection, $sortColumn); ?>
 				                </th>
 
 				                <th width="1%" class="center nowrap hidden-phone">
-					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_RATING', 'rating', $sortDirection, $sortColumn); ?>
+					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_RATING', 'a.rating', $sortDirection, $sortColumn); ?>
 				                </th>
 
 				                <th width="1%" class="center nowrap hidden-phone">
-					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_COMMENTS', 'votes', $sortDirection, $sortColumn); ?>
+					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_COMMENTS', 'a.votes', $sortDirection, $sortColumn); ?>
 				                </th>
 
 				                <th width="1%" class="center nowrap hidden-phone">
-					                <?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'hits', $sortDirection, $sortColumn); ?>
+					                <?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'a.hits', $sortDirection, $sortColumn); ?>
 				                </th>
 
 				                <th width="1%" class="center nowrap hidden-phone">
@@ -168,7 +168,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 							            $link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
 							            echo '<a href="' . $link . '"">' . $item->title . '</a>';
 										// <!--img class= "tooltips-link" title="TESTING" etc etc etc code /-->
-							            // <?php echo JHTML::tooltip('This is a tooltip attached to text', 'Text Tooltip Title', 'tooltip.png');?>
+							            // <?php echo JHTML::tooltip('This is a tooltip attached to text', 'Text Tooltip Title', 'tooltip.png');? >
 
 							            ?>
 						            </td>
@@ -184,8 +184,9 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 							            <?php
 							            $link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=".$item->gallery_id);
 							            $link = JRoute::_("index.php?option=com_rsgallery2&rsgOption=galleries&task=editA&hidemainmenu=1&id=". $item->gallery_id);
-							            echo '<a href="' . $link . '"">' . $item->gallery_id . '</a>';
-							            ?>
+										//echo '<a href="' . $link . '"">' . $item->gallery_id . '</a>';
+										echo '<a href="' . $link . '"">' . $item->gallery_name . '</a>';
+										?>
 						            </td>
 
 						            <td width="1%" class="center">

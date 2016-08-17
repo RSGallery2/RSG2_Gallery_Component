@@ -11,7 +11,6 @@ class Rsgallery2ModelImages extends JModelList
 	{
 		if (empty($config['filter_fields']))
 		{
-
 			$config['filter_fields'] = array(
 				'id', 'a.id',
 				'name',  'a.name', 
@@ -50,7 +49,6 @@ class Rsgallery2ModelImages extends JModelList
 	 *
 	 * @since   1.6
 	 */
-	// ToDo: protected function populateState($ordering = 'item_id, datetime', $direction = 'desc')
 	protected function populateState($ordering = 'a.id', $direction = 'desc')
 	{
 		// $app = JFactory::getApplication();
@@ -91,19 +89,27 @@ class Rsgallery2ModelImages extends JModelList
 		
         $query->from('#__rsgallery2_files as a');
 
+		/* parent gallery name*/
+		$query->select('gal.name as gallery_name')
+			->join('LEFT', '#__rsgallery2_galleries AS gal ON gal.id = a.gallery_id'
+			);
+
+		$query->group($query->qn('a.id'));
+
+
 		$search = $this->getState('filter.search');
 		if(!empty($search)) {
-/**/
 			$search = $db->quote('%' . $db->escape($search, true) . '%');
 			$query->where(
 				'a.name LIKE ' . $search
 				. ' OR a.date LIKE ' . $search
 				. ' OR a.descr LIKE ' . $search
 			);
-/**/
 		}
 
 		// Add the list ordering clause.
+
+        // changes need change above too -> populateState
 		$orderCol = $this->state->get('list.ordering', 'a.id');
 		$orderDirn = $this->state->get('list.direction', 'desc');
 
@@ -246,9 +252,7 @@ class Rsgallery2ModelImages extends JModelList
     }
 
     /**
-     *
-     * 
-     * @param $galleryId
+     * @param $ImageId
      * returns the total number of items in the given gallery.
      * @return int
      */
@@ -281,7 +285,6 @@ class Rsgallery2ModelImages extends JModelList
 
         return $commentCount;
     }
-/**/
 
-}
+}  // class
 

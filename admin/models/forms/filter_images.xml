@@ -29,18 +29,16 @@
 		</field>
 
 		<field
-				name="gallery_id"
-				type="integer"
-				first="1"
-				step="1"
+				name="gallery_name"
+				type="string"
 				label="COM_RSGALLERY2_FILTER_GALLERY_ID"
 				description="COM_RSGALLERY2_FILTER_GALLERY_ID_DESC"
 				onchange="this.form.submit();"
 		>
-			<option value="">COM_RSGALLERY2_FILTER_GALLERY_ID_OPTION</option>
+			<option value="">COM_RSGALLERY2_FILTER_SELECT_GALLERY</option>
 		</field>
-
 	</fields>
+
 	<fields name="list">
 		<field
 			name="fullordering"

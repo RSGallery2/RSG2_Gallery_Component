@@ -11,7 +11,6 @@ class rsgallery2ModelGalleries extends JModelList
 	{
 		if (empty($config['filter_fields']))
 		{   
-			// todo Use own db variables
 			$config['filter_fields'] = array(
 				'id', 'a.id',
 				'parent', 'a.parent',
@@ -89,15 +88,14 @@ class rsgallery2ModelGalleries extends JModelList
 		 	);
 		$query->select($actState);
 
-        $query->from('#__rsgallery2_galleries as a'); // as a');
+        $query->from('#__rsgallery2_galleries as a');
 
-		/*  */
+		/* Count child images */
 		$query->select('COUNT(img.gallery_id) as image_count')
 			->join('LEFT', '#__rsgallery2_files AS img ON img.gallery_id = a.id'
 			);
-		/**/
 
-		// Join over the asset groups.
+		// Join over the access groups.
 		$query->select('ag.title AS access_level')
 			->join('LEFT', '#__viewlevels AS ag ON ag.id = a.access');
 
@@ -394,10 +392,8 @@ class rsgallery2ModelGalleries extends JModelList
             $app->enqueueMessage($OutTxt, 'error');
         }
 
-
         return $imageCount;
     }
-
 
     /**
      * @param $items : like items in $this->items = $this->get('Items');
