@@ -83,8 +83,9 @@ class Rsgallery2ModelImages extends JModelList
 				'a.id, a.name, a.alias, a.descr, a.gallery_id, a.title, a.hits, '
 				. 'a.date, a.rating, a.votes, a.comments, a.published, '
 				. 'a.checked_out, a.checked_out_time, a.ordering, '
-				. 'a.approved, a.userid, a.params, a.asset_id,'
-				. 'gal.name'
+				. 'a.approved, a.userid, a.params, a.asset_id'
+// test remove	. ', gal.name'
+//                . ', gallery_name'
 		 	);
 		$query->select($actState);
 		

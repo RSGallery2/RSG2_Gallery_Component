@@ -373,7 +373,7 @@ $userId = $user->id;
                                         echo $PreTitle;
 
 							            $link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=" . $item->id);
-							            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=galleries&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
+							            $link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=galleries&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
 							            echo '<a class="hasTooltip" href="' . $link  . '" title="' . JText::_('JACTION_EDIT') . '">';
 										//echo '    ' . $PreTitle . $this->escape($item->name);
                                         echo $this->escape($item->name);
@@ -394,16 +394,20 @@ $userId = $user->id;
 					            <?php
 								$imageCount = 0;
 					            // $imageCount = $this->GalleriesModel->countImages ($item->id);
-								if (!empty($item->image_count))
-					                $imageCount = $item->image_count;
+								if (!empty($item->image_count)) {
+                                    $imageCount = $item->image_count;
+                                }
 
-								if ($imageCount == 0) {
+                                $link = JRoute::_("index.php?option=com_rsgallery2&view=images&gallery_id=" . $item->id);
+                                $link = JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id);
+
+                                if ($imageCount == 0) {
 									?>
 									<a class="badge ">
 										0
 									</a>
                                     <a disabled="disabled"  onclick="return false;" class="disabled"
-                                        href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id); ?>"
+                                        href="<?php echo $link; ?>"
                                     >
                                         <sub><span class="icon-arrow-right-2" style="font-size: 1.6em;"></span></sub>
                                     </a>
@@ -412,7 +416,7 @@ $userId = $user->id;
 								} else {
 									?>
 						            <a class="badge badge-success"
-									   href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id); ?>"
+                                       href="<?php echo $link; ?>"
 									   title="<?php echo JText::_('COM_RSGALLERY2_IMAGES_LIST'); ?>"
 									>
 										<?php
@@ -421,8 +425,8 @@ $userId = $user->id;
 					        	    </a>
 
 									<a
-									   href="<?php echo JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id); ?>"
-									   title="<?php echo JText::_('COM_RSGALLERY2_IMAGES_LIST'); ?>"
+                                        href="<?php echo $link; ?>"
+									    title="<?php echo JText::_('COM_RSGALLERY2_IMAGES_LIST'); ?>"
 									>
 										<sub><span class="icon-arrow-right-2" style="font-size: 1.6em;"></span></sub>
 									</a>

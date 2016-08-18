@@ -120,14 +120,14 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 			                </tr>
 
 		                </thead>
-					<tfoot>
-						<tr>
-							<td colspan="15">
-								<?php echo $this->pagination->getListFooter(); ?>
-							</td>
-						</tr>
-					</tfoot>
-		                <tbody>
+						<tfoot>
+							<tr>
+								<td colspan="15">
+									<?php echo $this->pagination->getListFooter(); ?>
+								</td>
+							</tr>
+						</tfoot>
+						<tbody>
 			                <?php
 
 				            foreach ($this->items as $i => $item) {
@@ -142,10 +142,11 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 					            }
 		//			            $authorName = JFactory::getUser($item->uid);
 					            ?>
-	                        <tr>
-		                        <td>
-			                        <?php echo $this->pagination->getRowOffset($i); ?>
-		                        </td>
+
+								<tr>
+									<td>
+										<?php echo $this->pagination->getRowOffset($i); ?>
+									</td>
 
 
 						            <td width="1%" class="center">
