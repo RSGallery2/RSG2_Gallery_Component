@@ -365,6 +365,7 @@ $userId = $user->id;
 
 						            <td class="hidden-phone center">
 							            <?php echo (int) $item->id; ?>
+							            <input type="hidden" name="ids[]" value="<?php echo (int) $item->id; ?>" />
 						            </td>
 
 					            </tr>

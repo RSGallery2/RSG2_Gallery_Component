@@ -163,7 +163,6 @@ class Rsgallery2ModelImages extends JModelList
                 //$msg .= "<br>" . 'Query  $result: : ' . json_encode($result);
             }
             // $msg .= "<br>";
-
             $msg .= JText::_( 'COM_RSGALLERY2_NEW_ORDERING_SAVED' );
         }
         catch (RuntimeException $e)
@@ -176,6 +175,7 @@ class Rsgallery2ModelImages extends JModelList
             $app->enqueueMessage($OutTxt, 'error');
         }
 
+        return $msg;
     }
 
 

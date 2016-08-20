@@ -28,26 +28,6 @@ class Rsgallery2ControllerGalleries extends JControllerAdmin
 		return $model;
 	}
 
-/*
-	function saveorder( )
-	{
-// Check for request forgeries
-		$cid        = JRequest::getVar( ‘cid’, array(), ‘post’, ‘array’ );
-
-$model      = $this->getModel(‘yourmodelname’);
-
-if( $model->saveOrder($cid)){
-	$msg     = JText::_( ‘Ordering save Successfully’ );
-$type = ‘message’;
-
-}else{
-	$msg     = JText::_( ‘Ordering not save’ );
-$type = ‘notice’;
-}
-
-/**/
-
-
 	/**
 	 * Saves changed manual ordering of galleries
 	 *
