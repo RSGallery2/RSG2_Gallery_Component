@@ -74,42 +74,36 @@
 			>
 			<option value="">JGLOBAL_SORT_BY</option>
 
-			<option value="gallery ASC">COM_RSGALLERY2_GALLERY_ID_ASC</option>
-			<option value="gallery DESC">COM_RSGALLERY2_GALLERY_ID_DESC</option>
-
-			<option value="subject ASC">JGLOBAL_TITLE_ASC</option>
+*			<option value="subject ASC">JGLOBAL_TITLE_ASC</option>
 			<option value="subject DESC">JGLOBAL_TITLE_DESC</option>
 
-			<option value="name ASC">COM_RSGALLERY2_NAME_ASC</option>
+*			<option value="name ASC">COM_RSGALLERY2_NAME_ASC</option>
 			<option value="name DESC">COM_RSGALLERY2_NAME_DESC</option>
-			
-			<option value="ordering ASC">JGRID_HEADING_ORDERING_ASC</option>
+
+*			<option value="gallery_id ASC">COM_RSGALLERY2_GALLERY_ID_ASC</option>
+			<option value="gallery_id DESC">COM_RSGALLERY2_GALLERY_ID_DESC</option>
+
+*			<option value="ordering ASC">JGRID_HEADING_ORDERING_ASC</option>
 			<option value="ordering DESC">JGRID_HEADING_ORDERING_DESC</option>Order  
 
-			<option value="date ASC">JDATE_ASC</option>
+*			<option value="date ASC">JDATE_ASC</option>
 			<option value="date DESC">JDATE_ASC</option>
 
-			<option value="votes ASC">COM_RSGALLERY2_VOTES_COUNT_ASC</option>
-			<option value="votes DESC">COM_RSGALLERY2_VOTES_COUNT_DESC</option>
- 	
-			<option value="rating ASC">COM_RSGALLERY2_RATES_COUNT_ASC</option>
+*			<option value="rating ASC">COM_RSGALLERY2_RATES_COUNT_ASC</option>
 			<option value="rating DESC">COM_RSGALLERY2_RATES_COUNT_ASC</option>
  	
-			<option value="comments ASC">COM_RSGALLERY2_COMMENTS_COUNT_ASC</option>
+*			<option value="comments ASC">COM_RSGALLERY2_COMMENTS_COUNT_ASC</option>
 			<option value="comments DESC">COM_RSGALLERY2_COMMENTS_COUNT_DESC</option>
  	
-			<option value="votes ASC">COM_RSGALLERY2_VOTES_COUNT_ASC</option>
+*			<option value="votes ASC">COM_RSGALLERY2_VOTES_COUNT_ASC</option>
 			<option value="votes DESC">COM_RSGALLERY2_VOTES_COUNT_DESC</option>
  	
-			<option value="hits ASC">JGLOBAL_HITS_ASC</option>
+*			<option value="hits ASC">JGLOBAL_HITS_ASC</option>
 			<option value="hits DESC">JGLOBAL_HITS_DESC</option>
 
-			<option value="id ASC">JGRID_HEADING_ID_ASC</option>
+*			<option value="id ASC">JGRID_HEADING_ID_ASC</option>
 			<option value="id DESC">JGRID_HEADING_ID_ASC</option>
 			
-			<option value="item_id ASC">COM_RSGALLERY2_IMAGE_ID_ASC</option>
-			<option value="item_id DESC">COM_RSGALLERY2_IMAGE_ID_DESC</option>
-
 			<option value="published ASC">JSTATUS_ASC</option>
 			<option value="published DESC">JSTATUS_DESC</option>
 
