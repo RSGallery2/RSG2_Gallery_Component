@@ -196,7 +196,7 @@ class rsgallery2ModelGalleries extends JModelList
                     ->set(array($db->quoteName('ordering') . '=' . $orderIdx))
                     ->where(array($db->quoteName('id') . '='. $id));
 
-                $result = $db->execute($query);
+                $result = $db->execute();
                 //$msg .= "<br>" . "Query : " . $query->__toString();
                 //$msg .= "<br>" . 'Query  $result: : ' . json_encode($result);
             }
@@ -204,8 +204,6 @@ class rsgallery2ModelGalleries extends JModelList
 
 
 //	         parent::reorder();
-
-
 
 
             $msg .= JText::_( 'COM_RSGALLERY2_NEW_ORDERING_SAVED' );

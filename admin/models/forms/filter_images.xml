@@ -43,7 +43,17 @@
 
 		<field
 				name="gallery_name"
-				type="list"
+				type="GallerySelectList"
+				label="COM_RSGALLERY2_FILTER_GALLERY_NAME"
+				description="COM_RSGALLERY2_FILTER_GALLERY_NAME_DESC"
+				onchange="this.form.submit();"
+		>
+			<option value="">COM_RSGALLERY2_FILTER_SELECT_GALLERY</option>
+		</field>
+
+		<field
+				name="id"
+				type="RsgGalleryOrderingList"
 				label="COM_RSGALLERY2_FILTER_GALLERY_NAME"
 				description="COM_RSGALLERY2_FILTER_GALLERY_NAME_DESC"
 				onchange="this.form.submit();"

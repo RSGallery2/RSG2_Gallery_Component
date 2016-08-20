@@ -14,15 +14,155 @@ JHtml::_('formbehavior.chosen', 'select');
 
 global $Rsg2DebugActive;
 
-// public static $extension = 'COM_RSG2';
-
-//$doc = JFactory::getDocument();
-//$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
-
 $sortColumn = $this->escape($this->state->get('list.ordering')); //Column
 $sortDirection  = $this->escape($this->state->get('list.direction'));
 
+$user = JFactory::getUser();
+$userId = $user->id;
+
 ?>
+<script type="text/javascript">
+
+
+    //This will sort your array
+    function SortByIntValue(a, b){
+        var aValue = parseInt($(a).value, 10);
+        var bValue = parseInt($(b).value, 10);
+        return aValue - bValue;
+    }
+
+
+    // :
+    jQuery(document).ready(function($) {
+        //alert ("assign");
+
+        jQuery(".changeOrder").on('keyup mouseup',
+            function (event) {
+                var Idx;
+                var element;
+                var Count;
+
+                event.preventDefault();
+
+                var actElement = event.target;
+
+                // Empty input
+                if (actElement.value == '') {
+                    alert("Test 01 out");
+                    return;
+                }
+
+                var strActValue = actElement.value;
+                var actValue = parseInt(actElement.value);
+                var actGallery_id = actElement.getAttribute("gallery_id");
+
+                // Negative value will be corrected to lowest value
+                if (actValue < 1) {
+                    actValue = 1;
+                    actElement.value = actValue;
+                }
+
+                var OrderingAll = jQuery(".changeOrder");
+
+                if(OrderingAll === null) {
+                    alert("OrderingAll === null");
+                }
+
+                Count = OrderingAll.length;
+
+                var Ordering = new Array;
+                for (Idx = 0; Idx < Count; Idx++) {
+
+                    element = OrderingAll[Idx];
+
+                    var gallery_id = element.getAttribute("gallery_id");
+                    if(actGallery_id == gallery_id) {
+//                        alert("Test 03.04");
+
+                        Ordering.push (element);
+                    }
+                }
+
+                if(Ordering.length == 0)
+                {
+                    return;
+                }
+
+                Count = Ordering.length;
+
+                // Value higher than the count will be set to highest possible
+                if (actValue > Count) {
+                    actValue = Count;
+                    actElement.value = actValue;
+                }
+
+                var OutTxt ='';
+
+                // Sort array asc
+                Ordering.sort(SortByIntValue);
+
+                // assign changed ordering values
+                var ChangeOld = 0;
+                for (Idx = 1; Idx <= Count; Idx++) {
+                    element = Ordering[Idx-1];
+
+                    var strIdx = Idx.toString();
+                    // not matching the changed element
+                    if (strActValue != element.value)
+                    {
+                        // Value different to expected so set it
+                        // The orderingIdx should be the Idx value
+                        if(element.value != strIdx)
+                        {
+                            element.value = strIdx;
+                        }
+                    }
+                    else
+                    {
+                        // Undefined up or down ?
+                        // UP: Missing
+                        if (ChangeOld == 0)
+                        {
+    //							alert ("IDX: " + Idx + " " + "Value: " + parseInt(element.value));
+
+                            // New id moved up, hole found
+                            if (Idx < parseInt(element.value))
+                            {
+                                ChangeOld = Idx;
+                            }
+                            else
+                            {
+                                // Down: Move old element up
+                                ChangeOld = Idx+1;
+                            }
+                        }
+
+                        // On Old element assign changed value
+                        if (actElement.id != element.id)
+                        {
+                            element.value = ChangeOld.toString();
+                        }
+                    }
+                }
+
+                // Print array order
+                OutTxt +='\n';
+                for (Idx = 0; Idx < Count; Idx++) {
+                    element = Ordering[Idx];
+
+                    OutTxt += element.value + ",";
+                }
+
+                /**/
+
+            }
+        );
+
+    //alert ("done");
+    });
+
+</script>
+
 
 <div id="installer-install" class="clearfix">
 	<?php if (!empty( $this->sidebar)) : ?>
@@ -36,7 +176,6 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
             <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=images'); ?>"
                   method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
-
 				<?php
 				// Search tools bar
 				echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
@@ -44,7 +183,6 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 				// I managed to add options as always open
 				//echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this, 'options' => array('filtersHidden' => false ($hidden) (true/false) )));
 				?>
-
 
 	            <?php if (empty($this->items)) : ?>
                     <div class="alert alert-no-items">
@@ -67,15 +205,15 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 									<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'a.published', $sortDirection, $sortColumn); ?>
 								</th>
 
-				                <th width="10%" class="center">
+				                <th width="10%" class="">
 					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_TITLE', 'a.title', $sortDirection, $sortColumn); ?>
 				                </th>
 
-				                <th width="10%" class="center">
+				                <th width="10%" class="">
 					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'a.name', $sortDirection, $sortColumn); ?>
 				                </th>
 
-				                <th width="1%" class="center">
+				                <th width="1%" class="">
 					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_GALLERY', 'gallery_name', $sortDirection, $sortColumn); ?>
 				                </th>
 
@@ -88,9 +226,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 						                title="<?php echo JText::_( 'COM_RSGALLERY2_ASSIGN_CHANGED_ORDER'); ?>">
 						                <i class="icon-save"></i>
 					                </button>
-
 				                </th>
-
 
 				                <th width="1%" class="center nowrap hidden-phone">
 					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_DATE__TIME', 'a.date', $sortDirection, $sortColumn); ?>
@@ -114,7 +250,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 				                </th>
 
 				                <th width="1%" class="center nowrap hidden-phone">
-					                <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $sortDirection, $sortColumn); ?>
+					                <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $sortDirection, $sortColumn); ?>
 				                </th>
 
 			                </tr>
@@ -135,14 +271,14 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 					            $canChange  = true;
 					            $canEdit  = true;
 					            $canEditOwn  = true;
+	/**/
+                                // Get permissions
+                                $canEditGallery      = $user->authorise('core.edit',      'com_rsgallery2.image.'.$item->id);
+                                $canEditOwnGallery   = $user->authorise('core.edit.own',  'com_rsgallery2.image.'.$item->id) AND ($item->userid == $userId);
+                                $canEditStateGallery = $user->authorise('core.edit.state','com_rsgallery2.image.'.$item->id);
 
-					            if($i > 5)
-					            {
-						        //    break;
-					            }
-		//			            $authorName = JFactory::getUser($item->uid);
+
 					            ?>
-
 								<tr>
 									<td>
 										<?php echo $this->pagination->getRowOffset($i); ?>
@@ -163,7 +299,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 							            echo '<a href="' . $link . '"">' . $item->id . '</a>';
 							            ?>
 						            </td-->
-						            <td width="1%" class="center">
+						            <td width="1%" class="">
 							            <?php
 							            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
 							            $link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
@@ -173,7 +309,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 							            ?>
 						            </td>
-						            <td width="1%" class="center">
+						            <td width="1%" class="">
 							            <?php
 							            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
 							            $link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
@@ -181,7 +317,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 							            ?>
 						            </td>
 
-						            <td width="1%" class="center">
+						            <td width="1%" class="">
 							            <?php
 							            $link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=".$item->gallery_id);
 							            $link = JRoute::_("index.php?option=com_rsgallery2&rsgOption=galleries&task=editA&hidemainmenu=1&id=". $item->gallery_id);
@@ -192,38 +328,42 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 						            <td width="1%" class="center">
 							            <div class="form-group">
-								            <label class="hidden" for="ordering_<?php echo $i; ?>">Ordering</label>
-								            <input class="input-mini" type="number" min="0" step="1" class="form-control" id="ordering_<?php echo $i; ?>"
-									            placeholder="<?php echo $item->ordering; ?>">
+								            <label class="hidden" for="order[]">Ordering</label>
+								            <input  name="order[]"  type="number"
+                                                class="input-mini form-control changeOrder"
+                                                min="0" step="1"
+                                                id="ordering_<?php echo $item->id; ?>"
+                                                value="<?php echo $item->ordering; ?>"
+                                                gallery_id="<?php echo $item->gallery_id; ?>"
 								            </input>
 							            </div>
 						            </td>
 
 
-						            <td class="nowrap small hidden-phone">
+						            <td class="nowrap small hidden-phone center">
 							            <?php echo JHtml::_('date', $item->date, JText::_('COM_RSGALLERY2_DATE_FORMAT_WITH_TIME')); ?>
 						            </td>
 
 
-						            <td class="hidden-phone">
+						            <td class="hidden-phone center">
 							            <?php echo (int) $item->votes; ?>
 						            </td>
 
 
-						            <td class="hidden-phone">
+						            <td class="hidden-phone center">
 							            <?php echo (int) $item->rating; ?>
 						            </td>
 
-						            <td class="hidden-phone">
+						            <td class="hidden-phone center">
 							            <?php echo (int) $item->comments; ?>
 						            </td>
 
 
-						            <td class="hidden-phone">
+						            <td class="hidden-phone center">
 							            <?php echo (int) $item->hits; ?>
 						            </td>
 
-						            <td class="hidden-phone">
+						            <td class="hidden-phone center">
 							            <?php echo (int) $item->id; ?>
 						            </td>
 

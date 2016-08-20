@@ -44,13 +44,11 @@ $userId = $user->id;
 			function (event) {
 				var Idx;
 				var element;
+                var Count;
 
 				event.preventDefault();
 
-//				alert($( this ).text());
-//				alert(event.target.nodeName);
 				var actElement = event.target;
-//				var actId = actElement.id;
 
 				// Empty input
 				if (actElement.value == '') {
@@ -60,14 +58,12 @@ $userId = $user->id;
 				var strActValue = actElement.value;
 				var actValue = parseInt(actElement.value);
 
-//				alert('Id: ' + actElement.id + ' value: ' + actElement.value);
-
 				// Negative value will be corrected to lowest value
 				if (actValue < 1) {
 					actValue = 1;
 					actElement.value = actValue;
 				}
-/**/
+
 				var Ordering = jQuery(".changeOrder");
 				var Count = Ordering.length;
 
@@ -77,36 +73,10 @@ $userId = $user->id;
 					actElement.value = actValue;
 				}
 
-
 				var OutTxt ='';
-/**
-				for (Idx = 0; Idx < Count; Idx++) {
-					element = Ordering[Idx];
-
-					OutTxt += element.value + ",";
-//					alert ("Idx: " + Idx + " " + "Value:" + element.value)
-//					if (Idx == 3)
-//						break;
-				}
-				alert(OutTxt);
-/**/
 
 				// Sort array asc
 				Ordering.sort(SortByIntValue);
-/**
-				// Print array order
-				OutTxt +='\n';
-				for (Idx = 0; Idx < Count; Idx++) {
-					element = Ordering[Idx];
-
-					OutTxt += element.value + ",";
-//					alert ("Idx: " + Idx + " " + "Value:" + element.value)
-//					if (Idx == 3)
-//						break;
-				}
-//				alert(OutTxt);
-
-/**/
 
 				// assign changed ordering values
 				var ChangeOld = 0;
@@ -158,15 +128,7 @@ $userId = $user->id;
 					element = Ordering[Idx];
 
 					OutTxt += element.value + ",";
-//					alert ("Idx: " + Idx + " " + "Value:" + element.value)
-//					if (Idx == 3)
-//						break;
 				}
-//				alert(OutTxt);
-
-/**/
-
-//				alert("changed");
 			}
 		);
 
@@ -399,7 +361,9 @@ $userId = $user->id;
                                 }
 
                                 $link = JRoute::_("index.php?option=com_rsgallery2&view=images&gallery_id=" . $item->id);
-                                $link = JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id);
+                                $link = JRoute::_("index.php?option=com_rsgallery2&view=images&filter[gallery_id]=" . (int)$item->id);
+                                //$link = JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id);
+    // &filter[search]=uid:' . (int) $userId
 
                                 if ($imageCount == 0) {
 									?>
@@ -448,9 +412,8 @@ $userId = $user->id;
 							<td width="1%" class="center">
 								<div class="form-group">
 									<label class="hidden" for="order[]">Ordering</label>
-                                    <!--input type="text" style="display:none" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order " /-->
                                     <input name="order[]" type="number"
-                                        class="input-mini form-control changeOrder"
+                                        class="input-mini changeOrder form-control"
 	                                    min="0" step="1"
 	                                    id="ordering_<?php echo $item->id; ?>"
 										value="<?php echo $item->ordering; ?>"
