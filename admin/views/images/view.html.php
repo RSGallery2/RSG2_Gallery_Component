@@ -87,9 +87,39 @@ class Rsgallery2ViewImages extends JViewLegacy
 
 			default:
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_IMAGES'), 'image');
-				JToolBarHelper::addNew('image.add');
+				//JToolBarHelper::addNew('image.add');
 				JToolBarHelper::editList('image.edit');
-				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'image.delete', 'JTOOLBAR_EMPTY_TRASH'); 				
+				//JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'image.delete', 'JTOOLBAR_EMPTY_TRASH');
+				JToolbarHelper::deleteList('', 'images.delete', 'JTOOLBAR_DELETE');
+				JToolbarHelper::publish('images.publish', 'JTOOLBAR_PUBLISH', true);
+				JToolbarHelper::unpublish('images.unpublish', 'JTOOLBAR_UNPUBLISH', true);
+
+				JToolBarHelper::spacer();
+				JToolBarHelper::spacer();
+				JToolBarHelper::spacer();
+				JToolBarHelper::spacer();
+				JToolBarHelper::spacer();
+				JToolBarHelper::spacer();
+				JToolbarHelper::divider();
+				JToolbarHelper::divider();
+				JToolbarHelper::divider();
+				// JToolbarHelper::custom('delete', 'delete.png', 'delete_f2.png', 'JTOOLBAR_DELETE', true);
+				// JToolbarHelper::custom('categories.rebuild', 'refresh.png', 'refresh_f2.png', 'JTOOLBAR_REBUILD', false);
+				JToolBarHelper::custom ('images.MoveTo','next','','COM_RSGALLERY2_MOVE_TO', true);
+				JToolBarHelper::custom ('images.Copy','copy','','COM_RSGALLERY2_COPY', true);
+//				JToolBarHelper::custom ('','','','', true);
+				JToolBarHelper::custom('upload','upload','upload.png','COM_RSGALLERY2_UPLOAD', false);
+//				JToolBarHelper::custom ('','','','', true);
+//				JToolBarHelper::custom ('','','','', true);
+//				JToolBarHelper::custom ('','','','', true);
+//				JToolBarHelper::custom ('','','','', true);
+				JToolBarHelper::custom ('images.ResetHits','refresh','','COM_RSGALLERY2_RESET_HITS', true);
+
+
+
+//				JToolBarHelper::custom('move_images','forward.png','forward.png','COM_RSGALLERY2_MOVE_TO', true);
+//				JToolBarHelper::custom('copy_images','copy.png','copy.png','COM_RSGALLERY2_COPY', true);
+
 				break;
 		}
 

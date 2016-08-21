@@ -95,7 +95,7 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 				JToolBarHelper::addNew('gallery.add');
 				JToolBarHelper::editList('gallery.edit');
 //				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'galleries.delete', 'JTOOLBAR_EMPTY_TRASH');
-				JToolBarHelper::deleteList('', 'galleries.delete');
+				JToolBarHelper::deleteList('', 'galleries.delete', 'JTOOLBAR_DELETE');
 
 				JToolbarHelper::publish('galleries.publish', 'JTOOLBAR_PUBLISH', true);
 				JToolbarHelper::unpublish('galleries.unpublish', 'JTOOLBAR_UNPUBLISH', true);
