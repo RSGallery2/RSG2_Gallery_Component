@@ -12,6 +12,8 @@ if ($Rsg2DebugActive)
 	JLog::add('==> ctrl.config.php ');
 }
 
+// ToDo: // Sanitize the input
+
 jimport('joomla.application.component.controllerform');
 
 class Rsgallery2ControllerConfig extends JControllerForm

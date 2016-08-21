@@ -14,6 +14,9 @@ if ($Rsg2DebugActive)
 }
 /**/
 
+
+// ToDo: // Sanitize the input
+
 jimport('joomla.application.component.controlleradmin');
 
 class Rsgallery2ControllerImages extends JControllerAdmin
