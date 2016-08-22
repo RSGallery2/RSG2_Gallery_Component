@@ -105,15 +105,15 @@ class Rsgallery2ViewImages extends JViewLegacy
 				JToolbarHelper::divider();
 				// JToolbarHelper::custom('delete', 'delete.png', 'delete_f2.png', 'JTOOLBAR_DELETE', true);
 				// JToolbarHelper::custom('categories.rebuild', 'refresh.png', 'refresh_f2.png', 'JTOOLBAR_REBUILD', false);
-				JToolBarHelper::custom ('images.MoveTo','next','','COM_RSGALLERY2_MOVE_TO', true);
-				JToolBarHelper::custom ('images.Copy','copy','','COM_RSGALLERY2_COPY', true);
+				JToolBarHelper::custom ('images.moveTo','next','','COM_RSGALLERY2_MOVE_TO', true);
+				JToolBarHelper::custom ('images.copyTo','copy','','COM_RSGALLERY2_COPY', true);
 //				JToolBarHelper::custom ('','','','', true);
-				JToolBarHelper::custom('upload','upload','upload.png','COM_RSGALLERY2_UPLOAD', false);
-//				JToolBarHelper::custom ('','','','', true);
-//				JToolBarHelper::custom ('','','','', true);
+				JToolBarHelper::custom('images.uploadImages','upload','upload.png','COM_RSGALLERY2_UPLOAD', false);
 //				JToolBarHelper::custom ('','','','', true);
 //				JToolBarHelper::custom ('','','','', true);
-				JToolBarHelper::custom ('images.ResetHits','refresh','','COM_RSGALLERY2_RESET_HITS', true);
+//				JToolBarHelper::custom ('','','','', true);
+//				JToolBarHelper::custom ('','','','', true);
+				JToolBarHelper::custom ('images.resetHits','refresh','','COM_RSGALLERY2_RESET_HITS', true);
 
 
 

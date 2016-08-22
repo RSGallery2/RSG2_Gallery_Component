@@ -73,6 +73,149 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 		$this->setRedirect('index.php?option=com_rsgallery2&view=images', $msg, $msgType);
 	}
 
+    /**
+     * Saves changed manual ordering of galleries
+     *
+     * @throws Exception
+     */
+    public function moveTo()
+    {
+        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+        $msg = "Control:moveTo: ";
+        $msgType = 'notice';
+
+        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+        // Access check
+        $canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
+        if (!$canAdmin) {
+            $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+            $msgType = 'warning';
+            // replace newlines with html line breaks.
+            str_replace('\n', '<br>', $msg);
+        } else {
+
+            try {
+                // Model tells if successful
+                $model = $this->getModel('images');
+                $msg .= $model->moveTo();
+            }
+            catch (RuntimeException $e) {
+                $OutTxt = '';
+                $OutTxt .= 'Error executing moveTo: "' . '<br>';
+                $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+                $app = JFactory::getApplication();
+                $app->enqueueMessage($OutTxt, 'error');
+            }
+        }
+
+        $msg .= '!!! Not implemented yet !!!';
+
+        $this->setRedirect('index.php?option=com_rsgallery2&view=images', $msg, $msgType);
+    }
+
+    /**
+     * Saves changed manual ordering of galleries
+     *
+     * @throws Exception
+     */
+    public function copyTo()
+    {
+        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+        $msg = "Control:copyTo: ";
+        $msgType = 'notice';
+
+        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+        // Access check
+        $canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
+        if (!$canAdmin) {
+            $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+            $msgType = 'warning';
+            // replace newlines with html line breaks.
+            str_replace('\n', '<br>', $msg);
+        } else {
+
+            try {
+                // Model tells if successful
+                $model = $this->getModel('images');
+                $msg .= $model->copyTo();
+            }
+            catch (RuntimeException $e) {
+                $OutTxt = '';
+                $OutTxt .= 'Error executing copyTo: "' . '<br>';
+                $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+                $app = JFactory::getApplication();
+                $app->enqueueMessage($OutTxt, 'error');
+            }
+        }
+
+        $msg .= '!!! Not implemented yet !!!';
+
+        $this->setRedirect('index.php?option=com_rsgallery2&view=images', $msg, $msgType);
+    }
+
+    /**
+     * Saves changed manual ordering of galleries
+     *
+     * @throws Exception
+     */
+    public function uploadImages()
+    {
+        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+        $msg = "Control:uploadImages: ";
+        $msgType = 'notice';
+
+        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+        $this->setRedirect('index.php?option=com_rsgallery2&view=upload', $msg, $msgType);
+    }
+
+    /**
+     * Saves changed manual ordering of galleries
+     *
+     * @throws Exception
+     */
+    public function resetHits()
+    {
+        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+        $msg = "Control:saveOrdering: ";
+        $msgType = 'notice';
+
+        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+        // Access check
+        $canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
+        if (!$canAdmin) {
+            $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+            $msgType = 'warning';
+            // replace newlines with html line breaks.
+            str_replace('\n', '<br>', $msg);
+        } else {
+
+            try {
+                // Model tells if successful
+                $model = $this->getModel('images');
+                $msg .= $model->resetHits();
+            }
+            catch (RuntimeException $e) {
+                $OutTxt = '';
+                $OutTxt .= 'Error executing resetHits: "' . '<br>';
+                $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+                $app = JFactory::getApplication();
+                $app->enqueueMessage($OutTxt, 'error');
+            }
+        }
+
+        $msg .= '!!! Not implemented yet !!!';
+
+        $this->setRedirect('index.php?option=com_rsgallery2&view=images', $msg, $msgType);
+    }
+
+
 
 }
 

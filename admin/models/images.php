@@ -179,6 +179,122 @@ class Rsgallery2ModelImages extends JModelList
     }
 
 
+    public function moveTo ()
+    {
+        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+        $msg = "moveTo: ";
+        $msgType = 'notice';
+
+        try {
+
+            $input = JFactory::getApplication()->input;
+
+            // $msg .= "<br>";
+            $msg .= JText::_( 'COM_RSGALLERY2_YYY_done' );
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing moveTo: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $msg;
+    }
+
+
+    public function copyTo ()
+    {
+        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+        $msg = "copyTo: ";
+        $msgType = 'notice';
+
+        try {
+
+            $input = JFactory::getApplication()->input;
+
+            // $msg .= "<br>";
+            $msg .= JText::_( 'COM_RSGALLERY2_YYY_done' );
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing copyTo: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $msg;
+    }
+
+
+    public function resetHits ()
+    {
+        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+        $msg = "resetHits: ";
+        $msgType = 'notice';
+
+        try {
+
+            $input = JFactory::getApplication()->input;
+            $cid = $input->get( 'cid', array(), 'ARRAY');
+
+            //Reset hits
+            $cids = implode( ',', $cid );
+
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+
+            $fields = array(
+                $db->quoteName('hits') . '=0'
+            );
+
+            $conditions  = array(
+                $db->quoteName('id' . ' IN ( ' . $cids . ' )')
+            );
+
+            $query->update($db->quoteName('#__rsgallery2_files'))
+                ->set($fields)
+                ->where($conditions);
+
+            $db->setQuery($query);
+
+/**
+
+            $query = 'UPDATE `#__rsgallery2_files` ' .
+                ' SET `hits` = 0 ' .
+                ' WHERE `id` IN ( '.$cids.' )';
+            $result = $db->execute();
+
+            if (!$database->execute()) {
+                echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+            }
+
+/**/
+
+
+
+            // $msg .= "<br>";
+            $msg .= JText::_( 'COM_RSGALLERY2_resetHits_done' );
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing resetHits: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $msg;
+    }
+
 
     /**
      * Fetches the name of the given gallery id
