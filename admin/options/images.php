@@ -707,7 +707,7 @@ function resetHits ( &$cid ) {
 		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
 	}
 
-    $app->enqueueMessage( JText::_('COM_RSGALLERY2_HITS_RESET_TO_ZERO_SUCCESFULL') );
+    $app->enqueueMessage( JText::_('COM_RSGALLERY2_HITS_RESET_TO_ZERO_SUCCESSFUL') );
 	$app->redirect( "index.php?option=com_rsgallery2&rsgOption=images" );
 }
 
