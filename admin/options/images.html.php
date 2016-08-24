@@ -63,7 +63,7 @@ class html_rsg2_images {
 						<input type="text" name="search" value="<?php echo $search;?>" class="text_area" onChange="document.adminForm.submit();" />
 						<?php echo JText::_('COM_RSGALLERY2_SELECT_GALLERY')?>
 						<?php echo $lists['gallery_id'];?>
-						<br>
+						<br> &nbsp;
 						<?php echo JText::_('COM_RSGALLERY2_COPY_SLASH_MOVE')?>
 						<?php echo $lists['move_id'];?>
 					</td>

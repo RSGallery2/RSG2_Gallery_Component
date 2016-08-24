@@ -236,63 +236,75 @@ class Rsgallery2ModelImages extends JModelList
     public function resetHits ()
     {
         //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-        $msg = "resetHits: ";
-        $msgType = 'notice';
+        //$msg = "resetHits: ";
+        $result = false;
 
         try {
 
             $input = JFactory::getApplication()->input;
             $cid = $input->get( 'cid', array(), 'ARRAY');
 
-            //Reset hits
-            $cids = implode( ',', $cid );
+            if (count ($cid) > 0) {
 
-            $db = JFactory::getDBO();
-            $query = $db->getQuery(true);
 
-            $fields = array(
-                $db->quoteName('hits') . '=0'
-            );
+                //Reset hits
+                $cids = implode(',', $cid);
 
-            $conditions  = array(
-                $db->quoteName('id' . ' IN ( ' . $cids . ' )')
-            );
+                $db = JFactory::getDBO();
+                $query = $db->getQuery(true);
 
-            $query->update($db->quoteName('#__rsgallery2_files'))
-                ->set($fields)
-                ->where($conditions);
+                $fields = array(
+                    $db->quoteName('hits') . '=0'
+                );
 
-            $db->setQuery($query);
+                $conditions = array(
+                    $db->quoteName('id') . ' IN ( ' . $cids . ' )'
+                );
 
-/**
+                $query->update($db->quoteName('#__rsgallery2_files'))
+                    ->set($fields)
+                    ->where($conditions);
 
-            $query = 'UPDATE `#__rsgallery2_files` ' .
-                ' SET `hits` = 0 ' .
-                ' WHERE `id` IN ( '.$cids.' )';
-            $result = $db->execute();
+                $db->setQuery($query);
+                $result = $db->execute();
 
-            if (!$database->execute()) {
-                echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+                /**
+                 *
+                 * $query = 'UPDATE `#__rsgallery2_files` ' .
+                 * ' SET `hits` = 0 ' .
+                 * ' WHERE `id` IN ( '.$cids.' )';
+                 * $result = $db->execute();
+                 *
+                 * if (!$database->execute()) {
+                 * echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+                 * }
+                 *
+                 * /**/
+
+
+                // $msg .= "<br>";
+                //$msg .= JText::_('COM_RSGALLERY2_resetHits_done');
             }
-
-/**/
-
-
-
-            // $msg .= "<br>";
-            $msg .= JText::_( 'COM_RSGALLERY2_resetHits_done' );
+            else
+            {
+                /**
+                // count ($cid) == 0)
+                $OutTxt = 'resetHits: Selection not defined';
+                $app = JFactory::getApplication();
+                $app->enqueueMessage($OutTxt, 'error');
+                 */
+                $ErrTxt = 'Error model resetHits: Selection not defined';
+                throw new Exception(JText::_($ErrTxt), 1);
+            }
         }
         catch (RuntimeException $e)
         {
-            $OutTxt = '';
-            $OutTxt .= 'Error executing resetHits: "' . '<br>';
-            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-            $app = JFactory::getApplication();
-            $app->enqueueMessage($OutTxt, 'error');
+            $ErrTxt = 'Error executing model resetHits: "' . '<br>';
+            $ErrTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+            throw new Exception(JText::_($ErrTxt), 2, $e);
         }
 
-        return $msg;
+        return $result;
     }
 
 

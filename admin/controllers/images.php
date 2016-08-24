@@ -198,7 +198,12 @@ class Rsgallery2ControllerImages extends JControllerAdmin
             try {
                 // Model tells if successful
                 $model = $this->getModel('images');
-                $msg .= $model->resetHits();
+                $result = $model->resetHits();
+                if($result == true)
+                {
+        			$msg = $msg . JText::_('COM_RSGALLERY2_HITS_RESET_TO_ZERO_SUCCESSFUL');
+                }
+
             }
             catch (RuntimeException $e) {
                 $OutTxt = '';
@@ -209,8 +214,6 @@ class Rsgallery2ControllerImages extends JControllerAdmin
                 $app->enqueueMessage($OutTxt, 'error');
             }
         }
-
-        $msg .= '!!! Not implemented yet !!!';
 
         $this->setRedirect('index.php?option=com_rsgallery2&view=images', $msg, $msgType);
     }

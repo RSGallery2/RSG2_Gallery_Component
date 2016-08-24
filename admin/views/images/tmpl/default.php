@@ -178,7 +178,7 @@ $userId = $user->id;
                   method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
 				<?php
 				// Search tools bar
-				echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
+                echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
 				//echo JLayoutHelper::render('joomla.searchtools.default', $data, null, array('component' => 'none'));
 				// I managed to add options as always open
 				//echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this, 'options' => array('filtersHidden' => false ($hidden) (true/false) )));
