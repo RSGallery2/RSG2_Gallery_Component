@@ -188,6 +188,19 @@ class Rsgallery2ModelImages extends JModelList
         try {
 
             $input = JFactory::getApplication()->input;
+            $cid = $input->get( 'cid', array(), 'ARRAY');
+            $NewGalleryId = $input->get( 'SelectGalleries01', -1, 'INT');
+
+            // Destination gallery selected ?
+            if ($NewGalleryId > 0) {
+                // Source images selected ?
+                if (count($cid) > 0) {
+                    // Single ids
+                    $cids = implode(',', $cid);
+
+
+                }
+            }
 
             // $msg .= "<br>";
             $msg .= JText::_( 'COM_RSGALLERY2_YYY_done' );
