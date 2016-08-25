@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id$ -->
+<form enctype="multipart/form-data">
+	<fieldset name="SearchSupport">
+		<!-- Gallery selection -->
+		<field
+			id           = "SelectGalleries_01"
+			name         = "SelectGalleries01"
+			type         = "GallerySelectList"
+			label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
+			description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
+			required     = "false"
+			class        = "inputbox"
+			addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+			size         = "4"
+		/>
+	</fieldset>
+</form>

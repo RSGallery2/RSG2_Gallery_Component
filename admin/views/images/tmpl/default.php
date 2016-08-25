@@ -182,7 +182,10 @@ $userId = $user->id;
 				//echo JLayoutHelper::render('joomla.searchtools.default', $data, null, array('component' => 'none'));
 				// I managed to add options as always open
 				//echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this, 'options' => array('filtersHidden' => false ($hidden) (true/false) )));
-				?>
+
+                // Specify gallery for move and copy
+                echo $this->form->renderFieldset('SearchSupport');
+                ?>
 
 	            <?php if (empty($this->items)) : ?>
                     <div class="alert alert-no-items">

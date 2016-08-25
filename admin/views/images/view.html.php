@@ -9,6 +9,8 @@
 // no direct access
 defined( '_JEXEC' ) or die;
 
+JModelLegacy::addIncludePath(JPATH_COMPONENT.'/models');
+
 jimport ('joomla.html.html.bootstrap');
 
 class Rsgallery2ViewImages extends JViewLegacy
@@ -23,6 +25,9 @@ class Rsgallery2ViewImages extends JViewLegacy
 	protected $items;
 	protected $pagination;
 	protected $state;
+
+
+    protected $form;
 
 //	protected $rsgConfigData;
 
@@ -45,7 +50,10 @@ class Rsgallery2ViewImages extends JViewLegacy
 		$this->filterForm    = $this->get('FilterForm');
 		$this->activeFilters = $this->get('ActiveFilters');
 
-		// Check for errors.
+        $xmlFile = JPATH_COMPONENT . '/models/forms/images.xml';
+        $this->form = JForm::getInstance('images', $xmlFile);
+
+        // Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
 			JError::raiseError(500, implode('<br />', $errors));
