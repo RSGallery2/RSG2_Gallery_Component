@@ -179,7 +179,7 @@ class Rsgallery2ModelImages extends JModelList
     }
 
 
-    public function moveTo ()
+    public function moveImagesTo ()
     {
         //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
         $msg = "moveTo: ";
@@ -197,6 +197,30 @@ class Rsgallery2ModelImages extends JModelList
                 if (count($cid) > 0) {
                     // Single ids
                     $cids = implode(',', $cid);
+
+                    //--- Collect image rows by list --------------------------------------------
+
+                    // search image where gallery_id != destination gallery
+
+
+
+                    // Change order
+
+
+
+                    //--- Update both ------------------------------------------
+
+
+
+                    // ?? assets -> rights ?
+
+
+                }
+                else
+                {
+
+                    echo "<script> alert('No gallery selected to move to'); window.history.go(-1);</script>\n";
+
 
 
                 }
@@ -219,7 +243,7 @@ class Rsgallery2ModelImages extends JModelList
     }
 
 
-    public function copyTo ()
+    public function copyImagesTo ()
     {
         //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
         $msg = "copyTo: ";
@@ -228,6 +252,12 @@ class Rsgallery2ModelImages extends JModelList
         try {
 
             $input = JFactory::getApplication()->input;
+
+
+
+
+
+
 
             // $msg .= "<br>";
             $msg .= JText::_( 'COM_RSGALLERY2_YYY_done' );

@@ -78,7 +78,7 @@ class Rsgallery2ControllerImages extends JControllerAdmin
      *
      * @throws Exception
      */
-    public function moveTo()
+    public function moveImagesTo()
     {
         //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
         $msg = "Control:moveTo: ";
@@ -98,7 +98,7 @@ class Rsgallery2ControllerImages extends JControllerAdmin
             try {
                 // Model tells if successful
                 $model = $this->getModel('images');
-                $msg .= $model->moveTo();
+                $msg .= $model->moveImagesTo();
             }
             catch (RuntimeException $e) {
                 $OutTxt = '';
@@ -120,7 +120,7 @@ class Rsgallery2ControllerImages extends JControllerAdmin
      *
      * @throws Exception
      */
-    public function copyTo()
+    public function copyImagesTo()
     {
         //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
         $msg = "Control:copyTo: ";
