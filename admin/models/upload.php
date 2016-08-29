@@ -111,10 +111,10 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
 		$query->select ($db->quoteName('id'))
 			->from('#__rsgallery2_galleries')
-			->order('ordering ASC')
-			->setLimit(1);
+			->order('ordering ASC');
+//			->setLimit(1);  ==>  setQuery($query, $offset = 0, $limit = 0)
 
-		$db->setQuery($query);
+		$db->setQuery($query, 0, 1);
 		$IdLatestGallery  = $db->loadResult();
 
 		return $IdLatestGallery;

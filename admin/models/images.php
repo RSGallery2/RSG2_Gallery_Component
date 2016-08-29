@@ -231,13 +231,16 @@ class Rsgallery2ModelImages extends JModelList
             ->from($db->quoteName('#__rsgallery2_files'))
             ->order($db->quoteName('id') . ' DESC');
 
+        /*   ==>  setQuery($query, $offset = 0, $limit = 0)
         // $limit > 0 will limit the number of lines returned
         if ($limit && (int) $limit > 0)
         {
             $query->setLimit($limit);
         }
-
         $db->setQuery($query);
+        /**/
+
+        $db->setQuery($query, 0, $limit);
         $rows = $db->loadObjectList();
 
         foreach ($rows as $row) {
@@ -291,13 +294,16 @@ class Rsgallery2ModelImages extends JModelList
             ->where($db->quoteName('date') . '> = ' . $db->quoteName($lastWeek))
             ->order($db->quoteName('id') . ' DESC');
 
+        /*   ==>  setQuery($query, $offset = 0, $limit = 0)
         // $limit > 0 will limit the number of lines returned
         if ($limit && (int) $limit > 0)
         {
             $query->setLimit($limit);
         }
-
         $db->setQuery($query);
+        /**/
+
+        $db->setQuery($query, 0, $limit);
         $rows = $db->loadObjectList();
 
         foreach ($rows as $row) {
