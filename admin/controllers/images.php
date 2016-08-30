@@ -74,7 +74,7 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 	}
 
     /**
-     * Saves changed manual ordering of galleries
+     * Moves one or more items (images) to another gallery, ordering each item as the last one.
      *
      * @throws Exception
      */

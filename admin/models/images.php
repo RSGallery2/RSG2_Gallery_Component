@@ -179,6 +179,200 @@ class Rsgallery2ModelImages extends JModelList
     }
 
 
+    public function moveImagesTo ()
+    {
+        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+        $msg = "moveTo: ";
+        $msgType = 'notice';
+
+        try {
+
+            $input = JFactory::getApplication()->input;
+            $cid = $input->get( 'cid', array(), 'ARRAY');
+            $NewGalleryId = $input->get( 'SelectGalleries01', -1, 'INT');
+
+            // Destination gallery selected ?
+            if ($NewGalleryId > 0) {
+                // Source images selected ?
+                if (count($cid) > 0) {
+                    // Single ids
+                    $cids = implode(',', $cid);
+
+                    //--- Assign gallery id by list --------------------------------------------
+
+                    $db = JFactory::getDBO();
+                    $query = $db->getQuery(true);
+
+                    $fields = array(
+                        $db->quoteName('gallery_id') . '=0'
+                    );
+
+                    $conditions = array(
+                        $db->quoteName('id') . ' IN ( ' . $cids . ' )'
+                    );
+
+                    $query->update($db->quoteName('#__rsgallery2_files'))
+                        ->set($fields)
+                        ->where($conditions);
+
+                    $db->setQuery($query);
+                    $result = $db->execute();
+
+
+                    //--- Change order -----------------------------------
+/**
+UPDATE table
+    SET field = (SELECT x.max_field
+                            FROM (SELECT MAX(t.field) + 1 AS max_field
+    FROM TABLE t
+    WHERE t.id IN (1,3,5,6,8) x)
+ */
+google joomla 3 updaTING RECORD FROM SELECTION STACK+
+
+                    http://stackoverflow.com/questions/35023932/converting-sql-to-joomla-syntax-set-and-update
+
+                    //--- Update both ------------------------------------------
+
+
+
+                    // ?? assets -> rights ?
+
+
+                }
+                else
+                {
+                    JFactory::getApplication()->enqueueMessage(JText::_('No valid image(s) selected'), 'warning');
+                }
+            }
+            else
+            {
+                JFactory::getApplication()->enqueueMessage(JText::_('No valid gallery selected'), 'warning');
+            }
+
+            // $msg .= "<br>";
+            $msg .= JText::_( 'COM_RSGALLERY2_YYY_done' );
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing moveTo: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $msg;
+    }
+
+
+    public function copyImagesTo ()
+    {
+        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+        $msg = "copyTo: ";
+        $msgType = 'notice';
+
+        try {
+
+            $input = JFactory::getApplication()->input;
+
+
+
+
+
+
+
+            // $msg .= "<br>";
+            $msg .= JText::_( 'COM_RSGALLERY2_YYY_done' );
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing copyTo: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $msg;
+    }
+
+
+    public function resetHits ()
+    {
+        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+        //$msg = "resetHits: ";
+        $result = false;
+
+        try {
+
+            $input = JFactory::getApplication()->input;
+            $cid = $input->get( 'cid', array(), 'ARRAY');
+
+            if (count ($cid) > 0) {
+
+
+                //Reset hits
+                $cids = implode(',', $cid);
+
+                $db = JFactory::getDBO();
+                $query = $db->getQuery(true);
+
+                $fields = array(
+                    $db->quoteName('hits') . '=0'
+                );
+
+                $conditions = array(
+                    $db->quoteName('id') . ' IN ( ' . $cids . ' )'
+                );
+
+                $query->update($db->quoteName('#__rsgallery2_files'))
+                    ->set($fields)
+                    ->where($conditions);
+
+                $db->setQuery($query);
+                $result = $db->execute();
+
+                /**
+                 *
+                 * $query = 'UPDATE `#__rsgallery2_files` ' .
+                 * ' SET `hits` = 0 ' .
+                 * ' WHERE `id` IN ( '.$cids.' )';
+                 * $result = $db->execute();
+                 *
+                 * if (!$database->execute()) {
+                 * echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
+                 * }
+                 *
+                 * /**/
+
+
+                // $msg .= "<br>";
+                //$msg .= JText::_('COM_RSGALLERY2_resetHits_done');
+            }
+            else
+            {
+                /**
+                // count ($cid) == 0)
+                $OutTxt = 'resetHits: Selection not defined';
+                $app = JFactory::getApplication();
+                $app->enqueueMessage($OutTxt, 'error');
+                 */
+                $ErrTxt = 'Error model resetHits: Selection not defined';
+                throw new Exception(JText::_($ErrTxt), 1);
+            }
+        }
+        catch (RuntimeException $e)
+        {
+            $ErrTxt = 'Error executing model resetHits: "' . '<br>';
+            $ErrTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+            throw new Exception(JText::_($ErrTxt), 2, $e);
+        }
+
+        return $result;
+    }
+
 
     /**
      * Fetches the name of the given gallery id
