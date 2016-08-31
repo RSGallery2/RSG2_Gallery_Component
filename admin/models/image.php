@@ -60,12 +60,70 @@ class Rsgallery2ModelImage extends  JModelAdmin
 		return $data;
 	}
 
-    // Transform some data before it is displayed
-    /* extension development 129 bottom
+    // Transform some data before it is displayed ? Saved ?
+    /* extension development 129 bottom */
     protected function prepareTable ($table)
     {
-        $table->title = htmlspecialchars_decode ($table->title, ENT_Quotes);
+/**
+        $table->name = htmlspecialchars_decode ($table->name, ENT_Quotes);
+
+		$table->generateAlias();
+/**/
+
+        $date = JFactory::getDate()->toSql();
+
+        $table->name = htmlspecialchars_decode ($table->name, ENT_QUOTES);
+
+        // $table->generateAlias();
+
+        if (empty($table->id))
+        {
+            // Set the values
+            $table->date = $date;
+
+            // Set ordering to the last item if not set
+            if (empty($table->ordering))
+            {
+                $db = $this->getDbo();
+                $query = $db->getQuery(true)
+                    ->select('MAX(ordering)')
+                    ->from($db->quoteName('#__contact_details'));
+                $db->setQuery($query);
+                $max = $db->loadResult();
+
+                $table->ordering = $max + 1;
+                $table->user_id = JFactory::getUser()->id;
+            }
+        }
+        else
+        {
+            // Set the values
+            $table->date = $date;
+            $table->user_id = JFactory::getUser()->id;
+        }
+
+        // Increment the content version number.
+        // $table->version++;
+
+
     }
-    */
+    /**/
+
+
+	/**
+	 * A protected method to get a set of ordering conditions.
+	 *
+	 * @param   object  $table A record object.
+	 *
+	 * @return  array   An array of conditions to add to add to ordering queries.
+	 */
+	protected function getReorderConditions($table)
+	{
+		$condition = array();
+		$condition[] = 'gallery_id = ' . (int) $table->gallery_id;
+
+		return $condition;
+	}
+
 
 }
