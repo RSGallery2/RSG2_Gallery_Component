@@ -205,6 +205,10 @@ class Rsgallery2ModelImages extends JModelList
 
                     $fields = array(
                         $db->quoteName('gallery_id') . '=0'
+
+                        // try
+                        ,
+                        $db->quoteName('ordering') . '= MAX(ordering) + 1'
                     );
 
                     $conditions = array(
@@ -220,16 +224,59 @@ class Rsgallery2ModelImages extends JModelList
 
 
                     //--- Change order -----------------------------------
-/**
-UPDATE table
-    SET field = (SELECT x.max_field
-                            FROM (SELECT MAX(t.field) + 1 AS max_field
-    FROM TABLE t
-    WHERE t.id IN (1,3,5,6,8) x)
- */
-google joomla 3 updaTING RECORD FROM SELECTION STACK+
+
+                    /**
+                    UPDATE table
+                        SET field = (SELECT x.max_field
+                                                FROM (SELECT MAX(t.field) + 1 AS max_field
+                        FROM TABLE t
+                        WHERE t.id IN (1,3,5,6,8) x)
+
+                    ... ->set($db->quoteName('count') . ' = (' . $db->quoteName('count') . ' + 1)')
+                    ->set($db->quoteName('hits') . ' = ' . $db->quoteName('hits') . ' + 1')
+                    ->set($db->quoteName('rating_count') . ' = rating_count + 1')
+                    ->set($db->quoteName('rating_sum') . ' = rating_sum + ' . (int) $rate)
+                    ->set($db->qn('ordering') . ' = ' . $db->q($position))
+                    ->set($db->quoteName('time') . ' = ' . $db->quote((int) time()))
+                    ->set($db->quoteName('lastvisitDate') . '=' . $db->quote($date->toSql()))
+
+                    ->set($db->qn('params') . ' = ' . $db->q($this->params->toString('JSON')))
+
+
+
+                    $db = $this->getDbo();
+                    $query = $db->getQuery(true)
+                    ->select('MAX(ordering)')
+                    ->from('#__banners');
+
+                    $db->setQuery($query);
+                    $max = $db->loadResult();
+
+                    $table->ordering = $max + 1;
+
+                    $query = $db->getQuery(true)
+                    ->select('MAX(ordering) as ' . $db->quoteName('max') . ', catid')
+                    ->select('catid')
+                    ->from('#__banners')
+                    ->group('catid');
+
+                    public function getTotal()
+                    {
+                    $db = JFactory::getDbo();
+                    $query = $db->getQuery(true)
+                    ->select('MAX(link_id)')
+                    ->from('#__finder_links');
+                    $db->setQuery($query);
+                    $total = $db->loadResult();
+
+                    return $total;
+                    }
+
+
+                    google joomla 3 updaTING RECORD FROM SELECTION STACK+
 
                     http://stackoverflow.com/questions/35023932/converting-sql-to-joomla-syntax-set-and-update
+                     */
 
                     //--- Update both ------------------------------------------
 
