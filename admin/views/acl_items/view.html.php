@@ -80,7 +80,7 @@ class Rsgallery2ViewAcl_items extends JViewLegacy
 		switch ($Layout)
 		{
 			case 'acls_raw':
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_RAW_ACLS_TXT'), 'eye-close');
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_ACL_VIEW_RAW_DATA'), 'eye-close');
 				JToolBarHelper::editList('acl_item.edit');
 				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'acl_item.delete', 'JTOOLBAR_EMPTY_TRASH'); 				
 				break;

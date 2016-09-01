@@ -82,8 +82,8 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 	{
 		switch ($Layout)
 		{
-			case 'comments_raw':
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_RAW_COMMENTS_TXT'), 'images');
+			case 'galleries_raw':
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_GALLERIES_VIEW_RAW_DATA'), 'images');
 
 				JToolBarHelper::editList('gallery.edit');
 				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'gallery.delete', 'JTOOLBAR_EMPTY_TRASH'); 				

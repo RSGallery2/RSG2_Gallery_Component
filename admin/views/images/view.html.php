@@ -88,7 +88,7 @@ class Rsgallery2ViewImages extends JViewLegacy
 		switch ($Layout)
 		{
 			case 'images_raw':
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_RAW_IMAGES_TXT'), 'image');
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_IMAGES_VIEW_RAW_DATA'), 'image');
 				JToolBarHelper::editList('image.edit');
 				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'image.delete', 'JTOOLBAR_EMPTY_TRASH');
 				break;

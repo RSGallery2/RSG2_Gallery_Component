@@ -80,7 +80,7 @@ class Rsgallery2ViewComments extends JViewLegacy
 		switch ($Layout)
 		{
 			case 'comments_raw':
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_RAW_COMMENTS_TXT'), 'comment');
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_COMMENTS_VIEW_RAW_DATA'), 'comment');
 				JToolBarHelper::editList('comment.edit');
 				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'comment.delete', 'JTOOLBAR_EMPTY_TRASH'); 				
 				break;
