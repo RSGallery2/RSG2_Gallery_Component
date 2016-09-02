@@ -168,6 +168,8 @@ $userId = $user->id;
                     </div>
                 <?php else : ?>
 
+				<br><br><span style="color:red">Task: rights, test seach combo user/access, edit view alias</span><br><br>
+
 				<table class="table table-striped table-hover" id="galleriesList">
 		            <thead>
                         <tr>
@@ -335,7 +337,7 @@ $userId = $user->id;
                                         echo $PreTitle;
 
 							            $link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=" . $item->id);
-							            $link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=galleries&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
+							            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=galleries&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
 							            echo '<a class="hasTooltip" href="' . $link  . '" title="' . JText::_('JACTION_EDIT') . '">';
 										//echo '    ' . $PreTitle . $this->escape($item->name);
                                         echo $this->escape($item->name);
@@ -360,10 +362,10 @@ $userId = $user->id;
                                     $imageCount = $item->image_count;
                                 }
 
-                                $link = JRoute::_("index.php?option=com_rsgallery2&view=images&gallery_id=" . $item->id);
+                                //$link = JRoute::_("index.php?option=com_rsgallery2&view=images&gallery_id=" . $item->id);
                                 $link = JRoute::_("index.php?option=com_rsgallery2&view=images&filter[gallery_id]=" . (int)$item->id);
                                 //$link = JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id);
-    // &filter[search]=uid:' . (int) $userId
+							    // &filter[search]=uid:' . (int) $userId
 
                                 if ($imageCount == 0) {
 									?>

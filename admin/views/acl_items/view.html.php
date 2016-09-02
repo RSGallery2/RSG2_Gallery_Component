@@ -86,7 +86,7 @@ class Rsgallery2ViewAcl_items extends JViewLegacy
 				break;
 
 			default:
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_ACCESS_CONTROL'), 'eye-close');
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MANAGE_ACLS'), 'eye-close');
 				JToolBarHelper::addNew('acl_item.add');
 				JToolBarHelper::editList('acl_item.edit');
 				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'acl_item.delete', 'JTOOLBAR_EMPTY_TRASH'); 				

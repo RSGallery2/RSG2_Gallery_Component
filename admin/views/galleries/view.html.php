@@ -90,7 +90,7 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 				break;
 
 			default:
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_GALLERIES'), 'images');
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MANAGE_GALLERIES'), 'images');
 
 				JToolBarHelper::addNew('gallery.add');
 				JToolBarHelper::editList('gallery.edit');

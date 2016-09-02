@@ -193,7 +193,9 @@ $userId = $user->id;
                     </div>
                 <?php else : ?>
 
-	                <table class="table table-striped table-hover" id="imagessList">
+					<br><br><span style="color:red">Task: rights, order on move, copy</span><br><br>
+
+					<table class="table table-striped table-hover" id="imagessList">
 		                <thead>
 			                <tr>
 								<th width="1%">

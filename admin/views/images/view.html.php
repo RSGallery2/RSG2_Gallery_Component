@@ -94,7 +94,7 @@ class Rsgallery2ViewImages extends JViewLegacy
 				break;
 
 			default:
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_IMAGES'), 'image');
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MANAGE_IMAGES'), 'image');
 				//JToolBarHelper::addNew('image.add');
 				JToolBarHelper::editList('image.edit');
 				//JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'image.delete', 'JTOOLBAR_EMPTY_TRASH');

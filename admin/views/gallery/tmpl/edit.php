@@ -9,7 +9,8 @@ global $Rsg2DebugActive;
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.keepalive'); 
-JHtml::_('formbehavior.chosen', 'select');
+//JHtml::_('formbehavior.chosen', 'select');
+JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'=>3));
 
 JFactory::getDocument()->addScriptDeclaration('
 	Joomla.submitbutton = function(task)
@@ -26,6 +27,9 @@ JFactory::getDocument()->addScriptDeclaration('
 	method="post" name="adminForm" id="item-form" class="form-validate">
 
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
+
+	<br><br><span style="color:red">Task: alias, More rows for combo box</span><br><br>
+
 
 	<div class="test">
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>

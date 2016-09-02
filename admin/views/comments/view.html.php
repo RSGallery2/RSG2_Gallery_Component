@@ -86,7 +86,7 @@ class Rsgallery2ViewComments extends JViewLegacy
 				break;
 
 			default:
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_COMMENTS'), 'comment');
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MANAGE_COMMENTS'), 'comment');
 				// JToolBarHelper::addNew('comment.add');
 				JToolBarHelper::editList('comment.edit');
 				JToolbarHelper::trash('comment.trash');
