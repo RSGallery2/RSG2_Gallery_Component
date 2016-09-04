@@ -60,12 +60,37 @@ class Rsgallery2ModelImages extends JModelList
 //		$authorId = $this->getUserStateFromRequest($this->context . '.filter.user_id', 'filter_author_id');
 //		$this->setState('filter.author_id', $authorId);
 
+		$gallery_id = $this->getUserStateFromRequest($this->context . '.filter.gallery_id', 'filter_gallery_id');
+		$this->setState('filter.gallery_id', $gallery_id);
+
 
 		// List state information.
 		parent::populateState($ordering, $direction);
 	}
 
-    /**
+	/**
+	 * Method to get a store id based on model configuration state.
+	 *
+	 * This is necessary because the model is used by the component and
+	 * different modules that might need different sets of data or different
+	 * ordering requirements.
+	 *
+	 * @param   string  $id  A prefix for the store id.
+	 *
+	 * @return  string  A store id.
+	 *
+	 * @since   1.6
+	 */
+	protected function getStoreId($id = '')
+	{
+		// Compile the store id.
+		$id .= ':' . $this->getState('filter.search');
+		$id .= ':' . $this->getState('filter.gallery_id');
+
+		return parent::getStoreId($id);
+	}
+
+	/**
      * Method to build an SQL query to load the list data.
      *
      * @return      string  An SQL query
@@ -98,8 +123,13 @@ class Rsgallery2ModelImages extends JModelList
 
 		$query->group($query->qn('a.id'));
 
+	    // Filter on the language.
+	    if ($gallery_id = $this->getState('filter.gallery_id'))
+	    {
+		    $query->where('a.gallery_id = ' . $db->quote($gallery_id));
+	    }
 
-		$search = $this->getState('filter.search');
+	    $search = $this->getState('filter.search');
 		if(!empty($search)) {
 			$search = $db->quote('%' . $db->escape($search, true) . '%');
 			$query->where(
@@ -112,7 +142,7 @@ class Rsgallery2ModelImages extends JModelList
 
 		// Add the list ordering clause.
 
-        // changes need change above too -> populateState
+        // changes need changes above too -> populateState
 		$orderCol = $this->state->get('list.ordering', 'a.id');
 		$orderDirn = $this->state->get('list.direction', 'desc');
 
@@ -204,10 +234,7 @@ class Rsgallery2ModelImages extends JModelList
                     $query = $db->getQuery(true);
 
                     $fields = array(
-                        $db->quoteName('gallery_id') . '=0'
-
-                        // try
-                        ,
+                        $db->quoteName('gallery_id') . '=' . $NewGalleryId,
                         $db->quoteName('ordering') . '= MAX(ordering) + 1'
                     );
 

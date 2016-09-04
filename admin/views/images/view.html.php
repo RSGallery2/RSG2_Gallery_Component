@@ -96,18 +96,13 @@ class Rsgallery2ViewImages extends JViewLegacy
 			default:
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MANAGE_IMAGES'), 'image');
 				//JToolBarHelper::addNew('image.add');
+				JToolbarHelper::publish('images.publish', 'JTOOLBAR_PUBLISH', true);
+				JToolbarHelper::unpublish('images.unpublish', 'JTOOLBAR_UNPUBLISH', true);
 				JToolBarHelper::editList('image.edit');
 				//JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'image.delete', 'JTOOLBAR_EMPTY_TRASH');
 				JToolbarHelper::deleteList('', 'images.delete', 'JTOOLBAR_DELETE');
-				JToolbarHelper::publish('images.publish', 'JTOOLBAR_PUBLISH', true);
-				JToolbarHelper::unpublish('images.unpublish', 'JTOOLBAR_UNPUBLISH', true);
 
-				JToolBarHelper::spacer();
-				JToolBarHelper::spacer();
-				JToolBarHelper::spacer();
-				JToolBarHelper::spacer();
-				JToolBarHelper::spacer();
-				JToolBarHelper::spacer();
+				// JToolBarHelper::spacer('50%');
 				JToolbarHelper::divider();
 				JToolbarHelper::divider();
 				JToolbarHelper::divider();

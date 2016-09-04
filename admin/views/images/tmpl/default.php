@@ -178,22 +178,26 @@ $userId = $user->id;
                   method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
 				<?php
 				// Search tools bar
-                echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
+                // OK: echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
+				echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
+
 				//echo JLayoutHelper::render('joomla.searchtools.default', $data, null, array('component' => 'none'));
 				// I managed to add options as always open
 				//echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this, 'options' => array('filtersHidden' => false ($hidden) (true/false) )));
-
-                // Specify gallery for move and copy
-                echo $this->form->renderFieldset('SearchSupport');
-                ?>
-
+				?>
+				<div class="pull-right">
+					<?php
+	                // Specify gallery for move and copy
+	                echo $this->form->renderFieldset('Select4MoveCopy');
+	                ?>
+				</div>
 	            <?php if (empty($this->items)) : ?>
                     <div class="alert alert-no-items">
                         <?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
                     </div>
                 <?php else : ?>
 
-					<br><br><span style="color:red">Task: rights, order on move, copy</span><br><br>
+					<span style="color:red">Task: Search controls, owner rights, order on move, copy</span><br><br>
 
 					<table class="table table-striped table-hover" id="imagessList">
 		                <thead>
