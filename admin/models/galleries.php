@@ -60,12 +60,41 @@ class rsgallery2ModelGalleries extends JModelList
 //		$authorId = $this->getUserStateFromRequest($this->context . '.filter.user_id', 'filter_author_id');
 //		$this->setState('filter.author_id', $authorId);
 
+        $uid = $this->getUserStateFromRequest($this->context . '.filter.uid', 'filter_uid');
+        $this->setState('filter.uid', $uid);
 
-		// List state information.
+        $access = $this->getUserStateFromRequest($this->context . '.filter.access', 'filter_access');
+        $this->setState('filter.access', $access);
+
+
+        // List state information.
 		parent::populateState($ordering, $direction);
 	}
 
-	/**
+    /**
+     * Method to get a store id based on model configuration state.
+     *
+     * This is necessary because the model is used by the component and
+     * different modules that might need different sets of data or different
+     * ordering requirements.
+     *
+     * @param   string  $id  A prefix for the store id.
+     *
+     * @return  string  A store id.
+     *
+     * @since   1.6
+     */
+    protected function getStoreId($id = '')
+    {
+        // Compile the store id.
+        $id .= ':' . $this->getState('filter.search');
+        $id .= ':' . $this->getState('filter.uid');
+        $id .= ':' . $this->getState('filter.access');
+
+        return parent::getStoreId($id);
+    }
+
+    /**
 	 * Method to build an SQL query to load the list data.
 	 *
 	 * @return      string  An SQL query
@@ -101,8 +130,20 @@ class rsgallery2ModelGalleries extends JModelList
 
 		$query->group($query->qn('a.id'));
 
+        // Filter on the user Id.
+        if ($uid = $this->getState('filter.uid'))
+        {
+            $query->where('a.uid = ' . $db->quote($uid));
+        }
 
-		$search = $this->getState('filter.search');
+        // Filter on the access type.
+        if ($access = $this->getState('filter.access'))
+        {
+            $query->where('a.access = ' . $db->quote($access));
+        }
+
+        //
+        $search = $this->getState('filter.search');
 		if(!empty($search)) {
 			$search = $db->quote('%' . $db->escape($search, true) . '%');
 			$query->where(

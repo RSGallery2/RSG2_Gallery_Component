@@ -123,7 +123,7 @@ class Rsgallery2ModelImages extends JModelList
 
 		$query->group($query->qn('a.id'));
 
-	    // Filter on the language.
+	    // Filter on the gallery Id.
 	    if ($gallery_id = $this->getState('filter.gallery_id'))
 	    {
 		    $query->where('a.gallery_id = ' . $db->quote($gallery_id));
