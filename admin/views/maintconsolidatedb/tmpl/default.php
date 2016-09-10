@@ -97,6 +97,8 @@ function DisplayImageDataTable ($ImageReferences) {
 
 	$ImageReferenceList = $ImageReferences->getImageReferenceList();
 
+    echo '<br><br><span style="color:red">Task: move width to top header</span><br>';
+
     // exit if no data given
     if (count($ImageReferenceList) == 0)
     {
@@ -109,28 +111,81 @@ function DisplayImageDataTable ($ImageReferences) {
 //-------------------------------------
 
     echo '<table class="table table-striped table-condensed">';
-	echo '    <caption><h3>'.JText::_('COM_RSGALLERY2_MISSING_IMAGE_REFERENCES_LIST').'</h3></caption><br>';
+	echo '    <caption><h3>'.JText::_('COM_RSGALLERY2_MISSING_IMAGE_REFERENCES_LIST').'</h3></caption>';
     echo '    <thead>';
     echo '        <tr>';
-//    echo '            <th>' . 'Index checkbox'. '</th>'; class="center" width="1%"
 
-//	echo '            <th>' . '<input class="hasTooltip" type="checkbox" onclick="Joomla.checkAll(this)" title="" value=""
-//					name="checkall-toggle" data-original-title="Check All">'.'</th>';
+    $html = array (); // Counter empty
+    $html[] = '<th class="center" width="1%">';
+    $html[] = ''; // empty
+    $html[] = '</th>';
+    echo implode(' ', $html);
 
-	echo '            <th>'.JText::_('Select all').'</th>';
-	echo '            <th>'.JText::_('COM_RSGALLERY2_FILENAME').'</th>';
-    echo '            <th class="center">'.JText::_('COM_RSGALLERY2_IN_BR_DATABASE').'</th>';
-    echo '            <th class="center">'.JText::_('COM_RSGALLERY2_DISPLAY_BR_FOLDER').'</th>';
-    echo '            <th class="center">'.JText::_('COM_RSGALLERY2_ORIGINAL_BR_FOLDER').'</th>';
-    echo '            <th class="center">'.JText::_('COM_RSGALLERY2_THUMB_FOLDER').'</th>';
+    $html = array (); // Check all empty
+    $html[] = '<th class="center" width="1%">';
+    $html[] = ''; // empty
+    $html[] = '</th>';
+    echo implode(' ', $html);
+
+    $html = array (); // filename
+    $html[] = '<th class="align-left" width="10%">';
+    $html[] =      JText::_( 'COM_RSGALLERY2_FILENAME' );
+    $html[] = '</th>';
+    echo implode(' ', $html);
+
+    $html = array (); // In Database
+    $html[] = '<th class="center">';
+    $html[] =      JText::_( 'COM_RSGALLERY2_IN_BR_DATABASE' );
+    $html[] = '</th>';
+    echo implode(' ', $html);
+
+    $html = array (); // display
+    $html[] = '<th class="center">';
+    $html[] =      JText::_( 'COM_RSGALLERY2_DISPLAY_BR_FOLDER' );
+    $html[] = '</th>';
+    echo implode(' ', $html);
+
+    $html = array (); // In original
+    $html[] = '<th class="center">';
+    $html[] =      JText::_( 'COM_RSGALLERY2_ORIGINAL_BR_FOLDER' );
+    $html[] = '</th>';
+    echo implode(' ', $html);
+
+    $html = array (); // thumb
+    $html[] = '<th class="center">';
+    $html[] =      JText::_( 'COM_RSGALLERY2_THUMB_FOLDER' );
+    $html[] = '</th>';
+    echo implode(' ', $html);
+
+    // watermarked
 	if($ImageReferences->UseWatermarked)
 	{
-		echo '            <th class="center">'.JText::_('COM_RSGALLERY2_WATERMARK_BR_FOLDER').'</th>';
-	}
+        $html = array (); // watermarked
+        $html[] = '<th class="center">';
+        $html[] =      JText::_( 'COM_RSGALLERY2_WATERMARK_BR_FOLDER' );
+        $html[] = '</th>';
+        echo implode(' ', $html);
+    }
 
-	echo '            <th class="center">'.JText::_('COM_RSGALLERY2_ACTION').'</th>';
-    echo '            <th class="center">'.JText::_('COM_RSGALLERY2_PARENT_BR_GALLERY').'</th>';
-    echo '            <th class="center">'.JText::_('COM_RSGALLERY2_IMAGE').'</th>';
+    $html = array (); // action
+    $html[] = '<th class="center">';
+    $html[] =      JText::_( 'COM_RSGALLERY2_ACTION' );
+    $html[] = '</th>';
+    echo implode(' ', $html);
+
+    $html = array (); // parent gallery
+    $html[] = '<th class="center" width="10%">';
+    $html[] =      JText::_( 'COM_RSGALLERY2_PARENT_BR_GALLERY' );
+    $html[] = '</th>';
+    echo implode(' ', $html);
+
+    $html = array (); // image
+    $html[] = '<th class="center" width="10%">';
+    $html[] =      JText::_( 'COM_RSGALLERY2_IMAGE' );
+    $html[] = '</th>';
+    echo implode(' ', $html);
+
+
 // COM_RSGALLERY2_DELETE_IMAGES
     echo '        </tr>';
 
@@ -140,6 +195,7 @@ function DisplayImageDataTable ($ImageReferences) {
 
 	echo '<tr>'; // start of row
 
+    /**
 	$html = array (); // Check all
 	$html[] = '<th class="center">';
 	$html[] = '    <input class="hasTooltip" type="checkbox" onclick="Joomla.checkAll(this)" ';
@@ -148,9 +204,23 @@ function DisplayImageDataTable ($ImageReferences) {
 	$html[] = '    >';
 	$html[] = '</th>';
 	echo implode(' ', $html);
+    /**/
 
-	$html = array (); // filename
-	$html[] = '<th class="align-left">';
+    $html = array (); // Counter
+    $html[] = '<th>';
+    $html[] =      JText::_( 'COM_RSGALLERY2_NUM' );
+    $html[] = '</th>';
+    echo implode(' ', $html);
+
+    $html = array (); // Check all
+    $html[] = '<th>';
+    $html[] =      JHtml::_('grid.checkall');
+    $html[] = '</th>';
+    echo implode(' ', $html);
+
+
+    $html = array (); // filename 2
+	$html[] = '<th >';
 	$html[] = ''; // empty
 	$html[] = '</th>';
 	echo implode(' ', $html);
@@ -172,6 +242,7 @@ function DisplayImageDataTable ($ImageReferences) {
 	echo '            <th class="center">'.''.'</th>'; // original
 	echo '            <th class="center">'.''.'</th>'; // thumb
 
+    // watermarked
 	if($ImageReferences->UseWatermarked)
 	{
 		echo '            <th class="center">' . '' . '</th>'; // watermarked
@@ -239,7 +310,7 @@ function DisplayImageDataTable ($ImageReferences) {
 //-------------------------------------
 
 	    echo '        <tr>'; // start of row
-
+/**
 	    $html = array (); // Check all
 	    $html[] = '<td class="center">';
 	    $html[] = '    <input id="cb' . $Idx . '" class="hasTooltip" type="checkbox" ';
@@ -249,7 +320,25 @@ function DisplayImageDataTable ($ImageReferences) {
 	    $html[] = '    >';
 	    $html[] = '</td>';
 	    echo implode(' ', $html);
+/**/
 
+		$html = array (); // row index
+		$html[] = '<td>';
+	    //$html[] = '$this->pagination->getRowOffset($i);';
+		$html[] = (string)$Idx;
+		$html[] = '</td>';
+		echo implode(' ', $html);
+
+
+// Self made pagination from list ?
+
+        $html = array (); // row index
+		$html[] = '<td>';
+        // $html[] =     JHtml::_('grid.id', $i, $item->id);
+        //$html[] =     JHtml::_('grid.id', $ImageData, $Idx);
+        $html[] =     JHtml::_('grid.id', 'Test' . (string) $Idx, $Idx);
+        $html[] = '</td>';
+		echo implode(' ', $html);
 
 	    $html = array (); // filename
 		echo '            <td>' . $ImageData->imageName . '</td>';
