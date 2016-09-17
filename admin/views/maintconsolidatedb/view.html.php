@@ -83,7 +83,10 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
         //		$this->form = $form;
         */
 
-		$this->addToolbar ($this->UserIsRoot); //$Layout);
+        $xmlFile = JPATH_COMPONENT . '/models/forms/maintConsolidateDB.xml';
+        $this->form = JForm::getInstance('images', $xmlFile);
+
+        $this->addToolbar ($this->UserIsRoot); //$Layout);
 		$this->sidebar = JHtmlSidebar::render ();
 
 		parent::display ($tpl);

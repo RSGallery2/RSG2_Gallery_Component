@@ -304,14 +304,14 @@ $userId = $user->id;
 						            <!--td width="1%" class="center">
 							            <?php
 							            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
-							            $link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
+							            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
 							            echo '<a href="' . $link . '"">' . $item->id . '</a>';
 							            ?>
 						            </td-->
 						            <td width="1%" class="">
 							            <?php
 							            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
-							            $link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
+							            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
 							            echo '<a href="' . $link . '"">' . $item->title . '</a>';
 										// <!--img class= "tooltips-link" title="TESTING" etc etc etc code /-->
 							            // <?php echo JHTML::tooltip('This is a tooltip attached to text', 'Text Tooltip Title', 'tooltip.png');? >
@@ -321,7 +321,7 @@ $userId = $user->id;
 						            <td width="1%" class="">
 							            <?php
 							            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
-							            $link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
+							            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
 							            echo '<a href="' . $link . '"">' . $item->name . '</a>';
 							            ?>
 						            </td>
@@ -329,7 +329,7 @@ $userId = $user->id;
 						            <td width="1%" class="">
 							            <?php
 							            $link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=".$item->gallery_id);
-							            $link = JRoute::_("index.php?option=com_rsgallery2&rsgOption=galleries&task=editA&hidemainmenu=1&id=". $item->gallery_id);
+							            //$link = JRoute::_("index.php?option=com_rsgallery2&rsgOption=galleries&task=editA&hidemainmenu=1&id=". $item->gallery_id);
 										//echo '<a href="' . $link . '"">' . $item->gallery_id . '</a>';
 										echo '<a href="' . $link . '"">' . $item->gallery_name . '</a>';
 										?>

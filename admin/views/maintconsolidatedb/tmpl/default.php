@@ -93,7 +93,7 @@ $doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/
 /**
  * @param ImageReferences $ImageReferences
  */
-function DisplayImageDataTable ($ImageReferences) {
+function DisplayImageDataTable ($ImageReferences, $form) {
 
 	$ImageReferenceList = $ImageReferences->getImageReferenceList();
 
@@ -478,12 +478,21 @@ function DisplayImageDataTable ($ImageReferences) {
 
 
 	    $html = array (); // parent gallery
+google (1) joomla formfield array
+            google (2) joomla display array of formfields
 
+
+//		$field = $form->getFieldset('maintConsolidateDB');
 	    if ($ImageData->ParentGalleryId > -1) {
 			echo '            <td class="center">' . $ImageData->ParentGalleryId . '</td>';
+//			echo $form->renderFieldset('maintConsolidateDB');
+//			echo $field->input;
 		}
 		else {
 			echo '            <td class="center"><span class="icon-cancel"></td>';
+//			echo $form->renderFieldset('maintConsolidateDB');
+//				echo $field->input;
+
 		}
 
 	    $html = array (); // image
@@ -571,7 +580,7 @@ function DisplayImageDataTable ($ImageReferences) {
 							<!-- div class="span4 clsInfoAccordion" -->
 							 <?php
 								// Info about last uploaded galleries
-                                DisplayImageDataTable ($this->ImageReferences);
+                                DisplayImageDataTable ($this->ImageReferences, $this->form);
 							?>
 							<!-- /div -->
 						</div>

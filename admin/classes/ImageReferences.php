@@ -203,8 +203,8 @@ class ImageReferences
 
         //Load all image names from filesystem in array
         $dh  = opendir(JPATH_ROOT.$dir);
-        //Files to exclude from the check
 
+        //Files to exclude from the check
         $exclude = array('.', '..', 'Thumbs.db', 'thumbs.db');
         $allowed = array('jpg','gif');
         $names_fs = array();

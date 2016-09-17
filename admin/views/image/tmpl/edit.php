@@ -28,6 +28,8 @@ JFactory::getDocument()->addScriptDeclaration('
 
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
+	<span style="color:red">Task: Preview right </span><br><br>
+
 	<div class="test">
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
 

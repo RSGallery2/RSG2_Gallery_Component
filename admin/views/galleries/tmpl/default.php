@@ -168,7 +168,7 @@ $userId = $user->id;
                     </div>
                 <?php else : ?>
 
-				<br><br><span style="color:red">Task: rights, test seach combo user/access, edit view alias</span><br><br>
+				<span style="color:red">Task: rights, test seach combo user/access, edit view alias</span><br><br>
 
 				<table class="table table-striped table-hover" id="galleriesList">
 		            <thead>

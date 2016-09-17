@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form enctype="multipart/form-data">
+	<fieldset name="maintConsolidateDB">
+		<!-- Parent gallery selection -->
+		<field
+			name         = "parentId"
+			type         = "GallerySelectList"
+			description  = ""
+			required     = "true"
+			class        = "inputbox"
+			addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+			multiple     = "true"
+			size         = "4"
+		/>
+		<!-- 
+			translate_label	= "true"
+			class			= "inputbox"
+		-->
+
+	</fieldset>
+</form>
