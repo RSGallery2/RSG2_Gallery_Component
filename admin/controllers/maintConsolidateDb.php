@@ -44,8 +44,8 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 	 * images to ...
 	 *
 	 */
-	public function createDbEntries () {
-		$msg = "controller.createDbEntries: ";
+	public function createImageDbItems () {
+		$msg = "controller.createImageDbItems: ";
 		$msgType = 'notice';
 
 		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
@@ -60,7 +60,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
 			// Model tells if successful
 			$model = $this->getModel('maintConsolidateDB');
-			$msg .= $model->createDbEntries();
+			$msg .= $model->createImageDbItems();
 
 			
 		}
@@ -71,8 +71,91 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 // http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
 	}
 
-	
-	
-	
-	
+
+	/**
+	 * images to ...
+	 *
+	 */
+	public function createMissingImages () {
+		$msg = "controller.createMissingImages: ";
+		$msgType = 'notice';
+
+		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		if (!$canAdmin) {
+			//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
+
+
+			// Model tells if successful
+			$model = $this->getModel('maintConsolidateDB');
+			$msg .= $model->createMissingImages();
+
+
+		}
+
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
+
+// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
+// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
+	}
+
+	/**
+	 * images to ...
+	 *
+	 */
+	public function deleteAllImages () {
+		$msg = "controller.deleteAllImages: ";
+		$msgType = 'notice';
+
+		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		if (!$canAdmin) {
+			//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
+			// Model tells if successful
+			$model = $this->getModel('maintConsolidateDB');
+			$msg .= $model->deleteAllImages();
+		}
+
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
+
+// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
+// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
+	}
+
+
+	/**
+	 * images to ...
+	 *
+	 */
+	public function assignGallery () {
+		$msg = "controller.assignGallery: ";
+		$msgType = 'notice';
+
+		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		if (!$canAdmin) {
+			//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
+			// Model tells if successful
+			$model = $this->getModel('maintConsolidateDB');
+			$msg .= $model->assignGallery();
+		}
+
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
+
+// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
+// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
+	}
+
 }

@@ -110,6 +110,16 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 	{
         // Title
         JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINT_CONSOLIDATE_IMAGE_DATABASE'), 'icon-database icon-checkbox-checked');
+
+        JToolBarHelper::custom ('MaintConsolidateDb.createImageDbItems','database','','COM_RSGALLERY2_CREATE_DATABASE_ENTRIES', true);
+        JToolBarHelper::custom ('MaintConsolidateDb.createMissingImages','image','','COM_RSGALLERY2_CREATE_SELECTED_MISSING_IMAGES', true);
+        JToolBarHelper::custom ('MaintConsolidateDb.deleteAllImages','delete','','COM_RSGALLERY2_DELETE_SELECTED_IMAGES', true);
+        JToolBarHelper::custom ('MaintConsolidateDb.assignGallery','images','','COM_RSGALLERY2_ASSIGN_SELECTED_GALLLERIES', true);
+        //JToolBarHelper::custom ('MaintConsolidateDb..','next','','COM_RSGALLERY2_MOVE_TO', true);
+        //JToolBarHelper::custom ('MaintConsolidateDb.','copy','','COM_RSGALLERY2_COPY', true);
+
+
+
 /*
         if ($UserIsRoot) {
             JToolBarHelper::custom('maintRegenerate.RegenerateImagesDisplay','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY', false);

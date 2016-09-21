@@ -438,7 +438,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 							$link = 'index.php?option=com_rsgallery2&amp;view=acl_items';
 							quickTwoIconMoonBar ($link, 'icon-eye-close', 'icon-list-2',
 								JText::_('COM_RSGALLERY2_ACLS_LIST'),
-								JText::_('COM_RSGALLERY2_ACLS_LIST_DESC'),
+								JText::_('List of ACL: niot ready'),
 								'consolidateDB');
 							?>
 
