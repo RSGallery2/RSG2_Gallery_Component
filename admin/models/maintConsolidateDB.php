@@ -37,6 +37,7 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
      */
     public function CreateDisplayImageData ()
     {
+        // ToDo: Instead of message return HasError;
         $msg = ''; //  ": " . '<br>';
 
         //
@@ -63,29 +64,6 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 
         return $msg;
     }
-
-
-    /**
-     * retrieves state if debug is activated on user config
-     * @return bool
-     */
-    /*
-	public static function getIsDebugActive()
-	{
-		if (!empty($this->IsDebugActive)) {
-			$db =  JFactory::getDbo();
-			$query = $db->getQuery (true)
-				->select ($db->quoteName('value'))
-				->from($db->quoteName('#__rsgallery2_config'))
-				->where($db->quoteName('name')." = ".$db->quote('debug'));
-			$db->setQuery($query);
-			$this->IsDebugActive  = $db->loadResult();
-		}
-
-		return $this->IsDebugActive;
-	}
-	*/
-
 
     /**
      * Tells if watermark is activated on user config
@@ -122,6 +100,146 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 
         return $this->IsWatermarkActive;
     }
+
+    public function SelectedImageReferences () {
+
+        $ImageReferences = array ();
+
+        $input = JFactory::getApplication()->input;
+        $cid   = $input->get('cid', array(), 'ARRAY');
+
+        if (empty ($cid)){
+            $OutTxt = 'No items selected';
+            // $OutTxt .= ': "' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'notice');
+
+            return -1;
+        }
+
+        $cids = implode(',', $cid);
+
+        $ImageReferenceList = $input->getString('ImageReferenceList');
+        if (empty ($ImageReferenceList)){
+            $OutTxt = 'Retrieved no image reference items from input';
+            // $OutTxt .= ': "' . '<br>';
+
+            // $app = JFactory::getApplication();
+            //$app->enqueueMessage($OutTxt, 'error');
+
+            // return -1;
+            throw new RuntimeException($OutTxt);
+        }
+
+        /**
+        if (!$ImageReferences instanceof ImageReference [])
+        {
+        continue;
+        }
+        /**/
+
+        $ImageReferenceList = html_entity_decode($ImageReferenceList, ENT_QUOTES, 'UTF-8');
+        $ImageReferenceList = json_decode ($ImageReferenceList);
+
+        //$UseWatermarked = $ImageReferenceList->UseWatermarked;
+        //$ImageReferences = $ImageReferenceList->ImageReferences;
+//            if (!is_array ($ImageReferences)) {
+        if (!is_array ($ImageReferenceList)) {
+            $OutTxt = 'Format of image reference items wrong';
+            // $OutTxt .= ': "' . '<br>';
+
+            //$app = JFactory::getApplication();
+            //$app->enqueueMessage($OutTxt, 'error');
+
+            $OutTxt .= '->'.$ImageReferenceList;
+            // return -1;
+            throw new RuntimeException($OutTxt);
+        }
+
+        $imgRefCount = count ($ImageReferenceList);
+
+        // each selected image row
+        foreach ($cid as $imgIdx)
+        {
+            // out of range ?
+            if ($imgIdx < 0 || $imgRefCount <= $imgIdx)
+            {
+                $OutTxt = 'Selected index: ' . $imgIdx . ' is out of range';
+                // $OutTxt .= ': "' . '<br>';
+
+                $app = JFactory::getApplication();
+                $app->enqueueMessage($OutTxt, 'notice');
+
+                continue;
+            }
+
+            $ImageReferences[] = $ImageReferenceList [$imgIdx];
+        }
+
+        return $ImageReferences;
+    }
+
+    public function createImageDbItems ()
+    {
+        // ToDo: Instead of message return HasError;
+
+        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+        $msg     = "createImageDbItems: ";
+ //       $msgType = 'notice';
+
+        try
+        {
+            // Collect user selection
+            // May throw error
+            $ImageReferences =  $this->SelectedImageReferences ();
+
+            foreach ($ImageReferences as $ImageReference) {
+                $msg .= $this->createImageDbItem ($ImageReference);
+            }
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error creating database image object: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $msg;
+    }
+
+    public function createImageDbItem ($ImageReference)
+    {
+        // ToDo: Instead of message return HasError;
+
+        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+        $msg     = "<br>createImageDbItem: ";
+        $msg .= $ImageReference->imageName;
+        //       $msgType = 'notice';
+
+        try
+        {
+
+
+
+
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing moveTo: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $msg;
+    }
+
 
 
 
