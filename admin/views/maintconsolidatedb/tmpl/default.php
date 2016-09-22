@@ -23,135 +23,6 @@ $doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/
 
 <script type="text/javascript">
 
-	/*
-	Deselect all (checkboxes)
-	*/
-	Joomla.checkNone = function() {
-
-		alert ('checkNone');
-
-/**
-		if (typeof jQuery == 'undefined') {
-			// jQuery is not loaded
-			alert ('jquery not loaded');
-		} else {
-			// jQuery is loaded
-			alert ('jquery loaded');
-		}
-/**/
-		var ids = '';
-
-		// alert ('a');
-		// window.parent.jQuery("a").each(function() {
-		window.parent.jQuery(".db_missing").each(function() {
-			// alert ('b1');
-			var id = window.parent.jQuery(this).attr('id');
-			// alert ('b2');
-			if (id != undefined && id != "") {
-				// alert ('b3');
-				// alert('id: ' + id);
-				// alert ('b4');
-				ids = ids + (ids.length > 0 ? "," + id : id);
-				// alert ('b5');
-				// deactivate the image in row
-				this.checked = false;
-				// alert ('b6');
-			}
-		});
-		alert(ids);
-		
-		return true;
-	};
-/**/
-
-	// This row: create database entry for one image item
-	// Other checkboxes are already disabled
-	Joomla.createDbEntry = function(checkbox) {
-
-		alert ('createDbEntry: ' +  checkbox.id);
-
-		// Activate the image in row
-		window.parent.jQuery("#" + checkbox.id).each(function() {
-//			alert ('b1');
-			this.checked = true;
-//			alert ('b2');
-		});
-//		alert ('c');
-
-		var form = document.getElementById('adminForm');
-		form.task.value = 'MaintConsolidateDb.createDbEntries';
-//		alert ('d');
-
-		form.submit();
-//		alert ('e');
-	}
-
-	// This row: create other image from existing one
-	// Other checkboxes are already disabled
-	Joomla.assignJoomla.createMissingImages = function(checkbox) {
-
-		alert ('createDbEntry: ' +  checkbox.id);
-
-		// Activate the image in row
-		window.parent.jQuery("#" + checkbox.id).each(function() {
-//			alert ('b1');
-			this.checked = true;
-//			alert ('b2');
-		});
-//		alert ('c');
-
-		var form = document.getElementById('adminForm');
-		form.task.value = 'MaintConsolidateDb.createMissingImages';
-//		alert ('d');
-
-		form.submit();
-//		alert ('e');
-	}
-
-	// This row: delete all images so this row may vanish
-	// Other checkboxes are already disabled
-	Joomla.deleteAllImages = function(checkbox) {
-
-		alert ('createDbEntry: ' +  checkbox.id);
-
-		// Activate the image in row
-		window.parent.jQuery("#" + checkbox.id).each(function() {
-//			alert ('b1');
-			this.checked = true;
-//			alert ('b2');
-		});
-//		alert ('c');
-
-		var form = document.getElementById('adminForm');
-		form.task.value = 'MaintConsolidateDb.deleteAllImages';
-//		alert ('d');
-
-		form.submit();
-//		alert ('e');
-	}
-
-	// This row: Assign selectred gallery id
-	// Other checkboxes are already disabled
-	Joomla.assignGallery = function(checkbox) {
-
-		alert ('createDbEntry: ' +  checkbox.id);
-
-		// Activate the image in row
-		window.parent.jQuery("#" + checkbox.id).each(function() {
-//			alert ('b1');
-			this.checked = true;
-//			alert ('b2');
-		});
-//		alert ('c');
-
-		var form = document.getElementById('adminForm');
-		form.task.value = 'MaintConsolidateDb.assignAllGalleries';
-//		alert ('d');
-
-		form.submit();
-//		alert ('e');
-	}
-
 </script>
 
 <?php
@@ -380,7 +251,7 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 		$html[] = '<td>';
         // $html[] =     JHtml::_('grid.id', $i, $item->id);
         //$html[] =     JHtml::_('grid.id', $ImageData, $Idx);
-        $html[] =  ''.    JHtml::_('grid.id', 'Test' . (string) $Idx, $Idx);
+        $html[] =  ''.    JHtml::_('grid.id', '' . (string) $Idx, $Idx);
         $html[] = '</td>';
 		echo implode(' ', $html);
 
@@ -402,9 +273,9 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 			$html   = array(); // database
 			$html[] = '<td class="center">';
 			$html[] = '4     <a class="btn btn-micro jgrid hasTooltip db_missing" ';
-			$html[] = '         id="db' . $Idx . '" ';
-			$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_DATABASE_ENTRY') . '" ';
-			$html[] = '         onclick="Joomla.checkNone(this); return Joomla.createDbEntry(this);"';
+			$html[] = '         data-original-title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_DATABASE_ENTRY') . '" ';
+			$html[] = '         onclick="return listItemTask(\'cb' . $Idx . '\',\'MaintConsolidateDb.createImageDbItems\')" ';
+			$html[] = '         href="javascript:void(0);"';
 			$html[] = '     >';
 			$html[] = '         <span class="icon-database"></span>';
 			$html[] = '     </a>';
@@ -492,27 +363,30 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 	    $html[] = '<td class="center">';
 	    if($ImageData->IsMainImageMissing (ImageReference::dontCareForWatermarked) )
 	    {
-		    $html[] = '9     <a class="btn btn-micro jgrid hasTooltip header_button" ';
-		    $html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_MISSING_IMAGES_IN_ROW') . '" ';
-		    $html[] = '         onclick="Joomla.checkNone(this); return Joomla.createRowDbEntry();"';
+		    $html[] = '9     <a class="btn btn-micro jgrid hasTooltip" ';
+		    $html[] = '         data-original-title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_MISSING_IMAGES_IN_ROW') . '" ';
+		    $html[] = '         onclick="return listItemTask(\'cb' . $Idx . '\',\'MaintConsolidateDb.createMissingImages\')" ';
+		    $html[] = '         href="javascript:void(0);"';
 		    $html[] = '     >';
 		    $html[] = '         <span class="icon-image"></span>';
 		    $html[] = '     </a>';
 	    }
 	    //if($ImageReferences->)
 	    {
-		    $html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
-		    $html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_DELETE_IMAGES_IN_ROW') . '" ';
-		    $html[] = '         onclick="Joomla.checkNone(this); return Joomla.deleteRowDbEntry();"';
+		    $html[] = '     <a class="btn btn-micro jgrid hasTooltip" ';
+		    $html[] = '         data-original-title="' . JHtml::tooltipText('COM_RSGALLERY2_DELETE_IMAGES_IN_ROW') . '" ';
+		    $html[] = '         onclick="return listItemTask(\'cb' . $Idx . '\',\'MaintConsolidateDb.deleteAllImages\')" ';
+		    $html[] = '         href="javascript:void(0);"';
 		    $html[] = '     >';
 		    $html[] = '         <span class="icon-delete"></span>';
 		    $html[] = '     </a>';
 	    }
 	    // if($ImageReferences->)
 	    {
-		    $html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
-		    $html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_ASSIGN_GALLLERY_IN_ROW') . '" ';
-		    $html[] = '         onclick="Joomla.checkNone(this); return Joomla.assignRowGalleries();"';
+		    $html[] = '     <a class="btn btn-micro jgrid hasTooltip" ';
+		    $html[] = '         data-original-title="' . JHtml::tooltipText('COM_RSGALLERY2_ASSIGN_GALLLERY_IN_ROW') . '" ';
+		    $html[] = '         onclick="return listItemTask(\'cb' . $Idx . '\',\'MaintConsolidateDb.assignGalleries\')" ';
+		    $html[] = '         href="javascript:void(0);"';
 		    $html[] = '     >';
 		    $html[] = '         <span class="icon-images"></span>';
 		    $html[] = '     </a>';

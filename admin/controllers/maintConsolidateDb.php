@@ -92,7 +92,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
 			// Model tells if successful
 			$model = $this->getModel('maintConsolidateDB');
-			$msg .= $model->createMissingImages();
+			$msg .= $model->createSelectedMissingImages();
 
 
 		}
@@ -135,7 +135,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 	 * images to ...
 	 *
 	 */
-	public function assignGallery () {
+	public function assignGalleries () {
 		$msg = "controller.assignGallery: ";
 		$msgType = 'notice';
 
@@ -149,7 +149,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		} else {
 			// Model tells if successful
 			$model = $this->getModel('maintConsolidateDB');
-			$msg .= $model->assignGallery();
+			$msg .= $model->assignGalleries();
 		}
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
@@ -157,5 +157,38 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 // http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
 // http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
 	}
+
+
+	/**
+	 * images to ...
+	 *
+	 */
+	public function deleteReferences () {
+		$msg = "controller.assignGallery: ";
+		$msgType = 'notice';
+
+		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		if (!$canAdmin) {
+			//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
+			// Model tells if successful
+			$model = $this->getModel('maintConsolidateDB');
+			$msg .= $model->deleteReferences();
+		}
+
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
+
+// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
+// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
+	}
+
+
+
+
+
 
 }
