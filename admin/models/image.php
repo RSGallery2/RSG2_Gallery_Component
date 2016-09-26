@@ -126,4 +126,71 @@ class Rsgallery2ModelImage extends  JModelAdmin
 	}
 
 
+	// ToDO: try to do it more elegant
+
+    public function CreateImage ($imageName, $galleryId)
+    {
+        $HasError = 0;
+
+        $OutTxt = 'Model Image: CreateImage "' . $imageName . '""  galleryId' . $galleryId;
+        JFactory::getApplication()->enqueueMessage($OutTxt, 'warning');
+
+
+        CREATE TABLE IF NOT EXISTS `#__rsgallery2_files` (
+    `id` int(9) unsigned NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL default '',
+  `alias` varchar(255) NOT NULL DEFAULT '',
+  `descr` text,
+  `gallery_id` int(9) unsigned NOT NULL default '0',
+  `title` varchar(255) NOT NULL default '',
+  `hits` int(11) unsigned NOT NULL default '0',
+  `date` datetime NOT NULL default '0000-00-00 00:00:00',
+  `rating` int(10) unsigned NOT NULL default '0',
+  `votes` int(10) unsigned NOT NULL default '0',
+  `comments` int(10) unsigned NOT NULL default '0',
+  `published` tinyint(1) NOT NULL default '1',
+  `checked_out` int(11) NOT NULL default '0',
+  `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
+  `ordering` int(9) unsigned NOT NULL default '0',
+  `approved` tinyint(1) unsigned NOT NULL default '1',
+  `userid` int(10) NOT NULL,
+  `params` text NOT NULL,
+  `asset_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'FK to the #__assets table.',
+
+    /**
+    $db = JFactory::getDbo();
+    $query = $db->getQuery(true);
+    $query->insert($db->quoteName('#__my_users'))
+        ->columns(array('name', 'username'))
+        ->values(implode(',', array($db->quote('Joe'), $db->quote('jlipman')) ));
+    $db->setQuery($query);
+    $result = $db->query();
+    /**/
+
+    /**
+    // Create and populate an object.
+    $image_record = new stdClass();
+    $image_record->name = 'Joel';
+    $image_record->username = 'jlipman';
+
+    // Insert the object into the user table.
+    $result = JFactory::getDbo()->insertObject('#__rsgallery2_files', $image_record);
+
+    /**/
+    $data['userid']  = $userid;
+    $data['title']   = $title;
+    $data['content'] = $content;
+    $data['state']   = $state;
+
+    // Lets store it!
+    $row             = JTable::getInstance('Message','BestiaTable');
+    $row->bind($data);
+    $row->check();
+    $store           = $row->store();
+    if($store)                        return $row->id;
+
+        return HasError;
+    }
+
+
 }

@@ -339,6 +339,38 @@ class Rsgallery2ModelImages extends JModelList
         return $msg;
     }
 
+    /**
+     * copy the item to an other gallery
+     * @param int id of the target gallery
+     * @return rsgItem newly created rsgItem
+     *
+
+    function copy($target_gallery){
+
+        if($target_gallery == null) return null;
+
+        global $database,$rsgConfig;
+
+        $new_item = clone($this);
+        $new_item->gallery_id = $target_gallery;
+
+        if( !$database->insertObject('#__rsgallery2_files', $new_item, 'id') ) {
+            $this->setError( $database->getErrorMsg() );
+            return null;
+        }
+
+        if ( $rsgConfig->get('gallery_folders') ){
+
+            // TODO: copy files from source to target gallery folder
+
+        }
+
+        return $this;
+
+    }
+    /**/
+
+// ToDo: see above   ? alias ? clone ids php function or ...
 
     public function copyImagesTo ()
     {
