@@ -395,21 +395,41 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 	    echo implode(' ', $html);
 
 
-	    $html = array (); // parent gallery
+	    $html = array (); // action
+	    $html[] = '<td class="center">10 ';
+
         // google (1) joomla formfield array
-        // google (2) joomla display array of formfields
+        // google (2) joomla display array of form fields
 
 //		$field = $form->getFieldset('maintConsolidateDB');
 	    if ($ImageData->ParentGalleryId > -1) {
-			echo '            <td class="center">10' . $ImageData->ParentGalleryId . '</td>';
-//			echo $form->renderFieldset('maintConsolidateDB');
-//			echo $field->input;
+		    $html[] = '' . $ImageData->ParentGalleryId . ' ';
 		}
 		else {
-			echo '            <td class="center"><span class="icon-cancel"></td>';
-//			echo $form->renderFieldset('maintConsolidateDB');
-//				echo $field->input;
+			$html[] = '<span class="icon-cancel">';
 		}
+
+	    //$html[] = $form->renderFieldset('maintConsolidateDB');
+//	    $field = $form->getFieldset('maintConsolidateDB');
+//	    $html[] = $field->input;
+
+/**
+<?php foreach ($this->form->getFieldset('myfields') as $field) : ?>
+	<div class="control-group">
+		<div class="control-label">
+			<?php echo $field->label; ?>
+		</div>
+		<div class="controls">
+			<?php echo $field->input; ?>
+		</div>
+	</div>
+<?php endforeach; ?>
+/**/
+
+
+
+	    $html[] = '</td>';
+	    echo implode(' ', $html);
 
 	    $html = array (); // image
 
