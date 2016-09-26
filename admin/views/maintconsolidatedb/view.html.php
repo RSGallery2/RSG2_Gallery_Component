@@ -50,7 +50,6 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
 
 		$ConsolidateModel = JModelLegacy::getInstance ('MaintConsolidateDB', 'rsgallery2Model');
-
 		$this->ImageReferences = $ConsolidateModel->GetImageReferences ();
 
 		// echo json_encode($this->DisplayImageData);
