@@ -195,7 +195,10 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
             $ImageReferences =  $this->SelectedImageReferences ();
 
             foreach ($ImageReferences as $ImageReference) {
-                $msg .= $this->createImageDbItem ($ImageReference);
+	            $msg     = "<br>createImageDbItem: ";
+	            $msg .= $ImageReference->imageName;
+
+                $HasError = $this->createImageDbItem ($ImageReference);
             }
         }
         catch (RuntimeException $e)
@@ -213,18 +216,31 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 
     public function createImageDbItem ($ImageReference)
     {
-        // ToDo: Instead of message return HasError;
+	    $HasError = 0;
 
-        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-        $msg     = "<br>createImageDbItem: ";
-        $msg .= $ImageReference->imageName;
         //       $msgType = 'notice';
 
         try
         {
+        	// Already exist in db
+			if($ImageReference->IsImageInDatabase)
+			{
+				$OutTxt = 'Database item does already exist for ' . $ImageReference->imageName;
+				JFactory::getApplication()->enqueueMessage($OutTxt, 'warning');
 
+				$HasError = -1;
+			}
 
+			// Create new db item
+			if ($HasError == 0)
+			{
+				// ToDo: Determine gallery ID from $input...
+				$GalleryId = -1;
 
+				$ImageModel = JModelLegacy::getInstance ('Image', 'rsgallery2Model');
+				$HasError = $ImageModel->CreateImage ($ImageReference->imageName, $GalleryId);
+
+			}
 
         }
         catch (RuntimeException $e)
@@ -237,7 +253,7 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
             $app->enqueueMessage($OutTxt, 'error');
         }
 
-        return $msg;
+        return $HasError;
     }
 
 
