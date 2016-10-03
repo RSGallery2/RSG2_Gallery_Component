@@ -1,0 +1,12 @@
+ Ich hatte mal eine Komponente (leider kann ich mich nicht 
+ mehr an den Namen erinnern) mit der ich eine Gallerie 
+ erstellen konnte mit nur einem FTP upload.
+Das Script erstellte selbstständig die Thumps. Die Ordnerstruktur 
+war die Struktur der Gallerie.
+Warum suche ich das? 15.000 Bilder sollen in eine Gallerie 
+und mit Phoca ist das super aufwendig.
+
+Hat wer ne Idee?
+Ich denke du meinst JoomGallery.
+Die hat besagten FTP Upload
+
