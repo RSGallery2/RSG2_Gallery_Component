@@ -33,17 +33,17 @@ An overview can be seen on the wiki of this component
 
 ![lovelocksgallery 01](https://cloud.githubusercontent.com/assets/7040580/10307011/60de773e-6c2b-11e5-8008-1061454e6720.png)
 
-#Backend Control Panel panel:
+#Backend: Control Panel
 
 ![rsgallery2controlpanel](https://cloud.githubusercontent.com/assets/7040580/15866364/8ce88422-2cde-11e6-8119-86ed585bfcfc.png)
 
-#Backend Maintenance view
+#Backend: Maintenance
 
 ![rsgallery2maintenance 02](https://cloud.githubusercontent.com/assets/7040580/15866405/bcb2bb96-2cde-11e6-828f-3952e4fe6cb7.png)
 
 ## Forum
 
-Active forum in http://www.rsgallery2.nl/
+Active forum in http://www.forum.rsgallery2.org/
 
 
 ## History
@@ -53,22 +53,22 @@ The project started in the mambo days and got really big in J!1.5. Due to reason
 
 Mirjam got the version running under J!2.5 and did a great Job supporting user on the forum. While starting to upgrade for J!3x she got a baby and does only user maintenance now. I finished her task. (First rsgallery2 version 16.04.2015)
 
-...
+Actual (Oct. 2016) the forum was moved to forum.rsgallery2.org and a new landing page rsgallery.org was created.
 
-To be continued
+...   To be continued ;-)
 
 ## Actual state:
 The components are released for Joomla! 3.x
 The software is regularly evolving and changing.
 We are in a continuous process to improve parts here and there.
-If you have any suggestion please use the forum http://www.rsgallery2.nl
+If you have any suggestion please use the forum http://www.forum.rsgallery2.org
 
 
 # Want to Contribute?
 
 There's a few ways you can get in touch:
 
-    Chat on Twitter. Follow @WebceptionApp for release updates or follow @JayHealey for everything else.
+	Send us a post to team at rsgallery.org (correct address to match ...)
 
     Post bugs, issues, feature requests via GitHub Issues.
 
@@ -82,4 +82,4 @@ If you like the project and want to give something back, please help out other u
 
 RSGallery2 is a project run by volunteers. People who just love Joomla and this gallery component. So RSGallery2 needs you!
 
-How? By reporting bugs and problems in the forum, by answering questions of other users on the forum, by submitting fixes for bugs, by writing documentation... where? On www.rsgallery2.nl!
+How? By reporting bugs and problems in the forum, by answering questions of other users on the forum, by submitting fixes for bugs, by writing documentation... where? On www.rsgallery2.org !
