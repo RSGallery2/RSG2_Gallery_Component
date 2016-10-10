@@ -100,8 +100,6 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 	}
     /**/
 
-
-
 	/**
 	 * A protected method to get a set of ordering conditions.
 	 *
@@ -115,6 +113,139 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 		$condition[] = 'parent = ' . (int) $table->parent;
 
 		return $condition;
+	}
+
+
+	/**
+	 * Method to save the form data.
+	 *
+	 * @param   array  $data  The form data.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @since   1.6
+	 */
+	public function save($data)
+	{
+		$input = JFactory::getApplication()->input;
+
+		$task = $input->get('task');
+
+		// Automatic handling of alias for empty fields
+		if (in_array($task, array('apply', 'save', 'save2new'))
+				&& (!isset($data['id']) || (int) $data['id'] == 0))
+		{
+			if ($data['alias'] == null)
+			{
+				if (JFactory::getConfig()->get('unicodeslugs') == 1)
+				{
+					$data['alias'] = JFilterOutput::stringURLUnicodeSlug($data['name']);
+				}
+				else
+				{
+					$data['alias'] = JFilterOutput::stringURLSafe($data['name']);
+				}
+
+				$table = $this->getTable();
+
+				//if ($table->load(array('alias' => $data['alias'], 'catid' => $data['catid'])))
+				if ($table->load(array('alias' => $data['alias'])))
+				{
+					$msg = JText::_('COM_CONTENT_SAVE_WARNING');
+				}
+
+				// Alter values for save as copy
+				if ($task == 'save2copy')
+				{
+					$data['name'] = $this->generateUniqueName($data);
+				}
+
+				// The save2copy task needs to be handled slightly differently.
+				if ($task == 'save2copy')
+				{
+					/**
+					// Check-in the original row.
+					if ($model->checkin($data['id']) === false)
+					{
+						// Check-in failed, go back to the item and display a notice.
+						$this->setMessage(JText::sprintf('JLIB_APPLICATION_ERROR_CHECKIN_FAILED', $model->getError()), 'warning');
+
+						return false;
+					}
+
+					// Reset the ID and then treat the request as for Apply.
+					$data['id'] = 0;
+					$data['associations'] = array();
+					$task = 'apply';
+
+					/**/
+				}
+
+				/* ToDO: check for existing alias and **/
+
+				list($name, $alias) = $this->generateNewTitle($table->id, $table->alias, $table->name);
+				$table->name = $name;
+				$table->alias = $alias;
+
+				/**
+				list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['name']);
+				$data['alias'] = $alias;
+
+				if (isset($msg))
+				{
+					JFactory::getApplication()->enqueueMessage($msg, 'warning');
+				}
+				/**/
+
+
+
+			}
+		}
+
+		if (parent::save($data))
+		{
+			/**
+			$new_pk = (int) $this->getState($this->getName() . '.id');
+
+			if ($app->input->get('task') == 'save2copy')
+			{
+				// Reorder table so that new record has a unique ordering value
+				$table->load($new_pk);
+				$conditions_array = $this->getReorderConditions($table);
+				$conditions = implode(' AND ', $conditions_array);
+				$table->reorder($conditions);
+			}
+			/**/
+			return true;
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * Method to change the title & alias.
+	 *
+	 * @param   integer  $category_id  The id of the category.
+	 * @param   string   $alias        The alias.
+	 * @param   string   $title        The title.
+	 *
+	 * @return	array  Contains the modified title and alias.
+	 *
+	 * @since	12.2
+	 */
+	protected function generateNewTitle($id, $alias, $title)
+	{
+		// Alter the title & alias
+		$table = $this->getTable();
+
+		while ($table->load(array('alias' => $alias, 'id' => $id)))
+		{
+			$title = JString::increment($title);
+			$alias = JString::increment($alias, 'dash');
+		}
+
+		return array($title, $alias);
 	}
 
 }

@@ -135,6 +135,7 @@ class Rsgallery2ModelImage extends  JModelAdmin
         $OutTxt = 'Model Image: CreateImage "' . $imageName . '""  galleryId' . $galleryId;
         JFactory::getApplication()->enqueueMessage($OutTxt, 'warning');
 
+	/**
 
         CREATE TABLE IF NOT EXISTS `#__rsgallery2_files` (
     `id` int(9) unsigned NOT NULL auto_increment,

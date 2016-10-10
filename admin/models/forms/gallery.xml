@@ -14,14 +14,26 @@
 		/>
 
 		<field
-			name			= "alias"
-			type			= "text"
-			label           = "COM_RSGALLERY2_ALIAS"
-			description     = ""
-			maxlength       = "250"
-			class           = "input-xlarge"
-			filter          = ""
-			size            = "60"
+				name			= "alias"
+				type			= "text"
+				label           = "JFIELD_ALIAS_LABEL"
+				description     = "JFIELD_ALIAS_DESC"
+				maxlength       = "250"
+				class           = "input-xlarge"
+				filter          = ""
+				size            = "40"
+				hint            = "JFIELD_ALIAS_PLACEHOLDER"
+		/>
+
+		<field
+				name			= "alias2"
+				type			= "text"
+				label           = "COM_RSGALLERY2_ALIAS"
+				description     = ""
+				maxlength       = "250"
+				class           = "input-xlarge"
+				filter          = ""
+				size            = "60"
 		/>
 
 		<field
