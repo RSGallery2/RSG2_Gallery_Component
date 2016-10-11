@@ -89,6 +89,12 @@ class Rsgallery2ViewGallery extends JViewLegacy
 				{
 					JToolBarHelper::cancel('gallery.cancel');
 				}
+
+				yyyy;
+				JToolBarHelper::custom ('gallery.SavceAndUpload','upload','','Save and upload', true);
+
+
+
 				break;
 		}
 

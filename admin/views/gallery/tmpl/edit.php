@@ -28,7 +28,7 @@ JFactory::getDocument()->addScriptDeclaration('
 
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
-	<span style="color:red">Task: alias, Assign user, More rows for combo box, Toolbar: Link for Upload</span><br><br>
+	<span style="color:red">Task: alias, update checkout/in , More rows for combo box, ?ordering of new, Toolbar: Link for Upload</span><br><br>
 
 
 	<div class="test">

@@ -115,6 +115,11 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 		return $condition;
 	}
 
+	/**/
+	 * function edit -> checkout .... http://joomla.stackexchange.com/questions/5333/how-is-content-locking-handled-in-custom-components
+	 */
+
+
 
 	/**
 	 * Method to save the form data.
