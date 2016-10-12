@@ -115,10 +115,9 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 		return $condition;
 	}
 
-	/**/
+	/**
 	 * function edit -> checkout .... http://joomla.stackexchange.com/questions/5333/how-is-content-locking-handled-in-custom-components
 	 */
-
 
 
 	/**
@@ -159,6 +158,8 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 					$msg = JText::_('COM_CONTENT_SAVE_WARNING');
 				}
 
+                /**** save2copy: Not used here ***************************************************
+
 				// Alter values for save as copy
 				if ($task == 'save2copy')
 				{
@@ -168,7 +169,7 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 				// The save2copy task needs to be handled slightly differently.
 				if ($task == 'save2copy')
 				{
-					/**
+
 					// Check-in the original row.
 					if ($model->checkin($data['id']) === false)
 					{
@@ -183,8 +184,8 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 					$data['associations'] = array();
 					$task = 'apply';
 
-					/**/
 				}
+    			/*****************************************************/
 
 				/* ToDO: check for existing alias and **/
 
@@ -192,6 +193,8 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 				$table->name = $name;
 				$table->alias = $alias;
 
+                $data['alias'] =  $alias;
+                $data['name'] =  $name;
 				/**
 				list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['name']);
 				$data['alias'] = $alias;
