@@ -137,9 +137,10 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 
 		// Automatic handling of alias for empty fields
 		if (in_array($task, array('apply', 'save', 'save2new'))
-				&& (!isset($data['id']) || (int) $data['id'] == 0))
+				// && (!isset($data['id']) || (int) $data['id'] == 0) // <== only for new item
+        )
 		{
-			if ($data['alias'] == null)
+			if (empty ($data['alias']))
 			{
 				if (JFactory::getConfig()->get('unicodeslugs') == 1)
 				{
@@ -150,62 +151,26 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 					$data['alias'] = JFilterOutput::stringURLSafe($data['name']);
 				}
 
+                // check for existing alias
 				$table = $this->getTable();
 
 				//if ($table->load(array('alias' => $data['alias'], 'catid' => $data['catid'])))
+                // Warning on existing alias
 				if ($table->load(array('alias' => $data['alias'])))
 				{
 					$msg = JText::_('COM_CONTENT_SAVE_WARNING');
 				}
 
-                /**** save2copy: Not used here ***************************************************
+				/* Create unique alias and ? name ? **/
+                // article : list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['title']);
+                list($name, $alias) = $this->generateNewTitle(null, $data['alias'], $data['name']);
+                $data['alias'] = $alias;
+                $data['name'] = $name;
 
-				// Alter values for save as copy
-				if ($task == 'save2copy')
-				{
-					$data['name'] = $this->generateUniqueName($data);
-				}
-
-				// The save2copy task needs to be handled slightly differently.
-				if ($task == 'save2copy')
-				{
-
-					// Check-in the original row.
-					if ($model->checkin($data['id']) === false)
-					{
-						// Check-in failed, go back to the item and display a notice.
-						$this->setMessage(JText::sprintf('JLIB_APPLICATION_ERROR_CHECKIN_FAILED', $model->getError()), 'warning');
-
-						return false;
-					}
-
-					// Reset the ID and then treat the request as for Apply.
-					$data['id'] = 0;
-					$data['associations'] = array();
-					$task = 'apply';
-
-				}
-    			/*****************************************************/
-
-				/* ToDO: check for existing alias and **/
-
-				list($name, $alias) = $this->generateNewTitle($table->id, $table->alias, $table->name);
-				$table->name = $name;
-				$table->alias = $alias;
-
-                $data['alias'] =  $alias;
-                $data['name'] =  $name;
-				/**
-				list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['name']);
-				$data['alias'] = $alias;
-
-				if (isset($msg))
-				{
-					JFactory::getApplication()->enqueueMessage($msg, 'warning');
-				}
-				/**/
-
-
+                if (isset($msg))
+                {
+                    JFactory::getApplication()->enqueueMessage($msg, 'warning');
+                }
 
 			}
 		}
@@ -242,12 +207,12 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 	 *
 	 * @since	12.2
 	 */
-	protected function generateNewTitle($id, $alias, $title)
+	protected function generateNewTitle($dummy, $alias, $title)
 	{
 		// Alter the title & alias
 		$table = $this->getTable();
 
-		while ($table->load(array('alias' => $alias, 'id' => $id)))
+		while ($table->load(array('alias' => $alias)))
 		{
 			$title = JString::increment($title);
 			$alias = JString::increment($alias, 'dash');
