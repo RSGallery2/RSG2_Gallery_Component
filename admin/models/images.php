@@ -121,7 +121,11 @@ class Rsgallery2ModelImages extends JModelList
 			->join('LEFT', '#__rsgallery2_galleries AS gal ON gal.id = a.gallery_id'
 			);
 
-		$query->group($query->qn('a.id'));
+	    // Join over the users for the checked out user.
+	    $query->select('uc.name AS editor')
+		    ->join('LEFT', '#__users AS uc ON uc.id=a.checked_out');
+
+	    $query->group($query->qn('a.id'));
 
 	    // Filter on the gallery Id.
 	    if ($gallery_id = $this->getState('filter.gallery_id'))

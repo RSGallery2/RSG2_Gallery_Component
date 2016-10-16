@@ -124,6 +124,10 @@ class rsgallery2ModelGalleries extends JModelList
 			->join('LEFT', '#__rsgallery2_files AS img ON img.gallery_id = a.id'
 			);
 
+		// Join over the users for the checked out user.
+		$query->select('uc.name AS editor')
+			->join('LEFT', '#__users AS uc ON uc.id=a.checked_out');
+
 		// Join over the access groups.
 		$query->select('ag.title AS access_level')
 			->join('LEFT', '#__viewlevels AS ag ON ag.id = a.access');
