@@ -108,6 +108,17 @@ class Rsgallery2ModelComments extends JModelList
 
 		$query->from('#__rsgallery2_comments');
 
+		/* parent image name */
+		$query->select('img.name as image_name')
+			->join('LEFT', '#__rsgallery2_fileses AS img ON img.id = a.item_id'
+			);
+
+		// Join over the users for the checked out user.
+		$query->select('uc.name AS editor')
+			->join('LEFT', '#__users AS uc ON uc.id=a.checked_out');
+
+		$query->group($query->qn('a.id'));
+
 		$search = $this->getState('filter.search');
 		if(!empty($search)) {
 			$search = $db->quote('%' . $db->escape($search, true) . '%');

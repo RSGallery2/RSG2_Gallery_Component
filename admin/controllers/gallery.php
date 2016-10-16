@@ -20,8 +20,7 @@ if ($Rsg2DebugActive)
 
 class Rsgallery2ControllerGallery extends JControllerForm
 {
-
-    /**
+	/**
     * Save parameters and goto upload
     */
     public function Save2Upload ()

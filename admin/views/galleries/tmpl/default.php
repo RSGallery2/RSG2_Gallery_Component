@@ -168,7 +168,7 @@ $userId = $user->id;
                     </div>
                 <?php else : ?>
 
-				<span style="color:red">Task: rights, test seach combo user/access, edit view alias</span><br><br>
+				<span style="color:red">Task: rights, test search combo user/access</span><br><br>
 
 				<table class="table table-striped table-hover" id="galleriesList">
 		            <thead>
@@ -248,7 +248,7 @@ $userId = $user->id;
 	                        $canEditGallery      = $user->authorise('core.edit',      'com_rsgallery2.gallery.'.$item->id);
 	                        $canEditOwnGallery   = $user->authorise('core.edit.own',  'com_rsgallery2.gallery.'.$item->id) AND ($item->uid == $userId);
 	                        $canEditStateGallery = $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$item->id);
-
+				            $canCheckin          = $user->authorise('core.manage',    'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
 
 				            $Depth = 0;
 				            $PreTitle = '';
@@ -323,35 +323,43 @@ $userId = $user->id;
                                 ?>
 							</td>
 				            <td width="10%" class="left has-context">
-					            <!--div class="pull-left break-word" -->
-					            <strong>
-						            <?php
-/*
-						            //Checked out and not owning this item OR not allowed to edit (own) gallery: show name, else show linked name
-						            if ( $row->checked_out && ( $row->checked_out != $user->id ) OR !($can['EditGallery'] OR $can['EditOwnGallery'])) {
-						            echo stripslashes($row->treename);
-/**/
+					            <div class="pull-left break-word">
+						            <?php if ($item->checked_out) : ?>
+							            <?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'galleries.', $canCheckin);
+							        ?>
+						            <?php endif; ?>
+						            <strong>
+							            <?php
+	/*
+							            //Checked out and not owning this item OR not allowed to edit (own) gallery: show name, else show linked name
+							            if ( $row->checked_out && ( $row->checked_out != $user->id ) OR !($can['EditGallery'] OR $can['EditOwnGallery'])) {
+							            echo stripslashes($row->treename);
+	/**/
 
-						            if ($canEdit || $canEditOwn)
-						            {
-                                        echo $PreTitle;
+							            if ($canEdit || $canEditOwn)
+							            {
+	                                        echo $PreTitle;
 
-							            $link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=" . $item->id);
-							            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=galleries&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
-							            echo '<a class="hasTooltip" href="' . $link  . '" title="' . JText::_('JACTION_EDIT') . '">';
-										//echo '    ' . $PreTitle . $this->escape($item->name);
-                                        echo $this->escape($item->name);
-                                        echo '</a>';
-						            } else {
-                                        echo $PreTitle;
-							            echo '<span title="' . JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias)) . '">';
-						                //echo '    ' . $PreTitle . $this->escape($item->name);
-						                echo $this->escape($item->name);
-							            echo '</span>';
-						            }
+								            $link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=" . $item->id);
+								            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=galleries&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
+								            echo '<a class="hasTooltip" href="' . $link  . '" title="' . JText::_('JACTION_EDIT') . '">';
+											//echo '    ' . $PreTitle . $this->escape($item->name);
+	                                        echo $this->escape($item->name);
+	                                        echo '</a>';
+							            } else {
+	                                        echo $PreTitle;
+								            echo '<span title="' . JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias)) . '">';
+							                //echo '    ' . $PreTitle . $this->escape($item->name);
+							                echo $this->escape($item->name);
+								            echo '</span>';
+							            }
 
-						            ?>
-						        </strong>
+							            ?>
+							        </strong>
+						            <span class="small break-word">
+										<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias)); ?>
+									</span>
+					            </div>
 				            </td>
 
 				            <td width="5%" class="center">

@@ -24,7 +24,7 @@ jimport('joomla.application.component.controller');
  */
 class Rsgallery2Controller extends JControllerLegacy
 {
-    // protected $default_view = 'rsg2s';
+    protected $default_view = 'rsgallery2';
     
 	/**
 	 * display task
@@ -37,7 +37,7 @@ class Rsgallery2Controller extends JControllerLegacy
 
 //	ToDo: Use 	require_once JPATH_COMPONENT.'/helpers/rsg2.php';
 /*
-		$view   = $this->input->get('view', 'rsg2');
+		$view   = $this->input->get('view', 'rsgallery2');
 		JLog::add('  base.controller.view: ', json_encode($view));
 		
 		$layout = $this->input->get('layout', 'default');
@@ -45,7 +45,8 @@ class Rsgallery2Controller extends JControllerLegacy
 		
 		$id     = $this->input->getInt('id');
 		JLog::add('  base.controller.id: ', json_encode($id));
-*/	
+*/
+
 /*
 		if($Rsg2DebugActive)
 		{
@@ -54,7 +55,7 @@ class Rsgallery2Controller extends JControllerLegacy
 		}
 */
 
-/* ToDo: Activate following: book extension entwickeln  page 208
+		/* ToDo: Activate following: book extension entwickeln  page 208
 		if ($view == 'rsg2' && $layout == 'edit' && !$this->checkEditId('com_rsgallery2.edit.rsgallery2', $id))
 		{
 			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id));
@@ -63,7 +64,51 @@ class Rsgallery2Controller extends JControllerLegacy
 
 			return false;
 		}
-*/
+		*/
+
+		/*----------------------------------------------------
+		 Prevent editing checked out gallery, image, ... items
+		------------------------------------------------------*/
+
+		$view   = $this->input->get('view', 'rsgallery2');
+		$layout = $this->input->get('layout', 'rsgallery2');
+		$id     = $this->input->getInt('id');
+
+		// Check for edit form.
+		if($layout == 'Xedit')
+		{
+			if ($view == 'gallery' && !$this->checkEditId('com_rsgallery2.edit.gallery', $id))
+			{
+				// Somehow the person just went to the form - we don't allow that.
+				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id));
+				$this->setMessage($this->getError(), 'error');
+				$this->setRedirect(JRoute::_('index.php?option=com_rsgallery2&view=rsgallery2', false));
+
+				return false;
+			}
+
+			if ($view == 'image' && !$this->checkEditId('com_rsgallery2.edit.image', $id))
+			{
+				// Somehow the person just went to the form - we don't allow that.
+				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id));
+				$this->setMessage($this->getError(), 'error');
+				$this->setRedirect(JRoute::_('index.php?option=com_rsgallery2&view=rsgallery2', false));
+
+				return false;
+			}
+
+			if ($view == 'comment' && !$this->checkEditId('com_rsgallery2.edit.comment', $id))
+			{
+				// Somehow the person just went to the form - we don't allow that.
+				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id));
+				$this->setMessage($this->getError(), 'error');
+				$this->setRedirect(JRoute::_('index.php?option=com_rsgallery2&view=rsgallery2', false));
+
+				return false;
+			}
+		}
+
+
 		parent::display($cachable);
 
 		return $this;

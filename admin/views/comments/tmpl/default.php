@@ -46,6 +46,8 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 				?>
 
 
+				<span style="color:red">Task: $canChange, $canEdit, and  ...</span><br><br>
+
 				<?php if (empty($this->items)) : ?>
 	                <div class="alert alert-no-items">
 	                    <?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
@@ -114,6 +116,8 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 					</tfoot>
 					<tbody>
 						<?php
+
+						$canCheckin          = $user->authorise('core.manage',    'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
 
                         foreach ($this->items as $i => $item) {
 							?>

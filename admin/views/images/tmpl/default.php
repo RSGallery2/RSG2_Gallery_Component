@@ -174,6 +174,8 @@ $userId = $user->id;
 		<div id="j-main-container">
 	<?php endif;?>
 
+
+
             <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=images'); ?>"
                   method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
 				<?php
@@ -191,13 +193,14 @@ $userId = $user->id;
 	                echo $this->form->renderFieldset('Select4MoveCopy');
 	                ?>
 				</div>
+
+	            <span style="color:red">Task: Search controls, owner rights $canChange, $canEdit, order on move, copy</span><br><br>
+
 	            <?php if (empty($this->items)) : ?>
                     <div class="alert alert-no-items">
                         <?php echo JText::_('COM_RSGALLERY2_GALLERY_HAS_NO_IMAGES_ASSIGNED'); ?>
                     </div>
                 <?php else : ?>
-
-					<span style="color:red">Task: Search controls, owner rights, order on move, copy</span><br><br>
 
 					<table class="table table-striped table-hover" id="imagessList">
 		                <thead>
@@ -285,14 +288,13 @@ $userId = $user->id;
                                 $canEditGallery      = $user->authorise('core.edit',      'com_rsgallery2.image.'.$item->id);
                                 $canEditOwnGallery   = $user->authorise('core.edit.own',  'com_rsgallery2.image.'.$item->id) AND ($item->userid == $userId);
                                 $canEditStateGallery = $user->authorise('core.edit.state','com_rsgallery2.image.'.$item->id);
-
+					            $canCheckin          = $user->authorise('core.manage',    'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
 
 					            ?>
 								<tr>
 									<td>
 										<?php echo $this->pagination->getRowOffset($i); ?>
 									</td>
-
 
 						            <td width="1%" class="center">
 							            <?php echo JHtml::_('grid.id', $i, $item->id); ?>
@@ -301,22 +303,36 @@ $userId = $user->id;
 									<td width="1%" class="center">
 										<?php echo JHtml::_('jgrid.published', $item->published, $i); //, 'articles.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
 									</td>
-						            <!--td width="1%" class="center">
-							            <?php
-							            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
-							            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
-							            echo '<a href="' . $link . '"">' . $item->id . '</a>';
-							            ?>
-						            </td-->
-						            <td width="1%" class="">
-							            <?php
-							            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
-							            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
-							            echo '<a href="' . $link . '"">' . $item->title . '</a>';
-										// <!--img class= "tooltips-link" title="TESTING" etc etc etc code /-->
-							            // <?php echo JHTML::tooltip('This is a tooltip attached to text', 'Text Tooltip Title', 'tooltip.png');? >
-
-							            ?>
+									<td width="10%" class="left has-context">
+										<div class="pull-left break-word">
+											<?php if ($item->checked_out) : ?>
+												<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'images.', $canCheckin);
+												?>
+											<?php endif; ?>
+											<strong>
+									            <?php
+									            if ($canEdit || $canEditOwn)
+									            {
+										            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
+										            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
+										            echo '<a href="' . $link . '"">' . $item->title . '</a>';
+													// <!--img class= "tooltips-link" title="TESTING" etc etc etc code /-->
+										            // <?php echo JHTML::tooltip('This is a tooltip attached to text', 'Text Tooltip Title', 'tooltip.png');? >
+									            } else
+									            {
+										            echo '<span title="' . JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias)) . '">';
+										            //echo '    ' . $PreTitle . $this->escape($item->name);
+										            echo $this->escape($item->title);
+										            echo '</span>';
+									            }
+									            ?>
+											</strong>
+											<span class="small break-word">
+												<?php
+												// echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));
+												?>
+											</span>
+										</div>
 						            </td>
 						            <td width="1%" class="">
 							            <?php
