@@ -172,8 +172,12 @@ figure .clsTemplate {
 	border: 1px solid darkorange;
 }
 
-.rsg2Zone {
-	border: 1px solid green;
+.rsg2 {
+    border: 1px solid green;
+}
+
+.Outdated {
+    border: 1px solid goldenrod;
 }
 
 .icons-panel .dangerZone{
@@ -237,13 +241,23 @@ figure .clsTemplate {
 }
 
 .icons-panel .rsg2Zone{
-	/* background-color: red; /**/
-	background-color: green; /**/
-	color: white; /**/
-	/* padding: 30px; /**/
-	padding: 5px; /**/
-	margin-left: 0px; /**/
-	border-radius: 3px 3px 0px 0px;
+    /* background-color: red; /**/
+    background-color: green; /**/
+    color: white; /**/
+    /* padding: 30px; /**/
+    padding: 5px; /**/
+    margin-left: 0px; /**/
+    border-radius: 3px 3px 0px 0px;
+}
+
+.icons-panel .OutdatedZone{
+    /* background-color: red; /**/
+    background-color: goldenrod; /**/
+    color: white; /**/
+    /* padding: 30px; /**/
+    padding: 5px; /**/
+    margin-left: 0px; /**/
+    border-radius: 3px 3px 0px 0px;
 }
 
 .icons-panel-title h3

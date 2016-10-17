@@ -178,8 +178,8 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 						</div>
 					</div>
 
-	            <?php
-	            if( $this->rawDbActive ) {
+	            	<?php
+	            	if( $this->rawDbActive ) {
 		            ?>
 			            <div class="icons-panel rawDb">
 				            <div class="row-fluid">
@@ -240,9 +240,46 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 
 				            </div>
 			            </div>
-	            <?php
-	            }
-	            ?>
+					<?php
+					}
+					?>
+
+					<div class="icons-panel Outdated">
+						<div class="row-fluid">
+							<div class="icons-panel-title OutdatedZone">
+								<h3>
+									<?php echo JText::_('COM_RSGALLERY2_OUTDATED_ZONE');?>
+								</h3>
+							</div>
+
+							<div class='icons-panel-info'>
+								<strong>
+									<?php echo JText::_('COM_RSGALLERY2_OUTDATED_ZONE_DESC');?>
+								</strong>
+							</div>
+
+							<?php
+							$link = 'index.php?option=com_rsgallery2&amp;rsgOption=config&amp;task=showConfig';
+                            quickIconMoonBar ($link, 'icon-equalizer',
+								JText::_('COM_RSGALLERY2_CONFIGURATION'),
+								JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW'),
+								'configuration');
+							?>
+
+
+							<?php
+							$link = 'index.php?option=com_rsgallery2&rsgOption=installer';
+
+							quickIconMoonBar( $link, 'icon-scissors clsTemplate',
+								JText::_('COM_RSGALLERY2_TEMPLATE_MANAGER'),
+								JText::_('COM_RSGALLERY2_TEMPLATE_EXPLANATION'),
+								'templateManager');
+							?>
+
+						</div>
+					</div>
+
+
 				</div>
 
 
