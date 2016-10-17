@@ -260,21 +260,31 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 
 							<?php
 							$link = 'index.php?option=com_rsgallery2&amp;rsgOption=config&amp;task=showConfig';
-                            quickIconMoonBar ($link, 'icon-equalizer',
+							quickiconBar ($link, 'config.png',
 								JText::_('COM_RSGALLERY2_CONFIGURATION'),
-								JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW'),
+								JText::_('        '), // COM_RSGALLERY2_CONFIG_MINUS_VIEW
+								'configuration');
+							?>
+
+							<?php
+							$link = 'index.php?option=com_rsgallery2&amp;rsgOption=galleries';
+							quickiconBar ($link, 'categories.png',
+								JText::_('COM_RSGALLERY2_MANAGE_GALLERIES'),
+								JText::_('        '),
 								'configuration');
 							?>
 
 
 							<?php
-							$link = 'index.php?option=com_rsgallery2&rsgOption=installer';
-
-							quickIconMoonBar( $link, 'icon-scissors clsTemplate',
-								JText::_('COM_RSGALLERY2_TEMPLATE_MANAGER'),
-								JText::_('COM_RSGALLERY2_TEMPLATE_EXPLANATION'),
-								'templateManager');
+							$link = 'index.php?option=com_rsgallery2&amp;rsgOption=images&task=view_images';
+							quickiconBar ($link, 'mediamanager.png',
+								JText::_('COM_RSGALLERY2_MANAGE_IMAGES'),
+								JText::_('        '),
+								'configuration');
 							?>
+
+
+
 
 						</div>
 					</div>
