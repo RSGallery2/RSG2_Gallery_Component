@@ -270,7 +270,6 @@ figure .clsTemplate {
 	margin-left: 40px; /**/
 }
 
-
 figure .iconMoon01 {
 	float: left; /**/
 	padding: 10px 5px 10px 0px; /**/
@@ -285,3 +284,9 @@ figure .iconMoon02 {
 	color: #3071a9;
 }
 
+/**/
+.rsg2-old-icon img {
+    height: 35px;
+    width: 35px;
+/*    background-color: powderblue; /**/
+}

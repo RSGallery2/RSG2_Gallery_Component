@@ -61,13 +61,13 @@ function quickiconBar( $link, $image, $title, $text = "", $addClass = '' ) {
     ?>
 		<div class="rsg2-icon-bar">
 			<a href="<?php echo $link; ?>" class="<?php echo $addClass; ?>" >
-				<figure class="rsg2-icon">
+				<figure class="rsg2-old-icon">
 					<?php echo JHtml::image('administrator/components/com_rsgallery2/images/'.$image, $text); ?>
-					<figcaption class="rsg2-text">
-						<span class="maint-title"><?php echo $title;?></span>
-						<!--br-->
-						<span class="maint-text"><?php echo $text;?></span>
-					</figcaption>
+                    <figcaption class="rsg2-text">
+                        <span class="maint-title"><?php echo $title;?></span>
+                        <!--br-->
+                        <span class="maint-text"><?php echo $text;?></span>
+                    </figcaption>
 				</figure>
 			</a>
 		</div>
@@ -263,7 +263,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 							quickiconBar ($link, 'config.png',
 								JText::_('COM_RSGALLERY2_CONFIGURATION'),
 								JText::_('        '), // COM_RSGALLERY2_CONFIG_MINUS_VIEW
-								'configuration');
+								'test');
 							?>
 
 							<?php
@@ -271,7 +271,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 							quickiconBar ($link, 'categories.png',
 								JText::_('COM_RSGALLERY2_MANAGE_GALLERIES'),
 								JText::_('        '),
-								'configuration');
+								'test');
 							?>
 
 
@@ -280,7 +280,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 							quickiconBar ($link, 'mediamanager.png',
 								JText::_('COM_RSGALLERY2_MANAGE_IMAGES'),
 								JText::_('        '),
-								'configuration');
+								'test');
 							?>
 
 
