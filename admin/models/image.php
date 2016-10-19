@@ -81,19 +81,22 @@ class Rsgallery2ModelImage extends  JModelAdmin
             // Set the values
             $table->date = $date;
 
+	        /**
             // Set ordering to the last item if not set
             if (empty($table->ordering))
             {
                 $db = $this->getDbo();
                 $query = $db->getQuery(true)
                     ->select('MAX(ordering)')
-                    ->from($db->quoteName('#__contact_details'));
+                    ->from($db->quoteName('#__rsgallery2_files'));
                 $db->setQuery($query);
                 $max = $db->loadResult();
 
                 $table->ordering = $max + 1;
                 $table->user_id = JFactory::getUser()->id;
             }
+	        /**/
+	        $table->ordering = $table->getNextOrder('gallery_id = ' . (int) $table->gallery_id); // . ' AND state >= 0');
         }
         else
         {
