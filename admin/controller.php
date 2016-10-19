@@ -75,7 +75,7 @@ class Rsgallery2Controller extends JControllerLegacy
 		$id     = $this->input->getInt('id');
 
 		// Check for edit form.
-		if($layout == 'Xedit')
+		if($layout == 'edit')
 		{
 			if ($view == 'gallery' && !$this->checkEditId('com_rsgallery2.edit.gallery', $id))
 			{

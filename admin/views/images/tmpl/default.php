@@ -313,7 +313,7 @@ $userId = $user->id;
 									            <?php
 									            if ($canEdit || $canEditOwn)
 									            {
-										            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
+										            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&task=image.edit&id=".$item->id);
 										            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
 										            echo '<a href="' . $link . '"">' . $item->title . '</a>';
 													// <!--img class= "tooltips-link" title="TESTING" etc etc etc code /-->
