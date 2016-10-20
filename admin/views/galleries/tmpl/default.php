@@ -168,7 +168,7 @@ $userId = $user->id;
                     </div>
                 <?php else : ?>
 
-				<span style="color:red">Task: rights, test search combo user/access</span><br><br>
+				<span style="color:red">Task: rights, (sorting sub galleries under main name)</span><br><br>
 
 				<table class="table table-striped table-hover" id="galleriesList">
 		            <thead>
