@@ -90,7 +90,7 @@ class Rsgallery2ViewGallery extends JViewLegacy
 				}
 
 //				yyyy;
-				JToolBarHelper::custom ('gallery.Save2Upload','upload','','Save and upload', true);
+				JToolBarHelper::custom ('gallery.save2upload','upload','','Save and upload', true);
 
 
 

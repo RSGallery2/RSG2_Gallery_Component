@@ -23,7 +23,7 @@ class Rsgallery2ControllerGallery extends JControllerForm
 	/**
     * Save parameters and goto upload
     */
-    public function Save2Upload ()
+    public function save2upload ()
     {
         $msg = '<strong>' . 'Save2Upload ' . ':</strong><br>';
         $msgType = 'notice';
@@ -42,8 +42,17 @@ class Rsgallery2ControllerGallery extends JControllerForm
         }
 
         if ($IsOk) {
+        	$link = 'index.php?option=com_rsgallery2&view=upload';
+	        // Tell the upload the id (not used there)
+	        $input = JFactory::getApplication()->input;
+
+	        $Id = $input->get( 'id', 0, 'INT');
+	        if (! empty ($Id)) {
+		        $link .= '&id=' . $Id;
+	        }
+
             $msg .= ' successful';
-            $this->setRedirect('index.php?option=com_rsgallery2&view=upload', $msg, $msgType);
+            $this->setRedirect($link, $msg, $msgType);
         }
         else {
             $msg .= ' failed';

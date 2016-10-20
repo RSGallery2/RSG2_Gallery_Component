@@ -180,10 +180,6 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 		return $this->IsUseOneGalleryNameForAllImages;
 	}
 
-
-
-
-
 }
 
  

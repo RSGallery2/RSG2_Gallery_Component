@@ -194,7 +194,7 @@ $userId = $user->id;
 	                ?>
 				</div>
 
-	            <span style="color:red">Task: Search controls, owner rights $canChange, $canEdit, order on move, copy</span><br><br>
+	            <span style="color:red">Task: Search controls, Item preview on hover, owner rights $canChange, $canEdit, order on move, copy</span><br><br>
 
 	            <?php if (empty($this->items)) : ?>
                     <div class="alert alert-no-items">

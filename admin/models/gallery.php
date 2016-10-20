@@ -161,7 +161,7 @@ class Rsgallery2ModelGallery extends  JModelAdmin
                 // Warning on existing alias
 				if ($table->load(array('alias' => $data['alias'])))
 				{
-					$msg = JText::_('COM_CONTENT_SAVE_WARNING');
+					$msg = JText::_('COM_RSGALLERY2_NAME_CHANGED_AS_WAS_EXISTING');
 				}
 
 				/* Create unique alias and ? name ? **/

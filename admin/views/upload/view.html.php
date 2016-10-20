@@ -75,6 +75,15 @@ class Rsgallery2ViewUpload extends JViewLegacy
 
 		$IdGallerySelect = -1; //No selection
 
+		$input = JFactory::getApplication()->input;
+
+		// coming from gallery edit -> new id
+		$Id = $input->get( 'id', 0, 'INT');
+		if (! empty ($Id))
+		{
+			$IdGallerySelect = $Id;
+		}
+
 		$IsPreSelectLatestGallery = $UploadModel->getIsPreSelectLatestGallery ();
 		if ($IsPreSelectLatestGallery) {
 			$IdGallerySelect = $UploadModel->getIdLatestGallery();
