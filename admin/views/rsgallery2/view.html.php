@@ -20,7 +20,7 @@ class Rsgallery2ViewRsgallery2 extends JViewLegacy
 	// ToDo: Use other rights instead of core.admin -> IsRoot ?
 	// core.admin is the permission used to control access to 
 	// the global config
-	protected $UserIsRoot; 
+	protected $UserIsAdmin; 
 	protected $LastImages;
 	protected $LastGalleries;
 	protected $Rsg2Version;
@@ -39,7 +39,7 @@ class Rsgallery2ViewRsgallery2 extends JViewLegacy
 		$this->Credits = CreditsEnumaration::CreditsEnumarationText;
 	
 		// Check rights of user
-		$this->UserIsRoot = $this->CheckUserIsRoot ();
+		$this->UserIsAdmin = $this->CheckUserIsAdmin ();
 
 		// fetch data of last galleries (within one week ?)
         //$this->LastImages = rsg2ModelImages::lastWeekImages(5);
@@ -62,7 +62,7 @@ class Rsgallery2ViewRsgallery2 extends JViewLegacy
 
 		
 /*		// Options button.
-		if ($this->UserIsRoot) {
+		if ($this->UserIsAdmin) {
 			JToolBarHelper::preferences('com_rsgallery2');
 		}
 */
@@ -91,7 +91,7 @@ class Rsgallery2ViewRsgallery2 extends JViewLegacy
 	 *
 	 * @return	bool
 	 */		
-	function CheckUserIsRoot ()
+	function CheckUserIsAdmin ()
 	{
 		$user = JFactory::getUser();
 		$canAdmin = $user->authorise('core.admin');
