@@ -1,0 +1,162 @@
+
+
+<table border="0" width="1130" cellspacing="0" cellpadding="0"><colgroup><col style="mso-width-source: userset; mso-width-alt: 5152; width: 121pt;" width="161" /> <col style="mso-width-source: userset; mso-width-alt: 3680; width: 86pt;" width="115" /> <col style="width: 66pt;" width="88" /> <col style="mso-width-source: userset; mso-width-alt: 4064; width: 95pt;" width="127" /> <col style="mso-width-source: userset; mso-width-alt: 3744; width: 88pt;" width="117" /> <col style="width: 66pt;" span="3" width="88" /> <col style="mso-width-source: userset; mso-width-alt: 3968; width: 93pt;" width="124" /> <col style="mso-width-source: userset; mso-width-alt: 4288; width: 101pt;" width="134" /> </colgroup>
+<tbody>
+<tr style="height: 11.25pt;">
+<td class="xl65" style="height: 11.25pt; width: 121pt;" width="161" height="15"> </td>
+<td class="xl68" style="width: 86pt;" width="115"><strong>Public</strong></td>
+<td class="xl68" style="width: 66pt;" width="88"><strong>Guest</strong></td>
+<td class="xl68" style="width: 95pt;" width="127"><strong>Manager</strong></td>
+<td class="xl68" style="width: 88pt;" width="117"><strong>Administrator</strong></td>
+<td class="xl68" style="width: 66pt;" width="88"><strong>Registriert</strong></td>
+<td class="xl68" style="width: 66pt;" width="88"><strong>Autor</strong></td>
+<td class="xl68" style="width: 66pt;" width="88"><strong>Editor</strong></td>
+<td class="xl68" style="width: 93pt;" width="124"><strong>Publisher</strong></td>
+<td class="xl68" style="width: 101pt;" width="134"><strong>Super user</strong></td>
+</tr>
+<tr style="height: 11.25pt;">
+<td class="xl68" style="height: 11.25pt;" height="15"><strong>Configure ACL &amp; Options</strong></td>
+<td class="xl66"><span class="label label-important"><span class="label label-important">Not Allowed (Inherited)</span></span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success"><span class="icon-lock icon-white"></span>Allowed (Super User)</span></td>
+</tr>
+<tr style="height: 11.25pt;">
+<td class="xl68" style="height: 11.25pt;" height="15"><strong>Access Administration Interface</strong></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success"><span class="icon-lock icon-white"></span>Allowed (Super User)</span></td>
+</tr>
+<tr style="height: 11.25pt;">
+<td class="xl68" style="height: 11.25pt;" height="15"><strong>Create</strong></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success"><span class="icon-lock icon-white"></span>Allowed (Super User)</span></td>
+</tr>
+<tr style="height: 11.25pt;">
+<td class="xl68" style="height: 11.25pt;" height="15"><strong>Create Own</strong></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success"><span class="icon-lock icon-white"></span>Allowed (Super User)</span></td>
+</tr>
+<tr style="height: 11.25pt;">
+<td class="xl68" style="height: 11.25pt;" height="15"><strong>Delete</strong></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success"><span class="icon-lock icon-white"></span>Allowed (Super User)</span></td>
+</tr>
+<tr style="height: 11.25pt;">
+<td class="xl68" style="height: 11.25pt;" height="15"><strong>Delete Own</strong></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success"><span class="icon-lock icon-white"></span>Allowed (Super User)</span></td>
+</tr>
+<tr style="height: 11.25pt;">
+<td class="xl68" style="height: 11.25pt;" height="15"><strong>Edit</strong></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success"><span class="icon-lock icon-white"></span>Allowed (Super User)</span></td>
+</tr>
+<tr style="height: 11.25pt;">
+<td class="xl68" style="height: 11.25pt;" height="15"><strong>Edit Own</strong></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success"><span class="icon-lock icon-white"></span>Allowed (Super User)</span></td>
+</tr>
+<tr style="height: 11.25pt;">
+<td class="xl68" style="height: 11.25pt;" height="15"><strong>Edit State</strong></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success">Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success"><span class="icon-lock icon-white"></span>Allowed (Super User)</span></td>
+</tr>
+<tr style="height: 11.25pt;">
+<td class="xl68" style="height: 11.25pt;" height="15"><strong>Edit State Own</strong></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success"><span class="icon-lock icon-white"></span>Allowed (Super User)</span></td>
+</tr>
+<tr style="height: 11.25pt;">
+<td class="xl68" style="height: 11.25pt;" height="15"><strong>Vote</strong></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success"><span class="icon-lock icon-white"></span>Allowed (Super User)</span></td>
+</tr>
+<tr style="height: 11.25pt;">
+<td class="xl68" style="height: 11.25pt;" height="15"><strong>Comment</strong></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl66"><span class="label label-important">Not Allowed (Inherited)</span></td>
+<td class="xl67"><span class="label label-success"><span class="icon-lock icon-white"></span>Allowed (Super User)</span></td>
+</tr>
+</tbody>
+</table>
