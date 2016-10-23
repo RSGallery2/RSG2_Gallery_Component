@@ -249,6 +249,8 @@ $userId = $user->id;
 	                        $canEditOwnGallery   = $user->authorise('core.edit.own',  'com_rsgallery2.gallery.'.$item->id) AND ($item->uid == $userId);
 	                        $canEditStateGallery = $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$item->id);
 				            $canCheckin          = $user->authorise('core.manage',    'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
+yyy				            $disabled  = $can['EditStateGallery'] ?  '' : 'disabled="disabled"';
+
 
 				            $Depth = 0;
 				            $PreTitle = '';
