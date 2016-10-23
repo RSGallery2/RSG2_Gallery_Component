@@ -41,7 +41,8 @@ class menu_rsg2_submenu{
 			JHtmlSidebar::addEntry(
 				'<span class="icon-images" >  </span>'.
 				JText::_('COM_RSGALLERY2_SUBMENU_GALLERIES'),
-				'index.php?option=com_rsgallery2&rsgOption=galleries',
+				//'index.php?option=com_rsgallery2&rsgOption=galleries',
+				'index.php?option=com_rsgallery2&view=galleries',
 		        $rsgOption=='galleries' AND $task == '');
 			// Upload view
 			JHtmlSidebar::addEntry(
@@ -53,7 +54,8 @@ class menu_rsg2_submenu{
 			JHtmlSidebar::addEntry(
 				'<span class="icon-image" >  </span>'.
 				JText::_('COM_RSGALLERY2_SUBMENU_IMAGES'),
-				'index.php?option=com_rsgallery2&rsgOption=images',
+				// 'index.php?option=com_rsgallery2&rsgOption=images',
+				'index.php?option=com_rsgallery2&view=images',
 		        $rsgOption=='images' AND ($task == '' OR $task == 'view_images'));
 
 	
