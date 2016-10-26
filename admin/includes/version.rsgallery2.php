@@ -66,7 +66,7 @@ class rsgalleryVersion {
 		//	[creationDate] => July 2014 
 		//	[author] => RSGallery2 Team 
 		//	[copyright] => (c) 2014 RSGallery2 Team 
-		//	[authorEmail] => team@rsgallery2.nl
+		//	[authorEmail] => team2@rsgallery2.org
 		//	[authorUrl] => http://www.rsgallery2.org 
 		//	[version] => 1.0.2 
 		//	[description] => COM_RSGALLERY2_XML_DESCRIPTION 
@@ -86,10 +86,10 @@ class rsgalleryVersion {
 		$this->AUTHOR		= $manifest['author']; 
 		//	[copyright] => (c) 2014 RSGallery2 Team 
 		$this->COPYRIGHT	= $manifest['copyright'];
-		//	[authorEmail] => team@rsgallery2.nl 
+		//	[authorEmail] => team@rsgallery2.org 
 		$this->EMAIL 		= $manifest['authorEmail'];
-		//	[authorUrl] => http://www.rsgallery2.nl 
-		// Old: = '<strong><a class="rsg2-footer" href="http://www.rsgallery2.nl">RSGallery2</a></strong>';
+		//	[authorUrl] => http://www.rsgallery2.org 
+		// Old: = '<strong><a class="rsg2-footer" href="http://www.rsgallery2.org">RSGallery2</a></strong>';
 		$this->URL			= $manifest['authorUrl']; 
 		//	[version] => 1.0.2 
 		$this->RELEASE 		= $manifest['version'];	

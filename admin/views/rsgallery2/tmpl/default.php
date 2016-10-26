@@ -153,7 +153,7 @@ function DisplayInfoRsgallery2 ($Rsg2Version)
     echo '        <tr>';
     echo '            <td>' . JText::_('COM_RSGALLERY2_FORUM') . '</td>';
     echo '            <td>';
-    echo '                <a href="http://www.rsgallery2.nl/" target="_blank" '.' title="'.JText::_('COM_RSGALLERY2_JUMP_TO_FORUM').'" >www.rsgallery2.nl</a>';
+    echo '                <a href="http://www.forum.rsgallery2.org/" target="_blank" '.' title="'.JText::_('COM_RSGALLERY2_JUMP_TO_FORUM').'" >www.forum.rsgallery2.org</a>';
     echo '            </td>';
     echo '        </tr>';
     /**/
