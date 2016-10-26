@@ -251,11 +251,11 @@ $userId = $user->id;
 							$canEditOwnGallery   = $user->authorise('core.edit.own',  'com_rsgallery2.gallery.'.$item->id) AND ($item->uid == $userId);
 	                        $canEditGallery      = $user->authorise('core.edit',      'com_rsgallery2.gallery.'.$item->id) ||$canEditOwnGallery;
 
-							$canCheckin          = $user->authorise('core.manage',    'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
+							$canCheckIn          = $user->authorise('core.manage',    'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
 
-							//$canChange  = $user->authorise('core.edit.state', 'com_content.article.' . $item->id) && $canCheckin;
+							//$canChange  = $user->authorise('core.edit.state', 'com_content.article.' . $item->id) && $canCheckIn;
 							$canEditStateOwnGallery = $user->authorise('core.edit.state.own','com_rsgallery2.gallery.'.$item->id) AND ($item->uid == $userId);
-							$canEditStateGallery = $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$item->id) || $canEditStateOwnGallery || $canCheckin;
+							$canEditStateGallery = $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$item->id) || $canEditStateOwnGallery || $canCheckIn;
 
 							// ToDo: Use function
 				            $Depth = 0;
