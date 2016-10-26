@@ -203,13 +203,17 @@ $userId = $user->id;
 
 
                             <th width="1%" class="center">
-                                <?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'a.ordering', $sortDirection, $sortColumn); ?>
+                                <?php
+									echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'a.ordering', $sortDirection, $sortColumn);
+								?>
                                 &nbsp
-                                <button id="filter_go" class="btn btn-micro"
-                                    onclick="Joomla.submitbutton('galleries.saveOrdering')"
-                                    title="<?php echo JText::_( 'COM_RSGALLERY2_ASSIGN_CHANGED_ORDER'); ?>">
-                                    <i class="icon-save"></i>
-                                </button>
+								<?php if ($user->authorise('core.edit.state')): ?>
+									<button id="filter_go" class="btn btn-micro"
+										onclick="Joomla.submitbutton('galleries.saveOrdering')"
+										title="<?php echo JText::_( 'COM_RSGALLERY2_ASSIGN_CHANGED_ORDER'); ?>">
+										<i class="icon-save"></i>
+									</button>
+								<?php endif; ?>
                             </th>
 
                             <th width="1%" class="center nowrap hidden-phone">
@@ -224,10 +228,9 @@ $userId = $user->id;
                             <th width="1%" class="center nowrap hidden-phone">
                                 <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $sortDirection, $sortColumn); ?>
                             </th>
-
                         </tr>
-
                     </thead>
+
 					<tfoot>
 						<tr>
 							<td colspan="15">
@@ -235,23 +238,26 @@ $userId = $user->id;
 							</td>
 						</tr>
 					</tfoot>
+
 	                <tbody>
 			            <?php
 
 			            foreach ($this->items as $i => $item) {
-				            //$canChange  = $user->authorise('core.edit.state', 'com_content.article.' . $item->id) && $canCheckin;
-				            $canChange  = true;
-				            $canEdit  = true;
-				            $canEditOwn  = true;
-	/**/
+				            //$canChange  = true;
+				            //$canEdit  = true;
+				            //$canEditOwn  = true;
+
 	                        // Get permissions
-	                        $canEditGallery      = $user->authorise('core.edit',      'com_rsgallery2.gallery.'.$item->id);
-	                        $canEditOwnGallery   = $user->authorise('core.edit.own',  'com_rsgallery2.gallery.'.$item->id) AND ($item->uid == $userId);
-	                        $canEditStateGallery = $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$item->id);
-				            $canCheckin          = $user->authorise('core.manage',    'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
-yyy				            $disabled  = $can['EditStateGallery'] ?  '' : 'disabled="disabled"';
+							$canEditOwnGallery   = $user->authorise('core.edit.own',  'com_rsgallery2.gallery.'.$item->id) AND ($item->uid == $userId);
+	                        $canEditGallery      = $user->authorise('core.edit',      'com_rsgallery2.gallery.'.$item->id) ||$canEditOwnGallery;
 
+							$canCheckin          = $user->authorise('core.manage',    'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
 
+							//$canChange  = $user->authorise('core.edit.state', 'com_content.article.' . $item->id) && $canCheckin;
+							$canEditStateOwnGallery = $user->authorise('core.edit.state.own','com_rsgallery2.gallery.'.$item->id) AND ($item->uid == $userId);
+							$canEditStateGallery = $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$item->id) || $canEditStateOwnGallery || $canCheckin;
+
+							// ToDo: Use function
 				            $Depth = 0;
 				            $PreTitle = '';
 				            $parent = $item;
@@ -326,19 +332,19 @@ yyy				            $disabled  = $can['EditStateGallery'] ?  '' : 'disabled="disa
 							</td>
 				            <td width="10%" class="left has-context">
 					            <div class="pull-left break-word">
-						            <?php if ($item->checked_out) : ?>
-							            <?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'galleries.', $canCheckin);
-							        ?>
-						            <?php endif; ?>
+						            <?php
+										if ($item->checked_out) {
+											echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'galleries.', $canCheckin);
+										}
+									?>
 						            <strong>
 							            <?php
-	/*
-							            //Checked out and not owning this item OR not allowed to edit (own) gallery: show name, else show linked name
+										/*
+							            // Checked out and not owning this item OR not allowed to edit (own) gallery: show name, else show linked name
 							            if ( $row->checked_out && ( $row->checked_out != $user->id ) OR !($can['EditGallery'] OR $can['EditOwnGallery'])) {
 							            echo stripslashes($row->treename);
-	/**/
-
-							            if ($canEdit || $canEditOwn)
+										/**/
+							            if ($canEditGallery)
 							            {
 	                                        echo $PreTitle;
 
@@ -348,8 +354,11 @@ yyy				            $disabled  = $can['EditStateGallery'] ?  '' : 'disabled="disa
 											//echo '    ' . $PreTitle . $this->escape($item->name);
 	                                        echo $this->escape($item->name);
 	                                        echo '</a>';
-							            } else {
+							            }
+										else
+										{
 	                                        echo $PreTitle;
+
 								            echo '<span title="' . JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias)) . '">';
 							                //echo '    ' . $PreTitle . $this->escape($item->name);
 							                echo $this->escape($item->name);
@@ -420,19 +429,23 @@ yyy				            $disabled  = $can['EditStateGallery'] ?  '' : 'disabled="disa
 								<?php echo $this->escape($authorName->name); ?>
 							</td>
 
-
 							<td width="1%" class="center">
-								<div class="form-group">
-									<label class="hidden" for="order[]">Ordering</label>
-                                    <input name="order[]" type="number"
-                                        class="input-mini changeOrder form-control"
-	                                    min="0" step="1"
-	                                    id="ordering_<?php echo $item->id; ?>"
-										value="<?php echo $item->ordering; ?>"
-									</input>
-								</div>
+								<?php if ($canEditStateGallery): ?>
+									<div class="form-group">
+										<label class="hidden" for="order[]">Ordering</label>
+										<input name="order[]" type="number"
+											class="input-mini changeOrder form-control"
+											min="0" step="1"
+											id="ordering_<?php echo $item->id; ?>"
+											value="<?php echo $item->ordering; ?>"
+										</input>
+									</div>
+								<?php else : ?>
+									<div class="form-group">
+										<?php echo $item->ordering; ?>
+									</div>
+								<?php endif; ?>
 							</td>
-
 
 				            <td class="nowrap small hidden-phone center">
 					            <?php echo JHtml::_('date', $item->date, JText::_('COM_RSGALLERY2_DATE_FORMAT_WITH_TIME')); ?>
@@ -472,3 +485,4 @@ yyy				            $disabled  = $can['EditStateGallery'] ?  '' : 'disabled="disa
 	<div id="loading"></div>
 </div>
 
+          
