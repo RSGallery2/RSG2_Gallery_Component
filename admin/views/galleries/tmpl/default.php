@@ -168,7 +168,9 @@ $userId = $user->id;
                     </div>
                 <?php else : ?>
 
-				<span style="color:red">Task: rights, (sorting sub galleries under main name)</span><br><br>
+				<?
+					// <span style="color:red">(sorting sub galleries under main name)</span><br><br>
+				?>
 
 				<table class="table table-striped table-hover" id="galleriesList">
 		            <thead>
@@ -311,7 +313,10 @@ $userId = $user->id;
 							</td>
 
 							<td width="1%" class="center">
-								<?php echo JHtml::_('jgrid.published', $item->published, $i); //, 'articles.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
+								<?php
+								echo JHtml::_('jgrid.published', $item->published, $i); //, 'articles.', $canChange, 'cb', $item->publish_up, $item->publish_down);
+								//echo JHtml::_('jgrid.published', $item->published, $i, 'galleries.', $canChange); //, 'cb', $item->publish_up, $item->publish_down);
+								?>
                                 <?php
                                 /**
                                 ?>
@@ -334,7 +339,7 @@ $userId = $user->id;
 					            <div class="pull-left break-word">
 						            <?php
 										if ($item->checked_out) {
-											echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'galleries.', $canCheckin);
+											echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'galleries.', $canCheckIn);
 										}
 									?>
 						            <strong>
@@ -421,7 +426,6 @@ $userId = $user->id;
 				            </td>
 
 				            <td class="small hidden-phone center">
-					            <!--?php echo $item->access_level;?-->
 					            <?php echo $this->escape($item->access_level); ?>
 				            </td>
 
