@@ -200,24 +200,26 @@ $doc->addStyleSheet( JURI_SITE."administrator/components/com_rsgallery2/css/Cont
             <div class="span12">
                 <div class="row-fluid">
                     <?php
-                        if ( $this->UserIsAdmin ){
-                            $link = 'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig';
-                            RsgIconMoonButton( $link, 'icon-equalizer clsProperties',  JText::_('COM_RSGALLERY2_CONFIGURATION') );
-                        }
+                    if ( $this->UserIsAdmin ){
+                        $link = 'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig';
+                        RsgIconMoonButton( $link, 'icon-equalizer clsProperties',  JText::_('COM_RSGALLERY2_CONFIGURATION') );
+                    }
 
-                        $link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
-                        RsgIconMoonButton( $link, 'icon-images clsGalleries', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
+                    //$link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
+                    $link = 'index.php?option=com_rsgallery2&view=galleries';
+                    RsgIconMoonButton( $link, 'icon-images clsGalleries', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') );
 
-                        $link = 'index.php?option=com_rsgallery2&view=upload';
-                        RsgIconMoonButton( $link, 'icon-upload clsUpload', JText::_('COM_RSGALLERY2_UPLOAD') );
+                    $link = 'index.php?option=com_rsgallery2&view=upload';
+                    RsgIconMoonButton( $link, 'icon-upload clsUpload', JText::_('COM_RSGALLERY2_UPLOAD') );
 
-                        $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=view_images';
-                        RsgIconMoonButton( $link, 'icon-image clsImages', JText::_('COM_RSGALLERY2_MANAGE_IMAGES') );
+                    //$link = 'index.php?option=com_rsgallery2&rsgOption=images&task=view_images';
+                    $link = 'index.php?option=com_rsgallery2&view=images';
+                    RsgIconMoonButton( $link, 'icon-image clsImages', JText::_('COM_RSGALLERY2_MANAGE_IMAGES') );
 
-                        if ( $this->UserIsAdmin ){
-                            $link = 'index.php?option=com_rsgallery2&view=maintenance';
-							RsgIconMoonButton( $link, 'icon-screwdriver clsMaintenance', JText::_('COM_RSGALLERY2_MAINTENANCE'));
-						}
+                    if ( $this->UserIsAdmin ){
+                        $link = 'index.php?option=com_rsgallery2&view=maintenance';
+                        RsgIconMoonButton( $link, 'icon-screwdriver clsMaintenance', JText::_('COM_RSGALLERY2_MAINTENANCE'));
+                    }
                     ?>
                 </div>
 			</div>
