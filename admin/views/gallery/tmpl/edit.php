@@ -28,8 +28,9 @@ JFactory::getDocument()->addScriptDeclaration('
 
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
-	<span style="color:red">Task: Toolbar: Link for Upload, double aliases / names -> warning, (More rows for combo box)</span><br><br>
-
+	<?php
+		// echo '<span style="color:red">Task: Toolbar: Link for Upload, (More rows for combo box)</span><br><br>';
+	?>
 
 	<div class="test">
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>

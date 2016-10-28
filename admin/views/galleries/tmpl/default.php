@@ -168,8 +168,8 @@ $userId = $user->id;
                     </div>
                 <?php else : ?>
 
-				<?
-					// <span style="color:red">(sorting sub galleries under main name)</span><br><br>
+				<?php
+					// echo '<span style="color:red">Task: (sorting sub galleries under main name)</span><br><br>';
 				?>
 
 				<table class="table table-striped table-hover" id="galleriesList">
