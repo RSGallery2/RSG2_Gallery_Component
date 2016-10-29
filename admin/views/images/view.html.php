@@ -26,21 +26,23 @@ class Rsgallery2ViewImages extends JViewLegacy
 	protected $pagination;
 	protected $state;
 
-
+    protected $HtmlPathThumb;
     protected $form;
 
 //	protected $rsgConfigData;
 
 	//------------------------------------------------
 	public function display ($tpl = null)
-	{	
+	{
+		global $rsgConfig;
+
 		//--- get needed form data ------------------------------------------
 		
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
 
-//		global $rsgConfig;
 //		$this->rsgConfigData = $rsgConfig;
+		$this->HtmlPathThumb = JURI_SITE . $rsgConfig->get('imgPath_thumb') . '/';
 
 		$this->items = $this->get('Items');
 		

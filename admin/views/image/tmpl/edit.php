@@ -48,8 +48,25 @@ JFactory::getDocument()->addScriptDeclaration('
 			</div>
 			<div class="span3">
 				<?php
-				echo JText::_('COM_RSGALLERY2_ITEM_PREVIEW');
+				echo '<fieldset class="adminform">';
+				echo '    <div class="control-group">';
+				echo '        <div class="control-label">';
+				echo '            <label id="jform_preview-lbl" class="" for="jform_preview">' . JText::_('COM_RSGALLERY2_ITEM_PREVIEW') . '</label>';
+				echo '        </div>';
+				echo '        <div class="controls">';
+				echo '            <input id="jform_preview" class="readonly input-large" name="jform[preview]"' .
+                                       ' type="image" src="' . $this->HtmlImageSrc
+					                   . '" alt="' . htmlspecialchars( stripslashes( $this->item->descr ), ENT_QUOTES ) . '" />';
+				echo '        </div>';
+				// 				<img src="<php echo $display->url() >" alt="<php echo htmlspecialchars( stripslashes( $item->descr ), ENT_QUOTES );>" />
+				echo '    </div>';
+				echo '</fieldset>';
+//				echo    JText::_('COM_RSGALLERY2_ITEM_PREVIEW');
+//				echo '</div>';
+
+
 				?>
+
 				<BR>
 				<BR>
 				<BR>

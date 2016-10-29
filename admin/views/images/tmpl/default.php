@@ -13,6 +13,7 @@ JHtml::_('behavior.multiselect');
 JHtml::_('formbehavior.chosen', 'select');
 
 global $Rsg2DebugActive;
+// global $rsgConfig;
 
 $sortColumn = $this->escape($this->state->get('list.ordering')); //Column
 $sortDirection  = $this->escape($this->state->get('list.direction'));
@@ -173,10 +174,7 @@ $userId = $user->id;
 	<?php else : ?>
 		<div id="j-main-container">
 	<?php endif;?>
-
-
-
-            <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=images'); ?>"
+			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=images'); ?>"
                   method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
 				<?php
 				// Search tools bar
@@ -195,7 +193,12 @@ $userId = $user->id;
 				</div>
 
 	            <span style="color:red">Task: Search controls, Item preview on hover, owner rights $canChange, $canEdit, order on move, copy</span><br><br>
-
+				<?php
+				//echo 'ThumbPath: ' . JPATH_THUMB . '<br>';
+				//echo 'ImagePathThumb: ' . $rsgConfig->imgPath_thumb . '<br>';
+				//echo 'ImagePathThumb: ' . JURI_SITE . $rsgConfig->get('imgPath_thumb') . '<br>';
+				echo $this->HtmlPathThumb . '<br>';
+				?>
 	            <?php if (empty($this->items)) : ?>
                     <div class="alert alert-no-items">
                         <?php echo JText::_('COM_RSGALLERY2_GALLERY_HAS_NO_IMAGES_ASSIGNED'); ?>
@@ -217,20 +220,19 @@ $userId = $user->id;
 									<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'a.published', $sortDirection, $sortColumn); ?>
 								</th>
 
-				                <th width="10%" class="">
+				                <th width="20%" class="">
 					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_TITLE', 'a.title', $sortDirection, $sortColumn); ?>
 				                </th>
 
-				                <th width="10%" class="">
+				                <th width="20%" class="">
 					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'a.name', $sortDirection, $sortColumn); ?>
 				                </th>
 
-				                <th width="1%" class="">
+				                <th width="10%" class="">
 					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_GALLERY', 'gallery_name', $sortDirection, $sortColumn); ?>
 				                </th>
 
-
-				                <th width="1%" class="center">
+				                <th width="4%" class="center">
 					                <?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'a.ordering', $sortDirection, $sortColumn); ?>
 					                &nbsp
 					                <button id="filter_go" class="btn btn-micro"
@@ -240,7 +242,7 @@ $userId = $user->id;
 					                </button>
 				                </th>
 
-				                <th width="1%" class="center nowrap hidden-phone">
+				                <th width="8%" class="center nowrap hidden-phone">
 					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_DATE__TIME', 'a.date', $sortDirection, $sortColumn); ?>
 				                </th>
 
@@ -296,37 +298,59 @@ $userId = $user->id;
 										<?php echo $this->pagination->getRowOffset($i); ?>
 									</td>
 
-						            <td width="1%" class="center">
+						            <td>
 							            <?php echo JHtml::_('grid.id', $i, $item->id); ?>
 						            </td>
 
-									<td width="1%" class="center">
+									<td>
 										<?php echo JHtml::_('jgrid.published', $item->published, $i); //, 'articles.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
 									</td>
-									<td width="10%" class="left has-context">
+									<td class="left has-context">
 										<div class="pull-left break-word">
 											<?php if ($item->checked_out) : ?>
 												<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'images.', $canCheckin);
 												?>
 											<?php endif; ?>
-											<strong>
-									            <?php
-									            if ($canEdit || $canEditOwn)
-									            {
-										            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&task=image.edit&id=".$item->id);
-										            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
-										            echo '<a href="' . $link . '"">' . $item->title . '</a>';
-													// <!--img class= "tooltips-link" title="TESTING" etc etc etc code /-->
-										            // <?php echo JHTML::tooltip('This is a tooltip attached to text', 'Text Tooltip Title', 'tooltip.png');? >
-									            } else
-									            {
-										            echo '<span title="' . JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias)) . '">';
-										            //echo '    ' . $PreTitle . $this->escape($item->name);
-										            echo $this->escape($item->title);
-										            echo '</span>';
-									            }
-									            ?>
-											</strong>
+
+								            <?php
+								            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&task=image.edit&id=".$item->id);
+
+								            $src = $this->HtmlPathThumb. $item->name . '.jpg';
+								            $style = '';
+								            //$style .= 'max-width:' . '200' . 'px;';
+								            //$style .= 'max-height:' . '200' . 'px;';
+								            //$style .= 'width:' . '100' . 'px;';
+								            //$style .= ' height:' . '100' . 'px;';
+								            $img = '<img src="' . $src . '" alt="' . $item->name . '" style="' . $style . '" />';
+
+								            echo '<strong>';
+								            if ($canEdit || $canEditOwn)
+								            {
+									            /**/
+									            echo JHtml::tooltip($img,
+										            JText::_('COM_RSGALLERY2_EDIT_IMAGE'),
+										            $item->title,
+										            htmlspecialchars(stripslashes($item->title), ENT_QUOTES),
+										            $link,
+										            1);
+									            /**/
+								            }
+								            else
+								            {
+									            /**
+									            echo '    <span title="' . JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias)) . '">';
+									            //echo '    ' . $PreTitle . $this->escape($item->name);
+									            echo         $this->escape($item->title);
+									            echo '    </span>';
+									            /**/
+									            echo JHtml::tooltip($img,
+										            JText::_('COM_RSGALLERY2_EDIT_IMAGE'),
+										            $item->title,
+										            htmlspecialchars(stripslashes($item->title), ENT_QUOTES));
+								            }
+								            echo '</strong>';
+								            ?>
+
 											<span class="small break-word">
 												<?php
 												// echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));
@@ -334,24 +358,28 @@ $userId = $user->id;
 											</span>
 										</div>
 						            </td>
-						            <td width="1%" class="">
-							            <?php
-							            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
-							            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
-							            echo '<a href="' . $link . '"">' . $item->name . '</a>';
-							            ?>
+						            <td class="left">
+							            <div class="pull-left break-word">
+								            <?php
+								            //$link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
+								            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&task=image.edit&id=".$item->id);
+								            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
+								            echo '<a href="' . $link . '"">' . $item->name . '</a>';
+								            ?>
+							            </div>
 						            </td>
 
-						            <td width="1%" class="">
+						            <td class="left">
 							            <?php
-							            $link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=".$item->gallery_id);
+							            //$link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=".$item->gallery_id);
+							            $link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&task=gallery.edit&id=".$item->gallery_id);
 							            //$link = JRoute::_("index.php?option=com_rsgallery2&rsgOption=galleries&task=editA&hidemainmenu=1&id=". $item->gallery_id);
 										//echo '<a href="' . $link . '"">' . $item->gallery_id . '</a>';
 										echo '<a href="' . $link . '"">' . $item->gallery_name . '</a>';
 										?>
 						            </td>
 
-						            <td width="1%" class="center">
+						            <td class="center">
 							            <div class="form-group">
 								            <label class="hidden" for="order[]">Ordering</label>
 								            <input  name="order[]"  type="number"
@@ -388,7 +416,7 @@ $userId = $user->id;
 							            <?php echo (int) $item->hits; ?>
 						            </td>
 
-						            <td class="hidden-phone center">
+						            <td>
 							            <?php echo (int) $item->id; ?>
 							            <input type="hidden" name="ids[]" value="<?php echo (int) $item->id; ?>" />
 						            </td>

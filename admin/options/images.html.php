@@ -140,7 +140,7 @@ class html_rsg2_images {
 											}
 										}
 										echo JHtml::tooltip('<img src="'.JURI_SITE.$rsgConfig->get('imgPath_thumb').'/'.$row->name.'.jpg" alt="'.$row->name.'" />',
-										 JText::_('COM_RSGALLERY2_EDIT_IMAGES'),
+										 JText::_('COM_RSGALLERY2_EDIT_IMAGE'),
 										 $row->name,
 										 htmlspecialchars(stripslashes($row->title), ENT_QUOTES).'&nbsp;('.$row->name.')',
 										 $link,

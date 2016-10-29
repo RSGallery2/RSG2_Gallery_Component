@@ -17,18 +17,24 @@ class Rsgallery2ViewImage extends JViewLegacy
 	protected $item;
 	protected $form;
 
-	protected $rsgConfigData;
+//	protected $rsgConfigData;
+	protected $HtmlPathThumb;
+	protected $HtmlPathDisplay;
+
+	protected $HtmlImageSrc;
 
 	//------------------------------------------------
 	public function display ($tpl = null)
-	{	
+	{
+		global $rsgConfig;
+
 		//--- get needed data ------------------------------------------
 		
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
-
-		global $rsgConfig;
-		$this->rsgConfigData = $rsgConfig;
+//		$this->rsgConfigData = $rsgConfig;
+		$this->HtmlPathThumb = JURI_SITE . $rsgConfig->get('imgPath_thumb'). '/';
+		$this->HtmlPathDisplay = JURI_SITE . $rsgConfig->get('imgPath_display') . '/';
 
 		$this->form = $this->get('Form');
 		$this->item = $this->get('Item');
@@ -44,8 +50,10 @@ class Rsgallery2ViewImage extends JViewLegacy
 
 		// Assign the Data
 		// $this->form = $form;
+		$this->HtmlImageSrc = $this->HtmlPathDisplay . $this->item->name . '.jpg';
+		echo '<br>HtmlImageSrc = ' . $this-> HtmlImageSrc . '<br>';
 
-		// different toolbar on different layouts
+			// different toolbar on different layouts
 		$Layout = JFactory::getApplication()->input->get('layout');
 		$this->addToolbar ($Layout);
 
