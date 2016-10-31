@@ -245,9 +245,6 @@ $userId = $user->id;
 			            <?php
 
 			            foreach ($this->items as $i => $item) {
-				            //$canChange  = true;
-				            //$canEdit  = true;
-				            //$canEditOwn  = true;
 
 	                        // Get permissions
 							$canEditOwnGallery   = $user->authorise('core.edit.own',  'com_rsgallery2.gallery.'.$item->id) AND ($item->uid == $userId);
@@ -338,9 +335,9 @@ $userId = $user->id;
 				            <td width="10%" class="left has-context">
 					            <div class="pull-left break-word">
 						            <?php
-										if ($item->checked_out) {
-											echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'galleries.', $canCheckIn);
-										}
+									if ($item->checked_out) {
+										echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'galleries.', $canCheckIn);
+									}
 									?>
 						            <strong>
 							            <?php

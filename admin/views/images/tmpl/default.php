@@ -235,11 +235,13 @@ $userId = $user->id;
 				                <th width="4%" class="center">
 					                <?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'a.ordering', $sortDirection, $sortColumn); ?>
 					                &nbsp
-					                <button id="filter_go" class="btn btn-micro"
-						                onclick="Joomla.submitbutton('images.saveOrdering')"
-						                title="<?php echo JText::_( 'COM_RSGALLERY2_ASSIGN_CHANGED_ORDER'); ?>">
-						                <i class="icon-save"></i>
-					                </button>
+									<?php if ($user->authorise('core.edit.state')): ?>
+										<button id="filter_go" class="btn btn-micro"
+											onclick="Joomla.submitbutton('images.saveOrdering')"
+											title="<?php echo JText::_( 'COM_RSGALLERY2_ASSIGN_CHANGED_ORDER'); ?>">
+											<i class="icon-save"></i>
+										</button>
+									<?php endif; ?>
 				                </th>
 
 				                <th width="8%" class="center nowrap hidden-phone">
@@ -281,16 +283,15 @@ $userId = $user->id;
 			                <?php
 
 				            foreach ($this->items as $i => $item) {
-					            //$canChange  = $user->authorise('core.edit.state', 'com_content.article.' . $item->id) && $canCheckin;
-					            $canChange  = true;
-					            $canEdit  = true;
-					            $canEditOwn  = true;
 	/**/
                                 // Get permissions
-                                $canEditGallery      = $user->authorise('core.edit',      'com_rsgallery2.image.'.$item->id);
-                                $canEditOwnGallery   = $user->authorise('core.edit.own',  'com_rsgallery2.image.'.$item->id) AND ($item->userid == $userId);
-                                $canEditStateGallery = $user->authorise('core.edit.state','com_rsgallery2.image.'.$item->id);
-					            $canCheckin          = $user->authorise('core.manage',    'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
+								$canEditOwnImage   = $user->authorise('core.edit.own',  'com_rsgallery2.image.'.$item->id) AND ($item->userid == $userId);
+                                $canEditImage      = $user->authorise('core.edit',      'com_rsgallery2.image.'.$item->id) || $canEditImage;
+
+								$canCheckin          = $user->authorise('core.manage',    'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
+
+								$canEditStateOwnImage = $user->authorise('core.edit.state.own','com_rsgallery2.image.'.$item->id) AND ($item->uid == $userId);
+                                $canEditStateImage      = $user->authorise('core.edit.state','com_rsgallery2.image.'.$item->id) || $canEditStateOwnImage;
 
 					            ?>
 								<tr>
@@ -307,49 +308,60 @@ $userId = $user->id;
 									</td>
 									<td class="left has-context">
 										<div class="pull-left break-word">
-											<?php if ($item->checked_out) : ?>
-												<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'images.', $canCheckin);
+											<?php
+											if ($item->checked_out) {
+												echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'images.', $canCheckin);
+											}
+											?>
+											<strong>
+
+												<?php
+												/*
+												 *
+												*/
+												if ($canEditGallery)
+												{
+
+													$link = JRoute::_("index.php?option=com_rsgallery2&view=image&task=image.edit&id=".$item->id);
+
+													$src = $this->HtmlPathThumb. $item->name . '.jpg';
+													$style = '';
+													//$style .= 'max-width:' . '200' . 'px;';
+													//$style .= 'max-height:' . '200' . 'px;';
+													//$style .= 'width:' . '100' . 'px;';
+													//$style .= ' height:' . '100' . 'px;';
+													$img = '<img src="' . $src . '" alt="' . $item->name . '" style="' . $style . '" />';
+
+													/**/
+													echo JHtml::tooltip($img,
+														JText::_('COM_RSGALLERY2_EDIT_IMAGE'),
+														$item->title,
+														htmlspecialchars(stripslashes($item->title), ENT_QUOTES),
+														$link,
+														1);
+													/**/
+												}
+												else
+												{
+													/**
+													echo '    <span title="' . JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias)) . '">';
+													//echo '    ' . $PreTitle . $this->escape($item->name);
+													echo         $this->escape($item->title);
+													echo '    </span>';
+													/**/
+									YYY STATE				echo JHtml::tooltip($img,
+														JText::_('COM_RSGALLERY2_EDIT_IMAGE'),
+														$item->title,
+														htmlspecialchars(stripslashes($item->title), ENT_QUOTES));
+										? 				htmlspecialchars <> escape ...
+														echo '<span title="' . JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias)) . '">';
+														//echo '    ' . $PreTitle . $this->escape($item->name);
+														echo $this->escape($item->name);
+														echo '</span>';
+
+								            	}
 												?>
-											<?php endif; ?>
-
-								            <?php
-								            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&task=image.edit&id=".$item->id);
-
-								            $src = $this->HtmlPathThumb. $item->name . '.jpg';
-								            $style = '';
-								            //$style .= 'max-width:' . '200' . 'px;';
-								            //$style .= 'max-height:' . '200' . 'px;';
-								            //$style .= 'width:' . '100' . 'px;';
-								            //$style .= ' height:' . '100' . 'px;';
-								            $img = '<img src="' . $src . '" alt="' . $item->name . '" style="' . $style . '" />';
-
-								            echo '<strong>';
-								            if ($canEdit || $canEditOwn)
-								            {
-									            /**/
-									            echo JHtml::tooltip($img,
-										            JText::_('COM_RSGALLERY2_EDIT_IMAGE'),
-										            $item->title,
-										            htmlspecialchars(stripslashes($item->title), ENT_QUOTES),
-										            $link,
-										            1);
-									            /**/
-								            }
-								            else
-								            {
-									            /**
-									            echo '    <span title="' . JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias)) . '">';
-									            //echo '    ' . $PreTitle . $this->escape($item->name);
-									            echo         $this->escape($item->title);
-									            echo '    </span>';
-									            /**/
-									            echo JHtml::tooltip($img,
-										            JText::_('COM_RSGALLERY2_EDIT_IMAGE'),
-										            $item->title,
-										            htmlspecialchars(stripslashes($item->title), ENT_QUOTES));
-								            }
-								            echo '</strong>';
-								            ?>
+								            </strong>
 
 											<span class="small break-word">
 												<?php
