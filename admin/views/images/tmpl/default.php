@@ -192,7 +192,7 @@ $userId = $user->id;
 	                ?>
 				</div>
 
-	            <span style="color:red">Task: Search controls, Item preview on hover, owner rights $canChange, $canEdit, order on move, copy</span><br><br>
+	            <span style="color:red">Task: Search controls, on move, copy</span><br><br>
 				<?php
 				//echo 'ThumbPath: ' . JPATH_THUMB . '<br>';
 				//echo 'ImagePathThumb: ' . $rsgConfig->imgPath_thumb . '<br>';
@@ -224,7 +224,7 @@ $userId = $user->id;
 					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_TITLE', 'a.title', $sortDirection, $sortColumn); ?>
 				                </th>
 
-				                <th width="20%" class="">
+				                <th width="20%" class="hidden-phone">
 					                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'a.name', $sortDirection, $sortColumn); ?>
 				                </th>
 
@@ -290,7 +290,7 @@ $userId = $user->id;
 
 								$canCheckin          = $user->authorise('core.manage',    'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
 
-								$canEditStateOwnImage = $user->authorise('core.edit.state.own','com_rsgallery2.image.'.$item->id) AND ($item->uid == $userId);
+								$canEditStateOwnImage = $user->authorise('core.edit.state.own','com_rsgallery2.image.'.$item->id) AND ($item->userid == $userId);
                                 $canEditStateImage      = $user->authorise('core.edit.state','com_rsgallery2.image.'.$item->id) || $canEditStateOwnImage;
 
 					            ?>
@@ -316,67 +316,51 @@ $userId = $user->id;
 											<strong>
 
 												<?php
-												/*
-												 *
-												*/
-												if ($canEditGallery)
-												{
+												//$link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
+												$link = JRoute::_("index.php?option=com_rsgallery2&view=image&task=image.edit&id=".$item->id);
 
-													$link = JRoute::_("index.php?option=com_rsgallery2&view=image&task=image.edit&id=".$item->id);
+												$src = $this->HtmlPathThumb . $this->escape($item->name) . '.jpg';
+												$style = '';
+												//$style .= 'max-width:' . '200' . 'px;';
+												//$style .= 'max-height:' . '200' . 'px;';
+												//$style .= 'width:' . '100' . 'px;';
+												//$style .= ' height:' . '100' . 'px;';
+												$img = '<img src="' . $src . '" alt="' . $this->escape($item->name) . '" style="' . $style . '" />';
 
-													$src = $this->HtmlPathThumb. $item->name . '.jpg';
-													$style = '';
-													//$style .= 'max-width:' . '200' . 'px;';
-													//$style .= 'max-height:' . '200' . 'px;';
-													//$style .= 'width:' . '100' . 'px;';
-													//$style .= ' height:' . '100' . 'px;';
-													$img = '<img src="' . $src . '" alt="' . $item->name . '" style="' . $style . '" />';
-
-													/**/
-													echo JHtml::tooltip($img,
-														JText::_('COM_RSGALLERY2_EDIT_IMAGE'),
-														$item->title,
-														htmlspecialchars(stripslashes($item->title), ENT_QUOTES),
-														$link,
-														1);
-													/**/
-												}
-												else
-												{
-													/**
-													echo '    <span title="' . JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias)) . '">';
-													//echo '    ' . $PreTitle . $this->escape($item->name);
-													echo         $this->escape($item->title);
-													echo '    </span>';
-													/**/
-									YYY STATE				echo JHtml::tooltip($img,
-														JText::_('COM_RSGALLERY2_EDIT_IMAGE'),
-														$item->title,
-														htmlspecialchars(stripslashes($item->title), ENT_QUOTES));
-										? 				htmlspecialchars <> escape ...
-														echo '<span title="' . JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias)) . '">';
-														//echo '    ' . $PreTitle . $this->escape($item->name);
-														echo $this->escape($item->name);
-														echo '</span>';
-
-								            	}
+												/**/
+												echo JHtml::tooltip($img,
+													JText::_('COM_RSGALLERY2_EDIT_IMAGE'),
+													$this->escape($item->title),
+//														htmlspecialchars(stripslashes($item->title), ENT_QUOTES),
+													$this->escape($item->title),
+													$link
+													 ); // display link yes / no
+												/**/
 												?>
 								            </strong>
 
+											<?php
+											/**
 											<span class="small break-word">
 												<?php
 												// echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));
 												?>
 											</span>
+											 */
+											?>
 										</div>
 						            </td>
-						            <td class="left">
+						            <td class="left hidden-phone ">
 							            <div class="pull-left break-word">
 								            <?php
 								            //$link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
 								            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&task=image.edit&id=".$item->id);
 								            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
-								            echo '<a href="' . $link . '"">' . $item->name . '</a>';
+											if ($canEditImage) {
+												echo '<a href="' . $link . '"">' . $this->escape($item->name) . '</a>';
+											} else {
+												echo $this->escape($item->name);
+											}
 								            ?>
 							            </div>
 						            </td>
@@ -387,21 +371,27 @@ $userId = $user->id;
 							            $link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&task=gallery.edit&id=".$item->gallery_id);
 							            //$link = JRoute::_("index.php?option=com_rsgallery2&rsgOption=galleries&task=editA&hidemainmenu=1&id=". $item->gallery_id);
 										//echo '<a href="' . $link . '"">' . $item->gallery_id . '</a>';
-										echo '<a href="' . $link . '"">' . $item->gallery_name . '</a>';
+										echo '<a href="' . $link . '"">' . $this->escape($item->gallery_name) . '</a>';
 										?>
 						            </td>
 
 						            <td class="center">
-							            <div class="form-group">
-								            <label class="hidden" for="order[]">Ordering</label>
-								            <input  name="order[]"  type="number"
-                                                class="input-mini form-control changeOrder"
-                                                min="0" step="1"
-                                                id="ordering_<?php echo $item->id; ?>"
-                                                value="<?php echo $item->ordering; ?>"
-                                                gallery_id="<?php echo $item->gallery_id; ?>"
-								            </input>
-							            </div>
+							            <?php if ($canEditStateImage): ?>
+								            <div class="form-group">
+									            <label class="hidden" for="order[]">Ordering</label>
+									            <input  name="order[]"  type="number"
+	                                                class="input-mini form-control changeOrder"
+	                                                min="0" step="1"
+	                                                id="ordering_<?php echo $item->id; ?>"
+	                                                value="<?php echo $item->ordering; ?>"
+	                                                gallery_id="<?php echo $item->gallery_id; ?>"
+									            </input>
+								            </div>
+							            <?php else : ?>
+								            <div class="form-group">
+									            <?php echo $item->ordering; ?>
+								            </div>
+							            <?php endif; ?>
 						            </td>
 
 
