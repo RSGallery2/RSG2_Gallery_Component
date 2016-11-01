@@ -556,6 +556,7 @@ class Netpbm extends genericImageLib{
         @exec($shell_cmd. 'jpegtopnm -version 2>&1',  $output, $status);
         if(!$status){
             if(preg_match("/netpbm[ \t]+([0-9\.]+)/i",$output[0],$matches)){
+	            // echo '<br>netpbm: ' + $matches[0];
                 return $matches[0];
             }
             else
@@ -612,6 +613,7 @@ class ImageMagick extends genericImageLib{
         @exec($impath.'convert -version',  $output, $status);
         if(!$status){
             if(preg_match("/imagemagick[ \t]+([0-9\.]+)/i",$output[0],$matches)){
+	            // echo '<br>ImageMagick: ' . $matches[0];
                 return $matches[0];
             } else {
                 return false;
@@ -795,29 +797,28 @@ class GD2 extends genericImageLib{
     }
     
     /**
-      * detects if image library is available
-      * @return bool|string false if not detected, user friendly string of library name and version if detected
-      */
+     * detects if gd2 image library is available
+     * @return string user friendly string of library name and version if detected
+     *                 empty if not detected,
+     */
     static function detect(){
-        $GDfuncList = get_extension_funcs('gd');
-        ob_start();
-        @phpinfo(INFO_MODULES);
-        $output=ob_get_contents();
-        ob_end_clean();
-        $matches[1]='';
-        if(preg_match("/GD Version[ \t]*(<[^>]+>[ \t]*)+([^<>]+)/s",$output,$matches)){
-            $gdversion = $matches[2];
-        }
-        if( $GDfuncList ){
-            if( in_array('imagegd2',$GDfuncList) ){
-                return 'gd2 '. $gdversion;
-            }
-            else{
-//                 return 'gd1 '. $gdversion);
-                return false;
-            }
-        }
-        else return false;
+		$gd2Version = '';
+
+	    if (extension_loaded('gd'))
+	    {
+		    if (function_exists('gd_info'))
+		    {
+			    $gdInfoArray = gd_info();
+			    $gd2Version = 'gd2 ' . $gdInfoArray["GD Version"];
+		    }
+	    }
+/*
+	    if(strlen ($Gd2Version) < 1) {
+		    // echo "<br>false";
+	    	return false;
+	    }
+/**/
+		return $gd2Version;
     }
 }
 
