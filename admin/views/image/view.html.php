@@ -20,6 +20,7 @@ class Rsgallery2ViewImage extends JViewLegacy
 //	protected $rsgConfigData;
 	protected $HtmlPathThumb;
 	protected $HtmlPathDisplay;
+	protected $HtmlPathOriginal;
 
 	protected $HtmlImageSrc;
 
@@ -35,6 +36,7 @@ class Rsgallery2ViewImage extends JViewLegacy
 //		$this->rsgConfigData = $rsgConfig;
 		$this->HtmlPathThumb = JURI_SITE . $rsgConfig->get('imgPath_thumb'). '/';
 		$this->HtmlPathDisplay = JURI_SITE . $rsgConfig->get('imgPath_display') . '/';
+		$this->HtmlPathOriginal = JURI_SITE . $rsgConfig->get('imgPath_original') . '/';
 
 		$this->form = $this->get('Form');
 		$this->item = $this->get('Item');
@@ -51,7 +53,6 @@ class Rsgallery2ViewImage extends JViewLegacy
 		// Assign the Data
 		// $this->form = $form;
 		$this->HtmlImageSrc = $this->HtmlPathDisplay . $this->item->name . '.jpg';
-		echo '<br>HtmlImageSrc = ' . $this-> HtmlImageSrc . '<br>';
 
 			// different toolbar on different layouts
 		$Layout = JFactory::getApplication()->input->get('layout');

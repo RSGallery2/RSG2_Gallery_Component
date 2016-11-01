@@ -26,9 +26,11 @@ JFactory::getDocument()->addScriptDeclaration('
 <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=edit&layout=edit&id=' . (int) $this->item->id); ?>"
 		method="post" name="adminForm" id="item-form" class="form-validate">
 
-	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
+	<?php
+	echo '<span style="color:red">Task: </span><br><br>';
+	?>
 
-	<span style="color:red">Task: Item preview on right </span><br><br>
+	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
 	<div class="test">
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
@@ -47,6 +49,16 @@ JFactory::getDocument()->addScriptDeclaration('
 				</fieldset>
 			</div>
 			<div class="span3">
+				<BR>
+				<fieldset class="adminform">
+					<?php
+					echo $this->form->renderField('published');
+					echo $this->form->renderField('ordering');
+					echo $this->form->renderField('userid');
+					echo $this->form->renderField('image_2nd_col name');
+					?>
+				</fieldset>
+
 				<?php
 				echo '<fieldset class="adminform">';
 				echo '    <div class="control-group">';
@@ -55,44 +67,32 @@ JFactory::getDocument()->addScriptDeclaration('
 				echo '        </div>';
 				echo '        <div class="controls">';
 				echo '            <input id="jform_preview" class="readonly input-large" name="jform[preview]"' .
-                                       ' type="image" src="' . $this->HtmlImageSrc
-					                   . '" alt="' . htmlspecialchars( stripslashes( $this->item->descr ), ENT_QUOTES ) . '" />';
+					' type="image" src="' . $this->HtmlImageSrc
+					. '" alt="' . $this->escape($this->item->descr ) . '" />';
 				echo '        </div>';
 				// 				<img src="<php echo $display->url() >" alt="<php echo htmlspecialchars( stripslashes( $item->descr ), ENT_QUOTES );>" />
 				echo '    </div>';
 				echo '</fieldset>';
-//				echo    JText::_('COM_RSGALLERY2_ITEM_PREVIEW');
-//				echo '</div>';
-
-
+				//				echo    JText::_('COM_RSGALLERY2_ITEM_PREVIEW');
+				//				echo '</div>';
 				?>
 
 				<BR>
+				<strong>
+					<?php echo JText::_('COM_RSGALLERY2_LINKS_TO_IMAGE')?>
+				</strong>
 				<BR>
-				<BR>
-				<BR>
-				<fieldset class="adminform">
-					<?php
-					echo $this->form->renderField('image_2nd_col name');
-					echo $this->form->renderField('published');
-					echo $this->form->renderField('ordering');
-					echo $this->form->renderField('userid');
-					?>
-				</fieldset>
-
-				<?php echo JText::_('COM_RSGALLERY2_LINKS_TO_IMAGE')?>
-
 				<BR>
 				<?php echo JText::_('COM_RSGALLERY2_THUMB'); ?>
-				<input type="text" name="thumb_url" width="100%" display="block" value="<?php echo '$thumb->url()';?>" />
+				<input type="text" name="thumb_url" class="text_area input-xxlarge" size="180" value="<?php echo $this->HtmlPathThumb;?>"  readonly />
 
 				<BR>
 				<?php echo JText::_('COM_RSGALLERY2_DISPLAY'); ?>
-				<input type="text" name="display_url" class="text_area" size="180" value="<?php echo '$display->url()';?>" />
+				<input type="text" name="display_url" class="text_area input-xxlarge" size="180" value="<?php echo $this->HtmlPathDisplay;?>" readonly />
 
 				<BR>
 				<?php echo JText::_('COM_RSGALLERY2_ORIGINAL'); ?>
-				<input type="text" name="original_url" class="text_area" size="80" value="<?php echo '$original->url()';?>" />
+				<input type="text" name="original_url" class="text_area input-xxlarge" size="80" value="<?php echo $this->HtmlPathOriginal;?>" readonly />
 				
 			</div>
 		</div>
