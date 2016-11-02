@@ -17,7 +17,6 @@ class Rsgallery2ViewGallery extends JViewLegacy
 	protected $item;
 	protected $form;
 
-	protected $rsgConfigData;
 
 	//------------------------------------------------
 	public function display ($tpl = null)
@@ -26,9 +25,6 @@ class Rsgallery2ViewGallery extends JViewLegacy
 		
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
-
-		global $rsgConfig;
-		$this->rsgConfigData = $rsgConfig;
 
 		$this->form = $this->get('Form');
 		$this->item = $this->get('Item');
@@ -51,6 +47,8 @@ class Rsgallery2ViewGallery extends JViewLegacy
 		$this->addToolbar ($Layout);
 
 		$this->sidebar = JHtmlSidebar::render ();
+
+		// echo '<span style="color:red">Task: Toolbar: Link for Upload, (More rows for combo box)</span><br><br>';
 
 		parent::display ($tpl);
 
@@ -93,8 +91,8 @@ class Rsgallery2ViewGallery extends JViewLegacy
 
 				break;
 		}
-
 	}
+
 }
 
 

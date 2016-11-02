@@ -72,6 +72,4 @@ class Rsgallery2TableGallery extends JTable
         }
     }
 
-
-
 }

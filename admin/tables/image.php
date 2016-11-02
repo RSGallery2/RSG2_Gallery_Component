@@ -27,7 +27,6 @@ class Rsgallery2TableImage extends JTable
 		parent::__construct('#__rsgallery2_files', 'id', $db);
 	}
 
-
     /**
      * Overloaded bind function
      *
@@ -72,6 +71,5 @@ class Rsgallery2TableImage extends JTable
             return false;
         }
     }
-
 
 }

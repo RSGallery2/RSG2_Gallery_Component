@@ -17,7 +17,6 @@ class Rsgallery2ViewImage extends JViewLegacy
 	protected $item;
 	protected $form;
 
-//	protected $rsgConfigData;
 	protected $HtmlPathThumb;
 	protected $HtmlPathDisplay;
 	protected $HtmlPathOriginal;
@@ -60,6 +59,8 @@ class Rsgallery2ViewImage extends JViewLegacy
 
 		$this->sidebar = JHtmlSidebar::render ();
 
+		echo '<span style="color:red">Task: Compare results original,  Click on image ? what to do ? </span><br><br>';
+	
 		parent::display ($tpl);
 
         return;
@@ -78,13 +79,13 @@ class Rsgallery2ViewImage extends JViewLegacy
 	}
 
 	protected function addToolbar ($Layout='default')
-	{
-		
+	{		
 		switch ($Layout)
 		{
 			case 'edit':
 			default:
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_EDIT_IMAGE', 'image'));
+
 				JToolBarHelper::apply('image.apply');
 				JToolBarHelper::save('image.save');
 				JToolbarHelper::save2new('image.save2new');
@@ -99,6 +100,7 @@ class Rsgallery2ViewImage extends JViewLegacy
 				break;
 		}
 	}
+
 }
 
 

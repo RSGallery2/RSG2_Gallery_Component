@@ -28,16 +28,13 @@ JFactory::getDocument()->addScriptDeclaration('
 
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
-	<?php
-		// echo '<span style="color:red">Task: Toolbar: Link for Upload, (More rows for combo box)</span><br><br>';
-	?>
-
-	<div class="test">
+	<div class="edit">
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
 
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', empty($this->item->id) ? JText::_('COM_RSGALLERY2_NEW') : JText::_('COM_RSGALLERY2_EDIT')); ?>
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', 
+			empty($this->item->id) ? JText::_('COM_RSGALLERY2_NEW') : JText::_('COM_RSGALLERY2_EDIT')); ?>
 		<div class="row-fluid">
-			<div class="span6">
+			<div class="span6 form-horizontal">
 				<fieldset class="adminform">
 					<?php
 					echo $this->form->renderField('description');
@@ -49,7 +46,6 @@ JFactory::getDocument()->addScriptDeclaration('
 			<div class="span3">
 				<fieldset class="adminform">
 					<?php
-					echo $this->form->renderField('');
 					echo $this->form->renderField('published');
 					echo $this->form->renderField('ordering');
 					echo $this->form->renderField('thumb_id');

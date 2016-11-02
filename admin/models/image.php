@@ -36,6 +36,7 @@ class Rsgallery2ModelImage extends  JModelAdmin
 		$options = array('control' => 'jform', 'load_data' => $loadData);
 		$form = $this->loadForm('com_rsgallery2.images', 'image', 
 			array('control' => 'jform', 'load_data' => $loadData));
+
 		if (empty($form)) 
 		{
 			return false;
@@ -93,9 +94,13 @@ class Rsgallery2ModelImage extends  JModelAdmin
                 $max = $db->loadResult();
 
                 $table->ordering = $max + 1;
+
+                // Set the values
+                $table->date = $date;
                 $table->user_id = JFactory::getUser()->id;
             }
 	        /**/
+
 	        $table->ordering = $table->getNextOrder('gallery_id = ' . (int) $table->gallery_id); // . ' AND state >= 0');
         }
         else
@@ -107,11 +112,8 @@ class Rsgallery2ModelImage extends  JModelAdmin
 
         // Increment the content version number.
         // $table->version++;
-
-
     }
     /**/
-
 
 	/**
 	 * A protected method to get a set of ordering conditions.
@@ -128,8 +130,116 @@ class Rsgallery2ModelImage extends  JModelAdmin
 		return $condition;
 	}
 
+	/**
+	 * function edit -> checkout .... http://joomla.stackexchange.com/questions/5333/how-is-content-locking-handled-in-custom-components
+	 */
 
-	// ToDO: try to do it more elegant
+
+	/**
+	 * Method to save the form data.
+	 *
+	 * @param   array  $data  The form data.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @since   1.6
+	 */
+	public function save($data)
+	{
+		$input = JFactory::getApplication()->input;
+
+		$task = $input->get('task');
+
+		// Automatic handling of alias for empty fields
+		if (in_array($task, array('apply', 'save', 'save2new'))
+				// && (!isset($data['id']) || (int) $data['id'] == 0) // <== only for new item
+        )
+		{
+			if (empty ($data['alias']))
+			{
+				if (JFactory::getConfig()->get('unicodeslugs') == 1)
+				{
+					$data['alias'] = JFilterOutput::stringURLUnicodeSlug($data['name']);
+				}
+				else
+				{
+					$data['alias'] = JFilterOutput::stringURLSafe($data['name']);
+				}
+
+                // check for existing alias
+				$table = $this->getTable();
+
+				//if ($table->load(array('alias' => $data['alias'], 'catid' => $data['catid'])))
+                // Warning on existing alias
+				if ($table->load(array('alias' => $data['alias'])))
+				{
+					$msg = JText::_('COM_RSGALLERY2_NAME_CHANGED_AS_WAS_EXISTING');
+				}
+
+				/* Create unique alias and ? name ? **/
+                // article : list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['title']);
+                list($name, $alias) = $this->generateNewTitle(null, $data['alias'], $data['name']);
+                $data['alias'] = $alias;
+                $data['name'] = $name;
+
+                if (isset($msg))
+                {
+                    JFactory::getApplication()->enqueueMessage($msg, 'warning');
+                }
+
+			}
+		}
+
+		if (parent::save($data))
+		{
+			/**
+			$new_pk = (int) $this->getState($this->getName() . '.id');
+
+			if ($app->input->get('task') == 'save2copy')
+			{
+				// Reorder table so that new record has a unique ordering value
+				$table->load($new_pk);
+				$conditions_array = $this->getReorderConditions($table);
+				$conditions = implode(' AND ', $conditions_array);
+				$table->reorder($conditions);
+			}
+			/**/
+			return true;
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * Method to change the title & alias.
+	 *
+	 * @param   integer  $category_id  The id of the category.
+	 * @param   string   $alias        The alias.
+	 * @param   string   $title        The title.
+	 *
+	 * @return	array  Contains the modified title and alias.
+	 *
+	 * @since	12.2
+	 */
+	protected function generateNewTitle($dummy, $alias, $title)
+	{
+		// Alter the title & alias
+		$table = $this->getTable();
+
+		while ($table->load(array('alias' => $alias)))
+		{
+			$title = JString::increment($title);
+			$alias = JString::increment($alias, 'dash');
+		}
+
+		return array($title, $alias);
+	}
+
+	// ToDo: try to do it more elegant 
+	// Called by maintenance -> Consolidate image database
+	// load table (? may init all varioables )
+	// Change what is necessary and use save see above
 
     public function CreateImage ($imageName, $galleryId)
     {
@@ -195,6 +305,5 @@ class Rsgallery2ModelImage extends  JModelAdmin
 
         return HasError;
     }
-
 
 }

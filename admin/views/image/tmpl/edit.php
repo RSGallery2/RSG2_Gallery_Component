@@ -9,7 +9,8 @@ global $Rsg2DebugActive;
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.keepalive'); 
-JHtml::_('formbehavior.chosen', 'select');
+//JHtml::_('formbehavior.chosen', 'select');
+JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'=>3));
 
 JFactory::getDocument()->addScriptDeclaration('
 	Joomla.submitbutton = function(task)
@@ -20,19 +21,14 @@ JFactory::getDocument()->addScriptDeclaration('
 		}
 	};
 ');
-
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=edit&layout=edit&id=' . (int) $this->item->id); ?>"
 		method="post" name="adminForm" id="item-form" class="form-validate">
 
-	<?php
-	echo '<span style="color:red">Task: </span><br><br>';
-	?>
-
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
-	<div class="test">
+	<div class="edit">
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
 
 		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general',
@@ -49,7 +45,6 @@ JFactory::getDocument()->addScriptDeclaration('
 				</fieldset>
 			</div>
 			<div class="span3">
-				<BR>
 				<fieldset class="adminform">
 					<?php
 					echo $this->form->renderField('published');
@@ -115,5 +110,6 @@ JFactory::getDocument()->addScriptDeclaration('
 
 	<input type="hidden" name="task" value="" />
 	<?php echo JHtml::_('form.token'); ?>
+
 </form>
 
