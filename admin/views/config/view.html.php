@@ -24,6 +24,8 @@ class Rsgallery2ViewConfig extends JViewLegacy
 	protected $rsgVersion;
 	protected $allowedFileTypes;
 
+	protected $configVars;
+
 	//------------------------------------------------
 	/**
 	 * @param null $tpl
@@ -48,6 +50,9 @@ class Rsgallery2ViewConfig extends JViewLegacy
 
 		$this->rsgVersion = $rsgConfig->version; // "Version 04.01.00";
 		$this->allowedFileTypes = imgUtils::allowedFileTypes ();
+
+		$this->configVars = get_object_vars($this->rsgConfigData);
+		$this->form->bind ($this->configVars);
 
 //		$form = $this->get('Form');
 

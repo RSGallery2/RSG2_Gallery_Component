@@ -20,62 +20,62 @@
 			<option value="0">JNO</option>
 		</field>
 		<field
-				id           = "advancedSef"
-				name         = "advancedSef"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_ADVANCED_SEF_ALL_CATEGORY_NAMES_AND_ITEM_TITLES_MUST_BE_UNIQUE"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+			id           = "advancedSef"
+			name         = "advancedSef"
+			type         = "radio"
+			default      = "0"
+			label        = "COM_RSGALLERY2_ADVANCED_SEF_ALL_CATEGORY_NAMES_AND_ITEM_TITLES_MUST_BE_UNIQUE"
+			description  = ""
+			class        = "btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
-
 	</fieldset>
+
 	<fieldset name="Images_manipulation">
 		<field
-				name         = "image_width"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_PICTURE_WIDTH"
-				description  = ""
-				class        = "">
+			name         = "image_width"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_DISPLAY_PICTURE_WIDTH"
+			description  = ""
+			class        = "">
 		</field>
 		<field
-				name         = "thumb_width"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_THUMBNAIL_WIDTH"
-				description  = ""
-				class        = "">
+			name         = "thumb_width"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_THUMBNAIL_WIDTH"
+			description  = ""
+			class        = "">
 		</field>
 		<field
-				name         = "thumb_style"
-				type         = "list"
-				default      = "0"
-				label        = "COM_RSGALLERY2_THUMBNAIL_STYLE"
-				description  = ""
-				class        = ""
+			name         = "thumb_style"
+			type         = "list"
+			default      = "0"
+			label        = "COM_RSGALLERY2_THUMBNAIL_STYLE"
+			description  = ""
+			class        = ""
 		>
 			<option value="0">COM_RSGALLERY2_PROPORTIONAL</option>
 			<option value="1">COM_RSGALLERY2_SQUARE</option>
 		</field>
 		<field
-				name         = "jpegQuality"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_JPEG_QUALITY_PERCENTAGE"
-				description  = ""
-				class        = "">
+			name         = "jpegQuality"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_JPEG_QUALITY_PERCENTAGE"
+			description  = ""
+			class        = "">
 		</field>
 		<!-- field
-				name         = "allowedFileTypes"
-				type         = "list"
-				default      = "0"
-				label        = "COM_RSGALLERY2_ALLOWED_FILETYPES"
-				description  = ""
-				class        = "chzn-color-state"
-				size         = "3"
+			name         = "allowedFileTypes"
+			type         = "list"
+			default      = "0"
+			label        = "COM_RSGALLERY2_ALLOWED_FILETYPES"
+			description  = ""
+			class        = "chzn-color-state"
+			size         = "3"
 			>
 			<option value="1">JPUBLISHED</option>
 			<option value="0">JUNPUBLISHED</option>
@@ -85,53 +85,53 @@
 	</fieldset>
 	<fieldset name="Images_upload">
 		<field
-				name         = "ftp_path"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_FTP_PATH"
-				description  = "COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH"
-				class        = "">
+			name         = "ftp_path"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_FTP_PATH"
+			description  = "COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH"
+			class        = "">
 		</field>
 		<field
-				name         = "useIPTCinformation"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_RSG2_USE_IPTC"
-				description  = "COM_RSGALLERY2_RSG2_IPTC_TOOLTIP"
-				class        = "btn-group btn-group-yesno">
+			name         = "useIPTCinformation"
+			type         = "radio"
+			default      = "0"
+			label        = "COM_RSGALLERY2_RSG2_USE_IPTC"
+			description  = "COM_RSGALLERY2_RSG2_IPTC_TOOLTIP"
+			class        = "btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 		<field
-				name         = "uploadState"
-				type="list"
-				class="chzn-color-state"
-				default="1"
-				size="1"
-				label="COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP_TITLE"
-				description="COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP">
+			name         = "uploadState"
+			type="list"
+			class="chzn-color-state"
+			default="1"
+			size="1"
+			label="COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP_TITLE"
+			description="COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP">
 			<option value="1">JPUBLISHED</option>
 			<option value="0">JUNPUBLISHED</option>
 			<option value="2">JARCHIVED</option>
 			<option value="-2">JTRASHED</option>
 		</field>
 		<field
-				name         = "IsUseOneGalleryNameForAllImages"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_PRESELECT_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
-				description  = "COM_RSGALLERY2_PRESELECT_ONE_GALLERY_FOR_ALL_IMAGES_PRESELECT"
-				class        = "btn-group btn-group-yesno">
+			name         = "IsUseOneGalleryNameForAllImages"
+			type         = "radio"
+			default      = "0"
+			label        = "COM_RSGALLERY2_PRESELECT_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+			description  = "COM_RSGALLERY2_PRESELECT_ONE_GALLERY_FOR_ALL_IMAGES_PRESELECT"
+			class        = "btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 		<field
-				name         = "IsPreSelectLatestGallery"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_LABEL"
-				description  = "COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_DESC"
-				class        = "btn-group btn-group-yesno">
+			name         = "IsPreSelectLatestGallery"
+			type         = "radio"
+			default      = "0"
+			label        = "COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_LABEL"
+			description  = "COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_DESC"
+			class        = "btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -140,13 +140,13 @@
 	</fieldset>
 	<fieldset name="Images_graficsLibrary">
 		<field
-				name         = "graphicsLib"
-				type         = "list"
-				default      = "0"
-				label        = "COM_RSGALLERY2_GRAPHICS_LIBRARY"
-				description  = ""
-				class        = ""
-				size         = "3"
+			name         = "graphicsLib"
+			type         = "list"
+			default      = "0"
+			label        = "COM_RSGALLERY2_GRAPHICS_LIBRARY"
+			description  = ""
+			class        = ""
+			size         = "3"
 		>
 			<option value="0">*GD2</option>
 			<option value="1">*ImageMagick</option>
@@ -154,134 +154,133 @@
 			<option value="2">*ToDo:Separate field type needed</option>
 		</field>
 		<field
-				name         = "imageMagick_path"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_IMAGEMAGICK_PATH"
-				description  = "COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_LABEL"
-				class        = "btn-group btn-group-yesno">
+			name         = "imageMagick_path"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_IMAGEMAGICK_PATH"
+			description  = "COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_LABEL"
+			class        = "btn-group btn-group-yesno">
 		</field>
 		<field
-				name         = "netpbm_path"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_NETPBM_PATH"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+			name         = "netpbm_path"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_NETPBM_PATH"
+			description  = ""
+			class        = "btn-group btn-group-yesno">
 		</field>
 		<field
-				name         = "videoConverter_path"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_VIDEO_CONVERTER_PATH"
-				description  = "COM_RSGALLERY2_PAREN_EXAMPLE"
-				class        = "btn-group btn-group-yesno">
+			name         = "videoConverter_path"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_VIDEO_CONVERTER_PATH"
+			description  = "COM_RSGALLERY2_PAREN_EXAMPLE"
+			class        = "btn-group btn-group-yesno">
 		</field>
 		<field
-				name         = "videoConverter_param"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_VIDEO_CONVERTER_PARAMETERS"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+			name         = "videoConverter_param"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_VIDEO_CONVERTER_PARAMETERS"
+			description  = ""
+			class        = "btn-group btn-group-yesno">
 		</field>
 		<field
-				name         = "videoConverter_thumbParam"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_THUMBNAIL_EXTRACTION_PARAMETERS"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+			name         = "videoConverter_thumbParam"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_THUMBNAIL_EXTRACTION_PARAMETERS"
+			description  = ""
+			class        = "btn-group btn-group-yesno">
 		</field>
 		<field
-				name         = "videoConverter_extension"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_VIDEO_OUTPUT_TYPE"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+			name         = "videoConverter_extension"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_VIDEO_OUTPUT_TYPE"
+			description  = ""
+			class        = "btn-group btn-group-yesno">
 		</field>
-
-
 	</fieldset>
+
 	<fieldset name="Images_storage">
 		<field
-				name         = "keepOriginalImage"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_KEEP_ORIGINAL_IMAGE"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+			name         = "keepOriginalImage"
+			type         = "radio"
+			default      = "0"
+			label        = "COM_RSGALLERY2_KEEP_ORIGINAL_IMAGE"
+			description  = ""
+			class        = "btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 		<field
-				name         = "imgPath_original"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_ORIGINAL_IMAGE_PATH"
-				description  = ""
-				class        = "">
+			name         = "imgPath_original"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_ORIGINAL_IMAGE_PATH"
+			description  = ""
+			class        = "">
 		</field>
 		<field
-				name         = "imgPath_display"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_IMAGE_PATH"
-				description  = ""
-				class        = "">
+			name         = "imgPath_display"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_DISPLAY_IMAGE_PATH"
+			description  = ""
+			class        = "">
 		</field>
 		<field
-				name         = "imgPath_thumb"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_THUMB_PATH"
-				description  = ""
-				class        = "">
+			name         = "imgPath_thumb"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_THUMB_PATH"
+			description  = ""
+			class        = "">
 		</field>
 	</fieldset>
 	<fieldset name="Images_comments">
 		<field
-				name         = "comment_security"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_USE_CAPTCHA_COMMENT_FORM"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+			name         = "comment_security"
+			type         = "radio"
+			default      = "0"
+			label        = "COM_RSGALLERY2_USE_CAPTCHA_COMMENT_FORM"
+			description  = ""
+			class        = "btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 		<field
-				name         = "captcha_type"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_CAPTCHA_TYPE"
-				description  = ""
-				class        = "">
+			name         = "captcha_type"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_CAPTCHA_TYPE"
+			description  = ""
+			class        = "">
 		</field>
 		<field
-				name         = "captcha_image_height"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_CAPTCHA_IMAGE_HEIGHT"
-				description  = ""
-				class        = "">
+			name         = "captcha_image_height"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_CAPTCHA_IMAGE_HEIGHT"
+			description  = ""
+			class        = "">
 		</field>
 		<field
-				name         = "captcha_perturbation"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_CAPTCHA_PERTURBATION"
-				description  = ""
-				class        = "">
+			name         = "captcha_perturbation"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_CAPTCHA_PERTURBATION"
+			description  = ""
+			class        = "">
 		</field>
 		<field
-				name         = "captcha_num_lines"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_CAPTCHA_NUM_LINES"
-				description  = ""
-				class        = "">
+			name         = "captcha_num_lines"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_CAPTCHA_NUM_LINES"
+			description  = ""
+			class        = "">
 		</field>
 		<field
 				name         = "captcha_image_bg_color"
