@@ -9,6 +9,7 @@ jimport('joomla.application.component.helper');
  * 
  */
 //class Rsgallery2ModelConfigRaw extends JModelLegacy  // JModelForm // JModelAdmin // JModelList // JModelItem
+//class Rsgallery2ModelConfigRaw extends JModelAdmin  // JModelForm
 class Rsgallery2ModelConfigRaw extends JModelList
 {
 	public function getTable($type = 'Config', $prefix = 'Rsgallery2Table', $config = array())

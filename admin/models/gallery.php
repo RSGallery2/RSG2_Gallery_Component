@@ -32,8 +32,7 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 	public function getForm($data = array(), $loadData = true) 
 	{
 		$options = array('control' => 'jform', 'load_data' => $loadData);
-		$form = $this->loadForm('com_rsgallery2.gallery', 'gallery', 
-			array('control' => 'jform', 'load_data' => $loadData));
+		$form = $this->loadForm('com_rsgallery2.gallery', 'gallery', $options);
 
 		if (empty($form))
 		{
@@ -41,6 +40,7 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 		}
 		return $form;
 	}
+
 	/**
 	 * Method to get the data that should be injected in the form.
 	 *
@@ -56,6 +56,7 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 		{
 			$data = $this->getItem();
 		}
+
 		return $data;
 	}
 

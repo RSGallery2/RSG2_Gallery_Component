@@ -69,11 +69,8 @@ function configInputField($name='unknown', $value='') {
 
 						<legend><?php echo JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'); ?></legend>
 						<?php
-
-							$configVars = get_object_vars($this->rsgConfigData);
-							ksort($configVars);
+							ksort($this->configVars);
 							foreach ($configVars as $name => $value) {
-
 								configInputField ($name, $value);
 							}
 						?>

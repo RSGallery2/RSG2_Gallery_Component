@@ -1,6 +1,6 @@
 <?php
 // No direct access to this file
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
 // import Joomla modelform library
 jimport('joomla.application.component.modeladmin');
@@ -38,33 +38,66 @@ class Rsgallery2ModelConfig extends JModelAdmin  // JModelForm
     }
 	*/
 
+	/**
+	 * Returns a reference to the a Table object, always creating it.
+	 *
+	 * @param       string $type    The table type to instantiate
+	 * @param       string $prefix A prefix for the table class name. Optional.
+	 * @param       array  $config Configuration array for model. Optional.
+	 * @return      JTable  A database object
+	 * @since       2.5
+	 */
 	public function getTable($type = 'Config', $prefix = 'Rsgallery2Table', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
 	}
 
-    public function getForm($data = array(), $loadData = true) {
-        $form = $this->loadForm ('com_rsgallery2.config', 'config', 
-			array('control' => 'jform', 'load_data' => $loadData));
+	/**
+	 * Method to get the record form.
+	 *
+	 * @param       array   $data           Data for the form.
+	 * @param       boolean $loadData       True if the form is to load its own data (default case), false if not.
+	 * @return      mixed   A JForm object on success, false on failure
+	 * @since       2.5
+	 */
+    public function getForm($data = array(), $loadData = true) 
+	{
+		$options = array('control' => 'jform', 'load_data' => $loadData);
+        $form = $this->loadForm ('com_rsgallery2.config', 'config', $options);
 
-		if (!$form) {
-            return false;
-        } else {
-            return $form;
-        }
-    }
+		if (empty($form))
+		{
+			return false;
+		}
+		return $form;
+	}
  	
-    protected function loadFormData() {
-        $data = JFactory::getApplication()
-			->getUserState('com_rsgallery2.edit.config.data', array());
-
-        if (empty($data)) {
+	/**
+	 * Method to get the data that should be injected in the form.
+	 *
+	 * @return      mixed   The data for the form.
+	 * @since       2.5
+	 */
+    protected function loadFormData() 
+	{
+		// Check the session for previously entered form data.
+		$app = JFactory::getApplication();
+        $data = $app->getUserState('com_rsgallery2.edit.config.data', array());
+        if (empty($data)) 
+		{
             $data = $this->getItem();
         }
 
         return $data;
     }
 	
+    // Transform some data before it is displayed
+    /* extension development 129 bottom  */
+	protected function prepareTable($table)
+	{
+		// $table->title		= htmlspecialchars_decode($table->title, ENT_QUOTES);
+	}
+
 	/**
 	 * Method to get a single record.
 	 *
@@ -110,15 +143,53 @@ class Rsgallery2ModelConfig extends JModelAdmin  // JModelForm
 	}
 /**/
 
+	/**
+	 * Method to save the form data.
+	 *
+	 * @param   array  $data  The form data.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @since   1.6
+	 */
+	public function save($data) {
+		$msg = "Rsgallery2ModelConfigRaw: ";
 
+		$input =JFactory::getApplication()->input;
+		//$jform = $input->get( 'jform', array(), 'ARRAY');
 
- 
-	/*
-	protected function prepareTable($table)
-	{
-		$table->title		= htmlspecialchars_decode($table->title, ENT_QUOTES);
+// ToDO: Check if in $data is the same and then for ...raw
+//		$data  = $input->post->get('jform', array(), 'array');
+
+//		echo json_encode ($jform);
+/*
+		// Complete data array if needed
+		$oldData = $model->getData();
+		$data = array_replace($oldData, $data);
+*/
+		
+// ToDo: Remove bad injected code		
+
+		$row = $this->getTable ();
+		foreach ($data as $key => $value)
+		{
+/*
+fill an array, bind and check and store ?
+ */
+			$row->id = null;
+			$row->name = $key;
+			$row->value = $value;
+			$row->id = null;
+
+//			$msg .= '    name = ' . $key . ' value = ' . $value . '<br>';
+
+			$row->check ();
+			$row->store ();
+
+		}
+
+		return $msg;
 	}
-	*/
-
+ 
 
 }
