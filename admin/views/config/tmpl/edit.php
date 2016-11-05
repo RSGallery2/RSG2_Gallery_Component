@@ -114,16 +114,16 @@ JHtml::_('formbehavior.chosen', 'select');
                             <?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_GRAPHICS_LIBRARY'), 'cfg_images_id_3'); ?>
 
                                 <?php
-                                echo $this->form->renderFieldset('Images_graficsLibrary');
+                                    echo $this->form->renderFieldset('Images_graficsLibrary');
                                 ?>
 
                             <?php echo JHtml::_('bootstrap.endSlide'); ?>
 
                             <?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_IMAGE_STORAGE'), 'cfg_images_id_4'); ?>
 
-                                <?php
+                            <?php
                                 echo $this->form->renderFieldset('Images_storage');
-                                ?>
+                            ?>
 
                             <?php echo JHtml::_('bootstrap.endSlide'); ?>
 
