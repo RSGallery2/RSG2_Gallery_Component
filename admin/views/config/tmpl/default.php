@@ -91,7 +91,7 @@ JHtml::_('formbehavior.chosen', 'select');
 
                 <?php echo JHtml::_('bootstrap.endSlide'); ?>
 
-                            <?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_IMAGE_UPLOAD'), 'cfg_images_id_2'); ?>
+                <?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_IMAGE_UPLOAD'), 'cfg_images_id_2'); ?>
                 <?php /*
                 <td width="200">
                     <?php echo JText::_('COM_RSGALLERY2_FTP_PATH') ?>
