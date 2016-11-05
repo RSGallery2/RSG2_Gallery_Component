@@ -141,30 +141,25 @@
 	<fieldset name="Images_graficsLibrary">
 		<field
 			name         = "graphicsLib"
-			type         = "list"
+			type         = "GraficLibrarySelectList"
 			default      = "0"
 			label        = "COM_RSGALLERY2_GRAPHICS_LIBRARY"
 			description  = ""
 			class        = ""
-			size         = "3"
 		>
-			<option value="0">*GD2</option>
-			<option value="1">*ImageMagick</option>
-			<option value="2">*NETPBM</option>
-			<option value="2">*ToDo:Separate field type needed</option>
 		</field>
 		<field
 			name         = "imageMagick_path"
 			type         = "text"
-			default      = "0"
+			default      = ""
 			label        = "COM_RSGALLERY2_IMAGEMAGICK_PATH"
 			description  = "COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_LABEL"
-			class        = "btn-group btn-group-yesno">
+			class        = "">
 		</field>
 		<field
 			name         = "netpbm_path"
 			type         = "text"
-			default      = "0"
+			default      = ""
 			label        = "COM_RSGALLERY2_NETPBM_PATH"
 			description  = ""
 			class        = "btn-group btn-group-yesno">
@@ -172,7 +167,7 @@
 		<field
 			name         = "videoConverter_path"
 			type         = "text"
-			default      = "0"
+			default      = ""
 			label        = "COM_RSGALLERY2_VIDEO_CONVERTER_PATH"
 			description  = "COM_RSGALLERY2_PAREN_EXAMPLE"
 			class        = "btn-group btn-group-yesno">
@@ -252,11 +247,14 @@
 		</field>
 		<field
 			name         = "captcha_type"
-			type         = "text"
+			type         = "list"
 			default      = "0"
 			label        = "COM_RSGALLERY2_CAPTCHA_TYPE"
 			description  = ""
-			class        = "">
+			class        = ""
+		>
+			<option value="0">COM_RSGALLERY2_CAPTCHA_ALFANUMERIC</option>
+			<option value="1">COM_RSGALLERY2_CAPTCHA_MATH</option>
 		</field>
 		<field
 			name         = "captcha_image_height"
@@ -433,25 +431,24 @@
 		<field
 				id           = "dispLimitbox"
 				name         = "dispLimitbox"
-				type         = "radio"
+				type         = "list"
 				default      = "0"
 				label        = "COM_RSGALLERY2_DISPLAY_GALLERY_LIMITBOX"
 				description  = ""
-				class        = "btn-group btn-group-yesno">
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
+				class        = "">
+			<option value="2">COM_RSGALLERY2_ALWAYS</option>
+			<option value="1">COM_RSGALLERY2_IF_MORE_GALLERIES_THAN_LIMIT</option>
+			<option value="0">COM_RSGALLERY2_NEVER</option>
 		</field>
 
 		<field
-				id           = "galcountNrs"
-				name         = "galcountNrs"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DEFAULT_NUMBER_OF_GALLERIES_ON_FRONTPAGE"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
+			id           = "galcountNrs"
+			name         = "galcountNrs"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_DEFAULT_NUMBER_OF_GALLERIES_ON_FRONTPAGE"
+			description  = ""
+			class        = "">
 		</field>
 
 		<field
@@ -469,13 +466,10 @@
 		<field
 				id           = "current_slideshow"
 				name         = "current_slideshow"
-				type         = "radio"
-				default      = "0"
+				type         = "SlideshowSelectList"
 				label        = "COM_RSGALLERY2_SELECT_SLIDESHOW"
 				description  = ""
-				class        = "btn-group btn-group-yesno">
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
+				class        = "">
 		</field>
 
 		<field
@@ -545,13 +539,14 @@
 		<field
 				id           = "displayPopup"
 				name         = "displayPopup"
-				type         = "radio"
+				type         = "list"
 				default      = "0"
 				label        = "COM_RSGALLERY2_POPUP_STYLE"
 				description  = ""
-				class        = "btn-group btn-group-yesno">
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
+				class        = "">
+			<option value="0">COM_RSGALLERY2_NO_POPUP</option>
+			<option value="1">COM_RSGALLERY2_NORMAL_POPUP</option>
+			<option value="2">COM_RSGALLERY2_JOOMLA_MODAL</option>
 		</field>
 
 		<field
@@ -607,13 +602,16 @@
 		<field
 				id           = "filter_order"
 				name         = "filter_order"
-				type         = "radio"
-				default      = "0"
+				type         = "list"
+				default      = "ordering"
 				label        = "COM_RSGALLERY2_ORDER_IMAGES_BY"
 				description  = ""
 				class        = "btn-group btn-group-yesno">
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
+			<option value="ordering">COM_RSGALLERY2_DEFAULT</option>
+			<option value="date">COM_RSGALLERY2_DATE</option>
+			<option value="name">COM_RSGALLERY2_NAME</option>
+			<option value="rating">COM_RSGALLERY2_RATING</option>
+			<option value="hits">COM_RSGALLERY2_HITS</option>
 		</field>
         <field
                 id           = "filter_order_Dir"
