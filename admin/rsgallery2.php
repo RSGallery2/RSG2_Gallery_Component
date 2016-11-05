@@ -227,7 +227,7 @@ if( $rsgOption == '' ){
 
 			// $task may have been changed inside JControllerLegacy::getInstance
 			$controller->execute($input->get( 'task', '', 'CMD'));
-			$controller->redirect();
+    			$controller->redirect();
 
 			break;
 	}
