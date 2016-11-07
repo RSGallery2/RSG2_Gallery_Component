@@ -99,18 +99,22 @@ class JFormFieldExifTagSelectList extends JFormFieldList {
                 "jpegProcess" 			=> "Jpeg process"
             );
 
+            $exifSelect = array();
             // Format selected items
             $exifSelected = explode("|", $rsgConfig->exifTags);
             foreach ($exifSelected as $select) {
                 $exifSelect[] = JHtml::_("select.option",$select,$select);
             }
 
+            $exif = array();
             //Format values for dropdownbox
             foreach ($exifTagsArray as $key=>$value) {
-                $exif[] = JHtml::_("select.option",$key,$key);
+                //$exif[] = JHtml::_("select.option",$key,$key);
+                $exif[] = JHtml::_("select.option", $key, $value);
             }
 
-            $exif_selection = JHtml::_("select.genericlist", $exif, 'exifTags[]', 'MULTIPLE size="15"', 'value', 'text', $exifSelect );
+//            $exif_selection = JHtml::_("select.genericlist", $exif, 'exifTags[]', 'MULTIPLE size="15"', 'value', 'text', $exifSelect );
+            $exif_selection = $exif;
 
 //            $current_slideshows[] = JHtml::_("select.option", $folder, $folder);
 

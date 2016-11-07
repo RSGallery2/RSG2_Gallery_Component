@@ -444,11 +444,18 @@
 		<field
 			id           = "galcountNrs"
 			name         = "galcountNrs"
-			type         = "text"
+			type         = "list"
 			default      = "0"
 			label        = "COM_RSGALLERY2_DEFAULT_NUMBER_OF_GALLERIES_ON_FRONTPAGE"
 			description  = ""
 			class        = "">
+			<option value="5">5</option>
+			<option value="10">10</option>
+			<option value="15">15</option>
+			<option value="20">20</option>
+			<option value="25">25</option>
+			<option value="30">30</option>
+			<option value="50">50</option>
 		</field>
 
 		<field
@@ -606,7 +613,7 @@
 				default      = "ordering"
 				label        = "COM_RSGALLERY2_ORDER_IMAGES_BY"
 				description  = ""
-				class        = "btn-group btn-group-yesno">
+				class        = "">
 			<option value="ordering">COM_RSGALLERY2_DEFAULT</option>
 			<option value="date">COM_RSGALLERY2_DATE</option>
 			<option value="name">COM_RSGALLERY2_NAME</option>
@@ -616,13 +623,13 @@
         <field
                 id           = "filter_order_Dir"
                 name         = "filter_order_Dir"
-                type         = "radio"
-                default      = "0"
+                type         = "list"
+                default      = "ASC"
                 label        = "COM_RSGALLERY2_ORDER_DIRECTION"
                 description  = ""
-                class        = "btn-group btn-group-yesno">
-            <option value="1">JYES</option>
-            <option value="0">JNO</option>
+                class        = "">
+            <option value="ASC">COM_RSGALLERY2_ASCENDING</option>
+            <option value="DESC">COM_RSGALLERY2_DESCENDING</option>
         </field>
 	</fieldset>
 
@@ -641,13 +648,60 @@
         <field
                 id           = "exif"
                 name         = "exif"
-                type         = "radio"
+                type         = "list"
                 default      = "0"
                 label        = "COM_RSGALLERY2_SELECT_EXIF_TAGS_TO_DISPLAY"
                 description  = ""
-                class        = "btn-group btn-group-yesno">
-            <option value="1">JYES</option>
-            <option value="0">JNO</option>
+				class="inputbox"
+				size="5"
+				multiple="true"
+				>
+			<option value="resolutionUnit">Resolution unit</option>
+			<option value="resolutionUnit">Resolution unit</option>
+			<option value="FileName">Filename</option>
+			<option value="FileSize">Filesize</option>
+			<option value="FileDateTime">File Date</option>
+			<option value="FlashUsed">Flash used</option>
+			<option value="imageDesc">Image description</option>
+			<option value="make">Camera make</option>
+			<option value="model">Camera model</option>
+			<option value="xResolution">X Resolution</option>
+			<option value="yResolution">Y Resolution</option>
+			<option value="software">Software used</option>
+			<option value="fileModifiedDate">File modified date</option>
+			<option value="YCbCrPositioning">YCbCrPositioning</option>
+			<option value="exposureTime">Exposure time</option>
+			<option value="fnumber">f-Number</option>
+			<option value="exposure">Exposure</option>
+			<option value="isoEquiv">ISO equivalent</option>
+			<option value="exifVersion">EXIF version</option>
+			<option value="DateTime">Date &amp; time</option>
+			<option value="dateTimeDigitized">Original date</option>
+			<option value="componentConfig">Component config</option>
+			<option value="jpegQuality">Jpeg quality</option>
+			<option value="exposureBias">Exposure bias</option>
+			<option value="aperture">Aperture</option>
+			<option value="meteringMode">Metering Mode</option>
+			<option value="whiteBalance">White balance</option>
+			<option value="flashUsed">Flash used</option>
+			<option value="focalLength">Focal lenght</option>
+			<option value="makerNote">Maker note</option>
+			<option value="subSectionTime">Subsection time</option>
+			<option value="flashpixVersion">Flashpix version</option>
+			<option value="colorSpace">Color Space</option>
+			<option value="Width">Width</option>
+			<option value="Height">Height</option>
+			<option value="GPSLatitudeRef">GPS Latitude reference</option>
+			<option value="Thumbnail">Thumbnail</option>
+			<option value="ThumbnailSize">Thumbnail size</option>
+			<option value="sourceType">Source type</option>
+			<option value="sceneType">Scene type</option>
+			<option value="compressScheme">Compress scheme</option>
+			<option value="IsColor">Color or B&amp;W</option>
+			<option value="Process">Process</option>
+			<option value="resolution">Resolution</option>
+			<option value="color">Color</option>
+			<option value="jpegProcess">Jpeg process</option>
         </field>
 	</fieldset>
 
@@ -655,46 +709,46 @@
         <field
                 id           = "display_thumbs_style"
                 name         = "display_thumbs_style"
-                type         = "radio"
-                default      = "0"
+                type         = "list"
+                default      = "table"
                 label        = "COM_RSGALLERY2_THUMBNAIL_STYLE_USE_FLOAT_FOR_VARIABLE_WIDTH_TEMPLATES"
                 description  = ""
-                class        = "btn-group btn-group-yesno">
-            <option value="1">JYES</option>
-            <option value="0">JNO</option>
+                class        = "">
+			<option value="table">COM_RSGALLERY2_TABLE</option>
+			<option value="float">COM_RSGALLERY2_FLOAT</option>
+			<option value="magic">COM_RSGALLERY2_MAGIC_NOT_SUPPORTED_YET</option>
         </field>
         <field
                 id           = "display_thumbs_floatDirection"
                 name         = "display_thumbs_floatDirection"
-                type         = "radio"
-                default      = "0"
+                type         = "list"
+                default      = "left"
                 label        = "COM_RSGALLERY2_DIRECTION_ONLY_WORKS_FOR_FLOAT"
                 description  = ""
                 class        = "btn-group btn-group-yesno">
-            <option value="1">JYES</option>
-            <option value="0">JNO</option>
+			<option value="left">COM_RSGALLERY2_LEFT_TO_RIGHT</option>
+			<option value="right">COM_RSGALLERY2_RIGHT_TO_LEFT</option>
         </field>
         <field
                 id           = "display_thumbs_colsPerPage"
                 name         = "display_thumbs_colsPerPage"
-                type         = "radio"
-                default      = "0"
+                type         = "integer"
+                default      = "9"
                 label        = "COM_RSGALLERY2_NUMBER_OF_THUMBNAIL_COLUMNS_ONLY_FOR_TABLE"
                 description  = ""
-                class        = "btn-group btn-group-yesno">
-            <option value="1">JYES</option>
-            <option value="0">JNO</option>
+                class        = ""
+				first        = "1"
+				last         = "19"
+		        step         = "1">
         </field>
         <field
                 id           = "display_thumbs_maxPerPage"
                 name         = "display_thumbs_maxPerPage"
-                type         = "radio"
+                type         = "text"
                 default      = "0"
                 label        = "COM_RSGALLERY2_THUMBNAILS_PER_PAGE"
                 description  = ""
-                class        = "btn-group btn-group-yesno">
-            <option value="1">JYES</option>
-            <option value="0">JNO</option>
+                class        = "">
         </field>
         <field
                 id           = "display_thumbs_showImgName"
@@ -736,79 +790,113 @@
         <field
                 id           = "showFontList"
                 name         = "showFontList"
-                type         = "radio"
+                type         = "AdminFontsSelectList"
                 default      = "0"
                 label        = "COM_RSGALLERY2_FONT"
                 description  = ""
-                class        = "btn-group btn-group-yesno">
-            <option value="1">JYES</option>
-            <option value="0">JNO</option>
+                class        = "">
         </field>
         <field
                 id           = "watermark_text"
                 name         = "watermark_text"
-                type         = "radio"
+                type         = "text"
                 default      = "0"
                 label        = "COM_RSGALLERY2_WATERMARK_TEXT"
                 description  = ""
-                class        = "btn-group btn-group-yesno">
-            <option value="1">JYES</option>
-            <option value="0">JNO</option>
+                class        = "">
         </field>
         <field
                 id           = "watermark_font_size"
                 name         = "watermark_font_size"
-                type         = "radio"
+                type         = "list"
                 default      = "0"
                 label        = "COM_RSGALLERY2_WATERMARK_FONT_SIZE"
                 description  = ""
-                class        = "btn-group btn-group-yesno">
-            <option value="1">JYES</option>
-            <option value="0">JNO</option>
+                class        = "">
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+			<option value="13">13</option>
+			<option value="14">14</option>
+			<option value="15">15</option>
+			<option value="16">16</option>
+			<option value="17">17</option>
+			<option value="18">18</option>
+			<option value="19">19</option>
+			<option value="20">20</option>
+			<option value="22">22</option>
+			<option value="24">24</option>
+			<option value="26">26</option>
+			<option value="28">28</option>
+			<option value="30">30</option>
+			<option value="36">36</option>
+			<option value="40">40</option>
         </field>
         <field
                 id           = "watermark_angle"
                 name         = "watermark_angle"
-                type         = "radio"
+                type         = "list"
                 default      = "0"
                 label        = "COM_RSGALLERY2_WATERMARK_TEXT_ANGLE"
                 description  = ""
                 class        = "btn-group btn-group-yesno">
-            <option value="1">JYES</option>
-            <option value="0">JNO</option>
+			<option value="0">0</option>
+			<option value="45">45</option>
+			<option value="90">90</option>
+			<option value="135">135</option>
+			<option value="180">180</option>
         </field>
         <field
                 id           = "watermark_position"
                 name         = "watermark_position"
-                type         = "radio"
+                type         = "list"
                 default      = "0"
                 label        = "COM_RSGALLERY2_WATERMARK_POSITION"
                 description  = ""
                 class        = "btn-group btn-group-yesno">
-            <option value="1">JYES</option>
-            <option value="0">JNO</option>
+			<option value="1">COM_RSGALLERY2_TOP_LEFT</option>
+			<option value="2">COM_RSGALLERY2_TOP_CENTER</option>
+			<option value="3">COM_RSGALLERY2_TOP_RIGHT</option>
+			<option value="4">COM_RSGALLERY2_LEFT</option>
+			<option value="5">COM_RSGALLERY2_CENTER</option>
+			<option value="6">COM_RSGALLERY2_RIGHT</option>
+			<option value="7">COM_RSGALLERY2_BOTTOM_LEFT</option>
+			<option value="8">COM_RSGALLERY2_BOTTOM_CENTER</option>
+			<option value="9">COM_RSGALLERY2_BOTTOM_RIGHT</option>
         </field>
         <field
                 id           = "watermark_transparency"
                 name         = "watermark_transparency"
-                type         = "radio"
+                type         = "list"
                 default      = "0"
                 label        = "COM_RSGALLERY2_WATERMARK_TRANSPARENCY"
                 description  = ""
                 class        = "btn-group btn-group-yesno">
-            <option value="1">JYES</option>
-            <option value="0">JNO</option>
+			<option value="0">0</option>
+			<option value="10">10</option>
+			<option value="20">20</option>
+			<option value="30">30</option>
+			<option value="40">40</option>
+			<option value="50">50</option>
+			<option value="60">60</option>
+			<option value="70">70</option>
+			<option value="80">80</option>
+			<option value="90">90</option>
+			<option value="100">100</option>
         </field>
         <field
                 id           = "imgPath_watermarked"
                 name         = "imgPath_watermarked"
-                type         = "radio"
+                type         = "text"
                 default      = "0"
                 label        = "COM_RSGALLERY2_WATERMARKED_IMAGE_PATH"
                 description  = ""
-                class        = "btn-group btn-group-yesno">
-            <option value="1">JYES</option>
-            <option value="0">JNO</option>
+                class        = "">
         </field>
 	</fieldset>
 
