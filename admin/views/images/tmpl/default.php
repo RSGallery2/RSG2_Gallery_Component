@@ -316,7 +316,6 @@ $userId = $user->id;
 											<strong>
 
 												<?php
-												//$link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
 												$link = JRoute::_("index.php?option=com_rsgallery2&view=image&task=image.edit&id=".$item->id);
 
 												$src = $this->HtmlPathThumb . $this->escape($item->name) . '.jpg';
@@ -353,7 +352,6 @@ $userId = $user->id;
 						            <td class="left hidden-phone ">
 							            <div class="pull-left break-word">
 								            <?php
-								            //$link = JRoute::_("index.php?option=com_rsgallery2&view=image&layout=edit&id=".$item->id);
 								            $link = JRoute::_("index.php?option=com_rsgallery2&view=image&task=image.edit&id=".$item->id);
 								            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
 											if ($canEditImage) {
@@ -367,7 +365,6 @@ $userId = $user->id;
 
 						            <td class="left">
 							            <?php
-							            //$link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&layout=edit&id=".$item->gallery_id);
 							            $link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&task=gallery.edit&id=".$item->gallery_id);
 							            //$link = JRoute::_("index.php?option=com_rsgallery2&rsgOption=galleries&task=editA&hidemainmenu=1&id=". $item->gallery_id);
 										//echo '<a href="' . $link . '"">' . $item->gallery_id . '</a>';

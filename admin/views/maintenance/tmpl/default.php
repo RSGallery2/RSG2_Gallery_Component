@@ -557,7 +557,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 								?>
 
 								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=edit';
+								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;task=config.edit';
 								quickTwoIconMoonBar ($link, 'icon-equalizer', 'icon-cog',
 									'New edit: ' . JText::_('COM_RSGALLERY2_CONFIGURATION'),
 									JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT').'                        ',

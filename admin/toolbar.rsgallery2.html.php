@@ -30,42 +30,46 @@ class menu_rsg2_submenu{
 		// The template manager (still) has its own submenu
 		if (!($rsgOption == 'installer')){
 			// Control Panel
-			JHtmlSidebar::addEntry(
+            $link = 'index.php?option=com_rsgallery2';
+            JHtmlSidebar::addEntry(
 				'<span class="icon-home-2" >  </span>'.
 				JText::_('COM_RSGALLERY2_SUBMENU_CONTROL_PANEL'),
-				'index.php?option=com_rsgallery2',
+                $link,
 		        (($rsgOption=='' AND $task == '' AND $view == '' )
                     OR ($rsgOption == 'config')
                     OR ($rsgOption == 'maintenance') ));
 		    // Galleries
+            $link = 'index.php?option=com_rsgallery2&view=galleries';
 			JHtmlSidebar::addEntry(
 				'<span class="icon-images" >  </span>'.
 				JText::_('COM_RSGALLERY2_SUBMENU_GALLERIES'),
 				//'index.php?option=com_rsgallery2&rsgOption=galleries',
-				'index.php?option=com_rsgallery2&view=galleries',
+				$link,
 		        $rsgOption=='galleries' AND $task == '');
 			// Upload view
+            $link = 'index.php?option=com_rsgallery2&view=upload';
 			JHtmlSidebar::addEntry(
 				'<span class="icon-upload" > </span>'.
 				JText::_('COM_RSGALLERY2_SUBMENU_UPLOAD'),
-				'index.php?option=com_rsgallery2&view=upload',
+                $link,
 		        $view == 'upload');
 			// Images
+            $link = 'index.php?option=com_rsgallery2&view=images';
 			JHtmlSidebar::addEntry(
 				'<span class="icon-image" >  </span>'.
 				JText::_('COM_RSGALLERY2_SUBMENU_IMAGES'),
 				// 'index.php?option=com_rsgallery2&rsgOption=images',
-				'index.php?option=com_rsgallery2&view=images',
+                $link,
 		        $rsgOption=='images' AND ($task == '' OR $task == 'view_images'));
 
-	
 			if ($view == 'config' || $rsgOption == 'config')
 			{
+                $link = 'index.php?option=com_rsgallery2&view=maintenance';
 				// In config add maintenance
 				JHtmlSidebar::addEntry(
 					'<span class="icon-screwdriver" >  </span>'.
 					JText::_('COM_RSGALLERY2_MAINTENANCE'),
-					'index.php?option=com_rsgallery2&view=maintenance',
+                    $link,
 					false);
 			}
 
@@ -73,20 +77,22 @@ class menu_rsg2_submenu{
 			{
 				if ($view == 'maintenance' )
 				{
+                    $link = 'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig';
 					// In maintenance add config
 					JHtmlSidebar::addEntry(
 						'<span class="icon-equalizer" >  </span>' .
 						JText::_('COM_RSGALLERY2_CONFIGURATION'),
-						'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig',
+                        $link,
 						false);
 				}
 				else
 				{
+                    $link = 'index.php?option=com_rsgallery2&view=maintenance';
 					// In config add maintenance
 					JHtmlSidebar::addEntry(
 						'<span class="icon-screwdriver" >  </span>' .
 						JText::_('COM_RSGALLERY2_MAINTENANCE'),
-						'index.php?option=com_rsgallery2&view=maintenance',
+                        $link,
 						false);
 				}
 			}

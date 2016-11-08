@@ -129,7 +129,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 		                    <td width="1%" class="center">
 								<?php
-								$link = JRoute::_("index.php?option=com_rsgallery2&view=acl_item&layout=edit&id=".$item->id);
+								$link = JRoute::_("index.php?option=com_rsgallery2&view=acl_item&task=acl_item.edit&id=".$item->id);
 								echo '<a href="' . $link . '"">' . $item->id . '</a>';
 								?>
 		                    </td>

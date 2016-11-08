@@ -22,7 +22,7 @@ JFactory::getDocument()->addScriptDeclaration('
 ');
 ?>
 
-<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=acl_item&layout=edit&id=' . (int) $this->item->id); ?>"
+<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=acl_item&task=acl_item.edit&id=' . (int) $this->item->id); ?>"
 	method="post" name="adminForm" id="item-form" class="form-validate">
 	
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>

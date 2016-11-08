@@ -8,10 +8,11 @@ global $Rsg2DebugActive;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 JHtml::_('behavior.formvalidator');
-JHtml::_('behavior.keepalive'); 
+//JHtml::_('behavior.keepalive'); 
 //JHtml::_('formbehavior.chosen', 'select');
 JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'=>3));
 
+// ToDO: Is this needed ? -> task comment.cancel ???
 JFactory::getDocument()->addScriptDeclaration('
 	Joomla.submitbutton = function(task)
 	{
@@ -23,7 +24,7 @@ JFactory::getDocument()->addScriptDeclaration('
 ');
 ?>
 
-<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=gallery&layout=edit&id=' . (int) $this->item->id); ?>"
+<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=gallery&task=gallery.edit&id=' . (int) $this->item->id); ?>"
 	method="post" name="adminForm" id="item-form" class="form-validate">
 
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>

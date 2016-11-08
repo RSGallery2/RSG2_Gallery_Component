@@ -21,7 +21,7 @@ class Rsgallery2ViewGallery extends JViewLegacy
 	//------------------------------------------------
 	public function display ($tpl = null)
 	{	
-		//--- get needed data ------------------------------------------
+		//--- get needed form data ------------------------------------------
 		
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
