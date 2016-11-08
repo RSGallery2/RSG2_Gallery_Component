@@ -1,6 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 
+/*
 global $Rsg2DebugActive;
 
 if ($Rsg2DebugActive)
@@ -11,6 +12,7 @@ if ($Rsg2DebugActive)
 	// identify active file
 	JLog::add('==> ctrl.config.php ');
 }
+/**/
 
 // ToDo: // Sanitize the input
 
@@ -42,15 +44,6 @@ class Rsgallery2ControllerConfig extends JControllerForm
     }
 	/**/
 	
-	public function cancel($key = null) {
-		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
-
-		$link = 'index.php?option=com_rsgallery2';
-		$this->setRedirect($link);
-
-		return true;
-	}
-
 	public function cancel_rawView($key = null) {
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
@@ -97,13 +90,25 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		return true;
 	}
 
+    /** may be automatic
+     * @param null $key
+     * @return bool
+     *
+    public function cancel($key = null) {
+    JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-	public function save($key = null, $urlVar = null) {
+    $link = 'index.php?option=com_rsgallery2';
+    $this->setRedirect($link);
+
+    return true;
+    }
+
+    public function save($key = null, $urlVar = null) {
 		$model = $this->getModel('Config');
 		$xxx=$model->save($key);
 
 		//$this->setRedirect(JRoute::_('index.php?option=com_portfoliogallery&view=portfoliogalleries', false),"Saved");
-// ToDo: use JRoute::_(..., false)	  ->   $link = JRoute::_('index.php?option=com_foo&ctrl=bar',false);
+        // ToDo: use JRoute::_(..., false)	  ->   $link = JRoute::_('index.php?option=com_foo&ctrl=bar',false);
 		$link = 'index.php?option=com_rsgallery2';
 		$this->setRedirect($link, "*Data Saved");
     }  	
@@ -113,8 +118,9 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		 $item=$model->save('');
 		 
 		// $this->setRedirect(JRoute::_('index.php?option=com_rsgallery2&view=config', false), "*Data Saved");
-		$link = 'index.php?option=com_rsgallery2&view=config&amp;layout=edit';
+		$link = 'index.php?option=com_rsgallery2&view=config&amp;task=config.edit';
 		$this->setRedirect($link, "*Data Saved");
-    }  
+    }
+    /**/
 }
 
