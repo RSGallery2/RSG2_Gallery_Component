@@ -27,34 +27,27 @@ class Rsgallery2ViewConfig extends JViewLegacy
 	protected $configVars;
 
 	//------------------------------------------------
-	/**
-	 * @param null $tpl
-	 * @return bool
-	 */
 	public function display ($tpl = null)
 	{
 		//--- get needed form data ------------------------------------------
 		
-		// $xmlFile = JPATH_COMPONENT . '/models/forms/config.xml';
-		// $form = JForm::getInstance('config', $xmlFile);
-		$this->form = $this->get('Form');
-		$this->item = $this->get('Item'); 
-			
-		//--- get needed extra config data ------------------------------------------
-		
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
 
+		$this->form = $this->get('Form');
+		$this->item = $this->get('Item'); 
+			
 		global $rsgConfig;
 		$this->rsgConfigData = $rsgConfig;
 
+		//--- get needed extra config data ------------------------------------------
+		
 		$this->rsgVersion = $rsgConfig->version; // "Version 04.01.00";
+		// ToDo: Check for using List in XML ???
 		$this->allowedFileTypes = imgUtils::allowedFileTypes ();
 
 		$this->configVars = get_object_vars($this->rsgConfigData);
 		$this->form->bind ($this->configVars);
-
-//		$form = $this->get('Form');
 
 		//--- begin to display --------------------------------------------
 		
@@ -63,21 +56,22 @@ class Rsgallery2ViewConfig extends JViewLegacy
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) 
 		{
-			JError::raiseError(500, implode('<br />', $errors));
+			JError::raiseError(500, implode("\n", $errors));
+
 			return false;
 		}
 		
 		// Assign the Data
 		// $this->form = $form;
 
+
 		// different toolbar on different layouts
 		$Layout = JFactory::getApplication()->input->get('layout');
-
-		// Assign the Data
-		// $this->form = $form;
-
 		$this->addToolbar ($Layout);
+
 		$this->sidebar = JHtmlSidebar::render ();
+
+		// echo '<span style="color:red">Task: Toolbar: Link for Upload, (More rows for combo box)</span><br><br>';
 
 		parent::display ($tpl);
 
@@ -115,13 +109,15 @@ class Rsgallery2ViewConfig extends JViewLegacy
 			// case 'default':
 			default:
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_CONFIGURATION'), 'cog');
+
 				JToolBarHelper::apply('config.apply');
 				JToolBarHelper::save('config.save');
 				JToolBarHelper::cancel('config.cancel');
+
 				break;
 		}
-
 	}
+
 }
 
 
