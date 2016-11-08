@@ -8,10 +8,7 @@ jimport('joomla.application.component.helper');
 /**
  * 
  */
-//class Rsgallery2ModelConfig extends JModelLegacy  // JModelForm
-//class rsgallery2ModelConfig extends JModelForm
-class Rsgallery2ModelConfig extends JModelAdmin  // JModelForm
-//class rsgallery2ModelConfig extends JModelList
+class Rsgallery2ModelConfig extends JModelAdmin
 {
     //protected $text_prefix = 'COM_RSGallery2';
     //protected $text_prefix = 'RSGallery2';
