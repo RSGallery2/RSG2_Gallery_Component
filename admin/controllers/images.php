@@ -98,7 +98,15 @@ class Rsgallery2ControllerImages extends JControllerAdmin
             try {
                 // Model tells if successful
                 $model = $this->getModel('images');
-                $msg .= $model->moveImagesTo();
+
+                $IsMoved = $model->moveImagesTo();
+                if ($IsMoved) {
+                    $msg .= 'Move of images ... sucessfull';
+                }
+                else
+                {
+                    $msg .= '!!! Move of images ... failed !!!';
+                }
             }
             catch (RuntimeException $e) {
                 $OutTxt = '';
@@ -109,8 +117,6 @@ class Rsgallery2ControllerImages extends JControllerAdmin
                 $app->enqueueMessage($OutTxt, 'error');
             }
         }
-
-        $msg .= '!!! Not implemented yet !!!';
 
         $this->setRedirect('index.php?option=com_rsgallery2&view=images', $msg, $msgType);
     }
@@ -140,7 +146,15 @@ class Rsgallery2ControllerImages extends JControllerAdmin
             try {
                 // Model tells if successful
                 $model = $this->getModel('images');
-                $msg .= $model->copyTo();
+
+                $IsCopied = $model->copyTo();
+                if ($IsCopied) {
+                    $msg .= 'Copy of images ... sucessfull';
+                }
+                else
+                {
+                    $msg .= '!!! Copy of images ... failed !!!';
+                }
             }
             catch (RuntimeException $e) {
                 $OutTxt = '';

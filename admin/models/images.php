@@ -215,9 +215,7 @@ class Rsgallery2ModelImages extends JModelList
 
     public function moveImagesTo ()
     {
-        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-        $msg = "moveTo: ";
-        $msgType = 'notice';
+        $result = false;
 
         try {
 
@@ -326,9 +324,6 @@ class Rsgallery2ModelImages extends JModelList
             {
                 JFactory::getApplication()->enqueueMessage(JText::_('No valid gallery selected'), 'warning');
             }
-
-            // $msg .= "<br>";
-            $msg .= JText::_( 'COM_RSGALLERY2_YYY_done' );
         }
         catch (RuntimeException $e)
         {
@@ -340,7 +335,7 @@ class Rsgallery2ModelImages extends JModelList
             $app->enqueueMessage($OutTxt, 'error');
         }
 
-        return $msg;
+        return $result;
     }
 
     /**
