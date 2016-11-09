@@ -22,7 +22,7 @@ class Rsgallery2ViewComment extends JViewLegacy
 	//------------------------------------------------
 	public function display ($tpl = null)
 	{	
-		//--- get needed data ------------------------------------------
+		//--- get needed form data ------------------------------------------
 		
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
@@ -45,11 +45,14 @@ class Rsgallery2ViewComment extends JViewLegacy
 		// Assign the Data
 		// $this->form = $form;
 
+
 		// different toolbar on different layouts
 		$Layout = JFactory::getApplication()->input->get('layout');
 		$this->addToolbar ($Layout);
 
 		$this->sidebar = JHtmlSidebar::render ();
+
+		// echo '<span style="color:red">Task: Toolbar: Link for Upload, (More rows for combo box)</span><br><br>';
 
 		parent::display ($tpl);
 
@@ -72,9 +75,10 @@ class Rsgallery2ViewComment extends JViewLegacy
 	{
 		switch ($Layout)
 		{
-			// case 'default':
+			case 'edit':
 			default:
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_EDIT_COMMENT', 'comment')); 
+
 				JToolBarHelper::apply('comment.apply');
 				JToolBarHelper::save('comment.save');
 				if(empty($this->item->id))

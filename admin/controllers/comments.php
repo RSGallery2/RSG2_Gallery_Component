@@ -10,7 +10,7 @@ if ($Rsg2DebugActive)
 	jimport('joomla.log.log');
 
 	// identify active file
-	JLog::add('==> ctrl.image.php ');
+	JLog::add('==> ctrl.comments.php ');
 }
 /**/
 

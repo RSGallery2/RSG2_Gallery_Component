@@ -8,9 +8,11 @@ global $Rsg2DebugActive;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 JHtml::_('behavior.formvalidator');
-JHtml::_('behavior.keepalive'); 
-JHtml::_('formbehavior.chosen', 'select');
+//JHtml::_('behavior.keepalive'); 
+//JHtml::_('formbehavior.chosen', 'select');
+JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'=>3));
 
+// ToDO: Is this needed ? -> task comment.cancel ???
 JFactory::getDocument()->addScriptDeclaration('
 	Joomla.submitbutton = function(task)
 	{
@@ -27,10 +29,11 @@ JFactory::getDocument()->addScriptDeclaration('
 
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
 	
-	<div class="form-horizontal">
+	<div class="edit">
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
 
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', empty($this->item->id) ? JText::_('COM_RSGALLERY2_NEW_COMMENT') : JText::_('COM_RSGALLERY2_COMMENT')); ?>
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', 
+			empty($this->item->id) ? JText::_('COM_RSGALLERY2_NEW_COMMENT') : JText::_('COM_RSGALLERY2_EDIT')); ?>
 		<div class="row-fluid">
 			<div class="span9">
 				<?php

@@ -36,7 +36,6 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=comments'); ?>"
 				  method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
-
 				<?php
 				// Search tools bar
 				echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
@@ -44,9 +43,6 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 				// I managed to add options as always open
 				//echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this, 'options' => array('filtersHidden' => false ($hidden) (true/false) )));
 				?>
-
-
-				<span style="color:red">Task: $canChange, $canEdit, and  ...</span><br><br>
 
 				<?php if (empty($this->items)) : ?>
 	                <div class="alert alert-no-items">
@@ -173,7 +169,8 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 								</td>
 
 								<td class="hidden-phone">
-					            <?php echo (int) $item->id; ?>
+					                <?php echo (int) $item->id; ?>
+                                    <input type="hidden" name="ids[]" value="<?php echo (int) $item->id; ?>" />
 		                        </td>
 
 	                        </tr>

@@ -34,14 +34,15 @@ class Rsgallery2ModelComment extends JModelAdmin
 	public function getForm($data = array(), $loadData = true) 
 	{
 		$options = array('control' => 'jform', 'load_data' => $loadData);
-		$form = $this->loadForm('com_rsgallery2.comment', 'comment', 
-			array('control' => 'jform', 'load_data' => $loadData));
+		$form = $this->loadForm('com_rsgallery2.comment', 'comment', $options);
+
 		if (empty($form)) 
 		{
 			return false;
 		}
 		return $form;
 	}
+
 	/**
 	 * Method to get the data that should be injected in the form.
 	 *
@@ -52,11 +53,12 @@ class Rsgallery2ModelComment extends JModelAdmin
 	{
 		// Check the session for previously entered form data.
 		$app = JFactory::getApplication();
-		$data = $app->getUserState('com_rsgallery2.edit.image.data', array());
+		$data = $app->getUserState('com_rsgallery2.edit.comment.data', array());
 		if (empty($data)) 
 		{
 			$data = $this->getItem();
 		}
+
 		return $data;
 	}
 

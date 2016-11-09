@@ -31,6 +31,7 @@ class Rsgallery2ViewComments extends JViewLegacy
 	{
 		//--- get needed form data ------------------------------------------
 
+        echo '<span style="color:red">Task: $canChange, $canEdit, and  ...</span><br><br>';
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
 
