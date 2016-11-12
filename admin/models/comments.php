@@ -110,7 +110,7 @@ class Rsgallery2ModelComments extends JModelList
 
 		/* parent image name */
 		$query->select('img.name as image_name')
-			->join('LEFT', '#__rsgallery2_fileses AS img ON img.id = a.item_id'
+			->join('LEFT', '#__rsgallery2_files AS img ON img.id = a.item_id'
 			);
 
 		// Join over the users for the checked out user.
