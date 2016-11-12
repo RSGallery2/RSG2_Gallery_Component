@@ -386,13 +386,13 @@ class menuRSGallery {
 	}
 
 	/**
-	 *
+	 * Todo: should be called edit ... ?
 	 */
 	static function simple(){
 		$user = JFactory::getUser();
 		$canConfigure = $user->authorise('core.admin', 	'com_rsgallery2');
 		
-        JToolBarHelper::title( JText::_('COM_RSGALLERY2_CONTROL_PANEL'), 'generic.png' );
+//        JToolBarHelper::title( JText::_('COM_RSGALLERY2_CONTROL_PANEL'), 'generic.png' );
 		//options button, only for uses who are allowed to see/use this
 		if ($canConfigure){
 			JToolBarHelper::help( 'options.rsgallery2',true);

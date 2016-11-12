@@ -150,9 +150,12 @@ class Rsgallery2ModelConfig extends JModelAdmin
 	 * @since   1.6
 	 */
 	public function save($data) {
+
 		$msg = "Rsgallery2ModelConfigRaw: ";
 
-		$input =JFactory::getApplication()->input;
+		$isSaved = false;
+
+		#$input =JFactory::getApplication()->input;
 		//$jform = $input->get( 'jform', array(), 'ARRAY');
 
 // ToDO: Check if in $data is the same and then for ...raw
@@ -169,6 +172,7 @@ class Rsgallery2ModelConfig extends JModelAdmin
 
 		$row = $this->getTable ();
 		foreach ($data as $key => $value)
+		#foreach ($input as $key => $value)
 		{
 /*
 fill an array, bind and check and store ?
@@ -185,8 +189,8 @@ fill an array, bind and check and store ?
 
 		}
 
-		return $msg;
-	}
- 
+        $isSaved = true;
 
+		return $isSaved;
+	}
 }

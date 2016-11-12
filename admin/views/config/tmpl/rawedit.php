@@ -47,7 +47,6 @@ function configInputField($name='unknown', $value='') {
 	*/
 }
 
-
 ?>
 
 <div id="installer-install" class="clearfix">

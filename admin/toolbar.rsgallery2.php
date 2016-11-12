@@ -199,7 +199,7 @@ if ($app->isAdmin()){
 			case 'purgeEverything':
 			case 'saveConfig':
 			case 'viewChangelog':
-				menuRSGallery::simple();
+				// menuRSGallery::simple();
 				break;
 		} // switch task
 	} // only use the legacy task switch if rsgOption is not used.

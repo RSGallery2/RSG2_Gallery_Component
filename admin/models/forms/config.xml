@@ -87,10 +87,11 @@
 		<field
 			name         = "ftp_path"
 			type         = "text"
-			default      = "0"
+			default      = ""
 			label        = "COM_RSGALLERY2_FTP_PATH"
 			description  = "COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH"
-			class        = "">
+			class           = "input-large-text input-xxlarge"
+			>
 		</field>
 		<field
 			name         = "useIPTCinformation"
@@ -122,6 +123,7 @@
 			label        = "COM_RSGALLERY2_PRESELECT_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
 			description  = "COM_RSGALLERY2_PRESELECT_ONE_GALLERY_FOR_ALL_IMAGES_PRESELECT"
 			class        = "btn-group btn-group-yesno">
+			<option value="0">JDEFAULT</option>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -154,7 +156,8 @@
 			default      = ""
 			label        = "COM_RSGALLERY2_IMAGEMAGICK_PATH"
 			description  = "COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_LABEL"
-			class        = "">
+			class           = "input-large-text input-xxlarge"
+		>
 		</field>
 		<field
 			name         = "netpbm_path"
@@ -162,7 +165,8 @@
 			default      = ""
 			label        = "COM_RSGALLERY2_NETPBM_PATH"
 			description  = ""
-			class        = "btn-group btn-group-yesno">
+			class           = "input-large-text input-xxlarge"
+		>
 		</field>
 		<field
 			name         = "videoConverter_path"
@@ -170,7 +174,8 @@
 			default      = ""
 			label        = "COM_RSGALLERY2_VIDEO_CONVERTER_PATH"
 			description  = "COM_RSGALLERY2_PAREN_EXAMPLE"
-			class        = "btn-group btn-group-yesno">
+			class        = "input-large-text input-xxlarge"
+		>
 		</field>
 		<field
 			name         = "videoConverter_param"
@@ -215,7 +220,8 @@
 			default      = "0"
 			label        = "COM_RSGALLERY2_ORIGINAL_IMAGE_PATH"
 			description  = ""
-			class        = "">
+			class           = "input-large-text input-xxlarge"
+		>
 		</field>
 		<field
 			name         = "imgPath_display"
@@ -223,7 +229,8 @@
 			default      = "0"
 			label        = "COM_RSGALLERY2_DISPLAY_IMAGE_PATH"
 			description  = ""
-			class        = "">
+			class           = "input-large-text input-xxlarge"
+		>
 		</field>
 		<field
 			name         = "imgPath_thumb"
@@ -231,7 +238,8 @@
 			default      = "0"
 			label        = "COM_RSGALLERY2_THUMB_PATH"
 			description  = ""
-			class        = "">
+			class           = "input-large-text input-xxlarge"
+		>
 		</field>
 	</fieldset>
 	<fieldset name="Images_comments">
@@ -890,13 +898,14 @@
 			<option value="100">100</option>
         </field>
         <field
-                id           = "imgPath_watermarked"
-                name         = "imgPath_watermarked"
-                type         = "text"
-                default      = "0"
-                label        = "COM_RSGALLERY2_WATERMARKED_IMAGE_PATH"
-                description  = ""
-                class        = "">
+			id           = "imgPath_watermarked"
+			name         = "imgPath_watermarked"
+			type         = "text"
+			default      = "0"
+			label        = "COM_RSGALLERY2_WATERMARKED_IMAGE_PATH"
+			description  = ""
+			class           = "input-large-text input-xxlarge"
+		>
         </field>
 	</fieldset>
 
@@ -953,34 +962,5 @@
 				filter="string"
 				size="20"
 		/>
-	</fieldset>
-	<fieldset name="Sozial media">
-		<field
-				id           = "all_img_in_step1_02"
-				name         = "all_img_in_step1_02"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
-				description  = "COM_RSGALLERY2_ONE_GALLERY_FOR_ALL_IMAGES_DESC"
-				class        = "btn-group btn-group-yesno">
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
-		</field>
-		<!-- Gallery selection -->
-		<field
-				id           = "SelectGalleries_02"
-				name         = "SelectGalleries02"
-				type         = "GallerySelectList"
-				label        = "COM_RSGALLERY2_SPECIFY_GALLERY_LABEL"
-				description  = "COM_RSGALLERY2_SPECIFY_GALLERY_DESC"
-				required     = "true"
-				class        = "inputbox"
-				addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
-		/>
-		<!--
-			translate_label	= "true"
-			class			= "inputbox"
-		-->
-
 	</fieldset>
 </form>
