@@ -215,13 +215,13 @@ class Rsgallery2ModelImages extends JModelList
 
     public function moveImagesTo ()
     {
-        $result = false;
+        $IsMoved = false;
 
         try {
 
             $input = JFactory::getApplication()->input;
             $cid = $input->get( 'cid', array(), 'ARRAY');
-            $NewGalleryId = $input->get( 'SelectGalleries01', -1, 'INT');
+            $NewGalleryId = $input->get( 'SelectGallery4MoveCopy', -1, 'INT');
 
             // Destination gallery selected ?
             if ($NewGalleryId > 0) {
@@ -249,7 +249,7 @@ class Rsgallery2ModelImages extends JModelList
                         ->where($conditions);
 
                     $db->setQuery($query);
-                    $result = $db->execute();
+                    $IsMoved = $db->execute();
 
 
                     //--- Change order -----------------------------------
@@ -271,8 +271,6 @@ class Rsgallery2ModelImages extends JModelList
 
                     ->set($db->qn('params') . ' = ' . $db->q($this->params->toString('JSON')))
 
-
-
                     $db = $this->getDbo();
                     $query = $db->getQuery(true)
                     ->select('MAX(ordering)')
@@ -291,29 +289,27 @@ class Rsgallery2ModelImages extends JModelList
 
                     public function getTotal()
                     {
-                    $db = JFactory::getDbo();
-                    $query = $db->getQuery(true)
-                    ->select('MAX(link_id)')
-                    ->from('#__finder_links');
-                    $db->setQuery($query);
-                    $total = $db->loadResult();
+                        $db = JFactory::getDbo();
+                        $query = $db->getQuery(true)
+                        ->select('MAX(link_id)')
+                        ->from('#__finder_links');
+                        $db->setQuery($query);
+                        $total = $db->loadResult();
 
-                    return $total;
+                        return $total;
                     }
 
 
                     google joomla 3 updaTING RECORD FROM SELECTION STACK+
 
                     http://stackoverflow.com/questions/35023932/converting-sql-to-joomla-syntax-set-and-update
-                     */
+                    */
 
                     //--- Update both ------------------------------------------
 
-
-
                     // ?? assets -> rights ?
 
-
+                    JFactory::getApplication()->enqueueMessage(JText::_('Move is successful. Please check order of images in destination gallery'), 'notice');
                 }
                 else
                 {
@@ -328,14 +324,13 @@ class Rsgallery2ModelImages extends JModelList
         catch (RuntimeException $e)
         {
             $OutTxt = '';
-            $OutTxt .= 'Error executing moveTo: "' . '<br>';
-            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+            $OutTxt .= 'Error executing moveTo: "' . $e->getMessage() . '"' . '<br>';
 
             $app = JFactory::getApplication();
             $app->enqueueMessage($OutTxt, 'error');
         }
 
-        return $result;
+        return $IsMoved;
     }
 
     /**
@@ -377,17 +372,32 @@ class Rsgallery2ModelImages extends JModelList
         $msg = "copyTo: ";
         $msgType = 'notice';
 
+        $IsCopied = false;
+
         try {
 
             $input = JFactory::getApplication()->input;
 
+            $input = JFactory::getApplication()->input;
+            $cid = $input->get( 'cid', array(), 'ARRAY');
+            $NewGalleryId = $input->get( 'SelectGallery4MoveCopy', -1, 'INT');
+
+            // Destination gallery selected ?
+            if ($NewGalleryId > 0) {
+                // Source images selected ?
+                if (count($cid) > 0) {
+                    // Single ids
+                    $cids = implode(',', $cid);
 
 
 
 
 
 
-            // $msg .= "<br>";
+                }
+            }
+
+                    // $msg .= "<br>";
             $msg .= JText::_( 'COM_RSGALLERY2_YYY_done' );
         }
         catch (RuntimeException $e)
@@ -400,7 +410,7 @@ class Rsgallery2ModelImages extends JModelList
             $app->enqueueMessage($OutTxt, 'error');
         }
 
-        return $msg;
+        return $IsCopied;
     }
 
 

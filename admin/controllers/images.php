@@ -105,7 +105,8 @@ class Rsgallery2ControllerImages extends JControllerAdmin
                 }
                 else
                 {
-                    $msg .= '!!! Move of images ... failed !!!';
+                    $msg .= 'Move of images ... failed';
+                    $msgType = 'error';
                 }
             }
             catch (RuntimeException $e) {
@@ -153,7 +154,8 @@ class Rsgallery2ControllerImages extends JControllerAdmin
                 }
                 else
                 {
-                    $msg .= '!!! Copy of images ... failed !!!';
+                    $msg .= 'Copy of images ... failed';
+                    $msgType = 'error';
                 }
             }
             catch (RuntimeException $e) {

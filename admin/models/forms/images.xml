@@ -5,7 +5,7 @@
 		<!-- Gallery selection -->
 		<field
 			id           = "SelectGallery4MoveCopy"
-			name         = "SelectGallery4MoveCopy01"
+			name         = "SelectGallery4MoveCopy"
 			type         = "GallerySelectList"
 			label        = "COM_RSGALLERY2_SELECT_FOR_COPY_SLASH_MOVE"
 			description  = "COM_RSGALLERY2_SPECIFY_GALLERY_NAME_COPYMOVE_DESC"
