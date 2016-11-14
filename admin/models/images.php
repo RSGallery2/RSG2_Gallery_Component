@@ -220,13 +220,26 @@ class Rsgallery2ModelImages extends JModelList
         try {
 
             $input = JFactory::getApplication()->input;
-            $cid = $input->get( 'cid', array(), 'ARRAY');
+            $cids = $input->get( 'cid', array(), 'ARRAY');
             $NewGalleryId = $input->get( 'SelectGallery4MoveCopy', -1, 'INT');
 
             // Destination gallery selected ?
             if ($NewGalleryId > 0) {
+
                 // Source images selected ?
-                if (count($cid) > 0) {
+                if (count($cids) > 0) {
+					// All selections
+	                foreach ($cids as $cid)
+	                {
+						
+
+
+
+	                }
+
+
+
+/**
                     // Single ids
                     $cids = implode(',', $cid);
 
