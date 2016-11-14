@@ -192,13 +192,6 @@ $userId = $user->id;
 	                ?>
 				</div>
 
-	            <span style="color:red">Task: Search controls, on move, copy</span><br><br>
-				<?php
-				//echo 'ThumbPath: ' . JPATH_THUMB . '<br>';
-				//echo 'ImagePathThumb: ' . $rsgConfig->imgPath_thumb . '<br>';
-				//echo 'ImagePathThumb: ' . JURI_SITE . $rsgConfig->get('imgPath_thumb') . '<br>';
-				echo $this->HtmlPathThumb . '<br>';
-				?>
 	            <?php if (empty($this->items)) : ?>
                     <div class="alert alert-no-items">
                         <?php echo JText::_('COM_RSGALLERY2_GALLERY_HAS_NO_IMAGES_ASSIGNED'); ?>

@@ -37,12 +37,18 @@ class Rsgallery2ViewImages extends JViewLegacy
 		global $rsgConfig;
 
 		//--- get needed form data ------------------------------------------
-		
+
+		echo '<span style="color:red">Task: Search controls, move to ..., copy to ...</span><br><br>';
+
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
 
 //		$this->rsgConfigData = $rsgConfig;
 		$this->HtmlPathThumb = JURI_SITE . $rsgConfig->get('imgPath_thumb') . '/';
+		////echo 'ThumbPath: ' . JPATH_THUMB . '<br>';
+		////echo 'ImagePathThumb: ' . $rsgConfig->imgPath_thumb . '<br>';
+		////echo 'ImagePathThumb: ' . JURI_SITE . $rsgConfig->get('imgPath_thumb') . '<br>';
+		//echo $this->HtmlPathThumb . '<br>';
 
 		$this->items = $this->get('Items');
 		
