@@ -248,62 +248,252 @@ class Rsgallery2ModelImage extends  JModelAdmin
         $OutTxt = 'Model Image: CreateImage "' . $imageName . '""  galleryId' . $galleryId;
         JFactory::getApplication()->enqueueMessage($OutTxt, 'warning');
 
-	/**
+		/**
 
-        CREATE TABLE IF NOT EXISTS `#__rsgallery2_files` (
-    `id` int(9) unsigned NOT NULL auto_increment,
-  `name` varchar(255) NOT NULL default '',
-  `alias` varchar(255) NOT NULL DEFAULT '',
-  `descr` text,
-  `gallery_id` int(9) unsigned NOT NULL default '0',
-  `title` varchar(255) NOT NULL default '',
-  `hits` int(11) unsigned NOT NULL default '0',
-  `date` datetime NOT NULL default '0000-00-00 00:00:00',
-  `rating` int(10) unsigned NOT NULL default '0',
-  `votes` int(10) unsigned NOT NULL default '0',
-  `comments` int(10) unsigned NOT NULL default '0',
-  `published` tinyint(1) NOT NULL default '1',
-  `checked_out` int(11) NOT NULL default '0',
-  `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
-  `ordering` int(9) unsigned NOT NULL default '0',
-  `approved` tinyint(1) unsigned NOT NULL default '1',
-  `userid` int(10) NOT NULL,
-  `params` text NOT NULL,
-  `asset_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'FK to the #__assets table.',
+			CREATE TABLE IF NOT EXISTS `#__rsgallery2_files` (
+		`id` int(9) unsigned NOT NULL auto_increment,
+	  `name` varchar(255) NOT NULL default '',
+	  `alias` varchar(255) NOT NULL DEFAULT '',
+	  `descr` text,
+	  `gallery_id` int(9) unsigned NOT NULL default '0',
+	  `title` varchar(255) NOT NULL default '',
+	  `hits` int(11) unsigned NOT NULL default '0',
+	  `date` datetime NOT NULL default '0000-00-00 00:00:00',
+	  `rating` int(10) unsigned NOT NULL default '0',
+	  `votes` int(10) unsigned NOT NULL default '0',
+	  `comments` int(10) unsigned NOT NULL default '0',
+	  `published` tinyint(1) NOT NULL default '1',
+	  `checked_out` int(11) NOT NULL default '0',
+	  `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
+	  `ordering` int(9) unsigned NOT NULL default '0',
+	  `approved` tinyint(1) unsigned NOT NULL default '1',
+	  `userid` int(10) NOT NULL,
+	  `params` text NOT NULL,
+	  `asset_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'FK to the #__assets table.',
 
-    /**
-    $db = JFactory::getDbo();
-    $query = $db->getQuery(true);
-    $query->insert($db->quoteName('#__my_users'))
-        ->columns(array('name', 'username'))
-        ->values(implode(',', array($db->quote('Joe'), $db->quote('jlipman')) ));
-    $db->setQuery($query);
-    $result = $db->query();
-    /**/
+		/**
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		$query->insert($db->quoteName('#__my_users'))
+			->columns(array('name', 'username'))
+			->values(implode(',', array($db->quote('Joe'), $db->quote('jlipman')) ));
+		$db->setQuery($query);
+		$result = $db->query();
+		/**/
 
-    /**
-    // Create and populate an object.
-    $image_record = new stdClass();
-    $image_record->name = 'Joel';
-    $image_record->username = 'jlipman';
+		/**
+		// Create and populate an object.
+		$image_record = new stdClass();
+		$image_record->name = 'Joel';
+		$image_record->username = 'jlipman';
 
-    // Insert the object into the user table.
-    $result = JFactory::getDbo()->insertObject('#__rsgallery2_files', $image_record);
+		// Insert the object into the user table.
+		$result = JFactory::getDbo()->insertObject('#__rsgallery2_files', $image_record);
 
-    /**/
-    $data['userid']  = $userid;
-    $data['title']   = $title;
-    $data['content'] = $content;
-    $data['state']   = $state;
 
-    // Lets store it!
-    $row             = JTable::getInstance('Message','BestiaTable');
-    $row->bind($data);
-    $row->check();
-    $store           = $row->store();
-    if($store)                        return $row->id;
+		/**/
 
-        return HasError;
+
+		$item = $this->getTable('');
+
+		$item->load(0);
+
+		$item->gallery_id= $galleryId;
+
+		$item->ordering = maxOrdering ($galleryId);;
+
+		$user = JFactory::getUser();
+		$userId = $user->id;
+		$item->userid  = $userId;
+		$item->title   = $imageName;
+		$item->content = "";
+		$item->state   = 0; // "not published ??? published ?"$state;
+
+		// Lets store it!
+		$row             = JTable::getInstance('Message','BestiaTable');
+		// $row->bind($data);
+		$row->check();
+
+
+		if (!$item->store())
+		{
+			$this->setError($this->_db->getErrorMsg());
+
+			return false;
+		}
+
+		$store           = $row->store();
+		if($store)
+			return $row->id;
+
+			return HasError;
     }
+
+
+	public function moveImagesTo ()
+	{
+		$IsMoved = false;
+
+		try {
+
+			$input = JFactory::getApplication()->input;
+			$cids = $input->get( 'cid', array(), 'ARRAY');
+			JArrayHelper::toInteger($cids);
+
+			$NewGalleryId = $input->get( 'SelectGallery4MoveCopy', -1, 'INT');
+
+			// Destination gallery selected ?
+			if ($NewGalleryId > 0) {
+				// Source images selected ?
+				if (count($cids) > 0) {
+
+					$row = $this->getTable();
+
+					foreach ($cids as $cid) {
+						$row->load($cid);
+
+						$row->gallery_id= $NewGalleryId;
+
+						$row->ordering = $this->maxOrdering ($NewGalleryId);;
+						if (!$row->store())
+						{
+							$this->setError($this->_db->getErrorMsg());
+
+							return false;
+						}
+					}
+
+					JFactory::getApplication()->enqueueMessage(JText::_('Move is successful. Please check order of images in destination gallery'), 'notice');
+				}
+				else
+				{
+					JFactory::getApplication()->enqueueMessage(JText::_('No valid image(s) selected'), 'warning');
+				}
+			}
+			else
+			{
+				JFactory::getApplication()->enqueueMessage(JText::_('No valid gallery selected'), 'warning');
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing moveTo: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $IsMoved;
+	}
+
+	/**
+	 * copy the item to an other gallery
+	 * @param int id of the target gallery
+	 * @return rsgItem newly created rsgItem
+	 *
+
+	function copy($target_gallery){
+
+	if($target_gallery == null) return null;
+
+	global $database,$rsgConfig;
+
+	$new_item = clone($this);
+	$new_item->gallery_id = $target_gallery;
+
+	if( !$database->insertObject('#__rsgallery2_files', $new_item, 'id') ) {
+	$this->setError( $database->getErrorMsg() );
+	return null;
+	}
+
+	if ( $rsgConfig->get('gallery_folders') ){
+
+	// TODO: copy files from source to target gallery folder
+
+	}
+
+	return $this;
+
+	}
+	/**/
+
+	public function maxOrdering ($GalleryId)
+	{
+		$max = 0;
+
+		try {
+			$db = $this->getDbo();
+			$query = $db->getQuery(true)
+				->select('MAX(ordering)')
+				->from($db->quoteName('#__rsgallery2_files'))
+				->where($db->quoteName('gallery_id') . ' = ' . $db->quote($GalleryId));
+			$db->setQuery($query);
+			$max = $db->loadResult();
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing maxOrdering for GalleryId: "' . $GalleryId . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $max+1;
+	}
+
+
+// ToDo: see above   ? alias ? clone ids php function or ...
+
+	public function copyImagesTo ()
+	{
+		//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+		$msg = "copyTo: ";
+		$msgType = 'notice';
+
+		$IsCopied = false;
+
+		try {
+
+			$input = JFactory::getApplication()->input;
+
+			$input = JFactory::getApplication()->input;
+			$cid = $input->get( 'cid', array(), 'ARRAY');
+			$NewGalleryId = $input->get( 'SelectGallery4MoveCopy', -1, 'INT');
+
+			// Destination gallery selected ?
+			if ($NewGalleryId > 0) {
+				// Source images selected ?
+				if (count($cid) > 0) {
+					// Single ids
+					$cids = implode(',', $cid);
+
+
+
+
+
+
+				}
+			}
+
+			// $msg .= "<br>";
+			$msg .= JText::_( 'COM_RSGALLERY2_YYY_done' );
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing copyTo: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $IsCopied;
+	}
+
+
 
 }

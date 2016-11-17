@@ -213,206 +213,6 @@ class Rsgallery2ModelImages extends JModelList
     }
 
 
-    public function moveImagesTo ()
-    {
-        $IsMoved = false;
-
-        try {
-
-            $input = JFactory::getApplication()->input;
-            $cid = $input->get( 'cid', array(), 'ARRAY');
-            $NewGalleryId = $input->get( 'SelectGallery4MoveCopy', -1, 'INT');
-
-            // Destination gallery selected ?
-            if ($NewGalleryId > 0) {
-                // Source images selected ?
-                if (count($cid) > 0) {
-                    // Single ids
-                    $cids = implode(',', $cid);
-
-                    //--- Assign gallery id by list --------------------------------------------
-
-                    $db = JFactory::getDBO();
-                    $query = $db->getQuery(true);
-
-                    $fields = array(
-                        $db->quoteName('gallery_id') . '=' . $NewGalleryId,
-                        $db->quoteName('ordering') . '= MAX(ordering) + 1'
-                    );
-
-                    $conditions = array(
-                        $db->quoteName('id') . ' IN ( ' . $cids . ' )'
-                    );
-
-                    $query->update($db->quoteName('#__rsgallery2_files'))
-                        ->set($fields)
-                        ->where($conditions);
-
-                    $db->setQuery($query);
-                    $IsMoved = $db->execute();
-
-
-                    //--- Change order -----------------------------------
-
-                    /**
-                    UPDATE table
-                        SET field = (SELECT x.max_field
-                                                FROM (SELECT MAX(t.field) + 1 AS max_field
-                        FROM TABLE t
-                        WHERE t.id IN (1,3,5,6,8) x)
-
-                    ... ->set($db->quoteName('count') . ' = (' . $db->quoteName('count') . ' + 1)')
-                    ->set($db->quoteName('hits') . ' = ' . $db->quoteName('hits') . ' + 1')
-                    ->set($db->quoteName('rating_count') . ' = rating_count + 1')
-                    ->set($db->quoteName('rating_sum') . ' = rating_sum + ' . (int) $rate)
-                    ->set($db->qn('ordering') . ' = ' . $db->q($position))
-                    ->set($db->quoteName('time') . ' = ' . $db->quote((int) time()))
-                    ->set($db->quoteName('lastvisitDate') . '=' . $db->quote($date->toSql()))
-
-                    ->set($db->qn('params') . ' = ' . $db->q($this->params->toString('JSON')))
-
-                    $db = $this->getDbo();
-                    $query = $db->getQuery(true)
-                    ->select('MAX(ordering)')
-                    ->from('#__banners');
-
-                    $db->setQuery($query);
-                    $max = $db->loadResult();
-
-                    $table->ordering = $max + 1;
-
-                    $query = $db->getQuery(true)
-                    ->select('MAX(ordering) as ' . $db->quoteName('max') . ', catid')
-                    ->select('catid')
-                    ->from('#__banners')
-                    ->group('catid');
-
-                    public function getTotal()
-                    {
-                        $db = JFactory::getDbo();
-                        $query = $db->getQuery(true)
-                        ->select('MAX(link_id)')
-                        ->from('#__finder_links');
-                        $db->setQuery($query);
-                        $total = $db->loadResult();
-
-                        return $total;
-                    }
-
-
-                    google joomla 3 updaTING RECORD FROM SELECTION STACK+
-
-                    http://stackoverflow.com/questions/35023932/converting-sql-to-joomla-syntax-set-and-update
-                    */
-
-                    //--- Update both ------------------------------------------
-
-                    // ?? assets -> rights ?
-
-                    JFactory::getApplication()->enqueueMessage(JText::_('Move is successful. Please check order of images in destination gallery'), 'notice');
-                }
-                else
-                {
-                    JFactory::getApplication()->enqueueMessage(JText::_('No valid image(s) selected'), 'warning');
-                }
-            }
-            else
-            {
-                JFactory::getApplication()->enqueueMessage(JText::_('No valid gallery selected'), 'warning');
-            }
-        }
-        catch (RuntimeException $e)
-        {
-            $OutTxt = '';
-            $OutTxt .= 'Error executing moveTo: "' . $e->getMessage() . '"' . '<br>';
-
-            $app = JFactory::getApplication();
-            $app->enqueueMessage($OutTxt, 'error');
-        }
-
-        return $IsMoved;
-    }
-
-    /**
-     * copy the item to an other gallery
-     * @param int id of the target gallery
-     * @return rsgItem newly created rsgItem
-     *
-
-    function copy($target_gallery){
-
-        if($target_gallery == null) return null;
-
-        global $database,$rsgConfig;
-
-        $new_item = clone($this);
-        $new_item->gallery_id = $target_gallery;
-
-        if( !$database->insertObject('#__rsgallery2_files', $new_item, 'id') ) {
-            $this->setError( $database->getErrorMsg() );
-            return null;
-        }
-
-        if ( $rsgConfig->get('gallery_folders') ){
-
-            // TODO: copy files from source to target gallery folder
-
-        }
-
-        return $this;
-
-    }
-    /**/
-
-// ToDo: see above   ? alias ? clone ids php function or ...
-
-    public function copyImagesTo ()
-    {
-        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-        $msg = "copyTo: ";
-        $msgType = 'notice';
-
-        $IsCopied = false;
-
-        try {
-
-            $input = JFactory::getApplication()->input;
-
-            $input = JFactory::getApplication()->input;
-            $cid = $input->get( 'cid', array(), 'ARRAY');
-            $NewGalleryId = $input->get( 'SelectGallery4MoveCopy', -1, 'INT');
-
-            // Destination gallery selected ?
-            if ($NewGalleryId > 0) {
-                // Source images selected ?
-                if (count($cid) > 0) {
-                    // Single ids
-                    $cids = implode(',', $cid);
-
-
-
-
-
-
-                }
-            }
-
-                    // $msg .= "<br>";
-            $msg .= JText::_( 'COM_RSGALLERY2_YYY_done' );
-        }
-        catch (RuntimeException $e)
-        {
-            $OutTxt = '';
-            $OutTxt .= 'Error executing copyTo: "' . '<br>';
-            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-            $app = JFactory::getApplication();
-            $app->enqueueMessage($OutTxt, 'error');
-        }
-
-        return $IsCopied;
-    }
-
 
     public function resetHits ()
     {
@@ -528,42 +328,42 @@ class Rsgallery2ModelImages extends JModelList
 
         try
         {
-        // Create a new query object.
-        $db = JFactory::getDBO();
-        $query = $db->getQuery(true);
+            // Create a new query object.
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
 
-        //$query = 'SELECT * FROM `#__rsgallery2_files` WHERE (`date` >= '. $database->quote($lastweek)
-        //	.' AND `published` = 1) ORDER BY `id` DESC LIMIT 0,5';
+            //$query = 'SELECT * FROM `#__rsgallery2_files` WHERE (`date` >= '. $database->quote($lastweek)
+            //	.' AND `published` = 1) ORDER BY `id` DESC LIMIT 0,5';
 
-        $query
-            ->select('*')
-            ->from($db->quoteName('#__rsgallery2_files'))
-            ->order($db->quoteName('id') . ' DESC');
+            $query
+                ->select('*')
+                ->from($db->quoteName('#__rsgallery2_files'))
+                ->order($db->quoteName('id') . ' DESC');
 
-        /*   ==>  setQuery($query, $offset = 0, $limit = 0)
-        // $limit > 0 will limit the number of lines returned
-        if ($limit && (int) $limit > 0)
-        {
-            $query->setLimit($limit);
-        }
-        $db->setQuery($query);
-        /**/
+            /*   ==>  setQuery($query, $offset = 0, $limit = 0)
+            // $limit > 0 will limit the number of lines returned
+            if ($limit && (int) $limit > 0)
+            {
+                $query->setLimit($limit);
+            }
+            $db->setQuery($query);
+            /**/
 
-        $db->setQuery($query, 0, $limit);
-        $rows = $db->loadObjectList();
+            $db->setQuery($query, 0, $limit);
+            $rows = $db->loadObjectList();
 
-        foreach ($rows as $row) {
-            $ImgInfo = array();
-            $ImgInfo['name'] = $row->name;
-            $ImgInfo['gallery'] = rsgallery2ModelImages::getParentGalleryName ($row->gallery_id);
-            $ImgInfo['date'] = $row->date;
+            foreach ($rows as $row) {
+                $ImgInfo = array();
+                $ImgInfo['name'] = $row->name;
+                $ImgInfo['gallery'] = rsgallery2ModelImages::getParentGalleryName ($row->gallery_id);
+                $ImgInfo['date'] = $row->date;
 
-            //$ImgInfo['user'] = rsgallery2ModelGalleries::getUsernameFromId($row->userid);
-            $user = JFactory::getUser($row->userid);
-            $ImgInfo['user'] = $user->get('username');
+                //$ImgInfo['user'] = rsgallery2ModelGalleries::getUsernameFromId($row->userid);
+                $user = JFactory::getUser($row->userid);
+                $ImgInfo['user'] = $user->get('username');
 
-            $latest[] = $ImgInfo;
-        }
+                $latest[] = $ImgInfo;
+            }
         }
         catch (RuntimeException $e)
         {

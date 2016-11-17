@@ -97,7 +97,7 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 
             try {
                 // Model tells if successful
-                $model = $this->getModel('images');
+                $model = $this->getModel('image');
 
                 $IsMoved = $model->moveImagesTo();
                 if ($IsMoved) {
