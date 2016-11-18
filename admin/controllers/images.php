@@ -93,8 +93,9 @@ class Rsgallery2ControllerImages extends JControllerAdmin
             $msgType = 'warning';
             // replace newlines with html line breaks.
             str_replace('\n', '<br>', $msg);
-        } else {
-
+        }
+        else
+        {
             try {
                 // Model tells if successful
                 $model = $this->getModel('image');
@@ -142,8 +143,9 @@ class Rsgallery2ControllerImages extends JControllerAdmin
             $msgType = 'warning';
             // replace newlines with html line breaks.
             str_replace('\n', '<br>', $msg);
-        } else {
-
+        }
+        else
+        {
             try {
                 // Model tells if successful
                 $model = $this->getModel('images');

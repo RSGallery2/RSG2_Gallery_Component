@@ -350,11 +350,17 @@ class Rsgallery2ModelImage extends  JModelAdmin
 					$row = $this->getTable();
 
 					foreach ($cids as $cid) {
+
 						$row->load($cid);
 
-						$row->gallery_id= $NewGalleryId;
+                        if ($row->gallery_id == $NewGalleryId) {
+                            //Item is already in this gallery:
+                            continue;
+                        }
 
-						$row->ordering = $this->maxOrdering ($NewGalleryId);;
+						$row->gallery_id= $NewGalleryId;
+						$row->ordering = $this->maxOrdering ($NewGalleryId);
+
 						if (!$row->store())
 						{
 							$this->setError($this->_db->getErrorMsg());
@@ -363,7 +369,10 @@ class Rsgallery2ModelImage extends  JModelAdmin
 						}
 					}
 
-					JFactory::getApplication()->enqueueMessage(JText::_('Move is successful. Please check order of images in destination gallery'), 'notice');
+                    // Success
+                    $IsMoved = true;
+
+                    JFactory::getApplication()->enqueueMessage(JText::_('Move is successful. Please check order of images in destination gallery'), 'notice');
 				}
 				else
 				{
@@ -455,13 +464,11 @@ class Rsgallery2ModelImage extends  JModelAdmin
 
 		$IsCopied = false;
 
-		try {
-
-			$input = JFactory::getApplication()->input;
-
+		try
+        {
 			$input = JFactory::getApplication()->input;
 			$cid = $input->get( 'cid', array(), 'ARRAY');
-			$NewGalleryId = $input->get( 'SelectGallery4MoveCopy', -1, 'INT');
+			$NewGalleryId = $input->get ('SelectGallery4MoveCopy', -1, 'INT');
 
 			// Destination gallery selected ?
 			if ($NewGalleryId > 0) {
@@ -470,12 +477,12 @@ class Rsgallery2ModelImage extends  JModelAdmin
 					// Single ids
 					$cids = implode(',', $cid);
 
+                    foreach ($cids as $cid) {
 
 
 
-
-
-				}
+                    }
+                }
 			}
 
 			// $msg .= "<br>";
