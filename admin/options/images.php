@@ -782,7 +782,7 @@ function copyImage( $cid, $option ) {
 	$input =JFactory::getApplication()->input;
 	$cat_id = $input->get( 'move_id', 0, 'INT');	
 	if (!$cat_id) {
-		echo "<script> alert('No gallery selected to move to'); window.history.go(-1);</script>\n";
+		echo "<script> alert('No gallery selected to copy to'); window.history.go(-1);</script>\n";
 		exit;
 	}
 	
@@ -790,9 +790,9 @@ function copyImage( $cid, $option ) {
     $tmpdir	= uniqid( 'rsgcopy_' );
     
     //Get full path to copy directory
-	$copyDir = JPath::clean( JPATH_ROOT.DS . 'media' . DS . $tmpdir . DS );
-    if( !JFolder::create($copyDir ) ) {
-    		$errors[] = 'Unable to create temp directory ' . $copyDir; 
+	$tmpCopyDir = JPath::clean( JPATH_ROOT.DS . 'media' . DS . $tmpdir . DS );
+    if( !JFolder::create($tmpCopyDir ) ) {
+    		$errors[] = 'Unable to create temp directory ' . $tmpCopyDir; 
     } else {
 	    foreach( $cid as $id ) {
 			$gallery = rsgGalleryManager::getGalleryByItemID($id);
@@ -800,25 +800,34 @@ function copyImage( $cid, $option ) {
 	    	$original = $item->original();
 	    	$source = $original->filePath();
 	    	
-	    	$destination = $copyDir . $item->name;
+	    	$tmpFile = $tmpCopyDir . $item->name;
 	    	
-	    	if( is_dir($copyDir) ) {
+	    	if( is_dir($tmpCopyDir) ) {
 	    		if( file_exists( $source ) ) {
 	    			
-	    			if(!JFile::copy( $source, $destination)){
+	    			if(!JFile::copy( $source, $tmpFile))
+					{
 	    				$errors[] = 'The file could not be copied!';
-	    			} else {
+	    			} 
+					else 
+					{
 						//Actually importing the image
-						$e = fileUtils::importImage($destination, $item->name, $cat_id, $item->title, $item->description);
-						if ( $e !== true )	$errors[] = $e;
-						if(!JFile::delete($destination)) $errors[] = 'Unable to delete the file' . $item->name;
+						$e = fileUtils::importImage($tmpFile, $item->name, $cat_id, $item->title, $item->description);
+						if ( $e !== true )	
+						{
+							$errors[] = $e;
+						}
+						if(!JFile::delete($tmpFile)) 
+						{
+							$errors[] = 'Unable to delete the file' . $item->name;
+						}
 					}
 				}
 			}
 	    }
 	    
-	    if(!rmdir($copyDir)) {
-            $errors[] = 'Unable to delete the temp directory' . $copyDir;
+	    if(!rmdir($tmpCopyDir)) {
+            $errors[] = 'Unable to delete the temp directory' . $tmpCopyDir;
         }
     }
 
