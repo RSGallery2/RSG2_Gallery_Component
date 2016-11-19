@@ -80,14 +80,70 @@ class Rsgallery2ModelConfig extends JModelAdmin
 		// Check the session for previously entered form data.
 		$app = JFactory::getApplication();
         $data = $app->getUserState('com_rsgallery2.edit.config.data', array());
+
+
         if (empty($data)) 
 		{
-            $data = $this->getItem();
+            // $data = $this->getItem();
+
+            // ToDo: load config data into $data
+            $data= $this->loadConfig();
         }
 
         return $data;
     }
-	
+/**/
+
+    /**
+     * Binds the global configuration variables to the class properties
+     */
+    public function loadConfig() {
+        $data = array();
+
+        $database = JFactory::getDBO();
+
+        $query = "SELECT * FROM #__rsgallery2_config";
+        $database->setQuery($query);
+
+        if( !$database->execute() ){
+            // database doesn't exist, use defaults
+            // for this->name = value association (see below)
+            // ToDo: ? May create database table write values and call itself
+            return;
+        }
+
+        $vars = $database->loadAssocList();
+        if( !$vars ){
+            // database doesn't exist, use defaults
+            // for this->name = value association (see below)
+            // ToDo:  create values from default write values and call itself
+            return;
+        }
+
+        foreach ($vars as $v) {
+            if ($v['name'] != "") {
+                // $this->$v['name'] = $v['value'];
+                $k = $v['name'];
+                $data[$k] = $v['value'];
+            }
+        }
+
+        //------------------------------------------
+        // special variables exifTags ...
+        //------------------------------------------
+        if (isset ($data['exifTags'])) {
+            $data['exifTags'] = explode ('|', $data['exifTags']);
+        }
+
+/**        if (isset ($data['allowedFileTypes'])) {
+            $data['allowedFileTypes'] = explode (',', $data['allowedFileTypes']);
+        }
+**/
+
+        return $data;
+    }
+
+
     // Transform some data before it is displayed
     /* extension development 129 bottom  */
 	protected function prepareTable($table)
@@ -170,23 +226,27 @@ class Rsgallery2ModelConfig extends JModelAdmin
 		
 // ToDo: Remove bad injected code		
 
+
+        // Special variables
+
+
 		$row = $this->getTable ();
 		foreach ($data as $key => $value)
 		#foreach ($input as $key => $value)
 		{
-/*
-fill an array, bind and check and store ?
- */
+            /*
+             */
 			$row->id = null;
 			$row->name = $key;
-			$row->value = $value;
-			$row->id = null;
+            $row->value = $value;
 
-//			$msg .= '    name = ' . $key . ' value = ' . $value . '<br>';
+
+            if ($row->name == 'exifTags' && is_array ($row->value )) {
+                $row->value = implode ('|', $row->value);
+            }
 
 			$row->check ();
 			$row->store ();
-
 		}
 
         $isSaved = true;

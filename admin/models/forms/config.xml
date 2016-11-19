@@ -82,7 +82,21 @@
 			<option value="2">JARCHIVED</option>
 			<option value="-2">JTRASHED</option>
 		</field -->
+        <field
+            name         = "allowedFileTypes"
+            type         = "text"
+            default      = "x jpg,jpeg,gif,png"
+            label        = "COM_RSGALLERY2_ALLOWED_FILETYPES"
+            readonly     = "true"
+            description  = ""
+            class        = "readonly"
+        >
+        </field>
 	</fieldset>
+
+
+
+
 	<fieldset name="Images_upload">
 		<field
 			name         = "ftp_path"
@@ -653,11 +667,19 @@
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
+
+
+
+
+
+
+
+
+
         <field
-                id           = "exif"
-                name         = "exif"
+                id           = "exifTags"
+                name         = "exifTags"
                 type         = "list"
-                default      = "0"
                 label        = "COM_RSGALLERY2_SELECT_EXIF_TAGS_TO_DISPLAY"
                 description  = ""
 				class="inputbox"

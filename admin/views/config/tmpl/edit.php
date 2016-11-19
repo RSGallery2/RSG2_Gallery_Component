@@ -92,16 +92,6 @@ JFactory::getDocument()->addScriptDeclaration('
                             <?php
                             echo $this->form->renderFieldset('Images_manipulation');
                             ?>
-                            <!-- extra info -->
-                            <div class="control-group">
-                                <label class="control-label" for="allowedFileTypes"><?php echo JText::_('COM_RSGALLERY2_ALLOWED_FILETYPES')?>:</label>
-                                <div class="controls">
-                                    <label id="allowedFileTypes" class="span5 input_box" type="text">
-                                        <?php echo implode(", ", $this->allowedFileTypes); ?>
-                                    </label>
-                                </div>
-                            </div>
-
 
                         <?php echo JHtml::_('bootstrap.endSlide'); ?>
 

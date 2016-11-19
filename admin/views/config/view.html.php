@@ -22,7 +22,7 @@ class Rsgallery2ViewConfig extends JViewLegacy
 	protected $UserIsRoot;
 
 	protected $rsgVersion;
-	protected $allowedFileTypes;
+//	protected $allowedFileTypes;
 
 	protected $configVars;
 
@@ -37,17 +37,17 @@ class Rsgallery2ViewConfig extends JViewLegacy
 		$this->form = $this->get('Form');
 		$this->item = $this->get('Item'); 
 			
-		global $rsgConfig;
-		$this->rsgConfigData = $rsgConfig;
+//		global $rsgConfig;
+//		$this->rsgConfigData = $rsgConfig;
 
 		//--- get needed extra config data ------------------------------------------
 		
-		$this->rsgVersion = $rsgConfig->version; // "Version 04.01.00";
-		// ToDo: Check for using List in XML ???
-		$this->allowedFileTypes = imgUtils::allowedFileTypes ();
+//		$this->rsgVersion = $rsgConfig->version; // "Version 04.01.00";
+//		 ToDo: Check for using List in XML ???
+//		$this->allowedFileTypes = imgUtils::allowedFileTypes ();
 
-		$this->configVars = get_object_vars($this->rsgConfigData);
-		$this->form->bind ($this->configVars);
+//		$this->configVars = get_object_vars($this->rsgConfigData);
+//		$this->form->bind ($this->configVars);
 
 		//--- begin to display --------------------------------------------
 		
