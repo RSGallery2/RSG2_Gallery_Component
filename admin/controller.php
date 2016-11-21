@@ -74,6 +74,7 @@ class Rsgallery2Controller extends JControllerLegacy
 		$layout = $this->input->get('layout', 'rsgallery2');
 		$id     = $this->input->getInt('id');
 
+
 		// Check for edit form.
 		if($layout == 'edit')
 		{
@@ -106,16 +107,22 @@ class Rsgallery2Controller extends JControllerLegacy
 
 				return false;
 			}
-			//if ($view == 'config')
-			if (false)
+			if ($view == 'config')
 			{
+				if (!JFactory::getUser()->authorise('core.manage', 'com_rsgallery2'))
+				{
+					 return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+				}
+
+				/**
 				// Somehow the person just went to the form - we don't allow that.
 				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id));
 				$this->setMessage($this->getError(), 'error');
 				//$this->setRedirect(JRoute::_('index.php?option=com_rsgallery2&view=rsgallery2', false));
 				$this->setRedirect(JRoute::_('index.php?option=com_rsgallery2&view=maintenance', false));
+				/**/
 
-				return false;
+				//return false;
 			}
 		}
 
