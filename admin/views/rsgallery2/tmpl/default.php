@@ -201,7 +201,8 @@ $doc->addStyleSheet( JURI_SITE."administrator/components/com_rsgallery2/css/Cont
                 <div class="row-fluid">
                     <?php
                     if ( $this->UserIsAdmin ){
-                        $link = 'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig';
+                        //$link = 'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig';
+                        $link = 'index.php?option=com_rsgallery2&amp;view=config&amp;task=config.edit';
                         RsgIconMoonButton( $link, 'icon-equalizer clsProperties',  JText::_('COM_RSGALLERY2_CONFIGURATION') );
                     }
 
