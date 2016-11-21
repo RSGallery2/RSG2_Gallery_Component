@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Id $-->
 <config>
+	<!-- standard -->
 	<fieldset name="component"
 		label="COM_RSGALLERY2_COMPONENT_LABEL"
 		description="COM_RSGALLERY2_COMPONENT_DESC"
-	>
-
+	>		
+		<!-- link to real configuration -->
+		<field
+			id           = "link2configView"
+			name         = "link2configView"
+			type         = "Rsg2Link"
+			label        = "COM_RSGALLERY2_GOTO_RSG2_CONFIG"
+			description  = "COM_RSGALLERY2_GOTO_RSG2_CONFIG_DESC"
+			required     = "false"
+			class        = "btn"
+			linktext     = "Click to go tot config"
+			addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
+			size         = "4"
+		/>
+		
 	</fieldset>
 
+	<!-- permission -->
 	<fieldset 
 		name="permissions"
 		label="JCONFIG_PERMISSIONS_LABEL"
