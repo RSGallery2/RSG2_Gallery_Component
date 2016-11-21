@@ -34,7 +34,6 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		parent::__construct($config);
 	}
 
-
 	/**
      * Proxy for getModel.
      */

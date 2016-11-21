@@ -6,13 +6,16 @@ jimport ('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 jimport('joomla.application.component.model');
 
+
+
+
 JModelLegacy::addIncludePath(JPATH_COMPONENT.'/models');
 
 class Rsgallery2ViewConfig extends JViewLegacy
 {
 
 	// ToDo: Use other rights instead of core.admin -> IsRoot ?
-	// core.admin is the permission used to control access to 
+	// core.admin is the permission used to control access to
 	// the global config
 	protected $form;
 	protected $item;
