@@ -58,17 +58,29 @@ class JFormFieldRsg2Link extends JFormField {
 		 * $html[] = '</div>';
 		 * /**/
 
+
+		//echo "<br>" . "element: " . json_encode ($this) . "<br>" . "<br>" . "<br>" ;
+		echo "<br>" . "element: " . json_encode ($this->element) . "<br>" . "<br>" ;
+		echo "<br>" . "element ['@attributes']: " . json_encode ($this->element["@attributes"]) . "<br>" . "<br>" ;
+		//echo "<br>" . "element: " . json_encode ($this->element["@attributes"].linktext) . "<br>" . "<br>" ;
+		//echo "<br>" . "element: " . json_encode ($this->element["@attributes"]->linktext) . "<br>" . "<br>" ;
+		echo "<br>" . "attributes: " . json_encode ($this->element->attributes) . "<br>" . "<br>" . "<br>" ;
+		echo "<br>" . "attributes: " . json_encode ($this->element->attributes) . "<br>" . "<br>" . "<br>" ;
+
+
+
+
 		$linktext = $this->element->attributes['linktext'];
 		if (empty ($linktext))
 		{
-			$linktext = 'linktext not defined in xml';
+			$linktext = '"linktext" not defined in config xml';
 		}
 
 		/**/
 		$html[] = '<ul class="nav nav-pills">';
 		$html[] = '    <li class="active">';
 		$html[] = '        <a href="' . $link . '" >';
-		$html[] = '            Test' . $linktext;
+		$html[] = '            ' . $linktext;
 		$html[] = '        </a>';
 		$html[] = '    </li>';
 		$html[] = '</ul>';
