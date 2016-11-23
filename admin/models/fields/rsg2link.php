@@ -20,6 +20,25 @@ class JFormFieldRsg2Link extends JFormField {
 	 *
 	 */
 
+	/**
+	 * Method to get certain otherwise inaccessible properties from the form field object.
+	 *
+	 * @param   string  $name  The property name for which to the the value.
+	 *
+	 * @return  mixed  The property value or null.
+	 *
+	 * @since   3.6
+	 */
+	public function __get($name)
+	{
+		switch ($name)
+		{
+			case 'linktext':
+				return $this->$name;
+		}
+
+		return parent::__get($name);
+	}
 
 
 
