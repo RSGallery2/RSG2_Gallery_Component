@@ -21,28 +21,6 @@ class JFormFieldRsg2Link extends JFormField {
 	 */
 
 	/**
-	 * Method to get certain otherwise inaccessible properties from the form field object.
-	 *
-	 * @param   string  $name  The property name for which to the the value.
-	 *
-	 * @return  mixed  The property value or null.
-	 *
-	 * @since   3.6
-	 */
-	public function __get($name)
-	{
-		switch ($name)
-		{
-			case 'linktext':
-				return $this->$name;
-		}
-
-		return parent::__get($name);
-	}
-
-
-
-	/**
 	 * Method to get the field input markup.
 	 * @access protected
 	 * @return    string    The field input markup.
@@ -77,19 +55,7 @@ class JFormFieldRsg2Link extends JFormField {
 		 * $html[] = '</div>';
 		 * /**/
 
-
-		//echo "<br>" . "element: " . json_encode ($this) . "<br>" . "<br>" . "<br>" ;
-		echo "<br>" . "element: " . json_encode ($this->element) . "<br>" . "<br>" ;
-		echo "<br>" . "element ['@attributes']: " . json_encode ($this->element["@attributes"]) . "<br>" . "<br>" ;
-		//echo "<br>" . "element: " . json_encode ($this->element["@attributes"].linktext) . "<br>" . "<br>" ;
-		//echo "<br>" . "element: " . json_encode ($this->element["@attributes"]->linktext) . "<br>" . "<br>" ;
-		echo "<br>" . "attributes: " . json_encode ($this->element->attributes) . "<br>" . "<br>" . "<br>" ;
-		echo "<br>" . "attributes: " . json_encode ($this->element->attributes) . "<br>" . "<br>" . "<br>" ;
-
-
-
-
-		$linktext = $this->element->attributes['linktext'];
+		$linktext = $this->element['linktext'];
 		if (empty ($linktext))
 		{
 			$linktext = '"linktext" not defined in config xml';
