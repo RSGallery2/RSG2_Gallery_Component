@@ -20,6 +20,17 @@
 			<option value="0">JNO</option>
 		</field>
 		<field
+			id           = "develop"
+			name         = "develop"
+			type         = "radio" 
+			default      = "0"
+			label        = "COM_RSGALLERY2_DEVELOP"
+			description  = "COM_RSGALLERY2_DEVELOP_DESC"
+			class        = "btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
 			id           = "advancedSef"
 			name         = "advancedSef"
 			type         = "radio"
