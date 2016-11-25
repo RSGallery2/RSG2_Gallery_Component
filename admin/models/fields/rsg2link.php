@@ -32,40 +32,17 @@ class JFormFieldRsg2Link extends JFormField {
 
 		$link = 'index.php?option=com_rsgallery2&view=config&amp;task=config.edit';
 
-		//Load user example. REPLACE WITH YOUR CODE
-		// $html[] = '<input type="text" name="totalprice" value="' . $your_data->value . '" />';
-
-		/**
-		 * $html[] = '<a href="' . $link . '">';
-		 * $html[] =     'Test' . $this->linktext;
-		 * $html[] = '</a">';
-		 * /**/
-
-		/**
-		 * $html[] = '    <a href="' . $link . '" >';
-		 * $html[] = '        Test' . $this->linktext;
-		 * $html[] = '    </a">';
-		 * /**/
-
-		/**
-		 * $html[] = '<div class="hero-unit">';
-		 * $html[] = '    <a href="' . $link . '" >';
-		 * $html[] = '        Test' . $this->linktext;
-		 * $html[] = '    </a">';
-		 * $html[] = '</div>';
-		 * /**/
-
 		$linktext = $this->element['linktext'];
 		if (empty ($linktext))
 		{
-			$linktext = '"linktext" not defined in config xml';
+			$linktext = '"linktext" not defined in field element xml';
 		}
 
 		/**/
 		$html[] = '<ul class="nav nav-pills">';
 		$html[] = '    <li class="active">';
 		$html[] = '        <a href="' . $link . '" >';
-		$html[] = '            ' . $linktext;
+		$html[] = '            ' . JText::_($linktext);
 		$html[] = '        </a>';
 		$html[] = '    </li>';
 		$html[] = '</ul>';
