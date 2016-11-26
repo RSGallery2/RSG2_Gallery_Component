@@ -13,13 +13,8 @@ JHtml::_('bootstrap.tooltip');
 
 global $Rsg2DebugActive;
 
-// public static $extension = 'COM_RSG2';
-
-//$doc = JFactory::getDocument();
-//$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
-
 global $rsgConfig;
-$this->rsgConfigData = $rsgConfig;
+$this->configVars = $rsgConfig;
 
 ?>
 
@@ -48,7 +43,7 @@ $this->rsgConfigData = $rsgConfig;
 						//    print_r( get_object_vars($this->rsgConfigData) );
 						//echo '</pre>';
 						echo '<pre>';
-						echo json_encode(get_object_vars($this->rsgConfigData), JSON_PRETTY_PRINT);
+						echo json_encode(get_object_vars($this->configVars), JSON_PRETTY_PRINT);
 					    echo '</pre>';
 						?>
 
