@@ -29,7 +29,7 @@ class Rsgallery2ControllerGallery extends JControllerForm
         $msgType = 'notice';
 
         // Access check
-        $canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
+        $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
         if (!$canAdmin) {
             $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
             $msgType = 'warning';

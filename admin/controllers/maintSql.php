@@ -47,7 +47,7 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
         $msgType = 'notice';
 
 		// Access check
-        $canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+        $canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
 		if (!$canAdmin) {
             $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
             $msgType = 'warning';
@@ -71,7 +71,7 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 		$msgType = 'notice';
 
 		// Access check
-		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		$canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
 		if (!$canAdmin) {
 			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 			$msgType = 'warning';
@@ -96,7 +96,7 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 		$msgType = 'notice';
 
 		// Access check
-		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		$canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
 		if (!$canAdmin) {
 			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 			$msgType = 'warning';
@@ -118,7 +118,7 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 		$msgType = 'notice';
 
 		// Access check
-		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		$canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
 		if (!$canAdmin) {
 			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 			$msgType = 'warning';
@@ -141,7 +141,7 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 		$msgType = 'notice';
 
 		// Access check
-		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		$canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
 		if (!$canAdmin) {
 			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 			$msgType = 'warning';

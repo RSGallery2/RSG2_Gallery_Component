@@ -45,7 +45,7 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Access check
-		$canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
+		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
 		if (!$canAdmin) {
 			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 			$msgType = 'warning';
@@ -87,7 +87,7 @@ class Rsgallery2ControllerImages extends JControllerAdmin
         JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
         // Access check
-        $canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
+        $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
         if (!$canAdmin) {
             $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
             $msgType = 'warning';
@@ -137,7 +137,7 @@ class Rsgallery2ControllerImages extends JControllerAdmin
         JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
         // Access check
-        $canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
+        $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
         if (!$canAdmin) {
             $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
             $msgType = 'warning';
@@ -205,7 +205,7 @@ class Rsgallery2ControllerImages extends JControllerAdmin
         JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
         // Access check
-        $canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
+        $canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
         if (!$canAdmin) {
             $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
             $msgType = 'warning';

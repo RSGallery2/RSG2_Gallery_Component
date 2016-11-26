@@ -48,7 +48,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		$msg = "controller.createImageDbItems: ";
 		$msgType = 'notice';
 
-		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		$canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
 		if (!$canAdmin) {
 			//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
@@ -80,7 +80,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		$msg = "controller.createMissingImages: ";
 		$msgType = 'notice';
 
-		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		$canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
 		if (!$canAdmin) {
 			//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
@@ -111,7 +111,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		$msg = "controller.deleteAllImages: ";
 		$msgType = 'notice';
 
-		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		$canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
 		if (!$canAdmin) {
 			//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
@@ -139,7 +139,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		$msg = "controller.assignGallery: ";
 		$msgType = 'notice';
 
-		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		$canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
 		if (!$canAdmin) {
 			//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
@@ -167,7 +167,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		$msg = "controller.assignGallery: ";
 		$msgType = 'notice';
 
-		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		$canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
 		if (!$canAdmin) {
 			//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');

@@ -20,4 +20,5 @@ if ($Rsg2DebugActive)
 
 class Rsgallery2ControllerImage extends JControllerForm
 {
+
 }

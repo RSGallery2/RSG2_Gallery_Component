@@ -63,7 +63,7 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
     function IsUserRoot ()
     {
         $user = JFactory::getUser();
-        $canAdmin = $user->authorise('core.admin');
+        $canAdmin = $user->authorise('core.manage');
         return $canAdmin;
     }
 

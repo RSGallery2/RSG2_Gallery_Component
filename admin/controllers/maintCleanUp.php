@@ -49,7 +49,7 @@ class Rsgallery2ControllerMaintCleanUp extends JControllerAdmin
 //		$msg .= '!!! Not implemented yet !!!';
 
 		// Access check
-        $canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+        $canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
 		if (!$canAdmin) {
 			//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
             $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
@@ -86,7 +86,7 @@ class Rsgallery2ControllerMaintCleanUp extends JControllerAdmin
 //		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 
 		//Access check
-		$canAdmin	= JFactory::getUser()->authorise('core.admin',	'com_rsgallery2');
+		$canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
 		if (!$canAdmin) {
 			//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
