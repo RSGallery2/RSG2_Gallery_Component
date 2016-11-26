@@ -6,6 +6,9 @@ JHtml::_('bootstrap.tooltip');
 
 global $Rsg2DebugActive;
 
+global $rsgConfig;
+$this->rsgConfigData = $rsgConfig;
+
 // public static $extension = 'COM_RSG2';
 
 //$doc = JFactory::getDocument();

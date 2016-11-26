@@ -38,7 +38,7 @@ class Rsgallery2ViewConfig extends JViewLegacy
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
 
 		$this->form = $this->get('Form');
-		$this->item = $this->get('Item'); 
+//		$this->item = $this->get('Item');
 			
 //		global $rsgConfig;
 //		$this->rsgConfigData = $rsgConfig;
