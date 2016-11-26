@@ -7,12 +7,14 @@ JHtml::_('bootstrap.tooltip');
 global $Rsg2DebugActive;
 
 global $rsgConfig;
-$this->rsgConfigData = $rsgConfig;
+$this->configVars = $rsgConfig;
 
-// public static $extension = 'COM_RSG2';
-
-//$doc = JFactory::getDocument();
-//$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
+/* Sort config variables */
+$configVars = array ();
+foreach ($this->configVars as $name => $value) {
+	$configVars [$name] = $value;
+}
+ksort($configVars);
 
 /**
  * Echos an input field for config variables
@@ -71,10 +73,10 @@ function configInputField($name='unknown', $value='') {
 
 						<legend><?php echo JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'); ?></legend>
 						<?php
-							ksort($this->configVars);
-							foreach ($configVars as $name => $value) {
-								configInputField ($name, $value);
-							}
+						/**/
+						foreach ($configVars as $name => $value) {
+							configInputField ($name, $value);
+						}
 						?>
 
 					<?php echo JHtml::_('bootstrap.endTab'); ?>
