@@ -1,4 +1,4 @@
-<?php // no direct access
+<?php
 /**
  * @package RSGallery2
  * @copyright (C) 2003 - 2016 RSGallery2
@@ -8,34 +8,16 @@
 
 defined( '_JEXEC' ) or die();
 
+global $Rsg2DebugActive;
+
 // JHtml::_('behavior.tooltip');
 JHtml::_('bootstrap.tooltip'); 
 JHtml::_('behavior.multiselect');
-
-global $Rsg2DebugActive;
-
 JHtml::_('behavior.formvalidator');
 //JHtml::_('behavior.keepalive'); 
 //JHtml::_('formbehavior.chosen', 'select');
 JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'=>3));
 
-// public static $extension = 'COM_RSG2';
-
-//$doc = JFactory::getDocument();
-//$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
-
-// ToDO: Is this needed ? -> task comment.cancel ???
-/*
-JFactory::getDocument()->addScriptDeclaration('
-	Joomla.submitbutton = function(task)
-	{
-		if (task == "comment.cancel" || document.formvalidator.isValid(document.getElementById("item-form")))
-		{
-			Joomla.submitform(task, document.getElementById("item-form"));
-		}
-	};
-');
-/**/
 ?>
 
 <div id="installer-install" class="clearfix">
@@ -61,19 +43,29 @@ JFactory::getDocument()->addScriptDeclaration('
 
                         <?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_general_group',
                             JText::_('COM_RSGALLERY2_GENERAL_SETTINGS'), 'cfg_general_id_1'); ?>
+                            <div class="span6 form-horizontal">
+                                <fieldset class="adminform">
 
-                                <div class="control-group">
-                                    <label class="control-label" for="VersionId"><?php echo JText::_('COM_RSGALLERY2_VERSION') . ':&nbsp;'. $this->rsgVersion;?></label>
-                                    <div class="controls">
-                                        <label id="VersionId" class="span5 input_box" type="text"></label>
+                                    <div class="control-group">
+                                        <label class="control-label" for="VersionId"><?php echo JText::_('COM_RSGALLERY2_VERSION') . ':&nbsp;'. $this->rsgVersion;?></label>
+                                        <div class="controls">
+                                            <label id="VersionId" class="span5 input_box" type="text"></label>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <?php
+                                    <?php
+                                    //--- render general ------------------------------------------------------>
+                                    echo $this->form->renderFieldset('General_Description');
+                                    ?>
+                                </fieldset>
+                            </div>
+                            <div class="span3">
+                                <fieldset class="adminform">
+                                    <?php
                                     //--- render general ------------------------------------------------------>
                                     echo $this->form->renderFieldset('General');
-                                ?>
-
+                                    ?>
+                                </fieldset>
+                            </div>
                         <?php echo JHtml::_('bootstrap.endSlide'); ?>
 
                     <?php echo JHtml::_('bootstrap.endAccordion'); ?>
