@@ -63,12 +63,12 @@ class Rsgallery2ViewUpload extends JViewLegacy
 		}
 
 		// 0: default, 1: enable, 2: disable
-		$IsUseOneGalleryNameForAllImages = $UploadModel->getIsUseOneGalleryNameForAllImages ();
-		if (empty ($IsUseOneGalleryNameForAllImages)) {
-			$IsUseOneGalleryNameForAllImages = '1';
+		$isUseOneGalleryNameForAllImages = $UploadModel->getisUseOneGalleryNameForAllImages ();
+		if (empty ($isUseOneGalleryNameForAllImages)) {
+			$isUseOneGalleryNameForAllImages = '1';
 		}
-		if ($IsUseOneGalleryNameForAllImages == '2') {
-			$IsUseOneGalleryNameForAllImages = '0';
+		if ($isUseOneGalleryNameForAllImages == '2') {
+			$isUseOneGalleryNameForAllImages = '0';
 		}
 
 		//--- Pre select latest gallery ?  ------------------------
@@ -84,15 +84,15 @@ class Rsgallery2ViewUpload extends JViewLegacy
 			$IdGallerySelect = $Id;
 		}
 
-		$IsPreSelectLatestGallery = $UploadModel->getIsPreSelectLatestGallery ();
-		if ($IsPreSelectLatestGallery) {
+		$ÎsPreSelectLatestGallery = $UploadModel->getÎsPreSelectLatestGallery ();
+		if ($ÎsPreSelectLatestGallery) {
 			$IdGallerySelect = $UploadModel->getIdLatestGallery();
 		}
 
 		// upload_zip, upload_folder
 		$formParam = array(
-			'all_img_in_step1_01' => $IsUseOneGalleryNameForAllImages,
-			'all_img_in_step1_02' => $IsUseOneGalleryNameForAllImages,
+			'all_img_in_step1_01' => $isUseOneGalleryNameForAllImages,
+			'all_img_in_step1_02' => $isUseOneGalleryNameForAllImages,
 			'SelectGalleries01_01' => $IdGallerySelect,
 			'SelectGalleries02_02' => $IdGallerySelect
 		);

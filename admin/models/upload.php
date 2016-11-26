@@ -13,9 +13,9 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	
 	protected $FtpPath;
 	protected $LastUsedFtpPath;
-	protected $IsPreSelectLatestGallery;
+	protected $isPreSelectLatestGallery;
 	protected $LastUpdateType;
-	protected $IsUseOneGalleryNameForAllImages;
+	protected $isUseOneGalleryNameForAllImages;
 
 	// ToDo: Redesign: Extend from model rsgallery2ModelConfig, remove separate calls to db but keep function call here
 
@@ -84,9 +84,9 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
      * retrieves state if the latest gallery shall be preseleted for upload
      * @return bool
      */
-    public function getIsPreSelectLatestGallery()
+    public function getisPreSelectLatestGallery()
     {
-		if (!isset($this->IsPreSelectLatestGallery)) {
+		if (!isset($this->isPreSelectLatestGallery)) {
 			$db =  JFactory::getDbo();
 			$query = $db->getQuery (true);
 
@@ -95,10 +95,10 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 				->where($db->quoteName('name')." = ".$db->quote('UploadPreselectLatestGallery'));
 			
 			$db->setQuery($query);
-			$this->IsPreSelectLatestGallery  = $db->loadResult();
+			$this->isPreSelectLatestGallery  = $db->loadResult();
 		}
 
-		return $this->IsPreSelectLatestGallery;
+		return $this->isPreSelectLatestGallery;
     }
 
 	/**
@@ -163,21 +163,21 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	 * retrieves state if the latest gallery shall be preseleted for upload
 	 * @return bool
 	 */
-	public function getIsUseOneGalleryNameForAllImages()
+	public function getisUseOneGalleryNameForAllImages()
 	{
-		if (!isset($this->IsUseOneGalleryNameForAllImages)) {
+		if (!isset($this->isUseOneGalleryNameForAllImages)) {
 			$db =  JFactory::getDbo();
 			$query = $db->getQuery (true);
 
 			$query->select ($db->quoteName('value'))
 				->from($db->quoteName('#__rsgallery2_config'))
-				->where($db->quoteName('name')." = ".$db->quote('IsUseOneGalleryNameForAllImages'));
+				->where($db->quoteName('name')." = ".$db->quote('isUseOneGalleryNameForAllImages'));
 
 			$db->setQuery($query);
-			$this->IsUseOneGalleryNameForAllImages  = $db->loadResult();
+			$this->isUseOneGalleryNameForAllImages  = $db->loadResult();
 		}
 
-		return $this->IsUseOneGalleryNameForAllImages;
+		return $this->isUseOneGalleryNameForAllImages;
 	}
 
 }

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Id$ -->
 <form enctype="multipart/form-data">
-	<fieldset name="General">
+	<fieldset name="General_Description">
 		<field name="intro_text" type="editor"
 			   label="COM_RSGALLERY2_INTRODUCTION_TEXT"
 			   description="COM_CONTENT_FIELD_ARTICLETEXT_DESC"
 			   filter="JComponentHelper::filterText"
 			   buttons="false"
 		/>
+	</fieldset>
+	<fieldset name="General">
 		<field
 			id           = "debug"
 			name         = "debug"

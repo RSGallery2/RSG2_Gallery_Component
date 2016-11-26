@@ -453,8 +453,8 @@ class html_rsg2_config{
 								</td>
 								<td width="78%">
 									<fieldset id="jform_block" class="radio">
-										<?php echo JHtml::_("select.genericlist", $PreSelectOneGallery, 'IsUseOneGalleryNameForAllImages','','value',
-											'text', $config->IsUseOneGalleryNameForAllImages)?>
+										<?php echo JHtml::_("select.genericlist", $PreSelectOneGallery, 'isUseOneGalleryNameForAllImages','','value',
+											'text', $config->isUseOneGalleryNameForAllImages)?>
 									</fieldset>
 								</td>
 
@@ -468,8 +468,8 @@ class html_rsg2_config{
 								</td>
 								<td width="78%">
                                     <fieldset id="jform_block" class="radio btn-group btn-group-yesno">
-                                        <?php echo JHtml::_("select.booleanlist", 'IsPreSelectLatestGallery', 'class="inputbox"',
-                                        	$config->IsPreSelectLatestGallery); ?>
+                                        <?php echo JHtml::_("select.booleanlist", 'ÎsPreSelectLatestGallery', 'class="inputbox"',
+                                        	$config->ÎsPreSelectLatestGallery); ?>
 									</fieldset>
 								</td>
 							</tr>
