@@ -18,6 +18,8 @@ global $Rsg2DebugActive;
 //$doc = JFactory::getDocument();
 //$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
 
+global $rsgConfig;
+$this->rsgConfigData = $rsgConfig;
 
 ?>
 
@@ -46,7 +48,7 @@ global $Rsg2DebugActive;
 						//    print_r( get_object_vars($this->rsgConfigData) );
 						//echo '</pre>';
 						echo '<pre>';
-							echo json_encode(get_object_vars($this->rsgConfigData), JSON_PRETTY_PRINT);
+						echo json_encode(get_object_vars($this->rsgConfigData), JSON_PRETTY_PRINT);
 					    echo '</pre>';
 						?>
 
