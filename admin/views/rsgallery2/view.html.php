@@ -33,6 +33,13 @@ class Rsgallery2ViewRsgallery2 extends JViewLegacy
 	//------------------------------------------------
 	public function display ($tpl = null)
 	{
+		global $Rsg2DevelopActive;
+		
+		// on develop show open tasks if existing
+		if($Rsg2DevelopActive) {
+			// echo '<span style="color:red">Task: </span><br><br>';
+		}
+
 		//--- get needed data ------------------------------------------
 		
 		// List of credits for rsgallery2 developers / translators

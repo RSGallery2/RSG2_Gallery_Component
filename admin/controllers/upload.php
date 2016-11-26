@@ -6,7 +6,7 @@ defined('_JEXEC') or die;
 
 global $Rsg2DebugActive;
 
-$Rsg2DebugActive = false; // ToDo: $rsgConfig->get('debug');
+//$Rsg2DebugActive = false; // ToDo: $rsgConfig->get('debug');
 if ($Rsg2DebugActive)
 {
 	// Include the JLog class.

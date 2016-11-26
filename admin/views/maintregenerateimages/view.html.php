@@ -28,7 +28,13 @@ class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
 	 */
 	public function display ($tpl = null)
 	{
+		global $Rsg2DevelopActive;
 		global $rsgConfig;
+
+		// on develop show open tasks if existing
+		if($Rsg2DevelopActive) {
+			// echo '<span style="color:red">Task: </span><br><br>';
+		}
 
 		$xmlFile = JPATH_COMPONENT . '/models/forms/maintregenerateimages.xml';
 		$this->form = JForm::getInstance('maintRegenerateImages', $xmlFile);

@@ -22,6 +22,13 @@ class Rsgallery2ViewAcl_item extends JViewLegacy
 	//------------------------------------------------
 	public function display ($tpl = null)
 	{	
+		global $Rsg2DevelopActive;
+		
+		// on develop show open tasks if existing
+		if($Rsg2DevelopActive) {
+			// echo '<span style="color:red">Task: </span><br><br>';
+		}
+
 		//--- get needed data ------------------------------------------
 		
 		// Check rights of user

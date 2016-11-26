@@ -30,6 +30,13 @@ class Rsgallery2ViewUpload extends JViewLegacy
 	 */
 	public function display ($tpl = null)
 	{
+		global $Rsg2DevelopActive;
+		
+		// on develop show open tasks if existing
+		if($Rsg2DevelopActive) {
+			// echo '<span style="color:red">Task: </span><br><br>';
+		}
+
 		$xmlFile = JPATH_COMPONENT . '/models/forms/upload.xml';
 		$form = JForm::getInstance('upload', $xmlFile);
 

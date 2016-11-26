@@ -29,9 +29,15 @@ class Rsgallery2ViewComments extends JViewLegacy
 	//------------------------------------------------
 	public function display ($tpl = null)
 	{
+		global $Rsg2DevelopActive;
+		
+		// on develop show open tasks if existing
+		if($Rsg2DevelopActive) {
+	        echo '<span style="color:red">Task: $canChange, $canEdit, and  ...</span><br><br>';
+		}
+
 		//--- get needed form data ------------------------------------------
 
-        echo '<span style="color:red">Task: $canChange, $canEdit, and  ...</span><br><br>';
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
 

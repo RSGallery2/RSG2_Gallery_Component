@@ -26,7 +26,13 @@ class Rsgallery2ViewImage extends JViewLegacy
 	//------------------------------------------------
 	public function display ($tpl = null)
 	{
+		global $Rsg2DevelopActive;
 		global $rsgConfig;
+
+		// on develop show open tasks if existing
+		if($Rsg2DevelopActive) {
+			echo '<span style="color:red">Task: Compare results original,  Click on image ? what to do ? </span><br><br>';
+		}
 
 		//--- get needed data ------------------------------------------
 		
@@ -58,8 +64,6 @@ class Rsgallery2ViewImage extends JViewLegacy
 		$this->addToolbar ($Layout);
 
 		$this->sidebar = JHtmlSidebar::render ();
-
-		echo '<span style="color:red">Task: Compare results original,  Click on image ? what to do ? </span><br><br>';
 	
 		parent::display ($tpl);
 

@@ -9,11 +9,12 @@
 */
 defined( '_JEXEC' ) or die();
 
-global $Rsg2DebugActive, $rsgConfig;
+global $Rsg2DebugActive, $Rsg2DevelopActive, $rsgConfig;
 
 // Initialize RSG2 core functionality
 require_once( JPATH_COMPONENT.'/init.rsgallery2.php' );
 
+$Rsg2DevelopActive = $rsgConfig->get('develop');
 $Rsg2DebugActive = $rsgConfig->get('debug');
 if ($Rsg2DebugActive)
 {

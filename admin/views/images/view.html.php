@@ -34,11 +34,16 @@ class Rsgallery2ViewImages extends JViewLegacy
 	//------------------------------------------------
 	public function display ($tpl = null)
 	{
+		global $Rsg2DevelopActive;
 		global $rsgConfig;
+
+		// on develop show open tasks if existing
+		if($Rsg2DevelopActive) {
+			echo '<span style="color:red">Task: Search controls, move to ..., copy to ...</span><br><br>';
+		}
 
 		//--- get needed form data ------------------------------------------
 
-		echo '<span style="color:red">Task: Search controls, move to ..., copy to ...</span><br><br>';
 
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();

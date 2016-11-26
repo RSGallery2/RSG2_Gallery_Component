@@ -6,9 +6,6 @@ jimport ('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 jimport('joomla.application.component.model');
 
-
-
-
 JModelLegacy::addIncludePath(JPATH_COMPONENT.'/models');
 
 class Rsgallery2ViewConfig extends JViewLegacy
@@ -32,6 +29,13 @@ class Rsgallery2ViewConfig extends JViewLegacy
 	//------------------------------------------------
 	public function display ($tpl = null)
 	{
+		global $Rsg2DevelopActive;
+
+		// on develop show open tasks if existing
+		if($Rsg2DevelopActive) {
+			// echo '<span style="color:red">Task: </span><br><br>';
+		}
+		
 		//--- get needed form data ------------------------------------------
 		
 		// Check rights of user
@@ -73,8 +77,6 @@ class Rsgallery2ViewConfig extends JViewLegacy
 		$this->addToolbar ($Layout);
 
 		$this->sidebar = JHtmlSidebar::render ();
-
-		// echo '<span style="color:red">Task: Toolbar: Link for Upload, (More rows for combo box)</span><br><br>';
 
 		parent::display ($tpl);
 
