@@ -1,18 +1,25 @@
-<?php // no direct access
-defined( '_JEXEC' ) or die();
+<?php
+/**
+ * @package RSGallery2
+ * @copyright (C) 2003 - 2016 RSGallery2
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * RSGallery is Free Software
+ */
 
-// JHtml::_('behavior.tooltip');
-JHtml::_('bootstrap.tooltip'); 
+defined( '_JEXEC' ) or die();
 
 global $Rsg2DebugActive;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+
+// JHtml::_('behavior.tooltip');
+JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.formvalidator');
-//JHtml::_('behavior.keepalive'); 
+//JHtml::_('behavior.keepalive');
 //JHtml::_('formbehavior.chosen', 'select');
 JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'=>3));
 
-// ToDO: Is this needed ? -> task comment.cancel ???
+/* ToDO: Is this needed ? -> task comment.cancel ???
 JFactory::getDocument()->addScriptDeclaration('
 	Joomla.submitbutton = function(task)
 	{
@@ -22,6 +29,7 @@ JFactory::getDocument()->addScriptDeclaration('
 		}
 	};
 ');
+*/
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=gallery&task=gallery.edit&id=' . (int) $this->item->id); ?>"
