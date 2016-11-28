@@ -34,7 +34,7 @@ class Rsgallery2ViewMaintDatabase extends JViewLegacy
 		global $rsgConfig;
 
 		// on develop show open tasks if existing
-		if($Rsg2DevelopActive) {
+		if(!empty ($Rsg2DevelopActive)) {
 			// echo '<span style="color:red">Task: </span><br><br>';
 		}
 

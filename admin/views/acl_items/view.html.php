@@ -32,7 +32,7 @@ class Rsgallery2ViewAcl_items extends JViewLegacy
 		global $Rsg2DevelopActive;
 		
 		// on develop show open tasks if existing
-		if($Rsg2DevelopActive) {
+		if(!empty ($Rsg2DevelopActive)) {
 			// echo '<span style="color:red">Task: </span><br><br>';
 		}
 
