@@ -137,7 +137,7 @@ class rsgConfig {
     var $voting_once			= 1;
     var $cookie_prefix			= "rsgvoting_";
 	var $isUseOneGalleryNameForAllImages = 1;
-	var $ÎsPreSelectLatestGallery = 0;
+	var $isPreSelectLatestGallery = 0;
 
 
 

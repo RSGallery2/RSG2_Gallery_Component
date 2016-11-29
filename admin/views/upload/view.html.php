@@ -91,8 +91,8 @@ class Rsgallery2ViewUpload extends JViewLegacy
 			$IdGallerySelect = $Id;
 		}
 
-		$ÎsPreSelectLatestGallery = $UploadModel->getÎsPreSelectLatestGallery ();
-		if ($ÎsPreSelectLatestGallery) {
+		$isPreSelectLatestGallery = $UploadModel->getIsPreSelectLatestGallery ();
+		if ($isPreSelectLatestGallery) {
 			$IdGallerySelect = $UploadModel->getIdLatestGallery();
 		}
 

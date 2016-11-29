@@ -468,8 +468,8 @@ class html_rsg2_config{
 								</td>
 								<td width="78%">
                                     <fieldset id="jform_block" class="radio btn-group btn-group-yesno">
-                                        <?php echo JHtml::_("select.booleanlist", 'ÎsPreSelectLatestGallery', 'class="inputbox"',
-                                        	$config->ÎsPreSelectLatestGallery); ?>
+                                        <?php echo JHtml::_("select.booleanlist", 'isPreSelectLatestGallery', 'class="inputbox"',
+                                        	$config->isPreSelectLatestGallery); ?>
 									</fieldset>
 								</td>
 							</tr>

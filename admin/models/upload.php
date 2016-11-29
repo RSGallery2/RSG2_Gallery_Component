@@ -84,7 +84,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
      * retrieves state if the latest gallery shall be preseleted for upload
      * @return bool
      */
-    public function getisPreSelectLatestGallery()
+    public function getIsPreSelectLatestGallery()
     {
 		if (!isset($this->isPreSelectLatestGallery)) {
 			$db =  JFactory::getDbo();
