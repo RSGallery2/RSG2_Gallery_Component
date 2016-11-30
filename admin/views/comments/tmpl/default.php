@@ -113,7 +113,7 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 					<tbody>
 						<?php
 
-						$canCheckin          = $user->authorise('core.manage',    'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
+						// $canCheckin = $user->authorise('core.manage',    'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
 
                         foreach ($this->items as $i => $item) {
 							?>
