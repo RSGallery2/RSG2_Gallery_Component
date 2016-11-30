@@ -16,8 +16,6 @@ if ($Rsg2DebugActive)
 
 // ToDo: // Sanitize the input
 
-//jimport('joomla.application.component.controllerform');
-
 class Rsgallery2ControllerGallery extends JControllerForm
 {
 	/**
