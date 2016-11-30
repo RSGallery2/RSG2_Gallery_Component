@@ -12,7 +12,6 @@ defined( '_JEXEC' ) or die();
 JHtml::_('bootstrap.tooltip'); 
 // ToDo: Activate tooltips on every button
 
-// public static $extension = 'COM_RSG2';
 
 $doc = JFactory::getDocument();
 $doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
@@ -142,7 +141,7 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
             <div class="container-fluid grey-background">
 
 				<div class="row span4 rsg2_container_icon_set">
-					<div class="icons-panel rsg2Zone">
+					<div class="icons-panel rsg2">
 						<div class="row-fluid">
 							<div class="icons-panel-title rsg2Zone">
 								<h3>
