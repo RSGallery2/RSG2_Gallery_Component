@@ -12,22 +12,22 @@ class Rsgallery2ModelComments extends JModelList
 		if (empty($config['filter_fields']))
 		{
 			$config['filter_fields'] = array(
-				'id', // 'a.id',
-				'user_id', // 'a.user_id',
-				'user_name', // 'a.user_name',
-				'user_ip', // 'a.user_ip',
-				'parent_id', // 'a.parent_id',
-				'item_id', // 'a.item_id',
-				'item_table', // 'a.item_table',
-				'datetime', // 'a.datetime',
-				'subject', // 'a.subject',
-				'comment', // 'a.comment',
-				'published', // 'a.published',
-				'checked_out', // 'a.checked_out',
-				'checked_out_time', // 'a.checked_out_time',
-				'ordering', // 'a.ordering',
-				'params', // 'a.params',
-				'hits' //, 'a.hits'
+				'id', 'a.id',
+				'user_id', 'a.user_id',
+				'user_name', 'a.user_name',
+				'user_ip', 'a.user_ip',
+				'parent_id', 'a.parent_id',
+				'item_id', 'a.item_id',
+				'item_table', 'a.item_table',
+				'datetime', 'a.datetime',
+				'subject', 'a.subject',
+				'comment', 'a.comment',
+				'published', 'a.published',
+				'checked_out', 'a.checked_out',
+				'checked_out_time', 'a.checked_out_time',
+				'ordering', 'a.ordering',
+				'params', 'a.params',
+				'hits', 'a.hits'
 			);
 		}
 
@@ -46,8 +46,8 @@ class Rsgallery2ModelComments extends JModelList
 	 *
 	 * @since   1.6
 	 */
-	// ToDo: protected function populateState($ordering = 'item_id, datetime', $direction = 'desc')
-	protected function populateState($ordering = 'item_id', $direction = 'desc')
+	// ToDo: protected function populateState($ordering = 'a.item_id, datetime', $direction = 'desc')
+	protected function populateState($ordering = 'a.item_id', $direction = 'desc')
 	{
 		// $app = JFactory::getApplication();
 
@@ -57,6 +57,12 @@ class Rsgallery2ModelComments extends JModelList
 
 //		$authorId = $this->getUserStateFromRequest($this->context . '.filter.user_id', 'filter_author_id');
 //		$this->setState('filter.author_id', $authorId);
+
+        $uid = $this->getUserStateFromRequest($this->context . '.filter.uid', 'filter_uid');
+        $this->setState('filter.uid', $uid);
+
+        $access = $this->getUserStateFromRequest($this->context . '.filter.access', 'filter_access');
+        $this->setState('filter.access', $access);
 
 
 		// List state information.
@@ -80,10 +86,11 @@ class Rsgallery2ModelComments extends JModelList
 	{
 		// Compile the store id.
 		$id .= ':' . $this->getState('filter.search');
+        $id .= ':' . $this->getState('filter.uid');
+        $id .= ':' . $this->getState('filter.access');
 
 		return parent::getStoreId($id);
 	}
-
 
 	/**
 	 * Method to build an SQL query to load the list data.
@@ -100,13 +107,13 @@ class Rsgallery2ModelComments extends JModelList
 		$actState =
 			$this->getState(
 				'list.select',
-				'id, user_id, user_name, user_ip, parent_id, item_id, '
-				. 'item_table, datetime, subject, comment, published, '
-				. 'checked_out, checked_out_time, ordering, params, hits'
+				'a.id, a.user_id, a.user_name, a.user_ip, a.parent_id, a.item_id, '
+				. 'a.item_table, a.datetime, a.subject, a.comment, a.published, '
+				. 'a.checked_out, a.checked_out_time, a.ordering, a.params, a.hits '
 		 	);
 		$query->select($actState);
 
-		$query->from('#__rsgallery2_comments');
+		$query->from('#__rsgallery2_comments as a');
 
 		/* parent image name */
 		$query->select('img.name as image_name')
@@ -123,10 +130,10 @@ class Rsgallery2ModelComments extends JModelList
 		if(!empty($search)) {
 			$search = $db->quote('%' . $db->escape($search, true) . '%');
 			$query->where(
-				'comment LIKE ' . $search
-				. ' OR user_name LIKE ' . $search
-				. ' OR user_ip LIKE ' . $search
-				. ' OR item_id LIKE ' . $search
+				'a.comment LIKE ' . $search
+				. ' OR a.user_name LIKE ' . $search
+				. ' OR a.user_ip LIKE ' . $search
+				. ' OR a.item_id LIKE ' . $search
 			);
 		}
 
