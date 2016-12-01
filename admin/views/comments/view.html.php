@@ -36,7 +36,7 @@ class Rsgallery2ViewComments extends JViewLegacy
 	        echo '<span style="color:red">Task: $canChange, $canEdit, and  ...</span><br><br>';
 		}
 
-		echo '<span style="color:green">This is only a demo to show what can be in the future</span><br><br>';
+		echo '<span style="color:green">This is only a demo to show what can     be in the future</span><br><br>';
 
 		//--- get needed form data ------------------------------------------
 
