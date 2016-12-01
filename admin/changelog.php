@@ -33,6 +33,63 @@ Legend:
 		 
 ---------------- Recent ----------------
 
+
+* --------------- 4.2.100 -- 2016-12-01 -------------
+This release is a test release and contains most parts of the next release 4.3.00
+
+^ -> Change
+^ Redesigned configuration
+  -> It has now its own view in J!3 Model view construct
+      Some information text is now missing but the function is working as before
+
+^ Redesigned galleries list view
+    -> It has now its own view in J!3 Model view construct
+    -> Added pagination (Select number of items for one page)
+    -> Added search tools
+    -> Added sorting by title of column
+    -> Added sorting by title of column
+    -> Changed ordering behaviour (Still with integer input)
+
+    -> Ordering behaviour is changed
+
+^ Redesigned galleries edit view
+    -> It has now its own view in J!3 Model view construct
+    ->
+
+
+^ Redesigned images list view
+    -> It has now its own view in J!3 Model view construct
+    ->
+
+    -> Ordering behaviour is changed
+
+^ Redesigned images edit view
+    -> It has now its own view in J!3 Model view construct
+    ->
+
+
+Next goal
+ permissions, comment page , Consolidate image database. CREATE DB FOR IMAGE :::
+
+
+
+Known issues:
+* Maintenance -> comments: This isnot working but a demo how it will be in the near future
+* Galleries list view: Ordering behaviour is changed. May not work as "needed"
+* Galleries list view: Sorting on name will not display child galleries below parent galleriy.
+  May not work as "needed", Wait for User respunse with exact rules
+* Permissions may not work as expected (user input of "working Web site" is needed)
+
+* Images list view: Ordering behaviour is changed. May not work as "needed"
+
+
+
+
+
+* Slideshow slideshow_pathfusion is not running.
+
+
+
 * --------------- 4.2.0 -- 2016-05-26 -------------
 
 ^ Redesigned maintenance section (form)
