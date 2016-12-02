@@ -92,7 +92,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
     /** may be automatic
      * @param null $key
      * @return bool
-     *
+     */
     public function cancel($key = null) {
     JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
