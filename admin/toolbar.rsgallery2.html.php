@@ -77,7 +77,7 @@ class menu_rsg2_submenu{
 			{
 				if ($view == 'maintenance' )
 				{
-                    $link = 'index.php?option=com_rsgallery2&view=config&layout=edit';
+                    $link = 'index.php?option=com_rsgallery2&view=config&task=config.edit';
 					// In maintenance add config
 					JHtmlSidebar::addEntry(
 						'<span class="icon-equalizer" >  </span>' .
