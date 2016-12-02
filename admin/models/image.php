@@ -97,7 +97,7 @@ class Rsgallery2ModelImage extends  JModelAdmin
 
                 // Set the values
                 $table->date = $date;
-                $table->user_id = JFactory::getUser()->id;
+                $table->userid = JFactory::getUser()->id;
             }
 	        /**/
 
@@ -107,7 +107,7 @@ class Rsgallery2ModelImage extends  JModelAdmin
         {
             // Set the values
             $table->date = $date;
-            $table->user_id = JFactory::getUser()->id;
+            $table->userid = JFactory::getUser()->id;
         }
 
         // Increment the content version number.

@@ -57,7 +57,7 @@ class Rsgallery2ModelImages extends JModelList
 			'', 'string');
 		$this->setState('filter.search', $search);
 
-//		$authorId = $this->getUserStateFromRequest($this->context . '.filter.user_id', 'filter_author_id');
+//		$authorId = $this->getUserStateFromRequest($this->context . '.filter.userid', 'filter_author_id');
 //		$this->setState('filter.author_id', $authorId);
 
 		$gallery_id = $this->getUserStateFromRequest($this->context . '.filter.gallery_id', 'filter_gallery_id');
