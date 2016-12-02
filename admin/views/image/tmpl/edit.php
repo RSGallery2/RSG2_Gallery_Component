@@ -1,10 +1,20 @@
-<?php // no direct access
+<?php
+/**
+ * @package RSGallery2
+ * @copyright (C) 2003 - 2016 RSGallery2
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * RSGallery is Free Software
+ */
+
+// no direct access
 defined( '_JEXEC' ) or die();
+
+global $Rsg2DebugActive;
+
+JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
 // JHtml::_('behavior.tooltip');
 JHtml::_('bootstrap.tooltip'); 
-
-global $Rsg2DebugActive;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 JHtml::_('behavior.formvalidator');
