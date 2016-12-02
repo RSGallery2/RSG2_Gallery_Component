@@ -89,7 +89,11 @@ class Rsgallery2ViewAcl_items extends JViewLegacy
 			case 'acls_raw':
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_ACL_VIEW_RAW_DATA'), 'eye-close');
 				JToolBarHelper::editList('acl_item.edit');
-				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'acl_item.delete', 'JTOOLBAR_EMPTY_TRASH'); 				
+//				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'acl_item.delete', 'JTOOLBAR_EMPTY_TRASH');
+                // on develop show open tasks if existing
+                if(!empty ($Rsg2DevelopActive)) {
+                    echo '<span style="color:red">Task: Add delete function.</span><br><br>';
+                }
 				break;
 
 			default:

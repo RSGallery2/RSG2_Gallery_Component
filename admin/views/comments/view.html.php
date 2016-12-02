@@ -91,7 +91,12 @@ class Rsgallery2ViewComments extends JViewLegacy
 			case 'comments_raw':
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_COMMENTS_VIEW_RAW_DATA'), 'comment');
 				JToolBarHelper::editList('comment.edit');
-				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'comment.delete', 'JTOOLBAR_EMPTY_TRASH'); 				
+//				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'comment.delete', 'JTOOLBAR_EMPTY_TRASH');
+
+                // on develop show open tasks if existing
+                if(!empty ($Rsg2DevelopActive)) {
+                    echo '<span style="color:red">Task: Add delete function.</span><br><br>';
+                }
 				break;
 
 			default:
