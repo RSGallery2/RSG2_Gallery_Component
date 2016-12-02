@@ -103,8 +103,13 @@ class Rsgallery2ViewImages extends JViewLegacy
 			case 'images_raw':
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_IMAGES_VIEW_RAW_DATA'), 'image');
 				JToolBarHelper::editList('image.edit');
-				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'image.delete', 'JTOOLBAR_EMPTY_TRASH');
-				break;
+				// JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'image.delete', 'JTOOLBAR_EMPTY_TRASH');
+
+                // on develop show open tasks if existing
+                if(!empty ($Rsg2DevelopActive)) {
+                    echo '<span style="color:red">Task: Add delete function.</span><br><br>';
+                }
+            break;
 
 			default:
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MANAGE_IMAGES'), 'image');
