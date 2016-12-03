@@ -34,7 +34,7 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 		
 		// on develop show open tasks if existing
 		if(!empty ($Rsg2DevelopActive)) {
-			// echo '<span style="color:red">Task: </span><br><br>';
+			echo '<span style="color:red">Task: Bottom part of pagination, </span><br><br>';
 		}
 
 		//--- get needed form data ------------------------------------------

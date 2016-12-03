@@ -39,7 +39,7 @@ class Rsgallery2ViewImages extends JViewLegacy
 
 		// on develop show open tasks if existing
 		if(!empty ($Rsg2DevelopActive)) {
-			echo '<span style="color:red">Task: Search controls, move to ..., copy to ...</span><br><br>';
+			echo '<span style="color:red">Task: Bottom part of pagination, Search controls, move to ..., copy to ...</span><br><br>';
 		}
 
 		//--- get needed form data ------------------------------------------
@@ -127,7 +127,7 @@ class Rsgallery2ViewImages extends JViewLegacy
 				// JToolbarHelper::custom('delete', 'delete.png', 'delete_f2.png', 'JTOOLBAR_DELETE', true);
 				// JToolbarHelper::custom('categories.rebuild', 'refresh.png', 'refresh_f2.png', 'JTOOLBAR_REBUILD', false);
 				JToolBarHelper::custom ('images.moveImagesTo','next','','COM_RSGALLERY2_MOVE_TO', true);
-				JToolBarHelper::custom ('images.copyImagesTo','copy','','COM_RSGALLERY2_COPY', true);
+				//JToolBarHelper::custom ('images.copyImagesTo','copy','','COM_RSGALLERY2_COPY', true);
 //				JToolBarHelper::custom ('','','','', true);
 				JToolBarHelper::custom('images.uploadImages','upload','upload.png','COM_RSGALLERY2_UPLOAD', false);
 //				JToolBarHelper::custom ('','','','', true);
