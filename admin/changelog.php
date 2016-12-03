@@ -8,11 +8,13 @@
 **/
 
 // no direct access
-defined( '_JEXEC' ) or die();
-?>
+die();
+
+// wrong file so die !!!
+$Changelog = "'
 
 -> Check for the latest version of RSGallery2 at https://github.com/RSGallery2/RSGallery2_Component/releases
--> Comments and questions in forum http://www.rsgallery2.org/
+-> Comments and questions in forum http://www.forum.rsgallery2.org/
 -> Documentation (soon) http://documentation.rsgallery2.org
 
 1. Changelog
@@ -47,24 +49,48 @@ This release is a test release and contains most parts of the next release 4.3.0
     -> Added pagination (Select number of items for one page)
     -> Added search tools
     -> Added sorting by title of column
-    -> Added sorting by title of column
+    -> Added sorting by selection from list
     -> Changed ordering behaviour (Still with integer input)
 
-    -> Ordering behaviour is changed
-
-^ Redesigned galleries edit view
+^ Redesigned gallery edit view
     -> It has now its own view in J!3 Model view construct
+    -> Name and alias as header line
+    -> The layout is like in other joomla! views. On the left 
+       side a big notes window, on the right side the parameters
+    -> Name and alias as header line
+    -> ??? Save and new
     ->
 
 
 ^ Redesigned images list view
     -> It has now its own view in J!3 Model view construct
+    -> Added pagination (Select number of items for one page)
+    -> Added search tools
+    -> Added sorting by title of column
+    -> Added sorting by selection from list
+    -> Changed ordering behaviour (Still with integer input)
+    -> 
+    -> Copy function removed !!!zwischenzeitlich
+    ->
+    ->
+    ->
+    ->
     ->
 
     -> Ordering behaviour is changed
 
-^ Redesigned images edit view
+^ Redesigned image edit view
     -> It has now its own view in J!3 Model view construct
+    -> Name and alias as header line
+    -> The layout is like in other joomla! views. On the left 
+       side a big notes window, on the right side the parameters
+    ->
+    -> 
+    ->
+    ->
+    ->
+    ->
+    ->
     ->
 
 
