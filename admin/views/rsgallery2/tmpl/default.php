@@ -148,15 +148,22 @@ function DisplayInfoRsgallery2 ($Rsg2Version)
     echo '            </td>';
     echo '        </tr>';
     /**/
-    /**/
-    // Forum
-    echo '        <tr>';
-    echo '            <td>' . JText::_('COM_RSGALLERY2_FORUM') . '</td>';
-    echo '            <td>';
-    echo '                <a href="http://www.forum.rsgallery2.org/" target="_blank" '.' title="'.JText::_('COM_RSGALLERY2_JUMP_TO_FORUM').'" >www.forum.rsgallery2.org</a>';
-    echo '            </td>';
-    echo '        </tr>';
-    /**/
+	// Home page
+	echo '        <tr>';
+	echo '            <td>' . JText::_('COM_RSGALLERY2_HOME_PAGE') . '</td>';
+	echo '            <td>';
+	echo '                <a href="http://www.rsgallery2.org/" target="_blank" '.' title="'.JText::_('COM_RSGALLERY2_JUMP_TO_FORUM').'" >www.rsgallery2.org</a>';
+	echo '            </td>';
+	echo '        </tr>';
+	/**/
+	// Forum
+	echo '        <tr>';
+	echo '            <td>' . JText::_('COM_RSGALLERY2_FORUM') . '</td>';
+	echo '            <td>';
+	echo '                <a href="http://www.forum.rsgallery2.org/" target="_blank" '.' title="'.JText::_('COM_RSGALLERY2_JUMP_TO_FORUM').'" >www.forum.rsgallery2.org</a>';
+	echo '            </td>';
+	echo '        </tr>';
+	/**/
     // Documentation
     echo '        <tr>';
     echo '            <td>' . JText::_('COM_RSGALLERY2_DOCUMENTATION') . '</td>';

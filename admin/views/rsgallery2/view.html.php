@@ -37,7 +37,7 @@ class Rsgallery2ViewRsgallery2 extends JViewLegacy
 		
 		// on develop show open tasks if existing
 		if(!empty ($Rsg2DevelopActive)) {
-			echo '<span style="color:red">Task: Homepage link</span><br><br>';
+			// echo '<span style="color:red">Task: Homepage link</span><br><br>';
 		}
 
 		//--- get needed data ------------------------------------------
