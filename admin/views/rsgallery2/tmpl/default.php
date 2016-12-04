@@ -2,7 +2,8 @@
 defined( '_JEXEC' ) or die();
 
 // JHtml::_('behavior.tooltip');
-JHtml::_('bootstrap.tooltip'); 
+JHtml::_('bootstrap.tooltip');
+JHTML::_('behavior.modal');
 
 global $Rsg2DebugActive;
 
@@ -136,7 +137,9 @@ function DisplayInfoRsgallery2 ($Rsg2Version)
     echo '        <tr>';
     echo '            <td>' . JText::_('COM_RSGALLERY2_INSTALLED_VERSION') . ': ' . '</td>';
     echo '            <td>';
-    echo '                <a href="" target="_blank" title="' . JText::_('COM_RSGALLERY2_VIEW_CHANGE_LOG') . '": >' . $Rsg2Version . '</a>';
+	echo '                <a href="' . JRoute::_('index.php?option=com_rsgallery2&view=rsgallery2&layout=ChangeLog') . '"';
+	echo '                   title="' . JText::_('COM_RSGALLERY2_VIEW_CHANGE_LOG') . '""';
+	echo '                   class="modal">' . $Rsg2Version . '</span></a>';
     echo '            </td>';
     echo '        </tr>';
     /**/
@@ -144,7 +147,8 @@ function DisplayInfoRsgallery2 ($Rsg2Version)
     echo '        <tr>';
     echo '            <td>' . JText::_('COM_RSGALLERY2_LICENSE') . ': ' . '</td>';
     echo '            <td>';
-    echo '               <a href="http://www.gnu.org/copyleft/gpl.html" target="_blank" title="'.JText::_('COM_RSGALLERY2_JUMP_TO_GNU_ORG').'" >GNU GPL</a>';
+    echo '               <a href="http://www.gnu.org/copyleft/gpl.html" target="_blank" title="';
+	echo                    JText::_('COM_RSGALLERY2_JUMP_TO_GNU_ORG').'" >GNU GPL</a>';
     echo '            </td>';
     echo '        </tr>';
     /**/
@@ -182,6 +186,7 @@ function DisplayInfoRsgallery2 ($Rsg2Version)
     echo '</row>';
 
     echo '<br>';
+
     return;
 }
 
