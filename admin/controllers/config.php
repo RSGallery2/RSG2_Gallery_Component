@@ -94,22 +94,34 @@ class Rsgallery2ControllerConfig extends JControllerForm
      * @return bool
      */
     public function cancel($key = null) {
-    JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-    $link = 'index.php?option=com_rsgallery2';
-    $this->setRedirect($link);
+        $link = 'index.php?option=com_rsgallery2';
+        $this->setRedirect($link);
 
-    return true;
+        return true;
     }
 
+    function save(){
+        parent::save();
+
+        $inTask = $this->getTask();
+
+        if ($inTask != "apply") {
+            // Don't go to default ...
+            $this->setredirect('index.php?option=com_rsgallery2');
+        }
+    }
+
+
+    /**
     public function save($key = null, $urlVar = null) {
 		$model = $this->getModel('Config');
-		$xxx=$model->save($key);
+		$model->save($key);
 
-		//$this->setRedirect(JRoute::_('index.php?option=com_portfoliogallery&view=portfoliogalleries', false),"Saved");
         // ToDo: use JRoute::_(..., false)	  ->   $link = JRoute::_('index.php?option=com_foo&ctrl=bar',false);
-		$link = 'index.php?option=com_rsgallery2';
-		$this->setRedirect($link, "*Data Saved");
+		//$link = 'index.php?option=com_rsgallery2';
+		//$this->setRedirect($link, "*Data Saved");
     }  	
 	
 	function apply(){

@@ -207,49 +207,48 @@ class Rsgallery2ModelConfig extends JModelAdmin
 	 */
 	public function save($data) {
 
-		$msg = "Rsgallery2ModelConfigRaw: ";
-
 		$isSaved = false;
 
-		#$input =JFactory::getApplication()->input;
-		//$jform = $input->get( 'jform', array(), 'ARRAY');
+		if (empty($data))
+        {
+            // ToDO: Raise ....
 
-// ToDO: Check if in $data is the same and then for ...raw
-//		$data  = $input->post->get('jform', array(), 'array');
+            return $isSaved;
+        }
 
-//		echo json_encode ($jform);
-/*
-		// Complete data array if needed
-		$oldData = $model->getData();
-		$data = array_replace($oldData, $data);
-*/
-		
-// ToDo: Remove bad injected code		
+		try {
 
 
-        // Special variables
+            // Special variables
+            $row = $this->getTable();
+            foreach ($data as $key => $value) #foreach ($input as $key => $value)
+            {
+                /*
+                 */
+                $row->id = null;
+                $row->name = $key;
+                $row->value = $value;
 
 
-		$row = $this->getTable ();
-		foreach ($data as $key => $value)
-		#foreach ($input as $key => $value)
-		{
-            /*
-             */
-			$row->id = null;
-			$row->name = $key;
-            $row->value = $value;
+                if ($row->name == 'exifTags' && is_array($row->value)) {
+                    $row->value = implode('|', $row->value);
+                }
 
-
-            if ($row->name == 'exifTags' && is_array ($row->value )) {
-                $row->value = implode ('|', $row->value);
+                $row->check();
+                $row->store();
             }
 
-			$row->check ();
-			$row->store ();
-		}
+            $isSaved = true;
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing saveOrdering: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-        $isSaved = true;
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
 
 		return $isSaved;
 	}
