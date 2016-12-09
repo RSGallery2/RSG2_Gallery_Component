@@ -422,6 +422,21 @@ $userId = $user->id;
 		                </tbody>
 	                </table>
 
+                    <?php // Load the batch processing form. ?>
+                    <?php if ($user->authorise('core.create', 'com_rsgallery2')
+                        && $user->authorise('core.edit', 'com_rsgallery2')
+                        && $user->authorise('core.edit.state', 'com_rsgallery2')) : ?>
+                        <?php echo JHtml::_(
+                            'bootstrap.renderModal',
+                            'collapseModal',
+                            array(
+                                'title' => JText::_('COM_CONTENT_BATCH_OPTIONS'),
+                                'footer' => $this->loadTemplate('batch_footer')
+                            ),
+                            $this->loadTemplate('batch_body')
+                        ); ?>
+                    <?php endif; ?>
+
                 <?php endif;?>
 
 	            <div>

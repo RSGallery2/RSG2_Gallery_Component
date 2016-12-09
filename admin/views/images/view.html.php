@@ -136,6 +136,23 @@ class Rsgallery2ViewImages extends JViewLegacy
 //				JToolBarHelper::custom ('','','','', true);
 				JToolBarHelper::custom ('images.resetHits','refresh','','COM_RSGALLERY2_RESET_HITS', true);
 
+                // Add a batch button
+                $user  = JFactory::getUser();
+                if ($user->authorise('core.create', 'com_rsgallery2')
+                    && $user->authorise('core.edit', 'com_rsgallery2')
+                    && $user->authorise('core.edit.state', 'com_rsgallery2'))
+                {
+                    // Get the toolbar object instance
+                    $bar = JToolbar::getInstance('toolbar');
+
+                    $title = JText::_('JTOOLBAR_BATCH');
+
+                    // Instantiate a new JLayoutFile instance and render the batch button
+                    $layout = new JLayoutFile('joomla.toolbar.batch');
+
+                    $dhtml = $layout->render(array('title' => $title));
+                    $bar->appendButton('Custom', $dhtml, 'batch');
+                }
 
 
 //				JToolBarHelper::custom('move_images','forward.png','forward.png','COM_RSGALLERY2_MOVE_TO', true);
