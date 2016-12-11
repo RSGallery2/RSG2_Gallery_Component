@@ -170,8 +170,6 @@ class Rsgallery2ControllerImages extends JControllerAdmin
             }
         }
 
-        $msg .= '!!! Not implemented yet !!!';
-
         $this->setRedirect('index.php?option=com_rsgallery2&view=images', $msg, $msgType);
     }
 
