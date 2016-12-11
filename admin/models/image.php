@@ -489,9 +489,36 @@ class Rsgallery2ModelImage extends  JModelAdmin
                         }
 
 
-                 ...
-                       // copy image files (binaries )
+                        // Original path
+                        $pathFileName = ...;
 
+                        // Original: file exists ...
+
+
+                        else
+
+                        // display path
+                        $pathFileName = ...;
+
+                        $NewImageName = null;
+                        try {
+                            // copy image file (binaries)
+                            $NewImageName = insertImageFile($pathFileName, $NewGalleryId);
+                        }
+                        catch (RuntimeException $e)
+                        {
+                            ...
+
+                        }
+                        if (!empty($NewImageName)) {
+
+
+                        }
+                        else {
+                            ...
+                        }
+
+                    }
 
                     // Success
                     $IsCopied = true;
@@ -521,6 +548,32 @@ class Rsgallery2ModelImage extends  JModelAdmin
 		return $IsCopied;
 	}
 
+    public function copyImagesTo ()
+    {
+        $NewImageName = "";
+
+        try
+        {
 
 
+
+
+
+        }
+        catch (RuntimeException $e)
+        {
+        $OutTxt = '';
+        $OutTxt .= 'Error executing copyTo: "' . '<br>';
+        $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+        $app = JFactory::getApplication();
+        $app->enqueueMessage($OutTxt, 'error');
+
+            raise ...
+        }
+
+        return $NewImageName;
+        }
+
+    }
 }
