@@ -148,9 +148,9 @@ class Rsgallery2ControllerImages extends JControllerAdmin
         {
             try {
                 // Model tells if successful
-                $model = $this->getModel('images');
+                $model = $this->getModel('image');
 
-                $IsCopied = $model->copyTo();
+                $IsCopied = $model->copyImagesTo();
                 if ($IsCopied) {
                     $msg .= 'Copy of images ... sucessfull';
                 }

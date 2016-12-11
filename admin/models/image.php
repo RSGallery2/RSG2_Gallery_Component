@@ -338,7 +338,7 @@ class Rsgallery2ModelImage extends  JModelAdmin
 
 			$input = JFactory::getApplication()->input;
 			$cids = $input->get( 'cid', array(), 'ARRAY');
-			JArrayHelper::toInteger($cids);
+            ArrayHelper::toInteger($cids);
 
 			$NewGalleryId = $input->get( 'SelectGallery4MoveCopy', -1, 'INT');
 
@@ -349,12 +349,13 @@ class Rsgallery2ModelImage extends  JModelAdmin
 
 					$row = $this->getTable();
 
+                    // All selected images
 					foreach ($cids as $cid) {
 
 						$row->load($cid);
 
+                        // Item is already in this gallery:
                         if ($row->gallery_id == $NewGalleryId) {
-                            //Item is already in this gallery:
                             continue;
                         }
 
@@ -467,27 +468,46 @@ class Rsgallery2ModelImage extends  JModelAdmin
 		try
         {
 			$input = JFactory::getApplication()->input;
-			$cid = $input->get( 'cid', array(), 'ARRAY');
+			$cids = $input->get( 'cid', array(), 'ARRAY');
+            ArrayHelper::toInteger($cids);
+
 			$NewGalleryId = $input->get ('SelectGallery4MoveCopy', -1, 'INT');
 
 			// Destination gallery selected ?
 			if ($NewGalleryId > 0) {
 				// Source images selected ?
-				if (count($cid) > 0) {
-					// Single ids
-					$cids = implode(',', $cid);
+				if (count($cids) > 0) {
 
+                    $row = $this->getTable();
+
+					// All selected images
                     foreach ($cids as $cid) {
 
+                        // Item is already in this gallery:
+                        if ($row->gallery_id == $NewGalleryId) {
+                            continue;
+                        }
 
 
-                    }
+                 ...
+                       // copy image files (binaries )
+
+
+                    // Success
+                    $IsCopied = true;
+
+                    JFactory::getApplication()->enqueueMessage(JText::_('Copy is successful. Please check order of images in destination gallery'), 'notice');
+				}
+                else
+                {
+                    JFactory::getApplication()->enqueueMessage(JText::_('No valid image(s) selected'), 'warning');
                 }
-			}
-
-			// $msg .= "<br>";
-			$msg .= JText::_( 'COM_RSGALLERY2_YYY_done' );
-		}
+            }
+            else
+            {
+                JFactory::getApplication()->enqueueMessage(JText::_('No valid gallery selected'), 'warning');
+            }
+        }
 		catch (RuntimeException $e)
 		{
 			$OutTxt = '';
