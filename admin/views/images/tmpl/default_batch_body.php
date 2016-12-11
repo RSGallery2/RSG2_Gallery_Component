@@ -28,18 +28,21 @@ $published = $this->state->get('filter.published');
     ?>
 <div class="row-fluid">
 	<?php if ($published >= 0) : ?>
-        <div class="pull-right">
+		<?php // <div class="pull-right"> ?>
+        <div class=''>
             <?php
             // Specify gallery for move and copy
             echo $this->form->renderFieldset('Select4MoveCopy');
             ?>
         </div>
-
+	    <?php /*
         <div class="control-group span6">
 			<div class="controls">
 				<?php echo JHtml::_('batch.item', 'com_content'); ?>
 			</div>
 		</div>
+        /**/
+		?>
 	<?php endif; ?>
 <?php
 /**

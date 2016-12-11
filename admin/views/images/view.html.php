@@ -126,7 +126,7 @@ class Rsgallery2ViewImages extends JViewLegacy
 				JToolbarHelper::divider();
 				// JToolbarHelper::custom('delete', 'delete.png', 'delete_f2.png', 'JTOOLBAR_DELETE', true);
 				// JToolbarHelper::custom('categories.rebuild', 'refresh.png', 'refresh_f2.png', 'JTOOLBAR_REBUILD', false);
-				JToolBarHelper::custom ('images.moveImagesTo','next','','COM_RSGALLERY2_MOVE_TO', true);
+				//JToolBarHelper::custom ('images.moveImagesTo','next','','COM_RSGALLERY2_MOVE_TO', true);
 				//JToolBarHelper::custom ('images.copyImagesTo','copy','','COM_RSGALLERY2_COPY', true);
 //				JToolBarHelper::custom ('','','','', true);
 				JToolBarHelper::custom('images.uploadImages','upload','upload.png','COM_RSGALLERY2_UPLOAD', false);

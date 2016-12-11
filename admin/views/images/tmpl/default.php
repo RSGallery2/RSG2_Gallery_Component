@@ -185,13 +185,6 @@ $userId = $user->id;
 				// I managed to add options as always open
 				//echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this, 'options' => array('filtersHidden' => false ($hidden) (true/false) )));
 				?>
-				<div class="pull-right">
-					<?php
-	                // Specify gallery for move and copy
-	                echo $this->form->renderFieldset('Select4MoveCopy');
-	                ?>
-				</div>
-
 	            <?php if (empty($this->items)) : ?>
                     <div class="alert alert-no-items">
                         <?php echo JText::_('COM_RSGALLERY2_GALLERY_HAS_NO_IMAGES_ASSIGNED'); ?>
