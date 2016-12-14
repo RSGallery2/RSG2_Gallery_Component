@@ -182,6 +182,8 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 
     public function createImageDbItems ()
     {
+        $IsCreated = false;
+
         // ToDo: Instead of message return HasError;
 
         //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
@@ -200,6 +202,8 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 
                 $HasError = $this->createImageDbItem ($ImageReference);
             }
+
+            $IsCreated = true;
         }
         catch (RuntimeException $e)
         {
@@ -211,7 +215,7 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
             $app->enqueueMessage($OutTxt, 'error');
         }
 
-        return $msg;
+        return $IsCreated;
     }
 
     public function createImageDbItem ($ImageReference)
@@ -234,12 +238,9 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 			// Create new db item
 			if ($HasError == 0)
 			{
-				// ToDo: Determine gallery ID from $input...
-				$GalleryId = -1;
-
-				$ImageModel = JModelLegacy::getInstance ('Image', 'rsgallery2Model');
-				$HasError = $ImageModel->CreateImage ($ImageReference->imageName, $GalleryId);
-
+				// $ImageModel = JModelLegacy::getInstance ('Image', 'rsgallery2Model');
+                $ImageModel = $this->getModel (image);
+                $HasError = $ImageModel->createImageDbItem ($ImageReference->imageName);
 			}
 
         }
