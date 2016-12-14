@@ -112,7 +112,7 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 
     $html = array (); // parent gallery
     $html[] = '<th class="center" width="20%">';
-    $html[] = '10'.     JText::_( 'COM_RSGALLERY2_PARENT_BR_GALLERY' );
+    $html[] = '10'.     JText::_( 'COM_RSGALLERY2_GALLERY' ); // COM_RSGALLERY2_PARENT_BR_GALLERY
     $html[] = '</th>';
     echo implode(' ', $html);
 
