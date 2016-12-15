@@ -60,8 +60,52 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
 			// Model tells if successful
 			$model = $this->getModel('maintConsolidateDB');
-			$msg .= $model->createImageDbItems();
 
+            $IsEveryCreated = false;
+
+			try
+            {
+                // Retrieve image list with attributes
+                $ImageReferences = $model->SelectedImageReferences();
+
+                if (!empty ($ImageReferences)) {
+                    $imageModel = $this->getModel('image');
+
+                    $IsEveryCreated = true;
+                    foreach ($ImageReferences as $ImageReference)
+                    {
+                        $IsCreated = $this->createImageDbItem ($ImageReference, $imageModel);
+                        if (!$IsCreated) {
+                            $OutTxt = 'Image not created for: ' . $ImageReference->name;
+                            $app = JFactory::getApplication();
+                            $app->enqueueMessage($OutTxt, 'warning');
+
+                            $IsEveryCreated = false;
+                        }
+                    }
+
+                    if (!$IsEveryCreated) {
+                        $OutTxt = 'Image not dreated for: ' . $ImageReference->name;
+                        $app = JFactory::getApplication();
+                        $app->enqueueMessage($OutTxt, 'warning');
+                    }
+                }
+            }
+            catch (RuntimeException $e) {
+                $OutTxt = '';
+                $OutTxt .= 'Error executing saveOrdering: "' . '<br>';
+                $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+                $app = JFactory::getApplication();
+                $app->enqueueMessage($OutTxt, 'error');
+            }
+
+            if ($IsEveryCreated) {
+                $msg .= "Successful created image references in database";
+            } else {
+                $msg .= "Error at created image referenes in database";
+                $msgType = 'warning';
+            }
 			
 		}
 
@@ -71,8 +115,42 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 // http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
 	}
 
+    public function createImageDbItem ($ImageReference, $imageModel)
+    {
+        $IsImageDbCreated = 0;
 
-	/**
+        //       $msgType = 'notice';
+
+        try
+        {
+            // Does not exist in db
+            if(!$ImageReference->IsImageInDatabase)
+            {
+                $IsImageDbCreated = $imageModel->createImageDbItem($ImageReference->imageName);
+            }
+            else
+            {
+                $OutTxt = 'Database item does already exist for ' . $ImageReference->imageName;
+                JFactory::getApplication()->enqueueMessage($OutTxt, 'warning');
+            }
+
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing moveTo: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $IsImageDbCreated;
+    }
+
+
+
+    /**
 	 * images to ...
 	 *
 	 */

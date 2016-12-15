@@ -198,7 +198,7 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 	{
 		$html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
 		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_ASSIGN_SELECTED_GALLLERIES') . '" ';
-		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.assignGallery();"';
+		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.assignSelectedGallery();"';
 		$html[] = '     >';
 		$html[] = '         <span class="icon-images"></span>';
 		$html[] = '     </a>';
@@ -363,7 +363,7 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 	    $html[] = '<td class="center">';
 	    if($ImageData->IsMainImageMissing (ImageReference::dontCareForWatermarked) )
 	    {
-		    $html[] = '9     <a class="btn btn-micro jgrid hasTooltip" ';
+		    $html[] = '9     <a class="btn btn-micro jgrid hasTooltip inside_button" ';
 		    $html[] = '         data-original-title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_MISSING_IMAGES_IN_ROW') . '" ';
 		    $html[] = '         onclick="return listItemTask(\'cb' . $Idx . '\',\'MaintConsolidateDb.createMissingImages\')" ';
 		    $html[] = '         href="javascript:void(0);"';
@@ -373,7 +373,7 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 	    }
 	    //if($ImageReferences->)
 	    {
-		    $html[] = '     <a class="btn btn-micro jgrid hasTooltip" ';
+		    $html[] = '     <a class="btn btn-micro jgrid hasTooltip inside_button" ';
 		    $html[] = '         data-original-title="' . JHtml::tooltipText('COM_RSGALLERY2_DELETE_IMAGES_IN_ROW') . '" ';
 		    $html[] = '         onclick="return listItemTask(\'cb' . $Idx . '\',\'MaintConsolidateDb.deleteAllImages\')" ';
 		    $html[] = '         href="javascript:void(0);"';
@@ -383,7 +383,7 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 	    }
 	    // if($ImageReferences->)
 	    {
-		    $html[] = '     <a class="btn btn-micro jgrid hasTooltip" ';
+		    $html[] = '     <a class="btn btn-micro jgrid hasTooltip inside_button" ';
 		    $html[] = '         data-original-title="' . JHtml::tooltipText('COM_RSGALLERY2_ASSIGN_GALLLERY_IN_ROW') . '" ';
 		    $html[] = '         onclick="return listItemTask(\'cb' . $Idx . '\',\'MaintConsolidateDb.assignGalleries\')" ';
 		    $html[] = '         href="javascript:void(0);"';
@@ -395,7 +395,7 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 	    echo implode(' ', $html);
 
 
-	    $html = array (); // action
+	    $html = array (); //  parent gallery
 	    $html[] = '<td class="center">10 ';
 
         // google (1) joomla formfield array
