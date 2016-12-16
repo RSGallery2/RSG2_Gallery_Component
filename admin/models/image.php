@@ -277,8 +277,7 @@ class Rsgallery2ModelImage extends  JModelAdmin
         $OutTxt = 'Model Image: CreateImage "' . $imageName . '"  ';
         JFactory::getApplication()->enqueueMessage($OutTxt, 'notice');
 
-		$item = $this->getTable('');
-
+		$item = $this->getTable();
 		$item->load(0);
 
 		// $item->gallery_id= $galleryId;

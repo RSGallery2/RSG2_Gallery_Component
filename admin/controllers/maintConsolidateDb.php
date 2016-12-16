@@ -138,7 +138,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
         catch (RuntimeException $e)
         {
             $OutTxt = '';
-            $OutTxt .= 'Error executing moveTo: "' . '<br>';
+            $OutTxt .= 'Error executing createImageDbItem: "' . '<br>';
             $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
             $app = JFactory::getApplication();

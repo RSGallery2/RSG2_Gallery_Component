@@ -101,6 +101,17 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
         return $this->IsWatermarkActive;
     }
 
+    /**
+     * SelectedImageReferences
+     *
+     *
+     *
+     * throws exception
+     *
+     * @return array
+     *
+     * @since version
+     */
     public function SelectedImageReferences () {
 
         $ImageReferences = array ();
@@ -115,7 +126,7 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
             $app = JFactory::getApplication();
             $app->enqueueMessage($OutTxt, 'notice');
 
-            return -1;
+            return $ImageReferences;
         }
 
         $cids = implode(',', $cid);
@@ -178,83 +189,6 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
         }
 
         return $ImageReferences;
-    }
-
-    public function createImageDbItems ()
-    {
-        $IsCreated = false;
-
-        // ToDo: Instead of message return HasError;
-
-        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-        $msg     = "createImageDbItems: ";
- //       $msgType = 'notice';
-
-        try
-        {
-            // Collect user selection
-            // May throw error
-            $ImageReferences =  $this->SelectedImageReferences ();
-
-            foreach ($ImageReferences as $ImageReference) {
-	            $msg     = "<br>createImageDbItem: ";
-	            $msg .= $ImageReference->imageName;
-
-                $HasError = $this->createImageDbItem ($ImageReference);
-            }
-
-            $IsCreated = true;
-        }
-        catch (RuntimeException $e)
-        {
-            $OutTxt = '';
-            $OutTxt .= 'Error creating database image object: "' . '<br>';
-            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-            $app = JFactory::getApplication();
-            $app->enqueueMessage($OutTxt, 'error');
-        }
-
-        return $IsCreated;
-    }
-
-    public function createImageDbItem ($ImageReference)
-    {
-	    $HasError = 0;
-
-        //       $msgType = 'notice';
-
-        try
-        {
-        	// Already exist in db
-			if($ImageReference->IsImageInDatabase)
-			{
-				$OutTxt = 'Database item does already exist for ' . $ImageReference->imageName;
-				JFactory::getApplication()->enqueueMessage($OutTxt, 'warning');
-
-				$HasError = -1;
-			}
-
-			// Create new db item
-			if ($HasError == 0)
-			{
-				// $ImageModel = JModelLegacy::getInstance ('Image', 'rsgallery2Model');
-                $ImageModel = $this->getModel (image);
-                $HasError = $ImageModel->createImageDbItem ($ImageReference->imageName);
-			}
-
-        }
-        catch (RuntimeException $e)
-        {
-            $OutTxt = '';
-            $OutTxt .= 'Error executing moveTo: "' . '<br>';
-            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-            $app = JFactory::getApplication();
-            $app->enqueueMessage($OutTxt, 'error');
-        }
-
-        return $HasError;
     }
 
 
@@ -374,7 +308,7 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
         catch (RuntimeException $e)
         {
             $OutTxt = '';
-            $OutTxt .= 'Error executing moveTo: "' . '<br>';
+            $OutTxt .= 'Error deleteImageSet: "' . '<br>';
             $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
             $app = JFactory::getApplication();
