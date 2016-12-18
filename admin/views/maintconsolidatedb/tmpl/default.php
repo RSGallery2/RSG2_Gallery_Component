@@ -52,19 +52,36 @@ function DisplayImageDataTable ($ImageReferences, $form) {
     echo '    <thead>';
     echo '        <tr>';
 
+    /*
     $html = array (); // Counter empty
     $html[] = '<th class="center" width="1%">';
     //$html[] = '1'; // empty
     $html[] = '</th>';
     echo implode(' ', $html);
+	/**/
+	$html = array (); // Counter
+	$html[] = '<th>';
+	//$html[] = '';
+	$html[] =      JText::_( 'COM_RSGALLERY2_NUM' );
+	$html[] = '</th>';
+	echo implode(' ', $html);
 
-    $html = array (); // Check all empty
+	/*
+	$html = array (); // Check all empty
     $html[] = '<th class="center" width="1%">';
     //$html[] = '2'; // empty
     $html[] = '</th>';
     echo implode(' ', $html);
+	/**/
+	$html = array (); // Check all
+	$html[] = '<th>';
+	//$html[] = '';
+	$html[] =      JHtml::_('grid.checkall');
+	$html[] = '</th>';
+	echo implode(' ', $html);
 
-    $html = array (); // filename
+
+	$html = array (); // filename
     $html[] = '<th class="align-left" width="20%">';
     // $html[] =  '3';
 	$html[] =      JText::_( 'COM_RSGALLERY2_FILENAME' );
@@ -139,6 +156,7 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 // Second row with command buttons
 //-------------------------------------
 
+	/**
 	echo '<tr>'; // start of row
 
     $html = array (); // Counter
@@ -242,6 +260,9 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 	$html[] = '<th class="center">';
 	//$html[] =      '11';
 	$html[] = '</th>';
+	/**/
+
+	$html = array ();
 	$html[] = '    </tr>'; // end of row
 	$html[] = '</thead>';
 
