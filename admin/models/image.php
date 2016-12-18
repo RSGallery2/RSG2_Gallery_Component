@@ -288,28 +288,46 @@ class Rsgallery2ModelImage extends  JModelAdmin
 		$item->userid  = $userId;
 
         //----------------------------------------------------
-        // db: new image name
+        // image properties
         //----------------------------------------------------
 
-        // Create unique image file name
-        $oldName   = $imageName;
-        $item->name = $this->generateNewImageName($oldName);
+	    //--- image name -------------------------------------
+
+	    $item->name = $imageName;
+
+	    //--- unique image title and alias -------------------
+	    $path_parts = pathinfo($imageName);
+        $fileName = $path_parts['filename'];
+
+	    $item->title = $this->generateNewImageName($fileName);
+	    $item->alias = $item->title ;
+	    $this->alias = JFilterOutput::stringURLSafe($this->alias);
 
         // Create unique alias and title
-        list($title, $alias) = $this->generateNewTitle(null, $item->alias, $item->name);
+        list($title, $alias) = $this->generateNewTitle(null, $item->alias, $item->title);
         $item->title = $title;
         $item->alias = $alias;
 
-		$item->content = "";
-		$item->state   = 0; // "not published" -> maintenance consolidate db -> create image db from file name
+	    //--- date -------------------------------------------
 
-		// Lets store it!
+	    $date = JFactory::getDate();
+	    $item->date = JHtml::_('date', $date, 'Y-m-d H:i:s');
+
+	    //---  -------------------------------------------
+
+	    $item->approved = 0; // dont know why, all images end up with zero ....
+
+	    //----------------------------------------------------
+	    // save new object
+	    //----------------------------------------------------
+
+	    // Lets store it!
 		$item->check();
 
 		if (!$item->store())
 		{
             // toDO: collect erorrs and display over enque .... with errr type
-            $UsedNamesText = '<br>SrcImage: ' . $oldName . '<br>DstImage: ' . $item->name;
+            $UsedNamesText = '<br>SrcImage: ' . $fileName . '<br>DstImage: ' . $item->name;
             JFactory::getApplication()->enqueueMessage(JText::_('copied image name could not be inseted in database') . $UsedNamesText, 'warning');
 
             $IsImageDbCreated = false;

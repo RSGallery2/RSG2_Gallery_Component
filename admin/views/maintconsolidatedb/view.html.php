@@ -120,8 +120,8 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
         JToolBarHelper::custom ('MaintConsolidateDb.createImageDbItems','database','','COM_RSGALLERY2_CREATE_DATABASE_ENTRIES', true);
         JToolBarHelper::custom ('MaintConsolidateDb.createMissingImages','image','','COM_RSGALLERY2_CREATE_SELECTED_MISSING_IMAGES', true);
         JToolBarHelper::custom ('MaintConsolidateDb.deleteAllImages','delete','','COM_RSGALLERY2_DELETE_SELECTED_IMAGES', true);
-        JToolBarHelper::custom ('MaintConsolidateDb.assignGalleries','images','','COM_RSGALLERY2_ASSIGN_SELECTED_GALLLERIES', true);
-        JToolBarHelper::custom ('MaintConsolidateDb.deleteReferences','delete-2','','COM_RSGALLERY2_ASSIGN_SELECTED_GALLLERIES', true);
+        JToolBarHelper::custom ('MaintConsolidateDb.assignGalleries','images','','COM_RSGALLERY2_ASSIGN_SELECTED_GALLERY', true);
+        //JToolBarHelper::custom ('MaintConsolidateDb.deleteReferences','delete-2','','COM_RSGALLERY2_ASSIGN_SELECTED_GALLLERIES', true);
         //JToolBarHelper::custom ('MaintConsolidateDb..','next','','COM_RSGALLERY2_MOVE_TO', true);
         //JToolBarHelper::custom ('MaintConsolidateDb.','copy','','COM_RSGALLERY2_COPY', true);
 

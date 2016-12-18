@@ -54,43 +54,48 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 
     $html = array (); // Counter empty
     $html[] = '<th class="center" width="1%">';
-    $html[] = '1'; // empty
+    //$html[] = '1'; // empty
     $html[] = '</th>';
     echo implode(' ', $html);
 
     $html = array (); // Check all empty
     $html[] = '<th class="center" width="1%">';
-    $html[] = '2'; // empty
+    //$html[] = '2'; // empty
     $html[] = '</th>';
     echo implode(' ', $html);
 
     $html = array (); // filename
     $html[] = '<th class="align-left" width="20%">';
-    $html[] =  '3'.   JText::_( 'COM_RSGALLERY2_FILENAME' );
+    // $html[] =  '3';
+	$html[] =      JText::_( 'COM_RSGALLERY2_FILENAME' );
     $html[] = '</th>';
     echo implode(' ', $html);
 
     $html = array (); // In Database
     $html[] = '<th class="center">';
-    $html[] = '4'.     JText::_( 'COM_RSGALLERY2_IN_BR_DATABASE' );
+    //$html[] = '4';
+	$html[] =      JText::_( 'COM_RSGALLERY2_IN_BR_DATABASE' );
     $html[] = '</th>';
     echo implode(' ', $html);
 
     $html = array (); // display
     $html[] = '<th class="center">';
-    $html[] = '5'.     JText::_( 'COM_RSGALLERY2_DISPLAY_BR_FOLDER' );
+    //$html[] = '5';
+	$html[] =      JText::_( 'COM_RSGALLERY2_DISPLAY_BR_FOLDER' );
     $html[] = '</th>';
     echo implode(' ', $html);
 
     $html = array (); // In original
     $html[] = '<th class="center">';
-    $html[] =  '6'.    JText::_( 'COM_RSGALLERY2_ORIGINAL_BR_FOLDER' );
+    //$html[] =  '6';
+	$html[] =      JText::_( 'COM_RSGALLERY2_ORIGINAL_BR_FOLDER' );
     $html[] = '</th>';
     echo implode(' ', $html);
 
     $html = array (); // thumb
     $html[] = '<th class="center">';
-    $html[] = '7'.     JText::_( 'COM_RSGALLERY2_THUMB_FOLDER' );
+    //$html[] = '7';
+	$html[] =      JText::_( 'COM_RSGALLERY2_THUMB_FOLDER' );
     $html[] = '</th>';
     echo implode(' ', $html);
 
@@ -99,26 +104,30 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 	{
         $html = array (); // watermarked
         $html[] = '<th class="center">';
-        $html[] =  '8'.    JText::_( 'COM_RSGALLERY2_WATERMARK_BR_FOLDER' );
+        //$html[] =  '8';
+		$html[] =      JText::_( 'COM_RSGALLERY2_WATERMARK_BR_FOLDER' );
         $html[] = '</th>';
         echo implode(' ', $html);
     }
 
     $html = array (); // action
     $html[] = '<th class="center">';
-    $html[] =  '9'.    JText::_( 'COM_RSGALLERY2_ACTION' );
+    //$html[] =  '9';
+	$html[] =      JText::_( 'COM_RSGALLERY2_ACTION' );
     $html[] = '</th>';
     echo implode(' ', $html);
 
     $html = array (); // parent gallery
     $html[] = '<th class="center" width="20%">';
-    $html[] = '10'.     JText::_( 'COM_RSGALLERY2_GALLERY' ); // COM_RSGALLERY2_PARENT_BR_GALLERY
+    //$html[] = '10';
+	$html[] =      JText::_( 'COM_RSGALLERY2_GALLERY' ); // COM_RSGALLERY2_PARENT_BR_GALLERY
     $html[] = '</th>';
     echo implode(' ', $html);
 
     $html = array (); // image
     $html[] = '<th class="center" width="10%">';
-    $html[] = '11'.     JText::_( 'COM_RSGALLERY2_IMAGE' );
+    //$html[] = '11';
+	$html[] =      JText::_( 'COM_RSGALLERY2_IMAGE' );
     $html[] = '</th>';
     echo implode(' ', $html);
 
@@ -134,27 +143,30 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 
     $html = array (); // Counter
     $html[] = '<th>';
-    $html[] = ''.     JText::_( 'COM_RSGALLERY2_NUM' );
+    //$html[] = '';
+	$html[] =      JText::_( 'COM_RSGALLERY2_NUM' );
     $html[] = '</th>';
     echo implode(' ', $html);
 
     $html = array (); // Check all
     $html[] = '<th>';
-    $html[] = ''.     JHtml::_('grid.checkall');
+    //$html[] = '';
+	$html[] =      JHtml::_('grid.checkall');
     $html[] = '</th>';
     echo implode(' ', $html);
 
 
     $html = array (); // filename 2
 	$html[] = '<th >';
-	$html[] = '3'; // empty
+	//$html[] = '3'; // empty
 	$html[] = '</th>';
 	echo implode(' ', $html);
 
 	$html = array ();
 	$html[] = '<th class="center">'; // In database
 	if($ImageReferences->IsAnyImageMissingInDB){
-		$html[] = '4     <a class="btn btn-micro jgrid hasTooltip header_button" ';
+		//$html[] = '4';
+		$html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
 		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_DATABASE_ENTRIES').'" ';
 		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.createDbEntries();"';
 		$html[] = '     >';
@@ -164,21 +176,33 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 	$html[] = '</th>';
 	echo implode(' ', $html);
 
-	echo '            <th class="center">'.'5'.'</th>'; // display
-	echo '            <th class="center">'.'6'.'</th>'; // original
-	echo '            <th class="center">'.'7'.'</th>'; // thumb
+	$html = array ();
+
+	$html[] = '<th class="center">'; // display
+	//$html[] =    '5';
+	$html[] =  '</th>';
+	$html[] = '<th class="center">';// original
+	//$html[] =    '6';
+	$html[] = '</th>';
+	$html[] = '<th class="center">';// thumb
+	//$html[] =     '7';
+	$html[] = '</th>';
 
     // watermarked
 	if($ImageReferences->UseWatermarked)
 	{
-		echo '            <th class="center">' . '8' . '</th>'; // watermarked
+		$html[] = '<th class="center">'; // watermarked
+		//$html[] =      '8';
+		$html[] = '</th>';
 	}
+	echo implode(' ', $html);
 
 	$html = array (); // action
 	$html[] = '<th class="center">';
 	if($ImageReferences->IsAnyOneImageMissing)
 	{
-		$html[] = '9     <a class="btn btn-micro jgrid hasTooltip header_button" ';
+		//$html[] = '9';
+		$html[] = '     <a class="btn btn-micro jgrid hasTooltip header_button" ';
 		$html[] = '         title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_SELECTED_MISSING_IMAGES') . '" ';
 		$html[] = '         onclick="Joomla.checkNone(this); return Joomla.assignJoomla.createMissingImages();"';
 		$html[] = '     >';
@@ -209,17 +233,19 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 	// ToDo: Button hide column and Mobile hide
 	$html = array (); // parent gallery
 	$html[] = '<th class="center">';
-	$html[] = '10</th>';
+	//$html[] =    '10';
+	$html[] = '</th>';
 	echo implode(' ', $html);
 
 	// ToDo: Button hide column and Mobile hide
 	$html = array (); // image
 	$html[] = '<th class="center">';
-	$html[] = '11</th>';
-	echo implode(' ', $html);
+	//$html[] =      '11';
+	$html[] = '</th>';
+	$html[] = '    </tr>'; // end of row
+	$html[] = '</thead>';
 
-	echo '        </tr>'; // end of row
-    echo '    </thead>';
+	echo implode(' ', $html);
 
 //-------------------------------------
 // table body
@@ -256,23 +282,28 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 		echo implode(' ', $html);
 
 	    $html = array (); // filename
-		echo '            <td>3' . $ImageData->imageName . '</td>';
+	    $html[] = '<td>';
+	    //$html[] =     '3';
+	    $html[] =     $ImageData->imageName;
+	    $html[] = '</td>';
+	    echo implode(' ', $html);
 
 	    // database entry found
 		if ($ImageData->IsImageInDatabase) {
 			$html = array (); // database
 			$html[] = '<td class="center">';
-			$html[] = '4    <i class="icon-ok hasTooltip" data-original-title="database entry found" ';
+			//$html[] =    '4';
+			$html[] = '    <i class="icon-ok hasTooltip" data-original-title="database entry found" ';
 			$html[] = '      title="' . JHtml::tooltipText('COM_RSGALLERY2_DATABASE_ENTRY_FOUND') .'" ';
 			$html[] = '    />';
 			$html[] = '</td>';
 			echo implode(' ', $html);
-		} else
-		{
+		} else {
 			// Not found -> button
 			$html   = array(); // database
 			$html[] = '<td class="center">';
-			$html[] = '4     <a class="btn btn-micro jgrid hasTooltip db_missing" ';
+			//$html[] =    '4';
+			$html[] = '    <a class="btn btn-micro jgrid hasTooltip db_missing" ';
 			$html[] = '         data-original-title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_DATABASE_ENTRY') . '" ';
 			$html[] = '         onclick="return listItemTask(\'cb' . $Idx . '\',\'MaintConsolidateDb.createImageDbItems\')" ';
 			$html[] = '         href="javascript:void(0);"';
@@ -287,7 +318,8 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 		if ($ImageData->IsDisplayImageFound) {
 			$html = array ();
 			$html[] = '<td class="center">';
-			$html[] = '5    <i class="icon-ok hasTooltip" data-original-title="display image found" ';
+			//$html[] = '5';
+			$html[] = '    <i class="icon-ok hasTooltip" data-original-title="display image found" ';
 			$html[] = '      title="' . JHtml::tooltipText('COM_RSGALLERY2_DISPLAY_IMAGE_FOUND') .'" ';
 			$html[] = '    />';
 			$html[] = '</td>';
@@ -295,7 +327,8 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 		} else {
 			$html = array (); // database
 			$html[] = '<td class="center">';
-			$html[] = '5    <i class="icon-cancel hasTooltip" data-original-title="display image not found" ';
+			//$html[] = '5';
+			$html[] = '    <i class="icon-cancel hasTooltip" data-original-title="display image not found" ';
 			$html[] = '      title="' . JHtml::tooltipText('COM_RSGALLERY2_DISPLAY_IMAGE_NOT_FOUND') .'" ';
 			$html[] = '    />';
 			$html[] = '</td>';
@@ -306,7 +339,8 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 		if ($ImageData->IsOriginalImageFound) {
 			$html = array ();
 			$html[] = '<td class="center">';
-			$html[] = '6    <i class="icon-ok hasTooltip" data-original-title="original image found" ';
+			//$html[] = '6';
+			$html[] = '    <i class="icon-ok hasTooltip" data-original-title="original image found" ';
 			$html[] = '      title="' . JHtml::tooltipText('COM_RSGALLERY2_ORIGINAL_IMAGE_FOUND') .'" ';
 			$html[] = '    />';
 			$html[] = '</td>';
@@ -314,7 +348,8 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 		} else {
 			$html = array (); // database
 			$html[] = '<td class="center">';
-			$html[] = '6    <i class="icon-cancel hasTooltip" data-original-title="original image not found" ';
+			//$html[] = '6';
+			$html[] = '    <i class="icon-cancel hasTooltip" data-original-title="original image not found" ';
 			$html[] = '      title="' . JHtml::tooltipText('COM_RSGALLERY2_ORIGINAL_IMAGE_NOT_FOUND') .'" ';
 			$html[] = '    />';
 			$html[] = '</td>';
@@ -325,7 +360,8 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 		if ($ImageData->IsThumbImageFound) {
 			$html = array ();
 			$html[] = '<td class="center">';
-			$html[] = ' 7   <i class="icon-ok hasTooltip" data-original-title="thumb image found" ';
+			//$html[] = ' 7;';
+			$html[] = '    <i class="icon-ok hasTooltip" data-original-title="thumb image found" ';
 			$html[] = '      title="' . JHtml::tooltipText('COM_RSGALLERY2_THUMB_IMAGE_FOUND') .'" ';
 			$html[] = '    />';
 			$html[] = '</td>';
@@ -333,7 +369,8 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 		} else {
 			$html = array (); // database
 			$html[] = '<td class="center">';
-			$html[] = ' 7   <i class="icon-cancel hasTooltip" data-original-title="original image not found" ';
+			//$html[] = ' 7';
+			$html[] = '    <i class="icon-cancel hasTooltip" data-original-title="original image not found" ';
 			$html[] = '      title="' . JHtml::tooltipText('COM_RSGALLERY2_THUMB_IMAGE_NOT_FOUND') .'" ';
 			$html[] = '    />';
 			$html[] = '</td>';
@@ -344,7 +381,8 @@ function DisplayImageDataTable ($ImageReferences, $form) {
         if ($ImageData->IsWatermarkedImageFound) {
 	        $html = array ();
 	        $html[] = '<td class="center">';
-	        $html[] = '8    <i class="icon-ok hasTooltip" data-original-title="thumb image found" ';
+	        //$html[] = '8';
+	        $html[] = '    <i class="icon-ok hasTooltip" data-original-title="thumb image found" ';
 	        $html[] = '      title="' . JHtml::tooltipText('COM_RSGALLERY2_WATERMARK_IMAGE_FOUND') .'" ';
 	        $html[] = '    />';
 	        $html[] = '</td>';
@@ -352,7 +390,8 @@ function DisplayImageDataTable ($ImageReferences, $form) {
         } else {
 	        $html = array (); // database
 	        $html[] = '<td class="center">';
-	        $html[] = '8    <i class="icon-cancel hasTooltip" data-original-title="original image not found" ';
+	        //$html[] = '8';
+	        $html[] = '    <i class="icon-cancel hasTooltip" data-original-title="original image not found" ';
 	        $html[] = '      title="' . JHtml::tooltipText('COM_RSGALLERY2_WATERMARK_IMAGE_NOT_FOUND') .'" ';
 	        $html[] = '    />';
 	        $html[] = '</td>';
@@ -363,7 +402,8 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 	    $html[] = '<td class="center">';
 	    if($ImageData->IsMainImageMissing (ImageReference::dontCareForWatermarked) )
 	    {
-		    $html[] = '9     <a class="btn btn-micro jgrid hasTooltip inside_button" ';
+		    //$html[] = '9';
+		    $html[] = '    <a class="btn btn-micro jgrid hasTooltip inside_button" ';
 		    $html[] = '         data-original-title="' . JHtml::tooltipText('COM_RSGALLERY2_CREATE_MISSING_IMAGES_IN_ROW') . '" ';
 		    $html[] = '         onclick="return listItemTask(\'cb' . $Idx . '\',\'MaintConsolidateDb.createMissingImages\')" ';
 		    $html[] = '         href="javascript:void(0);"';
@@ -396,7 +436,8 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 
 
 	    $html = array (); //  parent gallery
-	    $html[] = '<td class="center">10 ';
+	    $html[] = '<td class="center">';
+	    //$html[] = '    10';
 
         // google (1) joomla formfield array
         // google (2) joomla display array of form fields
@@ -413,21 +454,6 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 //	    $field = $form->getFieldset('maintConsolidateDB');
 //	    $html[] = $field->input;
 
-/**
-<?php foreach ($this->form->getFieldset('myfields') as $field) : ?>
-	<div class="control-group">
-		<div class="control-label">
-			<?php echo $field->label; ?>
-		</div>
-		<div class="controls">
-			<?php echo $field->input; ?>
-		</div>
-	</div>
-<?php endforeach; ?>
-/**/
-
-
-
 	    $html[] = '</td>';
 	    echo implode(' ', $html);
 
@@ -435,12 +461,19 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 
 		// Image is defined
 	    if ($ImageData->imagePath !== '') {
-			echo '           <td class="center">11' . '<img width="80" alt="' . $ImageData->imageName
-				. '" name="image" src="' . JUri::root(true) . $ImageData->imagePath . '">' . '</td>';
+		    $html[] = '   <td class="center">';
+		    //$html[] =         '11';
+		    $html[] = '       <img width="80" alt="' . $ImageData->imageName . '" '
+			                    . 'name="image" src="' . JUri::root(true) . $ImageData->imagePath . '">';
+		    $html[] = '   </td>';
 		}
 		else{
-			echo '            <td class="center">11<span class="icon-cancel"></td>';
+		    $html[] = '   <td class="center">';
+			//$html[] =         '11';
+			$html[] = '        <span class="icon-cancel">';
+			$html[] = '   </td>';
 		}
+	    echo implode(' ', $html);
         //echo '            <td>' . 'Buttons' . '</td>'; JURI_SITE
         echo '        </tr>';
     }
