@@ -71,6 +71,8 @@ require_once(JPATH_COMPONENT.'/admin.rsgallery2.html.php');///J3
 
 global $opt, $catid, $uploadStep, $numberOfUploads, $e_id, $view;
 
+// ToDo: sort by old and actual used parameters
+
 $input              = JFactory::getApplication()->input;
 //$task				= JRequest::getCmd('task');
 $task               = $input->get( 'task', '', 'CMD');		
@@ -80,6 +82,7 @@ $option             = strtolower($input->get( 'option', '', 'CMD'));
 $catid              = $input->get( 'catid', null, 'INT');		
 // ...
 $view               = $input->get( 'view', null, 'CMD');		
+$layout             = $input->get( 'layout', '', 'CMD');		
 
 //$uploadStep		= JRequest::getInt('uploadStep', 0 );
 $uploadStep         = $input->get( 'uploadStep', 0, 'INT');
@@ -112,9 +115,16 @@ if($Rsg2DebugActive)
     $DebTxt = $DebTxt . "\$id: $id".$Delim;
     $DebTxt = $DebTxt . "\$rsgOption: $rsgOption".$Delim;
     $DebTxt = $DebTxt . "\$view: $view".$Delim;
+    $DebTxt = $DebTxt . "\$layout: $layout".$Delim;
 
     JLog::add($DebTxt); //, JLog::DEBUG);
 }
+
+// ToDo: Get it faster: follow old path only when $rsgOption is set
+
+
+
+
 
 ///Get the toolbar in here for J3 compatibility (since toolbar.rsgallery2.php is no longer autoloaded)
 // Toolbar ==> 1.) rsgOption 2.) Tasks -> views 

@@ -161,8 +161,6 @@ class JGPagination extends JPagination
 	 */
 	public function getLimitBox()
 	{
-		$appl = JFactory::getApplication();
-
 		// Initialize variables
 		$limits = array ();
 
@@ -178,7 +176,8 @@ class JGPagination extends JPagination
 		$selected = $this->viewall ? 0 : $this->limit;
 
 		// Build the select list
-		if ($appl->isAdmin()) {
+		$canManage	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
+		if (!$canManage) {
 			$html = JHtml::_('select.genericlist',  $limits, 'limitg', 'class="inputbox" size="1" onchange="submitform();"', 'value', 'text', $selected);
 		} else {
 			$html = JHtml::_('select.genericlist',  $limits, 'limitg', 'class="inputbox" size="1" onchange="this.form.submit()"', 'value', 'text', $selected);
@@ -218,8 +217,8 @@ class JGPagination extends JPagination
      */
 	public function _item_active(&$item)
 	{
-		$appl = JFactory::getApplication();
-		if ($appl->isAdmin())
+		$canManage	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
+		if (!$canManage) {
 		{
 			if($item->base>0)
 				return "<a title=\"".$item->text."\" onclick=\"javascript: document.adminForm.limitstartg.value=".$item->base."; submitform();return false;\">".$item->text."</a>";

@@ -18,7 +18,7 @@ class menu_rsg2_submenu{
 	 * @param string $rsgOption
 	 * @param string $task
 	 */
-	static function addRSG2Submenu($rsgOption = '', $task = '', $view = '') {
+	static function addRSG2Submenu($rsgOption = '', $task = '', $view = '', $layout = '') {
 
 /**	
 		echo '$rsgOption = "' . $rsgOption . '"<br>';
@@ -97,6 +97,18 @@ class menu_rsg2_submenu{
 				}
 			}
 
+			// gallery_raw, image_raw, ...
+			if (substr($layout, -4) == '_raw')
+			{
+				$link = 'index.php?option=com_rsgallery2&view=maintenance';
+				// In config add maintenance
+				JHtmlSidebar::addEntry(
+					'<span class="icon-screwdriver" >  </span>' .
+					JText::_('COM_RSGALLERY2_MAINTENANCE'),
+					$link,
+					false);
+			}
+			/**/
 
 		} // installer
 	}
