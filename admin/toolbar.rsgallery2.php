@@ -19,10 +19,13 @@ else
 // require_once( JApplicationHelper::getPath('toolbar_html') );///J25
 require_once( JPATH_ADMINISTRATOR . '/components/com_rsgallery2/toolbar.rsgallery2.html.php');///J3
 
+//-----------------------------------------------
 // Only show RSG2 submenu in the backend
-$app = JFactory::getApplication();
-if ($app->isAdmin()){
-	menu_rsg2_submenu::addRSG2Submenu($rsgOption, $task, $view);
+//$app = JFactory::getApplication();
+//if ($app->isAdmin()){
+$canManage	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
+if (!$canManage) {
+	menu_rsg2_submenu::addRSG2Submenu($rsgOption, $task, $view, $layout);
 	switch( $rsgOption ){
 		case 'images':
 			switch ( $task ) {
