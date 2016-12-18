@@ -45,7 +45,7 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 		
 		// on develop show open tasks if existing
 		if(!empty ($Rsg2DevelopActive)) {
-			echo '<span style="color:red">Task: match columns</span><br><br>';
+			echo '<span style="color:red">Task: Assign gallery, copy images, test row buttons</span><br><br>';
 		}
 
 //		$xmlFile = JPATH_COMPONENT . '/models/forms/maintregenerateimages.xml';
