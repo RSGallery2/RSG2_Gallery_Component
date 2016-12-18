@@ -13,86 +13,91 @@ defined( '_JEXEC' ) or die();
 /**
  * Class menu_rsg2_submenu
  */
-class menu_rsg2_submenu{
+class menu_rsg2_submenu
+{
 	/**
 	 * @param string $rsgOption
 	 * @param string $task
 	 */
-	static function addRSG2Submenu($rsgOption = '', $task = '', $view = '', $layout = '') {
+	static function addRSG2Submenu($rsgOption = '', $task = '', $view = '', $layout = '')
+	{
 
-/**	
-		echo '$rsgOption = "' . $rsgOption . '"<br>';
-		echo '$task = "'      . $task      . '"<br>';
-		echo '$view = "'      . $view      . '"<br>';
-		echo '<br><br><br><br><br>';
-/**/	
-	
-		// The template manager (still) has its own submenu
-		if (!($rsgOption == 'installer')){
+		/**
+		 * echo '$rsgOption = "' . $rsgOption . '"<br>';
+		 * echo '$task = "'      . $task      . '"<br>';
+		 * echo '$view = "'      . $view      . '"<br>';
+		 * echo '$layout = "'    . $layout    . '"<br>';
+		 * echo '<br><br><br><br><br>';
+		 * /**/
+
+		// new views
+		if (empty($rsgOption))
+		{
 			// Control Panel
-            $link = 'index.php?option=com_rsgallery2';
-            JHtmlSidebar::addEntry(
-				'<span class="icon-home-2" >  </span>'.
-				JText::_('COM_RSGALLERY2_SUBMENU_CONTROL_PANEL'),
-                $link,
-		        (($rsgOption=='' AND $task == '' AND $view == '' )
-                    OR ($rsgOption == 'config')
-                    OR ($rsgOption == 'maintenance') ));
-		    // Galleries
-            $link = 'index.php?option=com_rsgallery2&view=galleries';
+			$link = 'index.php?option=com_rsgallery2';
 			JHtmlSidebar::addEntry(
-				'<span class="icon-images" >  </span>'.
+				'<span class="icon-home-2" >  </span>' .
+				JText::_('COM_RSGALLERY2_SUBMENU_CONTROL_PANEL'),
+				$link,
+				(($rsgOption == '' AND $task == '' AND $view == '')
+					OR ($rsgOption == 'config')
+					OR ($rsgOption == 'maintenance')));
+			// Galleries
+			$link = 'index.php?option=com_rsgallery2&view=galleries';
+			JHtmlSidebar::addEntry(
+				'<span class="icon-images" >  </span>' .
 				JText::_('COM_RSGALLERY2_SUBMENU_GALLERIES'),
 				//'index.php?option=com_rsgallery2&rsgOption=galleries',
 				$link,
-		        $rsgOption=='galleries' AND $task == '');
+				$rsgOption == 'galleries' AND $task == '');
 			// Upload view
-            $link = 'index.php?option=com_rsgallery2&view=upload';
+			$link = 'index.php?option=com_rsgallery2&view=upload';
 			JHtmlSidebar::addEntry(
-				'<span class="icon-upload" > </span>'.
+				'<span class="icon-upload" > </span>' .
 				JText::_('COM_RSGALLERY2_SUBMENU_UPLOAD'),
-                $link,
-		        $view == 'upload');
+				$link,
+				$view == 'upload');
 			// Images
-            $link = 'index.php?option=com_rsgallery2&view=images';
+			$link = 'index.php?option=com_rsgallery2&view=images';
 			JHtmlSidebar::addEntry(
-				'<span class="icon-image" >  </span>'.
+				'<span class="icon-image" >  </span>' .
 				JText::_('COM_RSGALLERY2_SUBMENU_IMAGES'),
 				// 'index.php?option=com_rsgallery2&rsgOption=images',
-                $link,
-		        $rsgOption=='images' AND ($task == '' OR $task == 'view_images'));
+				$link,
+				$rsgOption == 'images' AND ($task == '' OR $task == 'view_images'));
 
-			if ($view == 'config' || $rsgOption == 'config')
+			if ($view == 'config')
 			{
-                $link = 'index.php?option=com_rsgallery2&view=maintenance';
+				$link = 'index.php?option=com_rsgallery2&view=maintenance';
 				// In config add maintenance
 				JHtmlSidebar::addEntry(
-					'<span class="icon-screwdriver" >  </span>'.
+					'<span class="icon-screwdriver" >  </span>' .
 					JText::_('COM_RSGALLERY2_MAINTENANCE'),
-                    $link,
+					$link,
 					false);
 			}
 
+			// maintenance ....
 			if (substr($view, 0, 5) == 'maint')
 			{
-				if ($view == 'maintenance' )
+				if ($view == 'maintenance')
 				{
-                    $link = 'index.php?option=com_rsgallery2&view=config&task=config.edit';
+					$link = 'index.php?option=com_rsgallery2&view=config&task=config.edit';
 					// In maintenance add config
 					JHtmlSidebar::addEntry(
 						'<span class="icon-equalizer" >  </span>' .
 						JText::_('COM_RSGALLERY2_CONFIGURATION'),
-                        $link,
+						$link,
 						false);
 				}
 				else
 				{
-                    $link = 'index.php?option=com_rsgallery2&view=maintenance';
+					$link = 'index.php?option=com_rsgallery2&view=maintenance';
 					// In config add maintenance
 					JHtmlSidebar::addEntry(
 						'<span class="icon-screwdriver" >  </span>' .
 						JText::_('COM_RSGALLERY2_MAINTENANCE'),
-                        $link,
+						$link,
 						false);
 				}
 			}
@@ -109,8 +114,45 @@ class menu_rsg2_submenu{
 					false);
 			}
 			/**/
+		}
+		else
+		{
+			// The template manager (still) has its own submenu
+			if (!($rsgOption == 'installer'))
+			{
+				if (!($rsgOption == 'installer'))
+				{
+					// Control Panel
+					JHtmlSidebar::addEntry(
+						'<span class="icon-home-2" >  </span>' .
+						JText::_('COM_RSGALLERY2_SUBMENU_CONTROL_PANEL'),
+						'index.php?option=com_rsgallery2',
+						(($rsgOption == '' AND $task == '' AND $view == '')
+							OR ($rsgOption == 'config')
+							OR ($rsgOption == 'maintenance')));
+					// Galleries
+					JHtmlSidebar::addEntry(
+						'<span class="icon-images" >  </span>' .
+						JText::_('COM_RSGALLERY2_SUBMENU_GALLERIES'),
+						'index.php?option=com_rsgallery2&rsgOption=galleries',
+						$rsgOption == 'galleries' AND $task == '');
+					// Upload view
+					JHtmlSidebar::addEntry(
+						'<span class="icon-upload" > </span>' .
+						JText::_('COM_RSGALLERY2_SUBMENU_UPLOAD'),
+						'index.php?option=com_rsgallery2&view=upload',
+						$view == 'upload');
+					// Images
+					JHtmlSidebar::addEntry(
+						'<span class="icon-image" >  </span>' .
+						JText::_('COM_RSGALLERY2_SUBMENU_IMAGES'),
+						'index.php?option=com_rsgallery2&rsgOption=images',
+						$rsgOption == 'images' AND ($task == '' OR $task == 'view_images'));
 
-		} // installer
+					// ToDo: add config
+				}
+			}
+		}
 	}
 }
 
