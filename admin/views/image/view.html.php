@@ -31,7 +31,7 @@ class Rsgallery2ViewImage extends JViewLegacy
 
 		// on develop show open tasks if existing
 		if(!empty ($Rsg2DevelopActive)) {
-			echo '<span style="color:red">Task: Compare results original,  Click on image ? what to do ? </span><br><br>';
+			echo '<span style="color:red">Task: Compare results original, Image too big, Click on image ? -> view big one as modal ? </span><br><br>';
 		}
 
 		//--- get needed data ------------------------------------------

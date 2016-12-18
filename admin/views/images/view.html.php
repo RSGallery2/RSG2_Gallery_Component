@@ -34,16 +34,9 @@ class Rsgallery2ViewImages extends JViewLegacy
 	//------------------------------------------------
 	public function display ($tpl = null)
 	{
-		global $Rsg2DevelopActive;
 		global $rsgConfig;
 
-		// on develop show open tasks if existing
-		if(!empty ($Rsg2DevelopActive)) {
-			echo '<span style="color:red">Task: Bottom part of pagination, Search controls, move to ..., copy to ...</span><br><br>';
-		}
-
 		//--- get needed form data ------------------------------------------
-
 
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot ();
@@ -98,20 +91,27 @@ class Rsgallery2ViewImages extends JViewLegacy
 
 	protected function addToolbar ($Layout='default')
 	{
+		global $Rsg2DevelopActive;
+
 		switch ($Layout)
 		{
 			case 'images_raw':
+				// on develop show open tasks if existing
+				if(!empty ($Rsg2DevelopActive)) {
+					echo '<span style="color:red">Task: Add pagination, Add delete function</span><br><br>';
+				}
+
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_IMAGES_VIEW_RAW_DATA'), 'image');
 				JToolBarHelper::editList('image.edit');
 				// JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'image.delete', 'JTOOLBAR_EMPTY_TRASH');
-
-                // on develop show open tasks if existing
-                if(!empty ($Rsg2DevelopActive)) {
-                    echo '<span style="color:red">Task: Add delete function.</span><br><br>';
-                }
             break;
 
 			default:
+				// on develop show open tasks if existing
+				if(!empty ($Rsg2DevelopActive)) {
+					echo '<span style="color:red">Task: Search controls ...</span><br><br>';
+				}
+
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MANAGE_IMAGES'), 'image');
 				//JToolBarHelper::addNew('image.add');
 				JToolbarHelper::publish('images.publish', 'JTOOLBAR_PUBLISH', true);
