@@ -320,71 +320,10 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 
 
 
-//-----------------------------------------------------------------------------------------
-
-    public function assignGalleries ()
-    {
-        // ToDo: Instead of message return HasError;
-
-        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-        $msg     = "assignGalleries: ";
-        //       $msgType = 'notice';
-
-        try
-        {
-            // Collect user selection
-            // May throw error
-            $ImageReferences =  $this->SelectedImageReferences ();
-
-            foreach ($ImageReferences as $ImageReference) {
-                $msg .= $this->assignGallery ($ImageReference);
-            }
-        }
-        catch (RuntimeException $e)
-        {
-            $OutTxt = '';
-            $OutTxt .= 'Error creating database image object: "' . '<br>';
-            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-            $app = JFactory::getApplication();
-            $app->enqueueMessage($OutTxt, 'error');
-        }
-
-        return $msg;
-    }
-
-    public function assignGallery ($ImageReference)
-    {
-        // ToDo: Instead of message return HasError;
-
-        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-        $msg     = "<br>assignGallery: ";
-        $msg .= $ImageReference->imageName;
-        //       $msgType = 'notice';
-
-        try
-        {
-
-
-
-
-        }
-        catch (RuntimeException $e)
-        {
-            $OutTxt = '';
-            $OutTxt .= 'Error executing moveTo: "' . '<br>';
-            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-            $app = JFactory::getApplication();
-            $app->enqueueMessage($OutTxt, 'error');
-        }
-
-        return $msg;
-    }
-
 
 
 //-----------------------------------------------------------------------------------------
+
 
     public function deleteReferences ()
     {

@@ -608,6 +608,40 @@ class Rsgallery2ModelImage extends  JModelAdmin
 		return $IsOneCopied;
 	}
 
+	public function assignGalleryId($imageId, $galleryId)
+	{
+		$IsOneCopied = false;
+
+		try
+		{
+			$item = $this->getTable();
+			$item->load($imageId);
+
+			$item->gallery_id = $galleryId;
+
+			if (!$item->store())
+			{
+				$OutTxt = '';
+				$OutTxt .= 'Error executing assignGalleryId: "' . $imageId . '<br>';
+
+				$app = JFactory::getApplication();
+				$app->enqueueMessage($OutTxt, 'error');
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Catched Error executing assignGalleryId: "' . $imageId . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $IsOneCopied;
+	}
+
+
 	/**
     public function insertImageFile($pathFileName, $galleryId)
     {

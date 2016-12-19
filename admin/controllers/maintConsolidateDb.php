@@ -57,11 +57,10 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 			str_replace('\n', '<br>', $msg);
 		} else {
 
-
 			// Model tells if successful
 			$model = $this->getModel('maintConsolidateDB');
 
-            $IsEveryCreated = false;
+            // $IsEveryCreated = false;
 
 			try
             {
@@ -83,12 +82,13 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
                             $IsEveryCreated = false;
                         }
                     }
-
+					/**
                     if (!$IsEveryCreated) {
-                        $OutTxt = 'Image not dreated for: ' . $ImageReference->name;
+                        $OutTxt = 'Image not created for: ' . $ImageReference->name;
                         $app = JFactory::getApplication();
                         $app->enqueueMessage($OutTxt, 'warning');
                     }
+					/**/
                 }
             }
             catch (RuntimeException $e) {
@@ -119,8 +119,6 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
     {
         $IsImageDbCreated = 0;
 
-        //       $msgType = 'notice';
-
         try
         {
             // Does not exist in db
@@ -147,8 +145,6 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
         return $IsImageDbCreated;
     }
-
-
 
     /**
 	 * images to ...
@@ -213,7 +209,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 	 * images to ...
 	 *
 	 */
-	public function assignGalleries () {
+	public function assignParentGallery () {
 		$msg = "controller.assignGallery: ";
 		$msgType = 'notice';
 
@@ -225,21 +221,111 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 			// replace newlines with html line breaks.
 			str_replace('\n', '<br>', $msg);
 		} else {
-			// Model tells if successful
+			$input = JFactory::getApplication()->input;
+			$GalleryId = $input->get( 'ParentGalleryId', 0, 'INT');
+			if (empty ($GalleryId)) {
+				$OutTxt = 'Parent gallery not assigned ';
+				$app = JFactory::getApplication();
+				$app->enqueueMessage($OutTxt, 'warning');
+			}
+			else
+			{
+				$model = $this->getModel('maintConsolidateDB');
 
+				// $IsAllAssigned = false;
 
-            
-          // See createImageDbItems with single calls top model image ...
-            // ParentGalleryId
+				try
+				{
+					// Retrieve image list with attributes
+					$ImageReferences = $model->SelectedImageReferences();
 
-			$model = $this->getModel('maintConsolidateDB');
-			$msg .= $model->assignGalleries();  // todo: remove: use images model
+					if (!empty ($ImageReferences))
+					{
+						$imageModel = $this->getModel('image');
+
+						$IsAssigned = true;
+						foreach ($ImageReferences as $ImageReference)
+						{
+							$IsAssigned = $this->assignGallery($ImageReference, $imageModel, $GalleryId);
+							if (!$IsAssigned)
+							{
+								$OutTxt = 'Parent gallery not assigned for: ' . $ImageReference->name;
+								$app    = JFactory::getApplication();
+								$app->enqueueMessage($OutTxt, 'warning');
+
+								// $IsAllAssigned = false;
+							}
+						}
+
+						/**
+						 * if (!$IsAllAssigned) {
+						 * $OutTxt = 'Image not dreated for: ' . $ImageReference->name;
+						 * $app = JFactory::getApplication();
+						 * $app->enqueueMessage($OutTxt, 'warning');
+						 * }
+						 * /**/
+					}
+				}
+				catch (RuntimeException $e)
+				{
+					$OutTxt = '';
+					$OutTxt .= 'Error executing saveOrdering: "' . '<br>';
+					$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+					$app = JFactory::getApplication();
+					$app->enqueueMessage($OutTxt, 'error');
+				}
+
+				/**
+				if ($IsEveryCreated)
+				{
+					$msg .= "Successful created image references in database";
+				}
+				else
+				{
+					$msg .= "Error at created image referenes in database";
+					$msgType = 'warning';
+				}
+				/**/
+			}
 		}
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
 
 // http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
 // http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
+	}
+
+//-----------------------------------------------------------------------------------------
+
+	public function assignGallery ($ImageReference, $imageModel, $galleryId)
+	{
+		try
+		{
+			$IsImageDbCreated = 0;
+
+			// Does exist in db
+			if($ImageReference->IsImageInDatabase)
+			{
+				$IsImageDbCreated = $imageModel->assignGalleryId($ImageReference->Id, $galleryId);
+			}
+			else
+			{
+				$OutTxt = 'Database item does not exist for ' . $ImageReference->imageName;
+				JFactory::getApplication()->enqueueMessage($OutTxt, 'warning');
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing moveTo: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $IsImageDbCreated;
 	}
 
 
