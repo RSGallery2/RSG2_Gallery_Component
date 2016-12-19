@@ -226,8 +226,14 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 			str_replace('\n', '<br>', $msg);
 		} else {
 			// Model tells if successful
+
+
+            
+          // See createImageDbItems with single calls top model image ...
+            // ParentGalleryId
+
 			$model = $this->getModel('maintConsolidateDB');
-			$msg .= $model->assignGalleries();
+			$msg .= $model->assignGalleries();  // todo: remove: use images model
 		}
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);

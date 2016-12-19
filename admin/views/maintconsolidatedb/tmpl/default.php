@@ -533,18 +533,33 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 				<strong><?php echo JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT');?></strong>
 			</div>
 
-			<div class="span12">
-				<div class="row-fluid">
-					<!-- div class="span4 clsInfoAccordion" -->
-					 <?php
-						// Info about last uploaded galleries
-                        DisplayImageDataTable ($this->ImageReferences, $this->form);
-					?>
-					<!-- /div -->
-				</div>
-			</div>
+            <?php if (empty($this->ImageReferences)) : ?>
+                <div class="alert alert-no-items">
+                    <?php echo JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_NO_MISSING_ITEMS_TXT'); ?>
+                </div>
+            <?php else : ?>
 
-			<div class="form-actions">
+                <div class="pull-right">
+                    <?php
+                    // Specify parent gallery selection
+                    echo $this->form->renderFieldset('maintConsolidateDB');
+                    ?>
+                </div>
+
+                <div class="span12">
+                    <div class="row-fluid">
+                        <!-- div class="span4 clsInfoAccordion" -->
+                         <?php
+                            // Info about last uploaded galleries
+                            DisplayImageDataTable ($this->ImageReferences, $this->form);
+                        ?>
+                        <!-- /div -->
+                    </div>
+                </div>
+
+            <?php endif;?>
+
+            <div class="form-actions">
 				<br>
 			</div>
 
