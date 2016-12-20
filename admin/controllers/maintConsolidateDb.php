@@ -302,12 +302,12 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 	{
 		try
 		{
-			$IsImageDbCreated = 0;
+			$IsGalleryAssigned = 0;
 
 			// Does exist in db
 			if($ImageReference->IsImageInDatabase)
 			{
-				$IsImageDbCreated = $imageModel->assignGalleryId($ImageReference->Id, $galleryId);
+				$IsGalleryAssigned = $imageModel->assignGalleryId($ImageReference->Id, $galleryId);
 			}
 			else
 			{
@@ -325,7 +325,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 			$app->enqueueMessage($OutTxt, 'error');
 		}
 
-		return $IsImageDbCreated;
+		return $IsGalleryAssigned;
 	}
 
 

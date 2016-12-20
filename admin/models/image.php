@@ -610,7 +610,7 @@ class Rsgallery2ModelImage extends  JModelAdmin
 
 	public function assignGalleryId($imageId, $galleryId)
 	{
-		$IsOneCopied = false;
+        $IsGalleryAssigned = false;
 
 		try
 		{
@@ -619,14 +619,18 @@ class Rsgallery2ModelImage extends  JModelAdmin
 
 			$item->gallery_id = $galleryId;
 
-			if (!$item->store())
+			if ($item->store())
 			{
-				$OutTxt = '';
-				$OutTxt .= 'Error executing assignGalleryId: "' . $imageId . '<br>';
-
-				$app = JFactory::getApplication();
-				$app->enqueueMessage($OutTxt, 'error');
+                $IsGalleryAssigned = true;
 			}
+			else
+            {
+                $OutTxt = '';
+                $OutTxt .= 'Error executing assignGalleryId: "' . $imageId . '<br>';
+
+                $app = JFactory::getApplication();
+                $app->enqueueMessage($OutTxt, 'error');
+            }
 		}
 		catch (RuntimeException $e)
 		{
@@ -638,7 +642,7 @@ class Rsgallery2ModelImage extends  JModelAdmin
 			$app->enqueueMessage($OutTxt, 'error');
 		}
 
-		return $IsOneCopied;
+		return $IsGalleryAssigned;
 	}
 
 
