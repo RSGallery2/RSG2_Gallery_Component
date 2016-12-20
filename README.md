@@ -41,6 +41,15 @@ An overview can be seen on the wiki of this component
 
 ![rsgallery2maintenance 02](https://cloud.githubusercontent.com/assets/7040580/15866405/bcb2bb96-2cde-11e6-828f-3952e4fe6cb7.png)
 
+
+#Backend: Image list
+
+![manageimages](https://cloud.githubusercontent.com/assets/7040580/21349676/862924b0-c6b3-11e6-8680-f20c302c84d4.png)
+
+#Backend: Gallery list
+
+
+
 ## Forum
 
 Active forum in http://www.forum.rsgallery2.org/
