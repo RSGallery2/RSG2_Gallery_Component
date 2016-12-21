@@ -614,6 +614,18 @@ class Rsgallery2ModelImage extends  JModelAdmin
 
 		try
 		{
+			// If not set then exit
+			if (empty($imageId))
+			{
+				$OutTxt = '';
+				$OutTxt .= 'Error executing assignGalleryId: Empty Id "';
+
+				$app = JFactory::getApplication();
+				$app->enqueueMessage($OutTxt, 'error');
+
+				return;
+			}
+
 			$item = $this->getTable();
 			$item->load($imageId);
 

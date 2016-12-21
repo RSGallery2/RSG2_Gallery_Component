@@ -55,12 +55,17 @@ class ImageReference
      */
     public $IsWatermarkedImageFound;
 
-    /**
-     * @var int
-     */
-    public $ParentGalleryId;
-    
-    /**
+	/**
+	 * @var int
+	 */
+	public $ParentGalleryId;
+
+	/**
+	 * @var int
+	 */
+	public $Id;
+
+	/**
      * @var bool
      */
     public $UseWatermarked;
@@ -89,6 +94,8 @@ class ImageReference
         $this->ParentGalleryId = -1;
 
         $this->UseWatermarked = false;
+
+	    $this->Id = -1;
     }
 
     /**

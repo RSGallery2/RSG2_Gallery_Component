@@ -185,6 +185,7 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
                 continue;
             }
 
+	        $ImageReferenceList [$imgIdx]->Id = $imgIdx;
             $ImageReferences[] = $ImageReferenceList [$imgIdx];
         }
 
