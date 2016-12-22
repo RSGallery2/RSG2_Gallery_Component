@@ -117,9 +117,9 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
         $ImageReferences = array ();
 
         $input = JFactory::getApplication()->input;
-        $cid   = $input->get('cid', array(), 'ARRAY');
+        $cids   = $input->get('cid', array(), 'ARRAY');
 
-        if (empty ($cid)){
+        if (empty ($cids)){
             $OutTxt = 'No items selected';
             // $OutTxt .= ': "' . '<br>';
 
@@ -128,8 +128,6 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
 
             return $ImageReferences;
         }
-
-        $cids = implode(',', $cid);
 
         $ImageReferenceList = $input->getString('ImageReferenceList');
         if (empty ($ImageReferenceList)){
@@ -171,7 +169,7 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
         $imgRefCount = count ($ImageReferenceList);
 
         // each selected image row
-        foreach ($cid as $imgIdx)
+        foreach ($cids as $imgIdx)
         {
             // out of range ?
             if ($imgIdx < 0 || $imgRefCount <= $imgIdx)
@@ -185,7 +183,6 @@ class rsgallery2ModelMaintConsolidateDB extends  JModelList
                 continue;
             }
 
-	        $ImageReferenceList [$imgIdx]->Id = $imgIdx;
             $ImageReferences[] = $ImageReferenceList [$imgIdx];
         }
 
