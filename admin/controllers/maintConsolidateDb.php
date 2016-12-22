@@ -246,7 +246,16 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 						$IsAssigned = true;
 						foreach ($ImageReferences as $ImageReference)
 						{
-							$IsAssigned = $this->assignGallery($ImageReference, $imageModel, $GalleryId);
+                            // Does not exist in db
+                            if(!$ImageReference->IsImageInDatabase)
+                            {
+                                $OutTxt = 'Database item does not exist for ' . $ImageReference->imageName;
+                                JFactory::getApplication()->enqueueMessage($OutTxt, 'warning');
+                            }
+
+						    $ImageId =  $imageModel->ImageIdFromName ($ImageReference->imageName);
+
+							$IsAssigned = $this->assignGallery($ImageId, $imageModel, $GalleryId);
 							if (!$IsAssigned)
 							{
 								$OutTxt = 'Parent gallery not assigned for: ' . $ImageReference->name;
@@ -298,22 +307,14 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
 //-----------------------------------------------------------------------------------------
 
-	public function assignGallery ($ImageReference, $imageModel, $galleryId)
+	public function assignGallery ($ImageId, $imageModel, $galleryId)
 	{
 		try
 		{
 			$IsGalleryAssigned = 0;
 
 			// Does exist in db
-			if($ImageReference->IsImageInDatabase)
-			{
-				$IsGalleryAssigned = $imageModel->assignGalleryId($ImageReference->Id, $galleryId);
-			}
-			else
-			{
-				$OutTxt = 'Database item does not exist for ' . $ImageReference->imageName;
-				JFactory::getApplication()->enqueueMessage($OutTxt, 'warning');
-			}
+			$IsGalleryAssigned = $imageModel->assignGalleryId($ImageId, $galleryId);
 		}
 		catch (RuntimeException $e)
 		{
