@@ -614,18 +614,6 @@ class Rsgallery2ModelImage extends  JModelAdmin
 
 		try
 		{
-			// If not set then exit
-			if (empty($imageId))
-			{
-				$OutTxt = '';
-				$OutTxt .= 'Error executing assignGalleryId: Empty Id "';
-
-				$app = JFactory::getApplication();
-				$app->enqueueMessage($OutTxt, 'error');
-
-				return;
-			}
-
 			$item = $this->getTable();
 			$item->load($imageId);
 
@@ -657,6 +645,32 @@ class Rsgallery2ModelImage extends  JModelAdmin
 		return $IsGalleryAssigned;
 	}
 
+
+	public function ImageIdFromName ($imageName)
+    {
+        $imageId = 0;
+
+        try {
+            $db = $this->getDbo();
+            $query = $db->getQuery(true)
+                ->select('id')
+                ->from($db->quoteName('#__rsgallery2_files'))
+                ->where($db->quoteName('name') . ' = ' . $db->quote($imageName));
+            $db->setQuery($query);
+            $imageId = $db->loadResult();
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing ImageIdFromName for image name: "' . $imageName . '"<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $imageId;
+    }
 
 	/**
     public function insertImageFile($pathFileName, $galleryId)
