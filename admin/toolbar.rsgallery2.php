@@ -10,11 +10,18 @@
 // ensure this file is being included by a parent file
 defined( '_JEXEC' ) or die();
 
+/*
 // RSG2 is a meta component.  joomla calls components options, RSG2 calls it's components rsgOptions
 if( isset( $_REQUEST['rsgOption'] ))
     $rsgOption = $_REQUEST['rsgOption'];
 else
     $rsgOption = '';
+/**/
+// $rsgOption is already set. Make ready for switch statemaent
+if(empty ($rsgOption))
+{
+    $rsgOption = '';
+}
 
 // require_once( JApplicationHelper::getPath('toolbar_html') );///J25
 require_once( JPATH_ADMINISTRATOR . '/components/com_rsgallery2/toolbar.rsgallery2.html.php');///J3
@@ -24,7 +31,7 @@ require_once( JPATH_ADMINISTRATOR . '/components/com_rsgallery2/toolbar.rsgaller
 //$app = JFactory::getApplication();
 //if ($app->isAdmin()){
 $canManage	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
-if (!$canManage) {
+if ($canManage) {
 	menu_rsg2_submenu::addRSG2Submenu($rsgOption, $task, $view, $layout);
 	switch( $rsgOption ){
 		case 'images':
