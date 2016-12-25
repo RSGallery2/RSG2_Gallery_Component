@@ -50,7 +50,7 @@ class MimeTypes{
 	 * @return mixed
 	 */
 	static function getMimeType($filename){
-		static $mtypes = array(
+		static $mimeTypes = array(
 	 "ez" => "application/andrew-inset",
 	 "hqx" => "application/mac-binhex40",
 	 "cpt" => "application/mac-compactpro",
@@ -189,9 +189,19 @@ class MimeTypes{
 	 "movie" => "video/x-sgi-movie",
 	 "ice" => "x-conference-xcooltalk"
 		);
-		
+
+		// fall back on wrong file name to "image" as is expected
+		$mimeType = "image/jpeg";
+
 		$parts = pathinfo( strtolower($filename) );
-		return $mtypes[ $parts['extension'] ];
+		if(!empty($parts['extension'])) {
+            $extension = $parts['extension'];
+            if (!empty($extension)) {
+                $mimeType = $mimeTypes[$extension];
+            }
+        }
+
+		return $mimeType;
 	}
 	
 	/**
