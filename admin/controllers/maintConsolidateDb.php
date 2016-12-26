@@ -75,7 +75,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
                     {
                         $IsCreated = $this->createImageDbItem ($ImageReference, $imageModel);
                         if (!$IsCreated) {
-                            $OutTxt = 'Image not created for: ' . $ImageReference->name;
+                            $OutTxt = 'Image in DB not created for: ' . $ImageReference->name;
                             $app = JFactory::getApplication();
                             $app->enqueueMessage($OutTxt, 'warning');
 
@@ -93,7 +93,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
             }
             catch (RuntimeException $e) {
                 $OutTxt = '';
-                $OutTxt .= 'Error executing saveOrdering: "' . '<br>';
+                $OutTxt .= 'Error executing createImageDbItems: "' . '<br>';
                 $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
                 $app = JFactory::getApplication();
@@ -166,16 +166,154 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
 			// Model tells if successful
 			$model = $this->getModel('maintConsolidateDB');
-			$msg .= $model->createSelectedMissingImages();
 
+            // $IsEveryCreated = false;
 
-		}
+            try
+            {
+                // Retrieve image list with attributes
+                $ImageReferences = $model->SelectedImageReferences();
+
+                if (!empty ($ImageReferences)) {
+                    $imageModel = $this->getModel('image');
+
+                    $IsEveryCreated = true;
+                    foreach ($ImageReferences as $ImageReference)
+                    {
+                        $IsCreated = $this->createSelectedMissingImages ($ImageReference, $imageModel);
+                        if (!$IsCreated) {
+                            $OutTxt = 'Image not created for: ' . $ImageReference->name;
+                            $app = JFactory::getApplication();
+                            $app->enqueueMessage($OutTxt, 'warning');
+
+                            $IsEveryCreated = false;
+                        }
+                    }
+                    /**
+                    if (!$IsEveryCreated) {
+                    $OutTxt = 'Image not created for: ' . $ImageReference->name;
+                    $app = JFactory::getApplication();
+                    $app->enqueueMessage($OutTxt, 'warning');
+                    }
+                    /**/
+                }
+            }
+            catch (RuntimeException $e) {
+                $OutTxt = '';
+                $OutTxt .= 'Error executing createMissingImages: "' . '<br>';
+                $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+                $app = JFactory::getApplication();
+                $app->enqueueMessage($OutTxt, 'error');
+            }
+
+            if ($IsEveryCreated) {
+                $msg .= "Successful created image files";
+            } else {
+                $msg .= "Error at created image files";
+                $msgType = 'warning';
+            }
+
+        }
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
 
-// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
-// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
 	}
+
+
+    public function createSelectedMissingImage($ImageReference, $imageModel)
+    {
+        global $rsgConfig;
+
+        $IsImageCreated = false;
+
+        /*
+        $this->IsOriginalImageFound = false;
+        $this->IsDisplayImageFound = false;
+        $this->IsThumbImageFound = false;
+        $this->IsWatermarkedImageFound = false;
+
+        $files_display  = $this->getFilenameArray($rsgConfig->get('imgPath_display'));
+        $files_original = $this->getFilenameArray($rsgConfig->get('imgPath_original'));
+	    $files_thumb    = $this->getFilenameArray($rsgConfig->get('imgPath_thumb'));
+
+	    // Watermarked: Start with empty array
+	    $files_watermarked = array ();
+	    if($this->UseWatermarked)
+        /**/
+
+        try
+        {
+            $isOriginalImageFound = $ImageReference->IsOriginalImageFound;
+
+            // Original does not exist in original folder -> copy from other sources
+
+            if(!isOriginalImageFound)
+            {
+                $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . $ImageReference->imageName;
+
+                // copy from Display folder
+                if($ImageReference->IsDisplayImageFound) {
+                    $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . $ImageReference->imageName;;
+
+                    $isOriginalImageFound = copy($imgSrcPath, $imgDstPath);
+                }
+                // copy from thumbs folder
+                else if ($ImageReference->IsThumbImageFound) {
+                    $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . $ImageReference->imageName;;
+
+                    $isOriginalImageFound = copy($imgSrcPath, $imgDstPath);
+                }
+                // copy from watermarks folder
+                else if ($ImageReference->IsWatermarkedImageFound) {
+                    $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . $ImageReference->imageName;;
+
+                    $isOriginalImageFound = copy($imgSrcPath, $imgDstPath);
+                }
+                else
+                {
+                    $OutTxt = 'No image file exist for ' . $ImageReference->imageName;
+                    JFactory::getApplication()->enqueueMessage($OutTxt, 'warning');
+                }
+            }
+
+            // When original image exists: Use standard creation of display, thumb
+            if ($isOriginalImageFound) {
+                $IsImageCreated = true;
+
+                // Create display
+                if(!$ImageReference->IsDisplayImageFound) {
+                    $IsImageCreated &= ! $imageModel->createDisplayImageFile ($ImageReference->imageName);
+                }
+
+                // Create thumb
+                if(!$ImageReference->IsThumbImageFound) {
+                    $IsImageCreated &= ! $imageModel->createThumbImageFile ($ImageReference->imageName);
+                }
+
+                /** Watermark files are created when visited by user
+                // Create watermark
+                if(!$ImageReference->IsWatermarkedImageFound) {
+                    if ($rsgConfig->watermark) {
+                        $IsImageCreated &= ! $imageModel->createWaterMarkImageFile ($ImageReference->imageName);
+                    }
+                }
+                /**/
+            }
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing createSelectedMissingImage: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $IsImageCreated;
+    }
+
 
 	/**
 	 * images to ...

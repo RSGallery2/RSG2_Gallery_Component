@@ -672,39 +672,86 @@ class Rsgallery2ModelImage extends  JModelAdmin
         return $imageId;
     }
 
-	/**
-    public function insertImageFile($pathFileName, $galleryId)
+
+    public function createDisplayImageFile ($imageName)
     {
-	    global $rsgConfig;
+        global $rsgConfig;
 
-        $NewImageName = "";
+        $IsImageCreated = false;
+        $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . $imageName;
 
-        try
-        {
-
-
-	        $fullPath_display = JPATH_ROOT.$rsgConfig->get('imgPath_display') . '/';
-	        $fullPath_original = JPATH_ROOT.$rsgConfig->get('imgPath_original') . '/';
-
-
-
-        }
-        catch (RuntimeException $e)
-        {
-        $OutTxt = '';
-        $OutTxt .= 'Error executing copyTo: "' . '<br>';
-        $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-        $app = JFactory::getApplication();
-        $app->enqueueMessage($OutTxt, 'error');
-
-            raise ...
+        $width = getimagesize( $imgSrcPath );
+        $height = $width[1];
+        $width = $width[0];
+        if ($height > $width) {
+            $maxSideImage = $height;
+        } else {
+            $maxSideImage = $width;
         }
 
-        return $NewImageName;
+        // if original is wider or higher than display size, create a display image
+        if( $maxSideImage > $rsgConfig->get('image_width') ) {
+            $result = imgUtils::makeDisplayImage( $original_image, $newName, $rsgConfig->get('image_width') );
+            if( !$result ){
+                imgUtils::deleteImage( $newName );
+                return new imageUploadError( $imgName, JText::_('COM_RSGALLERY2_ERROR_CREATING_DISPLAY_IMAGE'). ": ".$newName);
+            }
+        } else {
+            $result = imgUtils::makeDisplayImage( $original_image, $newName, $maxSideImage );
+            if( !$result ){
+                imgUtils::deleteImage( $newName );
+                return new imageUploadError( $imgName, JText::_('COM_RSGALLERY2_ERROR_CREATING_DISPLAY_IMAGE'). ": ".$newName);
+            }
         }
+
+
+
 
     }
-	/**/
+
+    /**
+     * generic image resize function
+     * @param string $source full path of source image
+     * @param string $target full path of target image
+     * @param int $targetWidth width of target
+     * @return $targetWidth, true if successfull, false if error
+     * @todo only writes in JPEG, this should be given as a user option
+     */
+    static function resizeImage($source, $target, $targetWidth){
+        global $rsgConfig;
+
+        switch( $rsgConfig->get( 'graphicsLib' )){
+            case 'gd2':
+                return GD2::resizeImage($source, $target, $targetWidth);
+                break;
+            case 'imagemagick':
+                return ImageMagick::resizeImage($source, $target, $targetWidth);
+                break;
+            case 'netpbm':
+                return Netpbm::resizeImage($source, $target, $targetWidth);
+                break;
+            default:
+                //JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get( 'graphicsLib' ));
+                JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get( 'graphicsLib' ), 'error');
+                return false;
+        }
+    }
+
+    public function createThumbImageFile ($imageName)
+    {
+
+    }
+
+    /**
+    public function createWaterMarkImageFile ($imageName)
+    {
+
+    }
+    **/
+
+
+
+
+
 
 }
