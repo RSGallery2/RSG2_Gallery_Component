@@ -47,7 +47,7 @@ An overview can be seen on the wiki of this component
 
 #Backend: Image list
 
-![manageImages](https://cloud.githubusercontent.com/assets/7040580/21349676/862924b0-c6b3-11e6-8680-f20c302c84d4.png)
+![manageImages](https://cloud.githubusercontent.com/assets/7040580/21499132/56c17b8e-cc33-11e6-8f7b-235b8da22bf6.png)
 
 ## Homepage
 
