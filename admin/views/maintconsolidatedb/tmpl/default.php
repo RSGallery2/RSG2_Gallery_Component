@@ -10,7 +10,12 @@ defined( '_JEXEC' ) or die();
 
 // ToDo: remove all JHtml::_('behavior.tooltip'); use JHtml::_('bootstrap.tooltip');
 // JHtml::_('behavior.tooltip');
-JHtml::_('bootstrap.tooltip'); 
+JHtml::_('bootstrap.tooltip');
+
+/**/
+$doc = JFactory::getDocument();
+$doc->addStyleSheet( JURI_SITE."administrator/components/com_rsgallery2/css/maintConsolidateDB.css");
+/**/
 
 global $Rsg2DebugActive;
 
@@ -432,16 +437,6 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 		    $html[] = '         <span class="icon-image"></span>';
 		    $html[] = '     </a>';
 	    }
-	    //if($ImageReferences->)
-	    {
-		    $html[] = '     <a class="btn btn-micro jgrid hasTooltip inside_button" ';
-		    $html[] = '         data-original-title="' . JHtml::tooltipText('COM_RSGALLERY2_DELETE_IMAGES_IN_ROW') . '" ';
-		    $html[] = '         onclick="return listItemTask(\'cb' . $Idx . '\',\'MaintConsolidateDb.deleteAllImages\')" ';
-		    $html[] = '         href="javascript:void(0);"';
-		    $html[] = '     >';
-		    $html[] = '         <span class="icon-delete"></span>';
-		    $html[] = '     </a>';
-	    }
 	    // if($ImageReferences->)
 	    {
 		    $html[] = '     <a class="btn btn-micro jgrid hasTooltip inside_button" ';
@@ -452,6 +447,26 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 		    $html[] = '         <span class="icon-images"></span>';
 		    $html[] = '     </a>';
 	    }
+        //if($ImageReferences->)
+        {
+            $html[] = '     <a class="btn btn-micro jgrid hasTooltip inside_button" ';
+            $html[] = '         data-original-title="' . JHtml::tooltipText('COM_RSGALLERY2_REPAIR_ISSUES_IN_ROW') . '" ';
+            $html[] = '         onclick="return listItemTask(\'cb' . $Idx . '\',\'MaintConsolidateDb.repairAllIssues\')" ';
+            $html[] = '         href="javascript:void(0);"';
+            $html[] = '     >';
+            $html[] = '         <span class="icon-refresh"></span>';
+            $html[] = '     </a>';
+        }
+        //if($ImageReferences->)
+        {
+            $html[] = '     <a class="btn btn-micro jgrid hasTooltip inside_button" ';
+            $html[] = '         data-original-title="' . JHtml::tooltipText('COM_RSGALLERY2_DELETE_SUPERFLOUS_ITEMS_IN_ROW') . '" ';
+            $html[] = '         onclick="return listItemTask(\'cb' . $Idx . '\',\'MaintConsolidateDb.deleteSuperflousItems\')" ';
+            $html[] = '         href="javascript:void(0);"';
+            $html[] = '     >';
+            $html[] = '         <span class="icon-delete"></span>';
+            $html[] = '     </a>';
+        }
 	    $html[] = '</td>';
 	    echo implode(' ', $html);
 
@@ -483,9 +498,11 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 		// Image is defined
 	    if ($ImageData->imagePath !== '') {
 		    $html[] = '   <td class="center">';
-		    //$html[] =         '11';
-		    $html[] = '       <img width="80" alt="' . $ImageData->imageName . '" '
+            $html[] = '       <div class="img_border">';
+                //$html[] =         '11';
+		    $html[] = '       <img  class="img_thumb" alt="' . $ImageData->imageName . '" '
 			                    . 'name="image" src="' . JUri::root(true) . $ImageData->imagePath . '">';
+            $html[] = '       </div>';
 		    $html[] = '   </td>';
 		}
 		else{
