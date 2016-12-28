@@ -678,35 +678,41 @@ class Rsgallery2ModelImage extends  JModelAdmin
         global $rsgConfig;
 
         $IsImageCreated = false;
-        $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . $imageName;
 
-        $width = getimagesize( $imgSrcPath );
-        $height = $width[1];
-        $width = $width[0];
-        if ($height > $width) {
-            $maxSideImage = $height;
-        } else {
-            $maxSideImage = $width;
+        try {
+
+            $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . $imageName;
+            $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . $imageName . '.jpg';
+
+            $width = getimagesize($imgSrcPath);
+            $height = $width[1];
+            $width = $width[0];
+            if ($height > $width) {
+                $maxSideImage = $height;
+            } else {
+                $maxSideImage = $width;
+            }
+
+            $userWidth = $rsgConfig->get('image_width');
+
+            // if original is wider or higher than display size, create a display image
+            if ($maxSideImage > $userWidth) {
+                $IsImageCreated = $this->resizeImage($imgSrcPath, $imgDstPath, $userWidth);
+            } else {
+                $IsImageCreated = $this->resizeImage($imgSrcPath, $imgDstPath, $maxSideImage);
+            }
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing createDisplayImageFile for image name: "' . $imageName . '"<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
         }
 
-        // if original is wider or higher than display size, create a display image
-        if( $maxSideImage > $rsgConfig->get('image_width') ) {
-            $result = imgUtils::makeDisplayImage( $original_image, $newName, $rsgConfig->get('image_width') );
-            if( !$result ){
-                imgUtils::deleteImage( $newName );
-                return new imageUploadError( $imgName, JText::_('COM_RSGALLERY2_ERROR_CREATING_DISPLAY_IMAGE'). ": ".$newName);
-            }
-        } else {
-            $result = imgUtils::makeDisplayImage( $original_image, $newName, $maxSideImage );
-            if( !$result ){
-                imgUtils::deleteImage( $newName );
-                return new imageUploadError( $imgName, JText::_('COM_RSGALLERY2_ERROR_CREATING_DISPLAY_IMAGE'). ": ".$newName);
-            }
-        }
-
-
-
-
+        return $IsImageCreated;
     }
 
     /**
@@ -717,34 +723,144 @@ class Rsgallery2ModelImage extends  JModelAdmin
      * @return $targetWidth, true if successfull, false if error
      * @todo only writes in JPEG, this should be given as a user option
      */
-    static function resizeImage($source, $target, $targetWidth){
+    static function resizeImage($imgSrcPath, $imgDstPath, $targetWidth){
         global $rsgConfig;
 
-        switch( $rsgConfig->get( 'graphicsLib' )){
-            case 'gd2':
-                return GD2::resizeImage($source, $target, $targetWidth);
-                break;
-            case 'imagemagick':
-                return ImageMagick::resizeImage($source, $target, $targetWidth);
-                break;
-            case 'netpbm':
-                return Netpbm::resizeImage($source, $target, $targetWidth);
-                break;
-            default:
-                //JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get( 'graphicsLib' ));
-                JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get( 'graphicsLib' ), 'error');
-                return false;
+        $IsImageCreated = false;
+        $graphicsLib = $rsgConfig->get( 'graphicsLib' );
+
+        try {
+            switch ($graphicsLib) {
+                case 'gd2':
+                    $IsImageCreated = GD2::resizeImage($imgSrcPath, $imgDstPath, $targetWidth);
+                    break;
+                case 'imagemagick':
+                    $IsImageCreated = ImageMagick::resizeImage($imgSrcPath, $imgDstPath, $targetWidth);
+                    break;
+                case 'netpbm':
+                    $IsImageCreated = Netpbm::resizeImage($imgSrcPath, $imgDstPath, $targetWidth);
+                    break;
+                default:
+                    //JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get( 'graphicsLib' ));
+                    JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get('graphicsLib'), 'error');
+                //return false;
+            }
         }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing resizeImage with library "' . $graphicsLib
+                . '" for image source: "' . $imgSrcPath . '"<br>'
+                . '" for image desti.: "' . $imgDstPath . '"<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $IsImageCreated;
     }
 
     public function createThumbImageFile ($imageName)
     {
+        global $rsgConfig;
 
+        $IsImageCreated = false;
+
+        try {
+
+            $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . $imageName;
+            $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . $imageName . '.jpg';
+
+            $thumbWidth = $rsgConfig->get('thumb_width');
+
+            // Is thumb style square // Todo: Thumb style -> enum  // Todo: general: Config enums
+            if ( $rsgConfig->get('thumb_style') == 1 && $rsgConfig->get('graphicsLib') == 'gd2'){
+                $IsImageCreated = $this->GD2_createSquareThumb ( $imgSrcPath, $imgDstPath, $thumbWidth );
+            } else {
+                $IsImageCreated = $this->resizeImage($imgSrcPath, $imgDstPath, $thumbWidth);
+            }
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing createThumbImageFile for image name: "' . $imageName . '"<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $IsImageCreated;
     }
+
+    /**
+     * createSquareThumb
+     * Just a container for try catch
+     */
+    private function GD2_createSquareThumb ($imgSrcPath, $imgDstPath, $width)
+    {
+        $IsImageCreated = false;
+
+        try
+        {
+            $IsImageCreated = GD2::createSquareThumb ($imgSrcPath, $imgDstPath, $width);
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing GD2::createSquareThumb for image name: "' . $imageName . '"<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $IsImageCreated;
+    }
+
 
     /**
     public function createWaterMarkImageFile ($imageName)
     {
+    global $rsgConfig;
+
+    $IsImageCreated = false;
+
+    try {
+
+    $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . $imageName;
+    $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . $imageName . '.jpg';
+
+    $width = getimagesize($imgSrcPath);
+    $height = $width[1];
+    $width = $width[0];
+    if ($height > $width) {
+    $maxSideImage = $height;
+    } else {
+    $maxSideImage = $width;
+    }
+
+    $userWidth = $rsgConfig->get('image_width');
+
+    // if original is wider or higher than display size, create a display image
+    if ($maxSideImage > $userWidth) {
+    $IsImageCreated = $this->resizeImage($imgSrcPath, $imgDstPath, $userWidth);
+    } else {
+    $IsImageCreated = $this->resizeImage($imgSrcPath, $imgDstPath, $maxSideImage);
+    }
+    }
+    catch (RuntimeException $e)
+    {
+    $OutTxt = '';
+    $OutTxt .= 'Error executing createDisplayImageFile for image name: "' . $imageName . '"<br>';
+    $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+    $app = JFactory::getApplication();
+    $app->enqueueMessage($OutTxt, 'error');
+    }
+
+    return $IsImageCreated;
 
     }
     **/
