@@ -45,7 +45,7 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 		
 		// on develop show open tasks if existing
 		if(!empty ($Rsg2DevelopActive)) {
-			echo '<span style="color:red">Task: Assign gallery, copy images, test row buttons</span><br><br>';
+			echo '<span style="color:red">Task: Fix all isues, delete all superflous, Test copy images, test row buttons, add fix row button, image square a) use thumb if possible b) check for gd2:...</span><br><br>';
 		}
 
 //		$xmlFile = JPATH_COMPONENT . '/models/forms/maintregenerateimages.xml';
@@ -118,52 +118,15 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
         JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINT_CONSOLIDATE_IMAGE_DATABASE'), 'icon-database icon-checkbox-checked');
 
         JToolBarHelper::custom ('MaintConsolidateDb.createImageDbItems','database','','COM_RSGALLERY2_CREATE_DATABASE_ENTRIES', true);
-        JToolBarHelper::custom ('MaintConsolidateDb.createMissingImages','image','','COM_RSGALLERY2_CREATE_SELECTED_MISSING_IMAGES', true);
-        JToolBarHelper::custom ('MaintConsolidateDb.deleteAllImages','delete','','COM_RSGALLERY2_DELETE_SELECTED_IMAGES', true);
+        JToolBarHelper::custom ('MaintConsolidateDb.createMissingImages','image','','COM_RSGALLERY2_CREATE_MISSING_IMAGES', true);
         JToolBarHelper::custom ('MaintConsolidateDb.assignParentGallery','images','','COM_RSGALLERY2_ASSIGN_SELECTED_GALLERY', true);
+        JToolBarHelper::custom ('MaintConsolidateDb.deleteSuperflousItems','delete','','COM_RSGALLERY2_DELETE_SUPERFLOUS_ITEMS', true);
+        JToolBarHelper::custom ('MaintConsolidateDb.repairAllIssues','refresh','','COM_RSGALLERY2_REPAIR_ALL_ISSUES', true);
         //JToolBarHelper::custom ('MaintConsolidateDb.deleteReferences','delete-2','','COM_RSGALLERY2_ASSIGN_SELECTED_GALLLERIES', true);
         //JToolBarHelper::custom ('MaintConsolidateDb..','next','','COM_RSGALLERY2_MOVE_TO', true);
         //JToolBarHelper::custom ('MaintConsolidateDb.','copy','','COM_RSGALLERY2_COPY', true);
 
 
-
-/*
-        if ($UserIsRoot) {
-            JToolBarHelper::custom('maintRegenerate.RegenerateImagesDisplay','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY', false);
-            JToolBarHelper::custom('maintRegenerate.RegenerateImagesThumb','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_THUMBS', false);
-            // JToolBarHelper::spacer();
-        }
-
-        JToolBarHelper::cancel('maintRegenerate.cancel');
-        JToolBarHelper::cancel('maintenance.cancel');
-//        JToolBarHelper::spacer();
-//        JToolBarHelper::help( 'screen.rsgallery2',true);
-*/
-
-		/*
-		switch ($Layout)
-		{
-			case 'RawView':
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
-					. ': ' . JText::_('COM_RSGALLERY2_MAINT_REGEN'), 'screwdriver');
-				JToolBarHelper::cancel('config.cancel_rawView');
-				break;
-			case 'RawEdit':
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
-					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'), 'screwdriver');
-				JToolBarHelper::apply('\'config.apply_rawEdit');
-				JToolBarHelper::save('\'config.save_rawEdit');
-				JToolBarHelper::cancel('\'config.cancel_RawEdit');
-				break;
-			// case 'default':
-			default:
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_CONFIGURATION'), 'cog');
-				JToolBarHelper::apply('\'config.apply');
-				JToolBarHelper::save('\'config.save');
-				JToolBarHelper::cancel('\'config.cancel');
-				break;
-		}
-		*/
 	}
 
 
