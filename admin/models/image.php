@@ -776,8 +776,31 @@ class Rsgallery2ModelImage extends  JModelAdmin
 
             // Is thumb style square // Todo: Thumb style -> enum  // Todo: general: Config enums
             if ( $rsgConfig->get('thumb_style') == 1 && $rsgConfig->get('graphicsLib') == 'gd2'){
+                // google GD2 crop square
+                // https://return-true.com/making-cropping-thumbnails-square-using-php-gd/
+
+
                 $IsImageCreated = $this->GD2_createSquareThumb ( $imgSrcPath, $imgDstPath, $thumbWidth );
-            } else {
+            } else { //
+
+                // google: ImageMagick square thumb // imagemagick crop square
+
+                //http://superuser.com/questions/275476/square-thumbnails-with-imagemagick-convert/
+
+                // a script which allows me to upload an image, square it and then resize it all in one "move"... Even with GD?!? Any suggestions?
+                // ImageMagick will do that
+                //Code:
+                //convert input.jpg -thumbnail x200 -resize "200x<" -resize 50% -gravity center -crop 100x100+0+0 +repage -format jpg -quality 91 square.jpg
+                // convert input.jpg -thumbnail \"100x100^\" -gravity center -crop 100x100+0+0 +repage -quality 91 crop.jpg 
+
+
+                // WideImage library is very elegant and higher level PHP library for image processing.
+                // it's at wideimage sourceforge net (can't post links yet)
+                // "WideImage, an object-oriented PHP image library"
+                // sample
+                // wiImage::load('image.png')->resize(50, 30)->saveToFile('new-image.jpg', 30);
+
+
                 $IsImageCreated = $this->resizeImage($imgSrcPath, $imgDstPath, $thumbWidth);
             }
         }
