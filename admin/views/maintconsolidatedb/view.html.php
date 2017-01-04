@@ -120,8 +120,8 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
         JToolBarHelper::custom ('MaintConsolidateDb.createImageDbItems','database','','COM_RSGALLERY2_CREATE_DATABASE_ENTRIES', true);
         JToolBarHelper::custom ('MaintConsolidateDb.createMissingImages','image','','COM_RSGALLERY2_CREATE_MISSING_IMAGES', true);
         JToolBarHelper::custom ('MaintConsolidateDb.assignParentGallery','images','','COM_RSGALLERY2_ASSIGN_SELECTED_GALLERY', true);
-        JToolBarHelper::custom ('MaintConsolidateDb.deleteSuperflousItems','delete','','COM_RSGALLERY2_DELETE_SUPERFLOUS_ITEMS', true);
-        JToolBarHelper::custom ('MaintConsolidateDb.repairAllIssues','refresh','','COM_RSGALLERY2_REPAIR_ALL_ISSUES', true);
+        JToolBarHelper::custom ('MaintConsolidateDb.deleteRowItems','delete','','COM_RSGALLERY2_DELETE_SUPERFLOUS_ITEMS', true);
+        JToolBarHelper::custom ('MaintConsolidateDb.repairAllIssuesItems','refresh','','COM_RSGALLERY2_REPAIR_ALL_ISSUES', true);
         //JToolBarHelper::custom ('MaintConsolidateDb.deleteReferences','delete-2','','COM_RSGALLERY2_ASSIGN_SELECTED_GALLLERIES', true);
         //JToolBarHelper::custom ('MaintConsolidateDb..','next','','COM_RSGALLERY2_MOVE_TO', true);
         //JToolBarHelper::custom ('MaintConsolidateDb.','copy','','COM_RSGALLERY2_COPY', true);

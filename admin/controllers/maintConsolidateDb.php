@@ -208,12 +208,11 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
             }
 
             if ($IsEveryCreated) {
-                $msg .= "Successful created image files";
+                $msg .= "Successful created missing image files";
             } else {
-                $msg .= "Error at created image files";
+                $msg .= "Error at created missing image files";
                 $msgType = 'warning';
             }
-
         }
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
@@ -315,33 +314,6 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
     }
 
 
-	/**
-	 * images to ...
-	 *
-	 */
-	public function deleteAllImages () {
-		$msg = "controller.deleteAllImages: ";
-		$msgType = 'notice';
-
-		$canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
-		if (!$canAdmin) {
-			//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-			$msgType = 'warning';
-			// replace newlines with html line breaks.
-			str_replace('\n', '<br>', $msg);
-		} else {
-			// Model tells if successful
-			$model = $this->getModel('maintConsolidateDB');
-			$msg .= $model->deleteAllImages();
-		}
-
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
-
-// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
-// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
-	}
-
 
 	/**
 	 * images to ...
@@ -426,11 +398,11 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 				/**
 				if ($IsEveryCreated)
 				{
-					$msg .= "Successful created image references in database";
+					$msg .= "Successful assignParentGallery";
 				}
 				else
 				{
-					$msg .= "Error at created image referenes in database";
+					$msg .= "Error at assignParentGallery";
 					$msgType = 'warning';
 				}
 				/**/
@@ -468,35 +440,211 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 	}
 
 
-	/**
-	 * images to ...
-	 *
-	 */
-	public function deleteReferences () {
-		$msg = "controller.assignGallery: ";
-		$msgType = 'notice';
+    /**
+     * images to ...
+     *
+     */
+    public function repairAllIssuesItems () {
+        $msg = "controller.repairItemsAllIssues: ";
+        $msgType = 'notice';
 
-		$canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
-		if (!$canAdmin) {
-			//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-			$msgType = 'warning';
-			// replace newlines with html line breaks.
-			str_replace('\n', '<br>', $msg);
-		} else {
-			// Model tells if successful
-			$model = $this->getModel('maintConsolidateDB');
-			$msg .= $model->deleteReferences();
-		}
+        $canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
+        if (!$canAdmin) {
+            //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+            $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+            $msgType = 'warning';
+            // replace newlines with html line breaks.
+            str_replace('\n', '<br>', $msg);
+        } else {
 
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
+            // Model tells if successful
+            $model = $this->getModel('maintConsolidateDB');
+
+            // $IsEveryCreated = false;
+
+            try
+            {
+                // Retrieve image list with attributes
+                $ImageReferences = $model->SelectedImageReferences();
+
+                if (!empty ($ImageReferences)) {
+                    $imageModel = $this->getModel('image');
+
+                    $IsEveryCreated = true;
+                    foreach ($ImageReferences as $ImageReference)
+                    {
+                        $IsCreated = $this->repairAllIssuesItem ($ImageReference, $imageModel);
+                        if (!$IsCreated) {
+                            $OutTxt = '"All" issues not repaired for: ' . $ImageReference->name;
+                            $app = JFactory::getApplication();
+                            $app->enqueueMessage($OutTxt, 'warning');
+
+                            $IsEveryCreated = false;
+                        }
+                    }
+                    /**
+                    if (!$IsEveryCreated) {
+                    $OutTxt = 'Image not created for: ' . $ImageReference->name;
+                    $app = JFactory::getApplication();
+                    $app->enqueueMessage($OutTxt, 'warning');
+                    }
+                    /**/
+                }
+            }
+            catch (RuntimeException $e) {
+                $OutTxt = '';
+                $OutTxt .= 'Error executing repairAllIssuesItems: "' . '<br>';
+                $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+                $app = JFactory::getApplication();
+                $app->enqueueMessage($OutTxt, 'error');
+            }
+
+            if ($IsEveryCreated) {
+                $msg .= 'Successful repaired "All issues" in database';
+            } else {
+                $msg .= 'Error at repairing "All issues"';
+                $msgType = 'warning';
+            }
+
+        }
+
+        $this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
 
 // http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
 // http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
-	}
+    }
+
+    /**
+     * images to ...
+     *
+     */
+    public function deleteRowItems () {
+        $msg = "controller.deleteRowItems: ";
+        $msgType = 'notice';
+
+        $canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
+        if (!$canAdmin) {
+            //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+            $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+            $msgType = 'warning';
+            // replace newlines with html line breaks.
+            str_replace('\n', '<br>', $msg);
+        } else {
+
+            // Model tells if successful
+            $model = $this->getModel('maintConsolidateDB');
+
+            // $IsEveryCreated = false;
+
+            try
+            {
+                // Retrieve image list with attributes
+                $ImageReferences = $model->SelectedImageReferences();
+
+                if (!empty ($ImageReferences)) {
+                    $imageModel = $this->getModel('image');
+
+                    $IsEveryCreated = true;
+                    foreach ($ImageReferences as $ImageReference)
+                    {
+                        $IsCreated = $this->deleteRowItem ($ImageReference, $imageModel);
+                        if (!$IsCreated) {
+                            $OutTxt = 'Image in DB not created for: ' . $ImageReference->name;
+                            $app = JFactory::getApplication();
+                            $app->enqueueMessage($OutTxt, 'warning');
+
+                            $IsEveryCreated = false;
+                        }
+                    }
+                    /**
+                    if (!$IsEveryCreated) {
+                    $OutTxt = 'Image not created for: ' . $ImageReference->name;
+                    $app = JFactory::getApplication();
+                    $app->enqueueMessage($OutTxt, 'warning');
+                    }
+                    /**/
+                }
+            }
+            catch (RuntimeException $e) {
+                $OutTxt = '';
+                $OutTxt .= 'Error executing deleteRowItems: "' . '<br>';
+                $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+                $app = JFactory::getApplication();
+                $app->enqueueMessage($OutTxt, 'error');
+            }
+
+            if ($IsEveryCreated) {
+                $msg .= "Successful row items";
+            } else {
+                $msg .= "Error at deleting row items";
+                $msgType = 'warning';
+            }
+
+        }
+
+        $this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
+
+// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
+// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
+    }
 
 
+    /**
+     * images to ...
+     *
+     *
+    public function deleteAllImages () {
+        $msg = "controller.deleteAllImages: ";
+        $msgType = 'notice';
 
+        $canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
+        if (!$canAdmin) {
+            //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+            $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+            $msgType = 'warning';
+            // replace newlines with html line breaks.
+            str_replace('\n', '<br>', $msg);
+        } else {
+            // Model tells if successful
+            $model = $this->getModel('maintConsolidateDB');
+            $msg .= $model->deleteAllImages();
+        }
+
+        $this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
+
+// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
+// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
+    }
+
+    /**
+     * images to ...
+     *
+     *
+    public function deleteReferences () {
+    $msg = "controller.assignGallery: ";
+    $msgType = 'notice';
+
+    $canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
+    if (!$canAdmin) {
+    //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+    $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+    $msgType = 'warning';
+    // replace newlines with html line breaks.
+    str_replace('\n', '<br>', $msg);
+    } else {
+    // Model tells if successful
+    $model = $this->getModel('maintConsolidateDB');
+    $msg .= $model->deleteReferences();
+    }
+
+    $this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
+
+    // http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
+    // http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
+    }
+    /**/
 
 
 
