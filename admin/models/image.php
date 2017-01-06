@@ -274,8 +274,8 @@ class Rsgallery2ModelImage extends  JModelAdmin
     {
         $IsImageDbCreated = 0;
 
-        $OutTxt = 'Model Image: CreateImage "' . $imageName . '"  ';
-        JFactory::getApplication()->enqueueMessage($OutTxt, 'notice');
+        //$OutTxt = 'Model Image: CreateImage "' . $imageName . '"  ';
+        //JFactory::getApplication()->enqueueMessage($OutTxt, 'notice');
 
 		$item = $this->getTable();
 		$item->load(0);
@@ -832,7 +832,7 @@ class Rsgallery2ModelImage extends  JModelAdmin
         catch (RuntimeException $e)
         {
             $OutTxt = '';
-            $OutTxt .= 'Error executing GD2::createSquareThumb for image name: "' . $imageName . '"<br>';
+            $OutTxt .= 'Error executing GD2::createSquareThumb for image name: "' . $imgSrcPath . '"<br>';
             $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
             $app = JFactory::getApplication();
@@ -841,6 +841,36 @@ class Rsgallery2ModelImage extends  JModelAdmin
 
         return $IsImageCreated;
     }
+
+    private function deleteImageDbItem ($imageName)
+    {
+        $IsRowDeleted = false;
+
+        try {
+            $db = $this->getDbo();
+
+            $query = $db->getQuery(true)
+                ->delete($db->quoteName('#__rsgallery2_files'))
+                ->where($db->quoteName('name') . ' = ' . $db->quote($imageName));
+
+            $db->setQuery($query);
+            $IsRowDeleted = $db->execute();
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing deleteImageDbItem for image name: "' . $imageName . '"<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $IsRowDeleted;
+    }
+
+
+
 
 
     /**
