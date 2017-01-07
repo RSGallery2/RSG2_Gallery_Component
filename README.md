@@ -2,9 +2,9 @@
 RSGallery2 is one of several gallery extensions/components for the well known CMS Joomla!
 
 ## About RSGallery2
-RSGallery is around since the Mambo days and is originally developed by Ronald Smit. Since then RSGallery2 has evolved with the joomla content management into what it is nowadays.
+RSGallery2 is around since the Mambo days and is originally developed by Ronald Smit. Since then RSGallery2 has evolved with the Joomla! content management into what it is nowadays.
 
-RSGallery2 is released by the GPL licence and will be **free to use** (as in free beer).
+RSGallery2 is released by the GPL license and will be **free to use** (as in free beer).
 
 ## Features
 The component and several plugins / modules feature following functions
@@ -92,6 +92,6 @@ And please let us know if you use RSGallery2. We are keen to understand how you'
 
 If you like the project and want to give something back, please help out other users in the forums and share your code.
 
-RSGallery2 is a project run by volunteers. People who just love Joomla and this gallery component. So RSGallery2 needs you!
+RSGallery2 is a project run by volunteers. People who just love Joomla! and this gallery component. So RSGallery2 needs you!
 
 How? By reporting bugs and problems in the forum, by answering questions of other users on the forum, by submitting fixes for bugs, by writing documentation... where? On www.rsgallery2.org !
