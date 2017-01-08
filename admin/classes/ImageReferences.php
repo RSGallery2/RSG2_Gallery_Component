@@ -46,15 +46,6 @@ class ImageReferences
 
 	protected $IsAnyOneImageMissing;
     /**
-     * @var []
-     */
-    protected $DbImageList; // 'name', 'gallery_id'
-    /**
-     * @var []
-     */
-    protected $DbImageNames; // Name in lower case ?
-
-    /**
      * @var bool
      */
     public $UseWatermarked;
@@ -120,9 +111,11 @@ class ImageReferences
 
         //--- Collect data ----------------------------------------------------
 
-        $this->DbImageList  = $this->getDbImageList ();  // Is tunneled to create it only once
-        $this->DbImageNames = $this->getDbImageNames ();
-        $this->DbImageNames = array_map('strtolower', $this->DbImageNames);
+        $DbImageGalleryList  = $this->getDbImageGalleryList ();  // Is tunneled to create it only once
+        //$DbImageGalleryList = array_map('strtolower', $DbImageGalleryList);
+        //$DbImageGalleryList = array_change_key_case($DbImageGalleryList, CASE_LOWER);
+        $DbImageNames = $this->getDbImageNames ();
+        $DbImageNames = array_map('strtolower', $DbImageNames);
 
         $files_display  = $this->getFilenameArray($rsgConfig->get('imgPath_display'));
         $files_original = $this->getFilenameArray($rsgConfig->get('imgPath_original'));
@@ -135,12 +128,12 @@ class ImageReferences
 		    $files_watermarked = $this->getFilenameArray($rsgConfig->get('imgPath_watermarked'));
 	    }
 
-		$files_merged    = array_unique(array_merge($this->DbImageNames, $files_display,
+		$files_merged    = array_unique(array_merge($DbImageNames, $files_display,
             $files_original, $files_thumb, $files_watermarked));
 
         //--- Create image data from collection -----------------------------------
 
-        $msg .= $this->CreateImagesData ($files_merged, $this->DbImageNames,
+        $msg .= $this->CreateImagesData ($files_merged, $DbImageNames, $DbImageGalleryList,
                         $files_display, $files_original, $files_thumb, $files_watermarked);
 
         return $msg;
@@ -149,24 +142,32 @@ class ImageReferences
     /**
      * @return string [] name / gallery ID
      */
-    private function getDbImageList () {
+    private function getDbImageGalleryList () {
         /*
-				$database = JFactory::getDBO();
-				//Load all image names from DB in array
-				$sql = "SELECT name FROM #__rsgallery2_files";
-				$database->setQuery($sql);
-				$names_db = rsg2_consolidate::arrayToLower($database->loadColumn());
+        $database = JFactory::getDBO();
+        //Load all image names from DB in array
+        $sql = "SELECT name FROM #__rsgallery2_files";
+        $database->setQuery($sql);
+        $names_db = rsg2_consolidate::arrayToLower($database->loadColumn());
 		*/
         $db = JFactory::getDbo();
         $query = $db->getQuery (true);
 
         $query->select($db->quoteName(array('name', 'gallery_id')))
-            ->from($db->quoteName('#__rsgallery2_files'));
+            ->from($db->quoteName('#__rsgallery2_files'))
+            ->order('name');
 
         $db->setQuery($query);
-        $DbImageList =  $db->loadAssocList();
+        //$rows =  $db->loadAssocList();
+        $rows =  $db->loadRowList();
 
-        return $DbImageList;
+        //--- Create assoc List ------------------------------
+        $DbImageGalleryList = array ();
+
+        foreach ($rows as $row) {
+            $DbImageGalleryList [strtolower ($row[0])] = $row[1];
+        }
+        return $DbImageGalleryList;
     }
 
     /**
@@ -206,7 +207,7 @@ class ImageReferences
 
         //Files to exclude from the check
         $exclude = array('.', '..', 'Thumbs.db', 'thumbs.db');
-        $allowed = array('jpg','gif');
+        $allowed = array('jpg','gif', 'png');
         $names_fs = array();
 
         while (false !== ($filename = readdir($dh))) {
@@ -256,7 +257,7 @@ class ImageReferences
      * 
      * @return string Message
      */
-    private function CreateImagesData ($AllFiles, $DbImageNames,
+    private function CreateImagesData ($AllFiles, $DbImageNames,  $DbImageGalleryList,
         $files_display, $files_original, $files_thumb, $files_watermarked)
     {
         global $rsgConfig;
@@ -271,11 +272,19 @@ class ImageReferences
             $ImagesData->imageName = $BaseFile;
 	        $ImagesData->UseWatermarked = $this->UseWatermarked;
 
-            if (in_array($BaseFile, $DbImageNames))
-            {
+            $ImagesData->IsGalleryAssigned = false;
+            if (in_array($BaseFile, $DbImageNames)) {
                 $ImagesData->IsImageInDatabase = true;
-            }
 
+                // Check for missing gallery assignment. Use list read once -> ID-gallery id
+                $GalleryId = $DbImageGalleryList [$BaseFile];
+                if (!empty($GalleryId)) {
+                    if ($GalleryId > 0) {
+                        $ImagesData->IsGalleryAssigned = true;
+                        $ImagesData->ParentGalleryId = $GalleryId;
+                    }
+                }
+            }
             if (in_array($BaseFile, $files_display))
             {
                 $ImagesData->IsDisplayImageFound = true;
@@ -299,14 +308,17 @@ class ImageReferences
 	        //-------------------------------------------------
 	        // Does file need to be handled ?
 	        //-------------------------------------------------
-	        // "dont care" used as watermarked images are not missing as such. watermarked images will be created when displaying image
-            if ($ImagesData->IsMainImageMissing(ImageReference::dontCareForWatermarked) || !$ImagesData->IsImageInDatabase)
+	        // "dont care" used as watermarked images are not missing as such.
+            // watermarked images will be created when displaying image
+            if ($ImagesData->IsMainImageMissing(ImageReference::dontCareForWatermarked)
+                || !$ImagesData->IsImageInDatabase
+                || !$ImagesData->IsGalleryAssigned)
             {
-                //--- ImagePath ----------------------------------------------------
+                //--- parent gallery name ----------------------------------------------------
 
-                if ($ImagesData->IsImageInDatabase == true)
+                if ($ImagesData->IsGalleryAssigned == true)
                 {
-                    $ImagesData->ParentGalleryId = $this->getParentGalleryIdFromImageName($BaseFile);
+                    $ImagesData->ParentGallery = $this->getParentGalleryName($ImagesData->ParentGalleryId);
                 }
                 else
                 {
@@ -392,26 +404,26 @@ class ImageReferences
     /**
      * @param string $BaseFile Name of image
      */
-    private function getParentGalleryIdFromImageName ($BaseFile)
+    private function getParentGalleryName($ParentGalleryId)
     {
-        $ParentGalleryId = -1;
+        $ParentGalleryName = '???';
 
         $db = JFactory::getDbo();
         $query = $db->getQuery (true);
 
-        $query->select($db->quoteName('gallery_id'))
-            ->from($db->quoteName('#__rsgallery2_files'))
-            ->where('name = ' . $db->quote($BaseFile));
+        $query->select($db->quoteName('name'))
+            ->from($db->quoteName('#__rsgallery2_galleries'))
+            ->where('id = ' . $db->quote($ParentGalleryId));
         $db->setQuery($query);
         //$DbGalleryId =  $db->loadAssocList();
-        $DbGalleryId =  $db->loadResult();
+        $DbGalleryName =  $db->loadResult();
 
-        if(! empty ($DbGalleryId))
+        if(! empty ($DbGalleryName))
         {
-            $ParentGalleryId = $DbGalleryId;
+            $ParentGalleryName = $DbGalleryName;
         }
 
-        return $ParentGalleryId;
+        return $ParentGalleryName;
     }
     /**/
 

@@ -236,25 +236,48 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
             // Original does not exist in original folder -> copy from other sources
 
-            if (!isOriginalImageFound) {
-                $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . $ImageReference->imageName;
+            if (!$isOriginalImageFound) {
 
-                // copy from Display folder
-                if ($ImageReference->IsDisplayImageFound) {
-                    $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . $ImageReference->imageName;;
+                $IsAnyImageExists = $ImageReference->IsDisplayImageFound
+                   || $ImageReference->IsThumbImageFound
+                   || $ImageReference->IsWatermarkedImageFound;
 
-                    $isOriginalImageFound = copy($imgSrcPath, $imgDstPath);
-                } // copy from thumbs folder
-                else if ($ImageReference->IsThumbImageFound) {
-                    $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . $ImageReference->imageName;;
+                $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $ImageReference->imageName;
 
-                    $isOriginalImageFound = copy($imgSrcPath, $imgDstPath);
-                } // copy from watermarks folder
-                else if ($ImageReference->IsWatermarkedImageFound) {
-                    $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . $ImageReference->imageName;;
+                if($IsAnyImageExists) {
 
-                    $isOriginalImageFound = copy($imgSrcPath, $imgDstPath);
-                } else {
+                    // copy from Display folder
+                    if ($ImageReference->IsDisplayImageFound) {
+                        //$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $ImageReference->imageName;;
+                        $imgSrcPath = JPATH_ROOT . $ImageReference->imagePath;
+                        // ToDO: Type may have changed from *.png to *.jpg -> name in db ig in db
+                        $isOriginalImageFound = copy($imgSrcPath, $imgDstPath);
+                    } // copy from thumbs folder
+                    else if ($ImageReference->IsThumbImageFound) {
+                        //$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . '/' . $ImageReference->imageName;;
+                        $imgSrcPath = JPATH_ROOT . $ImageReference->imagePath;
+                        $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $ImageReference->imageName;
+                        // ToDO: Type may have changed from *.png to *.jpg -> name in db ig in db
+                        $isOriginalImageFound = copy($imgSrcPath, $imgDstPath);
+                    } // copy from watermarks folder
+                    else if ($ImageReference->IsWatermarkedImageFound) {
+                        //$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . '/' . $ImageReference->imageName;;
+                        $imgSrcPath = JPATH_ROOT . $ImageReference->imagePath;
+                        $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $ImageReference->imageName ;
+                        // ToDO: Type may have changed from *.png to *.jpg -> name in db ig in db
+                        $isOriginalImageFound = copy($imgSrcPath, $imgDstPath);
+                    }
+
+                    // not existing after failed copy
+                    if (!$isOriginalImageFound) {
+                        $OutTxt = 'Could not copy files  ' . $ImageReference->imageName;
+                        $OutTxt .= '<br>$imgSrcPath: ' . $imgSrcPath;
+                        $OutTxt .= '<br>$imgDstPath: ' . $imgDstPath;
+
+                        JFactory::getApplication()->enqueueMessage($OutTxt, 'error');
+                    }
+                }
+                else {
                     $OutTxt = 'No image file exist for ' . $ImageReference->imageName;
                     JFactory::getApplication()->enqueueMessage($OutTxt, 'warning');
                 }
@@ -266,12 +289,12 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
                 // Create display
                 if (!$ImageReference->IsDisplayImageFound) {
-                    $IsImageCreated &= !$imageModel->createDisplayImageFile($ImageReference->imageName);
+                    $IsImageCreated &= $imageModel->createDisplayImageFile($ImageReference->imageName);
                 }
 
                 // Create thumb
                 if (!$ImageReference->IsThumbImageFound) {
-                    $IsImageCreated &= !$imageModel->createThumbImageFile($ImageReference->imageName);
+                    $IsImageCreated &= $imageModel->createThumbImageFile($ImageReference->imageName);
                 }
 
                 /** Watermark files are created when visited by user
@@ -567,7 +590,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
             // Model tells if successful
             $model = $this->getModel('maintConsolidateDB');
 
-            $IsEveryCreated = false;
+            $IsEveryDeleted = false;
 
             try {
                 // Retrieve image list with attributes
@@ -576,15 +599,15 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
                 if (!empty ($ImageReferences)) {
                     $imageModel = $this->getModel('image');
 
-                    $IsEveryCreated = true;
+                    $IsEveryDeleted = true;
                     foreach ($ImageReferences as $ImageReference) {
-                        $IsCreated = $this->deleteRowItem($ImageReference, $imageModel);
-                        if (!$IsCreated) {
-                            $OutTxt = 'Image in DB not created for: ' . $ImageReference->name;
+                        $IsDeleted = $this->deleteRowItem($ImageReference, $imageModel);
+                        if (!$IsDeleted) {
+                            $OutTxt = 'Image in DB not deleted for: ' . $ImageReference->name;
                             $app = JFactory::getApplication();
                             $app->enqueueMessage($OutTxt, 'warning');
 
-                            $IsEveryCreated = false;
+                            $IsEveryDeleted = false;
                         }
                     }
                     /**
@@ -604,8 +627,8 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
                 $app->enqueueMessage($OutTxt, 'error');
             }
 
-            if ($IsEveryCreated) {
-                $msg .= "Successful row items";
+            if ($IsEveryDeleted) {
+                $msg .= "Successful deleted row items";
             } else {
                 $msg .= "Error at deleting row items";
                 $msgType = 'warning';
@@ -623,19 +646,18 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
     public function deleteRowItem($ImageReference, $imageModel)
     {
         try {
-            $IsRowDeleted = 0;
+            $IsRowDeleted = true;
 
             // Does not exist in db
-            $IsImageDbDeleted = true;
-            if (!$ImageReference->IsImageInDatabase) {
+            if ($ImageReference->IsImageInDatabase) {
                 $IsImageDbDeleted = $imageModel->deleteImageDbItem($ImageReference->imageName);
                 if (!$IsImageDbDeleted) {
                     $msg = "Error at deleting image in db";
                     JFactory::getApplication()->enqueueMessage($msg, 'warning');
+                    $IsRowDeleted = false;
                 }
             }
 
-            $IsImgagesDeleted = true;
             $IsOneImgExisting = $ImageReference->IsOriginalImageFound
                 || $ImageReference->IsDisplayImageFound
                 || $ImageReference->IsThumbImageFound;
@@ -645,10 +667,10 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
                     $msg = 'Image not deleted for: "' . $ImageReference->name . '"';
                     $app = JFactory::getApplication();
                     $app->enqueueMessage($msg, 'warning');
+                    $IsRowDeleted = false;
                 }
             }
 
-            $IsRowDeleted = !$IsImageDbDeleted || !$IsImgagesDeleted;
         } catch (RuntimeException $e) {
             $OutTxt = '';
             $OutTxt .= 'Error executing deleteRowItem: "' . '<br>';
@@ -673,36 +695,39 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
             // Delete existing images
             if ($ImageReference->IsOriginalImageFound) {
-                $imgPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . $ImageReference->imageName;
-                $IsImageDeleted = DeleteImage($imgPath);
+                $imgPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $ImageReference->imageName;
+                $IsImageDeleted = $this->DeleteImage($imgPath);
                 if (!$IsImageDeleted) {
                     $IsImagesDeleted = false;
                 }
             }
 
             if ($ImageReference->IsDisplayImageFound) {
-                $imgPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . $ImageReference->imageName;
-                $IsImageDeleted = DeleteImage($imgPath);
+                $imgPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $ImageReference->imageName . '.jpg';
+                $IsImageDeleted = $this->DeleteImage($imgPath);
                 if (!$IsImageDeleted) {
                     $IsImagesDeleted = false;
                 }
             }
 
             if ($ImageReference->IsThumbImageFound) {
-                $imgPath = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . $ImageReference->imageName;
-                $IsImageDeleted = DeleteImage($imgPath);
+                $imgPath = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . '/' . $ImageReference->imageName . '.jpg';;
+                $IsImageDeleted = $this->DeleteImage($imgPath);
                 if (!$IsImageDeleted) {
                     $IsImagesDeleted = false;
                 }
             }
 
-            if ($ImageReference->IsThumbImageFound) {
+            if ($ImageReference->IsWatermarkedImageFound) {
                 $imgPath = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . $ImageReference->imageName;
-                $IsImageDeleted = DeleteImage($imgPath);
+                $IsImageDeleted = $this->DeleteImage($imgPath);
                 if (!$IsImageDeleted) {
                     $IsImagesDeleted = false;
                 }
             }
+
+
+
 
         } catch (RuntimeException $e) {
             $OutTxt = '';
