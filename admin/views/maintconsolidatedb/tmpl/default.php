@@ -441,7 +441,7 @@ function DisplayImageDataTable ($ImageReferences, $form) {
 	    {
 		    $html[] = '     <a class="btn btn-micro jgrid hasTooltip inside_button" ';
 		    $html[] = '         data-original-title="' . JHtml::tooltipText('COM_RSGALLERY2_ASSIGN_GALLLERY_IN_ROW') . '" ';
-		    $html[] = '         onclick="return listItemTask(\'cb' . $Idx . '\',\'MaintConsolidateDb.assignGalleries\')" ';
+		    $html[] = '         onclick="return listItemTask(\'cb' . $Idx . '\',\'MaintConsolidateDb.assignParentGallery\')" ';
 		    $html[] = '         href="javascript:void(0);"';
 		    $html[] = '     >';
 		    $html[] = '         <span class="icon-images"></span>';
@@ -451,7 +451,7 @@ function DisplayImageDataTable ($ImageReferences, $form) {
         {
             $html[] = '     <a class="btn btn-micro jgrid hasTooltip inside_button" ';
             $html[] = '         data-original-title="' . JHtml::tooltipText('COM_RSGALLERY2_REPAIR_ISSUES_IN_ROW') . '" ';
-            $html[] = '         onclick="return listItemTask(\'cb' . $Idx . '\',\'MaintConsolidateDb.repairAllIssues\')" ';
+            $html[] = '         onclick="return listItemTask(\'cb' . $Idx . '\',\'MaintConsolidateDb.repairAllIssuesItems\')" ';
             $html[] = '         href="javascript:void(0);"';
             $html[] = '     >';
             $html[] = '         <span class="icon-refresh"></span>';
@@ -461,7 +461,7 @@ function DisplayImageDataTable ($ImageReferences, $form) {
         {
             $html[] = '     <a class="btn btn-micro jgrid hasTooltip inside_button" ';
             $html[] = '         data-original-title="' . JHtml::tooltipText('COM_RSGALLERY2_DELETE_SUPERFLOUS_ITEMS_IN_ROW') . '" ';
-            $html[] = '         onclick="return listItemTask(\'cb' . $Idx . '\',\'MaintConsolidateDb.deleteSuperflousItems\')" ';
+            $html[] = '         onclick="return listItemTask(\'cb' . $Idx . '\',\'MaintConsolidateDb.deleteRowItems\')" ';
             $html[] = '         href="javascript:void(0);"';
             $html[] = '     >';
             $html[] = '         <span class="icon-delete"></span>';
@@ -479,8 +479,11 @@ function DisplayImageDataTable ($ImageReferences, $form) {
         // google (2) joomla display array of form fields
 
 //		$field = $form->getFieldset('maintConsolidateDB');
-	    if ($ImageData->ParentGalleryId > -1) {
-		    $html[] = '' . $ImageData->ParentGalleryId . ' ';
+//	    if ($ImageData->ParentGalleryId > -1) {
+        if ($ImageData->IsGalleryAssigned) {
+
+            //$html[] = '' . $ImageData->ParentGalleryId . ' ';
+            $html[] = '' . $ImageData->ParentGallery . ' ';
 		}
 		else {
 			$html[] = '<span class="icon-cancel">';
