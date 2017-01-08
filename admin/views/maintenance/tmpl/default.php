@@ -291,13 +291,24 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
                             /**/
                             ?>
 
+                            <?php
+                            if($this->UserIsRoot ) {
+                            ?>
+                                <?php
+                                //$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
+                                $link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB';
+                                quickiconBar($link, 'blockdevice.png',
+                                    JText::_('COM_RSGALLERY2_MAINT_CONSOLDB'),
+                                    JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT'),
+                                    'consolidateDB');
+                                ?>
+                            <?php
+                            }
+                            ?>
+
                         </div>
 					</div>
-
-
 				</div>
-
-
 
 				<div class="row span4 rsg2-container-icon-set">
 					<div class="icons-panel repair">
@@ -325,16 +336,16 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 							if($this->UserIsRoot ) {
 							?>
 
-								<?php
-								//$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
-								$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB';
-								quickiconBar($link, 'blockdevice.png',
-									JText::_('COM_RSGALLERY2_MAINT_CONSOLDB'),
-									JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT'),
-									'consolidateDB');
-								?>
+                                <?php
+                                // $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
+                                $link = 'index.php?option=com_rsgallery2&amp;view=maintConsolidateDB';
+                                quickTwoIconMoonBar ($link, 'icon-database', 'icon-checkbox-checked',
+                                    JText::_('COM_RSGALLERY2_MAINT_CONSOLIDATE_IMAGE_DATABASE'),
+                                    JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT'),
+                                    'consolidateDB');
+                                ?>
 
-								<?php
+                                <?php
 								$link =  'index.php?option=com_rsgallery2&amp;view=maintRegenerateImages';
 								quickTwoIconMoonBar ($link, 'icon-image', 'icon-wand',
 									JText::_('COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY'),
@@ -349,7 +360,8 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 									JText::_('COM_RSGALLERY2_MAINT_OPTDB_TXT'),
 									'optimizeDB');
 								?>
-							<?php
+
+                            <?php
 							}
 							?>
 
@@ -516,15 +528,6 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 										<?php echo JText::_('COM_RSGALLERY2_ONLY_WHEN_YOU_KNOW_WHAT_YOU_ARE_DOING'); ?>
 									</strong>
 								</div>
-
-								<?php
-								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
-								$link = 'index.php?option=com_rsgallery2&amp;view=maintConsolidateDB';
-								quickTwoIconMoonBar ($link, 'icon-database', 'icon-checkbox-checked',
-									JText::_('COM_RSGALLERY2_MAINT_CONSOLIDATE_IMAGE_DATABASE'),
-									JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT'),
-									'consolidateDB');
-								?>
 
 								<?php
 								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
