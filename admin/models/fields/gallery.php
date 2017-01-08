@@ -2,7 +2,7 @@
 /*
 * @version $Id: gallery.php 1073 2012-05-14 12:35:41Z mirjam $
 * @package RSGallery2
-* @copyright (C) 2005 - 2016 RSGallery2
+* @copyright (C) 2005 - 2017 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */

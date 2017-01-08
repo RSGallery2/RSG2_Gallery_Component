@@ -2,7 +2,7 @@
 /**
 * Prep for slideshow_mootools
 * @package RSGallery2
-* @copyright (C) 2003 - 2008 RSGallery2
+* @copyright (C) 2003 - 2017 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */

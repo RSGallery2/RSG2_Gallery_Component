@@ -2,7 +2,7 @@
 /**
 * Version IDs like 4.0.9 will be kept in parts so it can be compared with other ID of same class
 * @package RSGallery2
-* @copyright (C) 2016 - 2016 RSGallery2
+* @copyright (C) 2016 - 2017 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 **/

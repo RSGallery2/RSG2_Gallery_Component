@@ -3,7 +3,7 @@
 * Images option for RSGallery2 - HTML display code
 * @version $Id: images.html.php 1057 2012-01-09 17:00:55Z mirjam $
 * @package RSGallery2
-* @copyright (C) 2003 - 2016 RSGallery2
+* @copyright (C) 2003 - 2017 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */

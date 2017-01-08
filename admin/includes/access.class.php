@@ -3,7 +3,7 @@
 * Access Manager Class for RSGallery2
 * @version $Id: access.class.php 1021 2011-04-19 16:32:10Z mirjam $
 * @package RSGallery2
-* @copyright (C) 2005 - 2016 rsgallery2
+* @copyright (C) 2005 - 2017 rsgallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */

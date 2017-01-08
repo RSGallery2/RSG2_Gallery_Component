@@ -2,7 +2,7 @@
 /**
 * Changelog for RSGallery2
 * @package RSGallery2
-* @copyright (C) 2003 - 2016 RSGallery2
+* @copyright (C) 2003 - 2017 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 **/
@@ -21,21 +21,21 @@ Legend:
 * -> Security Fix, # -> Bug Fix, + -> Addition
 ^ -> Change, - -> Removed, ! -> Note
 		 
-* --- 4.2.103 --- 2016-12-26 --- whazzup ------------------------------
+* --- 4.2.103 --- 2017-12-26 --- whazzup ------------------------------
 
 # Fixed: Modal popup was not doing anything
 		 
-* --- 4.2.102 --- 2016-12-12 --- whazzup ------------------------------
+* --- 4.2.102 --- 2017-12-12 --- whazzup ------------------------------
 
 ^ Improved:
   -> Moved the buttons "images copy" and images move" in images view to button "batch"
   -> Copy and move images is handled like in the article batrch handling
 
-* --- 4.2.101 --- 2016-12-06 --- whazzup ------------------------------
+* --- 4.2.101 --- 2017-12-06 --- whazzup ------------------------------
 
 # Fixed: Config can now be saved again
 
-* --- 4.2.100 --- 2016-12-01 --- whazzup ------------------------------
+* --- 4.2.100 --- 2017-12-01 --- whazzup ------------------------------
 This release is a beta test release and contains most parts of the next release 4.3.00
 ^ Redesigned configuration
   -> It has now its own view in J!3 Model view construct
@@ -91,7 +91,7 @@ Known issues:
 
 	* Slideshow slideshow_pathfusion is not running.
 
-* --------------- 4.2.0 -- 2016-05-26 -------------
+* --------------- 4.2.0 -- 2017-05-26 -------------
 
 ^ Redesigned maintenance section (form)
   * Maintenance has now three zones
@@ -110,7 +110,7 @@ Known issues:
 # Images in header of slideshow were arranged in two rows instead of one
   
   
-* --------------- 4.1.0 -- 2016-02-29 -------------
+* --------------- 4.1.0 -- 2017-02-29 -------------
 
 ^ Redesigned control panel
   * Changed icons to material design

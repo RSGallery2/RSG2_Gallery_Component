@@ -3,7 +3,7 @@
 * This file contains the class representing a gallery.
 * @version $Id: gallery.class.php 1085 2012-06-24 13:44:29Z mirjam $
 * @package RSGallery2
-* @copyright (C) 2005 - 2016 RSGallery2
+* @copyright (C) 2005 - 2017 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */

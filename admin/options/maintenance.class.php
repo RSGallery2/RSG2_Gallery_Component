@@ -3,7 +3,7 @@
 * Maintenance class for RSGallery2
 * @version $Id: maintenance.class.php 1037 2011-08-03 14:22:00Z mirjam $
 * @package RSGallery2
-* @copyright (C) 2003 - 2016 RSGallery2
+* @copyright (C) 2003 - 2017 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */

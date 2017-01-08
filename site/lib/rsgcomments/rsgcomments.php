@@ -3,7 +3,7 @@
 * This file contains Comments logic
 * @version $Id: rsgcomments.php 1096 2012-07-31 11:27:31Z mirjam $
 * @package RSGallery2
-* @copyright (C) 2003 - 2016 RSGallery2
+* @copyright (C) 2003 - 2017 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */

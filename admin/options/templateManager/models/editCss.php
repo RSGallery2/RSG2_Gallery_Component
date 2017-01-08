@@ -2,7 +2,7 @@
 /**
  * @package		RSGallery2
  * @subpackage	TemplateManager
- * @copyright	Copyright (C) 2005 - 2016 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  */
 

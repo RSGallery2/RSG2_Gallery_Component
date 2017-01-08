@@ -5,7 +5,7 @@ defined( '_JEXEC' ) or die();
  * Class to determine correct mimetype for uploaded files
  * @version $Id: mimetype.php 1011 2011-01-26 15:36:02Z mirjam $
  * @package RSGallery2
- * @copyright (C) 2003 - 2016 RSGallery2
+ * @copyright (C) 2003 - 2017 RSGallery2
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
  

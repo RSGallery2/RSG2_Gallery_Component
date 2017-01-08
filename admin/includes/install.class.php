@@ -3,7 +3,7 @@
 * This file contains the install routine for RSGallery2
 * @version $Id: install.class.php 1088 2012-07-05 19:28:28Z mirjam $
 * @package RSGallery2
-* @copyright (C) 2003 - 2016 RSGallery2
+* @copyright (C) 2003 - 2017 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery is Free Software
 */
