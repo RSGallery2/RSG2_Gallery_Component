@@ -681,8 +681,8 @@ class Rsgallery2ModelImage extends  JModelAdmin
 
         try {
 
-            $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . $imageName;
-            $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . $imageName . '.jpg';
+            $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $imageName;
+            $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $imageName . '.jpg';
 
             $width = getimagesize($imgSrcPath);
             $height = $width[1];
@@ -768,9 +768,8 @@ class Rsgallery2ModelImage extends  JModelAdmin
         $IsImageCreated = false;
 
         try {
-
-            $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . $imageName;
-            $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . $imageName . '.jpg';
+            $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $imageName;
+            $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . '/' . $imageName . '.jpg';
 
             $thumbWidth = $rsgConfig->get('thumb_width');
 
@@ -842,7 +841,7 @@ class Rsgallery2ModelImage extends  JModelAdmin
         return $IsImageCreated;
     }
 
-    private function deleteImageDbItem ($imageName)
+    public function deleteImageDbItem ($imageName)
     {
         $IsRowDeleted = false;
 
