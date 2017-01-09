@@ -544,18 +544,19 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
             }
 
             // a gallery is selected for assignment
+            $IsGalleryAssigned = true;
             if ($GalleryId > 0) {
                 $ImageId = $imageModel->ImageIdFromName($ImageReference->imageName);
 
-                $IsAssigned = $this->assignGallery($ImageId, $imageModel, $GalleryId);
-                if (!$IsAssigned) {
+                $IsGalleryAssigned = $this->assignGallery($ImageId, $imageModel, $GalleryId);
+                if (!$IsGalleryAssigned) {
                     $msg = 'Parent gallery not assigned for: ' . $ImageReference->name;
                     $app = JFactory::getApplication();
                     $app->enqueueMessage($msg, 'warning');
                 }
             }
 
-            $IsItemRepaired = !$IsImageDbCreated || !$IsImgageCreated;
+            $IsItemRepaired = $IsImageDbCreated && $IsImgageCreated && $IsGalleryAssigned;
         } catch (RuntimeException $e) {
             $OutTxt = '';
             $OutTxt .= 'Error executing repairAllIssuesItem: "' . '<br>';
