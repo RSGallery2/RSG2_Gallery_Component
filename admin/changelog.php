@@ -21,21 +21,27 @@ Legend:
 * -> Security Fix, # -> Bug Fix, + -> Addition
 ^ -> Change, - -> Removed, ! -> Note
 		 
-* --- 4.2.103 --- 2017-12-26 --- whazzup ------------------------------
+* --- 4.3.0 --- 2017-01-10 --- whazzup ------------------------------
+
++ "Consolidate image database": All function are now working (new code)
+  Replaced old button in maintenance: Old one may be found in
+  Outdated zone  
+
+* --- 4.2.103 --- 2016-12-26 --- whazzup ------------------------------
 
 # Fixed: Modal popup was not doing anything
 		 
-* --- 4.2.102 --- 2017-12-12 --- whazzup ------------------------------
+* --- 4.2.102 --- 2016-12-12 --- whazzup ------------------------------
 
 ^ Improved:
   -> Moved the buttons "images copy" and images move" in images view to button "batch"
   -> Copy and move images is handled like in the article batrch handling
 
-* --- 4.2.101 --- 2017-12-06 --- whazzup ------------------------------
+* --- 4.2.101 --- 2016-12-06 --- whazzup ------------------------------
 
 # Fixed: Config can now be saved again
 
-* --- 4.2.100 --- 2017-12-01 --- whazzup ------------------------------
+* --- 4.2.100 --- 2016-12-01 --- whazzup ------------------------------
 This release is a beta test release and contains most parts of the next release 4.3.00
 ^ Redesigned configuration
   -> It has now its own view in J!3 Model view construct
