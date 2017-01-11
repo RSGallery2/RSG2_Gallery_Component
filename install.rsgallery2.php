@@ -396,4 +396,21 @@ class com_rsgallery2InstallerScript
 							$db->execute();
 			}
 	}
+
+
+    //
+    /**
+     * @param $startDir
+     * recursive delete 1.5-- version style language files
+     *
+     * @since version 4.3
+     */
+    function recursiveDeleteLangFiles($startDir) {
+        if($startDir != '') {
+            // ...original function code...
+        }
+    }
+
+
+
 }
