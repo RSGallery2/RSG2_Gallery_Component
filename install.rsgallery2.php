@@ -89,7 +89,7 @@ class com_rsgallery2InstallerScript
 		
 		// Installing component manifest file version
 		$this->newRelease = $parent->get( "manifest" )->version;
-		$this->oldRelease = $this->getParam('version');
+		$this->oldRelease = $this->getManifestParam('version');
 
         // Manifest file minimum Joomla version
         $this->minimum_joomla_release = $parent->get( "manifest" )->attributes()->version;   
@@ -364,7 +364,7 @@ class com_rsgallery2InstallerScript
      * @param $name
      * @return mixed
      */
-	function getParam( $name ) {
+	function getManifestParam( $name ) {
 			$db = JFactory::getDbo();
 			$db->setQuery('SELECT manifest_cache FROM #__extensions WHERE name = "com_rsgallery2"');
 			$manifest = json_decode( $db->loadResult(), true );
@@ -378,23 +378,23 @@ class com_rsgallery2InstallerScript
      * @param $param_array
      */
 	function setParams($param_array) {
-			if ( count($param_array) > 0 ) {
-					// read the existing component value(s)
-					$db = JFactory::getDbo();
-					$db->setQuery('SELECT params FROM #__extensions WHERE name = "com_rsgallery2"');
-					$params = json_decode( $db->loadResult(), true );
-					
-					// add the new variable(s) to the existing one(s)
-					foreach ( $param_array as $name => $value ) {
-							$params[ (string) $name ] = (string) $value;
-					}
-					// store the combined new and existing values back as a JSON string
-					$paramsString = json_encode( $params );
-					$db->setQuery('UPDATE #__extensions SET params = ' .
-							$db->quote( $paramsString ) .
-							' WHERE name = "com_rsgallery2"' );
-							$db->execute();
+		if ( count($param_array) > 0 ) {
+			// read the existing component value(s)
+			$db = JFactory::getDbo();
+			$db->setQuery('SELECT params FROM #__extensions WHERE name = "com_rsgallery2"');
+			$params = json_decode( $db->loadResult(), true );
+			
+			// add the new variable(s) to the existing one(s)
+			foreach ( $param_array as $name => $value ) {
+				$params[ (string) $name ] = (string) $value;
 			}
+			// store the combined new and existing values back as a JSON string
+			$paramsString = json_encode( $params );
+			$db->setQuery('UPDATE #__extensions SET params = ' .
+				$db->quote( $paramsString ) .
+				' WHERE name = "com_rsgallery2"' );
+				$db->execute();
+		}
 	}
 
 
@@ -408,6 +408,14 @@ class com_rsgallery2InstallerScript
     function recursiveDeleteLangFiles($startDir) {
         if($startDir != '') {
             // ...original function code...
+			
+			$files = array();
+			$files = preg_grep('~\.(jpeg|jpg|png)$~', scandir($dir_f));
+			foreach (glob("/path/to/folder/*.txt") as $file) {
+			  $files[] = $file;
+			}			
+						
+			
         }
     }
 
