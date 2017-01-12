@@ -398,24 +398,41 @@ class com_rsgallery2InstallerScript
 	}
 
 
-    //
+
     /**
-     * @param $startDir
-     * recursive delete 1.5-- version style language files
-     *
+     * @param $startDir Example: \administrator\language\
+     * recursive delete joomla 1.5 version or older style component language files
      * @since version 4.3
      */
-    function recursiveDeleteLangFiles($startDir) {
+    function recursiveDelete_1_5_LangFiles($startDir) {
         if($startDir != '') {
             // ...original function code...
-			
+            // ...\en-GB\en-GB.com_rsgallery2.ini
+            // ...\en-GB\en-GB.com_rsgallery2.sys.ini
 			$files = array();
-			$files = preg_grep('~\.(jpeg|jpg|png)$~', scandir($dir_f));
+
+			/**
+			//$files = preg_grep('~\.(jpeg|jpg|png)$~', scandir($dir_f));
 			foreach (glob("/path/to/folder/*.txt") as $file) {
 			  $files[] = $file;
-			}			
-						
-			
+			}
+            foreach ( glob( $fullPath_thumb.'*' ) as $filename ) {
+                if( is_file( $filename )) unlink( $filename );
+            }
+            /**/
+
+            $Directories = new RecursiveDirectoryIterator($startDir, FilesystemIterator::SKIP_DOTS);
+            $Files = new RecursiveIteratorIterator($Directories);
+            $LangFiles = new RegexIterator($Files, '/^.+\.com_rsgallery2\..*ini$/i', RecursiveRegexIterator::GET_MATCH);
+
+            echo '<br>';
+            foreach ($LangFiles as $LangFile)
+            {
+                echo '<br>' . $LangFile;
+
+
+            }
+
         }
     }
 

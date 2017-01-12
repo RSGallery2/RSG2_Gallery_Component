@@ -547,17 +547,23 @@ function quickTwoIconMoonBar( $link, $imageClass1, $imageClass2, $title, $text =
 									'consolidateDB');
 								?>
 
-								<?php
-								// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
-								$link = 'index.php?option=com_rsgallery2&amp;task=maintSql.updateCommentsVoting';
-								quickTwoIconMoonBar ($link, 'icon-comment', 'icon-wand',
-									JText::_('COM_RSGALLERY2_UPDATE_COMMENTS_AND_VOTING'),
-									JText::_('COM_RSGALLERY2_UPDATE_COMMENTS_AND_VOTING_TXT'),
-									'consolidateDB');
-								?>
+                                <?php
+                                // $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
+                                $link = 'index.php?option=com_rsgallery2&amp;task=maintSql.updateCommentsVoting';
+                                quickTwoIconMoonBar ($link, 'icon-comment', 'icon-wand',
+                                    JText::_('COM_RSGALLERY2_UPDATE_COMMENTS_AND_VOTING'),
+                                    JText::_('COM_RSGALLERY2_UPDATE_COMMENTS_AND_VOTING_TXT'),
+                                    'consolidateDB');
+                                ?>
 
-
-							</div>
+                                <?php
+                                $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.Delete_1_5_LangFiles';
+                                quickTwoIconMoonBar ($link, 'icon-delete', 'icon-wand',
+                                    JText::_('COM_RSGALLERY2_DELETE_1_5_LANG_FILES'),
+                                    JText::_('COM_RSGALLERY2_DELETE_1_5_LANG_FILES_DESC'),
+                                    'consolidateDB');
+                                ?>
+                            </div>
 						</div>
 					</div>
 				<?php
