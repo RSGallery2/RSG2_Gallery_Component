@@ -134,7 +134,7 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 
         // \administrator\language\
         $startDir = JPATH_ADMINISTRATOR . '/language';
-        $IsDeleted = recursiveDelete_1_5_LangFiles ($startDir);
+        $IsDeleted = $this->recursiveDelete_1_5_LangFiles ($startDir);
         if($IsDeleted) {
             $msg .= " is successful";
         }
@@ -174,13 +174,23 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
             $Files = new RecursiveIteratorIterator($Directories);
             $LangFiles = new RegexIterator($Files, '/^.+\.com_rsgallery2\..*ini$/i', RecursiveRegexIterator::GET_MATCH);
 
-            echo '<br>';
+            $msg = 'Found files: ';
+            $IsFileFound = false;
             foreach ($LangFiles as $LangFile)
             {
-                echo '<br>' . $LangFile;
+                $IsFileFound = true;
 
-
+                $msg .= '<br>' . $LangFile[0];
             }
+
+            // One or more files found ?
+            if($IsFileFound){
+                $IsDeleted = true;
+            } else {
+                $msg .= 'No files found: ';
+            }
+
+            JFactory::getApplication()->enqueueMessage($msg, 'notice');
         }
 
         return $IsDeleted;
