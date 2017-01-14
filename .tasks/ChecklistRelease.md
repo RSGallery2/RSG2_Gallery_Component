@@ -10,6 +10,14 @@
   - [ ] 
 
 - [ ] Test import zip in joomla release xampp
+  - [ ] Basic check: Create new gallery
+  - [ ] Basic check: View galleries -> gallery order
+  - [ ] Basic check: Upload images from zip
+  - [ ] Basic check: View images -> images order
+  - [ ] Basic check: Configuration
+  - [ ] Basic check: Maintenance
+  - [ ]  
+  - [ ]  
 
 - [ ] Prepare update message for user 
 - [ ] Prepare known issues 
@@ -18,15 +26,10 @@
 - [ ] Improve updateserver
 - [ ] Add text to blog on RSGallery2.org
 
-- [ ] Basic check: Create new gallery
-- [ ] Basic check: View galleries -> gallery order
-- [ ] Basic check: Upload images from zip
-- [ ] Basic check: View images -> images order
-- [ ] Basic check: Configuration
-- [ ] Basic check: Maintenance
+- [ ] 
+- [ ] 
 - [ ]  
-- [ ] 
-- [ ] 
+- [ ]  
 
 - [ ] All completed
 
