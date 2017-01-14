@@ -228,9 +228,14 @@ class com_rsgallery2InstallerScript
 
 		JLog::add('freshInstall', JLog::DEBUG);
 
-		//Initialize install
+		// Initialize install
 		$rsgInstall = new rsgInstall();		
 		$rsgInstall->freshInstall();
+
+        //--- install complete message --------------------------------
+
+        // Now wish the user good luck and link to the control panel
+        $rsgInstall->installComplete();
 
 		echo '<p>' . JText::_('COM_RSGALLERY2_INSTALL_TEXT') . '</p>';
 		JLog::add('Before redirect', JLog::DEBUG);
@@ -264,18 +269,27 @@ class com_rsgallery2InstallerScript
 		global $rsgConfig;
 		$rsgConfig = new rsgConfig();
 
-	
-		// Initialize install
-		$rsgInstall = new rsgInstall();		
-		/** /
-		JLog::add('freshInstall', JLog::DEBUG);
-		$rsgInstall->freshInstall();
-		
-		JLog::add('After freshInstall', JLog::DEBUG);
-		if (false)
-		/*
-		{*/
-		$rsgInstall->writeInstallMsg( JText::sprintf('COM_RSGALLERY2_MIGRATING_FROM_RSGALLERY2', $rsgConfig->get( 'version' )) , 'ok');
+        //--- Initialize install  --------------------------------------------
+
+        $rsgInstall = new rsgInstall();
+        $rsgInstall->writeInstallMsg( JText::sprintf('COM_RSGALLERY2_MIGRATING_FROM_RSGALLERY2', $rsgConfig->get( 'version' )) , 'ok');
+
+        //--- delete RSG2 J!1.5 language files ------------------------------
+
+        // .../administrator/language/
+        $startDir = JPATH_ADMINISTRATOR . '/language';
+        $msg = '';
+        $IsDeleted = $this->findAndDelete_1_5_LangFiles ($startDir, $msg);
+        if($IsDeleted) {
+            // Write action to user
+            $msg = 'Deleted old RSGallery2 J!1.5 language files: <br>' . $msg;
+            $rsgInstall->writeInstallMsg ($msg, 'ok');
+        }
+
+        //--- install complete message --------------------------------
+
+        // Now wish the user good luck and link to the control panel
+        $rsgInstall->installComplete();
 
 		/* May be used later. Actual versions older then "3.2.0" are checked in preflight
 			if (version_compare ($this->oldRelease, '3.2.0', 'lt' )) {
@@ -404,35 +418,37 @@ class com_rsgallery2InstallerScript
      * recursive delete joomla 1.5 version or older style component language files
      * @since version 4.3
      */
-    function recursiveDelete_1_5_LangFiles($startDir) {
+    function findAndDelete_1_5_LangFiles($startDir, &$msg) {
+
+        $IsDeleted = false;
+
         if($startDir != '') {
             // ...original function code...
             // ...\en-GB\en-GB.com_rsgallery2.ini
             // ...\en-GB\en-GB.com_rsgallery2.sys.ini
 			$files = array();
 
-			/**
-			//$files = preg_grep('~\.(jpeg|jpg|png)$~', scandir($dir_f));
-			foreach (glob("/path/to/folder/*.txt") as $file) {
-			  $files[] = $file;
-			}
-            foreach ( glob( $fullPath_thumb.'*' ) as $filename ) {
-                if( is_file( $filename )) unlink( $filename );
-            }
-            /**/
-
             $Directories = new RecursiveDirectoryIterator($startDir, FilesystemIterator::SKIP_DOTS);
             $Files = new RecursiveIteratorIterator($Directories);
             $LangFiles = new RegexIterator($Files, '/^.+\.com_rsgallery2\..*ini$/i', RecursiveRegexIterator::GET_MATCH);
 
-            echo '<br>';
+            $msg = '';
+            $IsFileFound = false;
             foreach ($LangFiles as $LangFile)
             {
-                echo '<br>' . $LangFile;
+                $IsFileFound = true;
 
+                $msg .= '<br>' . $LangFile[0];
+                $IsDeleted = unlink ($LangFile[0]);
+                if ($IsDeleted) {
+                    $msg .= ' is deleted';
 
+                } else {
+                    $msg .= ' is not deleted';
+                }
             }
 
+            return $IsFileFound;
         }
     }
 

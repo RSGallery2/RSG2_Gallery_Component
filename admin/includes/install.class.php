@@ -81,7 +81,7 @@ class rsgInstall {
         $this->tablelistNew = array('#__rsgallery2_galleries','#__rsgallery2_files','#__rsgallery2_comments','#__rsgallery2_config', '#__rsgallery2_acl');
         $this->tablelistOld = array('#__rsgallery','#__rsgalleryfiles','#__rsgallery_comments','');
 		
-        //TODO: this should use the master list in imgUtils
+        // ToDo: this should use the master list in imgUtils
         $this->allowedExt   = array("jpg","gif","png");
 
 		JLog::add('rsgInstall: exit constructor', JLog::DEBUG);
@@ -135,25 +135,25 @@ class rsgInstall {
 		}
 	?>
         <div align="center">
-        <table width="500"><tr><td>
-			<table class="adminlist" border="1">
-			<tr>
-				<td width="40">
-					<img src="<?php echo JURI_SITE;?>/administrator/components/com_rsgallery2/images/<?php echo $icon;?>" alt="" border="0">
-				</td>
-				<?php if( $type=='error' ): ?>
-				<td>
-					<pre><?php print_r( $msg );?></pre>
-				</td>
-				<?php else: ?>
-				<td>
-					<?php echo $msg;?>
-				</td>
-				<?php endif; ?>
-			</tr>
-			</table>
-        </td></tr>
-		</table>
+            <table width="500"><tr><td>
+                <table class="adminlist" border="1">
+                <tr>
+                    <td width="40">
+                        <img src="<?php echo JURI_SITE;?>/administrator/components/com_rsgallery2/images/<?php echo $icon;?>" alt="" border="0">
+                    </td>
+                    <?php if( $type=='error' ): ?>
+                    <td>
+                        <pre><?php print_r( $msg );?></pre>
+                    </td>
+                    <?php else: ?>
+                    <td>
+                        <?php echo $msg;?>
+                    </td>
+                    <?php endif; ?>
+                </tr>
+                </table>
+            </td></tr>
+            </table>
         </div>
 	<?php
 	}
@@ -174,7 +174,7 @@ class rsgInstall {
 					<td colspan="2">
 						<div align="center">
 							<h2><?php echo $msg; ?></h2> 
-							<?php //echo JText::_('COM_RSGALLERY2_INSTALL_STATUS_MSGS')?>
+							<?php //echo JText::_('COM_RSGALLERY2_INSTALL_STATUS_MSGS') ?>
 							<br>
 							<a href="index.php?option=com_rsgallery2">
 								<img src="<?php echo JURI_SITE.'administrator/components/com_rsgallery2/images/icon-48-config.png';?>" alt=" <?php echo JText::_('COM_RSGALLERY2_CONTROL_PANEL') ?>" width="48" height="48" border="0">
@@ -208,8 +208,6 @@ class rsgInstall {
         // Save config to populate database with default config values
         $rsgConfig->saveConfig();
         
-        //Now wish the user good luck and link to the control panel
-        $this->installComplete();
     }
     
     
