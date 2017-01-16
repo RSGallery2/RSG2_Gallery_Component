@@ -1,0 +1,20 @@
+joomla markdown
+
+
+https://yoonique.net/index.php?option=com_zoo&task=item&item_id=36&category_id=16&Itemid=118#fn:1
+
+http://daringfireball.net/projects/markdown/syntax
+
+
+Joomla extensions
+
+https://extensions.joomla.org/extension/ace-x-markdown-editor
+https://extensions.joomla.org/extensions/extension/core-enhancements/coding-a-scripts-integration/yoonique-markdown
+https://extensions.joomla.org/extensions/extension/edition/editors/epiceditor-for-joomla
+
+https://www.flycart.org/index.php/products/joomla/jmarkdown
+
+http://robert-deutz.de/de/9-content/15-markdown-zu-html-und-pdf-konvertieren.html
+
+https://de.wikipedia.org/wiki/Markdown
+
