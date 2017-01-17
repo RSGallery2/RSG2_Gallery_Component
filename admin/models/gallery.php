@@ -72,8 +72,7 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 
 		if (empty($table->id))
 		{
-			/**
-			// Set ordering to the last item if not set
+			// Set ordering to 1 increment the others
 			if (empty($table->ordering))
 			{
 				$db = $this->getDbo();
@@ -91,8 +90,9 @@ class Rsgallery2ModelGallery extends  JModelAdmin
             }
 			/**/
 
-			$table->ordering = $table->getNextOrder('parent = ' . (int) $table->parent); // . ' AND state >= 0');
-		}
+			$table->ordering = 0; // $table->getNextOrder('parent = ' . (int) $table->parent); // . ' AND state >= 0');
+            $table->reorder();
+        }
 		else
 		{
 			// Set the values
@@ -194,6 +194,7 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 				$table->reorder($conditions);
 			}
 			/**/
+
 			return true;
 		}
 
