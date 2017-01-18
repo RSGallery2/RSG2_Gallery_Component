@@ -75,6 +75,7 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 			// Set ordering to 1 increment the others
 			if (empty($table->ordering))
 			{
+                /**
 				$db = $this->getDbo();
 				$query = $db->getQuery(true)
 					->select('MAX(ordering)')
@@ -82,16 +83,20 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 				$db->setQuery($query);
 				$max = $db->loadResult();
 
-				$table->ordering = $max + 1;
-
                 // Set the values
                 $table->date = $date;
                 $table->uid = JFactory::getUser()->id;
-            }
-			/**/
+                /**/
 
-			$table->ordering = 0; // $table->getNextOrder('parent = ' . (int) $table->parent); // . ' AND state >= 0');
-            $table->reorder();
+                //$table->ordering = 0;
+            }
+
+            //$table->ordering = 0; // $table->getNextOrder('parent = ' . (int) $table->parent); // . ' AND state >= 0');
+            //$table->reorder();
+
+            // Set the values
+            $table->date = $date;
+            $table->uid = JFactory::getUser()->id;
         }
 		else
 		{
@@ -143,7 +148,7 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 		// Automatic handling of alias for empty fields
 		if (in_array($task, array('apply', 'save', 'save2new'))
 				// && (!isset($data['id']) || (int) $data['id'] == 0) // <== only for new item
-        )
+           )
 		{
 			if (empty ($data['alias']))
 			{
@@ -194,6 +199,13 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 				$table->reorder($conditions);
 			}
 			/**/
+
+            // reorder on new element
+            // (when ordering is not defined or zero)
+            $table = $this->getTable();
+            if (empty($table->ordering)) {
+                $table->reorder();
+            }
 
 			return true;
 		}
