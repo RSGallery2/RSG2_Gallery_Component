@@ -41,7 +41,9 @@ class JFormFieldGallerySelectList extends JFormFieldList {
 			->select('id As value, name As text')
 			->from('#__rsgallery2_galleries AS a')
 //			->order('a.name');
-			->order('a.ordering DESC');   // Newest first ToDO: Use opton in XML to select ASC/DESC
+//            ->order('a.ordering DESC');   // Oldest first
+            // ToDO: Use opton in XML to select ASC/DESC
+            ->order('a.ordering ASC');   // Newest first
 
 		// Get the options.
 		$db->setQuery($query);
