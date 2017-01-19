@@ -26,7 +26,10 @@ Legend:
 + "Consolidate image database": All function are now working (new code)
   Replaced old button in maintenance: Old one may be found in
   Outdated zone  
-
+# New gallery had ordering of max galleries +1 instead of 1. Now the 
+  order number after save is 1 and it will displayed as first element 
+  in the lists
+  
 * --- 4.2.103 --- 2016-12-26 --- whazzup ------------------------------
 
 # Fixed: Modal popup was not doing anything
