@@ -89,12 +89,12 @@ class Rsgallery2ModelAcl_items extends JModelList
 			);
 		$query->select($actState);
 
-		$query->from('#__rsgallery2_acl);
+		$query->from('#__rsgallery2_acl');
 		
-		$search = $this->getState('filter . search');
+		$search = $this->getState('filter.search');
 		if(!empty($search)) {
 /**
-			$search = $db->quote(' % ' . $db->escape($search, true) . ' % ');
+				$search = $db->quote('%' . $db->escape($search, true) . '%');
 			$query->where(
 				'comment LIKE ' . $search
 				. ' OR user_name LIKE ' . $search
