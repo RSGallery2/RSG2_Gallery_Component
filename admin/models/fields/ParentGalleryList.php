@@ -4,9 +4,10 @@ defined('_JEXEC') or die;
 
 JFormHelper::loadFieldClass('list');
 
-class JFormFieldParentGalleryList extends JFormFieldList {
+class JFormFieldParentGalleryList extends JFormFieldList
+{
 
-    protected $type = 'ParentGalleryList';
+	protected $type = 'ParentGalleryList';
 
 	/**
 	 * Method to get the field options. -> List of galleries
@@ -20,10 +21,10 @@ class JFormFieldParentGalleryList extends JFormFieldList {
 		$options = array();
 
 		$ActGalleryId = (string) $this->element['id'];
-		
+
 		// $user = JFactory::getUser();
-		$db		= JFactory::getDbo();
-		$query	= $db->getQuery(true)
+		$db    = JFactory::getDbo();
+		$query = $db->getQuery(true)
 			->select('id As value, name As text')
 			->from('#__rsgallery2_galleries AS a')
 			->where('id !=' . (int) $ActGalleryId)
@@ -40,17 +41,17 @@ class JFormFieldParentGalleryList extends JFormFieldList {
 		{
 			JError::raiseWarning(500, $e->getMessage());
 
-            // toDo: Check out catch with enqueueMessage($e->getMessage());
-            JFactory::getApplication()->enqueueMessage($e->getMessage());
+			// toDo: Check out catch with enqueueMessage($e->getMessage());
+			JFactory::getApplication()->enqueueMessage($e->getMessage());
 
-            return false;
+			return false;
 
 		}
-		
+
 		// Merge any additional options in the XML definition.
 		// $options[] = JHtml::_('select.option', $key, $value);
 		$options = array_merge(parent::getOptions(), $options);
-		
+
 		return $options;
-    }
+	}
 }

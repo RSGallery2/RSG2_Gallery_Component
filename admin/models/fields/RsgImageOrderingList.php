@@ -4,9 +4,10 @@ defined('_JEXEC') or die;
 
 JFormHelper::loadFieldClass('list');
 
-class JFormFieldRsgImageOrderingList extends JFormFieldList {
+class JFormFieldRsgImageOrderingList extends JFormFieldList
+{
 
-    protected $type = 'RsgImageOrderingList';
+	protected $type = 'RsgImageOrderingList';
 
 	/**
 	 * Method to get the field options. -> List of galleries
@@ -23,12 +24,12 @@ class JFormFieldRsgImageOrderingList extends JFormFieldList {
 		$DbVarName = (string) $this->element['name'];
 
 		// List of row number to image names
-		$db		= JFactory::getDbo();
-		$query	= $db->getQuery(true)
-			->select($DbVarName.' As idx, name As text')
+		$db    = JFactory::getDbo();
+		$query = $db->getQuery(true)
+			->select($DbVarName . ' As idx, name As text')
 			->from('#__rsgallery2_files AS a')
 			->where('gallery_id =' . (int) $GalleryId)
-			->order('a.'.$DbVarName);
+			->order('a.' . $DbVarName);
 
 		// Get the options.
 		$db->setQuery($query);
@@ -38,22 +39,22 @@ class JFormFieldRsgImageOrderingList extends JFormFieldList {
 			$images = $db->loadObjectList();
 
 			// Create row number to Text = "Row number -> image name" assignment
-			foreach($images as $image)
-			{	
-		        $options[] = array("value" => $image->idx, "text" => str_pad($image->idx, 3, " ", STR_PAD_LEFT ) . ' ->'.$image->text);
+			foreach ($images as $image)
+			{
+				$options[] = array("value" => $image->idx, "text" => str_pad($image->idx, 3, " ", STR_PAD_LEFT) . ' ->' . $image->text);
 			}
 			// Add JGLOBAL_NEWITEMSLAST_DESC 
 			if (count($options) == 0)
 			{
 				// Merge any additional options in the XML definition.
 				$options = array_merge(parent::getOptions(), $options);
-			}		
+			}
 		}
 		catch (RuntimeException $e)
 		{
 			JError::raiseWarning(500, $e->getMessage());
 		}
-				
+
 		return $options;
-    }
+	}
 }

@@ -1,12 +1,12 @@
 <?php
 
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 
-jimport ('joomla.html.html.bootstrap');
+jimport('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 jimport('joomla.application.component.model');
 
-JModelLegacy::addIncludePath(JPATH_COMPONENT.'/models');
+JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
 class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
 {
@@ -20,45 +20,48 @@ class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
 
 	protected $ImageWidth;
 	protected $thumbWidth;
-	
+
 	//------------------------------------------------
 	/**
 	 * @param null $tpl
+	 *
 	 * @return mixed bool or void
 	 */
-	public function display ($tpl = null)
+	public function display($tpl = null)
 	{
 		global $Rsg2DevelopActive;
 		global $rsgConfig;
 
 		// on develop show open tasks if existing
-		if(!empty ($Rsg2DevelopActive)) {
+		if (!empty ($Rsg2DevelopActive))
+		{
 			// echo '<span style="color:red">Task: </span><br><br>';
 		}
 
-		$xmlFile = JPATH_COMPONENT . '/models/forms/maintregenerateimages.xml';
+		$xmlFile    = JPATH_COMPONENT . '/models/forms/maintregenerateimages.xml';
 		$this->form = JForm::getInstance('maintRegenerateImages', $xmlFile);
 
 		//--- get needed data ------------------------------------------
-		
+
 		// Check rights of user
-		$this->UserIsRoot = $this->CheckUserIsRoot ();
+		$this->UserIsRoot = $this->CheckUserIsRoot();
 
 		// $this->rsgConfigData = $rsgConfig;
 		$this->imageWidth = $rsgConfig->get('image_width');
 		$this->thumbWidth = $rsgConfig->get('thumb_width');
 
 		//--- begin to display --------------------------------------------
-		
+
 //		Rsg2Helper::addSubMenu('rsg2'); 
-		
+
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) 
+		if (count($errors = $this->get('Errors')))
 		{
 			JError::raiseError(500, implode('<br />', $errors));
+
 			return false;
 		}
-		
+
 		// Assign the Data
 		// $this->form = $form;
 
@@ -68,42 +71,43 @@ class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
 		// Assign the Data
 //		$this->form = $form;
 
-		$this->addToolbar ($this->UserIsRoot); //$Layout);
-		$this->sidebar = JHtmlSidebar::render ();
+		$this->addToolbar($this->UserIsRoot); //$Layout);
+		$this->sidebar = JHtmlSidebar::render();
 
-		parent::display ($tpl);
+		parent::display($tpl);
 
-        return;
+		return;
 	}
 
 	/**
 	 * Checks if user has root status (is re.admin')
 	 *
-	 * @return	bool
-	 */		
-	function CheckUserIsRoot ()
+	 * @return    bool
+	 */
+	function CheckUserIsRoot()
 	{
-		$user = JFactory::getUser();
+		$user     = JFactory::getUser();
 		$canAdmin = $user->authorise('core.admin');
+
 		return $canAdmin;
 	}
 
-	protected function addToolbar ($UserIsRoot) //$Layout='default')
+	protected function addToolbar($UserIsRoot) //$Layout='default')
 	{
-        // Title
-        JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE') . ': ' . JText::_('COM_RSGALLERY2_MAINT_REGEN'), 'screwdriver');
+		// Title
+		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE') . ': ' . JText::_('COM_RSGALLERY2_MAINT_REGEN'), 'screwdriver');
 
-        if ($UserIsRoot) {
-            JToolBarHelper::custom('maintRegenerate.RegenerateImagesDisplay','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY', false);
-            JToolBarHelper::custom('maintRegenerate.RegenerateImagesThumb','forward.png','forward.png','COM_RSGALLERY2_MAINT_REGEN_THUMBS', false);
-            // JToolBarHelper::spacer();
-        }
+		if ($UserIsRoot)
+		{
+			JToolBarHelper::custom('maintRegenerate.RegenerateImagesDisplay', 'forward.png', 'forward.png', 'COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY', false);
+			JToolBarHelper::custom('maintRegenerate.RegenerateImagesThumb', 'forward.png', 'forward.png', 'COM_RSGALLERY2_MAINT_REGEN_THUMBS', false);
+			// JToolBarHelper::spacer();
+		}
 
-        JToolBarHelper::cancel('maintRegenerate.cancel');
-        JToolBarHelper::cancel('maintenance.cancel');
+		JToolBarHelper::cancel('maintRegenerate.cancel');
+		JToolBarHelper::cancel('maintenance.cancel');
 //        JToolBarHelper::spacer();
 //        JToolBarHelper::help( 'screen.rsgallery2',true);
-
 
 		/*
 		switch ($Layout)

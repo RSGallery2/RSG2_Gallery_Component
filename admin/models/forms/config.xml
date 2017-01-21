@@ -2,44 +2,45 @@
 <!-- $Id$ -->
 <form enctype="multipart/form-data">
 	<fieldset name="General_Description">
-		<field name="intro_text" type="editor"
-			   label="COM_RSGALLERY2_INTRODUCTION_TEXT"
-			   description="COM_CONTENT_FIELD_ARTICLETEXT_DESC"
-			   filter="JComponentHelper::filterText"
-			   buttons="false"
+		<field name="intro_text"
+		       type="editor"
+		       label="COM_RSGALLERY2_INTRODUCTION_TEXT"
+		       description="COM_CONTENT_FIELD_ARTICLETEXT_DESC"
+		       filter="JComponentHelper::filterText"
+		       buttons="false"
 		/>
 	</fieldset>
 	<fieldset name="General">
 		<field
-			id           = "debug"
-			name         = "debug"
-			type         = "radio" 
-			default      = "0"
-			label        = "COM_RSGALLERY2_DEBUG"
-			description  = "COM_RSGALLERY2_DEBUG_ACTIVATED_INFO"
-			class        = "btn-group btn-group-yesno">
+				id="debug"
+				name="debug"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DEBUG"
+				description="COM_RSGALLERY2_DEBUG_ACTIVATED_INFO"
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 		<field
-			id           = "develop"
-			name         = "develop"
-			type         = "radio" 
-			default      = "0"
-			label        = "COM_RSGALLERY2_DEVELOP"
-			description  = "COM_RSGALLERY2_DEVELOP_DESC"
-			class        = "btn-group btn-group-yesno">
+				id="develop"
+				name="develop"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DEVELOP"
+				description="COM_RSGALLERY2_DEVELOP_DESC"
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 		<field
-			id           = "advancedSef"
-			name         = "advancedSef"
-			type         = "radio"
-			default      = "0"
-			label        = "COM_RSGALLERY2_ADVANCED_SEF_ALL_CATEGORY_NAMES_AND_ITEM_TITLES_MUST_BE_UNIQUE"
-			description  = ""
-			class        = "btn-group btn-group-yesno">
+				id="advancedSef"
+				name="advancedSef"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_ADVANCED_SEF_ALL_CATEGORY_NAMES_AND_ITEM_TITLES_MUST_BE_UNIQUE"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -47,39 +48,39 @@
 
 	<fieldset name="Images_manipulation">
 		<field
-			name         = "image_width"
-			type         = "text"
-			default      = "0"
-			label        = "COM_RSGALLERY2_DISPLAY_PICTURE_WIDTH"
-			description  = ""
-			class        = "">
+				name="image_width"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_PICTURE_WIDTH"
+				description=""
+				class="">
 		</field>
 		<field
-			name         = "thumb_width"
-			type         = "text"
-			default      = "0"
-			label        = "COM_RSGALLERY2_THUMBNAIL_WIDTH"
-			description  = ""
-			class        = "">
+				name="thumb_width"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_THUMBNAIL_WIDTH"
+				description=""
+				class="">
 		</field>
 		<field
-			name         = "thumb_style"
-			type         = "list"
-			default      = "0"
-			label        = "COM_RSGALLERY2_THUMBNAIL_STYLE"
-			description  = ""
-			class        = ""
+				name="thumb_style"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_THUMBNAIL_STYLE"
+				description=""
+				class=""
 		>
 			<option value="0">COM_RSGALLERY2_PROPORTIONAL</option>
 			<option value="1">COM_RSGALLERY2_SQUARE</option>
 		</field>
 		<field
-			name         = "jpegQuality"
-			type         = "text"
-			default      = "0"
-			label        = "COM_RSGALLERY2_JPEG_QUALITY_PERCENTAGE"
-			description  = ""
-			class        = "">
+				name="jpegQuality"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_JPEG_QUALITY_PERCENTAGE"
+				description=""
+				class="">
 		</field>
 		<!-- field
 			name         = "allowedFileTypes"
@@ -95,72 +96,70 @@
 			<option value="2">JARCHIVED</option>
 			<option value="-2">JTRASHED</option>
 		</field -->
-        <field
-            name         = "allowedFileTypes"
-            type         = "text"
-            default      = "x jpg,jpeg,gif,png"
-            label        = "COM_RSGALLERY2_ALLOWED_FILETYPES"
-            readonly     = "true"
-            description  = ""
-            class        = "readonly"
-        >
-        </field>
+		<field
+				name="allowedFileTypes"
+				type="text"
+				default="x jpg,jpeg,gif,png"
+				label="COM_RSGALLERY2_ALLOWED_FILETYPES"
+				readonly="true"
+				description=""
+				class="readonly"
+		>
+		</field>
 	</fieldset>
-
-
 
 
 	<fieldset name="Images_upload">
 		<field
-			name         = "ftp_path"
-			type         = "text"
-			default      = ""
-			label        = "COM_RSGALLERY2_FTP_PATH"
-			description  = "COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH"
-			class           = "input-large-text input-xxlarge"
-			>
+				name="ftp_path"
+				type="text"
+				default=""
+				label="COM_RSGALLERY2_FTP_PATH"
+				description="COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH"
+				class="input-large-text input-xxlarge"
+		>
 		</field>
 		<field
-			name         = "useIPTCinformation"
-			type         = "radio"
-			default      = "0"
-			label        = "COM_RSGALLERY2_RSG2_USE_IPTC"
-			description  = "COM_RSGALLERY2_RSG2_IPTC_TOOLTIP"
-			class        = "btn-group btn-group-yesno">
+				name="useIPTCinformation"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_RSG2_USE_IPTC"
+				description="COM_RSGALLERY2_RSG2_IPTC_TOOLTIP"
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 		<field
-			name         = "uploadState"
-			type="list"
-			class="chzn-color-state"
-			default="1"
-			size="1"
-			label="COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP_TITLE"
-			description="COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP">
+				name="uploadState"
+				type="list"
+				class="chzn-color-state"
+				default="1"
+				size="1"
+				label="COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP_TITLE"
+				description="COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP">
 			<option value="1">JPUBLISHED</option>
 			<option value="0">JUNPUBLISHED</option>
 			<option value="2">JARCHIVED</option>
 			<option value="-2">JTRASHED</option>
 		</field>
 		<field
-			name         = "IsUseOneGalleryNameForAllImages"
-			type         = "radio"
-			default      = "0"
-			label        = "COM_RSGALLERY2_PRESELECT_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
-			description  = "COM_RSGALLERY2_PRESELECT_ONE_GALLERY_FOR_ALL_IMAGES_PRESELECT"
-			class        = "btn-group btn-group-yesno">
+				name="IsUseOneGalleryNameForAllImages"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_PRESELECT_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+				description="COM_RSGALLERY2_PRESELECT_ONE_GALLERY_FOR_ALL_IMAGES_PRESELECT"
+				class="btn-group btn-group-yesno">
 			<option value="0">JDEFAULT</option>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 		<field
-			name         = "IsPreSelectLatestGallery"
-			type         = "radio"
-			default      = "0"
-			label        = "COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_LABEL"
-			description  = "COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_DESC"
-			class        = "btn-group btn-group-yesno">
+				name="IsPreSelectLatestGallery"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_LABEL"
+				description="COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_DESC"
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -169,321 +168,321 @@
 	</fieldset>
 	<fieldset name="Images_graficsLibrary">
 		<field
-			name         = "graphicsLib"
-			type         = "GraficLibrarySelectList"
-			default      = "0"
-			label        = "COM_RSGALLERY2_GRAPHICS_LIBRARY"
-			description  = ""
-			class        = ""
+				name="graphicsLib"
+				type="GraficLibrarySelectList"
+				default="0"
+				label="COM_RSGALLERY2_GRAPHICS_LIBRARY"
+				description=""
+				class=""
 		>
 		</field>
 		<field
-			name         = "imageMagick_path"
-			type         = "text"
-			default      = ""
-			label        = "COM_RSGALLERY2_IMAGEMAGICK_PATH"
-			description  = "COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_LABEL"
-			class           = "input-large-text input-xxlarge"
+				name="imageMagick_path"
+				type="text"
+				default=""
+				label="COM_RSGALLERY2_IMAGEMAGICK_PATH"
+				description="COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_LABEL"
+				class="input-large-text input-xxlarge"
 		>
 		</field>
 		<field
-			name         = "netpbm_path"
-			type         = "text"
-			default      = ""
-			label        = "COM_RSGALLERY2_NETPBM_PATH"
-			description  = ""
-			class           = "input-large-text input-xxlarge"
+				name="netpbm_path"
+				type="text"
+				default=""
+				label="COM_RSGALLERY2_NETPBM_PATH"
+				description=""
+				class="input-large-text input-xxlarge"
 		>
 		</field>
 		<field
-			name         = "videoConverter_path"
-			type         = "text"
-			default      = ""
-			label        = "COM_RSGALLERY2_VIDEO_CONVERTER_PATH"
-			description  = "COM_RSGALLERY2_PAREN_EXAMPLE"
-			class        = "input-large-text input-xxlarge"
+				name="videoConverter_path"
+				type="text"
+				default=""
+				label="COM_RSGALLERY2_VIDEO_CONVERTER_PATH"
+				description="COM_RSGALLERY2_PAREN_EXAMPLE"
+				class="input-large-text input-xxlarge"
 		>
 		</field>
 		<field
-			name         = "videoConverter_param"
-			type         = "text"
-			default      = "0"
-			label        = "COM_RSGALLERY2_VIDEO_CONVERTER_PARAMETERS"
-			description  = ""
-			class        = "btn-group btn-group-yesno">
+				name="videoConverter_param"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_VIDEO_CONVERTER_PARAMETERS"
+				description=""
+				class="btn-group btn-group-yesno">
 		</field>
 		<field
-			name         = "videoConverter_thumbParam"
-			type         = "text"
-			default      = "0"
-			label        = "COM_RSGALLERY2_THUMBNAIL_EXTRACTION_PARAMETERS"
-			description  = ""
-			class        = "btn-group btn-group-yesno">
+				name="videoConverter_thumbParam"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_THUMBNAIL_EXTRACTION_PARAMETERS"
+				description=""
+				class="btn-group btn-group-yesno">
 		</field>
 		<field
-			name         = "videoConverter_extension"
-			type         = "text"
-			default      = "0"
-			label        = "COM_RSGALLERY2_VIDEO_OUTPUT_TYPE"
-			description  = ""
-			class        = "btn-group btn-group-yesno">
+				name="videoConverter_extension"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_VIDEO_OUTPUT_TYPE"
+				description=""
+				class="btn-group btn-group-yesno">
 		</field>
 	</fieldset>
 
 	<fieldset name="Images_storage">
 		<field
-			name         = "keepOriginalImage"
-			type         = "radio"
-			default      = "0"
-			label        = "COM_RSGALLERY2_KEEP_ORIGINAL_IMAGE"
-			description  = ""
-			class        = "btn-group btn-group-yesno">
+				name="keepOriginalImage"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_KEEP_ORIGINAL_IMAGE"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 		<field
-			name         = "imgPath_original"
-			type         = "text"
-			default      = "0"
-			label        = "COM_RSGALLERY2_ORIGINAL_IMAGE_PATH"
-			description  = ""
-			class           = "input-large-text input-xxlarge"
+				name="imgPath_original"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_ORIGINAL_IMAGE_PATH"
+				description=""
+				class="input-large-text input-xxlarge"
 		>
 		</field>
 		<field
-			name         = "imgPath_display"
-			type         = "text"
-			default      = "0"
-			label        = "COM_RSGALLERY2_DISPLAY_IMAGE_PATH"
-			description  = ""
-			class           = "input-large-text input-xxlarge"
+				name="imgPath_display"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_IMAGE_PATH"
+				description=""
+				class="input-large-text input-xxlarge"
 		>
 		</field>
 		<field
-			name         = "imgPath_thumb"
-			type         = "text"
-			default      = "0"
-			label        = "COM_RSGALLERY2_THUMB_PATH"
-			description  = ""
-			class           = "input-large-text input-xxlarge"
+				name="imgPath_thumb"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_THUMB_PATH"
+				description=""
+				class="input-large-text input-xxlarge"
 		>
 		</field>
 	</fieldset>
 	<fieldset name="Images_comments">
 		<field
-			name         = "comment_security"
-			type         = "radio"
-			default      = "0"
-			label        = "COM_RSGALLERY2_USE_CAPTCHA_COMMENT_FORM"
-			description  = ""
-			class        = "btn-group btn-group-yesno">
+				name="comment_security"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_USE_CAPTCHA_COMMENT_FORM"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 		<field
-			name         = "captcha_type"
-			type         = "list"
-			default      = "0"
-			label        = "COM_RSGALLERY2_CAPTCHA_TYPE"
-			description  = ""
-			class        = ""
+				name="captcha_type"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_TYPE"
+				description=""
+				class=""
 		>
 			<option value="0">COM_RSGALLERY2_CAPTCHA_ALFANUMERIC</option>
 			<option value="1">COM_RSGALLERY2_CAPTCHA_MATH</option>
 		</field>
 		<field
-			name         = "captcha_image_height"
-			type         = "text"
-			default      = "0"
-			label        = "COM_RSGALLERY2_CAPTCHA_IMAGE_HEIGHT"
-			description  = ""
-			class        = "">
+				name="captcha_image_height"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_IMAGE_HEIGHT"
+				description=""
+				class="">
 		</field>
 		<field
-			name         = "captcha_perturbation"
-			type         = "text"
-			default      = "0"
-			label        = "COM_RSGALLERY2_CAPTCHA_PERTURBATION"
-			description  = ""
-			class        = "">
+				name="captcha_perturbation"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_PERTURBATION"
+				description=""
+				class="">
 		</field>
 		<field
-			name         = "captcha_num_lines"
-			type         = "text"
-			default      = "0"
-			label        = "COM_RSGALLERY2_CAPTCHA_NUM_LINES"
-			description  = ""
-			class        = "">
+				name="captcha_num_lines"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_NUM_LINES"
+				description=""
+				class="">
 		</field>
 		<field
-				name         = "captcha_image_bg_color"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_CAPTCHA_IMAGE_BG_COLOR"
-				description  = ""
-				class        = "">
+				name="captcha_image_bg_color"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_IMAGE_BG_COLOR"
+				description=""
+				class="">
 		</field>
 		<field
-				name         = "captcha_text_color"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_CAPTCHA_TEXT_COLOR"
-				description  = ""
-				class        = "">
+				name="captcha_text_color"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_TEXT_COLOR"
+				description=""
+				class="">
 		</field>
 		<field
-				name         = "captcha_line_color"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_CAPTCHA_LINE_COLOR"
-				description  = ""
-				class        = "">
+				name="captcha_line_color"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_LINE_COLOR"
+				description=""
+				class="">
 		</field>
 		<field
-				name         = "captcha_case_sensitive"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_CAPTCHA_CASE_SENSITIVE"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				name="captcha_case_sensitive"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_CASE_SENSITIVE"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 
 		<field
-				name         = "captcha_charset"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_CAPTCHA_CHARSET"
-				description  = ""
-				class        = "">
+				name="captcha_charset"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_CHARSET"
+				description=""
+				class="">
 		</field>
 		<field
-				name         = "captcha_code_length"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_CAPTCHA_CODE_LENGTH"
-				description  = ""
-				class        = "">
+				name="captcha_code_length"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_CODE_LENGTH"
+				description=""
+				class="">
 		</field>
 	</fieldset>
 	<fieldset name="Images_voting">
 		<field
-				name         = "voting_once"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_USER_CAN_ONLY_VOTE_ONCE_COOKIE_BASED"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				name="voting_once"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_USER_CAN_ONLY_VOTE_ONCE_COOKIE_BASED"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 		<field
-				name         = "cookie_prefix"
-				type         = "text"
-				default      = "0"
-				label        = "COM_RSGALLERY2_COOKIE_PREFIX"
-				description  = ""
-				class        = "">
+				name="cookie_prefix"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_COOKIE_PREFIX"
+				description=""
+				class="">
 		</field>
 	</fieldset>
 
-<!-- Start ******************************************************************-->
+	<!-- Start ******************************************************************-->
 
 	<fieldset name="Display_frontPage">
 		<field
-				id           = "displaySearch"
-				name         = "displaySearch"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_SEARCH"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				id="displaySearch"
+				name="displaySearch"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_SEARCH"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 
 		<field
-				id           = "displayRandom"
-				name         = "displayRandom"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_RANDOM"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				id="displayRandom"
+				name="displayRandom"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_RANDOM"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 
 		<field
-				id           = "displayLatest"
-				name         = "displayLatest"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_LATEST"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				id="displayLatest"
+				name="displayLatest"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_LATEST"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 
 		<field
-				id           = "displayBranding"
-				name         = "displayBranding"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_BRANDING"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				id="displayBranding"
+				name="displayBranding"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_BRANDING"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 
 		<field
-				id           = "displayDownload"
-				name         = "displayDownload"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_DOWNLOADLINK"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				id="displayDownload"
+				name="displayDownload"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_DOWNLOADLINK"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 
 		<field
-				id           = "displayStatus"
-				name         = "displayStatus"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_STATUS_ICONS"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				id="displayStatus"
+				name="displayStatus"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_STATUS_ICONS"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 
 		<field
-				id           = "dispLimitbox"
-				name         = "dispLimitbox"
-				type         = "list"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_GALLERY_LIMITBOX"
-				description  = ""
-				class        = "">
+				id="dispLimitbox"
+				name="dispLimitbox"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_GALLERY_LIMITBOX"
+				description=""
+				class="">
 			<option value="2">COM_RSGALLERY2_ALWAYS</option>
 			<option value="1">COM_RSGALLERY2_IF_MORE_GALLERIES_THAN_LIMIT</option>
 			<option value="0">COM_RSGALLERY2_NEVER</option>
 		</field>
 
 		<field
-			id           = "galcountNrs"
-			name         = "galcountNrs"
-			type         = "list"
-			default      = "0"
-			label        = "COM_RSGALLERY2_DEFAULT_NUMBER_OF_GALLERIES_ON_FRONTPAGE"
-			description  = ""
-			class        = "">
+				id="galcountNrs"
+				name="galcountNrs"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_DEFAULT_NUMBER_OF_GALLERIES_ON_FRONTPAGE"
+				description=""
+				class="">
 			<option value="5">5</option>
 			<option value="10">10</option>
 			<option value="15">15</option>
@@ -494,70 +493,70 @@
 		</field>
 
 		<field
-				id           = "displaySlideshow"
-				name         = "displaySlideshow"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_SLIDESHOW"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				id="displaySlideshow"
+				name="displaySlideshow"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_SLIDESHOW"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 
 		<field
-				id           = "current_slideshow"
-				name         = "current_slideshow"
-				type         = "SlideshowSelectList"
-				label        = "COM_RSGALLERY2_SELECT_SLIDESHOW"
-				description  = ""
-				class        = "">
+				id="current_slideshow"
+				name="current_slideshow"
+				type="SlideshowSelectList"
+				label="COM_RSGALLERY2_SELECT_SLIDESHOW"
+				description=""
+				class="">
 		</field>
 
 		<field
-				id           = "showGalleryOwner"
-				name         = "showGalleryOwner"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_OWNER_INFORMATION"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				id="showGalleryOwner"
+				name="showGalleryOwner"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_OWNER_INFORMATION"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 
 		<field
-				id           = "showGallerySize"
-				name         = "showGallerySize"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_NUMBER_OF_ITEMS_IN_GALLERY"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				id="showGallerySize"
+				name="showGallerySize"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_NUMBER_OF_ITEMS_IN_GALLERY"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 
 		<field
-				id           = "includeKids"
-				name         = "includeKids"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_NUMBER_OF_ITEMS_IN_GALLERY_INCLUDE_KIDS"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				id="includeKids"
+				name="includeKids"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_NUMBER_OF_ITEMS_IN_GALLERY_INCLUDE_KIDS"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 
 		<field
-				id           = "showGalleryDate"
-				name         = "showGalleryDate"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_CREATION_DATE"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				id="showGalleryDate"
+				name="showGalleryDate"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_CREATION_DATE"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -567,74 +566,74 @@
 
 	<fieldset name="Display_imageDisplay">
 		<field
-				id           = "displaySlideshowImageDisplay"
-				name         = "displaySlideshowImageDisplay"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_SLIDESHOW_IMAGE_DISPLAY"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				id="displaySlideshowImageDisplay"
+				name="displaySlideshowImageDisplay"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_SLIDESHOW_IMAGE_DISPLAY"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 
 		<field
-				id           = "displayPopup"
-				name         = "displayPopup"
-				type         = "list"
-				default      = "0"
-				label        = "COM_RSGALLERY2_POPUP_STYLE"
-				description  = ""
-				class        = "">
+				id="displayPopup"
+				name="displayPopup"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_POPUP_STYLE"
+				description=""
+				class="">
 			<option value="0">COM_RSGALLERY2_NO_POPUP</option>
 			<option value="1">COM_RSGALLERY2_NORMAL_POPUP</option>
 			<option value="2">COM_RSGALLERY2_JOOMLA_MODAL</option>
 		</field>
 
 		<field
-				id           = "displayDesc"
-				name         = "displayDesc"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_DESCRIPTION"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				id="displayDesc"
+				name="displayDesc"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_DESCRIPTION"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 
 		<field
-				id           = "displayHits"
-				name         = "displayHits"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_HITS"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				id="displayHits"
+				name="displayHits"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_HITS"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 
 		<field
-				id           = "displayVoting"
-				name         = "displayVoting"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_VOTING"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				id="displayVoting"
+				name="displayVoting"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_VOTING"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 
 		<field
-				id           = "displayComments"
-				name         = "displayComments"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_COMMENTS"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				id="displayComments"
+				name="displayComments"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_COMMENTS"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -642,63 +641,56 @@
 	</fieldset>
 	<fieldset name="Display_imageOrder">
 		<field
-				id           = "filter_order"
-				name         = "filter_order"
-				type         = "list"
-				default      = "ordering"
-				label        = "COM_RSGALLERY2_ORDER_IMAGES_BY"
-				description  = ""
-				class        = "">
+				id="filter_order"
+				name="filter_order"
+				type="list"
+				default="ordering"
+				label="COM_RSGALLERY2_ORDER_IMAGES_BY"
+				description=""
+				class="">
 			<option value="ordering">COM_RSGALLERY2_DEFAULT</option>
 			<option value="date">COM_RSGALLERY2_DATE</option>
 			<option value="name">COM_RSGALLERY2_NAME</option>
 			<option value="rating">COM_RSGALLERY2_RATING</option>
 			<option value="hits">COM_RSGALLERY2_HITS</option>
 		</field>
-        <field
-                id           = "filter_order_Dir"
-                name         = "filter_order_Dir"
-                type         = "list"
-                default      = "ASC"
-                label        = "COM_RSGALLERY2_ORDER_DIRECTION"
-                description  = ""
-                class        = "">
-            <option value="ASC">COM_RSGALLERY2_ASCENDING</option>
-            <option value="DESC">COM_RSGALLERY2_DESCENDING</option>
-        </field>
+		<field
+				id="filter_order_Dir"
+				name="filter_order_Dir"
+				type="list"
+				default="ASC"
+				label="COM_RSGALLERY2_ORDER_DIRECTION"
+				description=""
+				class="">
+			<option value="ASC">COM_RSGALLERY2_ASCENDING</option>
+			<option value="DESC">COM_RSGALLERY2_DESCENDING</option>
+		</field>
 	</fieldset>
 
 	<fieldset name="Display_exifSettings">
 		<field
-				id           = "displayEXIF"
-				name         = "displayEXIF"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_DISPLAY_EXIF_DATA"
-				description  = ""
-				class        = "btn-group btn-group-yesno">
+				id="displayEXIF"
+				name="displayEXIF"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_EXIF_DATA"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 
 
-
-
-
-
-
-
-
-        <field
-                id           = "exifTags"
-                name         = "exifTags"
-                type         = "list"
-                label        = "COM_RSGALLERY2_SELECT_EXIF_TAGS_TO_DISPLAY"
-                description  = ""
+		<field
+				id="exifTags"
+				name="exifTags"
+				type="list"
+				label="COM_RSGALLERY2_SELECT_EXIF_TAGS_TO_DISPLAY"
+				description=""
 				class="inputbox"
 				size="5"
 				multiple="true"
-				>
+		>
 			<option value="resolutionUnit">Resolution unit</option>
 			<option value="resolutionUnit">Resolution unit</option>
 			<option value="FileName">Filename</option>
@@ -745,117 +737,117 @@
 			<option value="resolution">Resolution</option>
 			<option value="color">Color</option>
 			<option value="jpegProcess">Jpeg process</option>
-        </field>
+		</field>
 	</fieldset>
 
 	<fieldset name="Display_galleryView">
-        <field
-                id           = "display_thumbs_style"
-                name         = "display_thumbs_style"
-                type         = "list"
-                default      = "table"
-                label        = "COM_RSGALLERY2_THUMBNAIL_STYLE_USE_FLOAT_FOR_VARIABLE_WIDTH_TEMPLATES"
-                description  = ""
-                class        = "">
+		<field
+				id="display_thumbs_style"
+				name="display_thumbs_style"
+				type="list"
+				default="table"
+				label="COM_RSGALLERY2_THUMBNAIL_STYLE_USE_FLOAT_FOR_VARIABLE_WIDTH_TEMPLATES"
+				description=""
+				class="">
 			<option value="table">COM_RSGALLERY2_TABLE</option>
 			<option value="float">COM_RSGALLERY2_FLOAT</option>
 			<option value="magic">COM_RSGALLERY2_MAGIC_NOT_SUPPORTED_YET</option>
-        </field>
-        <field
-                id           = "display_thumbs_floatDirection"
-                name         = "display_thumbs_floatDirection"
-                type         = "list"
-                default      = "left"
-                label        = "COM_RSGALLERY2_DIRECTION_ONLY_WORKS_FOR_FLOAT"
-                description  = ""
-                class        = "btn-group btn-group-yesno">
+		</field>
+		<field
+				id="display_thumbs_floatDirection"
+				name="display_thumbs_floatDirection"
+				type="list"
+				default="left"
+				label="COM_RSGALLERY2_DIRECTION_ONLY_WORKS_FOR_FLOAT"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="left">COM_RSGALLERY2_LEFT_TO_RIGHT</option>
 			<option value="right">COM_RSGALLERY2_RIGHT_TO_LEFT</option>
-        </field>
-        <field
-                id           = "display_thumbs_colsPerPage"
-                name         = "display_thumbs_colsPerPage"
-                type         = "integer"
-                default      = "9"
-                label        = "COM_RSGALLERY2_NUMBER_OF_THUMBNAIL_COLUMNS_ONLY_FOR_TABLE"
-                description  = ""
-                class        = ""
-				first        = "1"
-				last         = "19"
-		        step         = "1">
-        </field>
-        <field
-                id           = "display_thumbs_maxPerPage"
-                name         = "display_thumbs_maxPerPage"
-                type         = "text"
-                default      = "0"
-                label        = "COM_RSGALLERY2_THUMBNAILS_PER_PAGE"
-                description  = ""
-                class        = "">
-        </field>
-        <field
-                id           = "display_thumbs_showImgName"
-                name         = "display_thumbs_showImgName"
-                type         = "radio"
-                default      = "0"
-                label        = "COM_RSGALLERY2_SHOW_IMAGE_NAME_BELOW_THUMBNAIL"
-                description  = ""
-                class        = "btn-group btn-group-yesno">
-            <option value="1">JYES</option>
-            <option value="0">JNO</option>
-        </field>
-        <field
-                id           = "displaySlideshowGalleryView"
-                name         = "displaySlideshowGalleryView"
-                type         = "radio"
-                default      = "0"
-                label        = "COM_RSGALLERY2_DISPLAY_SLIDESHOW_GALLERY_VIEW"
-                description  = ""
-                class        = "btn-group btn-group-yesno">
-            <option value="1">JYES</option>
-            <option value="0">JNO</option>
-        </field>
+		</field>
+		<field
+				id="display_thumbs_colsPerPage"
+				name="display_thumbs_colsPerPage"
+				type="integer"
+				default="9"
+				label="COM_RSGALLERY2_NUMBER_OF_THUMBNAIL_COLUMNS_ONLY_FOR_TABLE"
+				description=""
+				class=""
+				first="1"
+				last="19"
+				step="1">
+		</field>
+		<field
+				id="display_thumbs_maxPerPage"
+				name="display_thumbs_maxPerPage"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_THUMBNAILS_PER_PAGE"
+				description=""
+				class="">
+		</field>
+		<field
+				id="display_thumbs_showImgName"
+				name="display_thumbs_showImgName"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_SHOW_IMAGE_NAME_BELOW_THUMBNAIL"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+				id="displaySlideshowGalleryView"
+				name="displaySlideshowGalleryView"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_SLIDESHOW_GALLERY_VIEW"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
 	</fieldset>
 
 
 	<fieldset name="Display_imageWatermark">
-        <field
-                id           = "watermark"
-                name         = "watermark"
-                type         = "radio"
-                default      = "0"
-                label        = "COM_RSGALLERY2_DISPLAY_WATERMARK"
-                description  = ""
-                class        = "btn-group btn-group-yesno">
-            <option value="1">JYES</option>
-            <option value="0">JNO</option>
-        </field>
-        <field
-                id           = "showFontList"
-                name         = "showFontList"
-                type         = "AdminFontsSelectList"
-                default      = "0"
-                label        = "COM_RSGALLERY2_FONT"
-                description  = ""
-                class        = "">
-        </field>
-        <field
-                id           = "watermark_text"
-                name         = "watermark_text"
-                type         = "text"
-                default      = "0"
-                label        = "COM_RSGALLERY2_WATERMARK_TEXT"
-                description  = ""
-                class        = "">
-        </field>
-        <field
-                id           = "watermark_font_size"
-                name         = "watermark_font_size"
-                type         = "list"
-                default      = "0"
-                label        = "COM_RSGALLERY2_WATERMARK_FONT_SIZE"
-                description  = ""
-                class        = "">
+		<field
+				id="watermark"
+				name="watermark"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_WATERMARK"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+				id="showFontList"
+				name="showFontList"
+				type="AdminFontsSelectList"
+				default="0"
+				label="COM_RSGALLERY2_FONT"
+				description=""
+				class="">
+		</field>
+		<field
+				id="watermark_text"
+				name="watermark_text"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_WATERMARK_TEXT"
+				description=""
+				class="">
+		</field>
+		<field
+				id="watermark_font_size"
+				name="watermark_font_size"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_WATERMARK_FONT_SIZE"
+				description=""
+				class="">
 			<option value="5">5</option>
 			<option value="6">6</option>
 			<option value="7">7</option>
@@ -879,29 +871,29 @@
 			<option value="30">30</option>
 			<option value="36">36</option>
 			<option value="40">40</option>
-        </field>
-        <field
-                id           = "watermark_angle"
-                name         = "watermark_angle"
-                type         = "list"
-                default      = "0"
-                label        = "COM_RSGALLERY2_WATERMARK_TEXT_ANGLE"
-                description  = ""
-                class        = "btn-group btn-group-yesno">
+		</field>
+		<field
+				id="watermark_angle"
+				name="watermark_angle"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_WATERMARK_TEXT_ANGLE"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="0">0</option>
 			<option value="45">45</option>
 			<option value="90">90</option>
 			<option value="135">135</option>
 			<option value="180">180</option>
-        </field>
-        <field
-                id           = "watermark_position"
-                name         = "watermark_position"
-                type         = "list"
-                default      = "0"
-                label        = "COM_RSGALLERY2_WATERMARK_POSITION"
-                description  = ""
-                class        = "btn-group btn-group-yesno">
+		</field>
+		<field
+				id="watermark_position"
+				name="watermark_position"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_WATERMARK_POSITION"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="1">COM_RSGALLERY2_TOP_LEFT</option>
 			<option value="2">COM_RSGALLERY2_TOP_CENTER</option>
 			<option value="3">COM_RSGALLERY2_TOP_RIGHT</option>
@@ -911,15 +903,15 @@
 			<option value="7">COM_RSGALLERY2_BOTTOM_LEFT</option>
 			<option value="8">COM_RSGALLERY2_BOTTOM_CENTER</option>
 			<option value="9">COM_RSGALLERY2_BOTTOM_RIGHT</option>
-        </field>
-        <field
-                id           = "watermark_transparency"
-                name         = "watermark_transparency"
-                type         = "list"
-                default      = "0"
-                label        = "COM_RSGALLERY2_WATERMARK_TRANSPARENCY"
-                description  = ""
-                class        = "btn-group btn-group-yesno">
+		</field>
+		<field
+				id="watermark_transparency"
+				name="watermark_transparency"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_WATERMARK_TRANSPARENCY"
+				description=""
+				class="btn-group btn-group-yesno">
 			<option value="0">0</option>
 			<option value="10">10</option>
 			<option value="20">20</option>
@@ -931,50 +923,50 @@
 			<option value="80">80</option>
 			<option value="90">90</option>
 			<option value="100">100</option>
-        </field>
-        <field
-			id           = "imgPath_watermarked"
-			name         = "imgPath_watermarked"
-			type         = "text"
-			default      = "0"
-			label        = "COM_RSGALLERY2_WATERMARKED_IMAGE_PATH"
-			description  = ""
-			class           = "input-large-text input-xxlarge"
+		</field>
+		<field
+				id="imgPath_watermarked"
+				name="imgPath_watermarked"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_WATERMARKED_IMAGE_PATH"
+				description=""
+				class="input-large-text input-xxlarge"
 		>
-        </field>
+		</field>
 	</fieldset>
 
 	<fieldset name="Mygalleries_setting">
 		<field
-				id           = "show_mygalleries"
-				name         = "show_mygalleries"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_SHOW_MY_GALLERIES"
-				description  = "COM_RSGALLERY2_SHOW_MY_GALLERIES_TOOLTIP"
-				class        = "btn-group btn-group-yesno">
+				id="show_mygalleries"
+				name="show_mygalleries"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_SHOW_MY_GALLERIES"
+				description="COM_RSGALLERY2_SHOW_MY_GALLERIES_TOOLTIP"
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 		<field
-				id           = "show_mygalleries_onlyOwnItems"
-				name         = "show_mygalleries_onlyOwnItems"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_SHOW_ONLY_OWN_ITEMS_IN_MY_GALLERIES"
-				description  = "COM_RSGALLERY2_SHOW_ONLY_OWN_ITEMS_IN_MY_GALLERIES_TOOLTIP"
-				class        = "btn-group btn-group-yesno">
+				id="show_mygalleries_onlyOwnItems"
+				name="show_mygalleries_onlyOwnItems"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_SHOW_ONLY_OWN_ITEMS_IN_MY_GALLERIES"
+				description="COM_RSGALLERY2_SHOW_ONLY_OWN_ITEMS_IN_MY_GALLERIES_TOOLTIP"
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 		<field
-				id           = "show_mygalleries_onlyOwnGalleries"
-				name         = "show_mygalleries_onlyOwnGalleries"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_SHOW_ONLY_OWN_GALLERIES_IN_MY_GALLERIES"
-				description  = "COM_RSGALLERY2_SHOW_ONLY_OWN_GALLERIES_IN_MY_GALLERIES_TOOLTIP"
-				class        = "btn-group btn-group-yesno">
+				id="show_mygalleries_onlyOwnGalleries"
+				name="show_mygalleries_onlyOwnGalleries"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_SHOW_ONLY_OWN_GALLERIES_IN_MY_GALLERIES"
+				description="COM_RSGALLERY2_SHOW_ONLY_OWN_GALLERIES_IN_MY_GALLERIES_TOOLTIP"
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>

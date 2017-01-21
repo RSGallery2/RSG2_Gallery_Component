@@ -22,8 +22,8 @@ class Rsgallery2ControllerComments extends JModelList
 {
 
 	public function getModel($name = 'Comment',
- 							 $prefix = 'Rsgallery2Model',
-  							 $config = array('ignore_request' => true))
+		$prefix = 'Rsgallery2Model',
+		$config = array('ignore_request' => true))
 	{
 		$model = parent::getModel($name, $prefix, $config);
 

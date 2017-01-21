@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Id$ -->
 <form>
-	<fieldset name ="comment">
+	<fieldset name="comment">
 		<field
 				name="id"
-		       type="text"
-		       class="readonly"
-		       label="JGLOBAL_FIELD_ID_LABEL"
-		       description ="JGLOBAL_FIELD_ID_DESC"
-		       size="10"
-		       default="0"
-		       readonly="true"
+				type="text"
+				class="readonly"
+				label="JGLOBAL_FIELD_ID_LABEL"
+				description="JGLOBAL_FIELD_ID_DESC"
+				size="10"
+				default="0"
+				readonly="true"
 		/>
 
 		<field
@@ -31,25 +31,25 @@
 		/>
 
 		<field
-				name			= "user_name"
-				type			= "text"
-				label           = "JGLOBAL_FIELD_CREATED_BY_ALIAS_LABEL"
-				description     = "JGLOBAL_FIELD_CREATED_BY_ALIAS_DESC"
-				maxlength       = "250"
-				filter          = ""
-				size            = "60"
-				readonly		= "true"
+				name="user_name"
+				type="text"
+				label="JGLOBAL_FIELD_CREATED_BY_ALIAS_LABEL"
+				description="JGLOBAL_FIELD_CREATED_BY_ALIAS_DESC"
+				maxlength="250"
+				filter=""
+				size="60"
+				readonly="true"
 		/>
 
 		<field
-				name			= "user_ip"
-				type			= "text"
-				label           = "COM_RSGALLERY2_USER_IP"
-				description     = "COM_RSGALLERY2_COMMENT_USER_IP_DESC"
-				maxlength       = "50"
-				filter          = ""
-				size            = "60"
-				readonly		= "true"
+				name="user_ip"
+				type="text"
+				label="COM_RSGALLERY2_USER_IP"
+				description="COM_RSGALLERY2_COMMENT_USER_IP_DESC"
+				maxlength="50"
+				filter=""
+				size="60"
+				readonly="true"
 		/>
 
 		<field
@@ -101,18 +101,27 @@
 				default=""
 		/>
 
-		<field name="published" type="list" label="JSTATUS"
-		       description="JFIELD_PUBLISHED_DESC" class="chzn-color-state"
-		       filter="intval" size="1" default="1"
+		<field name="published"
+		       type="list"
+		       label="JSTATUS"
+		       description="JFIELD_PUBLISHED_DESC"
+		       class="chzn-color-state"
+		       filter="intval"
+		       size="1"
+		       default="1"
 		>
 			<option value="1">
-				JPUBLISHED</option>
+				JPUBLISHED
+			</option>
 			<option value="0">
-				JUNPUBLISHED</option>
+				JUNPUBLISHED
+			</option>
 			<option value="2">
-				JARCHIVED</option>
+				JARCHIVED
+			</option>
 			<option value="-2">
-				JTRASHED</option>
+				JTRASHED
+			</option>
 		</field>
 
 		<field
@@ -156,16 +165,18 @@
 		       type="text"
 		       label="JGLOBAL_HITS"
 		       description="COM_CONTENT_FIELD_HITS_DESC"
-		       class="readonly" size="6"
-		       readonly="true" filter="unset"
+		       class="readonly"
+		       size="6"
+		       readonly="true"
+		       filter="unset"
 		/>
 
 	</fieldset>
-	
+
 	<!-- fieldset 
 		name="permissions"
 		label="JCONFIG_PERMISSIONS_LABEL"
 		description="JCONFIG_PERMISSIONS_DESC"
 	-->
-	
+
 </form>

@@ -1,11 +1,11 @@
 <?php
 
-defined( '_JEXEC' ) or die;
-	
+defined('_JEXEC') or die;
+
 jimport('joomla.application.component.view');
 jimport('joomla.application.component.model');
 
-JModelLegacy::addIncludePath(JPATH_COMPONENT.'/models');
+JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
 class Rsgallery2ViewUpload extends JViewLegacy
 {
@@ -14,7 +14,7 @@ class Rsgallery2ViewUpload extends JViewLegacy
 
 	// [Single images], [Zip file], [local server (ftp) path],
 	protected $ActiveSelection; // ToDo: Activate in html of view
-	
+
 	protected $UploadLimit;
 	protected $PostMaxSize;
 	protected $FtpUploadPath;
@@ -26,31 +26,34 @@ class Rsgallery2ViewUpload extends JViewLegacy
 	//------------------------------------------------
 	/**
 	 * @param null $tpl
+	 *
 	 * @return bool
 	 */
-	public function display ($tpl = null)
+	public function display($tpl = null)
 	{
 		global $Rsg2DevelopActive;
-		
+
 		// on develop show open tasks if existing
-		if(!empty ($Rsg2DevelopActive)) {
+		if (!empty ($Rsg2DevelopActive))
+		{
 			// echo '<span style="color:red">Task: </span><br><br>';
 		}
 
 		$xmlFile = JPATH_COMPONENT . '/models/forms/upload.xml';
-		$form = JForm::getInstance('upload', $xmlFile);
+		$form    = JForm::getInstance('upload', $xmlFile);
 
-		$this->UploadLimit = round( ini_get('upload_max_filesize') * 1.024 );
-		$this->PostMaxSize = round( ini_get('post_max_size') * 1.024 );
+		$this->UploadLimit = round(ini_get('upload_max_filesize') * 1.024);
+		$this->PostMaxSize = round(ini_get('post_max_size') * 1.024);
 
 		//--- FtpUploadPath ------------------------
 
-		$UploadModel = JModelLegacy::getInstance ('upload', 'rsgallery2Model');
+		$UploadModel = JModelLegacy::getInstance('upload', 'rsgallery2Model');
 
 		// Retrieve path from config
-		$FtpUploadPath = $UploadModel->getFtpPath ();
+		$FtpUploadPath = $UploadModel->getFtpPath();
 		// On empty use last successful
-		if (empty ($FtpUploadPath)) {
+		if (empty ($FtpUploadPath))
+		{
 			$FtpUploadPath = $UploadModel->getLastUsedFtpPath();
 		}
 		$this->FtpUploadPath = $FtpUploadPath;
@@ -64,17 +67,20 @@ class Rsgallery2ViewUpload extends JViewLegacy
 		//--- Config requests ------------------------
 
 		// register 'upload_single', 'upload_zip_pc', 'upload_folder_server'
-		$this->ActiveSelection = $UploadModel->getLastUpdateType ();
-		if (empty ($this->ActiveSelection)) {
+		$this->ActiveSelection = $UploadModel->getLastUpdateType();
+		if (empty ($this->ActiveSelection))
+		{
 			$this->ActiveSelection = 'upload_zip_pc';
 		}
 
 		// 0: default, 1: enable, 2: disable
-		$isUseOneGalleryNameForAllImages = $UploadModel->getisUseOneGalleryNameForAllImages ();
-		if (empty ($isUseOneGalleryNameForAllImages)) {
+		$isUseOneGalleryNameForAllImages = $UploadModel->getisUseOneGalleryNameForAllImages();
+		if (empty ($isUseOneGalleryNameForAllImages))
+		{
 			$isUseOneGalleryNameForAllImages = '1';
 		}
-		if ($isUseOneGalleryNameForAllImages == '2') {
+		if ($isUseOneGalleryNameForAllImages == '2')
+		{
 			$isUseOneGalleryNameForAllImages = '0';
 		}
 
@@ -85,46 +91,46 @@ class Rsgallery2ViewUpload extends JViewLegacy
 		$input = JFactory::getApplication()->input;
 
 		// coming from gallery edit -> new id
-		$Id = $input->get( 'id', 0, 'INT');
-		if (! empty ($Id))
+		$Id = $input->get('id', 0, 'INT');
+		if (!empty ($Id))
 		{
 			$IdGallerySelect = $Id;
 		}
 
-		$isPreSelectLatestGallery = $UploadModel->getIsPreSelectLatestGallery ();
-		if ($isPreSelectLatestGallery) {
+		$isPreSelectLatestGallery = $UploadModel->getIsPreSelectLatestGallery();
+		if ($isPreSelectLatestGallery)
+		{
 			$IdGallerySelect = $UploadModel->getIdLatestGallery();
 		}
 
 		// upload_zip, upload_folder
 		$formParam = array(
-			'all_img_in_step1_01' => $isUseOneGalleryNameForAllImages,
-			'all_img_in_step1_02' => $isUseOneGalleryNameForAllImages,
+			'all_img_in_step1_01'  => $isUseOneGalleryNameForAllImages,
+			'all_img_in_step1_02'  => $isUseOneGalleryNameForAllImages,
 			'SelectGalleries01_01' => $IdGallerySelect,
 			'SelectGalleries02_02' => $IdGallerySelect
 		);
 
-		$form->bind ($formParam);
+		$form->bind($formParam);
 
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) 
+		if (count($errors = $this->get('Errors')))
 		{
 			JError::raiseError(500, implode('<br />', $errors)); // ToDo: replace error handling
 			return false;
 		}
-		
+
 		// Assign the Data
 		$this->form = $form;
 		// $this->item = $item;
-	
-		$this->addToolbar ();
-		$this->sidebar = JHtmlSidebar::render ();
 
-		return parent::display ($tpl);
+		$this->addToolbar();
+		$this->sidebar = JHtmlSidebar::render();
+
+		return parent::display($tpl);
 	}
 
-	
-	protected function addToolbar ()
+	protected function addToolbar()
 	{
 		// COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD
 		JToolBarHelper::title(JText::_('COM_RSGALLERY2_SUBMENU_UPLOAD'), 'generic.png');

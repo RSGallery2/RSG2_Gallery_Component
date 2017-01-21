@@ -18,6 +18,5 @@ if ($Rsg2DebugActive)
 
 class Rsgallery2ControllerComment extends JControllerForm
 {
-	
 
 }

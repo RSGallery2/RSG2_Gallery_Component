@@ -1,6 +1,7 @@
 <?php
 /**
  * Maintenance for RSGallery2 SQL tables and content
+ *
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
  *
@@ -15,18 +16,17 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.modeladmin');
 
 // access to the content of the install.mysql.utf8.sql file
-require_once (JPATH_COMPONENT_ADMINISTRATOR . '/classes/sqlinstallfile.php');
+require_once(JPATH_COMPONENT_ADMINISTRATOR . '/classes/sqlinstallfile.php');
 
 // ToDo: write repairs to logfile
 // ToDo: assign db once
 
-
 // Joel Lipman Jdatabase
 
 /**
- * 
+ *
  */
-class Rsgallery2ModelMaintSql extends  JModelList
+class Rsgallery2ModelMaintSql extends JModelList
 {
 //    protected $text_prefix = 'COM_RSG2';
 
@@ -105,7 +105,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		$tableName  = '#__rsgallery2_galleries';
 		$columnName = 'access';
 
-		$IsColumnExisting  = $this->IsColumnExisting($tableName, $columnName);
+		$IsColumnExisting = $this->IsColumnExisting($tableName, $columnName);
 
 		/* !!! test code -> delete actual column (field)
 		if ($IsColumnExisting ) {
@@ -149,12 +149,12 @@ class Rsgallery2ModelMaintSql extends  JModelList
 
 			//$query = 'UPDATE ' . $db->quoteName($tableName) . ' SET ' . $db->quoteName($columnName) . '=1';
 			$query->update($db->quoteName($tableName))
-			      ->set($db->quoteName($columnName) . '=\'1\'');
+				->set($db->quoteName($columnName) . '=\'1\'');
 			$db->setQuery($query);
 			/**/
 
-			$result = $db->execute();
-			$IsSuccessful = ! empty ($result);
+			$result       = $db->execute();
+			$IsSuccessful = !empty ($result);
 			if ($IsSuccessful)
 			{
 				$msg .= 'Assigned `1` to every row in column ' . $columnName . '<br>';
@@ -200,7 +200,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	{
 		$IsTableExisting = false;
 
-		if(!empty ($tableName))
+		if (!empty ($tableName))
 		{
 			$db = JFactory::getDbo();
 
@@ -214,7 +214,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	}
 
 	/**
-	 * Delete table 
+	 * Delete table
 	 *
 	 * @param string $tableName
 	 *
@@ -331,17 +331,17 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		foreach ($missingColumns as $missingColumnName => $missingTableName)
 		{
 			// Get column type from sql file
-			$TableColumnsProperties = $this->sqlFile->getTableColumns ($missingTableName);
-			$TableColumnsProperty = $TableColumnsProperties [$missingColumnName];
+			$TableColumnsProperties = $this->sqlFile->getTableColumns($missingTableName);
+			$TableColumnsProperty   = $TableColumnsProperties [$missingColumnName];
 			// create column
 			$IsColumnCreated = $this->createSqlFileColumn($missingTableName, $missingColumnName, $TableColumnsProperty);
 			if ($IsColumnCreated)
 			{
-				$msg .= 'Column: ' . $missingColumnName . ' in table  '. $missingTableName . ' created successful' . '<br>';
+				$msg .= 'Column: ' . $missingColumnName . ' in table  ' . $missingTableName . ' created successful' . '<br>';
 			}
 			else
 			{
-				$msg .= '!!! Column: ' . $missingColumnName . ' in table  '. $missingTableName . ' not created !!!' . '<br>';
+				$msg .= '!!! Column: ' . $missingColumnName . ' in table  ' . $missingTableName . ' not created !!!' . '<br>';
 			}
 		}
 
@@ -351,7 +351,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		----------------------------------------------*/
 
 		$wrongColumnTypes = $this->check4WrongColumnTypes();
-		if(! empty ($wrongColumnTypes))
+		if (!empty ($wrongColumnTypes))
 		{
 			foreach ($wrongColumnTypes as $wrongColumnTableName => $columnTypes)
 			{
@@ -372,7 +372,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		$superfluousTableNames = $this->check4SuperfluousTables();
 		foreach ($superfluousTableNames as $superfluousTableName)
 		{
-			$IsTableDeleted = $this->deleteTable ($superfluousTableName);
+			$IsTableDeleted = $this->deleteTable($superfluousTableName);
 			if ($IsTableDeleted)
 			{
 				$msg .= 'Table: ' . $superfluousTableName . ' deleted successful' . '<br>';
@@ -383,7 +383,6 @@ class Rsgallery2ModelMaintSql extends  JModelList
 			}
 		}
 
-
 		/*----------------------------------------------
 		Superfluous columns
 		----------------------------------------------*/
@@ -391,14 +390,14 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		$superfluousColumns = $this->check4SuperfluousColumns();
 		foreach ($superfluousColumns as $superfluousColumnName => $superfluousTableName)
 		{
-			$IsColumnDeleted = $this->DeleteColumn ($superfluousTableName, $superfluousColumnName);
+			$IsColumnDeleted = $this->DeleteColumn($superfluousTableName, $superfluousColumnName);
 			if ($IsColumnDeleted)
 			{
-				$msg .= 'Column: ' . $superfluousColumnName . ' in table  '. $superfluousTableName . ' deleted successful' . '<br>';
+				$msg .= 'Column: ' . $superfluousColumnName . ' in table  ' . $superfluousTableName . ' deleted successful' . '<br>';
 			}
 			else
 			{
-				$msg .= '!!! Column: ' . $superfluousColumnName . ' in table  '. $superfluousTableName . ' not deleted !!!' . '<br>';
+				$msg .= '!!! Column: ' . $superfluousColumnName . ' in table  ' . $superfluousTableName . ' not deleted !!!' . '<br>';
 			}
 		}
 
@@ -633,6 +632,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 
 	/**
 	 * Collects all superfluous table names
+	 *
 	 * @return string [] superfluous table names, may be empty
 	 */
 	public function check4SuperfluousTables()
@@ -651,7 +651,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		}
 
 		// Replace '#__' with db table prefix
-		$sqlTableNamesWithPrefix = $this->SqlTableNamesReplace4Prefix ($this->tableNames);
+		$sqlTableNamesWithPrefix = $this->SqlTableNamesReplace4Prefix($this->tableNames);
 
 		$db = JFactory::getDbo();
 
@@ -661,11 +661,14 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		$dbTableNames = $db->getTableList();
 
 		// All db table names
-		foreach ($dbTableNames as $dbTableName) {
+		foreach ($dbTableNames as $dbTableName)
+		{
 			// db table name matches rsgallery2 start
-			if (substr($dbTableName, 0, strlen($StartRsgDbName)) === $StartRsgDbName) {
+			if (substr($dbTableName, 0, strlen($StartRsgDbName)) === $StartRsgDbName)
+			{
 				// Old table name missing in new sql definition ?
-				if(! in_array ($dbTableName, $sqlTableNamesWithPrefix)) {
+				if (!in_array($dbTableName, $sqlTableNamesWithPrefix))
+				{
 					$superfluousTableNames [] = $dbTableName;
 				}
 			}
@@ -699,7 +702,8 @@ class Rsgallery2ModelMaintSql extends  JModelList
 			if ($TableExist)
 			{
 				$nextSuperfluousColumns = $this->check4SuperfluousColumn($tableName, $this->sqlFile);
-				if(! empty ($nextSuperfluousColumns)) {
+				if (!empty ($nextSuperfluousColumns))
+				{
 					foreach ($nextSuperfluousColumns as $nextSuperfluousColumn)
 					{
 						$superfluousColumns [$nextSuperfluousColumn] = $tableName;
@@ -719,7 +723,7 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	 */
 	public function check4SuperfluousColumn($tableName, $sqlFile)
 	{
-		$superfluousColumnNames = array ();
+		$superfluousColumnNames = array();
 
 		$db = JFactory::getDbo();
 
@@ -730,9 +734,11 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		$sqlColumnNames = $sqlFile->getTableColumnNames($tableName);
 
 		// All db table names
-		foreach ($dbColumns as $dbColumnName => $dbColumnProperties) {
+		foreach ($dbColumns as $dbColumnName => $dbColumnProperties)
+		{
 			// Old column name missing in new sql definition ?
-			if(! in_array ($dbColumnName, $sqlColumnNames)) {
+			if (!in_array($dbColumnName, $sqlColumnNames))
+			{
 				$superfluousColumnNames [] = $dbColumnName;
 			}
 		}
@@ -743,12 +749,14 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	/**
 	 * Replaces the '#--' in front of component table names
 	 * with the matching database name
+	 *
 	 * @param string [] $tableNames
+	 *
 	 * @return string [] replaced table names
 	 */
-	private function SqlTableNamesReplace4Prefix ($tableNames)
+	private function SqlTableNamesReplace4Prefix($tableNames)
 	{
-		$SqlTableNamesWithPrefix = array ();
+		$SqlTableNamesWithPrefix = array();
 
 		$db = JFactory::getDbo();
 
@@ -763,10 +771,12 @@ class Rsgallery2ModelMaintSql extends  JModelList
 	/**
 	 * Replaces the '#--' in front of component table names
 	 * with the matching database name
+	 *
 	 * @param string $tableName
+	 *
 	 * @return string
 	 */
-	private function SqlTableNameReplace4Prefix ($tableName)
+	private function SqlTableNameReplace4Prefix($tableName)
 	{
 		$db = JFactory::getDbo();
 
@@ -904,12 +914,14 @@ class Rsgallery2ModelMaintSql extends  JModelList
 						$db->setQuery($query);
 						$result = $db->query();
 
-						if (empty ($result)) {
+						if (empty ($result))
+						{
 
 							// enque message .....
 
 						}
-						else {
+						else
+						{
 
 							// normal message
 						}
@@ -969,21 +981,22 @@ class Rsgallery2ModelMaintSql extends  JModelList
 		return $msg;
 	}
 
-	private function getCommentCount ($ImageId)
+	private function getCommentCount($ImageId)
 	{
 		$commentCount = 0;
 
-		try {
-			$db = JFactory::getDbo();
+		try
+		{
+			$db    = JFactory::getDbo();
 			$query = $db->getQuery(true);
 
-			$query->select ($db->quoteName('item_id'))
+			$query->select($db->quoteName('item_id'))
 				->from($db->quoteName('#__rsgallery2_comments'))
-				->where($db->quoteName('item_id') . ' = '. $ImageId);
+				->where($db->quoteName('item_id') . ' = ' . $ImageId);
 			$db->setQuery($query);
 
-			$commentRows = $db->loadObjectList();
-			$commentCount = count ($commentRows);
+			$commentRows  = $db->loadObjectList();
+			$commentCount = count($commentRows);
 		}
 		catch (RuntimeException $e)
 		{
@@ -997,9 +1010,6 @@ class Rsgallery2ModelMaintSql extends  JModelList
 
 		return $commentCount;
 	}
-
-
-
 
 }
 

@@ -11,7 +11,7 @@ if ($Rsg2DebugActive)
 {
 	// Include the JLog class.
 	jimport('joomla.log.log');
-	
+
 	// identify active file
 	JLog::add('==> ctrl.ctrl.upload.php ');
 }
@@ -26,7 +26,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	/**
 	 * Constructor.
 	 *
-	 * @param   array  $config  An optional associative array of configuration settings.
+	 * @param   array $config An optional associative array of configuration settings.
 	 *
 	 * @see     JController
 	 * @since
@@ -35,9 +35,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	{
 		parent::__construct($config);
 	}
-
-
-
 
 }
 

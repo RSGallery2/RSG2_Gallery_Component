@@ -3,22 +3,23 @@
 defined('_JEXEC') or die;
 
 /**
- * 
+ *
  */
 class Rsgallery2ModelComment extends JModelAdmin
 {
-    protected $text_prefix = 'COM_RSGALLERY2';
+	protected $text_prefix = 'COM_RSGALLERY2';
 
-    /**
+	/**
 	 * Returns a reference to the a Table object, always creating it.
 	 *
-	 * @param       string $type    The table type to instantiate
+	 * @param       string $type   The table type to instantiate
 	 * @param       string $prefix A prefix for the table class name. Optional.
 	 * @param       array  $config Configuration array for model. Optional.
+	 *
 	 * @return      JTable  A database object
 	 * @since       2.5
 	 */
-	public function getTable($type = 'Comment', $prefix = 'Rsgallery2Table', $config = array()) 
+	public function getTable($type = 'Comment', $prefix = 'Rsgallery2Table', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
 	}
@@ -26,20 +27,22 @@ class Rsgallery2ModelComment extends JModelAdmin
 	/**
 	 * Method to get the record form.
 	 *
-	 * @param       array   $data           Data for the form.
-	 * @param       boolean $loadData       True if the form is to load its own data (default case), false if not.
+	 * @param       array   $data     Data for the form.
+	 * @param       boolean $loadData True if the form is to load its own data (default case), false if not.
+	 *
 	 * @return      mixed   A JForm object on success, false on failure
 	 * @since       2.5
 	 */
-	public function getForm($data = array(), $loadData = true) 
+	public function getForm($data = array(), $loadData = true)
 	{
 		$options = array('control' => 'jform', 'load_data' => $loadData);
-		$form = $this->loadForm('com_rsgallery2.comment', 'comment', $options);
+		$form    = $this->loadForm('com_rsgallery2.comment', 'comment', $options);
 
-		if (empty($form)) 
+		if (empty($form))
 		{
 			return false;
 		}
+
 		return $form;
 	}
 
@@ -49,12 +52,12 @@ class Rsgallery2ModelComment extends JModelAdmin
 	 * @return      mixed   The data for the form.
 	 * @since       2.5
 	 */
-	protected function loadFormData() 
+	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$app = JFactory::getApplication();
+		$app  = JFactory::getApplication();
 		$data = $app->getUserState('com_rsgallery2.edit.comment.data', array());
-		if (empty($data)) 
+		if (empty($data))
 		{
 			$data = $this->getItem();
 		}
@@ -62,16 +65,16 @@ class Rsgallery2ModelComment extends JModelAdmin
 		return $data;
 	}
 
-    // Transform some data before it is displayed
-    /* extension development 129 bottom
-    protected function prepareTable ($table)
-    {
-        $table->title = htmlspecialchars_decode ($table->title, ENT_Quotes);
-    }
-    */
+	// Transform some data before it is displayed
+	/* extension development 129 bottom
+	protected function prepareTable ($table)
+	{
+		$table->title = htmlspecialchars_decode ($table->title, ENT_Quotes);
+	}
+	*/
 
 	/** ToDo: */
-	protected function prepareTable ($table)
+	protected function prepareTable($table)
 	{
 		$table->subject = htmlspecialchars_decode($table->subject, ENT_QUOTES);
 		$table->comment = htmlspecialchars_decode($table->comment, ENT_QUOTES);

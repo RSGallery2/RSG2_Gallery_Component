@@ -1,63 +1,72 @@
 <?php
 /**
-* Item class
-* @version $Id: audio.php 1011 2011-01-26 15:36:02Z mirjam $
-* @package RSGallery2
-* @copyright (C) 2005 - 2017 RSGallery2
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-* RSGallery2 is Free Software
-*/
+ * Item class
+ *
+ * @version       $Id: audio.php 1011 2011-01-26 15:36:02Z mirjam $
+ * @package       RSGallery2
+ * @copyright (C) 2005 - 2017 RSGallery2
+ * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ *                RSGallery2 is Free Software
+ */
 
-defined( '_JEXEC' ) or die(); 
+defined('_JEXEC') or die();
 
 /**
-* The generic item class
-* @package RSGallery2
-* @author Jonah Braun <Jonah@WhaleHosting.ca>
-*/
-class rsgItem_audio extends rsgItem{
+ * The generic item class
+ *
+ * @package RSGallery2
+ * @author  Jonah Braun <Jonah@WhaleHosting.ca>
+ */
+class rsgItem_audio extends rsgItem
+{
 	/**
 	 * rsgResource: the original image
 	 */
 	var $original = null;
 
-    /**
-     * @param mixed|null $type
-     * @param $mimetype
-     * @param $gallery
-     * @param $row
-     */
-	function __construct( $type, $mimetype, &$gallery, $row){
-		parent::__construct( $type, $mimetype, $gallery, $row );
-		
+	/**
+	 * @param mixed|null $type
+	 * @param            $mimetype
+	 * @param            $gallery
+	 * @param            $row
+	 */
+	function __construct($type, $mimetype, &$gallery, $row)
+	{
+		parent::__construct($type, $mimetype, $gallery, $row);
+
 		$this->_determineResources();
 	}
-	
+
 	/**
 	 * @return the thumbnail
 	 * @todo: we need to return a nice generic audio thumbnail
 	 */
-	function thumb(){
+	function thumb()
+	{
 		return $this->thumb;
 	}
-	
+
 	/**
 	 * @return the original image
 	 */
-	function original(){
+	function original()
+	{
 		return $this->original;
 	}
-	
-	function _determineResources(){
+
+	function _determineResources()
+	{
 		global $rsgConfig;
-		
+
 		$original = $rsgConfig->get('imgPath_original') . DS . $this->name;
-		
-		
-		if( file_exists( JPATH_ROOT . $original )){
+
+		if (file_exists(JPATH_ROOT . $original))
+		{
 			// original image exists
-			$this->original = new rsgResource( $original );
-		} else {
+			$this->original = new rsgResource($original);
+		}
+		else
+		{
 			return;
 		}
 	}

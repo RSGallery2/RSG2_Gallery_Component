@@ -7,21 +7,21 @@ use Joomla\Utilities\ArrayHelper;
 /**
  * Class Rsgallery2ModelImage
  */
-class Rsgallery2ModelImage extends  JModelAdmin
+class Rsgallery2ModelImage extends JModelAdmin
 {
-    protected $text_prefix = 'COM_RSGALLERY2';
+	protected $text_prefix = 'COM_RSGALLERY2';
 
-
-    /**
+	/**
 	 * Returns a reference to the a Table object, always creating it.
 	 *
-	 * @param       string $type    The table type to instantiate
+	 * @param       string $type   The table type to instantiate
 	 * @param       string $prefix A prefix for the table class name. Optional.
 	 * @param       array  $config Configuration array for model. Optional.
+	 *
 	 * @return      JTable  A database object
 	 * @since       2.5
 	 */
-	public function getTable($type = 'Image', $prefix = 'Rsgallery2Table', $config = array()) 
+	public function getTable($type = 'Image', $prefix = 'Rsgallery2Table', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
 	}
@@ -29,21 +29,23 @@ class Rsgallery2ModelImage extends  JModelAdmin
 	/**
 	 * Method to get the record form.
 	 *
-	 * @param       array   $data           Data for the form.
-	 * @param       boolean $loadData       True if the form is to load its own data (default case), false if not.
+	 * @param       array   $data     Data for the form.
+	 * @param       boolean $loadData True if the form is to load its own data (default case), false if not.
+	 *
 	 * @return      mixed   A JForm object on success, false on failure
 	 * @since       2.5
 	 */
-	public function getForm($data = array(), $loadData = true) 
+	public function getForm($data = array(), $loadData = true)
 	{
 		$options = array('control' => 'jform', 'load_data' => $loadData);
-		$form = $this->loadForm('com_rsgallery2.images', 'image', 
+		$form    = $this->loadForm('com_rsgallery2.images', 'image',
 			array('control' => 'jform', 'load_data' => $loadData));
 
-		if (empty($form)) 
+		if (empty($form))
 		{
 			return false;
 		}
+
 		return $form;
 	}
 
@@ -53,40 +55,41 @@ class Rsgallery2ModelImage extends  JModelAdmin
 	 * @return      mixed   The data for the form.
 	 * @since       2.5
 	 */
-	protected function loadFormData() 
+	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$app = JFactory::getApplication();
+		$app  = JFactory::getApplication();
 		$data = $app->getUserState('com_rsgallery2.edit.image.data', array());
-		if (empty($data)) 
+		if (empty($data))
 		{
 			$data = $this->getItem();
 		}
+
 		return $data;
 	}
 
-    // Transform some data before it is displayed ? Saved ?
-    /* extension development 129 bottom */
-    protected function prepareTable ($table)
-    {
-/**
+	// Transform some data before it is displayed ? Saved ?
+	/* extension development 129 bottom */
+	protected function prepareTable($table)
+	{
+		/**
         $table->name = htmlspecialchars_decode ($table->name, ENT_Quotes);
 
 		$table->generateAlias();
 /**/
 
-        $date = JFactory::getDate()->toSql();
+		$date = JFactory::getDate()->toSql();
 
-        $table->name = htmlspecialchars_decode ($table->name, ENT_QUOTES);
+		$table->name = htmlspecialchars_decode($table->name, ENT_QUOTES);
 
-        // $table->generateAlias();
+		// $table->generateAlias();
 
-        if (empty($table->id))
-        {
-            // Set the values
-            $table->date = $date;
+		if (empty($table->id))
+		{
+			// Set the values
+			$table->date = $date;
 
-	        /**
+			/**
             // Set ordering to the last item if not set
             if (empty($table->ordering))
             {
@@ -105,29 +108,29 @@ class Rsgallery2ModelImage extends  JModelAdmin
             }
 	        /**/
 
-	        $table->ordering = $table->getNextOrder('gallery_id = ' . (int) $table->gallery_id); // . ' AND state >= 0');
-        }
-        else
-        {
-            // Set the values
-            $table->date = $date;
-            $table->userid = JFactory::getUser()->id;
-        }
+			$table->ordering = $table->getNextOrder('gallery_id = ' . (int) $table->gallery_id); // . ' AND state >= 0');
+		}
+		else
+		{
+			// Set the values
+			$table->date   = $date;
+			$table->userid = JFactory::getUser()->id;
+		}
 
-        // Increment the content version number.
-        // $table->version++;
-    }
+		// Increment the content version number.
+		// $table->version++;
+	}
 
 	/**
 	 * A protected method to get a set of ordering conditions.
 	 *
-	 * @param   object  $table A record object.
+	 * @param   object $table A record object.
 	 *
 	 * @return  array   An array of conditions to add to add to ordering queries.
 	 */
 	protected function getReorderConditions($table)
 	{
-		$condition = array();
+		$condition   = array();
 		$condition[] = 'gallery_id = ' . (int) $table->gallery_id;
 
 		return $condition;
@@ -137,11 +140,10 @@ class Rsgallery2ModelImage extends  JModelAdmin
 	 * function edit -> checkout .... http://joomla.stackexchange.com/questions/5333/how-is-content-locking-handled-in-custom-components
 	 */
 
-
 	/**
 	 * Method to save the form data.
 	 *
-	 * @param   array  $data  The form data.
+	 * @param   array $data The form data.
 	 *
 	 * @return  boolean  True on success.
 	 *
@@ -155,8 +157,8 @@ class Rsgallery2ModelImage extends  JModelAdmin
 
 		// Automatic handling of alias for empty fields
 		if (in_array($task, array('apply', 'save', 'save2new'))
-				// && (!isset($data['id']) || (int) $data['id'] == 0) // <== only for new item
-        )
+			// && (!isset($data['id']) || (int) $data['id'] == 0) // <== only for new item
+		)
 		{
 			if (empty ($data['alias']))
 			{
@@ -169,25 +171,25 @@ class Rsgallery2ModelImage extends  JModelAdmin
 					$data['alias'] = JFilterOutput::stringURLSafe($data['name']);
 				}
 
-                // check for existing alias
+				// check for existing alias
 				$table = $this->getTable();
 
 				//if ($table->load(array('alias' => $data['alias'], 'catid' => $data['catid'])))
-                // Warning on existing alias
+				// Warning on existing alias
 				if ($table->load(array('alias' => $data['alias'])))
 				{
 					$msg = JText::_('COM_RSGALLERY2_NAME_CHANGED_AS_WAS_EXISTING');
 				}
 
 				// Create unique alias and name
-                list($name, $alias) = $this->generateNewTitle(null, $data['alias'], $data['name']);
-                $data['alias'] = $alias;
-                $data['name'] = $name;
+				list($name, $alias) = $this->generateNewTitle(null, $data['alias'], $data['name']);
+				$data['alias'] = $alias;
+				$data['name']  = $name;
 
-                if (isset($msg))
-                {
-                    JFactory::getApplication()->enqueueMessage($msg, 'warning');
-                }
+				if (isset($msg))
+				{
+					JFactory::getApplication()->enqueueMessage($msg, 'warning');
+				}
 
 			}
 		}
@@ -212,17 +214,16 @@ class Rsgallery2ModelImage extends  JModelAdmin
 		return false;
 	}
 
-
 	/**
 	 * Method to change the title & alias.
 	 *
-	 * @param   integer  $category_id  The id of the category.
-	 * @param   string   $alias        The alias.
-	 * @param   string   $title        The title.
+	 * @param   integer $category_id The id of the category.
+	 * @param   string  $alias       The alias.
+	 * @param   string  $title       The title.
 	 *
-	 * @return	array  Contains the modified title and alias.
+	 * @return    array  Contains the modified title and alias.
 	 *
-	 * @since	12.2
+	 * @since    12.2
 	 */
 	protected function generateNewTitle($dummy, $alias, $title)
 	{
@@ -241,11 +242,11 @@ class Rsgallery2ModelImage extends  JModelAdmin
 	/**
 	 * Method to retrive unused image name from database
 	 *
-	 * @param   string   $name        image name.
+	 * @param   string $name image name.
 	 *
-	 * @return	array  Contains the modified title and alias.
+	 * @return    array  Contains the modified title and alias.
 	 *
-	 * @since	12.2
+	 * @since    12.2
 	 */
 	protected function generateNewImageName($name)
 	{
@@ -254,8 +255,8 @@ class Rsgallery2ModelImage extends  JModelAdmin
 
 		while ($table->load(array('name' => $name)))
 		{
-			$fileName = pathinfo($name, PATHINFO_FILENAME );
-			$ext = pathinfo($name, PATHINFO_EXTENSION);
+			$fileName = pathinfo($name, PATHINFO_FILENAME);
+			$ext      = pathinfo($name, PATHINFO_EXTENSION);
 
 			// change name
 			$name = JString::increment($fileName, 'dash');
@@ -270,12 +271,12 @@ class Rsgallery2ModelImage extends  JModelAdmin
 	// load table (? may init all varioables )
 	// Change what is necessary and use save see above
 
-    public function createImageDbItem($imageName)
-    {
-        $IsImageDbCreated = 0;
+	public function createImageDbItem($imageName)
+	{
+		$IsImageDbCreated = 0;
 
-        //$OutTxt = 'Model Image: CreateImage "' . $imageName . '"  ';
-        //JFactory::getApplication()->enqueueMessage($OutTxt, 'notice');
+		//$OutTxt = 'Model Image: CreateImage "' . $imageName . '"  ';
+		//JFactory::getApplication()->enqueueMessage($OutTxt, 'notice');
 
 		$item = $this->getTable();
 		$item->load(0);
@@ -283,108 +284,116 @@ class Rsgallery2ModelImage extends  JModelAdmin
 		// $item->gallery_id= $galleryId;
 		// $item->ordering = maxOrdering ($galleryId);;
 
-		$user = JFactory::getUser();
-		$userId = $user->id;
-		$item->userid  = $userId;
+		$user         = JFactory::getUser();
+		$userId       = $user->id;
+		$item->userid = $userId;
 
-        //----------------------------------------------------
-        // image properties
-        //----------------------------------------------------
+		//----------------------------------------------------
+		// image properties
+		//----------------------------------------------------
 
-	    //--- image name -------------------------------------
+		//--- image name -------------------------------------
 
-	    $item->name = $imageName;
+		$item->name = $imageName;
 
-	    //--- unique image title and alias -------------------
-	    $path_parts = pathinfo($imageName);
-        $fileName = $path_parts['filename'];
+		//--- unique image title and alias -------------------
+		$path_parts = pathinfo($imageName);
+		$fileName   = $path_parts['filename'];
 
-	    $item->title = $this->generateNewImageName($fileName);
-	    $item->alias = $item->title ;
-	    $this->alias = JFilterOutput::stringURLSafe($this->alias);
+		$item->title = $this->generateNewImageName($fileName);
+		$item->alias = $item->title;
+		$this->alias = JFilterOutput::stringURLSafe($this->alias);
 
-        // Create unique alias and title
-        list($title, $alias) = $this->generateNewTitle(null, $item->alias, $item->title);
-        $item->title = $title;
-        $item->alias = $alias;
+		// Create unique alias and title
+		list($title, $alias) = $this->generateNewTitle(null, $item->alias, $item->title);
+		$item->title = $title;
+		$item->alias = $alias;
 
-	    //--- date -------------------------------------------
+		//--- date -------------------------------------------
 
-	    $date = JFactory::getDate();
-	    $item->date = JHtml::_('date', $date, 'Y-m-d H:i:s');
+		$date       = JFactory::getDate();
+		$item->date = JHtml::_('date', $date, 'Y-m-d H:i:s');
 
-	    //---  -------------------------------------------
+		//---  -------------------------------------------
 
-	    $item->approved = 0; // dont know why, all images end up with zero ....
+		$item->approved = 0; // dont know why, all images end up with zero ....
 
-	    //----------------------------------------------------
-	    // save new object
-	    //----------------------------------------------------
+		//----------------------------------------------------
+		// save new object
+		//----------------------------------------------------
 
-	    // Lets store it!
+		// Lets store it!
 		$item->check();
 
 		if (!$item->store())
 		{
-            // toDO: collect erorrs and display over enque .... with errr type
-            $UsedNamesText = '<br>SrcImage: ' . $fileName . '<br>DstImage: ' . $item->name;
-            JFactory::getApplication()->enqueueMessage(JText::_('copied image name could not be inseted in database') . $UsedNamesText, 'warning');
+			// toDO: collect erorrs and display over enque .... with errr type
+			$UsedNamesText = '<br>SrcImage: ' . $fileName . '<br>DstImage: ' . $item->name;
+			JFactory::getApplication()->enqueueMessage(JText::_('copied image name could not be inseted in database') . $UsedNamesText, 'warning');
 
-            $IsImageDbCreated = false;
+			$IsImageDbCreated = false;
 
 			$this->setError($this->_db->getErrorMsg());
-		} else {
+		}
+		else
+		{
 
-            $IsImageDbCreated = true;
-        }
+			$IsImageDbCreated = true;
+		}
 
-        return $IsImageDbCreated;
-    }
+		return $IsImageDbCreated;
+	}
 
 	/**
 	 * moveImagesTo ()
 	 *
 	 * Move already defined images to different gallery
 	 * Both database and image files will be moved
+	 *
 	 * @return bool
 	 */
-	public function moveImagesTo ()
+	public function moveImagesTo()
 	{
 		$IsMoved = false;
 
-		try {
+		try
+		{
 
 			$input = JFactory::getApplication()->input;
-			$cids = $input->get( 'cid', array(), 'ARRAY');
-            ArrayHelper::toInteger($cids);
+			$cids  = $input->get('cid', array(), 'ARRAY');
+			ArrayHelper::toInteger($cids);
 
-			$NewGalleryId = $input->get( 'SelectGallery4MoveCopy', -1, 'INT');
+			$NewGalleryId = $input->get('SelectGallery4MoveCopy', -1, 'INT');
 
 			// Destination gallery selected ?
-			if ($NewGalleryId > 0) {
+			if ($NewGalleryId > 0)
+			{
 				// Source images selected ?
-				if (count($cids) > 0) {
+				if (count($cids) > 0)
+				{
 
 					$item = $this->getTable();
 
-                    // All selected images
-					foreach ($cids as $cid) {
+					// All selected images
+					foreach ($cids as $cid)
+					{
 
 						$item->load($cid);
 
-                        // Item is already in this gallery:
-                        if ($item->gallery_id == $NewGalleryId) {
-                            continue;
-                        }
+						// Item is already in this gallery:
+						if ($item->gallery_id == $NewGalleryId)
+						{
+							continue;
+						}
 
-						$item->gallery_id= $NewGalleryId;
-						$item->ordering = $this->maxOrdering ($NewGalleryId);
+						$item->gallery_id = $NewGalleryId;
+						$item->ordering   = $this->maxOrdering($NewGalleryId);
 
-                        /**
-                        $user = JFactory::getUser();
-                        $userId = $user->id;
-                        $item->userid  = $userId;
-						/***/
+						/**
+						 * $user = JFactory::getUser();
+						 * $userId = $user->id;
+						 * $item->userid  = $userId;
+						 * /***/
 
 						if (!$item->store())
 						{
@@ -396,10 +405,10 @@ class Rsgallery2ModelImage extends  JModelAdmin
 						}
 					}
 
-                    // Success
-                    $IsMoved = true;
+					// Success
+					$IsMoved = true;
 
-                    JFactory::getApplication()->enqueueMessage(JText::_('Move is successful. Please check order of images in destination gallery'), 'notice');
+					JFactory::getApplication()->enqueueMessage(JText::_('Move is successful. Please check order of images in destination gallery'), 'notice');
 				}
 				else
 				{
@@ -423,12 +432,13 @@ class Rsgallery2ModelImage extends  JModelAdmin
 		return $IsMoved;
 	}
 
-	public function maxOrdering ($GalleryId)
+	public function maxOrdering($GalleryId)
 	{
 		$max = 0;
 
-		try {
-			$db = $this->getDbo();
+		try
+		{
+			$db    = $this->getDbo();
 			$query = $db->getQuery(true)
 				->select('MAX(ordering)')
 				->from($db->quoteName('#__rsgallery2_files'))
@@ -446,31 +456,33 @@ class Rsgallery2ModelImage extends  JModelAdmin
 			$app->enqueueMessage($OutTxt, 'error');
 		}
 
-		return $max+1;
+		return $max + 1;
 	}
 
 	/**
 	 * Copy already defined images to different gallery
 	 * Both database and image file will be copied
+	 *
 	 * @return bool
 	 */
-	public function copyImagesTo ()
+	public function copyImagesTo()
 	{
 		global $rsgConfig;
 
 		$IsOneNotCopied = false;
-		$IsOneCopied = false;
+		$IsOneCopied    = false;
 
 		try
-        {
+		{
 			$input = JFactory::getApplication()->input;
-			$cids = $input->get( 'cid', array(), 'ARRAY');
-            ArrayHelper::toInteger($cids);
+			$cids  = $input->get('cid', array(), 'ARRAY');
+			ArrayHelper::toInteger($cids);
 
-			$NewGalleryId = $input->get ('SelectGallery4MoveCopy', -1, 'INT');
+			$NewGalleryId = $input->get('SelectGallery4MoveCopy', -1, 'INT');
 
 			// Destination gallery selected ?
-			if ($NewGalleryId > 0) {
+			if ($NewGalleryId > 0)
+			{
 				// Source images selected ?
 				if (count($cids) > 0)
 				{
@@ -497,7 +509,7 @@ class Rsgallery2ModelImage extends  JModelAdmin
 						//----------------------------------------------------
 
 						// Create unique image file name
-						$oldName   = $item->name;
+						$oldName    = $item->name;
 						$item->name = $this->generateNewImageName($oldName);
 
 						// Create unique alias and title
@@ -580,21 +592,22 @@ class Rsgallery2ModelImage extends  JModelAdmin
 					}
 					else
 					{
-						if ($IsOneCopied) {
+						if ($IsOneCopied)
+						{
 							JFactory::getApplication()->enqueueMessage(JText::_('Some images were copied. Please check order of images in destination gallery'), 'notice');
 						}
 					}
 				}
-                else
-                {
-                    JFactory::getApplication()->enqueueMessage(JText::_('No valid image(s) selected'), 'warning');
-                }
-            }
-            else
-            {
-                JFactory::getApplication()->enqueueMessage(JText::_('No valid gallery selected'), 'warning');
-            }
-        }
+				else
+				{
+					JFactory::getApplication()->enqueueMessage(JText::_('No valid image(s) selected'), 'warning');
+				}
+			}
+			else
+			{
+				JFactory::getApplication()->enqueueMessage(JText::_('No valid gallery selected'), 'warning');
+			}
+		}
 		catch (RuntimeException $e)
 		{
 			$OutTxt = '';
@@ -610,7 +623,7 @@ class Rsgallery2ModelImage extends  JModelAdmin
 
 	public function assignGalleryId($imageId, $galleryId)
 	{
-        $IsGalleryAssigned = false;
+		$IsGalleryAssigned = false;
 
 		try
 		{
@@ -621,16 +634,16 @@ class Rsgallery2ModelImage extends  JModelAdmin
 
 			if ($item->store())
 			{
-                $IsGalleryAssigned = true;
+				$IsGalleryAssigned = true;
 			}
 			else
-            {
-                $OutTxt = '';
-                $OutTxt .= 'Error executing assignGalleryId: "' . $imageId . '<br>';
+			{
+				$OutTxt = '';
+				$OutTxt .= 'Error executing assignGalleryId: "' . $imageId . '<br>';
 
-                $app = JFactory::getApplication();
-                $app->enqueueMessage($OutTxt, 'error');
-            }
+				$app = JFactory::getApplication();
+				$app->enqueueMessage($OutTxt, 'error');
+			}
 		}
 		catch (RuntimeException $e)
 		{
@@ -645,234 +658,243 @@ class Rsgallery2ModelImage extends  JModelAdmin
 		return $IsGalleryAssigned;
 	}
 
+	public function ImageIdFromName($imageName)
+	{
+		$imageId = 0;
 
-	public function ImageIdFromName ($imageName)
-    {
-        $imageId = 0;
+		try
+		{
+			$db    = $this->getDbo();
+			$query = $db->getQuery(true)
+				->select('id')
+				->from($db->quoteName('#__rsgallery2_files'))
+				->where($db->quoteName('name') . ' = ' . $db->quote($imageName));
+			$db->setQuery($query);
+			$imageId = $db->loadResult();
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing ImageIdFromName for image name: "' . $imageName . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-        try {
-            $db = $this->getDbo();
-            $query = $db->getQuery(true)
-                ->select('id')
-                ->from($db->quoteName('#__rsgallery2_files'))
-                ->where($db->quoteName('name') . ' = ' . $db->quote($imageName));
-            $db->setQuery($query);
-            $imageId = $db->loadResult();
-        }
-        catch (RuntimeException $e)
-        {
-            $OutTxt = '';
-            $OutTxt .= 'Error executing ImageIdFromName for image name: "' . $imageName . '"<br>';
-            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
 
-            $app = JFactory::getApplication();
-            $app->enqueueMessage($OutTxt, 'error');
-        }
+		return $imageId;
+	}
 
-        return $imageId;
-    }
+	public function createDisplayImageFile($imageName)
+	{
+		global $rsgConfig;
 
+		$IsImageCreated = false;
 
-    public function createDisplayImageFile ($imageName)
-    {
-        global $rsgConfig;
+		try
+		{
 
-        $IsImageCreated = false;
+			$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $imageName;
+			$imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $imageName . '.jpg';
 
-        try {
+			$width  = getimagesize($imgSrcPath);
+			$height = $width[1];
+			$width  = $width[0];
+			if ($height > $width)
+			{
+				$maxSideImage = $height;
+			}
+			else
+			{
+				$maxSideImage = $width;
+			}
 
-            $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $imageName;
-            $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $imageName . '.jpg';
+			$userWidth = $rsgConfig->get('image_width');
 
-            $width = getimagesize($imgSrcPath);
-            $height = $width[1];
-            $width = $width[0];
-            if ($height > $width) {
-                $maxSideImage = $height;
-            } else {
-                $maxSideImage = $width;
-            }
+			// if original is wider or higher than display size, create a display image
+			if ($maxSideImage > $userWidth)
+			{
+				$IsImageCreated = $this->resizeImage($imgSrcPath, $imgDstPath, $userWidth);
+			}
+			else
+			{
+				$IsImageCreated = $this->resizeImage($imgSrcPath, $imgDstPath, $maxSideImage);
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing createDisplayImageFile for image name: "' . $imageName . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-            $userWidth = $rsgConfig->get('image_width');
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
 
-            // if original is wider or higher than display size, create a display image
-            if ($maxSideImage > $userWidth) {
-                $IsImageCreated = $this->resizeImage($imgSrcPath, $imgDstPath, $userWidth);
-            } else {
-                $IsImageCreated = $this->resizeImage($imgSrcPath, $imgDstPath, $maxSideImage);
-            }
-        }
-        catch (RuntimeException $e)
-        {
-            $OutTxt = '';
-            $OutTxt .= 'Error executing createDisplayImageFile for image name: "' . $imageName . '"<br>';
-            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+		return $IsImageCreated;
+	}
 
-            $app = JFactory::getApplication();
-            $app->enqueueMessage($OutTxt, 'error');
-        }
+	/**
+	 * generic image resize function
+	 *
+	 * @param string $source      full path of source image
+	 * @param string $target      full path of target image
+	 * @param int    $targetWidth width of target
+	 *
+	 * @return $targetWidth, true if successfull, false if error
+	 * @todo   only writes in JPEG, this should be given as a user option
+	 */
+	static function resizeImage($imgSrcPath, $imgDstPath, $targetWidth)
+	{
+		global $rsgConfig;
 
-        return $IsImageCreated;
-    }
+		$IsImageCreated = false;
+		$graphicsLib    = $rsgConfig->get('graphicsLib');
 
-    /**
-     * generic image resize function
-     * @param string $source full path of source image
-     * @param string $target full path of target image
-     * @param int $targetWidth width of target
-     * @return $targetWidth, true if successfull, false if error
-     * @todo only writes in JPEG, this should be given as a user option
-     */
-    static function resizeImage($imgSrcPath, $imgDstPath, $targetWidth){
-        global $rsgConfig;
+		try
+		{
+			switch ($graphicsLib)
+			{
+				case 'gd2':
+					$IsImageCreated = GD2::resizeImage($imgSrcPath, $imgDstPath, $targetWidth);
+					break;
+				case 'imagemagick':
+					$IsImageCreated = ImageMagick::resizeImage($imgSrcPath, $imgDstPath, $targetWidth);
+					break;
+				case 'netpbm':
+					$IsImageCreated = Netpbm::resizeImage($imgSrcPath, $imgDstPath, $targetWidth);
+					break;
+				default:
+					//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get( 'graphicsLib' ));
+					JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get('graphicsLib'), 'error');
+				//return false;
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing resizeImage with library "' . $graphicsLib
+				. '" for image source: "' . $imgSrcPath . '"<br>'
+				. '" for image desti.: "' . $imgDstPath . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-        $IsImageCreated = false;
-        $graphicsLib = $rsgConfig->get( 'graphicsLib' );
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
 
-        try {
-            switch ($graphicsLib) {
-                case 'gd2':
-                    $IsImageCreated = GD2::resizeImage($imgSrcPath, $imgDstPath, $targetWidth);
-                    break;
-                case 'imagemagick':
-                    $IsImageCreated = ImageMagick::resizeImage($imgSrcPath, $imgDstPath, $targetWidth);
-                    break;
-                case 'netpbm':
-                    $IsImageCreated = Netpbm::resizeImage($imgSrcPath, $imgDstPath, $targetWidth);
-                    break;
-                default:
-                    //JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get( 'graphicsLib' ));
-                    JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get('graphicsLib'), 'error');
-                //return false;
-            }
-        }
-        catch (RuntimeException $e)
-        {
-            $OutTxt = '';
-            $OutTxt .= 'Error executing resizeImage with library "' . $graphicsLib
-                . '" for image source: "' . $imgSrcPath . '"<br>'
-                . '" for image desti.: "' . $imgDstPath . '"<br>';
-            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+		return $IsImageCreated;
+	}
 
-            $app = JFactory::getApplication();
-            $app->enqueueMessage($OutTxt, 'error');
-        }
+	public function createThumbImageFile($imageName)
+	{
+		global $rsgConfig;
 
-        return $IsImageCreated;
-    }
+		$IsImageCreated = false;
 
-    public function createThumbImageFile ($imageName)
-    {
-        global $rsgConfig;
+		try
+		{
+			$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $imageName;
+			$imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . '/' . $imageName . '.jpg';
 
-        $IsImageCreated = false;
+			$thumbWidth = $rsgConfig->get('thumb_width');
 
-        try {
-            $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $imageName;
-            $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . '/' . $imageName . '.jpg';
+			// Is thumb style square // Todo: Thumb style -> enum  // Todo: general: Config enums
+			if ($rsgConfig->get('thumb_style') == 1 && $rsgConfig->get('graphicsLib') == 'gd2')
+			{
+				// google GD2 crop square
+				// https://return-true.com/making-cropping-thumbnails-square-using-php-gd/
 
-            $thumbWidth = $rsgConfig->get('thumb_width');
+				$IsImageCreated = $this->GD2_createSquareThumb($imgSrcPath, $imgDstPath, $thumbWidth);
+			}
+			else
+			{ //
 
-            // Is thumb style square // Todo: Thumb style -> enum  // Todo: general: Config enums
-            if ( $rsgConfig->get('thumb_style') == 1 && $rsgConfig->get('graphicsLib') == 'gd2'){
-                // google GD2 crop square
-                // https://return-true.com/making-cropping-thumbnails-square-using-php-gd/
+				// google: ImageMagick square thumb // imagemagick crop square
 
+				//http://superuser.com/questions/275476/square-thumbnails-with-imagemagick-convert/
 
-                $IsImageCreated = $this->GD2_createSquareThumb ( $imgSrcPath, $imgDstPath, $thumbWidth );
-            } else { //
+				// a script which allows me to upload an image, square it and then resize it all in one "move"... Even with GD?!? Any suggestions?
+				// ImageMagick will do that
+				//Code:
+				//convert input.jpg -thumbnail x200 -resize "200x<" -resize 50% -gravity center -crop 100x100+0+0 +repage -format jpg -quality 91 square.jpg
+				// convert input.jpg -thumbnail \"100x100^\" -gravity center -crop 100x100+0+0 +repage -quality 91 crop.jpg 
 
-                // google: ImageMagick square thumb // imagemagick crop square
+				// WideImage library is very elegant and higher level PHP library for image processing.
+				// it's at wideimage sourceforge net (can't post links yet)
+				// "WideImage, an object-oriented PHP image library"
+				// sample
+				// wiImage::load('image.png')->resize(50, 30)->saveToFile('new-image.jpg', 30);
 
-                //http://superuser.com/questions/275476/square-thumbnails-with-imagemagick-convert/
+				$IsImageCreated = $this->resizeImage($imgSrcPath, $imgDstPath, $thumbWidth);
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing createThumbImageFile for image name: "' . $imageName . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-                // a script which allows me to upload an image, square it and then resize it all in one "move"... Even with GD?!? Any suggestions?
-                // ImageMagick will do that
-                //Code:
-                //convert input.jpg -thumbnail x200 -resize "200x<" -resize 50% -gravity center -crop 100x100+0+0 +repage -format jpg -quality 91 square.jpg
-                // convert input.jpg -thumbnail \"100x100^\" -gravity center -crop 100x100+0+0 +repage -quality 91 crop.jpg 
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
 
+		return $IsImageCreated;
+	}
 
-                // WideImage library is very elegant and higher level PHP library for image processing.
-                // it's at wideimage sourceforge net (can't post links yet)
-                // "WideImage, an object-oriented PHP image library"
-                // sample
-                // wiImage::load('image.png')->resize(50, 30)->saveToFile('new-image.jpg', 30);
+	/**
+	 * createSquareThumb
+	 * Just a container for try catch
+	 */
+	private function GD2_createSquareThumb($imgSrcPath, $imgDstPath, $width)
+	{
+		$IsImageCreated = false;
 
+		try
+		{
+			$IsImageCreated = GD2::createSquareThumb($imgSrcPath, $imgDstPath, $width);
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing GD2::createSquareThumb for image name: "' . $imgSrcPath . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-                $IsImageCreated = $this->resizeImage($imgSrcPath, $imgDstPath, $thumbWidth);
-            }
-        }
-        catch (RuntimeException $e)
-        {
-            $OutTxt = '';
-            $OutTxt .= 'Error executing createThumbImageFile for image name: "' . $imageName . '"<br>';
-            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
 
-            $app = JFactory::getApplication();
-            $app->enqueueMessage($OutTxt, 'error');
-        }
+		return $IsImageCreated;
+	}
 
-        return $IsImageCreated;
-    }
+	public function deleteImageDbItem($imageName)
+	{
+		$IsRowDeleted = false;
 
-    /**
-     * createSquareThumb
-     * Just a container for try catch
-     */
-    private function GD2_createSquareThumb ($imgSrcPath, $imgDstPath, $width)
-    {
-        $IsImageCreated = false;
+		try
+		{
+			$db = $this->getDbo();
 
-        try
-        {
-            $IsImageCreated = GD2::createSquareThumb ($imgSrcPath, $imgDstPath, $width);
-        }
-        catch (RuntimeException $e)
-        {
-            $OutTxt = '';
-            $OutTxt .= 'Error executing GD2::createSquareThumb for image name: "' . $imgSrcPath . '"<br>';
-            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+			$query = $db->getQuery(true)
+				->delete($db->quoteName('#__rsgallery2_files'))
+				->where($db->quoteName('name') . ' = ' . $db->quote($imageName));
 
-            $app = JFactory::getApplication();
-            $app->enqueueMessage($OutTxt, 'error');
-        }
+			$db->setQuery($query);
+			$IsRowDeleted = $db->execute();
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing deleteImageDbItem for image name: "' . $imageName . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-        return $IsImageCreated;
-    }
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
 
-    public function deleteImageDbItem ($imageName)
-    {
-        $IsRowDeleted = false;
+		return $IsRowDeleted;
+	}
 
-        try {
-            $db = $this->getDbo();
-
-            $query = $db->getQuery(true)
-                ->delete($db->quoteName('#__rsgallery2_files'))
-                ->where($db->quoteName('name') . ' = ' . $db->quote($imageName));
-
-            $db->setQuery($query);
-            $IsRowDeleted = $db->execute();
-        }
-        catch (RuntimeException $e)
-        {
-            $OutTxt = '';
-            $OutTxt .= 'Error executing deleteImageDbItem for image name: "' . $imageName . '"<br>';
-            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-            $app = JFactory::getApplication();
-            $app->enqueueMessage($OutTxt, 'error');
-        }
-
-        return $IsRowDeleted;
-    }
-
-
-
-
-
-    /**
+	/**
     public function createWaterMarkImageFile ($imageName)
     {
     global $rsgConfig;
@@ -915,11 +937,6 @@ class Rsgallery2ModelImage extends  JModelAdmin
     return $IsImageCreated;
 
     }
-    **/
-
-
-
-
-
+	 **/
 
 }

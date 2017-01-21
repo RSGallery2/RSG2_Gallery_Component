@@ -1,12 +1,12 @@
 <?php // no direct access
 /**
- * @package RSGallery2
+ * @package       RSGallery2
  * @copyright (C) 2003 - 2017 RSGallery2
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * RSGallery is Free Software
  */
 
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.multiselect');
@@ -14,22 +14,20 @@ JHtml::_('formbehavior.chosen', 'select');
 
 global $Rsg2DebugActive;
 
-$sortColumn = $this->escape($this->state->get('list.ordering')); //Column
-$sortDirection  = $this->escape($this->state->get('list.direction'));
+$sortColumn    = $this->escape($this->state->get('list.ordering')); //Column
+$sortDirection = $this->escape($this->state->get('list.direction'));
 
-$user = JFactory::getUser();
+$user   = JFactory::getUser();
 $userId = $user->id;
 
 //$canAdmin = $user->authorise('core.admin', 'com_rsgallery2');
 //$canEditStateGallery = $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$row->id);
 
-
 ?>
 <script type="text/javascript">
 
-
 	//This will sort your array
-	function SortByIntValue(a, b){
+	function SortByIntValue(a, b) {
 		var aValue = parseInt($(a).value, 10);
 		var bValue = parseInt($(b).value, 10);
 		return aValue - bValue;
@@ -37,14 +35,14 @@ $userId = $user->id;
 
 
 	// :
-	jQuery(document).ready(function($) {
+	jQuery(document).ready(function ($) {
 		//alert ("assign");
 
 		jQuery(".changeOrder").on('keyup mouseup',
 			function (event) {
 				var Idx;
 				var element;
-                var Count;
+				var Count;
 
 				event.preventDefault();
 
@@ -73,7 +71,7 @@ $userId = $user->id;
 					actElement.value = actValue;
 				}
 
-				var OutTxt ='';
+				var OutTxt = '';
 
 				// Sort array asc
 				Ordering.sort(SortByIntValue);
@@ -81,49 +79,42 @@ $userId = $user->id;
 				// assign changed ordering values
 				var ChangeOld = 0;
 				for (Idx = 1; Idx <= Count; Idx++) {
-					element = Ordering[Idx-1];
+					element = Ordering[Idx - 1];
 
 					var strIdx = Idx.toString();
 					// not matching the changed element
-					if (strActValue != element.value)
-					{
+					if (strActValue != element.value) {
 						// Value different to expected so set it
 						// The orderingIdx should be the Idx value
-						if(element.value != strIdx)
-						{
+						if (element.value != strIdx) {
 							element.value = strIdx;
 						}
 					}
-					else
-					{
+					else {
 						// Undefined up or down ?
 						// UP: Missing
-						if (ChangeOld == 0)
-						{
+						if (ChangeOld == 0) {
 //							alert ("IDX: " + Idx + " " + "Value: " + parseInt(element.value));
 
 							// New id moved up, hole found
-							if (Idx < parseInt(element.value))
-							{
+							if (Idx < parseInt(element.value)) {
 								ChangeOld = Idx;
 							}
-							else
-							{
+							else {
 								// Down: Move old element up
-								ChangeOld = Idx+1;
+								ChangeOld = Idx + 1;
 							}
 						}
 
 						// On Old element assign changed value
-						if (actElement.id != element.id)
-						{
+						if (actElement.id != element.id) {
 							element.value = ChangeOld.toString();
 						}
 					}
 				}
 
 				// Print array order
-				OutTxt +='\n';
+				OutTxt += '\n';
 				for (Idx = 0; Idx < Count; Idx++) {
 					element = Ordering[Idx];
 
@@ -143,17 +134,17 @@ $userId = $user->id;
 ?>
 
 <div id="installer-install" class="clearfix">
-	<?php if (!empty( $this->sidebar)) : ?>
-        <div id="j-sidebar-container" class="span2">
-            <?php echo $this->sidebar; ?>
-        </div>
-        <div id="j-main-container" class="span10">
-	<?php else : ?>
+	<?php if (!empty($this->sidebar)) : ?>
+	<div id="j-sidebar-container" class="span2">
+		<?php echo $this->sidebar; ?>
+	</div>
+	<div id="j-main-container" class="span10">
+		<?php else : ?>
 		<div id="j-main-container">
-	<?php endif;?>
+			<?php endif; ?>
 
-            <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=galleries'); ?>"
-                  method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
+			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=galleries'); ?>"
+					method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">
 				<?php
 				// Search tools bar
 				echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
@@ -162,156 +153,156 @@ $userId = $user->id;
 				//echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this, 'options' => array('filtersHidden' => false ($hidden) (true/false) )));
 				?>
 
-	            <?php if (empty($this->items)) : ?>
-                    <div class="alert alert-no-items">
-                        <?php echo JText::_('COM_RSGALLERY2_NO_GALLERY_ASSIGNED'); ?>
-                    </div>
-                <?php else : ?>
+				<?php if (empty($this->items)) : ?>
+					<div class="alert alert-no-items">
+						<?php echo JText::_('COM_RSGALLERY2_NO_GALLERY_ASSIGNED'); ?>
+					</div>
+				<?php else : ?>
 
-				<table class="table table-striped table-hover" id="galleriesList">
-		            <thead>
-                        <tr>
-                            <th width="1%">
-                                <?php echo JText::_( 'COM_RSGALLERY2_NUM' ); ?>
-                            </th>
+					<table class="table table-striped table-hover" id="galleriesList">
+						<thead>
+						<tr>
+							<th width="1%">
+								<?php echo JText::_('COM_RSGALLERY2_NUM'); ?>
+							</th>
 
-                            <th width="1%" class="center">
-                                <?php echo JHtml::_('grid.checkall'); ?>
-                            </th>
+							<th width="1%" class="center">
+								<?php echo JHtml::_('grid.checkall'); ?>
+							</th>
 
-                            <th width="1%" style="min-width:55px" class="nowrap center">
-                                <?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'a.published', $sortDirection, $sortColumn); ?>
-                            </th>
+							<th width="1%" style="min-width:55px" class="nowrap center">
+								<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'a.published', $sortDirection, $sortColumn); ?>
+							</th>
 
-                            <th width="10%" class="">
-                                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'a.name', $sortDirection, $sortColumn); ?>
-                            </th>
+							<th width="10%" class="">
+								<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_NAME', 'a.name', $sortDirection, $sortColumn); ?>
+							</th>
 
-                            <th width="1%" class="center">
-                                <?php echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_IMAGES', 'image_count', $sortDirection, $sortColumn); ?>
-                            </th>
+							<th width="1%" class="center">
+								<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_IMAGES', 'image_count', $sortDirection, $sortColumn); ?>
+							</th>
 
-                            <th width="1%" class="center nowrap hidden-phone">
-                                <?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_ACCESS', 'a.access', $sortDirection, $sortColumn); ?>
-                            </th>
+							<th width="1%" class="center nowrap hidden-phone">
+								<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ACCESS', 'a.access', $sortDirection, $sortColumn); ?>
+							</th>
 
-                            <th width="1%" class="center nowrap hidden-phone">
-                                <?php echo JHtml::_('searchtools.sort',  'JAUTHOR', 'a.created_by', $sortDirection, $sortColumn); ?>
-                            </th>
+							<th width="1%" class="center nowrap hidden-phone">
+								<?php echo JHtml::_('searchtools.sort', 'JAUTHOR', 'a.created_by', $sortDirection, $sortColumn); ?>
+							</th>
 
-
-                            <th width="1%" class="center">
-                                <?php
-									echo JHtml::_('searchtools.sort',  'COM_RSGALLERY2_ORDER', 'a.ordering', $sortDirection, $sortColumn);
+							<th width="1%" class="center">
+								<?php
+								echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_ORDER', 'a.ordering', $sortDirection, $sortColumn);
 								?>
-                                &nbsp
+								&nbsp
 								<?php if ($user->authorise('core.edit.state')): ?>
 									<button id="filter_go" class="btn btn-micro"
-										onclick="Joomla.submitbutton('galleries.saveOrdering')"
-										title="<?php echo JText::_( 'COM_RSGALLERY2_ASSIGN_CHANGED_ORDER'); ?>">
+											onclick="Joomla.submitbutton('galleries.saveOrdering')"
+											title="<?php echo JText::_('COM_RSGALLERY2_ASSIGN_CHANGED_ORDER'); ?>">
 										<i class="icon-save"></i>
 									</button>
 								<?php endif; ?>
-                            </th>
+							</th>
 
-                            <th width="1%" class="center nowrap hidden-phone">
-                                <?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_DATE__TIME', 'a.date', $sortDirection, $sortColumn); ?>
-                            </th>
+							<th width="1%" class="center nowrap hidden-phone">
+								<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_DATE__TIME', 'a.date', $sortDirection, $sortColumn); ?>
+							</th>
 
+							<th width="1%" class="center nowrap hidden-phone">
+								<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'a.hits', $sortDirection, $sortColumn); ?>
+							</th>
 
-                            <th width="1%" class="center nowrap hidden-phone">
-                                <?php echo JHtml::_('searchtools.sort', 'JGLOBAL_HITS', 'a.hits', $sortDirection, $sortColumn); ?>
-                            </th>
+							<th width="1%" class="center nowrap hidden-phone">
+								<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $sortDirection, $sortColumn); ?>
+							</th>
+						</tr>
+						</thead>
 
-                            <th width="1%" class="center nowrap hidden-phone">
-                                <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $sortDirection, $sortColumn); ?>
-                            </th>
-                        </tr>
-                    </thead>
-
-					<tfoot>
+						<tfoot>
 						<tr>
 							<td colspan="15">
 								<?php echo $this->pagination->getListFooter(); ?>
 							</td>
 						</tr>
-					</tfoot>
+						</tfoot>
 
-	                <tbody>
-			            <?php
+						<tbody>
+						<?php
 
-			            foreach ($this->items as $i => $item) {
+						foreach ($this->items as $i => $item)
+						{
 
-	                        // Get permissions
-							$canEditOwnGallery   = $user->authorise('core.edit.own',  'com_rsgallery2.gallery.'.$item->id) AND ($item->uid == $userId);
-	                        $canEditGallery      = $user->authorise('core.edit',      'com_rsgallery2.gallery.'.$item->id) ||$canEditOwnGallery;
+							// Get permissions
+							$canEditOwnGallery = $user->authorise('core.edit.own', 'com_rsgallery2.gallery.' . $item->id) AND ($item->uid == $userId);
+							$canEditGallery = $user->authorise('core.edit', 'com_rsgallery2.gallery.' . $item->id) || $canEditOwnGallery;
 
-							$canCheckIn          = $user->authorise('core.manage',    'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
+							$canCheckIn = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
 
 							//$canChange  = $user->authorise('core.edit.state', 'com_content.article.' . $item->id) && $canCheckIn;
-							$canEditStateOwnGallery = $user->authorise('core.edit.state.own','com_rsgallery2.gallery.'.$item->id) AND ($item->uid == $userId);
-							$canEditStateGallery = $user->authorise('core.edit.state','com_rsgallery2.gallery.'.$item->id) || $canEditStateOwnGallery || $canCheckIn;
+							$canEditStateOwnGallery = $user->authorise('core.edit.state.own', 'com_rsgallery2.gallery.' . $item->id) AND ($item->uid == $userId);
+							$canEditStateGallery = $user->authorise('core.edit.state', 'com_rsgallery2.gallery.' . $item->id) || $canEditStateOwnGallery || $canCheckIn;
 
 							// ToDo: Use function
-				            $Depth = 0;
-				            $PreTitle = '';
-				            $parent = $item;
-				            while ($parent->parent != 0 && $Depth < 10)
-				            {
-					            // $PreTitle = '[' . $parent->parent  . '] ' . $PreTitle ;
+							$Depth    = 0;
+							$PreTitle = '';
+							$parent   = $item;
+							while ($parent->parent != 0 && $Depth < 10)
+							{
+								// $PreTitle = '[' . $parent->parent  . '] ' . $PreTitle ;
 								$PreTitle =
 									// '[' . $parent->parent  . '] '
 									//' ' . $parent->parent  . ' '
 									//'&nbsp;&nbsp;'
 									'&nbsp;—'
 									//. '<sub><span class="icon-arrow-right-3" style="font-size: 1.6em;"></span></sub>'
-									. $PreTitle ;
-					            $Depth += 1;
-					            $found = false;
-					            foreach ($this->items as $checkItem)
-					            {
-						            if($checkItem->id == $parent->parent){
-							            $parent = $checkItem;
-							            $found = true;
+									. $PreTitle;
+								$Depth += 1;
+								$found = false;
+								foreach ($this->items as $checkItem)
+								{
+									if ($checkItem->id == $parent->parent)
+									{
+										$parent = $checkItem;
+										$found  = true;
 
-							            break;
-						            }
-					            }
+										break;
+									}
+								}
 
-					            if (!$found) {
-						            break;
-					            }
-				            }
+								if (!$found)
+								{
+									break;
+								}
+							}
 
-							if($PreTitle != '')
+							if ($PreTitle != '')
 							{
 								$PreTitle .= ' ';
 							}
 
-				            /**
-	                        $CanOrder = .. Check parent
-	                        $treename
-	/**/
-	                        $authorName = JFactory::getUser($item->uid);
-				            /**/
-				        ?>
-	                    <tr>
-	                        <td>
-		                        <?php echo $this->pagination->getRowOffset($i); ?>
-	                        </td>
+							/**
+							 * $CanOrder = .. Check parent
+							 * $treename
+							 * /**/
+							$authorName = JFactory::getUser($item->uid);
+							/**/
+							?>
+							<tr>
+								<td>
+									<?php echo $this->pagination->getRowOffset($i); ?>
+								</td>
 
+								<td width="1%" class="center">
+									<?php echo JHtml::_('grid.id', $i, $item->id); ?>
+								</td>
 
-							<td width="1%" class="center">
-								<?php echo JHtml::_('grid.id', $i, $item->id); ?>
-							</td>
-
-							<td width="1%" class="center">
-								<?php
-								echo JHtml::_('jgrid.published', $item->published, $i); //, 'articles.', $canChange, 'cb', $item->publish_up, $item->publish_down);
-								//echo JHtml::_('jgrid.published', $item->published, $i, 'galleries.', $canChange); //, 'cb', $item->publish_up, $item->publish_down);
-								?>
-                                <?php
-                                /**
+								<td width="1%" class="center">
+									<?php
+									echo JHtml::_('jgrid.published', $item->published, $i); //, 'articles.', $canChange, 'cb', $item->publish_up, $item->publish_down);
+									//echo JHtml::_('jgrid.published', $item->published, $i, 'galleries.', $canChange); //, 'cb', $item->publish_up, $item->publish_down);
+									?>
+									<?php
+									/**
                                 ?>
                                 <div class="btn-group">
 									<?php echo JHtml::_('jgrid.published', $item->state, $i, 'articles.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
@@ -326,160 +317,165 @@ $userId = $user->id;
 									?>
 								</div>
                                 /**/
-                                ?>
-							</td>
-				            <td width="10%" class="left has-context">
-					            <div class="pull-left break-word">
-						            <?php
-									if ($item->checked_out) {
-										echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'galleries.', $canCheckIn);
-									}
 									?>
-						            <strong>
-							            <?php
-										/*
-							            // Checked out and not owning this item OR not allowed to edit (own) gallery: show name, else show linked name
-							            if ( $row->checked_out && ( $row->checked_out != $user->id ) OR !($can['EditGallery'] OR $can['EditOwnGallery'])) {
-							            echo stripslashes($row->treename);
-										/**/
-							            if ($canEditGallery)
-							            {
-	                                        echo $PreTitle;
-
-								            $link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&task=gallery.edit&id=" . $item->id);
-								            //$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=galleries&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
-								            echo '<a class="hasTooltip" href="' . $link  . '" title="' . JText::_('JACTION_EDIT') . '">';
-											//echo '    ' . $PreTitle . $this->escape($item->name);
-	                                        echo $this->escape($item->name);
-	                                        echo '</a>';
-							            }
-										else
+								</td>
+								<td width="10%" class="left has-context">
+									<div class="pull-left break-word">
+										<?php
+										if ($item->checked_out)
 										{
-	                                        echo $PreTitle;
+											echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'galleries.', $canCheckIn);
+										}
+										?>
+										<strong>
+											<?php
+											/*
+											// Checked out and not owning this item OR not allowed to edit (own) gallery: show name, else show linked name
+											if ( $row->checked_out && ( $row->checked_out != $user->id ) OR !($can['EditGallery'] OR $can['EditOwnGallery'])) {
+											echo stripslashes($row->treename);
+											/**/
+											if ($canEditGallery)
+											{
+												echo $PreTitle;
 
-								            echo '<span title="' . JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias)) . '">';
-							                //echo '    ' . $PreTitle . $this->escape($item->name);
-							                echo $this->escape($item->name);
-								            echo '</span>';
-							            }
+												$link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&task=gallery.edit&id=" . $item->id);
+												//$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=galleries&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
+												echo '<a class="hasTooltip" href="' . $link . '" title="' . JText::_('JACTION_EDIT') . '">';
+												//echo '    ' . $PreTitle . $this->escape($item->name);
+												echo $this->escape($item->name);
+												echo '</a>';
+											}
+											else
+											{
+												echo $PreTitle;
 
-							            ?>
-							        </strong>
-						            <span class="small break-word">
+												echo '<span title="' . JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias)) . '">';
+												//echo '    ' . $PreTitle . $this->escape($item->name);
+												echo $this->escape($item->name);
+												echo '</span>';
+											}
+
+											?>
+										</strong>
+										<span class="small break-word">
 										<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias)); ?>
 									</span>
-					            </div>
-				            </td>
+									</div>
+								</td>
 
-				            <td width="5%" class="center">
-					            <?php
-								$imageCount = 0;
-					            // $imageCount = $this->GalleriesModel->countImages ($item->id);
-								if (!empty($item->image_count)) {
-                                    $imageCount = $item->image_count;
-                                }
+								<td width="5%" class="center">
+									<?php
+									$imageCount = 0;
+									// $imageCount = $this->GalleriesModel->countImages ($item->id);
+									if (!empty($item->image_count))
+									{
+										$imageCount = $item->image_count;
+									}
 
-                                //$link = JRoute::_("index.php?option=com_rsgallery2&view=images&gallery_id=" . $item->id);
-                                $link = JRoute::_("index.php?option=com_rsgallery2&view=images&filter[gallery_id]=" . (int)$item->id);
-                                //$link = JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id);
-							    // &filter[search]=uid:' . (int) $userId
+									//$link = JRoute::_("index.php?option=com_rsgallery2&view=images&gallery_id=" . $item->id);
+									$link = JRoute::_("index.php?option=com_rsgallery2&view=images&filter[gallery_id]=" . (int) $item->id);
+									//$link = JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id);
+									// &filter[search]=uid:' . (int) $userId
 
-                                if ($imageCount == 0) {
-									?>
-									<a class="badge ">
-										0
-									</a>
-                                    <a disabled="disabled"  onclick="return false;" class="disabled"
-                                        href="<?php echo $link; ?>"
-                                    >
-                                        <sub><span class="icon-arrow-right-2" style="font-size: 1.6em;"></span></sub>
-                                    </a>
-
-                                    <?php
-								} else {
-									?>
-						            <a class="badge badge-success"
-                                       href="<?php echo $link; ?>"
-									   title="<?php echo JText::_('COM_RSGALLERY2_IMAGES_LIST'); ?>"
-									>
-										<?php
-										echo $imageCount;
+									if ($imageCount == 0)
+									{
 										?>
-					        	    </a>
+										<a class="badge ">
+											0
+										</a>
+										<a disabled="disabled" onclick="return false;" class="disabled"
+												href="<?php echo $link; ?>"
+										>
+											<sub><span class="icon-arrow-right-2" style="font-size: 1.6em;"></span></sub>
+										</a>
 
-									<a
-                                        href="<?php echo $link; ?>"
-									    title="<?php echo JText::_('COM_RSGALLERY2_IMAGES_LIST'); ?>"
-									>
-										<sub><span class="icon-arrow-right-2" style="font-size: 1.6em;"></span></sub>
-									</a>
+										<?php
+									}
+									else
+									{
+										?>
+										<a class="badge badge-success"
+												href="<?php echo $link; ?>"
+												title="<?php echo JText::_('COM_RSGALLERY2_IMAGES_LIST'); ?>"
+										>
+											<?php
+											echo $imageCount;
+											?>
+										</a>
 
-								<?php
-								} ?>
-				            </td>
+										<a
+												href="<?php echo $link; ?>"
+												title="<?php echo JText::_('COM_RSGALLERY2_IMAGES_LIST'); ?>"
+										>
+											<sub><span class="icon-arrow-right-2" style="font-size: 1.6em;"></span></sub>
+										</a>
 
-				            <td class="small hidden-phone center">
-					            <?php echo $this->escape($item->access_level); ?>
-				            </td>
+										<?php
+									} ?>
+								</td>
 
-							<td class="small hidden-phone center">
-								<?php echo $this->escape($authorName->name); ?>
-							</td>
+								<td class="small hidden-phone center">
+									<?php echo $this->escape($item->access_level); ?>
+								</td>
 
-							<td width="1%" class="center">
-								<?php if ($canEditStateGallery): ?>
-									<div class="form-group">
-										<label class="hidden" for="order[]">Ordering</label>
-										<input name="order[]" type="number"
-											class="input-mini changeOrder form-control"
-											min="0" step="1"
-											id="ordering_<?php echo $item->id; ?>"
-											value="<?php echo $item->ordering; ?>"
-										</input>
-									</div>
-								<?php else : ?>
-									<div class="form-group">
-										<?php echo $item->ordering; ?>
-									</div>
-								<?php endif; ?>
-							</td>
+								<td class="small hidden-phone center">
+									<?php echo $this->escape($authorName->name); ?>
+								</td>
 
-				            <td class="nowrap small hidden-phone center">
-					            <?php echo JHtml::_('date', $item->date, JText::_('COM_RSGALLERY2_DATE_FORMAT_WITH_TIME')); ?>
-				            </td>
+								<td width="1%" class="center">
+									<?php if ($canEditStateGallery): ?>
+										<div class="form-group">
+											<label class="hidden" for="order[]">Ordering</label>
+											<input name="order[]" type="number"
+													class="input-mini changeOrder form-control"
+													min="0" step="1"
+													id="ordering_<?php echo $item->id; ?>"
+													value="<?php echo $item->ordering; ?>"
+											</input>
+										</div>
+									<?php else : ?>
+										<div class="form-group">
+											<?php echo $item->ordering; ?>
+										</div>
+									<?php endif; ?>
+								</td>
 
-				            <td class="hidden-phone center">
-					            <?php echo (int) $item->hits; ?>
-				            </td>
+								<td class="nowrap small hidden-phone center">
+									<?php echo JHtml::_('date', $item->date, JText::_('COM_RSGALLERY2_DATE_FORMAT_WITH_TIME')); ?>
+								</td>
 
-				            <td class="hidden-phone center">
-					            <?php echo (int) $item->id; ?>
-                                <input type="hidden" name="ids[]" value="<?php echo (int) $item->id; ?>" />
-				            </td>
+								<td class="hidden-phone center">
+									<?php echo (int) $item->hits; ?>
+								</td>
 
-			            </tr>
+								<td class="hidden-phone center">
+									<?php echo (int) $item->id; ?>
+									<input type="hidden" name="ids[]" value="<?php echo (int) $item->id; ?>" />
+								</td>
 
-			            <?php
-			            }
-			            ?>
+							</tr>
 
-		            </tbody>
-	            </table>
+							<?php
+						}
+						?>
 
-                <?php endif;?>
+						</tbody>
+					</table>
 
-	            <div>
-		            <input type="hidden" name="task" value="" />
-		            <input type="hidden" name="boxchecked" value="0" />
+				<?php endif; ?>
 
-		            <?php echo JHtml::_('form.token'); ?>
-	            </div>
+				<div>
+					<input type="hidden" name="task" value="" />
+					<input type="hidden" name="boxchecked" value="0" />
 
-            </form>
+					<?php echo JHtml::_('form.token'); ?>
+				</div>
 
-        </div>
+			</form>
 
-	<div id="loading"></div>
-</div>
+		</div>
 
-          
+		<div id="loading"></div>
+	</div>
+
+	          

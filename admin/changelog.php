@@ -1,15 +1,16 @@
 <?php
 /**
-* Changelog for RSGallery2
-* @package RSGallery2
-* @copyright (C) 2003 - 2017 RSGallery2
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-* RSGallery is Free Software
-**/
+ * Changelog for RSGallery2
+ *
+ * @package       RSGallery2
+ * @copyright (C) 2003 - 2017 RSGallery2
+ * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ *                RSGallery is Free Software
+ **/
 
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 
-$ChangeLog =  <<<"EOT"
+$ChangeLog = <<<"EOT"
 1. Changelog
 ------------
 This is a non-exhaustive but informative change log for

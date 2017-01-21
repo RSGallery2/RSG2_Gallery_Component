@@ -22,12 +22,41 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 	/**
 	 * Constructor.
 	 *
-	 * @param   array  $config  An optional associative array of configuration settings.
+	 * @param   array $config An optional associative array of configuration settings.
+	 *
 	 * @since
 	 */
 	public function __construct($config = array())
 	{
 		parent::__construct($config);
+	}
+
+	/**
+	 *
+	 */
+	public function optimizeDB()
+	{
+		$msg     = '<strong>' . JText::_('COM_RSGALLERY2_MAINT_OPTDB') . ':</strong><br>';
+		$msgType = 'notice';
+
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
+		if (!$canAdmin)
+		{
+			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		}
+		else
+		{
+
+			// Model tells if successful
+			$model = $this->getModel('maintSql');
+			$msg .= $model->optimizeDB();
+		}
+
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
 	/**
@@ -38,71 +67,49 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 		return parent::getModel($name, $prefix, $config);
 	}
 
-	/**
-	 *
-	 */
-	public function optimizeDB()
-	{
-		$msg = '<strong>' . JText::_('COM_RSGALLERY2_MAINT_OPTDB') . ':</strong><br>';
-        $msgType = 'notice';
+	/*
+		public function createMissingSqlFields()
+		{
+			$msg = '<strong>' . JText::_('COM_RSGALLERY2_MAINT_OPTDB') . ':</strong><br>';
+			$msg = "Ctrl:compareDb2SqlFile: ";
+			$msgType = 'notice';
 
-		// Access check
-        $canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
-		if (!$canAdmin) {
-            $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-            $msgType = 'warning';
-            // replace newlines with html line breaks.
-            str_replace('\n', '<br>', $msg);
-        } else {
+			// Access check
+			$canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
+			if (!$canAdmin) {
+				$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+				$msgType = 'warning';
+				// replace newlines with html line breaks.
+				str_replace('\n', '<br>', $msg);
+			} else {
 
-			// Model tells if successful
-			$model = $this->getModel('maintSql');
-			$msg .= $model->optimizeDB();
-        }
+				// Model tells if successful
+				$model = $this->getModel('maintSql');
+				$msg .= $model->createMissingSqlFields();
+			}
 
-        $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
-	}
+			$msg .= '!!! Not implemented yet !!!';
 
-/*
-	public function createMissingSqlFields()
-	{
-		$msg = '<strong>' . JText::_('COM_RSGALLERY2_MAINT_OPTDB') . ':</strong><br>';
-		$msg = "Ctrl:compareDb2SqlFile: ";
-		$msgType = 'notice';
-
-		// Access check
-		$canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
-		if (!$canAdmin) {
-			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-			$msgType = 'warning';
-			// replace newlines with html line breaks.
-			str_replace('\n', '<br>', $msg);
-		} else {
-
-			// Model tells if successful
-			$model = $this->getModel('maintSql');
-			$msg .= $model->createMissingSqlFields();
+			$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 		}
-
-		$msg .= '!!! Not implemented yet !!!';
-
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
-	}
-*/
+	*/
 
 	public function createGalleryAccessField()
 	{
-		$msg = '<strong>' . JText::_('COM_RSGALLERY2_CREATE_GALLERY_ACCESS_FIELD') . ':</strong><br>';
+		$msg     = '<strong>' . JText::_('COM_RSGALLERY2_CREATE_GALLERY_ACCESS_FIELD') . ':</strong><br>';
 		$msgType = 'notice';
 
 		// Access check
-		$canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
-		if (!$canAdmin) {
-			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
+		if (!$canAdmin)
+		{
+			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 			$msgType = 'warning';
 			// replace newlines with html line breaks.
 			str_replace('\n', '<br>', $msg);
-		} else {
+		}
+		else
+		{
 
 			// Model tells if successful
 			$model = $this->getModel('maintSql');
@@ -114,17 +121,20 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 
 	public function repairSqlTables()
 	{
-		$msg = '<strong>' . JText::_('COM_RSGALLERY2_DATABASE_REPAIR_DESC') . ':</strong><br>';
+		$msg     = '<strong>' . JText::_('COM_RSGALLERY2_DATABASE_REPAIR_DESC') . ':</strong><br>';
 		$msgType = 'notice';
 
 		// Access check
-		$canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
-		if (!$canAdmin) {
-			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
+		if (!$canAdmin)
+		{
+			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 			$msgType = 'warning';
 			// replace newlines with html line breaks.
 			str_replace('\n', '<br>', $msg);
-		} else {
+		}
+		else
+		{
 
 			// Model tells if successful
 			$model = $this->getModel('maintSql');
@@ -137,17 +147,20 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 
 	public function updateCommentsVoting()
 	{
-		$msg = '<strong>Ctrl:' . JText::_('updateCommentsVoting') . ':</strong><br>';
+		$msg     = '<strong>Ctrl:' . JText::_('updateCommentsVoting') . ':</strong><br>';
 		$msgType = 'notice';
 
 		// Access check
-		$canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
-		if (!$canAdmin) {
-			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
+		if (!$canAdmin)
+		{
+			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 			$msgType = 'warning';
 			// replace newlines with html line breaks.
 			str_replace('\n', '<br>', $msg);
-		} else {
+		}
+		else
+		{
 
 			// Model tells if successful
 			$model = $this->getModel('maintSql');

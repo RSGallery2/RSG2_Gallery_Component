@@ -21,5 +21,4 @@ if ($Rsg2DebugActive)
 class Rsgallery2ControllerAcl_item extends JControllerForm
 {
 
-
 }

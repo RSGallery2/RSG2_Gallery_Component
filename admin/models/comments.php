@@ -39,8 +39,8 @@ class Rsgallery2ModelComments extends JModelList
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   string  $ordering   An optional ordering field.
-	 * @param   string  $direction  An optional direction (asc|desc).
+	 * @param   string $ordering  An optional ordering field.
+	 * @param   string $direction An optional direction (asc|desc).
 	 *
 	 * @return  void
 	 *
@@ -58,12 +58,11 @@ class Rsgallery2ModelComments extends JModelList
 //		$authorId = $this->getUserStateFromRequest($this->context . '.filter.user_id', 'filter_author_id');
 //		$this->setState('filter.author_id', $authorId);
 
-        $uid = $this->getUserStateFromRequest($this->context . '.filter.uid', 'filter_uid');
-        $this->setState('filter.uid', $uid);
+		$uid = $this->getUserStateFromRequest($this->context . '.filter.uid', 'filter_uid');
+		$this->setState('filter.uid', $uid);
 
-        $access = $this->getUserStateFromRequest($this->context . '.filter.access', 'filter_access');
-        $this->setState('filter.access', $access);
-
+		$access = $this->getUserStateFromRequest($this->context . '.filter.access', 'filter_access');
+		$this->setState('filter.access', $access);
 
 		// List state information.
 		parent::populateState($ordering, $direction);
@@ -76,7 +75,7 @@ class Rsgallery2ModelComments extends JModelList
 	 * different modules that might need different sets of data or different
 	 * ordering requirements.
 	 *
-	 * @param   string  $id  A prefix for the store id.
+	 * @param   string $id A prefix for the store id.
 	 *
 	 * @return  string  A store id.
 	 *
@@ -86,8 +85,8 @@ class Rsgallery2ModelComments extends JModelList
 	{
 		// Compile the store id.
 		$id .= ':' . $this->getState('filter.search');
-        $id .= ':' . $this->getState('filter.uid');
-        $id .= ':' . $this->getState('filter.access');
+		$id .= ':' . $this->getState('filter.uid');
+		$id .= ':' . $this->getState('filter.access');
 
 		return parent::getStoreId($id);
 	}
@@ -100,7 +99,7 @@ class Rsgallery2ModelComments extends JModelList
 	protected function getListQuery()
 	{
 		// Create a new query object.
-		$db = JFactory::getDBO();
+		$db    = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
 		// Query for all galleries.
@@ -110,7 +109,7 @@ class Rsgallery2ModelComments extends JModelList
 				'a.id, a.user_id, a.user_name, a.user_ip, a.parent_id, a.item_id, '
 				. 'a.item_table, a.datetime, a.subject, a.comment, a.published, '
 				. 'a.checked_out, a.checked_out_time, a.ordering, a.params, a.hits '
-		 	);
+			);
 		$query->select($actState);
 
 		$query->from('#__rsgallery2_comments as a');
@@ -127,7 +126,8 @@ class Rsgallery2ModelComments extends JModelList
 		$query->group($query->qn('a.id'));
 
 		$search = $this->getState('filter.search');
-		if(!empty($search)) {
+		if (!empty($search))
+		{
 			$search = $db->quote('%' . $db->escape($search, true) . '%');
 			$query->where(
 				'a.comment LIKE ' . $search
@@ -151,7 +151,7 @@ class Rsgallery2ModelComments extends JModelList
 		/**/
 
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', 'item_id');
+		$orderCol  = $this->state->get('list.ordering', 'item_id');
 		$orderDirn = $this->state->get('list.direction', 'desc');
 
 		/** ToDo: when sorted by image id the comments shall be ordered by date ? ...
@@ -171,9 +171,5 @@ class Rsgallery2ModelComments extends JModelList
 
 		return $query;
 	}
-
-
-
-
 
 }

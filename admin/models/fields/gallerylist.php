@@ -5,16 +5,17 @@ defined('_JEXEC') or die;
 JFormHelper::loadFieldClass('list');
 
 /**
- * Gallery Form Field class to create contents of dropdown box for 
+ * Gallery Form Field class to create contents of dropdown box for
  * gallery selection in RSGallery2.
  */
-class JFormFieldGalleryList extends JFormFieldList {
+class JFormFieldGalleryList extends JFormFieldList
+{
 	/**
 	 * The field type.
 	 *
 	 * @var         string
 	 */
-    protected $type = 'GalleryList';
+	protected $type = 'GalleryList';
 
 	/**
 	 * Method to get a list of options for a list input.
@@ -28,8 +29,8 @@ class JFormFieldGalleryList extends JFormFieldList {
 		$options = array();
 
 		// $user = JFactory::getUser(); // Todo: Restrict to accessible galleries
-		$db		= JFactory::getDbo();
-		$query	= $db->getQuery(true)
+		$db    = JFactory::getDbo();
+		$query = $db->getQuery(true)
 			->select('id As value, name As text')
 			->from('#__rsgallery2_galleries AS a')
 			->order('a.name');
@@ -45,12 +46,12 @@ class JFormFieldGalleryList extends JFormFieldList {
 		{
 			JError::raiseWarning(500, $e->getMessage());
 		}
-		
+
 		// Merge any additional options in the XML definition.
 		// $options[] = JHtml::_('select.option', $key, $value);
 		$options = array_merge(parent::getOptions(), $options);
-		
+
 		return $options;
-    }
+	}
 }
 

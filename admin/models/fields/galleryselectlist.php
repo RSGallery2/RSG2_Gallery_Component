@@ -13,37 +13,38 @@ defined('_JEXEC') or die;
 JFormHelper::loadFieldClass('list');
 
 /**
- * Gallery Form Field class to create contents of dropdown box for 
+ * Gallery Form Field class to create contents of dropdown box for
  * gallery selection in RSGallery2.
  * Includes "-- Select -- " as first entry
  */
-class JFormFieldGallerySelectList extends JFormFieldList {
+class JFormFieldGallerySelectList extends JFormFieldList
+{
 	/**
 	 * The field type.
 	 *
 	 * @var         string
 	 */
 	protected $type = 'GallerySelectList';
-	
+
 	/**
 	 * Method to get a list of options for a list input.
 	 *
 	 * @return  string array  An array of JHtml options.
 	 */
-	protected function getOptions() 
-	{	
-		$options = array();
+	protected function getOptions()
+	{
+		$options   = array();
 		$galleries = array();
 
 		// $user = JFactory::getUser(); // Todo: Restrict to accessible galleries
-		$db		= JFactory::getDbo();
-		$query	= $db->getQuery(true)
+		$db    = JFactory::getDbo();
+		$query = $db->getQuery(true)
 			->select('id As value, name As text')
 			->from('#__rsgallery2_galleries AS a')
 //			->order('a.name');
 //            ->order('a.ordering DESC');   // Oldest first
-            // ToDO: Use opton in XML to select ASC/DESC
-            ->order('a.ordering ASC');   // Newest first
+			// ToDO: Use opton in XML to select ASC/DESC
+			->order('a.ordering ASC');   // Newest first
 
 		// Get the options.
 		$db->setQuery($query);
@@ -56,8 +57,7 @@ class JFormFieldGallerySelectList extends JFormFieldList {
 		{
 			JError::raiseWarning(500, $e->getMessage());
 		}
-		
-		
+
 //		// Add select option (no value)
 //		$options[] = JHtml::_('select.option', -1, JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST'));
 //		foreach($galleries as $gallery)
@@ -65,7 +65,7 @@ class JFormFieldGallerySelectList extends JFormFieldList {
 //			$options[] = JHtml::_('select.option', $gallery->gid, $gallery->name);
 //		}
 //		$options = array_merge(parent::getOptions() , $options);
-		
+
 		// Merge any additional options in the XML definition.
 		// $options[] = JHtml::_('select.option', $key, $value);
 		// $options[] = array("value" => 1, "text" => "1");

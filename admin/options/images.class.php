@@ -1,90 +1,99 @@
 <?php
 /**
-* category class
-* @version $Id: images.class.php 1019 2011-04-12 14:16:47Z mirjam $
-* @package RSGallery2
-* @copyright (C) 2005 - 2017 RSGallery2
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-* RSGallery2 is Free Software
-*/
+ * category class
+ *
+ * @version       $Id: images.class.php 1019 2011-04-12 14:16:47Z mirjam $
+ * @package       RSGallery2
+ * @copyright (C) 2005 - 2017 RSGallery2
+ * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ *                RSGallery2 is Free Software
+ */
 
 // no direct access
-defined( '_JEXEC' ) or die();
+defined('_JEXEC') or die();
 
 /**
-* Image database table class
-* @package RSGallery2
-* @author Ronald Smit <ronald.smit@rsdev.nl>
-*/
-class rsgImagesItem extends JTable {
+ * Image database table class
+ *
+ * @package RSGallery2
+ * @author  Ronald Smit <ronald.smit@rsdev.nl>
+ */
+class rsgImagesItem extends JTable
+{
 	/** @var int Primary key */
-	var $id					= null;
+	var $id = null;
 	/** @var string */
-	var $name				= null;
+	var $name = null;
 	/** @var string */
-	var $alias				= null;
+	var $alias = null;
 	/** @var string */
-	var $descr				= null;
+	var $descr = null;
 	/** @var int */
-	var $gallery_id			= null;
+	var $gallery_id = null;
 	/** @var string */
-	var $title				= null;
+	var $title = null;
 	/** @var int */
-	var $hits				= null;
+	var $hits = null;
 	/** @var datetime */
-	var $date				= null;
+	var $date = null;
 	/** @var int */
-	var $rating				= null;
+	var $rating = null;
 	/** @var int */
-	var $votes				= null;
+	var $votes = null;
 	/** @var int */
-	var $comments			= null;
+	var $comments = null;
 	/** @var boolean */
-	var $published			= null;
+	var $published = null;
 	/** @var int */
-	var $checked_out		= null;
+	var $checked_out = null;
 	/** @var datetime */
-	var $checked_out_time	= null;
+	var $checked_out_time = null;
 	/** @var int */
-	var $ordering			= null;
+	var $ordering = null;
 	/** @var boolean */
-	var $approved			= null;
+	var $approved = null;
 	/** @var int */
-	var $userid				= null;
-	/** @var string in form text;value; ...*/
-	var $params				= null;
+	var $userid = null;
+	/** @var string in form text;value; ... */
+	var $params = null;
 	/** @var int */
 	var $asset_id = null;
 
 	/**
-	* @param JDatabaseDriver $db A database connector object
-	*/
-	function __construct( &$db ) {
-		parent::__construct( '#__rsgallery2_files', 'id', $db );
+	 * @param JDatabaseDriver $db A database connector object
+	 */
+	function __construct(&$db)
+	{
+		parent::__construct('#__rsgallery2_files', 'id', $db);
 	}
+
 	/** overloaded check function
+	 *
 	 * @return bool
 	 */
-	function check() {
+	function check()
+	{
 		// filter malicious code
-		$ignoreList = array( 'params','descr' );
+		$ignoreList = array('params', 'descr');
 
-		$ignore = is_array( $ignoreList );
-		
-		$filter = & JFilterInput::getInstance();
+		$ignore = is_array($ignoreList);
+
+		$filter = &JFilterInput::getInstance();
 		foreach ($this->getProperties() as $k => $v)
 		{
-			if ($ignore && in_array( $k, $ignoreList ) ) {
+			if ($ignore && in_array($k, $ignoreList))
+			{
 				continue;
 			}
-			$this->$k = $filter->clean( $this->$k );
+			$this->$k = $filter->clean($this->$k);
 		}
 
-
 		/** check for valid name */
-		if (trim( $this->title ) == '') {
+		if (trim($this->title) == '')
+		{
 			// $this->_error = JText::_('COM_RSGALLERY2_PLEASE_PROVIDE_A_VALID_IMAGE_TITLE');
-			$this->setError (JText::_('COM_RSGALLERY2_PLEASE_PROVIDE_A_VALID_IMAGE_TITLE'));
+			$this->setError(JText::_('COM_RSGALLERY2_PLEASE_PROVIDE_A_VALID_IMAGE_TITLE'));
+
 			return false;
 		}
 
@@ -98,9 +107,11 @@ class rsgImagesItem extends JTable {
 	 *
 	 * @return string
 	 */
-	protected function _getAssetName() {
+	protected function _getAssetName()
+	{
 		$k = $this->_tbl_key;
-		return 'com_rsgallery2.item.'.(int) $this->$k;
+
+		return 'com_rsgallery2.item.' . (int) $this->$k;
 	}
 
 	/**
@@ -108,7 +119,8 @@ class rsgImagesItem extends JTable {
 	 *
 	 * @return      string
 	 */
-	protected function _getAssetTitle() {
+	protected function _getAssetTitle()
+	{
 		return $this->title;
 	}
 
@@ -116,32 +128,39 @@ class rsgImagesItem extends JTable {
 	 * Get the parent asset id for the item (which is the asset id of the gallery)
 	 *
 	 * @param JTable $table
-	 * @param int $id
+	 * @param int    $id
+	 *
 	 * @return int|null
 	 */
-	protected function _getAssetParentId(JTable $table = null, $id = null) {
+	protected function _getAssetParentId(JTable $table = null, $id = null)
+	{
 		// Initialise variables
 		$assetId = null;
-		$db		= $this->getDbo();	//$this is the rsgImagesItem object
+		$db      = $this->getDbo();    //$this is the rsgImagesItem object
 
 		// Build the query to get the asset id for the gallery to which this item belongs
-		$query	= $db->getQuery(true);
+		$query = $db->getQuery(true);
 		$query->select('asset_id');
 		$query->from('#__rsgallery2_galleries');
-		$query->where('id = '.(int) $this->gallery_id);
+		$query->where('id = ' . (int) $this->gallery_id);
 
 		// Get the asset id from the database.
 		$db->setQuery($query);
-		if ($result = $db->loadResult()) {
+		if ($result = $db->loadResult())
+		{
 			$assetId = (int) $result;
 		}
 
 		// Return the asset id.
-		if ($assetId) {
+		if ($assetId)
+		{
 			return $assetId;
-		} else {
+		}
+		else
+		{
 			return parent::_getAssetParentId($table, $id);
 		}
 	}
 }
+
 ?>

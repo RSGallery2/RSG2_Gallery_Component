@@ -1,14 +1,14 @@
 <?php
 /**
- * @package     
+ * @package
  * @subpackage  com_rsgallery2
  *
- * @copyright   Copyright (C) 2005 - 2017 
+ * @copyright   Copyright (C) 2005 - 2017
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 // No direct access
 defined('_JEXEC') or die();
- 
+
 /**
  * Hello Table class
  *
@@ -19,7 +19,7 @@ class Rsgallery2TableConfig extends JTable
 	/**
 	 * Constructor
 	 *
-	 * @param   JDatabaseDriver  &$db  A database connector object
+	 * @param   JDatabaseDriver &$db A database connector object
 	 */
 	function __construct(&$db)
 	{

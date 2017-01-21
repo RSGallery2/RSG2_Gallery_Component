@@ -40,8 +40,8 @@ class Rsgallery2ModelAcl_items extends JModelList
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   string  $ordering   An optional ordering field.
-	 * @param   string  $direction  An optional direction (asc|desc).
+	 * @param   string $ordering  An optional ordering field.
+	 * @param   string $direction An optional direction (asc|desc).
 	 *
 	 * @return  void
 	 *
@@ -59,7 +59,6 @@ class Rsgallery2ModelAcl_items extends JModelList
 //		$authorId = $this->getUserStateFromRequest($this->context . '.filter.user_id', 'filter_author_id');
 //		$this->setState('filter.author_id', $authorId);
 
-
 		// List state information.
 		parent::populateState($ordering, $direction);
 	}
@@ -72,7 +71,7 @@ class Rsgallery2ModelAcl_items extends JModelList
 	protected function getListQuery()
 	{
 		// Create a new query object.
-		$db = JFactory::getDBO();
+		$db    = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
 		// Query for all galleries.
@@ -89,13 +88,13 @@ class Rsgallery2ModelAcl_items extends JModelList
 				. 'registered_vote_vote'
 			);
 		$query->select($actState);
-		
+
 		$query->from('#__rsgallery2_acl);
 		
-		$search = $this->getState('filter.search');
+		$search = $this->getState('filter . search');
 		if(!empty($search)) {
 /**
-			$search = $db->quote('%' . $db->escape($search, true) . '%');
+			$search = $db->quote(' % ' . $db->escape($search, true) . ' % ');
 			$query->where(
 				'comment LIKE ' . $search
 				. ' OR user_name LIKE ' . $search
@@ -152,7 +151,7 @@ fill an array, bind and check and store ?
 			$row->value = $value;
 			$row->id = null;
 
-//			$msg .= '    name = ' . $key . ' value = ' . $value . '<br>';
+//			$msg .= '    name = ' . $key . ' value = ' . $value . ' < br>';
 
 			$row->check ();
 			$row->store ();

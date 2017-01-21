@@ -10,7 +10,7 @@ class rsgallery2ModelGalleries extends JModelList
 	public function __construct($config = array())
 	{
 		if (empty($config['filter_fields']))
-		{   
+		{
 			$config['filter_fields'] = array(
 				'id', 'a.id',
 				'parent', 'a.parent',
@@ -42,8 +42,8 @@ class rsgallery2ModelGalleries extends JModelList
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @param   string  $ordering   An optional ordering field.
-	 * @param   string  $direction  An optional direction (asc|desc).
+	 * @param   string $ordering  An optional ordering field.
+	 * @param   string $direction An optional direction (asc|desc).
 	 *
 	 * @return  void
 	 *
@@ -60,41 +60,40 @@ class rsgallery2ModelGalleries extends JModelList
 //		$authorId = $this->getUserStateFromRequest($this->context . '.filter.user_id', 'filter_author_id');
 //		$this->setState('filter.author_id', $authorId);
 
-        $uid = $this->getUserStateFromRequest($this->context . '.filter.uid', 'filter_uid');
-        $this->setState('filter.uid', $uid);
+		$uid = $this->getUserStateFromRequest($this->context . '.filter.uid', 'filter_uid');
+		$this->setState('filter.uid', $uid);
 
-        $access = $this->getUserStateFromRequest($this->context . '.filter.access', 'filter_access');
-        $this->setState('filter.access', $access);
+		$access = $this->getUserStateFromRequest($this->context . '.filter.access', 'filter_access');
+		$this->setState('filter.access', $access);
 
-
-        // List state information.
+		// List state information.
 		parent::populateState($ordering, $direction);
 	}
 
-    /**
-     * Method to get a store id based on model configuration state.
-     *
-     * This is necessary because the model is used by the component and
-     * different modules that might need different sets of data or different
-     * ordering requirements.
-     *
-     * @param   string  $id  A prefix for the store id.
-     *
-     * @return  string  A store id.
-     *
-     * @since   1.6
-     */
-    protected function getStoreId($id = '')
-    {
-        // Compile the store id.
-        $id .= ':' . $this->getState('filter.search');
-        $id .= ':' . $this->getState('filter.uid');
-        $id .= ':' . $this->getState('filter.access');
+	/**
+	 * Method to get a store id based on model configuration state.
+	 *
+	 * This is necessary because the model is used by the component and
+	 * different modules that might need different sets of data or different
+	 * ordering requirements.
+	 *
+	 * @param   string $id A prefix for the store id.
+	 *
+	 * @return  string  A store id.
+	 *
+	 * @since   1.6
+	 */
+	protected function getStoreId($id = '')
+	{
+		// Compile the store id.
+		$id .= ':' . $this->getState('filter.search');
+		$id .= ':' . $this->getState('filter.uid');
+		$id .= ':' . $this->getState('filter.access');
 
-        return parent::getStoreId($id);
-    }
+		return parent::getStoreId($id);
+	}
 
-    /**
+	/**
 	 * Method to build an SQL query to load the list data.
 	 *
 	 * @return      string  An SQL query
@@ -102,9 +101,9 @@ class rsgallery2ModelGalleries extends JModelList
 	protected function getListQuery()
 	{
 		// Create a new query object.           
-		$db = JFactory::getDBO();
+		$db    = JFactory::getDBO();
 		$query = $db->getQuery(true);
-		
+
 		// Query for all galleries.
 		$actState =
 			$this->getState(
@@ -114,10 +113,10 @@ class rsgallery2ModelGalleries extends JModelList
 				. 'a.hits, a.params, a.user, a.uid, a.allowed, a.thumb_id, '
 				. 'a.asset_id, a.access '
 //				. ', b.gallery_id'
-		 	);
+			);
 		$query->select($actState);
 
-        $query->from('#__rsgallery2_galleries as a');
+		$query->from('#__rsgallery2_galleries as a');
 
 		/* Count child images */
 		$query->select('COUNT(img.gallery_id) as image_count')
@@ -134,21 +133,22 @@ class rsgallery2ModelGalleries extends JModelList
 
 		$query->group($query->qn('a.id'));
 
-        // Filter on the user Id.
-        if ($uid = $this->getState('filter.uid'))
-        {
-            $query->where('a.uid = ' . $db->quote($uid));
-        }
+		// Filter on the user Id.
+		if ($uid = $this->getState('filter.uid'))
+		{
+			$query->where('a.uid = ' . $db->quote($uid));
+		}
 
-        // Filter on the access type.
-        if ($access = $this->getState('filter.access'))
-        {
-            $query->where('a.access = ' . $db->quote($access));
-        }
+		// Filter on the access type.
+		if ($access = $this->getState('filter.access'))
+		{
+			$query->where('a.access = ' . $db->quote($access));
+		}
 
-        //
-        $search = $this->getState('filter.search');
-		if(!empty($search)) {
+		//
+		$search = $this->getState('filter.search');
+		if (!empty($search))
+		{
 			$search = $db->quote('%' . $db->escape($search, true) . '%');
 			$query->where(
 				'a.name LIKE ' . $search
@@ -159,11 +159,11 @@ class rsgallery2ModelGalleries extends JModelList
 
 		// Add the list ordering clause.
 
-        // changes need change above too -> populateState
-        $orderCol = $this->state->get('list.ordering', 'a.id');
-        // $orderCol = $this->state->get('list.ordering', 'a.parent, a.ordering');
+		// changes need change above too -> populateState
+		$orderCol = $this->state->get('list.ordering', 'a.id');
+		// $orderCol = $this->state->get('list.ordering', 'a.parent, a.ordering');
 		$orderDirn = $this->state->get('list.direction', 'desc');
-        /**
+		/**
         if ($orderCol == 'a.parent')
         {
             $orderCol = 'a.parent ' . $orderDirn . ', a.ordering';
@@ -174,294 +174,303 @@ class rsgallery2ModelGalleries extends JModelList
             $orderCol = 'a.parent ' . $orderDirn . ', a.ordering';
         }
         /**/
-        $query->order($db->escape($orderCol . ' ' . $orderDirn));
+		$query->order($db->escape($orderCol . ' ' . $orderDirn));
 
-        return $query;
+		return $query;
 	}
 
-/*
-	function saveOrder($cid)
-	{
-		JArrayHelper::toInteger($cid);
-		$total = count($cid);
-		$order = JRequest::getVar( ‘order’, array(0), ‘post’, ‘array’ );
-
-		JArrayHelper::toInteger($order, array(0));
-		$row = $this->getTable(”);
-		// update ordering values
-		for ($i = 0; $i < $total; $i++)
+	/*
+		function saveOrder($cid)
 		{
-			$row->load((int) $cid[$i]);
-			if ($row->ordering != $order[$i])
+			JArrayHelper::toInteger($cid);
+			$total = count($cid);
+			$order = JRequest::getVar( ‘order’, array(0), ‘post’, ‘array’ );
+	
+			JArrayHelper::toInteger($order, array(0));
+			$row = $this->getTable(”);
+			// update ordering values
+			for ($i = 0; $i < $total; $i++)
 			{
-				$row->ordering = $order[$i];
-				if (!$row->store())
+				$row->load((int) $cid[$i]);
+				if ($row->ordering != $order[$i])
 				{
-					$this->setError($this->_db->getErrorMsg());
-
-					return false;
+					$row->ordering = $order[$i];
+					if (!$row->store())
+					{
+						$this->setError($this->_db->getErrorMsg());
+	
+						return false;
+					}
 				}
 			}
+	
+			return true;
 		}
+	/**/
 
-		return true;
-	}
-/**/
+	/**
+	 * Saves changed manual ordering of galleries
+	 *
+	 * @throws Exception
+	 */
+	public function saveOrdering()
+	{
+		$msg = "Model:saveOrdering: ";
 
-    /**
-     * Saves changed manual ordering of galleries
-     *
-     * @throws Exception
-     */
-    public function saveOrdering()
-    {
-        $msg = "Model:saveOrdering: ";
+		try
+		{
 
-        try {
+			$input  = JFactory::getApplication()->input;
+			$orders = $input->post->get('order', array(), 'ARRAY');
+			$ids    = $input->post->get('ids', array(), 'ARRAY');
 
-            $input = JFactory::getApplication()->input;
-            $orders = $input->post->get( 'order', array(), 'ARRAY');
-            $ids = $input->post->get( 'ids', array(), 'ARRAY');
+			// $CountOrders = count($ids);
+			$CountIds = count($ids);
 
-            // $CountOrders = count($ids);
-            $CountIds = count($ids);
+			$db    = JFactory::getDbo();
+			$query = $db->getQuery(true);
+			$db->setQuery($query);
 
-            $db = JFactory::getDbo();
-            $query = $db->getQuery(true);
-            $db->setQuery($query);
+			for ($idx = 0; $idx < $CountIds; $idx++)
+			{
+				$id       = $ids[$idx];
+				$orderIdx = $orders[$idx];
+				// $msg .= "<br>" . '$id: ' . $id . '$orderIdx: ' . $orderIdx;
 
-            for ($idx = 0; $idx < $CountIds; $idx++) {
-                $id = $ids[$idx];
-                $orderIdx = $orders[$idx];
-                // $msg .= "<br>" . '$id: ' . $id . '$orderIdx: ' . $orderIdx;
+				$query->clear();
 
-                $query->clear();
+				$query->update($db->quoteName('#__rsgallery2_galleries'))
+					->set(array($db->quoteName('ordering') . '=' . $orderIdx))
+					->where(array($db->quoteName('id') . '=' . $id));
 
-                $query->update($db->quoteName('#__rsgallery2_galleries'))
-                    ->set(array($db->quoteName('ordering') . '=' . $orderIdx))
-                    ->where(array($db->quoteName('id') . '='. $id));
-
-                $result = $db->execute();
-                //$msg .= "<br>" . "Query : " . $query->__toString();
-                //$msg .= "<br>" . 'Query  $result: : ' . json_encode($result);
-            }
-            // $msg .= "<br>";
-
+				$result = $db->execute();
+				//$msg .= "<br>" . "Query : " . $query->__toString();
+				//$msg .= "<br>" . 'Query  $result: : ' . json_encode($result);
+			}
+			// $msg .= "<br>";
 
 //	         parent::reorder();
 
+			$msg .= JText::_('COM_RSGALLERY2_NEW_ORDERING_SAVED');
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing saveOrdering: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-            $msg .= JText::_( 'COM_RSGALLERY2_NEW_ORDERING_SAVED' );
-        }
-        catch (RuntimeException $e)
-        {
-            $OutTxt = '';
-            $OutTxt .= 'Error executing saveOrdering: "' . '<br>';
-            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
 
-            $app = JFactory::getApplication();
-            $app->enqueueMessage($OutTxt, 'error');
-        }
+	}
 
-    }
+	/**
+	 * Method to save the reordered nested set tree.
+	 * First we save the new order values in the lft values of the changed ids.
+	 * Then we invoke the table rebuild to implement the new ordering.
+	 *
+	 * @param   array $idArray An array of primary key ids.
+	 *
+	 * @return  boolean  False on failure or error, True otherwise
+	 *
+	 * @since   1.6
+	 */
+	public function saveOrder($idArray = null, $lft_array = null)
+	{
+		// Get an instance of the table object.
+		$table = $this->getTable();
 
-    /**
-     * Method to save the reordered nested set tree.
-     * First we save the new order values in the lft values of the changed ids.
-     * Then we invoke the table rebuild to implement the new ordering.
-     *
-     * @param   array    $idArray    An array of primary key ids.
-     *
-     * @return  boolean  False on failure or error, True otherwise
-     *
-     * @since   1.6
-     */
-    public function saveOrder($idArray = null, $lft_array = null)
-    {
-        // Get an instance of the table object.
-        $table = $this->getTable();
+		if (!$table->saveorder($idArray, $lft_array))
+		{
+			$this->setError($table->getError());
 
-        if (!$table->saveorder($idArray, $lft_array))
-        {
-            $this->setError($table->getError());
+			return false;
+		}
 
-            return false;
-        }
+		// Clear the cache
+		$this->cleanCache();
 
-        // Clear the cache
-        $this->cleanCache();
+		return true;
+	}
 
-        return true;
-    }
+	/**
+	 * This function will retrieve the data of the n last uploaded images
+	 *
+	 * @param int $limit > 0 will limit the number of lines returned
+	 *
+	 * @return array rows with image name, gallery name, date, and user name as rows
+	 */
+	static function latestGalleries($limit)
+	{
+		$latest = array();
 
-    /**
-     * This function will retrieve the data of the n last uploaded images
-     * @param int $limit > 0 will limit the number of lines returned
-     * @return array rows with image name, gallery name, date, and user name as rows
-     */
-    static function latestGalleries($limit)
-    {
-        $latest = array();
+		try
+		{
+			// Create a new query object.
+			$db    = JFactory::getDBO();
+			$query = $db->getQuery(true);
 
-        try
-        {
-            // Create a new query object.
-            $db    = JFactory::getDBO();
-            $query = $db->getQuery(true);
+			//$query = 'SELECT * FROM `#__rsgallery2_files` WHERE (`date` >= '. $database->quote($lastweek)
+			//	.' AND `published` = 1) ORDER BY `id` DESC LIMIT 0,5';
 
-            //$query = 'SELECT * FROM `#__rsgallery2_files` WHERE (`date` >= '. $database->quote($lastweek)
-            //	.' AND `published` = 1) ORDER BY `id` DESC LIMIT 0,5';
+			$query
+				->select('*')
+				->from($db->quoteName('#__rsgallery2_galleries'))
+				->order($db->quoteName('id') . ' DESC');
 
-            $query
-                ->select('*')
-                ->from($db->quoteName('#__rsgallery2_galleries'))
-                ->order($db->quoteName('id') . ' DESC');
+			/*   ==>  setQuery($query, $offset = 0, $limit = 0)
+			// $limit > 0 will limit the number of lines returned
+			if ($limit && (int) $limit > 0)
+			{
+				$query->setLimit($limit);
+			}
 
-            /*   ==>  setQuery($query, $offset = 0, $limit = 0)
-            // $limit > 0 will limit the number of lines returned
-            if ($limit && (int) $limit > 0)
-            {
-                $query->setLimit($limit);
-            }
+			$db->setQuery($query);
+			/**/
 
-            $db->setQuery($query);
-            /**/
+			$db->setQuery($query, 0, $limit);
+			$rows = $db->loadObjectList();
 
-            $db->setQuery($query, 0, $limit);
-            $rows = $db->loadObjectList();
+			foreach ($rows as $row)
+			{
+				$ImgInfo         = array();
+				$ImgInfo['name'] = $row->name;
+				$ImgInfo['id']   = $row->id;
 
-            foreach ($rows as $row)
-            {
-                $ImgInfo         = array();
-                $ImgInfo['name'] = $row->name;
-                $ImgInfo['id']   = $row->id;
+				//$ImgInfo['user'] = rsgallery2ModelGalleries::getUsernameFromId($row->uid);
+				$user            = JFactory::getUser($row->uid);
+				$ImgInfo['user'] = $user->get('username');
 
-                //$ImgInfo['user'] = rsgallery2ModelGalleries::getUsernameFromId($row->uid);
-                $user = JFactory::getUser($row->uid);
-                $ImgInfo['user'] = $user->get('username');
+				$latest[] = $ImgInfo;
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'latestGalleries: Error executing query: "' . $query . '"' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-                $latest[] = $ImgInfo;
-            }
-        }
-        catch (RuntimeException $e)
-        {
-            $OutTxt = '';
-            $OutTxt .= 'latestGalleries: Error executing query: "' . $query . '"' . '<br>';
-            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
 
-            $app = JFactory::getApplication();
-            $app->enqueueMessage($OutTxt, 'error');
-        }
+		return $latest;
+	}
 
-        return $latest;
-    }
+	/**
+	 * This function will retrieve the data of the n last uploaded galleries
+	 *
+	 * @param int $limit > 0 will limit the number of lines returned
+	 *
+	 * @return array rows with image name, gallery name, date, and user name as rows
+	 */
+	static function lastWeekGalleries($limit)
+	{
+		$latest = array();
 
-    /**
-     * This function will retrieve the data of the n last uploaded galleries
-     * @param int $limit > 0 will limit the number of lines returned
-     * @return array rows with image name, gallery name, date, and user name as rows
-     */
-    static function lastWeekGalleries($limit)
-    {
-        $latest = array();
+		$lastWeek = mktime(0, 0, 0, date("m"), date("d") - 7, date("Y"));
+		$lastWeek = date("Y-m-d H:m:s", $lastWeek);
 
-        $lastWeek = mktime(0, 0, 0, date("m"), date("d") - 7, date("Y"));
-        $lastWeek = date("Y-m-d H:m:s", $lastWeek);
+		// Create a new query object.
+		$db    = JFactory::getDBO();
+		$query = $db->getQuery(true);
 
-        // Create a new query object.
-        $db = JFactory::getDBO();
-        $query = $db->getQuery(true);
+		//$query = 'SELECT * FROM `#__rsgallery2_files` WHERE (`date` >= '. $database->quote($lastweek)
+		//	.' AND `published` = 1) ORDER BY `id` DESC LIMIT 0,5';
 
-        //$query = 'SELECT * FROM `#__rsgallery2_files` WHERE (`date` >= '. $database->quote($lastweek)
-        //	.' AND `published` = 1) ORDER BY `id` DESC LIMIT 0,5';
+		$query
+			->select('*')
+			->from($db->quoteName('#__rsgallery2_galleries'))
+			->where($db->quoteName('date') . '> = ' . $db->quoteName($lastWeek))
+			->order($db->quoteName('id') . ' DESC');
 
-        $query
-            ->select('*')
-            ->from($db->quoteName('#__rsgallery2_galleries'))
-            ->where($db->quoteName('date') . '> = ' . $db->quoteName($lastWeek))
-            ->order($db->quoteName('id') . ' DESC');
+		/*   ==>  setQuery($query, $offset = 0, $limit = 0)
+		// $limit > 0 will limit the number of lines returned
+		if ($limit && (int) $limit > 0)
+		{
+			$query->setLimit($limit);
+		}
+		$db->setQuery($query);
+		/**/
 
-        /*   ==>  setQuery($query, $offset = 0, $limit = 0)
-        // $limit > 0 will limit the number of lines returned
-        if ($limit && (int) $limit > 0)
-        {
-            $query->setLimit($limit);
-        }
-        $db->setQuery($query);
-        /**/
+		$db->setQuery($query, 0, $limit);
+		$rows = $db->loadObjectList();
 
-        $db->setQuery($query, 0, $limit);
-        $rows = $db->loadObjectList();
+		foreach ($rows as $row)
+		{
+			$ImgInfo         = array();
+			$ImgInfo['name'] = $row->name;
+			$ImgInfo['id']   = $row->id;
 
-        foreach ($rows as $row) {
-            $ImgInfo = array();
-            $ImgInfo['name'] = $row->name;
-            $ImgInfo['id'] = $row->id;
+			//$ImgInfo['user'] = rsgallery2ModelGalleries::getUsernameFromId($row->uid);
+			$user            = JFactory::getUser($row->uid);
+			$ImgInfo['user'] = $user->get('username');
 
-            //$ImgInfo['user'] = rsgallery2ModelGalleries::getUsernameFromId($row->uid);
-            $user = JFactory::getUser($row->uid);
-            $ImgInfo['user'] = $user->get('username');
+			$latest[] = $ImgInfo;
+		}
 
-            $latest[] = $ImgInfo;
-        }
+		return $latest;
+	}
 
-        return $latest;
-    }
+	/**
+	 * @param $galleryId
+	 * returns the total number of items in the given gallery.
+	 *
+	 * @return int
+	 */
+	public static function countImages($galleryId)
+	{
+		$imageCount = 0;
 
-    /**
-     * @param $galleryId
-     * returns the total number of items in the given gallery.
-     * @return int
-     */
-    public static function countImages ($galleryId)
-    {
-        $imageCount = 0;
+		try
+		{
+			$db    = JFactory::getDBO();
+			$query = $db->getQuery(true);
 
-        try
-        {
-            $db = JFactory::getDBO();
-            $query = $db->getQuery(true);
+			$query->select('count(1)');
+			$query->from('#__rsgallery2_files');
+			$query->where('gallery_id=' . (int) $galleryId);
+			// Only for superadministrators this includes the unpublished items
+			if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2'))
+			{
+				$query->where('published = 1');
+			}
+			$db->setQuery($query);
 
-            $query->select('count(1)');
-            $query->from('#__rsgallery2_files');
-            $query->where('gallery_id='. (int) $galleryId);
-            // Only for superadministrators this includes the unpublished items
-            if (!JFactory::getUser()->authorise('core.admin','com_rsgallery2'))
-                $query->where('published = 1');
-            $db->setQuery($query);
+			$imageCount = $db->loadResult();
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'countImages: Error executing query: "' . $query . '"' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-            $imageCount = $db->loadResult();
-        }
-        catch (RuntimeException $e)
-        {
-            $OutTxt = '';
-            $OutTxt .= 'countImages: Error executing query: "' . $query . '"' . '<br>';
-            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
 
-            $app = JFactory::getApplication();
-            $app->enqueueMessage($OutTxt, 'error');
-        }
+		return $imageCount;
+	}
 
-        return $imageCount;
-    }
+	/**
+	 * @param $items : like items in $this->items = $this->get('Items');
+	 *               The assoc list shall enable to easily create an parent depth
+	 *               returns assoc list gallery_id -> parent
+	 *
+	 * @return list[]
+	 */
+	public static function createParentList($items)
+	{
+		$ParentReferences = new object;
 
-    /**
-     * @param $items : like items in $this->items = $this->get('Items');
-     * The assoc list shall enable to easily create an parent depth
-     * returns assoc list gallery_id -> parent
-     * @return list[]
-     */
-    public static function createParentList ($items)
-    {
-        $ParentReferences = new object;
+		foreach ($items as $item)
+		{
+			$ParentReferences [$item->id] = $item->parent;
+		}
 
-        foreach ($items as $item) {
-            $ParentReferences [$item->id] = $item->parent;
-        }
-
-        return $ParentReferences;
-    }
-
+		return $ParentReferences;
+	}
 
 } // class
 

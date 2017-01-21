@@ -1,26 +1,26 @@
 <?php
 /**
- * @package RSGallery2
+ * @package       RSGallery2
  * @copyright (C) 2003 - 2017 RSGallery2
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * RSGallery is Free Software
  */
 
 // no direct access
-defined( '_JEXEC' ) or die();
+defined('_JEXEC') or die();
 
 global $Rsg2DebugActive;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
 // JHtml::_('behavior.tooltip');
-JHtml::_('bootstrap.tooltip'); 
+JHtml::_('bootstrap.tooltip');
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 JHtml::_('behavior.formvalidator');
-JHtml::_('behavior.keepalive'); 
+JHtml::_('behavior.keepalive');
 //JHtml::_('formbehavior.chosen', 'select');
-JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'=>3));
+JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold' => 3));
 
 JFactory::getDocument()->addScriptDeclaration('
 	Joomla.submitbutton = function(task)
@@ -73,7 +73,7 @@ JFactory::getDocument()->addScriptDeclaration('
 				echo '        <div class="controls">';
 				echo '            <input id="jform_preview" class="readonly input-large" name="jform[preview]"' .
 					' type="image" src="' . $this->HtmlImageSrc
-					. '" alt="' . $this->escape($this->item->descr ) . '" />';
+					. '" alt="' . $this->escape($this->item->descr) . '" />';
 				echo '        </div>';
 				// 				<img src="<php echo $display->url() >" alt="<php echo htmlspecialchars( stripslashes( $item->descr ), ENT_QUOTES );>" />
 				echo '    </div>';
@@ -84,21 +84,21 @@ JFactory::getDocument()->addScriptDeclaration('
 
 				<BR>
 				<strong>
-					<?php echo JText::_('COM_RSGALLERY2_LINKS_TO_IMAGE')?>
+					<?php echo JText::_('COM_RSGALLERY2_LINKS_TO_IMAGE') ?>
 				</strong>
 				<BR>
 				<BR>
 				<?php echo JText::_('COM_RSGALLERY2_THUMB'); ?>
-				<input type="text" name="thumb_url" class="text_area input-xxlarge" size="180" value="<?php echo $this->HtmlPathThumb;?>"  readonly />
+				<input type="text" name="thumb_url" class="text_area input-xxlarge" size="180" value="<?php echo $this->HtmlPathThumb; ?>" readonly />
 
 				<BR>
 				<?php echo JText::_('COM_RSGALLERY2_DISPLAY'); ?>
-				<input type="text" name="display_url" class="text_area input-xxlarge" size="180" value="<?php echo $this->HtmlPathDisplay;?>" readonly />
+				<input type="text" name="display_url" class="text_area input-xxlarge" size="180" value="<?php echo $this->HtmlPathDisplay; ?>" readonly />
 
 				<BR>
 				<?php echo JText::_('COM_RSGALLERY2_ORIGINAL'); ?>
-				<input type="text" name="original_url" class="text_area input-xxlarge" size="80" value="<?php echo $this->HtmlPathOriginal;?>" readonly />
-				
+				<input type="text" name="original_url" class="text_area input-xxlarge" size="80" value="<?php echo $this->HtmlPathOriginal; ?>" readonly />
+
 			</div>
 		</div>
 		<?php echo JHtml::_('bootstrap.endTab'); ?>

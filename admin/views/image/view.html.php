@@ -1,8 +1,8 @@
 <?php
 
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 
-jimport ('joomla.html.html.bootstrap');
+jimport('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 
 class Rsgallery2ViewImage extends JViewLegacy
@@ -24,27 +24,28 @@ class Rsgallery2ViewImage extends JViewLegacy
 	protected $HtmlImageSrc;
 
 	//------------------------------------------------
-	public function display ($tpl = null)
+	public function display($tpl = null)
 	{
 		global $Rsg2DevelopActive;
 		global $rsgConfig;
 
 		// on develop show open tasks if existing
-		if(!empty ($Rsg2DevelopActive)) {
+		if (!empty ($Rsg2DevelopActive))
+		{
 			echo '<span style="color:red">Task: Compare results original, Image too big, Click on image ? -> view big one as modal ? </span><br><br>';
 		}
 
 		//--- get needed data ------------------------------------------
-		
+
 		// Check rights of user
-		$this->UserIsRoot = $this->CheckUserIsRoot ();
+		$this->UserIsRoot = $this->CheckUserIsRoot();
 //		$this->rsgConfigData = $rsgConfig;
-		$this->HtmlPathThumb = JURI_SITE . $rsgConfig->get('imgPath_thumb'). '/';
-		$this->HtmlPathDisplay = JURI_SITE . $rsgConfig->get('imgPath_display') . '/';
+		$this->HtmlPathThumb    = JURI_SITE . $rsgConfig->get('imgPath_thumb') . '/';
+		$this->HtmlPathDisplay  = JURI_SITE . $rsgConfig->get('imgPath_display') . '/';
 		$this->HtmlPathOriginal = JURI_SITE . $rsgConfig->get('imgPath_original') . '/';
 
-		$this->form = $this->get('Form');
-		$this->item = $this->get('Item');
+		$this->form  = $this->get('Form');
+		$this->item  = $this->get('Item');
 		$this->state = $this->get('State');
 
 		// Check for errors.
@@ -59,31 +60,32 @@ class Rsgallery2ViewImage extends JViewLegacy
 		// $this->form = $form;
 		$this->HtmlImageSrc = $this->HtmlPathDisplay . $this->item->name . '.jpg';
 
-			// different toolbar on different layouts
+		// different toolbar on different layouts
 		$Layout = JFactory::getApplication()->input->get('layout');
-		$this->addToolbar ($Layout);
+		$this->addToolbar($Layout);
 
-		$this->sidebar = JHtmlSidebar::render ();
-	
-		parent::display ($tpl);
+		$this->sidebar = JHtmlSidebar::render();
 
-        return;
+		parent::display($tpl);
+
+		return;
 	}
 
 	/**
 	 * Checks if user has root status (is re.admin')
 	 *
-	 * @return	bool
-	 */		
-	function CheckUserIsRoot ()
+	 * @return    bool
+	 */
+	function CheckUserIsRoot()
 	{
-		$user = JFactory::getUser();
+		$user     = JFactory::getUser();
 		$canAdmin = $user->authorise('core.admin');
+
 		return $canAdmin;
 	}
 
-	protected function addToolbar ($Layout='default')
-	{		
+	protected function addToolbar($Layout = 'default')
+	{
 		switch ($Layout)
 		{
 			case 'edit':
@@ -93,7 +95,7 @@ class Rsgallery2ViewImage extends JViewLegacy
 				JToolBarHelper::apply('image.apply');
 				JToolBarHelper::save('image.save');
 				JToolbarHelper::save2new('image.save2new');
-				if(empty($this->item->id))
+				if (empty($this->item->id))
 				{
 					JToolBarHelper::cancel('image.cancel');
 				}

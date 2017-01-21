@@ -14,22 +14,12 @@ if ($Rsg2DebugActive)
 }
 /**/
 
-
 // ToDo: // Sanitize the input
 
 jimport('joomla.application.component.controlleradmin');
 
 class Rsgallery2ControllerImages extends JControllerAdmin
 {
-
-	public function getModel($name = 'Image', 
- 							 $prefix = 'Rsgallery2Model', 
-  							 $config = array('ignore_request' => true))
-	{
-		$model = parent::getModel($name, $prefix, $config);
-
-		return $model;
-	}
 
 	/**
 	 * Saves changed manual ordering of galleries
@@ -39,26 +29,31 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 	public function saveOrdering()
 	{
 		//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-		$msg = "Control:saveOrdering: ";
+		$msg     = "Control:saveOrdering: ";
 		$msgType = 'notice';
 
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Access check
 		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
-		if (!$canAdmin) {
-			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+		if (!$canAdmin)
+		{
+			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 			$msgType = 'warning';
 			// replace newlines with html line breaks.
 			str_replace('\n', '<br>', $msg);
-		} else {
+		}
+		else
+		{
 
-			try {
+			try
+			{
 				// Model tells if successful
 				$model = $this->getModel('images');
 				$msg .= $model->saveOrdering();
 			}
-			catch (RuntimeException $e) {
+			catch (RuntimeException $e)
+			{
 				$OutTxt = '';
 				$OutTxt .= 'Error executing saveOrdering: "' . '<br>';
 				$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
@@ -73,168 +68,188 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 		$this->setRedirect('index.php?option=com_rsgallery2&view=images', $msg, $msgType);
 	}
 
-    /**
-     * Moves one or more items (images) to another gallery, ordering each item as the last one.
-     *
-     * @throws Exception
-     */
-    public function moveImagesTo()
-    {
-        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-        $msg = "Control:moveTo: ";
-        $msgType = 'notice';
+	public function getModel($name = 'Image',
+		$prefix = 'Rsgallery2Model',
+		$config = array('ignore_request' => true))
+	{
+		$model = parent::getModel($name, $prefix, $config);
 
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		return $model;
+	}
 
-        // Access check
-        $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
-        if (!$canAdmin) {
-            $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-            $msgType = 'warning';
-            // replace newlines with html line breaks.
-            str_replace('\n', '<br>', $msg);
-        }
-        else
-        {
-            try {
-                // Model tells if successful
-                $model = $this->getModel('image');
+	/**
+	 * Moves one or more items (images) to another gallery, ordering each item as the last one.
+	 *
+	 * @throws Exception
+	 */
+	public function moveImagesTo()
+	{
+		//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+		$msg     = "Control:moveTo: ";
+		$msgType = 'notice';
 
-                $IsMoved = $model->moveImagesTo();
-                if ($IsMoved) {
-                    $msg .= 'Move of images ... sucessfull';
-                }
-                else
-                {
-                    $msg .= 'Move of images ... failed';
-                    $msgType = 'error';
-                }
-            }
-            catch (RuntimeException $e) {
-                $OutTxt = '';
-                $OutTxt .= 'Error executing moveTo: "' . '<br>';
-                $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-                $app = JFactory::getApplication();
-                $app->enqueueMessage($OutTxt, 'error');
-            }
-        }
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+		if (!$canAdmin)
+		{
+			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		}
+		else
+		{
+			try
+			{
+				// Model tells if successful
+				$model = $this->getModel('image');
 
-        $this->setRedirect('index.php?option=com_rsgallery2&view=images', $msg, $msgType);
-    }
+				$IsMoved = $model->moveImagesTo();
+				if ($IsMoved)
+				{
+					$msg .= 'Move of images ... sucessfull';
+				}
+				else
+				{
+					$msg .= 'Move of images ... failed';
+					$msgType = 'error';
+				}
+			}
+			catch (RuntimeException $e)
+			{
+				$OutTxt = '';
+				$OutTxt .= 'Error executing moveTo: "' . '<br>';
+				$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-    /**
-     * Saves changed manual ordering of galleries
-     *
-     * @throws Exception
-     */
-    public function copyImagesTo()
-    {
-        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-        $msg = "Control:copyTo: ";
-        $msgType = 'notice';
+				$app = JFactory::getApplication();
+				$app->enqueueMessage($OutTxt, 'error');
+			}
+		}
 
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		$this->setRedirect('index.php?option=com_rsgallery2&view=images', $msg, $msgType);
+	}
 
-        // Access check
-        $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
-        if (!$canAdmin) {
-            $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-            $msgType = 'warning';
-            // replace newlines with html line breaks.
-            str_replace('\n', '<br>', $msg);
-        }
-        else
-        {
-            try {
-                // Model tells if successful
-                $model = $this->getModel('image');
+	/**
+	 * Saves changed manual ordering of galleries
+	 *
+	 * @throws Exception
+	 */
+	public function copyImagesTo()
+	{
+		//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+		$msg     = "Control:copyTo: ";
+		$msgType = 'notice';
 
-                $IsCopied = $model->copyImagesTo();
-                if ($IsCopied) {
-                    $msg .= 'Copy of images ... sucessfull';
-                }
-                else
-                {
-                    $msg .= 'Copy of images ... failed';
-                    $msgType = 'error';
-                }
-            }
-            catch (RuntimeException $e) {
-                $OutTxt = '';
-                $OutTxt .= 'Error executing copyTo: "' . '<br>';
-                $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-                $app = JFactory::getApplication();
-                $app->enqueueMessage($OutTxt, 'error');
-            }
-        }
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+		if (!$canAdmin)
+		{
+			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		}
+		else
+		{
+			try
+			{
+				// Model tells if successful
+				$model = $this->getModel('image');
 
-        $this->setRedirect('index.php?option=com_rsgallery2&view=images', $msg, $msgType);
-    }
+				$IsCopied = $model->copyImagesTo();
+				if ($IsCopied)
+				{
+					$msg .= 'Copy of images ... sucessfull';
+				}
+				else
+				{
+					$msg .= 'Copy of images ... failed';
+					$msgType = 'error';
+				}
+			}
+			catch (RuntimeException $e)
+			{
+				$OutTxt = '';
+				$OutTxt .= 'Error executing copyTo: "' . '<br>';
+				$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-    /**
-     * Saves changed manual ordering of galleries
-     *
-     * @throws Exception
-     */
-    public function uploadImages()
-    {
-        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-        $msg = "Control:uploadImages: ";
-        $msgType = 'notice';
+				$app = JFactory::getApplication();
+				$app->enqueueMessage($OutTxt, 'error');
+			}
+		}
 
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		$this->setRedirect('index.php?option=com_rsgallery2&view=images', $msg, $msgType);
+	}
 
-        $this->setRedirect('index.php?option=com_rsgallery2&view=upload', $msg, $msgType);
-    }
+	/**
+	 * Saves changed manual ordering of galleries
+	 *
+	 * @throws Exception
+	 */
+	public function uploadImages()
+	{
+		//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+		$msg     = "Control:uploadImages: ";
+		$msgType = 'notice';
 
-    /**
-     * Saves changed manual ordering of galleries
-     *
-     * @throws Exception
-     */
-    public function resetHits()
-    {
-        //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-        $msg = "Control:saveOrdering: ";
-        $msgType = 'notice';
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		$this->setRedirect('index.php?option=com_rsgallery2&view=upload', $msg, $msgType);
+	}
 
-        // Access check
-        $canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
-        if (!$canAdmin) {
-            $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-            $msgType = 'warning';
-            // replace newlines with html line breaks.
-            str_replace('\n', '<br>', $msg);
-        } else {
+	/**
+	 * Saves changed manual ordering of galleries
+	 *
+	 * @throws Exception
+	 */
+	public function resetHits()
+	{
+		//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+		$msg     = "Control:saveOrdering: ";
+		$msgType = 'notice';
 
-            try {
-                // Model tells if successful
-                $model = $this->getModel('images');
-                $result = $model->resetHits();
-                if($result == true)
-                {
-        			$msg = $msg . JText::_('COM_RSGALLERY2_HITS_RESET_TO_ZERO_SUCCESSFUL');
-                }
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-            }
-            catch (RuntimeException $e) {
-                $OutTxt = '';
-                $OutTxt .= 'Error executing resetHits: "' . '<br>';
-                $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
+		if (!$canAdmin)
+		{
+			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		}
+		else
+		{
 
-                $app = JFactory::getApplication();
-                $app->enqueueMessage($OutTxt, 'error');
-            }
-        }
+			try
+			{
+				// Model tells if successful
+				$model  = $this->getModel('images');
+				$result = $model->resetHits();
+				if ($result == true)
+				{
+					$msg = $msg . JText::_('COM_RSGALLERY2_HITS_RESET_TO_ZERO_SUCCESSFUL');
+				}
 
-        $this->setRedirect('index.php?option=com_rsgallery2&view=images', $msg, $msgType);
-    }
+			}
+			catch (RuntimeException $e)
+			{
+				$OutTxt = '';
+				$OutTxt .= 'Error executing resetHits: "' . '<br>';
+				$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
+				$app = JFactory::getApplication();
+				$app->enqueueMessage($OutTxt, 'error');
+			}
+		}
 
+		$this->setRedirect('index.php?option=com_rsgallery2&view=images', $msg, $msgType);
+	}
 
 }
 

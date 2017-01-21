@@ -5,12 +5,12 @@ defined('_JEXEC') or die();
 jimport('joomla.application.component.modeladmin');
 
 /**
- * 
+ *
  */
 class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 {
-    protected $text_prefix = 'COM_RSGallery2';
-	
+	protected $text_prefix = 'COM_RSGallery2';
+
 	protected $FtpPath;
 	protected $LastUsedFtpPath;
 	protected $isPreSelectLatestGallery;
@@ -19,103 +19,110 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
 	// ToDo: Redesign: Extend from model rsgallery2ModelConfig, remove separate calls to db but keep function call here
 
-    /**
-     * return given ftp_path in config
-     * @return string
-     */
-    public function getFtpPath()
+	/**
+	 * return given ftp_path in config
+	 *
+	 * @return string
+	 */
+	public function getFtpPath()
 	{
-		if (!isset($this->FtpPath)) {
-			$db =  JFactory::getDbo();
-			$query = $db->getQuery (true);
+		if (!isset($this->FtpPath))
+		{
+			$db    = JFactory::getDbo();
+			$query = $db->getQuery(true);
 
-			$query->select ($db->quoteName('value'))
+			$query->select($db->quoteName('value'))
 				->from($db->quoteName('#__rsgallery2_config'))
-				->where($db->quoteName('name')." = ".$db->quote('ftp_path'));
-			
+				->where($db->quoteName('name') . " = " . $db->quote('ftp_path'));
+
 			$db->setQuery($query);
-			$this->FtpPath  = $db->loadResult();
+			$this->FtpPath = $db->loadResult();
 		}
 
 		return $this->FtpPath;
 	}
-	
-    /**
-     * return last used ftp_path
-     * @return string
-     */
-    public function getLastUsedFtpPath()
-	{
-		if (!isset($this->LastUsedFtpPath)) {
-			$db =  JFactory::getDbo();
-			$query = $db->getQuery (true);
 
-			$query->select ($db->quoteName('value'))
+	/**
+	 * return last used ftp_path
+	 *
+	 * @return string
+	 */
+	public function getLastUsedFtpPath()
+	{
+		if (!isset($this->LastUsedFtpPath))
+		{
+			$db    = JFactory::getDbo();
+			$query = $db->getQuery(true);
+
+			$query->select($db->quoteName('value'))
 				->from($db->quoteName('#__rsgallery2_config'))
-				->where($db->quoteName('name')." = ".$db->quote('last_used_ftp_path'));
-			
+				->where($db->quoteName('name') . " = " . $db->quote('last_used_ftp_path'));
+
 			$db->setQuery($query);
-			$this->LastUsedFtpPath  = $db->loadResult();
+			$this->LastUsedFtpPath = $db->loadResult();
 		}
 
 		return $this->LastUsedFtpPath;
 	}
-		
-    /**
-     * allows to set the input LastUsedFtpPath
+
+	/**
+	 * allows to set the input LastUsedFtpPath
+	 *
 	 * @param string $NewLastUsedFtpPath
-     */
-    public function setLastUsedFtpPath($NewLastUsedFtpPath)
+	 */
+	public function setLastUsedFtpPath($NewLastUsedFtpPath)
 	{
-		$db =  JFactory::getDbo();
-		$query = $db->getQuery (true);
+		$db    = JFactory::getDbo();
+		$query = $db->getQuery(true);
 
 		$query->insert($db->quoteName('#__rsgallery2_config'))
-			->columns($db->quoteName(array('name', 'value'))) 
-			->values ($db->quote('last_used_ftp_path') . ',' . $db->quote($NewLastUsedFtpPath));
-		
+			->columns($db->quoteName(array('name', 'value')))
+			->values($db->quote('last_used_ftp_path') . ',' . $db->quote($NewLastUsedFtpPath));
+
 		$db->setQuery($query);
 		$db->execute();
 
 		$this->LastUsedFtpPath = $NewLastUsedFtpPath;
 	}
-	
-    /**
-     * retrieves state if the latest gallery shall be preseleted for upload
-     * @return bool
-     */
-    public function getIsPreSelectLatestGallery()
-    {
-		if (!isset($this->isPreSelectLatestGallery)) {
-			$db =  JFactory::getDbo();
-			$query = $db->getQuery (true);
 
-			$query->select ($db->quoteName('value'))
+	/**
+	 * retrieves state if the latest gallery shall be preseleted for upload
+	 *
+	 * @return bool
+	 */
+	public function getIsPreSelectLatestGallery()
+	{
+		if (!isset($this->isPreSelectLatestGallery))
+		{
+			$db    = JFactory::getDbo();
+			$query = $db->getQuery(true);
+
+			$query->select($db->quoteName('value'))
 				->from($db->quoteName('#__rsgallery2_config'))
-				->where($db->quoteName('name')." = ".$db->quote('UploadPreselectLatestGallery'));
-			
+				->where($db->quoteName('name') . " = " . $db->quote('UploadPreselectLatestGallery'));
+
 			$db->setQuery($query);
-			$this->isPreSelectLatestGallery  = $db->loadResult();
+			$this->isPreSelectLatestGallery = $db->loadResult();
 		}
 
 		return $this->isPreSelectLatestGallery;
-    }
+	}
 
 	/**
 	 * @return string ID of latest gallery
 	 */
 	public function getIdLatestGallery()
 	{
-		$db =  JFactory::getDbo();
-		$query = $db->getQuery (true);
+		$db    = JFactory::getDbo();
+		$query = $db->getQuery(true);
 
-		$query->select ($db->quoteName('id'))
+		$query->select($db->quoteName('id'))
 			->from('#__rsgallery2_galleries')
 			->order('ordering ASC');
 //			->setLimit(1);  ==>  setQuery($query, $offset = 0, $limit = 0)
 
 		$db->setQuery($query, 0, 1);
-		$IdLatestGallery  = $db->loadResult();
+		$IdLatestGallery = $db->loadResult();
 
 		return $IdLatestGallery;
 	}
@@ -125,8 +132,9 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	 */
 	public function getLastUpdateType()
 	{
-		if (!isset($this->LastUpdateType)) {
-			$db = JFactory::getDbo();
+		if (!isset($this->LastUpdateType))
+		{
+			$db    = JFactory::getDbo();
 			$query = $db->getQuery(true);
 
 			$query->select($db->quoteName('value'))
@@ -142,16 +150,17 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
 	/**
 	 * allows to set the input LastUsedFtpPath
+	 *
 	 * @param string $NewLastUpdateType
 	 */
 	public function setLastUpdateType($NewLastUpdateType)
 	{
-		$db =  JFactory::getDbo();
-		$query = $db->getQuery (true);
+		$db    = JFactory::getDbo();
+		$query = $db->getQuery(true);
 
 		$query->insert($db->quoteName('#__rsgallery2_config'))
 			->columns($db->quoteName(array('name', 'value')))
-			->values ($db->quote('last_update_type') . ',' . $db->quote($NewLastUpdateType));
+			->values($db->quote('last_update_type') . ',' . $db->quote($NewLastUpdateType));
 
 		$db->setQuery($query);
 		$db->execute();
@@ -161,20 +170,22 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
 	/**
 	 * retrieves state if the latest gallery shall be preseleted for upload
+	 *
 	 * @return bool
 	 */
 	public function getisUseOneGalleryNameForAllImages()
 	{
-		if (!isset($this->isUseOneGalleryNameForAllImages)) {
-			$db =  JFactory::getDbo();
-			$query = $db->getQuery (true);
+		if (!isset($this->isUseOneGalleryNameForAllImages))
+		{
+			$db    = JFactory::getDbo();
+			$query = $db->getQuery(true);
 
-			$query->select ($db->quoteName('value'))
+			$query->select($db->quoteName('value'))
 				->from($db->quoteName('#__rsgallery2_config'))
-				->where($db->quoteName('name')." = ".$db->quote('isUseOneGalleryNameForAllImages'));
+				->where($db->quoteName('name') . " = " . $db->quote('isUseOneGalleryNameForAllImages'));
 
 			$db->setQuery($query);
-			$this->isUseOneGalleryNameForAllImages  = $db->loadResult();
+			$this->isUseOneGalleryNameForAllImages = $db->loadResult();
 		}
 
 		return $this->isUseOneGalleryNameForAllImages;

@@ -4,9 +4,10 @@ defined('_JEXEC') or die;
 
 JFormHelper::loadFieldClass('list');
 
-class JFormFieldRsgGalleryThumbList extends JFormFieldList {
+class JFormFieldRsgGalleryThumbList extends JFormFieldList
+{
 
-    protected $type = 'RsgGalleryThumbList';
+	protected $type = 'RsgGalleryThumbList';
 
 	/**
 	 * Method to get the field options. -> List of galleries
@@ -19,15 +20,15 @@ class JFormFieldRsgGalleryThumbList extends JFormFieldList {
 	{
 		$options = array();
 
-		$ActGalleryId = $this->form->getValue('id');
+		$ActGalleryId   = $this->form->getValue('id');
 		$ActGalleryName = $this->form->getValue('name');
 
 		// List of row number to gallery names
-		$db		= JFactory::getDbo();
-		$query	= $db->getQuery(true)
-			->select($db->quoteName('a.id').' As idx, a.name As text')
+		$db    = JFactory::getDbo();
+		$query = $db->getQuery(true)
+			->select($db->quoteName('a.id') . ' As idx, a.name As text')
 			->from('#__rsgallery2_files AS a')
-			->where($db->quoteName('gallery_id').'=' . (int) $ActGalleryId)
+			->where($db->quoteName('gallery_id') . '=' . (int) $ActGalleryId)
 			->order($db->quoteName('a.id'));
 
 		// Get the options.
@@ -38,15 +39,15 @@ class JFormFieldRsgGalleryThumbList extends JFormFieldList {
 			$images = $db->loadObjectList();
 
 			// Create row number to Text = "Row number -> image name" assignment
-			foreach($images as $image)
-			{	
-		        $options[] = array("value" => $image->idx, 
-					"text" => $image->text.' ('.$ActGalleryName.')');				
-		        //$options[] = array("value" => $image->idx, 
+			foreach ($images as $image)
+			{
+				$options[] = array("value" => $image->idx,
+				                   "text"  => $image->text . ' (' . $ActGalleryName . ')');
+				//$options[] = array("value" => $image->idx, 
 				//	"text" => $image->text);	
-		        //$options[] = array("value" => $image->idx, "text" => str_pad($image->idx, 3, " ", STR_PAD_LEFT ) . ' ->'.$image->text);			
-			}				
-			
+				//$options[] = array("value" => $image->idx, "text" => str_pad($image->idx, 3, " ", STR_PAD_LEFT ) . ' ->'.$image->text);			
+			}
+
 			// Add first '- Random thumbnail -'
 			//if (count($options) > 0)
 			{
@@ -58,7 +59,7 @@ class JFormFieldRsgGalleryThumbList extends JFormFieldList {
 		{
 			JError::raiseWarning(500, $e->getMessage());
 		}
-		
+
 		return $options;
-    }
+	}
 }

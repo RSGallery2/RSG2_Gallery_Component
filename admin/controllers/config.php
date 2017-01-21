@@ -24,7 +24,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
 	/**
 	 * Constructor.
 	 *
-	 * @param   array  $config  An optional associative array of configuration settings.
+	 * @param   array $config An optional associative array of configuration settings.
 	 *
 	 * @see     JController
 	 * @since
@@ -34,16 +34,8 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		parent::__construct($config);
 	}
 
-	/**
-     * Proxy for getModel.
-     */
-    public function getModel($name = 'Config', $prefix = 'Rsgallery2Model', $config = array('ignore_request' => true))
-    {
-        return parent::getModel($name, $prefix, $config);
-    }
-	/**/
-	
-	public function cancel_rawView($key = null) {
+	public function cancel_rawView($key = null)
+	{
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		$link = 'index.php?option=com_rsgallery2&view=maintenance';
@@ -52,10 +44,13 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		return true;
 	}
 
-	public function apply_rawEdit() {
+	/**/
+
+	public function apply_rawEdit()
+	{
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-		$msg = "apply_rawEdit: " . '<br>';
+		$msg     = "apply_rawEdit: " . '<br>';
 		$msgType = 'notice';
 
 		$model = $this->getModel('ConfigRaw');
@@ -67,20 +62,30 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		$this->setRedirect($link, $msg, $msgType);
 	}
 
-	public function save_rawEdit() {
+	/**
+	 * Proxy for getModel.
+	 */
+	public function getModel($name = 'Config', $prefix = 'Rsgallery2Model', $config = array('ignore_request' => true))
+	{
+		return parent::getModel($name, $prefix, $config);
+	}
+
+	public function save_rawEdit()
+	{
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-		$msg = "save_rawEdit: " . '<br>';
+		$msg     = "save_rawEdit: " . '<br>';
 		$msgType = 'notice';
 
 		$model = $this->getModel('ConfigRaw');
 		$msg .= $model->save();
-		
+
 		$link = 'index.php?option=com_rsgallery2&view=maintenance';
 		$this->setRedirect($link, $msg, $msgType);
 	}
 
-	public function cancel_rawEdit($key = null) {
+	public function cancel_rawEdit($key = null)
+	{
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		$link = 'index.php?option=com_rsgallery2&view=maintenance';
@@ -89,49 +94,53 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		return true;
 	}
 
-    /** may be automatic
-     * @param null $key
-     * @return bool
-     */
-    public function cancel($key = null) {
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+	/** may be automatic
+	 *
+	 * @param null $key
+	 *
+	 * @return bool
+	 */
+	public function cancel($key = null)
+	{
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-        $link = 'index.php?option=com_rsgallery2';
-        $this->setRedirect($link);
+		$link = 'index.php?option=com_rsgallery2';
+		$this->setRedirect($link);
 
-        return true;
-    }
+		return true;
+	}
 
-    function save(){
-        parent::save();
+	function save()
+	{
+		parent::save();
 
-        $inTask = $this->getTask();
+		$inTask = $this->getTask();
 
-        if ($inTask != "apply") {
-            // Don't go to default ...
-            $this->setredirect('index.php?option=com_rsgallery2');
-        }
-    }
+		if ($inTask != "apply")
+		{
+			// Don't go to default ...
+			$this->setredirect('index.php?option=com_rsgallery2');
+		}
+	}
 
-
-    /**
-    public function save($key = null, $urlVar = null) {
-		$model = $this->getModel('Config');
-		$model->save($key);
-
-        // ToDo: use JRoute::_(..., false)	  ->   $link = JRoute::_('index.php?option=com_foo&ctrl=bar',false);
-		//$link = 'index.php?option=com_rsgallery2';
-		//$this->setRedirect($link, "*Data Saved");
-    }  	
-	
-	function apply(){
-		 $model = $this->getModel('Config');
-		 $item=$model->save('');
-		 
-		// $this->setRedirect(JRoute::_('index.php?option=com_rsgallery2&view=config', false), "*Data Saved");
-		$link = 'index.php?option=com_rsgallery2&view=config&amp;task=config.edit';
-		$this->setRedirect($link, "*Data Saved");
-    }
-    /**/
+	/**
+	 * public function save($key = null, $urlVar = null) {
+	 * $model = $this->getModel('Config');
+	 * $model->save($key);
+	 *
+	 * // ToDo: use JRoute::_(..., false)      ->   $link = JRoute::_('index.php?option=com_foo&ctrl=bar',false);
+	 * //$link = 'index.php?option=com_rsgallery2';
+	 * //$this->setRedirect($link, "*Data Saved");
+	 * }
+	 *
+	 * function apply(){
+	 * $model = $this->getModel('Config');
+	 * $item=$model->save('');
+	 *
+	 * // $this->setRedirect(JRoute::_('index.php?option=com_rsgallery2&view=config', false), "*Data Saved");
+	 * $link = 'index.php?option=com_rsgallery2&view=config&amp;task=config.edit';
+	 * $this->setRedirect($link, "*Data Saved");
+	 * }
+	 * /**/
 }
 

@@ -1,13 +1,13 @@
 <?php
 /**
- * @package RSGallery2
+ * @package       RSGallery2
  * @copyright (C) 2003 - 2017 RSGallery2
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * RSGallery is Free Software
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 
 jimport('joomla.html.html.bootstrap');
 
@@ -16,7 +16,7 @@ class Rsgallery2ViewComments extends JViewLegacy
 	// ToDo: Use other rights instead of core.admin -> IsRoot ?
 	// core.admin is the permission used to control access to 
 	// the global config
-	
+
 	protected $UserIsRoot;
 	protected $sidebar;
 
@@ -27,13 +27,14 @@ class Rsgallery2ViewComments extends JViewLegacy
 //	protected $rsgConfigData;
 
 	//------------------------------------------------
-	public function display ($tpl = null)
+	public function display($tpl = null)
 	{
 		global $Rsg2DevelopActive;
-		
+
 		// on develop show open tasks if existing
-		if(!empty ($Rsg2DevelopActive)) {
-	        echo '<span style="color:red">Task: $canChange, $canEdit, and  ...</span><br><br>';
+		if (!empty ($Rsg2DevelopActive))
+		{
+			echo '<span style="color:red">Task: $canChange, $canEdit, and  ...</span><br><br>';
 		}
 
 		echo '<span style="color:green">This is only a demo to show what can     be in the future</span><br><br>';
@@ -41,15 +42,15 @@ class Rsgallery2ViewComments extends JViewLegacy
 		//--- get needed form data ------------------------------------------
 
 		// Check rights of user
-		$this->UserIsRoot = $this->CheckUserIsRoot ();
+		$this->UserIsRoot = $this->CheckUserIsRoot();
 
 //		global $rsgConfig;
 //		$this->rsgConfigData = $rsgConfig;
 
 		$this->items = $this->get('Items');
-		
-		$this->pagination    = $this->get('Pagination');
-		$this->state         = $this->get('State');
+
+		$this->pagination = $this->get('Pagination');
+		$this->state      = $this->get('State');
 
 		$this->filterForm    = $this->get('FilterForm');
 		$this->activeFilters = $this->get('ActiveFilters');
@@ -58,33 +59,35 @@ class Rsgallery2ViewComments extends JViewLegacy
 		if (count($errors = $this->get('Errors')))
 		{
 			JError::raiseError(500, implode('<br />', $errors));
+
 			return false;
 		}
-		
+
 		// different toolbar on different layouts
 		$Layout = JFactory::getApplication()->input->get('layout');
-		$this->addToolbar ($Layout);
+		$this->addToolbar($Layout);
 
-		$this->sidebar = JHtmlSidebar::render ();
+		$this->sidebar = JHtmlSidebar::render();
 
-		parent::display ($tpl);
+		parent::display($tpl);
 
-        return;
+		return;
 	}
 
 	/**
 	 * Checks if user has root status (is re.admin')
 	 *
-	 * @return	bool
-	 */		
-	function CheckUserIsRoot ()
+	 * @return    bool
+	 */
+	function CheckUserIsRoot()
 	{
-		$user = JFactory::getUser();
+		$user     = JFactory::getUser();
 		$canAdmin = $user->authorise('core.admin');
+
 		return $canAdmin;
 	}
 
-	protected function addToolbar ($Layout='default')
+	protected function addToolbar($Layout = 'default')
 	{
 		switch ($Layout)
 		{
@@ -93,10 +96,11 @@ class Rsgallery2ViewComments extends JViewLegacy
 				JToolBarHelper::editList('comment.edit');
 //				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'comment.delete', 'JTOOLBAR_EMPTY_TRASH');
 
-                // on develop show open tasks if existing
-                if(!empty ($Rsg2DevelopActive)) {
-                    echo '<span style="color:red">Task: Add delete function.</span><br><br>';
-                }
+				// on develop show open tasks if existing
+				if (!empty ($Rsg2DevelopActive))
+				{
+					echo '<span style="color:red">Task: Add delete function.</span><br><br>';
+				}
 				break;
 
 			default:
@@ -105,7 +109,7 @@ class Rsgallery2ViewComments extends JViewLegacy
 				JToolBarHelper::editList('comment.edit');
 				JToolbarHelper::trash('comment.trash');
 
-				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'comment.delete', 'JTOOLBAR_EMPTY_TRASH'); 				
+				JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'comment.delete', 'JTOOLBAR_EMPTY_TRASH');
 				break;
 		}
 

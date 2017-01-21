@@ -1,18 +1,18 @@
 <?php
 /**
-* access to the content of the 'install.mysql.utf8.sql' file
-* @package Rsgallery2
-* @copyright (C) 2016 - 2017 RSGallery2
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-* @author finnern
-* RSGallery2 is Free Software
-*/
+ * access to the content of the 'install.mysql.utf8.sql' file
+ *
+ * @package       Rsgallery2
+ * @copyright (C) 2016 - 2017 RSGallery2
+ * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @author        finnern
+ *                RSGallery2 is Free Software
+ */
 // no direct access
 defined('_JEXEC') or die;
 
 // Include the JLog class.
 jimport('joomla.log.log');
-
 
 /*------------------------------------------------------------------------------------
 SqlInstallFile
@@ -26,9 +26,9 @@ SqlInstallFile
  */
 class SqlInstallFile
 {
-    /**
-     * @var string
-     */
+	/**
+	 * @var string
+	 */
 	protected $sqlPathFileName; //
 
 	/**
@@ -36,10 +36,11 @@ class SqlInstallFile
 	 */
 	protected $sqlQueries;
 
-    /**
-     * Same as sql queries but in form table name -> query
-     * @var array[string]string list of 'create table queries'
-     */
+	/**
+	 * Same as sql queries but in form table name -> query
+	 *
+	 * @var array[string]string list of 'create table queries'
+	 */
 	protected $tableQueries;
 
 	/**
@@ -60,10 +61,11 @@ class SqlInstallFile
 	 *
 	 * @param string $fileName
 	 */
-	public function __construct($fileName='')
+	public function __construct($fileName = '')
 	{
-		if ($fileName == '') {
-			$fileName = JPATH_COMPONENT_ADMINISTRATOR.'/sql/install.mysql.utf8.sql';
+		if ($fileName == '')
+		{
+			$fileName = JPATH_COMPONENT_ADMINISTRATOR . '/sql/install.mysql.utf8.sql';
 		}
 
 		$this->sqlPathFileName = $fileName;
@@ -72,13 +74,15 @@ class SqlInstallFile
 	/*------------------------------------------------------------------------------------
 	extract data from file
 	------------------------------------------------------------------------------------*/
-	
+
 	/**
-     * Extract the queries in the sql associated file
-     * It will be a list of create table queries
-     * @return bool|string[] list of create table queries
-     */
-	private function extractQueries (){
+	 * Extract the queries in the sql associated file
+	 * It will be a list of create table queries
+	 *
+	 * @return bool|string[] list of create table queries
+	 */
+	private function extractQueries()
+	{
 
 		if (empty($this->sqlQueries))
 		{
@@ -107,12 +111,14 @@ class SqlInstallFile
 		return $this->sqlQueries;
 	}
 
-    /**
-     * Extracts the used table name from the given query
-     * @param string $query
-     * @return string
-     */
-	private function ExtractTableNameFromQuery ($query)
+	/**
+	 * Extracts the used table name from the given query
+	 *
+	 * @param string $query
+	 *
+	 * @return string
+	 */
+	private function ExtractTableNameFromQuery($query)
 	{
 		// check if command matches (nearly) a table command
 		$pos = strpos($query, 'TABLE');
@@ -125,12 +131,12 @@ class SqlInstallFile
 
 		// ToDo: May be done with regular expression in one go
 		// find beginning of name
-		$StartPos = strpos($query, "`", $pos +1);
+		$StartPos = strpos($query, "`", $pos + 1);
 
 		// Find end of name
-		$EndPos = strpos($query, "`", $StartPos +1);
+		$EndPos = strpos($query, "`", $StartPos + 1);
 
-		$tableName = substr ($query, $StartPos+1, $EndPos - $StartPos -1);
+		$tableName = substr($query, $StartPos + 1, $EndPos - $StartPos - 1);
 
 		return $tableName;
 	}
@@ -142,22 +148,25 @@ class SqlInstallFile
 	 */
 	/**
 	 * ToDO: continue doc yyyyyyyyyyyyyyyyyy
+	 *
 	 * @param $query
+	 *
 	 * @return array
 	 */
-	private function ExtractTablePropertiesFromQuery ($query)
+	private function ExtractTablePropertiesFromQuery($query)
 	{
-		$TableProperties = array ();
+		$TableProperties = array();
 
 		$queryLines = preg_split('/\n|\r\n?/', $query);
 
 		$Idx = -1;
-		foreach ($queryLines as $queryLine) {
+		foreach ($queryLines as $queryLine)
+		{
 			$Idx += 1;
 			// leave out command line
-			if($Idx > 0)
+			if ($Idx > 0)
 			{
-				$queryLine = trim($queryLine);
+				$queryLine        = trim($queryLine);
 				$ColumnProperties = $this->ExtractColumnPropertiesFromLine($queryLine);
 				if (!empty ($ColumnProperties))
 				{
@@ -175,18 +184,18 @@ class SqlInstallFile
 	 *
 	 * @return stdClass|string
 	 */
-	private function ExtractColumnPropertiesFromLine ($queryLine)
+	private function ExtractColumnPropertiesFromLine($queryLine)
 	{
 		$Properties = new stdClass();
 
-
-		$Properties->name = $this->ExtractColumnNameFromQueryLine ($queryLine, $EndPos);
-		if (empty ($Properties->name)) {
+		$Properties->name = $this->ExtractColumnNameFromQueryLine($queryLine, $EndPos);
+		if (empty ($Properties->name))
+		{
 			// no name found -> part of table command
 			return '';
 		}
 
-		$Properties->properties = $this->ExtractColumnPropertiesFromQueryLine ($queryLine, $EndPos+2);
+		$Properties->properties = $this->ExtractColumnPropertiesFromQueryLine($queryLine, $EndPos + 2);
 
 		return $Properties;
 	}
@@ -198,7 +207,7 @@ class SqlInstallFile
 	 *
 	 * @return string
 	 */
-	private function ExtractColumnNameFromQueryLine ($queryLine, &$EndPos)
+	private function ExtractColumnNameFromQueryLine($queryLine, &$EndPos)
 	{
 		$columnName = '';
 
@@ -207,11 +216,13 @@ class SqlInstallFile
 		$StartPos = strpos($queryLine, "`", 0);
 		//if ($StartPos )
 		// Pos found
-		if ($StartPos !== false) {
+		if ($StartPos !== false)
+		{
 			// At start of string
-			if ($StartPos == 0) {
+			if ($StartPos == 0)
+			{
 				// Extract to end of name
-				$EndPos = strpos($queryLine, "`", $StartPos + 1);
+				$EndPos     = strpos($queryLine, "`", $StartPos + 1);
 				$columnName = substr($queryLine, $StartPos + 1, $EndPos - $StartPos - 1);
 			}
 		}
@@ -227,11 +238,11 @@ class SqlInstallFile
 	 *
 	 * @return string
 	 */
-	private function ExtractColumnPropertiesFromQueryLine ($queryLine, $StartPos)
+	private function ExtractColumnPropertiesFromQueryLine($queryLine, $StartPos)
 	{
 		// Find end of line -> ','
-		$EndPos = strpos($queryLine, ",", $StartPos);
-		$PropertyLine = substr ($queryLine, $StartPos, $EndPos - $StartPos);
+		$EndPos       = strpos($queryLine, ",", $StartPos);
+		$PropertyLine = substr($queryLine, $StartPos, $EndPos - $StartPos);
 
 		// `id` int(11) NOT NULL auto_increment,
 		// `parent` int(11) NOT NULL default 0,
@@ -244,28 +255,29 @@ class SqlInstallFile
 
 		//--- Just return type + signed ----------------------
 
-/* debug *
-		$TestPos = strpos($queryLine, 'params', 0);
-		if ($TestPos !== FALSE) {
-			$Properties = ' text';
-		}
-/**/
+		/* debug *
+				$TestPos = strpos($queryLine, 'params', 0);
+				if ($TestPos !== FALSE) {
+					$Properties = ' text';
+				}
+		/**/
 		// after type before NOT
 		$EndPos = strpos($PropertyLine, ' ', 0);
-		if($EndPos === FALSE)
+		if ($EndPos === false)
 		{
-			$EndPos = strlen ($PropertyLine);
+			$EndPos = strlen($PropertyLine);
 		}
 		$Properties = substr($PropertyLine, 0, $EndPos);
 
 		// May contain (number). Remove it
 		$EndPos = strpos($Properties, '(', 0);
-		if($EndPos !== FALSE)
+		if ($EndPos !== false)
 		{
 			$Properties = substr($PropertyLine, 0, $EndPos);
 		}
 
-		if (strpos($queryLine, 'unsigned', $EndPos) !== FALSE) {
+		if (strpos($queryLine, 'unsigned', $EndPos) !== false)
+		{
 			$Properties .= ' unsigned';
 		}
 
@@ -279,21 +291,23 @@ class SqlInstallFile
 	/**
 	 * Extract the queries in the sql associated file if not already existing
 	 * Creates the named list additionally
+	 *
 	 * @return bool|string[] list of 'create table queries'
 	 */
-	private function getSqlQueries ()
+	private function getSqlQueries()
 	{
 		// file needs to be read
 		if (empty ($this->sqlQueries))
 		{
 			$this->sqlQueries = $this->extractQueries();
 		}
-		
+
 		return $this->sqlQueries;
 	}
 
 	/**
 	 * array[string]string list of 'create table queries'
+	 *
 	 * @return string[] list of table names with queries from sql queries file
 	 */
 	public function getTableQueries()
@@ -301,12 +315,14 @@ class SqlInstallFile
 		// Create only once
 		if (empty ($this->tableQueries))
 		{
-			$this->tableQueries = array ();
+			$this->tableQueries = array();
 
 			// Process each query in the $queries array (split out of sql file).
-			foreach ($this->getSqlQueries() as $query) {
+			foreach ($this->getSqlQueries() as $query)
+			{
 				$tableName = $this->ExtractTableNameFromQuery($query);
-				if (!empty ($tableName)) {
+				if (!empty ($tableName))
+				{
 					// Access query by name
 					$this->tableQueries [$tableName] = $query;
 				}
@@ -324,12 +340,14 @@ class SqlInstallFile
 		// Create only once
 		if (empty ($this->tableNamesList))
 		{
-			$this->tableNamesList = array ();
+			$this->tableNamesList = array();
 
 			// Process each query in the $queries array (split out of sql file).
-			foreach ($this->getSqlQueries() as $query) {
+			foreach ($this->getSqlQueries() as $query)
+			{
 				$tableName = $this->ExtractTableNameFromQuery($query);
-				if (!empty ($tableName)) {
+				if (!empty ($tableName))
+				{
 					$this->tableNamesList[] = $tableName;
 				}
 			}
@@ -343,16 +361,16 @@ class SqlInstallFile
 	 *
 	 * @return array
 	 */
-	public function getTableColumns ($tableName)
+	public function getTableColumns($tableName)
 	{
-		$ColumnNames = array ();
+		$ColumnNames = array();
 
-		$tablePropertiesList = $this->getTablePropertiesList ();
-		if (! empty ($tablePropertiesList))
+		$tablePropertiesList = $this->getTablePropertiesList();
+		if (!empty ($tablePropertiesList))
 		{
 			$tableProperties = $tablePropertiesList [$tableName];
 
-			if (! empty ($tableProperties))
+			if (!empty ($tableProperties))
 			{
 				foreach ($tableProperties as $name => $property)
 				{
@@ -369,16 +387,16 @@ class SqlInstallFile
 	 *
 	 * @return array
 	 */
-	public function getTableColumnNames ($tableName)
+	public function getTableColumnNames($tableName)
 	{
-		$ColumnNames = array ();
+		$ColumnNames = array();
 
-		$tablePropertiesList = $this->getTablePropertiesList ();
-		if (! empty ($tablePropertiesList))
+		$tablePropertiesList = $this->getTablePropertiesList();
+		if (!empty ($tablePropertiesList))
 		{
 			$tableProperties = $tablePropertiesList [$tableName];
 
-			if (! empty ($tableProperties))
+			if (!empty ($tableProperties))
 			{
 				foreach ($tableProperties as $name => $property)
 				{
@@ -392,6 +410,7 @@ class SqlInstallFile
 
 	/**
 	 * array[string]string list of 'create table queries'
+	 *
 	 * @return string[] list of table names with queries from sql queries file
 	 */
 	/**
@@ -402,19 +421,20 @@ class SqlInstallFile
 	public function getTableQuery($TableName)
 	{
 		$query = '';
-		
-		$tableQueries = $this->getTableQueries ();
-		if (! empty($tableQueries)) {
+
+		$tableQueries = $this->getTableQueries();
+		if (!empty($tableQueries))
+		{
 			$query = $tableQueries [$TableName];
 		}
-		
+
 		return $query;
 	}
 
 	/**
 	 * @return string[]
 	 */
-	public function getTablePropertiesList ()
+	public function getTablePropertiesList()
 	{
 		// Create only once
 		if (empty ($this->tablePropertiesList))
@@ -425,12 +445,12 @@ class SqlInstallFile
 				// Assign queries and their properties to Content object 
 				foreach ($tableQueries as $tableName => $query)
 				{
-					$TableProperties = $this->ExtractTablePropertiesFromQuery($query);
+					$TableProperties                        = $this->ExtractTablePropertiesFromQuery($query);
 					$this->tablePropertiesList [$tableName] = $TableProperties;
 				}
 			}
 		}
-		
+
 		return $this->tablePropertiesList;
 	}
 
@@ -439,19 +459,19 @@ class SqlInstallFile
 	 *
 	 * @return array|string
 	 */
-	public function getColumnsPropertiesOfTable ($tableName)
+	public function getColumnsPropertiesOfTable($tableName)
 	{
-		$ColumnsProperties = array ();
+		$ColumnsProperties = array();
 
 		$tablePropertiesList = $this->tablePropertiesList;
-		if (! empty ($tablePropertiesList))
+		if (!empty ($tablePropertiesList))
 		{
 			$ColumnsProperties = $tablePropertiesList [$tableName];
 		}
-		
+
 		return $ColumnsProperties;
 	}
-	
+
 }
 
 

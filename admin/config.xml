@@ -3,39 +3,39 @@
 <config>
 	<!-- standard -->
 	<fieldset name="component"
-		label="COM_RSGALLERY2_COMPONENT_LABEL"
-		description="COM_RSGALLERY2_COMPONENT_DESC"
-	>		
+	          label="COM_RSGALLERY2_COMPONENT_LABEL"
+	          description="COM_RSGALLERY2_COMPONENT_DESC"
+	>
 		<!-- link to real configuration -->
 		<field
-			id           = "link2configView"
-			name         = "link2configView"
-			type         = "Rsg2Link"
-			label        = "COM_RSGALLERY2_RSG2_CONFIG_VIEW"
-			description  = "COM_RSGALLERY2_RSG2_CONFIG_VIEW_DESC"
-			required     = "false"
-			class        = "btn"
-			linktext     = "COM_RSGALLERY2_GOTO_RSG2_CONFIG_VIEW"
-			addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
-			size         = "4"
+				id="link2configView"
+				name="link2configView"
+				type="Rsg2Link"
+				label="COM_RSGALLERY2_RSG2_CONFIG_VIEW"
+				description="COM_RSGALLERY2_RSG2_CONFIG_VIEW_DESC"
+				required="false"
+				class="btn"
+				linktext="COM_RSGALLERY2_GOTO_RSG2_CONFIG_VIEW"
+				addfieldpath="/administrator/components/com_rsgallery2/models/fields"
+				size="4"
 		/>
-		
+
 	</fieldset>
 
 	<!-- permission -->
-	<fieldset 
-		name="permissions"
-		label="JCONFIG_PERMISSIONS_LABEL"
-		description="JCONFIG_PERMISSIONS_DESC"
-	>
-		<field 
-			name="rules" 
-			type="rules"
+	<fieldset
+			name="permissions"
 			label="JCONFIG_PERMISSIONS_LABEL"
-			class="inputbox"
-			filter="rules"
-			validate="rules"
-			component="com_rsgallery2"
-			section="component" />
+			description="JCONFIG_PERMISSIONS_DESC"
+	>
+		<field
+				name="rules"
+				type="rules"
+				label="JCONFIG_PERMISSIONS_LABEL"
+				class="inputbox"
+				filter="rules"
+				validate="rules"
+				component="com_rsgallery2"
+				section="component"/>
 	</fieldset>
 </config>

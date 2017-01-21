@@ -3,20 +3,21 @@
 defined('_JEXEC') or die;
 
 /**
- * 
+ *
  */
-class Rsgallery2ModelGallery extends  JModelAdmin
+class Rsgallery2ModelGallery extends JModelAdmin
 {
 	/**
 	 * Returns a reference to the a Table object, always creating it.
 	 *
-	 * @param       string $type    The table type to instantiate
+	 * @param       string $type   The table type to instantiate
 	 * @param       string $prefix A prefix for the table class name. Optional.
 	 * @param       array  $config Configuration array for model. Optional.
+	 *
 	 * @return      JTable  A database object
 	 * @since       2.5
 	 */
-	public function getTable($type = 'Gallery', $prefix = 'Rsgallery2Table', $config = array()) 
+	public function getTable($type = 'Gallery', $prefix = 'Rsgallery2Table', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
 	}
@@ -24,20 +25,22 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 	/**
 	 * Method to get the record form.
 	 *
-	 * @param       array   $data           Data for the form.
-	 * @param       boolean $loadData       True if the form is to load its own data (default case), false if not.
+	 * @param       array   $data     Data for the form.
+	 * @param       boolean $loadData True if the form is to load its own data (default case), false if not.
+	 *
 	 * @return      mixed   A JForm object on success, false on failure
 	 * @since       2.5
 	 */
-	public function getForm($data = array(), $loadData = true) 
+	public function getForm($data = array(), $loadData = true)
 	{
 		$options = array('control' => 'jform', 'load_data' => $loadData);
-		$form = $this->loadForm('com_rsgallery2.gallery', 'gallery', $options);
+		$form    = $this->loadForm('com_rsgallery2.gallery', 'gallery', $options);
 
 		if (empty($form))
 		{
 			return false;
 		}
+
 		return $form;
 	}
 
@@ -47,12 +50,12 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 	 * @return      mixed   The data for the form.
 	 * @since       2.5
 	 */
-	protected function loadFormData() 
+	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$app = JFactory::getApplication();
+		$app  = JFactory::getApplication();
 		$data = $app->getUserState('com_rsgallery2.edit.gallery.data', array());
-		if (empty($data)) 
+		if (empty($data))
 		{
 			$data = $this->getItem();
 		}
@@ -60,13 +63,13 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 		return $data;
 	}
 
-    // Transform some data before it is displayed
-    /* extension development 129 bottom  */
-    protected function prepareTable ($table)
-    {
+	// Transform some data before it is displayed
+	/* extension development 129 bottom  */
+	protected function prepareTable($table)
+	{
 		$date = JFactory::getDate()->toSql();
 
-		$table->name = htmlspecialchars_decode ($table->name, ENT_QUOTES);
+		$table->name = htmlspecialchars_decode($table->name, ENT_QUOTES);
 
 		// $table->generateAlias();
 
@@ -75,7 +78,7 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 			// Set ordering to 1 increment the others
 			if (empty($table->ordering))
 			{
-                /**
+				/**
 				$db = $this->getDbo();
 				$query = $db->getQuery(true)
 					->select('MAX(ordering)')
@@ -88,38 +91,38 @@ class Rsgallery2ModelGallery extends  JModelAdmin
                 $table->uid = JFactory::getUser()->id;
                 /**/
 
-                //$table->ordering = 0;
-            }
+				//$table->ordering = 0;
+			}
 
-            //$table->ordering = 0; // $table->getNextOrder('parent = ' . (int) $table->parent); // . ' AND state >= 0');
-            //$table->reorder();
+			//$table->ordering = 0; // $table->getNextOrder('parent = ' . (int) $table->parent); // . ' AND state >= 0');
+			//$table->reorder();
 
-            // Set the values
-            $table->date = $date;
-            $table->uid = JFactory::getUser()->id;
-        }
+			// Set the values
+			$table->date = $date;
+			$table->uid  = JFactory::getUser()->id;
+		}
 		else
 		{
 			// Set the values
 			$table->date = $date;
-			$table->uid = JFactory::getUser()->id;
+			$table->uid  = JFactory::getUser()->id;
 		}
 
 		// Increment the content version number.
 		// $table->version++;
 	}
-    /**/
+	/**/
 
 	/**
 	 * A protected method to get a set of ordering conditions.
 	 *
-	 * @param   object  $table A record object.
+	 * @param   object $table A record object.
 	 *
 	 * @return  array   An array of conditions to add to add to ordering queries.
 	 */
 	protected function getReorderConditions($table)
 	{
-		$condition = array();
+		$condition   = array();
 		$condition[] = 'parent = ' . (int) $table->parent;
 
 		return $condition;
@@ -129,11 +132,10 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 	 * function edit -> checkout .... http://joomla.stackexchange.com/questions/5333/how-is-content-locking-handled-in-custom-components
 	 */
 
-
 	/**
 	 * Method to save the form data.
 	 *
-	 * @param   array  $data  The form data.
+	 * @param   array $data The form data.
 	 *
 	 * @return  boolean  True on success.
 	 *
@@ -147,8 +149,8 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 
 		// Automatic handling of alias for empty fields
 		if (in_array($task, array('apply', 'save', 'save2new'))
-				// && (!isset($data['id']) || (int) $data['id'] == 0) // <== only for new item
-           )
+			// && (!isset($data['id']) || (int) $data['id'] == 0) // <== only for new item
+		)
 		{
 			if (empty ($data['alias']))
 			{
@@ -161,26 +163,26 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 					$data['alias'] = JFilterOutput::stringURLSafe($data['name']);
 				}
 
-                // check for existing alias
+				// check for existing alias
 				$table = $this->getTable();
 
 				//if ($table->load(array('alias' => $data['alias'], 'catid' => $data['catid'])))
-                // Warning on existing alias
+				// Warning on existing alias
 				if ($table->load(array('alias' => $data['alias'])))
 				{
 					$msg = JText::_('COM_RSGALLERY2_NAME_CHANGED_AS_WAS_EXISTING');
 				}
 
 				/* Create unique alias and ? name ? **/
-                // article : list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['title']);
-                list($name, $alias) = $this->generateNewTitle(null, $data['alias'], $data['name']);
-                $data['alias'] = $alias;
-                $data['name'] = $name;
+				// article : list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['title']);
+				list($name, $alias) = $this->generateNewTitle(null, $data['alias'], $data['name']);
+				$data['alias'] = $alias;
+				$data['name']  = $name;
 
-                if (isset($msg))
-                {
-                    JFactory::getApplication()->enqueueMessage($msg, 'warning');
-                }
+				if (isset($msg))
+				{
+					JFactory::getApplication()->enqueueMessage($msg, 'warning');
+				}
 
 			}
 		}
@@ -200,12 +202,13 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 			}
 			/**/
 
-            // reorder on new element
-            // (when ordering is not defined or zero)
-            $table = $this->getTable();
-            if (empty($table->ordering)) {
-                $table->reorder();
-            }
+			// reorder on new element
+			// (when ordering is not defined or zero)
+			$table = $this->getTable();
+			if (empty($table->ordering))
+			{
+				$table->reorder();
+			}
 
 			return true;
 		}
@@ -213,17 +216,16 @@ class Rsgallery2ModelGallery extends  JModelAdmin
 		return false;
 	}
 
-
 	/**
 	 * Method to change the title & alias.
 	 *
-	 * @param   integer  $category_id  The id of the category.
-	 * @param   string   $alias        The alias.
-	 * @param   string   $title        The title.
+	 * @param   integer $category_id The id of the category.
+	 * @param   string  $alias       The alias.
+	 * @param   string  $title       The title.
 	 *
-	 * @return	array  Contains the modified title and alias.
+	 * @return    array  Contains the modified title and alias.
 	 *
-	 * @since	12.2
+	 * @since    12.2
 	 */
 	protected function generateNewTitle($dummy, $alias, $title)
 	{

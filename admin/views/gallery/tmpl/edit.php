@@ -1,13 +1,13 @@
 <?php
 /**
- * @package RSGallery2
+ * @package       RSGallery2
  * @copyright (C) 2003 - 2017 RSGallery2
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * RSGallery is Free Software
  */
 
 // no direct access
-defined( '_JEXEC' ) or die();
+defined('_JEXEC') or die();
 
 global $Rsg2DebugActive;
 
@@ -20,7 +20,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 JHtml::_('behavior.formvalidator');
 //JHtml::_('behavior.keepalive');
 //JHtml::_('formbehavior.chosen', 'select');
-JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'=>3));
+JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold' => 3));
 
 /* ToDO: Is this needed ? -> task comment.cancel ??? ==> yes */
 JFactory::getDocument()->addScriptDeclaration('
@@ -36,14 +36,14 @@ JFactory::getDocument()->addScriptDeclaration('
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=gallery&task=gallery.edit&id=' . (int) $this->item->id); ?>"
-	method="post" name="adminForm" id="item-form" class="form-validate">
+		method="post" name="adminForm" id="item-form" class="form-validate">
 
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
 	<div class="edit">
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
 
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', 
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general',
 			empty($this->item->id) ? JText::_('COM_RSGALLERY2_NEW') : JText::_('COM_RSGALLERY2_EDIT')); ?>
 		<div class="row-fluid">
 			<div class="span6 form-horizontal">

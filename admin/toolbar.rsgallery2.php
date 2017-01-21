@@ -1,14 +1,15 @@
 <?php
 /**
-* RSGallery2 Toolbar Menu
-* @version $Id: toolbar.rsgallery2.php 1056 2012-01-01 17:39:14Z mirjam $
-* @package RSGallery2
-* @copyright (C) 2003 - 2017 RSGallery2
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-**/
+ * RSGallery2 Toolbar Menu
+ *
+ * @version       $Id: toolbar.rsgallery2.php 1056 2012-01-01 17:39:14Z mirjam $
+ * @package       RSGallery2
+ * @copyright (C) 2003 - 2017 RSGallery2
+ * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ **/
 
 // ensure this file is being included by a parent file
-defined( '_JEXEC' ) or die();
+defined('_JEXEC') or die();
 
 /*
 // RSG2 is a meta component.  joomla calls components options, RSG2 calls it's components rsgOptions
@@ -18,34 +19,37 @@ else
     $rsgOption = '';
 /**/
 // $rsgOption is already set. Make ready for switch statemaent
-if(empty ($rsgOption))
+if (empty ($rsgOption))
 {
-    $rsgOption = '';
+	$rsgOption = '';
 }
 
 // require_once( JApplicationHelper::getPath('toolbar_html') );///J25
-require_once( JPATH_ADMINISTRATOR . '/components/com_rsgallery2/toolbar.rsgallery2.html.php');///J3
+require_once(JPATH_ADMINISTRATOR . '/components/com_rsgallery2/toolbar.rsgallery2.html.php');///J3
 
 //-----------------------------------------------
 // Only show RSG2 submenu in the backend
 //$app = JFactory::getApplication();
 //if ($app->isAdmin()){
-$canManage	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
-if ($canManage) {
+$canManage = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
+if ($canManage)
+{
 	menu_rsg2_submenu::addRSG2Submenu($rsgOption, $task, $view, $layout);
-	switch( $rsgOption ){
+	switch ($rsgOption)
+	{
 		case 'images':
-			switch ( $task ) {
+			switch ($task)
+			{
 				case 'new':
 				case 'edit':
 				case 'editA':
-					menu_rsg2_images::edit( $option );
-				break;
+					menu_rsg2_images::edit($option);
+					break;
 				case 'remove':
-					menu_rsg2_images::remove( $option );
-				break;
+					menu_rsg2_images::remove($option);
+					break;
 				case 'upload':
-					menu_rsg2_images::upload( $option );
+					menu_rsg2_images::upload($option);
 					break;
 				case 'batchupload':
 					menuRSGallery::image_batchUpload();
@@ -54,30 +58,32 @@ if ($canManage) {
 					menuRSGallery::images_show();
 					break;
 				default:
-					menu_rsg2_images::show( $option );
-				break;
+					menu_rsg2_images::show($option);
+					break;
 			}
 			break;
-		
+
 		case 'galleries':
-			switch( $task ){
+			switch ($task)
+			{
 				case 'new':
 				case 'add':
 				case 'edit':
 				case 'editA':
-					menu_rsg2_galleries::edit( $option );
-				break;
+					menu_rsg2_galleries::edit($option);
+					break;
 				case 'remove':
-					menu_rsg2_galleries::remove( $option );
-				break;
+					menu_rsg2_galleries::remove($option);
+					break;
 				default:
-					menu_rsg2_galleries::show( $option );
-				break;
+					menu_rsg2_galleries::show($option);
+					break;
 			}
 			break;
-		
+
 		case 'templateManager':
-			switch ($task){
+			switch ($task)
+			{
 				case 'view'   :
 				case 'preview':
 					menu_rsg2_templateManager::_VIEW();
@@ -108,31 +114,34 @@ if ($canManage) {
 				default:
 					menu_rsg2_templateManager::_DEFAULT();
 					break;
-				}
+			}
 			break;
 
 		case 'maintenance':
-			switch ( $task ) {
-			case 'regenerateThumbs':
-				menu_rsg2_maintenance::regenerateThumbs( $option );
-				break;
-			default:
-				menuRSGallery::simple();
-				break;
+			switch ($task)
+			{
+				case 'regenerateThumbs':
+					menu_rsg2_maintenance::regenerateThumbs($option);
+					break;
+				default:
+					menuRSGallery::simple();
+					break;
 			}
 			break;
 
 		case 'config':
-			switch ( $task ) {
+			switch ($task)
+			{
 				case 'applyConfig':
 				case 'showConfig':
 					menuRSGallery::config_show();
 					break;
 			}
 			break;
-			
+
 		case 'jumploader':
-			switch ($task) {
+			switch ($task)
+			{
 				case 'showUpload':
 					menu_rsg2_jumploader::show();
 					break;
@@ -143,8 +152,10 @@ if ($canManage) {
 	}// end switch( $rsgOption )
 
 	// only use the legacy task switch if rsgOption is not used.
-	if( $rsgOption == '' ) {
-		switch ($task) {
+	if ($rsgOption == '')
+	{
+		switch ($task)
+		{
 			case "new":
 				menuRSGallery::image_new();
 				break;
@@ -213,4 +224,4 @@ if ($canManage) {
 				break;
 		} // switch task
 	} // only use the legacy task switch if rsgOption is not used.
-}	// Only show RSG2 submenu in the backend - end
+}    // Only show RSG2 submenu in the backend - end

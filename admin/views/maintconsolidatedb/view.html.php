@@ -1,12 +1,12 @@
 <?php
 
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 
-jimport ('joomla.html.html.bootstrap');
+jimport('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 jimport('joomla.application.component.model');
 
-JModelLegacy::addIncludePath(JPATH_COMPONENT.'/models');
+JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
 class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 {
@@ -24,27 +24,28 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 	protected $ImageReferences;
 
 	/**
-	protected $IsHeaderActive4DB;
-	protected $IsHeaderActive4Display;
-	protected $IsHeaderActive4Original;
-	protected $IsHeaderActive4Thumb;
-	protected $IsHeaderActive4Parent;
-	/**/
+	 * protected $IsHeaderActive4DB;
+	 * protected $IsHeaderActive4Display;
+	 * protected $IsHeaderActive4Original;
+	 * protected $IsHeaderActive4Thumb;
+	 * protected $IsHeaderActive4Parent;
+	 * /**/
 
 	protected $IsAnyDbRefMissing; // header
-
 
 	//------------------------------------------------
 	/**
 	 * @param null $tpl
+	 *
 	 * @return mixed bool or void
 	 */
-	public function display ($tpl = null)
+	public function display($tpl = null)
 	{
 		global $Rsg2DevelopActive;
-		
+
 		// on develop show open tasks if existing
-		if(!empty ($Rsg2DevelopActive)) {
+		if (!empty ($Rsg2DevelopActive))
+		{
 			echo '<span style="color:red">Task: Image square a) use thumb if possible b) check for gd2:...</span><br><br>';
 		}
 
@@ -52,12 +53,12 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 //		$this->form = JForm::getInstance('maintRegenerateImages', $xmlFile);
 
 		//--- get needed data ------------------------------------------
-		
-		// Check rights of user
-		$this->UserIsRoot = $this->CheckUserIsRoot ();
 
-		$ConsolidateModel = JModelLegacy::getInstance ('MaintConsolidateDB', 'rsgallery2Model');
-		$this->ImageReferences = $ConsolidateModel->GetImageReferences ();
+		// Check rights of user
+		$this->UserIsRoot = $this->CheckUserIsRoot();
+
+		$ConsolidateModel      = JModelLegacy::getInstance('MaintConsolidateDB', 'rsgallery2Model');
+		$this->ImageReferences = $ConsolidateModel->GetImageReferences();
 
 		// echo json_encode($this->DisplayImageData);
 
@@ -89,48 +90,45 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
         //		$this->form = $form;
         */
 
-        $xmlFile = JPATH_COMPONENT . '/models/forms/maintConsolidateDB.xml';
-        $this->form = JForm::getInstance('images', $xmlFile);
+		$xmlFile    = JPATH_COMPONENT . '/models/forms/maintConsolidateDB.xml';
+		$this->form = JForm::getInstance('images', $xmlFile);
 
-        $this->addToolbar ($this->UserIsRoot); //$Layout);
-		$this->sidebar = JHtmlSidebar::render ();
+		$this->addToolbar($this->UserIsRoot); //$Layout);
+		$this->sidebar = JHtmlSidebar::render();
 
-		parent::display ($tpl);
+		parent::display($tpl);
 
-        return;
+		return;
 	}
 
 	/**
 	 * Checks if user has root status (is re.admin')
 	 *
-	 * @return	bool
+	 * @return    bool
 	 */
-	function CheckUserIsRoot ()
+	function CheckUserIsRoot()
 	{
-		$user = JFactory::getUser();
+		$user     = JFactory::getUser();
 		$canAdmin = $user->authorise('core.admin');
+
 		return $canAdmin;
 	}
 
-	protected function addToolbar ($UserIsRoot) //$Layout='default')
+	protected function addToolbar($UserIsRoot) //$Layout='default')
 	{
-        // Title
-        JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINT_CONSOLIDATE_IMAGE_DATABASE'), 'icon-database icon-checkbox-checked');
+		// Title
+		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINT_CONSOLIDATE_IMAGE_DATABASE'), 'icon-database icon-checkbox-checked');
 
-        JToolBarHelper::custom ('MaintConsolidateDb.createImageDbItems','database','','COM_RSGALLERY2_CREATE_DATABASE_ENTRIES', true);
-        JToolBarHelper::custom ('MaintConsolidateDb.createMissingImages','image','','COM_RSGALLERY2_CREATE_MISSING_IMAGES', true);
-        JToolBarHelper::custom ('MaintConsolidateDb.assignParentGallery','images','','COM_RSGALLERY2_ASSIGN_SELECTED_GALLERY', true);
-        JToolBarHelper::custom ('MaintConsolidateDb.deleteRowItems','delete','','COM_RSGALLERY2_DELETE_SUPERFLOUS_ITEMS', true);
-        JToolBarHelper::custom ('MaintConsolidateDb.repairAllIssuesItems','refresh','','COM_RSGALLERY2_REPAIR_ALL_ISSUES', true);
-        //JToolBarHelper::custom ('MaintConsolidateDb.deleteReferences','delete-2','','COM_RSGALLERY2_ASSIGN_SELECTED_GALLLERIES', true);
-        //JToolBarHelper::custom ('MaintConsolidateDb..','next','','COM_RSGALLERY2_MOVE_TO', true);
-        //JToolBarHelper::custom ('MaintConsolidateDb.','copy','','COM_RSGALLERY2_COPY', true);
-
+		JToolBarHelper::custom('MaintConsolidateDb.createImageDbItems', 'database', '', 'COM_RSGALLERY2_CREATE_DATABASE_ENTRIES', true);
+		JToolBarHelper::custom('MaintConsolidateDb.createMissingImages', 'image', '', 'COM_RSGALLERY2_CREATE_MISSING_IMAGES', true);
+		JToolBarHelper::custom('MaintConsolidateDb.assignParentGallery', 'images', '', 'COM_RSGALLERY2_ASSIGN_SELECTED_GALLERY', true);
+		JToolBarHelper::custom('MaintConsolidateDb.deleteRowItems', 'delete', '', 'COM_RSGALLERY2_DELETE_SUPERFLOUS_ITEMS', true);
+		JToolBarHelper::custom('MaintConsolidateDb.repairAllIssuesItems', 'refresh', '', 'COM_RSGALLERY2_REPAIR_ALL_ISSUES', true);
+		//JToolBarHelper::custom ('MaintConsolidateDb.deleteReferences','delete-2','','COM_RSGALLERY2_ASSIGN_SELECTED_GALLLERIES', true);
+		//JToolBarHelper::custom ('MaintConsolidateDb..','next','','COM_RSGALLERY2_MOVE_TO', true);
+		//JToolBarHelper::custom ('MaintConsolidateDb.','copy','','COM_RSGALLERY2_COPY', true);
 
 	}
-
-
-
 
 }
 

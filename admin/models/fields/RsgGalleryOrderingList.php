@@ -4,9 +4,10 @@ defined('_JEXEC') or die;
 
 JFormHelper::loadFieldClass('list');
 
-class JFormFieldRsgGalleryOrderingList extends JFormFieldList {
+class JFormFieldRsgGalleryOrderingList extends JFormFieldList
+{
 
-    protected $type = 'RsgGalleryOrderingList';
+	protected $type = 'RsgGalleryOrderingList';
 
 	/**
 	 * Method to get the field options. -> List of galleries
@@ -23,9 +24,9 @@ class JFormFieldRsgGalleryOrderingList extends JFormFieldList {
 		$DbVarName = (string) $this->element['name'];
 
 		// List of row number to gallery names
-		$db		= JFactory::getDbo();
-		$query	= $db->getQuery(true)
-			->select($DbVarName.' As idx, name as text')
+		$db    = JFactory::getDbo();
+		$query = $db->getQuery(true)
+			->select($DbVarName . ' As idx, name as text')
 			->from('#__rsgallery2_galleries AS a')
 			->order('a.ordering');
 
@@ -37,27 +38,27 @@ class JFormFieldRsgGalleryOrderingList extends JFormFieldList {
 			$galleries = $db->loadObjectList();
 
 			// Create row number to Text = "Row number -> gallery name" assignment
-			foreach($galleries as $gallery)
-			{	
-		        $options[] = array("value" => $gallery->idx, "text" => str_pad($gallery->idx, 3, " ", STR_PAD_LEFT ) . ' ->'.$gallery->text);
-			}				
-			
+			foreach ($galleries as $gallery)
+			{
+				$options[] = array("value" => $gallery->idx, "text" => str_pad($gallery->idx, 3, " ", STR_PAD_LEFT) . ' ->' . $gallery->text);
+			}
+
 			// Add first JOPTION_ORDER_FIRST
 			if (count($options) > 0)
 			{
 				// Merge any additional options in the XML definition.
 				$options = array_merge(parent::getOptions(), $options);
 			}
-			
+
 			// Append JText::_('JOPTION_ORDER_LAST')
-			$options[] = array("value" => count($options),  
-				"text" =>  JText::_('JOPTION_ORDER_LAST')); 
+			$options[] = array("value" => count($options),
+			                   "text"  => JText::_('JOPTION_ORDER_LAST'));
 		}
 		catch (RuntimeException $e)
 		{
 			JError::raiseWarning(500, $e->getMessage());
 		}
-		
+
 		return $options;
-    }
+	}
 }

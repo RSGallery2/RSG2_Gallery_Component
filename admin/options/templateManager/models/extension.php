@@ -1,10 +1,10 @@
 <?php
 /**
- * @version		$Id: extension.php 1012 2011-02-01 15:13:13Z mirjam $
- * @package		Joomla
- * @subpackage	Installer
- * @copyright	Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.
- * @license		GNU/GPL, see LICENSE.php
+ * @version        $Id: extension.php 1012 2011-02-01 15:13:13Z mirjam $
+ * @package        Joomla
+ * @subpackage     Installer
+ * @copyright      Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.
+ * @license        GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
  * of works licensed under the GNU General Public License or other free or open
@@ -15,17 +15,16 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-jimport( 'joomla.application.component.model' );
+jimport('joomla.application.component.model');
 
 /**
  * RSGallery2 Template Manager Abstract Extension Model
  *
  * @abstract
- * @package		Joomla
- * @subpackage	Installer
- * @since		1.5
+ * @package        Joomla
+ * @subpackage     Installer
+ * @since          1.5
  */
-
 // ToDo deprecated: Fix undefined JModel
 class InstallerModel extends JModelLegacy
 {
@@ -37,7 +36,8 @@ class InstallerModel extends JModelLegacy
 
 	/**
 	 * Overridden constructor
-	 * @access	protected
+	 *
+	 * @access    protected
 	 * @throws Exception
 	 */
 	function __construct()
@@ -48,9 +48,9 @@ class InstallerModel extends JModelLegacy
 		parent::__construct();
 
 		// Set state variables from the request
-		$this->setState('pagination.limit',	$mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->get('list_limit'), 'int'));
-		$this->setState('pagination.offset',$mainframe->getUserStateFromRequest('com_rsgallery2_com_installer.limitstart.'.$this->_type, 'limitstart', 0, 'int'));
-		$this->setState('pagination.total',	0);
+		$this->setState('pagination.limit', $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->get('list_limit'), 'int'));
+		$this->setState('pagination.offset', $mainframe->getUserStateFromRequest('com_rsgallery2_com_installer.limitstart.' . $this->_type, 'limitstart', 0, 'int'));
+		$this->setState('pagination.total', 0);
 	}
 
 	/**
@@ -58,10 +58,12 @@ class InstallerModel extends JModelLegacy
 	 */
 	function &getItems()
 	{
-		if (empty($this->_items)) {
+		if (empty($this->_items))
+		{
 			// Load the items
 			$this->_loadItems();
 		}
+
 		return $this->_items;
 	}
 
@@ -70,9 +72,11 @@ class InstallerModel extends JModelLegacy
 	 */
 	function &getPagination()
 	{
-		if (empty($this->_pagination)) {
+		if (empty($this->_pagination))
+		{
 			// Make sure items are loaded for a proper total
-			if (empty($this->_items)) {
+			if (empty($this->_items))
+			{
 				// Load the items
 				$this->_loadItems();
 			}
@@ -80,6 +84,7 @@ class InstallerModel extends JModelLegacy
 			jimport('joomla.html.pagination');
 			$this->_pagination = new JPagination($this->state->get('pagination.total'), $this->state->get('pagination.offset'), $this->state->get('pagination.limit'));
 		}
+
 		return $this->_pagination;
 	}
 
@@ -87,23 +92,26 @@ class InstallerModel extends JModelLegacy
 	 * Remove (uninstall) an extension
 	 *
 	 * @static
-	 * @param	array $eid An array of identifiers
-	 * @return	boolean	True on success
+	 *
+	 * @param    array $eid An array of identifiers
+	 *
+	 * @return    boolean    True on success
 	 * @since 1.0
 	 * @throws Exception
 	 */
-	function remove($eid=array())
+	function remove($eid = array())
 	{
 		$mainframe = JFactory::getApplication();
 
 		// Initialize variables
-		$failed = array ();
+		$failed = array();
 
 		/*
 		 * Ensure eid is an array of extension ids in the form id => client_id
 		 * TODO: If it isn't an array do we want to set an error and fail?
 		 */
-		if (!is_array($eid)) {
+		if (!is_array($eid))
+		{
 			$eid = array($eid => 0);
 		}
 
@@ -112,30 +120,34 @@ class InstallerModel extends JModelLegacy
 
 		// Get an installer object for the extension type
 		jimport('joomla.installer.installer');
-		$installer = & JInstaller::getInstance();
-		
-		require_once( rsgOptions_installer_path .DS. 'adapters' .DS. 'rsgtemplate.php' );
-		$installer->setAdapter( 'template', new JInstaller_rsgTemplate( $installer ) );  
+		$installer = &JInstaller::getInstance();
+
+		require_once(rsgOptions_installer_path . DS . 'adapters' . DS . 'rsgtemplate.php');
+		$installer->setAdapter('template', new JInstaller_rsgTemplate($installer));
 
 		// Uninstall the chosen extensions
 		foreach ($eid as $id => $clientId)
 		{
-			$id		= trim( $id );
-			$result	= $installer->uninstall($this->_type, $id, $clientId );
+			$id     = trim($id);
+			$result = $installer->uninstall($this->_type, $id, $clientId);
 
 			// Build an array of extensions that failed to uninstall
-			if ($result === false) {
+			if ($result === false)
+			{
 				$failed[] = $id;
 			}
 		}
 
-		if (count($failed)) {
+		if (count($failed))
+		{
 			// There was an error in uninstalling the package
-			$msg = JText::sprintf('COM_RSGALLERY2_UNINSTALLEXT', JText::_($this->_type), JText::_('COM_RSGALLERY2_ERROR'));
+			$msg    = JText::sprintf('COM_RSGALLERY2_UNINSTALLEXT', JText::_($this->_type), JText::_('COM_RSGALLERY2_ERROR'));
 			$result = false;
-		} else {
+		}
+		else
+		{
 			// Package uninstalled sucessfully
-			$msg = JText::sprintf('COM_RSGALLERY2_UNINSTALLEXT', JText::_($this->_type), JText::_('COM_RSGALLERY2_SUCCESS'));
+			$msg    = JText::sprintf('COM_RSGALLERY2_UNINSTALLEXT', JText::_($this->_type), JText::_('COM_RSGALLERY2_SUCCESS'));
 			$result = true;
 		}
 
@@ -153,6 +165,6 @@ class InstallerModel extends JModelLegacy
 	 */
 	function _loadItems()
 	{
-		return JError::raiseError( 500, JText::_('COM_RSGALLERY2_METHOD_NOT_IMPLEMENTED'));
+		return JError::raiseError(500, JText::_('COM_RSGALLERY2_METHOD_NOT_IMPLEMENTED'));
 	}
 }

@@ -2,18 +2,18 @@
 defined('_JEXEC') or die;
 
 /**
- *  @param bool
+ * @param bool
  */
 global $Rsg2DebugActive;
 
 // $Rsg2DebugActive = true; // ToDo: $rsgConfig->get('debug');
 if ($Rsg2DebugActive)
 {
-    // Include the JLog class.
-    jimport('joomla.log.log');
-    
-    // identify active file
-    JLog::add('==> base.controller.php ');
+	// Include the JLog class.
+	jimport('joomla.log.log');
+
+	// identify active file
+	JLog::add('==> base.controller.php ');
 }
 
 // import Joomla controller library
@@ -24,36 +24,38 @@ jimport('joomla.application.component.controller');
  */
 class Rsgallery2Controller extends JControllerLegacy
 {
-    protected $default_view = 'rsgallery2';
-    
+	protected $default_view = 'rsgallery2';
+
 	/**
 	 * display task
+	 *
 	 * @param bool $cachable
 	 * @param bool $urlparams
+	 *
 	 * @return $this
 	 */
 	public function display($cachable = false, $urlparams = false)
 	{
 
 //	ToDo: Use 	require_once JPATH_COMPONENT.'/helpers/rsg2.php';
-/*
-		$view   = $this->input->get('view', 'rsgallery2');
-		JLog::add('  base.controller.view: ', json_encode($view));
-		
-		$layout = $this->input->get('layout', 'default');
-		JLog::add('  base.controller.layout: ', json_encode($layout));
-		
-		$id     = $this->input->getInt('id');
-		JLog::add('  base.controller.id: ', json_encode($id));
-*/
+		/*
+				$view   = $this->input->get('view', 'rsgallery2');
+				JLog::add('  base.controller.view: ', json_encode($view));
+				
+				$layout = $this->input->get('layout', 'default');
+				JLog::add('  base.controller.layout: ', json_encode($layout));
+				
+				$id     = $this->input->getInt('id');
+				JLog::add('  base.controller.id: ', json_encode($id));
+		*/
 
-/*
-		if($Rsg2DebugActive)
-		{
-			$task = $this->input->get('task');
-			JLog::add('  base.controller.task: ', json_encode($task));
-		}
-*/
+		/*
+				if($Rsg2DebugActive)
+				{
+					$task = $this->input->get('task');
+					JLog::add('  base.controller.task: ', json_encode($task));
+				}
+		*/
 
 		/* ToDo: Activate following: book extension entwickeln  page 208
 		if ($view == 'rsg2' && $layout == 'edit' && !$this->checkEditId('com_rsgallery2.edit.rsgallery2', $id))
@@ -74,9 +76,8 @@ class Rsgallery2Controller extends JControllerLegacy
 		$layout = $this->input->get('layout', 'rsgallery2');
 		$id     = $this->input->getInt('id');
 
-
 		// Check for edit form.
-		if($layout == 'edit')
+		if ($layout == 'edit')
 		{
 			if ($view == 'gallery' && !$this->checkEditId('com_rsgallery2.edit.gallery', $id))
 			{
@@ -111,7 +112,7 @@ class Rsgallery2Controller extends JControllerLegacy
 			{
 				if (!JFactory::getUser()->authorise('core.manage', 'com_rsgallery2'))
 				{
-					 return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+					return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 				}
 
 				/**

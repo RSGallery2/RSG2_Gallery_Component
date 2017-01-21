@@ -1,12 +1,12 @@
 <?php // no direct access
 /**
- * @package RSGallery2
+ * @package       RSGallery2
  * @copyright (C) 2003 - 2017 RSGallery2
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * RSGallery is Free Software
  */
 
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.multiselect');
@@ -19,23 +19,23 @@ global $Rsg2DebugActive;
 //$doc = JFactory::getDocument();
 //$doc->addStyleSheet (JURI::root(true)."/administrator/components/com_rsgallery2/css/Maintenance.css");
 
-$sortColumn = $this->escape($this->state->get('list.ordering')); //Column
-$sortDirection  = $this->escape($this->state->get('list.direction'));
+$sortColumn    = $this->escape($this->state->get('list.ordering')); //Column
+$sortDirection = $this->escape($this->state->get('list.direction'));
 
 ?>
 
 <div id="installer-install" class="clearfix">
-	<?php if (!empty( $this->sidebar)) : ?>
-        <div id="j-sidebar-container" class="span2">
-            <?php echo $this->sidebar; ?>
-        </div>
-        <div id="j-main-container" class="span10">
-	<?php else : ?>
+	<?php if (!empty($this->sidebar)) : ?>
+	<div id="j-sidebar-container" class="span2">
+		<?php echo $this->sidebar; ?>
+	</div>
+	<div id="j-main-container" class="span10">
+		<?php else : ?>
 		<div id="j-main-container">
-	<?php endif;?>
+			<?php endif; ?>
 
 			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=comments'); ?>"
-				  method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal" >
+					method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">
 
 				<?php
 				// Search tools bar
@@ -47,24 +47,24 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 
 				<?php if (empty($this->items)) : ?>
-                    <div class="alert alert-no-items">
-                        <?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
-                    </div>
-                <?php else : ?>
+					<div class="alert alert-no-items">
+						<?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
+					</div>
+				<?php else : ?>
 
 					<table class="table table-striped table-hover" id="commentsList">
-					<thead>
+						<thead>
 						<tr>
-								<th width="1%">
-									<?php echo JText::_( 'COM_RSGALLERY2_NUM' ); ?>
-								</th>
+							<th width="1%">
+								<?php echo JText::_('COM_RSGALLERY2_NUM'); ?>
+							</th>
 
 							<th width="1%" class="center">
 								<?php echo JHtml::_('grid.checkall'); ?>
 							</th>
 
 							<th width="1%" class="center">
-							`id`
+								`id`
 							</th>
 							<th width="1%" class="center">
 								`gallery_id`
@@ -115,95 +115,95 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 								`registered_vote_vote`
 							</th>
 						</tr>
-					</thead>
-					<tfoot>
+						</thead>
+						<tfoot>
 						<tr>
 							<td colspan="15">
 								<?php echo $this->pagination->getListFooter(); ?>
 							</td>
 						</tr>
-					</tfoot>
-					<tbody>
-				<?php
+						</tfoot>
+						<tbody>
+						<?php
 
-                    foreach ($this->items as $acl) {
+						foreach ($this->items as $acl)
+						{
 //	                    echo json_encode($comment) . '<br>';
-				?>
-	                        <tr>
-		                        <td>
-			                        <?php echo $this->pagination->getRowOffset($i); ?>
-		                        </td>
+							?>
+							<tr>
+								<td>
+									<?php echo $this->pagination->getRowOffset($i); ?>
+								</td>
 
+								<td width="1%" class="center">
+									<?php echo JHtml::_('grid.id', $i, $item->id); ?>
+								</td>
 
-							<td width="1%" class="center">
-			                    <?php echo JHtml::_('grid.id', $i, $item->id); ?>
-		                    </td>
+								<td width="1%" class="center">
+									<?php
+									$link = JRoute::_("index.php?option=com_rsgallery2&view=acl_item&id=" . $acl->id);
+									echo '<a href="' . $link . '"">' . $acl->id . '</a>';
+									?>
+								</td>
+								<td width="1%" class="center">
+									<?php echo $acl->gallery_id; ?>
+								</td>
+								<td width="1%" class="center">
+									<?php echo $acl->parent_id; ?>
+								</td>
+								<td width="1%" class="center">
+									<?php echo $acl->public_view; ?>
+								</td>
+								<td width="1%" class="center">
+									<?php echo $acl->public_up_mod_img; ?>
+								</td>
+								<td width="1%" class="center">
+									<?php echo $acl->public_del_img; ?>
+								</td>
+								<td width="1%" class="center">
+									<?php echo $acl->public_create_mod_gal; ?>
+								</td>
+								<td width="1%" class="center">
+									<?php echo $acl->public_del_gal; ?>
+								</td>
+								<td width="1%" class="center">
+									<?php echo $acl->public_vote_view; ?>
+								</td>
+								<td width="1%" class="center">
+									<?php echo $acl->public_vote_vote; ?>
+								</td>
+								<td width="1%" class="center">
+									<?php echo $acl->registered_view; ?>
+								</td>
+								<td width="1%" class="center">
+									<?php echo $acl->registered_up_mod_img; ?>
+								</td>
+								<td width="1%" class="center">
+									<?php echo $acl->registered_del_img; ?>
+								</td>
+								<td width="1%" class="center">
+									<?php echo $acl->registered_create_mod_gal; ?>
+								</td>
+								<td width="1%" class="center">
+									<?php echo $acl->registered_del_gal; ?>
+								</td>
+								<td width="1%" class="center">
+									<?php echo $acl->registered_vote_view; ?>
+								</td>
+								<td width="1%" class="center">
+									<?php echo $acl->registered_vote_vote; ?>
+								</td>
 
-		                    <td width="1%" class="center">
-								<?php
-								$link = JRoute::_("index.php?option=com_rsgallery2&view=acl_item&id=".$acl->id);
-								echo '<a href="' . $link . '"">' . $acl->id . '</a>';
-								?>
-		                    </td>
-		                    <td width="1%" class="center">
-			                    <?php echo $acl->gallery_id; ?>
-		                    </td>
-		                    <td width="1%" class="center">
-			                    <?php echo $acl->parent_id; ?>
-		                    </td>
-		                    <td width="1%" class="center">
-			                    <?php echo $acl->public_view; ?>
-		                    </td>
-		                    <td width="1%" class="center">
-			                    <?php echo $acl->public_up_mod_img; ?>
-		                    </td>
-		                    <td width="1%" class="center">
-			                    <?php echo $acl->public_del_img; ?>
-		                    </td>
-		                    <td width="1%" class="center">
-			                    <?php echo $acl->public_create_mod_gal; ?>
-		                    </td>
-		                    <td width="1%" class="center">
-			                    <?php echo $acl->public_del_gal; ?>
-		                    </td>
-		                    <td width="1%" class="center">
-			                    <?php echo $acl->public_vote_view; ?>
-		                    </td>
-		                    <td width="1%" class="center">
-			                    <?php echo $acl->public_vote_vote; ?>
-		                    </td>
-		                    <td width="1%" class="center">
-			                    <?php echo $acl->registered_view; ?>
-		                    </td>
-		                    <td width="1%" class="center">
-			                    <?php echo $acl->registered_up_mod_img; ?>
-		                    </td>
-		                    <td width="1%" class="center">
-			                    <?php echo $acl->registered_del_img; ?>
-		                    </td>
-		                    <td width="1%" class="center">
-			                    <?php echo $acl->registered_create_mod_gal; ?>
-		                    </td>
-		                    <td width="1%" class="center">
-			                    <?php echo $acl->registered_del_gal; ?>
-		                    </td>
-		                    <td width="1%" class="center">
-			                    <?php echo $acl->registered_vote_view; ?>
-		                    </td>
-		                    <td width="1%" class="center">
-			                    <?php echo $acl->registered_vote_vote; ?>
-		                    </td>
+							</tr>
 
-	                    </tr>
+							<?php
+						}
+						?>
 
-				<?php
-                    }
-					?>
+						</tbody>
+					</table>
 
-					</tbody>
-				</table>
-
-                <?php endif;?>
+				<?php endif; ?>
 
 				<div>
 					<input type="hidden" name="task" value="" />
@@ -214,8 +214,8 @@ $sortDirection  = $this->escape($this->state->get('list.direction'));
 
 			</form>
 
-        </div>
+		</div>
 
-	<div id="loading"></div>
-</div>
+		<div id="loading"></div>
+	</div>
 

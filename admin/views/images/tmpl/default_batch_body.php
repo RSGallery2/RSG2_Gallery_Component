@@ -11,8 +11,8 @@ $published = $this->state->get('filter.published');
 ?>
 
 <div class="row-fluid">
-    <?php
-    /**
+	<?php
+	/**
 	<div class="control-group span6">
 		<div class="controls">
 			<?php echo JHtml::_('batch.language'); ?>
@@ -24,33 +24,33 @@ $published = $this->state->get('filter.published');
 		</div>
 	</div>
 </div>
-     */
-    ?>
-<div class="row-fluid">
-	<?php if ($published >= 0) : ?>
-		<?php // <div class="pull-right"> ?>
-        <div class=''>
-            <?php
-            // Specify gallery for move and copy
-            echo $this->form->renderFieldset('Select4MoveCopy');
-            ?>
-        </div>
-	    <?php /*
+	 */
+	?>
+	<div class="row-fluid">
+		<?php if ($published >= 0) : ?>
+			<?php // <div class="pull-right"> ?>
+			<div class=''>
+				<?php
+				// Specify gallery for move and copy
+				echo $this->form->renderFieldset('Select4MoveCopy');
+				?>
+			</div>
+			<?php /*
         <div class="control-group span6">
 			<div class="controls">
 				<?php echo JHtml::_('batch.item', 'com_content'); ?>
 			</div>
 		</div>
         /**/
-		?>
-	<?php endif; ?>
-<?php
-/**
+			?>
+		<?php endif; ?>
+		<?php
+		/**
 	<div class="control-group span6">
 		<div class="controls">
 			<?php echo JHtml::_('batch.tag'); ?>
 		</div>
 	</div>
 /**/
-?>
-</div>
+		?>
+	</div>
