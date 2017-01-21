@@ -1,39 +1,48 @@
 <?php
 /**
- * @version $Id$
- * @package RSGallery2
+ * @version       $Id$
+ * @package       RSGallery2
  * @copyright (C) 2003 - 2017 RSGallery2
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined( '_JEXEC' ) or die( );
+defined('_JEXEC') or die();
 
 /**
  * Template class for RSGallery2
+ *
  * @package RSGallery2
- * @author Ronald Smit <ronald.smit@rsdev.nl>
+ * @author  Ronald Smit <ronald.smit@rsdev.nl>
  */
-class rsgDisplay_slideshowone extends rsgDisplay{
+class rsgDisplay_slideshowone extends rsgDisplay
+{
 
 	/**
 	 *
 	 */
-	function showSlideShow(){
+	function showSlideShow()
+	{
 		// global $rsgConfig;
-		
+
 		$gallery = rsgGalleryManager::get();
-		
+
 		// show nothing if there are no items
-		if( ! $gallery->itemCount() )
+		if (!$gallery->itemCount())
+		{
 			return;
-		
-		$k = 0;
+		}
+
+		$k    = 0;
 		$text = "";
-		foreach ($gallery->items() as $item){
-			if( $item->type != 'image' ) return;
+		foreach ($gallery->items() as $item)
+		{
+			if ($item->type != 'image')
+			{
+				return;
+			}
 
 			$display = $item->display();
 
-			$text .= "SLIDES[".$k."] = ['". $display->url() ."', '{$item->title}'];\n";
+			$text .= "SLIDES[" . $k . "] = ['" . $display->url() . "', '{$item->title}'];\n";
 			$k++;
 		}
 		$this->slides = $text;

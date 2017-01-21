@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<install version="1.5" type="rsgTemplate">
+<install version="1.5"
+         type="rsgTemplate">
 	<name>Meta Template - Not for use.</name>
 	<creationDate>2007</creationDate>
 	<author>RSGallery2</author>

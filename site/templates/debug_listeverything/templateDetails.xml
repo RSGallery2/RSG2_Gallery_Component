@@ -7,7 +7,7 @@
 	<authorEmail>team@rsgallery2.nl</authorEmail>
 	<authorUrl>http://www.rsgallery2.nl</authorUrl>
 	<version>3.0</version>
-	<description>Must have debug enabled to use this template.  Lists all galleries and items.</description>
+	<description>Must have debug enabled to use this template. Lists all galleries and items.</description>
 	<files>
 		<filename>index.php</filename>
 		<filename>display.class.php</filename>

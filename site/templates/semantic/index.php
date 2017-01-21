@@ -1,11 +1,12 @@
 <?php
 /**
-* This file contains the main template file for RSGallery2.
-* @package RSGallery2
-* @copyright (C) 2003 - 2017 RSGallery2
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-* RSGallery is Free Software
-*/
+ * This file contains the main template file for RSGallery2.
+ *
+ * @package       RSGallery2
+ * @copyright (C) 2003 - 2017 RSGallery2
+ * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ *                RSGallery is Free Software
+ */
 
 /**
 
@@ -13,13 +14,13 @@ ATTENTION!
 
 This is built to imitate the Joomla 1.5.* style of templating.  Hopefully that is enlightening.
 
-**/
+ **/
 
-defined( '_JEXEC' ) or die();
+defined('_JEXEC') or die();
 
 // bring in display code
 $templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'semantic';
-require_once( $templatePath . DS . 'display.class.php');
+require_once($templatePath . DS . 'display.class.php');
 
 $rsgDisplay = new rsgDisplay_semantic();
 
@@ -35,10 +36,10 @@ JHtml::_('behavior.tooltip');
 
 //include page navigation
 //require_once(JPATH_ROOT.'/includes/pageNavigation.php');//J!1.0, bothering sh404SEF in J!1.5
-jimport( 'joomla.html.pagination');//J!1.5
+jimport('joomla.html.pagination');//J!1.5
 
 $doc = JFactory::getDocument();
-$doc->addStyleSheet($template_dir."/css/template.css","text/css");
+$doc->addStyleSheet($template_dir . "/css/template.css", "text/css");
 ?>
 
 <div class="rsg2">

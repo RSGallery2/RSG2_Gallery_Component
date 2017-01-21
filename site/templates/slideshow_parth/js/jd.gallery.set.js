@@ -1,38 +1,38 @@
 /*
-    This file is part of JonDesign's SmoothGallery v2.1beta1.
+ This file is part of JonDesign's SmoothGallery v2.1beta1.
 
-    JonDesign's SmoothGallery is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or
-    (at your option) any later version.
+ JonDesign's SmoothGallery is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 3 of the License, or
+ (at your option) any later version.
 
-    JonDesign's SmoothGallery is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ JonDesign's SmoothGallery is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with JonDesign's SmoothGallery; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ You should have received a copy of the GNU General Public License
+ along with JonDesign's SmoothGallery; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-    Main Developer: Jonathan Schemoul (JonDesign: http://www.jondesign.net/)
-*/
+ Main Developer: Jonathan Schemoul (JonDesign: http://www.jondesign.net/)
+ */
 
 var gallerySet = new Class({
-	Extends: gallery,
-	initialize: function(element, options) {
+	Extends                 : gallery,
+	initialize              : function (element, options) {
 		try {
 			this.setOptions({
-				manualSetData: [],
-				gallerySelector: "div.galleryElement",
-				galleryTitleSelector: "h2",
-				textGallerySelector: 'Galleries',
+				manualSetData          : [],
+				gallerySelector        : "div.galleryElement",
+				galleryTitleSelector   : "h2",
+				textGallerySelector    : 'Galleries',
 				textShowGallerySelector: 'Other Galleries',
-				textGalleryInfo: '{0} pictures',
-				startWithSelector: true,
+				textGalleryInfo        : '{0} pictures',
+				startWithSelector      : true,
 				/* Changing default options */
-				textShowCarousel: '{0}/{1} Pictures',
-				carouselPreloader: false
+				textShowCarousel       : '{0}/{1} Pictures',
+				carouselPreloader      : false
 			});
 			this.setOptions(options);
 			this.gallerySet = this.options.manualSetData;
@@ -43,20 +43,19 @@ var gallerySet = new Class({
 				this.addEvent('onGallerySelectorCreated', this.startWithSelectorFn);
 			this.parent(element, this.options);
 		}
-		catch (err) 
-		{
-			alert ("parth300:" + err.message);
+		catch (err) {
+			alert("parth300:" + err.message);
 		}
 	},
-	populateData: function() {
+	populateData            : function () {
 		try {
 			options = this.options;
 			//var data = $A(this.gallerySet);
-			var data =  $Array.from(this.gallerySet); // Note: Array.from does not always return a new array 
+			var data = $Array.from(this.gallerySet); // Note: Array.from does not always return a new array
 			this.populateFrom.getElements(options.gallerySelector).each(function (galEl) {
 				currentGalArrayPlace = 0;
 				galleryDict = {
-					title: galEl.getElement(options.galleryTitleSelector).innerHTML,
+					title   : galEl.getElement(options.galleryTitleSelector).innerHTML,
 					elements: []
 				}
 				galleryDict.elements.extend(this.populateGallery(galEl, 0));
@@ -69,16 +68,13 @@ var gallerySet = new Class({
 			this.currentGallery = 0;
 			this.fireEvent('onPopulated');
 		}
-		catch  (err)
-		{
-			alert ("parth305:" + err.message);
+		catch (err) {
+			alert("parth305:" + err.message);
 		}
 	},
-	changeGallery: function(number)
-	{
+	changeGallery           : function (number) {
 		try {
-			if (number!=this.currentGallery)
-			{
+			if (number != this.currentGallery) {
 				this.changeData(this.gallerySet[number].elements);
 				this.maxIter = this.gallerySet[number].elements.length;
 				this.currentGallery = number;
@@ -87,28 +83,32 @@ var gallerySet = new Class({
 			}
 			this.toggleGallerySelector(false);
 		}
-		catch (err) 
-		{
-			alert ("parth310:" + err.message);
+		catch (err) {
+			alert("parth310:" + err.message);
 		}
 	},
-	createGallerySelectorTab: function() {
+	createGallerySelectorTab: function () {
 		try {
 			this.gallerySelectorBtn = new Element('a').addClass('gallerySelectorBtn').setProperties({
 				title: this.options.textShowGallerySelector
 			}).set('html', this.options.textShowGallerySelector).addEvent(
 				'click',
-				function(){ this.toggleGallerySelector(true); }.bind(this)
+				function () {
+					this.toggleGallerySelector(true);
+				}.bind(this)
 			).inject(this.galleryElement, 'bottom');
-			this.addEvent('onShowCarousel', function(){this.gallerySelectorBtn.setStyle('zIndex', 10)}.bind(this));
-			this.addEvent('onCarouselHidden', function(){this.gallerySelectorBtn.setStyle('zIndex', 15)}.bind(this));
+			this.addEvent('onShowCarousel', function () {
+				this.gallerySelectorBtn.setStyle('zIndex', 10)
+			}.bind(this));
+			this.addEvent('onCarouselHidden', function () {
+				this.gallerySelectorBtn.setStyle('zIndex', 15)
+			}.bind(this));
 		}
-		catch (err)
-		{
-			alert ("parth315:" + err.message);
+		catch (err) {
+			alert("parth315:" + err.message);
 		}
 	},
-	createGallerySelector: function() {
+	createGallerySelector   : function () {
 		try {
 			this.gallerySelector = new Fx.Morph(
 				new Element('div').addClass(
@@ -120,7 +120,7 @@ var gallerySet = new Class({
 					'opacity': '0'
 				})
 			);
-			this.gallerySelectorTitle = 
+			this.gallerySelectorTitle =
 				new Element('h2').set('html',
 					this.options.textGallerySelector
 				).inject(this.gallerySelector.element, 'bottom');
@@ -133,35 +133,34 @@ var gallerySet = new Class({
 					gallerySelectorHeight + "px"
 				).inject(this.gallerySelector.element, 'bottom')
 			);
-			this.gallerySelectorInner =	new Element('div').addClass('gallerySelectorInner').inject(this.gallerySelectorWrapper.element, 'bottom');
+			this.gallerySelectorInner = new Element('div').addClass('gallerySelectorInner').inject(this.gallerySelectorWrapper.element, 'bottom');
 			this.gallerySelectorWrapper.scroller = new Scroller(this.gallerySelectorWrapper.element, {
-				area: 100,
+				area    : 100,
 				velocity: 0.3
 			}).start();
 			this.createGalleryButtons();
 			this.fireEvent('onGallerySelectorCreated');
 		}
-		catch (err) 
-		{
-			alert ("parth320:" + err.message);
+		catch (err) {
+			alert("parth320:" + err.message);
 		}
 	},
-	createGalleryButtons: function () {
+	createGalleryButtons    : function () {
 		try {
 			var galleryButtonWidth =
 				((this.galleryElement.offsetWidth - 30) / 2) - 14;
-			this.gallerySet.each(function(galleryItem, index){
+			this.gallerySet.each(function (galleryItem, index) {
 				var button = new Element('div').addClass('galleryButton').inject(
 					this.gallerySelectorInner, 'bottom'
 				).addEvents({
-					'mouseover': function(myself){
+					'mouseover': function (myself) {
 						myself.button.addClass('hover');
 					}.pass(galleryItem, this),
-					'mouseout': function(myself){
+					'mouseout' : function (myself) {
 						myself.button.removeClass('hover');
 					}.pass(galleryItem, this),
-					'click': function(myself, number){
-						this.changeGallery.pass(number,this)();
+					'click'    : function (myself, number) {
+						this.changeGallery.pass(number, this)();
 					}.pass([galleryItem, index], this)
 				}).setStyle('width', galleryButtonWidth);
 				galleryItem.button = button;
@@ -177,26 +176,24 @@ var gallerySet = new Class({
 				new Element('h3').set('html', galleryItem.title).inject(button, 'bottom');
 				new Element('p').addClass('info').set('html', formatString(this.options.textGalleryInfo, galleryItem.elements.length)).inject(button, 'bottom');
 			}, this);
-			new Element('br').inject(this.gallerySelectorInner, 'bottom').setStyle('clear','both');
+			new Element('br').inject(this.gallerySelectorInner, 'bottom').setStyle('clear', 'both');
 		}
-		catch (err) 
-		{
-			alert ("parth330:" + err.message);
+		catch (err) {
+			alert("parth330:" + err.message);
 		}
 	},
-	toggleGallerySelector: function(state) {
+	toggleGallerySelector   : function (state) {
 		try {
 			if (state)
-				this.gallerySelector.start({'opacity' : 1}).element.setStyle('display','block');
+				this.gallerySelector.start({'opacity': 1}).element.setStyle('display', 'block');
 			else
-				this.gallerySelector.start({'opacity' : 0});
+				this.gallerySelector.start({'opacity': 0});
 		}
-		catch (err) 
-		{
-			alert ("parth335:" + err.message);
+		catch (err) {
+			alert("parth335:" + err.message);
 		}
 	},
-	initHistory: function() {
+	initHistory             : function () {
 		try {
 			this.fireEvent('onHistoryInit');
 			this.historyKey = this.galleryElement.id + '-gallery';
@@ -204,29 +201,28 @@ var gallerySet = new Class({
 				this.historyKey = this.options.customHistoryKey();
 			this.history = HistoryManager.register(
 				this.historyKey,
-				[1,1],
-				function(values) {
+				[1, 1],
+				function (values) {
 					this.changeGallery.pass(parseInt(values[0]) - 1, this).delay(10);
-					if(this.gallerySelector)
+					if (this.gallerySelector)
 						this.toggleGallerySelector.pass(false, this).delay(500);
 					this.goTo.pass(parseInt(values[1]) - 1, this).delay(100);
 				}.bind(this),
-				function(values) {
-					return [this.historyKey, '(', values[0], ')', '-picture','(', values[1], ')'].join('');
+				function (values) {
+					return [this.historyKey, '(', values[0], ')', '-picture', '(', values[1], ')'].join('');
 				}.bind(this),
 				this.historyKey + '\\((\\d+)\\)-picture\\((\\d+)\\)');
-			updateHistory = function(){
+			updateHistory = function () {
 				this.history.setValue(0, this.currentGallery + 1);
 				this.history.setValue(1, this.currentIter + 1);
-			}.bind(this);		
-			
+			}.bind(this);
+
 			this.addEvent('onChanged', updateHistory);
 			this.addEvent('onGalleryChanged', updateHistory);
 			this.fireEvent('onHistoryInited');
 		}
-		catch (err) 
-		{
-			alert ("parth340:" + err.message);
+		catch (err) {
+			alert("parth340:" + err.message);
 		}
 	}
 });

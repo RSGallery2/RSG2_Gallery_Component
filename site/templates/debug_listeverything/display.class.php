@@ -1,63 +1,73 @@
 <?php
 /**
-* Must have debug enabled to use this template.  Lists all galleries and items.
-* @package RSGallery2
-* @copyright (C) 2003 - 2017 RSGallery2
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-* RSGallery is Free Software
-*/
+ * Must have debug enabled to use this template.  Lists all galleries and items.
+ *
+ * @package       RSGallery2
+ * @copyright (C) 2003 - 2017 RSGallery2
+ * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ *                RSGallery is Free Software
+ */
 
-defined( '_JEXEC' ) or die();
-
+defined('_JEXEC') or die();
 
 /**
-    performs a var_dump on a gallery tree recursively
-    dies afterward to provide clean diagnostic output
-    @param int $parent parent id of gallery
-**/
-function dumpGallery( $parent = 0 ){
-    global $rsgConfig;
-    if(! $rsgConfig->get('debug')) return;
-    
-    require_once(JPATH_RSGALLERY2_ADMIN.'/includes/gallery.class.php');
+ * performs a var_dump on a gallery tree recursively
+ * dies afterward to provide clean diagnostic output
+ * @param int $parent parent id of gallery
+ **/
+function dumpGallery($parent = 0)
+{
+	global $rsgConfig;
+	if (!$rsgConfig->get('debug'))
+	{
+		return;
+	}
 
-    echo '<pre>';
+	require_once(JPATH_RSGALLERY2_ADMIN . '/includes/gallery.class.php');
 
-    $g = rsgGalleryManager::get( $parent );
+	echo '<pre>';
 
-    function printList( $gallery ){
-        echo "<ul>";
+	$g = rsgGalleryManager::get($parent);
 
-        foreach( $gallery->kids() as $kid ){
-            echo "<li>";
-            var_dump($kid);//. $kid->get('id') ." ". $kid->get('name');
-            printList( $kid );
-            echo "</li>";
-        }
-        echo "</ul>";
-    }
+	function printList($gallery)
+	{
+		echo "<ul>";
 
-    printList($g);
-    die();
+		foreach ($gallery->kids() as $kid)
+		{
+			echo "<li>";
+			var_dump($kid);//. $kid->get('id') ." ". $kid->get('name');
+			printList($kid);
+			echo "</li>";
+		}
+		echo "</ul>";
+	}
+
+	printList($g);
+	die();
 }
 
 /**
-    prints gallery id, name and id, name of all items, recursively
-    @param int $parent id of gallery
-**/
-function listEverything( $parent = 0 ){
-    global $rsgConfig;
-    if(! $rsgConfig->get('debug')){
-    	echo '<p>'.JText::_('COM_RSGALLERY2_ERROR_DEBUG_MUST_BE_ENABLED_TO_USE_THIS_DEBUG_TOOL').'</p>';
-    	return;
-    }
-    
-    require_once(JPATH_RSGALLERY2_ADMIN.'/includes/gallery.class.php');
+ * prints gallery id, name and id, name of all items, recursively
+ * @param int $parent id of gallery
+ **/
+function listEverything($parent = 0)
+{
+	global $rsgConfig;
+	if (!$rsgConfig->get('debug'))
+	{
+		echo '<p>' . JText::_('COM_RSGALLERY2_ERROR_DEBUG_MUST_BE_ENABLED_TO_USE_THIS_DEBUG_TOOL') . '</p>';
 
-    $g = rsgGalleryManager::get( $parent );
-    
-    function printItemsList( $gallery ){
-        echo <<<EOD
+		return;
+	}
+
+	require_once(JPATH_RSGALLERY2_ADMIN . '/includes/gallery.class.php');
+
+	$g = rsgGalleryManager::get($parent);
+
+	function printItemsList($gallery)
+	{
+		echo <<<EOD
 <br />Images:<table border='1' class='rsg-image-table' >
     <tr>
         <th>id</th>
@@ -67,37 +77,40 @@ function listEverything( $parent = 0 ){
     </tr>
 EOD;
 
-        foreach ( $gallery->itemRows() as $item ){
-            echo "<tr>";
-            echo '<td>';
-                echo $item['id'];
-            echo '</td>';
-            echo '<td>';
-                echo $item['ordering'];
-            echo '</td>';
-            echo '<td>';
-                echo $item['name'];
-            echo '</td>';
-            echo '<td>';
-                //echo "<img src='". imgUtils::getImgThumbPath($item['name']) ."' width='30' height='30' />";
-                echo "<img src='". imgUtils::getImgThumb($item['name']) ."' width='30' height='30' />";
-            echo '</td>';
-            echo "</tr>";
-        }
-        echo "</table>";
-    }
+		foreach ($gallery->itemRows() as $item)
+		{
+			echo "<tr>";
+			echo '<td>';
+			echo $item['id'];
+			echo '</td>';
+			echo '<td>';
+			echo $item['ordering'];
+			echo '</td>';
+			echo '<td>';
+			echo $item['name'];
+			echo '</td>';
+			echo '<td>';
+			//echo "<img src='". imgUtils::getImgThumbPath($item['name']) ."' width='30' height='30' />";
+			echo "<img src='" . imgUtils::getImgThumb($item['name']) . "' width='30' height='30' />";
+			echo '</td>';
+			echo "</tr>";
+		}
+		echo "</table>";
+	}
 
-    function printList( $gallery ){
-        echo "<ul>";
+	function printList($gallery)
+	{
+		echo "<ul>";
 
-        foreach( $gallery->kids() as $kid ){
-            echo "<li>". $kid->get('id') ." ". $kid->get('name');
-            printItemsList( $kid );
-            printList( $kid );
-            echo "</li>";
-        }
-        echo "</ul>";
-    }
+		foreach ($gallery->kids() as $kid)
+		{
+			echo "<li>" . $kid->get('id') . " " . $kid->get('name');
+			printItemsList($kid);
+			printList($kid);
+			echo "</li>";
+		}
+		echo "</ul>";
+	}
 
-    printList($g);
+	printList($g);
 }

@@ -1,5 +1,5 @@
 <?php
 
-	echo "not implemented";
+echo "not implemented";
 
 ?>

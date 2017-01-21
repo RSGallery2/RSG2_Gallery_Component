@@ -7,10 +7,10 @@ $item = $this->currentItem;
 
 //$templatePath = JURI_SITE . "components/com_rsgallery2/templates/". 
 //	JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template'));
-$input = JFactory::getApplication()->input;		
-$PreTemplate = $input->get( 'rsgTemplate', $rsgConfig->get('template'), 'CMD');
+$input       = JFactory::getApplication()->input;
+$PreTemplate = $input->get('rsgTemplate', $rsgConfig->get('template'), 'CMD');
 
-$templatePath = JURI_SITE . "components/com_rsgallery2/templates/".$PreTemplate;
+$templatePath = JURI_SITE . "components/com_rsgallery2/templates/" . $PreTemplate;
 
 $jsSwf = '
 		window.addEvent("domready", function() {
@@ -34,6 +34,7 @@ $doc = JFactory::getDocument();
 $doc->addScriptDeclaration($jsSwf);
 $doc->addScript(JURI_SITE . '/components/com_rsgallery2/flash/script/swfobject.js');
 
-?><div id="rsg2-flashMovie"><p><?php echo JText::_('COM_RSGALLERY2_THE_MOVIE_SHOULD_APPEAR_HERE'); ?></p></div><?php
+?>
+	<div id="rsg2-flashMovie"><p><?php echo JText::_('COM_RSGALLERY2_THE_MOVIE_SHOULD_APPEAR_HERE'); ?></p></div><?php
 
 ?>
