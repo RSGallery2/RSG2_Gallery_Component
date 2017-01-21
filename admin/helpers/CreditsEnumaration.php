@@ -1,23 +1,23 @@
 <?php
 /**
-* Hall of Fame in the RSGallery2 project
-* Credits: Historical list of people participating in the project
-* 
-* @version $Id: CreditsEnumaration.php  2012-07-09 18:52:20Z mirjam $
-* @package RSGallery2
-* @copyright (C) 2003 - 2017 RSGallery2
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-* RSGallery is Free Software
-*/
+ * Hall of Fame in the RSGallery2 project
+ * Credits: Historical list of people participating in the project
+ *
+ * @version       $Id: CreditsEnumaration.php  2012-07-09 18:52:20Z mirjam $
+ * @package       RSGallery2
+ * @copyright (C) 2003 - 2017 RSGallery2
+ * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * RSGallery is Free Software
+ */
 
-defined( '_JEXEC' ) or die();
+defined('_JEXEC') or die();
 
 // ToDo: Should it be a class ?
 
-class CreditsEnumaration 
+class CreditsEnumaration
 {
 
-	const CreditsEnumarationText =<<<EOT
+	const CreditsEnumarationText = <<<EOT
 	<h3>Core Team - RSGallery2 4.x</h3>
 	<h4>(Joomla 3.x)</h4>
 	<dl>

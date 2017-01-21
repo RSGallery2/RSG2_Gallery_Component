@@ -18,6 +18,9 @@ if ($Rsg2DebugActive)
 
 //jimport('joomla.application.component.controlleradmin');
 
+/**
+ * Class Rsgallery2ControllerAcl_item
+ */
 class Rsgallery2ControllerAcl_item extends JControllerForm
 {
 
