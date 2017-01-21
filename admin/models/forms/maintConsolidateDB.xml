@@ -3,15 +3,15 @@
 	<fieldset name="maintConsolidateDB">
 		<!-- Parent gallery selection -->
 		<field
-			id           = "ParentGalleryId"
-			name         = "ParentGalleryId"
-			type         = "GallerySelectList"
-			label        = "COM_RSGALLERY2_SELECT_FOR_PARENT_GALLERY"
-			description  = "COM_RSGALLERY2_SPECIFY_GALLERY_NAME_FOR_PARENT_GALLERY_DESC"
-			required     = "false"
-			class        = "inputbox"
-			addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
-			size         = "4"
+				id="ParentGalleryId"
+				name="ParentGalleryId"
+				type="GallerySelectList"
+				label="COM_RSGALLERY2_SELECT_FOR_PARENT_GALLERY"
+				description="COM_RSGALLERY2_SPECIFY_GALLERY_NAME_FOR_PARENT_GALLERY_DESC"
+				required="false"
+				class="inputbox"
+				addfieldpath="/administrator/components/com_rsgallery2/models/fields"
+				size="4"
 		/>
 		<!-- 
 			translate_label	= "true"

@@ -1,8 +1,8 @@
 <?php // no direct access
-defined( '_JEXEC' ) or die();
+defined('_JEXEC') or die();
 
 // JHtml::_('behavior.tooltip');
-JHtml::_('bootstrap.tooltip'); 
+JHtml::_('bootstrap.tooltip');
 
 global $Rsg2DebugActive;
 
@@ -23,8 +23,8 @@ JFactory::getDocument()->addScriptDeclaration('
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=acl_item&task=acl_item.edit&id=' . (int) $this->item->id); ?>"
-	method="post" name="adminForm" id="item-form" class="form-validate">
-	
+		method="post" name="adminForm" id="item-form" class="form-validate">
+
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
 	<div class="form-horizontal">

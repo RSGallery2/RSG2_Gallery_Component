@@ -3,26 +3,26 @@
 <form enctype="multipart/form-data">
 	<fieldset name="regenerateGallerySelection">
 		<field
-				name         = "forceRegenerateAll"
-				type         = "radio"
-				default      = "0"
-				label        = "COM_RSGALLERY2_FORCE_TO_CREATE_THUMBS"
-				description  = "COM_RSGALLERY2_FORCE_TO_CREATE_THUMBS_DESC"
-				class        = "btn-group btn-group-yesno">
+				name="forceRegenerateAll"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_FORCE_TO_CREATE_THUMBS"
+				description="COM_RSGALLERY2_FORCE_TO_CREATE_THUMBS_DESC"
+				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
 		<!-- Gallery selection -->
 		<field
-			name         = "gid"
-			type         = "GallerySelectList"
-			label        = "COM_RSGALLERY2_SELECT_GALLERY"
-			description  = "COM_RSGALLERY2_SELECT_GALLERIES_TO_REGENERATE_THUMBNAILS_FROM"
-			required     = "true"
-			class        = "inputbox"
-			addfieldpath = "/administrator/components/com_rsgallery2/models/fields"
-			multiple     = "true"
-			size         = "4"
+				name="gid"
+				type="GallerySelectList"
+				label="COM_RSGALLERY2_SELECT_GALLERY"
+				description="COM_RSGALLERY2_SELECT_GALLERIES_TO_REGENERATE_THUMBNAILS_FROM"
+				required="true"
+				class="inputbox"
+				addfieldpath="/administrator/components/com_rsgallery2/models/fields"
+				multiple="true"
+				size="4"
 		/>
 		<!-- 
 			translate_label	= "true"
