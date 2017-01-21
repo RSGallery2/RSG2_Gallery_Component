@@ -17,7 +17,6 @@
   - [ ] Basic check: Configuration
   - [ ] Basic check: Maintenance
   - [ ]  
-  - [ ]  
 
 - [ ] Prepare update message for user 
 - [ ] Prepare known issues 
@@ -25,10 +24,11 @@
 
 - [ ] Improve updateserver
 - [ ] Add text to blog on RSGallery2.org
+- [ ] Change release link in joomla extension directory
+- [ ] Change text to joomla extension directory
 
+- [ ] Create xampp installation for later tests
 - [ ] 
-- [ ] 
-- [ ]  
 - [ ]  
 
 - [ ] All completed
