@@ -1,5 +1,13 @@
 <?php
-// Check to ensure this file is included in Joomla!
+/**
+ * @package     RSGallery2
+ * @subpackage  com_rsgallery2
+ * @copyright   (C) 2016 - 2017 RSGallery2
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @author      finnern
+ * RSGallery is Free Software
+ */
+
 defined('_JEXEC') or die;
 
 JFormHelper::loadFieldClass('list');
