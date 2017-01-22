@@ -16,6 +16,11 @@ jimport('joomla.application.component.model');
 
 JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
+/**
+ *
+ *
+ * @since 4.3.0
+ */
 class Rsgallery2ViewConfig extends JViewLegacy
 {
 

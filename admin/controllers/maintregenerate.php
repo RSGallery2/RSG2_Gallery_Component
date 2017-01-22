@@ -25,6 +25,11 @@ require_once(JPATH_RSGALLERY2_ADMIN . '/includes/img.utils.php');
 
 jimport('joomla.application.component.controlleradmin');
 
+/**
+ *
+ *
+ * @since 4.3.0
+ */
 class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 {
 

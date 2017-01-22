@@ -14,6 +14,8 @@ jimport('joomla.application.component.modeladmin');
 
 /**
  *
+ *
+ * @since 4.3.0
  */
 class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 {

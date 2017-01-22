@@ -13,8 +13,11 @@ defined('_JEXEC') or die;
 // import Joomla modelform library
 jimport('joomla.application.component.modeladmin');
 jimport('joomla.application.component.helper');
+
 /**
  *
+ *
+ * @since 4.3.0
  */
 //class Rsgallery2ModelConfigRaw extends JModelLegacy  // JModelForm // JModelAdmin // JModelList // JModelItem
 //class Rsgallery2ModelConfigRaw extends JModelAdmin  // JModelForm

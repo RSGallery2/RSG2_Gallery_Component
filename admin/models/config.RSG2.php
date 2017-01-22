@@ -15,6 +15,8 @@ jimport('joomla.application.component.modeladmin');
 
 /**
  *
+ *
+ * @since 4.3.0
  */
 class rsg2ModelConfig extends JModelAdmin
 {

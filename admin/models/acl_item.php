@@ -12,6 +12,8 @@ defined('_JEXEC') or die;
 
 /**
  *
+ *
+ * @since 4.3.0
  */
 class Rsgallery2ModelAcl_item extends JModelAdmin
 {

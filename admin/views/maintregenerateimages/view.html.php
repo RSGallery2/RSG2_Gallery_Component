@@ -16,6 +16,11 @@ jimport('joomla.application.component.model');
 
 JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
+/**
+ * View of list of image discrepancies (missing images, Missing DB entries on images ...)
+ *
+ * @since 4.3.0
+ */
 class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
 {
 	// core.admin is the permission used to control access to

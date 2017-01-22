@@ -16,6 +16,8 @@ jimport('joomla.application.component.helper');
 
 /**
  *
+ *
+ * @since 4.3.0
  */
 class Rsgallery2ModelConfig extends JModelAdmin
 {

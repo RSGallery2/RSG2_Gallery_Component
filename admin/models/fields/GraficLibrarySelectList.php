@@ -15,6 +15,8 @@ JFormHelper::loadFieldClass('list');
 /**
  * Grafic Library Select List Form Field class to create contents of dropdown box for
  * usable grafic libraries on the system
+ *
+ * @since 4.3.0
  */
 class JFormFieldGraficLibrarySelectList extends JFormFieldList
 {

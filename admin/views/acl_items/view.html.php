@@ -11,6 +11,11 @@ defined('_JEXEC') or die;
 
 jimport('joomla.html.html.bootstrap');
 
+/**
+ * View class for a list of acl items
+ *
+ * @since 4.3.0
+ */
 class Rsgallery2ViewAcl_items extends JViewLegacy
 {
 	// ToDo: Use other rights instead of core.admin -> IsRoot ?

@@ -22,6 +22,11 @@ require_once JPATH_COMPONENT . '/helpers/CreditsEnumaration.php';
 require_once JPATH_COMPONENT . '/models/images.php';
 require_once JPATH_COMPONENT . '/models/galleries.php';
 
+/**
+ * Base view of control panel
+ *
+ * @since 4.3.0
+ */
 class Rsgallery2ViewRsgallery2 extends JViewLegacy
 {
 	protected $Credits;

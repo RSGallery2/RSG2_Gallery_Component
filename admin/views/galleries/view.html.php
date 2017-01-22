@@ -11,6 +11,11 @@ defined('_JEXEC') or die;
 
 jimport('joomla.html.html.bootstrap');
 
+/**
+ * View class for a list of galleries
+ *
+ * @since 4.3.0
+ */
 class Rsgallery2ViewGalleries extends JViewLegacy
 {
 	// ToDo: Use other rights instead of core.admin -> IsRoot ?

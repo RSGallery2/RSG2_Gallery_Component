@@ -15,6 +15,8 @@ JFormHelper::loadFieldClass('list');
 /**
  * Gallery Form Field class to create contents of dropdown box for
  * gallery selection in RSGallery2.
+ *
+ * @since 4.3.0
  */
 class JFormFieldGalleryList extends JFormFieldList
 {

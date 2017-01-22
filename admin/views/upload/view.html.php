@@ -15,6 +15,11 @@ jimport('joomla.application.component.model');
 
 JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
+/**
+ * View class for uploading images
+ *
+ * @since 4.3.0
+ */
 class Rsgallery2ViewUpload extends JViewLegacy
 {
 	protected $form;

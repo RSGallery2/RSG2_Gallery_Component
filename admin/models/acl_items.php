@@ -12,6 +12,8 @@ defined('_JEXEC') or die;
 
 /**
  * CommentsList Model
+ *
+ * @since 4.3.0
  */
 class Rsgallery2ModelAcl_items extends JModelList
 {

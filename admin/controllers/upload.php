@@ -29,6 +29,11 @@ jimport('joomla.application.component.controllerform');
 
 // ToDo: Check which functions are used
 
+/**
+ *
+ *
+ * @since 4.3.0
+ */
 class Rsgallery2ControllerUpload extends JControllerForm
 {
 

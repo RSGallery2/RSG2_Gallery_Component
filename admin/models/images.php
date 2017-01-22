@@ -12,6 +12,8 @@ defined('_JEXEC') or die;
 
 /**
  * ImagesList Model
+ *
+ * @since 4.3.0
  */
 class Rsgallery2ModelImages extends JModelList
 {

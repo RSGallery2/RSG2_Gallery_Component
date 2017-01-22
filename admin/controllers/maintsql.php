@@ -26,6 +26,11 @@ if ($Rsg2DebugActive)
 
 jimport('joomla.application.component.controlleradmin');
 
+/**
+ *
+ *
+ * @since 4.3.0
+ */
 class Rsgallery2ControllerMaintSql extends JControllerAdmin
 {
 	/**

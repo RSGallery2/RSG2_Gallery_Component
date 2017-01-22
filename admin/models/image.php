@@ -14,6 +14,8 @@ use Joomla\Utilities\ArrayHelper;
 
 /**
  * Class Rsgallery2ModelImage
+ *
+ * @since 4.3.0
  */
 class Rsgallery2ModelImage extends JModelAdmin
 {

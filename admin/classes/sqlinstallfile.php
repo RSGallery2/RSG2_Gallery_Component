@@ -14,15 +14,10 @@ defined('_JEXEC') or die;
 // Include the JLog class.
 jimport('joomla.log.log');
 
-/*------------------------------------------------------------------------------------
-SqlInstallFile
---------------------------------------------------------------------------------------
- \com_rsgallery2\sql\install.mysql.utf8.sql
-
-------------------------------------------------------------------------------------*/
-
 /**
- * Class SqlInstallFile
+ *
+ *
+ * @since 4.3.0
  */
 class SqlInstallFile
 {

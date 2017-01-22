@@ -18,6 +18,8 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . '/classes/ImageReferences.php');
 
 /**
  *
+ *
+ * @since 4.3.0
  */
 class rsgallery2ModelMaintConsolidateDB extends JModelList
 {

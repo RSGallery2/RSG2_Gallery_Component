@@ -25,6 +25,8 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . '/classes/sqlinstallfile.php');
 
 /**
  *
+ *
+ * @since 4.3.0
  */
 class Rsgallery2ModelMaintSql extends JModelList
 {

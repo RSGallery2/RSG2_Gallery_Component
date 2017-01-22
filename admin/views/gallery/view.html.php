@@ -13,6 +13,11 @@ defined('_JEXEC') or die;
 jimport('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 
+/**
+ * View to edit a gallery
+ *
+ * @since 4.3.0
+ */
 class Rsgallery2ViewGallery extends JViewLegacy
 {
 

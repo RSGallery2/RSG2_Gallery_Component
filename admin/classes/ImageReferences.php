@@ -17,15 +17,10 @@ jimport('joomla.log.log');
 // access to the content of the install.mysql.utf8.sql file
 require_once(JPATH_COMPONENT_ADMINISTRATOR . '/classes/ImageReference.php');
 
-/*------------------------------------------------------------------------------------
-ImageReferences
---------------------------------------------------------------------------------------
- 
-
-------------------------------------------------------------------------------------*/
-
 /**
- * Class ImageReferences
+ *
+ *
+ * @since 4.3.0
  */
 class ImageReferences
 {

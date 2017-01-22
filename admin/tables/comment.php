@@ -10,9 +10,9 @@
 defined('_JEXEC') or die();
 
 /**
- * Hello Table class
  *
- * @since  0.0.1
+ *
+ * @since 4.3.0
  */
 class Rsgallery2TableComment extends JTable
 {

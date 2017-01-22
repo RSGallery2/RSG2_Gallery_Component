@@ -15,7 +15,9 @@ jimport('joomla.log.log');
 
 
 /**
- * Class ImageReferences
+ *
+ *
+ * @since 4.3.0
  */
 class ImageReference
 {

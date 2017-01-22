@@ -13,6 +13,11 @@ defined('_JEXEC') or die;
 jimport('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 
+/**
+ * View of maintenance options
+ *
+ * @since 4.3.0
+ */
 class Rsgallery2ViewMaintenance extends JViewLegacy
 {
 	// ToDo: Use other rights instead of core.admin -> IsRoot ?

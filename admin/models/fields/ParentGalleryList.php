@@ -12,6 +12,11 @@ defined('_JEXEC') or die;
 
 JFormHelper::loadFieldClass('list');
 
+/**
+ *
+ *
+ * @since 4.3.0
+ */
 class JFormFieldParentGalleryList extends JFormFieldList
 {
 

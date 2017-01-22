@@ -16,6 +16,8 @@ JFormHelper::loadFieldClass('list');
  * Gallery Form Field class to create contents of dropdown box for
  * gallery selection in RSGallery2.
  * Includes "-- Select -- " as first entry
+ *
+ * @since 4.3.0
  */
 class JFormFieldGallerySelectList extends JFormFieldList
 {
