@@ -1,6 +1,7 @@
+- [ ] Site: settings for last users request: enable remove of image from to ????
 - [ ] Sanitize the IDs from list views to controller ...: $pks = ArrayHelper::toInteger((array) $pks); 
 - [ ]
-- [ ] allery save 2 and copy : Check Reorder 
+- [ ] Gallery save 2 and copy : Check Reorder 
 - [ ]
 - [ ]
 - [ ] Gallery view: chenge order of gallierise -> Update immediatelly
