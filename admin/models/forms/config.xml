@@ -797,6 +797,18 @@
 			<option value="0">JNO</option>
 		</field>
 		<field
+				id="display_thumbs_showNavBar"
+				name="display_thumbs_showNavBar"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_SHOW_IMAGE_NAME_BELOW_THUMBNAIL"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">yyy</option>
+			<option value="0">yyy</option>
+			
+		</field>
+		<field
 				id="displaySlideshowGalleryView"
 				name="displaySlideshowGalleryView"
 				type="radio"
