@@ -18,7 +18,6 @@ defined('_JEXEC') or die();
  */
 class rsgConfig
 {
-
 	//	General
 	var $intro_text = '';
 	var $version = 'depreciated';    // this is set and loaded from includes/version.rsgallery2.php
@@ -57,12 +56,14 @@ class rsgConfig
 	var $videoConverter_thumbParam = ' -i {input} -f mjpg -vframes 1 -an -s 320x240 {output}';
 	var $videoConverter_extension = 'flv';
 
-	// front display
+	// gallery front display
 	var $display_thumbs_style = 'table';    // float, table, magic
 	var $display_thumbs_floatDirection = 'left';    // left, right
 	var $display_thumbs_colsPerPage = 3;
 	var $display_thumbs_maxPerPage = 9;
 	var $display_thumbs_showImgName = true;
+    var $display_navigation_bar_mode = 1; // Display none:0, Display both:1, Display top:2, Display bottom:L3
+
 	//var $display_img_dynamicResize	= 5;	// Not used in v3
 	var $displayRandom = 1;
 	var $displayLatest = 1;

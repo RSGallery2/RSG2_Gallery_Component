@@ -797,16 +797,17 @@
 			<option value="0">JNO</option>
 		</field>
 		<field
-				id="display_thumbs_showNavBar"
-				name="display_thumbs_showNavBar"
+				id="$display_navigation_bar_mode"
+				name="$display_navigation_bar_mode"
 				type="list"
 				default="0"
-				label="COM_RSGALLERY2_SHOW_IMAGE_NAME_BELOW_THUMBNAIL"
+				label="COM_RSGALLERY2_NAVIGATION_BAR_DISPLAY"
 				description=""
 				class="btn-group btn-group-yesno">
-			<option value="1">yyy</option>
-			<option value="0">yyy</option>
-			
+			<option value="1">COM_RSGALLERY2_BOTH</option>
+			<option value="2">COM_RSGALLERY2_TOP</option>
+			<option value="3">COM_RSGALLERY2_BOTTOM</option>
+			<option value="0">COM_RSGALLERY2_NONE</option>
 		</field>
 		<field
 				id="displaySlideshowGalleryView"
