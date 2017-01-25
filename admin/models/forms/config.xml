@@ -797,10 +797,10 @@
 			<option value="0">JNO</option>
 		</field>
 		<field
-				id="$display_navigation_bar_mode"
-				name="$display_navigation_bar_mode"
+				id="display_navigation_bar_mode"
+				name="display_navigation_bar_mode"
 				type="list"
-				default="0"
+				default="1"
 				label="COM_RSGALLERY2_NAVIGATION_BAR_DISPLAY"
 				description=""
 				class="btn-group btn-group-yesno">
