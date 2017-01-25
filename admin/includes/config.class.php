@@ -62,7 +62,7 @@ class rsgConfig
 	var $display_thumbs_colsPerPage = 3;
 	var $display_thumbs_maxPerPage = 9;
 	var $display_thumbs_showImgName = true;
-    var $display_navigation_bar_mode = 1; // Display none:0, Display both:1, Display top:2, Display bottom:L3
+    var $display_navigation_bar_mode = 1; // Display none:0, Display both:1, Display top:2, Display bottom:3
 
 	//var $display_img_dynamicResize	= 5;	// Not used in v3
 	var $displayRandom = 1;

@@ -1,0 +1,35 @@
+
+[Tutorial] About using SVG images in ZOO and Joomla
+
+Did you try to upload an SVG (scalable vector graphics) image you want to use in a ZOO Textarea element or a ZOO Image element? You will find that it is not possible to upload the image nor can it be selected, and it is not shown in the image selection list even though you are sure it exists.
+The culprit is Joomla's built-in Media Manager and its security features. You can not upload or select an *.svg image via the Joomla Media Manager. This affects ZOO, but also Joomla articles, modules, and every other component where the Joomla Media Manager is involved.
+Bear in mind that SVG is a highly dangerous file format and one of many ways to introduce malicious code into a website.
+Usually you will get the notice "This file type is not supported." when you try to upload an *.svg image?
+Image
+Going to _Adding svg to the list of legal extensions and image/svg+xml to the list of legal MIME type does not solve the problem:
+Image
+The message you will get is "Possible IE XSS Attack found."
+Image
+or "Not a valid image."
+Image
+Which message you are stopped by depends on the "Restrict Uploads" and "Check MIME Type" and their Yes/No settings.
+No matter what you set you will not be able to place SVG images this way. Bear in mind that SVG is a highly dangerous file format and one of many ways to introduce malicious code into a website. So consider it "well meant", which is usually the opposite of "well". ;-)
+But ZOO as well as Joomla aricles or modules do support *.svg images.
+Just upload an image to images/my-image.svg via FTP, in your ZOO Textarea element then switch the editor to HTML / source view and manually enter the following HTML markup:
+<img src="images/my-image.svg" height="100" width="100" alt="An SVG image">
+This image — provided it exists in the given location — will be shown and displayed by ZOO.
+Unfortunately the "Select Image" button of a ZOO Image element has to conform to the Joomla interface and use the Joomla Media Manager. The only way to get an SVG here is to manually enter the relative URL to an SVG image existing on your server:
+Image
+This SVG image will also be used and displayed by ZOO.
+Advanced Information, courtesy of Phillip:
+If you are capable of editing the SVG file's source you should make sure it has the following structure:
+<svg>  
+    [the various elements of the image ...]  
+</svg>
+
+As in for example
+<svg  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">  
+    <rect x="10" y="10" height="100" width="100" style="stroke:#ff0000; fill: #0000ff  "/>  
+</svg>
+What Joomla does in fact look for to recognize (and block) an SVG are certain HTML and XML tags. If those are not part of the file, Joomla usually wouldn't consider it to be an SVG file in the first place, and has no objections anymore.
+Thank you
