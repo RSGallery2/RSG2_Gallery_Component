@@ -57,7 +57,8 @@ class Rsgallery2ModelComments extends JModelList
 	 * @since   1.6
 	 */
 	// ToDo: protected function populateState($ordering = 'a.item_id, datetime', $direction = 'desc')
-	protected function populateState($ordering = 'a.item_id', $direction = 'desc')
+	// protected function populateState($ordering = 'a.item_id', $direction = 'desc')
+	protected function populateState($ordering = 'a.id', $direction = 'desc')
 	{
 		// $app = JFactory::getApplication();
 
@@ -147,21 +148,9 @@ class Rsgallery2ModelComments extends JModelList
 			);
 		}
 
-		// Filter by published state
-		/**
-		$published = $this->getState('filter.published');
-		if (is_numeric($published))
-		{
-			$query->where('published = ' . (int) $published);
-		}
-		elseif ($published === '')
-		{
-			$query->where('(published IN (0, 1))');
-		}
-		/**/
-
 		// Add the list ordering clause.
 		$orderCol  = $this->state->get('list.ordering', 'item_id');
+		//
 		$orderDirn = $this->state->get('list.direction', 'desc');
 
 		/** ToDo: when sorted by image id the comments shall be ordered by date ? ...
