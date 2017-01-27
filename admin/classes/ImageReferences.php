@@ -209,8 +209,6 @@ class ImageReferences
 		return $DbImageGalleryList;
 	}
 
-	/**
-	 */
     /**
      * Collects existing image name list from database
      *
@@ -220,13 +218,6 @@ class ImageReferences
      */
 	private function getDbImageNames()
 	{
-		/*
-				$database = JFactory::getDBO();
-				//Load all image names from DB in array
-				$sql = "SELECT name FROM #__rsgallery2_files";
-				$database->setQuery($sql);
-				$names_db = rsg2_consolidate::arrayToLower($database->loadColumn());
-		*/
 		$db    = JFactory::getDbo();
 		$query = $db->getQuery(true);
 
@@ -295,6 +286,8 @@ class ImageReferences
 	 * @param array $array mixed case mixed or upper case values
 	 *
 	 * @return array lower case values
+	 *
+	 * @since version 4.3
 	 */
 	static function arrayToLower($array)
 	{
@@ -304,7 +297,9 @@ class ImageReferences
 	}
 
 	/**
-     * Collects
+     * Checks all occurrences of a image (information) and does collect uncomplete set as artifacts
+	 * An artifact occurs when an expected image or DB reference is missing
+	 *
 	 * @param string [] $AllFiles     file names
 	 * @param string [] $DbImageNames in lower case
 	 * @param           $files_display
@@ -312,6 +307,8 @@ class ImageReferences
 	 * @param           $files_thumb
 	 *
 	 * @return string Message
+	 *
+	 * @since version 4.3
 	 */
 	private function CreateImagesData($AllFiles, $DbImageNames, $DbImageGalleryList,
 		$files_display, $files_original, $files_thumb, $files_watermarked)
@@ -462,7 +459,11 @@ class ImageReferences
 	}
 
 	/**
-	 * @param string $BaseFile Name of image
+	 * @param int $ParentGalleryId
+	 *
+	 * @return string
+	 *
+	 * @since version 4.3
 	 */
 	private function getParentGalleryName($ParentGalleryId)
 	{
@@ -475,27 +476,14 @@ class ImageReferences
 			->from($db->quoteName('#__rsgallery2_galleries'))
 			->where('id = ' . $db->quote($ParentGalleryId));
 		$db->setQuery($query);
-		//$DbGalleryId =  $db->loadAssocList();
-		$DbGalleryName = $db->loadResult();
 
+		$DbGalleryName = $db->loadResult();
 		if (!empty ($DbGalleryName))
 		{
 			$ParentGalleryName = $DbGalleryName;
 		}
 
 		return $ParentGalleryName;
-	}
-
-	/**/
-
-	public function createDbEntries()
-	{
-		$msg = "model.createDbEntries: " . '<br>';
-
-		//--- optimized message -------------------------------------
-		$msg .= '<br>' . JText::_('COM_RSGALLERY2_MAINT_OPTIMIZE_SUCCESS', true);
-
-		return $msg;
 	}
 
 }

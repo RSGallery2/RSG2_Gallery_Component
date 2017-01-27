@@ -13,9 +13,9 @@ defined('_JEXEC') or die;
 // Include the JLog class.
 jimport('joomla.log.log');
 
-
 /**
- *
+ * Collection of all data found about one image
+ * May be database entry or image file info
  *
  * @since 4.3.0
  */
@@ -50,26 +50,30 @@ class ImageReference
 	 * @var bool
 	 */
 	public $IsWatermarkedImageFound;
-
 	/**
 	 * @var int
 	 */
 	public $ParentGalleryId;
-
 	/**
 	 * @var bool
 	 */
 	public $UseWatermarked;
 
 	//--- constants -----------------------------------------
+
+	/**
+	 * @var int
+	 */
 	const dontCareForWatermarked = 0;
+	/**
+	 * @var int
+	 */
 	const careForWatermarked = 0;
 
-	/*------------------------------------------------------------------------------------
-	__construct()
-	------------------------------------------------------------------------------------*/
 	/**
 	 * ImageReference constructor. init all variables
+	 *
+	 * @since version 4.3
 	 */
 	public function __construct()
 	{
@@ -88,20 +92,26 @@ class ImageReference
 	}
 
 	/**
-	 * ImageReference constructor. Tells if watermarked images shall be checked too
+	 * Second ImageReference constructor. Tells if watermarked images shall be checked too
 	 *
 	 * @param bool $watermarked
+	 *
+	 * @since version 4.3
 	 */
 	public function __construct1($watermarked)
 	{
-
 		__construct();
 
 		$this->UseWatermarked = $watermarked;
 	}
 
 	/**
+	 * Tells from the data collected if any of the expected images exist
+	 * @param int $careForWatermarked
+	 *
 	 * @return bool
+	 *
+	 * @since version 4.3
 	 */
 	public function IsAnyImageExisting($careForWatermarked = ImageReference::dontCareForWatermarked)
 	{
@@ -125,10 +135,14 @@ class ImageReference
 	}
 
 	/*
+	 * Tells from the data collected if any of the main images is missing
+	 * Main: Display, Original or Thumb images
 	 *
 	 * watermarked images are not missing as such. watermarked images will be created when displaying image
 	 * @param bool $careForWatermarked
 	 * @return bool
+	 *
+	 * @since version 4.3
 	 */
 	public function IsMainImageMissing($careForWatermarked = ImageReference::dontCareForWatermarked)
 	{
@@ -149,11 +163,5 @@ class ImageReference
 
 		return $IsImageMissing;
 	}
-
-	/*   
-	   public function IsWatermarkImageMissing () {
-		   return !$this->IsWatermarkedImageFound; 
-	   }
-	*/
 
 }

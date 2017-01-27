@@ -15,7 +15,8 @@ defined('_JEXEC') or die;
 jimport('joomla.log.log');
 
 /**
- *
+ * Used to check if all table elements are available in the database
+ * or superfluous elements exist
  *
  * @since 4.3.0
  */
@@ -48,13 +49,12 @@ class SqlInstallFile
 	 */
 	private $tablePropertiesList;
 
-	/*------------------------------------------------------------------------------------
-	__construct()
-	------------------------------------------------------------------------------------*/
 	/**
 	 * SqlInstallFile constructor.
 	 *
-	 * @param string $fileName
+	 * @param string $fileName : Reference to a sql definition file *.sql
+	 *
+	 * @since 4.3.0
 	 */
 	public function __construct($fileName = '')
 	{
@@ -75,6 +75,8 @@ class SqlInstallFile
 	 * It will be a list of create table queries
 	 *
 	 * @return bool|string[] list of create table queries
+	 *
+	 * @since version 4.3
 	 */
 	private function extractQueries()
 	{
@@ -112,6 +114,8 @@ class SqlInstallFile
 	 * @param string $query
 	 *
 	 * @return string
+	 *
+	 * @since version 4.3
 	 */
 	private function ExtractTableNameFromQuery($query)
 	{
@@ -137,16 +141,13 @@ class SqlInstallFile
 	}
 
 	/**
-	 * @param $query
-	 *
-	 * @return array
-	 */
-	/**
-	 * ToDO: continue doc yyyyyyyyyyyyyyyyyy
+	 * Splits a query into its parts so that single lines
 	 *
 	 * @param $query
 	 *
 	 * @return array
+	 *
+	 * @since version 4.3
 	 */
 	private function ExtractTablePropertiesFromQuery($query)
 	{
@@ -175,9 +176,11 @@ class SqlInstallFile
 	}
 
 	/**
-	 * @param $queryLine
+	 * @param string $queryLine
 	 *
 	 * @return stdClass|string
+	 *
+	 * @since version 4.3
 	 */
 	private function ExtractColumnPropertiesFromLine($queryLine)
 	{
@@ -201,6 +204,8 @@ class SqlInstallFile
 	 * @param $EndPos
 	 *
 	 * @return string
+	 *
+	 * @since version 4.3
 	 */
 	private function ExtractColumnNameFromQueryLine($queryLine, &$EndPos)
 	{
@@ -232,6 +237,8 @@ class SqlInstallFile
 	 * @param $StartPos
 	 *
 	 * @return string
+	 *
+	 * @since version 4.3
 	 */
 	private function ExtractColumnPropertiesFromQueryLine($queryLine, $StartPos)
 	{
@@ -288,6 +295,8 @@ class SqlInstallFile
 	 * Creates the named list additionally
 	 *
 	 * @return bool|string[] list of 'create table queries'
+	 *
+	 * @since version 4.3
 	 */
 	private function getSqlQueries()
 	{
@@ -304,6 +313,8 @@ class SqlInstallFile
 	 * array[string]string list of 'create table queries'
 	 *
 	 * @return string[] list of table names with queries from sql queries file
+	 *
+	 * @since version 4.3
 	 */
 	public function getTableQueries()
 	{
@@ -329,6 +340,8 @@ class SqlInstallFile
 
 	/**
 	 * @return string[] list of table names from sql queries file
+	 *
+	 * @since version 4.3
 	 */
 	public function getTableNames()
 	{
@@ -355,6 +368,8 @@ class SqlInstallFile
 	 * @param $tableName
 	 *
 	 * @return array
+	 *
+	 * @since version 4.3
 	 */
 	public function getTableColumns($tableName)
 	{
@@ -381,6 +396,8 @@ class SqlInstallFile
 	 * @param $tableName
 	 *
 	 * @return array
+	 *
+	 * @since version 4.3
 	 */
 	public function getTableColumnNames($tableName)
 	{
@@ -412,6 +429,8 @@ class SqlInstallFile
 	 * @param $TableName
 	 *
 	 * @return string
+	 *
+	 * @since version 4.3
 	 */
 	public function getTableQuery($TableName)
 	{
@@ -428,6 +447,8 @@ class SqlInstallFile
 
 	/**
 	 * @return string[]
+	 *
+	 * @since version 4.3
 	 */
 	public function getTablePropertiesList()
 	{
@@ -453,6 +474,8 @@ class SqlInstallFile
 	 * @param $tableName
 	 *
 	 * @return array|string
+	 *
+	 * @since version 4.3
 	 */
 	public function getColumnsPropertiesOfTable($tableName)
 	{
