@@ -1,6 +1,6 @@
 ﻿<?php
 /**
- * access to the content of the 'install.mysql.utf8.sql' file
+ * ImageReferences collect all information about image artefacts
  *
  * @package       Rsgallery2
  * @copyright (C) 2016 - 2017 RSGallery2
@@ -18,13 +18,19 @@ jimport('joomla.log.log');
 require_once(JPATH_COMPONENT_ADMINISTRATOR . '/classes/ImageReference.php');
 
 /**
- *
+ * ImageReferences collect all information about image artefacts
+ * The information contains appearance and properties of images
+ * where at least one part is missing. Artefacts appear when a image
+ * file or a database entry is missing
+ * Examples: display image file is existing but no database entry is matching
+ * This is used in maintConsolidateDb to fix these artefacts
  *
  * @since 4.3.0
  */
 class ImageReferences
 {
 	/**
+     * List of image references
 	 * @var ImageReference []
 	 */
 	protected $ImageReferenceList;
@@ -33,20 +39,31 @@ class ImageReferences
 	 * @var bool
 	 */
 	protected $IsAnyImageMissingInDB;
+    /**
+     * @var bool
+     */
 	protected $IsAnyImageMissingInDisplay;
+    /**
+     * @var bool
+     */
 	protected $IsAnyImageMissingInOriginal;
+    /**
+     * @var bool
+     */
 	protected $IsAnyImageMissingInThumb;
+    /**
+     * @var bool
+     */
 	protected $IsAnyImageMissingInWatermarked;
-
+    /**
+     * @var bool
+     */
 	protected $IsAnyOneImageMissing;
 	/**
 	 * @var bool
 	 */
 	public $UseWatermarked;
 
-	/*------------------------------------------------------------------------------------
-	__construct()
-	------------------------------------------------------------------------------------*/
 	/**
 	 * ImageReference constructor. init all variables
 	 */
@@ -77,6 +94,12 @@ class ImageReferences
 		$this->UseWatermarked = $watermarked;
 	}
 
+    /**
+     *
+     * @return ImageReference[]
+     *
+     * @since version 4.3
+     */
 	public function getImageReferenceList()
 	{
 
@@ -85,7 +108,17 @@ class ImageReferences
 		return $this->ImageReferenceList;
 	}
 
-	// shall only be used for IsAny...
+	// ToDO: Do i need this function ?
+    /**
+     * property accessor
+     * shall only be used for IsAny...
+     *
+     * @param string $property
+     *
+     * @return mixed (mostly bool)
+     *
+     * @since version 4.3
+     */
 	public function __get($property)
 	{
 		if (property_exists($this, $property))
@@ -94,16 +127,21 @@ class ImageReferences
 		}
 	}
 
-	/**
-	 * @return string message of creating the data if any
-	 */
+    /**
+     * Collects all data of all images and then creates the list
+     * of image artefacts
+     *
+     * @return string Message of creating the data if any
+     *
+     * @since version 4.3
+     */
 	public function CollectImageReferences()
 	{
 		global $rsgConfig;
 
 		$msg = '';
 
-		//--- Collect data ----------------------------------------------------
+		//--- Collect data of all images --------------------------------------------------
 
 		$DbImageGalleryList = $this->getDbImageGalleryList();  // Is tunneled to create it only once
 		//$DbImageGalleryList = array_map('strtolower', $DbImageGalleryList);
@@ -125,7 +163,7 @@ class ImageReferences
 		$files_merged = array_unique(array_merge($DbImageNames, $files_display,
 			$files_original, $files_thumb, $files_watermarked));
 
-		//--- Create image data from collection -----------------------------------
+		//--- Check 4 missing data. Collect reult in ImageReferenceList ---------------------
 
 		$msg .= $this->CreateImagesData($files_merged, $DbImageNames, $DbImageGalleryList,
 			$files_display, $files_original, $files_thumb, $files_watermarked);
@@ -133,9 +171,13 @@ class ImageReferences
 		return $msg;
 	}
 
-	/**
-	 * @return string [] name / gallery ID
-	 */
+    /**
+     * Collects existing image name list with gallery_id from database
+     *
+     * @return array of object (name and gallery_id)
+     *
+     * @since version 4.3
+     */
 	private function getDbImageGalleryList()
 	{
 		/*
@@ -168,8 +210,14 @@ class ImageReferences
 	}
 
 	/**
-	 * @return string [] image file names
 	 */
+    /**
+     * Collects existing image name list from database
+     *
+     * @return string [] image file names
+     *
+     * @since version 4.3
+     */
 	private function getDbImageNames()
 	{
 		/*
@@ -196,8 +244,10 @@ class ImageReferences
 	 *
 	 * @param string $dir Directory from Joomla root
 	 *
-	 * @return array Array with file names
-	 */
+	 * @return string [] file name array
+     *
+     * @since version 4.3
+     */
 	static function getFilenameArray($dir)
 	{
 		global $rsgConfig;
@@ -254,6 +304,7 @@ class ImageReferences
 	}
 
 	/**
+     * Collects
 	 * @param string [] $AllFiles     file names
 	 * @param string [] $DbImageNames in lower case
 	 * @param           $files_display
