@@ -10,7 +10,7 @@
 
 defined('_JEXEC') or die;
 
-/**
+/*
 global $Rsg2DebugActive;
 
 if ($Rsg2DebugActive)
@@ -27,9 +27,6 @@ if ($Rsg2DebugActive)
 
 jimport('joomla.application.component.controlleradmin');
 
-/**
- * 
- */
 class Rsgallery2ControllerGalleries extends JControllerAdmin
 {
 
