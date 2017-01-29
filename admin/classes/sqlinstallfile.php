@@ -109,7 +109,7 @@ class SqlInstallFile
 	}
 
 	/**
-	 * Extracts the used table name from the given query
+	 * Extracts the table name from the given query
 	 *
 	 * @param string $query
 	 *
@@ -141,7 +141,8 @@ class SqlInstallFile
 	}
 
 	/**
-	 * Splits a query into its parts so that single lines
+	 * Splits a query into its parts into lines where single
+	 * elements will be collected
 	 *
 	 * @param $query
 	 *
@@ -176,6 +177,9 @@ class SqlInstallFile
 	}
 
 	/**
+	 * Seperate elements of line
+	 * `id` int(11) NOT NULL auto_increment,
+	 *
 	 * @param string $queryLine
 	 *
 	 * @return stdClass|string
@@ -198,10 +202,12 @@ class SqlInstallFile
 		return $Properties;
 	}
 
-	//  `asset_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'FK to the #__assets table.',
 	/**
-	 * @param $queryLine
-	 * @param $EndPos
+	 * Extracts first element of line as name
+	 * Example `asset_id` .....
+	 *
+	 * @param string $queryLine one line of SQL
+	 * @param int $EndPos Returns index to the rest of the line
 	 *
 	 * @return string
 	 *
