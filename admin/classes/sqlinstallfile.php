@@ -239,10 +239,12 @@ class SqlInstallFile
 	//  `asset_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'FK to the #__assets table.',
 	// First part must be already defined
 	/**
-	 * @param $queryLine
-	 * @param $StartPos
+     * Extracts property type after name
+     *
+	 * @param string $queryLine May contain more than one line in string
+	 * @param int $StartPos Index to postion after parameter name
 	 *
-	 * @return string
+	 * @return string parameter type and unsigned if is unsigned
 	 *
 	 * @since version 4.3
 	 */
@@ -263,13 +265,8 @@ class SqlInstallFile
 
 		//--- Just return type + signed ----------------------
 
-		/* debug *
-				$TestPos = strpos($queryLine, 'params', 0);
-				if ($TestPos !== FALSE) {
-					$Properties = ' text';
-				}
 		/**/
-		// after type before NOT
+		// end of property after type before NOT
 		$EndPos = strpos($PropertyLine, ' ', 0);
 		if ($EndPos === false)
 		{
@@ -277,7 +274,7 @@ class SqlInstallFile
 		}
 		$Properties = substr($PropertyLine, 0, $EndPos);
 
-		// May contain (number). Remove it
+		// May contain "(number)". Remove number part
 		$EndPos = strpos($Properties, '(', 0);
 		if ($EndPos !== false)
 		{
@@ -316,7 +313,7 @@ class SqlInstallFile
 	}
 
 	/**
-	 * array[string]string list of 'create table queries'
+	 * Collects string list of 'create table queries'
 	 *
 	 * @return string[] list of table names with queries from sql queries file
 	 *
@@ -345,6 +342,8 @@ class SqlInstallFile
 	}
 
 	/**
+     * Check each sql file line for table name and return list of tables
+     *
 	 * @return string[] list of table names from sql queries file
 	 *
 	 * @since version 4.3
@@ -371,9 +370,10 @@ class SqlInstallFile
 	}
 
 	/**
+     * Organizes a list with property names as key and property types as data
 	 * @param $tableName
 	 *
-	 * @return array
+	 * @return array [string][string]
 	 *
 	 * @since version 4.3
 	 */
@@ -399,9 +399,11 @@ class SqlInstallFile
 	}
 
 	/**
-	 * @param $tableName
+     * Returns a list of property names of given table
+     *
+	 * @param string $tableName
 	 *
-	 * @return array
+	 * @return string []
 	 *
 	 * @since version 4.3
 	 */
@@ -427,14 +429,11 @@ class SqlInstallFile
 	}
 
 	/**
-	 * array[string]string list of 'create table queries'
+     * Returns all sql lines from given tabel name
+     *
+	 * @param string $TableName
 	 *
-	 * @return string[] list of table names with queries from sql queries file
-	 */
-	/**
-	 * @param $TableName
-	 *
-	 * @return string
+	 * @return string [] list of table names with queries from sql queries file
 	 *
 	 * @since version 4.3
 	 */
@@ -452,7 +451,10 @@ class SqlInstallFile
 	}
 
 	/**
-	 * @return string[]
+     * Extracts complete file to list defined by table names containing
+     * property names which have property types assigned
+     *
+	 * @return string[] [] array with strings as keys and property names to property values as data
 	 *
 	 * @since version 4.3
 	 */
@@ -467,7 +469,7 @@ class SqlInstallFile
 				// Assign queries and their properties to Content object 
 				foreach ($tableQueries as $tableName => $query)
 				{
-					$TableProperties                        = $this->ExtractTablePropertiesFromQuery($query);
+					$TableProperties  = $this->ExtractTablePropertiesFromQuery($query);
 					$this->tablePropertiesList [$tableName] = $TableProperties;
 				}
 			}
@@ -482,7 +484,7 @@ class SqlInstallFile
 	 * @return array|string
 	 *
 	 * @since version 4.3
-	 */
+	 *
 	public function getColumnsPropertiesOfTable($tableName)
 	{
 		$ColumnsProperties = array();
@@ -495,7 +497,7 @@ class SqlInstallFile
 
 		return $ColumnsProperties;
 	}
-
+    /**/
 }
 
 

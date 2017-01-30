@@ -10,7 +10,7 @@
 
 defined('_JEXEC') or die;
 
-/*
+/**/
 global $Rsg2DebugActive;
 
 if ($Rsg2DebugActive)
@@ -22,8 +22,6 @@ if ($Rsg2DebugActive)
 	JLog::add('==> ctrl.config.php ');
 }
 /**/
-
-// ToDo: // Sanitize the input
 
 jimport('joomla.application.component.controllerform');
 
@@ -43,6 +41,26 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		parent::__construct($config);
 	}
 
+    /**
+     * Proxy for getModel.
+     */
+    public function getModel($name = 'Config', $prefix = 'Rsgallery2Model', $config = array('ignore_request' => true))
+    {
+        return parent::getModel($name, $prefix, $config);
+    }
+
+
+    // ToDo: use JRoute::_(..., false)  for all redirects  -> $link = JRoute::_('index.php?option=com_foo&ctrl=bar',false);
+
+    /**
+     * On cancel raw view goto maintenance
+     *
+     * @param null $key (not used)
+     *
+     * @return bool
+     *
+     * @since version 4.3
+     */
 	public function cancel_rawView($key = null)
 	{
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
@@ -53,8 +71,11 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		return true;
 	}
 
-	/**/
-
+    /**
+     * Save changes in raw edit view value by value
+     *
+     * @since version 4.3
+     */
 	public function apply_rawEdit()
 	{
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
@@ -65,20 +86,15 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		$model = $this->getModel('ConfigRaw');
 		$msg .= $model->save();
 
-//		$msg .= '!!! Not implemented yet !!!';
-
 		$link = 'index.php?option=com_rsgallery2&view=config&layout=RawEdit';
 		$this->setRedirect($link, $msg, $msgType);
 	}
 
-	/**
-	 * Proxy for getModel.
-	 */
-	public function getModel($name = 'Config', $prefix = 'Rsgallery2Model', $config = array('ignore_request' => true))
-	{
-		return parent::getModel($name, $prefix, $config);
-	}
-
+    /**
+     * Save changes in raw edit view value by value
+     *
+     * @since version 4.3
+     */
 	public function save_rawEdit()
 	{
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
@@ -93,6 +109,11 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		$this->setRedirect($link, $msg, $msgType);
 	}
 
+    /**
+     * On cancel raw exit goto maintenance
+     *
+     * @since version 4.3
+     */
 	public function cancel_rawEdit($key = null)
 	{
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
@@ -103,15 +124,20 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		return true;
 	}
 
-	/** may be automatic
-	 *
+	/**
+	 * Standard cancel (may not be used)
+     *
 	 * @param null $key
 	 *
 	 * @return bool
+     *
+     * @since version 4.3
 	 */
 	public function cancel($key = null)
 	{
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		parent::cancel($key);
 
 		$link = 'index.php?option=com_rsgallery2';
 		$this->setRedirect($link);
@@ -119,6 +145,11 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		return true;
 	}
 
+    /**
+     * Standard save of configuration
+     *
+     * @since version 4.3
+     */
 	function save()
 	{
 		parent::save();
@@ -132,24 +163,5 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		}
 	}
 
-	/**
-	 * public function save($key = null, $urlVar = null) {
-	 * $model = $this->getModel('Config');
-	 * $model->save($key);
-	 *
-	 * // ToDo: use JRoute::_(..., false)      ->   $link = JRoute::_('index.php?option=com_foo&ctrl=bar',false);
-	 * //$link = 'index.php?option=com_rsgallery2';
-	 * //$this->setRedirect($link, "*Data Saved");
-	 * }
-	 *
-	 * function apply(){
-	 * $model = $this->getModel('Config');
-	 * $item=$model->save('');
-	 *
-	 * // $this->setRedirect(JRoute::_('index.php?option=com_rsgallery2&view=config', false), "*Data Saved");
-	 * $link = 'index.php?option=com_rsgallery2&view=config&amp;task=config.edit';
-	 * $this->setRedirect($link, "*Data Saved");
-	 * }
-	 * /**/
 }
 
