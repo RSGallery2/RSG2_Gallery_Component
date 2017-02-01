@@ -10,7 +10,7 @@
 
 defined('_JEXEC') or die;
 
-/*
+/**/
 global $Rsg2DebugActive;
 
 if ($Rsg2DebugActive)
@@ -29,16 +29,27 @@ jimport('joomla.application.component.controlleradmin');
 
 class Rsgallery2ControllerGalleries extends JControllerAdmin
 {
+    /**
+     * Proxy for getModel.
+     */
+    public function getModel($name = 'Gallery', $prefix = 'Rsgallery2Model', $config = array('ignore_request' => true))
+    {
+        return  parent::getModel($name, $prefix, $config);
+    }
 
-	/**
+    /**
 	 * Saves changed manual ordering of galleries
-	 *
+	 * !!! Not implemented yet !!!
+     *
 	 * @throws Exception
+     *
+     * @since version 4.3
 	 */
 	public function saveOrdering()
 	{
 		//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-		$msg     = "Control:saveOrdering: ";
+        //$msg     = "Control:saveOrdering: ";
+        $msg     = "";
 		$msgType = 'notice';
 
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
@@ -54,12 +65,19 @@ class Rsgallery2ControllerGalleries extends JControllerAdmin
 		}
 		else
 		{
-
-			try
+		    try
 			{
 				// Model tells if successful
 				$model = $this->getModel('galleries');
-				$msg .= $model->saveOrdering();
+                $IsSaved = $model->saveOrdering();
+                if ($IsSaved) {
+                    $msg .= JText::_('COM_RSGALLERY2_NEW_ORDERING_SAVED');
+                }
+                else
+                {
+                    $msg .= JText::_('Save new ordering failed');
+                    $msgType = 'error';
+                }
 			}
 			catch (RuntimeException $e)
 			{
@@ -72,46 +90,7 @@ class Rsgallery2ControllerGalleries extends JControllerAdmin
 			}
 		}
 
-		$msg .= '!!! Not implemented yet !!!';
-
 		$this->setRedirect('index.php?option=com_rsgallery2&view=galleries', $msg, $msgType);
-	}
-
-	public function getModel($name = 'Gallery',
-		$prefix = 'Rsgallery2Model',
-		$config = array('ignore_request' => true))
-	{
-		$model = parent::getModel($name, $prefix, $config);
-
-		return $model;
-	}
-
-	/**
-	 *
-	 */
-	public function optimizeDB()
-	{
-		$msg     = '<strong>' . JText::_('COM_RSGALLERY2_MAINT_OPTDB') . ':</strong><br>';
-		$msgType = 'notice';
-
-		// Access check
-		$canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
-		if (!$canAdmin)
-		{
-			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-			$msgType = 'warning';
-			// replace newlines with html line breaks.
-			str_replace('\n', '<br>', $msg);
-		}
-		else
-		{
-
-			// Model tells if successful
-			$model = $this->getModel('maintSql');
-			$msg .= $model->optimizeDB();
-		}
-
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
 	/**

@@ -223,9 +223,10 @@ class rsgallery2ModelGalleries extends JModelList
 	 */
 	public function saveOrdering()
 	{
-		$msg = "Model:saveOrdering: ";
+        // $msg = "Model:saveOrdering: ";
+        $IsSaved = false;
 
-		try
+        try
 		{
 
 			$input  = JFactory::getApplication()->input;
@@ -252,14 +253,13 @@ class rsgallery2ModelGalleries extends JModelList
 					->where(array($db->quoteName('id') . '=' . $id));
 
 				$result = $db->execute();
-				//$msg .= "<br>" . "Query : " . $query->__toString();
-				//$msg .= "<br>" . 'Query  $result: : ' . json_encode($result);
+                if (!empty($result))
+                {
+                    $IsSaved = true;
+                }
 			}
-			// $msg .= "<br>";
 
-//	         parent::reorder();
-
-			$msg .= JText::_('COM_RSGALLERY2_NEW_ORDERING_SAVED');
+            // parent::reorder();
 		}
 		catch (RuntimeException $e)
 		{
@@ -271,6 +271,7 @@ class rsgallery2ModelGalleries extends JModelList
 			$app->enqueueMessage($OutTxt, 'error');
 		}
 
+        return $IsSaved;
 	}
 
 	/**
