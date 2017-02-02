@@ -28,12 +28,16 @@ if ($Rsg2DebugActive)
 class Rsgallery2ControllerGallery extends JControllerForm
 {
 	/**
-	 * Save parameters and goto upload
+	 * Save edited gallery parameters and goto upload form
+     *
+     * @since version 4.3
 	 */
 	public function save2upload()
 	{
-		$msg     = '<strong>' . 'Save2Upload ' . ':</strong><br>';
+        // $msg     = '<strong>' . 'Save2Upload ' . ':</strong><br>';
+        $msg     = 'Save and goto upload ';
 		$msgType = 'notice';
+        $IsSaved = false;
 
 		// Access check
 		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
@@ -46,13 +50,14 @@ class Rsgallery2ControllerGallery extends JControllerForm
 		}
 		else
 		{
-			// Model tells if successful
-			$model = $this->getModel('maintSql');
-			$IsOk  = $model->Save();
+			//  tells if successful
+			$IsSaved  = $this->save();
 		}
 
-		if ($IsOk)
+		if ($IsSaved)
 		{
+		    // ToDo: Prepare gallery ID and pre select it in upload form
+
 			$link = 'index.php?option=com_rsgallery2&view=upload';
 			// Tell the upload the id (not used there)
 			$input = JFactory::getApplication()->input;
