@@ -10,7 +10,7 @@
 
 defined('_JEXEC') or die;
 
-/*
+/**/
 global $Rsg2DebugActive;
 
 if ($Rsg2DebugActive)
@@ -22,10 +22,6 @@ if ($Rsg2DebugActive)
 	JLog::add('==> ctrl.image.php ');
 }
 /**/
-
-// ToDo: // Sanitize the input
-
-//jimport('joomla.application.component.controllerform');
 
 class Rsgallery2ControllerImage extends JControllerForm
 {

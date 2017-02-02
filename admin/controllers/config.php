@@ -77,19 +77,27 @@ class Rsgallery2ControllerConfig extends JControllerForm
      * @since version 4.3
      */
 	public function apply_rawEdit()
-	{
-		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+    {
+        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-		$msg     = "apply_rawEdit: " . '<br>';
-		$msgType = 'notice';
+        $msg = "apply_rawEdit: " . '<br>';
+        $msgType = 'notice';
 
-		$model = $this->getModel('ConfigRaw');
-		$msg .= $model->save();
+        // Access check
+        $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+        if (!$canAdmin) {
+            $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+            $msgType = 'warning';
+            // replace newlines with html line breaks.
+            str_replace('\n', '<br>', $msg);
+        } else {
+            $model = $this->getModel('ConfigRaw');
+            $msg .= $model->save();
 
-		$link = 'index.php?option=com_rsgallery2&view=config&layout=RawEdit';
-		$this->setRedirect($link, $msg, $msgType);
-	}
-
+        }
+        $link = 'index.php?option=com_rsgallery2&view=config&layout=RawEdit';
+        $this->setRedirect($link, $msg, $msgType);
+    }
     /**
      * Save changes in raw edit view value by value
      *
@@ -102,8 +110,17 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		$msg     = "save_rawEdit: " . '<br>';
 		$msgType = 'notice';
 
-		$model = $this->getModel('ConfigRaw');
-		$msg .= $model->save();
+        // Access check
+        $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+        if (!$canAdmin) {
+            $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+            $msgType = 'warning';
+            // replace newlines with html line breaks.
+            str_replace('\n', '<br>', $msg);
+        } else {
+            $model = $this->getModel('ConfigRaw');
+            $msg .= $model->save();
+        }
 
 		$link = 'index.php?option=com_rsgallery2&view=maintenance';
 		$this->setRedirect($link, $msg, $msgType);
