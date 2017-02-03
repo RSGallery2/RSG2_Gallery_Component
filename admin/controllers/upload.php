@@ -10,12 +10,8 @@
 
 defined('_JEXEC') or die;
 
-// control center 
-// ToDo:: rename to rsg_control and use as default ...
-
 global $Rsg2DebugActive;
 
-//$Rsg2DebugActive = false; // ToDo: $rsgConfig->get('debug');
 if ($Rsg2DebugActive)
 {
 	// Include the JLog class.
@@ -27,10 +23,8 @@ if ($Rsg2DebugActive)
 
 jimport('joomla.application.component.controllerform');
 
-// ToDo: Check which functions are used
-
 /**
- *
+ * Functions supporting upload
  *
  * @since 4.3.0
  */
@@ -44,11 +38,11 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	 *
 	 * @see     JController
 	 * @since
-	 */
+	 *
 	public function __construct($config = array())
 	{
 		parent::__construct($config);
 	}
-
+    /**/
 }
 

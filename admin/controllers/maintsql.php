@@ -21,8 +21,6 @@ if ($Rsg2DebugActive)
 	JLog::add('==> ctrl.maintSql.php ');
 }
 
-//$this->tablelistNew = array('#__rsgallery2_galleries','#__rsgallery2_files','#__rsgallery2_comments','#__rsgallery2_config', '#__rsgallery2_acl');
-//$this->tablelistOld = array('#__rsgallery','#__rsgalleryfiles','#__rsgallery_comments','');
 
 jimport('joomla.application.component.controlleradmin');
 

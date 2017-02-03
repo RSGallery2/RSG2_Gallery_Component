@@ -13,9 +13,10 @@ defined('_JEXEC') or die;
 JFormHelper::loadFieldClass('list');
 
 /**
- * Gallery Form Field class to create contents of dropdown box for
- * gallery selection in RSGallery2.
+ * Collects available gallery ids and names and creates contents of dropdown box
+ * for gallery selection
  * Includes "-- Select -- " as first entry
+ * Sort by ordering ASC
  *
  * @since 4.3.0
  */
@@ -24,7 +25,7 @@ class JFormFieldGallerySelectList extends JFormFieldList
 	/**
 	 * The field type.
 	 *
-	 * @var         string
+	 * @var string
 	 */
 	protected $type = 'GallerySelectList';
 
@@ -32,10 +33,11 @@ class JFormFieldGallerySelectList extends JFormFieldList
 	 * Method to get a list of options for a list input.
 	 *
 	 * @return  string array  An array of JHtml options.
+     *
+     * @since 4.3.0
 	 */
 	protected function getOptions()
 	{
-		$options   = array();
 		$galleries = array();
 
 		// $user = JFactory::getUser(); // Todo: Restrict to accessible galleries
@@ -43,9 +45,7 @@ class JFormFieldGallerySelectList extends JFormFieldList
 		$query = $db->getQuery(true)
 			->select('id As value, name As text')
 			->from('#__rsgallery2_galleries AS a')
-//			->order('a.name');
-//            ->order('a.ordering DESC');   // Oldest first
-			// ToDO: Use opton in XML to select ASC/DESC
+			// ToDO: Use option in XML to select ASC/DESC
 			->order('a.ordering ASC');   // Newest first
 
 		// Get the options.
@@ -60,31 +60,17 @@ class JFormFieldGallerySelectList extends JFormFieldList
 			JError::raiseWarning(500, $e->getMessage());
 		}
 
-//		// Add select option (no value)
-//		$options[] = JHtml::_('select.option', -1, JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST'));
-//		foreach($galleries as $gallery)
-//		{	
-//			$options[] = JHtml::_('select.option', $gallery->gid, $gallery->name);
-//		}
-//		$options = array_merge(parent::getOptions() , $options);
-
-		// Merge any additional options in the XML definition.
-		// $options[] = JHtml::_('select.option', $key, $value);
-		// $options[] = array("value" => 1, "text" => "1");
-
-//		// Add "select title"
-//		$options[] = array("value" => -1, "text" => JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST'));
-//		$options = array_merge($options, $galleries);
-//		// Merge with base options
-//		$options = array_merge(parent::getOptions() , $options);
-
 		$options = $galleries;
-		// Put "Select an option" on the top of the list.
+
+        // Merge any additional options in the XML definition.
+        // $options[] = JHtml::_('select.option', $key, $value);
+
+        // Put "Select an option" on the top of the list.
 		array_unshift($options, JHtml::_('select.option', '0', JText::_('Select an option')));
 
-		return array_merge(parent::getOptions(), $options);
+        $options = array_merge(parent::getOptions(), $options);
 
-//		return $options;
+        return $options;
 	}
 }
 

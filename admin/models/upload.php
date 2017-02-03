@@ -33,6 +33,8 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	 * return given ftp_path in config
 	 *
 	 * @return string
+     *
+     * @since 4.3.0
 	 */
 	public function getFtpPath()
 	{
@@ -56,6 +58,8 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	 * return last used ftp_path
 	 *
 	 * @return string
+     *
+     * @since 4.3.0
 	 */
 	public function getLastUsedFtpPath()
 	{
@@ -79,6 +83,8 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	 * allows to set the input LastUsedFtpPath
 	 *
 	 * @param string $NewLastUsedFtpPath
+     *
+     * @since 4.3.0
 	 */
 	public function setLastUsedFtpPath($NewLastUsedFtpPath)
 	{
@@ -99,6 +105,8 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	 * retrieves state if the latest gallery shall be preseleted for upload
 	 *
 	 * @return bool
+     *
+     * @since 4.3.0
 	 */
 	public function getIsPreSelectLatestGallery()
 	{
@@ -120,6 +128,8 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
 	/**
 	 * @return string ID of latest gallery
+     *
+     * @since 4.3.0
 	 */
 	public function getIdLatestGallery()
 	{
@@ -139,6 +149,8 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
 	/**
 	 * @return string Name of last used update selection (register)
+     *
+     * @since 4.3.0
 	 */
 	public function getLastUpdateType()
 	{
@@ -162,6 +174,8 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	 * allows to set the input LastUsedFtpPath
 	 *
 	 * @param string $NewLastUpdateType
+     *
+     * @since 4.3.0
 	 */
 	public function setLastUpdateType($NewLastUpdateType)
 	{
@@ -179,9 +193,11 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	}
 
 	/**
-	 * retrieves state if the latest gallery shall be preseleted for upload
+	 * retrieves state if the latest gallery shall be preselected for upload
 	 *
 	 * @return bool
+     *
+     * @since 4.3.0
 	 */
 	public function getisUseOneGalleryNameForAllImages()
 	{

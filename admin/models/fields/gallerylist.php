@@ -13,8 +13,9 @@ defined('_JEXEC') or die;
 JFormHelper::loadFieldClass('list');
 
 /**
- * Gallery Form Field class to create contents of dropdown box for
- * gallery selection in RSGallery2.
+ * Collects available gallery ids and names and creates contents of dropdown box
+ * for gallery selection
+ * Sort by name ASC
  *
  * @since 4.3.0
  */
@@ -23,7 +24,9 @@ class JFormFieldGalleryList extends JFormFieldList
 	/**
 	 * The field type.
 	 *
-	 * @var         string
+	 * @var string
+     *
+     * @since 4.3.0
 	 */
 	protected $type = 'GalleryList';
 
@@ -31,25 +34,25 @@ class JFormFieldGalleryList extends JFormFieldList
 	 * Method to get a list of options for a list input.
 	 *
 	 * @return  array  The field option objects
-	 *
-	 * @since   1.6
+     *
+     * @since 4.3.0
 	 */
 	protected function getOptions()
 	{
 		$options = array();
 
-		// $user = JFactory::getUser(); // Todo: Restrict to accessible galleries
-		$db    = JFactory::getDbo();
-		$query = $db->getQuery(true)
-			->select('id As value, name As text')
-			->from('#__rsgallery2_galleries AS a')
-			->order('a.name');
+        try
+        {
+            // $user = JFactory::getUser(); // Todo: Restrict to accessible galleries
+            $db    = JFactory::getDbo();
+            $query = $db->getQuery(true)
+                ->select('id As value, name As text')
+                ->from('#__rsgallery2_galleries AS a')
+                ->order('a.name ASC');
 
-		// Get the options.
-		$db->setQuery($query);
+            // Get the options.
+            $db->setQuery($query);
 
-		try
-		{
 			$options = $db->loadObjectList();
 		}
 		catch (RuntimeException $e)
@@ -59,6 +62,7 @@ class JFormFieldGalleryList extends JFormFieldList
 
 		// Merge any additional options in the XML definition.
 		// $options[] = JHtml::_('select.option', $key, $value);
+
 		$options = array_merge(parent::getOptions(), $options);
 
 		return $options;

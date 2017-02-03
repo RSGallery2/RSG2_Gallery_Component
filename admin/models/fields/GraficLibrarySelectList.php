@@ -13,8 +13,9 @@ defined('_JEXEC') or die;
 JFormHelper::loadFieldClass('list');
 
 /**
- * Grafic Library Select List Form Field class to create contents of dropdown box for
- * usable grafic libraries on the system
+ * Detect available graphic libraries on the system create contents of dropdown box
+ *
+ * ToDo: Improve for more libraries and better detection
  *
  * @since 4.3.0
  */
@@ -45,11 +46,11 @@ class JFormFieldGraficLibrarySelectList extends JFormFieldList
 			 * @todo call imgUtils graphics lib detection when it is built
 			 */
 			/*
-						$options[] = (object) array(
-							'value' => $value,
-							'text' => ($value != 0) ? JText::_('J' . $value) : JText::_('JALL'));
+            $options[] = (object) array(
+                'value' => $value,
+                'text' => ($value != 0) ? JText::_('J' . $value) : JText::_('JALL'));
 
-						$check = $this->value == $menu->value ? 'edit' : 'create';
+            $check = $this->value == $menu->value ? 'edit' : 'create';
 			/**/
 
 			//--- GD2 -------------------------
@@ -127,6 +128,13 @@ class JFormFieldGraficLibrarySelectList extends JFormFieldList
 
 	}
 
+    /**
+     * Searches for GD2 through extension loaded
+     *
+     * @return string GD2 Version
+     *
+     * @since 4.3.0
+     */
 	private function GD2_detect()
 	{
 		$VersionId = '';
@@ -156,6 +164,14 @@ class JFormFieldGraficLibrarySelectList extends JFormFieldList
 		return $VersionId;
 	}
 
+    /**
+     * Searches for ImageMagic by path
+     * ToDo::Test on server
+     *
+     * @return string  ImageMagic Version by call with parameters
+     *
+     * @since 4.3.0
+     */
 	private function ImageMagick_detect()
 	{
 		global $rsgConfig;
@@ -164,24 +180,25 @@ class JFormFieldGraficLibrarySelectList extends JFormFieldList
 
 		try
 		{
-			$shell_cmd = '';
-			$result    = '';
 			$status    = '';
 
 			// if path exists add the final /
 			$impath = $rsgConfig->get("imageMagick_path");
 			$impath = $impath == '' ? '' : $impath . '/';
 
-			@exec($impath . 'convert -version', $output, $status);
+            $shell_cmd = $impath . 'convert -version';
+            $result    = '';
+            $status    = '';
+
+            @exec($shell_cmd, $result, $status);
 			if (!$status)
 			{
-				if (preg_match("/imagemagick[ \t]+([0-9\.]+)/i", $output[0], $matches))
+				if (preg_match("/imagemagick[ \t]+([0-9\.]+)/i", $result[0], $matches))
 				{
 					// echo '<br>ImageMagick: ' . $matches[0];
 					$VersionId = $matches[0];
 				}
 			}
-
 		}
 		catch (RuntimeException $e)
 		{
@@ -193,12 +210,15 @@ class JFormFieldGraficLibrarySelectList extends JFormFieldList
 
 	/**
 	 * detects if image library is available
-	 *
+     * ToDo::Test on server
+     *
 	 * @param string $output
 	 * @param string $status
 	 *
 	 * @return bool false if not detected, user friendly string of library name and version if detected
-	 *
+     *
+     * @since 4.3.0
+     *
     static function imgageMagicOld_detect( $output = '', $status = '' ){
         global $rsgConfig;
 
@@ -206,7 +226,7 @@ class JFormFieldGraficLibrarySelectList extends JFormFieldList
         $impath = $rsgConfig->get( "imageMagick_path" );
         $impath = $impath==''? '' : $impath.'/';
 
-        @exec($impath.'convert -version',  $output, $status);
+        @exec($impath.'convert -version', $result, $status);
         if(!$status){
             if(preg_match("/imagemagick[ \t]+([0-9\.]+)/i",$output[0],$matches)){
                 // echo '<br>ImageMagick: ' . $matches[0];
@@ -220,17 +240,28 @@ class JFormFieldGraficLibrarySelectList extends JFormFieldList
     }
     /**/
 
+
+    /**
+     * Searches for Netpbm by path
+     * ToDo::Test on server
+     *
+     * @return string  Netpbm Version by call with parameters
+     *
+     * @since 4.3.0
+     */
 	private function Netpbm_detect()
 	{
 		$VersionId = '';
 
 		try
 		{
-			$shell_cmd = '';
+            // Any of the netbpm programs may be called with option -version
+            // ToDO: Netbpm path ?
+			$shell_cmd = 'jpegtopnm -version 2>&1';
 			$result    = '';
 			$status    = '';
-			@exec($shell_cmd . 'jpegtopnm -version 2>&1', $result, $status);
 
+			@exec($shell_cmd, $result, $status);
 			if (!$status)
 			{
 				if (preg_match("/netpbm[ \t]+([0-9\.]+)/i", $result[0], $matches))
@@ -249,13 +280,15 @@ class JFormFieldGraficLibrarySelectList extends JFormFieldList
 	}
 
 	/**
-	 * detects if image library is available
+	 * Detects if image library is available
 	 *
 	 * @param string $shell_cmd
 	 * @param string $output
 	 * @param string $status
 	 *
 	 * @return bool false if not detected, user friendly string of library name and version if detected
+     *
+     * @since 4.3.0
 	 *
     static function netpbmOld_detect($shell_cmd = '', $output = '', $status = ''){
         @exec($shell_cmd. 'jpegtopnm -version 2>&1',  $output, $status);
@@ -271,8 +304,6 @@ class JFormFieldGraficLibrarySelectList extends JFormFieldList
         return true;
     }
     /**/
-
-
 
 }
 
