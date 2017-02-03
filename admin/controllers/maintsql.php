@@ -18,7 +18,7 @@ if ($Rsg2DebugActive)
 	jimport('joomla.log.log');
 
 	// identify active file
-	JLog::add('==> ctrl.maintCleanUp.php ');
+	JLog::add('==> ctrl.maintSql.php ');
 }
 
 //$this->tablelistNew = array('#__rsgallery2_galleries','#__rsgallery2_files','#__rsgallery2_comments','#__rsgallery2_config', '#__rsgallery2_acl');
@@ -27,7 +27,7 @@ if ($Rsg2DebugActive)
 jimport('joomla.application.component.controlleradmin');
 
 /**
- *
+ * Functions for changes of database
  *
  * @since 4.3.0
  */
@@ -38,16 +38,18 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 	 *
 	 * @param   array $config An optional associative array of configuration settings.
 	 *
-	 * @since
+     * @since 4.3.0
 	 */
 	public function __construct($config = array())
 	{
 		parent::__construct($config);
 	}
 
-	/**
-	 *
-	 */
+    /**
+     * Does call the standard sql optimize function for tables
+     *
+     * @since 4.3.0
+     */
 	public function optimizeDB()
 	{
 		$msg     = '<strong>' . JText::_('COM_RSGALLERY2_MAINT_OPTDB') . ':</strong><br>';
@@ -74,7 +76,7 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 	}
 
 	/**
-	 * Proxy for getModel.
+	 * Proxy for getModel
 	 */
 	public function getModel($name = 'maintSql', $prefix = 'Rsgallery2Model', $config = array('ignore_request' => true))
 	{
@@ -82,32 +84,37 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 	}
 
 	/*
-		public function createMissingSqlFields()
-		{
-			$msg = '<strong>' . JText::_('COM_RSGALLERY2_MAINT_OPTDB') . ':</strong><br>';
-			$msg = "Ctrl:compareDb2SqlFile: ";
-			$msgType = 'notice';
+    public function createMissingSqlFields()
+    {
+        $msg = '<strong>' . JText::_('COM_RSGALLERY2_MAINT_OPTDB') . ':</strong><br>';
+        $msg = "Ctrl:compareDb2SqlFile: ";
+        $msgType = 'notice';
 
-			// Access check
-			$canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
-			if (!$canAdmin) {
-				$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-				$msgType = 'warning';
-				// replace newlines with html line breaks.
-				str_replace('\n', '<br>', $msg);
-			} else {
+        // Access check
+        $canAdmin	= JFactory::getUser()->authorise('core.manage',	'com_rsgallery2');
+        if (!$canAdmin) {
+            $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+            $msgType = 'warning';
+            // replace newlines with html line breaks.
+            str_replace('\n', '<br>', $msg);
+        } else {
 
-				// Model tells if successful
-				$model = $this->getModel('maintSql');
-				$msg .= $model->createMissingSqlFields();
-			}
+            // Model tells if successful
+            $model = $this->getModel('maintSql');
+            $msg .= $model->createMissingSqlFields();
+        }
 
-			$msg .= '!!! Not implemented yet !!!';
+        $msg .= '!!! Not implemented yet !!!';
 
-			$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
-		}
+        $this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+    }
 	*/
 
+    /**
+     * Creates table column access in table galleries and sets all values to '1'
+     *
+     * @since 4.3.0
+     */
 	public function createGalleryAccessField()
 	{
 		$msg     = '<strong>' . JText::_('COM_RSGALLERY2_CREATE_GALLERY_ACCESS_FIELD') . ':</strong><br>';
@@ -133,6 +140,18 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
+    /**
+     * The function may be called from Maintenance Database if a mismatch between database and
+     * component sql file is found.
+     * It will check and repair following issues
+     *    * Missing tables -> create
+     *    * Missing columns -> create
+     *    * Superfluous tables -> delete
+     *    * Superfluous columns -> delete
+     *    * ToDO: Wrong column types -> !!! not fixed
+     *
+     * @since 4.3.0
+     */
 	public function repairSqlTables()
 	{
 		$msg     = '<strong>' . JText::_('COM_RSGALLERY2_DATABASE_REPAIR_DESC') . ':</strong><br>';
@@ -159,6 +178,11 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintDatabase', $msg, $msgType);
 	}
 
+    /**
+     * Check if database number of comments per image is wrong an fix it
+     *
+     * @since 4.3.0
+     */
 	public function updateCommentsVoting()
 	{
 		$msg     = '<strong>Ctrl:' . JText::_('updateCommentsVoting') . ':</strong><br>';

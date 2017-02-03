@@ -24,7 +24,9 @@ if ($Rsg2DebugActive)
 jimport('joomla.application.component.controlleradmin');
 
 /**
- *
+ * Checks for all appearances of a images as file or in database
+ * On missing database entries or files the user gets a list
+ * to choose which part to fix
  *
  * @since 4.3.0
  */
@@ -37,7 +39,8 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 	 * @param   array $config An optional associative array of configuration settings.
 	 *
 	 * @see     JController
-	 * @since
+     *
+     * @since 4.3.0
 	 */
 	public function __construct($config = array())
 	{
@@ -45,8 +48,9 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 	}
 
 	/**
-	 * images to ...
-	 *
+     * Creates a database entry (row) for all mismatched items
+     *
+     * @since 4.3.0
 	 */
 	public function createImageDbItems()
 	{
@@ -64,12 +68,9 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		}
 		else
 		{
-
-			// Model tells if successful
 			$model = $this->getModel('maintConsolidateDB');
 
-			// $IsEveryCreated = false;
-
+			$IsAllCreated = false;
 			try
 			{
 				// Retrieve image list with attributes
@@ -79,7 +80,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 				{
 					$imageModel = $this->getModel('image');
 
-					$IsEveryCreated = true;
+					$IsAllCreated = true;
 					foreach ($ImageReferences as $ImageReference)
 					{
 						$IsCreated = $this->createImageDbItem($ImageReference, $imageModel);
@@ -89,11 +90,11 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 							$app    = JFactory::getApplication();
 							$app->enqueueMessage($OutTxt, 'warning');
 
-							$IsEveryCreated = false;
+							$IsAllCreated = false;
 						}
 					}
 					/**
-					 * if (!$IsEveryCreated) {
+					 * if (!$IsAllCreated) {
 					 * $OutTxt = 'Image not created for: ' . $ImageReference->name;
 					 * $app = JFactory::getApplication();
 					 * $app->enqueueMessage($OutTxt, 'warning');
@@ -111,24 +112,30 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 				$app->enqueueMessage($OutTxt, 'error');
 			}
 
-			if ($IsEveryCreated)
+			if ($IsAllCreated)
 			{
 				$msg .= "Successful created image references in database";
 			}
 			else
 			{
-				$msg .= "Error at created image referenes in database";
+				$msg .= "Error at creation of image referenes in database";
 				$msgType = 'warning';
 			}
 
 		}
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
-
-// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
-// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
 	}
 
+    /**
+     *
+     * @param string $name
+     * @param string $prefix
+     * @param array $config
+     * @return bool|rsgallery2ModelMaintConsolidateDB
+     *
+     * @since 4.3.0
+     */
 	public function getModel($name = 'maintConsolidateDB',
 		$prefix = 'rsgallery2Model',
 		$config = array())
@@ -139,9 +146,18 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		return $model;
 	}
 
+    /**
+     * Creates a database entry (row) for given item
+     *
+     * @param ImageReference $ImageReference
+     * @param Rsgallery2ModelImage $imageModel
+     * @return bool True on success
+     *
+     * @since 4.3.0
+     */
 	public function createImageDbItem($ImageReference, $imageModel)
 	{
-		$IsImageDbCreated = 0;
+		$IsImageDbCreated = false;
 
 		try
 		{
@@ -171,8 +187,11 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 	}
 
 	/**
-	 * images to ...
+	 * Creates all missing image files
+     * The function tries to find the image with the highest redolution
+     * Order: original, display then thumb images (?watermarked?)
 	 *
+     * @since 4.3.0
 	 */
 	public function createMissingImages()
 	{
@@ -194,7 +213,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 			// Model tells if successful
 			$model = $this->getModel('maintConsolidateDB');
 
-			// $IsEveryCreated = false;
+			// $IsAllCreated = false;
 
 			try
 			{
@@ -205,7 +224,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 				{
 					$imageModel = $this->getModel('image');
 
-					$IsEveryCreated = true;
+					$IsAllCreated = true;
 					foreach ($ImageReferences as $ImageReference)
 					{
 						$IsCreated = $this->createSelectedMissingImage($ImageReference, $imageModel);
@@ -215,11 +234,11 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 							$app    = JFactory::getApplication();
 							$app->enqueueMessage($OutTxt, 'warning');
 
-							$IsEveryCreated = false;
+							$IsAllCreated = false;
 						}
 					}
 					/**
-					 * if (!$IsEveryCreated) {
+					 * if (!$IsAllCreated) {
 					 * $OutTxt = 'Image not created for: ' . $ImageReference->name;
 					 * $app = JFactory::getApplication();
 					 * $app->enqueueMessage($OutTxt, 'warning');
@@ -237,7 +256,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 				$app->enqueueMessage($OutTxt, 'error');
 			}
 
-			if ($IsEveryCreated)
+			if ($IsAllCreated)
 			{
 				$msg .= "Successful created missing image files";
 			}
@@ -252,26 +271,22 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
 	}
 
+    /**
+     * Creates one missing image file
+     * The function tries to find the image with the highest redolution
+     * Order: original, display then thumb images (?watermarked?)
+     *
+     * @param ImageReference $ImageReference
+     * @param Rsgallery2ModelImage $imageModel
+     * @return bool True on success
+     *
+     * @since 4.3.0
+     */
 	public function createSelectedMissingImage($ImageReference, $imageModel)
 	{
 		global $rsgConfig;
 
 		$IsImageCreated = false;
-
-		/*
-		$this->IsOriginalImageFound = false;
-		$this->IsDisplayImageFound = false;
-		$this->IsThumbImageFound = false;
-		$this->IsWatermarkedImageFound = false;
-
-		$files_display  = $this->getFilenameArray($rsgConfig->get('imgPath_display'));
-		$files_original = $this->getFilenameArray($rsgConfig->get('imgPath_original'));
-		$files_thumb    = $this->getFilenameArray($rsgConfig->get('imgPath_thumb'));
-
-		// Watermarked: Start with empty array
-		$files_watermarked = array ();
-		if($this->UseWatermarked)
-		/**/
 
 		try
 		{
@@ -380,8 +395,9 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 	}
 
 	/**
-	 * images to ...
-	 *
+	 * Assignes given gallery to all selected images
+     *
+     * @since 4.3.0
 	 */
 	public function assignParentGallery()
 	{
@@ -465,7 +481,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 				}
 
 				/**
-				 * if ($IsEveryCreated)
+				 * if ($IsAllCreated)
 				 * {
 				 * $msg .= "Successful assignParentGallery";
 				 * }
@@ -479,13 +495,19 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		}
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
-
-// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
-// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
 	}
 
-//-----------------------------------------------------------------------------------------
 
+    /**
+     * Assignes given gallery to one image
+     *
+     * @param int $ImageId
+     * @param Rsgallery2ModelImage $imageModel
+     * @param int $galleryId
+     * @return bool True on success
+     *
+     * @since 4.3.0
+     */
 	public function assignGallery($ImageId, $imageModel, $galleryId)
 	{
 		try
@@ -509,8 +531,10 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 	}
 
 	/**
-	 * images to ...
-	 *
+	 * Repairs all missing items (issues) of all images
+	 * and assigns gallery if given
+     *
+     * @since 4.3.0
 	 */
 	public function repairAllIssuesItems()
 	{
@@ -528,11 +552,10 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		}
 		else
 		{
-
 			// Model tells if successful
 			$model = $this->getModel('maintConsolidateDB');
 
-			// $IsEveryCreated = false;
+            $IsAllCreated = false;
 
 			try
 			{
@@ -552,7 +575,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 				{
 					$imageModel = $this->getModel('image');
 
-					$IsEveryCreated = true;
+					$IsAllCreated = true;
 					foreach ($ImageReferences as $ImageReference)
 					{
 						$IsCreated = $this->repairAllIssuesItem($ImageReference, $imageModel, $GalleryId);
@@ -562,11 +585,11 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 							$app    = JFactory::getApplication();
 							$app->enqueueMessage($OutTxt, 'warning');
 
-							$IsEveryCreated = false;
+							$IsAllCreated = false;
 						}
 					}
 					/**
-					 * if (!$IsEveryCreated) {
+					 * if (!$IsAllCreated) {
 					 * $OutTxt = 'Image not created for: ' . $ImageReference->name;
 					 * $app = JFactory::getApplication();
 					 * $app->enqueueMessage($OutTxt, 'warning');
@@ -584,7 +607,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 				$app->enqueueMessage($OutTxt, 'error');
 			}
 
-			if ($IsEveryCreated)
+			if ($IsAllCreated)
 			{
 				$msg .= 'Successful repaired "All issues" in database';
 			}
@@ -597,16 +620,24 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		}
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
-
-// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
-// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
 	}
 
+    /**
+     * Repairs all missing items (issues) of one image
+     * and assingn gallery if given
+     *
+     * @param ImageReference $ImageReference
+     * @param Rsgallery2ModelImage $imageModel
+     * @param int $galleryId
+     * @return bool True on success
+     *
+     * @since 4.3.0
+     */
 	public function repairAllIssuesItem($ImageReference, $imageModel, $GalleryId)
 	{
 		try
 		{
-			$IsItemRepaired = 0;
+			$IsItemRepaired = false;
 
 			// Does not exist in db
 			$IsImageDbCreated = true;
@@ -667,8 +698,9 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 	}
 
 	/**
-	 * images to ...
-	 *
+	 * Deletes all existing items of given images
+     *
+     * @since 4.3.0
 	 */
 	public function deleteRowItems()
 	{
@@ -715,7 +747,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 						}
 					}
 					/**
-					 * if (!$IsEveryCreated) {
+					 * if (!$IsAllCreated) {
 					 * $OutTxt = 'Image not created for: ' . $ImageReference->name;
 					 * $app = JFactory::getApplication();
 					 * $app->enqueueMessage($OutTxt, 'warning');
@@ -747,10 +779,17 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
 
-// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
-// http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
 	}
 
+    /**
+     * Deletes all existing items of given image
+     *
+     * @param ImageReference $ImageReference
+     * @param Rsgallery2ModelImage $imageModel
+     * @return bool True on success
+     *
+     * @since 4.3.0
+     */
 	public function deleteRowItem($ImageReference, $imageModel)
 	{
 		try
@@ -798,6 +837,14 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		return $IsRowDeleted;
 	}
 
+    /**
+     * Delete all existing image files on one image
+     *
+     * @param ImageReference $ImageReference
+     * @return bool True on success
+     *
+     * @since 4.3.0
+     */
 	public function deleteRowItemImages($ImageReference)
 	{
 		global $rsgConfig;
@@ -863,6 +910,13 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		return $IsImagesDeleted;
 	}
 
+    /**
+     * Deletes given  file
+     * @param string $filename
+     * @return bool True on success
+     *
+     * @since 4.3.0
+     */
 	private function DeleteImage($filename)
 	{
 		$IsImageDeleted = true;
@@ -878,60 +932,5 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
 		return $IsImageDeleted;
 	}
-
-	/**
-	 * images to ...
-	 *
-	 *
-	 * public function deleteAllImages () {
-	 * $msg = "controller.deleteAllImages: ";
-	 * $msgType = 'notice';
-	 *
-	 * $canAdmin    = JFactory::getUser()->authorise('core.manage',    'com_rsgallery2');
-	 * if (!$canAdmin) {
-	 * //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-	 * $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-	 * $msgType = 'warning';
-	 * // replace newlines with html line breaks.
-	 * str_replace('\n', '<br>', $msg);
-	 * } else {
-	 * // Model tells if successful
-	 * $model = $this->getModel('maintConsolidateDB');
-	 * $msg .= $model->deleteAllImages();
-	 * }
-	 *
-	 * $this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
-	 *
-	 * // http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
-	 * // http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
-	 * }
-	 *
-	 * /**
-	 * images to ...
-	 *
-	 *
-	 * public function deleteReferences () {
-	 * $msg = "controller.assignGallery: ";
-	 * $msgType = 'notice';
-	 *
-	 * $canAdmin    = JFactory::getUser()->authorise('core.manage',    'com_rsgallery2');
-	 * if (!$canAdmin) {
-	 * //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-	 * $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-	 * $msgType = 'warning';
-	 * // replace newlines with html line breaks.
-	 * str_replace('\n', '<br>', $msg);
-	 * } else {
-	 * // Model tells if successful
-	 * $model = $this->getModel('maintConsolidateDB');
-	 * $msg .= $model->deleteReferences();
-	 * }
-	 *
-	 * $this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
-	 *
-	 * // http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&amp;view=maintConsolidateDB
-	 * // http://127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=maintConsolidateDB
-	 * }
-	 * /**/
 
 }

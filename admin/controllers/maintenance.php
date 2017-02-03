@@ -24,7 +24,7 @@ if ($Rsg2DebugActive)
 jimport('joomla.application.component.controlleradmin');
 
 /**
- *
+ * some more general functions for maintenance
  *
  * @since 4.3.0
  */
@@ -37,13 +37,19 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 	 * @param   array $config An optional associative array of configuration settings.
 	 *
 	 * @see     JController
-	 * @since
+     *
+	 * @since 4.3
 	 */
 	public function __construct($config = array())
 	{
 		parent::__construct($config);
 	}
 
+    /**
+     *
+     *
+     * @since 4.3
+     */
 	public function Cancel()
 	{
 		/*
@@ -60,7 +66,7 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 		$msg     = '';
 		$msgType = 'notice';
 
-		// ToDo: Use Jroute before link for setRedirect
+		// ToDo: Use Jroute before link for setRedirect :: check all apperances
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
@@ -68,7 +74,9 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 	 * Checks if user has root status (is re.admin')
 	 *
 	 * @return    bool
-	 */
+     *
+     * @since 4.3
+	 *
 	function IsUserRoot()
 	{
 		$user     = JFactory::getUser();
@@ -77,6 +85,7 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 		return $canAdmin;
 	}
 
+	/**
 	function ConsolidateDatabase()
 	{
 		global $Rsg2DebugActive;
@@ -93,7 +102,13 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
+    /**/
 
+    /**
+     *
+     *
+     * @since 4.3
+     *
 	function consolidateDB()
 	{
 		$msg     = "consolidateDB: ";
@@ -103,7 +118,13 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
+    /**/
 
+    /**
+     *
+     *
+     * @since 4.3
+     *
 	function regenerateThumbs()
 	{
 		$msg     = "regenerateThumbs: ";
@@ -113,7 +134,13 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
+    /**/
 
+    /**
+     *
+     *
+     * @since 4.3
+     *
 	function viewConfigPlain()
 	{
 		$msg     = "viewConfigPlain: ";
@@ -123,7 +150,14 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
+    /**/
 
+
+    /**
+     *
+     *
+     * @since 4.3
+     *
 	function editConfigRaw()
 	{
 		$msg     = "editConfigRaw: ";
@@ -133,7 +167,14 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
+    /**/
 
+    /**
+     * Delete RSGallery language files in joomla 1.5 version or older style for backend
+     * recursive files search in backend folder
+     *
+     * @since 4.3
+     */
 	function delete_1_5_LangFiles()
 	{
 		$msg     = "Delete_1_5_LangFiles: ";
@@ -151,10 +192,12 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 	}
 
 	/**
-	 * @param $startDir Example: \administrator\language\
-	 *                  recursive delete joomla 1.5 version or older style component language files
+     * Delete RSGallery language files in joomla 1.5 version style or older style starting on given folder
+     * recursive files search in starting folder
+     *
+     * @param $startDir Example: \administrator\language\
 	 *
-	 * @since version 4.3
+	 * @since 4.3
 	 */
 	function findAndDelete_1_5_LangFiles($startDir)
 	{

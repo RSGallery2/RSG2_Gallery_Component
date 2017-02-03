@@ -83,7 +83,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 	}
 
 	/**
-	 * Creates table columns acces in table galleries and sets all values to '1'
+	 * Creates table column access in table galleries and sets all values to '1'
 	 *
 	 * @return string operation messages
 	 */
@@ -284,7 +284,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 	repairSqlTables()
 	------------------------------------------------------------------------------------*/
 	/**
-	 * The function will be called from Maintenance Database if a mismatch between database and
+	 * The function may be called from Maintenance Database if a mismatch between database and
 	 * component sql file is found.
 	 * It will check and repair following issues
 	 *    * Missing tables -> create
@@ -294,6 +294,8 @@ class Rsgallery2ModelMaintSql extends JModelList
 	 *    * ToDO: Wrong column types -> !!! not fixed
 	 *
 	 * @return string with info about operation (successfull/failed)
+     *
+     * @since 4.3.0
 	 */
 	public function repairSqlTables()
 	{
@@ -867,6 +869,10 @@ class Rsgallery2ModelMaintSql extends JModelList
 		return $differentColumnTypes;
 	}
 
+    /**
+     * @return string
+     *
+     */
 	public function updateComments()
 	{
 		$msg = "model:updateComments: " . '<br>';
@@ -946,25 +952,24 @@ class Rsgallery2ModelMaintSql extends JModelList
 			}
 
 			/*
-					$query->select ();
+            $query->select ();
 
-					// build the SQL query
-					$query->select($db->quoteName(array('p.user_id', 'u.username', 'u.real_name')));
-					$query->from($db->quoteName('#__user_profiles p'));
-					$query->join('INNER', $db->quoteName('#__users', 'u') . ' ON (' . $db->quoteName('u.id') . ' = ' . $db->quoteName('p.user_id') . ')')
-					$query->where($db->quoteName('u.real_name') . ' LIKE '. $db->quote('\'%smith%\''));
-					$query->order('u.real_name ASC');
+            // build the SQL query
+            $query->select($db->quoteName(array('p.user_id', 'u.username', 'u.real_name')));
+            $query->from($db->quoteName('#__user_profiles p'));
+            $query->join('INNER', $db->quoteName('#__users', 'u') . ' ON (' . $db->quoteName('u.id') . ' = ' . $db->quoteName('p.user_id') . ')')
+            $query->where($db->quoteName('u.real_name') . ' LIKE '. $db->quote('\'%smith%\''));
+            $query->order('u.real_name ASC');
 
-					// Load the results as a list of stdClass objects (see later for more options on retrieving data).
-					$rows = $db->loadObjectList();
+            // Load the results as a list of stdClass objects (see later for more options on retrieving data).
+            $rows = $db->loadObjectList();
 
-					// Retrieve each value in the ObjectList
-					foreach( $rows as $row ) {
-						$this_user_id = $row->user_id;
-						$this_user_name = $row->username;
-						$this_user_realname = $row->real_name;
-					}
-
+            // Retrieve each value in the ObjectList
+            foreach( $rows as $row ) {
+                $this_user_id = $row->user_id;
+                $this_user_name = $row->username;
+                $this_user_realname = $row->real_name;
+            }
 			/**/
 
 			//--- optimized message -------------------------------------

@@ -46,13 +46,28 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 		parent::__construct($config);
 	}
 
-	/**
+    /**
+     * Checks if user has root status (is re.admin')
+     *
+     * @return    bool
+     *
+     * @since 4.3
+     */
+    function IsUserRoot()
+    {
+        $user     = JFactory::getUser();
+        $canAdmin = $user->authorise('core.manage');
+
+        return $canAdmin;
+    }
+
+    /**
 	 * Samples a random display image from the specified gallery and compares dimensions against Config settings
 	 *
 	 * @param int $gid Gallery ID
 	 *
 	 * @return bool True if size has changed, false if not.
-	 */
+	 *
 	static function displaySizeChanged($gid)
 	{
 		global $rsgConfig;
@@ -74,7 +89,13 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 			return true;
 		}
 	}
+    /**/
 
+    /**
+     *
+     *
+     * @since 4.3.0
+     */
 	public function Cancel()
 	{
 		/*
@@ -93,6 +114,13 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 
 	}
 
+    /**
+     * For given galleries regenerate the display or thumb images
+     * It may be used after the sizes of images are changed in the configuration
+     * ToDo: Tell user about needed time
+     *
+     * @since 4.3.0
+     */
 	function RegenerateImagesDisplay()
 	{
 		global $Rsg2DebugActive, $rsgConfig;
@@ -115,8 +143,7 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 			$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg);
 		}
 
-		//--- Gallery is selected ?  ----------------------------------------------
-		//$gid = JRequest::getVar( 'gid', array());
+		//--- Is a gallery selected ?  ----------------------------------------------
 
 		if (empty($gid))
 		{
@@ -126,14 +153,15 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 			return;
 		}
 
-		// Each selected gallery
+		//--- Each selected gallery -----------------------------------------------
+
 		$error = 0;
 		foreach ($gid as $id)
 		{
-
 			// Gallery exist
 			if ($id > 0)
 			{
+			    // collect images of gallery
 				$gallery = rsgGalleryManager::_get($id);
 				$images  = $gallery->items();
 
@@ -154,7 +182,8 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 				}
 				/**/
 
-				// All Images
+                //--- All Images--------------------------
+
 				foreach ($images as $image)
 				{
 					// URL to orignal (or display)
@@ -222,25 +251,13 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 	}
 
 	/**
-	 * Checks if user has root status (is re.admin')
-	 *
-	 * @return    bool
-	 */
-	function IsUserRoot()
-	{
-		$user     = JFactory::getUser();
-		$canAdmin = $user->authorise('core.admin');
-
-		return $canAdmin;
-	}
-
-	/**
 	 * Function will regenerate thumbs for a specific gallery or set of galleries
 	 * Perhaps by sampling the oldest thumb from the gallery and checking dimensions against current setting.
 	 *
 	 * @throws Exception
+     *
+     * @since 4.3.0
 	 */
-
 	function RegenerateImagesThumb()
 	{
 		global $Rsg2DebugActive;
@@ -344,6 +361,8 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 	 * @param Int $gid Gallery ID
 	 *
 	 * @return bool True if size has changed, false if not.
+     *
+     * @since 4.3.0
 	 */
 	static function thumbHasSizeChanged($gid)
 	{

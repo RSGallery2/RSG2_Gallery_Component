@@ -283,7 +283,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 
 	public function createImageDbItem($imageName)
 	{
-		$IsImageDbCreated = 0;
+		$IsImageDbCreated = false;
 
 		//$OutTxt = 'Model Image: CreateImage "' . $imageName . '"  ';
 		//JFactory::getApplication()->enqueueMessage($OutTxt, 'notice');
