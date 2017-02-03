@@ -24,38 +24,39 @@ if ($Rsg2DebugActive)
 jimport('joomla.application.component.controlleradmin');
 
 /**
- *
+ * Clean up / remove of RSGallery2 data and files
  *
  * @since 4.3.0
  */
 class Rsgallery2ControllerMaintCleanUp extends JControllerAdmin
 {
 
-	/**
-	 * Constructor.
-	 *
-	 * @param   array $config An optional associative array of configuration settings.
-	 *
-	 * @see     JController
-	 * @since
-	 */
+    /**
+     * Constructor.
+     *
+     * @param   array $config An optional associative array of configuration settings.
+     *
+     * @since 4.3.0
+     */
 	public function __construct($config = array())
 	{
 		parent::__construct($config);
 	}
 
+    /**
+     * Deletes all images and removes them from database
+     *
+     * @since 4.3.0
+     */
 	function purgeImagesAndData()
 	{
 		$msg     = "removeImagesAndData: ";
 		$msgType = 'notice';
 
-//		$msg .= '!!! Not implemented yet !!!';
-
 		// Access check
 		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
 		if (!$canAdmin)
 		{
-			//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 			$msgType = 'warning';
 			// replace newlines with html line breaks.
@@ -63,7 +64,6 @@ class Rsgallery2ControllerMaintCleanUp extends JControllerAdmin
 		}
 		else
 		{
-
 			//--- Delete all images -------------------------------
 
 			$imageModel = $this->getModel('MaintImageFiles');
@@ -76,12 +76,21 @@ class Rsgallery2ControllerMaintCleanUp extends JControllerAdmin
 
 			//--- purge message -------------------------------------
 			$msg .= '\n' . JText::_('COM_RSGALLERY2_PURGED', true);
-
 		}
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
+    /**
+     * Works like purgeImagesAndData
+     *
+     * @param string $name
+     * @param string $prefix
+     * @param array $config
+     * @return bool|JModelLegacy
+     *
+     * @since 4.3.0
+     */
 	public function getModel($name = 'MaintCleanUp',
 		$prefix = 'rsgallery2Model',
 		$config = array())
@@ -92,14 +101,16 @@ class Rsgallery2ControllerMaintCleanUp extends JControllerAdmin
 		return $model;
 	}
 
+    /**
+     * Deletes all images and removes them from database and deletes Tabbles
+     *  ToDo: Replace with "prepare complete uninstall"
+     *
+     * @since 4.3.0
+     */
 	function removeImagesAndData()
 	{
 		$msg     = "removeImagesAndData: ";
 		$msgType = 'notice';
-
-//		$msg .= '!!! Not implemented yet !!!';
-
-//		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 
 		//Access check
 		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
@@ -113,13 +124,17 @@ class Rsgallery2ControllerMaintCleanUp extends JControllerAdmin
 		}
 		else
 		{
-
 			//--- Delete all images -------------------------------
 
 			$imageModel = $this->getModel('MaintImageFiles');
 			$msg .= $imageModel->removeAllImageFiles();
 
-			//--- delete images reference in database ---------------
+            //--- delete images reference in database ---------------
+
+            $imageModel = $this->getModel('MaintDatabaseTables');
+            $msg .= $imageModel->removeDataInTables();
+
+			//--- delete tables in database ---------------
 
 			$imageModel = $this->getModel('MaintDatabaseTables');
 			$msg .= $imageModel->removeAllTables();
@@ -127,29 +142,7 @@ class Rsgallery2ControllerMaintCleanUp extends JControllerAdmin
 			//--- purge message -------------------------------------
 			$msg .= '\n' . JText::_('COM_RSGALLERY2_REAL_UNINST_DONE', true);
 
-			/**
-			 *
-			 * //--- delete all data ----------------------------------------
-			 *
-			 * // HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_USED_RM_MINUS_R_TO_ATTEMPT_TO_REMOVE_JPATH_SITE_IMAGES_RSGALLERY') );
-			 * $msg = $msg . JText::_('COM_RSGALLERY2_USED_RM_MINUS_R_TO_ATTEMPT_TO_REMOVE_JPATH_SITE_IMAGES_RSGALLERY');
-			 *
-			 * // ToDO: use model to delete data
-			 * // load model -> drop data
-			 *
-			 *
-			 * // call remove
-			 * $msg = $msg . $this->removeImageReferences ();
-			 *
-			 * //            HTML_RSGALLERY::printAdminMsg( JText::_('COM_RSGALLERY2_REAL_UNINST_DONE') );
-			 * $msg = $msg . JText::_('COM_RSGALLERY2_REAL_UNINST_DONE');
-			 *
-			 * // ToDo: Message you may now deinstall and reinstall ... as all data and tables are gone
-			 *
-			 * // replace newlines with html line breaks.
-			 * str_replace('\n', '<br>', $msg);
-			 */
-
+            // ToDo: Message you may now deinstall and reinstall ... as all data and tables are gone
 		}
 
 		//$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
