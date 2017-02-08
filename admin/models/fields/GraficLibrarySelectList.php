@@ -21,21 +21,24 @@ JFormHelper::loadFieldClass('list');
  */
 class JFormFieldGraficLibrarySelectList extends JFormFieldList
 {
-	/**
-	 * The field type.
-	 *
-	 * @var         string
-	 */
+    /**
+     * The field type.
+     *
+     * @var string
+     *
+     * @since 4.3.0
+     */
 	protected $type = 'GraficLibrarySelectList';
 
 	/**
-	 * Method to get a list of options for a list input.
+     * Method to get the field options. -> List of existing graphic libraries
 	 *
 	 * @return  string array  An array of JHtml options.
+     *
+     * @since   4.3.0
 	 */
 	protected function getOptions()
 	{
-		$options   = array();
 		$libraries = array();
 
 		try
@@ -43,7 +46,7 @@ class JFormFieldGraficLibrarySelectList extends JFormFieldList
 			/**
 			 * detect available graphics libraries
 			 *
-			 * @todo call imgUtils graphics lib detection when it is built
+			 * @ToDo: call imgUtils graphics lib detection when it is built
 			 */
 			/*
             $options[] = (object) array(
@@ -105,31 +108,19 @@ class JFormFieldGraficLibrarySelectList extends JFormFieldList
 		}
 		catch (RuntimeException $e)
 		{
-			JError::raiseWarning(500, $e->getMessage());
+			JFactory::getApplication()->enqueueMessage($e->getMessage());
 		}
 
-//		// Add select option (no value)
-//		$options[] = JHtml::_('select.option', -1, JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST'));
-//		foreach($galleries as $gallery)
-//		{	
-//			$options[] = JHtml::_('select.option', $gallery->gid, $gallery->name);
-//		}
-//		$options = array_merge(parent::getOptions() , $options);
-
-		// Merge any additional options in the XML definition.
-		// $options[] = JHtml::_('select.option', $key, $value);
-		// $options[] = array("value" => 1, "text" => "1");
-
-		$options = $libraries;
 		// Put "Select an option" on the top of the list.
 		// array_unshift($options, JHtml::_('select.option', '0', JText::_('Select an option')));
 
-		return array_merge(parent::getOptions(), $options);
+        $options = array_merge(parent::getOptions(), $libraries);
 
+        return $options;
 	}
 
     /**
-     * Searches for GD2 through extension loaded
+     * Searches for GD2 through check if extension is loaded
      *
      * @return string GD2 Version
      *
@@ -158,14 +149,14 @@ class JFormFieldGraficLibrarySelectList extends JFormFieldList
 		}
 		catch (RuntimeException $e)
 		{
-			JError::raiseWarning(500, $e->getMessage());
+            JFactory::getApplication()->enqueueMessage($e->getMessage());
 		}
 
 		return $VersionId;
 	}
 
     /**
-     * Searches for ImageMagic by path
+     * Searches for ImageMagic by path. Does call it for version info
      * ToDo::Test on server
      *
      * @return string  ImageMagic Version by call with parameters
@@ -202,7 +193,7 @@ class JFormFieldGraficLibrarySelectList extends JFormFieldList
 		}
 		catch (RuntimeException $e)
 		{
-			JError::raiseWarning(500, $e->getMessage());
+            JFactory::getApplication()->enqueueMessage($e->getMessage());
 		}
 
 		return $VersionId;
@@ -273,7 +264,7 @@ class JFormFieldGraficLibrarySelectList extends JFormFieldList
 		}
 		catch (RuntimeException $e)
 		{
-			JError::raiseWarning(500, $e->getMessage());
+            JFactory::getApplication()->enqueueMessage($e->getMessage());
 		}
 
 		return $VersionId;

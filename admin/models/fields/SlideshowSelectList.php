@@ -20,11 +20,13 @@ JFormHelper::loadFieldClass('list');
  */
 class JFormFieldSlideshowSelectList extends JFormFieldList
 {
-	/**
-	 * The field type.
-	 *
-	 * @var         string
-	 */
+    /**
+     * The field type.
+     *
+     * @var string
+     *
+     * @since 4.3.0
+     */
 	protected $type = 'SlideshowSelectList';
 
 	/**
@@ -61,33 +63,20 @@ class JFormFieldSlideshowSelectList extends JFormFieldList
 				}
 			}
 
-//            $lists['$libraries'] = JHtml::_("select.genericlist",$libraries, 'graphicsLib', '', 'value', 'text', $rsgConfig->graphicsLib );
+            // $lists['$libraries'] = JHtml::_("select.genericlist",$libraries, 'graphicsLib', '', 'value', 'text', $rsgConfig->graphicsLib );
 			/**/
-
 		}
 		catch (RuntimeException $e)
 		{
-			JError::raiseWarning(500, $e->getMessage());
+			JFactory::getApplication()->enqueueMessage($e->getMessage());
 		}
 
-//		// Add select option (no value)
-//		$options[] = JHtml::_('select.option', -1, JText::_('COM_RSGALLERY2_SELECT_GALLERY_FROM_LIST'));
-//		foreach($galleries as $gallery)
-//		{	
-//			$options[] = JHtml::_('select.option', $gallery->gid, $gallery->name);
-//		}
-//		$options = array_merge(parent::getOptions() , $options);
-
-		// Merge any additional options in the XML definition.
-		// $options[] = JHtml::_('select.option', $key, $value);
-		// $options[] = array("value" => 1, "text" => "1");
-
-		$options = $current_slideshows;
 		// Put "Select an option" on the top of the list.
 		// array_unshift($options, JHtml::_('select.option', '0', JText::_('Select an option')));
 
-		return array_merge(parent::getOptions(), $options);
+		$options = array_merge(parent::getOptions(), $current_slideshows);
 
+		return $options;
 	}
 
 }

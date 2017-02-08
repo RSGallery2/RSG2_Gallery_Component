@@ -13,29 +13,29 @@ defined('_JEXEC') or die;
 JFormHelper::loadFieldClass('list');
 
 /**
- * Gallery Form Field class to create contents of dropdown box for
- * gallery selection in RSGallery2.
+ * Returns HTML to dislpay the link to the RSGALLERY2 configuration
+ *
  *
  * @since 4.3.0
  */
 class JFormFieldRsg2Link extends JFormField
 {
-	/**
-	 * The field type.
-	 *
-	 * @var         string
-	 */
+    /**
+     * The field type.
+     *
+     * @var string
+     *
+     * @since 4.3.0
+     */
 	protected $type = 'Rsg2Link';
 
 	/**
-	 *
-	 */
-
-	/**
-	 * Method to get the field input markup.
+	 * Creates html for buton with link to Returns HTML to dislpay the link to the RSGALLERY2 configuration
 	 *
 	 * @access protected
 	 * @return    string    The field input markup.
+     *
+     * @since 4.3.0
 	 */
 	protected function getInput()
 	{
@@ -58,7 +58,6 @@ class JFormFieldRsg2Link extends JFormField
 		$html[] = '        </a>';
 		$html[] = '    </li>';
 		$html[] = '</ul>';
-
 		/**/
 
 		return implode($html);

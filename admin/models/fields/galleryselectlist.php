@@ -22,11 +22,13 @@ JFormHelper::loadFieldClass('list');
  */
 class JFormFieldGallerySelectList extends JFormFieldList
 {
-	/**
-	 * The field type.
-	 *
-	 * @var string
-	 */
+    /**
+     * The field type.
+     *
+     * @var string
+     *
+     * @since 4.3.0
+     */
 	protected $type = 'GallerySelectList';
 
 	/**
@@ -40,30 +42,27 @@ class JFormFieldGallerySelectList extends JFormFieldList
 	{
 		$galleries = array();
 
-		// $user = JFactory::getUser(); // Todo: Restrict to accessible galleries
-		$db    = JFactory::getDbo();
-		$query = $db->getQuery(true)
-			->select('id As value, name As text')
-			->from('#__rsgallery2_galleries AS a')
-			// ToDO: Use option in XML to select ASC/DESC
-			->order('a.ordering ASC');   // Newest first
-
-		// Get the options.
-		$db->setQuery($query);
-
 		try
 		{
+			// $user = JFactory::getUser(); // Todo: Restrict to accessible galleries
+			$db    = JFactory::getDbo();
+			$query = $db->getQuery(true)
+				->select('id As value, name As text')
+				->from('#__rsgallery2_galleries AS a')
+				// ToDo: Use option in XML to select ASC/DESC
+				->order('a.ordering ASC');   // Newest first
+
+			// Get the options.
+			$db->setQuery($query);
+
 			$galleries = $db->loadObjectList();
 		}
 		catch (RuntimeException $e)
 		{
-			JError::raiseWarning(500, $e->getMessage());
+			JFactory::getApplication()->enqueueMessage($e->getMessage());
 		}
 
 		$options = $galleries;
-
-        // Merge any additional options in the XML definition.
-        // $options[] = JHtml::_('select.option', $key, $value);
 
         // Put "Select an option" on the top of the list.
 		array_unshift($options, JHtml::_('select.option', '0', JText::_('Select an option')));

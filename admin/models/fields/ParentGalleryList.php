@@ -40,7 +40,7 @@ class JFormFieldParentGalleryList extends JFormFieldList
 	protected function getOptions()
 	{
 		$ActGalleryId = (string) $this->element['id'];
-        $options = array();
+        $ParentIds = array();
 
         try
         {
@@ -55,23 +55,17 @@ class JFormFieldParentGalleryList extends JFormFieldList
             // Get the options.
             $db->setQuery($query);
 
-			$options = $db->loadObjectList();
+            $ParentIds = $db->loadObjectList();
 		}
 		catch (RuntimeException $e)
 		{
-			JError::raiseWarning(500, $e->getMessage());
-
-			// toDo: Check out catch with enqueueMessage($e->getMessage());
 			JFactory::getApplication()->enqueueMessage($e->getMessage());
-
-			return false;
-
 		}
 
 		// Merge any additional options in the XML definition.
 		// $options[] = JHtml::_('select.option', $key, $value);
 
-		$options = array_merge(parent::getOptions(), $options);
+		$options = array_merge(parent::getOptions(), $ParentIds);
 
 		return $options;
 	}

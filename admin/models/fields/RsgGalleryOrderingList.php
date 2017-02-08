@@ -23,11 +23,12 @@ class JFormFieldRsgGalleryOrderingList extends JFormFieldList
 	protected $type = 'RsgGalleryOrderingList';
 
 	/**
-	 * Method to get the field options. -> List of galleries
+	 * Method to get the field options. -> List of galleries ordered by order parameter
+     * Results in rows with "value" => idx, "text" => "<number> -> gallery name"
 	 *
 	 * @return  array  The field option objects
 	 *
-	 * @since   1.6
+     * @since   4.3.0
 	 */
 	protected function getOptions()
 	{
@@ -69,7 +70,7 @@ class JFormFieldRsgGalleryOrderingList extends JFormFieldList
 		}
 		catch (RuntimeException $e)
 		{
-			JError::raiseWarning(500, $e->getMessage());
+            JFactory::getApplication()->enqueueMessage($e->getMessage());
 		}
 
 		return $options;

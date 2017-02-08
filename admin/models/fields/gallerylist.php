@@ -39,7 +39,7 @@ class JFormFieldGalleryList extends JFormFieldList
 	 */
 	protected function getOptions()
 	{
-		$options = array();
+		$galleries = array();
 
         try
         {
@@ -53,17 +53,17 @@ class JFormFieldGalleryList extends JFormFieldList
             // Get the options.
             $db->setQuery($query);
 
-			$options = $db->loadObjectList();
+			$galleries = $db->loadObjectList();
 		}
 		catch (RuntimeException $e)
 		{
-			JError::raiseWarning(500, $e->getMessage());
+			JFactory::getApplication()->enqueueMessage($e->getMessage());
 		}
 
 		// Merge any additional options in the XML definition.
 		// $options[] = JHtml::_('select.option', $key, $value);
 
-		$options = array_merge(parent::getOptions(), $options);
+		$options = array_merge(parent::getOptions(), $galleries);
 
 		return $options;
 	}

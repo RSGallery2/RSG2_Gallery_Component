@@ -51,15 +51,15 @@ class JFormFieldAdminFontsSelectList extends JFormFieldList
 		}
 		catch (RuntimeException $e)
 		{
-			JError::raiseWarning(500, $e->getMessage());
+			JFactory::getApplication()->enqueueMessage($e->getMessage());
 		}
-
-		$options = $admin_fonts;
 
 		// Put "Select an option" on the top of the list.
 		// array_unshift($options, JHtml::_('select.option', '0', JText::_('Select an option')));
 
-		return array_merge(parent::getOptions(), $options);
+		$options = array_merge(parent::getOptions(), $admin_fonts);		
+		
+		return $options;
 	}
 }
 
