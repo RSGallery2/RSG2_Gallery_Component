@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id$ -->
 <form>
 	<fieldset name="gallery_1st_col">
 		<field
@@ -12,7 +11,6 @@
 				filter=""
 				size="60"
 		/>
-
 		<field
 				name="alias"
 				type="text"
@@ -24,7 +22,6 @@
 				size="40"
 				hint="JFIELD_ALIAS_PLACEHOLDER"
 		/>
-
 		<field
 				name="alias2"
 				type="text"
@@ -35,14 +32,12 @@
 				filter=""
 				size="60"
 		/>
-
 		<field
 				name="access"
 				type="accesslevel"
 				label="JFIELD_ACCESS_LABEL"
 				description="JFIELD_ACCESS_DESC"
 		/>
-
 		<field
 				name="description"
 				type="editor"
@@ -64,7 +59,6 @@
 			<!--option value="-1" >COM_RSGALLERY2_SELECT_GALLERY</option-->
 			<option value="0">COM_RSGALLERY2_TOP_GALLERY</option>
 		</field>
-
 		<field
 				name="thumb_id"
 				type="RsgGalleryThumbList"
@@ -72,15 +66,12 @@
 				filter="integer"
 				size="1"
 		>
-			<!--option value="-1" >COM_RSGALLERY2_SELECT_GALLERY</option-->
 			<option value="0">COM_RSGALLERY2_MINUS_RANDOM_THUMBNAIL_MINUS</option>
 		</field>
-
 		<field
 				name="id"
 				type="hidden"
 		/>
-
 	</fieldset>
 
 	<fieldset name="gallery_2nd_col">
@@ -109,9 +100,7 @@
 				size="1"
 		>
 			<option value="0">JOPTION_ORDER_FIRST</option>
-			<!--option value   = "99999" >JOPTION_ORDER_LAST</option-->
 		</field>
-
 		<field
 				name="uid"
 				type="user"
@@ -121,7 +110,6 @@
 		/>
 	</fieldset>
 
-
 	<fieldset name="permission_col">
 		<!-- asset_id: needed for the Calculated Settings of the Rules to work correctly -->
 		<field
@@ -129,8 +117,6 @@
 				type="hidden"
 				filter="unset"
 		/>
-
-
 		<!-- rules: needed for the rules -->
 		<field
 				id="rules"
@@ -144,81 +130,5 @@
 				component="com_rsgallery2"
 				section="item"
 		/>
-	</fieldset>
-
-	<fieldset name="test">
-		<!-- ==================================================================== -->
-		<!--
-		<field
-			name			= "ordering"
-			type			= "text"
-			label           = "COM_RSGALLERY2_ORDERING"
-		/>
-
-		<field
-			name			= "published"
-			type			= "radio"
-			class="btn-group btn-group-yesno"
-			label           = "COM_RSGALLERY2_PUBLISHED"
-			default			= "1" 
-			description     = ""
-		>
-			<option
-				value="1">JYES</option>
-			<option
-				value="0">JNO</option>				
-		</field>
-    </fieldset>	
-	
-	<fieldset name ="gallery_2nd_col">	
-
-		<field
-			name			= "checked_out"
-			type			= "hidden"
-			label           = ""
-		/>
-
-		<field
-			name			= "checked_out_time"
-			type			= "hidden"
-			label           = ""
-		/>
-
-		<field
-			name			= "date"
-			type			= "hidden"
-			label           = ""
-		/>
-
-		<field
-			name			= "hits"
-			type			= "hidden"
-			label           = ""
-		/>
-
-		<field
-			name			= "params"
-			type			= "text"
-			label           = ""
-		/>
-
-        <field
-            name			= "allowed"
-            type			= "hidden"
-            label           = ""
-        />
-
-	    <field
-		    name			= "extension"
-		    type			= "hidden"/>
-    
-
-        <field
-            name			= ""
-            type			= ""
-            label           = ""
-            />
--->
-
 	</fieldset>
 </form>

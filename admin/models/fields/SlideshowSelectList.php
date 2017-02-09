@@ -33,27 +33,21 @@ class JFormFieldSlideshowSelectList extends JFormFieldList
 	 * Method to get a list of options for a list input.
 	 *
 	 * @return  string array  An array of JHtml options.
+     *
+     * @since 4.3.0
 	 */
 	protected function getOptions()
 	{
-		$options            = array();
 		$current_slideshows = array();
 
 		try
 		{
 			/**
-			 * Detect available slideshow
-			 * Search source folders
+			 * Detect available slideshows
+			 * Search in source folders
 			 */
-			/*
-						$options[] = (object) array(
-							'value' => $value,
-							'text' => ($value != 0) ? JText::_('J' . $value) : JText::_('JALL'));
-			
-						$check = $this->value == $menu->value ? 'edit' : 'create';
-			/**/
 
-			//Format values for slideshow dropdownbox
+			// Format values for slideshow dropdownbox
 			$folders = JFolder::folders(JPATH_RSGALLERY2_SITE . DS . '/templates');
 			foreach ($folders as $folder)
 			{
@@ -62,19 +56,16 @@ class JFormFieldSlideshowSelectList extends JFormFieldList
 					$current_slideshows[] = JHtml::_("select.option", $folder, $folder);
 				}
 			}
-
-            // $lists['$libraries'] = JHtml::_("select.genericlist",$libraries, 'graphicsLib', '', 'value', 'text', $rsgConfig->graphicsLib );
-			/**/
 		}
 		catch (RuntimeException $e)
 		{
 			JFactory::getApplication()->enqueueMessage($e->getMessage());
 		}
 
-		// Put "Select an option" on the top of the list.
-		// array_unshift($options, JHtml::_('select.option', '0', JText::_('Select an option')));
+        // Merge any additional options in the XML definition.
+        // $options[] = JHtml::_('select.option', $key, $value);
 
-		$options = array_merge(parent::getOptions(), $current_slideshows);
+        $options = array_merge(parent::getOptions(), $current_slideshows);
 
 		return $options;
 	}

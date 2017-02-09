@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id$ -->
 <form enctype="multipart/form-data">
 	<fieldset name="Select4MoveCopy">
 		<!-- Gallery selection -->

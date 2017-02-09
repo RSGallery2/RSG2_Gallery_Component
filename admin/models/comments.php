@@ -11,12 +11,17 @@
 defined('_JEXEC') or die;
 
 /**
- * CommentsList Model
+ * Comments list model
  *
  * @since 4.3.0
  */
 class Rsgallery2ModelComments extends JModelList
 {
+    /**
+     * Create list of usable filter fields
+     *
+     * @param array $config
+     */
 	public function __construct($config = array())
 	{
 		if (empty($config['filter_fields']))
@@ -54,14 +59,10 @@ class Rsgallery2ModelComments extends JModelList
 	 *
 	 * @return  void
 	 *
-	 * @since   1.6
+	 * @since   4.3
 	 */
-	// ToDo: protected function populateState($ordering = 'a.item_id, datetime', $direction = 'desc')
-	// protected function populateState($ordering = 'a.item_id', $direction = 'desc')
 	protected function populateState($ordering = 'a.id', $direction = 'desc')
 	{
-		// $app = JFactory::getApplication();
-
 		$search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search',
 			'', 'string');
 		$this->setState('filter.search', $search);
@@ -90,7 +91,7 @@ class Rsgallery2ModelComments extends JModelList
 	 *
 	 * @return  string  A store id.
 	 *
-	 * @since   1.6
+	 * @since   4.3
 	 */
 	protected function getStoreId($id = '')
 	{
@@ -113,7 +114,7 @@ class Rsgallery2ModelComments extends JModelList
 		$db    = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-		// Query for all galleries.
+		// Query for all comments.
 		$actState =
 			$this->getState(
 				'list.select',

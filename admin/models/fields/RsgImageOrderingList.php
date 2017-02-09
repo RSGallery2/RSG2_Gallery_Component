@@ -56,17 +56,18 @@ class JFormFieldRsgImageOrderingList extends JFormFieldList
 			{
 				$options[] = array("value" => $image->idx, "text" => str_pad($image->idx, 3, " ", STR_PAD_LEFT) . ' ->' . $image->text);
 			}
-			// Add JGLOBAL_NEWITEMSLAST_DESC 
-			if (count($options) == 0)
-			{
-				// Merge any additional options in the XML definition.
-				$options = array_merge(parent::getOptions(), $options);
-			}
 		}
 		catch (RuntimeException $e)
 		{
-			JError::raiseWarning(500, $e->getMessage());
+            JFactory::getApplication()->enqueueMessage($e->getMessage());
 		}
+
+        // Add JGLOBAL_NEWITEMSLAST_DESC
+        //if (count($options) == 0)
+        //{
+            // Merge any additional options in the XML definition.
+            $options = array_merge(parent::getOptions(), $options);
+        //}
 
 		return $options;
 	}

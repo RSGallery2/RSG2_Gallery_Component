@@ -11,10 +11,17 @@
 defined('_JEXEC') or die;
 
 /**
- * Galleries Model
+ * Gallery list model
+ *
+ * @since 4.3.0
  */
 class rsgallery2ModelGalleries extends JModelList
 {
+    /**
+     * Create list of usable filter fields
+     *
+     * @param array $config Field on which be sorting is availble
+     */
 	public function __construct($config = array())
 	{
 		if (empty($config['filter_fields']))
@@ -55,12 +62,10 @@ class rsgallery2ModelGalleries extends JModelList
 	 *
 	 * @return  void
 	 *
-	 * @since   1.6
+     * @since   4.3
 	 */
 	protected function populateState($ordering = 'a.id', $direction = 'desc')
 	{
-		// $app = JFactory::getApplication();
-
 		$search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search',
 			'', 'string');
 		$this->setState('filter.search', $search);
@@ -89,7 +94,7 @@ class rsgallery2ModelGalleries extends JModelList
 	 *
 	 * @return  string  A store id.
 	 *
-	 * @since   1.6
+	 * @since   4.3
 	 */
 	protected function getStoreId($id = '')
 	{

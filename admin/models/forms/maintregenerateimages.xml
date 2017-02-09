@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id$ -->
 <form enctype="multipart/form-data">
 	<fieldset name="regenerateGallerySelection">
 		<field
@@ -24,10 +23,5 @@
 				multiple="true"
 				size="4"
 		/>
-		<!-- 
-			translate_label	= "true"
-			class			= "inputbox"
-		-->
-
 	</fieldset>
 </form>

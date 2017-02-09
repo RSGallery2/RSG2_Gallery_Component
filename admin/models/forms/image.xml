@@ -12,7 +12,6 @@
 				size="120"
 				required="true"
 		/>
-
 		<field
 				name="alias"
 				type="text"
@@ -23,7 +22,6 @@
 				filter=""
 				size="60"
 		/>
-
 		<field
 				name="name"
 				type="text"
@@ -35,7 +33,6 @@
 				class="readonly input-large"
 				readonly="true"
 		/>
-
 		<field
 				name="gallery_id"
 				type="GalleryList"
@@ -48,7 +45,6 @@
 			<option value="-1">COM_RSGALLERY2_SELECT_GALLERY</option>
 			<option value="0">COM_RSGALLERY2_TOP_GALLERY</option>
 		</field>
-
 		<field
 				name="description"
 				type="editor"
@@ -58,7 +54,6 @@
 				class="span5 small"
 				rows="5"
 		/>
-
 		<field
 				name="id"
 				type="hidden"
@@ -67,11 +62,6 @@
 
 	<fieldset name="image_2nd_col"
 	          class="form-vertical">
-		<!--field
-			name			= "name"
-			type			= "RsgImageView"
-			label           = "COM_RSGALLERY2_ITEM_PREVIEW"
-		/-->
 		<field name="name"
 		       type="media"
 		       directory="rsgallery/display"
@@ -110,21 +100,6 @@
 				label="COM_RSGALLERY2_OWNER"
 				description=""
 		/>
-
-
-		<!--field
-			name			= "params"
-			type			= "text"
-			label           = "test"
-		/-->
-		<!--field
-			label           = "COM_RSGALLERY2_PARAMETERS"
-			description     = "COM_RSGALLERY2_PARAMETERS_DESC"
-			class           = "input-large-text input-xlarge"
-			size            = "120"
-		/field-->
-
-
 	</fieldset>
 
 	<fieldset name="permission_col">
@@ -134,8 +109,6 @@
 				type="hidden"
 				filter="unset"
 		/>
-
-
 		<!-- rules: needed for the rules -->
 		<field
 				id="rules"
@@ -150,11 +123,4 @@
 				section="item"
 		/>
 	</fieldset>
-
-	<!-- fieldset 
-		name="permissions"
-		label="JCONFIG_PERMISSIONS_LABEL"
-		description="JCONFIG_PERMISSIONS_DESC"
-	-->
-
 </form>

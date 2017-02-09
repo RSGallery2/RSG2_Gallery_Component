@@ -8,39 +8,6 @@
 				description="COM_CONTENT_FILTER_SEARCH_DESC"
 				hint="JSEARCH_FILTER"
 		/>
-		<!--field
-			name="published"
-			type="status"
-			label="COM_CONTENT_FILTER_PUBLISHED"
-			description="COM_CONTENT_FILTER_PUBLISHED_DESC"
-			onchange="this.form.submit();"
-			>
-			<option value="">JOPTION_SELECT_PUBLISHED</option>
-		</field-->
-
-		<!--field
-				name="author_id"
-				type="author"
-				label="COM_CONTENT_FILTER_AUTHOR"
-				description="COM_CONTENT_FILTER_AUTHOR_DESC"
-				onchange="this.form.submit();"
-		>
-			<option value="">JOPTION_SELECT_AUTHOR</option>
-		</field-->
-
-		<!--field
-				name="gallery_id"
-				type="int"
-				first="1"
-				last="100"
-				step="1"
-				label="COM_RSGALLERY2_FILTER_GALLERY_ID"
-				description="COM_RSGALLERY2_FILTER_GALLERY_ID_DESC"
-				onchange="this.form.submit();"
-		>
-			<option value="">COM_RSGALLERY2_FILTER_SELECT_GALLERY_ID</option>
-		</field-->
-
 		<field
 				name="gallery_id"
 				type="GallerySelectList"
@@ -50,17 +17,6 @@
 		>
 			<option value="">COM_RSGALLERY2_FILTER_SELECT_GALLERY</option>
 		</field>
-
-		<!--field
-				name="id"
-				type="RsgGalleryOrderingList"
-				label="COM_RSGALLERY2_FILTER_GALLERY_NAME"
-				description="COM_RSGALLERY2_FILTER_GALLERY_NAME_DESC"
-				onchange="this.form.submit();"
-		>
-			<option value="">COM_RSGALLERY2_FILTER_SELECT_GALLERY</option>
-		</field-->
-
 	</fields>
 
 	<fields name="list">

@@ -90,9 +90,4 @@
 				onchange="this.form.submit();"
 		/>
 	</fields>
-</form>		
-		
-		
-		
-		
-		
+</form>

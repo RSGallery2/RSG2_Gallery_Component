@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id$ -->
 <form enctype="multipart/form-data">
 	<fieldset name="upload_zip">
 		<field
@@ -25,11 +24,6 @@
 				addfieldpath="/administrator/components/com_rsgallery2/models/fields"
 				size="4"
 		/>
-		<!-- 
-			translate_label	= "true"
-			class			= "inputbox"
-		-->
-
 	</fieldset>
 	<fieldset name="upload_folder">
 		<field
@@ -55,10 +49,5 @@
 				addfieldpath="/administrator/components/com_rsgallery2/models/fields"
 				size="4"
 		/>
-		<!-- 
-			translate_label	= "true"
-			class			= "inputbox"
-		-->
-
 	</fieldset>
 </form>

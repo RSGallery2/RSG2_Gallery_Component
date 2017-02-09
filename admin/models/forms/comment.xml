@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id$ -->
 <form>
 	<fieldset name="comment">
 		<field
@@ -151,16 +150,6 @@
 		       default="0"
 		/>
 
-		<!--field
-				name="params"
-				type="text"
-				label="COM_RSGALLERY2_COMMENTS_FIELD_PARAMS_LABEL"
-				description="COM_RSGALLERY2_COMMENTS_FIELD_PARAMS_DESC"
-				class="inputbox"
-				size="100"
-				maxlength="100"
-		/-->
-
 		<field name="hits"
 		       type="text"
 		       label="JGLOBAL_HITS"
@@ -170,13 +159,5 @@
 		       readonly="true"
 		       filter="unset"
 		/>
-
 	</fieldset>
-
-	<!-- fieldset 
-		name="permissions"
-		label="JCONFIG_PERMISSIONS_LABEL"
-		description="JCONFIG_PERMISSIONS_DESC"
-	-->
-
 </form>
