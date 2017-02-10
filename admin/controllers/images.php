@@ -37,14 +37,13 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 	 */
 	public function saveOrdering()
 	{
-		//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-		$msg     = "Control:saveOrdering: ";
+        $msg     = "";
 		$msgType = 'notice';
 
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Access check
-		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+		$canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
 		if (!$canAdmin)
 		{
 			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
@@ -54,12 +53,19 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 		}
 		else
 		{
-
 			try
 			{
 				// Model tells if successful
 				$model = $this->getModel('images');
-				$msg .= $model->saveOrdering();
+                $IsSaved = $model->saveOrdering();
+                if ($IsSaved) {
+                    $msg .= JText::_('COM_RSGALLERY2_NEW_ORDERING_SAVED');
+                }
+                else
+                {
+                    $msg .= JText::_('Save new ordering failed');
+                    $msgType = 'error';
+                }
 			}
 			catch (RuntimeException $e)
 			{
@@ -71,8 +77,6 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 				$app->enqueueMessage($OutTxt, 'error');
 			}
 		}
-
-		$msg .= '!!! Not implemented yet !!!';
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=images', $msg, $msgType);
 	}

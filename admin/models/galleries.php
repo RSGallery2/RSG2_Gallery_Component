@@ -21,6 +21,8 @@ class rsgallery2ModelGalleries extends JModelList
      * Create list of usable filter fields
      *
      * @param array $config Field on which be sorting is availble
+     *
+     * @since 4.3.0
      */
 	public function __construct($config = array())
 	{
@@ -62,7 +64,7 @@ class rsgallery2ModelGalleries extends JModelList
 	 *
 	 * @return  void
 	 *
-     * @since   4.3
+     * @since   4.3.0
 	 */
 	protected function populateState($ordering = 'a.id', $direction = 'desc')
 	{
@@ -94,7 +96,7 @@ class rsgallery2ModelGalleries extends JModelList
 	 *
 	 * @return  string  A store id.
 	 *
-	 * @since   4.3
+	 * @since   4.3.0
 	 */
 	protected function getStoreId($id = '')
 	{
@@ -110,6 +112,8 @@ class rsgallery2ModelGalleries extends JModelList
 	 * Method to build an SQL query to load the list data.
 	 *
 	 * @return      string  An SQL query
+     *
+     * @since   4.3.0
 	 */
 	protected function getListQuery()
 	{
@@ -117,7 +121,7 @@ class rsgallery2ModelGalleries extends JModelList
 		$db    = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-		// Query for all galleries.
+		// Query for gallery data.
 		$actState =
 			$this->getState(
 				'list.select',
@@ -128,7 +132,6 @@ class rsgallery2ModelGalleries extends JModelList
 //				. ', b.gallery_id'
 			);
 		$query->select($actState);
-
 		$query->from('#__rsgallery2_galleries as a');
 
 		/* Count child images */
@@ -192,43 +195,15 @@ class rsgallery2ModelGalleries extends JModelList
 		return $query;
 	}
 
-	/*
-		function saveOrder($cid)
-		{
-			JArrayHelper::toInteger($cid);
-			$total = count($cid);
-			$order = JRequest::getVar( ‘order’, array(0), ‘post’, ‘array’ );
-	
-			JArrayHelper::toInteger($order, array(0));
-			$row = $this->getTable(”);
-			// update ordering values
-			for ($i = 0; $i < $total; $i++)
-			{
-				$row->load((int) $cid[$i]);
-				if ($row->ordering != $order[$i])
-				{
-					$row->ordering = $order[$i];
-					if (!$row->store())
-					{
-						$this->setError($this->_db->getErrorMsg());
-	
-						return false;
-					}
-				}
-			}
-	
-			return true;
-		}
-	/**/
-
 	/**
 	 * Saves changed manual ordering of galleries
 	 *
-	 * @throws Exception
-	 */
+     * @return bool
+     *
+     * @since 4.3.0
+     */
 	public function saveOrdering()
 	{
-        // $msg = "Model:saveOrdering: ";
         $IsSaved = false;
 
         try
@@ -258,11 +233,15 @@ class rsgallery2ModelGalleries extends JModelList
 					->where(array($db->quoteName('id') . '=' . $id));
 
 				$result = $db->execute();
-                if (!empty($result))
+                if (empty($result))
                 {
-                    $IsSaved = true;
+                    break;
                 }
-			}
+            }
+            if (!empty($result))
+            {
+                $IsSaved = true;
+            }
 
             // parent::reorder();
 		}
@@ -280,40 +259,13 @@ class rsgallery2ModelGalleries extends JModelList
 	}
 
 	/**
-	 * Method to save the reordered nested set tree.
-	 * First we save the new order values in the lft values of the changed ids.
-	 * Then we invoke the table rebuild to implement the new ordering.
-	 *
-	 * @param   array $idArray An array of primary key ids.
-	 *
-	 * @return  boolean  False on failure or error, True otherwise
-	 *
-	 * @since   1.6
-	 */
-	public function saveOrder($idArray = null, $lft_array = null)
-	{
-		// Get an instance of the table object.
-		$table = $this->getTable();
-
-		if (!$table->saveorder($idArray, $lft_array))
-		{
-			$this->setError($table->getError());
-
-			return false;
-		}
-
-		// Clear the cache
-		$this->cleanCache();
-
-		return true;
-	}
-
-	/**
 	 * This function will retrieve the data of the n last uploaded images
 	 *
 	 * @param int $limit > 0 will limit the number of lines returned
 	 *
 	 * @return array rows with image name, gallery name, date, and user name as rows
+     *
+     * @since   4.3.0
 	 */
 	static function latestGalleries($limit)
 	{
@@ -332,16 +284,6 @@ class rsgallery2ModelGalleries extends JModelList
 				->select('*')
 				->from($db->quoteName('#__rsgallery2_galleries'))
 				->order($db->quoteName('id') . ' DESC');
-
-			/*   ==>  setQuery($query, $offset = 0, $limit = 0)
-			// $limit > 0 will limit the number of lines returned
-			if ($limit && (int) $limit > 0)
-			{
-				$query->setLimit($limit);
-			}
-
-			$db->setQuery($query);
-			/**/
 
 			$db->setQuery($query, 0, $limit);
 			$rows = $db->loadObjectList();
@@ -378,60 +320,63 @@ class rsgallery2ModelGalleries extends JModelList
 	 * @param int $limit > 0 will limit the number of lines returned
 	 *
 	 * @return array rows with image name, gallery name, date, and user name as rows
+     *
+     * @since   4.3.0
 	 */
 	static function lastWeekGalleries($limit)
 	{
 		$latest = array();
 
-		$lastWeek = mktime(0, 0, 0, date("m"), date("d") - 7, date("Y"));
-		$lastWeek = date("Y-m-d H:m:s", $lastWeek);
+        try {
+            $lastWeek = mktime(0, 0, 0, date("m"), date("d") - 7, date("Y"));
+            $lastWeek = date("Y-m-d H:m:s", $lastWeek);
 
-		// Create a new query object.
-		$db    = JFactory::getDBO();
-		$query = $db->getQuery(true);
+            // Create a new query object.
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
 
-		//$query = 'SELECT * FROM `#__rsgallery2_files` WHERE (`date` >= '. $database->quote($lastweek)
-		//	.' AND `published` = 1) ORDER BY `id` DESC LIMIT 0,5';
+            $query
+                ->select('*')
+                ->from($db->quoteName('#__rsgallery2_galleries'))
+                ->where($db->quoteName('date') . '> = ' . $db->quoteName($lastWeek))
+                ->order($db->quoteName('id') . ' DESC');
 
-		$query
-			->select('*')
-			->from($db->quoteName('#__rsgallery2_galleries'))
-			->where($db->quoteName('date') . '> = ' . $db->quoteName($lastWeek))
-			->order($db->quoteName('id') . ' DESC');
+            $db->setQuery($query, 0, $limit);
+            $rows = $db->loadObjectList();
 
-		/*   ==>  setQuery($query, $offset = 0, $limit = 0)
-		// $limit > 0 will limit the number of lines returned
-		if ($limit && (int) $limit > 0)
-		{
-			$query->setLimit($limit);
-		}
-		$db->setQuery($query);
-		/**/
+            foreach ($rows as $row) {
+                $ImgInfo = array();
+                $ImgInfo['name'] = $row->name;
+                $ImgInfo['id'] = $row->id;
 
-		$db->setQuery($query, 0, $limit);
-		$rows = $db->loadObjectList();
+                //$ImgInfo['user'] = rsgallery2ModelGalleries::getUsernameFromId($row->uid);
+                $user = JFactory::getUser($row->uid);
+                $ImgInfo['user'] = $user->get('username');
 
-		foreach ($rows as $row)
-		{
-			$ImgInfo         = array();
-			$ImgInfo['name'] = $row->name;
-			$ImgInfo['id']   = $row->id;
+                $latest[] = $ImgInfo;
+            }
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'lastWeekGalleries: Error executing query: "' . $query . '"' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-			//$ImgInfo['user'] = rsgallery2ModelGalleries::getUsernameFromId($row->uid);
-			$user            = JFactory::getUser($row->uid);
-			$ImgInfo['user'] = $user->get('username');
-
-			$latest[] = $ImgInfo;
-		}
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
 
 		return $latest;
 	}
 
 	/**
-	 * @param $galleryId
-	 * returns the total number of items in the given gallery.
+     * Count images in gallery
+     *
+     * @param $galleryId
 	 *
-	 * @return int
+	 * @return int returns the total number of items in the given gallery.
+     *
+     * @since   4.3.0
 	 */
 	public static function countImages($galleryId)
 	{
@@ -473,7 +418,9 @@ class rsgallery2ModelGalleries extends JModelList
 	 *               returns assoc list gallery_id -> parent
 	 *
 	 * @return list[]
-	 */
+     *
+     * @since   4.3.0
+	 *
 	public static function createParentList($items)
 	{
 		$ParentReferences = new object;
@@ -485,6 +432,7 @@ class rsgallery2ModelGalleries extends JModelList
 
 		return $ParentReferences;
 	}
+    /**/
 
 } // class
 

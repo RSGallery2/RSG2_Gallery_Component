@@ -11,12 +11,19 @@
 defined('_JEXEC') or die;
 
 /**
- * ImagesList Model
+ * Image list model
  *
  * @since 4.3.0
  */
 class Rsgallery2ModelImages extends JModelList
 {
+    /**
+     * Create list of usable filter fields
+     *
+     * @param array $config Field on which be sorting is availble
+     *
+     * @since 4.3.0
+     */
 	public function __construct($config = array())
 	{
 		if (empty($config['filter_fields']))
@@ -57,7 +64,7 @@ class Rsgallery2ModelImages extends JModelList
 	 *
 	 * @return  void
 	 *
-	 * @since   1.6
+	 * @since   4.3.0
 	 */
 	protected function populateState($ordering = 'a.id', $direction = 'desc')
 	{
@@ -88,7 +95,7 @@ class Rsgallery2ModelImages extends JModelList
 	 *
 	 * @return  string  A store id.
 	 *
-	 * @since   1.6
+	 * @since   4.3.0
 	 */
 	protected function getStoreId($id = '')
 	{
@@ -103,6 +110,8 @@ class Rsgallery2ModelImages extends JModelList
 	 * Method to build an SQL query to load the list data.
 	 *
 	 * @return      string  An SQL query
+     *
+     * @since   4.3.0
 	 */
 	protected function getListQuery()
 	{
@@ -110,7 +119,7 @@ class Rsgallery2ModelImages extends JModelList
 		$db    = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-		// Query for all galleries.
+		// Query for all images data.
 		$actState =
 			$this->getState(
 				'list.select',
@@ -118,11 +127,8 @@ class Rsgallery2ModelImages extends JModelList
 				. 'a.date, a.rating, a.votes, a.comments, a.published, '
 				. 'a.checked_out, a.checked_out_time, a.ordering, '
 				. 'a.approved, a.userid, a.params, a.asset_id'
-// test remove	. ', gal.name'
-//                . ', gallery_name'
 			);
 		$query->select($actState);
-
 		$query->from('#__rsgallery2_files as a');
 
 		/* parent gallery name */
@@ -170,13 +176,18 @@ class Rsgallery2ModelImages extends JModelList
 		return $query;
 	}
 
+    /**
+     * Saves changed manual ordering of galleries
+     *
+     * @return bool
+     *
+     * @since 4.3.0
+     */
 	public function saveOrdering()
 	{
-		//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-		$msg     = "saveOrder: ";
-		$msgType = 'notice';
+        $IsSaved = false;
 
-		try
+        try
 		{
 
 			$input  = JFactory::getApplication()->input;
@@ -203,11 +214,17 @@ class Rsgallery2ModelImages extends JModelList
 					->where(array($db->quoteName('id') . '=' . $id));
 
 				$result = $db->execute();
-				//$msg .= "<br>" . "Query : " . $query->__toString();
-				//$msg .= "<br>" . 'Query  $result: : ' . json_encode($result);
+                if (empty($result))
+                {
+                    break;
+                }
 			}
-			// $msg .= "<br>";
-			$msg .= JText::_('COM_RSGALLERY2_NEW_ORDERING_SAVED');
+            if (!empty($result))
+            {
+                $IsSaved = true;
+            }
+
+            // parent::reorder();
 		}
 		catch (RuntimeException $e)
 		{
@@ -219,26 +236,31 @@ class Rsgallery2ModelImages extends JModelList
 			$app->enqueueMessage($OutTxt, 'error');
 		}
 
-		return $msg;
+        return $IsSaved;
 	}
 
+    /**
+     * Saves changed manual ordering of galleries
+     *
+     * @return bool
+     *
+     * @since 4.3.0
+     */
 	public function resetHits()
 	{
-		//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
-		//$msg = "resetHits: ";
-		$result = false;
+		$IsSaved = false;
 
 		try
 		{
 
 			$input = JFactory::getApplication()->input;
-			$cid   = $input->get('cid', array(), 'ARRAY');
+			$cids   = $input->get('cid', array(), 'ARRAY');
 
-			if (count($cid) > 0)
+			if (count($cids) > 0)
 			{
 
 				//Reset hits
-				$cids = implode(',', $cid);
+				$cids = implode(',', $cids);
 
 				$db    = JFactory::getDBO();
 				$query = $db->getQuery(true);
@@ -256,7 +278,7 @@ class Rsgallery2ModelImages extends JModelList
 					->where($conditions);
 
 				$db->setQuery($query);
-				$result = $db->execute();
+				$IsSaved = $db->execute();
 
 				/**
 				 *
@@ -288,12 +310,14 @@ class Rsgallery2ModelImages extends JModelList
 		}
 		catch (RuntimeException $e)
 		{
-			$ErrTxt = 'Error executing model resetHits: "' . '<br>';
-			$ErrTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-			throw new Exception(JText::_($ErrTxt), 2, $e);
+            $OutTxt = 'Error executing model resetHits: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
 		}
 
-		return $result;
+		return $IsSaved;
 	}
 
 	/**
@@ -331,6 +355,8 @@ class Rsgallery2ModelImages extends JModelList
 	 * @param int $limit > 0 will limit the number of lines returned
 	 *
 	 * @return array rows with image name, gallery name, date, and user name as rows
+     *
+     * @since   4.3.0
 	 */
 	static function latestImages($limit)
 	{
@@ -342,22 +368,10 @@ class Rsgallery2ModelImages extends JModelList
 			$db    = JFactory::getDBO();
 			$query = $db->getQuery(true);
 
-			//$query = 'SELECT * FROM `#__rsgallery2_files` WHERE (`date` >= '. $database->quote($lastweek)
-			//	.' AND `published` = 1) ORDER BY `id` DESC LIMIT 0,5';
-
 			$query
 				->select('*')
 				->from($db->quoteName('#__rsgallery2_files'))
 				->order($db->quoteName('id') . ' DESC');
-
-			/*   ==>  setQuery($query, $offset = 0, $limit = 0)
-			// $limit > 0 will limit the number of lines returned
-			if ($limit && (int) $limit > 0)
-			{
-				$query->setLimit($limit);
-			}
-			$db->setQuery($query);
-			/**/
 
 			$db->setQuery($query, 0, $limit);
 			$rows = $db->loadObjectList();
@@ -379,7 +393,7 @@ class Rsgallery2ModelImages extends JModelList
 		catch (RuntimeException $e)
 		{
 			$OutTxt = '';
-			$OutTxt .= 'latestImageses: Error executing query: "' . $query . '"' . '<br>';
+			$OutTxt .= 'latestImages: Error executing query: "' . $query . '"' . '<br>';
 			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
 			$app = JFactory::getApplication();
@@ -395,6 +409,8 @@ class Rsgallery2ModelImages extends JModelList
 	 * @param int $limit > 0 will limit the number of lines returned
 	 *
 	 * @return array rows with image name, gallery name, date, and user name as rows
+     *
+     * @since   4.3.0
 	 */
 	public static function lastWeekImages($limit)
 	{
@@ -416,15 +432,6 @@ class Rsgallery2ModelImages extends JModelList
 			->where($db->quoteName('date') . '> = ' . $db->quoteName($lastWeek))
 			->order($db->quoteName('id') . ' DESC');
 
-		/*   ==>  setQuery($query, $offset = 0, $limit = 0)
-		// $limit > 0 will limit the number of lines returned
-		if ($limit && (int) $limit > 0)
-		{
-			$query->setLimit($limit);
-		}
-		$db->setQuery($query);
-		/**/
-
 		$db->setQuery($query, 0, $limit);
 		$rows = $db->loadObjectList();
 
@@ -443,10 +450,13 @@ class Rsgallery2ModelImages extends JModelList
 	}
 
 	/**
+     * Count comments on image
+     *
 	 * @param $ImageId
-	 * returns the total number of items in the given gallery.
 	 *
-	 * @return int
+	 * @return int returns the total number of items in the given gallery.
+     *
+     * @since   4.3.0
 	 */
 	public static function getCommentCount($ImageId)
 	{
