@@ -412,27 +412,6 @@ class rsgallery2ModelGalleries extends JModelList
 		return $imageCount;
 	}
 
-	/**
-	 * @param $items : like items in $this->items = $this->get('Items');
-	 *               The assoc list shall enable to easily create an parent depth
-	 *               returns assoc list gallery_id -> parent
-	 *
-	 * @return list[]
-     *
-     * @since   4.3.0
-	 *
-	public static function createParentList($items)
-	{
-		$ParentReferences = new object;
-
-		foreach ($items as $item)
-		{
-			$ParentReferences [$item->id] = $item->parent;
-		}
-
-		return $ParentReferences;
-	}
-    /**/
 
 } // class
 

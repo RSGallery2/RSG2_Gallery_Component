@@ -29,7 +29,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 	 * @param       array  $config Configuration array for model. Optional.
 	 *
 	 * @return      JTable  A database object
-	 * @since       2.5
+	 * @since       4.3.0
 	 */
 	public function getTable($type = 'Image', $prefix = 'Rsgallery2Table', $config = array())
 	{
@@ -43,13 +43,12 @@ class Rsgallery2ModelImage extends JModelAdmin
 	 * @param       boolean $loadData True if the form is to load its own data (default case), false if not.
 	 *
 	 * @return      mixed   A JForm object on success, false on failure
-	 * @since       2.5
+	 * @since       4.3.0
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
 		$options = array('control' => 'jform', 'load_data' => $loadData);
-		$form    = $this->loadForm('com_rsgallery2.images', 'image',
-			array('control' => 'jform', 'load_data' => $loadData));
+		$form    = $this->loadForm('com_rsgallery2.images', 'image', $options);
 
 		if (empty($form))
 		{
@@ -63,7 +62,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 	 * Method to get the data that should be injected in the form.
 	 *
 	 * @return      mixed   The data for the form.
-	 * @since       2.5
+	 * @since       4.3.0
 	 */
 	protected function loadFormData()
 	{
@@ -78,27 +77,21 @@ class Rsgallery2ModelImage extends JModelAdmin
 		return $data;
 	}
 
-	// Transform some data before it is displayed ? Saved ?
-	/* extension development 129 bottom */
+    /**
+     * Transform some data before it is displayed ? Saved ?
+     * extension development 129 bottom
+     * 
+     * @param JTable $table
+     *
+     * @since 4.3.0
+     */
 	protected function prepareTable($table)
 	{
-		/**
-        $table->name = htmlspecialchars_decode ($table->name, ENT_Quotes);
-
-		$table->generateAlias();
-/**/
-
 		$date = JFactory::getDate()->toSql();
-
 		$table->name = htmlspecialchars_decode($table->name, ENT_QUOTES);
-
-		// $table->generateAlias();
 
 		if (empty($table->id))
 		{
-			// Set the values
-			$table->date = $date;
-
 			/**
             // Set ordering to the last item if not set
             if (empty($table->ordering))
@@ -119,6 +112,10 @@ class Rsgallery2ModelImage extends JModelAdmin
 	        /**/
 
 			$table->ordering = $table->getNextOrder('gallery_id = ' . (int) $table->gallery_id); // . ' AND state >= 0');
+
+            // Set the values
+            $table->date = $date;
+            $table->uid  = JFactory::getUser()->id;
 		}
 		else
 		{
@@ -137,6 +134,8 @@ class Rsgallery2ModelImage extends JModelAdmin
 	 * @param   object $table A record object.
 	 *
 	 * @return  array   An array of conditions to add to add to ordering queries.
+     *
+     * @since 4.3.0
 	 */
 	protected function getReorderConditions($table)
 	{
@@ -147,17 +146,13 @@ class Rsgallery2ModelImage extends JModelAdmin
 	}
 
 	/**
-	 * function edit -> checkout .... http://joomla.stackexchange.com/questions/5333/how-is-content-locking-handled-in-custom-components
-	 */
-
-	/**
 	 * Method to save the form data.
 	 *
 	 * @param   array $data The form data.
 	 *
 	 * @return  boolean  True on success.
-	 *
-	 * @since   1.6
+     *
+     * @since 4.3.0
 	 */
 	public function save($data)
 	{
@@ -255,8 +250,8 @@ class Rsgallery2ModelImage extends JModelAdmin
 	 * @param   string $name image name.
 	 *
 	 * @return    array  Contains the modified title and alias.
-	 *
-	 * @since    12.2
+     *
+     * @since 4.3.0
 	 */
 	protected function generateNewImageName($name)
 	{
@@ -276,23 +271,22 @@ class Rsgallery2ModelImage extends JModelAdmin
 		return $name;
 	}
 
-	// ToDo: try to do it more elegant 
-	// Called by maintenance -> Consolidate image database
-	// load table (? may init all varioables )
-	// Change what is necessary and use save see above
-
+    /**
+     * Create a new item in database for image 
+     * 
+     * @param $imageName
+     *
+     * @return bool true if successful
+     *
+     * @since 4.3.0
+     */
 	public function createImageDbItem($imageName)
 	{
 		$IsImageDbCreated = false;
 
-		//$OutTxt = 'Model Image: CreateImage "' . $imageName . '"  ';
-		//JFactory::getApplication()->enqueueMessage($OutTxt, 'notice');
-
+		// Create new item
 		$item = $this->getTable();
 		$item->load(0);
-
-		// $item->gallery_id= $galleryId;
-		// $item->ordering = maxOrdering ($galleryId);;
 
 		$user         = JFactory::getUser();
 		$userId       = $user->id;
@@ -337,11 +331,11 @@ class Rsgallery2ModelImage extends JModelAdmin
 
 		if (!$item->store())
 		{
-			// toDO: collect erorrs and display over enque .... with errr type
+			// ToDo: collect erorrs and display over enque .... with errr type
 			$UsedNamesText = '<br>SrcImage: ' . $fileName . '<br>DstImage: ' . $item->name;
 			JFactory::getApplication()->enqueueMessage(JText::_('copied image name could not be inseted in database') . $UsedNamesText, 'warning');
 
-			$IsImageDbCreated = false;
+			// $IsImageDbCreated = false;
 
 			$this->setError($this->_db->getErrorMsg());
 		}
@@ -355,12 +349,12 @@ class Rsgallery2ModelImage extends JModelAdmin
 	}
 
 	/**
-	 * moveImagesTo ()
+	 * Move already defined images to a different gallery
+	 * in database and care for new ordering
 	 *
-	 * Move already defined images to different gallery
-	 * Both database and image files will be moved
-	 *
-	 * @return bool
+	 * @return bool true if successful
+     *
+     * @since 4.3.0
 	 */
 	public function moveImagesTo()
 	{
@@ -397,17 +391,11 @@ class Rsgallery2ModelImage extends JModelAdmin
 						}
 
 						$item->gallery_id = $NewGalleryId;
-						$item->ordering   = $this->maxOrdering($NewGalleryId);
-
-						/**
-						 * $user = JFactory::getUser();
-						 * $userId = $user->id;
-						 * $item->userid  = $userId;
-						 * /***/
+						$item->ordering   = $this->nextOrdering($NewGalleryId);
 
 						if (!$item->store())
 						{
-							// toDO: collect erorrs and display over enque .... with errr type
+							// ToDo: collect erorrs and display over enque .... with errr type
 
 							$this->setError($this->_db->getErrorMsg());
 
@@ -442,9 +430,19 @@ class Rsgallery2ModelImage extends JModelAdmin
 		return $IsMoved;
 	}
 
-	public function maxOrdering($GalleryId)
+    /**
+     * Return the next ordering for a new image in selected galllery
+     * (Max known ordering +1)
+     *
+     * @param $GalleryId
+     *
+     * @return int next ordering, 1 on error
+     *
+     * @since 4.3.0
+     */
+	private function nextOrdering($GalleryId)
 	{
-		$max = 0;
+        $max = 0;
 
 		try
 		{
@@ -454,26 +452,30 @@ class Rsgallery2ModelImage extends JModelAdmin
 				->from($db->quoteName('#__rsgallery2_files'))
 				->where($db->quoteName('gallery_id') . ' = ' . $db->quote($GalleryId));
 			$db->setQuery($query);
-			$max = $db->loadResult();
+            $max = $db->loadResult();
 		}
 		catch (RuntimeException $e)
 		{
 			$OutTxt = '';
-			$OutTxt .= 'Error executing maxOrdering for GalleryId: "' . $GalleryId . '"<br>';
+			$OutTxt .= 'Error executing nextOrdering for GalleryId: "' . $GalleryId . '"<br>';
 			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
 			$app = JFactory::getApplication();
 			$app->enqueueMessage($OutTxt, 'error');
 		}
 
-		return $max + 1;
+		$next = $max +1;
+
+		return $next;
 	}
 
 	/**
-	 * Copy already defined images to different gallery
+	 * Copy already defined images to a different gallery
 	 * Both database and image file will be copied
 	 *
-	 * @return bool
+	 * @return bool 1 if successful
+     *
+     * @since 4.3.0
 	 */
 	public function copyImagesTo()
 	{
@@ -537,7 +539,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 						$dstFile           = $fullPath_original . $item->name;
 						if (!copy($srcFile, $dstFile))
 						{
-							// toDo: what todo if it fails ?
+							// ToDo: what ToDo if it fails ?
 							$UsedNamesText = '<br>SrcPath: ' . $srcFile . '<br>DstPath: ' . $srcFile;
 							JFactory::getApplication()->enqueueMessage(JText::_('Original image could not be copied') . $UsedNamesText, 'warning');
 						}
@@ -553,7 +555,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 						$dstFile          = $fullPath_display . $item->name . '.jpg';
 						if (!copy($srcFile, $dstFile))
 						{
-							// toDo: what todo if it fails ?
+							// ToDo: what ToDo if it fails ?
 							$UsedNamesText = '<br>SrcPath: ' . $srcFile . '<br>DstPath: ' . $srcFile;
 							JFactory::getApplication()->enqueueMessage(JText::_('Display image could not be copied') . $UsedNamesText, 'error');
 
@@ -570,7 +572,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 						$dstFile        = $fullPath_thumb . $item->name . '.jpg';
 						if (!copy($srcFile, $dstFile))
 						{
-							// toDo: what todo if it fails ?
+							// ToDo: what ToDo if it fails ?
 							$UsedNamesText = '<br>SrcPath: ' . $srcFile . '<br>DstPath: ' . $srcFile;
 							JFactory::getApplication()->enqueueMessage(JText::_('Thumb image could not be copied') . $UsedNamesText, 'warning');
 						}
@@ -580,12 +582,12 @@ class Rsgallery2ModelImage extends JModelAdmin
 						//----------------------------------------------------
 
 						$item->gallery_id = $NewGalleryId;
-						$item->ordering   = $this->maxOrdering($NewGalleryId);
+						$item->ordering   = $this->nextOrdering($NewGalleryId);
 						$item->id         = 0; // it is new item
 
 						if (!$item->store())
 						{
-							// toDO: collect erorrs and display over enque .... with errr type
+							// ToDo: collect erorrs and display over enque .... with errr type
 							$UsedNamesText = '<br>SrcImage: ' . $oldName . '<br>DstImage: ' . $item->name;
 							JFactory::getApplication()->enqueueMessage(JText::_('copied image name could not be inseted in database') . $UsedNamesText, 'warning');
 
@@ -752,7 +754,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 	 * @param int    $targetWidth width of target
 	 *
 	 * @return $targetWidth, true if successfull, false if error
-	 * @todo   only writes in JPEG, this should be given as a user option
+	 * @ToDo   only writes in JPEG, this should be given as a user option
 	 */
 	static function resizeImage($imgSrcPath, $imgDstPath, $targetWidth)
 	{
@@ -808,7 +810,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 
 			$thumbWidth = $rsgConfig->get('thumb_width');
 
-			// Is thumb style square // Todo: Thumb style -> enum  // Todo: general: Config enums
+			// Is thumb style square // ToDo: Thumb style -> enum  // ToDo: general: Config enums
 			if ($rsgConfig->get('thumb_style') == 1 && $rsgConfig->get('graphicsLib') == 'gd2')
 			{
 				// google GD2 crop square

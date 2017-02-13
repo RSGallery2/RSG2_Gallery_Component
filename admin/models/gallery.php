@@ -11,13 +11,15 @@
 defined('_JEXEC') or die;
 
 /**
- *
+ * Class Rsgallery2ModelGallery
  *
  * @since 4.3.0
  */
 class Rsgallery2ModelGallery extends JModelAdmin
 {
-	/**
+    protected $text_prefix = 'COM_RSGALLERY2';
+
+    /**
 	 * Returns a reference to the a Table object, always creating it.
 	 *
 	 * @param       string $type   The table type to instantiate
@@ -25,7 +27,7 @@ class Rsgallery2ModelGallery extends JModelAdmin
 	 * @param       array  $config Configuration array for model. Optional.
 	 *
 	 * @return      JTable  A database object
-	 * @since       2.5
+	 * @since       4.3.0
 	 */
 	public function getTable($type = 'Gallery', $prefix = 'Rsgallery2Table', $config = array())
 	{
@@ -39,7 +41,7 @@ class Rsgallery2ModelGallery extends JModelAdmin
 	 * @param       boolean $loadData True if the form is to load its own data (default case), false if not.
 	 *
 	 * @return      mixed   A JForm object on success, false on failure
-	 * @since       2.5
+	 * @since       4.3.0
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
@@ -58,7 +60,7 @@ class Rsgallery2ModelGallery extends JModelAdmin
 	 * Method to get the data that should be injected in the form.
 	 *
 	 * @return      mixed   The data for the form.
-	 * @since       2.5
+	 * @since       4.3.0
 	 */
 	protected function loadFormData()
 	{
@@ -73,15 +75,18 @@ class Rsgallery2ModelGallery extends JModelAdmin
 		return $data;
 	}
 
-	// Transform some data before it is displayed
-	/* extension development 129 bottom  */
+    /**
+     * Transform some data before it is displayed ? Saved ?
+     * extension development 129 bottom
+     *
+     * @param JTable $table
+     *
+     * @since 4.3.0
+     */
 	protected function prepareTable($table)
 	{
 		$date = JFactory::getDate()->toSql();
-
 		$table->name = htmlspecialchars_decode($table->name, ENT_QUOTES);
-
-		// $table->generateAlias();
 
 		if (empty($table->id))
 		{
@@ -129,6 +134,8 @@ class Rsgallery2ModelGallery extends JModelAdmin
 	 * @param   object $table A record object.
 	 *
 	 * @return  array   An array of conditions to add to add to ordering queries.
+     *
+     * @since 4.3.0
 	 */
 	protected function getReorderConditions($table)
 	{
@@ -139,17 +146,13 @@ class Rsgallery2ModelGallery extends JModelAdmin
 	}
 
 	/**
-	 * function edit -> checkout .... http://joomla.stackexchange.com/questions/5333/how-is-content-locking-handled-in-custom-components
-	 */
-
-	/**
 	 * Method to save the form data.
 	 *
 	 * @param   array $data The form data.
 	 *
 	 * @return  boolean  True on success.
-	 *
-	 * @since   1.6
+     *
+     * @since 4.3.0
 	 */
 	public function save($data)
 	{
@@ -234,8 +237,8 @@ class Rsgallery2ModelGallery extends JModelAdmin
 	 * @param   string  $title       The title.
 	 *
 	 * @return    array  Contains the modified title and alias.
-	 *
-	 * @since    12.2
+     *
+     * @since 4.3.0
 	 */
 	protected function generateNewTitle($dummy, $alias, $title)
 	{
