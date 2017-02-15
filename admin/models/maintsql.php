@@ -196,7 +196,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 	 *
 	 * @param string $tableName
 	 *
-	 * @return bool
+	 * @return bool true if successful 
 	 */
 	public function IsSqlTableExisting($tableName)
 	{
@@ -220,7 +220,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 	 *
 	 * @param string $tableName
 	 *
-	 * @return bool success of delete
+	 * @return bool true if successful
 	 */
 	private function deleteTable($tableName)
 	{
@@ -241,7 +241,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 	 * @param string $tableName
 	 * @param string $columnName
 	 *
-	 * @return bool
+	 * @return bool true if successful
 	 */
 	private function IsColumnExisting($tableName, $columnName)
 	{
@@ -263,7 +263,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 	 * @param string $columnName
 	 * @param string $columnProperties
 	 *
-	 * @return bool
+	 * @return bool  true if successful
 	 */
 	public function createSqlFileColumn($tableName, $columnName, $columnProperties)
 	{
@@ -413,7 +413,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 	 * @param        $sqlFile
 	 * ToDo: Remove messages (should be generated in calling functions
 	 *
-	 * @return boolean
+	 * @return bool true if successful
 	 */
 	public function createSqlFileTable($tableName, $sqlFile)
 	{

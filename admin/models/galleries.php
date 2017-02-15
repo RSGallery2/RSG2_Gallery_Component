@@ -198,7 +198,7 @@ class rsgallery2ModelGalleries extends JModelList
 	/**
 	 * Saves changed manual ordering of galleries
 	 *
-     * @return bool
+     * @return bool true if successful
      *
      * @since 4.3.0
      */

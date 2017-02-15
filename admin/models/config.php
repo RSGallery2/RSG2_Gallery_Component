@@ -28,7 +28,7 @@ class Rsgallery2ModelConfig extends JModelAdmin
 	/**
 	 * retrieves state if debug is activated on user config
 	 *
-	 * @return bool
+	 * @return bool true when set in config data
 	 */
 	/*
     public static function getIsDebugActive()

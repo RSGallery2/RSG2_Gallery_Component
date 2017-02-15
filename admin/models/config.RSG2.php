@@ -104,7 +104,7 @@ class rsg2ModelConfig extends JModelAdmin
 	/**
 	 * Tells if debug is activated on user config
 	 *
-	 * @return bool
+	 * @return bool true if activated
 	 */
 	public static function getDebugActive()
 	{

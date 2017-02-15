@@ -179,7 +179,7 @@ class Rsgallery2ModelImages extends JModelList
     /**
      * Saves changed manual ordering of galleries
      *
-     * @return bool
+     * @return bool true if successful
      *
      * @since 4.3.0
      */
@@ -242,7 +242,7 @@ class Rsgallery2ModelImages extends JModelList
     /**
      * Saves changed manual ordering of galleries
      *
-     * @return bool
+     * @return bool true if successful
      *
      * @since 4.3.0
      */

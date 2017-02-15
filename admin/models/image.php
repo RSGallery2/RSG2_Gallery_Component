@@ -473,7 +473,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 	 * Copy already defined images to a different gallery
 	 * Both database and image file will be copied
 	 *
-	 * @return bool 1 if successful
+	 * @return bool true if successful
      *
      * @since 4.3.0
 	 */
@@ -587,11 +587,8 @@ class Rsgallery2ModelImage extends JModelAdmin
 
 						if (!$item->store())
 						{
-							// ToDo: collect erorrs and display over enque .... with errr type
 							$UsedNamesText = '<br>SrcImage: ' . $oldName . '<br>DstImage: ' . $item->name;
-							JFactory::getApplication()->enqueueMessage(JText::_('copied image name could not be inseted in database') . $UsedNamesText, 'warning');
-
-							$this->setError($this->_db->getErrorMsg());
+							JFactory::getApplication()->enqueueMessage(JText::_('copied image name could not be inseted in database') . $UsedNamesText, 'error');
 
 							// return false;
 							$IsOneNotCopied = false;
@@ -633,6 +630,16 @@ class Rsgallery2ModelImage extends JModelAdmin
 		return $IsOneCopied;
 	}
 
+    /**
+     * Assign given image (by id) a gallery (by id)
+     *
+     * @param int $imageId
+     * @param int $galleryId
+     *
+     * @return bool true if successful
+     *
+     * @since 4.3.0
+     */
 	public function assignGalleryId($imageId, $galleryId)
 	{
 		$IsGalleryAssigned = false;
@@ -670,6 +677,15 @@ class Rsgallery2ModelImage extends JModelAdmin
 		return $IsGalleryAssigned;
 	}
 
+    /**
+     * Retrieve image id by image name
+     *
+     * @param $imageName
+     *
+     * @return int image id
+     *
+     * @since version
+     */
 	public function ImageIdFromName($imageName)
 	{
 		$imageId = 0;
@@ -682,6 +698,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 				->from($db->quoteName('#__rsgallery2_files'))
 				->where($db->quoteName('name') . ' = ' . $db->quote($imageName));
 			$db->setQuery($query);
+
 			$imageId = $db->loadResult();
 		}
 		catch (RuntimeException $e)
@@ -697,6 +714,16 @@ class Rsgallery2ModelImage extends JModelAdmin
 		return $imageId;
 	}
 
+
+    /**
+     * yyyy
+     *
+     * @param $imageName
+     *
+     * @return bool
+     *
+     * @since 4.3.0
+     */
 	public function createDisplayImageFile($imageName)
 	{
 		global $rsgConfig;
@@ -705,7 +732,6 @@ class Rsgallery2ModelImage extends JModelAdmin
 
 		try
 		{
-
 			$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $imageName;
 			$imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $imageName . '.jpg';
 
@@ -756,6 +782,15 @@ class Rsgallery2ModelImage extends JModelAdmin
 	 * @return $targetWidth, true if successfull, false if error
 	 * @ToDo   only writes in JPEG, this should be given as a user option
 	 */
+    /**
+     * @param $imgSrcPath
+     * @param $imgDstPath
+     * @param $targetWidth
+     *
+     * @return bool
+     *
+     * @since 4.3.0
+     */
 	static function resizeImage($imgSrcPath, $imgDstPath, $targetWidth)
 	{
 		global $rsgConfig;
@@ -797,6 +832,13 @@ class Rsgallery2ModelImage extends JModelAdmin
 		return $IsImageCreated;
 	}
 
+    /**
+     * @param $imageName
+     *
+     * @return bool
+     *
+     * @since 4.3.0
+     */
 	public function createThumbImageFile($imageName)
 	{
 		global $rsgConfig;
@@ -857,6 +899,15 @@ class Rsgallery2ModelImage extends JModelAdmin
 	 * createSquareThumb
 	 * Just a container for try catch
 	 */
+    /**
+     * @param $imgSrcPath
+     * @param $imgDstPath
+     * @param $width
+     *
+     * @return bool
+     *
+     * @since 4.3.0
+     */
 	private function GD2_createSquareThumb($imgSrcPath, $imgDstPath, $width)
 	{
 		$IsImageCreated = false;
@@ -878,6 +929,15 @@ class Rsgallery2ModelImage extends JModelAdmin
 		return $IsImageCreated;
 	}
 
+    /**
+     *
+     *
+     * @param $imageName
+     *
+     * @return bool|mixed
+     *
+     * @since 4.3.0
+     */
 	public function deleteImageDbItem($imageName)
 	{
 		$IsRowDeleted = false;
@@ -906,7 +966,16 @@ class Rsgallery2ModelImage extends JModelAdmin
 		return $IsRowDeleted;
 	}
 
-	/**
+    /**
+     * prepared: Create a watermark image file
+     *
+     * @param $imageName
+     *
+     * @return bool
+     *
+     * @since 4.3.0
+     */
+    /**
     public function createWaterMarkImageFile ($imageName)
     {
     global $rsgConfig;

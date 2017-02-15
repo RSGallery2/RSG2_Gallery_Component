@@ -247,8 +247,8 @@ class Rsgallery2ModelGallery extends JModelAdmin
 
 		while ($table->load(array('alias' => $alias)))
 		{
-			$title = JString::increment($title);
-			$alias = JString::increment($alias, 'dash');
+            $title = StringHelper::increment($title);
+            $alias = StringHelper::increment($alias, 'dash');
 		}
 
 		return array($title, $alias);

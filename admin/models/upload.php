@@ -102,9 +102,9 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	}
 
 	/**
-	 * retrieves state if the latest gallery shall be preseleted for upload
+	 * Returns state of config variable 'if the latest gallery shall be preseleted for upload'
 	 *
-	 * @return bool
+	 * @return bool true when set in config data
      *
      * @since 4.3.0
 	 */
@@ -193,9 +193,9 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	}
 
 	/**
-	 * retrieves state if the latest gallery shall be preselected for upload
+	 * Returns state of config variable 'if the latest gallery shall be preselected for upload'
 	 *
-	 * @return bool
+	 * @return bool true when set in config data
      *
      * @since 4.3.0
 	 */

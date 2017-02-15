@@ -81,7 +81,7 @@ class rsgallery2ModelMaintConsolidateDB extends JModelList
 	/**
 	 * Tells if watermark is activated on user config
 	 *
-	 * @return bool
+	 * @return bool true when set in config data
 	 */
 	public function IsWatermarkActive()
 	{
