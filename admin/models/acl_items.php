@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 /**
  * ToDo: Acl ... is not ready yet -> improve / delete
  *
- * CommentsList Model
+ * acl list model
  *
  * @since 4.3.0
  */

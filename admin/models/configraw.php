@@ -15,6 +15,7 @@ jimport('joomla.application.component.modeladmin');
 jimport('joomla.application.component.helper');
 
 /**
+ * Handle RAW display of configuration
  *
  *
  * @since 4.3.0
@@ -31,40 +32,29 @@ class Rsgallery2ModelConfigRaw extends JModelList
 	// save raw ...
 	public function save()
 	{
+	    // ToDO: Move message to controller, return true or false
+
 		$msg = "Rsgallery2ModelConfigRaw: ";
 
 		$input = JFactory::getApplication()->input;
 		//$jform = $input->get( 'jform', array(), 'ARRAY');
 		$data = $input->post->get('jform', array(), 'array');
 
-//		echo json_encode ($jform);
-		/*
-				// Complete data array if needed
-				$oldData = $model->getData();
-				$data = array_replace($oldData, $data);
-		*/
-
-// ToDo: Remove bad injected code		
+        // ToDo: Remove bad injected code
 
 		$row = $this->getTable();
 		foreach ($data as $key => $value)
 		{
-			/*
-			fill an array, bind and check and store ?
-			 */
+            // fill an array, bind and check and store ?
 			$row->id    = null;
 			$row->name  = $key;
 			$row->value = $value;
 			$row->id    = null;
 
-//			$msg .= '    name = ' . $key . ' value = ' . $value . '<br>';
-
 			$row->check();
 			$row->store();
-
 		}
 
 		return $msg;
 	}
-
 }

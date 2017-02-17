@@ -20,7 +20,9 @@ class Rsgallery2ModelComments extends JModelList
     /**
      * Create list of usable filter fields
      *
-     * @param array $config
+     * @param array $config Field on which be sorting is available
+     *
+     * @since 4.3.0
      */
 	public function __construct($config = array())
 	{
@@ -59,7 +61,7 @@ class Rsgallery2ModelComments extends JModelList
 	 *
 	 * @return  void
 	 *
-	 * @since   4.3
+	 * @since   4.3.0
 	 */
 	protected function populateState($ordering = 'a.id', $direction = 'desc')
 	{
@@ -106,7 +108,9 @@ class Rsgallery2ModelComments extends JModelList
 	/**
 	 * Method to build an SQL query to load the list data.
 	 *
-	 * @return      string  An SQL query
+	 * @return  string  An SQL query
+     *
+     * @since   4.3.0
 	 */
 	protected function getListQuery()
 	{

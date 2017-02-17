@@ -15,13 +15,15 @@ jimport('joomla.application.component.modeladmin');
 jimport('joomla.application.component.helper');
 
 /**
- *
+ * Configuration model
  *
  * @since 4.3.0
  */
 class Rsgallery2ModelConfig extends JModelAdmin
 {
-	//protected $text_prefix = 'COM_RSGallery2';
+    protected $text_prefix = 'COM_RSGALLERY2';
+
+    //protected $text_prefix = 'COM_RSGallery2';
 	//protected $text_prefix = 'RSGallery2';
 	protected $IsDebugActive;
 
@@ -55,7 +57,7 @@ class Rsgallery2ModelConfig extends JModelAdmin
 	 * @param       array  $config Configuration array for model. Optional.
 	 *
 	 * @return      JTable  A database object
-	 * @since       2.5
+	 * @since       4.3.0
 	 */
 	public function getTable($type = 'Config', $prefix = 'Rsgallery2Table', $config = array())
 	{
@@ -69,7 +71,7 @@ class Rsgallery2ModelConfig extends JModelAdmin
 	 * @param       boolean $loadData True if the form is to load its own data (default case), false if not.
 	 *
 	 * @return      mixed   A JForm object on success, false on failure
-	 * @since       2.5
+	 * @since       4.3.0
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
@@ -88,7 +90,8 @@ class Rsgallery2ModelConfig extends JModelAdmin
 	 * Method to get the data that should be injected in the form.
 	 *
 	 * @return      mixed   The data for the form.
-	 * @since       2.5
+     *
+	 * @since        4.3.0
 	 */
 	protected function loadFormData()
 	{
@@ -110,7 +113,11 @@ class Rsgallery2ModelConfig extends JModelAdmin
 
 	/**
 	 * Binds the global configuration variables to the class properties
-	 */
+     *
+     * @return array empty or associative name -> value
+     *
+     * @since  4.3.0
+     */
 	public function loadConfig()
 	{
 		$data = array();
@@ -155,7 +162,7 @@ class Rsgallery2ModelConfig extends JModelAdmin
 			$data['exifTags'] = explode('|', $data['exifTags']);
 		}
 
-		/**        if (isset ($data['allowedFileTypes'])) {
+		/**  if (isset ($data['allowedFileTypes'])) {
 		 * $data['allowedFileTypes'] = explode (',', $data['allowedFileTypes']);
 		 * }
 		 **/
@@ -163,9 +170,16 @@ class Rsgallery2ModelConfig extends JModelAdmin
 		return $data;
 	}
 
+    /**
+     * Transform some data before it is displayed ? Saved ?
+     * extension development 129 bottom
+     *
+     * @param JTable $table
+     *
+     * @since 4.3.0
+     */
 
-	// Transform some data before it is displayed
-	/* extension development 129 bottom  */
+    /** ToDo: */
 	protected function prepareTable($table)
 	{
 		// $table->title		= htmlspecialchars_decode($table->title, ENT_QUOTES);
@@ -217,13 +231,15 @@ class Rsgallery2ModelConfig extends JModelAdmin
 /**/
 
 	/**
+     * Save of variables. Does handle special variables like exif types
+     *
 	 * Method to save the form data.
 	 *
 	 * @param   array $data The form data.
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @since   1.6
+	 * @since   4.3.0
 	 */
 	public function save($data)
 	{
@@ -239,7 +255,6 @@ class Rsgallery2ModelConfig extends JModelAdmin
 
 		try
 		{
-
 			// Special variables
 			$row = $this->getTable();
 			foreach ($data as $key => $value) #foreach ($input as $key => $value)

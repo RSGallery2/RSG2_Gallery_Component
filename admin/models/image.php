@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 use Joomla\Utilities\ArrayHelper;
 
 /**
- * Class Rsgallery2ModelImage
+ * Single image model
  *
  * @since 4.3.0
  */
@@ -716,11 +716,11 @@ class Rsgallery2ModelImage extends JModelAdmin
 
 
     /**
-     * yyyy
+     * Creates a display image with size from config
      *
      * @param $imageName
      *
-     * @return bool
+     * @return bool  true if successful
      *
      * @since 4.3.0
      */
@@ -773,21 +773,14 @@ class Rsgallery2ModelImage extends JModelAdmin
 	}
 
 	/**
-	 * generic image resize function
+	 * Generic image resize function
+     * Uses in config defined grafic library
 	 *
 	 * @param string $source      full path of source image
 	 * @param string $target      full path of target image
 	 * @param int    $targetWidth width of target
 	 *
-	 * @return $targetWidth, true if successfull, false if error
-	 * @ToDo   only writes in JPEG, this should be given as a user option
-	 */
-    /**
-     * @param $imgSrcPath
-     * @param $imgDstPath
-     * @param $targetWidth
-     *
-     * @return bool
+     * @return bool true if successful
      *
      * @since 4.3.0
      */
@@ -833,9 +826,11 @@ class Rsgallery2ModelImage extends JModelAdmin
 	}
 
     /**
+     * Creates a thumb image with size from config
+     *
      * @param $imageName
      *
-     * @return bool
+     * @return bool true if successful
      *
      * @since 4.3.0
      */
@@ -861,8 +856,8 @@ class Rsgallery2ModelImage extends JModelAdmin
 				$IsImageCreated = $this->GD2_createSquareThumb($imgSrcPath, $imgDstPath, $thumbWidth);
 			}
 			else
-			{ //
-
+			{
+			    // ToDo: Check for square thumb functions and use them
 				// google: ImageMagick square thumb // imagemagick crop square
 
 				//http://superuser.com/questions/275476/square-thumbnails-with-imagemagick-convert/
@@ -896,15 +891,14 @@ class Rsgallery2ModelImage extends JModelAdmin
 	}
 
 	/**
-	 * createSquareThumb
-	 * Just a container for try catch
-	 */
-    /**
+	 * Use GD2 funtion to create a square thumb
+	 * Does encapsulate the gd2 library call with try catch
+     *
      * @param $imgSrcPath
      * @param $imgDstPath
      * @param $width
      *
-     * @return bool
+     * @return bool true if successful
      *
      * @since 4.3.0
      */
@@ -930,11 +924,11 @@ class Rsgallery2ModelImage extends JModelAdmin
 	}
 
     /**
-     *
+     * Delte database entry (item) for given image name
      *
      * @param $imageName
      *
-     * @return bool|mixed
+     * @return bool true if successful
      *
      * @since 4.3.0
      */

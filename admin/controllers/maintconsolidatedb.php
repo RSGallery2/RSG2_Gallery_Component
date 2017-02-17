@@ -24,6 +24,8 @@ if ($Rsg2DebugActive)
 jimport('joomla.application.component.controlleradmin');
 
 /**
+ * maintenance consolidate image database
+ *
  * Checks for all appearances of a images as file or in database
  * On missing database entries or files the user gets a list
  * to choose which part to fix

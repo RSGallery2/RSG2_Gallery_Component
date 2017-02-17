@@ -11,7 +11,7 @@
 defined('_JEXEC') or die;
 
 /**
- *
+ * Class Rsgallery2ModelComment
  *
  * @since 4.3.0
  */
@@ -27,7 +27,7 @@ class Rsgallery2ModelComment extends JModelAdmin
 	 * @param       array  $config Configuration array for model. Optional.
 	 *
 	 * @return      JTable  A database object
-	 * @since       2.5
+	 * @since       4.3.0
 	 */
 	public function getTable($type = 'Comment', $prefix = 'Rsgallery2Table', $config = array())
 	{
@@ -41,7 +41,7 @@ class Rsgallery2ModelComment extends JModelAdmin
 	 * @param       boolean $loadData True if the form is to load its own data (default case), false if not.
 	 *
 	 * @return      mixed   A JForm object on success, false on failure
-	 * @since       2.5
+	 * @since       4.3.0
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
@@ -60,7 +60,8 @@ class Rsgallery2ModelComment extends JModelAdmin
 	 * Method to get the data that should be injected in the form.
 	 *
 	 * @return      mixed   The data for the form.
-	 * @since       2.5
+     *
+	 * @since       4.3.0
 	 */
 	protected function loadFormData()
 	{
@@ -75,13 +76,14 @@ class Rsgallery2ModelComment extends JModelAdmin
 		return $data;
 	}
 
-	// Transform some data before it is displayed
-	/* extension development 129 bottom
-	protected function prepareTable ($table)
-	{
-		$table->title = htmlspecialchars_decode ($table->title, ENT_Quotes);
-	}
-	*/
+    /**
+     * Transform some data before it is displayed ? Saved ?
+     * extension development 129 bottom
+     *
+     * @param JTable $table
+     *
+     * @since 4.3.0
+     */
 
 	/** ToDo: */
 	protected function prepareTable($table)

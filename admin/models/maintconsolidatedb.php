@@ -17,7 +17,11 @@ jimport('joomla.application.component.modeladmin');
 require_once(JPATH_COMPONENT_ADMINISTRATOR . '/classes/ImageReferences.php');
 
 /**
+ * maintenance consolidate image database
  *
+ * Checks for all appearances of a images as file or in database
+ * On missing database entries or files the user gets a list
+ * to choose which part to fix
  *
  * @since 4.3.0
  */
@@ -25,16 +29,24 @@ class rsgallery2ModelMaintConsolidateDB extends JModelList
 {
 
 	/**
+     * Image artefacts as list
+     * Each entry contains existing image objects where at least one is missing
+     *
 	 * @var ImageReferences
-	 */
+     *
+     * @since 4.3.0
+     */
 	protected $ImageReferences;
 
-	/**
-	 * @return ImageReferences
-	 */
+    /**
+     * Returns List of image "artefacts"
+     *
+     * @return ImageReferences
+     *
+     * @since 4.3.0
+     */
 	public function GetImageReferences()
 	{
-
 		if (empty($this->ImageReferences))
 		{
 			$this->CreateDisplayImageData();
@@ -44,10 +56,13 @@ class rsgallery2ModelMaintConsolidateDB extends JModelList
 	}
 
 	/**
-	 * Runs optimization for each table
+	 * Collects image artefacts as list
+     * Each entry contains existing image objects where at least one is missing
 	 *
 	 * @return string operation messages
-	 */
+     *
+     * @since 4.3.0
+     */
 	public function CreateDisplayImageData()
 	{
 		// ToDo: Instead of message return HasError;
@@ -82,7 +97,9 @@ class rsgallery2ModelMaintConsolidateDB extends JModelList
 	 * Tells if watermark is activated on user config
 	 *
 	 * @return bool true when set in config data
-	 */
+     *
+     * @since 4.3.0
+     */
 	public function IsWatermarkActive()
 	{
 		if (empty($this->IsWatermarkActive))
@@ -118,13 +135,13 @@ class rsgallery2ModelMaintConsolidateDB extends JModelList
 	/**
 	 * SelectedImageReferences
 	 *
-	 *
+	 * yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 	 *
 	 * throws exception
 	 *
 	 * @return array
 	 *
-	 * @since version
+	 * @since 4.3.0
 	 */
 	public function SelectedImageReferences()
 	{

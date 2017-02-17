@@ -20,7 +20,7 @@ class Rsgallery2ModelImages extends JModelList
     /**
      * Create list of usable filter fields
      *
-     * @param array $config Field on which be sorting is availble
+     * @param array $config Field on which be sorting is available
      *
      * @since 4.3.0
      */
@@ -109,7 +109,7 @@ class Rsgallery2ModelImages extends JModelList
 	/**
 	 * Method to build an SQL query to load the list data.
 	 *
-	 * @return      string  An SQL query
+	 * @return  string  An SQL query
      *
      * @since   4.3.0
 	 */

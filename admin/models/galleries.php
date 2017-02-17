@@ -20,7 +20,7 @@ class rsgallery2ModelGalleries extends JModelList
     /**
      * Create list of usable filter fields
      *
-     * @param array $config Field on which be sorting is availble
+     * @param array $config Field on which be sorting is available
      *
      * @since 4.3.0
      */

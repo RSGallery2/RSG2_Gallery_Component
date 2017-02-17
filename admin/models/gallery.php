@@ -11,7 +11,7 @@
 defined('_JEXEC') or die;
 
 /**
- * Class Rsgallery2ModelGallery
+ * Single GALLERY model
  *
  * @since 4.3.0
  */

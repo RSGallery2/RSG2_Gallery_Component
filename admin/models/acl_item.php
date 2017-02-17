@@ -12,6 +12,8 @@ defined('_JEXEC') or die;
 
 /**
  * ToDo: Acl ... is not ready yet -> improve / delete
+ * Single ACL model
+ *
  *
  * @since 4.3.0
  */
