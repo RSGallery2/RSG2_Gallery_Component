@@ -35,7 +35,6 @@ $userId = $user->id;
 		return aValue - bValue;
 	}
 
-
 	// :
 	jQuery(document).ready(function ($) {
 		//alert ("assign");
@@ -184,6 +183,10 @@ $userId = $user->id;
 								<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_IMAGES', 'image_count', $sortDirection, $sortColumn); ?>
 							</th>
 
+							<th width="1%" class="center">
+								<?php echo JHtml::_('searchtools.sort', 'XParentId', 'image_count', $sortDirection, $sortColumn); ?>
+							</th>
+
 							<th width="1%" class="center nowrap hidden-phone">
 								<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ACCESS', 'a.access', $sortDirection, $sortColumn); ?>
 							</th>
@@ -252,11 +255,8 @@ $userId = $user->id;
 							{
 								// $PreTitle = '[' . $parent->parent  . '] ' . $PreTitle ;
 								$PreTitle =
-									// '[' . $parent->parent  . '] '
-									//' ' . $parent->parent  . ' '
-									//'&nbsp;&nbsp;'
-									'&nbsp;—'
-									//. '<sub><span class="icon-arrow-right-3" style="font-size: 1.6em;"></span></sub>'
+									'&nbsp;<span class="icon-arrow-right-3"></span>'
+									. '(' . $parent->parent . ')'
 									. $PreTitle;
 								$Depth += 1;
 								$found = false;
@@ -267,24 +267,22 @@ $userId = $user->id;
 										$parent = $checkItem;
 										$found  = true;
 
-                                        $PreTitle .= '(' . $checkItem->id . ')';
-
 										break;
 									}
 								}
-
 
 								if (!$found)
 								{
 									break;
 								}
-
 							}
 
 							if ($PreTitle != '')
 							{
-								$PreTitle .= ' ';
-                                $PreTitle = ' <span class="icon-arrow-right-3"></span>' . $PreTitle;
+								//$PreTitle .= ' ';
+								//$PreTitle = '.   ' . $PreTitle . ' ';
+								$PreTitle = '&nbsp;&nbsp;&nbsp;&nbsp;' . $PreTitle . ' ';
+								// $PreTitle = ' <span class="icon-arrow-right-3"></span>' . $PreTitle;
 							}
 
 							/**
@@ -411,14 +409,18 @@ $userId = $user->id;
 										</a>
 
 										<a
-												href="<?php echo $link; ?>"
-												title="<?php echo JText::_('COM_RSGALLERY2_IMAGES_LIST'); ?>"
+											href="<?php echo $link; ?>"
+											title="<?php echo JText::_('COM_RSGALLERY2_IMAGES_LIST'); ?>"
 										>
 											<sub><span class="icon-arrow-right-2" style="font-size: 1.6em;"></span></sub>
 										</a>
 
 										<?php
 									} ?>
+								</td>
+
+								<td class="small hidden-phone center">
+									<?php echo $this->escape($item->parent); ?>
 								</td>
 
 								<td class="small hidden-phone center">
