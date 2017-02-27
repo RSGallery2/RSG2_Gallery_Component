@@ -135,7 +135,8 @@ class rsgallery2ModelMaintConsolidateDB extends JModelList
 	/**
 	 * SelectedImageReferences
 	 *
-	 * yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+     *
+yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 	 *
 	 * throws exception
 	 *

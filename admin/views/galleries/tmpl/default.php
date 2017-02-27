@@ -267,19 +267,24 @@ $userId = $user->id;
 										$parent = $checkItem;
 										$found  = true;
 
+                                        $PreTitle .= '(' . $checkItem->id . ')';
+
 										break;
 									}
 								}
+
 
 								if (!$found)
 								{
 									break;
 								}
+
 							}
 
 							if ($PreTitle != '')
 							{
 								$PreTitle .= ' ';
+                                $PreTitle = ' <span class="icon-arrow-right-3"></span>' . $PreTitle;
 							}
 
 							/**
