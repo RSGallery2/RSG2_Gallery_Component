@@ -175,9 +175,13 @@ class rsgallery2ModelGalleries extends JModelList
 
 		// Add the list ordering clause.
 
-		// changes need change above too -> populateState
-		$orderCol = $this->state->get('list.ordering', 'a.id');
-		// $orderCol = $this->state->get('list.ordering', 'a.parent, a.ordering');
+		// changes needs change above too -> populateState
+
+		// 2017.02.28 Standard ordering by ID:
+        // $orderCol = $this->state->get('list.ordering', 'a.id');
+
+        //  RESG old  . " ORDER BY parent, ordering"
+		$orderCol = $this->state->get('list.ordering', 'a.parent, a.ordering');
 		$orderDirn = $this->state->get('list.direction', 'desc');
 		/**
         if ($orderCol == 'a.parent')
