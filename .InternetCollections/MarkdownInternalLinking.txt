@@ -1,0 +1,64 @@
+
+--------------------------------------------
+
+In standard Markdown, place an anchor <a name="abcd"></a> where you want to link to and refer to it on the same page by [link text](#abcd).
+
+(This uses name= and not id=, for reasons explained in this answer.)
+
+Remote references can use [link text](http://...#abcd) of course.
+
+This works like a dream, provided you have control over the source and target texts. The anchor can even appear in a heading, thus:
+### <a name="head1234"></a>A Heading in this SO entry!
+
+
+produces:
+
+A Heading in this SO entry!
+
+and we can even link to it so:
+and we can even [link](#head1234) to it so:
+
+
+(On SO, the link doesn't work because the anchor is stripped.)
+ 
+--------------------------------------------
+
+
+
+149
+
+down vote
+ 
+
+If you have headers in the markdown files, you can directly link them in the file.
+
+Markdown Header -
+
+## The Header
+
+this will generate an implicit id #the-header (replace internal spaces with hyphens and make lowercase).
+
+To navigate to this id, you can create the link like this: 
+
+[Link to Header](#the-header)
+
+This is equivalent to:
+
+<a href="/current_url#the-header">Link to Header</a>
+
+Please note the reference's name is a lower-case #header.
+
+
+--------------------------------------------
+
+
+
+
+
+
+--------------------------------------------
+
+
+
+
+  
