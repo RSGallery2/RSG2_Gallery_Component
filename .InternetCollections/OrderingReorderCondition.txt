@@ -1,0 +1,21 @@
+getReorderConditions() method is used in reorder() method of JModelAdmin class to apply additional conditions to reorder query.
+
+If I understood you correctly you should add getReorderConditions() method to your Group model:
+
+/**
+ * A protected method to get a set of ordering conditions.
+ *
+ * @param   object  $table A record object.
+ *
+ * @return  array   An array of conditions to add to add to ordering queries.
+ */
+protected function getReorderConditions($table)
+{
+    $condition = array();
+    $condition[] = 'catid = ' . (int) $table->catid;
+
+    return $condition;
+}
+catid is the category field in your table.
+
+
