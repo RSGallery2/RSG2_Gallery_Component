@@ -567,16 +567,25 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 										'consolidateDB');
 									?>
 
-									<?php
-									// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
-									$link = 'index.php?option=com_rsgallery2&amp;task=maintSql.updateCommentsVoting';
-									quickTwoIconMoonBar($link, 'icon-comment', 'icon-wand',
-										JText::_('COM_RSGALLERY2_UPDATE_COMMENTS_AND_VOTING'),
-										JText::_('COM_RSGALLERY2_UPDATE_COMMENTS_AND_VOTING_TXT'),
-										'consolidateDB');
-									?>
+                                    <?php
+                                    // $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
+                                    $link = 'index.php?option=com_rsgallery2&amp;task=maintSql.updateCommentsVoting';
+                                    quickTwoIconMoonBar($link, 'icon-comment', 'icon-wand',
+                                        JText::_('COM_RSGALLERY2_UPDATE_COMMENTS_AND_VOTING'),
+                                        JText::_('COM_RSGALLERY2_UPDATE_COMMENTS_AND_VOTING_TXT'),
+                                        'consolidateDB');
+                                    ?>
 
-								</div>
+                                    <?php
+                                    // $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
+                                    $link = 'index.php?option=com_rsgallery2&amp;view=develop&amp;layout=InitUpgradeMessage';
+                                    quickTwoIconMoonBar($link, 'icon-eye-open', 'icon-expand',
+                                        JText::_('Test Install/Update message'),
+                                        JText::_('Check the output result of the install finish and upgrade finish result view part'),
+                                        'consolidateDB');
+                                    ?>
+
+                                </div>
 							</div>
 						</div>
 						<?php
