@@ -22,16 +22,16 @@ $rsgInstall = new rsgInstall();
 // $rsgInstall->freshInstall();
 
 // Now wish the user good luck and link to the control panel
-$rsgInstall->installComplete();
+$installCompleteMsg = $rsgInstall->installCompleteMsg();
+$rsgInstall->installCompleteMsg(JText::_('COM_RSGALLERY2_INSTALLATION_OF_RSGALLERY_IS_COMPLETED'));
+$rsgInstall->installCompleteMsg(JText::_('COM_RSGALLERY2_RSGALLERY_UPGRADE_IS_INSTALLED'));
 
-$rsgInstall = new rsgInstall();
+
 $rsgInstall->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_MIGRATING_FROM_RSGALLERY2', $rsgConfig->get('version')), 'ok');
 
 $msg = 'Deleted old RSGallery2 J!1.5 language files: <br>' . $msg;
 $rsgInstall->writeInstallMsg($msg, 'ok');
 
-// Now wish the user good luck and link to the control panel
-$rsgInstall->installComplete();
 
 if( $result === true ){
     $rsgInstall->writeInstallMsg( JText::sprintf('COM_RSGALLERY2_SUCCESS_NOW_USING_RSGALLERY2', $rsgConfig->get( 'version' )), 'ok');

@@ -190,41 +190,47 @@ class rsgInstall
 	/**
 	 * @param string $msg
 	 */
-	static function installComplete($msg = null)
+
+
+	static function installCompleteMsg($msg = null)
 	{
+	    $HtmlString = '';
+
 		if ($msg == null)
 		{
 			$msg = JText::_('COM_RSGALLERY2_INSTALLATION_OF_RSGALLERY_IS_COMPLETED');
 		}
-		?>
-		<div align="center">
-			<table width="500">
-				<tr>
-					<td>
-						<table class="adminlist" border="1">
-							<tr>
-								<td colspan="2">
-									<div align="center">
-										<h2><?php echo $msg; ?></h2>
-										<?php //echo JText::_('COM_RSGALLERY2_INSTALL_STATUS_MSGS')
-										?>
-										<br>
-										<a href="index.php?option=com_rsgallery2">
-											<img src="<?php echo JURI_SITE . 'administrator/components/com_rsgallery2/images/icon-48-config.png'; ?>" alt=" <?php echo JText::_('COM_RSGALLERY2_CONTROL_PANEL') ?>" width="48" height="48" border="0">
-											<h2>
-												<?php echo JText::_('COM_RSGALLERY2_CONTROL_PANEL') ?>
-											</h2>
-										</a>
-									</div>
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<?php
-	}
+
+        $html   = array();
+        $html[] = '';
+        $html[] = '<div align="center">';
+		$html[] = '	<table width="500">';
+		$html[] = '		<tr>';
+		$html[] = '			<td>';
+		$html[] = '				<table class="adminlist" border="1">';
+		$html[] = '					<tr>';
+		$html[] = '						<td colspan="2">';
+		$html[] = '							<div align="center">';
+		$html[] = '								<h2>' . $msg . '</h2>';
+//		$html[] = '								     ' . JText::_('COM_RSGALLERY2_INSTALL_STATUS_MSGS');
+		$html[] = '								<br>';
+		$html[] = '								<a href="index.php?option=com_rsgallery2">';
+		$html[] = '									<img src="' . JURI_SITE . 'administrator/components/com_rsgallery2/images/icon-48-config.png" alt="' . JText::_('COM_RSGALLERY2_CONTROL_PANEL') . '" width="48" height="48" border="0">';
+		$html[] = '									<h2>' . JText::_('COM_RSGALLERY2_CONTROL_PANEL') . '</h2>';
+		$html[] = '								</a>';
+		$html[] = '							</div>';
+		$html[] = '						</td>';
+		$html[] = '					</tr>';
+		$html[] = '				</table>';
+		$html[] = '			</td>';
+		$html[] = '		</tr>';
+		$html[] = '	</table>';
+		$html[] = '</div>';
+
+        $HtmlString = implode(' ', $html);
+
+        return $HtmlString;
+    }
 
 	/**
 	 * Create dir structure, save config and tell user ...
