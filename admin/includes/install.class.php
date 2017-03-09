@@ -164,7 +164,8 @@ class rsgInstall
 						<table class="adminlist" border="1">
 							<tr>
 								<td width="40">
-									<img src="<?php echo JURI_SITE; ?>/administrator/components/com_rsgallery2/images/<?php echo $icon; ?>" alt="" border="0">
+                                    <span></span>
+									<img src="<?php echo JURI_SITE; ?>/administrator/components/com_rsgallery2/images/<?php echo $icon; ?>" alt="" border="0" >
 								</td>
 								<?php if ($type == 'error'): ?>
 									<td>
@@ -207,16 +208,25 @@ class rsgInstall
 		$html[] = '	<table width="500">';
 		$html[] = '		<tr>';
 		$html[] = '			<td>';
-		$html[] = '				<table class="adminlist" border="1">';
+		$html[] = '				<table class="adminlist" border="1" style="padding:75px">';
 		$html[] = '					<tr>';
 		$html[] = '						<td colspan="2">';
 		$html[] = '							<div align="center">';
-		$html[] = '								<h2>' . $msg . '</h2>';
+		$html[] = '								<h2> ' . $msg . ' </h2>';
 //		$html[] = '								     ' . JText::_('COM_RSGALLERY2_INSTALL_STATUS_MSGS');
 		$html[] = '								<br>';
 		$html[] = '								<a href="index.php?option=com_rsgallery2">';
-		$html[] = '									<img src="' . JURI_SITE . 'administrator/components/com_rsgallery2/images/icon-48-config.png" alt="' . JText::_('COM_RSGALLERY2_CONTROL_PANEL') . '" width="48" height="48" border="0">';
-		$html[] = '									<h2>' . JText::_('COM_RSGALLERY2_CONTROL_PANEL') . '</h2>';
+        $html[] = '	    							<figure class="rsg2-icon">';
+        $html[] = ' 								    <span class="icon-home-2" style="font-size:60px; position: relative; left: -20px;"></span>';
+        $html[] = '	    							    <figcaption class="rsg2-text">';
+        $html[] = '		    						        <span class="maint-title">' . JText::_('Move to') . JText::_('COM_RSGALLERY2_CONTROL_PANEL') . '</span>';
+        $html[] = '			    					        <br/>';
+        $html[] = '				    				        <span class="maint-text">' .  '</span>';
+        $html[] = '					    			    </figcaption>';
+        $html[] = '						    		</figure>';
+		//$html[] = '									<img src="' . JURI_SITE . 'administrator/components/com_rsgallery2/images/icon-48-config.png" alt="' . JText::_('COM_RSGALLERY2_CONTROL_PANEL') . '" width="48" height="48" border="0">';
+		//$html[] = '									<h2>' . JText::_('COM_RSGALLERY2_CONTROL_PANEL') . '</h2>';
+        $html[] = '			    					        <br/>';
 		$html[] = '								</a>';
 		$html[] = '							</div>';
 		$html[] = '						</td>';

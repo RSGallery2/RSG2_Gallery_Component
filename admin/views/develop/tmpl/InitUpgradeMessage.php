@@ -22,11 +22,11 @@ $rsgInstall = new rsgInstall();
 // $rsgInstall->freshInstall();
 
 // Now wish the user good luck and link to the control panel
-$installCompleteMsg = $rsgInstall->installCompleteMsg();
-$rsgInstall->installCompleteMsg(JText::_('COM_RSGALLERY2_INSTALLATION_OF_RSGALLERY_IS_COMPLETED'));
-$rsgInstall->installCompleteMsg(JText::_('COM_RSGALLERY2_RSGALLERY_UPGRADE_IS_INSTALLED'));
+$installCompleteMsg = $rsgInstall->installCompleteMsg(JText::_('COM_RSGALLERY2_INSTALLATION_OF_RSGALLERY_IS_COMPLETED'));
+$updateCompleteMsg = $rsgInstall->installCompleteMsg(JText::_('COM_RSGALLERY2_RSGALLERY_UPGRADE_IS_INSTALLED'));
 
 
+/** Todo: check/display write message *
 $rsgInstall->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_MIGRATING_FROM_RSGALLERY2', $rsgConfig->get('version')), 'ok');
 
 $msg = 'Deleted old RSGallery2 J!1.5 language files: <br>' . $msg;
@@ -40,7 +40,7 @@ else{
     $result = print_r( $result, true );
     $rsgInstall->writeInstallMsg( JText::_('COM_RSGALLERY2_FAILURE')."\n<br><pre>$result\n</pre>", 'error');
 }
-
+/**/
 
 
 JHtml::_('formbehavior.chosen', 'select');
@@ -64,6 +64,12 @@ JHtml::_('formbehavior.chosen', 'select');
 
 				<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'InitUpgradeMessage', JText::_('COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY', true)); ?>
                 <?php
+
+                echo '====================================================================<br />';
+                echo $installCompleteMsg;
+                echo '====================================================================<br />';
+                echo $updateCompleteMsg;
+                echo '====================================================================<br />';
                 /**
 				<fieldset class="regenerateImages">
 					<legend><?php echo JText::_('COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY'); ?></legend>
