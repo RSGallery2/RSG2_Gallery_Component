@@ -15,20 +15,26 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.modeladmin');
 
 /**
- *
+ * Support to delete data or remove database tables for maintenance
  *
  * @since 4.3.0
  */
+
+// ToDo: Return true or false instead of messages
+// ToDo: removeDataInTables single calls '$this->PurgeTable(...' should be done in controller
+
 class rsgallery2ModelMaintDatabaseTables extends JModelList
 {
-//    protected $text_prefix = 'COM_RSG2';
-
-//    protected function removeImageReferences ()
+    /**
+     * Delete data in all tables of RSG2
+     * @return string
+     *
+     * @since 4.3.0
+     */
 	public function removeDataInTables()
 	{
 		$msg = "removeDataInTables: ";
 
-//COM_RSGALLERY2_DELETE_FROM_FILESYSTEM COM_RSGALLERY2_DELETE_IMAGES
 		$msg = $msg . $this->PurgeTable('#__rsgallery2_acl', JText::_('COM_RSGALLERY2_PURGED_TABLE_RSGALLERY2_ACL')) . '<br>';
 		$msg = $msg . $this->PurgeTable('#__rsgallery2_files', JText::_('COM_RSGALLERY2_PURGED_IMAGE_ENTRIES_FROM_DATABASE')) . '<br>';
 		// $msg = $msg . $this->PurgeTable ('#__rsgallery2_cats', JText::_('COM_RSGALLERY2_PURGED_TABLE_RSGALLERY2_CATS')) . '<br>';
@@ -47,6 +53,8 @@ class rsgallery2ModelMaintDatabaseTables extends JModelList
 	 * ToDo: Better would be to remove the comments before the drop commands in  the file uninstall.mysql.utf8.sql
 	 *
 	 * @return string $msg
+     *
+     * @since 4.3.0
 	 */
 	public function removeAllTables()
 	{
@@ -63,12 +71,14 @@ class rsgallery2ModelMaintDatabaseTables extends JModelList
 	}
 
 	/**
-	 * Removes one table from RSG2
+	 * Delete data in given table from RSG2
 	 *
 	 * @param string $TableId
 	 * @param string $successMsg
 	 *
 	 * @return string bool success or error message
+     *
+     * @since 4.3.0
 	 */
 	private function PurgeTable($TableId, $successMsg)
 	{
@@ -95,6 +105,8 @@ class rsgallery2ModelMaintDatabaseTables extends JModelList
 	 * @param string $successMsg
 	 *
 	 * @return string bool success or error message
+     *
+     * @since 4.3.0
 	 */
 	private function DropTable($TableId, $successMsg)
 	{

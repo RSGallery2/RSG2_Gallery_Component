@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.modeladmin');
 
 /**
- *
+ * image file access function for maintenance
  *
  * @since 4.3.0
  */
@@ -27,6 +27,13 @@ class Rsgallery2ModelMaintImageFiles extends JModelList
 	protected $imagePath_original;
 	protected $imagePath_watermarked;
 
+    /**
+     * Remove all image files of RSG2
+     *
+     * @return string Success message per folder
+     *
+     * @since 4.3.0
+     */
 	public function removeAllImageFiles()
 	{
 		$msg = "Remove image files: \n";
@@ -42,6 +49,15 @@ class Rsgallery2ModelMaintImageFiles extends JModelList
 		return $msg;
 	}
 
+    /**
+     * Remove image files in given folder
+     *
+     * @param string $fullPath Path to images to be deleted
+     *
+     * @return string Success message of folder
+     *
+     * @since 4.3.0
+     */
 	private function RemoveImagesInFolder($fullPath = '')
 	{
 		$msg = 'Remove images in folder: "' . $fullPath . '"';
@@ -103,6 +119,12 @@ class Rsgallery2ModelMaintImageFiles extends JModelList
 	}
 
 	// ToDo: Move to model image path and inherit from there or rename this class ...
+    // ToDo: Add try catch
+    /**
+     * Retrieve all pathes to RSG2 image files from database
+     *
+     * @since 4.3.0
+     */
 	private function getImagePaths()
 	{
 		// ToDo: Throws .... \Jdatabaseexception ....

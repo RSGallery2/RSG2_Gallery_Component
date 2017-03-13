@@ -24,7 +24,7 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . '/classes/sqlinstallfile.php');
 // Joel Lipman Jdatabase
 
 /**
- *
+ * yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy Documented up to here
  *
  * @since 4.3.0
  */

@@ -135,9 +135,8 @@ class rsgallery2ModelMaintConsolidateDB extends JModelList
 	/**
 	 * SelectedImageReferences
 	 *
+     * Checks the input for checkboxes set
      *
-yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
-	 *
 	 * throws exception
 	 *
 	 * @return array
@@ -146,8 +145,9 @@ yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 	 */
 	public function SelectedImageReferences()
 	{
-
 		$ImageReferences = array();
+
+		//--- collect selected checkboxes --------------
 
 		$input = JFactory::getApplication()->input;
 		$cids  = $input->get('cid', array(), 'ARRAY');
@@ -163,6 +163,7 @@ yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 			return $ImageReferences;
 		}
 
+		// Retrieve image data objects (Data objects are hidden in form)
 		$ImageReferenceList = $input->getString('ImageReferenceList');
 		if (empty ($ImageReferenceList))
 		{
@@ -176,19 +177,11 @@ yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 			throw new RuntimeException($OutTxt);
 		}
 
-		/**
-        if (!$ImageReferences instanceof ImageReference [])
-        {
-        continue;
-        }
-        /**/
-
+		// Create objects as class ImageReferenceList
 		$ImageReferenceList = html_entity_decode($ImageReferenceList, ENT_QUOTES, 'UTF-8');
 		$ImageReferenceList = json_decode($ImageReferenceList);
 
-		//$UseWatermarked = $ImageReferenceList->UseWatermarked;
-		//$ImageReferences = $ImageReferenceList->ImageReferences;
-//            if (!is_array ($ImageReferences)) {
+        // Data is an array
 		if (!is_array($ImageReferenceList))
 		{
 			$OutTxt = 'Format of image reference items wrong';
@@ -204,7 +197,9 @@ yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 
 		$imgRefCount = count($ImageReferenceList);
 
-		// each selected image row
+		//--- collect only the selected ones -------------------------------
+
+		// each image row
 		foreach ($cids as $imgIdx)
 		{
 			// out of range ?
