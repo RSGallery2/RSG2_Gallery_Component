@@ -379,7 +379,7 @@ table.adminlist th {
 	margin            : 0px;
 	padding           : 6px 4px 2px 4px;
 	height            : 25px;
-	background        : url(../../../../../administrator/templates/joomla_admin/images/background.jpg);
+	background        : url(../../../../images/background.jpg);
 	background-repeat : repeat;
 	font-size         : 11px;
 	color             : #000;
@@ -459,7 +459,7 @@ table.adminform th {
 	height            : 25px;
 	color             : #000;
 	background-repeat : repeat;
-	background        : url(../../../../../administrator/templates/joomla_admin/images/background.jpg);
+	background        : url(../../../../images/background.jpg);
 }
 
 table.adminform td {
