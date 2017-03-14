@@ -95,13 +95,14 @@ class com_rsgallery2InstallerScript
 
         // Manifest file minimum Joomla version
         $this->minimum_joomla_release = $parent->get("manifest")->attributes()->version;
-        $this->actual_joomla_release = $jversion->getShortVersion();
+        $this->actual_joomla_release  = $jversion->getShortVersion();
 
         // Show the essential information at the install/update back-end
         $NextLine = 'Installing component manifest file version = ' . $this->newRelease;
         echo '<br/>' . $NextLine;
         JLog::add($NextLine, JLog::DEBUG);
-        if ($type == 'update') {
+        if ($type == 'update')
+        {
             $NextLine = 'Old/current component version (manifest cache) = ' . $this->oldRelease;
             echo '<br/>' . $NextLine;
             JLog::add($NextLine, JLog::DEBUG);
@@ -110,7 +111,8 @@ class com_rsgallery2InstallerScript
         JLog::add('Current Joomla version = ' . $this->actual_joomla_release, JLog::DEBUG);
 
         // Abort if the current Joomla release is older
-        if (version_compare($this->actual_joomla_release, $this->minimum_joomla_release, 'lt')) {
+        if (version_compare($this->actual_joomla_release, $this->minimum_joomla_release, 'lt'))
+        {
             echo '    Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release;
             echo '    Current Joomla version = ' . $this->actual_joomla_release;
             Jerror::raiseWarning(null, 'Cannot install com_rsgallery2 in a Joomla release prior to ' . $this->minimum_joomla_release);
@@ -120,14 +122,16 @@ class com_rsgallery2InstallerScript
 
         JLog::add('After version compare', JLog::DEBUG);
 
-        if ($type == 'update') {
+        if ($type == 'update')
+        {
 
             JLog::add('-> pre update', JLog::DEBUG);
             $rel = $this->oldRelease . ' to ' . $this->newRelease;
 
             // Abort if the component being installed is older than the currently installed version
             // (overwrite same version is permitted)
-            if (version_compare($this->newRelease, $this->oldRelease, 'lt')) {
+            if (version_compare($this->newRelease, $this->oldRelease, 'lt'))
+            {
                 Jerror::raiseWarning(null, 'Incorrect version sequence. Cannot upgrade ' . $rel);
 
                 return false;
@@ -143,7 +147,7 @@ class com_rsgallery2InstallerScript
             //--------------------------------------------------------------------------------
 
             //--- Determine rsgallery2 extension id ------------------
-            $db = JFactory::getDbo();
+            $db    = JFactory::getDbo();
             $query = $db->getQuery(true);
             $query->select($db->quoteName('extension_id'))
                 ->from('#__extensions')
@@ -167,7 +171,8 @@ class com_rsgallery2InstallerScript
 
             // Create component entry (version) in __schemas
             // Rsg2id not set
-            if ($SchemaVersionCount != 1) {
+            if ($SchemaVersionCount != 1)
+            {
                 JLog::add('Create RSG2 version in __schemas: ', JLog::DEBUG);
 
                 //	UPDATE #__schemas SET version_id = 'NEWVERSION' WHERE extension_id = 700
@@ -184,14 +189,17 @@ class com_rsgallery2InstallerScript
             // Shall care for issue(s) when a user directly upgrades from J1.5 to J3
             //--------------------------------------------------------------------------------
 
-            if (version_compare($this->oldRelease, '3.2.0', 'lt')) {
+            if (version_compare($this->oldRelease, '3.2.0', 'lt'))
+            {
 
                 require_once(JPATH_SITE . '/administrator/components/com_rsgallery2/includes/install.upgrade.To.03.02.00.php');
                 $upgrade_to_03_02_00 = new upgrade_com_rsgallery2_03_02_00 ();
-                $failed = $upgrade_to_03_02_00->upgrade($this->oldRelease);
+                $failed              = $upgrade_to_03_02_00->upgrade($this->oldRelease);
             }
 
-        } else { // $type == 'install'
+        }
+        else
+        { // $type == 'install'
             JLog::add('-> pre freshInstall', JLog::DEBUG);
             $rel = $this->newRelease;
 
@@ -236,7 +244,7 @@ class com_rsgallery2InstallerScript
         //--- install complete message --------------------------------
 
         // Now wish the user good luck and link to the control panel
-        $rsgInstall->installComplete();
+        echo $rsgInstall->installCompleteMsg(JText::_('COM_RSGALLERY2_INSTALLATION_OF_RSGALLERY_IS_COMPLETED'));
 
         echo '<p>' . JText::_('COM_RSGALLERY2_INSTALL_TEXT') . '</p>';
         JLog::add('Before redirect', JLog::DEBUG);
@@ -280,17 +288,17 @@ class com_rsgallery2InstallerScript
         // .../administrator/language/
         $startDir = JPATH_ADMINISTRATOR . '/language';
         $msg = '';
-        $IsDeleted = $this->findAndDelete_1_5_LangFiles($startDir, $msg);
-        if ($IsDeleted) {
+        $IsDeleted = $this->findAndDelete_1_5_LangFiles ($startDir, $msg);
+        if($IsDeleted) {
             // Write action to user
             $msg = 'Deleted old RSGallery2 J!1.5 language files: <br>' . $msg;
-            $rsgInstall->writeInstallMsg($msg, 'ok');
+            $rsgInstall->writeInstallMsg ($msg, 'ok');
         }
 
         //--- install complete message --------------------------------
 
         // Now wish the user good luck and link to the control panel
-        $rsgInstall->installComplete();
+        echo $rsgInstall->installCompleteMsg(JText::_('COM_RSGALLERY2_RSGALLERY_UPGRADE_IS_INSTALLED'));
 
         /* May be used later. Actual versions older then "3.2.0" are checked in preflight
             if (version_compare ($this->oldRelease, '3.2.0', 'lt' )) {
@@ -339,11 +347,14 @@ class com_rsgallery2InstallerScript
         JLog::add('postflight', JLog::DEBUG);
         echo '<p>' . JText::_('COM_RSGALLERY2_POSTFLIGHT_' . strtoupper($type) . '_TEXT') . '</p>';
 
-        if ($type == 'update') {
+        if ($type == 'update')
+        {
             JLog::add('-> post update', JLog::DEBUG);
 
             // $this->installComplete(JText::_('COM_RSGALLERY2_UPGRADE_SUCCESS'));
-        } else { // $type == 'install'
+        }
+        else
+        { // $type == 'install'
             JLog::add('-> post freshInstall', JLog::DEBUG);
 
             //$this->installComplete(JText::_('COM_RSGALLERY2_INSTALLATION_OF_RSGALLERY_IS_COMPLETED'));
@@ -395,15 +406,17 @@ class com_rsgallery2InstallerScript
      */
     function setParams($param_array)
     {
-        if (count($param_array) > 0) {
+        if (count($param_array) > 0)
+        {
             // read the existing component value(s)
             $db = JFactory::getDbo();
             $db->setQuery('SELECT params FROM #__extensions WHERE name = "com_rsgallery2"');
             $params = json_decode($db->loadResult(), true);
 
             // add the new variable(s) to the existing one(s)
-            foreach ($param_array as $name => $value) {
-                $params[(string)$name] = (string)$value;
+            foreach ($param_array as $name => $value)
+            {
+                $params[(string) $name] = (string) $value;
             }
             // store the combined new and existing values back as a JSON string
             $paramsString = json_encode($params);
@@ -415,17 +428,17 @@ class com_rsgallery2InstallerScript
     }
 
 
+
     /**
      * @param $startDir Example: \administrator\language\
      * recursive delete joomla 1.5 version or older style component language files
      * @since version 4.3
      */
-    function findAndDelete_1_5_LangFiles($startDir, &$msg)
-    {
+    function findAndDelete_1_5_LangFiles($startDir, &$msg) {
 
         $IsDeleted = false;
 
-        if ($startDir != '') {
+        if($startDir != '') {
             // ...original function code...
             // ...\en-GB\en-GB.com_rsgallery2.ini
             // ...\en-GB\en-GB.com_rsgallery2.sys.ini
@@ -437,11 +450,12 @@ class com_rsgallery2InstallerScript
 
             $msg = '';
             $IsFileFound = false;
-            foreach ($LangFiles as $LangFile) {
+            foreach ($LangFiles as $LangFile)
+            {
                 $IsFileFound = true;
 
                 $msg .= '<br>' . $LangFile[0];
-                $IsDeleted = unlink($LangFile[0]);
+                $IsDeleted = unlink ($LangFile[0]);
                 if ($IsDeleted) {
                     $msg .= ' is deleted';
 
@@ -453,6 +467,7 @@ class com_rsgallery2InstallerScript
             return $IsFileFound;
         }
     }
+
 
 
 }
