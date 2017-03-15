@@ -291,7 +291,16 @@ class com_rsgallery2InstallerScript
         $IsDeleted = $this->findAndDelete_1_5_LangFiles ($startDir, $msg);
         if($IsDeleted) {
             // Write action to user
-            $msg = 'Deleted old RSGallery2 J!1.5 language files: <br>' . $msg;
+            $msg = 'Deleted old RSGallery2 J!1.5 admin language files: <br>' . $msg;
+            $rsgInstall->writeInstallMsg ($msg, 'ok');
+        }
+
+        $startDir = JPATH_SITE . '/language';
+        $msg = '';
+        $IsDeleted = $this->findAndDelete_1_5_LangFiles ($startDir, $msg);
+        if($IsDeleted) {
+            // Write action to user
+            $msg = 'Deleted old RSGallery2 J!1.5 site language files: <br>' . $msg;
             $rsgInstall->writeInstallMsg ($msg, 'ok');
         }
 
