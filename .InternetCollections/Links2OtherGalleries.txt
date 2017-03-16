@@ -1,2 +1,5 @@
 
 http://fotorama.io/customize/thumbnails/
+
+Slideshows
+http://wowslider.com/de/

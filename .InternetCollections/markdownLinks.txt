@@ -1,5 +1,13 @@
-joomla markdown
 
+GitHub-stellt-eigene-CommonMark-konforme-Markdown-Spezifikation-vor-3653900
+
+
+https://www.heise.de/developer/meldung/GitHub-stellt-eigene-CommonMark-konforme-Markdown-Spezifikation-vor-3653900.html
+http://commonmark.org/
+
+
+
+joomla markdown
 
 https://yoonique.net/index.php?option=com_zoo&task=item&item_id=36&category_id=16&Itemid=118#fn:1
 
