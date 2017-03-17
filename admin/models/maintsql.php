@@ -24,6 +24,7 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . '/classes/sqlinstallfile.php');
 // Joel Lipman Jdatabase
 
 /**
+ * Helper class for database accessing (purging) functions
  * yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy Documented up to here
  *
  * @since 4.3.0
@@ -39,6 +40,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 	protected $tableNames;
 	/**
 	 * @var
+	 * // d:\xampp\htdocs\Joomla3x\administrator\components\com_rsgallery2\sql\install.mysql.utf8.sql
 	 */
 	protected $sqlFile;
 	/**
@@ -47,9 +49,11 @@ class Rsgallery2ModelMaintSql extends JModelList
 	protected $db;
 
 	/**
-	 * Runs optimization for each table
+	 * Runs database optimization function for each table
 	 *
 	 * @return string operation messages
+	 *
+	 * @since 4.3.0
 	 */
 	public function optimizeDB()
 	{
@@ -86,6 +90,8 @@ class Rsgallery2ModelMaintSql extends JModelList
 	 * Creates table column access in table galleries and sets all values to '1'
 	 *
 	 * @return string operation messages
+	 *
+	 * @since 4.3.0
 	 */
 	public function createGalleryAccessField()
 	{
@@ -93,31 +99,21 @@ class Rsgallery2ModelMaintSql extends JModelList
 		$msg = '';
 
 		/*  RSGallery2 user
-			1054 Unknown column 'access' in 'field list' SQL=INSERT INTO `afs_rsgallery2_galleries`
-		         (`id`,`parent`,`name`,`alias`,`description`,`published`,`checked_out`,
-		          `checked_out_time`,`ordering`,`hits`,`date`,`params`,`user`,`uid`,`allowed`,
-		          `thumb_id`,`access`) VALUES ('','0','fdtgsdg','fdtgsdg','','1','','','0','',
-		          '2015-10-01 16:18:23','','','45','','','1')
+		1054 Unknown column 'access' in 'field list' SQL=INSERT INTO `afs_rsgallery2_galleries`
+	         (`id`,`parent`,`name`,`alias`,`description`,`published`,`checked_out`,
+	          `checked_out_time`,`ordering`,`hits`,`date`,`params`,`user`,`uid`,`allowed`,
+	          `thumb_id`,`access`) VALUES ('','0','fdtgsdg','fdtgsdg','','1','','','0','',
+	          '2015-10-01 16:18:23','','','45','','','1')
 
-			After that i simply go through to afs_rsgallery2_galleries table and create a new field
-		    called "access" and then set then value "1" for access via update query.
-		    And my gallery images make a path or url...
+		After that i simply go through to afs_rsgallery2_galleries table and create a new field
+	    called "access" and then set then value "1" for access via update query.
+	    And my gallery images make a path or url...
 		*/
 
 		$tableName  = '#__rsgallery2_galleries';
 		$columnName = 'access';
 
 		$IsColumnExisting = $this->IsColumnExisting($tableName, $columnName);
-
-		/* !!! test code -> delete actual column (field)
-		if ($IsColumnExisting ) {
-
-			$result = $this->DeleteColumn($tableName, $columnName);
-			$msg .= '<br>' . ' Debug extra delete column: ' . json_encode ($result);
-
-			$IsColumnExisting = false;
-		}
-		/**/
 
 		// Create table column
 		if (!$IsColumnExisting)
@@ -149,11 +145,9 @@ class Rsgallery2ModelMaintSql extends JModelList
 
 			$query = $db->getQuery(true);
 
-			//$query = 'UPDATE ' . $db->quoteName($tableName) . ' SET ' . $db->quoteName($columnName) . '=1';
 			$query->update($db->quoteName($tableName))
 				->set($db->quoteName($columnName) . '=\'1\'');
 			$db->setQuery($query);
-			/**/
 
 			$result       = $db->execute();
 			$IsSuccessful = !empty ($result);
@@ -176,7 +170,9 @@ class Rsgallery2ModelMaintSql extends JModelList
 	 * @param string $tableName
 	 * @param string $columnName
 	 *
-	 * @return mixed
+	 * @return bool true if successful
+	 *
+	 * @since 4.3.0
 	 */
 	private function DeleteColumn($tableName, $columnName)
 	{
@@ -196,7 +192,9 @@ class Rsgallery2ModelMaintSql extends JModelList
 	 *
 	 * @param string $tableName
 	 *
-	 * @return bool true if successful 
+	 * @return bool true if successful
+	 *
+	 * @since 4.3.0
 	 */
 	public function IsSqlTableExisting($tableName)
 	{
@@ -221,11 +219,12 @@ class Rsgallery2ModelMaintSql extends JModelList
 	 * @param string $tableName
 	 *
 	 * @return bool true if successful
+	 *
+	 * @since 4.3.0
 	 */
 	private function deleteTable($tableName)
 	{
 		$db = JFactory::getDbo();
-		// ALTER TABLE t2 DROP COLUMN c, DROP COLUMN d;
 		$query = 'DROP Table ' . $db->quoteName($tableName);
 		$db->setQuery($query);
 		$result = $db->execute();
@@ -242,6 +241,8 @@ class Rsgallery2ModelMaintSql extends JModelList
 	 * @param string $columnName
 	 *
 	 * @return bool true if successful
+	 *
+	 * @since 4.3.0
 	 */
 	private function IsColumnExisting($tableName, $columnName)
 	{
@@ -264,6 +265,8 @@ class Rsgallery2ModelMaintSql extends JModelList
 	 * @param string $columnProperties
 	 *
 	 * @return bool  true if successful
+	 *
+	 * @since 4.3.0
 	 */
 	public function createSqlFileColumn($tableName, $columnName, $columnProperties)
 	{
@@ -311,8 +314,6 @@ class Rsgallery2ModelMaintSql extends JModelList
 		----------------------------------------------*/
 
 		$missingTableNames = $this->check4MissingTables();
-//		if(! empty ($missingTableNames))
-//		{
 		foreach ($missingTableNames as $missingTableName)
 		{
 			$msg .= 'Fix missing Table name: ' . $missingTableName . '<br>';
@@ -409,11 +410,14 @@ class Rsgallery2ModelMaintSql extends JModelList
 	}
 
 	/**
+	 *
 	 * @param string $tableName
-	 * @param        $sqlFile
+	 * @param        $sqlFile creates the table query string
 	 * ToDo: Remove messages (should be generated in calling functions
 	 *
 	 * @return bool true if successful
+	 *
+	 * @since 4.3.0
 	 */
 	public function createSqlFileTable($tableName, $sqlFile)
 	{
@@ -448,7 +452,11 @@ class Rsgallery2ModelMaintSql extends JModelList
 	}
 
 	/**
-	 * @return array
+	 * Checks for missing tables, missing columns and more
+	 *
+	 * @return string array containing messages on all errors found
+	 *
+	 * @since 4.3.0
 	 */
 	public function check4Errors()
 	{
@@ -504,7 +512,6 @@ class Rsgallery2ModelMaintSql extends JModelList
 			}
 
 		}
-//		echo '<br>';
 
 		/*----------------------------------------------
 		Superfluous tables		
@@ -537,14 +544,16 @@ class Rsgallery2ModelMaintSql extends JModelList
 	}
 
 	/**
+	 * Checks for missing tables
 	 *
 	 * @return string [] List of missing table names
+	 *
+	 * @since 4.3.0
 	 */
 	public function check4MissingTables()
 	{
 		$missingTableNames = array();
 
-		// d:\xampp\htdocs\Joomla3x\administrator\components\com_rsgallery2\sql\install.mysql.utf8.sql
 		if (empty($this->sqlFile))
 		{
 			$this->sqlFile = new SqlInstallFile ();
@@ -569,8 +578,11 @@ class Rsgallery2ModelMaintSql extends JModelList
 	}
 
 	/**
+	 * Checks for missing columns in all tables
 	 *
 	 * @return string[] string
+	 *
+	 * @since 4.3.0
 	 */
 	public function check4MissingColumns()
 	{
@@ -608,10 +620,14 @@ class Rsgallery2ModelMaintSql extends JModelList
 	}
 
 	/**
+	 * Checks for missing columns
+	 *
 	 * @param $sqlTableName
 	 * @param $sqlFile
 	 *
 	 * @return array
+	 *
+	 * @since 4.3.0
 	 */
 	public function check4MissingColumnsInTable($sqlTableName, $sqlFile)
 	{
@@ -638,6 +654,8 @@ class Rsgallery2ModelMaintSql extends JModelList
 	 * Collects all superfluous table names
 	 *
 	 * @return string [] superfluous table names, may be empty
+	 *
+	 * @since 4.3.0
 	 */
 	public function check4SuperfluousTables()
 	{
@@ -682,7 +700,11 @@ class Rsgallery2ModelMaintSql extends JModelList
 	}
 
 	/**
+	 * Checks for superfluous columns in all table names
+	 *
 	 * @return array
+	 *
+	 * @since 4.3.0
 	 */
 	public function check4SuperfluousColumns()
 	{
@@ -720,10 +742,14 @@ class Rsgallery2ModelMaintSql extends JModelList
 	}
 
 	/**
+	 * Checks for superfluous columns in given table
+	 *
 	 * @param $tableName
 	 * @param $sqlFile
 	 *
 	 * @return array
+	 *
+	 * @since 4.3.0
 	 */
 	public function check4SuperfluousColumn($tableName, $sqlFile)
 	{
@@ -757,6 +783,8 @@ class Rsgallery2ModelMaintSql extends JModelList
 	 * @param string [] $tableNames
 	 *
 	 * @return string [] replaced table names
+	 *
+	 * @since 4.3.0
 	 */
 	private function SqlTableNamesReplace4Prefix($tableNames)
 	{
@@ -779,6 +807,8 @@ class Rsgallery2ModelMaintSql extends JModelList
 	 * @param string $tableName
 	 *
 	 * @return string
+	 *
+	 * @since 4.3.0
 	 */
 	private function SqlTableNameReplace4Prefix($tableName)
 	{
@@ -789,6 +819,13 @@ class Rsgallery2ModelMaintSql extends JModelList
 		return $SqlTableNameWithPrefix;
 	}
 
+	/**
+	 * Checks for wrong column types in all tables
+	 *
+	 * @return array
+	 *
+	 * @since 4.3.0
+	 */
 	public function check4WrongColumnTypes()
 	{
 		$wrongColumnTypes = array();
@@ -810,16 +847,12 @@ class Rsgallery2ModelMaintSql extends JModelList
 			// Save table name if not existing
 			if ($TableExist)
 			{
-				//$missingColumns = $this->check4MissingColumnsInTable($tableName, $this->sqlFile);
 				$nextWrongColumnTypes = $this->check4WrongColumnTypesInTable($tableName, $this->sqlFile);
 
 				if (!empty ($nextWrongColumnTypes))
 				{
-					//foreach ($nextWrongColumnTypes as $ColumnName => $wrongColumnTypeDeltaProperty)
-					//foreach ($nextWrongColumnTypes as $nextWrongColumnType)
 					foreach ($nextWrongColumnTypes as $sqlColumnName => $deltaProperty)
 					{
-						// $wrongColumnTypes [$nextWrongColumnType] = $tableName;
 						$wrongColumnTypes [$tableName][$sqlColumnName] = $deltaProperty;
 					}
 				}
@@ -830,10 +863,14 @@ class Rsgallery2ModelMaintSql extends JModelList
 	}
 
 	/**
+	 * Checks for wrong column types in given table
+	 *
 	 * @param $tableName
 	 * @param $sqlFile
 	 *
 	 * @return array
+	 *
+	 * @since 4.3.0
 	 */
 	public function check4WrongColumnTypesInTable($tableName, $sqlFile)
 	{
@@ -868,10 +905,13 @@ class Rsgallery2ModelMaintSql extends JModelList
 
 		return $differentColumnTypes;
 	}
-
+//yyyyyyyyyyyyyyyyyyyyy
     /**
+     *
+     *
      * @return string
      *
+     * @since 4.3.0
      */
 	public function updateComments()
 	{
@@ -882,32 +922,32 @@ class Rsgallery2ModelMaintSql extends JModelList
 			$db    = JFactory::getDbo();
 			$query = $db->getQuery(true);
 
-			//--- find mismatch in comments number ---------------------------
-
-			// list of images
+			//--- list of images -------------------------------
 			$query->select($db->quoteName(array('id', 'comments')))
 				->from($db->quoteName('#__rsgallery2_files'));
-
 			$db->setQuery($query);
+
 			// Load the results as a list of stdClass objects (see later for more options on retrieving data).
-			$rows = $db->loadObjectList();
+			$images = $db->loadObjectList();
 
-			foreach ($rows as $row)
+			//--- find mismatch in comments number ---------------------------
+
+			foreach ($images as $image)
 			{
-
+				//
 				$query = $db->getQuery(true);
 				$query->select($db->quoteName('item_id'))
 					->from($db->quoteName('#__rsgallery2_comments'))
-					->where($db->quoteName('item_id') . ' = ' . $row->id);
+					->where($db->quoteName('item_id') . ' = ' . $image->id);
 				$db->setQuery($query);
 
 				$commentRows  = $db->loadObjectList();
 				$commentCount = count($commentRows);
 
 				// Difference found ?
-				if ($commentCount != $row->comments)
+				if ($commentCount != $image->comments)
 				{
-					$msg .= '$row->id: ' . $row->id . ' $row->comments: ' . $row->comments;
+					$msg .= '$image->id: ' . $image->id . ' $image->comments: ' . $image->comments;
 					$msg .= ' $commentCount: ' . $commentCount . ' xxxx';
 
 					$msg .= '<br>';
@@ -918,7 +958,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 						$query = $db->getQuery(true);
 						$query->update($db->quoteName('#__rsgallery2_files'))
 							->set(array($db->quoteName('comments') . '=' . $commentCount))
-							->where(array($db->quoteName('id') . '=' . $row->id));
+							->where(array($db->quoteName('id') . '=' . $image->id));
 						$db->setQuery($query);
 						$result = $db->query();
 
@@ -930,10 +970,9 @@ class Rsgallery2ModelMaintSql extends JModelList
 						}
 						else
 						{
-
-							// normal message
+							// ToDO: fill out
+ 							// normal message
 						}
-
 					}
 					catch (RuntimeException $e)
 					{
@@ -944,11 +983,9 @@ class Rsgallery2ModelMaintSql extends JModelList
 						$app = JFactory::getApplication();
 						$app->enqueueMessage($OutTxt, 'error');
 					}
-
 				}
 
 				/**/
-
 			}
 
 			/*
@@ -962,13 +999,13 @@ class Rsgallery2ModelMaintSql extends JModelList
             $query->order('u.real_name ASC');
 
             // Load the results as a list of stdClass objects (see later for more options on retrieving data).
-            $rows = $db->loadObjectList();
+            $imagess = $db->loadObjectList();
 
             // Retrieve each value in the ObjectList
-            foreach( $rows as $row ) {
-                $this_user_id = $row->user_id;
-                $this_user_name = $row->username;
-                $this_user_realname = $row->real_name;
+            foreach( $images as $image ) {
+                $this_user_id = $image->user_id;
+                $this_user_name = $image->username;
+                $this_user_realname = $image->real_name;
             }
 			/**/
 
@@ -988,6 +1025,15 @@ class Rsgallery2ModelMaintSql extends JModelList
 		return $msg;
 	}
 
+	/**
+	 * Counts the number of comments for given image
+	 *
+	 * @param $ImageId ID of image
+	 *
+	 * @return int Count of comments
+	 *
+	 * @since 4.3.0
+	 */
 	private function getCommentCount($ImageId)
 	{
 		$commentCount = 0;
@@ -1019,6 +1065,4 @@ class Rsgallery2ModelMaintSql extends JModelList
 	}
 
 }
-
-
 
