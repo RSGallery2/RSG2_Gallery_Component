@@ -1,5 +1,17 @@
+See also Competition.txt
 
+http://www.balbooa.com/joomla-gallery
+
+http://fotorama.io/
 http://fotorama.io/customize/thumbnails/
 
 Slideshows
 http://wowslider.com/de/
+
+Video
+https://extensions.joomla.org/extension/vina-youtube-video-carousel/
+
+
+
+
+

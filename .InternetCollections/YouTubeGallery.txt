@@ -1,0 +1,14 @@
+Vina Youtube Video Carousel 
+
+Kann jemand eventuell eine Youtube Galerie empfehlen? 
+Eine Kundin hat Youtube Gallery von Joomlaboat, d
+ie braucht aber allow_url_fopen und allow_url_include 
+und das scheint bei 1&1 nicht mehr möglich sein...
+
+Mike Brandner Wed, Mar 22 5:24 PM
+
+Ich hab da eine im Einsatz - muß nachher mal schauen, 
+bin gerade auf dem Weg zum Elternabend ;-) Müsste ein Modul sein, 
+das synchronisiert mit einer YouTube Playliste
+
+
