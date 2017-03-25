@@ -10,7 +10,7 @@
 defined('_JEXEC') or die();
 
 /**
- *
+ * May not be needed ToDo: Delete table when one user has had a problem and we know how to move local acl to standard acl
  *
  * @since 4.3.0
  */

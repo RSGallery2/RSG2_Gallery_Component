@@ -12,6 +12,8 @@ defined('_JEXEC') or die;
 jimport('joomla.html.html.bootstrap');
 
 /**
+ * May not be needed ToDo: Delete table when one user has had a problem and we know how to move local acl to standard acl
+ *
  * View class for a list of acl items
  *
  * @since 4.3.0
