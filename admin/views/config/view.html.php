@@ -17,7 +17,8 @@ jimport('joomla.application.component.model');
 JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
 /**
- *
+ * yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+ * 
  *
  * @since 4.3.0
  */
