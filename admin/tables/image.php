@@ -10,7 +10,7 @@
 defined('_JEXEC') or die();
 
 /**
- *
+ * Standard functions for table image
  *
  * @since 4.3.0
  */
@@ -20,6 +20,8 @@ class Rsgallery2TableImage extends JTable
 	 * Constructor
 	 *
 	 * @param   JDatabaseDriver &$db A database connector object
+     *
+     * @since 4.3.0
 	 */
 	function __construct(&$db)
 	{
@@ -28,13 +30,15 @@ class Rsgallery2TableImage extends JTable
 	}
 
 	/**
-	 * Overloaded bind function
-	 *
-	 * @param       array           named array
-	 *
-	 * @return      null|string     null is operation was satisfactory, otherwise returns an error
-	 * @see   JTable:bind
-	 * @since 1.5
+     * Overloaded bind function
+     *
+     * @param array|object $array An associative array or object to bind to the JTable instance.
+     * @param string $ignore
+     *
+     * @return bool True on success
+     * @see   JTable:bind
+     *
+     * @since 4.3.0
 	 */
 	public function bind($array, $ignore = '')
 	{
@@ -55,8 +59,10 @@ class Rsgallery2TableImage extends JTable
 	 * @param       int     $pk    primary key
 	 * @param       boolean $reset reset data
 	 *
-	 * @return      boolean
+     * @return bool True on success
 	 * @see JTable:load
+     *
+     * @since 4.3.0
 	 */
 	public function load($pk = null, $reset = true)
 	{

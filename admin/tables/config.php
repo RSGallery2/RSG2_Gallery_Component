@@ -10,7 +10,7 @@
 defined('_JEXEC') or die();
 
 /**
- *
+ * Standard functions for table config
  *
  * @since 4.3.0
  */
@@ -20,7 +20,9 @@ class Rsgallery2TableConfig extends JTable
 	 * Constructor
 	 *
 	 * @param   JDatabaseDriver &$db A database connector object
-	 */
+     *
+     * @since 4.3.0
+     */
 	function __construct(&$db)
 	{
 		// id, name, value
