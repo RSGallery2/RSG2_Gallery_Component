@@ -1,0 +1,35 @@
+##Versions:
+
+###Version  4.3.1 ++
+* Linear ordering over all galleries, sub galleries will be listed direct after parent gallery
+
+###In between version ? 4.2 - 4.3
+* The ordering of a new gallery has value 1
+* Ordering of sub galleries (have parent) ignores the parent galleries and
+
+###Version up to RSG2 3.x (Joomla 2.5)
+* The ordering of a new gallery has value 1
+* Ordering of sub galleries (have parent) is counted within the parent galleries and begins with 1
+
+##Discussion:
+###Linear ordering over all galleries
+All order IDs are unique. Sub galleries are sorted direct after the parent gallery. They get the following number. Sub galleries will only be ordered within the same parent.
+
+positive:
+* ...
+* new item -> run through increase everything with one
+
+negative:
+* ...
+* a lot of numbers have to be increased
+* ...
+
+##Ordering within sub galleries (parents)
+The general order is within parent galleries. Sub galleries will only be ordered within the same parent. Their ordering begins with '1'.
+
+positive:
+* New sub gallery has to reorder only few items
+
+negative:
+* Sub galleries and galleries may have the same ordering number.
+* New parent item still has to move all other parent item
