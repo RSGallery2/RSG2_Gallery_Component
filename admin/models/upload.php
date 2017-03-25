@@ -13,8 +13,8 @@ defined('_JEXEC') or die();
 jimport('joomla.application.component.modeladmin');
 
 /**
+ * Supports upload of images with access to last galleries and ...
  *
- * yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
  * @since 4.3.0
  */
 class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
@@ -102,7 +102,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	}
 
 	/**
-	 * Returns state of config variable 'if the latest gallery shall be preseleted for upload'
+	 * Returns state of config variable if the latest gallery shall be preselected for upload'
 	 *
 	 * @return bool true when set in config data
      *
@@ -193,7 +193,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	}
 
 	/**
-	 * Returns state of config variable 'if the latest gallery shall be preselected for upload'
+	 * Returns state of config variable if the latest gallery shall be preselected for upload'
 	 *
 	 * @return bool true when set in config data
      *

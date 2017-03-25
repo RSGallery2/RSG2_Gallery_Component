@@ -25,7 +25,6 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . '/classes/sqlinstallfile.php');
 
 /**
  * Helper class for database accessing (purging) functions
- * yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy Documented up to here
  *
  * @since 4.3.0
  */
@@ -33,23 +32,22 @@ class Rsgallery2ModelMaintSql extends JModelList
 {
 //    protected $text_prefix = 'COM_RSG2';
 
-	//protected $tableList;
 	/**
-	 * @var
+	 * @var array string
 	 */
 	protected $tableNames;
 	/**
-	 * @var
+	 * @var assoc arrray of file data
 	 * // d:\xampp\htdocs\Joomla3x\administrator\components\com_rsgallery2\sql\install.mysql.utf8.sql
 	 */
 	protected $sqlFile;
 	/**
 	 * @var
 	 */
-	protected $db;
+	// Not needed ? 2017.03.25 protected $db;
 
 	/**
-	 * Runs database optimization function for each table
+	 * Calls standard sql database optimization function for each RSG2 table
 	 *
 	 * @return string operation messages
 	 *
@@ -98,7 +96,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 		// $msg = "Model: createGalleryAccessField: " . '<br>';
 		$msg = '';
 
-		/*  RSGallery2 user
+		/*  fixes: RSGallery2 user
 		1054 Unknown column 'access' in 'field list' SQL=INSERT INTO `afs_rsgallery2_galleries`
 	         (`id`,`parent`,`name`,`alias`,`description`,`published`,`checked_out`,
 	          `checked_out_time`,`ordering`,`hits`,`date`,`params`,`user`,`uid`,`allowed`,
@@ -165,7 +163,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 	}
 
 	/**
-	 * Delete Column
+	 * Delete Column in given table for purge purposes
 	 *
 	 * @param string $tableName
 	 * @param string $columnName
@@ -188,7 +186,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 	}
 
 	/**
-	 * Is table existing in DB
+	 * Check if table is existing in DB
 	 *
 	 * @param string $tableName
 	 *
@@ -214,7 +212,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 	}
 
 	/**
-	 * Delete table
+	 * Delete complete table
 	 *
 	 * @param string $tableName
 	 *
@@ -287,7 +285,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 	repairSqlTables()
 	------------------------------------------------------------------------------------*/
 	/**
-	 * The function may be called from Maintenance Database if a mismatch between database and
+	 * The function will be called from Maintenance Database if a mismatch between database and
 	 * component sql file is found.
 	 * It will check and repair following issues
 	 *    * Missing tables -> create
@@ -410,10 +408,11 @@ class Rsgallery2ModelMaintSql extends JModelList
 	}
 
 	/**
-	 *
+	 * Create table with data from sql file
+     *
 	 * @param string $tableName
 	 * @param        $sqlFile creates the table query string
-	 * ToDo: Remove messages (should be generated in calling functions
+	 * ToDo: Remove messages (should be generated in calling functions)
 	 *
 	 * @return bool true if successful
 	 *
@@ -453,6 +452,8 @@ class Rsgallery2ModelMaintSql extends JModelList
 
 	/**
 	 * Checks for missing tables, missing columns and more
+     * For each possible type (table, column, ... is called a separate check
+     * The result is displayed for the user
 	 *
 	 * @return string array containing messages on all errors found
 	 *
@@ -620,7 +621,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 	}
 
 	/**
-	 * Checks for missing columns
+	 * Checks for missing columns in given table
 	 *
 	 * @param $sqlTableName
 	 * @param $sqlFile
@@ -777,7 +778,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 	}
 
 	/**
-	 * Replaces the '#--' in front of component table names
+	 * Replaces the '#--' in front of component all table names
 	 * with the matching database name
 	 *
 	 * @param string [] $tableNames
@@ -801,7 +802,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 	}
 
 	/**
-	 * Replaces the '#--' in front of component table names
+	 * Replaces the '#--' in front of given table name
 	 * with the matching database name
 	 *
 	 * @param string $tableName
@@ -905,9 +906,11 @@ class Rsgallery2ModelMaintSql extends JModelList
 
 		return $differentColumnTypes;
 	}
-//yyyyyyyyyyyyyyyyyyyyy
+
+    // ToDO: ? Move to comments ?
+    // ToDO: revisit with tests and data for user messages
     /**
-     *
+     * Check count of image comments and update if wrong
      *
      * @return string
      *
@@ -960,7 +963,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 							->set(array($db->quoteName('comments') . '=' . $commentCount))
 							->where(array($db->quoteName('id') . '=' . $image->id));
 						$db->setQuery($query);
-						$result = $db->query();
+						$result = $db->execute();
 
 						if (empty ($result))
 						{
@@ -1025,6 +1028,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 		return $msg;
 	}
 
+    // ToDO: ? Move to comments ?
 	/**
 	 * Counts the number of comments for given image
 	 *

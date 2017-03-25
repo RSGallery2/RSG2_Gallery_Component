@@ -28,14 +28,14 @@ $userId = $user->id;
 ?>
 <script type="text/javascript">
 
-	//This will sort your array
+	// This will sort the array
 	function SortByIntValue(a, b) {
 		var aValue = parseInt($(a).value, 10);
 		var bValue = parseInt($(b).value, 10);
 		return aValue - bValue;
 	}
 
-	// :
+	// Change request from order element of gallery row:
 	jQuery(document).ready(function ($) {
 		//alert ("assign");
 

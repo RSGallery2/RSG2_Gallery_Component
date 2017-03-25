@@ -568,6 +568,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 									?>
 
                                     <?php
+                                    // ToDO: ? Move to comments ?
                                     // $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
                                     $link = 'index.php?option=com_rsgallery2&amp;task=maintSql.updateCommentsVoting';
                                     quickTwoIconMoonBar($link, 'icon-comment', 'icon-wand',

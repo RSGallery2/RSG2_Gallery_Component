@@ -176,8 +176,9 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintDatabase', $msg, $msgType);
 	}
 
+	// ToDO: ? Move to comments ?
     /**
-     * Check if database number of comments per image is wrong an fix it
+     * Check if database number of comments per image is wrong and fix it if neccesary
      *
      * @since 4.3.0
      */
