@@ -37,12 +37,6 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 	{
 		global $Rsg2DevelopActive;
 
-		// on develop show open tasks if existing
-		if (!empty ($Rsg2DevelopActive))
-		{
-			echo '<span style="color:red">Task: Bottom part of pagination, </span><br><br>';
-		}
-
 		//--- get needed form data ------------------------------------------
 
 		// Check rights of user
@@ -95,6 +89,8 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 
 	protected function addToolbar($Layout = 'default')
 	{
+	    global $Rsg2DevelopActive;
+	    
 		switch ($Layout)
 		{
 			case 'galleries_raw':
@@ -106,7 +102,7 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 				// on develop show open tasks if existing
 				if (!empty ($Rsg2DevelopActive))
 				{
-					echo '<span style="color:red">Task: Add delete function.</span><br><br>';
+                    echo '<span style="color:red">Task: Add delete function.</span><br><br>';
 				}
 				break;
 
@@ -121,7 +117,13 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 				JToolbarHelper::publish('galleries.publish', 'JTOOLBAR_PUBLISH', true);
 				JToolbarHelper::unpublish('galleries.unpublish', 'JTOOLBAR_UNPUBLISH', true);
 
-				break;
+                // on develop show open tasks if existing
+                if (!empty ($Rsg2DevelopActive))
+                {
+                    echo '<span style="color:red">Task: a) ordering new/changed, b) sub galleries below parent c) Sort by parent ID ? parent before ? </span><br><br>';
+                }
+
+                break;
 		}
 
 	}

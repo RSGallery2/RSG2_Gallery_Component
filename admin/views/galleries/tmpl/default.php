@@ -180,11 +180,11 @@ $userId = $user->id;
 							</th>
 
 							<th width="1%" class="center">
-								<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_IMAGES', 'image_count', $sortDirection, $sortColumn); ?>
+								<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_IMAGES', 'a.image_count', $sortDirection, $sortColumn); ?>
 							</th>
 
 							<th width="1%" class="center">
-								<?php echo JHtml::_('searchtools.sort', 'XParentId', 'image_count', $sortDirection, $sortColumn); ?>
+								<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_PARENT_ID', 'a.parent', $sortDirection, $sortColumn); ?>
 							</th>
 
 							<th width="1%" class="center nowrap hidden-phone">

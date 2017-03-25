@@ -64,8 +64,8 @@
 			<option value="a.published ASC">JSTATUS_ASC</option>
 			<option value="a.published DESC">JSTATUS_DESC</option>
 
-			<option value="a.name ASC">COM_RSGALLERY2_NAME_ASC</option>
-			<option value="a.name DESC">COM_RSGALLERY2_NAME_DESC</option>
+			<option value="a.parent ASC">COM_RSGALLERY2_PARENT_ID_ASC</option>
+			<option value="a.parent DESC">COM_RSGALLERY2_PARENT_ID_DESC</option>
 
 			<option value="image_count ASC">COM_RSGALLERY2_IMAGES_COUNT_ASC</option>
 			<option value="image_count DESC">COM_RSGALLERY2_IMAGES_COUNT_DESC</option>
