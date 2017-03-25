@@ -32,7 +32,6 @@ $doc->addStyleSheet(JURI::root(true) . "/administrator/components/com_rsgallery2
 
 <?php
 
-//  );
 /**
  * @param ImageReferences $ImageReferences
  */
