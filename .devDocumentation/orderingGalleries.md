@@ -31,3 +31,12 @@ positive:
 negative:
 * Sub galleries and galleries may have the same ordering number.
 * New parent item still has to move all other parent item
+
+##Update required:
+To be tested on changes /development
+* Edit gallery -> reassign parent gallery
+* New gallery save, no parent gallery is assigned
+* New gallery save, parent gallery is assigned
+* Gallery view order: New order number,  no parent gallery is assigned
+* Gallery view order: New order number,  parent gallery is assigned (attention: ordering stays within parent group whatever the number tried)
+* 
