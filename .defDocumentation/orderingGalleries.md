@@ -1,4 +1,4 @@
-##Versions:
+##Behavior within versions
 
 ###Version  4.3.1 ++
 * Linear ordering over all galleries, sub galleries will be listed direct after parent gallery
@@ -16,13 +16,11 @@
 All order IDs are unique. Sub galleries are sorted direct after the parent gallery. They get the following number. Sub galleries will only be ordered within the same parent.
 
 positive:
-* ...
-* new item -> run through increase everything with one
+* The gallery view on ordering will display sub galleries direct after
+* New item -> run through increase everything with one. For sub gallery it may start after parent gallery for new item
 
 negative:
-* ...
-* a lot of numbers have to be increased
-* ...
+* All following galleries have to be updated on new item
 
 ##Ordering within sub galleries (parents)
 The general order is within parent galleries. Sub galleries will only be ordered within the same parent. Their ordering begins with '1'.
