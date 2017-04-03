@@ -84,7 +84,14 @@ class Rsgallery2ViewDevelop extends JViewLegacy
                 {
                     echo '<span style="color:red">Task: Check and change gallery order (set to old order, new order or unordered).</span><br><br>';
                 }
+
+                JToolbarHelper::custom('develop.orderRsg2Old', 'previous', 'previous', 'Old RSG2 1.5 order', false);
+                JToolbarHelper::custom('develop.orderRsg2New', 'next', 'next', 'New RSG2 3.x order', false);
+                JToolbarHelper::custom('develop.unorder', 'expand-2', 'expand-2', 'Unorder', false);
+                // JToolbarHelper::custom('develop.', '', '', '', false);
+
             break;
+
             case 'InitUpgradeMessage':
             default:
                 JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE'), 'screwdriver'); // 'maintenance');
