@@ -34,12 +34,6 @@ class Rsgallery2ViewDevelop extends JViewLegacy
 		global $Rsg2DevelopActive;
 		global $rsgConfig;
 
-		// on develop show open tasks if existing
-		if (!empty ($Rsg2DevelopActive))
-		{
-			echo '<span style="color:red">Task: </span><br><br>';
-		}
-
 		//--- get needed data ------------------------------------------
 
 		// Check rights of user
@@ -48,8 +42,19 @@ class Rsgallery2ViewDevelop extends JViewLegacy
 
 		//--- begin to display --------------------------------------------
 
-		$this->addToolbar();
+        // different toolbar on different layouts
+        $Layout = JFactory::getApplication()->input->get('layout');
+
+        // collect data dependend on layout
+        switch ($Layout) {
+            case 'DebugGalleryOrder':
+
+                break;
+        }
+
+
 		$this->sidebar = JHtmlSidebar::render();
+        $this->addToolbar($Layout);
 
 		parent::display($tpl);
 	}
@@ -67,9 +72,29 @@ class Rsgallery2ViewDevelop extends JViewLegacy
 		return $canAdmin;
 	}
 
-	protected function addToolbar()
+	protected function addToolbar($Layout = 'default')
 	{
-		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE'), 'screwdriver'); // 'maintenance');
+        global $Rsg2DevelopActive;
+
+        switch ($Layout)
+        {
+            case 'DebugGalleryOrder':
+                // on develop show open tasks if existing
+                if (!empty ($Rsg2DevelopActive))
+                {
+                    echo '<span style="color:red">Task: Check and change gallery order (set to old order, new order or unordered).</span><br><br>';
+                }
+            break;
+            case 'InitUpgradeMessage':
+            default:
+                JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE'), 'screwdriver'); // 'maintenance');
+                if (!empty ($Rsg2DevelopActive))
+                {
+                    // echo '<span style="color:red">Task: .</span><br><br>';
+                }
+            break;
+        }
+
 	}
 }
 

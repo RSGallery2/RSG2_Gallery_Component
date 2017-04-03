@@ -586,6 +586,15 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
                                         'consolidateDB');
                                     ?>
 
+                                    <?php
+                                    // $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
+                                    $link = 'index.php?option=com_rsgallery2&amp;view=develop&amp;layout=DebugGalleryOrder';
+                                    quickTwoIconMoonBar($link, 'icon-eye-open', 'icon-expand',
+                                        JText::_('COM_RSGALLERY2_DEBUG_GALLERY_ORDER'),
+                                        JText::_('COM_RSGALLERY2_DEBUG_GALLERY_ORDER_DESC'),
+                                        'consolidateDB');
+                                    ?>
+
                                 </div>
 							</div>
 						</div>
