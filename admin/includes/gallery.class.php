@@ -283,13 +283,20 @@ class rsgGallery extends JObject
 		//$current = $this->indexOfItem(JRequest::getInt( 'id', 0 ));
 		$current = $input->get('id', 0, 'INT');
 		//$current = JRequest::getInt( 'limitstart', $current );
+
+        // Fix: >>> Plugin Gallery Display: First page of thumbs are not showing (semantic)  (2017.04.03)
+		// Get index of element "id"
+		if ($current > 0) 
+		{
+			$current = $this->indexOfItem($current);
+		}
+		// Fix: <<<
 		$current = $input->get('limitstart', $current, 'INT');
 
 		// calculate page from current position
 		$start = floor($current / $length) * $length;
 
 		return $this->array_slice_preserve_keys($this->items, $start, $length);
-
 	}
 
 	/**
