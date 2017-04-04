@@ -550,7 +550,6 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 									</div>
 
 									<?php
-									// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
 									$link = 'index.php?option=com_rsgallery2&amp;view=maintRemoveLogFiles';
 									quickTwoIconMoonBar($link, 'icon-file-check', 'icon-file-remove',
 										JText::_('COM_RSGALLERY2_REMOVE_LOG_FILES'),
@@ -559,7 +558,6 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 									?>
 
 									<?php
-									// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
 									$link = 'index.php?option=com_rsgallery2&amp;view=maintRemoveInstallLeftovers';
 									quickTwoIconMoonBar($link, 'icon-upload', 'icon-file-remove',
 										JText::_('COM_RSGALLERY2_REMOVE_INSTALLATION_LEFTOVERS'),
@@ -569,7 +567,6 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 
                                     <?php
                                     // ToDO: ? Move to comments ?
-                                    // $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
                                     $link = 'index.php?option=com_rsgallery2&amp;task=maintSql.updateCommentsVoting';
                                     quickTwoIconMoonBar($link, 'icon-comment', 'icon-wand',
                                         JText::_('COM_RSGALLERY2_UPDATE_COMMENTS_AND_VOTING'),
@@ -578,7 +575,6 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
                                     ?>
 
                                     <?php
-                                    // $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
                                     $link = 'index.php?option=com_rsgallery2&amp;view=develop&amp;layout=InitUpgradeMessage';
                                     quickTwoIconMoonBar($link, 'icon-eye-open', 'icon-expand',
                                         JText::_('Test Install/Update message'),
@@ -587,7 +583,6 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
                                     ?>
 
                                     <?php
-                                    // $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
                                     $link = 'index.php?option=com_rsgallery2&amp;view=develop&amp;layout=DebugGalleryOrder';
                                     quickTwoIconMoonBar($link, 'icon-expand-2', 'con-contract-2',
                                         JText::_('COM_RSGALLERY2_DEBUG_GALLERY_ORDER'),

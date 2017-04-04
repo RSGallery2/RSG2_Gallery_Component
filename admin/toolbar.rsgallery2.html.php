@@ -102,6 +102,17 @@ class menu_rsg2_submenu
 						false);
 				}
 			}
+			
+			if (substr($view, 0, 5) == 'devel')
+			{
+				$link = 'index.php?option=com_rsgallery2&view=maintenance';
+				// In config add maintenance
+				JHtmlSidebar::addEntry(
+					'<span class="icon-screwdriver" >  </span>' .
+					JText::_('COM_RSGALLERY2_MAINTENANCE'),
+					$link,
+					false);
+			}
 
 			// gallery_raw, image_raw, ...
 			if (substr($layout, -4) == '_raw')

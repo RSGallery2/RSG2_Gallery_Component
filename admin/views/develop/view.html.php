@@ -79,6 +79,8 @@ class Rsgallery2ViewDevelop extends JViewLegacy
         switch ($Layout)
         {
             case 'DebugGalleryOrder':
+                JToolBarHelper::title(JText::_('COM_RSGALLERY2_DEBUG_GALLERY_ORDER'), 'expand-2');
+
                 // on develop show open tasks if existing
                 if (!empty ($Rsg2DevelopActive))
                 {
