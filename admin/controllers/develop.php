@@ -39,7 +39,31 @@ class Rsgallery2ControllerDevelop extends JControllerForm
         $msg = "orderRsg2Old: " . '<br>';
         $msgType = 'notice';
 
-        $link = JRoute::_('index.php?option=com_rsgallery2&amp;view=develop&amp;layout=DebugGalleryOrder');
+        try
+        {
+            // Model tells if successful
+            $model = $this->getModel('GalleriesOrder');
+            $IsSaved = $model->orderRsg2ByOld15Method();
+            if ($IsSaved) {
+                $msg .= JText::_('Ordering by Old 1.5 method failed saved');
+            }
+            else
+            {
+                $msg .= JText::_('Save ordering by Old 1.5 method failed');
+                $msgType = 'error';
+            }
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing orderRsg2ByOld15Method: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        $link = 'index.php?option=com_rsgallery2&view=develop&layout=DebugGalleryOrder';
         $this->setRedirect($link, $msg, $msgType);
 		
 		return true;
@@ -49,7 +73,7 @@ class Rsgallery2ControllerDevelop extends JControllerForm
      * 
      *
      *
-     * @since version 4.3
+     * @since version 4.3.1
      */
 	public function orderRsg2New()
 	{
@@ -58,7 +82,31 @@ class Rsgallery2ControllerDevelop extends JControllerForm
         $msg = "orderRsg2New: " . '<br>';
         $msgType = 'notice';
 
-		$link = JRoute::_('index.php?option=com_rsgallery2&amp;view=develop&amp;layout=DebugGalleryOrder');
+        try
+        {
+            // Model tells if successful
+            $model = $this->getModel('GalleriesOrder');
+            $IsSaved = $model->orderRsg2ByNewMethod();
+            if ($IsSaved) {
+                $msg .= JText::_('Ordering by NewMethod saved');
+            }
+            else
+            {
+                $msg .= JText::_('Save ordering by NewMethod failed');
+                $msgType = 'error';
+            }
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing orderRsg2ByOld15Method: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        $link = 'index.php?option=com_rsgallery2&view=develop&layout=DebugGalleryOrder';
         $this->setRedirect($link, $msg, $msgType);
 
 		return true;
@@ -77,7 +125,32 @@ class Rsgallery2ControllerDevelop extends JControllerForm
         $msg = "unorder: " . '<br>';
         $msgType = 'notice';
 
-        $link = JRoute::_('index.php?option=com_rsgallery2&view=develop&layout=DebugGalleryOrder');
+        try
+        {
+            // Model tells if successful
+            $model = $this->getModel('GalleriesOrder');
+            $IsSaved = $model->orderRsg2ByUnorderMethod();
+            if ($IsSaved) {
+                $msg .= JText::_('Unordering saved');
+            }
+            else
+            {
+                $msg .= JText::_('Save unordering failed');
+                $msgType = 'error';
+            }
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing orderRsg2ByOld15Method: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+
+        $link = 'index.php?option=com_rsgallery2&view=develop&layout=DebugGalleryOrder';
         $this->setRedirect($link, $msg, $msgType);
 
 		return true;
