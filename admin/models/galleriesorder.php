@@ -35,6 +35,59 @@ class rsgallery2ModelGalleriesOrder extends JModelList
             $app = JFactory::getApplication();
             $app->enqueueMessage('orderRsg2ByOld15Method (B)', 'notice');
 
+            $count = countGalleries ();
+
+            $groupings = array();
+
+            // Collect all galleries which are not sub galleries
+            // Collect order and sort by order
+
+
+
+            // Prepare has parent gallery list to be checked
+            -> call function
+
+
+            // for each gallery
+
+
+            // Increase local order +1
+
+
+
+
+            // Handle has parent lsit
+
+yyyy
+
+            // update ordering values
+            for ($idx = 0; $idx < $count; $idx++)
+            {
+                $row->load((int) $idx);
+                $groupings[] = $row->parent;
+                if ($row->ordering != $order[$i])
+                {
+                    $row->ordering = $order[$i];
+                    if (!$row->store())
+                    {
+                        JError::raiseError(500, $mainframe->getErrorMsg());
+                    } // if
+                } // if
+            } // for
+
+            // reorder each group
+            $groupings = array_unique($groupings);
+            foreach ($groupings as $group)
+            {
+                $row->reorder('parent = ' . $database->Quote($group));
+            } // foreach
+
+
+
+
+
+
+
             // $IsSuccessful = true;
         } catch (RuntimeException $e) {
 
@@ -98,6 +151,60 @@ class rsgallery2ModelGalleriesOrder extends JModelList
         return $IsSuccessful;
     }
 
+
+    public static function countGalleries()
+    {
+        $galleryCount = 0;
+
+        try {
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+
+            $query->select('count(1)');
+            $query->from('#__rsgallery2_galleries');
+
+            /* Use other function to leave out not published galleries
+             Only for superadministrators this includes the unpublished items
+            if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2'))
+            {
+                $query->where('published = 1');
+            }
+            /**/
+            $db->setQuery($query);
+
+            $galleryCount = $db->loadResult();
+
+        } catch (RuntimeException $e) {
+            $OutTxt = '';
+            $OutTxt .= 'countImages: Error executing query: "' . $query . '"' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $galleryCount;
+    }
     /**/
+
+    /**
+    public static function ()
+    {
+    $... = array();
+
+    try {
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(true);
+
+
+    } catch (RuntimeException $e) {
+
+
+    }
+
+    return $...;
+    }
+    /**/
+
 } // class
 
