@@ -102,7 +102,7 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 				// on develop show open tasks if existing
 				if (!empty ($Rsg2DevelopActive))
 				{
-                    echo '<span style="color:red">Task: Add delete function.</span><br><br>';
+                    echo '<span style="color:red">Task: Add delete function, Test add double name</span><br><br>';
 				}
 				break;
 
