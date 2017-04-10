@@ -593,11 +593,10 @@ function saveOrder(&$cid)
 	// $order 		= JRequest::getVar( 'order', array(0), 'post', 'array' );
 	$input = JFactory::getApplication()->input;
 	$order = $input->post->get('order', array(), 'ARRAY');
-//  JArrayHelper::toInteger($order, array(0));
 	ArrayHelper::toInteger($order, array(0));
 	$row = new rsgGalleriesItem($database);
 
-	$conditions = array();
+    $groupings = array();
 
 	// update ordering values
 	for ($i = 0; $i < $total; $i++)
