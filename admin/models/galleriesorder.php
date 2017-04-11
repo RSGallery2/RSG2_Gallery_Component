@@ -35,6 +35,34 @@ class rsgallery2ModelGalleriesOrder extends JModelList
             $app = JFactory::getApplication();
             $app->enqueueMessage('orderRsg2ByOld15Method (B)', 'notice');
 
+            // Reorder all parent gallies (which have no own parent assigned) 
+            $Ids2Ordering = CollectParentGalleries ();
+            $orderIdx = 1;
+            foreach ($Ids2Ordering as $Id2Ordering)
+            {
+                if ($Id2Ordering['ordering'] != $orderIdx)
+                {
+todO: Use function
+                    DISTINCT
+                
+                    $query->update($db->quoteName('#__rsgallery2_galleries'))
+                        ->set(array($db->quoteName('ordering') . '=' . $orderIdx))
+                        ->where(array($db->quoteName('id') . '=' . $id));
+
+                    $result = $db->execute();
+                    if (empty($result))
+                    {
+                        break;
+                    }
+
+                }
+
+                $ActOrdering++;
+            }
+            
+            
+            
+            
             $count = countGalleries ();
 
             $groupings = array();
@@ -151,6 +179,33 @@ yyyy
         return $IsSuccessful;
     }
 
+    public static function CollectParentGalleries ()
+    {
+        $Ids2Ordering = array();
+
+        try {
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+
+            $query->select($db->quoteName(array ($db->quoteName('id'), $db->quoteName('order'))))
+                ->from($db->quoteName('#__rsgallery2_galleries'))
+                ->where($db->quoteName('parent').'=0')
+                ->order('ordering ASC');
+
+            $Ids2Ordering = $db->loadObjectList();
+
+        } catch (RuntimeException $e) {
+            $OutTxt = '';
+            $OutTxt .= 'CollectParentGalleries: Error executing query: "' . $query . '"' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $Ids2Ordering;
+    }
+
 
     public static function countGalleries()
     {
@@ -172,8 +227,9 @@ yyyy
             /**/
             $db->setQuery($query);
 
-            $galleryCount = $db->loadResult();
-
+            // get the count
+            $galleryCount = $db->getNumRows();
+            
         } catch (RuntimeException $e) {
             $OutTxt = '';
             $OutTxt .= 'countImages: Error executing query: "' . $query . '"' . '<br>';
@@ -190,19 +246,19 @@ yyyy
     /**
     public static function ()
     {
-    $... = array();
+        $... = array();
 
-    try {
-    $db = JFactory::getDBO();
-    $query = $db->getQuery(true);
-
-
-    } catch (RuntimeException $e) {
+        try {
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
 
 
-    }
+        } catch (RuntimeException $e) {
 
-    return $...;
+
+        }
+
+        return $...;
     }
     /**/
 
