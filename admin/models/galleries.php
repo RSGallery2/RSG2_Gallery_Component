@@ -402,6 +402,10 @@ class rsgallery2ModelGalleries extends JModelList
 			$db->setQuery($query);
 
 			$imageCount = $db->loadResult();
+
+			// ToDo: use following instead of above
+            // get the count
+            //$imageCount = $db->getNumRows();
 		}
 		catch (RuntimeException $e)
 		{
