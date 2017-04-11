@@ -26,7 +26,9 @@ class Rsgallery2ViewDevelop extends JViewLegacy
 	protected $UserIsRoot;
     protected $debugActive;
 
-	protected $sidebar;
+    protected $GalleriesOrderModel;
+
+    protected $sidebar;
 
 	//------------------------------------------------
 	public function display($tpl = null)
@@ -48,6 +50,8 @@ class Rsgallery2ViewDevelop extends JViewLegacy
         // collect data dependend on layout
         switch ($Layout) {
             case 'DebugGalleryOrder':
+
+                $this->GalleriesOrderModel = JModelLegacy::getInstance('GalleriesOrder', 'rsgallery2Model');
 
                 break;
         }

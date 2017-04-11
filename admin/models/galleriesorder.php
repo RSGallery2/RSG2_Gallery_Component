@@ -42,12 +42,10 @@ class rsgallery2ModelGalleriesOrder extends JModelList
             {
                 if ($Id2Ordering['ordering'] != $orderIdx)
                 {
-todO: Use function
-                    DISTINCT
-                
+
                     $query->update($db->quoteName('#__rsgallery2_galleries'))
                         ->set(array($db->quoteName('ordering') . '=' . $orderIdx))
-                        ->where(array($db->quoteName('id') . '=' . $id));
+                        ->where(array($db->quoteName('id') . '=' . $Id2Ordering['id']));
 
                     $result = $db->execute();
                     if (empty($result))
@@ -57,12 +55,13 @@ todO: Use function
 
                 }
 
-                $ActOrdering++;
+                $orderIdx++;
             }
-            
-            
-            
-            
+
+/**
+
+            // ToDo: Use function  DISTINCT
+
             $count = countGalleries ();
 
             $groupings = array();
@@ -111,7 +110,7 @@ yyyy
             } // foreach
 
 
-
+/**/
 
 
 
@@ -134,6 +133,7 @@ yyyy
      */
     public static function orderRsg2ByNewMethod ()
     {
+
         $IsSuccessful = false;
 
         try {
@@ -187,7 +187,7 @@ yyyy
             $db = JFactory::getDBO();
             $query = $db->getQuery(true);
 
-            $query->select($db->quoteName(array ($db->quoteName('id'), $db->quoteName('order'))))
+            $query->select(array ($db->quoteName('id'), $db->quoteName('order')))
                 ->from($db->quoteName('#__rsgallery2_galleries'))
                 ->where($db->quoteName('parent').'=0')
                 ->order('ordering ASC');
@@ -204,6 +204,35 @@ yyyy
         }
 
         return $Ids2Ordering;
+    }
+
+    public static function OrderedGalleries ()
+    {
+        $OrderedGalleries = array();
+
+        try {
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+
+            $query->select(array ($db->quoteName('id'),
+                $db->quoteName('order'),
+                $db->quoteName('parent'),
+                $db->quoteName('name')))
+                ->from($db->quoteName('#__rsgallery2_galleries'))
+                ->order('ordering ASC');
+
+            $OrderedGalleries = $db->loadObjectList();
+
+        } catch (RuntimeException $e) {
+            $OutTxt = '';
+            $OutTxt .= 'CollectParentGalleries: Error executing query: "' . $query . '"' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $OrderedGalleries;
     }
 
 
