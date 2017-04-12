@@ -179,6 +179,7 @@ yyyy
         return $IsSuccessful;
     }
 
+
     public static function CollectParentGalleries ()
     {
         $Ids2Ordering = array();
@@ -237,6 +238,80 @@ yyyy
 
         return $OrderedGalleries;
     }
+
+    /***
+     * Query a node’s children:
+     *   SELECT * FROM Comments c1 LEFT JOIN Comments c2 ON (c2.parent_id = c1.comment_id);
+     * Query a node’s parent:
+     *   SELECT * FROM Comments c1 JOIN Comments c2 ON (c1.parent_id = c2.comment_id);
+     * Can’t Handle Deep Trees
+     * SELECT * FROM Comments c1
+     *      LEFT JOIN Comments c2 ON (c2.parent_id = c1.comment_id)
+     *      LEFT JOIN Comments c3 ON (c3.parent_id = c2.comment_id)
+     *      LEFT JOIN Comments c4 ON (c4.parent_id = c3.comment_id)
+     *      LEFT JOIN Comments c5 ON (c5.parent_id = c4.comment_id)
+     *      LEFT JOIN Comments c6 ON (c6.parent_id = c5.comment_id)
+     *      LEFT JOIN Comments c7 ON (c7.parent_id = c6.comment_id)
+     *      LEFT JOIN Comments c8 ON (c8.parent_id = c7.comment_id)
+     *      LEFT JOIN Comments c9 ON (c9.parent_id = c8.comment_id)
+     *      LEFT JOIN Comments c10 ON (c10.parent_id = c9.comment_id)
+     *  ... it still doesn’t support unlimited depth!
+     *
+     *
+     * $db = JFactory::getDBO();
+    $query = $db->getQuery(true);
+    $query->select('a.id, a.name, c.id as parent_id, c.name as parent_name')
+    ->from('#__records as a');
+    $query->select('b.parent as parentid');
+    $query->join('LEFT', '#__parents AS b ON b.child = a.id');
+    $query->join('LEFT', '#__records AS c ON b.parent = c.id');
+    $db->setQuery($query);
+    return $query;
+    /**/
+
+
+
+    public static function LeftJoinGalleries ()
+    {
+        $OrderedGalleries = array();
+
+        try {
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+
+            /**/
+            $query->select($db->quoteName(
+                array ('id', 'ordering', 'parent', 'name')))
+                ->from($db->quoteName('#__rsgallery2_galleries as a1'))
+
+                ->join('LEFT', '#__rsgallery2_galleries AS a2 ON a2.parent = c1.id')
+                ->join('LEFT', '#__rsgallery2_galleries AS a3 ON a2.parent = c2.id')
+                ->join('LEFT', '#__rsgallery2_galleries AS a4 ON a2.parent = c3.id')
+                ->join('LEFT', '#__rsgallery2_galleries AS a5 ON a2.parent = c4.id')
+                ->join('LEFT', '#__rsgallery2_galleries AS a6 ON a2.parent = c5.id')
+                ->join('LEFT', '#__rsgallery2_galleries AS a7 ON a2.parent = c6.id')
+                ->join('LEFT', '#__rsgallery2_galleries AS a8 ON a2.parent = c7.id')
+                ->join('LEFT', '#__rsgallery2_galleries AS a9 ON a2.parent = c8.id')
+                ->join('LEFT', '#__rsgallery2_galleries AS a10 ON a2.parent = c9.id')
+
+                ->order('ordering ASC');
+            $db->setQuery($query);
+
+
+            $OrderedGalleries = $db->loadObjectList();
+
+        } catch (RuntimeException $e) {
+            $OutTxt = '';
+            $OutTxt .= 'CollectParentGalleries: Error executing query: "' . $query . '"' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $OrderedGalleries;
+    }
+
 
 
     public static function countGalleries()
