@@ -50,22 +50,21 @@ JFactory::getDocument()->addScriptDeclaration('
                 method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">
 
             <div class="">
-                <table style="width:100%">
+                <table style="max-width:400px">
                     <tr>
-                        <th>Id</th>
-                        <th>Order</th>
-                        <th>ParentId</th>
-                        <th>Gallery name</th>
+                        <th class="text-center" >Id</th>
+                        <th class="text-center" >ParentId</th>
+                        <th class="text-center" >Order</th>
+                        <th class="text-left" >Gallery name</th>
                     </tr>
 
                     <?php
 
-                    /**
-
-                    echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
-
-                    <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general',
-                        empty($this->item->id) ? JText::_('COM_RSGALLERY2_NEW') : JText::_('COM_RSGALLERY2_EDIT')); ?>
+                    /** ToDO: Use Tab set for different sorting order
+                        echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
+                     echo JHtml::_('bootstrap.addTab', 'myTab', 'general',
+                        empty($this->item->id) ? JText::_('COM_RSGALLERY2_NEW') : JText::_('COM_RSGALLERY2_EDIT'));
+                    ?>
                     <div class="row-fluid">
                         <div class="span6 form-horizontal">
                             <fieldset class="adminform">
@@ -142,23 +141,16 @@ JFactory::getDocument()->addScriptDeclaration('
 
                     <?php /**/
                     // Display gallery data subset
-                    /**/
-                    $Galleries = $this->GalleriesOrderModel->OrderedGalleries();
-                    // echo json_encode($Galleries);
-
-                    foreach ($Galleries as $Gallery)
+                    foreach ($this->OrderedGalleries as $Gallery)
                     {
-                        echo "X:" . json_encode($Gallery) . '<br>';
-                        /**
                         ?>
                         <tr>
-                            <th><?php echo $Gallery['id']?></th>
-                            <th><?php echo $Gallery['order']?></th>
-                            <th><?php echo $Gallery['parent']?></th>
-                            <th><?php echo $Gallery['name']?></th>
+                            <td class="text-center"><?php echo $Gallery->id; ?></td>
+                            <td class="text-center"><?php echo $Gallery->parent; ?></td>
+                            <td class="text-center"><?php echo $Gallery->ordering; ?></td>
+                            <td class="text-left"><?php echo $Gallery->name; ?></td>
                         </tr>
                     <?php
-                         /**/
                     }
                     /**/
                     ?>

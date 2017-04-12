@@ -191,6 +191,7 @@ yyyy
                 ->from($db->quoteName('#__rsgallery2_galleries'))
                 ->where($db->quoteName('parent').'=0')
                 ->order('ordering ASC');
+            $db->setQuery($query);
 
             $Ids2Ordering = $db->loadObjectList();
 
@@ -214,14 +215,16 @@ yyyy
             $db = JFactory::getDBO();
             $query = $db->getQuery(true);
 
-            $query->select(array ($db->quoteName('id'),
-                $db->quoteName('order'),
-                $db->quoteName('parent'),
-                $db->quoteName('name')))
+            /**/
+            $query->select($db->quoteName(
+                array ('id', 'ordering', 'parent', 'name')))
                 ->from($db->quoteName('#__rsgallery2_galleries'))
                 ->order('ordering ASC');
+            $db->setQuery($query);
 
             $OrderedGalleries = $db->loadObjectList();
+
+            // echo '$OrderedGalleries: ' . json_encode($OrderedGalleries) . '<br>';
 
         } catch (RuntimeException $e) {
             $OutTxt = '';

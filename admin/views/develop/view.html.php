@@ -27,6 +27,7 @@ class Rsgallery2ViewDevelop extends JViewLegacy
     protected $debugActive;
 
     protected $GalleriesOrderModel;
+    protected $OrderedGalleries;
 
     protected $sidebar;
 
@@ -52,6 +53,7 @@ class Rsgallery2ViewDevelop extends JViewLegacy
             case 'DebugGalleryOrder':
 
                 $this->GalleriesOrderModel = JModelLegacy::getInstance('GalleriesOrder', 'rsgallery2Model');
+                $this->OrderedGalleries = $this->GalleriesOrderModel->OrderedGalleries();
 
                 break;
         }
