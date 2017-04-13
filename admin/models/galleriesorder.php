@@ -269,8 +269,6 @@ yyyy
     return $query;
     /**/
 
-
-
     public static function LeftJoinGalleries ()
     {
         $OrderedGalleries = array();
@@ -279,22 +277,60 @@ yyyy
             $db = JFactory::getDBO();
             $query = $db->getQuery(true);
 
+            /**
+            $query->select($db->quoteName(
+                array ('a1.id', 'a1.ordering', 'a1.parent', 'a1.name')))
+                ->from('#__rsgallery2_galleries as a1')
+
+                ->join('LEFT', '#__rsgallery2_galleries AS a2 ON a2.parent = a1.id')
+                ->join('LEFT', '#__rsgallery2_galleries AS a3 ON a2.parent = a2.id')
+                /**
+                ->join('LEFT', '#__rsgallery2_galleries AS a4 ON a2.parent = a3.id')
+                ->join('LEFT', '#__rsgallery2_galleries AS a5 ON a2.parent = a4.id')
+                ->join('LEFT', '#__rsgallery2_galleries AS a6 ON a2.parent = a5.id')
+                ->join('LEFT', '#__rsgallery2_galleries AS a7 ON a2.parent = a6.id')
+                ->join('LEFT', '#__rsgallery2_galleries AS a8 ON a2.parent = a7.id')
+                ->join('LEFT', '#__rsgallery2_galleries AS a9 ON a2.parent = a8.id')
+                ->join('LEFT', '#__rsgallery2_galleries AS a10 ON a2.parent = a9.id')
+                /**
+                //->group($query->qn('a1.parent'))
+                ->group($query->qn('a1.id'))
+            //    ->order('ordering ASC')
+            //    ->order('name ASC')
+            ;
+
+            /*
+             * mysql select child direct after parent
+            SELECT ...
+            FROM comments AS parent
+            LEFT JOIN comments AS child
+            ON child.parent_id = parent.id
+            WHERE parent.parent_id IS NULL
+            ORDER BY parent.id, child.id;
+            */
+
+            /**
+            $query->select($db->quoteName(
+                array ('parentG.id', 'parentG.ordering', 'parentG.parent', 'parentG.name')))
+                ->from('#__rsgallery2_galleries as parentG')
+                ->join('LEFT', '#__rsgallery2_galleries AS child ON child.parent = parentG.id')
+                ->where($db->quoteName('parentG.parent').'=0')
+                ->order('parentG.ordering, child.ordering')
+            ;
+            /**/
+
             /**/
             $query->select($db->quoteName(
-                array ('id', 'ordering', 'parent', 'name')))
-                ->from($db->quoteName('#__rsgallery2_galleries as a1'))
+                array ('parentG.id', 'parentG.ordering', 'parentG.parent', 'parentG.name')))
+                ->from('#__rsgallery2_galleries as parentG')
+                ->select($db->quoteName(
+                    array ('child.id', 'child.ordering', 'child.parent', 'child.name')))
+                ->join('LEFT', '#__rsgallery2_galleries AS child ON child.parent = parentG.id')
+                ->where($db->quoteName('parentG.parent').'=0')
+                ->order('parentG.ordering, child.ordering')
+            ;
+            /**/
 
-                ->join('LEFT', '#__rsgallery2_galleries AS a2 ON a2.parent = c1.id')
-                ->join('LEFT', '#__rsgallery2_galleries AS a3 ON a2.parent = c2.id')
-                ->join('LEFT', '#__rsgallery2_galleries AS a4 ON a2.parent = c3.id')
-                ->join('LEFT', '#__rsgallery2_galleries AS a5 ON a2.parent = c4.id')
-                ->join('LEFT', '#__rsgallery2_galleries AS a6 ON a2.parent = c5.id')
-                ->join('LEFT', '#__rsgallery2_galleries AS a7 ON a2.parent = c6.id')
-                ->join('LEFT', '#__rsgallery2_galleries AS a8 ON a2.parent = c7.id')
-                ->join('LEFT', '#__rsgallery2_galleries AS a9 ON a2.parent = c8.id')
-                ->join('LEFT', '#__rsgallery2_galleries AS a10 ON a2.parent = c9.id')
-
-                ->order('ordering ASC');
             $db->setQuery($query);
 
 

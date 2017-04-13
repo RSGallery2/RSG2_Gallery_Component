@@ -141,6 +141,7 @@ JFactory::getDocument()->addScriptDeclaration('
 
                     <?php /**/
                     // Display gallery data subset
+                    /**/
                     foreach ($this->OrderedGalleries as $Gallery)
                     {
                         ?>
