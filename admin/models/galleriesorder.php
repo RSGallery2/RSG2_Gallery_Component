@@ -319,20 +319,58 @@ yyyy
             ;
             /**/
 
-            /**/
+            /**
             $query->select($db->quoteName(
                 array ('parentG.id', 'parentG.ordering', 'parentG.parent', 'parentG.name')))
                 ->from('#__rsgallery2_galleries as parentG')
-                ->select($db->quoteName(
-                    array ('child.id', 'child.ordering', 'child.parent', 'child.name')))
+ //               ->select($db->quoteName(
+ //                   array ('child.id', 'child.ordering', 'child.parent', 'child.name')))
                 ->join('LEFT', '#__rsgallery2_galleries AS child ON child.parent = parentG.id')
                 ->where($db->quoteName('parentG.parent').'=0')
                 ->order('parentG.ordering, child.ordering')
             ;
             /**/
+            /**
+            $query->select(array ('parentG.*', 'child.*'))
+                ->from('#__rsgallery2_galleries as parentG')
+                ->join('LEFT', '#__rsgallery2_galleries AS child ON child.parent = parentG.id')
+                ->where($db->quoteName('parentG.parent').'=0')
+//                ->order('parentG.ordering, child.ordering')
+//                ->order('parentG.id, child.id')
+//                ->order('parentG.ordering')
+            ;
+            /**/
+
+
+            /**
+            SELECT
+                  a.id,
+                  a.parentId,
+                  a.ordering,
+                  a.name
+            FROM
+                gallery a
+            LEFT JOIN gallery b ON a.parentId = b.id
+            ORDER BY
+                  COALESCE( b.ordering, a.ordering),
+                  case when a.parentId = 0 then 1 else 2 end,
+                  a.ordering
+            /**/
+
+            /**/
+            $query->select($db->quoteName(
+                array ('parentG.id', 'parentG.ordering', 'parentG.parent', 'parentG.name')))
+                ->from('#__rsgallery2_galleries as parentG')
+                ->join('LEFT', '#__rsgallery2_galleries AS child ON parentG.parent = child.id')
+                ->order('COALESCE( child.ordering, parentG.ordering),
+                  case when parentG.parent = 0 then 1 else 2 end,
+                  parentG.ordering')
+            ;
+            /**/
 
             $db->setQuery($query);
 
+            echo $db->getQuery() . '<br>';
 
             $OrderedGalleries = $db->loadObjectList();
 
