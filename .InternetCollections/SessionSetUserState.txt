@@ -1,0 +1,13 @@
+ 
+		$app = JFactory::getApplication();
+		$app->setUserState('com_users.reset.user', $user->id);
+		$userId = $app->getUserState('com_users.reset.user');
+
+		$session = JFactory::getSession();
+		$session->set('registry',   new JRegistry('session'));
+ 
+ 		$app = JFactory::getApplication();
+		$this->LastFtpUploadPath = $app->getUserState('com_rsgallery2.last_used_ftp_path');
+		$this->LastUploadedZip = $app->getUserState('com_rsgallery2.last_used_uploaded_zip');
+
+ 
