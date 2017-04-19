@@ -65,6 +65,20 @@ JHtml::_('formbehavior.chosen', 'select');
 				<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'InitUpgradeMessage', JText::_('COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY', true)); ?>
                 <?php
 
+
+                // ToDo: Check JoomGallery bootstrap 2 hero output
+                /**
+                <div class="hero-unit">
+                  <h1>Heading</h1>
+                  <p>Tagline</p>
+                  <p>
+                    <a class="btn btn-primary btn-large">
+                            Learn more
+                            </a>
+                  </p>
+                </div>
+                 */
+
                 echo '====================================================================<br />';
                 echo $installCompleteMsg;
                 echo '====================================================================<br />';
