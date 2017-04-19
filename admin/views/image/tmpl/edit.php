@@ -49,7 +49,7 @@ JFactory::getDocument()->addScriptDeclaration('
 					<?php
 					echo $this->form->renderField('name');
 					echo $this->form->renderField('gallery_id');
-					echo $this->form->renderField('description');
+					echo $this->form->renderField('descr');
 					echo $this->form->renderField('id');
 					?>
 				</fieldset>

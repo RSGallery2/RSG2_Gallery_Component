@@ -46,7 +46,7 @@
 			<option value="0">COM_RSGALLERY2_TOP_GALLERY</option>
 		</field>
 		<field
-				name="description"
+				name="descr"
 				type="editor"
 				label="COM_RSGALLERY2_DESCRIPTION"
 				description=""
