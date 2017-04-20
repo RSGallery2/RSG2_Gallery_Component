@@ -35,17 +35,19 @@ class rsgallery2ModelGalleriesOrder extends JModelList
             $app = JFactory::getApplication();
             $app->enqueueMessage('orderRsg2ByOld15Method (B)', 'notice');
 
-            // Reorder all parent gallies (which have no own parent assigned) 
-            $Ids2Ordering = CollectParentGalleries ();
+            // Reorder all parent galleries (which have no own parent assigned)
+            $Parents = rsgallery2ModelGalleriesOrder::CollectParentGalleries ();
             $orderIdx = 1;
-            foreach ($Ids2Ordering as $Id2Ordering)
+
+            // ordering of parents
+            foreach ($Parents as $Parent)
             {
-                if ($Id2Ordering['ordering'] != $orderIdx)
+                if ($Parent['ordering'] != $orderIdx)
                 {
 
                     $query->update($db->quoteName('#__rsgallery2_galleries'))
                         ->set(array($db->quoteName('ordering') . '=' . $orderIdx))
-                        ->where(array($db->quoteName('id') . '=' . $Id2Ordering['id']));
+                        ->where(array($db->quoteName('id') . '=' . $Parent['id']));
 
                     $result = $db->execute();
                     if (empty($result))
@@ -58,11 +60,50 @@ class rsgallery2ModelGalleriesOrder extends JModelList
                 $orderIdx++;
             }
 
+            // Collect all galleries which are not sub galleries
+            $ChildIds2Ordering = rsgallery2ModelGalleriesOrder::CollectChildGalleries ();
+
+            $LastParentId = -1;
+            $orderIdx = 1;
+            foreach ($ChildIds2Ordering as $Child) {
+                $ActParentId = $Child ['parent'];
+
+                // New set ...
+                if ($ActParentId != $LastParentId)
+                {
+                    $LastParentId = -1;
+                    $orderIdx = 0;
+                }
+
+                if ($Child['ordering'] != $orderIdx)
+                {
+
+                    $query->update($db->quoteName('#__rsgallery2_galleries'))
+                        ->set(array($db->quoteName('ordering') . '=' . $orderIdx))
+                        ->where(array($db->quoteName('id') . '=' . $Child['id']));
+
+                    $result = $db->execute();
+                    if (empty($result))
+                    {
+                        break;
+                    }
+
+                }
+
+                $orderIdx++;
+
+
+
+
+
+
+            }
+
 /**
 
             // ToDo: Use function  DISTINCT
 
-            $count = countGalleries ();
+            $count = rsgallery2ModelGalleriesOrder::countGalleries ();
 
             $groupings = array();
 
@@ -83,7 +124,7 @@ class rsgallery2ModelGalleriesOrder extends JModelList
 
 
 
-            // Handle has parent lsit
+            // Handle has parent list
 
 yyyy
 
@@ -117,8 +158,12 @@ yyyy
 
             // $IsSuccessful = true;
         } catch (RuntimeException $e) {
+            $OutTxt = '';
+            $OutTxt .= 'orderRsg2ByOld15Method: ' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
         }
 
         return $IsSuccessful;
@@ -143,10 +188,22 @@ yyyy
             $app = JFactory::getApplication();
             $app->enqueueMessage('orderRsg2ByNewMethod (B)', 'notice');
 
+
+
+
+
+
+
+
+            
             // $IsSuccessful = true;
         } catch (RuntimeException $e) {
+            $OutTxt = '';
+            $OutTxt .= 'orderRsg2ByNewMethod: ' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
         }
 
         return $IsSuccessful;
@@ -170,10 +227,41 @@ yyyy
             $app = JFactory::getApplication();
             $app->enqueueMessage('orderRsg2ByUnorderMethod (B)', 'notice');
 
+            $app = JFactory::getApplication();
+            $app->enqueueMessage('orderRsg2ByOld15Method (B)', 'notice');
+
+            // Reorder all parent gallies (which have no own parent assigned)
+            $Parents = rsgallery2ModelGalleriesOrder::OrderedGalleries ();
+            shuffle($Parents);
+
+            $orderIdx = 1;
+
+            // ordering of parents
+            foreach ($Parents as $Parent)
+            {
+                $query->update($db->quoteName('#__rsgallery2_galleries'))
+                    ->set(array($db->quoteName('ordering') . '=' . $orderIdx))
+                    ->where(array($db->quoteName('id') . '=' . $Parent['id']));
+
+                $result = $db->execute();
+                if (empty($result))
+                {
+                    break;
+                }
+
+                $orderIdx++;
+            }
+
+
+
             // $IsSuccessful = true;
         } catch (RuntimeException $e) {
+            $OutTxt = '';
+            $OutTxt .= 'orderRsg2ByUnorderMethod: ' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
         }
 
         return $IsSuccessful;
@@ -207,6 +295,39 @@ yyyy
 
         return $Ids2Ordering;
     }
+
+
+    public static function CollectChildGalleries ()
+    {
+        $Ids2Ordering = array();
+
+        try {
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+
+            $query->select(array ($db->quoteName('id'), $db->quoteName('order')))
+                ->from($db->quoteName('#__rsgallery2_galleries'))
+                ->where($db->quoteName('parent').'!=0')
+                ->order('ordering ASC');
+            $db->setQuery($query);
+
+            $Ids2Ordering = $db->loadObjectList();
+
+        } catch (RuntimeException $e) {
+            $OutTxt = '';
+            $OutTxt .= 'CollectParentGalleries: Error executing query: "' . $query . '"' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $Ids2Ordering;
+    }
+
+
+
+
 
     public static function OrderedGalleries ()
     {
@@ -299,47 +420,6 @@ yyyy
             //    ->order('name ASC')
             ;
 
-            /*
-             * mysql select child direct after parent
-            SELECT ...
-            FROM comments AS parent
-            LEFT JOIN comments AS child
-            ON child.parent_id = parent.id
-            WHERE parent.parent_id IS NULL
-            ORDER BY parent.id, child.id;
-            */
-
-            /**
-            $query->select($db->quoteName(
-                array ('parentG.id', 'parentG.ordering', 'parentG.parent', 'parentG.name')))
-                ->from('#__rsgallery2_galleries as parentG')
-                ->join('LEFT', '#__rsgallery2_galleries AS child ON child.parent = parentG.id')
-                ->where($db->quoteName('parentG.parent').'=0')
-                ->order('parentG.ordering, child.ordering')
-            ;
-            /**/
-
-            /**
-            $query->select($db->quoteName(
-                array ('parentG.id', 'parentG.ordering', 'parentG.parent', 'parentG.name')))
-                ->from('#__rsgallery2_galleries as parentG')
- //               ->select($db->quoteName(
- //                   array ('child.id', 'child.ordering', 'child.parent', 'child.name')))
-                ->join('LEFT', '#__rsgallery2_galleries AS child ON child.parent = parentG.id')
-                ->where($db->quoteName('parentG.parent').'=0')
-                ->order('parentG.ordering, child.ordering')
-            ;
-            /**/
-            /**
-            $query->select(array ('parentG.*', 'child.*'))
-                ->from('#__rsgallery2_galleries as parentG')
-                ->join('LEFT', '#__rsgallery2_galleries AS child ON child.parent = parentG.id')
-                ->where($db->quoteName('parentG.parent').'=0')
-//                ->order('parentG.ordering, child.ordering')
-//                ->order('parentG.id, child.id')
-//                ->order('parentG.ordering')
-            ;
-            /**/
 
 
             /**
@@ -357,7 +437,7 @@ yyyy
                   a.ordering
             /**/
 
-            /**/
+            /** !!! ok for second level  !!! *
             $query->select($db->quoteName(
                 array ('parentG.id', 'parentG.ordering', 'parentG.parent', 'parentG.name')))
                 ->from('#__rsgallery2_galleries as parentG')
@@ -365,6 +445,20 @@ yyyy
                 ->order('COALESCE( child.ordering, parentG.ordering),
                   case when parentG.parent = 0 then 1 else 2 end,
                   parentG.ordering')
+            ;
+            /**/
+
+            /**/
+            $query->select($db->quoteName(
+                array ('a1.id', 'a1.ordering', 'a1.parent', 'a1.name')))
+                ->from('#__rsgallery2_galleries as a1')
+
+                ->join('LEFT', '#__rsgallery2_galleries AS a2 ON a2.parent = a1.id')
+                ->join('LEFT', '#__rsgallery2_galleries AS a3 ON a2.parent = a2.id')
+
+                ->order('COALESCE( a1.ordering, a2.ordering, a3.ordering),
+                  case when a1.parent = 0 then 1 else 2 end,
+                  a1.ordering')
             ;
             /**/
 
