@@ -370,7 +370,7 @@ yyyy
 
             $db->setQuery($query);
 
-            echo $db->getQuery() . '<br>';
+            // echo $db->getQuery() . '<br>';
 
             $OrderedGalleries = $db->loadObjectList();
 
