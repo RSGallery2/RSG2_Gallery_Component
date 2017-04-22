@@ -53,9 +53,9 @@ JFactory::getDocument()->addScriptDeclaration('
                     <td>
 
                         <?php
-                        /**
+                        /**/
                         ?>
-                        <table style="max-width:400px">
+                        <table style="max-width:400px; padding:20px; margin:20px;">
                             <tr>
                                 <th class="text-center" >Id</th>
                                 <th class="text-center" >ParentId</th>
@@ -144,9 +144,11 @@ JFactory::getDocument()->addScriptDeclaration('
 
                             <?php echo JHtml::_('bootstrap.endTabSet'); ?>
 
-                            <?php /**/
+                            <?php
+                            /**/
+
                             // Display gallery data subset
-                            /**
+                            /**/
                             foreach ($this->OrderedGalleries as $Gallery)
                             {
                                 ?>
@@ -158,15 +160,13 @@ JFactory::getDocument()->addScriptDeclaration('
                                 </tr>
                                 <?php
                             }
-                            /**
+                            /**/
                             ?>
                         </Table>
-                        /**/
-                        ?>
                     </td>
 
                     <td>
-                        <table style="max-width:400px">
+                        <table style="max-width:400px; padding:20px; margin:20px;">
                             <tr>
                                 <th class="text-center" >Id</th>
                                 <th class="text-center" >ParentId</th>
