@@ -25,10 +25,11 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 	protected $UserIsRoot;
 	protected $sidebar;
 
-	protected $GalleriesModel;
 	protected $items;
 	protected $pagination;
 	protected $state;
+
+	protected $dbOrdering;
 
 //	protected $rsgConfigData;
 
@@ -42,7 +43,6 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot();
 
-		$this->GalleriesModel = JModelLegacy::getInstance('galleries', 'rsgallery2Model');
 
 //		global $rsgConfig;
 //		$this->rsgConfigData = $rsgConfig;
@@ -54,6 +54,12 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 
 		$this->filterForm    = $this->get('FilterForm');
 		$this->activeFilters = $this->get('ActiveFilters');
+
+		// Actual List to order all galleries
+        $gOrderingModel = JModelLegacy::getInstance('galleriesorder', 'rsgallery2Model');
+        $this->dbOrdering = $gOrderingModel->OrderedGalleries();
+//        echo '$OrderedGalleries: ' . json_encode($this->dbOrdering) . '<br>';
+        echo ('<br>Length(count): ' . count($this->dbOrdering) . '<br>');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))

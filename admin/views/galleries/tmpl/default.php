@@ -63,8 +63,11 @@ $userId = $user->id;
 					actElement.value = actValue;
 				}
 
-				var Ordering = jQuery(".changeOrder");
-				var Count = Ordering.length;
+				var DbOrdering = <?php json_encode ($this->dbOrdering); ?>;
+                alert (dbOrdering);
+
+				var OrderingElements = jQuery(".changeOrder");
+				var Count = OrderingElements.length;
 
 				// Value higher than the count will be set to highest possible
 				if (actValue > Count) {
@@ -75,12 +78,12 @@ $userId = $user->id;
 				var OutTxt = '';
 
 				// Sort array asc
-				Ordering.sort(SortByIntValue);
+				OrderingElements.sort(SortByIntValue);
 
 				// assign changed ordering values
 				var ChangeOld = 0;
 				for (Idx = 1; Idx <= Count; Idx++) {
-					element = Ordering[Idx - 1];
+					element = OrderingElements[Idx - 1];
 
 					var strIdx = Idx.toString();
 					// not matching the changed element
@@ -117,10 +120,12 @@ $userId = $user->id;
 				// Print array order
 				OutTxt += '\n';
 				for (Idx = 0; Idx < Count; Idx++) {
-					element = Ordering[Idx];
+					element = OrderingElements[Idx];
 
 					OutTxt += element.value + ",";
 				}
+
+				alert (OutTxt);
 			}
 		);
 
@@ -130,8 +135,7 @@ $userId = $user->id;
 </script>
 
 <?php
-// ToDo: <strong>Needed changes:</strong>&nbsp;Status as renamed variable:different in article&nbsp;publish_up/don as sql var &nbsp;Parts !! <br> <br>
-
+    echo '$OrderedGalleries: ' . json_encode($this->dbOrdering) . '<br>';
 ?>
 
 <div id="installer-install" class="clearfix">
@@ -371,7 +375,6 @@ $userId = $user->id;
                             <td width="5%" class="center">
                                 <?php
                                 $imageCount = 0;
-                                // $imageCount = $this->GalleriesModel->countImages ($item->id);
                                 if (!empty($item->image_count))
                                 {
                                     $imageCount = $item->image_count;
