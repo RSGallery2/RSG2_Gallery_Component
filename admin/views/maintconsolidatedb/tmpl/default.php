@@ -613,12 +613,12 @@ function DisplayImageDataTable($ImageReferences, $form)
 				<input type="hidden" value="" name="task" />
 				<input type="hidden" name="boxchecked" value="0" />
 				<input type="hidden" name="ImageReferenceList" value="<?php
-				$ImageReferenceList = $this->ImageReferences->ImageReferenceList;
-				$JsonEncoded        = json_encode($ImageReferenceList);
-				//$JsonEncoded = json_encode($ImageReferenceList, JSON_HEX_QUOT);
-				//$HtmlOut = htmlentities($JsonEncoded, ENT_QUOTES, "UTF-8");
-				$HtmlOut = htmlentities($JsonEncoded, ENT_QUOTES, "UTF-8");
-				echo $HtmlOut;
+                    $ImageReferenceList = $this->ImageReferences->ImageReferenceList;
+                    $JsonEncoded        = json_encode($ImageReferenceList);
+                    //$JsonEncoded = json_encode($ImageReferenceList, JSON_HEX_QUOT);
+                    //$HtmlOut = htmlentities($JsonEncoded, ENT_QUOTES, "UTF-8");
+                    $HtmlOut = htmlentities($JsonEncoded, ENT_QUOTES, "UTF-8");
+                    echo $HtmlOut;
 				?>" />
 
 				<?php echo JHtml::_('form.token'); ?>

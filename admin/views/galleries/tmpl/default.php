@@ -37,7 +37,7 @@ $userId = $user->id;
 
 	// Change request from order element of gallery row:
 	jQuery(document).ready(function ($) {
-		//alert ("assign");
+		alert ("assign");
 
 		jQuery(".changeOrder").on('keyup mouseup',
 			function (event) {
@@ -45,6 +45,8 @@ $userId = $user->id;
 				var element;
 				var Count;
 
+                alert ("event happening");
+            /**/
 				event.preventDefault();
 
 				var actElement = event.target;
@@ -54,6 +56,7 @@ $userId = $user->id;
 					return;
 				}
 
+                /**/
 				var strActValue = actElement.value;
 				var actValue = parseInt(actElement.value);
 
@@ -63,18 +66,31 @@ $userId = $user->id;
 					actElement.value = actValue;
 				}
 
-				var DbOrdering = <?php json_encode ($this->dbOrdering); ?>;
-                alert (dbOrdering);
+                var OrderingElements = jQuery(".changeOrder");
+                var Count = OrderingElements.length;
 
-				var OrderingElements = jQuery(".changeOrder");
-				var Count = OrderingElements.length;
+                // Value higher than the count will be set to highest possible
+                if (actValue > Count) {
+                    actValue = Count;
+                    actElement.value = actValue;
+                }
 
-				// Value higher than the count will be set to highest possible
-				if (actValue > Count) {
-					actValue = Count;
-					actElement.value = actValue;
-				}
+                alert ("Before DbOrdering");
 
+                var serverDbOrderingElement = jQuery(".dbOrdering");
+                alert("Value: '" + serverDbOrderingElement.value + "'");
+                var serverDbOrderingValue = serverDbOrderingElement.value;
+                if ((typeof(serverDbOrderingValue) === 'undefined') || (serverDbOrderingValue === null)) {
+                    alert("serverDbOrdering is not defined ==> Server ordering values not exsisting");
+                    return;
+                }
+
+                alert(serverDbOrderingValue);
+
+                alert ("Before DbOrdering object");
+                oServerDbOrdering = jQuery.parseJSON (serverDbOrderingValue);
+
+			/**
 				var OutTxt = '';
 
 				// Sort array asc
@@ -98,7 +114,7 @@ $userId = $user->id;
 						// Undefined up or down ?
 						// UP: Missing
 						if (ChangeOld == 0) {
-//							alert ("IDX: " + Idx + " " + "Value: " + parseInt(element.value));
+							// alert ("IDX: " + Idx + " " + "Value: " + parseInt(element.value));
 
 							// New id moved up, hole found
 							if (Idx < parseInt(element.value)) {
@@ -126,16 +142,17 @@ $userId = $user->id;
 				}
 
 				alert (OutTxt);
+             /**/
 			}
 		);
 
-		//alert ("done");
+		alert ("done");
 	});
 
 </script>
 
 <?php
-    echo '$OrderedGalleries: ' . json_encode($this->dbOrdering) . '<br>';
+    echo '$OrderedGalleries: ' . json_encode($this->dbOrdering) . '<br><br><br><br>';
 ?>
 
 <div id="installer-install" class="clearfix">
@@ -479,6 +496,12 @@ $userId = $user->id;
             <div>
                 <input type="hidden" name="task" value="" />
                 <input type="hidden" name="boxchecked" value="0" />
+
+                <input id="dbOrdering" name="dbOrdering" value="<?php
+                    $JsonEncoded        = json_encode($this->dbOrdering);
+                    $HtmlOut = htmlentities($JsonEncoded, ENT_QUOTES, "UTF-8");
+                    echo $HtmlOut;
+                ?>" />
 
                 <?php echo JHtml::_('form.token'); ?>
             </div>

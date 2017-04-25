@@ -59,7 +59,7 @@ class Rsgallery2ViewGalleries extends JViewLegacy
         $gOrderingModel = JModelLegacy::getInstance('galleriesorder', 'rsgallery2Model');
         $this->dbOrdering = $gOrderingModel->OrderedGalleries();
 //        echo '$OrderedGalleries: ' . json_encode($this->dbOrdering) . '<br>';
-        echo ('<br>Length(count): ' . count($this->dbOrdering) . '<br>');
+//        echo ('<br>Length(count): ' . count($this->dbOrdering) . '<br>');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
