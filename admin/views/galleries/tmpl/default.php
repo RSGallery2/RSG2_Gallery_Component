@@ -75,20 +75,32 @@ $userId = $user->id;
                     actElement.value = actValue;
                 }
 
-                alert ("Before DbOrdering");
+                // alert ("Before DbOrdering");
 
-                var serverDbOrderingElement = jQuery(".dbOrdering");
-                alert("Value: '" + serverDbOrderingElement.value + "'");
-                var serverDbOrderingValue = serverDbOrderingElement.value;
+                var serverDbOrderingElement = jQuery("#dbOrdering");
+                // alert("Value: '" + serverDbOrderingElement.val() + "'");
+
+                var serverDbOrderingValue = serverDbOrderingElement.val();
                 if ((typeof(serverDbOrderingValue) === 'undefined') || (serverDbOrderingValue === null)) {
                     alert("serverDbOrdering is not defined ==> Server ordering values not exsisting");
                     return;
                 }
 
-                alert(serverDbOrderingValue);
+                // alert(serverDbOrderingValue);
 
                 alert ("Before DbOrdering object");
                 oServerDbOrdering = jQuery.parseJSON (serverDbOrderingValue);
+
+
+
+
+
+
+
+
+
+
+
 
 			/**
 				var OutTxt = '';
@@ -498,7 +510,7 @@ $userId = $user->id;
                 <input type="hidden" name="boxchecked" value="0" />
 
                 <input id="dbOrdering" name="dbOrdering" value="<?php
-                    $JsonEncoded        = json_encode($this->dbOrdering);
+                    $JsonEncoded = json_encode($this->dbOrdering);
                     $HtmlOut = htmlentities($JsonEncoded, ENT_QUOTES, "UTF-8");
                     echo $HtmlOut;
                 ?>" />
