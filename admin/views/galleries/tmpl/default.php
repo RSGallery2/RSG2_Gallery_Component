@@ -60,7 +60,8 @@ $userId = $user->id;
 
                 /**/
 				var strUserValue = actElement.value;
-				var UserValue = parseInt(actElement.value);
+                var UserValue = parseInt(actElement.value);
+                var UserId = parseInt(actElement.value);
 
                 //--- Check limit user value --------------------------------------
 
@@ -100,6 +101,21 @@ $userId = $user->id;
                 // Order by parent / child
                 //-----------------------------------------
 
+                alert("oServerDbOrdering " + JSON.stringify(oServerDbOrdering));
+
+
+                for (var dbGallery in oServerDbOrdering) {
+                    // alert(dbGallery);
+
+                    alert("dbGallery " + JSON.stringify(dbGallery));
+
+
+
+                    break;
+
+
+
+                }
 
                 //---  --------------------------------------
 
