@@ -558,7 +558,7 @@ yyyy
                   a.ordering
             /**/
 
-            /** !!! ok for second level  !!! *
+            /** !!! ok for second level  !!! */
             $query->select($db->quoteName(
                 array ('parentG.id', 'parentG.ordering', 'parentG.parent', 'parentG.name')))
                 ->from('#__rsgallery2_galleries as parentG')
@@ -569,7 +569,7 @@ yyyy
             ;
             /**/
 
-            /**/
+            /**
             $query->select($db->quoteName(
                 array ('a1.id', 'a1.ordering', 'a1.parent', 'a1.name')))
                 ->from('#__rsgallery2_galleries as a1')
