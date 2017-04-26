@@ -56,26 +56,30 @@ $userId = $user->id;
 					return;
 				}
 
-                /**/
-				var strActValue = actElement.value;
-				var actValue = parseInt(actElement.value);
+                //--- User element order value --------------------------------------
 
-				// Negative value will be corrected to lowest value
-				if (actValue < 1) {
-					actValue = 1;
-					actElement.value = actValue;
+                /**/
+				var strUserValue = actElement.value;
+				var UserValue = parseInt(actElement.value);
+
+                //--- Check limit user value --------------------------------------
+
+                // Negative value will be corrected to lowest value
+				if (UserValue < 1) {
+					UserValue = 1;
+					actElement.value = UserValue;
 				}
 
                 var OrderingElements = jQuery(".changeOrder");
-                var Count = OrderingElements.length;
+                var OrderingElementsCount = OrderingElements.length;
 
                 // Value higher than the count will be set to highest possible
-                if (actValue > Count) {
-                    actValue = Count;
-                    actElement.value = actValue;
+                if (UserValue > Count) {
+                    UserValue = Count;
+                    actElement.value = UserValue;
                 }
 
-                // alert ("Before DbOrdering");
+                //--- Fetch database ordering --------------------------------------
 
                 var serverDbOrderingElement = jQuery("#dbOrdering");
                 // alert("Value: '" + serverDbOrderingElement.val() + "'");
@@ -92,6 +96,23 @@ $userId = $user->id;
                 oServerDbOrdering = jQuery.parseJSON (serverDbOrderingValue);
 
 
+                //-----------------------------------------
+                // Order by parent / child
+                //-----------------------------------------
+
+
+                //---  --------------------------------------
+
+                //---  --------------------------------------
+
+                //---  --------------------------------------
+
+                //--- Rewrite in existing HTML
+                // Elements --------------------------------------
+
+                //---  --------------------------------------
+
+                //---  --------------------------------------
 
 
 
@@ -99,10 +120,12 @@ $userId = $user->id;
 
 
 
+                //--- write back database ordering in html --------------------------------------
 
 
 
-			/**
+
+                /**
 				var OutTxt = '';
 
 				// Sort array asc
@@ -115,7 +138,7 @@ $userId = $user->id;
 
 					var strIdx = Idx.toString();
 					// not matching the changed element
-					if (strActValue != element.value) {
+					if (strUserValue != element.value) {
 						// Value different to expected so set it
 						// The orderingIdx should be the Idx value
 						if (element.value != strIdx) {
