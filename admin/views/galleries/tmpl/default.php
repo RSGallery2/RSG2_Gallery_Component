@@ -101,22 +101,27 @@ $userId = $user->id;
                 // Order by parent / child
                 //-----------------------------------------
 
-                alert("oServerDbOrdering " + JSON.stringify(oServerDbOrdering));
+                // alert("oServerDbOrdering " + JSON.stringify(oServerDbOrdering));
 
-
-                for (var dbGallery in oServerDbOrdering) {
-                    // alert(dbGallery);
-
-                    alert("dbGallery " + JSON.stringify(dbGallery));
-
-
-
-                    break;
-
-
-
+                alert("oServerDbOrdering[0] " + JSON.stringify(oServerDbOrdering[0]));
+                alert("oServerDbOrdering.length " + JSON.stringify(oServerDbOrdering.length));
+/**
+                for (var ParentIdx = 0; ParentIdx < oServerDbOrdering.length; ParentIdx = ++) {
+                    alert("oServerDbOrdering[" + ParentIdx + "] " + JSON.stringify(oServerDbOrdering[ParentIdx]));
                 }
 
+                // for (let i of numbers) {
+/**
+                for (var dbGallery of oServerDbOrdering) {
+                    alert("dbGallery " + JSON.stringify(dbGallery));
+                }
+/**/
+                for (var ParentIdx in oServerDbOrdering) {
+                    alert("ParentIdx: " + ParentIdx);
+
+                    break;
+                }
+/**/
                 //---  --------------------------------------
 
                 //---  --------------------------------------
