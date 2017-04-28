@@ -35,6 +35,76 @@ $userId = $user->id;
 		return aValue - bValue;
 	}
 
+    /**
+     * Keeps server database gallery objects (Id,Parent, ordering, name)
+     */
+    var dbOrdering;
+
+
+	/**
+     * Remove child parent value if parent doesn't exist
+     */
+    function RemoveOrphans ()
+    {
+        for (var dbGallery of dbOrdering) {
+            if (!IsParentExisting (dbGallery.parent)) {
+                dbGallery.parent = 0;
+            }
+        }
+    }
+
+    function IsParentExisting (Id)
+    {
+        var bIsParentExisting = false;
+
+        for (var dbGallery of dbOrdering) {
+            if (dbGallery.Id == Id)
+            {
+                IsParentExisting = True;
+                break;
+            }
+        }
+
+        return IsParentExisting;
+    }
+
+    function ReassignOrdering(actIdx=1, parentId=0) {
+
+        alert("actIdx: " + actIdx + " parentId: " + parentId);
+        //alert("dbOrdering["+ actIdx + ] " + JSON.stringify(dbOrdering[actIdx]));
+        //alert("dbOrdering.length " + JSON.stringify(dbOrdering.length));
+
+        /**
+         for (var dbGallery of DbOrdering) {
+                    alert("dbGallery " + JSON.stringify(dbGallery));
+                }
+         /**/
+
+        // Assign Order 1..n to each parent.
+        // Childs get the ordering direct after parent.
+        // So the next parent may have bigger distance
+        // than one to the previous parent
+        /**/
+        for (var dbGallery of dbOrdering) {
+            alert("dbGallery " + JSON.stringify(dbGallery));
+
+            if (dbGallery.parent) {
+                dbGallery.ordering = actIdx;
+                actIdx++;
+
+                // recursive call of ordering on child
+                actIdx = ReassignOrdering(actIdx, dbGallery.parent);
+
+            }
+        }
+        /**/
+
+
+        return actIdx;
+    }
+
+
+
 	// Change request from order element of gallery row:
 	jQuery(document).ready(function ($) {
 		alert ("assign");
@@ -45,8 +115,8 @@ $userId = $user->id;
 				var element;
 				var Count;
 
-                alert ("event happening");
-            /**/
+                //alert ("event happening");
+
 				event.preventDefault();
 
 				var actElement = event.target;
@@ -96,26 +166,41 @@ $userId = $user->id;
                 alert ("Before DbOrdering object");
                 oServerDbOrdering = jQuery.parseJSON (serverDbOrderingValue);
 
+                //alert("oServerDbOrdering[0] " + JSON.stringify(oServerDbOrdering[0]));
+                //alert("oServerDbOrdering.length " + JSON.stringify(oServerDbOrdering.length));
 
                 //-----------------------------------------
                 // Order by parent / child
                 //-----------------------------------------
 
+                // Global value for following functions
+                dbOrdering = oServerDbOrdering;
+                alert(dbOrdering);
+
+                RemoveOrphans ();
+                alert(dbOrdering);
+
+                // Reassign as Versions of $.3.0 may contain no parent child order
+                ReassignOrdering ();
+                alert(dbOrdering);
+
+
                 // alert("oServerDbOrdering " + JSON.stringify(oServerDbOrdering));
 
-                alert("oServerDbOrdering[0] " + JSON.stringify(oServerDbOrdering[0]));
-                alert("oServerDbOrdering.length " + JSON.stringify(oServerDbOrdering.length));
 /**
                 for (var ParentIdx = 0; ParentIdx < oServerDbOrdering.length; ParentIdx = ++) {
                     alert("oServerDbOrdering[" + ParentIdx + "] " + JSON.stringify(oServerDbOrdering[ParentIdx]));
                 }
+ /**/
+
+
 
                 // for (let i of numbers) {
 /**
                 for (var dbGallery of oServerDbOrdering) {
                     alert("dbGallery " + JSON.stringify(dbGallery));
                 }
-/**/
+/**
                 for (var ParentIdx in oServerDbOrdering) {
                     alert("ParentIdx: " + ParentIdx);
 
