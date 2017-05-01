@@ -29,11 +29,14 @@ $userId = $user->id;
 <script type="text/javascript">
 
 	// This will sort the array
-	function SortByIntValue(a, b) {
-		var aValue = parseInt($(a).value, 10);
-		var bValue = parseInt($(b).value, 10);
+	function SortByIntOrdering(a, b) {
+	    /**
+		var aValue = parseInt($(a).ordering, 10);
+		var bValue = parseInt($(b).ordering, 10);
 		return aValue - bValue;
-	}
+        /**/
+        return a.ordering - b.ordering;
+    }
 
     /**
      * Keeps server database gallery objects (Id,Parent, ordering, name)
@@ -41,16 +44,30 @@ $userId = $user->id;
     var dbOrdering;
 
 
+    function displayDbOrderingArray (Title) {
+        OutText = Title + ":\n";
+        for (var dbGallery of dbOrdering) {
+            OutText += JSON.stringify(dbGallery) + "\n";
+        }
+
+        alert (OutText);
+    }
+
+
 	/**
      * Remove child parent value if parent doesn't exist
      */
-    function RemoveOrphans ()
+    function RemoveOrphanIds ()
     {
         for (var dbGallery of dbOrdering) {
             if (!IsParentExisting (dbGallery.parent)) {
+                outText = "Orphan:" + JSON.stringify(dbGallery)
+                alert(outText);
                 dbGallery.parent = 0;
             }
         }
+
+        return;
     }
 
     function IsParentExisting (Id)
@@ -68,46 +85,175 @@ $userId = $user->id;
         return IsParentExisting;
     }
 
-    function ReassignOrdering(actIdx=1, parentId=0) {
+    function SortByOrdering ()
+    {
+        var SortedOrdering = dbOrdering.slice(0);
 
-        alert("actIdx: " + actIdx + " parentId: " + parentId);
+        // alert ("SortedOrdering");
+        SortedOrdering.sort(SortByIntOrdering);
+
+        dbOrdering = SortedOrdering;
+        // alert ("Return SortedOrdering");
+
+        return;
+    }
+
+    // Array must ordered before
+    // Array must be sorted after
+
+    function InsertNewOrdering (UserId, UserOrdering)
+    {
+        var IsGalleryHandled = false;
+
+        /**/
+        // All
+        var OutText = "";
+
+        OutText += "dbOrdering.length: " + dbOrdering.length + ", ";
+        OutText += "UserId: " + UserId + ", ";
+        OutText += "UserOrdering: " + UserOrdering  + "\n\r";
+        // alert(OutText);
+
+        // OutText = "";
+//        for (var ActIdx in dbOrdering) {
+        for (var ActIdx = 0; ActIdx < dbOrdering.length; ActIdx++) {
+            var Gallery = dbOrdering[ActIdx];
+            var ActOrdering = Number(ActIdx) + Number(1)
+            OutText += "'" + ActOrdering + "': ";
+
+            // Element may be late or early, so initialize it
+            if (Gallery.id == UserId)
+            {
+                Gallery.ordering = UserOrdering;
+                IsGalleryHandled = true;
+
+                OutText += "(==)" + Gallery.ordering + ", ";
+            }
+            else
+            {
+                if (!IsGalleryHandled) {
+                    // Element above user ordering is one higher then index
+                    if (ActOrdering >= UserOrdering)
+                    {
+                        Gallery.ordering = Number(ActOrdering) + Number(1);
+
+                        OutText += "(akt>)" + Gallery.ordering + ", ";
+                    }
+                    else
+                    {
+                        OutText += "(!=akt>)" + Gallery.ordering + ", ";;
+                    }
+                }
+                else
+                {
+                    if (ActOrdering >= UserOrdering)
+                    {
+                        Gallery.ordering = ActOrdering;
+
+                        OutText += "==>" + Gallery.ordering + ", ";
+                    }
+                    else
+                    {
+                        OutText += "(!=)" + Gallery.ordering + ", ";;
+                    }
+                }
+            }
+        }
+        OutText += "\n\r";
+        // alert("ActOrdering: " + OutText);
+
+        /**/
+        return;
+    }
+
+    function GetOrderingValue (GalleryId)
+    {
+        var ordering = -1;
+
+        /**/
+        for (var dbGallery of dbOrdering) {
+            // Gallery item found
+            if(dbGallery.Id == GalleryId) {
+                ordering = dbGallery.ordering;
+                break;
+            }
+        }
+
+        /**/
+        return ordering;
+    }
+
+    function AssignNewOrdering (OrderingElements, OrderingElementsCount)
+    {
+        /**/
+        var bIsParentExisting = false;
+
+        var OutText = "AssignNewOrdering: \n\r";
+
+        /**/
+        // all HTML Elements
+ //       for (OrderingElement of OrderingElements){
+        for (var ActIdx = 0; ActIdx < OrderingElements.length; ActIdx++) {
+
+            /**/
+            OrderingElement = OrderingElements[ActIdx];
+            OutText += "OrderingElement: " + JSON.stringify (OrderingElement) + "\r\n";
+            /**
+            OutText += "OrderingElement: " + OrderingElement.val() + " ";
+
+            /**
+            var Value = GetOrderingValue (OrderingElement.id);
+            OutText += "Value: " + Value + " ";
+            // Assign changed value
+            OrderingElement.val(Value);
+            OutText += "(2) OrderingElement: " + OrderingElement.val() + " \r\n";
+            /**/
+        }
+
+        /**/
+
+        alert(OutText);
+
+        return;
+    }
+
+
+
+
+
+
+    // ToDo: collect ParentId. array{users} field and work with it to sort
+    function DoOrdering(actIdx=1, parentId=0) {
+
+        //alert("actIdx: " + actIdx + " parentId: " + parentId);
         //alert("dbOrdering["+ actIdx + ] " + JSON.stringify(dbOrdering[actIdx]));
         //alert("dbOrdering.length " + JSON.stringify(dbOrdering.length));
 
-        /**
-         for (var dbGallery of DbOrdering) {
-                    alert("dbGallery " + JSON.stringify(dbGallery));
-                }
-         /**/
-
         // Assign Order 1..n to each parent.
-        // Childs get the ordering direct after parent.
+        // Children get the ordering direct after parent.
         // So the next parent may have bigger distance
         // than one to the previous parent
         /**/
         for (var dbGallery of dbOrdering) {
-            alert("dbGallery " + JSON.stringify(dbGallery));
+            //alert("dbGallery " + JSON.stringify(dbGallery));
 
-            if (dbGallery.parent) {
+            if (dbGallery.parent == parentId) {
                 dbGallery.ordering = actIdx;
                 actIdx++;
 
                 // recursive call of ordering on child
-                actIdx = ReassignOrdering(actIdx, dbGallery.parent);
+                actIdx = DoOrdering(actIdx, dbGallery.id);
 
             }
         }
         /**/
 
-
         return actIdx;
     }
-
-
-
+    
 	// Change request from order element of gallery row:
 	jQuery(document).ready(function ($) {
-		alert ("assign");
+//		alert ("before event assign");
 
 		jQuery(".changeOrder").on('keyup mouseup',
 			function (event) {
@@ -129,25 +275,27 @@ $userId = $user->id;
                 //--- User element order value --------------------------------------
 
                 /**/
-				var strUserValue = actElement.value;
-                var UserValue = parseInt(actElement.value);
-                var UserId = parseInt(actElement.value);
+				var strUserOrdering = actElement.value;
+                var UserOrdering = parseInt(actElement.value);
+                var UserIdString = actElement.id; //
+                UserIdString = UserIdString.replace( /^\D+/g, ''); // replace all leading non-digits with nothing
+                var UserId = parseInt(UserIdString);
 
                 //--- Check limit user value --------------------------------------
 
                 // Negative value will be corrected to lowest value
-				if (UserValue < 1) {
-					UserValue = 1;
-					actElement.value = UserValue;
+				if (UserOrdering < 1) {
+					UserOrdering = 1;
+					actElement.value = UserOrdering;
 				}
 
                 var OrderingElements = jQuery(".changeOrder");
                 var OrderingElementsCount = OrderingElements.length;
 
                 // Value higher than the count will be set to highest possible
-                if (UserValue > Count) {
-                    UserValue = Count;
-                    actElement.value = UserValue;
+                if (UserOrdering > Count) {
+                    UserOrdering = Count;
+                    actElement.value = UserOrdering;
                 }
 
                 //--- Fetch database ordering --------------------------------------
@@ -163,7 +311,7 @@ $userId = $user->id;
 
                 // alert(serverDbOrderingValue);
 
-                alert ("Before DbOrdering object");
+                //alert ("Before DbOrdering object");
                 oServerDbOrdering = jQuery.parseJSON (serverDbOrderingValue);
 
                 //alert("oServerDbOrdering[0] " + JSON.stringify(oServerDbOrdering[0]));
@@ -175,14 +323,34 @@ $userId = $user->id;
 
                 // Global value for following functions
                 dbOrdering = oServerDbOrdering;
-                alert(dbOrdering);
+                //displayDbOrderingArray ("Orginal");
 
-                RemoveOrphans ();
-                alert(dbOrdering);
+                RemoveOrphanIds ();
+                //displayDbOrderingArray ("Remove Orphans");
 
                 // Reassign as Versions of $.3.0 may contain no parent child order
-                ReassignOrdering ();
-                alert(dbOrdering);
+                DoOrdering ();
+                //displayDbOrderingArray ("After DoOrdering");
+
+                // Sort array by (new) ordering
+                SortByOrdering ();
+                //displayDbOrderingArray ("After sort (1)");
+
+                // Use user assigned ordering value
+                InsertNewOrdering (UserId, UserOrdering);
+                //displayDbOrderingArray ("InsertNewOrdering");
+
+                // Sort array by (new) ordering
+                SortByOrdering ();
+                displayDbOrderingArray ("After sort(2)");
+
+                // Save Ordering in HTML elements
+                AssignNewOrdering (OrderingElements);
+
+                serverDbOrderingElement.val(JSON.stringify(dbOrdering));
+                alert("AssignNewOrdering + Save back");
+
+                // displayDbOrderingArray ("Orginal");
 
 
                 // alert("oServerDbOrdering " + JSON.stringify(oServerDbOrdering));
@@ -244,7 +412,7 @@ $userId = $user->id;
 
 					var strIdx = Idx.toString();
 					// not matching the changed element
-					if (strUserValue != element.value) {
+					if (strUserOrdering != element.value) {
 						// Value different to expected so set it
 						// The orderingIdx should be the Idx value
 						if (element.value != strIdx) {
@@ -287,7 +455,7 @@ $userId = $user->id;
 			}
 		);
 
-		alert ("done");
+		alert ("assign succesful");
 	});
 
 </script>
@@ -638,7 +806,7 @@ $userId = $user->id;
                 <input type="hidden" name="task" value="" />
                 <input type="hidden" name="boxchecked" value="0" />
 
-                <input id="dbOrdering" name="dbOrdering" value="<?php
+                <input id="dbOrdering" name="dbOrdering" class="input-xxlarge" value="<?php
                     $JsonEncoded = json_encode($this->dbOrdering);
                     $HtmlOut = htmlentities($JsonEncoded, ENT_QUOTES, "UTF-8");
                     echo $HtmlOut;
