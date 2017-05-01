@@ -1,0 +1,7 @@
+
+
+
+
+You can choose to show images from multiple sources: Local image folder, Joomla! galleries - JoomGallery, RSGallery2 and Phoca Gallery.
+https://www.joomlashine.com/joomla-hub/jsn-imageshow-online-documentation.html
+
