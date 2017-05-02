@@ -190,12 +190,12 @@ $userId = $user->id;
 
         var OutText = "AssignNewOrdering: \n\r";
 
-        /**/
+        /**
         // all HTML Elements
  //       for (OrderingElement of OrderingElements){
         for (var ActIdx = 0; ActIdx < OrderingElements.length; ActIdx++) {
 
-            /**/
+            /**
             OrderingElement = OrderingElements[ActIdx];
             OutText += "OrderingElement: " + JSON.stringify (OrderingElement) + "\r\n";
             /**
@@ -207,12 +207,21 @@ $userId = $user->id;
             // Assign changed value
             OrderingElement.val(Value);
             OutText += "(2) OrderingElement: " + OrderingElement.val() + " \r\n";
-            /**/
+            /**
         }
+        /**/
+        OrderingElements.each(function (ActIdx, value) {
 
+            OutText += "ActIdx: " + ActIdx + ": ";
+            OutText += "OrderingElement: " + $( this ).value;
+            // + JSON.stringify (value) + "\r\n";
+            //OutText += "key: " + key + " ";
+            OutText += "\r\n";
+        })
         /**/
 
         alert(OutText);
+        /**/
 
         return;
     }
@@ -461,7 +470,7 @@ $userId = $user->id;
 </script>
 
 <?php
-    echo '$OrderedGalleries: ' . json_encode($this->dbOrdering) . '<br><br><br><br>';
+//    echo '$OrderedGalleries: ' . json_encode($this->dbOrdering) . '<br><br><br><br>';
 ?>
 
 <div id="installer-install" class="clearfix">
@@ -809,7 +818,8 @@ $userId = $user->id;
                 <input id="dbOrdering" name="dbOrdering" class="input-xxlarge" value="<?php
                     $JsonEncoded = json_encode($this->dbOrdering);
                     $HtmlOut = htmlentities($JsonEncoded, ENT_QUOTES, "UTF-8");
-                    echo $HtmlOut;
+                    //echo "input dbOrdering start:<br>" . $HtmlOut;
+                    echo  $HtmlOut;
                 ?>" />
 
                 <?php echo JHtml::_('form.token'); ?>
