@@ -101,7 +101,7 @@ $userId = $user->id;
     // Array must ordered before
     // Array must be sorted after
 
-    function InsertNewOrdering (UserId, UserOrdering)
+    function InsertChangedOrdering (UserId, UserOrdering)
     {
         var IsGalleryHandled = false;
 
@@ -346,18 +346,19 @@ $userId = $user->id;
                 //displayDbOrderingArray ("After sort (1)");
 
                 // Use user assigned ordering value
-                InsertNewOrdering (UserId, UserOrdering);
-                //displayDbOrderingArray ("InsertNewOrdering");
+                InsertChangedOrdering (UserId, UserOrdering);
+                //displayDbOrderingArray ("InsertChangedOrdering");
 
                 // Sort array by (new) ordering
                 SortByOrdering ();
                 displayDbOrderingArray ("After sort(2)");
 
+                serverDbOrderingElement.val(JSON.stringify(dbOrdering));
+                //alert("AssignNewOrdering + Save back");
+                displayDbOrderingArray ("Save back to 'INSERT'");
+
                 // Save Ordering in HTML elements
                 AssignNewOrdering (OrderingElements);
-
-                serverDbOrderingElement.val(JSON.stringify(dbOrdering));
-                alert("AssignNewOrdering + Save back");
 
                 // displayDbOrderingArray ("Orginal");
 
