@@ -66,7 +66,7 @@ class Rsgallery2ControllerGalleries extends JControllerAdmin
 		    try
 			{
 				// Model tells if successful
-				$model = $this->getModel('galleries');
+				$model = $this->getModel('GalleriesOrder');
                 $IsSaved = $model->saveOrdering();
                 if ($IsSaved) {
                     $msg .= JText::_('COM_RSGALLERY2_NEW_ORDERING_SAVED');
