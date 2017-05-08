@@ -199,44 +199,44 @@ class rsgallery2ModelGalleries extends JModelList
 		return $query;
 	}
 
-	/**
-	 * Saves changed manual ordering of galleries
-	 *
+    /**
+     * Saves changed manual ordering of galleries
+     *
      * @return bool true if successful
      *
      * @since 4.3.0
-     */
-	public function saveOrdering()
-	{
+     *  old
+    public function saveOrdering()
+    {
         $IsSaved = false;
 
         try
-		{
+        {
 
-			$input  = JFactory::getApplication()->input;
-			$orders = $input->post->get('order', array(), 'ARRAY');
-			$ids    = $input->post->get('ids', array(), 'ARRAY');
+            $input  = JFactory::getApplication()->input;
+            $orders = $input->post->get('order', array(), 'ARRAY');
+            $ids    = $input->post->get('ids', array(), 'ARRAY');
 
-			// $CountOrders = count($ids);
-			$CountIds = count($ids);
+            // $CountOrders = count($ids);
+            $CountIds = count($ids);
 
-			$db    = JFactory::getDbo();
-			$query = $db->getQuery(true);
-			$db->setQuery($query);
+            $db    = JFactory::getDbo();
+            $query = $db->getQuery(true);
+            $db->setQuery($query);
 
-			for ($idx = 0; $idx < $CountIds; $idx++)
-			{
-				$id       = $ids[$idx];
-				$orderIdx = $orders[$idx];
-				// $msg .= "<br>" . '$id: ' . $id . '$orderIdx: ' . $orderIdx;
+            for ($idx = 0; $idx < $CountIds; $idx++)
+            {
+                $id       = $ids[$idx];
+                $orderIdx = $orders[$idx];
+                // $msg .= "<br>" . '$id: ' . $id . '$orderIdx: ' . $orderIdx;
 
-				$query->clear();
+                $query->clear();
 
-				$query->update($db->quoteName('#__rsgallery2_galleries'))
-					->set(array($db->quoteName('ordering') . '=' . $orderIdx))
-					->where(array($db->quoteName('id') . '=' . $id));
+                $query->update($db->quoteName('#__rsgallery2_galleries'))
+                    ->set(array($db->quoteName('ordering') . '=' . $orderIdx))
+                    ->where(array($db->quoteName('id') . '=' . $id));
 
-				$result = $db->execute();
+                $result = $db->execute();
                 if (empty($result))
                 {
                     break;
@@ -248,21 +248,115 @@ class rsgallery2ModelGalleries extends JModelList
             }
 
             // parent::reorder();
-		}
-		catch (RuntimeException $e)
-		{
-			$OutTxt = '';
-			$OutTxt .= 'Error executing saveOrdering: "' . '<br>';
-			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing saveOrdering: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-			$app = JFactory::getApplication();
-			$app->enqueueMessage($OutTxt, 'error');
-		}
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
 
         return $IsSaved;
-	}
+    }
+    /**/
 
-	/**
+
+    ??? Model ordering ?
+
+
+    /**
+     * Saves changed manual ordering of galleries
+     *
+     * @return bool true if successful
+     *
+     * @since 4.3.0
+     */
+    public function saveOrdering()
+    {
+        $IsSaved = false;
+
+        try
+        {
+            $input  = JFactory::getApplication()->input;
+            $newOrderingHtml = $input->post->get('dbOrdering', , 'TEXT');
+
+            /** toDO: ? empty ? wrong data ? *
+            if ((typeof(serverDbOrderingValue) === 'undefined') || (serverDbOrderingValue === null)) {
+                alert("serverDbOrdering is not defined ==> Server ordering values not exsisting");
+                return;
+            }
+            /**/
+
+            // alert(serverDbOrderingValue);
+
+            //alert ("Before DbOrdering object");
+            //$newOrdering = jQuery.parseJSON (serverDbOrderingValue);
+            //var_dump(json_decode($json));
+            //var_dump(json_decode($json, true));
+            $newOrdering =json_decode($newOrderingHtml, true);
+
+
+            RemoveOrphanIds ();
+            //displayDbOrderingArray ("Remove Orphans");
+
+            // Reassign as Versions of $.3.0 may contain no parent child order
+            DoOrdering ();
+            //displayDbOrderingArray ("After DoOrdering");
+
+            // Sort array by (new) ordering
+            SortByOrdering ();
+            //displayDbOrderingArray ("After sort (1)");
+
+            // Save Ordering in HTML elements
+            AssignNewOrdering (OrderingElements);
+
+
+            $db    = JFactory::getDbo();
+            $query = $db->getQuery(true);
+            $db->setQuery($query);
+
+            for ($idx = 0; $idx < $CountIds; $idx++)
+            {
+                $id       = $ids[$idx];
+                $orderIdx = $orders[$idx];
+                // $msg .= "<br>" . '$id: ' . $id . '$orderIdx: ' . $orderIdx;
+
+                $query->clear();
+
+                $query->update($db->quoteName('#__rsgallery2_galleries'))
+                    ->set(array($db->quoteName('ordering') . '=' . $orderIdx))
+                    ->where(array($db->quoteName('id') . '=' . $id));
+
+                $result = $db->execute();
+                if (empty($result))
+                {
+                    break;
+                }
+            }
+            if (!empty($result))
+            {
+                $IsSaved = true;
+            }
+
+            // parent::reorder();
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing saveOrdering: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $IsSaved;
+    }
+
+    /**
 	 * This function will retrieve the data of the n last uploaded images
 	 *
 	 * @param int $limit > 0 will limit the number of lines returned
