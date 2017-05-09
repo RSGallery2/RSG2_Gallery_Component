@@ -353,6 +353,22 @@ yyyy
     }
 
 
+    private function displayDbOrderingArray ($Title='') {
+
+        $app = JFactory::getApplication();
+        // $app->enqueueMessage('this->dbOrdering : ' . json_encode($this->dbOrdering), 'notice');
+
+        $OutText = "Title: " . $Title . ": ";
+        $Idx = 0;
+        foreach ($this->dbOrdering as $dbGallery) {
+            $Idx++;
+            $OutText = $OutText . 'Idx:' . Idx  . ' ' .json_encode($dbGallery) + "<br>";
+        }
+
+        $app->enqueueMessage($OutText, 'notice');
+    }
+
+
     /**
      * Saves changed manual ordering of galleries
      *
@@ -369,6 +385,9 @@ yyyy
             $input  = JFactory::getApplication()->input;
             $newOrderingHtml = $input->post->get('dbOrdering', '', 'STRING');
 
+            $app = JFactory::getApplication();
+            // $app->enqueueMessage('newOrderingHtml: ' . json_encode($newOrderingHtml), 'notice');
+
             /** toDO: ? empty ? wrong data ? *
             if ((typeof(serverDbOrderingValue) === 'undefined') || (serverDbOrderingValue === null)) {
             alert("serverDbOrdering is not defined ==> Server ordering values not exsisting");
@@ -383,8 +402,11 @@ yyyy
             //var_dump(json_decode($json));
             //var_dump(json_decode($json, true));
             $newOrdering =json_decode($newOrderingHtml, true);
-            $dbOrdering = $newOrdering;
-            displayDbOrderingArray ("NewOrdering");
+
+            $app->enqueueMessage('newOrdering: ' . json_encode($newOrdering), 'notice');
+
+            $this->dbOrdering = $newOrdering;
+            $this->displayDbOrderingArray ("NewOrdering");
 
             return;
 
