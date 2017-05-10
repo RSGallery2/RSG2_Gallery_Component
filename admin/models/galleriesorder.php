@@ -356,18 +356,65 @@ yyyy
     private function displayDbOrderingArray ($Title='') {
 
         $app = JFactory::getApplication();
-        // $app->enqueueMessage('this->dbOrdering : ' . json_encode($this->dbOrdering), 'notice');
+        //$app->enqueueMessage('this->dbOrdering : ' . json_encode($this->dbOrdering), 'notice');
 
-        $OutText = "Title: " . $Title . ": ";
+        $OutText = 'Title: ' . $Title . ': ' . '<br>';
         $Idx = 0;
         foreach ($this->dbOrdering as $dbGallery) {
+            // ...
+            $OutText = $OutText . 'Idx:' . $Idx  . ' ' .json_encode($dbGallery) . '<br>';
+            //$OutText = $OutText . 'Idx:' . $Idx  . ' ' .json_encode($this->dbOrdering[$Idx]) . '<br>';
             $Idx++;
-            $OutText = $OutText . 'Idx:' . Idx  . ' ' .json_encode($dbGallery) + "<br>";
         }
 
         $app->enqueueMessage($OutText, 'notice');
     }
 
+
+    function IsParentExisting ($ParentId)
+    {
+        $bIsParentExisting = false;
+
+        foreach ($this->dbOrdering as $dbGallery) {
+            if ($dbGallery['id'] == $ParentId)
+            {
+                $bIsParentExisting = True;
+                break;
+            }
+        }
+
+        return $bIsParentExisting;
+    }
+
+    /**
+     * Remove child parent value if parent doesn't exist
+     */
+    function RemoveOrphanIds ()
+    {
+        $app = JFactory::getApplication();
+
+        foreach ($this->dbOrdering as $dbGallery) {
+            $OutText = '';
+            $OutText .= ' Parent (1): ' . $dbGallery['parent'];
+            //$OutText .= ' Parent (2): ' . $dbGallery.parent;
+            //$OutText .= ' Parent (3): ' . $dbGallery->parent;
+
+            $app->enqueueMessage($OutText, 'notice');
+
+            /**/
+            if (!$this->IsParentExisting ($dbGallery['parent'])) {
+                /**
+                $OutText = 'Orphan:' . JSON.stringify($dbGallery);
+                $app->enqueueMessage($OutText, 'notice');
+
+                $dbGallery['parent'] = 0;
+                /**/
+            }
+            /**/
+        }
+
+        return;
+    }
 
     /**
      * Saves changed manual ordering of galleries
@@ -403,26 +450,26 @@ yyyy
             //var_dump(json_decode($json, true));
             $newOrdering =json_decode($newOrderingHtml, true);
 
-            $app->enqueueMessage('newOrdering: ' . json_encode($newOrdering), 'notice');
+            //$app->enqueueMessage('newOrdering: ' . json_encode($newOrdering), 'notice');
 
             $this->dbOrdering = $newOrdering;
-            $this->displayDbOrderingArray ("NewOrdering");
+            // $this->displayDbOrderingArray ("NewOrdering");
+
+            $this->RemoveOrphanIds ();
+            $this->displayDbOrderingArray("Remove Orphans");
 
             return;
 
-            RemoveOrphanIds ();
-            //displayDbOrderingArray ("Remove Orphans");
-
             // Reassign as Versions of $.3.0 may contain no parent child order
-            DoOrdering ();
-            //displayDbOrderingArray ("After DoOrdering");
+            $this->DoOrdering ();
+            $this->displayDbOrderingArray("After DoOrdering");
 
             // Sort array by (new) ordering
-            SortByOrdering ();
-            //displayDbOrderingArray ("After sort (1)");
+            $this->SortByOrdering ();
+            $this->displayDbOrderingArray("After sort (1)");
 
             // Save Ordering in HTML elements
-            AssignNewOrdering (OrderingElements);
+            $this->AssignNewOrdering (OrderingElements);
 
 
             $db    = JFactory::getDbo();

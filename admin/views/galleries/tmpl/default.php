@@ -70,20 +70,19 @@ $userId = $user->id;
         return;
     }
 
-/**
-    function IsParentExisting (Id)
+    function IsParentExisting (ParentId)
     {
         var bIsParentExisting = false;
 
         for (var dbGallery of dbOrdering) {
-            if (dbGallery.Id == Id)
+            if (dbGallery.Id == ParentId)
             {
-                IsParentExisting = True;
+                bIsParentExisting = True;
                 break;
             }
         }
 
-        return IsParentExisting;
+        return bIsParentExisting;
     }
 
     function SortByOrdering ()
