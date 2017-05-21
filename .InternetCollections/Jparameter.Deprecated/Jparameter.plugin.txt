@@ -1,0 +1,24 @@
+3. If your plugin uses parameters, you will have use JForm instead of JParameter. From Joomla 1.6 the parameters object is automatically available to you and you won’t need to use Plugin Helper to retrieve the plugin object and then JParameter to retrieve the parameters object. The simplest approach is to:
+
+remove this line from plugin’s PHP file:
+
+jimport( 'joomla.html.parameter' );
+
+replace this code:
+
+parent::__construct($subject, $params); 
+    
+$this->plugin = &amp;JPluginHelper::getPlugin('content', 'PLUGIN_NAME');
+    
+$this->params = new JParameter($this->plugin->params);
+
+with this:
+
+parent::__construct($subject, $params); 
+    
+$mode = $this->params->def('mode', 1);
+
+By doing this, you will be able to access a parameter in the parameters object like this:
+
+$this->params->get('PARAMETER_NAME')
+

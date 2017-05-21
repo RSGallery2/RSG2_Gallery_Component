@@ -1,0 +1,19 @@
+Replacing JParameter class in Joomla 3.0
+
+    // -------------------------------------- Basic Registry
+
+    $params = new JRegistry( array('key' => 'val') );
+    $params->get('key');
+
+    // -------------------------------------- XML Parameters
+
+    // Parameters
+    $params = new JForm('params');
+    $params->loadFile( JPATH_ADMINISTRATOR.DS.'path-to-xml' );
+    $params->bind( (array)$row['params'] );
+
+    $fields = $params->getFieldset('params');
+    foreach( $fields AS $field => $obj ){
+      echo $params->getLabel( $field, null );
+      echo $params->getInput( $field, null, null );
+    }

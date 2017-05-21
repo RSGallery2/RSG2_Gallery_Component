@@ -1,0 +1,9 @@
+
+
+JParameter was removed in Joomla 3.0 and now either JForm or in most cases JRegistry should be used.
+
+So use the following code, and change to suit your own needs
+
+$jparams = new JRegistry();
+$variable = $jparams->get('param_name');
+
