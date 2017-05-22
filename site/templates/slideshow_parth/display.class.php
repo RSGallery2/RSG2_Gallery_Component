@@ -37,6 +37,7 @@ class rsgDisplay_slideshow_parth extends rsgDisplay
 		$k                        = 0;
 		$this->maxSlideshowHeight = 0;
 		$this->maxSlideshowWidth  = 0;
+
 		$text                     = "";
 		foreach ($gallery->items() as $item)
 		{
@@ -80,6 +81,7 @@ class rsgDisplay_slideshow_parth extends rsgDisplay
 				"</div>";
 			$k++;
 		}
+
 		$this->slides      = $text;
 		$this->galleryname = $gallery->name;
 		$this->gid         = $gallery->id;
