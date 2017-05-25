@@ -112,9 +112,15 @@ var gallery = {
 		/* Plugins: ReMooz */
 		useReMooz               : false
 	},
-	initialize               : function (element, options) {
 
+	initialize               : function (element, options) {
 		try {
+			if (!element){
+                console.log("parth005 init.: No element ")
+                //alert("parth005 init.: No element ")
+				return;
+			}
+
 			this.setOptions(options);
 			this.fireEvent('onInit');
 			this.currentIter = 0;
@@ -131,16 +137,16 @@ var gallery = {
 				this.options.defaultTransition = "crossfade";
 
 			this.populateFrom = element;
-			if (this.options.populateFrom)
+            if (this.options.populateFrom)
 				this.populateFrom = this.options.populateFrom;
-			if (this.options.populateData)
+            if (this.options.populateData)
 				this.populateData();
-			element.style.display = "block";
+            element.style.display = "block";
 
-			if (this.options.useHistoryManager)
+            if (this.options.useHistoryManager)
 				this.initHistory();
 
-			if (this.options.embedLinks || this.options.useReMooz) {
+            if (this.options.embedLinks || this.options.useReMooz) {
 				this.currentLink = new Element('a').addClass('open').setProperties({
 					href : '#',
 					title: ''
@@ -152,7 +158,7 @@ var gallery = {
 					this.currentLink.setStyle('display', 'none');
 			}
 
-			this.constructElements();
+            this.constructElements();
 			if ((this.galleryData.length > 1) && (this.options.showArrows)) {
 				var leftArrow = new Element('a').addClass('left').addEvent(
 					'click',
@@ -165,11 +171,11 @@ var gallery = {
 				this.galleryElement.addClass(this.options.withArrowsClass);
 			}
 
-			this.loadingElement = new Element('div').addClass('loadingElement').inject(element, 'bottom');
+            this.loadingElement = new Element('div').addClass('loadingElement').inject(element, 'bottom');
 			if (this.options.showInfopane) this.initInfoSlideshow();
 			if (this.options.showCarousel) this.initCarousel();
 
-			this.doSlideShow(1);
+            this.doSlideShow(1);
 		}
 		catch (err) {
 			alert("parth005:" + err.message);
