@@ -1,12 +1,14 @@
 
 
+https://code.tutsplus.com/tutorials/30-css-best-practices-for-beginners--net-6741
+
 https://css-tricks.com/lets-look-50-interesting-css-properties-values/
 
 https://www.hosteurope.de/blog/50-erstklassige-css-tutorials/?_%24ja=tsid%3A77118%7Ccid%3A1586190%7Ccgid%3A158619029944678%7Ccrid%3A868597702&utm_source=facebook.com&utm_medium=banner&utm_campaign=blog-content-prospecting-css-&utm_content=content
 
+http://bigemployee.com/4-simple-techniques-to-quickly-debug-and-fix-your-css-code-in-almost-any-browser/
 
-
-
+https://designshack.net/articles/html/html-and-css-debugging-tools/
 
 
 
