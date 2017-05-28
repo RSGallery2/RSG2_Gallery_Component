@@ -44,22 +44,22 @@ h4 {
 	font-size : 1.3em;
 }
 
-.content {
+.parth_content {
 	margin : 0 20px;
 }
 
-.content a {
+.parth_content a {
 	color : #fff;
 }
 
-.content p.linkage {
+.parth_content p.linkage {
 	margin-top : 2em;
 	text-align : right;
 	font-size  : 1.7em;
 	color      : #ddd;
 }
 
-.content p.linkage a {
+.parth_content p.linkage a {
 	color : #fff;
 }
 
