@@ -1,0 +1,19 @@
+function startGallery(){
+    var myGallery = new gallery($('myGallery'), {
+        timed: 1,
+        showCarousel: 1,
+        textShowCarousel: 'Thumbnails',
+        thumbHeight: 50,
+        thumbWidth: 50,
+        fadeDuration: 500,
+        delay: 6000,
+        embedLinks: 1,
+        defaultTransition: 'fade',
+        showInfopane: 1,
+        slideInfoZoneSlide: 1,
+        showArrows: 1
+		});
+	}
+	window.addEvent('domready',startGallery);
+	
+	
