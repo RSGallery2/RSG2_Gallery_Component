@@ -63,7 +63,8 @@ h4 {
 	color : #fff;
 }
 
-/*.content p.linkage a
+/*
+.parth_content p.linkage a
 {
 	color: #fff;
 	background: url('../images/bg/biglink_off.gif') center right no-repeat;
@@ -71,11 +72,12 @@ h4 {
 	text-decoration: none;
 }
 
-.content p.linkage a:hover
+.parth_content p.linkage a:hover
 {
 	background: url('../images/bg/biglink_on.gif') center right no-repeat;
 	font-style: italic;
-}*/
+}
+*/
 
 .myGallery {
 	text-align : left;

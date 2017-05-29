@@ -17,14 +17,8 @@ $headData = $document->getHeadData();
 // Scripts like below
 $script = $headData['script'];
 
-//    echo '<br>' . '$script: ' . json_encode($script) . '<br>';
-
 // Is script not loaded from previous gallery?
 if (strpos(json_encode($script), 'startGalleries') === false) {
-
-//    echo '<br>' . '$script: ' . json_encode($script) . '<br>';
-
-    echo '<br>' . 'script yes ' . '<br>';
 
     //Add stylesheets and scripts to header
     $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/jd.gallery.css';
@@ -40,7 +34,7 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
     // Add styles
 
     /* Slideshow width and height */
-    $style = '#myGallery, #myGallerySet, #flickrGallery {' . "\n"
+    $style = '.myGallery, #myGallerySet, #flickrGallery {' . "\n"
         . '   width: ' . ($this->params->get('slideshowWidth') ? $this->params->get('slideshowWidth') : $this->maxSlideshowWidth) . 'px;' . "\n"
         . '   height:  ' . ($this->params->get('slideshowHeight') ? $this->params->get('slideshowHeight') : $this->maxSlideshowHeight) . 'px;' . "\n"
         . '   	}' . "\n"
@@ -112,17 +106,7 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
         $javascript .= ''
             . "function startGalleries()"
             . "{" . "\n"
-            . " " . "\n"
-//            . " " . "\n"
-//            . " " . "\n"
-//            . "    $$('.myGallery').each(function(item){" . "\n"
-//            . "                alert('(3)' + item.id);" . "\n"
-//            . "    });" . "\n"
-//          . "    var myGallery = new gallery(\$('myGallery'), {" . "\n"
             . "    $$('.myGallery').each(function(item){" . "\n"
-            . "        " . "\n"
-            . "        alert('(4)' + item.id);" . "\n"
-            . "        " . "\n"
             . "        var myGallery = new gallery(item, {" . "\n"
             . "            timed: $timed," . "\n"
             . "            showCarousel: $showCarousel," . "\n"
