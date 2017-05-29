@@ -83,7 +83,6 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
 
     $document->addStyleDeclaration($style);
 
-
     $javascript = '';
     {
         // Variable declaration
@@ -113,43 +112,32 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
         $javascript .= ''
             . "function startGalleries()"
             . "{" . "\n"
-//            . "    alert(\"Test\"); " . "\n"
             . " " . "\n"
-            . "    var myElements = $$('.myGallery');" . "\n"
-            . "    alert('(1)' + JSON.stringify(myElements)); " . "\n"
-            . " " . "\n"
-            . " " . "\n"
-            . "    $$('.myGallery').each(function(item){" . "\n"
-            . "        alert('(2)' + JSON.stringify(item)); " . "\n"
-//            . "        item.set('title', item.get('text').toLowerCase());" . "\n"
-            . "    });" . "\n"
-            . " " . "\n"
-            . " " . "\n"
-            . " " . "\n"
-            . " " . "\n"
-            . " " . "\n"
-
-//            . "    $$('.myGallery').each(function(){" . "\n"
-//            . "                alert($(this).id())" . "\n"
-//            . "    }" . "\n"
-
-/*
+//            . " " . "\n"
+//            . " " . "\n"
+//            . "    $$('.myGallery').each(function(item){" . "\n"
+//            . "                alert('(3)' + item.id);" . "\n"
+//            . "    });" . "\n"
 //          . "    var myGallery = new gallery(\$('myGallery'), {" . "\n"
-            . "    var myGallery = new gallery(\$(this), {" . "\n"
-            . "        timed: $timed," . "\n"
-            . "        showCarousel: $showCarousel," . "\n"
-            . "        textShowCarousel: '$textShowCarousel'," . "\n"
-            . "        thumbHeight: $thumbHeight," . "\n"
-            . "        thumbWidth: $thumbWidth," . "\n"
-            . "        fadeDuration: $fadeDuration," . "\n"
-            . "        delay: $delay," . "\n"
-            . "        embedLinks: $embedLinks," . "\n"
-            . "        defaultTransition: '$defaultTransition'," . "\n"
-            . "        showInfopane: $showInfopane," . "\n"
-            . "        slideInfoZoneSlide: $slideInfoZoneSlide," . "\n"
-            . "        showArrows: $showArrows" . "\n"
+            . "    $$('.myGallery').each(function(item){" . "\n"
+            . "        " . "\n"
+            . "        alert('(4)' + item.id);" . "\n"
+            . "        " . "\n"
+            . "        var myGallery = new gallery(item, {" . "\n"
+            . "            timed: $timed," . "\n"
+            . "            showCarousel: $showCarousel," . "\n"
+            . "            textShowCarousel: '$textShowCarousel'," . "\n"
+            . "            thumbHeight: $thumbHeight," . "\n"
+            . "            thumbWidth: $thumbWidth," . "\n"
+            . "            fadeDuration: $fadeDuration," . "\n"
+            . "            delay: $delay," . "\n"
+            . "            embedLinks: $embedLinks," . "\n"
+            . "            defaultTransition: '$defaultTransition'," . "\n"
+            . "            showInfopane: $showInfopane," . "\n"
+            . "            slideInfoZoneSlide: $slideInfoZoneSlide," . "\n"
+            . "            showArrows: $showArrows" . "\n"
+            . "        });" . "\n"
             . '		});' . "\n"
-*/
             . '	}' . "\n"
             . "	window.addEvent('domready',startGalleries);" . "\n";
     }
