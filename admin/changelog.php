@@ -22,6 +22,10 @@ Legend:
 * -> Security Fix, # -> Bug Fix, + -> Addition
 ^ -> Change, - -> Removed, ! -> Note
 		 
+# Ordering sorts now child galleries direct after parents 
+# slideshow_parth fixed: Multiple slideshows per web form 
+   did distroy view of second gallery 
+		 
 * --- 4.3.0 --- 2017-01-10 --- whazzup ------------------------------
 
 + "Consolidate image database": All function are now working (new code)
