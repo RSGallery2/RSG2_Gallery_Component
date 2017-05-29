@@ -1,4 +1,4 @@
-#myGallery, #myGallerySet, #flickrGallery {
+.myGallery, #myGallerySet, #flickrGallery {
 	width   : 400px;
 	height  : 345px;
 	z-index : 5;
@@ -10,7 +10,7 @@
 	height : 334px;
 }
 
-#myGallery img.thumbnail, #myGallerySet img.thumbnail {
+.myGallery img.thumbnail, #myGallerySet img.thumbnail {
 	display : none;
 }
 
