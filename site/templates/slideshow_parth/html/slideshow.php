@@ -113,11 +113,26 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
         $javascript .= ''
             . "function startGalleries()"
             . "{" . "\n"
+//            . "    alert(\"Test\"); " . "\n"
+            . " " . "\n"
+            . "    var myElements = $$('.myGallery');" . "\n"
+            . "    alert('(1)' + JSON.stringify(myElements)); " . "\n"
+            . " " . "\n"
+            . " " . "\n"
+            . "    $$('.myGallery').each(function(item){" . "\n"
+            . "        alert('(2)' + JSON.stringify(item)); " . "\n"
+//            . "        item.set('title', item.get('text').toLowerCase());" . "\n"
+            . "    });" . "\n"
+            . " " . "\n"
+            . " " . "\n"
+            . " " . "\n"
+            . " " . "\n"
+            . " " . "\n"
 
-            . "" . "\n"
-            . "    $('myGallery').each(function(){" . "\n"
-            . "                alert($(this).id())" . "\n"
-            . "    }" . "\n"
+//            . "    $$('.myGallery').each(function(){" . "\n"
+//            . "                alert($(this).id())" . "\n"
+//            . "    }" . "\n"
+
 /*
 //          . "    var myGallery = new gallery(\$('myGallery'), {" . "\n"
             . "    var myGallery = new gallery(\$(this), {" . "\n"
@@ -168,7 +183,7 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
 		<?php echo $this->galleryname; ?>
 	</div>
 	<div class="rsg2-clr"></div>
-	<div id="myGallery">
+	<div id="myGallery<?php echo $this->gid; ?>" class="myGallery">
 		<?php echo $this->slides; ?>
 	</div><!-- end myGallery -->
 </div><!-- End parth_content -->
