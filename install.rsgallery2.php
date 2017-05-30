@@ -283,6 +283,7 @@ class com_rsgallery2InstallerScript
         $rsgInstall = new rsgInstall();
         $rsgInstall->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_MIGRATING_FROM_RSGALLERY2', $rsgConfig->get('version')), 'ok');
 
+		/* Removed as plugins couldn't find lang files *
         //--- delete RSG2 J!1.5 language files ------------------------------
 
         // .../administrator/language/
@@ -303,7 +304,8 @@ class com_rsgallery2InstallerScript
             $msg = 'Deleted old RSGallery2 J!1.5 site language files: <br>' . $msg;
             $rsgInstall->writeInstallMsg ($msg, 'ok');
         }
-
+		/**/
+		
         //--- install complete message --------------------------------
 
         // Now wish the user good luck and link to the control panel
