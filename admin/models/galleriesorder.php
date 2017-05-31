@@ -39,13 +39,17 @@ class rsgallery2ModelGalleriesOrder extends JModelList
             $Parents = rsgallery2ModelGalleriesOrder::CollectParentGalleries ();
             $orderIdx = 1;
 
+            $IsSuccessful = true; // true until further notice
+
             // ordering of parents
             foreach ($Parents as $Parent)
             {
+/**
                 $app->enqueueMessage('$Parent->id: ' . $Parent->id . ' '
                     . '$Parent->ordering: ' . $Parent->ordering . ' '
                     . '$orderIdx: ' . $orderIdx . ' '
                     , 'notice');
+/**/
 
                 if ($Parent->ordering != $orderIdx)
                 {
@@ -58,7 +62,12 @@ class rsgallery2ModelGalleriesOrder extends JModelList
                     $result = $db->execute();
                     if (empty($result))
                     {
-                        $app->enqueueMessage('orderRsg2ByOld15Method (b--)', 'notice');
+                        $IsSuccessful = false;
+
+                        $app->enqueueMessage('Update (1) $Parent->id: ' . $Parent->id . ' '
+                            . '$Parent->ordering: ' . $Parent->ordering . ' '
+                            . '$orderIdx: ' . $orderIdx . ' '
+                            , 'notice');
                         break;
                     }
 
@@ -85,11 +94,13 @@ class rsgallery2ModelGalleriesOrder extends JModelList
                     $orderIdx = 1;
                 }
 
+/**
                 $app->enqueueMessage('$Child->id: ' . $Child->id
                     . '$Child->parent: ' . $Child->parent . ' '
                     . '$Child->ordering: ' . $Child->ordering . ' '
                     . '$orderIdx: ' . $orderIdx . ' '
                     , 'notice');
+/**/
 
                 if ($Child->ordering != $orderIdx)
                 {
@@ -102,7 +113,13 @@ class rsgallery2ModelGalleriesOrder extends JModelList
                     $result = $db->execute();
                     if (empty($result))
                     {
-                        $app->enqueueMessage('orderRsg2ByOld15Method (d--)', 'notice');
+                        $IsSuccessful = false;
+
+                        $app->enqueueMessage('$Child->id: ' . $Child->id
+                            . '$Child->parent: ' . $Child->parent . ' '
+                            . '$Child->ordering: ' . $Child->ordering . ' '
+                            . '$orderIdx: ' . $orderIdx . ' '
+                            , 'notice');
                         break;
                     }
 
@@ -169,8 +186,6 @@ yyyy
 
 
 
-             $IsSuccessful = true;
-
         } catch (RuntimeException $e) {
             $OutTxt = '';
             $OutTxt .= 'orderRsg2ByOld15Method: ' . '<br>';
@@ -192,7 +207,6 @@ yyyy
      */
     public static function orderRsg2ByNewMethod ()
     {
-
         $IsSuccessful = false;
 
         try {
@@ -317,14 +331,17 @@ yyyy
 
             $orderIdx = 1;
 
+            $IsSuccessful = true; // true until further notice
+
             // ordering of parents
             foreach ($Parents as $Parent)
             {
+/**
                 $app->enqueueMessage('$Parent->id: ' . $Parent->id . ' '
                     . '$Parent->ordering: ' . $Parent->ordering . ' '
                     . '$orderIdx: ' . $orderIdx . ' '
                     , 'notice');
-
+/**/
                 $query->update($db->quoteName('#__rsgallery2_galleries'))
                     ->set($db->quoteName('ordering') . '=' . $db->quote((int) $orderIdx))
                     ->where(array($db->quoteName('id') . '=' . $db->quote((int) $Parent->id)));
@@ -333,6 +350,12 @@ yyyy
                 $result = $db->execute();
                 if (empty($result))
                 {
+                    $app->enqueueMessage('$Parent->id: ' . $Parent->id . ' '
+                        . '$Parent->ordering: ' . $Parent->ordering . ' '
+                        . '$orderIdx: ' . $orderIdx . ' '
+                        , 'notice');
+
+                    $IsSuccessful = false;
                     break;
                 }
 
@@ -394,27 +417,235 @@ yyyy
         $app = JFactory::getApplication();
 
         foreach ($this->dbOrdering as $dbGallery) {
-            $OutText = '';
-            $OutText .= ' Parent (1): ' . $dbGallery['parent'];
-            //$OutText .= ' Parent (2): ' . $dbGallery.parent;
-            //$OutText .= ' Parent (3): ' . $dbGallery->parent;
 
-            $app->enqueueMessage($OutText, 'notice');
-
-            /**/
-            if (!$this->IsParentExisting ($dbGallery['parent'])) {
-                /**
-                $OutText = 'Orphan:' . JSON.stringify($dbGallery);
+            $parent = $dbGallery['parent'];
+            if ($parent != 0) {
+/**
+                $OutText = '';
+                $OutText .= ' Parent (1): ' . $parent ;
+                //$OutText .= ' Parent (2): ' . $dbGallery.parent;
+                //$OutText .= ' Parent (3): ' . $dbGallery->parent;
                 $app->enqueueMessage($OutText, 'notice');
+/**/
+                /**/
+                if (!$this->IsParentExisting ($dbGallery['parent'])) {
+                    $OutText = 'Orphan without parent :' . json_encode($dbGallery);
+                    $app->enqueueMessage($OutText, 'notice');
 
-                $dbGallery['parent'] = 0;
+                    $dbGallery['parent'] = 0;
+                    /**/
+                }
                 /**/
             }
-            /**/
         }
-
         return;
     }
+
+    /**
+     *
+     * Recursive assignment of ordering Gallery with immediate
+     * following sub galleries before next pure  parent less gallery
+     * As child galleries may be assigned a value but later a different
+     * one to follow later found parent the ordering may have some spaces
+     *
+     * @param int $actIdx
+     * @param int $parentId
+     *
+     * @return int
+     *
+     * @since 4.3.1
+     */
+    private function PreAssignOrdering($actIdx=1, $parentId=0, $level=0) {
+
+        $app = JFactory::getApplication();
+
+/**
+        $OutText = '';
+        for ($Idx =0 ; $Idx < $level; $Idx++) {
+            $OutText = '&nbsp;&nbsp;&nbsp;';
+        }
+        $OutText .= ' DoPreOrdering: ';
+        $OutText .= ' $actIdx: ' . $actIdx;
+        $OutText .= ' $parentId: ' . $parentId;
+        $app->enqueueMessage($OutText, 'notice');
+/**/
+        // Assign Order 1..n to each parent.
+        // Children get the ordering direct after parent.
+        // So the next parent may have bigger distance
+        // than one to the previous parent
+        $arrayIdx=0;
+        foreach ($this->dbOrdering as $dbGallery) {
+            //alert("dbGallery " + JSON.stringify(dbGallery));
+
+            // gallery has same parent ( or if parent = 0 nop parent)
+            if ($dbGallery['parent'] == $parentId) {
+/**
+                // info
+                $OutText = '';
+                for ($Idx =0 ; $Idx < $level; $Idx++) {
+                    $OutText .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                }
+                $OutText .= ' >>match: ';
+                $OutText .= ' id: ' . $dbGallery['id'];
+                $OutText .= ' parent: ' . $parentId;
+                $OutText .= ' ==>actIdx: ' . $actIdx;
+                $OutText .= ' level: ' . $level;
+                $app->enqueueMessage($OutText, 'notice');
+/**/
+                // assign actual ordering
+                $dbGallery['ordering'] = $actIdx; // toDo: Check why does it not write into original ay 
+                $this->dbOrdering[$arrayIdx]['ordering'] = $actIdx;
+                $actIdx++;
+/**
+                $OutText = '';
+                for ($Idx =0 ; $Idx <= $level; $Idx++) {
+                    $OutText .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                }
+                $OutText .= '$arrayIdx:' . $arrayIdx  . ' ' .json_encode($this->dbOrdering[$arrayIdx]) . '<br>';
+                $app->enqueueMessage($OutText, 'notice');
+/**/
+                // recursive call of ordering on child gallery
+                $actIdx = $this->PreAssignOrdering($actIdx, $dbGallery['id'], $level +1);
+            }
+
+            $arrayIdx=$arrayIdx+1;
+        }
+
+        return $actIdx;
+    }
+
+
+    /**
+     * sort by ordering and assing new ordering "1..n" from first element
+     * @return bool
+     *
+     * @since version
+     */
+    public function SortByOrdering()
+    {
+        $IsSaved = false;
+
+        try
+        {
+            // sort by ordering
+            usort($this->dbOrdering, function($a, $b)
+            {
+                // return strcmp(intval ($a['ordering']), intval ($b['ordering']));
+                return intval ($a['ordering']) > intval ($b['ordering']);
+            });
+
+/** ToDo:
+            // Close gaps
+            for ($arrayIdx=0; $arrayIdx < count($this->dbOrdering); $arrayIdx++) {
+                $this->dbOrdering[$arrayIdx]['ordering'] = $arrayIdx+1;
+            }
+/**/
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing SortByOrdering: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $IsSaved;
+    }
+
+    public function UserOrderingFromId ($galleryId)
+    {
+        $Order = -1;
+
+        try
+        {
+            // each user ordering
+            foreach ($this->dbOrdering as $dbGallery) {
+
+                $id = $dbGallery['id'];
+
+                // Found
+                if ($id == $galleryId) {
+                    $Order = $dbGallery['ordering'];
+                }
+            }
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing SortByOrdering: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $Order;
+    }
+
+    /**
+     *
+     * Only when order is changed it will be written back
+     *
+     * @return bool
+     *
+     * @since version 4.3.1
+     */
+    public function AssignNewOrdering ()
+    {
+        $IsAssigned = false;
+
+        try
+        {
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage('orderRsg2ByNewMethod (B)', 'notice');
+
+            // Collect all galleries to check the ordering
+            $Parents = $this->CollectParentGalleries ();
+
+            // ordering of parents
+            $IsAssigned = true; //  true until further notice
+            foreach ($Parents as $Parent) {
+
+                $NewOrdering = $this->UserOrderingFromId ($Parent->id);
+                if($NewOrdering != $Parent->ordering) {
+
+                    $query->update($db->quoteName('#__rsgallery2_galleries'))
+                        ->set($db->quoteName('ordering') . '=' . $db->quote((int) $NewOrdering))
+                        ->where(array($db->quoteName('id') . '=' . $db->quote((int) $Parent->id)));
+                    $db->setQuery($query);
+
+                    $result = $db->execute();
+                    if (empty($result))
+                    {
+                        $app->enqueueMessage('$Parent->id: ' . $Parent->id . ' '
+                            . '$NewOrdering: ' . $NewOrdering . ' '
+                            , 'notice');
+
+                        $IsAssigned = false;
+                        break;
+                    }
+                }
+            }
+
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing AssignNewOrdering: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $IsAssigned;
+    }
+
 
     /**
      * Saves changed manual ordering of galleries
@@ -456,48 +687,22 @@ yyyy
             // $this->displayDbOrderingArray ("NewOrdering");
 
             $this->RemoveOrphanIds ();
-            $this->displayDbOrderingArray("Remove Orphans");
-
-            return;
+            // $this->displayDbOrderingArray("Remove Orphans");
 
             // Reassign as Versions of $.3.0 may contain no parent child order
-            $this->DoOrdering ();
-            $this->displayDbOrderingArray("After DoOrdering");
+            // Recursive assignment of ordering  (child direct after parent)
+            // May leave out some ordering numbers 
+            $this->PreAssignOrdering ();
+            $this->displayDbOrderingArray("After DoPreOrdering");
 
             // Sort array by (new) ordering
             $this->SortByOrdering ();
             $this->displayDbOrderingArray("After sort (1)");
 
+            return;
+
             // Save Ordering in HTML elements
-            $this->AssignNewOrdering (OrderingElements);
-
-
-            $db    = JFactory::getDbo();
-            $query = $db->getQuery(true);
-            $db->setQuery($query);
-
-            for ($idx = 0; $idx < $CountIds; $idx++)
-            {
-                $id       = $ids[$idx];
-                $orderIdx = $orders[$idx];
-                // $msg .= "<br>" . '$id: ' . $id . '$orderIdx: ' . $orderIdx;
-
-                $query->clear();
-
-                $query->update($db->quoteName('#__rsgallery2_galleries'))
-                    ->set(array($db->quoteName('ordering') . '=' . $orderIdx))
-                    ->where(array($db->quoteName('id') . '=' . $id));
-
-                $result = $db->execute();
-                if (empty($result))
-                {
-                    break;
-                }
-            }
-            if (!empty($result))
-            {
-                $IsSaved = true;
-            }
+            $IsSaved = $this->AssignNewOrdering (OrderingElements);
 
             // parent::reorder();
         }
@@ -569,7 +774,7 @@ yyyy
 
         } catch (RuntimeException $e) {
             $OutTxt = '';
-            $OutTxt .= 'CollectParentGalleries: Error executing query: "' . $query . '"' . '<br>';
+            $OutTxt .= 'CollectChildGalleries: Error executing query: "' . $query . '"' . '<br>';
             $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
             $app = JFactory::getApplication();
@@ -598,7 +803,7 @@ yyyy
 
         } catch (RuntimeException $e) {
             $OutTxt = '';
-            $OutTxt .= 'CollectParentGalleries: Error executing query: "' . $query . '"' . '<br>';
+            $OutTxt .= 'CollectAllChildGalleries: Error executing query: "' . $query . '"' . '<br>';
             $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
             $app = JFactory::getApplication();
@@ -633,7 +838,7 @@ yyyy
 
         } catch (RuntimeException $e) {
             $OutTxt = '';
-            $OutTxt .= 'CollectParentGalleries: Error executing query: "' . $query . '"' . '<br>';
+            $OutTxt .= 'OrderedGalleries: Error executing query: "' . $query . '"' . '<br>';
             $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
             $app = JFactory::getApplication();
@@ -753,7 +958,7 @@ yyyy
 
         } catch (RuntimeException $e) {
             $OutTxt = '';
-            $OutTxt .= 'CollectParentGalleries: Error executing query: "' . $query . '"' . '<br>';
+            $OutTxt .= 'LeftJoinGalleries: Error executing query: "' . $query . '"' . '<br>';
             $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
             $app = JFactory::getApplication();

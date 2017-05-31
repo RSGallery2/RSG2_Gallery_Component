@@ -97,6 +97,7 @@ class Rsgallery2ViewDevelop extends JViewLegacy
                 JToolbarHelper::custom('develop.orderRsg2Old', 'previous', 'previous', 'Old RSG2 1.5 order', false);
                 JToolbarHelper::custom('develop.orderRsg2New', 'next', 'next', 'New RSG2 3.x order', false);
                 JToolbarHelper::custom('develop.unorder', 'expand-2', 'expand-2', 'Unorder', false);
+                JToolbarHelper::custom('develop.updateOrder', 'expand-2', 'expand-2', 'Update', false);
                 // JToolbarHelper::custom('develop.', '', '', '', false);
 
             break;

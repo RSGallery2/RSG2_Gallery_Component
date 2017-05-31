@@ -45,7 +45,7 @@ class Rsgallery2ControllerDevelop extends JControllerForm
             $model = $this->getModel('GalleriesOrder');
             $IsSaved = $model->orderRsg2ByOld15Method();
             if ($IsSaved) {
-                $msg .= JText::_('Ordering by Old 1.5 method failed saved');
+                $msg .= JText::_('Ordering by Old 1.5 method saved');
             }
             else
             {
@@ -156,6 +156,22 @@ class Rsgallery2ControllerDevelop extends JControllerForm
 		return true;
 	}
 
-	
-	
+    /**
+     *
+     *
+     *
+     * @since version 4.3
+     */
+    public function updateOrder()
+    {
+        $msg = "updateOrder: " . '<br>';
+        $msgType = 'notice';
+
+        $link = 'index.php?option=com_rsgallery2&view=develop&layout=DebugGalleryOrder';
+        $this->setRedirect($link, $msg, $msgType);
+
+        return true;
+    }
+
+
 }

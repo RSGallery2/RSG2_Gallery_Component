@@ -60,10 +60,15 @@ $userId = $user->id;
     function RemoveOrphanIds ()
     {
         for (var dbGallery of dbOrdering) {
-            if (!IsParentExisting (dbGallery.parent)) {
-                outText = "Orphan:" + JSON.stringify(dbGallery)
-                alert(outText);
-                dbGallery.parent = 0;
+
+
+            if (dbGallery.parent != 0) {
+
+                if (!IsParentExisting (dbGallery.parent)) {
+                    outText = "Orphan:" + JSON.stringify(dbGallery)
+                    alert(outText);
+//                    dbGallery.parent = 0;
+                }
             }
         }
 
@@ -199,7 +204,10 @@ $userId = $user->id;
     }
 
     // ToDo: collect ParentId. array{users} field and work with it to sort
-    function DoOrdering(actIdx=1, parentId=0) {
+    // Reassign as Versions of $.3.0 may contain no parent child order
+    // Recursive assignment of ordering  (child direct after parent)
+    // May leave out some ordering numbers
+    function PreAssignOrdering(actIdx=1, parentId=0) {
 
         // Assign Order 1..n to each parent.
         // Children get the ordering direct after parent.
@@ -213,7 +221,7 @@ $userId = $user->id;
                 actIdx++;
 
                 // recursive call of ordering on child
-                actIdx = DoOrdering(actIdx, dbGallery.id);
+                actIdx = PreAssignOrdering(actIdx, dbGallery.id);
 
             }
         }
@@ -293,8 +301,8 @@ $userId = $user->id;
                 //displayDbOrderingArray ("Remove Orphans");
 
                 // Reassign as Versions of $.3.0 may contain no parent child order
-                DoOrdering ();
-                //displayDbOrderingArray ("After DoOrdering");
+                PreAssignOrdering ();
+                //displayDbOrderingArray ("After PreAssignOrdering");
 
                 // Sort array by (new) ordering
                 SortByOrdering ();
