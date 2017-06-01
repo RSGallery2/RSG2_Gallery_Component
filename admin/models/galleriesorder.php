@@ -398,13 +398,15 @@ yyyy
     {
         $bIsParentExisting = false;
 
+        /**
         foreach ($this->dbOrdering as $dbGallery) {
-            if ($dbGallery['id'] == $ParentId)
+            if ($dbGallery->id == $ParentId)
             {
                 $bIsParentExisting = True;
                 break;
             }
         }
+        /**/
 
         return $bIsParentExisting;
     }
@@ -447,28 +449,44 @@ yyyy
     {
         $app = JFactory::getApplication();
 
-        foreach ($this->dbOrdering as $dbGallery) {
+        $OutText = '';
+        $OutText .= ' $this->dbOrdering: ' . json_encode($this->dbOrdering);
+        //$OutText .= ' Parent (2): ' . $dbGallery.parent;
+        //$OutText .= ' Parent (3): ' . $dbGallery->parent;
+        $app->enqueueMessage($OutText, 'notice');
 
-            $parent = $dbGallery['parent'];
-            if ($parent != 0) {
+        foreach ($this->dbOrdering as $dbGallery) {
+            $OutText = '$dbGallery :' . json_encode($dbGallery);
+            $app->enqueueMessage($OutText, 'notice');
+            $parent = $dbGallery->parent;
 /**
+            $OutText = '';
+            $OutText .= ' Parent (1): ' . $parent ;
+            $app->enqueueMessage($OutText, 'notice');
+/**/
+            if ($parent != 0) {
+
                 $OutText = '';
                 $OutText .= ' Parent (1): ' . $parent ;
                 //$OutText .= ' Parent (2): ' . $dbGallery.parent;
                 //$OutText .= ' Parent (3): ' . $dbGallery->parent;
                 $app->enqueueMessage($OutText, 'notice');
-/**/
-                /**/
-                if (!$this->IsParentExisting ($dbGallery['parent'])) {
+
+                /**
+                if (!$this->IsParentExisting ($parent)) {
+                    /**
                     $OutText = 'Orphan without parent :' . json_encode($dbGallery);
                     $app->enqueueMessage($OutText, 'notice');
 
-                    $dbGallery['parent'] = 0;
-                    /**/
+                    $dbGallery->parent = 0;
+                    /**
                 }
                 /**/
             }
+            /**/
         }
+/**/
+
         return;
     }
 
@@ -509,7 +527,7 @@ yyyy
             //alert("dbGallery " + JSON.stringify(dbGallery));
 
             // gallery has same parent ( or if parent = 0 nop parent)
-            if ($dbGallery['parent'] == $parentId) {
+            if ($dbGallery->parent == $parentId) {
 /**
                 // info
                 $OutText = '';
@@ -517,14 +535,14 @@ yyyy
                     $OutText .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
                 }
                 $OutText .= ' >>match: ';
-                $OutText .= ' id: ' . $dbGallery['id'];
+                $OutText .= ' id: ' . $dbGallery->id;
                 $OutText .= ' parent: ' . $parentId;
                 $OutText .= ' ==>actIdx: ' . $actIdx;
                 $OutText .= ' level: ' . $level;
                 $app->enqueueMessage($OutText, 'notice');
 /**/
                 // assign actual ordering
-                $dbGallery['ordering'] = $actIdx; // toDo: Check why does it not write into original ay 
+                $dbGallery->ordering = $actIdx; // toDo: Check why does it not write into original ay
                 $this->dbOrdering[$arrayIdx]['ordering'] = $actIdx;
                 $actIdx++;
 /**
@@ -536,7 +554,7 @@ yyyy
                 $app->enqueueMessage($OutText, 'notice');
 /**/
                 // recursive call of ordering on child gallery
-                $actIdx = $this->PreAssignOrdering($actIdx, $dbGallery['id'], $level +1);
+                $actIdx = $this->PreAssignOrdering($actIdx, $dbGallery->id, $level +1);
             }
 
             $arrayIdx=$arrayIdx+1;
@@ -562,7 +580,7 @@ yyyy
             usort($this->dbOrdering, function($a, $b)
             {
                 // return strcmp(intval ($a['ordering']), intval ($b['ordering']));
-                return intval ($a['ordering']) > intval ($b['ordering']);
+                return intval ($a->ordering) > intval ($b->ordering);
             });
 
 /** ToDo:
@@ -594,11 +612,11 @@ yyyy
             // each user ordering
             foreach ($this->dbOrdering as $dbGallery) {
 
-                $id = $dbGallery['id'];
+                $id = $dbGallery->id;
 
                 // Found
                 if ($id == $galleryId) {
-                    $Order = $dbGallery['ordering'];
+                    $Order = $dbGallery->ordering;
                 }
             }
         }
@@ -715,11 +733,12 @@ yyyy
             //$app->enqueueMessage('newOrdering: ' . json_encode($newOrdering), 'notice');
 
             $this->dbOrdering = $this->ConvertOrderingHtml2PhpObject($newOrdering);
-
             // $this->displayDbOrderingArray ("NewOrdering");
 
             $this->RemoveOrphanIds ();
             // $this->displayDbOrderingArray("Remove Orphans");
+            return;
+
 
             // Reassign as Versions of $.3.0 may contain no parent child order
             // Recursive assignment of ordering  (child direct after parent)
