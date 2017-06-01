@@ -409,6 +409,37 @@ yyyy
         return $bIsParentExisting;
     }
 
+    function ConvertOrderingHtml2PhpObject ($HtmlArray)
+    {
+        //  init arrays
+        $dbOrdering = array ();
+
+        // all Html gallery data
+        foreach ($HtmlArray as $HtmlGallery) {
+
+            // New object
+            $PhpGallery = new stdClass();
+            $PhpGallery->id = $HtmlGallery['id'];
+            $PhpGallery->parent = $HtmlGallery['parent'];
+            $PhpGallery->ordering = $HtmlGallery['ordering'];
+
+            $dbOrdering [] = $PhpGallery;
+        }
+
+
+        $OutTxt = '';
+        $OutTxt .= '$HtmlArray: "' . json_encode($HtmlArray) . '<br>';
+        $OutTxt .= '$dbOrdering: "' . json_encode($dbOrdering) . '<br>';
+
+        $app = JFactory::getApplication();
+        $app->enqueueMessage($OutTxt, 'error');
+
+
+
+        return $dbOrdering;
+    }
+
+
     /**
      * Remove child parent value if parent doesn't exist
      */
@@ -683,7 +714,8 @@ yyyy
 
             //$app->enqueueMessage('newOrdering: ' . json_encode($newOrdering), 'notice');
 
-            $this->dbOrdering = $newOrdering;
+            $this->dbOrdering = $this->ConvertOrderingHtml2PhpObject($newOrdering);
+
             // $this->displayDbOrderingArray ("NewOrdering");
 
             $this->RemoveOrphanIds ();
