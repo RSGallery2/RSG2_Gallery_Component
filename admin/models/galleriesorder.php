@@ -472,20 +472,16 @@ yyyy
                 //$OutText .= ' Parent (3): ' . $dbGallery->parent;
                 $app->enqueueMessage($OutText, 'notice');
 
-                /**
-                if (!$this->IsParentExisting ($parent)) {
-                    /**
+                /**/
+                $IsParentExisting = $this->IsParentExisting ($parent);
+                if (!$IsParentExisting) {
                     $OutText = 'Orphan without parent :' . json_encode($dbGallery);
                     $app->enqueueMessage($OutText, 'notice');
 
                     $dbGallery->parent = 0;
-                    /**
                 }
-                /**/
             }
-            /**/
         }
-/**/
 
         return;
     }
