@@ -79,7 +79,7 @@ class Rsgallery2ControllerDevelop extends JControllerForm
 	{
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 		
-        $msg = "orderRsg2New: " . '<br>';
+        $msg = "orderRsg2New: ";
         $msgType = 'notice';
 
         try
