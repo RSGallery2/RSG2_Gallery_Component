@@ -254,7 +254,7 @@ $userId = $user->id;
     }
 
 
-    function AssignNewOrdering (OrderingElements)
+    function AssignNewOrdering ()
     {
         var bIsParentExisting = false;
 
@@ -262,15 +262,39 @@ $userId = $user->id;
 
         alert ("1:");
 
-        OrderingElements.each(function (ActIdx, element) {
 
-            alert ("ActIdx: " + ActIdx + " value" + value);
+        //OrderingElements.each(function (ActIdx, Element) {
+//        jQuery.each(".changeOrder", function (ActIdx, Element) {
+//        jQuery(".changeOrder").each (function (ActIdx) {
+        jQuery(".changeOrder").each (function () {
 
-            var actOrdering = element.val();
+//            alert("28: "); // + UserOrdering);
+
+            //var text = jQuery("#debug").val();
+            //var text = jQuery(this).val();
+            var UserOrdering = parseInt(jQuery(this).val());
+            var galleryId = elementId(jQuery(this));
+
+            //var text = this.val();
+
+            alert("29: " + text); // + UserOrdering);
+
+            
+            // alert ("ActIdx: " + ActIdx + " value" + value);
+
+            // var UserOrdering = parseInt($(this).val());
+            // var UserId = elementId(actElement);
+
+
+
+            alert("29: "); // + UserOrdering);
+
+            /**
+            var actOrdering = Element.val();
             alert ("actOrdering: " + actOrdering);
             // alert ("value: " + value);
 
-            var galleryId = elementId(jquery( this ));
+            var galleryId = elementId(Element);
             alert ("galleryId: " + galleryId);
 
             OutText += "ActIdx: " + ActIdx + ": ";
@@ -290,6 +314,7 @@ $userId = $user->id;
 
             //OutText += "key: " + key + " ";
             OutText += "\r\n";
+            /**/
         });
 
         alert(OutText);
@@ -375,8 +400,7 @@ $userId = $user->id;
 					actElement.value = UserOrdering;
 				}
 
-                var OrderingElements = jQuery(".changeOrder");
-                var OrderingElementsCount = OrderingElements.length;
+                /**/
 
                 // Value higher than the count will be set to highest possible
                 /* ==> may be set behind to ensure as last element
@@ -446,10 +470,11 @@ $userId = $user->id;
                 serverDbOrderingElement.val(JSON.stringify(dbOrdering));
                 displayDbOrderingArray ("Saved back to 'INSERT'");
 
-                alert ("10");
+                // alert ("10");
+
                 /**/
                 // Save Ordering in HTML elements
-                AssignNewOrdering (OrderingElements);
+                AssignNewOrdering ();
                 /**/
                 alert ("20 exit");
 
