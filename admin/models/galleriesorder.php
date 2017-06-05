@@ -793,15 +793,14 @@ yyyy
             $this->RemoveOrphanIds ();
             // $this->displayDbOrderingArray("Remove Orphans");
 
-            // Reassign as Versions of $.3.0 may contain no parent child order
-            // Recursive assignment of ordering  (child direct after parent)
-            // May leave out some ordering numbers 
-            $this->PreAssignOrdering ();
-            //$this->displayDbOrderingArray("After DoPreOrdering");
-
             // Sort array by (new) ordering
             $this->SortByOrdering ();
-            $this->displayDbOrderingArray("After sort (1)");
+            //$this->displayDbOrderingArray("After sort (1)");
+
+            // Reassign as Versions of $.3.0 may contain no parent child order
+            // Recursive assignment of ordering  (child direct after parent)
+            $this->PreAssignOrdering ();
+            //$this->displayDbOrderingArray("After DoPreOrdering");
 
             // Save Ordering in HTML elements
             $IsSaved = $this->AssignNewOrdering ($this->dbOrdering);
