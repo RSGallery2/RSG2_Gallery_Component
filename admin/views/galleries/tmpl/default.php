@@ -244,13 +244,15 @@ $userId = $user->id;
         return ordering;
     }
 
-    function elementId(actElement) {
+    function GetGalleryId(ElementId) {
+        var GalleryIdString;
+        var GalleryId;
 
-        var UserIdString = actElement.id; //
-        UserIdString = UserIdString.replace(/^\D+/g, ''); // replace all leading non-digits with nothing
-        var UserId = parseInt(UserIdString);
+        //var GalleryIdString = actElement.id; //
+        GalleryIdString = ElementId.replace(/^\D+/g, ''); // replace all leading non-digits with nothing
+        var GalleryId = parseInt(GalleryIdString);
 
-        return UserId;
+        return GalleryId;
     }
 
 
@@ -270,38 +272,31 @@ $userId = $user->id;
 
 //            alert("28: "); // + UserOrdering);
 
+            //alert ("2:");
+
             //var text = jQuery("#debug").val();
             //var text = jQuery(this).val();
             var UserOrdering = parseInt(jQuery(this).val());
-            var galleryId = elementId(jQuery(this));
 
-            //var text = this.val();
+            // alert ("3:");
 
-            alert("29: " + text); // + UserOrdering);
+            var galleryId = GetGalleryId(jQuery(this).attr('id'));
+            //  alert ("6:");
 
-            
-            // alert ("ActIdx: " + ActIdx + " value" + value);
+            OutText = "GalleryId: " + galleryId + " UserOrdering: " + UserOrdering;
 
-            // var UserOrdering = parseInt($(this).val());
-            // var UserId = elementId(actElement);
+            alert("10: " + OutText); // + UserOrdering);
 
+            var newOrdering = GetOrderingValue(galleryId);
+            OutText = "newOrdering: " + newOrdering;
 
+            alert("12: " + OutText); // + UserOrdering);
 
-            alert("29: "); // + UserOrdering);
-
-            /**
-            var actOrdering = Element.val();
-            alert ("actOrdering: " + actOrdering);
-            // alert ("value: " + value);
-
-            var galleryId = elementId(Element);
-            alert ("galleryId: " + galleryId);
 
             OutText += "ActIdx: " + ActIdx + ": ";
             OutText += "galleryId: " + galleryId;
             OutText += "actOrdering: " + actOrdering;
 
-            var newOrdering = GetOrderingValue(galleryId);
             OutText += "newOrdering: " + newOrdering + " ";
 
             if (newOrdering != actOrdering)
@@ -386,7 +381,7 @@ $userId = $user->id;
                 //add2DebugTextArea (outText);
 
                 var UserOrdering = parseInt(actElement.value);
-                var UserId = elementId(actElement);
+                var UserId = GetGalleryId(actElement.id);
 
                 var UserIdString = actElement.id; //
                 UserIdString = UserIdString.replace( /^\D+/g, ''); // replace all leading non-digits with nothing
