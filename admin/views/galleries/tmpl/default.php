@@ -85,24 +85,9 @@ $userId = $user->id;
      */
     function AssignUserOrdering (UserId, UserOrdering)
     {
-        /**
-        outText = "AssignUserOrdering (UserId: " + UserId + ", UserOrdering: " + UserOrdering + ")"+ "\n";
-        add2DebugTextArea (outText);
-        alert(outText);
-        /**/
-
-        //for (var dbGallery of dbOrdering) {
         for(var idx = 0; idx < dbOrdering.length; idx++) {
             if (dbOrdering[idx].id == UserId) {
-
-                //alert("found idx: " + idx);
-                /**
-                outText = "AssignUserOrdering (dbOrdering[idx].id == UserId)" + "\n";
-                add2DebugTextArea (outText);
-                alert(outText);
-                /**/
                 dbOrdering[idx].ordering = UserOrdering;
-                // alert("exit (1)");
                 break;
             }
         }
@@ -235,7 +220,7 @@ $userId = $user->id;
         //for (var dbGallery of dbOrdering) {
         for(var idx = 0; idx < dbOrdering.length; idx++) {
             // Gallery item found
-            if(dbOrdering[idx].Id == GalleryId) {
+            if(dbOrdering[idx].id == GalleryId) {
                 ordering = dbOrdering[idx].ordering;
                 break;
             }
@@ -262,7 +247,7 @@ $userId = $user->id;
 
         var OutText = "AssignNewOrdering: \n\r";
 
-        alert ("1:");
+//        alert ("1:");
 
 
         //OrderingElements.each(function (ActIdx, Element) {
@@ -270,45 +255,37 @@ $userId = $user->id;
 //        jQuery(".changeOrder").each (function (ActIdx) {
         jQuery(".changeOrder").each (function () {
 
-//            alert("28: "); // + UserOrdering);
-
-            //alert ("2:");
-
-            //var text = jQuery("#debug").val();
-            //var text = jQuery(this).val();
-            var UserOrdering = parseInt(jQuery(this).val());
-
-            // alert ("3:");
-
-            var galleryId = GetGalleryId(jQuery(this).attr('id'));
-            //  alert ("6:");
+            alert("1: "); // + UserOrdering);
+            // var UserOrdering = parseInt(jQuery(this).val());
+            //var galleryId = GetGalleryId(jQuery(this).attr('id'));
+            Element = jQuery(this);
+            var UserOrdering = parseInt(Element.val());
+            var galleryId = GetGalleryId(Element.attr('id'));
+            alert("2: "); // + UserOrdering);
 
             OutText = "GalleryId: " + galleryId + " UserOrdering: " + UserOrdering;
-
             alert("10: " + OutText); // + UserOrdering);
 
             var newOrdering = GetOrderingValue(galleryId);
-            OutText = "newOrdering: " + newOrdering;
-
-            alert("12: " + OutText); // + UserOrdering);
-
-
-            OutText += "ActIdx: " + ActIdx + ": ";
-            OutText += "galleryId: " + galleryId;
-            OutText += "actOrdering: " + actOrdering;
-
+            OutText = "";
+            OutText += "galleryId: " + galleryId + " ";
             OutText += "newOrdering: " + newOrdering + " ";
 
-            if (newOrdering != actOrdering)
+            if (newOrdering != UserOrdering)
             {
-                alert ("galleryId: " + galleryId + " newOrdering: " + newOrdering);
-
+                alert("20: " + OutText); // + UserOrdering);
                 OutText += "Assign: ";
-                jquery( this ).val (newOrdering);
+                alert("21: " + OutText); // + UserOrdering);
+                var test = Element.val ();
+                OutText += " Test: " + test;
+                alert("22: " + OutText); // + UserOrdering);
+//                Element.val (newOrdering);
+                alert("23: " + OutText); // + UserOrdering);
             }
 
             //OutText += "key: " + key + " ";
             OutText += "\r\n";
+            alert("30: " + OutText); // + UserOrdering);
             /**/
         });
 
@@ -334,7 +311,6 @@ $userId = $user->id;
         // than one to the previous parent
         //for (var dbGallery of dbOrdering) {
         for(var idx = 0; idx < dbOrdering.length; idx++) {
-            //alert("dbGallery " + JSON.stringify(dbGallery));
 
             if (dbOrdering[idx].parent == parentId) {
                 dbOrdering[idx].ordering = actIdx;
