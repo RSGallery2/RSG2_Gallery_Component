@@ -42,7 +42,7 @@ $userId = $user->id;
      * Keeps server database gallery objects (Id,Parent, ordering, name)
      */
     var dbOrdering;
-
+    var IsActive = false;
 
     function displayDbOrderingArray (Title) {
         var OutText;
@@ -255,16 +255,16 @@ $userId = $user->id;
 //        jQuery(".changeOrder").each (function (ActIdx) {
         jQuery(".changeOrder").each (function () {
 
-            alert("1: "); // + UserOrdering);
+//            alert("1: "); // + UserOrdering);
             // var UserOrdering = parseInt(jQuery(this).val());
             //var galleryId = GetGalleryId(jQuery(this).attr('id'));
             Element = jQuery(this);
             var UserOrdering = parseInt(Element.val());
             var galleryId = GetGalleryId(Element.attr('id'));
-            alert("2: "); // + UserOrdering);
+//            alert("2: "); // + UserOrdering);
 
             OutText = "GalleryId: " + galleryId + " UserOrdering: " + UserOrdering;
-            alert("10: " + OutText); // + UserOrdering);
+//            alert("10: " + OutText); // + UserOrdering);
 
             var newOrdering = GetOrderingValue(galleryId);
             OutText = "";
@@ -273,14 +273,10 @@ $userId = $user->id;
 
             if (newOrdering != UserOrdering)
             {
-                alert("20: " + OutText); // + UserOrdering);
+//                alert("20: " + OutText); // + UserOrdering);
                 OutText += "Assign: ";
                 alert("21: " + OutText); // + UserOrdering);
-                var test = Element.val ();
-                OutText += " Test: " + test;
-                alert("22: " + OutText); // + UserOrdering);
-//                Element.val (newOrdering);
-                alert("23: " + OutText); // + UserOrdering);
+                Element.val (newOrdering);
             }
 
             //OutText += "key: " + key + " ";
@@ -338,6 +334,15 @@ $userId = $user->id;
 				var Count;
 
                 alert ("event happening");
+
+                // Exit for reentrance check
+                if (IsActive == true)
+                {
+                    return;
+                }
+
+                // activate reentrance check
+                IsActive = true;
 
 				event.preventDefault();
 
@@ -449,6 +454,8 @@ $userId = $user->id;
                 /**/
                 alert ("20 exit");
 
+                // Deactivate reentrance check
+                IsActive = false;
             }
 		);
 		/**/
