@@ -247,45 +247,17 @@ $userId = $user->id;
 
         var OutText = "AssignNewOrdering: \n\r";
 
-//        alert ("1:");
-
-
-        //OrderingElements.each(function (ActIdx, Element) {
-//        jQuery.each(".changeOrder", function (ActIdx, Element) {
-//        jQuery(".changeOrder").each (function (ActIdx) {
         jQuery(".changeOrder").each (function () {
-
-//            alert("1: "); // + UserOrdering);
-            // var UserOrdering = parseInt(jQuery(this).val());
-            //var galleryId = GetGalleryId(jQuery(this).attr('id'));
             Element = jQuery(this);
             var UserOrdering = parseInt(Element.val());
             var galleryId = GetGalleryId(Element.attr('id'));
-//            alert("2: "); // + UserOrdering);
-
-            OutText = "GalleryId: " + galleryId + " UserOrdering: " + UserOrdering;
-//            alert("10: " + OutText); // + UserOrdering);
-
             var newOrdering = GetOrderingValue(galleryId);
-            OutText = "";
-            OutText += "galleryId: " + galleryId + " ";
-            OutText += "newOrdering: " + newOrdering + " ";
 
             if (newOrdering != UserOrdering)
             {
-//                alert("20: " + OutText); // + UserOrdering);
-                OutText += "Assign: ";
-                alert("21: " + OutText); // + UserOrdering);
                 Element.val (newOrdering);
             }
-
-            //OutText += "key: " + key + " ";
-            OutText += "\r\n";
-            alert("30: " + OutText); // + UserOrdering);
-            /**/
         });
-
-        alert(OutText);
 
         return;
     }
@@ -295,19 +267,14 @@ $userId = $user->id;
     // Recursive assignment of ordering  (child direct after parent)
     // May leave out some ordering numbers
     function ReAssignOrdering(actIdx=1, parentId=0) {
-        /**
-        outText = "ReAssignOrdering (actIdx: " + actIdx + ", parentId: " + parentId + ")"+ "\n";
-        add2DebugTextArea (outText);
-        alert (outText);
-        /**/
 
         // Assign Order 1..n to each parent.
         // Children get the ordering direct after parent.
         // So the next parent may have bigger distance
         // than one to the previous parent
         //for (var dbGallery of dbOrdering) {
-        for(var idx = 0; idx < dbOrdering.length; idx++) {
-
+        for(var idx = 0; idx < dbOrdering.length; idx++)
+        {
             if (dbOrdering[idx].parent == parentId) {
                 dbOrdering[idx].ordering = actIdx;
                 actIdx++;
@@ -332,8 +299,6 @@ $userId = $user->id;
 				var Idx;
 				var element;
 				var Count;
-
-                alert ("event happening");
 
                 // Exit for reentrance check
                 if (IsActive == true)
@@ -377,7 +342,6 @@ $userId = $user->id;
 				}
 
                 /**/
-
                 // Value higher than the count will be set to highest possible
                 /* ==> may be set behind to ensure as last element
                 if (UserOrdering > Count) {
@@ -398,8 +362,6 @@ $userId = $user->id;
                     return;
                 }
 
-                // alert ("02");
-
                 //alert ("Before DbOrdering object");
                 oServerDbOrdering = jQuery.parseJSON (serverDbOrderingValue);
 
@@ -411,48 +373,32 @@ $userId = $user->id;
                 dbOrdering = oServerDbOrdering;
                 //displayDbOrderingArray ("Orginal");
 
-                // alert ("03");
-
                 // Assign changed ordering to element
                 AssignUserOrdering (UserId, UserOrdering)
                 //displayDbOrderingArray ("(03) User ordering added");
 
-                // alert ("04");
-
                 RemoveOrphanIds ();
                 //displayDbOrderingArray ("(4) Remove Orphans");
-
-                // alert ("05");
 
                 // Sort array by (old) ordering
                 SortByOrdering ();
                 //displayDbOrderingArray ("(05) SortByOrdering");
 
-                // alert ("06");
-
                 // Reassign as Versions of $.3.0 may contain no parent child order
                 ReAssignOrdering ();
                 //displayDbOrderingArray ("(06) ReAssignOrdering");
-
-                // alert ("07");
 
                 // Sort array by (new) ordering
                 SortByOrdering ();
                 //displayDbOrderingArray ("(05) SortByOrdering");
 
-                // alert ("08");
-
                 // Values for Get input in PHP
                 serverDbOrderingElement.val(JSON.stringify(dbOrdering));
                 displayDbOrderingArray ("Saved back to 'INSERT'");
 
-                // alert ("10");
-
                 /**/
                 // Save Ordering in HTML elements
                 AssignNewOrdering ();
-                /**/
-                alert ("20 exit");
 
                 // Deactivate reentrance check
                 IsActive = false;
