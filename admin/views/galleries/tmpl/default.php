@@ -67,12 +67,8 @@ $userId = $user->id;
 
     function add2DebugTextArea (OutText)
     {
-        //jQuery("#debug").append(OutText);
-//        jQuery("#debug").append("Test");
-//        alert("OutText: '" + OutText + "'")
         var ElementValue;
         ElementValue = jQuery("#debug").text();
-        // alert ("ElementValue: " + ElementValue);
         ElementValue += OutText;
 
         jQuery("#debug").val(ElementValue);
@@ -345,13 +341,6 @@ $userId = $user->id;
             }
         });
 
-        //--- all input variables ----------------------
-
-        jQuery("#dbOrdering")
-
-
-
-
         return;
     }
 
@@ -399,7 +388,7 @@ $userId = $user->id;
                     return;
                 }
 
-                // activate reentrance check
+                // activate re entrance check
                 IsActive = true;
 
 				event.preventDefault();
@@ -634,7 +623,7 @@ $userId = $user->id;
                             // $PreTitle = '[' . $parent->parent  . '] ' . $PreTitle ;
                             $PreTitle =
                                 '&nbsp;<span class="icon-arrow-right-3"></span>'
-                                . '(' . $parent->parent . ')'
+                                //. '(' . $parent->parent . ')'
                                 . $PreTitle;
                             $Depth += 1;
                             $found = false;
@@ -733,16 +722,17 @@ $userId = $user->id;
                                             echo $PreTitle;
 
                                             echo '<span title="' . JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias)) . '">';
-                                            //echo '    ' . $PreTitle . $this->escape($item->name);
-                                            echo $this->escape($item->name);
+                                            echo     $this->escape($item->name);
                                             echo '</span>';
                                         }
 
                                         ?>
                                     </strong>
                                     <span class="small break-word">
-                                    <?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias)); ?>
-                                </span>
+                                        <?php
+                                        // echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));
+                                        ?>
+                                    </span>
                                 </div>
                             </td>
 
@@ -754,10 +744,7 @@ $userId = $user->id;
                                     $imageCount = $item->image_count;
                                 }
 
-                                //$link = JRoute::_("index.php?option=com_rsgallery2&view=images&gallery_id=" . $item->id);
                                 $link = JRoute::_("index.php?option=com_rsgallery2&view=images&filter[gallery_id]=" . (int) $item->id);
-                                //$link = JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&gallery_id='.$item->id);
-                                // &filter[search]=uid:' . (int) $userId
 
                                 if ($imageCount == 0)
                                 {

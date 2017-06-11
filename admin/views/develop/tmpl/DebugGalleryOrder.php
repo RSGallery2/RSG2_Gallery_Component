@@ -15,23 +15,6 @@ global $Rsg2DebugActive;
 
 JHtml::_('bootstrap.tooltip');
 
-//JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
-//JHtml::_('behavior.formvalidator');
-//JHtml::_('behavior.keepalive');
-//JHtml::_('formbehavior.chosen', 'select');
-//JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold' => 3));
-
-/*
-JFactory::getDocument()->addScriptDeclaration('
-	Joomla.submitbutton = function(task)
-	{
-		if (task == "comment.cancel" || document.formvalidator.isValid(document.getElementById("item-form")))
-		{
-			Joomla.submitform(task, document.getElementById("item-form"));
-		}
-	};
-');
-()
 /**/
 
 ?>

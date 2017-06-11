@@ -266,15 +266,14 @@ class rsgallery2ModelGalleriesOrder extends JModelList
             $dbOrdering [] = $PhpGallery;
         }
 
-
+        /**
         $OutTxt = '';
         $OutTxt .= '$HtmlArray: "' . json_encode($HtmlArray) . '<br>';
         $OutTxt .= '$dbOrdering: "' . json_encode($dbOrdering) . '<br>';
 
         $app = JFactory::getApplication();
-        $app->enqueueMessage($OutTxt, 'error');
-
-
+        $app->enqueueMessage($OutTxt, 'notice');
+        /**/
 
         return $dbOrdering;
     }
@@ -490,7 +489,7 @@ class rsgallery2ModelGalleriesOrder extends JModelList
             $query = $db->getQuery(true);
 
             $app = JFactory::getApplication();
-            $app->enqueueMessage('AssignNewOrdering (A)', 'notice');
+            //$app->enqueueMessage('AssignNewOrdering (A)', 'notice');
 
             // Collect all galleries to check the ordering
             $Galleries = $this->OrderedGalleries ();
@@ -520,7 +519,7 @@ class rsgallery2ModelGalleriesOrder extends JModelList
 //                    $OutText .= ' ==> $NewOrdering: ' . $NewOrdering;
                     $OutText .= ' ==> ' . $NewOrdering;
 //                    $OutText .= ' (' . $Gallery->ordering . ")";
-                    $app->enqueueMessage($OutText, 'notice');
+//                    $app->enqueueMessage($OutText, 'notice');
 
                     $query->clear();
                     $query->update($db->quoteName('#__rsgallery2_galleries'))
@@ -529,8 +528,8 @@ class rsgallery2ModelGalleriesOrder extends JModelList
                     $db->setQuery($query);
 
                     $result = $db->execute();
-                    $OutText = 'Result: ' . $result;
-                    $app->enqueueMessage($OutText, 'notice');
+//                    $OutText = 'Result: ' . $result;
+//                    $app->enqueueMessage($OutText, 'notice');
 
                     if (empty($result))
                     {

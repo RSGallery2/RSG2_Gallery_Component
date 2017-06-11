@@ -126,7 +126,7 @@ class Rsgallery2ViewGalleries extends JViewLegacy
                 // on develop show open tasks if existing
                 if (!empty ($Rsg2DevelopActive))
                 {
-                    echo '<span style="color:red">Task: a) ordering new/changed, b) sub galleries below parent c) Sort by parent ID ? parent before ? </span><br><br>';
+                    echo '<span style="color:red">Task:  c) Search tools -> group by parent/ parent child tree ? </span><br><br>';
                 }
 
                 break;
