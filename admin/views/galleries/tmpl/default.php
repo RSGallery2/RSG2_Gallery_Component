@@ -470,7 +470,7 @@ $userId = $user->id;
 
                 // Assign changed ordering to element
                 InsertUserOrdering (UserId, UserOrdering);
-                displayDbOrderingArray ("(03) User ordering added");
+                //displayDbOrderingArray ("(03) User ordering added");
 
                 RemoveOrphanIds ();
                 //displayDbOrderingArray ("(4) Remove Orphans");
@@ -489,7 +489,7 @@ $userId = $user->id;
 
                 // Values for Get input in PHP
                 serverDbOrderingElement.val(JSON.stringify(dbOrdering));
-                displayDbOrderingArray ("Saved back to 'INSERT'");
+                //displayDbOrderingArray ("Saved back to 'INSERT'");
 
                 /**/
                 // Save Ordering in HTML elements
@@ -502,7 +502,8 @@ $userId = $user->id;
 		);
 		/**/
 
-		alert ("assign succesful");
+        // to Debug: If activated it tell if jscript is working
+		// alert ("assign succesful");
 	});
 
 </script>
@@ -853,31 +854,25 @@ $userId = $user->id;
                 <input type="hidden" name="task" value="" />
                 <input type="hidden" name="boxchecked" value="0" />
 
-                <!--
-                <input id="dbOrdering" name="dbOrdering" class=" span6" value="<?php
-                $JsonEncoded = json_encode($this->dbOrdering);
-                $HtmlOut = htmlentities($JsonEncoded, ENT_QUOTES, "UTF-8");
-                //echo "input dbOrdering start:<br>" . $HtmlOut;
-                echo  $HtmlOut;
-                ?>" />
-                -->
-                <label for="dbOrdering" style="font-weight: bold;">dbOrdering:</label>
-                <textarea id="dbOrdering" name="dbOrdering" cols="140" rows="15" class="span10"><?php
+                <!-- keeps the ordering for swending to server -->
+                <label for="dbOrdering" style="font-weight: bold; display: none;">dbOrdering:</label>
+                <textarea id="dbOrdering" name="dbOrdering" cols="140" rows="15" class="span10"
+                          style="display: none;"><?php
                         $JsonEncoded = json_encode($this->dbOrdering);
                         $HtmlOut = htmlentities($JsonEncoded, ENT_QUOTES, "UTF-8");
                         echo  $HtmlOut;
                         ?></textarea>
                 <br>
-            </div>
 
+                <?php echo JHtml::_('form.token'); ?>
+            </div>
         </form>
 
     </div>
-        <label for="debug" style="font-weight: bold;">debug text:</label>
+        <label for="debug" style="font-weight: bold; display: none;">debug text:</label>
         <textarea id="debug" name="debug" cols="140" rows="50" class="span6"
-            style="resize: horizontal">debug area</textarea>
-
-        <?php echo JHtml::_('form.token'); ?>
+                  style="resize: horizontal; display: none;">debug area</textarea>
+    </div>
 
 	<div id="loading"></div>
 </div>
