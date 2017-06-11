@@ -60,7 +60,7 @@ $userId = $user->id;
     function clearDebugTextArea ()
     {
         //jQuery("#debug").val("Clear:\n");
-        jQuery("#debug").val("");
+        //jQuery("#debug").val("");
         jQuery("#debug").append("");
     }
  /**/
@@ -80,19 +80,103 @@ $userId = $user->id;
     }
 /**/
 
+
     /**
+     * Every
+     *
+     * It may create
+     * .
      *
      */
-    function AssignUserOrdering (UserId, UserOrdering)
+    function InsertUserOrdering (UserId, UserOrdering)
     {
-        for(var idx = 0; idx < dbOrdering.length; idx++) {
-            if (dbOrdering[idx].id == UserId) {
-                dbOrdering[idx].ordering = UserOrdering;
-                break;
-            }
+        var LimitLower;
+        var LimitUpper;
+        var PrevOrdering;
+        var bDirMoveUp;
+        var ActOrdering;
+        var MovedOrdering;
+
+        // alert ("UserOrdering: " + UserOrdering);
+        // alert ("dbOrdering.length: " + dbOrdering.length);
+
+        // No change ?
+        PrevOrdering = parseInt(GetOrderingValue (UserId));
+        UserOrdering = parseInt(UserOrdering);
+        if (PrevOrdering == UserOrdering) {
+            return;
         }
 
-        // alert("exit (2)");
+        // alert ("PrevOrdering: " + PrevOrdering);
+
+        if (PrevOrdering < UserOrdering){
+            LimitLower = PrevOrdering;
+            LimitUpper = UserOrdering;
+            bDirMoveUp = true;
+        }
+        else
+        {
+            LimitLower = UserOrdering;
+            LimitUpper = PrevOrdering;
+            bDirMoveUp = false;
+        }
+
+        // alert ("bDirMoveUp: " + bDirMoveUp);
+
+        // Move elements between lower and upper
+        for(var idx = 0; idx < dbOrdering.length; idx++) {
+
+            // Assign new ordering on user element
+            if (dbOrdering[idx].id == UserId) {
+                dbOrdering[idx].ordering = UserOrdering;
+            }
+            else {
+                ActOrdering = parseInt (dbOrdering[idx].ordering);
+//                alert ("idx: " + idx + " Id:" + dbOrdering[idx].id + " ActOrdering: " + ActOrdering);
+
+                // Moving area
+                if (LimitLower <= ActOrdering && ActOrdering <= LimitUpper) {
+
+//                    alert ("idx: " + idx + " Id:" + dbOrdering[idx].id + " ActOrdering: " + ActOrdering);
+                    if (bDirMoveUp) {
+                        // Make space below new ordering
+                        MovedOrdering = 0 + parseInt(dbOrdering[idx].ordering) - 1;
+                        /**
+                        alert ("idx: " + idx
+                            + " Id:" + dbOrdering[idx].id
+                            + " Up"
+                            + " ActOrdering: " + ActOrdering
+                            + " MovedOrdering" + MovedOrdering);
+                        /**/
+                    }
+                    else {
+                        // Make space above new ordering
+                        MovedOrdering = 0 + parseInt(dbOrdering[idx].ordering) + 1;
+                        /**
+                        alert ("idx: " + idx
+                            + " Id:" + dbOrdering[idx].id
+                            + " Up"
+                            + " ActOrdering: " + ActOrdering
+                            + " MovedOrdering" + MovedOrdering);
+                        /**/
+                    }
+
+                    dbOrdering[idx].ordering = MovedOrdering;
+                    /**
+                    alert ("idx: " + idx
+                        + " Id:" + dbOrdering[idx].id
+                        + " After"
+                        + " ActOrdering: " + ActOrdering
+                        + " MovedOrdering" + MovedOrdering
+                        + " Changed: " + dbOrdering[idx].ordering);
+                    /**/
+                }
+            }
+        }
+        /**/
+
+        // alert ("exit");
+
         return;
     }
 
@@ -247,6 +331,8 @@ $userId = $user->id;
 
         var OutText = "AssignNewOrdering: \n\r";
 
+        //--- all input variables ----------------------
+
         jQuery(".changeOrder").each (function () {
             Element = jQuery(this);
             var UserOrdering = parseInt(Element.val());
@@ -258,6 +344,13 @@ $userId = $user->id;
                 Element.val (newOrdering);
             }
         });
+
+        //--- all input variables ----------------------
+
+        jQuery("#dbOrdering")
+
+
+
 
         return;
     }
@@ -369,13 +462,15 @@ $userId = $user->id;
                 // Order by parent / child
                 //-----------------------------------------
 
+                clearDebugTextArea ();
+
                 // Global value for following functions
                 dbOrdering = oServerDbOrdering;
                 //displayDbOrderingArray ("Orginal");
 
                 // Assign changed ordering to element
-                AssignUserOrdering (UserId, UserOrdering)
-                //displayDbOrderingArray ("(03) User ordering added");
+                InsertUserOrdering (UserId, UserOrdering);
+                displayDbOrderingArray ("(03) User ordering added");
 
                 RemoveOrphanIds ();
                 //displayDbOrderingArray ("(4) Remove Orphans");
@@ -399,8 +494,9 @@ $userId = $user->id;
                 /**/
                 // Save Ordering in HTML elements
                 AssignNewOrdering ();
+                /**/
 
-                // Deactivate reentrance check
+                // Deactivate re entrance check
                 IsActive = false;
             }
 		);
