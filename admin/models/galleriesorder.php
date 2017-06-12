@@ -223,8 +223,8 @@ class rsgallery2ModelGalleriesOrder extends JModelList
         $Idx = 0;
         foreach ($this->dbOrdering as $dbGallery) {
             // ...
-            $OutText = $OutText . 'Idx:' . $Idx  . ' ' .json_encode($dbGallery) . '<br>';
-            //$OutText = $OutText . 'Idx:' . $Idx  . ' ' .json_encode($this->dbOrdering[$Idx]) . '<br>';
+            $OutText = $OutText . 'Idx:' . $Idx  . ' ' . json_encode($dbGallery) . '<br>';
+            //$OutText = $OutText . 'Idx:' . $Idx  . ' ' . json_encode($this->dbOrdering[$Idx]) . '<br>';
             $Idx++;
         }
 
@@ -388,7 +388,7 @@ class rsgallery2ModelGalleriesOrder extends JModelList
                 for ($Idx =0 ; $Idx <= $level; $Idx++) {
                     $OutText .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
                 }
-                $OutText .= '$arrayIdx:' . $arrayIdx  . ' ' .json_encode($this->dbOrdering[$arrayIdx]) . '<br>';
+                $OutText .= '$arrayIdx:' . $arrayIdx  . ' ' . json_encode($this->dbOrdering[$arrayIdx]) . '<br>';
                 $app->enqueueMessage($OutText, 'notice');
 /**/
                 // recursive call of ordering on child gallery
