@@ -1,0 +1,50 @@
+URLS to files are neded for functions addStyleSheet and addScript
+
+Examples:
+$document->addStyleSheet(JURI::base(true).'/components/.../stylesheet.css');
+$document->addScript(JURI::base(true).'/components/.../script.js');
+
+
+
+// ToDo: Explain when site, when admin ? rename "JURI_SITE" as it is confusing
+define('JURI_SITE', $app->isSite() ? JUri::base() : JUri::root());
+
+// 
+
+
+
+
+
+-------------------------------------------------------
+
+http://www.escope.cz/en/blog/106-joomla-juri-explained-with-examples
+
+JURI::base()
+JURI::base() returns string 'http://escope.cz/' at frontend and 'http://escope.cz/administrator/' at backend.
+JURI::base(true) returns empty string '' at frontend and string '/administrator' at backend.
+
+JURI::root()
+This is the right answer to often asked question "how to get the domain?".
+JURI::root() returns string 'http://escope.cz/' at frontend and 'http://escope.cz/' at backend as well.
+
+
+-------------------------------------------------------
+docs.joomla.org
+
+$document = JFactory::getDocument();
+
+Then for a stylesheet, use this code:
+$document->addStyleSheet($url);
+
+To add a Javascript file, use this code:
+$document->addScript($url);
+
+where $url is the variable containing the full path to the 
+javascript or CSS file for 
+
+example: JUri::base() . 'templates/custom/js/sample.js'
+
+-------------------------------------------------------
+
+
+
