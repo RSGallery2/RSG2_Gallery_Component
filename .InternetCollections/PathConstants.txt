@@ -5,7 +5,8 @@ JPATH_COMPONENT_ADMINISTRATOR
 JPATH_COMPONENT_SITE
 ...
 
-a) On windows xampp the first part of the path example JPATH_COMPONENT_.... 
+a) Following is wrong as addStyleSheet needs an URL and not a file path
+    On windows xampp the first part of the path example JPATH_COMPONENT_.... 
     may include backslashes "\" instead of slashed. Then 
 	addStyleSheet(JPATH_COMPONENT_ADMINISTRATOR . "/css/ControlPanel.css");
 	will not open the file indicated as all dividers must be slashed "/"
