@@ -117,7 +117,7 @@ $userId = $user->id;
 
                 // Global value for following functions
                 dbOrdering = oServerDbOrdering;
-                //displayDbOrderingArray ("Orginal");
+                //displayDbOrderingArray ("Original");
 
                 // Assign changed ordering to element
                 InsertUserOrdering (UserId, UserOrdering);
@@ -153,8 +153,8 @@ $userId = $user->id;
 		);
 		/**/
 
-        // to Debug: If activated it tell if jscript is working
-		// alert ("assign succesful");
+        // to Debug: If activated it tells if jscript is working
+		// alert ("assign successful");
 	});
 
 </script>
