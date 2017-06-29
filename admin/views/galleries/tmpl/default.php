@@ -15,7 +15,9 @@ JHtml::_('behavior.multiselect');
 JHtml::_('formbehavior.chosen', 'select');
 
 
-// JHtml::_('script', '\js\galleriesOrdering.js');
+$doc = JFactory::getDocument();
+$script = JUri::root(true) . '/administrator/components/com_rsgallery2/js/galleriesOrdering.js';
+$doc->addScript($script);
 
 global $Rsg2DebugActive;
 
@@ -35,6 +37,7 @@ $userId = $user->id;
 	// Change request from order element of gallery row:
 	jQuery(document).ready(function ($) {
 		 // alert ("before event assign");
+        var IsActive = false;
 
 		// jQuery(".changeOrder").on('change',
         // jQuery(".changeOrder").on('keyup mouseup',
@@ -44,11 +47,16 @@ $userId = $user->id;
 				var element;
 				var Count;
 
+                //alert ("Change ?");
+
                 // Exit for reentrance check
                 if (IsActive == true)
                 {
+                    //alert ("Already started !!!");
                     return;
                 }
+
+                // alert ("Change !!!");
 
                 // activate re entrance check
                 IsActive = true;
@@ -57,12 +65,19 @@ $userId = $user->id;
 
 				var actElement = event.target;
 
+                //alert ("Empty ???");
 				// Empty input
 				if (actElement.value == '') {
+                    alert ("Empty yes");
 					return;
 				}
 
-                clearDebugTextArea();
+
+                //alert ("01");
+                //yyyy = new GalleriesOrdering ();
+                yyyy = GalleriesOrdering;
+
+                //alert ("A01");
 
                 //--- User element order value --------------------------------------
 
@@ -70,14 +85,22 @@ $userId = $user->id;
                 //outText = "strUserOrdering: " + strUserOrdering + "\n";
                 //add2DebugTextArea (outText);
 
+                //alert ("A01.1");
                 var UserOrdering = parseInt(actElement.value);
-                var UserId = GetGalleryId(actElement.id);
+                //alert ("A01.2");
+                var UserId = yyyy.GetGalleryId(actElement.id);
+                //alert ("A01.3");
 
                 var UserIdString = actElement.id; //
+                //alert ("A01.4");
                 UserIdString = UserIdString.replace( /^\D+/g, ''); // replace all leading non-digits with nothing
+                //alert ("A01.5");
                 var UserId = parseInt(UserIdString);
+                //alert ("A01.6");
 
                 //--- Check limit user value --------------------------------------
+
+                //alert ("A02");
 
                 // Negative value will be corrected to lowest value
 				if (UserOrdering < 0) {
@@ -96,6 +119,8 @@ $userId = $user->id;
 
                 //--- Fetch database ordering --------------------------------------
 
+                //alert ("A03");
+
                 // alert ("01");
                 var serverDbOrderingElement = jQuery("#dbOrdering");
                 //alert("Value: '" + serverDbOrderingElement.val() + "'");
@@ -109,43 +134,58 @@ $userId = $user->id;
                 //alert ("Before DbOrdering object");
                 oServerDbOrdering = jQuery.parseJSON (serverDbOrderingValue);
 
+                //alert ("A10");
+
                 //-----------------------------------------
                 // Order by parent / child
                 //-----------------------------------------
 
-                clearDebugTextArea ();
-
+                //alert ("02");
                 // Global value for following functions
-                dbOrdering = oServerDbOrdering;
-                //displayDbOrderingArray ("Original");
+                yyyy.initialize (oServerDbOrdering)
+                yyyy.displayDbOrderingArray ("(01) initialize");
+                //alert ("03");
+
+                yyyy.clearDebugTextArea ();
+                //alert ("04");
+
+                //yyyy.displayDbOrderingArray ("Original");
 
                 // Assign changed ordering to element
-                InsertUserOrdering (UserId, UserOrdering);
-                //displayDbOrderingArray ("(03) User ordering added");
+                yyyy.InsertUserOrdering (UserId, UserOrdering);
+                yyyy.displayDbOrderingArray ("(03) User ordering added");
+                alert ("05");
 
-                RemoveOrphanIds ();
-                //displayDbOrderingArray ("(4) Remove Orphans");
+                //
+                yyyy.RemoveOrphanIds ();
+                yyyy.displayDbOrderingArray ("(4) Remove Orphans");
+                alert ("06");
 
                 // Sort array by (old) ordering
-                SortByOrdering ();
-                //displayDbOrderingArray ("(05) SortByOrdering");
+                yyyy.SortByOrdering ();
+                //yyyy.displayDbOrderingArray ("(05) SortByOrdering");
+                alert ("07");
 
                 // Reassign as Versions of $.3.0 may contain no parent child order
-                ReAssignOrdering ();
-                //displayDbOrderingArray ("(06) ReAssignOrdering");
+                yyyy.ReAssignOrdering ();
+                //yyyy.displayDbOrderingArray ("(06) ReAssignOrdering");
+                alert ("08");
 
                 // Sort array by (new) ordering
-                SortByOrdering ();
-                //displayDbOrderingArray ("(05) SortByOrdering");
+                yyyy.SortByOrdering ();
+                //yyyy.displayDbOrderingArray ("(05) SortByOrdering");
+                alert ("09");
 
                 // Values for Get input in PHP
-                serverDbOrderingElement.val(JSON.stringify(dbOrdering));
-                //displayDbOrderingArray ("Saved back to 'INSERT'");
+                serverDbOrderingElement.val(JSON.stringify(yyyy.dbOrdering));
+                //yyyy.displayDbOrderingArray ("Saved back to 'INSERT'");
+                alert ("10");
 
                 /**/
                 // Save Ordering in HTML elements
-                AssignNewOrdering ();
+                yyyy.AssignNewOrdering ();
                 /**/
+                alert ("11");
 
                 // Deactivate re entrance check
                 IsActive = false;
@@ -154,7 +194,7 @@ $userId = $user->id;
 		/**/
 
         // to Debug: If activated it tells if jscript is working
-		// alert ("assign successful");
+		 alert ("assign successful");
 	});
 
 </script>
@@ -503,7 +543,7 @@ $userId = $user->id;
                 <input type="hidden" name="task" value="" />
                 <input type="hidden" name="boxchecked" value="0" />
 
-                <!-- keeps the ordering for swending to server -->
+                <!-- keeps the ordering for sending to server -->
                 <label for="dbOrdering" style="font-weight: bold; display: none;">dbOrdering:</label>
                 <textarea id="dbOrdering" name="dbOrdering" cols="140" rows="15" class="span10"
                           style="display: none;"><?php
@@ -518,9 +558,9 @@ $userId = $user->id;
         </form>
 
     </div>
-        <label for="debug" style="font-weight: bold; display: none;">debug text:</label>
+        <label for="debug" style="font-weight: bold; Xdisplay: none;">debug text:</label>
         <textarea id="debug" name="debug" cols="140" rows="50" class="span6"
-                  style="resize: horizontal; display: none;">debug area</textarea>
+                  style="resize: horizontal; Xdisplay: none;">debug area</textarea>
     </div>
 
 	<div id="loading"></div>

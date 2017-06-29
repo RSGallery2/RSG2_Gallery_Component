@@ -8,6 +8,10 @@ var GalleriesOrdering = {
      */
     dbOrdering: [],
 
+    /**
+     * initialize
+     * @param dbOrdering array ('id', 'ordering', 'parent', 'name')
+     */
     // constructor (dbOrdering) {
     initialize: function (dbOrdering) {
         this.dbOrdering = dbOrdering;
@@ -26,9 +30,9 @@ var GalleriesOrdering = {
     displayDbOrderingArray: function (Title) {
         var OutText;
 
-        OutText = Title + ": (lenght:" + dbOrdering.length + ") \n";
-        for (var idx = 0; idx < dbOrdering.length; idx++) {
-            OutText += JSON.stringify(dbOrdering[idx]) + "\n";
+        OutText = Title + ": (lenght:" + this.dbOrdering.length + ") \n";
+        for (var idx = 0; idx < this.dbOrdering.length; idx++) {
+            OutText += JSON.stringify(this.dbOrdering[idx]) + "\n";
         }
         OutText += "\n";
 
@@ -70,7 +74,7 @@ var GalleriesOrdering = {
         var MovedOrdering;
 
         // alert ("UserOrdering: " + UserOrdering);
-        // alert ("dbOrdering.length: " + dbOrdering.length);
+        // alert ("dbOrdering.length: " + this.dbOrdering.length);
 
         // No change ?
         PrevOrdering = parseInt(this.GetOrderingValue(UserId));
@@ -95,26 +99,26 @@ var GalleriesOrdering = {
         // alert ("bDirMoveUp: " + bDirMoveUp);
 
         // Move elements between lower and upper
-        for (var idx = 0; idx < dbOrdering.length; idx++) {
+        for (var idx = 0; idx < this.dbOrdering.length; idx++) {
 
             // Assign new ordering on user element
-            if (dbOrdering[idx].id == UserId) {
-                dbOrdering[idx].ordering = UserOrdering;
+            if (this.dbOrdering[idx].id == UserId) {
+                this.dbOrdering[idx].ordering = UserOrdering;
             }
             else {
-                ActOrdering = parseInt(dbOrdering[idx].ordering);
-//                alert ("idx: " + idx + " Id:" + dbOrdering[idx].id + " ActOrdering: " + ActOrdering);
+                ActOrdering = parseInt(this.dbOrdering[idx].ordering);
+//                alert ("idx: " + idx + " Id:" + this.dbOrdering[idx].id + " ActOrdering: " + ActOrdering);
 
                 // Moving area
                 if (LimitLower <= ActOrdering && ActOrdering <= LimitUpper) {
 
-//                    alert ("idx: " + idx + " Id:" + dbOrdering[idx].id + " ActOrdering: " + ActOrdering);
+//                    alert ("idx: " + idx + " Id:" + this.dbOrdering[idx].id + " ActOrdering: " + ActOrdering);
                     if (bDirMoveUp) {
                         // Make space below new ordering
-                        MovedOrdering = 0 + parseInt(dbOrdering[idx].ordering) - 1;
+                        MovedOrdering = 0 + parseInt(this.dbOrdering[idx].ordering) - 1;
                         /**
                          alert ("idx: " + idx
-                         + " Id:" + dbOrdering[idx].id
+                         + " Id:" + this.dbOrdering[idx].id
                          + " Up"
                          + " ActOrdering: " + ActOrdering
                          + " MovedOrdering" + MovedOrdering);
@@ -122,24 +126,24 @@ var GalleriesOrdering = {
                     }
                     else {
                         // Make space above new ordering
-                        MovedOrdering = 0 + parseInt(dbOrdering[idx].ordering) + 1;
+                        MovedOrdering = 0 + parseInt(this.dbOrdering[idx].ordering) + 1;
                         /**
                          alert ("idx: " + idx
-                         + " Id:" + dbOrdering[idx].id
+                         + " Id:" + this.dbOrdering[idx].id
                          + " Up"
                          + " ActOrdering: " + ActOrdering
                          + " MovedOrdering" + MovedOrdering);
                          /**/
                     }
 
-                    dbOrdering[idx].ordering = MovedOrdering;
+                    this.dbOrdering[idx].ordering = MovedOrdering;
                     /**
                      alert ("idx: " + idx
-                     + " Id:" + dbOrdering[idx].id
+                     + " Id:" + this.dbOrdering[idx].id
                      + " After"
                      + " ActOrdering: " + ActOrdering
                      + " MovedOrdering" + MovedOrdering
-                     + " Changed: " + dbOrdering[idx].ordering);
+                     + " Changed: " + this.dbOrdering[idx].ordering);
                      /**/
                 }
             }
@@ -156,16 +160,16 @@ var GalleriesOrdering = {
      */
     RemoveOrphanIds: function () {
 
-        //for (var dbGallery of dbOrdering) {
-        for (var idx = 0; idx < dbOrdering.length; idx++) {
+        //for (var dbGallery of this.dbOrdering) {
+        for (var idx = 0; idx < this.dbOrdering.length; idx++) {
 
-            if (dbOrdering[idx].parent != 0) {
+            if (this.dbOrdering[idx].parent != 0) {
 
-                if (!this.IsParentExisting(dbOrdering[idx].parent)) {
-                    var outText = "Orphan:" + JSON.stringify(dbOrdering[idx]) + "\n"
+                if (!this.IsParentExisting(this.dbOrdering[idx].parent)) {
+                    var outText = "Orphan:" + JSON.stringify(this.dbOrdering[idx]) + "\n"
                     this.add2DebugTextArea(outText);
                     alert(outText);
-                    dbOrdering[idx].parent = 0;
+                    this.dbOrdering[idx].parent = 0;
                 }
             }
         }
@@ -176,9 +180,9 @@ var GalleriesOrdering = {
     IsParentExisting: function (ParentId) {
         var bIsParentExisting = false;
 
-        //for (var dbGallery of dbOrdering) {
-        for (var idx = 0; idx < dbOrdering.length; idx++) {
-            if (dbOrdering[idx].id == ParentId) {
+        //for (var dbGallery of this.dbOrdering) {
+        for (var idx = 0; idx < this.dbOrdering.length; idx++) {
+            if (this.dbOrdering[idx].id == ParentId) {
                 bIsParentExisting = true;
                 break;
             }
@@ -188,12 +192,12 @@ var GalleriesOrdering = {
     },
 
     SortByOrdering: function () {
-        var SortedOrdering = dbOrdering.slice(0);
+        var SortedOrdering = this.dbOrdering.slice(0);
 
         // alert ("SortedOrdering");
         SortedOrdering.sort(this.SortByIntOrdering);
 
-        dbOrdering = SortedOrdering;
+        this.dbOrdering = SortedOrdering;
         // alert ("Return SortedOrdering");
 
         return;
@@ -208,14 +212,14 @@ var GalleriesOrdering = {
         // All
         var OutText = "";
 
-        OutText += "dbOrdering.length: " + dbOrdering.length + ", ";
+        OutText += "dbOrdering.length: " + this.dbOrdering.length + ", ";
         OutText += "UserId: " + UserId + ", ";
         OutText += "UserOrdering: " + UserOrdering + "\n\r";
         // alert(OutText);
 
         // OutText = "";
-        for (var ActIdx = 0; ActIdx < dbOrdering.length; ActIdx++) {
-            var Gallery = dbOrdering[ActIdx];
+        for (var ActIdx = 0; ActIdx < this.dbOrdering.length; ActIdx++) {
+            var Gallery = this.dbOrdering[ActIdx];
             var ActOrdering = Number(ActIdx) + Number(1)
             OutText += "'" + ActOrdering + "': ";
 
@@ -260,10 +264,10 @@ var GalleriesOrdering = {
         var ordering = -1;
 
         //for (var dbGallery of dbOrdering) {
-        for (var idx = 0; idx < dbOrdering.length; idx++) {
+        for (var idx = 0; idx < this.dbOrdering.length; idx++) {
             // Gallery item found
-            if (dbOrdering[idx].id == GalleryId) {
-                ordering = dbOrdering[idx].ordering;
+            if (this.dbOrdering[idx].id == GalleryId) {
+                ordering = this.dbOrdering[idx].ordering;
                 break;
             }
         }
@@ -308,20 +312,29 @@ var GalleriesOrdering = {
 // Reassign as Versions of $.3.0 may contain no parent child order
 // Recursive assignment of ordering  (child direct after parent)
 // May leave out some ordering numbers
-    ReAssignOrdering: function (actIdx=1, parentId=0) {
+    /**
+     * ReAssignOrdering
+     * First call should be with actIdx=1, parentId=0
+     * @param actIdx
+     * @param parentId
+     * @returns {*}
+     * @constructor
+     */
+    // ToDo active when all browser supporst initialised variables: ReAssignOrdering: function (actIdx=1, parentId=0) {
+    ReAssignOrdering: function (actIdx, parentId) {
 
         // Assign Order 1..n to each parent.
         // Children get the ordering direct after parent.
         // So the next parent may have bigger distance
         // than one to the previous parent
         //for (var dbGallery of dbOrdering) {
-        for (var idx = 0; idx < dbOrdering.length; idx++) {
-            if (dbOrdering[idx].parent == parentId) {
-                dbOrdering[idx].ordering = actIdx;
+        for (var idx = 0; idx < this.dbOrdering.length; idx++) {
+            if (this.dbOrdering[idx].parent == parentId) {
+                this.dbOrdering[idx].ordering = actIdx;
                 actIdx++;
 
                 // recursive call of ordering on child
-                actIdx = this.ReAssignOrdering(actIdx, dbOrdering[idx].id);
+                actIdx = this.ReAssignOrdering(actIdx, this.dbOrdering[idx].id);
             }
         }
 
