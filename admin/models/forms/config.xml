@@ -4,7 +4,7 @@
 		<field name="intro_text"
 		       type="editor"
 		       label="COM_RSGALLERY2_INTRODUCTION_TEXT"
-		       description="COM_CONTENT_FIELD_ARTICLETEXT_DESC"
+		       description="COM_RSGALLERY2_INTRODUCTION_DESC"
 		       filter="JComponentHelper::filterText"
 		       buttons="false"
 		/>
