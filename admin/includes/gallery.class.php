@@ -17,11 +17,11 @@ defined('_JEXEC') or die();
  * @package RSGallery2
  * @author  Jonah Braun <Jonah@WhaleHosting.ca>
  */
-class rsgGallery extends JObject
+class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 {
 //     variables from the db table
 	/** @var array the entire table row */
-	var $row = null; /* rsgGallery parameters as associatian array */
+	var $row = null; /* rsgGallery parameters as association array */
 
 	/** @var int Primary key */
 	var $id = null;
@@ -79,13 +79,17 @@ class rsgGallery extends JObject
 
 	var $_itemCount = null;
 
-	/**
-	 * @param mixed|null $row (rsgGallery parameters as associatian array)
-	 */
+    /**
+     *
+     * $row rsgGallery parameters as association array
+     *
+     * rsgGallery constructor.
+     * @param mixed|null $row  (rsgGallery parameters as associatian array)
+     */
 	function __construct($row)
 	{
 		// call Grandpa's constructor
-		JObject::__construct();
+		JObject::__construct();  // ToDO: Fix: Use of Jobject ...
 
 		$this->row = $row;
 
@@ -239,7 +243,7 @@ class rsgGallery extends JObject
 	}
 
 	/**
-	 *  returns an array of all item objects (imagess) n? strings ?
+	 *  returns an array of all item objects (images)
 	 *
 	 * @return array rsgGallery
 	 */
@@ -517,6 +521,8 @@ class rsgGallery extends JObject
 	}
 
 	/**
+     *
+     * ToDo: Fix: remove with standard as higher php is needed by joomla anyhow
 	 * array_slice with preserve_keys for every php version (taken form http://www.php.net/array_slice )
 	 *
 	 * @param array $array  Input array

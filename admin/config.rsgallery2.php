@@ -521,7 +521,8 @@ class galleryUtils
 
 	/**
 	 * @param $xid
-	 *
+	 * ToDo: Fix: Remove
+     *
 	 * @depreciated use rsgGallery->hasNewImages() instead;
 	 */
 	static function newImages($xid)
@@ -777,7 +778,7 @@ class galleryUtils
 			$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"" . JURI_SITE . "/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;" . JText::_('COM_RSGALLERY2_NO_IMGLIBRARY') . "</p>";
 		}
 
-		//Check availability and writability of folders
+		//Check availability and writable of folders
 		$folders = array(
 			$rsgConfig->get('imgPath_display'),
 			$rsgConfig->get('imgPath_thumb'),

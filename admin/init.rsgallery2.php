@@ -11,33 +11,23 @@
  */
 defined('_JEXEC') or die();
 
-if (!defined('DS'))
-{
-	define('DS', DIRECTORY_SEPARATOR);
+if (!defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
 }
 
 // create global variables in case we are not in the global scope.
 global $rsgConfig, $rsgVersion, $rsgOption, $mainframe;
 
-//Set path globals for RSGallery2
-define('JPATH_RSGALLERY2_SITE', JPATH_ROOT . DS . 'components' . DS . 'com_rsgallery2');
-if (!defined('JPATH_RSGALLERY2_ADMIN'))
-{    //might also be defined in router.php is SEF is used
-	define('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT . DS . 'administrator' . DS . 'components' . DS . 'com_rsgallery2');
-}
-define('JPATH_RSGALLERY2_LIBS', JPATH_ROOT . DS . 'components' . DS . 'com_rsgallery2' . DS . 'lib');
-
-$app = JFactory::getApplication();
-define('JURI_SITE', $app->isSite() ? JUri::base() : JUri::root());
+// Base definitions
+require_once(JPATH_ROOT . '/administrator/components/com_rsgallery2/includes/baseDefines.php');
 
 // check if this file has been included yet.
-if (isset($rsgConfig))
-{
-	return;
+if (isset($rsgConfig)) {
+    return;
 }
 
 // Needed by rsgConfig
-require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'version.rsgallery2.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/version.rsgallery2.php');
 $rsgVersion = new rsgalleryVersion();
 
 // Initialize the rsg config file
@@ -45,33 +35,43 @@ require_once(JPATH_RSGALLERY2_ADMIN . '/includes/config.class.php');
 $rsgConfig = new rsgConfig();
 
 //Set image paths for RSGallery2
-define('JPATH_ORIGINAL', JPATH_ROOT . str_replace('/', DS, $rsgConfig->get('imgPath_original')));
-define('JPATH_DISPLAY', JPATH_ROOT . str_replace('/', DS, $rsgConfig->get('imgPath_display')));
-define('JPATH_THUMB', JPATH_ROOT . str_replace('/', DS, $rsgConfig->get('imgPath_thumb')));
-define('JPATH_WATERMARKED', JPATH_ROOT . str_replace('/', DS, $rsgConfig->get('imgPath_watermarked')));
+/**
+ * define('JPATH_ORIGINAL', JPATH_ROOT . str_replace('/', DS, $rsgConfig->get('imgPath_original')));
+ * define('JPATH_DISPLAY', JPATH_ROOT . str_replace('/', DS, $rsgConfig->get('imgPath_display')));
+ * define('JPATH_THUMB', JPATH_ROOT . str_replace('/', DS, $rsgConfig->get('imgPath_thumb')));
+ * define('JPATH_WATERMARKED', JPATH_ROOT . str_replace('/', DS, $rsgConfig->get('imgPath_watermarked')));
+ * /**/
+define('JPATH_ORIGINAL', JPATH_ROOT . $rsgConfig->get('imgPath_original'));
+define('JPATH_DISPLAY', JPATH_ROOT . $rsgConfig->get('imgPath_display'));
+define('JPATH_THUMB', JPATH_ROOT . $rsgConfig->get('imgPath_thumb'));
+define('JPATH_WATERMARKED', JPATH_ROOT . $rsgConfig->get('imgPath_watermarked'));
+/**/
 
-$rsgOptions_path = JPATH_RSGALLERY2_ADMIN . DS . 'options' . DS;
-$rsgClasses_path = JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS;
+$rsgOptions_path = JPATH_RSGALLERY2_ADMIN . '/options/';
+$rsgClasses_path = JPATH_RSGALLERY2_ADMIN . '/includes/';
 
 //include ACL class
-require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'access.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/access.class.php');
 // include authorisation check class
-require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'authorisation.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/authorisation.class.php');
 
 // include rsgInstance
-require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'instance.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/instance.class.php');
 
 // require file utilities
-require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'file.utils.php');
-require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'img.utils.php');
-require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'audio.utils.php');
-require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'items' . DS . 'item.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/file.utils.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/img.utils.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/audio.utils.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/items/item.php');
 
 // contains misc. utility functions
-require_once(JPATH_RSGALLERY2_ADMIN . DS . 'config.rsgallery2.php');
-require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'gallery.manager.php');
-require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'gallery.class.php');
-require_once(JPATH_RSGALLERY2_LIBS . DS . 'rsgcomments' . DS . 'rsgcomments.class.php');
-require_once(JPATH_RSGALLERY2_LIBS . DS . 'rsgvoting' . DS . 'rsgvoting.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/config.rsgallery2.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/gallery.manager.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/gallery.class.php');
 
-require_once($rsgOptions_path . 'images.class.php');
+//
+require_once(JPATH_RSGALLERY2_LIBS . '/rsgcomments/rsgcomments.class.php');
+require_once(JPATH_RSGALLERY2_LIBS . '/rsgvoting/rsgvoting.class.php');
+
+//require_once($rsgOptions_path . 'images.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/options/images.class.php');

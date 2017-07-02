@@ -18,7 +18,7 @@ if( isset( $_REQUEST['rsgOption'] ))
 else
     $rsgOption = '';
 /**/
-// $rsgOption is already set. Make ready for switch statemaent
+// $rsgOption is already set. Make ready for switch statement
 if (empty ($rsgOption))
 {
 	$rsgOption = '';

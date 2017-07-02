@@ -147,6 +147,7 @@ class rsgGalleryManager
 	 * returns an array of all images in $parent and sub galleries
 	 *
 	 * @todo this is a stub, no functionality yet
+     * @ToDo: remove ???
 	 *
 	 * @param $parent
 	 *
@@ -161,6 +162,7 @@ class rsgGalleryManager
 	 * returns an array of all sub galleris in $parent including $parent
 	 *
 	 * @todo this is a stub, no functionality yet
+     * @ToDo: remove ???
 	 *
 	 * @param $parent
 	 *
