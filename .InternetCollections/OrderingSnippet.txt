@@ -1,9 +1,0 @@
-				// Get the last ordering for this groups item
-				// Now increment the rest of the ordering.
-				$query	= 'UPDATE ' . $db->nameQuote( '#__community_fields' ). ' '
-						. 'SET ordering=ordering + 1 '
-						. 'WHERE ordering > ' . $groupOrdering;
-						//$firstItemOrdering;
-				$db->setQuery( $query );
-				$db->query();
-	

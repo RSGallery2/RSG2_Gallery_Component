@@ -1,5 +1,0 @@
-The following may need to be edited:
-
-upload_max_filesize - max total of all uploaded files
-post_max_size - max total of all uploaded data (files+other data)
-max_input_time - you may need to increase this

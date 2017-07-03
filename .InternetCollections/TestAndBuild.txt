@@ -1,6 +1,0 @@
-
-Google: test driven development
-
-good with github:
-https://travis-ci.org/: Test and Deploy with Confidence
-Easily sync your GitHub projects with Travis CI and you’ll be testing your code in minutes!

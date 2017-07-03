@@ -1,6 +1,0 @@
-
-
-
-
-This add-on will move all the RSGallery2 galleries with their images to WordPress.
-https://www.fredericgilles.net/fg-joomla-to-wordpress/rsgallery/

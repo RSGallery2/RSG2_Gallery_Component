@@ -1,1 +1,0 @@
-* Wrong: Pfad muss mit dem Basispfad starten und mit '\' enden 
