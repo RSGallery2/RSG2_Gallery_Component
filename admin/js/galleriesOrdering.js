@@ -288,24 +288,34 @@ var GalleriesOrdering = {
 
 
     AssignNewOrdering: function () {
+        /**/
         var bIsParentExisting = false;
+        var self = this; // save "this" for jquery overwrite
 
-        var OutText = "AssignNewOrdering: \n\r";
+        // alert ("ANO01");
 
         //--- all input variables ----------------------
 
         jQuery(".changeOrder").each(function () {
+            // alert ("ANO02");
             Element = jQuery(this);
+            alert ("Element.attr('id')") + Element.attr('id');
+            // alert ("ANO03");
             var UserOrdering = parseInt(Element.val());
-            var galleryId = this.GetGalleryId(Element.attr('id'));
-            var newOrdering = this.GetOrderingValue(galleryId);
+            // alert ("ANO03");
+            var galleryId = self.GetGalleryId(Element.attr('id'));
+            //alert ("ANO05");
+            var newOrdering = self.GetOrderingValue(galleryId);
+            //alert ("ANO06");
 
             if (newOrdering != UserOrdering) {
+                alert ("ANO07");
                 Element.val(newOrdering);
             }
         });
-
+        /**/
         return;
+        /**/
     },
 
 // ToDo: collect ParentId. array{users} field and work with it to sort

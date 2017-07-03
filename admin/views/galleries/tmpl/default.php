@@ -154,27 +154,27 @@ $userId = $user->id;
                 // Assign changed ordering to element
                 yyyy.InsertUserOrdering (UserId, UserOrdering);
                 yyyy.displayDbOrderingArray ("(03) User ordering added");
-                alert ("05");
+                //alert ("05");
 
                 //
                 yyyy.RemoveOrphanIds ();
                 yyyy.displayDbOrderingArray ("(4) Remove Orphans");
-                alert ("06");
+                //alert ("06");
 
                 // Sort array by (old) ordering
                 yyyy.SortByOrdering ();
                 //yyyy.displayDbOrderingArray ("(05) SortByOrdering");
-                alert ("07");
+                //alert ("07");
 
                 // Reassign as Versions of $.3.0 may contain no parent child order
                 yyyy.ReAssignOrdering ();
                 //yyyy.displayDbOrderingArray ("(06) ReAssignOrdering");
-                alert ("08");
+                //alert ("08");
 
                 // Sort array by (new) ordering
                 yyyy.SortByOrdering ();
                 //yyyy.displayDbOrderingArray ("(05) SortByOrdering");
-                alert ("09");
+                //alert ("09");
 
                 // Values for Get input in PHP
                 serverDbOrderingElement.val(JSON.stringify(yyyy.dbOrdering));
@@ -544,9 +544,9 @@ $userId = $user->id;
                 <input type="hidden" name="boxchecked" value="0" />
 
                 <!-- keeps the ordering for sending to server -->
-                <label for="dbOrdering" style="font-weight: bold; display: none;">dbOrdering:</label>
+                <label for="dbOrdering" style="font-weight: bold; Xdisplay: none;">dbOrdering:</label>
                 <textarea id="dbOrdering" name="dbOrdering" cols="140" rows="15" class="span10"
-                          style="display: none;"><?php
+                          style="Xdisplay: none;"><?php
                         $JsonEncoded = json_encode($this->dbOrdering);
                         $HtmlOut = htmlentities($JsonEncoded, ENT_QUOTES, "UTF-8");
                         echo  $HtmlOut;
