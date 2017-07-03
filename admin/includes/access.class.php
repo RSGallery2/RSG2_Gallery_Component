@@ -11,6 +11,8 @@
 
 defined('_JEXEC') or die();
 
+// ToDo: Fix: Remove complete
+
 /**
  * Access Manager
  * Handles permissions on galleries
