@@ -36,24 +36,22 @@ var GalleriesOrdering = {
         }
         OutText += "\n";
 
-        // alert (OutText);
+        alert (OutText);
+
         this.add2DebugTextArea(OutText)
     },
     /**/
     clearDebugTextArea: function () {
-        //jQuery("#debug").val("Clear:\n");
-        //jQuery("#debug").val("");
-        jQuery("#debug").append("");
+        jQuery("#debug").val("");
     },
     /**/
 
     add2DebugTextArea: function (OutText) {
         var ElementValue;
-        ElementValue = jQuery("#debug").text();
-        ElementValue += OutText;
-
-        jQuery("#debug").val(ElementValue);
-        jQuery("#debug").append(OutText);
+        var Element;
+        Element = jQuery("#debug");
+        ElementValue = Element.text() + OutText;
+        Element.val (ElementValue);
     },
     /**/
 
@@ -115,7 +113,7 @@ var GalleriesOrdering = {
 //                    alert ("idx: " + idx + " Id:" + this.dbOrdering[idx].id + " ActOrdering: " + ActOrdering);
                     if (bDirMoveUp) {
                         // Make space below new ordering
-                        MovedOrdering = 0 + parseInt(this.dbOrdering[idx].ordering) - 1;
+                        MovedOrdering = parseInt(this.dbOrdering[idx].ordering) - 1;
                         /**
                          alert ("idx: " + idx
                          + " Id:" + this.dbOrdering[idx].id
@@ -126,7 +124,7 @@ var GalleriesOrdering = {
                     }
                     else {
                         // Make space above new ordering
-                        MovedOrdering = 0 + parseInt(this.dbOrdering[idx].ordering) + 1;
+                        MovedOrdering = parseInt(this.dbOrdering[idx].ordering) + 1;
                         /**
                          alert ("idx: " + idx
                          + " Id:" + this.dbOrdering[idx].id
@@ -203,8 +201,9 @@ var GalleriesOrdering = {
         return;
     },
 
-// Array must be ordered before
-// Array must be sorted after
+    /**
+    // Array must be ordered before
+    // Array must be sorted after
 
     InsertChangedOrdering: function (UserId, UserOrdering) {
         var IsGalleryHandled = false;
@@ -259,6 +258,7 @@ var GalleriesOrdering = {
 
         return;
     },
+    /**/
 
     GetOrderingValue: function (GalleryId) {
         var ordering = -1;
@@ -281,7 +281,7 @@ var GalleriesOrdering = {
 
         //var GalleryIdString = actElement.id; //
         GalleryIdString = ElementId.replace(/^\D+/g, ''); // replace all leading non-digits with nothing
-        var GalleryId = parseInt(GalleryIdString);
+        GalleryId = parseInt(GalleryIdString);
 
         return GalleryId;
     },
@@ -289,7 +289,6 @@ var GalleriesOrdering = {
 
     AssignNewOrdering: function () {
         /**/
-        var bIsParentExisting = false;
         var self = this; // save "this" for jquery overwrite
 
         // alert ("ANO01");
@@ -299,7 +298,7 @@ var GalleriesOrdering = {
         jQuery(".changeOrder").each(function () {
             // alert ("ANO02");
             Element = jQuery(this);
-            alert ("Element.attr('id')") + Element.attr('id');
+            alert ("Element.attr('id')" + Element.attr('id'));
             // alert ("ANO03");
             var UserOrdering = parseInt(Element.val());
             // alert ("ANO03");

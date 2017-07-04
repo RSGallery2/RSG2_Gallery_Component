@@ -47,7 +47,7 @@ $userId = $user->id;
 				var element;
 				var Count;
 
-                //alert ("Change ?");
+                alert ("Change ?");
 
                 // Exit for reentrance check
                 if (IsActive == true)
@@ -121,7 +121,6 @@ $userId = $user->id;
 
                 //alert ("A03");
 
-                // alert ("01");
                 var serverDbOrderingElement = jQuery("#dbOrdering");
                 //alert("Value: '" + serverDbOrderingElement.val() + "'");
 
@@ -141,12 +140,13 @@ $userId = $user->id;
                 //-----------------------------------------
 
                 //alert ("02");
-                // Global value for following functions
-                yyyy.initialize (oServerDbOrdering)
-                yyyy.displayDbOrderingArray ("(01) initialize");
-                //alert ("03");
 
                 yyyy.clearDebugTextArea ();
+                // Global value for following functions
+
+                //alert ("03");
+                yyyy.initialize (oServerDbOrdering);
+                yyyy.displayDbOrderingArray ("(01) initialize");
                 //alert ("04");
 
                 //yyyy.displayDbOrderingArray ("Original");
@@ -163,29 +163,29 @@ $userId = $user->id;
 
                 // Sort array by (old) ordering
                 yyyy.SortByOrdering ();
-                //yyyy.displayDbOrderingArray ("(05) SortByOrdering");
+                yyyy.displayDbOrderingArray ("(05) SortByOrdering");
                 //alert ("07");
 
                 // Reassign as Versions of $.3.0 may contain no parent child order
                 yyyy.ReAssignOrdering ();
-                //yyyy.displayDbOrderingArray ("(06) ReAssignOrdering");
+                yyyy.displayDbOrderingArray ("(06) ReAssignOrdering");
                 //alert ("08");
 
                 // Sort array by (new) ordering
                 yyyy.SortByOrdering ();
-                //yyyy.displayDbOrderingArray ("(05) SortByOrdering");
+                yyyy.displayDbOrderingArray ("(05) SortByOrdering");
                 //alert ("09");
 
                 // Values for Get input in PHP
                 serverDbOrderingElement.val(JSON.stringify(yyyy.dbOrdering));
-                //yyyy.displayDbOrderingArray ("Saved back to 'INSERT'");
+                yyyy.displayDbOrderingArray ("Saved back to 'INSERT'");
                 alert ("10");
 
                 /**/
                 // Save Ordering in HTML elements
                 yyyy.AssignNewOrdering ();
                 /**/
-                alert ("11");
+                alert ("11 Exit");
 
                 // Deactivate re entrance check
                 IsActive = false;
