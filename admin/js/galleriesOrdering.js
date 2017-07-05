@@ -1,5 +1,13 @@
 /**
+ * @package     RSGallery2
+ *
  * resorting galleries in galleries view
+ *
+ * @subpackage  com_rsgallery2
+ * @copyright   (C) 2016 - 2017 RSGallery2
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @author      finnern
+ * RSGallery is Free Software
  */
 //class GalleriesOrdering {
 var GalleriesOrdering = {
@@ -27,6 +35,10 @@ var GalleriesOrdering = {
         return a.ordering - b.ordering;
     },
 
+    /**
+     * Debug displays the actual values of the array leaded by
+     * @param Title
+     */
     displayDbOrderingArray: function (Title) {
         var OutText;
 
@@ -40,12 +52,19 @@ var GalleriesOrdering = {
 
         this.add2DebugTextArea(OutText)
     },
-    /**/
+
+    /**
+     * Do empty the debug view area
+     */
     clearDebugTextArea: function () {
         jQuery("#debug").val("");
     },
-    /**/
 
+    /**
+     * Add Text to debug view area
+     *
+     * @param OutText string Text to be displayed
+     */
     add2DebugTextArea: function (OutText) {
         var ElementValue;
         var Element;
@@ -53,15 +72,14 @@ var GalleriesOrdering = {
         ElementValue = Element.text() + OutText;
         Element.val (ElementValue);
     },
-    /**/
-
 
     /**
-     * Every
+     * Move the changed element from previous 'ordering'
+     * to the place indicated by UserOrdering
+     * It will move up or down all elements within
      *
-     * It may create
-     * .
-     *
+     * @param UserId int Used to find the source HTML element and previous ordering
+     * @param UserOrdering int required changed ordering
      */
     InsertUserOrdering: function (UserId, UserOrdering) {
         var LimitLower;
@@ -155,6 +173,8 @@ var GalleriesOrdering = {
 
     /**
      * Remove child parent value if parent doesn't exist
+     * Will have no parent now locally.
+     * Replace it with parent id '0'.
      */
     RemoveOrphanIds: function () {
 
@@ -175,6 +195,11 @@ var GalleriesOrdering = {
         return;
     },
 
+    /**
+     * Determines if given ID does exist in gallery array
+     * @param ParentId  ID which is searched
+     * @returns {boolean} true if exists
+     */
     IsParentExisting: function (ParentId) {
         var bIsParentExisting = false;
 
@@ -189,6 +214,10 @@ var GalleriesOrdering = {
         return bIsParentExisting;
     },
 
+    /**
+     * sorts element of array regarding
+     * actual ordering settings
+     */
     SortByOrdering: function () {
         var SortedOrdering = this.dbOrdering.slice(0);
 
@@ -201,65 +230,13 @@ var GalleriesOrdering = {
         return;
     },
 
+
     /**
-    // Array must be ordered before
-    // Array must be sorted after
-
-    InsertChangedOrdering: function (UserId, UserOrdering) {
-        var IsGalleryHandled = false;
-
-        // All
-        var OutText = "";
-
-        OutText += "dbOrdering.length: " + this.dbOrdering.length + ", ";
-        OutText += "UserId: " + UserId + ", ";
-        OutText += "UserOrdering: " + UserOrdering + "\n\r";
-        // alert(OutText);
-
-        // OutText = "";
-        for (var ActIdx = 0; ActIdx < this.dbOrdering.length; ActIdx++) {
-            var Gallery = this.dbOrdering[ActIdx];
-            var ActOrdering = Number(ActIdx) + Number(1)
-            OutText += "'" + ActOrdering + "': ";
-
-            // Element may be late or early, so initialize it
-            if (Gallery.id == UserId) {
-                Gallery.ordering = UserOrdering;
-                IsGalleryHandled = true;
-
-                OutText += "(==)" + Gallery.ordering + ", ";
-            }
-            else {
-                if (!IsGalleryHandled) {
-                    // Element above user ordering is one higher then index
-                    if (ActOrdering >= UserOrdering) {
-                        Gallery.ordering = Number(ActOrdering) + Number(1);
-
-                        OutText += "(akt>)" + Gallery.ordering + ", ";
-                    }
-                    else {
-                        OutText += "(!=akt>)" + Gallery.ordering + ", ";
-                    }
-                }
-                else {
-                    if (ActOrdering >= UserOrdering) {
-                        Gallery.ordering = ActOrdering;
-
-                        OutText += "==>" + Gallery.ordering + ", ";
-                    }
-                    else {
-                        OutText += "(!=)" + Gallery.ordering + ", ";
-                    }
-                }
-            }
-        }
-        OutText += "\n\r";
-        // alert("ActOrdering: " + OutText);
-
-        return;
-    },
-    /**/
-
+     * Returns ordering value of given gallery ID
+     *
+     * @param GalleryId
+     * @returns {number} Ordering number if found
+     */
     GetOrderingValue: function (GalleryId) {
         var ordering = -1;
 
@@ -275,6 +252,13 @@ var GalleriesOrdering = {
         return ordering;
     },
 
+    /**
+     * Extract gallery ID from given HTML element
+     *
+     * @param ElementId
+     * @returns {Number|*}
+     * @constructor
+     */
     GetGalleryId: function (ElementId) {
         var GalleryIdString;
         var GalleryId;
@@ -287,6 +271,11 @@ var GalleriesOrdering = {
     },
 
 
+    /**
+     * Write back the changed ordering from
+     * internal array to HTML element
+     *
+     */
     AssignNewOrdering: function () {
         /**/
         var self = this; // save "this" for jquery overwrite
@@ -317,13 +306,15 @@ var GalleriesOrdering = {
         /**/
     },
 
-// ToDo: collect ParentId. array{users} field and work with it to sort
 // Reassign as Versions of $.3.0 may contain no parent child order
 // Recursive assignment of ordering  (child direct after parent)
 // May leave out some ordering numbers
     /**
-     * ReAssignOrdering
-     * First call should be with actIdx=1, parentId=0
+     * ReAssignOrdering using position in array
+     * In the array field after sorting may be gaps or doubles ...
+     * Here the ordering will be standardized to 1... n with step 1
+     *
+     * First call of function should use actIdx=1, parentId=0
      * @param actIdx
      * @param parentId
      * @returns {*}

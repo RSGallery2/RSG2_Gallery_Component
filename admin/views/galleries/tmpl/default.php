@@ -74,8 +74,7 @@ $userId = $user->id;
 
 
                 //alert ("01");
-                //yyyy = new GalleriesOrdering ();
-                yyyy = GalleriesOrdering;
+                Ordering = GalleriesOrdering;
 
                 //alert ("A01");
 
@@ -88,7 +87,7 @@ $userId = $user->id;
                 //alert ("A01.1");
                 var UserOrdering = parseInt(actElement.value);
                 //alert ("A01.2");
-                var UserId = yyyy.GetGalleryId(actElement.id);
+                var UserId = Ordering.GetGalleryId(actElement.id);
                 //alert ("A01.3");
 
                 var UserIdString = actElement.id; //
@@ -141,49 +140,49 @@ $userId = $user->id;
 
                 //alert ("02");
 
-                yyyy.clearDebugTextArea ();
+                Ordering.clearDebugTextArea ();
                 // Global value for following functions
 
                 //alert ("03");
-                yyyy.initialize (oServerDbOrdering);
-                yyyy.displayDbOrderingArray ("(01) initialize");
+                Ordering.initialize (oServerDbOrdering);
+                Ordering.displayDbOrderingArray ("(01) initialize");
                 //alert ("04");
 
-                //yyyy.displayDbOrderingArray ("Original");
+                //Ordering.displayDbOrderingArray ("Original");
 
                 // Assign changed ordering to element
-                yyyy.InsertUserOrdering (UserId, UserOrdering);
-                yyyy.displayDbOrderingArray ("(03) User ordering added");
+                Ordering.InsertUserOrdering (UserId, UserOrdering);
+                Ordering.displayDbOrderingArray ("(03) User ordering added");
                 //alert ("05");
 
                 //
-                yyyy.RemoveOrphanIds ();
-                yyyy.displayDbOrderingArray ("(4) Remove Orphans");
+                Ordering.RemoveOrphanIds ();
+                Ordering.displayDbOrderingArray ("(04) Remove Orphans");
                 //alert ("06");
 
                 // Sort array by (old) ordering
-                yyyy.SortByOrdering ();
-                yyyy.displayDbOrderingArray ("(05) SortByOrdering");
+                Ordering.SortByOrdering ();
+                Ordering.displayDbOrderingArray ("(05) SortByOrdering");
                 //alert ("07");
 
                 // Reassign as Versions of $.3.0 may contain no parent child order
-                yyyy.ReAssignOrdering ();
-                yyyy.displayDbOrderingArray ("(06) ReAssignOrdering");
+                Ordering.ReAssignOrdering (1, 0); // actIdx=1, parentId=0
+                Ordering.displayDbOrderingArray ("(06) ReAssignOrdering");
                 //alert ("08");
 
                 // Sort array by (new) ordering
-                yyyy.SortByOrdering ();
-                yyyy.displayDbOrderingArray ("(05) SortByOrdering");
+                Ordering.SortByOrdering ();
+                Ordering.displayDbOrderingArray ("(05) SortByOrdering");
                 //alert ("09");
 
                 // Values for Get input in PHP
-                serverDbOrderingElement.val(JSON.stringify(yyyy.dbOrdering));
-                yyyy.displayDbOrderingArray ("Saved back to 'INSERT'");
+                serverDbOrderingElement.val(JSON.stringify(Ordering.dbOrdering));
+                Ordering.displayDbOrderingArray ("Saved back to 'INSERT'");
                 alert ("10");
 
                 /**/
                 // Save Ordering in HTML elements
-                yyyy.AssignNewOrdering ();
+                Ordering.AssignNewOrdering ();
                 /**/
                 alert ("11 Exit");
 
