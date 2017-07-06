@@ -16,9 +16,12 @@ var GalleriesOrdering = {
      */
     dbOrdering: [],
 
+    //  @param {Array.<{myNumber: Number, myString: String, myArray: Array}>} myObjects
+
+
     /**
      * initialize
-     * @param dbOrdering array ('id', 'ordering', 'parent', 'name')
+     * @param {Array} dbOrdering array ('id', 'ordering', 'parent', 'name')
      */
     // constructor (dbOrdering) {
     initialize: function (dbOrdering) {
@@ -37,7 +40,7 @@ var GalleriesOrdering = {
 
     /**
      * Debug displays the actual values of the array leaded by
-     * @param Title
+     * @param {string} Title
      */
     displayDbOrderingArray: function (Title) {
         var OutText;
@@ -63,7 +66,7 @@ var GalleriesOrdering = {
     /**
      * Add Text to debug view area
      *
-     * @param OutText string Text to be displayed
+     * @param {string} OutText string Text to be displayed
      */
     add2DebugTextArea: function (OutText) {
         var ElementValue;
@@ -78,8 +81,8 @@ var GalleriesOrdering = {
      * to the place indicated by UserOrdering
      * It will move up or down all elements within
      *
-     * @param UserId int Used to find the source HTML element and previous ordering
-     * @param UserOrdering int required changed ordering
+     * @param {number} UserId Used to find the source HTML element and previous ordering
+     * @param {number} UserOrdering required changed ordering
      */
     InsertUserOrdering: function (UserId, UserOrdering) {
         var LimitLower;
@@ -197,7 +200,7 @@ var GalleriesOrdering = {
 
     /**
      * Determines if given ID does exist in gallery array
-     * @param ParentId  ID which is searched
+     * @param {number} ParentId ID which is searched
      * @returns {boolean} true if exists
      */
     IsParentExisting: function (ParentId) {
@@ -234,7 +237,7 @@ var GalleriesOrdering = {
     /**
      * Returns ordering value of given gallery ID
      *
-     * @param GalleryId
+     * @param {number} GalleryId
      * @returns {number} Ordering number if found
      */
     GetOrderingValue: function (GalleryId) {
@@ -255,7 +258,7 @@ var GalleriesOrdering = {
     /**
      * Extract gallery ID from given HTML element
      *
-     * @param ElementId
+     * @param {number} ElementId
      * @returns {Number|*}
      * @constructor
      */
@@ -315,8 +318,8 @@ var GalleriesOrdering = {
      * Here the ordering will be standardized to 1... n with step 1
      *
      * First call of function should use actIdx=1, parentId=0
-     * @param actIdx
-     * @param parentId
+     * @param {number} actIdx
+     * @param {number} parentId
      * @returns {*}
      * @constructor
      */
