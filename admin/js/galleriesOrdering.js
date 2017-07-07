@@ -92,17 +92,12 @@ var GalleriesOrdering = {
         var ActOrdering;
         var MovedOrdering;
 
-        // alert ("UserOrdering: " + UserOrdering);
-        // alert ("dbOrdering.length: " + this.dbOrdering.length);
-
         // No change ?
         PrevOrdering = parseInt(this.GetOrderingValue(UserId));
         UserOrdering = parseInt(UserOrdering);
         if (PrevOrdering == UserOrdering) {
             return;
         }
-
-        // alert ("PrevOrdering: " + PrevOrdering);
 
         if (PrevOrdering < UserOrdering) {
             LimitLower = PrevOrdering;
@@ -115,8 +110,6 @@ var GalleriesOrdering = {
             bDirMoveUp = false;
         }
 
-        // alert ("bDirMoveUp: " + bDirMoveUp);
-
         // Move elements between lower and upper
         for (var idx = 0; idx < this.dbOrdering.length; idx++) {
 
@@ -126,12 +119,10 @@ var GalleriesOrdering = {
             }
             else {
                 ActOrdering = parseInt(this.dbOrdering[idx].ordering);
-//                alert ("idx: " + idx + " Id:" + this.dbOrdering[idx].id + " ActOrdering: " + ActOrdering);
 
                 // Moving area
                 if (LimitLower <= ActOrdering && ActOrdering <= LimitUpper) {
 
-//                    alert ("idx: " + idx + " Id:" + this.dbOrdering[idx].id + " ActOrdering: " + ActOrdering);
                     if (bDirMoveUp) {
                         // Make space below new ordering
                         MovedOrdering = parseInt(this.dbOrdering[idx].ordering) - 1;
@@ -189,7 +180,6 @@ var GalleriesOrdering = {
                 if (!this.IsParentExisting(this.dbOrdering[idx].parent)) {
                     var outText = "Orphan:" + JSON.stringify(this.dbOrdering[idx]) + "\n"
                     this.add2DebugTextArea(outText);
-                    alert(outText);
                     this.dbOrdering[idx].parent = 0;
                 }
             }
@@ -224,11 +214,9 @@ var GalleriesOrdering = {
     SortByOrdering: function () {
         var SortedOrdering = this.dbOrdering.slice(0);
 
-        // alert ("SortedOrdering");
         SortedOrdering.sort(this.SortByIntOrdering);
 
         this.dbOrdering = SortedOrdering;
-        // alert ("Return SortedOrdering");
 
         return;
     },
@@ -283,24 +271,15 @@ var GalleriesOrdering = {
         /**/
         var self = this; // save "this" for jquery overwrite
 
-        // alert ("ANO01");
-
         //--- all input variables ----------------------
 
         jQuery(".changeOrder").each(function () {
-            // alert ("ANO02");
             Element = jQuery(this);
-            alert ("Element.attr('id')" + Element.attr('id'));
-            // alert ("ANO03");
             var UserOrdering = parseInt(Element.val());
-            // alert ("ANO03");
             var galleryId = self.GetGalleryId(Element.attr('id'));
-            //alert ("ANO05");
             var newOrdering = self.GetOrderingValue(galleryId);
-            //alert ("ANO06");
 
             if (newOrdering != UserOrdering) {
-                alert ("ANO07");
                 Element.val(newOrdering);
             }
         });
@@ -341,7 +320,6 @@ var GalleriesOrdering = {
             }
         }
 
-        // alert("exit actIdx: " + actIdx);
         return actIdx;
     }
 

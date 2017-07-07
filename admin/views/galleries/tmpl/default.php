@@ -36,70 +36,50 @@ $userId = $user->id;
 
 	// Change request from order element of gallery row:
 	jQuery(document).ready(function ($) {
-		 // alert ("before event assign");
         var IsActive = false;
 
-		// jQuery(".changeOrder").on('change',
-        // jQuery(".changeOrder").on('keyup mouseup',
         jQuery(".changeOrder").change(
   			function (event) {
 				var Idx;
 				var element;
 				var Count;
 
-                alert ("Change ?");
+				// Dont handle "Enter" otherwise for this control
+                event.preventDefault();
+
+                // alert ("Change ?");
 
                 // Exit for reentrance check
                 if (IsActive == true)
                 {
-                    //alert ("Already started !!!");
+                    alert ("Already started !!!");
                     return;
                 }
-
-                // alert ("Change !!!");
 
                 // activate re entrance check
                 IsActive = true;
 
-				event.preventDefault();
-
 				var actElement = event.target;
 
-                //alert ("Empty ???");
 				// Empty input
 				if (actElement.value == '') {
                     alert ("Empty yes");
 					return;
 				}
 
-
-                //alert ("01");
                 Ordering = GalleriesOrdering;
-
-                //alert ("A01");
 
                 //--- User element order value --------------------------------------
 
 				var strUserOrdering = actElement.value;
-                //outText = "strUserOrdering: " + strUserOrdering + "\n";
-                //add2DebugTextArea (outText);
-
-                //alert ("A01.1");
                 var UserOrdering = parseInt(actElement.value);
-                //alert ("A01.2");
                 var UserId = Ordering.GetGalleryId(actElement.id);
-                //alert ("A01.3");
-
                 var UserIdString = actElement.id; //
-                //alert ("A01.4");
+
                 UserIdString = UserIdString.replace( /^\D+/g, ''); // replace all leading non-digits with nothing
-                //alert ("A01.5");
                 var UserId = parseInt(UserIdString);
-                //alert ("A01.6");
 
                 //--- Check limit user value --------------------------------------
-
-                //alert ("A02");
 
                 // Negative value will be corrected to lowest value
 				if (UserOrdering < 0) {
@@ -107,7 +87,6 @@ $userId = $user->id;
 					actElement.value = UserOrdering;
 				}
 
-                /**/
                 // Value higher than the count will be set to highest possible
                 /* ==> may be set behind to ensure as last element
                 if (UserOrdering > Count) {
@@ -118,10 +97,7 @@ $userId = $user->id;
 
                 //--- Fetch database ordering --------------------------------------
 
-                //alert ("A03");
-
                 var serverDbOrderingElement = jQuery("#dbOrdering");
-                //alert("Value: '" + serverDbOrderingElement.val() + "'");
 
                 var serverDbOrderingValue = serverDbOrderingElement.val();
                 if ((typeof(serverDbOrderingValue) === 'undefined') || (serverDbOrderingValue === null)) {
@@ -129,62 +105,47 @@ $userId = $user->id;
                     return;
                 }
 
-                //alert ("Before DbOrdering object");
                 oServerDbOrdering = jQuery.parseJSON (serverDbOrderingValue);
-
-                //alert ("A10");
 
                 //-----------------------------------------
                 // Order by parent / child
                 //-----------------------------------------
 
-                //alert ("02");
-
+                //
                 Ordering.clearDebugTextArea ();
-                // Global value for following functions
 
-                //alert ("03");
+                //
                 Ordering.initialize (oServerDbOrdering);
-                Ordering.displayDbOrderingArray ("(01) initialize");
-                //alert ("04");
-
-                //Ordering.displayDbOrderingArray ("Original");
+                //Ordering.displayDbOrderingArray ("(01) initialize");
 
                 // Assign changed ordering to element
                 Ordering.InsertUserOrdering (UserId, UserOrdering);
-                Ordering.displayDbOrderingArray ("(03) User ordering added");
-                //alert ("05");
+                //Ordering.displayDbOrderingArray ("(03) User ordering added");
 
                 //
                 Ordering.RemoveOrphanIds ();
-                Ordering.displayDbOrderingArray ("(04) Remove Orphans");
-                //alert ("06");
+                //Ordering.displayDbOrderingArray ("(04) Remove Orphans");
 
                 // Sort array by (old) ordering
                 Ordering.SortByOrdering ();
-                Ordering.displayDbOrderingArray ("(05) SortByOrdering");
-                //alert ("07");
+                //Ordering.displayDbOrderingArray ("(05) SortByOrdering");
 
                 // Reassign as Versions of $.3.0 may contain no parent child order
                 Ordering.ReAssignOrdering (1, 0); // actIdx=1, parentId=0
-                Ordering.displayDbOrderingArray ("(06) ReAssignOrdering");
-                //alert ("08");
+                //Ordering.displayDbOrderingArray ("(06) ReAssignOrdering");
 
                 // Sort array by (new) ordering
                 Ordering.SortByOrdering ();
-                Ordering.displayDbOrderingArray ("(05) SortByOrdering");
-                //alert ("09");
+                //Ordering.displayDbOrderingArray ("(05) SortByOrdering");
 
                 // Values for Get input in PHP
                 serverDbOrderingElement.val(JSON.stringify(Ordering.dbOrdering));
-                Ordering.displayDbOrderingArray ("Saved back to 'INSERT'");
-                alert ("10");
+                //Ordering.displayDbOrderingArray ("Saved back to 'INSERT'");
 
-                /**/
                 // Save Ordering in HTML elements
                 Ordering.AssignNewOrdering ();
                 /**/
-                alert ("11 Exit");
+                //alert ("11 Exit");
 
                 // Deactivate re entrance check
                 IsActive = false;
@@ -193,7 +154,7 @@ $userId = $user->id;
 		/**/
 
         // to Debug: If activated it tells if jscript is working
-		 alert ("assign successful");
+		// alert ("assign successful");
 	});
 
 </script>
