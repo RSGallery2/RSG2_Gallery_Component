@@ -37,8 +37,8 @@
 				name="advancedSef"
 				type="radio"
 				default="0"
-				label="COM_RSGALLERY2_ADVANCED_SEF_ALL_CATEGORY_NAMES_AND_ITEM_TITLES_MUST_BE_UNIQUE"
-				description=""
+				label="COM_RSGALLERY2_ADVANCED_SEF"
+				description="COM_RSGALLERY2_ADVANCED_SEF_DESC"
 				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
@@ -51,7 +51,7 @@
 				type="text"
 				default="0"
 				label="COM_RSGALLERY2_DISPLAY_PICTURE_WIDTH"
-				description=""
+				description="COM_RSGALLERY2_DISPLAY_PICTURE_WIDTH_DESC"
 				class="">
 		</field>
 		<field
@@ -59,7 +59,7 @@
 				type="text"
 				default="0"
 				label="COM_RSGALLERY2_THUMBNAIL_WIDTH"
-				description=""
+				description="COM_RSGALLERY2_THUMBNAIL_WIDTH_DESC"
 				class="">
 		</field>
 		<field
