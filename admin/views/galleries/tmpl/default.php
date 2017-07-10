@@ -111,7 +111,7 @@ $userId = $user->id;
                 // Order by parent / child
                 //-----------------------------------------
 
-                //
+                // Empty debug areay
                 Ordering.clearDebugTextArea ();
 
                 //
@@ -122,7 +122,7 @@ $userId = $user->id;
                 Ordering.InsertUserOrdering (UserId, UserOrdering);
                 //Ordering.displayDbOrderingArray ("(03) User ordering added");
 
-                //
+                // Check for gallaries with missing parent assigned
                 Ordering.RemoveOrphanIds ();
                 //Ordering.displayDbOrderingArray ("(04) Remove Orphans");
 
@@ -144,16 +144,13 @@ $userId = $user->id;
 
                 // Save Ordering in HTML elements
                 Ordering.AssignNewOrdering ();
-                /**/
-                //alert ("11 Exit");
 
                 // Deactivate re entrance check
                 IsActive = false;
             }
 		);
-		/**/
 
-        // to Debug: If activated it tells if jscript is working
+        // For debug purposes: If activated it tells if jscript is working
 		// alert ("assign successful");
 	});
 
