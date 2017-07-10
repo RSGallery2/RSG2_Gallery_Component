@@ -422,40 +422,6 @@ class rsgallery2ModelGalleries extends JModelList
 		return $imageCount;
 	}
 
-	/**
-	public static function ()
-    {
-        $... = array();
 
-        try {
-            $db = JFactory::getDBO();
-            $query = $db->getQuery(true);
-
-
-        } catch (RuntimeException $e) {
-
-
-        }
-
-        return $...;
-    }
-
-
-
-    // build the html select list for ordering
-    $query = "SELECT ordering AS value, name AS text"
-    . "\n FROM #__rsgallery2_galleries"
-    . "\n ORDER BY ordering";
-
-    // build the html select list for ordering
-    $lists['ordering'] = JHtml::_('list.ordering', 'ordering', $query, null, $id, 0);
-    // build the html select list for parent item
-    $lists['parent'] = galleryParentSelectList($row);
-
-
-
-
-
-    /**/
 } // class
 
