@@ -501,9 +501,9 @@ $userId = $user->id;
                 <input type="hidden" name="boxchecked" value="0" />
 
                 <!-- keeps the ordering for sending to server -->
-                <label for="dbOrdering" style="font-weight: bold; Xdisplay: none;">dbOrdering:</label>
+                <label for="dbOrdering" style="font-weight: bold; display: none;">dbOrdering:</label>
                 <textarea id="dbOrdering" name="dbOrdering" cols="140" rows="15" class="span10"
-                          style="Xdisplay: none;"><?php
+                          style="display: none;"><?php
                         $JsonEncoded = json_encode($this->dbOrdering);
                         $HtmlOut = htmlentities($JsonEncoded, ENT_QUOTES, "UTF-8");
                         echo  $HtmlOut;
@@ -515,9 +515,9 @@ $userId = $user->id;
         </form>
 
     </div>
-        <label for="debug" style="font-weight: bold; Xdisplay: none;">debug text:</label>
+        <label for="debug" style="font-weight: bold; display: none;">debug text:</label>
         <textarea id="debug" name="debug" cols="140" rows="50" class="span6"
-                  style="resize: horizontal; Xdisplay: none;">debug area</textarea>
+                  style="resize: horizontal; display: none;">debug area</textarea>
     </div>
 
 	<div id="loading"></div>
