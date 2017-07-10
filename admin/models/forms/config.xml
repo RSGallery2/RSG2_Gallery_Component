@@ -67,7 +67,7 @@
 				type="list"
 				default="0"
 				label="COM_RSGALLERY2_THUMBNAIL_STYLE"
-				description=""
+				description="COM_RSGALLERY2_THUMBNAIL_STYLE_DESC"
 				class=""
 		>
 			<option value="0">COM_RSGALLERY2_PROPORTIONAL</option>
@@ -78,7 +78,7 @@
 				type="text"
 				default="0"
 				label="COM_RSGALLERY2_JPEG_QUALITY_PERCENTAGE"
-				description=""
+				description="COM_RSGALLERY2_JPEG_QUALITY_PERCENTAGE_DESC"
 				class="">
 		</field>
 		<!-- field
@@ -98,10 +98,10 @@
 		<field
 				name="allowedFileTypes"
 				type="text"
-				default="x jpg,jpeg,gif,png"
+				default="jpg,jpeg,gif,png"
 				label="COM_RSGALLERY2_ALLOWED_FILETYPES"
+				description  = "COM_RSGALLERY2_ALLOWED_FILETYPES_DESC"
 				readonly="true"
-				description=""
 				class="readonly"
 		>
 		</field>
