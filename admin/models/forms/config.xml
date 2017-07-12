@@ -81,20 +81,6 @@
 				description="COM_RSGALLERY2_JPEG_QUALITY_PERCENTAGE_DESC"
 				class="">
 		</field>
-		<!-- field
-			name         = "allowedFileTypes"
-			type         = "list"
-			default      = "0"
-			label        = "COM_RSGALLERY2_ALLOWED_FILETYPES"
-			description  = ""
-			class        = "chzn-color-state"
-			size         = "3"
-			>
-			<option value="1">JPUBLISHED</option>
-			<option value="0">JUNPUBLISHED</option>
-			<option value="2">JARCHIVED</option>
-			<option value="-2">JTRASHED</option>
-		</field -->
 		<field
 				name="allowedFileTypes"
 				type="text"
@@ -114,7 +100,7 @@
 				type="text"
 				default=""
 				label="COM_RSGALLERY2_FTP_PATH"
-				description="COM_RSGALLERY2_PATH_MUST_START_WITH_BASE_PATH"
+				description="COM_RSGALLERY2_FTP_PATH_DESC"
 				class="input-large-text input-xxlarge"
 		>
 		</field>
