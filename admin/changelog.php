@@ -22,7 +22,21 @@ Legend:
 * -> Security Fix, # -> Bug Fix, + -> Addition
 ^ -> Change, - -> Removed, ! -> Note
 		 
-# Ordering sorts now child galleries direct after parents 
+
+
+* --- 4.3.1 --- 2017-01-10 --- whazzup ------------------------------
+		 
+^ General additional source documentation
+  -> Header of functions in a lot of files
+		 
+# Display of multiple slideshows on one form did lead on the second 
+  slideshow to show all pictures at once and clutter the layout.
+# The gallery list view did not display child galleries direct below 
+  parent galleries. Now the ordering of galleries will sort child 
+  galleries direct after parents so if sorting by ordering the 
+  childs appear direct after parents before the next the next 
+  parent is displayed.
+
 # slideshow_parth fixed: Multiple slideshows per web form 
    did distroy view of second gallery 
 		 
