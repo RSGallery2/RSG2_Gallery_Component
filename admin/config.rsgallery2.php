@@ -109,9 +109,16 @@ class galleryUtils
 	{
 		// provided by Klaas on Dec.13.2007
 		$database      = JFactory::getDBO();
+		$my       = JFactory::getUser();//giobag
+		$my_id    = $my->id; //giobag
+
 		$dropDown_html = "";
 
-		$query = 'SELECT * FROM `#__rsgallery2_galleries` WHERE `parent` = ' . (int) $galid . ' ORDER BY `ordering` ASC';
+  // giobag 2017.07.21 Restrict added galleries to galleries owned by logged in user 
+		// $query = 'SELECT * FROM `#__rsgallery2_galleries` WHERE `parent` = ' . (int) $galid . ' ORDER BY `ordering` ASC';
+		$query = 'SELECT * FROM `#__rsgallery2_galleries` WHERE `uid` = ' . (int) $my_id . ' and `parent` = ' . (int) $galid . ' ORDER BY `ordering` ASC';//giobag
+		
+		
 		$database->setQuery($query);
 
 		$rows = $database->loadObjectList();
