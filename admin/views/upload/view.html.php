@@ -15,6 +15,9 @@ jimport('joomla.application.component.model');
 
 JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
+//require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/RSGallery2.php';
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
+
 /**
  * View class for uploading images
  *
@@ -32,6 +35,7 @@ class Rsgallery2ViewUpload extends JViewLegacy
 	protected $PostMaxSize;
 	protected $FtpUploadPath;
 	// protected $LastUsedUploadZip;
+    protected $is1GalleryExisting;
 
 	// ToDo: Config -> update gallery selection preselect latest gallery  (User input ...)
 	// ToDo: Config -> update gallery selection preselect last used gallery ? show combo opened for n entries
@@ -44,7 +48,7 @@ class Rsgallery2ViewUpload extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
-		global $Rsg2DevelopActive;
+		global $Rsg2DevelopActive, $rsgConfig;
 
 		// on develop show open tasks if existing
 		if (!empty ($Rsg2DevelopActive))
@@ -60,14 +64,14 @@ class Rsgallery2ViewUpload extends JViewLegacy
 
 		//--- FtpUploadPath ------------------------
 
-		$UploadModel = JModelLegacy::getInstance('upload', 'rsgallery2Model');
+		//$UploadModel = JModelLegacy::getInstance('upload', 'rsgallery2Model');
 
 		// Retrieve path from config
-		$FtpUploadPath = $UploadModel->getFtpPath();
+		$FtpUploadPath = $rsgConfig->get('ftp_path');
 		// On empty use last successful
 		if (empty ($FtpUploadPath))
 		{
-			$FtpUploadPath = $UploadModel->getLastUsedFtpPath();
+			$FtpUploadPath = $rsgConfig->getLastUsedFtpPath();
 		}
 		$this->FtpUploadPath = $FtpUploadPath;
 
@@ -80,14 +84,14 @@ class Rsgallery2ViewUpload extends JViewLegacy
 		//--- Config requests ------------------------
 
 		// register 'upload_single', 'upload_zip_pc', 'upload_folder_server'
-		$this->ActiveSelection = $UploadModel->getLastUpdateType();
+		$this->ActiveSelection = $rsgConfig->getLastUpdateType();
 		if (empty ($this->ActiveSelection))
 		{
 			$this->ActiveSelection = 'upload_zip_pc';
 		}
 
 		// 0: default, 1: enable, 2: disable
-		$isUseOneGalleryNameForAllImages = $UploadModel->getisUseOneGalleryNameForAllImages();
+        $isUseOneGalleryNameForAllImages = $rsgConfig->get('isUseOneGalleryNameForAllImages');
 		if (empty ($isUseOneGalleryNameForAllImages))
 		{
 			$isUseOneGalleryNameForAllImages = '1';
@@ -110,11 +114,13 @@ class Rsgallery2ViewUpload extends JViewLegacy
 			$IdGallerySelect = $Id;
 		}
 
-		$isPreSelectLatestGallery = $UploadModel->getIsPreSelectLatestGallery();
+		$isPreSelectLatestGallery = $rsgConfig->getIsPreSelectLatestGallery();
 		if ($isPreSelectLatestGallery)
 		{
-			$IdGallerySelect = $UploadModel->getIdLatestGallery();
+			$IdGallerySelect = $this->getIdLatestGallery();
 		}
+
+        $this->is1GalleryExisting = $this->is1GalleryExisting();
 
 		// upload_zip, upload_folder
 		$formParam = array(
@@ -148,5 +154,56 @@ class Rsgallery2ViewUpload extends JViewLegacy
 		// COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD
 		JToolBarHelper::title(JText::_('COM_RSGALLERY2_SUBMENU_UPLOAD'), 'generic.png');
 	}
+
+
+    /**
+     * @return string ID of latest gallery
+     *
+     * @since 4.3.0
+     */
+    public function getIdLatestGallery()
+    {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+
+        $query->select($db->quoteName('id'))
+            ->from('#__rsgallery2_galleries')
+            ->order('ordering ASC');
+//			->setLimit(1);  ==>  setQuery($query, $offset = 0, $limit = 0)
+
+        $db->setQuery($query, 0, 1);
+        $IdLatestGallery = $db->loadResult();
+
+        return $IdLatestGallery;
+    }
+
+    /**
+     * 	//Check if at least one gallery exists, if not link to gallery creation
+
+     * @return string ID of latest gallery
+     *
+     * @since 4.3.0
+     */
+    public function is1GalleryExisting()
+    {
+        $is1GalleryExisting = false;
+
+        // ToDo: try
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+
+        // ToDo gew row number instead of names
+        $query->select($db->quoteName('id'))
+            ->from('#__rsgallery2_galleries');
+
+        $db->setQuery($query, 0, 1);
+        $IdGallery = $db->loadResult();
+        $is1GalleryExisting = !empty ($IdGallery);
+
+        return $is1GalleryExisting;
+    }
+
+
+
 }
 

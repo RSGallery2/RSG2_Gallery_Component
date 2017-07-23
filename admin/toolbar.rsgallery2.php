@@ -11,6 +11,7 @@
 // ensure this file is being included by a parent file
 defined('_JEXEC') or die();
 
+global $rsgOption;
 /*
 // RSG2 is a meta component.  joomla calls components options, RSG2 calls it's components rsgOptions
 if( isset( $_REQUEST['rsgOption'] ))

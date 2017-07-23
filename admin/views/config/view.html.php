@@ -16,9 +16,15 @@ jimport('joomla.application.component.model');
 
 JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
+//require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/RSGallery2.php';
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
+
+require_once(JPATH_COMPONENT_ADMINISTRATOR . '/includes/version.rsgallery2.php');
+
 /**
  * yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
  * 
+ * zek20xw813rj3
  *
  * @since 4.3.0
  */
@@ -39,7 +45,7 @@ class Rsgallery2ViewConfig extends JViewLegacy
 
 	protected $configVars;
 
-	//------------------------------------------------
+    //------------------------------------------------
 	public function display($tpl = null)
 	{
 		global $Rsg2DevelopActive;
@@ -57,6 +63,9 @@ class Rsgallery2ViewConfig extends JViewLegacy
 
 		$this->form = $this->get('Form');
 //		$this->item = $this->get('Item');
+
+        $rsgVersion = new rsgalleryVersion();
+        $this->rsgVersion = $rsgVersion->getLongVersion();
 
 //		global $rsgConfig;
 //		$this->rsgConfigData = $rsgConfig;
@@ -89,7 +98,9 @@ class Rsgallery2ViewConfig extends JViewLegacy
 		$Layout = JFactory::getApplication()->input->get('layout');
 		$this->addToolbar($Layout);
 
-		$this->sidebar = JHtmlSidebar::render();
+        $View = JFactory::getApplication()->input->get('view');
+        RSG2_SidebarLinks::addItems($View, $Layout);
+        $this->sidebar = JHtmlSidebar::render();
 
 		parent::display($tpl);
 

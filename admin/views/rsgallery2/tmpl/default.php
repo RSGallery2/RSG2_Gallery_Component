@@ -12,9 +12,22 @@ defined('_JEXEC') or die();
 
 // JHtml::_('behavior.tooltip');
 JHtml::_('bootstrap.tooltip');
-JHTML::_('behavior.modal');
+//JHTML::_('behavior.modal');
 
 global $Rsg2DebugActive;
+
+if ($Rsg2DebugActive) {
+    // Include the JLog class.
+    jimport('joomla.log.log');
+
+    // identify active file
+//    JLog::add('==> rsgallery2 view.php');
+}
+
+if ($Rsg2DebugActive) {
+    JLog::add('    (D01) ');
+}
+
 
 /**
  * Used to generate buttons. Uses iconmoon font to display the main icon of the button
@@ -188,8 +201,9 @@ function DisplayInfoRsgallery2($Rsg2Version)
 	echo '        <tr>';
 	echo '            <td>' . JText::_('COM_RSGALLERY2_DOCUMENTATION') . '</td>';
 	echo '            <td>';
-	echo '                <a href="http://joomlacode.org/gf/project/rsgallery2/frs/?action=FrsReleaseBrowse&frs_package_id=6273" target="_blank"';
-	echo '                    title="' . JText::_('COM_RSGALLERY2_JUMP_TO_DOCUMENTATION') . '" >' . JText::_('COM_RSGALLERY2_DOCUMENTATION') . '</a>';
+//	echo '                <a href="http://joomlacode.org/gf/project/rsgallery2/frs/?action=FrsReleaseBrowse&frs_package_id=6273" target="_blank" ';
+    echo '                <a href="http://www.rsgallery2.org/documentation/" target="_blank" ';
+	echo '                    title="' . JText::_('COM_RSGALLERY2_JUMP_TO_DOCUMENTATION') . '" >www.rsgallery2.org/documentation</a>';
 	echo '            </td>';
 	echo '        </tr>';
 
@@ -206,18 +220,44 @@ function DisplayInfoRsgallery2($Rsg2Version)
 	return;
 }
 
+if ($Rsg2DebugActive) {
+    JLog::add('    (D02) ');
+}
+
 /**/
 $doc = JFactory::getDocument();
-$doc->addStyleSheet(JURI_SITE . "administrator/components/com_rsgallery2/css/ControlPanel.css");
+//$doc->addStyleSheet(JPATH_COMPONENT_ADMINISTRATOR . "/template.css");
+$doc->addStyleSheet(URI_RSG2_ADMIN . "/css/ControlPanel.css");
+if ($Rsg2DebugActive) {
+    JLog::add('    JURI_SITE: ' . JURI_SITE . "/css/ControlPanel.css");
+    JLog::add('    URI_RSG2_ADMIN: ' .URI_RSG2_ADMIN . "/css/ControlPanel.css");
+}
+
 /**/
+
+if ($Rsg2DebugActive) {
+    JLog::add('    (D03) ');
+}
 
 ?>
 
-<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=rsg2'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=rsgallery2'); ?>" method="post" name="adminForm" id="adminForm">
 
 	<?php if (!empty($this->sidebar)) : ?>
 	<div id="j-sidebar-container" class="span2">
-		<?php echo $this->sidebar; ?>
+		<?php
+
+        if ($Rsg2DebugActive) {
+            JLog::add('    (D04) ');
+        }
+
+        echo $this->sidebar;
+
+        if ($Rsg2DebugActive) {
+            JLog::add('    (D05) ');
+        }
+
+        ?>
 	</div>
 	<div id="j-main-container" class="span10">
 		<?php else : ?>
@@ -271,15 +311,36 @@ $doc->addStyleSheet(JURI_SITE . "administrator/components/com_rsgallery2/css/Con
 					<div class="row-fluid">
 						<div class="span4 clsInfoAccordion">
 							<?php
-							echo JHtml::_('bootstrap.startAccordion', 'slide-example', array('active' => 'slide1', 'toggle' => 'false'));
+                            if ($Rsg2DebugActive) {
+                                JLog::add('    (D06) ');
+                            }
+
+                            echo JHtml::_('bootstrap.startAccordion', 'slide-example', array('active' => 'slide1', 'toggle' => 'false'));
+                            if ($Rsg2DebugActive) {
+                                JLog::add('    (D07) ');
+                            }
 							echo JHtml::_('bootstrap.addSlide', 'slide-example', JText::_('COM_RSGALLERY2_GALLERIES'), 'slide1');
 
+                            if ($Rsg2DebugActive) {
+                                JLog::add('    (D08) ');
+                            }
 							// Info about last uploaded galleries
 							DisplayInfoGalleries($this->LastGalleries);
 
+                            if ($Rsg2DebugActive) {
+                                JLog::add('    (D09) ');
+                            }
 							echo JHtml::_('bootstrap.endSlide');
+                            if ($Rsg2DebugActive) {
+                                JLog::add('    (D10) ');
+                            }
 							echo JHtml::_('bootstrap.endAccordion');
-							?>
+
+                            if ($Rsg2DebugActive) {
+                                JLog::add('    (D11) ');
+                            }
+
+                            ?>
 						</div>
 						<div class="span8 clsInfoAccordion">
 							<?php
@@ -327,4 +388,10 @@ $doc->addStyleSheet(JURI_SITE . "administrator/components/com_rsgallery2/css/Con
 		</div>
 
 </form>
+
+<?php
+if ($Rsg2DebugActive) {
+JLog::add('    (D14) ');
+}
+
 

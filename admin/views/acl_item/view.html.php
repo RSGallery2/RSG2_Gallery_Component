@@ -13,6 +13,9 @@ defined('_JEXEC') or die;
 jimport('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 
+//require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/RSGallery2.php';
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
+
 /**
  * May not be needed ToDo: Delete table when one user has had a problem and we know how to move local acl to standard acl
  *
@@ -73,6 +76,9 @@ class Rsgallery2ViewAcl_item extends JViewLegacy
 		$Layout = JFactory::getApplication()->input->get('layout');
 		$this->addToolbar($Layout);
 
+        $View = JFactory::getApplication()->input->get('view');
+        RSG2_SidebarLinks::addItems('acl_item', $Layout);
+//        RSGallery2Helper::addSubmenu('rsgallery2');
 		$this->sidebar = JHtmlSidebar::render();
 
 		parent::display($tpl);

@@ -14,6 +14,9 @@ jimport('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 jimport('joomla.application.component.model');
 
+//require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/RSGallery2.php';
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
+
 JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
 /**
@@ -106,7 +109,13 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/maintConsolidateDB.xml';
 		$this->form = JForm::getInstance('images', $xmlFile);
 
+        // different toolbar on different layouts
+        $Layout = JFactory::getApplication()->input->get('layout');
 		$this->addToolbar($this->UserIsRoot); //$Layout);
+
+        $View = JFactory::getApplication()->input->get('view');
+        RSG2_SidebarLinks::addItems($View, $Layout);
+//        RSGallery2Helper::addSubmenu('rsgallery2');
 		$this->sidebar = JHtmlSidebar::render();
 
 		parent::display($tpl);

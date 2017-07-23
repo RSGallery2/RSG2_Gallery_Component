@@ -23,12 +23,14 @@ Legend:
 ^ -> Change, - -> Removed, ! -> Note
 		 
 
-
+^ Seperate inlude files for new view form and load it all from rsg2 in J1.5/2.5
+		 
 * --- 4.3.1 --- 2017-01-10 --- whazzup ------------------------------
 		 
 ^ General additional source documentation
   -> Header of functions in a lot of files
-		 
+
+# giobag 2017.07.21 Restrict added galleries to galleries owned by logged in user   
 # Display of multiple slideshows on one form did lead on the second 
   slideshow to show all pictures at once and clutter the layout.
 # The gallery list view did not display child galleries direct below 

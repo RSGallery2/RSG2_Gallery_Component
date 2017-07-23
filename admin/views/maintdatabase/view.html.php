@@ -14,6 +14,9 @@ jimport('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 jimport('joomla.application.component.model');
 
+//require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/RSGallery2.php';
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
+
 JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
 /**
@@ -100,7 +103,13 @@ class Rsgallery2ViewMaintDatabase extends JViewLegacy
 		// Assign the Data
 //		$this->form = $form;
 
+        // different toolbar on different layouts
+        $Layout = JFactory::getApplication()->input->get('layout');
 		$this->addToolbar($this->UserIsRoot, $this->errorCount); //$Layout);
+
+        $View = JFactory::getApplication()->input->get('view');
+        RSG2_SidebarLinks::addItems($View, $Layout);
+//        RSGallery2Helper::addSubmenu('rsgallery2');
 		$this->sidebar = JHtmlSidebar::render();
 
 		parent::display($tpl);

@@ -13,6 +13,9 @@ JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
 jimport('joomla.html.html.bootstrap');
 
+//require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/RSGallery2.php';
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
+
 /**
  * View class for a list of images
  *
@@ -76,6 +79,9 @@ class Rsgallery2ViewImages extends JViewLegacy
 		$Layout = JFactory::getApplication()->input->get('layout');
 		$this->addToolbar($Layout);
 
+        $View = JFactory::getApplication()->input->get('view');
+        RSG2_SidebarLinks::addItems($View, $Layout);
+//        RSGallery2Helper::addSubmenu('rsgallery2');
 		$this->sidebar = JHtmlSidebar::render();
 
 		parent::display($tpl);

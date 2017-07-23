@@ -13,6 +13,9 @@ defined('_JEXEC') or die;
 jimport('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 
+//require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/RSGallery2.php';
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
+
 /**
  * View of maintenance options
  *
@@ -58,10 +61,12 @@ class Rsgallery2ViewDevelop extends JViewLegacy
                 $this->LeftJoinGalleries = $this->GalleriesOrderModel->LeftJoinGalleries();
                 break;
         }
-
-
-		$this->sidebar = JHtmlSidebar::render();
         $this->addToolbar($Layout);
+
+        $View = JFactory::getApplication()->input->get('view');
+        RSG2_SidebarLinks::addItems($View, $Layout);
+//        RSGallery2Helper::addSubmenu('rsgallery2');
+		$this->sidebar = JHtmlSidebar::render();
 
 		parent::display($tpl);
 	}

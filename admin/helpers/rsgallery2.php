@@ -16,40 +16,142 @@ defined('_JEXEC') or die;
  *
  * @since        3.0
  */
-class RSGallery2Helper
+class RSGallery2Helper // extends JHelperContent
 {
-	public static $extension = 'com_rsgallery2';
+    public static $extension = 'com_rsgallery2';
 
-	/**
-	 * Gets a list of the actions that can be performed.
-	 *
-	 * @param    int $galleryId The gallery ID.
-	 *
-	 * @return    JObject
-	 */
-	public static function getActions($galleryId = 0)
-	{
-		$user   = JFactory::getUser();
-		$result = new JObject;
+    /**
+     * Gets a list of the actions that can be performed.
+     *
+     * @param    int $galleryId The gallery ID.
+     *
+     * @return    JObject
+     */
+    // ToDo: Warning: Declaration of RSGallery2Helper::getActions($galleryId = 0) should be compatible with JHelperContent::getActions($component = '', $section = '', $id = 0) in D:\xampp\htdocs\joomla3x\administrator\components\com_rsgallery2\helpers\rsgallery2.php on line 19
+    public static function getActions($galleryId = 0)
+    {
+        $user = JFactory::getUser();
+        $result = new JObject;
 
-		if (empty($galleryId))
-		{
-			$assetName = 'com_rsgallery2';
-		}
-		else
-		{
-			$assetName = 'com_rsgallery2.gallery.' . (int) $galleryId;
-		}
+        if (empty($galleryId)) {
+            $assetName = 'com_rsgallery2';
+        } else {
+            $assetName = 'com_rsgallery2.gallery.' . (int)$galleryId;
+        }
 
-		$actions = array(
-			'core.admin', 'core.manage', 'core.create', 'core.delete', 'core.edit', 'core.edit.state', 'core.edit.own'
-		);
+        $actions = array(
+            'core.admin', 'core.manage', 'core.create', 'core.delete', 'core.edit', 'core.edit.state', 'core.edit.own'
+        );
 
-		foreach ($actions as $action)
-		{
-			$result->set($action, $user->authorise($action, $assetName));
-		}
+        foreach ($actions as $action) {
+            $result->set($action, $user->authorise($action, $assetName));
+        }
 
-		return $result;
-	}
-}
+        return $result;
+    }
+
+    /**
+     * Standard sidebar links for all views
+     *
+     * @param string $ViewName
+     *
+     *
+     * @since 4.3.2
+     */
+    public static function addSubmenu($view = '') {
+	    /**
+        	JhtmlSidebar::addEntry( 
+        JText::_('COM_COMPONENT_NAME_LANGUAGE_CONSTANT'),
+           'index.php?option=com_componentName&view=viewName',
+           $vName == 'dashboard');
+        /**/
+
+        $task = '';
+        $layout = '';
+
+	    // Dummy line test
+        JHtmlSidebar::addEntry(
+            '------------------------------------',
+            '',
+            True);
+
+        //--- Add galleries view link ------------------------------------
+
+        $link = 'index.php?option=com_rsgallery2&view=galleries';
+        JHtmlSidebar::addEntry(
+            '<span class="icon-images" >  </span>' .
+            JText::_('COM_RSGALLERY2_SUBMENU_GALLERIES'),
+            $link,
+            True);
+
+
+        //--- Add images view link ------------------------------------
+
+        $link = 'index.php?option=com_rsgallery2&view=images';
+        JHtmlSidebar::addEntry(
+            '<span class="icon-image" >  </span>' .
+            JText::_('COM_RSGALLERY2_SUBMENU_IMAGES'),
+            // 'index.php?option=com_rsgallery2&rsgOption=images',
+            $link,
+            ($task == '' OR $task == 'view_images'));
+
+        //--- Add maintenance view link ------------------------------------
+
+        if ($view == 'config') {
+            $link = 'index.php?option=com_rsgallery2&view=maintenance';
+            // In config add maintenance
+            JHtmlSidebar::addEntry(
+                '<span class="icon-screwdriver" >  </span>' .
+                JText::_('COM_RSGALLERY2_MAINTENANCE'),
+                $link,
+                false);
+        }
+
+        if (substr($view, 0, 5) == 'devel') {
+            $link = 'index.php?option=com_rsgallery2&view=maintenance';
+            // In config add maintenance
+            JHtmlSidebar::addEntry(
+                '<span class="icon-screwdriver" >  </span>' .
+                JText::_('COM_RSGALLERY2_MAINTENANCE'),
+                $link,
+                false);
+        }
+
+        // gallery_raw, image_raw, ...
+        if (substr($layout, -4) == '_raw') {
+            $link = 'index.php?option=com_rsgallery2&view=maintenance';
+            // In config add maintenance
+            JHtmlSidebar::addEntry(
+                '<span class="icon-screwdriver" >  </span>' .
+                JText::_('COM_RSGALLERY2_MAINTENANCE'),
+                $link,
+                false);
+        }
+
+        //--- Add config view link ------------------------------------
+
+        // inside maintenance ....
+        if (substr($view, 0, 5) == 'maint') {
+            if ($view == 'maintenance') {
+                $link = 'index.php?option=com_rsgallery2&view=config&task=config.edit';
+                // In maintenance add config
+                JHtmlSidebar::addEntry(
+                    '<span class="icon-equalizer" >  </span>' .
+                    JText::_('COM_RSGALLERY2_CONFIGURATION'),
+                    $link,
+                    false);
+            } else {
+                $link = 'index.php?option=com_rsgallery2&view=maintenance';
+                // In config add maintenance
+                JHtmlSidebar::addEntry(
+                    '<span class="icon-screwdriver" >  </span>' .
+                    JText::_('COM_RSGALLERY2_MAINTENANCE'),
+                    $link,
+                    false);
+            }
+        }
+
+        return;
+    }
+
+} // class

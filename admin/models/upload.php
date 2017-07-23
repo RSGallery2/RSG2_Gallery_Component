@@ -19,203 +19,110 @@ jimport('joomla.application.component.modeladmin');
  */
 class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 {
-	protected $text_prefix = 'COM_RSGallery2';
+    protected $text_prefix = 'COM_RSGallery2';
 
-	protected $FtpPath;
-	protected $LastUsedFtpPath;
-	protected $isPreSelectLatestGallery;
-	protected $LastUpdateType;
-	protected $isUseOneGalleryNameForAllImages;
 
-	// ToDo: Redesign: Extend from model rsgallery2ModelConfig, remove separate calls to db but keep function call here
-
-	/**
-	 * return given ftp_path in config
-	 *
-	 * @return string
+    /**
      *
-     * @since 4.3.0
-	 */
-	public function getFtpPath()
-	{
-		if (!isset($this->FtpPath))
-		{
-			$db    = JFactory::getDbo();
-			$query = $db->getQuery(true);
-
-			$query->select($db->quoteName('value'))
-				->from($db->quoteName('#__rsgallery2_config'))
-				->where($db->quoteName('name') . " = " . $db->quote('ftp_path'));
-
-			$db->setQuery($query);
-			$this->FtpPath = $db->loadResult();
-		}
-
-		return $this->FtpPath;
-	}
-
-	/**
-	 * return last used ftp_path
-	 *
-	 * @return string
      *
-     * @since 4.3.0
-	 */
-	public function getLastUsedFtpPath()
-	{
-		if (!isset($this->LastUsedFtpPath))
-		{
-			$db    = JFactory::getDbo();
-			$query = $db->getQuery(true);
+     * @since 4.3.2
+     */
+    function uploadFromZip($zip_file, $galleryId, $isInOneGallery)
+    {
+        global $Rsg2DebugActive;
 
-			$query->select($db->quoteName('value'))
-				->from($db->quoteName('#__rsgallery2_config'))
-				->where($db->quoteName('name') . " = " . $db->quote('last_used_ftp_path'));
+        $isUploaded = false;
+/**
+        $msg     = "uploadFromZip: ";
+        $msgType = 'notice';
 
-			$db->setQuery($query);
-			$this->LastUsedFtpPath = $db->loadResult();
-		}
+        $msg .= '!!! Not implemented yet !!!';
 
-		return $this->LastUsedFtpPath;
-	}
+        //Retrieve data from submit form
+        $input       = JFactory::getApplication()->input;
+        //	$zip_file       = $input->files->get('zip_file', array(), 'FILES');
+        // 'FILES' is ignored as a *.zip file marked bad from function  isSafeFile inside get
+        $zip_file = $input->files->get('zip_file', array(), 'raw');
+        $selcat      = $input->get('selcat', null, 'INT');
 
-	/**
-	 * allows to set the input LastUsedFtpPath
-	 *
-	 * @param string $NewLastUsedFtpPath
+        if ($Rsg2DebugActive)
+        {
+            $Delim = " ";
+            // show active parameters
+            $DebTxt = "==> upload.uploadFromZip.php$Delim----------$Delim";
+            // array
+            $DebTxt = $DebTxt . "\$zip_file: " . json_encode($zip_file) . "$Delim";;
+            $DebTxt = $DebTxt . "\$selcat: " . $selcat . "$Delim";
+
+            JLog::add($DebTxt); //, JLog::DEBUG);
+        }
+
+
+
+        $app = JFactory::getApplication();
+        $app->enqueueMessage(JText::_('uploadFromZip'));
+
+
+        $this->setRedirect('index.php?option=com_rsgallery2&view=upload', $msg, $msgType);
+
+        /**/
+
+        return $isUploaded;
+    }
+    /**/
+
+
+    /**
      *
-     * @since 4.3.0
-	 */
-	public function setLastUsedFtpPath($NewLastUsedFtpPath)
-	{
-		$db    = JFactory::getDbo();
-		$query = $db->getQuery(true);
-
-		$query->insert($db->quoteName('#__rsgallery2_config'))
-			->columns($db->quoteName(array('name', 'value')))
-			->values($db->quote('last_used_ftp_path') . ',' . $db->quote($NewLastUsedFtpPath));
-
-		$db->setQuery($query);
-		$db->execute();
-
-		$this->LastUsedFtpPath = $NewLastUsedFtpPath;
-	}
-
-	/**
-	 * Returns state of config variable if the latest gallery shall be preselected for upload'
-	 *
-	 * @return bool true when set in config data
      *
-     * @since 4.3.0
-	 */
-	public function getIsPreSelectLatestGallery()
-	{
-		if (!isset($this->isPreSelectLatestGallery))
-		{
-			$db    = JFactory::getDbo();
-			$query = $db->getQuery(true);
+     * @since 4.3
+     */
+    function uploadFromFtpFolder($ftpPath, $galleryId, $isInOneGallery)
+    {
+        global $Rsg2DebugActive;
 
-			$query->select($db->quoteName('value'))
-				->from($db->quoteName('#__rsgallery2_config'))
-				->where($db->quoteName('name') . " = " . $db->quote('UploadPreselectLatestGallery'));
+        $isUploaded = false;
+/**
+        $msg     = "viewConfigPlain: ";
+        $msgType = 'notice';
 
-			$db->setQuery($query);
-			$this->isPreSelectLatestGallery = $db->loadResult();
-		}
+        $msg .= '!!! Not implemented yet !!!';
 
-		return $this->isPreSelectLatestGallery;
-	}
+        /**
+        //Retrieve data from submit form
+        $input       = JFactory::getApplication()->input;
+        $selcat      = $input->get('selcat', null, 'INT');
+        $ftppath = $input->get('ftppath', null, 'RAW');
+        // Path should end with '\\'
+        if (substr($ftppath, -1) != '/' && substr($ftppath, -1) == '\\')
+        {
+            $ftppath .= '/';
+        }
 
-	/**
-	 * @return string ID of latest gallery
-     *
-     * @since 4.3.0
-	 */
-	public function getIdLatestGallery()
-	{
-		$db    = JFactory::getDbo();
-		$query = $db->getQuery(true);
 
-		$query->select($db->quoteName('id'))
-			->from('#__rsgallery2_galleries')
-			->order('ordering ASC');
-//			->setLimit(1);  ==>  setQuery($query, $offset = 0, $limit = 0)
+        if ($Rsg2DebugActive)
+        {
+            $Delim = " ";
+            // show active parameters
+            $DebTxt = "==> upload.uploadFromZip.php$Delim----------$Delim";
+            $DebTxt = $DebTxt . "\$ftppath: " . $ftppath . "$Delim";
+            $DebTxt = $DebTxt . "\$selcat: " . $selcat . "$Delim";
 
-		$db->setQuery($query, 0, 1);
-		$IdLatestGallery = $db->loadResult();
+            JLog::add($DebTxt); //, JLog::DEBUG);
+        }
 
-		return $IdLatestGallery;
-	}
 
-	/**
-	 * @return string Name of last used update selection (register)
-     *
-     * @since 4.3.0
-	 */
-	public function getLastUpdateType()
-	{
-		if (!isset($this->LastUpdateType))
-		{
-			$db    = JFactory::getDbo();
-			$query = $db->getQuery(true);
+        $app = JFactory::getApplication();
+        $app->enqueueMessage(JText::_('uploadFromFtpFolder'));
 
-			$query->select($db->quoteName('value'))
-				->from($db->quoteName('#__rsgallery2_config'))
-				->where($db->quoteName('name') . " = " . $db->quote('last_update_type'));
 
-			$db->setQuery($query);
-			$this->LastUpdateType = $db->loadResult();
-		}
+        $this->setRedirect('index.php?option=com_rsgallery2&view=upload', $msg, $msgType);
+        /**/
 
-		return $this->LastUpdateType;
-	}
+        return $isUploaded;
+    }
+    /**/
 
-	/**
-	 * allows to set the input LastUsedFtpPath
-	 *
-	 * @param string $NewLastUpdateType
-     *
-     * @since 4.3.0
-	 */
-	public function setLastUpdateType($NewLastUpdateType)
-	{
-		$db    = JFactory::getDbo();
-		$query = $db->getQuery(true);
-
-		$query->insert($db->quoteName('#__rsgallery2_config'))
-			->columns($db->quoteName(array('name', 'value')))
-			->values($db->quote('last_update_type') . ',' . $db->quote($NewLastUpdateType));
-
-		$db->setQuery($query);
-		$db->execute();
-
-		$this->LastUpdateType = $NewLastUpdateType;
-	}
-
-	/**
-	 * Returns state of config variable if the latest gallery shall be preselected for upload'
-	 *
-	 * @return bool true when set in config data
-     *
-     * @since 4.3.0
-	 */
-	public function getisUseOneGalleryNameForAllImages()
-	{
-		if (!isset($this->isUseOneGalleryNameForAllImages))
-		{
-			$db    = JFactory::getDbo();
-			$query = $db->getQuery(true);
-
-			$query->select($db->quoteName('value'))
-				->from($db->quoteName('#__rsgallery2_config'))
-				->where($db->quoteName('name') . " = " . $db->quote('isUseOneGalleryNameForAllImages'));
-
-			$db->setQuery($query);
-			$this->isUseOneGalleryNameForAllImages = $db->loadResult();
-		}
-
-		return $this->isUseOneGalleryNameForAllImages;
-	}
 
 }
 

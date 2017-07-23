@@ -10,17 +10,33 @@
 
 defined('_JEXEC') or die;
 
+/**
+ * @param bool
+ */
+global $Rsg2DebugActive;
+
+if ($Rsg2DebugActive) {
+    // Include the JLog class.
+    jimport('joomla.log.log');
+
+    // identify active file
+//    JLog::add('==> rsgallery2 view.php');
+}
+
 jimport('joomla.html.html.bootstrap');
-jimport('joomla.application.component.view');
+// jimport('joomla.application.component.view');
 
 //require (JUri::root(true).'/administrator/components/com_rsgallery2/helpers/CreditsEnumaration.php');
 
 //require_once JPATH_ADMINISTRATOR . '/components/com_rsgallery2/includes/version.rsgallery2.php';
-require_once JPATH_COMPONENT . '/includes/version.rsgallery2.php';
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/version.rsgallery2.php';
 
-require_once JPATH_COMPONENT . '/helpers/CreditsEnumaration.php';
-require_once JPATH_COMPONENT . '/models/images.php';
-require_once JPATH_COMPONENT . '/models/galleries.php';
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/CreditsEnumaration.php';
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/models/images.php';
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/models/galleries.php';
+
+//require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/RSGallery2.php';
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
 
 /**
  * Base view of control panel
@@ -47,8 +63,13 @@ class Rsgallery2ViewRsgallery2 extends JViewLegacy
 	public function display($tpl = null)
 	{
 		global $Rsg2DevelopActive;
+        global $Rsg2DebugActive;
 
-		// on develop show open tasks if existing
+        if ($Rsg2DebugActive) {
+            JLog::add('==> rsgallery2 view display');
+        }
+
+        // on develop show open tasks if existing
 		if (!empty ($Rsg2DevelopActive))
 		{
 			// echo '<span style="color:red">Task: Homepage link</span><br><br>';
@@ -56,38 +77,45 @@ class Rsgallery2ViewRsgallery2 extends JViewLegacy
 
 		//--- get needed data ------------------------------------------
 
-		// List of credits for rsgallery2 developers / translators
+        // List of credits for rsgallery2 developers / translators
 		$this->Credits = CreditsEnumaration::CreditsEnumarationText;
 
-		// Check rights of user
+        // Check rights of user
 		$this->UserIsAdmin = $this->CheckUserIsAdmin();
 
-		// fetch data of last galleries (within one week ?)
+        // fetch data of last galleries (within one week ?)
 		//$this->LastImages = rsg2ModelImages::lastWeekImages(5);
 		$this->LastImages = rsgallery2ModelImages::latestImages(5);
 
-		//$this->LastGalleries = rsg2ModelGalleries::lastWeekGalleries(5);
+        //$this->LastGalleries = rsg2ModelGalleries::lastWeekGalleries(5);
 		$this->LastGalleries = rsgallery2ModelGalleries::latestGalleries(5);
 
-		// Get rsgallery2 component version 
+        // Get rsgallery2 component version
 		// $this->Rsg2Version = rsg2Common::getRsg2ComponentVersion();
 		//$this->Rsg2Version = rsg2Common::getRsg2ComponentVersion();
 		$Rsg2Version = new rsgalleryVersion();
 
-		$this->Rsg2Version = $Rsg2Version->getLongVersion(); // getShortVersion, getVersionOnly				
-		$this->FooterText  = $this->RSGallery2Footer($Rsg2Version->getCopyrightVersion());
+        $this->Rsg2Version = $Rsg2Version->getLongVersion(); // getShortVersion, getVersionOnly
 
-		$form = $this->get('Form');
+        $this->FooterText  = $this->RSGallery2Footer($Rsg2Version->getCopyrightVersion());
 
-		//--- begin to display --------------------------------------------
+        $form = $this->get('Form');
 
-		/*		// Options button.
-				if ($this->UserIsAdmin) {
-					JToolBarHelper::preferences('com_rsgallery2');
-				}
+
+        //--- begin to display --------------------------------------------
+
+		/**
+		// Options button.
+        if ($this->UserIsAdmin) {
+            JToolBarHelper::preferences('com_rsgallery2');
+        }
 		*/
 
-		// Check for errors.
+        if ($Rsg2DebugActive) {
+            JLog::add('    (V10) ');
+        }
+
+        // Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
 			JError::raiseError(500, implode('<br />', $errors));
@@ -95,16 +123,52 @@ class Rsgallery2ViewRsgallery2 extends JViewLegacy
 			return false;
 		}
 
-		// Assign the Data
+        if ($Rsg2DebugActive) {
+            JLog::add('    (V11) ');
+        }
+
+        // Assign the Data
 		$this->form = $form;
 
-		//$this->addToolbar ();
+        if ($Rsg2DebugActive) {
+            JLog::add('    (V12) ');
+        }
+
+        //$this->addToolbar ();
 		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MENU_CONTROL_PANEL'), 'home-2');
-		$this->sidebar = JHtmlSidebar::render();
 
-		parent::display($tpl);
+        if ($Rsg2DebugActive) {
+            JLog::add('    (V13) ');
+        }
 
-		return;
+        $Layout = JFactory::getApplication()->input->get('layout');
+        $View = JFactory::getApplication()->input->get('view');
+        RSG2_SidebarLinks::addItems($View, $Layout);
+//        RSGallery2Helper::addSubmenu('rsgallery2');
+
+/** wrong
+        $RSGallery2Helper=new RSGallery2Helper();
+        $RSGallery2Helper->addSubmenu('rsgallery2'); //pass the view name
+/**/
+        $this->sidebar = JHtmlSidebar::render();
+
+        if ($Rsg2DebugActive) {
+            JLog::add('    (V14) ');
+        }
+
+        parent::display($tpl);
+
+        if ($Rsg2DebugActive) {
+            JLog::add('    (V15) ');
+        }
+
+
+        if ($Rsg2DebugActive) {
+            JLog::add('<== rsgallery2 view display');
+        }
+
+
+        return;
 	}
 
 	/**

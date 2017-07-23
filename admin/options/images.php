@@ -1028,6 +1028,7 @@ function batchupload($option)
 
 	//--- Handle session data -------------------------------------------
 
+    /**
 	jimport('joomla.application.component.model');
 	JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
@@ -1054,6 +1055,28 @@ function batchupload($option)
 			}
 		}
 	}
+    /**/
+
+    // Batchupload is requested, data given
+    if (isset($uploaded)) {
+        $app = JFactory::getApplication();
+
+        if ($batchmethod == "zip")
+        {
+            $app->setUserState('com_rsgallery2.last_used_uploaded_zip', $zip_file);
+            // $rsgConfig->setLastUsedZipFile($zip_file);
+            $rsgConfig->setLastUpdateType('upload_zip_pc');
+        }
+        else
+        {
+            if ($batchmethod == "FTP")
+            {
+                $app->setUserState('com_rsgallery2.last_used_ftp_path', $ftppath);
+                $rsgConfig->setLastUsedFtpPath($ftppath);
+                $rsgConfig->setLastUpdateType('upload_folder_server');
+            }
+        }
+    }
 
 	// ToDo: move to view with message before
 	//Check if at least one gallery exists, if not link to gallery creation
@@ -1073,7 +1096,7 @@ function batchupload($option)
 		//--- collect file list ----------------------
 
 		//New instance of fileHandler
-		$uploadfile = new fileHandler();
+		$uploadFile = new fileHandler();
 
 		// Upload zip files ?
 		if ($batchmethod == "zip")
@@ -1081,10 +1104,10 @@ function batchupload($option)
 			// file found ?
 			if (count($zip_file) > 0)
 			{ // if (is_array($zip_file)) {
-				if ($uploadfile->checkSize($zip_file) == 1)
+				if ($uploadFile->checkSize($zip_file) == 1)
 				{
-					//$ziplist = $uploadfile->handleZIP($zip_file);//MK// [change] [handleZIP uses PclZip that is no longer in J1.6]
-					$ziplist = $uploadfile->extractArchive($zip_file);//MK// [todo] [check extractArchive]
+					//$ziplist = $uploadFile->handleZIP($zip_file);//MK// [change] [handleZIP uses PclZip that is no longer in J1.6]
+					$ziplist = $uploadFile->extractArchive($zip_file);//MK// [todo] [check extractArchive]
 					if (!$ziplist)
 					{
 						// Extracting archive failed
@@ -1111,10 +1134,10 @@ function batchupload($option)
 		else
 		{
 			//not zip thus ftp
-			$ziplist = $uploadfile->handleFTP($ftppath);
+			$ziplist = $uploadFile->handleFTP($ftppath);
 		}
 
-		html_rsg2_images::batchupload_2($ziplist, $uploadfile->extractDir);//Step 2 in batchupload process
+		html_rsg2_images::batchupload_2($ziplist, $uploadFile->extractDir);//Step 2 in batchupload process
 	}
 	else
 	{

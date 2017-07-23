@@ -17,7 +17,6 @@ defined('_JEXEC') or die();
 
 /**
  * Generic Config class
- *
  * @package RSGallery2
  *
  * @since 1.0
@@ -147,6 +146,11 @@ class rsgConfig
     //var $voting					= 1;		//deprecated: v3.0.2 uses permissions
     var $voting_once = 1;
     var $cookie_prefix = "rsgvoting_";
+    /**
+     * Returns state of config variable if the latest gallery shall be preselected for upload
+     * @var int
+     * @since version
+     */
     var $isUseOneGalleryNameForAllImages = 1;
     var $isPreSelectLatestGallery = 0;
 
@@ -455,4 +459,128 @@ class rsgConfig
 
         return $null;
     }
+
+
+
+
+    /**
+     * @return string Name of last used update selection (register)
+     *
+     * @since 4.3.0
+     */
+    public function getLastUpdateType()
+    {
+        if (!isset($this->LastUpdateType)) {
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true);
+
+            $query->select($db->quoteName('value'))
+                ->from($db->quoteName('#__rsgallery2_config'))
+                ->where($db->quoteName('name') . " = " . $db->quote('last_update_type'));
+
+            $db->setQuery($query);
+            $this->LastUpdateType = $db->loadResult();
+        }
+
+        return $this->LastUpdateType;
+    }
+
+    /**
+     * allows to set the input LastUsedFtpPath
+     *
+     * @param string $NewLastUpdateType
+     *
+     * @since 4.3.0
+     */
+    public function setLastUpdateType($NewLastUpdateType)
+    {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+
+        $query->insert($db->quoteName('#__rsgallery2_config'))
+            ->columns($db->quoteName(array('name', 'value')))
+            ->values($db->quote('last_update_type') . ',' . $db->quote($NewLastUpdateType));
+
+        $db->setQuery($query);
+        $db->execute();
+
+        $this->LastUpdateType = $NewLastUpdateType;
+    }
+
+    /**
+     * return last used ftp_path
+     *
+     * @return string
+     *
+     * @since 4.3.0
+     */
+    public function getLastUsedFtpPath()
+    {
+        if (!isset($this->LastUsedFtpPath)) {
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true);
+
+            $query->select($db->quoteName('value'))
+                ->from($db->quoteName('#__rsgallery2_config'))
+                ->where($db->quoteName('name') . " = " . $db->quote('last_used_ftp_path'));
+
+            $db->setQuery($query);
+            $this->LastUsedFtpPath = $db->loadResult();
+        }
+
+        return $this->LastUsedFtpPath;
+    }
+
+    /**
+     * allows to set the input LastUsedFtpPath
+     *
+     * @param string $NewLastUsedFtpPath
+     *
+     * @since 4.3.0
+     */
+    public function setLastUsedFtpPath($NewLastUsedFtpPath)
+    {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+
+        $query->insert($db->quoteName('#__rsgallery2_config'))
+            ->columns($db->quoteName(array('name', 'value')))
+            ->values($db->quote('last_used_ftp_path') . ',' . $db->quote($NewLastUsedFtpPath));
+
+        $db->setQuery($query);
+        $db->execute();
+
+        $this->LastUsedFtpPath = $NewLastUsedFtpPath;
+    }
+
+    /**
+     * Returns state of config variable if the latest gallery shall be preselected for upload'
+     *
+     * @return bool true when set in config data
+     *
+     * @since 4.3.0
+     */
+    public function getIsPreSelectLatestGallery()
+    {
+    if (!isset($this->isPreSelectLatestGallery)) {
+    $db = JFactory::getDbo();
+    $query = $db->getQuery(true);
+
+    $query->select($db->quoteName('value'))
+    ->from($db->quoteName('#__rsgallery2_config'))
+    ->where($db->quoteName('name') . " = " . $db->quote('UploadPreselectLatestGallery'));
+
+    $db->setQuery($query);
+    $this->isPreSelectLatestGallery = $db->loadResult();
+    }
+
+    return $this->isPreSelectLatestGallery;
+    }
+    /**/
+
+
+
+
+
+
 }
