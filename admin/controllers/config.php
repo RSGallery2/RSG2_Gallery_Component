@@ -167,9 +167,9 @@ class Rsgallery2ControllerConfig extends JControllerForm
      *
      * @since version 4.3
      */
-	function save()
+	function save($key = null, $urlVar = null)
 	{
-		parent::save();
+		parent::save($key, $urlVar);
 
 		$inTask = $this->getTask();
 
