@@ -62,7 +62,7 @@ class rsgImagesItem extends JTable
 	/**
 	 * @param JDatabaseDriver $db A database connector object
 	 */
-	function __construct(&$db)
+        function __construct(&$db)
 	{
 		parent::__construct('#__rsgallery2_files', 'id', $db);
 	}

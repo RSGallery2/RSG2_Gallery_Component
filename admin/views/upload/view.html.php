@@ -25,144 +25,133 @@ require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
  */
 class Rsgallery2ViewUpload extends JViewLegacy
 {
-	protected $form;
-	protected $sidebar;
+    protected $form;
+    protected $sidebar;
 
-	// [Single images], [Zip file], [local server (ftp) path],
-	protected $ActiveSelection; // ToDo: Activate in html of view
+    // [Single images], [Zip file], [local server (ftp) path],
+    protected $ActiveSelection; // ToDo: Activate in html of view
 
-	protected $UploadLimit;
-	protected $PostMaxSize;
+    protected $UploadLimit;
+    protected $PostMaxSize;
     protected $MemoryLimit;
 
-	protected $FtpUploadPath;
-	// protected $LastUsedUploadZip;
+    protected $FtpUploadPath;
+    // protected $LastUsedUploadZip;
     protected $is1GalleryExisting;
 
-	// ToDo: Config -> update gallery selection preselect latest gallery  (User input ...)
-	// ToDo: Config -> update gallery selection preselect last used gallery ? show combo opened for n entries
+    // ToDo: Config -> update gallery selection preselect latest gallery  (User input ...)
+    // ToDo: Config -> update gallery selection preselect last used gallery ? show combo opened for n entries
 
-	//------------------------------------------------
-	/**
-	 * @param null $tpl
-	 *
-	 * @return bool
-	 */
-	public function display($tpl = null)
-	{
-		global $Rsg2DevelopActive, $rsgConfig;
+    //------------------------------------------------
+    /**
+     * @param null $tpl
+     *
+     * @return bool
+     */
+    public function display($tpl = null)
+    {
+        global $Rsg2DevelopActive, $rsgConfig;
 
-		// on develop show open tasks if existing
-		if (!empty ($Rsg2DevelopActive))
-		{
-			// echo '<span style="color:red">Task: </span><br><br>';
-		}
+        // on develop show open tasks if existing
+        if (!empty ($Rsg2DevelopActive)) {
+            // echo '<span style="color:red">Task: </span><br><br>';
+        }
 
-		$xmlFile = JPATH_COMPONENT . '/models/forms/upload.xml';
-		$form    = JForm::getInstance('upload', $xmlFile);
+        $xmlFile = JPATH_COMPONENT . '/models/forms/upload.xml';
+        $form = JForm::getInstance('upload', $xmlFile);
 
         // Instantiate the media helper
         $mediaHelper = new JHelperMedia;
+        // Maximum allowed size in MB
+        $this->UploadLimit = round($mediaHelper->toBytes(ini_get('upload_max_filesize')) / (1024 * 1024));
+        $this->PostMaxSize = round($mediaHelper->toBytes(ini_get('post_max_size')) / (1024 * 1024));
+        $this->MemoryLimit = round($mediaHelper->toBytes(ini_get('memory_limit')) / (1024 * 1024));
 
-        // Maximum allowed size of post back data in MB.
-        $postMaxSize =
+        //--- FtpUploadPath ------------------------
 
-        $this->UploadLimit = round($mediaHelper->toBytes(ini_get('upload_max_filesize'))/(1024 * 1024));
-		$this->PostMaxSize = round($mediaHelper->toBytes(ini_get('post_max_size'))/(1024 * 1024));
-        $this->MemoryLimit = round($mediaHelper->toBytes(ini_get('memory_limit'))/(1024 * 1024));
+        //$UploadModel = JModelLegacy::getInstance('upload', 'rsgallery2Model');
 
-		//--- FtpUploadPath ------------------------
+        // Retrieve path from config
+        $FtpUploadPath = $rsgConfig->get('ftp_path');
+        // On empty use last successful
+        if (empty ($FtpUploadPath)) {
+            $FtpUploadPath = $rsgConfig->getLastUsedFtpPath();
+        }
+        $this->FtpUploadPath = $FtpUploadPath;
 
-		//$UploadModel = JModelLegacy::getInstance('upload', 'rsgallery2Model');
+        //--- LastUsedUploadZip ------------------------
 
-		// Retrieve path from config
-		$FtpUploadPath = $rsgConfig->get('ftp_path');
-		// On empty use last successful
-		if (empty ($FtpUploadPath))
-		{
-			$FtpUploadPath = $rsgConfig->getLastUsedFtpPath();
-		}
-		$this->FtpUploadPath = $FtpUploadPath;
+        // Not possible to set input variable in HTML so it is not collected
+        // $this->LastUploadedZip = $app->getUserState('com_rsgallery2.last_used_uploaded_zip');
+        // $LastUsedUploadZip->getLastUsedUploadZip();
 
-		//--- LastUsedUploadZip ------------------------
+        //--- Config requests ------------------------
 
-		// Not possible to set input variable in HTML so it is not collected
-		// $this->LastUploadedZip = $app->getUserState('com_rsgallery2.last_used_uploaded_zip');
-		// $LastUsedUploadZip->getLastUsedUploadZip();
+        // register 'upload_single', 'upload_zip_pc', 'upload_folder_server'
+        $this->ActiveSelection = $rsgConfig->getLastUpdateType();
+        if (empty ($this->ActiveSelection)) {
+            $this->ActiveSelection = 'upload_zip_pc';
+        }
 
-		//--- Config requests ------------------------
-
-		// register 'upload_single', 'upload_zip_pc', 'upload_folder_server'
-		$this->ActiveSelection = $rsgConfig->getLastUpdateType();
-		if (empty ($this->ActiveSelection))
-		{
-			$this->ActiveSelection = 'upload_zip_pc';
-		}
-
-		// 0: default, 1: enable, 2: disable
+        // 0: default, 1: enable, 2: disable
         $isUseOneGalleryNameForAllImages = $rsgConfig->get('isUseOneGalleryNameForAllImages');
-		if (empty ($isUseOneGalleryNameForAllImages))
-		{
-			$isUseOneGalleryNameForAllImages = '1';
-		}
-		if ($isUseOneGalleryNameForAllImages == '2')
-		{
-			$isUseOneGalleryNameForAllImages = '0';
-		}
+        if (empty ($isUseOneGalleryNameForAllImages)) {
+            $isUseOneGalleryNameForAllImages = '1';
+        }
+        if ($isUseOneGalleryNameForAllImages == '2') {
+            $isUseOneGalleryNameForAllImages = '0';
+        }
 
-		//--- Pre select latest gallery ?  ------------------------
+        //--- Pre select latest gallery ?  ------------------------
 
-		$IdGallerySelect = -1; //No selection
+        $IdGallerySelect = -1; //No selection
 
-		$input = JFactory::getApplication()->input;
+        $input = JFactory::getApplication()->input;
 
-		// coming from gallery edit -> new id
-		$Id = $input->get('id', 0, 'INT');
-		if (!empty ($Id))
-		{
-			$IdGallerySelect = $Id;
-		}
+        // coming from gallery edit -> new id
+        $Id = $input->get('id', 0, 'INT');
+        if (!empty ($Id)) {
+            $IdGallerySelect = $Id;
+        }
 
-		$isPreSelectLatestGallery = $rsgConfig->getIsPreSelectLatestGallery();
-		if ($isPreSelectLatestGallery)
-		{
-			$IdGallerySelect = $this->getIdLatestGallery();
-		}
+        $isPreSelectLatestGallery = $rsgConfig->getIsPreSelectLatestGallery();
+        if ($isPreSelectLatestGallery) {
+            $IdGallerySelect = $this->getIdLatestGallery();
+        }
 
         $this->is1GalleryExisting = $this->is1GalleryExisting();
 
-		// upload_zip, upload_folder
-		$formParam = array(
-			'all_img_in_step1_01'  => $isUseOneGalleryNameForAllImages,
-			'all_img_in_step1_02'  => $isUseOneGalleryNameForAllImages,
-			'SelectGalleries01_01' => $IdGallerySelect,
-			'SelectGalleries02_02' => $IdGallerySelect
-		);
+        // upload_zip, upload_folder
+        $formParam = array(
+            'all_img_in_step1_01' => $isUseOneGalleryNameForAllImages,
+            'all_img_in_step1_02' => $isUseOneGalleryNameForAllImages,
+            'SelectGalleries01_01' => $IdGallerySelect,
+            'SelectGalleries02_02' => $IdGallerySelect
+        );
 
-		$form->bind($formParam);
+        $form->bind($formParam);
 
-		// Check for errors.
-		if (count($errors = $this->get('Errors')))
-		{
-			JError::raiseError(500, implode('<br />', $errors)); // ToDo: replace error handling
-			return false;
-		}
+        // Check for errors.
+        if (count($errors = $this->get('Errors'))) {
+            JError::raiseError(500, implode('<br />', $errors)); // ToDo: replace error handling
+            return false;
+        }
 
-		// Assign the Data
-		$this->form = $form;
-		// $this->item = $item;
+        // Assign the Data
+        $this->form = $form;
+        // $this->item = $item;
 
-		$this->addToolbar();
-		$this->sidebar = JHtmlSidebar::render();
+        $this->addToolbar();
+        $this->sidebar = JHtmlSidebar::render();
 
-		return parent::display($tpl);
-	}
+        return parent::display($tpl);
+    }
 
-	protected function addToolbar()
-	{
-		// COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD
-		JToolBarHelper::title(JText::_('COM_RSGALLERY2_SUBMENU_UPLOAD'), 'generic.png');
-	}
+    protected function addToolbar()
+    {
+        // COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD
+        JToolBarHelper::title(JText::_('COM_RSGALLERY2_SUBMENU_UPLOAD'), 'generic.png');
+    }
 
 
     /**
@@ -187,8 +176,7 @@ class Rsgallery2ViewUpload extends JViewLegacy
     }
 
     /**
-     * 	//Check if at least one gallery exists, if not link to gallery creation
-
+     *    //Check if at least one gallery exists, if not link to gallery creation
      * @return string ID of latest gallery
      *
      * @since 4.3.0
@@ -211,7 +199,6 @@ class Rsgallery2ViewUpload extends JViewLegacy
 
         return $is1GalleryExisting;
     }
-
 
 
 }
