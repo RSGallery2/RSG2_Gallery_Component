@@ -33,6 +33,8 @@ class Rsgallery2ViewUpload extends JViewLegacy
 
 	protected $UploadLimit;
 	protected $PostMaxSize;
+    protected $MemoryLimit;
+
 	protected $FtpUploadPath;
 	// protected $LastUsedUploadZip;
     protected $is1GalleryExisting;
@@ -59,8 +61,15 @@ class Rsgallery2ViewUpload extends JViewLegacy
 		$xmlFile = JPATH_COMPONENT . '/models/forms/upload.xml';
 		$form    = JForm::getInstance('upload', $xmlFile);
 
-		$this->UploadLimit = round(ini_get('upload_max_filesize') * 1.024);
-		$this->PostMaxSize = round(ini_get('post_max_size') * 1.024);
+        // Instantiate the media helper
+        $mediaHelper = new JHelperMedia;
+
+        // Maximum allowed size of post back data in MB.
+        $postMaxSize =
+
+        $this->UploadLimit = round($mediaHelper->toBytes(ini_get('upload_max_filesize'))/(1024 * 1024));
+		$this->PostMaxSize = round($mediaHelper->toBytes(ini_get('post_max_size'))/(1024 * 1024));
+        $this->MemoryLimit = round($mediaHelper->toBytes(ini_get('memory_limit'))/(1024 * 1024));
 
 		//--- FtpUploadPath ------------------------
 

@@ -273,6 +273,9 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
                             <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
                                 <?php echo JText::_('COM_RSGALLERY2_POST_MAX_SIZE_IS') . ' ' . $this->PostMaxSize . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
                             </div>
+                            <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
+                                <?php echo JText::_('COM_RSGALLERY2_POST_MEMORY_LIMIT_IS') . ' ' . $this->MemoryLimit . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
+                            </div>
                         </div>
                     </div>
 
