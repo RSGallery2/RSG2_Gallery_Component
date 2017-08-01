@@ -31,6 +31,7 @@ if ($Rsg2DebugActive) {
 //    JLog::add('    (02: $rsgOption: "' . $rsgOption . '") ');
 }
 
+
 /**
 // check if this file has been included yet.
 if (isset($rsgConfig)) {
@@ -47,6 +48,24 @@ $rsgVersion = new rsgalleryVersion();
 require_once(JPATH_RSGALLERY2_ADMIN . '/includes/config.class.php');
 $rsgConfig = new rsgConfig();
 /**/
+
+// ToDo: >> remove or rearrange: rsgallery2_gallerydisplay plugin (others) calls this for display
+// Needed by rsgConfig
+if(empty($rsgVersion))
+{
+    // Initialize the rsg version info
+    require_once(JPATH_RSGALLERY2_ADMIN . '/includes/version.rsgallery2.php');
+    $rsgVersion = new rsgalleryVersion();
+}
+
+if(empty($rsgConfig))
+{
+    // Initialize the rsg config file
+    require_once(JPATH_RSGALLERY2_ADMIN . '/includes/config.class.php');
+    $rsgConfig = new rsgConfig();
+}
+
+// ToDo: <<
 
 //Set image paths for RSGallery2
 /**
