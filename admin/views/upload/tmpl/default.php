@@ -251,6 +251,12 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
                             <?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>
                         </a>
 
+                        <a class="btn btn-primary"
+                           title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>"
+                           href="index.php?option=com_rsgallery2&amp;view=upload&amp;&amp;layout=UploadSingle">
+                            <?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES') . ' Test'; ?>
+                        </a>
+
                     </div>
                 </fieldset>
                 <?php echo JHtml::_('bootstrap.endTab'); ?>
