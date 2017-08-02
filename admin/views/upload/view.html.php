@@ -141,16 +141,29 @@ class Rsgallery2ViewUpload extends JViewLegacy
         $this->form = $form;
         // $this->item = $item;
 
-        $this->addToolbar();
+        // different toolbar on different layouts
+        $Layout = JFactory::getApplication()->input->get('layout');
+        $this->addToolbar($Layout);
+
         $this->sidebar = JHtmlSidebar::render();
 
         return parent::display($tpl);
     }
 
-    protected function addToolbar()
+    protected function addToolbar($Layout = 'default')
     {
-        // COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD
-        JToolBarHelper::title(JText::_('COM_RSGALLERY2_SUBMENU_UPLOAD'), 'generic.png');
+        global $Rsg2DevelopActive;
+
+        switch ($Layout) {
+            case 'test':
+
+                break;
+
+            default:
+                // COM_RSGALLERY2_SPECIFY_UPLOAD_METHOD
+                JToolBarHelper::title(JText::_('COM_RSGALLERY2_SUBMENU_UPLOAD'), 'generic.png');
+                break;
+        }
     }
 
 

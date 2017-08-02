@@ -136,10 +136,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
         $app = JFactory::getApplication();
         $app->enqueueMessage(JText::_('uploadFromZip'));
 
-
         //$this->setRedirect('index.php?option=com_rsgallery2&view=upload', $msg, $msgType);
-        $this->setRedirect('index.php?option=com_rsgallery2&view=upload', $msg, $msgType);
-        view=upload&amp;&amp;layout=UploadSingle
+        $this->setRedirect('index.php?option=com_rsgallery2&amp;view=upload&amp;layout=UploadSingle', $msg, $msgType);
     }
     /**/
 
