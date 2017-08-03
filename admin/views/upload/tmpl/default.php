@@ -192,23 +192,96 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
 
 </script>
 
-<style type="text/css">
-    #loading {
-        background: rgba(255, 255, 255, .8) url('<?php echo JHtml::_('image', 'jui/ajax-loader.gif', '', null, true, true); ?>') 50% 15% no-repeat;
-        position: fixed;
-        opacity: 0.8;
-        -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
-        filter: alpha(opacity=80);
-    }
+// Drag-drop installation
+JFactory::getDocument()->addScriptDeclaration(
+<<<JS
+    jQuery(document).ready(function($) {
 
-    /*
-        .j-jed-message {
-            margin-bottom: 40px;
-            line-height: 2em;
-            color:#333333;
+        dragZone.on('dragenter', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            dragZone.addClass('hover');
+
+            return false;
+            });
+
+        // Notify user when file is over the drop area
+        dragZone.on('dragover', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            dragZone.addClass('hover');
+
+            return false;
+        });
+
+        dragZone.on('dragleave', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dragZone.removeClass('hover');
+
+            return false;
+        });
+    });
+JS
+);
+
+<?php
+JFactory::getDocument()->addStyleDeclaration(
+<<<CSS
+        #dragarea {
+        background-color: #fafbfc;
+        border: 1px dashed #999;
+        box-sizing: border-box;
+        padding: 5% 0;
+        transition: all 0.2s ease 0s;
+        width: 100%;
         }
-    */
-</style>
+
+        #dragarea p.lead {
+        color: #999;
+        }
+
+        #upload-icon {
+        font-size: 48px;
+        width: auto;
+        height: auto;
+        margin: 0;
+        line-height: 175%;
+        color: #999;
+        transition: all .2s;
+        }
+
+        #dragarea.hover {
+        border-color: #666;
+        background-color: #eee;
+        }
+
+        #dragarea.hover #upload-icon,
+        #dragarea p.lead {
+        color: #666;
+        }
+
+        #loading {
+            background: rgba(255, 255, 255, .8) url('<?php echo JHtml::_('image', 'jui/ajax-loader.gif', '', null, true, true); ?>') 50% 15% no-repeat;
+            position: fixed;
+            opacity: 0.8;
+            -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+            filter: alpha(opacity=80);
+        }
+    
+        /*
+            .j-jed-message {
+                margin-bottom: 40px;
+                line-height: 2em;
+                color:#333333;
+            }
+        */
+
+CSS
+);
+?>
 
 <div id="installer-install" class="clearfix">
     <?php if (!empty($this->sidebar)) : ?>
@@ -244,6 +317,50 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
                 <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'upload_single', JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES', true)); ?>
                 <fieldset class="uploadform">
                     <legend><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_MORE'); ?></legend>
+
+                    <div class="control-group">
+                        <div class="controls">
+                            <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
+                                <?php echo JText::_('COM_RSGALLERY2_UPLOAD_LIMIT_IS') . ' ' . $this->UploadLimit . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
+                            </div>
+                            <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
+                                <?php echo JText::_('COM_RSGALLERY2_POST_MAX_SIZE_IS') . ' ' . $this->PostMaxSize . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
+                            </div>
+                            <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
+                                <?php echo JText::_('COM_RSGALLERY2_POST_MEMORY_LIMIT_IS') . ' ' . $this->MemoryLimit . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <?php
+                    // All in one, Specify gallery
+                    echo $this->form->renderFieldset('upload_drag_and_drop');
+                    ?>
+
+                    <legend><?php echo JText::_('*DRAG_FILE_ZONE '); ?></legend>
+
+                    <div id="uploader-wrapper">
+                        <div id="dragarea" class="">
+                            <div id="dragarea-content" class="text-center">
+                                <p>
+                                    <span id="upload-icon" class="icon-upload" aria-hidden="true"></span>
+                                </p>
+                                <p class="lead">
+                                    <?php echo JText::_('*DRAG_IMAGES_HERE'); ?>
+                                </p>
+                                <p>
+                                    <button id="select-file-button" type="button" class="btn btn-success">
+                                        <span class="icon-copy" aria-hidden="true"></span>
+                                        <?php echo JText::_('*SELECT_FILE'); ?>
+                                    </button>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Action button -->
                     <div class="form-actions">
                         <a class="btn btn-primary"
                            title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>"

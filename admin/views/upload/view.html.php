@@ -154,6 +154,12 @@ class Rsgallery2ViewUpload extends JViewLegacy
     {
         global $Rsg2DevelopActive;
 
+        // on develop show open tasks if existing
+        if (!empty ($Rsg2DevelopActive))
+        {
+            echo '<span style="color:red">Task: Hide sizes, <br>use $maxSize = JFilesystemHelper::fileUploadMaxSize();,<br>debug print sizes for into log</span><br><br>';
+        }
+
         switch ($Layout) {
             case 'test':
 
