@@ -35,14 +35,26 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
         });
     });
 
-    /*
-     Joomla.submitbuttonSingle = function()
-     {
-     alert('Upload single images: use ...');
-     };
-     */
+    /**/
+    Joomla.submitButtonSingle = function()
+    {
+        alert('Upload single images: legacy ...');
 
-    Joomla.submitbuttonZipPc = function () {
+        // href="index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=upload"
+
+        // yes transfer files ...
+        form.task.value = 'upload'; // upload.uploadZipFile
+        form.batchmethod.value = 'zip';
+        form.ftppath.value = "";
+        form.xcat.value = "";
+        form.selcat.value = "";
+
+        jQuery('#loading').css('display', 'block');
+        form.submit();
+    };
+    /**/
+
+    Joomla.submitButtonZipPc = function () {
         var form = document.getElementById('adminForm');
 
         var zip_path = form.zip_file.value;
@@ -78,7 +90,7 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
         }
     };
 
-    Joomla.submitbuttonZipPc2 = function () {
+    Joomla.submitButtonZipPc2 = function () {
         var form = document.getElementById('adminForm');
 
         var zip_path = form.zip_file.value;
@@ -115,7 +127,7 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
         }
     };
 
-    Joomla.submitbuttonFolderServer = function () {
+    Joomla.submitButtonFolderServer = function () {
         var form = document.getElementById('adminForm');
 
         var GalleryId = jQuery('#SelectGalleries_02').chosen().val();
@@ -152,7 +164,7 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
         }
     };
 
-    Joomla.submitbuttonFolderServer2 = function () {
+    Joomla.submitButtonFolderServer2 = function () {
         var form = document.getElementById('adminForm');
 
         var GalleryId = jQuery('#SelectGalleries_02').chosen().val();
@@ -192,11 +204,27 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
 
 </script>
 
+<?php
 // Drag-drop installation
 JFactory::getDocument()->addScriptDeclaration(
 <<<JS
     jQuery(document).ready(function($) {
 
+        //if (typeof FormData === 'undefined') {
+        {
+            $('#legacy-uploader').show();
+            $('#uploader-wrapper').hide();
+            alert ("exit");
+//            return;
+        }
+
+		var dragZone  = $('#dragarea');
+		var fileInput = $('#install_package');
+		var button    = $('#select-file-button');
+		var url       = 'index.php?option=com_installer&task=install.ajax_upload';
+		var returnUrl = $('#installer-return').val();
+		var token     = $('#installer-token').val();
+         
         dragZone.on('dragenter', function(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -226,6 +254,7 @@ JFactory::getDocument()->addScriptDeclaration(
     });
 JS
 );
+?>
 
 <?php
 JFactory::getDocument()->addStyleDeclaration(
@@ -360,20 +389,40 @@ CSS
                         </div>
                     </div>
 
+                    <div id="legacy-uploader" style="display: none;">
+                        <div class="control-group">
+                            <label for="install_package" class="control-label"><?php echo JText::_('PLG_INSTALLER_PACKAGEINSTALLER_EXTENSION_PACKAGE_FILE'); ?></label>
+                            <div class="controls">
+                                <input class="input_box" id="install_package" name="install_package" type="file" size="57" /><br>
+                                <?php echo JText::sprintf('JGLOBAL_MAXIMUM_UPLOAD_SIZE_LIMIT', $maxSize); ?>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary" type="button" id="installbutton_package" onclick="Joomla.XsubmitButtonpackage()">
+                                <?php echo JText::_('PLG_INSTALLER_PACKAGEINSTALLER_UPLOAD_AND_INSTALL'); ?>
+                            </button>
+                        </div>
+                        <div class="form-actions">
+                            <!--a class="btn btn-primary" id="submitButtonSingle"
+                               title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>"
+                               href="index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">
+                                <?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>
+                            </a-->
+                            <label for="submitButtonSingle"><?php echo JText::_('COM_RSGALLERY2_LEGACY_UPLOAD_SINGLE_IMAGES'); ?></label>
+                            <button type="button" class="btn btn-primary"  id="submitButtonSingle"
+                                    title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>"
+                                    onclick="Joomla.submitButtonSingle()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?></button>
+                        </div>
+                    </div>
+
                     <!-- Action button -->
                     <div class="form-actions">
                         <a class="btn btn-primary"
-                           title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>"
-                           href="index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">
-                            <?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>
-                        </a>
-
-                        <a class="btn btn-primary"
-                           title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>"
+                           title="<?php echo JText::_('COM_RSGALLERY2_ASSIGN_UPLOADED_IMAGES'); ?>"
                            href="index.php?option=com_rsgallery2&amp;view=upload&amp;&amp;layout=UploadSingle">
                             <?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES') . ' Test'; ?>
                         </a>
-
                     </div>
                 </fieldset>
                 <?php echo JHtml::_('bootstrap.endTab'); ?>
@@ -410,9 +459,9 @@ CSS
                     <!-- Action button -->
                     <div class="form-actions">
                         <button type="button" class="btn btn-primary"
-                                onclick="Joomla.submitbuttonZipPc()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE'); ?></button>
+                                onclick="Joomla.submitButtonZipPc()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE'); ?></button>
                         <button type="button" class="btn btn-primary"
-                                onclick="Joomla.submitbuttonZipPc2()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE'); ?> test</button>
+                                onclick="Joomla.submitButtonZipPc2()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE'); ?> test</button>
                     </div>
                 </fieldset>
                 <?php echo JHtml::_('bootstrap.endTab'); ?>
@@ -443,9 +492,9 @@ CSS
 
                     <div class="form-actions">
                         <button type="button" class="btn btn-primary"
-                                onclick="Joomla.submitbuttonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES'); ?></button>
+                                onclick="Joomla.submitButtonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES'); ?></button>
                         <button type="button" class="btn btn-primary"
-                                onclick="Joomla.submitbuttonFolderServer2()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES'); ?> test</button>
+                                onclick="Joomla.submitButtonFolderServer2()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES'); ?> test</button>
                     </div>
                 </fieldset>
                 <?php echo JHtml::_('bootstrap.endTab'); ?>
