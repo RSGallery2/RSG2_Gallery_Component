@@ -230,6 +230,16 @@ class Rsgallery2ControllerUpload extends JControllerForm
     }
     /**/
 
+    /**
+     *
+     *
+     * @since 4.3
+     */
+    function uploadAjaxSingleFile()
+    {
+
+
+    }
 
 }
 
