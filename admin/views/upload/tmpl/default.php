@@ -24,6 +24,10 @@ JText::script('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN');
 JText::script('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST');
 JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
 
+// Drag and Drop installation scripts
+$token = JSession::getFormToken();
+$return = JFactory::getApplication()->input->getBase64('return');
+
 ?>
 
 <script type="text/javascript">
@@ -246,7 +250,7 @@ JFactory::getDocument()->addScriptDeclaration(
         var dragZone  = $('#dragarea');
         var fileInput = $('#install_package');
         var button    = $('#select-file-button');
-        var url       = 'index.php?option=com_installer&task=install.ajax_upload';
+        var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile';
         var returnUrl = $('#installer-return').val();
         var token     = $('#installer-token').val();
          
@@ -289,9 +293,15 @@ JFactory::getDocument()->addScriptDeclaration(
         
         dragZone.on('drop', function(e) {        
              $(this).css('border', '2px dotted #0B85A1');
-             e.preventDefault();
-            var files = e.originalEvent.dataTransfer.files;
+			e.preventDefault();
+			e.stopPropagation();
+
+			var files = e.originalEvent.target.files || e.originalEvent.dataTransfer.files;
  
+			if (!files.length) {
+				return;
+			}
+
             //We need to send dropped files to Server
             handleFileUpload(files,dragZone);
         });
@@ -372,10 +382,13 @@ JFactory::getDocument()->addScriptDeclaration(
            {
                 var fd = new FormData();
                 fd.append('file', files[i]);
+    			data.append('upload_type', 'single');
+    			data.append(token, 1);
          
                 var status = new createStatusbar(obj); //Using this we can set progress.
                 status.setFileNameSize(files[i].name,files[i].size);
-                sendFileToServer(fd,status);       
+ 
+                sendFileToServer(fd, status);       
            }
         }        
 
@@ -416,6 +429,50 @@ JFactory::getDocument()->addScriptDeclaration(
          
             status.setAbort(jqXHR);
             /**/
+            
+            /*=========================================================
+            
+             */
+            
+			//JoomlaInstaller.showLoading();
+			
+            var jqXHR=$.ajax({
+                xhr: function() {
+                    var xhrobj = $.ajaxSettings.xhr();
+                    if (xhrobj.upload) {
+                        xhrobj.upload.addEventListener('progress', function(event) {
+                            var percent = 0;
+                            var position = event.loaded || event.position;
+                            var total = event.total;
+                            if (event.lengthComputable) {
+                                percent = Math.ceil(position / total * 100);
+                            }
+                            //Set progress
+                            status.setProgress(percent);
+                        }, false);
+                    }
+                    return xhrobj;
+                },
+                url: urlSingle,
+                type: "POST",
+                contentType:false,
+                processData: false,
+                cache: false,
+                data: formData,
+                success: function(data){
+                    status.setProgress(100);
+         
+                    //$("#status1").append("File upload Done<br>");           
+                }
+            }); 
+         
+            status.setAbort(jqXHR);
+			
+            
+            /*=========================================================
+            
+            */
+            
         }
     
 
@@ -675,6 +732,9 @@ CSS
                                     title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>"
                                     onclick="Joomla.submitButtonSingle()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?></button>
                         </div>
+
+                        <input id="installer-return" name="return" type="hidden" value="<?php echo $return; ?>" />
+                        <input id="installer-token" name="return" type="hidden" value="<?php echo $token; ?>" />
                     </div>
 
                 </fieldset>
