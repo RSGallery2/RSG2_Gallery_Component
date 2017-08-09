@@ -237,7 +237,130 @@ class Rsgallery2ControllerUpload extends JControllerForm
      */
     function uploadAjaxSingleFile()
     {
+        global $Rsg2DebugActive;
 
+        if ($Rsg2DebugActive)
+        {
+            // identify active file
+            JLog::add('==> uploadAjaxSingleFile');
+        }
+
+        /**
+        var fd = new FormData();
+        fd.append('file', files[i]);
+        data.append('upload_type', 'single');
+        data.append(token, 1);
+        /**/
+
+        /**
+        $data = array();
+
+        if(isset($_GET['files']))
+        {
+            $error = false;
+            $files = array();
+
+            $uploaddir = './uploads/';
+            foreach($_FILES as $file)
+            {
+                if(move_uploaded_file($file['tmp_name'], $uploaddir .basename($file['name'])))
+                {
+                    $files[] = $uploaddir .$file['name'];
+                }
+                else
+                {
+                    $error = true;
+                }
+            }
+            $data = ($error) ? array('error' => 'There was an error uploading your files') : array('files' => $files);
+        }
+        else
+        {
+            $data = array('success' => 'Form was submitted', 'formData' => $_POST);
+        }
+
+        echo json_encode($data);
+        /**/
+
+        /**
+        $fileName = $_FILES['file']['name'];
+        $fileType = $_FILES['file']['type'];
+        $fileError = $_FILES['file']['error'];
+        $fileContent = file_get_contents($_FILES['file']['tmp_name']);
+
+        if($fileError == UPLOAD_ERR_OK){
+            //Processes your file here
+        }else{
+            switch($fileError){
+                case UPLOAD_ERR_INI_SIZE:
+                    $message = 'Error al intentar subir un archivo que excede el tamaño permitido.';
+                    break;
+                case UPLOAD_ERR_FORM_SIZE:
+                    $message = 'Error al intentar subir un archivo que excede el tamaño permitido.';
+                    break;
+                case UPLOAD_ERR_PARTIAL:
+                    $message = 'Error: no terminó la acción de subir el archivo.';
+                    break;
+                case UPLOAD_ERR_NO_FILE:
+                    $message = 'Error: ningún archivo fue subido.';
+                    break;
+                case UPLOAD_ERR_NO_TMP_DIR:
+                    $message = 'Error: servidor no configurado para carga de archivos.';
+                    break;
+                case UPLOAD_ERR_CANT_WRITE:
+                    $message= 'Error: posible falla al grabar el archivo.';
+                    break;
+                case  UPLOAD_ERR_EXTENSION:
+                    $message = 'Error: carga de archivo no completada.';
+                    break;
+                default: $message = 'Error: carga de archivo no completada.';
+                    break;
+            }
+            echo json_encode(array(
+                'error' => true,
+                'message' => $message
+            ));
+        }
+        /**/
+
+        if ($Rsg2DebugActive)
+        {
+            JLog::add('1:');
+        }
+
+
+        // $files = $input->files->get('files');
+        $input = JFactory::getApplication()->input;
+        if ($Rsg2DebugActive)
+        {
+            JLog::add('2:');
+        }
+
+        $files = $input->files->get('Xfile', array(), 'raw');
+        if ($Rsg2DebugActive)
+        {
+            JLog::add('3:');
+        }
+
+
+        $fileInfo = json_encode ($files);
+        if ($Rsg2DebugActive)
+        {
+            JLog::add('4:');
+        }
+
+        if ($Rsg2DebugActive)
+        {
+            // identify active file
+            JLog::add('$fileInfo: "' . $fileInfo . '"');
+        }
+
+        if ($Rsg2DebugActive)
+        {
+            JLog::add('<== uploadAjaxSingleFile');
+        }
+
+//        move_uploaded_file
 
     }
 
