@@ -361,7 +361,37 @@ class Rsgallery2ControllerUpload extends JControllerForm
         }
 
 //        move_uploaded_file
+        /*
+            $baseDir = JPATH_SITE . '/media';
 
+            if (file_exists($baseDir)) {
+                if (is_writable($baseDir)) {
+                    if (move_uploaded_file($filename, $baseDir . $userfile_name)) {
+                        // Try making the file writeable first.
+                        // if (JClientFtp::chmod( $baseDir . $userfile_name, 0777 )) {
+                        //if (JPath::setPermissions( $baseDir . $userfile_name, 0777 )) {
+                        if (JPath::setPermissions($baseDir . $userfile_name)) {
+                            return true;
+                        } else {
+                            $msg = JText::_('COM_RSGALLERY2_FAILED_TO_CHANGE_THE_PERMISSIONS_OF_THE_UPLOADED_FILE');
+                        }
+                    } else {
+                        $msg = JText::_('COM_RSGALLERY2_FAILED_TO_MOVE_UPLOADED_FILE_TO_MEDIA_DIRECTORY');
+                    }
+                } else {
+                    $msg = JText::_('COM_RSGALLERY2_UPLOAD_FAILED_AS_MEDIA_DIRECTORY_IS_NOT_WRITABLE');
+                }
+            } else {
+                $msg = JText::_('COM_RSGALLERY2_UPLOAD_FAILED_AS_MEDIA_DIRECTORY_DOES_NOT_EXIST');
+            }
+
+            return false;
+        /**/
+
+        // function saveUploadedItem()
+
+
+        
     }
 
 }
