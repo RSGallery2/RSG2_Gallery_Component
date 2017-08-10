@@ -260,6 +260,9 @@ if ($Rsg2DebugActive) {
  * Old RDG2 J1.5 style loads too many files and will be removed
  * ------------------------------------------------------------------------------
  */
+
+// ToDo: ***:: Load it from extra file so it is not read every time ....
+
 if($IsOldRsg2J15Style) {
     $rsgSaveOption = $rsgOption;
 
@@ -357,6 +360,7 @@ if($IsOldRsg2J15Style) {
         JLog::add('    (O05) ');
     }
 
+    // ToDO: remove loading ...
     // class HTML_RSGALLERY / showCP / RSGallerySidebar / showUploadStep1
     require_once(JPATH_COMPONENT . '/admin.rsgallery2.html.php');///J3
 
@@ -539,6 +543,8 @@ if ($Rsg2DebugActive) {
 Functions
 ***************************************************************************************/
 
+
+// Not used ? 2017.08.10 whazzup  ? plugin module ???
 /**
  * @param string $filename The name of the php (temporary) uploaded file
  * @param string $userfile_name The name of the file to put in the temp directory
@@ -546,34 +552,34 @@ Functions
  *
  * @return bool
  */
-function uploadFile($filename, $userfile_name, &$msg)
-{
-
-    $baseDir = JPATH_SITE . '/media';
-
-    if (file_exists($baseDir)) {
-        if (is_writable($baseDir)) {
-            if (move_uploaded_file($filename, $baseDir . $userfile_name)) {
-                // Try making the file writeable first.
-                // if (JClientFtp::chmod( $baseDir . $userfile_name, 0777 )) {
-                //if (JPath::setPermissions( $baseDir . $userfile_name, 0777 )) {
-                if (JPath::setPermissions($baseDir . $userfile_name)) {
-                    return true;
-                } else {
-                    $msg = JText::_('COM_RSGALLERY2_FAILED_TO_CHANGE_THE_PERMISSIONS_OF_THE_UPLOADED_FILE');
-                }
-            } else {
-                $msg = JText::_('COM_RSGALLERY2_FAILED_TO_MOVE_UPLOADED_FILE_TO_MEDIA_DIRECTORY');
-            }
-        } else {
-            $msg = JText::_('COM_RSGALLERY2_UPLOAD_FAILED_AS_MEDIA_DIRECTORY_IS_NOT_WRITABLE');
-        }
-    } else {
-        $msg = JText::_('COM_RSGALLERY2_UPLOAD_FAILED_AS_MEDIA_DIRECTORY_DOES_NOT_EXIST');
-    }
-
-    return false;
-}
+// function uploadFile($filename, $userfile_name, &$msg)
+// {
+//
+//     $baseDir = JPATH_SITE . '/media';
+//
+//     if (file_exists($baseDir)) {
+//         if (is_writable($baseDir)) {
+//             if (move_uploaded_file($filename, $baseDir . $userfile_name)) {
+//                 // Try making the file writeable first.
+//                 // if (JClientFtp::chmod( $baseDir . $userfile_name, 0777 )) {
+//                 //if (JPath::setPermissions( $baseDir . $userfile_name, 0777 )) {
+//                 if (JPath::setPermissions($baseDir . $userfile_name)) {
+//                     return true;
+//                 } else {
+//                     $msg = JText::_('COM_RSGALLERY2_FAILED_TO_CHANGE_THE_PERMISSIONS_OF_THE_UPLOADED_FILE');
+//                 }
+//             } else {
+//                 $msg = JText::_('COM_RSGALLERY2_FAILED_TO_MOVE_UPLOADED_FILE_TO_MEDIA_DIRECTORY');
+//             }
+//         } else {
+//             $msg = JText::_('COM_RSGALLERY2_UPLOAD_FAILED_AS_MEDIA_DIRECTORY_IS_NOT_WRITABLE');
+//         }
+//     } else {
+//         $msg = JText::_('COM_RSGALLERY2_UPLOAD_FAILED_AS_MEDIA_DIRECTORY_DOES_NOT_EXIST');
+//     }
+//
+//     return false;
+// }
 
 /**
  *
