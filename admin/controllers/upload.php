@@ -390,8 +390,34 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
         // function saveUploadedItem()
 
+// JFile::upload -> Moves an uploaded file to a destination folder
 
-        
+//Clean up filename to get rid of strange characters like spaces etc
+        $filename = JFile::makeSafe($file['name']);
+
+//Set up the source and destination of the file
+        $src = $file['tmp_name'];
+        $dest = JPATH_COMPONENT . DS . "uploads" . DS . $filename;
+
+//First check if the file has the right extension, we need jpg only
+        if (strtolower(JFile::getExt($filename)) == 'jpg')
+        {
+            // TODO: Add security checks
+
+            if (JFile::upload($src, $dest))
+            {
+                //Redirect to a page of your choice
+            }
+            else
+            {
+                //Redirect and throw an error message
+            }
+        }
+        else
+        {
+            //Redirect and notify user file is not right extension
+        }
+
     }
 
 }
