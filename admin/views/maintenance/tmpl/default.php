@@ -287,7 +287,17 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 									'test');
 								?>
 
-								<?php
+
+                                <?php
+                                $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=upload';
+                                quickiconBar($link, 'upload.png',
+                                    JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'),
+                                    JText::_('        '),
+                                    'test');
+                                ?>
+
+
+                                <?php
 								/**
                             $link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
                             quickiconBar($link, 'menu.png',
