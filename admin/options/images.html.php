@@ -674,7 +674,7 @@ class html_rsg2_images
      *
      * Either zip (archive) or ftp upload can be choosen, gallery can be specified here or in step 2.
      *
-     * @param string The option
+     * @param string the option
      */
     static function batchupload($option)
     {

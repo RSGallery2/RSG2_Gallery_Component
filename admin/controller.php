@@ -50,7 +50,7 @@ class Rsgallery2Controller extends JControllerLegacy
             JLog::add('==> base.controller display');
         }
 
-//	ToDo: Use 	require_once JPATH_COMPONENT.'/helpers/rsg2.php';
+//	ToDo: Use 	require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/rsg2.php';
         /*
                 $view   = $this->input->get('view', 'rsgallery2');
                 JLog::add('  base.controller.view: ', json_encode($view));

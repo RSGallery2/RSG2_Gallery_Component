@@ -776,7 +776,7 @@ class galleryUtils
 	static function writeWarningBox()
 	{
 		global $rsgConfig;
-		require_once(JPATH_RSGALLERY2_ADMIN . '/includes/img.utils.php');
+		require_once(JPATH_COMPONENT_ADMINISTRATOR . '/includes/img.utils.php');
 		//Detect image libraries
 		$html  = '';
 		$count = 0;

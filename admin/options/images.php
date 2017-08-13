@@ -675,6 +675,8 @@ function cancelImage($option)
  */
 function uploadImage($option)
 {
+	global $rsgConfig;
+
 	$database = JFactory::getDBO();
 
 	//Check if there are galleries created
@@ -692,8 +694,7 @@ function uploadImage($option)
 	jimport('joomla.application.component.model');
 	JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
-	$UploadModel = JModelLegacy::getInstance('upload', 'rsgallery2Model');
-	$UploadModel->setLastUpdateType('upload_single');
+	$rsgConfig->setLastUpdateType('upload_single');
 
 	// Create gallery selectlist
 	$lists['gallery_id'] = galleryUtils::galleriesSelectList(null, 'gallery_id', false, null, 0, true);
@@ -701,7 +702,7 @@ function uploadImage($option)
 }
 
 /**
- * @param $option
+ * @param $option (Not used)
  *
  * @throws Exception
  */
@@ -992,7 +993,7 @@ function batchupload($option)
 
 	//Retrieve data from submit form
 	$input       = JFactory::getApplication()->input;
-	$batchmethod = $input->get('batchmethod', '', 'STRING');
+	$batchMethod = $input->get('batchmethod', '', 'STRING');
 	$config      = get_object_vars($rsgConfig);
 	$uploaded    = $input->get('uploaded', null, 'BOOL');
 	$selcat      = $input->get('selcat', null, 'INT');
@@ -1014,7 +1015,7 @@ function batchupload($option)
 		$Delim = " ";
 		// show active parameters
 		$DebTxt = "==> images.batchupload.php$Delim----------$Delim";
-		$DebTxt = $DebTxt . "\$batchmethod: " . $batchmethod . "$Delim";
+		$DebTxt = $DebTxt . "\$batchMethod: " . $batchMethod . "$Delim";
 //		$DebTxt = $DebTxt . "\$config: ".$config."$Delim";
 		$DebTxt = $DebTxt . "\$uploaded: " . $uploaded . "$Delim";
 		$DebTxt = $DebTxt . "\$selcat: " . $selcat . "$Delim";
@@ -1039,19 +1040,17 @@ function batchupload($option)
 	{
 		$app = JFactory::getApplication();
 
-		if ($batchmethod == "zip")
+		if ($batchMethod == "zip")
 		{
 			$app->setUserState('com_rsgallery2.last_used_uploaded_zip', $zip_file);
-			// $UploadModel->setLastUsedZipFile($zip_file);
-			$UploadModel->setLastUpdateType('upload_zip_pc');
+		    $rsgConfig->setLastUpdateType('upload_zip_pc');
 		}
 		else
 		{
-			if ($batchmethod == "FTP")
+			if ($batchMethod == "FTP")
 			{
 				$app->setUserState('com_rsgallery2.last_used_ftp_path', $ftppath);
-				$UploadModel->setLastUsedFtpPath($ftppath);
-				$UploadModel->setLastUpdateType('upload_folder_server');
+                $rsgConfig->setLastUpdateType('upload_folder_server');
 			}
 		}
 	}
@@ -1061,7 +1060,7 @@ function batchupload($option)
     if (isset($uploaded)) {
         $app = JFactory::getApplication();
 
-        if ($batchmethod == "zip")
+        if ($batchMethod == "zip")
         {
             $app->setUserState('com_rsgallery2.last_used_uploaded_zip', $zip_file);
             // $rsgConfig->setLastUsedZipFile($zip_file);
@@ -1069,7 +1068,7 @@ function batchupload($option)
         }
         else
         {
-            if ($batchmethod == "FTP")
+            if ($batchMethod == "FTP")
             {
                 $app->setUserState('com_rsgallery2.last_used_ftp_path', $ftppath);
                 $rsgConfig->setLastUsedFtpPath($ftppath);
@@ -1099,7 +1098,7 @@ function batchupload($option)
 		$uploadFile = new fileHandler();
 
 		// Upload zip files ?
-		if ($batchmethod == "zip")
+		if ($batchMethod == "zip")
 		{
 			// file found ?
 			if (count($zip_file) > 0)

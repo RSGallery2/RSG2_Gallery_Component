@@ -25,8 +25,7 @@ if (empty ($rsgOption))
 	$rsgOption = '';
 }
 
-// require_once( JApplicationHelper::getPath('toolbar_html') );///J25
-require_once(JPATH_ADMINISTRATOR . '/components/com_rsgallery2/toolbar.rsgallery2.html.php');///J3
+require_once(JPATH_COMPONENT_ADMINISTRATOR . '/toolbar.rsgallery2.html.php');///J3
 
 //-----------------------------------------------
 // Only show RSG2 submenu in the backend
