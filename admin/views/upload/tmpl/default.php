@@ -692,7 +692,7 @@ CSS
                             </div>
                         </div>
 
-                        <!-- Action button ->
+                        <!--Action button-->
                         <div class="form-actions">
                             <button class="btn btn-primary" type="button" id="AssignUploadedFiles" onclick="Joomla.submitUploadDroppedFiles()"
                                     title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_DROPPED_IMAGES_DESC'); ?>"
@@ -722,22 +722,22 @@ CSS
                                 <?php echo JText::_('COM_RSGALLERY2_ASSIGN_UPLOADED_FILES'); ?>
                             </button>
                         </div>
-                        <div class="form-actions">
-                            <!--a class="btn btn-primary" id="submitButtonSingle"
-                               title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>"
-                               href="index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">
-                                <?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>
-                            </a-->
-                            <label for="submitButtonSingle"><?php echo JText::_('COM_RSGALLERY2_LEGACY_UPLOAD_SINGLE_IMAGES'); ?></label>
-                            <button type="button" class="btn btn-primary"  id="submitButtonSingle"
-                                    title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>"
-                                    onclick="Joomla.submitButtonSingle()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?></button>
-                        </div>
 
                         <input id="installer-return" name="return" type="hidden" value="<?php echo $return; ?>" />
                         <input id="installer-token" name="return" type="hidden" value="<?php echo $token; ?>" />
                     </div>
 
+                    <div class="form-actions">
+                        <a class="btn btn-primary" id="submitButtonSingle"
+                           title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>"
+                           href="index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">
+                            <?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>
+                        </a>
+                        <!--label for="submitButtonSingle"><?php echo JText::_('COM_RSGALLERY2_LEGACY_UPLOAD_SINGLE_IMAGES'); ?></label>
+                        <button type="button" class="btn btn-primary"  id="submitButtonSingle"
+                                title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>"
+                                onclick="Joomla.submitButtonSingle()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?></button-->
+                    </div>
                 </fieldset>
                 <?php echo JHtml::_('bootstrap.endTab'); ?>
 
