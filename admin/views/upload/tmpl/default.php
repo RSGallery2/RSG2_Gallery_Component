@@ -383,7 +383,7 @@ JFactory::getDocument()->addScriptDeclaration(
                 var data = new FormData();
                 data.append('Xfile', files[i]);
     			data.append('upload_type', 'single');
-    			data.append(token, 1);
+    			data.append('session_id', token);
          
                 var status = new createStatusbar(obj); //Using this we can set progress.
                 status.setFileNameSize(files[i].name,files[i].size);

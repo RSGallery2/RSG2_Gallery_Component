@@ -12,6 +12,7 @@
 
 defined('_JEXEC') or die();
 
+// ToDo: Remove from rsg2 component but ? keep for modules and plugins ?
 // ToDo: a) use shorter names JPATH_RSG2_SITE, JPATH_RSG2_ADMIN
 
 // Set path globals for RSGallery2

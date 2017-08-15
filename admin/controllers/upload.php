@@ -355,7 +355,29 @@ class Rsgallery2ControllerUpload extends JControllerForm
             JLog::add('$fileInfo: "' . $fileInfo . '"');
         }
 
-        if ($Rsg2DebugActive)
+	    $file_session_id = $input->get('session_id', 0, 'INT');
+        $session_id = JFactory::getSession();
+	    if ($Rsg2DebugActive)
+	    {
+		    JLog::add('$file_session_id: ' . $file_session_id);
+		    JLog::add('$session_id: ' . $session_id);
+	    }
+
+	    if ($Rsg2DebugActive)
+	    {
+		    // identify active file
+		    JLog::add('$fileInfo: "' . $fileInfo . '"');
+	    }
+
+
+
+
+
+
+
+
+
+	    if ($Rsg2DebugActive)
         {
             JLog::add('<== uploadAjaxSingleFile');
         }
@@ -388,18 +410,20 @@ class Rsgallery2ControllerUpload extends JControllerForm
             return false;
         /**/
 
+
+        /**
         // function saveUploadedItem()
 
-// JFile::upload -> Moves an uploaded file to a destination folder
+		// JFile::upload -> Moves an uploaded file to a destination folder
 
-//Clean up filename to get rid of strange characters like spaces etc
+		//Clean up filename to get rid of strange characters like spaces etc
         $filename = JFile::makeSafe($file['name']);
 
-//Set up the source and destination of the file
+		//Set up the source and destination of the file
         $src = $file['tmp_name'];
         $dest = JPATH_COMPONENT . DS . "uploads" . DS . $filename;
 
-//First check if the file has the right extension, we need jpg only
+		//First check if the file has the right extension, we need jpg only
         if (strtolower(JFile::getExt($filename)) == 'jpg')
         {
             // TODO: Add security checks
@@ -418,6 +442,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
             //Redirect and notify user file is not right extension
         }
 
+        /**/
     }
 
 }
