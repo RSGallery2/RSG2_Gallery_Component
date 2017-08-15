@@ -993,6 +993,7 @@ function batchupload($option)
 
 	//Retrieve data from submit form
 	$input       = JFactory::getApplication()->input;
+
 	$batchMethod = $input->get('batchmethod', '', 'STRING');
 	$config      = get_object_vars($rsgConfig);
 	$uploaded    = $input->get('uploaded', null, 'BOOL');
