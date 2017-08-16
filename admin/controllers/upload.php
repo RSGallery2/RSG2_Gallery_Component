@@ -245,6 +245,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
             JLog::add('==> uploadAjaxSingleFile');
         }
 
+        // ToDO: check for user rights ...
+
+
         /**
         var fd = new FormData();
         fd.append('file', files[i]);
@@ -336,12 +339,11 @@ class Rsgallery2ControllerUpload extends JControllerForm
             JLog::add('2:');
         }
 
-        $files = $input->files->get('Xfile', array(), 'raw');
+        $files = $input->files->get('upload_file', array(), 'raw');
         if ($Rsg2DebugActive)
         {
             JLog::add('3:');
         }
-
 
         $fileInfo = json_encode ($files);
         if ($Rsg2DebugActive)
@@ -355,26 +357,34 @@ class Rsgallery2ControllerUpload extends JControllerForm
             JLog::add('$fileInfo: "' . $fileInfo . '"');
         }
 
-	    $file_session_id = $input->get('session_id', 0, 'INT');
+	    // $file_session_id = $input->get('session_id', 0, 'INT');
+        $file_session_id = $input->get('session_id', '', 'STRING');
         $session_id = JFactory::getSession();
+
 	    if ($Rsg2DebugActive)
 	    {
 		    JLog::add('$file_session_id: ' . $file_session_id);
-		    JLog::add('$session_id: ' . $session_id);
+		    // JLog::add('$session_id: ' . $session_id);
 	    }
 
+        $gallery_id = $input->get('gallery_id', 0, 'INT');
 	    if ($Rsg2DebugActive)
 	    {
 		    // identify active file
-		    JLog::add('$fileInfo: "' . $fileInfo . '"');
+		    JLog::add('$gallery_id: "' . $gallery_id . '"');
 	    }
 
+        // images.php:: batchupload
+        // --> ::extractArchive
+        //    --> !JFile::upload
 
+// move_uploadedFile_to_orignalDir
 
+        // Clean filename
+//        $basename = JFile::makeSafe($parts['basename']);
 
-
-
-
+        // Destination file exists ? avoid race condition -> filename with date time of server ...
+//        if (JFile::exists(JPATH_DISPLAY . DS . $basename) || JFile::exists(JPATH_ORIGINAL . DS . $basename)) {
 
 
 	    if ($Rsg2DebugActive)

@@ -253,6 +253,7 @@ JFactory::getDocument()->addScriptDeclaration(
         var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile';
         var returnUrl = $('#installer-return').val();
         var token     = $('#installer-token').val();
+        var gallery_id = $('#SelectGalleries_03').val();
          
         button.on('click', function(e) {
             fileInput.click();
@@ -381,9 +382,10 @@ JFactory::getDocument()->addScriptDeclaration(
            for (var i = 0; i < files.length; i++) 
            {
                 var data = new FormData();
-                data.append('Xfile', files[i]);
+                data.append('upload_file', files[i]);
     			data.append('upload_type', 'single');
     			data.append('session_id', token);
+    			data.append('gallery_id', gallery_id);
          
                 var status = new createStatusbar(obj); //Using this we can set progress.
                 status.setFileNameSize(files[i].name,files[i].size);

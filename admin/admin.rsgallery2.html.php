@@ -11,6 +11,8 @@
 
 defined('_JEXEC') or die();
 
+// ToDo: Move file to include folder (clean start directory)
+
 /**
  * The HTML_RSGALLERY class is used to encapsulate the HTML processing for RSGallery.
  *
@@ -19,7 +21,6 @@ defined('_JEXEC') or die();
  **/
 class HTML_RSGALLERY
 {
-
 /**
  * use to print a message between HTML_RSGallery::RSGalleryHeader(); and a normal feature.
  * use for things like deleting an image, where a success message should be displayed and viewImages() called afterwards.
