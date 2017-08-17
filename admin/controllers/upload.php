@@ -193,8 +193,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
                 }
 
                 $app = JFactory::getApplication();
-                $app->setUserState('com_rsgallery2.last_used_ftp_path', $ftppath);
-                $rsgConfig->setLastUsedFtpPath($ftppath);
+                $app->setUserState('com_rsgallery2.last_used_ftp_path', $ftpPath);
+                $rsgConfig->setLastUsedFtpPath($ftpPath);
                 $rsgConfig->setLastUpdateType('upload_folder_server');
 
                 // Model tells if successful
@@ -357,6 +357,11 @@ class Rsgallery2ControllerUpload extends JControllerForm
             JLog::add('$fileInfo: "' . $fileInfo . '"');
         }
 
+
+        $srcFile = $files['tmp_name'];
+        // $srcFile = $fileInfo->tmp_name;
+
+
 	    // $file_session_id = $input->get('session_id', 0, 'INT');
         $file_session_id = $input->get('session_id', '', 'STRING');
         $session_id = JFactory::getSession();
@@ -373,6 +378,24 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		    // identify active file
 		    JLog::add('$gallery_id: "' . $gallery_id . '"');
 	    }
+
+	    $dst_folder = JPATH_ROOT . '/media/rsgallery2_' . $gallery_id . '_' . $file_session_id;
+        // folder does not exist
+        if (!is_dir($dst_folder)) {
+            mkdir($dst_folder, 0755);
+            //echo "The directory $dst_folder was successfully created.";
+            //exit;
+        } else { } //echo "The directory $dst_folder exists.";
+
+
+        if (is_dir($dst_folder)) {
+            if (move_uploaded_file ($srcFile, $dst_folder))
+            {
+                echo '<b>Upload beendet!</b>';
+            }
+
+        }
+
 
         // images.php:: batchupload
         // --> ::extractArchive
