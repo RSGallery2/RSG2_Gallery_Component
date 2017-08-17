@@ -151,17 +151,17 @@ class fileUtils
         //Get extension
         $ext = JFile::getExt($basename);
 
-        if (JFile::exists(JPATH_DISPLAY . DS . $basename) || JFile::exists(JPATH_ORIGINAL . DS . $basename)) {
+        if (JFile::exists(JPATH_DISPLAY . '/' . $basename) || JFile::exists(JPATH_ORIGINAL . '/' . $basename)) {
             $stub = substr($basename, 0, (strlen($ext) + 1) * -1);
 
             // if file exists, add a number, test, increment, test...  similar to what filemanagers will do
             $i = 0;
             do {
                 $basename = $stub . "-" . ++$i . "." . $ext;
-            } while (JFile::exists(JPATH_DISPLAY . DS . $basename) || JFile::exists(JPATH_ORIGINAL . DS . $basename));
+            } while (JFile::exists(JPATH_DISPLAY . '/' . $basename) || JFile::exists(JPATH_ORIGINAL . '/' . $basename));
         }
 
-        $destination = JPATH_ORIGINAL . DS . $basename;
+        $destination = JPATH_ORIGINAL . '/' . $basename;
         if (!JFile::copy($tmpName, $destination)) {
             if (!JFile::upload($tmpName, $destination)) {
                 return new imageUploadError($basename, JText::_('COM_RSGALLERY2_COULD_NOT_COPY') . "$tmpName " . JText::_('COM_RSGALLERY2_IMAGE_TO') . " $destination");
@@ -430,7 +430,7 @@ class fileHandler
      */
     static function cleanMediaDir($extractDir)
     {
-        $mediadir = JPATH_ROOT . DS . "media" . DS . $extractDir;
+        $mediadir = JPATH_ROOT . "/media/" . $extractDir;
 
         if (file_exists($mediadir)) {
             fileHandler::deldir(JPath::clean($mediadir));
@@ -454,11 +454,11 @@ class fileHandler
         $old_umask = umask(0);
         while ($entryname = readdir($current_dir)) {
             if ($entryname != '.' and $entryname != '..') {
-                if (is_dir($dir . DS . $entryname)) {
-                    fileHandler::deldir(JPath::clean($dir . DS . $entryname));
+                if (is_dir($dir . '/' . $entryname)) {
+                    fileHandler::deldir(JPath::clean($dir . '/' . $entryname));
                 } else {
-                    @chmod($dir . DS . $entryname, 0777);
-                    unlink($dir . DS . $entryname);
+                    @chmod($dir . '/' . $entryname, 0777);
+                    unlink($dir . '/' . $entryname);
                 }
             }
         }
@@ -498,7 +498,7 @@ class fileHandler
 
         // Before extracting upload the archive to /JOOMLAROOT/images/rsgallery/tmp/ with JFile::upload().
         // It transfers a file from the source file path to the destination path. Filename is made safe.
-        $fileDestination = JPATH_ROOT . DS . 'images' . DS . 'rsgallery' . DS . 'tmp' . DS . JFile::makeSafe(basename($archive['name']));
+        $fileDestination = JPATH_ROOT . 'images/rsgallery/tmp/' . JFile::makeSafe(basename($archive['name']));
         // Move uploaded file (this is truely uploading the file)
         // *.zip needs $allow_unsafe = true since J3.4.x
         // upload(string $src, string $dest, boolean $use_streams = false, boolean $allow_unsafe = false, boolean $safeFileOptions = array()) : boolean
@@ -520,9 +520,9 @@ class fileHandler
         //Clean paths for archive extraction and create extractdir
         $archivename = JPath::clean($archive['tmp_name']);
         if (!$destination) {
-            $extractdir = JPath::clean(JPATH_ROOT . DS . 'media' . DS . $tmpdir . DS);
+            $extractdir = JPath::clean(JPATH_ROOT . '/media/' . $tmpdir . '/' );
         } else {
-            $extractdir = JPath::clean($destination . DS . $tmpdir . DS);
+            $extractdir = JPath::clean($destination . '/' . $tmpdir . '/' );
         }
 
         //Unpack archive
@@ -547,8 +547,8 @@ class fileHandler
         $archivelist = array_merge(JFolder::files($extractdir, ''), JFolder::folders($extractdir, ''));
 
         if (count($archivelist) == 1) {
-            if (JFolder::exists($extractdir . DS . $archivelist[0])) {
-                $extractdir = JPath::clean($extractdir . DS . $archivelist[0]);
+            if (JFolder::exists($extractdir . '/' . $archivelist[0])) {
+                $extractdir = JPath::clean($extractdir . '/' . $archivelist[0]);
             }
         }
 
@@ -577,9 +577,9 @@ class fileHandler
         $this->extractDir = $tmpdir;
 
         if (!$destination) {
-            $extractDir = JPath::clean(JPATH_ROOT . DS . 'media' . DS . $tmpdir . DS);
+            $extractDir = JPath::clean(JPATH_ROOT . '/media/' . $tmpdir . '/' );
         } else {
-            $extractDir = JPath::clean($destination . DS . $tmpdir . DS);
+            $extractDir = JPath::clean($destination . '/' . $tmpdir . '/' );
         }
 
         // Create new zipfile
@@ -631,9 +631,9 @@ class fileHandler
 
         //Set destinatiopn
         if (!$destination) {
-            $copyDir = JPath::clean(JPATH_ROOT . DS . 'media' . DS . $tmpdir . DS);
+            $copyDir = JPath::clean(JPATH_ROOT . '/media/' . $tmpdir . '/' );
         } else {
-            $copyDir = JPath::clean($destination . DS . $tmpdir . DS);
+            $copyDir = JPath::clean($destination . '/' . $tmpdir . '/' );
         }
 
         mkdir($copyDir);
@@ -642,7 +642,7 @@ class fileHandler
         $this->extractDir = $tmpdir;
 
         //Add trailing slash to source path, clean function will remove it when unnecessary
-        $source = JPath::clean($source . DS);
+        $source = JPath::clean($source . '/' );
 
         //Check source directory
         if (!file_exists($source) OR !is_dir($source)) {
