@@ -359,8 +359,12 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 
         $srcFile = $files['tmp_name'];
-        // $srcFile = $fileInfo->tmp_name;
+        $dstFile = $files['name'];
+	    $fileType = $files['type'];
+	    $fileError = $files['error'];
+	    $fileSize = $files['size'];
 
+	    // $srcFile = $fileInfo->tmp_name;
 
 	    // $file_session_id = $input->get('session_id', 0, 'INT');
         $file_session_id = $input->get('session_id', '', 'STRING');
@@ -379,19 +383,23 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		    JLog::add('$gallery_id: "' . $gallery_id . '"');
 	    }
 
-	    $dst_folder = JPATH_ROOT . '/media/rsgallery2_' . $gallery_id . '_' . $file_session_id;
+	    $dstFolder = JPATH_ROOT . '/media/rsgallery2_' . $gallery_id . '_' . $file_session_id;
         // folder does not exist
-        if (!is_dir($dst_folder)) {
-            mkdir($dst_folder, 0755);
-            //echo "The directory $dst_folder was successfully created.";
+        if (!is_dir($dstFolder)) {
+            mkdir($dstFolder, 0755);
+            //echo "The directory $dstFolder was successfully created.";
             //exit;
-        } else { } //echo "The directory $dst_folder exists.";
+        } else { } //echo "The directory $dstFolder exists.";
 
-
-        if (is_dir($dst_folder)) {
-            if (move_uploaded_file ($srcFile, $dst_folder))
+		$dstFile = $dstFolder . '/' . $dstFile;
+        if (is_dir($dstFolder)) {
+            if (move_uploaded_file ($srcFile, $dstFile))
             {
-                echo '<b>Upload beendet!</b>';
+                echo '<b>Upload ok!</b>';
+            }
+            else
+            {
+	            echo '<b>Upload failed!</b>';
             }
 
         }
