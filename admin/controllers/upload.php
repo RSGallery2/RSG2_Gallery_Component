@@ -358,15 +358,23 @@ class Rsgallery2ControllerUpload extends JControllerForm
         }
 
 
-        $srcFile = $files['tmp_name'];
-        $dstFile = $files['name'];
+        $fileTmpName = $files['tmp_name'];
+        $fileName = $files['name'];
 	    $fileType = $files['type'];
 	    $fileError = $files['error'];
 	    $fileSize = $files['size'];
 
-	    // $srcFile = $fileInfo->tmp_name;
+        if ($Rsg2DebugActive)
+        {
+            // identify active file
+            JLog::add('$fileTmpName: "' . $fileTmpName . '"');
+            JLog::add('$fileName : "' . $fileName . '"');
+            JLog::add('$fileType: "' . $fileType . '"');
+            JLog::add('$fileError: "' . $fileError . '"');
+            JLog::add('$fileSize: "' . $fileSize . '"');
+        }
 
-	    // $file_session_id = $input->get('session_id', 0, 'INT');
+        // $file_session_id = $input->get('session_id', 0, 'INT');
         $file_session_id = $input->get('session_id', '', 'STRING');
         $session_id = JFactory::getSession();
 
@@ -391,9 +399,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
             //exit;
         } else { } //echo "The directory $dstFolder exists.";
 
-		$dstFile = $dstFolder . '/' . $dstFile;
+		$dstFile = $dstFolder . '/' . $fileName;
         if (is_dir($dstFolder)) {
-            if (move_uploaded_file ($srcFile, $dstFile))
+            if (move_uploaded_file ($fileTmpName, $dstFile))
             {
                 echo '<b>Upload ok!</b>';
             }
