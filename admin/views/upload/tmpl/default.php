@@ -670,7 +670,7 @@ CSS
                     echo $this->form->renderFieldset('upload_drag_and_drop');
                     ?>
 
-                    <legend><?php echo JText::_('COM_RSGALLERY2_DRAG_FILE_ZONE '); ?></legend>
+                    <legend><?php echo JText::_('COM_RSGALLERY2_DRAG_FILE_ZONE'); ?></legend>
 
                     <div id="uploader-wrapper">
                         <div id="dragarea" class="span6">
@@ -684,7 +684,7 @@ CSS
                                 <p>
                                     <button id="select-file-button" type="button" class="btn btn-success">
                                         <span class="icon-copy" aria-hidden="true"></span>
-                                        <?php echo JText::_('*COM_RSGALLERY2_SELECT_FILE'); ?>
+                                        <?php echo JText::_('COM_RSGALLERY2_SELECT_FILE'); ?>
                                     </button>
                                 </p>
                             </div>
@@ -697,10 +697,10 @@ CSS
                         <!--Action button-->
                         <div class="form-actions">
                             <button class="btn btn-primary" type="button" id="AssignUploadedFiles" onclick="Joomla.submitUploadDroppedFiles()"
-                                    title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_DROPPED_IMAGES_DESC'); ?>"
-                                <?php echo JText::_('COM_RSGALLERY2_UPLOAD_DROPPED_IMAGES'); ?>
+                                    title="<?php echo JText::_('COM_RSGALLERY2_ASSIGN_DROPPED_IMAGES_DESC'); ?>">
+                                <?php echo JText::_('COM_RSGALLERY2_ASSIGN_DROPPED_IMAGES'); ?>
                             </button>
-                        </div-->
+                        </div>
                     </div>
 
                     <div id="legacy-uploader" style="display: none;">
@@ -731,7 +731,7 @@ CSS
 
                     <div class="form-actions">
                         <a class="btn btn-primary" id="submitButtonSingle"
-                           title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>"
+                           title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_DESC'); ?> (legacy)"
                            href="index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">
                             <?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>
                         </a>
