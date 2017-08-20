@@ -80,7 +80,7 @@ If you have any suggestion please use the forum http://www.forum.rsgallery2.org
 
 There's a few ways you can get in touch:
 
-	Send us a post to team at rsgallery.org (correct address to match ...)
+	Send us a post to team2 at rsgallery2.org (correct address to match ...)
 
     Post bugs, issues, feature requests via GitHub Issues.
 
