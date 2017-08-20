@@ -225,7 +225,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
         {
             JoomlaInstaller.showLoading();
             // form.installtype.value = "upload"
-            form.task.value = 'upload.uploadDroppedFiles';
+            form.task.value = 'upload.AssignDroppedFiles';
             form.submit();
         }
     };
@@ -650,21 +650,6 @@ CSS
                 <fieldset class="uploadform">
                     <legend><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_MORE'); ?></legend>
 
-                    <div class="control-group">
-                        <div class="controls">
-                            <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
-                                <?php echo JText::_('COM_RSGALLERY2_UPLOAD_LIMIT_IS') . ' ' . $this->UploadLimit . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
-                            </div>
-                            <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
-                                <?php echo JText::_('COM_RSGALLERY2_POST_MAX_SIZE_IS') . ' ' . $this->PostMaxSize . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
-                            </div>
-                            <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
-                                <?php echo JText::_('COM_RSGALLERY2_POST_MEMORY_LIMIT_IS') . ' ' . $this->MemoryLimit . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
-                            </div>
-                        </div>
-                    </div>
-
-
                     <?php
                     // All in one, Specify gallery
                     echo $this->form->renderFieldset('upload_drag_and_drop');
@@ -696,7 +681,7 @@ CSS
 
                         <!--Action button-->
                         <div class="form-actions">
-                            <button class="btn btn-primary" type="button" id="AssignUploadedFiles" onclick="Joomla.submitUploadDroppedFiles()"
+                            <button class="btn btn-primary" type="button" id="AssignUploadedFiles" onclick="Joomla.submitAssignDroppedFiles()"
                                     title="<?php echo JText::_('COM_RSGALLERY2_ASSIGN_DROPPED_IMAGES_DESC'); ?>">
                                 <?php echo JText::_('COM_RSGALLERY2_ASSIGN_DROPPED_IMAGES'); ?>
                             </button>
@@ -740,6 +725,21 @@ CSS
                                 title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>"
                                 onclick="Joomla.submitButtonSingle()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?></button-->
                     </div>
+
+                    <div class="control-group">
+                        <div class="controls">
+                            <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
+				                <?php echo JText::_('COM_RSGALLERY2_UPLOAD_LIMIT_IS') . ' ' . $this->UploadLimit . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
+                            </div>
+                            <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
+				                <?php echo JText::_('COM_RSGALLERY2_POST_MAX_SIZE_IS') . ' ' . $this->PostMaxSize . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
+                            </div>
+                            <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
+				                <?php echo JText::_('COM_RSGALLERY2_POST_MEMORY_LIMIT_IS') . ' ' . $this->MemoryLimit . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
+                            </div>
+                        </div>
+                    </div>
+
                 </fieldset>
                 <?php echo JHtml::_('bootstrap.endTab'); ?>
 
@@ -818,7 +818,6 @@ CSS
                 <?php echo JHtml::_('bootstrap.endTabSet'); ?>
 
                 <input type="hidden" value="com_rsgallery2" name="option">
-                <input type="hidden" value="images" name="rsgOption">
                 <input type="hidden" value="0" name="boxchecked">
 
                 <input type="hidden" value="1" name="uploaded">

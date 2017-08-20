@@ -120,9 +120,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
                     $msgType = 'error';
                 }
 
-
-
-
             } catch (RuntimeException $e) {
                 $OutTxt = '';
                 $OutTxt .= 'Error executing uploadFromZip: "' . '<br>';
@@ -211,8 +208,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
                     $msgType = 'error';
                 }
 
-
-
             } catch (RuntimeException $e) {
                 $OutTxt = '';
                 $OutTxt .= 'Error executing uploadFromFtpFolder: "' . '<br>';
@@ -231,7 +226,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
     /**/
 
     /**
-     *
+     * Todo move to model
      *
      * @since 4.3
      */
@@ -247,8 +242,20 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
         // ToDO: check for user rights ...
 
-
-        /**
+//         JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+/**
+	    // Access check
+	    $canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
+	    if (!$canAdmin)
+	    {
+		    $msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+		    $msgType = 'warning';
+		    // replace newlines with html line breaks.
+		    str_replace('\n', '<br>', $msg);
+	    }
+	    else {
+/**/
+	    /**
         var fd = new FormData();
         fd.append('file', files[i]);
         data.append('upload_type', 'single');
@@ -493,6 +500,10 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
         /**/
     }
+
+
+
+
 
 }
 
