@@ -29,6 +29,7 @@ JHtml::_('bootstrap.tooltip');
               method="post" name="adminForm" id="adminForm" enctype="multipart/form-data"
               class="form-validate form-horizontal">
 
+            <legend><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_MORE'); ?></legend>
 
 
 
