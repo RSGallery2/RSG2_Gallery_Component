@@ -46,7 +46,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
     });
 
     /**/
-    Joomla.submitButtonSingle = function()
+    Joomla.submitbuttonManualFileSingle = function()
     {
         alert('Upload single images: legacy ...');
 
@@ -64,7 +64,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
     };
     /**/
 
-    Joomla.submitButtonZipPc = function () {
+    Joomla.submitbuttonManualFileZipPc = function () {
         var form = document.getElementById('adminForm');
 
         var zip_path = form.zip_file.value;
@@ -100,7 +100,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
         }
     };
 
-    Joomla.submitButtonZipPc2 = function () {
+    Joomla.submitbuttonManualFileZipPc2 = function () {
         var form = document.getElementById('adminForm');
 
         var zip_path = form.zip_file.value;
@@ -137,7 +137,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
         }
     };
 
-    Joomla.submitButtonFolderServer = function () {
+    Joomla.submitbuttonManualFileFolderServer = function () {
         var form = document.getElementById('adminForm');
 
         var GalleryId = jQuery('#SelectGalleries_02').chosen().val();
@@ -174,7 +174,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
         }
     };
 
-    Joomla.submitButtonFolderServer2 = function () {
+    Joomla.submitbuttonManualFileFolderServer2 = function () {
         var form = document.getElementById('adminForm');
 
         var GalleryId = jQuery('#SelectGalleries_02').chosen().val();
@@ -218,7 +218,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
         var form = document.getElementById("adminForm");
 
         // do field validation
-        if (form.manual_file_selection.value == "")
+        if (form.hidden_file_input.value == "")
         {
             alert("' . JText::_('PLG_INSTALLER_PACKAGEINSTALLER_NO_PACKAGE', true) . '");
         }
@@ -249,25 +249,28 @@ JFactory::getDocument()->addScriptDeclaration(
         }
         
         var dragZone  = $('#dragarea');
-         var fileInput = $('#manual_file_selection');
-        var button    = $('#select_manual_file');
+        var fileInput = $('#hidden_file_input');
+        var buttonManualFile    = $('#select_manual_file');
         var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile';
         var returnUrl = $('#installer-return').val();
         var token     = $('#installer-token').val();
         var gallery_id = $('#SelectGalleries_03').val();
          
-        button.on('click', function(e) {
+        buttonManualFile.on('click', function(e) {
+            alert('buttonManualFile.on click: '); // + JSON.stringify($(this)));
             fileInput.click();
         });
         
         fileInput.on('change', function (e) {
-//            Joomla.submitbuttonpackage();
+//            Joomla.submitbuttonManualFilepackage();
 			e.preventDefault();
 			e.stopPropagation();
 
             // files[0].name
 			var fileObj = $(this).files
-			alert('Onchange: ' + JSON.stringify(fileObj));
+			
+			//alert('Onchange: ' + JSON.stringify(fileObj));
+			alert('Onchange: ' + JSON.stringify($(this)));
 
 			
 			return;
@@ -275,7 +278,8 @@ JFactory::getDocument()->addScriptDeclaration(
 			// document.getElementById('upload').value;
 			alert('Onchange: ' + $(this).files[0].name);
 			 
-			var files[0] = fileObj;
+			var files = [];
+			files[0] = fileObj;
 			//if (!files.length) {
 			if (!files.length) {
 				return;
@@ -284,7 +288,7 @@ JFactory::getDocument()->addScriptDeclaration(
 			alert('handleFileUpload: ' + $(this).files[0].name);
 
 			//We need to send dropped files to Server
-		     handleFileUpload(files,dragZone);
+		    handleFileUpload(files,dragZone);
 
         });
 		
@@ -318,25 +322,24 @@ JFactory::getDocument()->addScriptDeclaration(
         });
         
         dragZone.on('drop', function(e) {        
-        $(this).css('border', '2px dotted #0B85A1');
-		e.preventDefault();
-		e.stopPropagation();
+            $(this).css('border', '2px dotted #0B85A1');
+			e.preventDefault();
+			e.stopPropagation();
+			
+			var files = e.originalEvent.target.files || e.originalEvent.dataTransfer.files;
+			if (!files.length) {
+				return;
+			}
 
-		var files = e.originalEvent.target.files || e.originalEvent.dataTransfer.files;
-
-		if (!files.length) {
-			return;
-		}
-
-       //We need to send dropped files to Server
-        handleFileUpload(files,dragZone);
+	       //We need to send dropped files to Server
+    	    handleFileUpload(files,dragZone);
         });
         
         
         $(document).on('dragenter', function (e) 
         {
-        e.stopPropagation();
-        e.preventDefault();
+            e.stopPropagation();
+            e.preventDefault();
         });
         $(document).on('dragover', function (e) 
         {
@@ -346,60 +349,60 @@ JFactory::getDocument()->addScriptDeclaration(
         });
         $(document).on('drop', function (e) 
         {
-        e.stopPropagation();
-        e.preventDefault();
+            e.stopPropagation();
+            e.preventDefault();
         });        
  
         var rowCount=0;
         function createStatusbar(obj)
         {
-        rowCount++;
-        var row="odd";
-        if(rowCount %2 ==0) {
+             rowCount++;
+             var row="odd";
+             if(rowCount %2 ==0) {
                 row ="even";
              }
-        this.statusbar = $("<div class='statusbar "+row+"'></div>");
-        this.filename = $("<div class='filename'></div>").appendTo(this.statusbar);
-        this.size = $("<div class='filesize'></div>").appendTo(this.statusbar);
-        this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
-        this.abort = $("<div class='abort'>Abort</div>").appendTo(this.statusbar);
-        obj.after(this.statusbar);
-        
-        this.setFileNameSize = function(name,size)
-        {
-        var sizeStr="";
-        var sizeKB = size/1024;
-        if(parseInt(sizeKB) > 1024)
-        {
-        var sizeMB = sizeKB/1024;
-        sizeStr = sizeMB.toFixed(2)+" MB";
-        }
-        else
-        {
-        sizeStr = sizeKB.toFixed(2)+" KB";
-        }
-        
-        this.filename.html(name);
-        this.size.html(sizeStr);
-        }
-        this.setProgress = function(progress)
-        { 
-        var progressBarWidth =progress*this.progressBar.width()/ 100; 
-        this.progressBar.find('div').animate({ width: progressBarWidth }, 10).html(progress + "%");
-        if(parseInt(progress) >= 100)
-        {
-        this.abort.hide();
-        }
-        }
-        this.setAbort = function(jqxhr)
-        {
-        var sb = this.statusbar;
-        this.abort.click(function()
-        {
+             this.statusbar = $("<div class='statusbar "+row+"'></div>");
+             this.filename = $("<div class='filename'></div>").appendTo(this.statusbar);
+             this.size = $("<div class='filesize'></div>").appendTo(this.statusbar);
+             this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
+             this.abort = $("<div class='abort'>Abort</div>").appendTo(this.statusbar);
+             obj.after(this.statusbar);
+         
+            this.setFileNameSize = function(name,size)
+            {
+                var sizeStr="";
+                var sizeKB = size/1024;
+                if(parseInt(sizeKB) > 1024)
+                {
+                    var sizeMB = sizeKB/1024;
+                    sizeStr = sizeMB.toFixed(2)+" MB";
+                }
+                else
+               {
+                   sizeStr = sizeKB.toFixed(2)+" KB";
+                }
+         
+                this.filename.html(name);
+               this.size.html(sizeStr);
+            }
+            this.setProgress = function(progress)
+            {       
+          var progressBarWidth =progress*this.progressBar.width()/ 100; 
+         this.progressBar.find('div').animate({ width: progressBarWidth }, 10).html(progress + "%");
+         if(parseInt(progress) >= 100)
+         {
+         this.abort.hide();
+          }
+         }
+         this.setAbort = function(jqxhr)
+         {
+         var sb = this.statusbar;
+         this.abort.click(function()
+         {
         jqxhr.abort();
         sb.hide();
-        });
-        }
+         });
+         }
         }
         
         function handleFileUpload(files,obj)
@@ -692,10 +695,10 @@ CSS
                                     <?php echo JText::_('COM_RSGALLERY2_DRAG_IMAGES_HERE'); ?>
                                 </p>
                                 <p>
-                                    <button id="select_manual_file" type="button" class="btn btn-success">
+                                    <buttonManualFile id="select_manual_file" type="buttonManualFile" class="btn btn-success">
                                         <span class="icon-copy" aria-hidden="true"></span>
                                         <?php echo JText::_('COM_RSGALLERY2_SELECT_FILE'); ?>
-                                    </button>
+                                    </buttonManualFile>
                                 </p>
                             </div>
                             <br><br>
@@ -704,35 +707,35 @@ CSS
                             </div>
                         </div>
 
-                        <!--Action button-->
+                        <!--Action buttonManualFile-->
                         <div class="form-actions">
-                            <button class="btn btn-primary" type="button" id="AssignUploadedFiles" onclick="Joomla.submitAssignDroppedFiles()"
+                            <buttonManualFile class="btn btn-primary" type="buttonManualFile" id="AssignUploadedFiles" onclick="Joomla.submitAssignDroppedFiles()"
                                     title="<?php echo JText::_('COM_RSGALLERY2_ASSIGN_DROPPED_IMAGES_DESC'); ?>">
                                 <?php echo JText::_('COM_RSGALLERY2_ASSIGN_DROPPED_IMAGES'); ?>
-                            </button>
+                            </buttonManualFile>
                         </div>
                     </div>
 
                     <div id="legacy-uploader" style="display: none;">
                         <div class="control-group">
-                            <label for="manual_file_selection" class="control-label"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_FILE'); ?></label>
+                            <label for="hidden_file_input" class="control-label"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_FILE'); ?></label>
                             <div class="controls">
-                                <input class="input_box" id="manual_file_selection" name="manual_file_selection" type="file" size="57" /><br>
+                                <input class="input_box" id="hidden_file_input" name="hidden_file_input" type="file" size="57" /><br>
                                 <?php echo JText::sprintf('JGLOBAL_MAXIMUM_UPLOAD_SIZE_LIMIT', $this->MaxSize); ?>
                             </div>
                             <div class="controls">
-                                <button class="btn btn-primary" type="button" id="TransferImageFile" onclick="Joomla.XsubmitTransferImageFile()"
+                                <buttonManualFile class="btn btn-primary" type="buttonManualFile" id="TransferImageFile" onclick="Joomla.XsubmitTransferImageFile()"
                                         title="<?php echo JText::_('COM_RSGALLERY2_TRANSFER_FILE_DESC'); ?>">
                                     <?php echo JText::_('COM_RSGALLERY2_TRANSFER_FILE'); ?>
-                                </button>
+                                </buttonManualFile>
                             </div>
                         </div>
 
                         <div class="form-actions">
-                            <button class="btn btn-primary" type="button" id="AssignUploadedFiles" onclick="Joomla.XsubmitAssignUploadedFiles()"
+                            <buttonManualFile class="btn btn-primary" type="buttonManualFile" id="AssignUploadedFiles" onclick="Joomla.XsubmitAssignUploadedFiles()"
                                 title="<?php echo JText::_('COM_RSGALLERY2_ASSIGN_UPLOADED_FILES_DESC'); ?>">
                                 <?php echo JText::_('COM_RSGALLERY2_ASSIGN_UPLOADED_FILES'); ?>
-                            </button>
+                            </buttonManualFile>
                         </div>
 
                         <input id="installer-return" name="return" type="hidden" value="<?php echo $return; ?>" />
@@ -740,15 +743,15 @@ CSS
                     </div>
 
                     <div class="form-actions">
-                        <a class="btn btn-primary" id="submitButtonSingle"
+                        <a class="btn btn-primary" id="submitbuttonManualFileSingle"
                            title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_DESC'); ?> (legacy)"
                            href="index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">
                             <?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>
                         </a>
-                        <!--label for="submitButtonSingle"><?php echo JText::_('COM_RSGALLERY2_LEGACY_UPLOAD_SINGLE_IMAGES'); ?></label>
-                        <button type="button" class="btn btn-primary"  id="submitButtonSingle"
+                        <!--label for="submitbuttonManualFileSingle"><?php echo JText::_('COM_RSGALLERY2_LEGACY_UPLOAD_SINGLE_IMAGES'); ?></label>
+                        <buttonManualFile type="buttonManualFile" class="btn btn-primary"  id="submitbuttonManualFileSingle"
                                 title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?>"
-                                onclick="Joomla.submitButtonSingle()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?></button-->
+                                onclick="Joomla.submitbuttonManualFileSingle()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'); ?></buttonManualFile-->
                     </div>
 
                     <div class="control-group">
@@ -797,12 +800,12 @@ CSS
                     echo $this->form->renderFieldset('upload_zip');
                     ?>
 
-                    <!-- Action button -->
+                    <!-- Action buttonManualFile -->
                     <div class="form-actions">
-                        <button type="button" class="btn btn-primary"
-                                onclick="Joomla.submitButtonZipPc()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE'); ?></button>
-                        <button type="button" class="btn btn-primary"
-                                onclick="Joomla.submitButtonZipPc2()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE'); ?> test</button>
+                        <buttonManualFile type="buttonManualFile" class="btn btn-primary"
+                                onclick="Joomla.submitbuttonManualFileZipPc()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE'); ?></buttonManualFile>
+                        <buttonManualFile type="buttonManualFile" class="btn btn-primary"
+                                onclick="Joomla.submitbuttonManualFileZipPc2()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE'); ?> test</buttonManualFile>
                     </div>
                 </fieldset>
                 <?php echo JHtml::_('bootstrap.endTab'); ?>
@@ -832,10 +835,10 @@ CSS
                     ?>
 
                     <div class="form-actions">
-                        <button type="button" class="btn btn-primary"
-                                onclick="Joomla.submitButtonFolderServer()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES'); ?></button>
-                        <button type="button" class="btn btn-primary"
-                                onclick="Joomla.submitButtonFolderServer2()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES'); ?> test</button>
+                        <buttonManualFile type="buttonManualFile" class="btn btn-primary"
+                                onclick="Joomla.submitbuttonManualFileFolderServer()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES'); ?></buttonManualFile>
+                        <buttonManualFile type="buttonManualFile" class="btn btn-primary"
+                                onclick="Joomla.submitbuttonManualFileFolderServer2()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES'); ?> test</buttonManualFile>
                     </div>
                 </fieldset>
                 <?php echo JHtml::_('bootstrap.endTab'); ?>

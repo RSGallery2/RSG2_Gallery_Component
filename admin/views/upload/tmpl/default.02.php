@@ -249,18 +249,18 @@ JFactory::getDocument()->addScriptDeclaration(
         }
         
         var dragZone  = $('#dragarea');
-        var manual_file = $('#manual_file_selection');
-        var button    = $('#manual_file');
+        var fileInput = $('#manual_file_selection');
+        var button    = $('#select_manual_file');
         var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile';
         var returnUrl = $('#installer-return').val();
         var token     = $('#installer-token').val();
         var gallery_id = $('#SelectGalleries_03').val();
          
         button.on('click', function(e) {
-            manual_file.click();
+            fileInput.click();
         });
         
-        manual_file.on('change', function (e) {
+        fileInput.on('change', function (e) {
 //            Joomla.submitbuttonpackage();
 			e.preventDefault();
 			e.stopPropagation();
@@ -283,8 +283,8 @@ JFactory::getDocument()->addScriptDeclaration(
 
 			alert('handleFileUpload: ' + $(this).files[0].name);
 
-       //We need to send dropped files to Server
-        handleFileUpload(files,dragZone);
+			//We need to send dropped files to Server
+		     handleFileUpload(files,dragZone);
 
         });
 		
@@ -294,7 +294,7 @@ JFactory::getDocument()->addScriptDeclaration(
             
             dragZone.addClass('hover');
         
-            return false;
+        return false;
         });
         
         // Notify user when file is over the drop area
@@ -327,8 +327,8 @@ JFactory::getDocument()->addScriptDeclaration(
 				return;
 			}
 
-            //We need to send dropped files to Server
-            handleFileUpload(arrayfiles,dragZone);
+	       //We need to send dropped files to Server
+    	    handleFileUpload(files,dragZone);
         });
         
         
@@ -449,7 +449,7 @@ JFactory::getDocument()->addScriptDeclaration(
         success: function(data){
         status.setProgress(100);
         
-        //$("#status1").append("File upload Done<br>");
+        //$("#status1").append("File upload Done<br>"); 
         }
         }); 
         
@@ -460,7 +460,6 @@ JFactory::getDocument()->addScriptDeclaration(
             
              */
             
-handleFileUpload            
 			//JoomlaInstaller.showLoading();
 			
         var jqXHR=$.ajax({
@@ -586,7 +585,7 @@ JFactory::getDocument()->addStyleDeclaration(
     vertical-align:top;
     }
 
-   .progressBar div {
+    .progressBar div {
     height: 100%;
     color: #fff;
     text-align: right;
@@ -692,7 +691,7 @@ CSS
                                     <?php echo JText::_('COM_RSGALLERY2_DRAG_IMAGES_HERE'); ?>
                                 </p>
                                 <p>
-                                    <button id="manual_file" type="button" class="btn btn-success">
+                                    <button id="select_manual_file" type="button" class="btn btn-success">
                                         <span class="icon-copy" aria-hidden="true"></span>
                                         <?php echo JText::_('COM_RSGALLERY2_SELECT_FILE'); ?>
                                     </button>
