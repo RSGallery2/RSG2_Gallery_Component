@@ -6,7 +6,7 @@
  * RSGallery is Free Software
  */
 
-// Used jomla upda as example and //http://hayageek.com/drag-and-drop-file-upload-jquery/
+// Used joomla update as example and //http://hayageek.com/drag-and-drop-file-upload-jquery/
 // upload.php gist: https://gist.github.com/karmicdice/e4d6bde183e13c14091d
 // http://us3.php.net/move_uploaded_file
 // show image http://jsfiddle.net/revathskumar/kGYc7/
@@ -212,12 +212,13 @@ $return = JFactory::getApplication()->input->getBase64('return');
         }
     };
 
+    /**
     Joomla.submitUploadDroppedFiles = function () {
 
         var form = document.getElementById("adminForm");
 
         // do field validation
-        if (form.install_package.value == "")
+        if (form.manual_file_selection.value == "")
         {
             alert("' . JText::_('PLG_INSTALLER_PACKAGEINSTALLER_NO_PACKAGE', true) . '");
         }
@@ -229,7 +230,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
             form.submit();
         }
     };
-
+    /**/
 
 </script>
 
@@ -248,8 +249,8 @@ JFactory::getDocument()->addScriptDeclaration(
         }
         
         var dragZone  = $('#dragarea');
-        var fileInput = $('#install_package');
-        var button    = $('#select-file-button');
+         var fileInput = $('#manual_file_selection');
+        var button    = $('#select_manual_file');
         var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile';
         var returnUrl = $('#installer-return').val();
         var token     = $('#installer-token').val();
@@ -260,7 +261,31 @@ JFactory::getDocument()->addScriptDeclaration(
         });
         
         fileInput.on('change', function (e) {
-            Joomla.submitbuttonpackage();
+//            Joomla.submitbuttonpackage();
+			e.preventDefault();
+			e.stopPropagation();
+
+            // files[0].name
+			var fileObj = $(this).files
+			alert('Onchange: ' + JSON.stringify(fileObj));
+
+			
+			return;
+			
+			// document.getElementById('upload').value;
+			alert('Onchange: ' + $(this).files[0].name);
+			 
+			var files[0] = fileObj;
+			//if (!files.length) {
+			if (!files.length) {
+				return;
+			}
+
+			alert('handleFileUpload: ' + $(this).files[0].name);
+
+			//We need to send dropped files to Server
+		     handleFileUpload(files,dragZone);
+
         });
 		
         dragZone.on('dragenter', function(e) {
@@ -293,25 +318,25 @@ JFactory::getDocument()->addScriptDeclaration(
         });
         
         dragZone.on('drop', function(e) {        
-             $(this).css('border', '2px dotted #0B85A1');
-			e.preventDefault();
-			e.stopPropagation();
+        $(this).css('border', '2px dotted #0B85A1');
+		e.preventDefault();
+		e.stopPropagation();
 
-			var files = e.originalEvent.target.files || e.originalEvent.dataTransfer.files;
- 
-			if (!files.length) {
-				return;
-			}
+		var files = e.originalEvent.target.files || e.originalEvent.dataTransfer.files;
 
-            //We need to send dropped files to Server
-            handleFileUpload(files,dragZone);
+		if (!files.length) {
+			return;
+		}
+
+       //We need to send dropped files to Server
+        handleFileUpload(files,dragZone);
         });
         
         
         $(document).on('dragenter', function (e) 
         {
-            e.stopPropagation();
-            e.preventDefault();
+        e.stopPropagation();
+        e.preventDefault();
         });
         $(document).on('dragover', function (e) 
         {
@@ -321,115 +346,115 @@ JFactory::getDocument()->addScriptDeclaration(
         });
         $(document).on('drop', function (e) 
         {
-            e.stopPropagation();
-            e.preventDefault();
+        e.stopPropagation();
+        e.preventDefault();
         });        
  
         var rowCount=0;
         function createStatusbar(obj)
         {
-             rowCount++;
-             var row="odd";
-             if(rowCount %2 ==0) {
+        rowCount++;
+        var row="odd";
+        if(rowCount %2 ==0) {
                 row ="even";
              }
-             this.statusbar = $("<div class='statusbar "+row+"'></div>");
-             this.filename = $("<div class='filename'></div>").appendTo(this.statusbar);
-             this.size = $("<div class='filesize'></div>").appendTo(this.statusbar);
-             this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
-             this.abort = $("<div class='abort'>Abort</div>").appendTo(this.statusbar);
-             obj.after(this.statusbar);
-         
-            this.setFileNameSize = function(name,size)
-            {
-                var sizeStr="";
-                var sizeKB = size/1024;
-                if(parseInt(sizeKB) > 1024)
-                {
-                    var sizeMB = sizeKB/1024;
-                    sizeStr = sizeMB.toFixed(2)+" MB";
-                }
-                else
-                {
-                    sizeStr = sizeKB.toFixed(2)+" KB";
-                }
-         
-                this.filename.html(name);
-                this.size.html(sizeStr);
-            }
-            this.setProgress = function(progress)
-            {       
-                var progressBarWidth =progress*this.progressBar.width()/ 100;  
-                this.progressBar.find('div').animate({ width: progressBarWidth }, 10).html(progress + "% ");
-                if(parseInt(progress) >= 100)
-                {
-                    this.abort.hide();
-                }
-            }
-            this.setAbort = function(jqxhr)
-            {
-                var sb = this.statusbar;
-                this.abort.click(function()
-                {
-                    jqxhr.abort();
-                    sb.hide();
-                });
-            }
+        this.statusbar = $("<div class='statusbar "+row+"'></div>");
+        this.filename = $("<div class='filename'></div>").appendTo(this.statusbar);
+        this.size = $("<div class='filesize'></div>").appendTo(this.statusbar);
+        this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
+        this.abort = $("<div class='abort'>Abort</div>").appendTo(this.statusbar);
+        obj.after(this.statusbar);
+        
+        this.setFileNameSize = function(name,size)
+        {
+        var sizeStr="";
+        var sizeKB = size/1024;
+        if(parseInt(sizeKB) > 1024)
+        {
+        var sizeMB = sizeKB/1024;
+        sizeStr = sizeMB.toFixed(2)+" MB";
+        }
+        else
+        {
+        sizeStr = sizeKB.toFixed(2)+" KB";
+        }
+        
+        this.filename.html(name);
+        this.size.html(sizeStr);
+        }
+        this.setProgress = function(progress)
+        { 
+        var progressBarWidth =progress*this.progressBar.width()/ 100; 
+        this.progressBar.find('div').animate({ width: progressBarWidth }, 10).html(progress + "%");
+        if(parseInt(progress) >= 100)
+        {
+        this.abort.hide();
+        }
+        }
+        this.setAbort = function(jqxhr)
+        {
+        var sb = this.statusbar;
+        this.abort.click(function()
+        {
+        jqxhr.abort();
+        sb.hide();
+        });
+        }
         }
         
         function handleFileUpload(files,obj)
         {
-           for (var i = 0; i < files.length; i++) 
-           {
-                var data = new FormData();
-                data.append('upload_file', files[i]);
+        for (var i = 0; i < files.length; i++) 
+        {
+        var data = new FormData();
+        data.append('upload_file', files[i]);
     			data.append('upload_type', 'single');
     			data.append('session_id', token);
     			data.append('gallery_id', gallery_id);
-         
-                var status = new createStatusbar(obj); //Using this we can set progress.
-                status.setFileNameSize(files[i].name,files[i].size);
+        
+        var status = new createStatusbar(obj); //Using this we can set progress.
+        status.setFileNameSize(files[i].name,files[i].size);
  
-                sendFileToServer(data, status);       
-           }
+        sendFileToServer(data, status);      
+        }
         }        
 
         function sendFileToServer(formData,status)
         {
             /**
-            var uploadURL ="http://tomfinnern.de/examples/jquery/drag-drop-file-upload/upload.php"; //Upload URL
-            var extraData ={}; //Extra Data.
-            var jqXHR=$.ajax({
-                xhr: function() {
-                    var xhrobj = $.ajaxSettings.xhr();
-                    if (xhrobj.upload) {
-                        xhrobj.upload.addEventListener('progress', function(event) {
-                            var percent = 0;
-                            var position = event.loaded || event.position;
-                            var total = event.total;
-                            if (event.lengthComputable) {
-                                percent = Math.ceil(position / total * 100);
-                            }
-                            //Set progress
-                            status.setProgress(percent);
-                        }, false);
-                    }
-                    return xhrobj;
-                },
-                url: uploadURL,
-                type: "POST",
-                contentType:false,
-                processData: false,
-                cache: false,
-                data: formData,
-                success: function(data){
-                    status.setProgress(100);
-         
-                    //$("#status1").append("File upload Done<br>");           
-                }
-            }); 
-         
-            status.setAbort(jqXHR);
+        var uploadURL ="http://tomfinnern.de/examples/jquery/drag-drop-file-upload/upload.php"; //Upload URL
+        var extraData ={}; //Extra Data.
+        var jqXHR=$.ajax({
+    xhr: function() {
+        var xhrobj = $.ajaxSettings.xhr();
+        if (xhrobj.upload) {
+    xhrobj.upload.addEventListener('progress', function(event) {
+    var percent = 0;
+    var position = event.loaded || event.position;
+    var total = event.total;
+    if (event.lengthComputable) {
+    percent = Math.ceil(position / total * 100);
+    }
+    //Set progress
+    status.setProgress(percent);
+    }, false);
+    }
+        return xhrobj;
+        },
+        url: uploadURL,
+        type: "POST",
+        contentType:false,
+        processData: false,
+        cache: false,
+        data: formData,
+        success: function(data){
+        status.setProgress(100);
+        
+        //$("#status1").append("File upload Done<br>"); 
+        }
+        }); 
+        
+        status.setAbort(jqXHR);
             /**/
             
             /*=========================================================
@@ -438,37 +463,37 @@ JFactory::getDocument()->addScriptDeclaration(
             
 			//JoomlaInstaller.showLoading();
 			
-            var jqXHR=$.ajax({
-                xhr: function() {
-                    var xhrobj = $.ajaxSettings.xhr();
-                    if (xhrobj.upload) {
-                        xhrobj.upload.addEventListener('progress', function(event) {
-                            var percent = 0;
-                            var position = event.loaded || event.position;
-                            var total = event.total;
-                            if (event.lengthComputable) {
-                                percent = Math.ceil(position / total * 100);
-                            }
-                            //Set progress
-                            status.setProgress(percent);
-                        }, false);
-                    }
-                    return xhrobj;
-                },
-                url: urlSingle,
-                type: "POST",
-                contentType:false,
-                processData: false,
-                cache: false,
-                data: formData,
-                success: function(data){
-                    status.setProgress(100);
-         
-                    //$("#status1").append("File upload Done<br>");           
-                }
-            }); 
-         
-            status.setAbort(jqXHR);
+        var jqXHR=$.ajax({
+    xhr: function() {
+        var xhrobj = $.ajaxSettings.xhr();
+        if (xhrobj.upload) {
+    xhrobj.upload.addEventListener('progress', function(event) {
+    var percent = 0;
+    var position = event.loaded || event.position;
+    var total = event.total;
+    if (event.lengthComputable) {
+    percent = Math.ceil(position / total * 100);
+    }
+    //Set progress
+    status.setProgress(percent);
+    }, false);
+    }
+        return xhrobj;
+        },
+        url: urlSingle,
+        type: "POST",
+        contentType:false,
+        processData: false,
+        cache: false,
+        data: formData,
+        success: function(data){
+        status.setProgress(100);
+        
+        //$("#status1").append("File upload Done<br>"); 
+        }
+        }); 
+        
+        status.setAbort(jqXHR);
 			
             
             /*=========================================================
@@ -551,35 +576,35 @@ JFactory::getDocument()->addStyleDeclaration(
     }
     
     .progressBar {
-        width: 200px;
-        height: 22px;
-        border: 1px solid #ddd;
-        border-radius: 5px; 
-        overflow: hidden;
-        display:inline-block;
-        margin:0px 10px 5px 5px;
-        vertical-align:top;
+    width: 200px;
+    height: 22px;
+    border: 1px solid #ddd;
+    border-radius: 5px; 
+    overflow: hidden;
+    display:inline-block;
+    margin:0px 10px 5px 5px;
+    vertical-align:top;
     }
- 
+
     .progressBar div {
-        height: 100%;
-        color: #fff;
-        text-align: right;
-        line-height: 22px; /* same as #progressBar height if we want text middle aligned */
-        width: 0;
-        background-color: #0ba1b5; border-radius: 3px; 
+    height: 100%;
+    color: #fff;
+    text-align: right;
+    line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+    width: 0;
+    background-color: #0ba1b5; border-radius: 3px; 
     }
     
     .statusbar {
-        border-top:1px solid #A9CCD1;
-        min-height:25px;
-        width:700px;
-        padding:10px 10px 0px 10px;
-        vertical-align:top;
+    border-top:1px solid #A9CCD1;
+    min-height:25px;
+    width:700px;
+    padding:10px 10px 0px 10px;
+    vertical-align:top;
     }
     
     .statusbar:nth-child(odd) {
-        background:#EBEFF0;
+    background:#EBEFF0;
     }
     
     .filename {
@@ -598,16 +623,16 @@ JFactory::getDocument()->addStyleDeclaration(
     }
     
     .abort {
-        background-color:#A8352F;
-        -moz-border-radius:4px;
-        -webkit-border-radius:4px;
-        border-radius:4px;display:inline-block;
-        color:#fff;
-        font-family:arial;font-size:13px;font-weight:normal;
-        padding:4px 15px;
-        cursor:pointer;
-        vertical-align:top
-    }
+    background-color:#A8352F;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    border-radius:4px;display:inline-block;
+    color:#fff;
+    font-family:arial;font-size:13px;font-weight:normal;
+    padding:4px 15px;
+    cursor:pointer;
+    vertical-align:top
+ }
     
 
 
@@ -667,7 +692,7 @@ CSS
                                     <?php echo JText::_('COM_RSGALLERY2_DRAG_IMAGES_HERE'); ?>
                                 </p>
                                 <p>
-                                    <button id="select-file-button" type="button" class="btn btn-success">
+                                    <button id="select_manual_file" type="button" class="btn btn-success">
                                         <span class="icon-copy" aria-hidden="true"></span>
                                         <?php echo JText::_('COM_RSGALLERY2_SELECT_FILE'); ?>
                                     </button>
@@ -690,9 +715,9 @@ CSS
 
                     <div id="legacy-uploader" style="display: none;">
                         <div class="control-group">
-                            <label for="install_package" class="control-label"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_FILE'); ?></label>
+                            <label for="manual_file_selection" class="control-label"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_FILE'); ?></label>
                             <div class="controls">
-                                <input class="input_box" id="install_package" name="install_package" type="file" size="57" /><br>
+                                <input class="input_box" id="manual_file_selection" name="manual_file_selection" type="file" size="57" /><br>
                                 <?php echo JText::sprintf('JGLOBAL_MAXIMUM_UPLOAD_SIZE_LIMIT', $this->MaxSize); ?>
                             </div>
                             <div class="controls">
