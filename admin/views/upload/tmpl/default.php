@@ -19,6 +19,8 @@ defined('_JEXEC') or die();
 $doc = JFactory::getDocument();
 $doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/views/upload/css/upload.css');
 
+//echo 'JURI_SITE: "' . JURI_SITE . '"';
+
 JHtml::_('bootstrap.tooltip');
 //JHtml::_('formbehavior.chosen', 'select');
 JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold' => 3));
@@ -214,27 +216,10 @@ $return = JFactory::getApplication()->input->getBase64('return');
         }
     };
 
-    /**
-     Joomla.submitUploadDroppedFiles = function () {
-
-        var form = document.getElementById("adminForm");
-
-        // do field validation
-        if (form.hidden_file_input.value == "")
-        {
-            alert("' . JText::_('PLG_INSTALLER_PACKAGEINSTALLER_NO_PACKAGE', true) . '");
-        }
-        else
-        {
-            JoomlaInstaller.showLoading();
-            // form.installtype.value = "upload"
-            form.task.value = 'upload.AssignDroppedFiles';
-            form.submit();
-        }
-    };
-     /**/
-
-
+    //--------------------------------------------------------------------------------------
+    // drop files
+    //--------------------------------------------------------------------------------------
+    
     jQuery(document).ready(function ($) {
 
         // ToDO: Test following with commenting out
