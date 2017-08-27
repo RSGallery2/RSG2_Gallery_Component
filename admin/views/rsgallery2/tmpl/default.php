@@ -21,11 +21,7 @@ if ($Rsg2DebugActive) {
     jimport('joomla.log.log');
 
     // identify active file
-//    JLog::add('==> rsgallery2 view.php');
-}
-
-if ($Rsg2DebugActive) {
-    JLog::add('    (D01) ');
+//    JLog::add('==> rsgallery2 default.php');
 }
 
 
@@ -220,24 +216,9 @@ function DisplayInfoRsgallery2($Rsg2Version)
 	return;
 }
 
-if ($Rsg2DebugActive) {
-    JLog::add('    (D02) ');
-}
-
 /**/
 $doc = JFactory::getDocument();
-//$doc->addStyleSheet(JPATH_COMPONENT_ADMINISTRATOR . "/template.css");
-$doc->addStyleSheet(URI_RSG2_ADMIN . "/css/ControlPanel.css");
-if ($Rsg2DebugActive) {
-    JLog::add('    JURI_SITE: ' . JURI_SITE . "/css/ControlPanel.css");
-    JLog::add('    URI_RSG2_ADMIN: ' .URI_RSG2_ADMIN . "/css/ControlPanel.css");
-}
-
-/**/
-
-if ($Rsg2DebugActive) {
-    JLog::add('    (D03) ');
-}
+$doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/css/ControlPanel.css');
 
 ?>
 
@@ -247,15 +228,7 @@ if ($Rsg2DebugActive) {
 	<div id="j-sidebar-container" class="span2">
 		<?php
 
-        if ($Rsg2DebugActive) {
-            JLog::add('    (D04) ');
-        }
-
         echo $this->sidebar;
-
-        if ($Rsg2DebugActive) {
-            JLog::add('    (D05) ');
-        }
 
         ?>
 	</div>
@@ -273,7 +246,7 @@ if ($Rsg2DebugActive) {
 							//$link = 'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig';
 							$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;task=config.edit';
 							RsgIconMoonButton($link, 'icon-equalizer clsProperties', JText::_('COM_RSGALLERY2_CONFIGURATION'));
-						}
+				}
 
 						//$link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
 						$link = 'index.php?option=com_rsgallery2&view=galleries';
@@ -388,10 +361,5 @@ if ($Rsg2DebugActive) {
 		</div>
 
 </form>
-
-<?php
-if ($Rsg2DebugActive) {
-JLog::add('    (D14) ');
-}
 
 
