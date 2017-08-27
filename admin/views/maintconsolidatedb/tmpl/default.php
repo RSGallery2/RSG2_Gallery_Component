@@ -11,17 +11,14 @@ defined('_JEXEC') or die();
 // ToDo: remove all JHtml::_('behavior.tooltip'); use JHtml::_('bootstrap.tooltip');
 // JHtml::_('behavior.tooltip');
 JHtml::_('bootstrap.tooltip');
-
-/**/
-$doc = JFactory::getDocument();
-$doc->addStyleSheet(JURI_SITE . "administrator/components/com_rsgallery2/css/maintConsolidateDB.css");
-/**/
+JHtml::_('formbehavior.chosen', 'select');
 
 global $Rsg2DebugActive;
 
-JHtml::_('formbehavior.chosen', 'select');
 
+/**/
 $doc = JFactory::getDocument();
+$doc->addStyleSheet(JURI::root(true) . "administrator/components/com_rsgallery2/css/maintConsolidateDB.css");
 $doc->addStyleSheet(JURI::root(true) . "/administrator/components/com_rsgallery2/css/ConsolidateDb.css");
 
 ?>

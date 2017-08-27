@@ -13,7 +13,7 @@ JHtml::_('bootstrap.tooltip');
 // ToDo: Activate tooltips on every button
 
 $doc = JFactory::getDocument();
-$doc->addStyleSheet(JURI::root(true) . "/administrator/components/com_rsgallery2/css/Maintenance.css");
+$doc->addStyleSheet(JURI::root(true) . '/administrator/components/com_rsgallery2/css/Maintenance.css');
 
 // Purge / delete of database variables should be confirmed 
 $script = "
