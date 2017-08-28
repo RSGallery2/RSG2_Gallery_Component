@@ -69,25 +69,38 @@ $return = JFactory::getApplication()->input->getBase64('return');
 
     /**/
     Joomla.submitAssignDroppedFiles = function () {
-        alert('submitAssignDroppedFiles:  ...');
+//        alert('submitAssignDroppedFiles:  ...');
+        var form = document.getElementById('adminForm');
 
+        alert('01');
         var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_01"]:checked').val();
-        var GalleryId = jQuery('#SelectGalleries_01').chosen().val();
+
+        alert('02');
+        var GalleryId1 = jQuery('#SelectGalleries_03')
+        alert('02b');
+        var GalleryId1 = jQuery('#SelectGalleries_03').chosen();
+        alert('02c');
+        var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
 
         // Is invalid gallerId selected ?
 //        if (bOneGalleryName4All && (GalleryId < 1)) {
 //            alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
 //        }
 //        else {
-
             // yes transfer files ...
-            form.task.value = 'uploadFileProperties'; // upload.uploadZipFile
+        alert('03');
+            form.task.value = 'uploadFileProperties.assignDroppedImages'; // upload.uploadZipFile
+        alert('03a');
             form.batchmethod.value = '';
+        alert('03b');
             form.ftppath.value = "";
             form.xcat.value = GalleryId;
             form.selcat.value = bOneGalleryName4All;
 
+        alert('04');
             jQuery('#loading').css('display', 'block');
+            alert('submitAssignDroppedFiles:  ...');
+
             form.submit();
 //        }
     };
@@ -97,8 +110,8 @@ $return = JFactory::getApplication()->input->getBase64('return');
         var form = document.getElementById('adminForm');
 
         var zip_path = form.zip_file.value;
-        var GalleryId = jQuery('#SelectGalleries_01').chosen().val();
-        var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_01"]:checked').val();
+        var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
+        var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_03"]:checked').val();
 //		var OutTxt = ''
 //			+ 'GalleryId1: ' + GalleryId + '\r\n'
 //			+ 'bOneGalleryName4All: ' + bOneGalleryName4All + '\r\n'
@@ -134,7 +147,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
 
         var zip_path = form.zip_file.value;
         var GalleryId = jQuery('#SelectGalleries_01').chosen().val();
-        var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_01"]:checked').val();
+        var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_03"]:checked').val();
 //		var OutTxt = ''
 //			+ 'GalleryId1: ' + GalleryId + '\r\n'
 //			+ 'bOneGalleryName4All: ' + bOneGalleryName4All + '\r\n'

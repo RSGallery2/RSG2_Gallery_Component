@@ -32,7 +32,7 @@ JHtml::_('bootstrap.tooltip');
             <legend><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_MORE'); ?></legend>
 
             <?php
-            foreach($this_files AS $file) {
+            foreach($this->fileData as $file) {
                 echo 'File found: :"' . $file . '<br>';
             }
             ?>

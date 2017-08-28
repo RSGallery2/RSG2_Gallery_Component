@@ -54,5 +54,39 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
     }
 
 
+    public function assignDroppedImages ()
+    {
+	    global $Rsg2DebugActive;
+
+	    if($Rsg2DebugActive)
+	    {
+		    JLog::add('==> ctrl.maintenance.php/function Cancel');
+	    }
+
+	    $msg     = "controller.assignDroppedImages: ";
+	    $msgType = 'notice';
+
+	    $canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
+	    if (!$canAdmin)
+	    {
+		    //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+		    $msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+		    $msgType = 'warning';
+		    // replace newlines with html line breaks.
+		    str_replace('\n', '<br>', $msg);
+
+		    $this->setRedirect('index.php?option=com_rsgallery2&view=upload', $msg, $msgType);
+	    }
+	    else
+	    {
+
+		    $msg = 'assignDroppedImages';
+		    $this->setRedirect('index.php?option=com_rsgallery2&view=UploadFileProperties', $msg);
+	    }
+
+    }
+
+
+
 }
 
