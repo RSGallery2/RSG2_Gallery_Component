@@ -56,9 +56,20 @@ class rsgallery2ModeluploadFileProperties extends JModelList
 	// $files = scandir($path);
     // $files = array_diff(scandir($path), array('.', '..'));
 
+    public function RetrieveFileData ($galleryId=0, $file_session_id)
+    {
+        $files = array ();
 
+        // try ...
 
+        $dstFolder = JPATH_ROOT . '/media/rsgallery2_' . $galleryId . '_' . $file_session_id;
+        // folder does exist
+        if (is_dir($dstFolder)) {
+            $files = array_diff(scandir($dstFolder), array('.', '..'));
+        }
 
+        return $files;
+    }
 
 }
 

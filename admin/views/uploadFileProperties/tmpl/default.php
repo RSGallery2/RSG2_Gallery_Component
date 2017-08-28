@@ -31,9 +31,11 @@ JHtml::_('bootstrap.tooltip');
 
             <legend><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_MORE'); ?></legend>
 
-
-
-
+            <?php
+            foreach($this_files AS $file) {
+                echo 'File found: :"' . $file . '<br>';
+            }
+            ?>
 
             <input type="hidden" value="com_rsgallery2" name="option">
             <input type="hidden" value="" name="task">

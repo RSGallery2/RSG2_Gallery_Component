@@ -33,7 +33,11 @@ class Rsgallery2ViewUploadFileProperties extends JViewLegacy
 
 	//protected $rsgConfigData;
 	protected $UserIsRoot;
-	protected $galleryId;
+
+    protected $galleryId;
+    protected $fileSessionId;
+    protected $isInOneGallery;
+    protected $fileData; // array of files information
 
 	/**
 	 * @var ImageReferences
@@ -74,12 +78,14 @@ class Rsgallery2ViewUploadFileProperties extends JViewLegacy
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot();
 
+        //Retrieve data from submit form
+        $input = JFactory::getApplication()->input;
+        $this->isInOneGallery = $input->get('isInOneGallery', null, 'INT');
+        $this->galleryId = $input->get('GalleryId', null, 'INT');
+        $this->fileSessionId= $input->get('session_id', '', 'STRING');
 
-		$this->galleryId = 0;
-
-
-//		$filePropertiesModel      = JModelLegacy::getInstance('UploadFileProperties', 'rsgallery2Model');
-//		$this->ImageReferences = $ConsolidateModel->GetImageReferences();
+		$filePropertiesModel = JModelLegacy::getInstance('UploadFileProperties', 'rsgallery2Model');
+		$this->fileData = $filePropertiesModel->RetrieveFileData ($this->galleryId, $this->fileSessionId);
 
 		// echo json_encode($this->DisplayImageData);
 

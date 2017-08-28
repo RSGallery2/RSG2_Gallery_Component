@@ -66,7 +66,32 @@ $return = JFactory::getApplication()->input->getBase64('return');
         jQuery('#loading').css('display', 'block');
         form.submit();
     };
+
     /**/
+    Joomla.submitAssignDroppedFiles = function () {
+        alert('submitAssignDroppedFiles:  ...');
+
+        var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_01"]:checked').val();
+        var GalleryId = jQuery('#SelectGalleries_01').chosen().val();
+
+        // Is invalid gallerId selected ?
+//        if (bOneGalleryName4All && (GalleryId < 1)) {
+//            alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
+//        }
+//        else {
+
+            // yes transfer files ...
+            form.task.value = 'uploadFileProperties'; // upload.uploadZipFile
+            form.batchmethod.value = '';
+            form.ftppath.value = "";
+            form.xcat.value = GalleryId;
+            form.selcat.value = bOneGalleryName4All;
+
+            jQuery('#loading').css('display', 'block');
+            form.submit();
+//        }
+    };
+
 
     Joomla.submitbuttonManualFileZipPc = function () {
         var form = document.getElementById('adminForm');
