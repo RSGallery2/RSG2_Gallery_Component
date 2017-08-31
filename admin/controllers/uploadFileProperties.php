@@ -79,8 +79,18 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 	    }
 	    else
 	    {
+            //form.xcat.value = GalleryId;
+            //form.selcat.value = bOneGalleryName4All;
 
-		    $msg = 'assignDroppedImages';
+            //Retrieve data from submit form
+            $input = JFactory::getApplication()->input;
+            //$this->isInOneGallery = $input->get('isInOneGallery', null, 'INT');
+            $this->isInOneGallery = $input->get('selcat', null, 'INT');
+            //$this->galleryId = $input->get('GalleryId', null, 'INT');
+            $this->galleryId = $input->get('xcat', null, 'INT');
+            $this->fileSessionId= $input->get('session_id', '', 'STRING');
+
+            $msg = 'assignDroppedImages';
 		    $this->setRedirect('index.php?option=com_rsgallery2&view=UploadFileProperties', $msg);
 	    }
 
