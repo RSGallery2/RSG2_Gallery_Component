@@ -81,8 +81,13 @@ class Rsgallery2ViewUploadFileProperties extends JViewLegacy
         //Retrieve data from submit form
         $input = JFactory::getApplication()->input;
         $this->isInOneGallery = $input->get('isInOneGallery', null, 'INT');
-        $this->galleryId = $input->get('GalleryId', null, 'INT');
-        $this->fileSessionId= $input->get('session_id', '', 'STRING');
+        $this->galleryId = $input->get('galleryId', null, 'INT');
+        $this->fileSessionId= $input->get('sessionId', '', 'STRING');
+
+        echo '$galleryId = "'      . $this->galleryId      . '"<br>';
+        echo '$fileSessionId = "'  . $this->fileSessionId  . '"<br>';
+        echo '$isInOneGallery = "' . $this->isInOneGallery . '"<br>';
+        echo '<br>';
 
 		$filePropertiesModel = JModelLegacy::getInstance('UploadFileProperties', 'rsgallery2Model');
 		$this->fileData = $filePropertiesModel->RetrieveFileData ($this->galleryId, $this->fileSessionId);

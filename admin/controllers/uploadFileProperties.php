@@ -81,17 +81,29 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 	    {
             //form.xcat.value = GalleryId;
             //form.selcat.value = bOneGalleryName4All;
+            $session = JFactory::getSession();
+            $actSessionId = $session->getId();
+
 
             //Retrieve data from submit form
             $input = JFactory::getApplication()->input;
+            $remoteSessionId = $input->get('return', '', 'STRING');
+            echo $actSessionId . '<br>';
+            echo $remoteSessionId . '<br> <br> <br> <br>';
+
             //$this->isInOneGallery = $input->get('isInOneGallery', null, 'INT');
             $this->isInOneGallery = $input->get('selcat', null, 'INT');
             //$this->galleryId = $input->get('GalleryId', null, 'INT');
             $this->galleryId = $input->get('xcat', null, 'INT');
-            $this->fileSessionId= $input->get('session_id', '', 'STRING');
+            //$this->fileSessionId = $input->get('session_id', '', 'STRING');
+            $this->fileSessionId = $input->get('return', '', 'STRING');
 
             $msg = 'assignDroppedImages';
-		    $this->setRedirect('index.php?option=com_rsgallery2&view=UploadFileProperties', $msg);
+		    $this->setRedirect('index.php?option=com_rsgallery2&view=UploadFileProperties'
+                . '&isInOneGallery=' . $this->isInOneGallery
+                . '&galleryId=' . $this->galleryId
+                . '&sessionId=' . $this->fileSessionId
+                , $msg);
 	    }
 
     }

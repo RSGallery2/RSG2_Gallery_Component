@@ -72,14 +72,14 @@ $return = JFactory::getApplication()->input->getBase64('return');
 //        alert('submitAssignDroppedFiles:  ...');
         var form = document.getElementById('adminForm');
 
-        alert('01');
-        var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_01"]:checked').val();
+//(        alert('01');
+        var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_03"]:checked').val();
 
-        alert('02');
-        var GalleryId1 = jQuery('#SelectGalleries_03')
-        alert('02b');
-        var GalleryId1 = jQuery('#SelectGalleries_03').chosen();
-        alert('02c');
+//        alert('02 bOneGalleryName4All: ' + bOneGalleryName4All);
+//        var GalleryId1 = jQuery('#SelectGalleries_03')
+//       alert('02b');
+//        var GalleryId1 = jQuery('#SelectGalleries_03').chosen();
+//        alert('02c');
         var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
 
         // Is invalid gallerId selected ?
@@ -88,18 +88,18 @@ $return = JFactory::getApplication()->input->getBase64('return');
 //        }
 //        else {
             // yes transfer files ...
-        alert('03');
+//        alert('03');
             form.task.value = 'uploadFileProperties.assignDroppedImages'; // upload.uploadZipFile
-        alert('03a');
+//        alert('03a');
             form.batchmethod.value = '';
-        alert('03b');
+//        alert('03b');
             form.ftppath.value = "";
             form.xcat.value = GalleryId;
             form.selcat.value = bOneGalleryName4All;
 
-        alert('04');
+//        alert('04');
             jQuery('#loading').css('display', 'block');
-            alert('submitAssignDroppedFiles:  ...');
+//            alert('submitAssignDroppedFiles:  ...');
 
             form.submit();
 //        }
@@ -407,6 +407,10 @@ $return = JFactory::getApplication()->input->getBase64('return');
         }
 
         function handleFileUpload(files, obj) {
+
+            // ToDo: On first file upload disable gallery change and isone .. change
+
+            // All files selected by user
             for (var i = 0; i < files.length; i++) {
                 var data = new FormData();
                 data.append('upload_file', files[i]);
