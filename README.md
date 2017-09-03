@@ -29,23 +29,23 @@ An overview can be seen on the wiki of this component
 
 
 
-#Site: Gallery view
+# Site: Gallery view
 
 ![lovelocksgallery 01](https://cloud.githubusercontent.com/assets/7040580/10307011/60de773e-6c2b-11e5-8008-1061454e6720.png)
 
-#Backend: Control Panel
+# Backend: Control Panel
 
 ![rsgallery2controlpanel](https://cloud.githubusercontent.com/assets/7040580/15866364/8ce88422-2cde-11e6-8119-86ed585bfcfc.png)
 
-#Backend: Maintenance
+# Backend: Maintenance
 
 ![rsgallery2maintenance 02](https://cloud.githubusercontent.com/assets/7040580/15866405/bcb2bb96-2cde-11e6-828f-3952e4fe6cb7.png)
 
-#Backend: Gallery list
+# Backend: Gallery list
 
 ![manageGalleries](https://cloud.githubusercontent.com/assets/7040580/21498906/47f6dd8a-cc31-11e6-9a2a-173f87546d12.png)
 
-#Backend: Image list
+# Backend: Image list
 
 ![manageImages](https://cloud.githubusercontent.com/assets/7040580/21499132/56c17b8e-cc33-11e6-8f7b-235b8da22bf6.png)
 
@@ -57,7 +57,6 @@ http://www.rsgallery2.org/
 
 Active forum in http://www.forum.rsgallery2.org/
 
-
 ## History
 Incomplete (Gathered or imagined by me, Thomas Finnern)
 
@@ -65,12 +64,13 @@ The project started in the mambo days and got really big in J!1.5. Due to reason
 
 Mirjam got the version running under J!2.5 and did a great Job supporting user on the forum. While starting to upgrade for J!3x she got a baby and does only user maintenance now. I finished her task. (First rsgallery2 version for J!3.x 16.04.2015)
 
-Actual (Oct. 2016) the forum was moved to forum.rsgallery2.org and a new landing page rsgallery.org was created.
+In Oct. 2016 the forum was moved to forum.rsgallery2.org and a the web page rsgallery.org was created.
+It is planned that from January 2018 on the backend runs completely on ¨new¨ software and is faster.
 
 ...   To be continued ;-)
 
 ## Actual state:
-The components are released for Joomla! 3.x
+sThe components are released for Joomla! 3.x
 The software is regularly evolving and changing.
 We are in a continuous process to improve parts here and there.
 If you have any suggestion please use the forum http://www.forum.rsgallery2.org
