@@ -25,27 +25,26 @@ An overview can be seen on the wiki of this component
 
 ## Documentation
 
-%To be filled out%
+First partsof the documentation (still a bit raw) can be found at http://rsgallery2.org/index.php/documentation
+The menu "Documentation" may be used to reduce the information to one section of the documentation
 
-
-
-# Site: Gallery view
+## Site: Gallery view
 
 ![lovelocksgallery 01](https://cloud.githubusercontent.com/assets/7040580/10307011/60de773e-6c2b-11e5-8008-1061454e6720.png)
 
-# Backend: Control Panel
+## Backend: Control Panel
 
 ![rsgallery2controlpanel](https://cloud.githubusercontent.com/assets/7040580/15866364/8ce88422-2cde-11e6-8119-86ed585bfcfc.png)
 
-# Backend: Maintenance
+## Backend: Maintenance
 
 ![rsgallery2maintenance 02](https://cloud.githubusercontent.com/assets/7040580/15866405/bcb2bb96-2cde-11e6-828f-3952e4fe6cb7.png)
 
-# Backend: Gallery list
+## Backend: Gallery list
 
 ![manageGalleries](https://cloud.githubusercontent.com/assets/7040580/21498906/47f6dd8a-cc31-11e6-9a2a-173f87546d12.png)
 
-# Backend: Image list
+## Backend: Image list
 
 ![manageImages](https://cloud.githubusercontent.com/assets/7040580/21499132/56c17b8e-cc33-11e6-8f7b-235b8da22bf6.png)
 
