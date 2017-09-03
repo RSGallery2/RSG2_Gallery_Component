@@ -62,11 +62,17 @@ class rsgallery2ModeluploadFileProperties extends JModelList
 
         // try ...
 
-        $dstFolder = JPATH_ROOT . '/media/rsgallery2_' . $galleryId . '_' . $file_session_id;
+        $srcFolder = JPATH_ROOT . '/media/rsgallery2_' . $galleryId . '_' . $file_session_id;
+        $srcUri = JURI::root() . 'media/rsgallery2_' . $galleryId . '_' . $file_session_id;
         // folder does exist
-        if (is_dir($dstFolder)) {
-            $files = array_diff(scandir($dstFolder), array('.', '..'));
+        if (is_dir($srcFolder)) {
+            $foundFiles = array_diff(scandir($srcFolder), array('.', '..'));
         }
+
+        foreach ($foundFiles as $file)
+	    {
+		    $files[] = $srcUri . '/' . $file;
+	    }
 
         return $files;
     }
