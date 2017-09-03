@@ -157,7 +157,8 @@ class Rsgallery2ViewUploadFileProperties extends JViewLegacy
 		// Title
 		JToolBarHelper::title(JText::_('COM_RSGALLERY2_ASSIGN_UPLOADED_FILES'), 'icon-database icon-checkbox-checked');
 
-		JToolBarHelper::custom('UploadFileProperties.assign2gallery', 'upload', 'upload', 'COM_RSGALLERY2_UPLOAD', false);
+		//JToolBarHelper::custom('UploadFileProperties.assign2gallery', 'upload', 'upload', 'COM_RSGALLERY2_UPLOAD', false);
+		JToolBarHelper::save('UploadFileProperties.assign2gallery');
 
 		//JToolBarHelper::custom ('UploadFileProperties.deleteReferences','delete-2','','COM_RSGALLERY2_ASSIGN_SELECTED_GALLLERIES', true);
 		//JToolBarHelper::custom ('UploadFileProperties..','next','','COM_RSGALLERY2_MOVE_TO', true);

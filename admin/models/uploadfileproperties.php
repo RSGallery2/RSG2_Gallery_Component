@@ -59,6 +59,7 @@ class rsgallery2ModeluploadFileProperties extends JModelList
     public function RetrieveFileData ($galleryId=0, $file_session_id)
     {
         $files = array ();
+	    $foundFiles = array ();
 
         // try ...
 
