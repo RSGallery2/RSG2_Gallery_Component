@@ -69,18 +69,17 @@ It is planned that from January 2018 on the backend runs completely on ¨new¨ s
 ...   To be continued ;-)
 
 ## Actual state:
-The components are released for Joomla! 3.x
-The software is regularly evolving and changing.
-We are in a continuous process to improve parts here and there.
-If you run in any troubles or suggestion please use the forum http://www.forum.rsgallery2.org
-or you may use the issues functionality on github  https://github.com/RSGallery2/RSGallery2_Component/issues
-
+* The components are released for Joomla! 3.x
+* The software is regularly evolving and changing.
+* We are in a continuous process to improve parts here and there.
+* If you run in any troubles or suggestion please use the forum http://www.forum.rsgallery2.org
+  or you may use the issues functionality on github  https://github.com/RSGallery2/RSGallery2_Component/issues
 
 # Want to Contribute?
 
 There's a few ways you can get in touch:
 
-	* Send us a post to team2 at rsgallery2.org (correct address to match ...)
+    * Send us a post to team2 at rsgallery2.org (correct address to match ...)
     * Post bugs, issues, feature requests via GitHub Issues.
     * Pull & Fork on GitHub if you want to get your hands dirty.
 
