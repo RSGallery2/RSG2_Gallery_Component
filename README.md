@@ -69,28 +69,32 @@ It is planned that from January 2018 on the backend runs completely on ¨new¨ s
 ...   To be continued ;-)
 
 ## Actual state:
-sThe components are released for Joomla! 3.x
+The components are released for Joomla! 3.x
 The software is regularly evolving and changing.
 We are in a continuous process to improve parts here and there.
-If you have any suggestion please use the forum http://www.forum.rsgallery2.org
+If you run in any troubles or suggestion please use the forum http://www.forum.rsgallery2.org
+or you may use the issues functionality on github  https://github.com/RSGallery2/RSGallery2_Component/issues
 
 
 # Want to Contribute?
 
 There's a few ways you can get in touch:
 
-	Send us a post to team2 at rsgallery2.org (correct address to match ...)
-
-    Post bugs, issues, feature requests via GitHub Issues.
-
-    Pull & Fork on GitHub if you want to get your hands dirty.
+	* Send us a post to team2 at rsgallery2.org (correct address to match ...)
+    * Post bugs, issues, feature requests via GitHub Issues.
+    * Pull & Fork on GitHub if you want to get your hands dirty.
 
 And please let us know if you use RSGallery2. We are keen to understand how you'd like to use it and if there's anything you'd like to see in future releases.
 
 # Help is welcome
 
 If you like the project and want to give something back, please help out other users in the forums and share your code.
-
 RSGallery2 is a project run by volunteers. People who just love Joomla! and this gallery component. So RSGallery2 needs you!
+How? 
+* By reporting bugs and problems in the forum
+* By answering questions of other users on the forum
+* By submitting fixes for bugs, 
+* By writing documentation... 
 
-How? By reporting bugs and problems in the forum, by answering questions of other users on the forum, by submitting fixes for bugs, by writing documentation... where? On www.rsgallery2.org !
+Just send a message to team2 and you will be a member of the RSGallery2 team
+   ==> team2 at rsgallery2.org (correct address to match ...)
