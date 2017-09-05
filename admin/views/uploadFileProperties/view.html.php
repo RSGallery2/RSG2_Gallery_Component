@@ -122,8 +122,8 @@ class Rsgallery2ViewUploadFileProperties extends JViewLegacy
         //		$this->form = $form;
         */
 
-//		$xmlFile    = JPATH_COMPONENT . '/models/forms/UploadFileProperties.xml';
-//		$this->form = JForm::getInstance('images', $xmlFile);
+		$xmlFile    = JPATH_COMPONENT . '/models/forms/UploadFileProperties.xml';
+		$this->form = JForm::getInstance('UploadFileProperties', $xmlFile);
 
         // different toolbar on different layouts
         $Layout = JFactory::getApplication()->input->get('layout');

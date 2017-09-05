@@ -107,7 +107,7 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
         */
 
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/maintConsolidateDB.xml';
-		$this->form = JForm::getInstance('images', $xmlFile);
+		$this->form = JForm::getInstance('maintConsolidateDB', $xmlFile);
 
         // different toolbar on different layouts
         $Layout = JFactory::getApplication()->input->get('layout');
