@@ -114,19 +114,17 @@ JHtml::_('bootstrap.tooltip');
 
                                 <?php else : ?>
                                     <!-- One gallery for all. Disable input -->
-                                    <div class="control-group">
-                                        <label class="control-label" for="galleryID"><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?>(2)</label>
-                                        <div class="controls">
-                                            <input type="text" name="galleryID" placeholder="Email" style="max-width: 90%; "  disabled>
-                                        </div>
-                                    </div>
-
                                     <?php
                                     // Specify parent gallery selection
                                     echo "yyyy: " . $this->form->renderFieldset('GallerySelectDisabled');
                                     ?>
 
                                 <?php endif; ?>
+
+
+
+
+
 
                                 <div class="control-group">
                                     <label class="control-label" for="descr[]"><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION'); ?></label>

@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form enctype="multipart/form-data">
 	<fieldset name="GallerySelect">
+
+
+		<field
+				name="fileName[]"
+				type="text"
+				label="COM_RSGALLERY2_NAME"
+				description="COM_RSGALLERY2_IMAGE_NAME"
+				class="input-large-text input-xxlarge"
+				size="120"
+				required="true"
+		/>
+		<field
+				name="title"
+				type="text"
+				label="JGLOBAL_TITLE"
+				description="COM_RSGALLERY2_IMAGE_NAME"
+				class="input-large-text input-xxlarge"
+				size="120"
+				required="true"
+		/>
+
+
+
 		<!-- Gallery selection -->
 		<field
 				name="galleryId[]"
@@ -13,5 +36,33 @@
 				multiple="false"
 				size="1"
 		/>
+
+
 	</fieldset>
+
+
+	<fieldset name="GallerySelectDisabled">
+
+		<!-- Gallery selection -->
+		<field
+				name="galleryId[]"
+				type="GallerySelectList"
+				disabled="true"
+				label="COM_RSGALLERY2_SELECT_GALLERY"
+				description="COM_RSGALLERY2_SELECT_GALLERY_DESC"
+				required="true"
+				class="inputbox"
+				addfieldpath="/administrator/components/com_rsgallery2/models/fields"
+				multiple="false"
+				size="1"
+		/>
+
+	</fieldset>
+
+
+
+
+
+
+
 </form>
