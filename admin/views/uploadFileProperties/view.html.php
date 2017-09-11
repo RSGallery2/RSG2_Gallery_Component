@@ -37,22 +37,7 @@ class Rsgallery2ViewUploadFileProperties extends JViewLegacy
     protected $galleryId;
     protected $fileSessionId;
     protected $isInOneGallery;
-    protected $fileData; // array of files information
-
-	/**
-	 * @var ImageReferences
-	 */
-	protected $ImageReferences;
-
-	/**
-	 * protected $IsHeaderActive4DB;
-	 * protected $IsHeaderActive4Display;
-	 * protected $IsHeaderActive4Original;
-	 * protected $IsHeaderActive4Thumb;
-	 * protected $IsHeaderActive4Parent;
-	 * /**/
-
-//	protected $IsAnyDbRefMissing; // header
+    protected $fileData; // array of files information (fileUrls, fileNames, filePathNames)
 
 	//------------------------------------------------
 	/**
@@ -89,43 +74,27 @@ class Rsgallery2ViewUploadFileProperties extends JViewLegacy
         echo '$isInOneGallery = "' . $this->isInOneGallery . '"<br>';
         echo '<br>';
 
+		// array of files information (fileUrls, fileNames, filePathNames)
 		$filePropertiesModel = JModelLegacy::getInstance('UploadFileProperties', 'rsgallery2Model');
 		$this->fileData = $filePropertiesModel->RetrieveFileData ($this->galleryId, $this->fileSessionId);
-
-		// echo json_encode($this->DisplayImageData);
-
-		/*
-                global $rsgConfig;
-                // $this->rsgConfigData = $rsgConfig;
-                $this->imageWidth = $rsgConfig->get('image_width');
-                $this->thumbWidth = $rsgConfig->get('thumb_width');
-
-
-                //--- begin to display --------------------------------------------
-
-        //		Rsg2Helper::addSubMenu('rsg2');
-
-                // Check for errors.
-                if (count($errors = $this->get('Errors')))
-                {
-                    JError::raiseError(500, implode('<br />', $errors));
-                    return false;
-                }
-
-                // Assign the Data
-                // $this->form = $form;
-
-                // different toolbar on different layouts
-                // $Layout = JFactory::getApplication()->input->get('layout');
-
-                // Assign the Data
-        //		$this->form = $form;
-        */
 
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/UploadFileProperties.xml';
 		$this->form = JForm::getInstance('UploadFileProperties', $xmlFile);
 
-        // different toolbar on different layouts
+		$this->form->bind($this->fileData->fileUrls);
+		$this->form->bind($this->fileData->fileNames);
+
+		/**
+		foreach ($data as $key => $value) {
+			$jform->setValue($key, $group, $value); // Setzt die Daten aus das Formular, benötigt aber halt leider diese Gruppe dafür.
+		}
+		/**/
+		echo '$this->fileData->titles: "' . json_encode ($this->fileData->titles) . '<br><br>';
+		$this->form->bind($this->fileData->titles);
+		$this->form->bind($this->fileData->descriptions);
+		$this->form->bind($this->fileData->filePathNames);
+
+		// different toolbar on different layouts
         $Layout = JFactory::getApplication()->input->get('layout');
 		$this->addToolbar($this->UserIsRoot); //$Layout);
 

@@ -58,7 +58,13 @@ class rsgallery2ModeluploadFileProperties extends JModelList
 
     public function RetrieveFileData ($galleryId=0, $file_session_id)
     {
-        $files = array ();
+	    $fileData = new stdClass();
+	    $fileUrls = array ();
+	    $fileNames = array (); // short name with extension
+	    $filePathNames = array (); // complete path
+	    $titles = array (); // short name with extension
+	    $descriptions  = array ();
+
 	    $foundFiles = array ();
 
         // try ...
@@ -70,12 +76,31 @@ class rsgallery2ModeluploadFileProperties extends JModelList
             $foundFiles = array_diff(scandir($srcFolder), array('.', '..'));
         }
 
+        $Idx = 0;
         foreach ($foundFiles as $file)
 	    {
-		    $files[] = $srcUri . '/' . $file;
+		    $fileUrls[] = $srcUri . '/' . $file;
+		    $fileNames[] = $file; // short name with extension
+		    $filePathNames[] = $srcFolder . '/' . $file; // complete path
+		    $title ['titles[]'] = $file;
+		    //$title ['titles[' . $Idx . ']'] = $file;
+		    $titles[] = $title;
+
+		    $descriptions ['descriptions[]'] = $srcUri . '/' . $file;
+		    //$descriptions ['descriptions[]'][$Idx] = $srcUri . '/' . $file; -> html code
+		    //$descriptions ['descriptions'][$Idx] = $srcUri . '/' . $file;
+
+		    $Idx++;
 	    }
 
-        return $files;
+	    // Return values
+	    $fileData->fileUrls  = $fileUrls;
+	    $fileData->fileNames = $fileNames;
+	    $fileData->titles = $titles;
+	    $fileData->descriptions = $descriptions;
+	    $fileData->filePathNames = $filePathNames;
+
+        return $fileData;
     }
 
 }

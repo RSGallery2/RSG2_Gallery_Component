@@ -1,11 +1,46 @@
 
 
 .thumbnail img {
-    margin-top: 2.5%;
-    max-width: 90%;
-    border-radius: 5px;
-    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+    margin-top: 2.5%; /**/
+/*    max-width: 90%; /**/
+/*    border-radius: 5px; /**/
+/* object-fit: contain; /**/
+/*    height: auto; /**/
+/*    height: 150px; /**/
+/*    max-height: 150px; /**/
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5); /**/
 }
+
+/**
+.maxwidth_90percent {
+    max-width: 90%;
+}
+/**/
+
+/**
+
+.widthSet {
+    max-width: 100px;
+}
+
+.heightSet {
+    max-height: 100px;
+}
+
+
+.imgKeepHeight {
+    width: auto;
+    max-height: 100%;
+}
+
+.imgKeepWidth {
+    width: 100%;
+    height: auto;
+}
+
+
+
+
 /**
 .rsg-container {
     position: absolute;

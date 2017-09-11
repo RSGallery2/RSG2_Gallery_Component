@@ -16,6 +16,10 @@ $doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/vie
 JHtml::_('bootstrap.tooltip');
 
 //JText::script('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN');
+
+//echo 'Test: "' . json_encode ($this->form);
+
+
 ?>
 
 <div id="uploadFileProperties" class="clearfix">
@@ -34,7 +38,7 @@ JHtml::_('bootstrap.tooltip');
 
             <legend><?php echo JText::_('COM_RSGALLERY2_PROPERTIES_UPLOADED_FILES'); ?></legend>
 
-	        <?php if (empty($this->fileData)) : ?>
+	        <?php if (empty($this->fileData->fileUrls)) : ?>
 
                 <div class="alert">
                     <?php echo JText::_('COM_RSGALLERY2_NO_FILES_FOUND_TO_PROCESS'); ?>
@@ -54,7 +58,7 @@ JHtml::_('bootstrap.tooltip');
                                          style="width: 200px; height: 180px; max-width: 90%; ">
                                 </div>
                                 <div class="caption" >
-                                    <small><?php echo basename($file);?>"</small><br>
+                                    <small><?php echo basename($file);?></small><br>
                                     Title:
                                     <br>
                                     Gallery:
@@ -76,19 +80,20 @@ JHtml::_('bootstrap.tooltip');
 
                 <ul class="thumbnails">
 
-                    <?php foreach($this->fileData as $file) : ?>
+                    <?php foreach($this->fileData->fileUrls as $file) : ?>
 
                         <li class="span3">
                             <div class="thumbnail">
                                 <div class='rsg-container'>
                                     <!--img data-src="holder.js/200x180" src="<?php echo $file; ?>" class="img-polaroid rsg-image" alt=""
                                          style="width: 200px; height: 180px; max-width: 90%; "-->
-                                    <img data-src="holder.js/200x180" src="<?php echo $file; ?>" class="img-rounded" alt=""
-                                         style="width: 200px; height: 180px; max-width: 90%; ">
+                                    <!--img data-src="holder.js/200x180" src="<?php echo $file; ?>" class="img-rounded" alt=""
+                                         style="width: 200px; height: 180px; max-width: 90%; "-->
+                                    <img data-src="holder.js/200x180" src="<?php echo $file; ?>" class="img-rounded" alt="">
                                 </div>
 
                                 <div class="caption" >
-                                    <small><?php echo basename($file);?>"</small><br>
+                                    <small><?php echo basename($file);?></small><br>
                                 </div>
 
                                 <div class="control-group">
@@ -101,18 +106,17 @@ JHtml::_('bootstrap.tooltip');
 
                                 <?php if (empty($this->isInOneGallery)) : ?>
                                     <!-- Seperate gallery for each image -->
-                                    <!--div class="control-group" >
+                                    <div class="control-group" >
                                         <label class="control-label" for="galleryId"><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?>(1)</label>
                                         <div class="controls">
                                             <input type="text" name="galleryId" style="max-width: 90%; " value="?<?php echo $this->galleryId;?>?">
                                         </div>
-                                    </div-->
+                                    </div>
 
-                                    <?php
+                                    <!--?php
                                     // Specify parent gallery selection
                                     echo $this->form->renderFieldset('GallerySelect');
-                                    ?>
-
+                                    ?-->
 
                                 <?php else : ?>
                                     <!-- One gallery for all. Disable input -->
@@ -138,7 +142,7 @@ JHtml::_('bootstrap.tooltip');
                                 </div>
 
 
-                                <input  type="hidden" name="FileName[]" value="?<?php echo $file ;?>?">
+                                <!--input  type="hidden" name="FileName[]" value="?<?php echo $file ;?>?"-->
 
                             </div>
                         </li>

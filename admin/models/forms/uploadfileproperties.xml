@@ -41,7 +41,7 @@
                 type="textarea"
                 default="default"
                 label="Enter some html"
-                description=""
+				description=""
                 rows="10"
                 cols="5"
                 filter="raw"
@@ -100,11 +100,4 @@
         />
 
     </fieldset>
-
-
-
-
-
-
-
 </form>
