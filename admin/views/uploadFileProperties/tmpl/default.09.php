@@ -81,9 +81,7 @@ JHtml::_('bootstrap.tooltip');
                         <li class="span3">
                             <div class="thumbnail">
                                 <div class='rsg-container'>
-                                    <!--img data-src="holder.js/200x180" src="<?php echo $file; ?>" class="img-polaroid rsg-image" alt=""
-                                         style="width: 200px; height: 180px; max-width: 90%; "-->
-                                    <img data-src="holder.js/200x180" src="<?php echo $file; ?>" class="img-rounded" alt=""
+                                    <img data-src="holder.js/200x180" src="<?php echo $file; ?>" class="img-polaroid rsg-image" alt=""
                                          style="width: 200px; height: 180px; max-width: 90%; ">
                                 </div>
 
@@ -101,16 +99,16 @@ JHtml::_('bootstrap.tooltip');
 
                                 <?php if (empty($this->isInOneGallery)) : ?>
                                     <!-- Seperate gallery for each image -->
-                                    <!--div class="control-group" >
-                                        <label class="control-label" for="galleryId"><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?>(1)</label>
+                                    <div class="control-group" >
+                                        <label class="control-label" for="galleryID"><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?>(1)</label>
                                         <div class="controls">
-                                            <input type="text" name="galleryId" style="max-width: 90%; " value="?<?php echo $this->galleryId;?>?">
+                                            <input type="text" name="galleryID" style="max-width: 90%; " value="?<?php echo $this->galleryId;?>?">
                                         </div>
-                                    </div-->
+                                    </div>
 
                                     <?php
                                     // Specify parent gallery selection
-                                    echo $this->form->renderFieldset('GallerySelect');
+                                    echo $this->form->renderFieldset('maintConsolidateDB');
                                     ?>
 
 
@@ -122,11 +120,6 @@ JHtml::_('bootstrap.tooltip');
                                             <input type="text" name="galleryID" placeholder="Email" style="max-width: 90%; "  disabled>
                                         </div>
                                     </div>
-
-                                    <?php
-                                    // Specify parent gallery selection
-                                    echo "yyyy: " . $this->form->renderFieldset('GallerySelectDisabled');
-                                    ?>
 
                                 <?php endif; ?>
 

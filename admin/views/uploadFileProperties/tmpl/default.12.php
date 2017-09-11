@@ -81,9 +81,7 @@ JHtml::_('bootstrap.tooltip');
                         <li class="span3">
                             <div class="thumbnail">
                                 <div class='rsg-container'>
-                                    <!--img data-src="holder.js/200x180" src="<?php echo $file; ?>" class="img-polaroid rsg-image" alt=""
-                                         style="width: 200px; height: 180px; max-width: 90%; "-->
-                                    <img data-src="holder.js/200x180" src="<?php echo $file; ?>" class="img-rounded" alt=""
+                                    <img data-src="holder.js/200x180" src="<?php echo $file; ?>" class="img-polaroid rsg-image" alt=""
                                          style="width: 200px; height: 180px; max-width: 90%; ">
                                 </div>
 

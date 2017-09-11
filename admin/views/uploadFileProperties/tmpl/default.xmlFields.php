@@ -91,13 +91,13 @@ JHtml::_('bootstrap.tooltip');
                                     <small><?php echo basename($file);?>"</small><br>
                                 </div>
 
-                                <div class="control-group">
+                                <!--div class="control-group">
                                     <label class="control-label" for="title[]"><?php echo JText::_('COM_RSGALLERY2_TITLE'); ?></label>
                                     <div class="controls">
-                                        <!--input type="text" id="inputEmail" placeholder="Email"-->
+                                        <!--input type="text" id="inputEmail" placeholder="Email"-- >
                                         <input name="title[]" size="15" aria-invalid="false" type="text" style="max-width: 90%; ">
                                     </div>
-                                </div>
+                                </div-->
 
                                 <?php if (empty($this->isInOneGallery)) : ?>
                                     <!-- Seperate gallery for each image -->
@@ -116,13 +116,6 @@ JHtml::_('bootstrap.tooltip');
 
                                 <?php else : ?>
                                     <!-- One gallery for all. Disable input -->
-                                    <div class="control-group">
-                                        <label class="control-label" for="galleryID"><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?>(2)</label>
-                                        <div class="controls">
-                                            <input type="text" name="galleryID" placeholder="Email" style="max-width: 90%; "  disabled>
-                                        </div>
-                                    </div>
-
                                     <?php
                                     // Specify parent gallery selection
                                     echo "yyyy: " . $this->form->renderFieldset('GallerySelectDisabled');
@@ -130,15 +123,15 @@ JHtml::_('bootstrap.tooltip');
 
                                 <?php endif; ?>
 
-                                <div class="control-group">
+                                <!-- div class="control-group">
                                     <label class="control-label" for="descr[]"><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION'); ?></label>
                                     <div class="controls">
                                         <textarea cols="15" rows="" name="descr[]" style="max-width: 90%; " placeholder="Text input"></textarea>
                                     </div>
-                                </div>
+                                </div-->
 
 
-                                <input  type="hidden" name="FileName[]" value="?<?php echo $file ;?>?">
+                                <!--input  type="hidden" name="FileName[]" value="?<?php echo $file ;?>?"-->
 
                             </div>
                         </li>
