@@ -146,17 +146,17 @@ JHtml::_('bootstrap.tooltip');
                                 <div class="control-group">
                                     <label class="control-label" for="descrX[]"><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION'); ?></label>
                                     <div class="controls">
-                                        <textarea cols="15" rows="" name="descrX[]" style="max-width: 90%; "
+                                        <textarea cols="15" rows="" name="descriptionX[]" style="max-width: 90%; "
                                                   placeholder="Text input"><?php echo '(' . $Idx . ')';?></textarea>
                                     </div>
                                 </div>
+
+                                <input  type="hidden" name="FileNameX[]" value="?<?php echo $file ;?>?">
 
                                 <?php
                                 // Specify parent gallery selection
                                 echo $this->form->renderFieldset('GallerySelect');
                                 ?>
-
-                                <!--input  type="hidden" name="FileName[]" value="?<?php echo $file ;?>?"-->
 
                             </div>
                         </li>

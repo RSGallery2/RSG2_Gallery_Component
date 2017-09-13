@@ -112,6 +112,59 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
     {
         // Get input ...
 
+	    global $Rsg2DebugActive;
+
+	    if($Rsg2DebugActive)
+	    {
+		    JLog::add('==> ctrl.maintenance.php/function Cancel');
+	    }
+
+	    $msg     = "controller.assignDroppedImages: ";
+	    $msgType = 'notice';
+
+	    $canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
+	    if (!$canAdmin)
+	    {
+		    //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+		    $msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+		    $msgType = 'warning';
+		    // replace newlines with html line breaks.
+		    str_replace('\n', '<br>', $msg);
+
+		    $this->setRedirect('index.php?option=com_rsgallery2&view=upload', $msg, $msgType);
+	    }
+	    else
+	    {
+
+
+		    //Retrieve data from submit form
+		    $input           = JFactory::getApplication()->input;
+		    $remoteSessionId = $input->get('return', '', 'STRING');
+		    // echo $actSessionId . '<br>';
+		    echo $remoteSessionId . '<br> <br> <br> <br>';
+
+		    //$this->isInOneGallery = $input->get('isInOneGallery', null, 'INT');
+		    $isInOneGallery = $input->get('selcat', null, 'INT');
+		    //$this->galleryId = $input->get('GalleryId', null, 'INT');
+		    //$this->fileSessionId = $input->get('session_id', '', 'STRING');
+		    $this->fileSessionId = $input->get('return', '', 'STRING');
+
+
+		    FileNameX
+
+		    titleX
+
+		    galleryIdX
+		    $galleryIds = $input->get('galleryIdX', null, 'INT');
+
+		    descriptionX
+
+
+
+
+
+
+	    }
     }
 }
 
