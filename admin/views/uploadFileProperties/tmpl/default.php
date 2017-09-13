@@ -142,6 +142,11 @@ JHtml::_('bootstrap.tooltip');
                                 </div>
 
 
+                                <?php
+                                // Specify parent gallery selection
+                                echo $this->form->renderFieldset('GallerySelect');
+                                ?>
+
                                 <!--input  type="hidden" name="FileName[]" value="?<?php echo $file ;?>?"-->
 
                             </div>
