@@ -54,7 +54,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
     }
 
 
-    public function assignDroppedImages ()
+    public function assignDroppedImages () // ToDo: rename to prepareDroppedImages
     {
 	    global $Rsg2DebugActive;
 
@@ -108,7 +108,10 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 
     }
 
+    public function assign2Gallery ()
+    {
+        // Get input ...
 
-
+    }
 }
 

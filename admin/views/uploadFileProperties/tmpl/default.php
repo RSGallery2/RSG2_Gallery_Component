@@ -80,8 +80,11 @@ JHtml::_('bootstrap.tooltip');
 
                 <ul class="thumbnails">
 
-                    <?php foreach($this->fileData->fileUrls as $file) : ?>
-
+                    <?php
+                    // foreach ($this->fileData->fileUrls as $file) :
+                    foreach (array_keys ($this->fileData->fileUrls) as $Idx=>$file) :
+                    ?>
+                        <?php $baseName = basename($file) ?>
                         <li class="span3">
                             <div class="thumbnail">
                                 <div class='rsg-container'>
@@ -93,23 +96,27 @@ JHtml::_('bootstrap.tooltip');
                                 </div>
 
                                 <div class="caption" >
-                                    <small><?php echo basename($file);?></small><br>
+                                    <small><?php echo $baseName;?></small><br>
                                 </div>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="title[]"><?php echo JText::_('COM_RSGALLERY2_TITLE'); ?></label>
+                                    <label class="control-label" for="titleX[]"><?php echo JText::_('COM_RSGALLERY2_TITLE'); ?></label>
                                     <div class="controls">
                                         <!--input type="text" id="inputEmail" placeholder="Email"-->
-                                        <input name="title[]" size="15" aria-invalid="false" type="text" style="max-width: 90%; ">
+                                        <input name="titleX[]" type="text" size="15" aria-invalid="false"
+                                               value="<?php echo $baseName . ' (' . $Idx . ')'; ?>"
+                                               style="max-width: 90%; ">
                                     </div>
                                 </div>
 
                                 <?php if (empty($this->isInOneGallery)) : ?>
                                     <!-- Seperate gallery for each image -->
                                     <div class="control-group" >
-                                        <label class="control-label" for="galleryId"><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?>(1)</label>
+                                        <label class="control-label" for="galleryIdX[]"><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?>(1)</label>
                                         <div class="controls">
-                                            <input type="text" name="galleryId" style="max-width: 90%; " value="?<?php echo $this->galleryId;?>?">
+                                            <input name="galleryIdX[]" type="text" style="max-width: 90%; "
+                                                   value="<?php echo $this->galleryId . ' (' . $Idx . ')';?>"
+                                            >
                                         </div>
                                     </div>
 
@@ -121,26 +128,28 @@ JHtml::_('bootstrap.tooltip');
                                 <?php else : ?>
                                     <!-- One gallery for all. Disable input -->
                                     <div class="control-group">
-                                        <label class="control-label" for="galleryID"><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?>(2)</label>
+                                        <label class="control-label" for="galleryIDX[]"><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?>(2)</label>
                                         <div class="controls">
-                                            <input type="text" name="galleryID" placeholder="Email" style="max-width: 90%; "  disabled>
+                                            <input type="text" name="galleryIDX[]" placeholder="Idx:"
+                                                   value="<?php echo '0 (' . $Idx . ')';?>"
+                                                   style="max-width: 90%; "  disabled>
                                         </div>
                                     </div>
 
                                     <?php
                                     // Specify parent gallery selection
-                                    echo "yyyy: " . $this->form->renderFieldset('GallerySelectDisabled');
+                                    //echo "yyyy: " . $this->form->renderFieldset('GallerySelectDisabled');
                                     ?>
 
                                 <?php endif; ?>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="descr[]"><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION'); ?></label>
+                                    <label class="control-label" for="descrX[]"><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION'); ?></label>
                                     <div class="controls">
-                                        <textarea cols="15" rows="" name="descr[]" style="max-width: 90%; " placeholder="Text input"></textarea>
+                                        <textarea cols="15" rows="" name="descrX[]" style="max-width: 90%; "
+                                                  placeholder="Text input"><?php echo '(' . $Idx . ')';?></textarea>
                                     </div>
                                 </div>
-
 
                                 <?php
                                 // Specify parent gallery selection
