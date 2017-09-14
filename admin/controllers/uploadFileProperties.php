@@ -60,7 +60,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 
 	    if($Rsg2DebugActive)
 	    {
-		    JLog::add('==> ctrl.maintenance.php/function Cancel');
+		    JLog::add('==> ctrl.uploadFileProperties.php/assignDroppedImages');
 	    }
 
 	    $msg     = "controller.assignDroppedImages: ";
@@ -87,9 +87,9 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 
             //Retrieve data from submit form
             $input = JFactory::getApplication()->input;
-            $remoteSessionId = $input->get('return', '', 'STRING');
+            $fileSessionId = $input->get('return', '', 'STRING');
             echo $actSessionId . '<br>';
-            echo $remoteSessionId . '<br> <br> <br> <br>';
+            echo $fileSessionId . '<br> <br> <br> <br>';
 
             //$this->isInOneGallery = $input->get('isInOneGallery', null, 'INT');
             $this->isInOneGallery = $input->get('selcat', null, 'INT');
@@ -98,6 +98,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
             //$this->fileSessionId = $input->get('session_id', '', 'STRING');
             $this->fileSessionId = $input->get('return', '', 'STRING');
 
+            // ToDo: Remove or change message ? 14 detected files ... ?
             $msg = 'assignDroppedImages';
 		    $this->setRedirect('index.php?option=com_rsgallery2&view=UploadFileProperties'
                 . '&isInOneGallery=' . $this->isInOneGallery
@@ -105,7 +106,6 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
                 . '&sessionId=' . $this->fileSessionId
                 , $msg);
 	    }
-
     }
 
     public function assign2Gallery ()
@@ -113,10 +113,11 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
         // Get input ...
 
 	    global $Rsg2DebugActive;
-
+        $dbgMessage = '';
+        
 	    if($Rsg2DebugActive)
 	    {
-		    JLog::add('==> ctrl.maintenance.php/function Cancel');
+		    JLog::add('==> ctrl.uploadFileProperties.php/assign2Gallery');
 	    }
 
 	    $msg     = "controller.assignDroppedImages: ";
@@ -135,35 +136,69 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 	    }
 	    else
 	    {
+	        $dbgMessage .= '--- assign2Gallery ----' . '<br>';
+
+            //form.xcat.value = GalleryId;
+            //form.selcat.value = bOneGalleryName4All;
+            $session = JFactory::getSession();
+            $actSessionId = $session->getId();
+
+            //$dbgMessage .= '$session: ' . $session. '<br>';
+            $dbgMessage .= '$actSessionId: ' . $actSessionId. '<br>';
+            
+            //Retrieve data from submit form
+            $input = JFactory::getApplication()->input;
+            $fileSessionId = $input->get('fileSessionId', '', 'STRING');
+
+            $dbgMessage .= '$actSessionId: ' . $actSessionId. '<br>';
+            $dbgMessage .= '$fileSessionId: ' . $fileSessionId. '<br>';
 
 
-		    //Retrieve data from submit form
-		    $input           = JFactory::getApplication()->input;
-		    $remoteSessionId = $input->get('return', '', 'STRING');
-		    // echo $actSessionId . '<br>';
-		    echo $remoteSessionId . '<br> <br> <br> <br>';
-
-		    //$this->isInOneGallery = $input->get('isInOneGallery', null, 'INT');
+            //$this->isInOneGallery = $input->get('isInOneGallery', null, 'INT');
 		    $isInOneGallery = $input->get('selcat', null, 'INT');
-		    //$this->galleryId = $input->get('GalleryId', null, 'INT');
-		    //$this->fileSessionId = $input->get('session_id', '', 'STRING');
-		    $this->fileSessionId = $input->get('return', '', 'STRING');
+            $dbgMessage .= '$isInOneGallery: ' . $isInOneGallery. '<br>';
 
+            //--- arrays -------------------------------------------'
 
-		    FileNameX
+            // FileName
+            $FileNameX = $input->get('FileNameX', array(), 'ARRAY');
+            $FileName = $input->get('FileName', array(), 'ARRAY');
 
-		    titleX
+            $dbgMessage .= '$FileNameX: ' . json_encode($FileNameX). '<br>';
+            $dbgMessage .= '$FileName: ' . json_encode($FileName). '<br>';
 
-		    galleryIdX
-		    $galleryIds = $input->get('galleryIdX', null, 'INT');
+            // title
+            $titleX = $input->get('titleX', array(), 'ARRAY');
+            $title = $input->get('title', array(), 'ARRAY');
 
-		    descriptionX
+            $dbgMessage .= '$titleX: ' . json_encode($titleX). '<br>';
+            $dbgMessage .= '$title: ' . json_encode($title). '<br>';
 
+            // gallery ID
+            $galleryIdX = $input->get('galleryIdX', array(), 'ARRAY');
+            $galleryId = $input->get('galleryId', array(), 'ARRAY');
 
+            $dbgMessage .= '$galleryIdX: ' . json_encode($galleryIdX). '<br>';
+            $dbgMessage .= '$galleryId: ' . json_encode($galleryId). '<br>';
 
+            // Description
 
+            $descriptionX = $input->get('descriptionX', array(), 'ARRAY');
+            $description = $input->get('description', array(), 'ARRAY');
 
+            $dbgMessage .= '$descriptionX: ' . json_encode($descriptionX). '<br>';
+            $dbgMessage .= '$description: ' . json_encode($description). '<br>';
 
+            // ToDO: set redirect to images in gallery ?
+		    //$this->setRedirect('index.php?option=com_rsgallery2&view=????', $msg, $msgType);
+
+            $msg = 'assign2Gallery';
+            $msg .= '<br><br>' . $dbgMessage;
+            $this->setRedirect('index.php?option=com_rsgallery2&view=UploadFileProperties'
+                . '&isInOneGallery=' . $isInOneGallery
+                . '&galleryId=' . $galleryIdX[0]
+                . '&sessionId=' . $fileSessionId
+                , $msg);
 	    }
     }
 }

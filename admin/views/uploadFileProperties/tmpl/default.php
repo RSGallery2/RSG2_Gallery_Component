@@ -82,7 +82,10 @@ JHtml::_('bootstrap.tooltip');
 
                     <?php
                     // foreach ($this->fileData->fileUrls as $file) :
-                    foreach (array_keys ($this->fileData->fileUrls) as $Idx=>$file) :
+                    //foreach (array_keys ($this->fileData->fileUrls) as $Idx=>$file) :
+                    $Idx=0;
+                    foreach ($this->fileData->fileUrls as $file) :
+                        $Idx++;
                     ?>
                         <?php $baseName = basename($file) ?>
                         <li class="span3">
@@ -166,7 +169,9 @@ JHtml::_('bootstrap.tooltip');
 
             <input type="hidden" name="option" value="com_rsgallery2">
             <input type="hidden" name="task" value="">
+
             <input type="hidden" name="fileSessionId" value="<?php $this->fileSessionId; ?>">
+            <input type="hidden" name="isInOneGallery" value="<?php $this->isInOneGallery; ?>">
 
             <?php echo JHtml::_('form.token'); ?>
         </form>
