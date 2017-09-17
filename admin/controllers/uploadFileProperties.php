@@ -87,7 +87,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 
             //Retrieve data from submit form
             $input = JFactory::getApplication()->input;
-            $fileSessionId = $input->get('return', '', 'STRING');
+            $fileSessionId = $input->get('installer-token', '', 'STRING');
             echo $actSessionId . '<br>';
             echo $fileSessionId . '<br> <br> <br> <br>';
 
@@ -96,7 +96,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
             //$this->galleryId = $input->get('GalleryId', null, 'INT');
             $this->galleryId = $input->get('xcat', null, 'INT');
             //$this->fileSessionId = $input->get('session_id', '', 'STRING');
-            $this->fileSessionId = $input->get('return', '', 'STRING');
+            $this->fileSessionId = $input->get('installer-token', '', 'STRING');
 
             // ToDo: Remove or change message ? 14 detected files ... ?
             $msg = 'assignDroppedImages';
@@ -150,12 +150,10 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
             $input = JFactory::getApplication()->input;
             $fileSessionId = $input->get('fileSessionId', '', 'STRING');
 
-            $dbgMessage .= '$actSessionId: ' . $actSessionId. '<br>';
             $dbgMessage .= '$fileSessionId: ' . $fileSessionId. '<br>';
 
-
             //$this->isInOneGallery = $input->get('isInOneGallery', null, 'INT');
-		    $isInOneGallery = $input->get('selcat', null, 'INT');
+		    $isInOneGallery = $input->get('isInOneGallery', null, 'INT');
             $dbgMessage .= '$isInOneGallery: ' . $isInOneGallery. '<br>';
 
             //--- arrays -------------------------------------------'
