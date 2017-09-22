@@ -67,11 +67,11 @@ class Rsgallery2ViewUploadFileProperties extends JViewLegacy
         $input = JFactory::getApplication()->input;
         $this->isInOneGallery = $input->get('isInOneGallery', null, 'INT');
         $this->galleryId = $input->get('galleryId', null, 'INT');
-        $this->fileSessionId= $input->get('sessionId', '', 'STRING');
+        $this->fileSessionId= $input->get('fileSessionId', '', 'STRING');
 
-        echo '$galleryId = "'      . $this->galleryId      . '"<br>';
-        echo '$fileSessionId = "'  . $this->fileSessionId  . '"<br>';
-        echo '$isInOneGallery = "' . $this->isInOneGallery . '"<br>';
+        echo 'view: $galleryId = "'      . $this->galleryId      . '"<br>';
+        echo 'view: $fileSessionId = "'  . $this->fileSessionId  . '"<br>';
+        echo 'view: $isInOneGallery = "' . $this->isInOneGallery . '"<br>';
         echo '<br>';
 
 		// array of files information (fileUrls, fileNames, filePathNames)
