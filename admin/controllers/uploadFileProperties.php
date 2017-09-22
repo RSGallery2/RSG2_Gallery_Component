@@ -53,17 +53,21 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
         return  parent::getModel($name, $prefix, $config);
     }
 
-
-    public function assignDroppedImages () // ToDo: rename to prepareDroppedImages
+	/**
+	 * Called after drop uploading images or zip file
+	 *
+	 * @since version
+	 */
+    public function prepareDroppedImages ()
     {
 	    global $Rsg2DebugActive;
 
 	    if($Rsg2DebugActive)
 	    {
-		    JLog::add('==> ctrl.uploadFileProperties.php/assignDroppedImages');
+		    JLog::add('==> ctrl.uploadFileProperties.php/prepareDroppedImages');
 	    }
 
-	    $msg     = "controller.assignDroppedImages: ";
+	    $msg     = "controller.prepareDroppedImages: ";
 	    $msgType = 'notice';
 
 	    $canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
@@ -84,26 +88,28 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
             $session = JFactory::getSession();
             $actSessionId = $session->getId();
 
-
             //Retrieve data from submit form
             $input = JFactory::getApplication()->input;
-            $fileSessionId = $input->get('installer-token', '', 'STRING');
-            echo $actSessionId . '<br>';
-            echo $fileSessionId . '<br> <br> <br> <br>';
 
+		    $this->fileSessionId = $input->get('installer-token', '', 'STRING');
             //$this->isInOneGallery = $input->get('isInOneGallery', null, 'INT');
             $this->isInOneGallery = $input->get('selcat', null, 'INT');
             //$this->galleryId = $input->get('GalleryId', null, 'INT');
             $this->galleryId = $input->get('xcat', null, 'INT');
             //$this->fileSessionId = $input->get('session_id', '', 'STRING');
-            $this->fileSessionId = $input->get('installer-token', '', 'STRING');
 
-            // ToDo: Remove or change message ? 14 detected files ... ?
-            $msg = 'assignDroppedImages';
+		    // ToDo: add number of detected files ... ?
+		    $msg = 'done prepareDroppedImages: ' . '<br>';
+		    $msg .= 'Prepare-actSessionId: ' . $actSessionId . '<br>';
+		    $msg .= 'Prepare-fileSessionId: ' . $this->fileSessionId . '<br>';
+		    $msg .= 'Prepare-isInOneGallery: ' . $this->isInOneGallery . '<br>';
+		    $msg .= 'Prepare-galleryId: ' . $this->galleryId . '<br>';
+		    //$msg .= '' . '<br> <br> <br> <br>';
+
 		    $this->setRedirect('index.php?option=com_rsgallery2&view=UploadFileProperties'
                 . '&isInOneGallery=' . $this->isInOneGallery
                 . '&galleryId=' . $this->galleryId
-                . '&sessionId=' . $this->fileSessionId
+                . '&fileSessionId=' . $this->fileSessionId
                 , $msg);
 	    }
     }
@@ -120,7 +126,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 		    JLog::add('==> ctrl.uploadFileProperties.php/assign2Gallery');
 	    }
 
-	    $msg     = "controller.assignDroppedImages: ";
+	    $msg     = "controller.prepareDroppedImages: ";
 	    $msgType = 'notice';
 
 	    $canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
@@ -195,7 +201,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
             $this->setRedirect('index.php?option=com_rsgallery2&view=UploadFileProperties'
                 . '&isInOneGallery=' . $isInOneGallery
                 . '&galleryId=' . $galleryIdX[0]
-                . '&sessionId=' . $fileSessionId
+                . '&fileSessionId=' . $fileSessionId
                 , $msg);
 	    }
     }
