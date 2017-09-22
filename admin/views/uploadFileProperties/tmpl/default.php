@@ -170,8 +170,8 @@ JHtml::_('bootstrap.tooltip');
             <input type="hidden" name="option" value="com_rsgallery2">
             <input type="hidden" name="task" value="">
 
-            <input type="hidden" name="fileSessionId" value="<?php $this->fileSessionId; ?>">
-            <input type="hidden" name="isInOneGallery" value="<?php $this->isInOneGallery; ?>">
+            <input type="hidden" name="fileSessionId" value="<?php echo $this->fileSessionId; ?>">
+            <input type="hidden" name="isInOneGallery" value="<?php echo $this->isInOneGallery; ?>">
 
             <?php echo JHtml::_('form.token'); ?>
         </form>
