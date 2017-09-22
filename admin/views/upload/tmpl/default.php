@@ -89,7 +89,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
 //        else {
             // yes transfer files ...
 //        alert('03');
-            form.task.value = 'uploadFileProperties.assignDroppedImages'; // upload.uploadZipFile
+            form.task.value = 'uploadFileProperties.prepareDroppedImages'; // upload.uploadZipFile
 //        alert('03a');
             form.batchmethod.value = '';
 //        alert('03b');
@@ -415,7 +415,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
                 var data = new FormData();
                 data.append('upload_file', files[i]);
                 data.append('upload_type', 'single');
-                data.append('session_id', token);
+                data.append('token', token);
                 data.append('gallery_id', gallery_id);
 
                 var status = new createStatusbar(obj); //Using this we can set progress.
@@ -614,8 +614,8 @@ $return = JFactory::getApplication()->input->getBase64('return');
                                 </buttonManualFile>
                             </div>
 
-                            <input id="installer-return" name="return" type="hidden" value="<?php echo $return; ?>"/>
-                            <input id="installer-token" name="return" type="hidden" value="<?php echo $token; ?>"/>
+                            <input id="installer-return" name="installer-return" type="hidden" value="<?php echo $return; ?>"/>
+                            <input id="installer-token" name="installer-token" type="hidden" value="<?php echo $token; ?>"/>
                         </div>
 
                         <div class="form-actions">
