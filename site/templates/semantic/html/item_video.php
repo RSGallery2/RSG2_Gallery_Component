@@ -1,6 +1,6 @@
 <?php
 defined('_JEXEC') or die();
-JHTML::_('behavior.framework', true);
+JHTML::_('behavior.framework', true);  // ToDo: Remove mootools
 global $rsgConfig;
 
 $item = $this->currentItem;

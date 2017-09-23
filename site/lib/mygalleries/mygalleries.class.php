@@ -61,7 +61,7 @@ class myGalleries
 			//Is it allowed to create a gallery on the component permission level (e.g. create a gallery with the root (gid = 0) as parent?
 			$createAllowedInRoot = rsgAuthorisation::authorisationCreate(0);
 
-			JHtml::_('behavior.framework', true);
+			JHtml::_('behavior.framework', true);  // ToDo: Remove mootools
 			// Set My Galleries tabs options
 			$tabOptions = array(
 				'onActive'     => 'function(title, description){

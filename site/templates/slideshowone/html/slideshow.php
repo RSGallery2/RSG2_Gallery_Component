@@ -8,7 +8,7 @@
 
 defined('_JEXEC') or die();
 
-JHtml::_('behavior.framework', true);
+JHtml::_('behavior.framework', true);  // ToDo: Remove mootools
 
 global $mainframe;
 

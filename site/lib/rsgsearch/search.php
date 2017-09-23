@@ -11,7 +11,7 @@
 
 defined('_JEXEC') or die();
 
-global $rsgOptions_path;
+global $rsgOptions_path, $input;
 require_once($rsgOptions_path . 'search.html.php');
 
 $input = JFactory::getApplication()->input;
@@ -35,6 +35,7 @@ switch ($task)
 
 function showResults()
 {
+	global $rsgOptions_path, $input;
 	$database = JFactory::getDBO();
 	//Retrieve search string
 	//$searchtext = JRequest::getVar( 'searchtext'  , '');
