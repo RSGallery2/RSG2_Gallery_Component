@@ -85,7 +85,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 					$IsAllCreated = true;
 					foreach ($ImageReferences as $ImageReference)
 					{
-						$IsCreated = $this->createImageDbItem($ImageReference, $imageModel);
+						$IsCreated = $this->createImageDbBaseItem($ImageReference, $imageModel);
 						if (!$IsCreated)
 						{
 							$OutTxt = 'Image in DB not created for: ' . $ImageReference->name;
@@ -157,7 +157,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
      *
      * @since 4.3.0
      */
-	public function createImageDbItem($ImageReference, $imageModel)
+	public function createImageDbBaseItem($ImageReference, $imageModel)
 	{
 		$IsImageDbCreated = false;
 
@@ -166,7 +166,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 			// Does not exist in db
 			if (!$ImageReference->IsImageInDatabase)
 			{
-				$IsImageDbCreated = $imageModel->createImageDbItem($ImageReference->imageName);
+				$IsImageDbCreated = $imageModel->createImageDbBaseItem($ImageReference->imageName);
 			}
 			else
 			{
@@ -178,7 +178,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		catch (RuntimeException $e)
 		{
 			$OutTxt = '';
-			$OutTxt .= 'Error executing createImageDbItem: "' . '<br>';
+			$OutTxt .= 'Error executing createImageDbBaseItem: "' . '<br>';
 			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
 			$app = JFactory::getApplication();
@@ -645,7 +645,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 			$IsImageDbCreated = true;
 			if (!$ImageReference->IsImageInDatabase)
 			{
-				$IsImageDbCreated = $imageModel->createImageDbItem($ImageReference->imageName);
+				$IsImageDbCreated = $imageModel->createImageDbBaseItem($ImageReference->imageName);
 				if (!$IsImageDbCreated)
 				{
 					$msg = "Error at created missing image in db";

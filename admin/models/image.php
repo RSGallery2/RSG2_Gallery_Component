@@ -271,26 +271,23 @@ class Rsgallery2ModelImage extends JModelAdmin
 		return $name;
 	}
 
-    /**
-     * Create a new item in database for image 
-     * 
-     * @param $imageName
-     *
-     * @return bool true if successful
-     *
-     * @since 4.3.0
-     */
-	public function createImageDbItem($imageName)
+	/**
+	 * Create a new item in database for image
+	 *
+	 * @param $imageName
+	 *
+	 * @return bool true if successful
+	 *
+	 * @since 4.3.0
+	 */
+	public function createImageDbBaseItem($imageName)
 	{
 		$IsImageDbCreated = false;
 
-		// Create new item
+		//--- Create new item -------------------
+
 		$item = $this->getTable();
 		$item->load(0);
-
-		$user         = JFactory::getUser();
-		$userId       = $user->id;
-		$item->userid = $userId;
 
 		//----------------------------------------------------
 		// image properties
@@ -298,7 +295,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 
 		//--- image name -------------------------------------
 
-		$item->name = $imageName;
+		$item->name = $imageName; // ToDo: check for unique or remove unique. It may already be there
 
 		//--- unique image title and alias -------------------
 		$path_parts = pathinfo($imageName);
@@ -317,6 +314,108 @@ class Rsgallery2ModelImage extends JModelAdmin
 
 		$date       = JFactory::getDate();
 		$item->date = JHtml::_('date', $date, 'Y-m-d H:i:s');
+
+		//--- user id -------------------------------------------
+
+		$user         = JFactory::getUser();
+		$userId       = $user->id;
+		$item->userid = $userId;
+
+		//---  -------------------------------------------
+
+		$item->approved = 0; // dont know why, all images end up with zero ....
+
+		//----------------------------------------------------
+		// save new object
+		//----------------------------------------------------
+
+		// Lets store it!
+		$item->check();
+
+		if (!$item->store())
+		{
+			// ToDo: collect erorrs and display over enque .... with errr type
+			$UsedNamesText = '<br>SrcImage: ' . $fileName . '<br>DstImage: ' . $item->name;
+			JFactory::getApplication()->enqueueMessage(JText::_('copied image name could not be inseted in database') . $UsedNamesText, 'warning');
+
+			// $IsImageDbCreated = false;
+
+			$this->setError($this->_db->getErrorMsg());
+		}
+		else
+		{
+
+			$IsImageDbCreated = true;
+		}
+
+		return $IsImageDbCreated;
+	}
+
+	/**
+	 * Create a new item in database for image
+	 *
+	 * @param $imageName
+	 *
+	 * @return bool true if successful
+	 *
+	 * @since 4.3.0
+	 */
+	public function createImageDbItem($imageName, $title='', $galleryId=0, $description='')
+	{
+		$IsImageDbCreated = false;
+
+		//--- Create new item -------------------
+
+		$item = $this->getTable();
+		$item->load(0);
+
+		//----------------------------------------------------
+		// image properties
+		//----------------------------------------------------
+
+		//--- image name -------------------------------------
+
+		$item->name = $imageName; // ToDo: check for unique or remove unique. It may already be there
+
+		//--- unique image title and alias -------------------
+		$path_parts = pathinfo($imageName);
+		$fileName   = $path_parts['filename'];
+
+		//--- title, alias -------------------------------------------
+
+		if(! empty($title)) {
+			$item->title = $title;
+		}
+		else
+		{
+			$item->title = $this->generateNewImageName($fileName);
+		}
+		$item->alias = $item->title;
+		$this->alias = JFilterOutput::stringURLSafe($this->alias);
+
+		// Create unique alias and title
+		list($title, $alias) = $this->generateNewTitle(null, $item->alias, $item->title);
+		$item->title = $title;
+		$item->alias = $alias;
+
+		//--- date -------------------------------------------
+
+		$date       = JFactory::getDate();
+		$item->date = JHtml::_('date', $date, 'Y-m-d H:i:s');
+
+		//--- gallery -------------------------------------------
+
+		$item->gallery_id = $galleryId;
+
+		//--- description ---------------------------------------
+
+		$item->descr = $description;
+
+		//--- user id -------------------------------------------
+
+		$user         = JFactory::getUser();
+		$userId       = $user->id;
+		$item->userid = $userId;
 
 		//---  -------------------------------------------
 
@@ -1013,5 +1112,32 @@ class Rsgallery2ModelImage extends JModelAdmin
 
     }
 	 **/
+
+
+    // ToDo: Create imagefile model ?
+
+	public function moveFile2OrignalDir ($srcFileName)
+	{
+		$isMoved = false;
+
+		// if (JFile::exists(JPATH_DISPLAY . '/' . $basename) || JFile::exists(JPATH_ORIGINAL . '/' . $basename)) {
+		try
+		{
+			$dstFileName = JPATH_ORIGINAL . basename($srcFileName);
+			$isMoved = rename($srcFileName, $dstFileName);
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'moveFile2OrignalDir: "' . $srcFileName . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $isMoved;
+	}
+
 
 }
