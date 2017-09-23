@@ -61,6 +61,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
     public function prepareDroppedImages ()
     {
 	    global $Rsg2DebugActive;
+	    global $rsgConfig;
 
 	    if($Rsg2DebugActive)
 	    {
@@ -112,6 +113,11 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
                 . '&fileSessionId=' . $this->fileSessionId
                 , $msg);
 	    }
+
+	    $app = JFactory::getApplication();
+	    $app->setUserState('com_rsgallery2.upload_single');
+
+	    $rsgConfig->setLastUpdateType('upload_single');
     }
 
     public function assign2Gallery ()
@@ -165,33 +171,40 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
             //--- arrays -------------------------------------------'
 
             // FileName
-            $FileNameX = $input->get('FileNameX', array(), 'ARRAY');
-            $FileName = $input->get('FileName', array(), 'ARRAY');
+		    $FileNamesX = $input->get('FileNameX', array(), 'ARRAY');
+            $FileNames = $input->get('FileName', array(), 'ARRAY');
 
-            $dbgMessage .= '$FileNameX: ' . json_encode($FileNameX). '<br>';
-            $dbgMessage .= '$FileName: ' . json_encode($FileName). '<br>';
+            $dbgMessage .= '$FileNamesX: ' . json_encode($FileNamesX). '<br>';
+            $dbgMessage .= '$FileNames: ' . json_encode($FileNames). '<br>';
 
-            // title
-            $titleX = $input->get('titleX', array(), 'ARRAY');
-            $title = $input->get('title', array(), 'ARRAY');
+		    // title
+		    $titlesX = $input->get('titleX', array(), 'ARRAY');
+		    $titles = $input->get('title', array(), 'ARRAY');
 
-            $dbgMessage .= '$titleX: ' . json_encode($titleX). '<br>';
-            $dbgMessage .= '$title: ' . json_encode($title). '<br>';
+		    $dbgMessage .= '$titlesX: ' . json_encode($titlesX). '<br>';
+		    $dbgMessage .= '$titles: ' . json_encode($titles). '<br>';
 
-            // gallery ID
-            $galleryIdX = $input->get('galleryIdX', array(), 'ARRAY');
-            $galleryId = $input->get('galleryId', array(), 'ARRAY');
+		    // delete
+		    $deletesX = $input->get('deleteX', array(), 'ARRAY');
+		    $deletes = $input->get('delete', array(), 'ARRAY');
 
-            $dbgMessage .= '$galleryIdX: ' . json_encode($galleryIdX). '<br>';
-            $dbgMessage .= '$galleryId: ' . json_encode($galleryId). '<br>';
+		    $dbgMessage .= '$deletesX: ' . json_encode($deletesX). '<br>';
+		    $dbgMessage .= '$deletes: ' . json_encode($deletes). '<br>';
+
+		    // gallery ID
+            $galleryIdsX = $input->get('galleryIdX', array(), 'ARRAY');
+            $galleryIds = $input->get('galleryId', array(), 'ARRAY');
+
+            $dbgMessage .= '$galleryIdsX: ' . json_encode($galleryIdsX). '<br>';
+            $dbgMessage .= '$galleryIds: ' . json_encode($galleryIds). '<br>';
 
             // Description
 
-            $descriptionX = $input->get('descriptionX', array(), 'ARRAY');
-            $description = $input->get('description', array(), 'ARRAY');
+            $descriptionsX = $input->get('descriptionX', array(), 'ARRAY');
+            $descriptions = $input->get('description', array(), 'ARRAY');
 
-            $dbgMessage .= '$descriptionX: ' . json_encode($descriptionX). '<br>';
-            $dbgMessage .= '$description: ' . json_encode($description). '<br>';
+            $dbgMessage .= '$descriptionsX: ' . json_encode($descriptionsX). '<br>';
+            $dbgMessage .= '$descriptions: ' . json_encode($descriptions). '<br>';
 
             // ToDO: set redirect to images in gallery ?
 		    //$this->setRedirect('index.php?option=com_rsgallery2&view=????', $msg, $msgType);
@@ -200,10 +213,69 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
             $msg .= '<br><br>' . $dbgMessage;
             $this->setRedirect('index.php?option=com_rsgallery2&view=UploadFileProperties'
                 . '&isInOneGallery=' . $isInOneGallery
-                . '&galleryId=' . $galleryIdX[0]
+	            . '&galleryId=' . $galleryIdsX[0]
                 . '&fileSessionId=' . $fileSessionId
                 , $msg);
+
+
+		    //----------------------------------------------------
+		    // Transfer files and create image data in db
+		    //----------------------------------------------------
+
+			$Idx = 0;
+			foreach ($FileNamesX as $fileName)
+			{
+				//--- collect Data ------------------------------------
+
+				$imageName = isset($FileNamesX[$Idx]) ? $FileNamesX[$Idx] : '';
+				$title =  isset($titlesX[$Idx]) ? $titlesX[$Idx] : '';
+				$galleryId =  isset($galleryIdsX[$Idx]) ? $galleryIdsX[$Idx] : 0;
+				$description =  isset($descriptionsX[$Idx]) ? $descriptionsX[$Idx] : '';
+
+				$delete = isset($deletesX[Idx]) ? $deletesX[$Idx] : false;
+
+				//If image is marked for deletion, delete and continue with next iteration
+				if ($delete == 'true')
+				{
+					//Delete file from server
+					unlink($fileName);
+					continue;
+				}
+
+				//--- create db item ----------------------------------
+
+				// Model tells if successful
+				$model = $this->getModel('Image');
+				$isCreated = $model->createImageDbItem($imageName, $title, $galleryId, $description);
+				if ( ! $isCreated)
+				{
+					// ToDo: Db entry may exist but copy / move has failed then try to fix this
+
+				}
+
+
+
+				//--- Transfer file ----------------------------------
+
+				$isMoved = $model->moveFile2OrignalDir ();
+
+				if($isMoved) {
+
+					// Create display and thumb version ??
+
+
+				}
+
+
+
+
+
+			}
+
 	    }
     }
-}
+
+
+
+} // class
 

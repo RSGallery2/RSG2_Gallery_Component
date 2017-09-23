@@ -20,8 +20,19 @@
 				class="input"
 				size="120"
 				required="true"
-                hint=">"
+				hint=">"
 		/>
+
+		<field
+				name="delete[]"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DELETE_IMAGE2"
+				description="COM_RSGALLERY2_DELETE_IMAGE_DO_NOT_ASSIGN"
+				class="btn-group btn-group-yesno">
+				<option value="0">JTOOLBAR_APPLY</option>
+				<option value="1">JACTION_DELETE</option>
+		</field>
 
 		<!-- Gallery selection -->
 		<field
@@ -74,7 +85,18 @@
                 hint=">"
         />
 
-        <!-- Gallery selection -->
+		<field
+				name="delete[]"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DELETE_IMAGE2"
+				description="COM_RSGALLERY2_DELETE_IMAGE_DO_NOT_ASSIGN"
+				class="btn-group btn-group-yesno btn-success">
+			<option value="0">JTOOLBAR_APPLY</option>
+			<option value="1">JACTION_DELETE</option>
+		</field>
+
+		<!-- Gallery selection -->
 		<field
 				name="galleryId[]"
 				type="GallerySelectList"

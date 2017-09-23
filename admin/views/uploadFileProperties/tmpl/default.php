@@ -29,7 +29,7 @@ JHtml::_('bootstrap.tooltip');
         </div>
         <div id="j-main-container" class="span10">
     <?php else : ?>
-        <div id="j-main-container">
+        <div-- id="j-main-container">
     <?php endif; ?>
 
         <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=UploadFileProperties.'); ?>"
@@ -111,6 +111,30 @@ JHtml::_('bootstrap.tooltip');
                                                style="max-width: 90%; ">
                                     </div>
                                 </div>
+
+                                <div class="control-group">
+                                    <div class="control-label"><label id="delete__-lbl" for="delete__" class="hasPopover" title="" data-content="COM_RSGALLERY2_DELETE_IMAGE_DO_NOT_ASSIGN" data-original-title="Delete Image">
+                                            Delete Image</label>
+                                    </div>
+                                    <div class="controls">
+                                        <fieldset class="btn-group btn-group-yesno radio">
+                                            <input name="delete[][]" value="0" checked="checked" type="radio">
+                                            <label class="btn btn-default active btn-success">Save</label>
+                                            <input name="delete[][]" value="1" type="radio">
+                                            <label for="delete[][]" class="btn ">Delete</label>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <!--div class="control-group">
+                                    <label class="control-label" for="deleteX[]"><?php echo JText::_('COM_RSGALLERY2_DELETE_IMAGE2'); ?></label>
+                                    <div class="controls">
+                                        < !--input type="text" id="inputEmail" placeholder="Email"-- >
+                                        <input name="deleteX[]" type="radio"
+                                               value="0"
+                                               style="max-width: 90%; ">
+                                    </div>
+                                </div-->
 
                                 <?php if (empty($this->isInOneGallery)) : ?>
                                     <!-- Seperate gallery for each image -->
