@@ -39,7 +39,7 @@ class html_rsg2_galleries
 
 		$user   = JFactory::getUser();
 		$userId = $user->id;
-		JHtml::_("behavior.framework");
+		JHtml::_("behavior.framework");  // ToDo: Remove mootools
 
 		//Create 'lookup array' to find whether or not galleries with the same parent
 		// can move up/down in their order: $orderLookup[id parent][#] = id child
@@ -338,7 +338,7 @@ class html_rsg2_galleries
 		$input = JFactory::getApplication()->input;
 		$task  = $input->get('task', '', 'CMD');
 
-		JHtml::_("Behavior.framework");
+		JHtml::_("Behavior.framework");  // ToDo: Remove mootools
 		?>
 		<script type="text/javascript">
 			Joomla.submitbutton = function (task) {

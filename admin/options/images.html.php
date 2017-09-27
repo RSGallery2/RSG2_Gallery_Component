@@ -878,7 +878,7 @@ class html_rsg2_images
         */
         global $rsgOption;
         JHtml::_('behavior.formvalidation');
-        JHtml::_('behavior.framework');
+        JHtml::_('behavior.framework');   // ToDo: Remove mootools
 
         $input = JFactory::getApplication()->input;
 
