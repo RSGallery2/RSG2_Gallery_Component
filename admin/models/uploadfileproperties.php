@@ -93,6 +93,10 @@ class rsgallery2ModeluploadFileProperties extends JModelList
 		    $Idx++;
 	    }
 
+	    if ($Idx==0) {
+        	echo 'No files found in :"' . $srcFolder . '"<br><br>';
+	    }
+
 	    // Return values
 	    $fileData->fileUrls  = $fileUrls;
 	    $fileData->fileNames = $fileNames;

@@ -85,9 +85,10 @@ JHtml::_('bootstrap.tooltip');
                     //foreach (array_keys ($this->fileData->fileUrls) as $Idx=>$file) :
                     $Idx=0;
                     foreach ($this->fileData->fileUrls as $file) :
-                        $Idx++;
                     ?>
-                        <?php $baseName = basename($file) ?>
+                        <?php
+                        $baseName = basename($this->fileData->fileNames [$Idx]);
+                        ?>
                         <li class="span3">
                             <div class="thumbnail">
                                 <div class='rsg-container'>
@@ -178,7 +179,7 @@ JHtml::_('bootstrap.tooltip');
                                     </div>
                                 </div>
 
-                                <input  type="hidden" name="FileNameX[]" value="?<?php echo $file ;?>?">
+                                <input  type="Xhidden" name="FileNameX[]" value="<?php echo $this->fileData->filePathNames [$Idx] ;?>">
 
                                 <?php
                                 // Specify parent gallery selection
@@ -187,7 +188,10 @@ JHtml::_('bootstrap.tooltip');
 
                             </div>
                         </li>
-                    <?php endforeach; ?>
+                    <?php
+	                    $Idx++;
+                        endforeach;
+                    ?>
                 </ul>
 	        <?php endif; ?>
 

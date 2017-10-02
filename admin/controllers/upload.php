@@ -382,7 +382,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
         }
 
         // $file_session_id = $input->get('session_id', 0, 'INT');
-        $file_session_id = $input->get('session_id', '', 'STRING');
+        $file_session_id = $input->get('token', '', 'STRING');
         $session_id = JFactory::getSession();
 
 	    if ($Rsg2DebugActive)

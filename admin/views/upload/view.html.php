@@ -90,9 +90,10 @@ class Rsgallery2ViewUpload extends JViewLegacy
         //--- Config requests ------------------------
 
         // register 'upload_single', 'upload_zip_pc', 'upload_folder_server'
-        $this->ActiveSelection = $rsgConfig->getLastUpdateType();
+        //$this->ActiveSelection = $rsgConfig->getLastUpdateType();
+        $this->ActiveSelection = $rsgConfig->last_update_type;
         if (empty ($this->ActiveSelection)) {
-            $this->ActiveSelection = 'upload_zip_pc';
+            $this->ActiveSelection = 'upload_single';
         }
 
         // 0: default, 1: enable, 2: disable
