@@ -46,7 +46,7 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 		// on develop show open tasks if existing
 		if (!empty ($Rsg2DevelopActive))
 		{
-			echo '<span style="color:red">Task: finish comments list, add consolidate gallery database -> orphans without parents</span><br><br>';
+			echo '<span style="color:red">Task: repair -> box: Check for left over upload files <br>  ==> finish comments list, add consolidate gallery database -> orphans without parents</span><br><br>';
 		}
 
 		//--- get needed data ------------------------------------------
