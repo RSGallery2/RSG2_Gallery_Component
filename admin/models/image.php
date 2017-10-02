@@ -1118,18 +1118,20 @@ class Rsgallery2ModelImage extends JModelAdmin
 
 	public function moveFile2OrignalDir ($srcFileName)
 	{
+		global $rsgConfig;
+
 		$isMoved = false;
 
-		// if (JFile::exists(JPATH_DISPLAY . '/' . $basename) || JFile::exists(JPATH_ORIGINAL . '/' . $basename)) {
+		// ToDo: if (JFile::exists(JPATH_DISPLAY . '/' . $basename) || JFile::exists(JPATH_ORIGINAL . '/' . $basename)) {
 		try
 		{
-			$dstFileName = JPATH_ORIGINAL . basename($srcFileName);
+			$dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . basename($srcFileName);
 			$isMoved = rename($srcFileName, $dstFileName);
 		}
 		catch (RuntimeException $e)
 		{
 			$OutTxt = '';
-			$OutTxt .= 'moveFile2OrignalDir: "' . $srcFileName . '"<br>';
+			$OutTxt .= 'moveFile2OrignalDir: "' . $srcFileName . '" -> "' . $dstFileName . '"<br>';
 			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
 			$app = JFactory::getApplication();
@@ -1137,6 +1139,96 @@ class Rsgallery2ModelImage extends JModelAdmin
 		}
 
 		return $isMoved;
+	}
+
+	public function createDisplayFile ($originalFileName)
+	{
+		global $rsgConfig;
+
+		$isCreated = false;
+
+		// TolDo: if (JFile::exists(JPATH_DISPLAY . '/' . $basename) || JFile::exists(JPATH_ORIGINAL . '/' . $basename)) {
+		try
+		{
+			$baseName = basename($originalFileName);
+			$srcFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $baseName;
+			$dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $baseName;
+
+			// todo: copy and resize ...
+
+			$isCreated = copy($srcFileName, $dstFileName);
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'createDisplayFile: "' . $srcFileName . '" -> "' . $dstFileName . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $isCreated;
+	}
+
+	public function createThumbFile ($originalFileName)
+	{
+		global $rsgConfig;
+
+		$isCreated = false;
+
+		// ToDo: if (JFile::exists(JPATH_DISPLAY . '/' . $basename) || JFile::exists(JPATH_ORIGINAL . '/' . $basename)) {
+		try
+		{
+			$baseName = basename($originalFileName);
+			$srcFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $baseName;
+			$dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . '/' . $baseName;
+
+			// todo: copy and resize ...
+
+			$isCreated = copy($srcFileName, $dstFileName);
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'createThumbFile: "' . $srcFileName . '" -> "' . $dstFileName . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $isCreated;
+	}
+
+	public function createWatermarkFile ($originalFileName)
+	{
+		global $rsgConfig;
+
+		$isCreated = false;
+
+		// if (JFile::exists(JPATH_DISPLAY . '/' . $basename) || JFile::exists(JPATH_ORIGINAL . '/' . $basename)) {
+		try
+		{
+			$baseName = basename($originalFileName);
+			$srcFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $baseName;
+			$dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . '/' . $baseName;
+
+			// todo: copy and resize ...
+
+			$isCreated = copy($srcFileName, $dstFileName);
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'createThumbFile: "' . $srcFileName . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $isCreated;
 	}
 
 

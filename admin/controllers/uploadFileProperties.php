@@ -114,19 +114,21 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
                 , $msg);
 	    }
 
-	    $app = JFactory::getApplication();
-	    $app->setUserState('com_rsgallery2.upload_single');
-
+	    // for next upload tell where to start
 	    $rsgConfig->setLastUpdateType('upload_single');
     }
 
     public function assign2Gallery ()
     {
-        // Get input ...
-
+	    global $rsgConfig;
 	    global $Rsg2DebugActive;
-        $dbgMessage = '';
-        
+
+        $dbgMessage = ''; // debug message
+		$ImgCount = 0; // successful images
+
+        // Return address if all is successful (or ? error)
+	    $redirectUrl = 'index.php?option=com_rsgallery2&view=upload';
+
 	    if($Rsg2DebugActive)
 	    {
 		    JLog::add('==> ctrl.uploadFileProperties.php/assign2Gallery');
@@ -144,7 +146,6 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 		    // replace newlines with html line breaks.
 		    str_replace('\n', '<br>', $msg);
 
-		    $this->setRedirect('index.php?option=com_rsgallery2&view=upload', $msg, $msgType);
 	    }
 	    else
 	    {
@@ -168,7 +169,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 		    $isInOneGallery = $input->get('isInOneGallery', null, 'INT');
             $dbgMessage .= '$isInOneGallery: ' . $isInOneGallery. '<br>';
 
-            //--- arrays -------------------------------------------'
+            //--- arrays -------------------------------------------
 
             // FileName
 		    $FileNamesX = $input->get('FileNameX', array(), 'ARRAY');
@@ -211,12 +212,13 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 
             $msg = 'assign2Gallery';
             $msg .= '<br><br>' . $dbgMessage;
-            $this->setRedirect('index.php?option=com_rsgallery2&view=UploadFileProperties'
-                . '&isInOneGallery=' . $isInOneGallery
-	            . '&galleryId=' . $galleryIdsX[0]
-                . '&fileSessionId=' . $fileSessionId
-                , $msg);
 
+
+            // Url to restart from the found files view
+		    $redirectRestartUrl = 'index.php?option=com_rsgallery2&view=UploadFileProperties'
+			    . '&isInOneGallery=' . $isInOneGallery
+			    . '&galleryId=' . $galleryIdsX[0]
+			    . '&fileSessionId=' . $fileSessionId;
 
 		    //----------------------------------------------------
 		    // Transfer files and create image data in db
@@ -227,7 +229,8 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 			{
 				//--- collect Data ------------------------------------
 
-				$imageName = isset($FileNamesX[$Idx]) ? $FileNamesX[$Idx] : '';
+				// same as below:: $imageName = isset($FileNamesX[$Idx]) ? basename($FileNamesX[$Idx]) : '';
+				$imageName = basename($fileName);
 				$title =  isset($titlesX[$Idx]) ? $titlesX[$Idx] : '';
 				$galleryId =  isset($galleryIdsX[$Idx]) ? $galleryIdsX[$Idx] : 0;
 				$description =  isset($descriptionsX[$Idx]) ? $descriptionsX[$Idx] : '';
@@ -242,37 +245,87 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 					continue;
 				}
 
-				//--- create db item ----------------------------------
-
-				// Model tells if successful
-				$model = $this->getModel('Image');
-				$isCreated = $model->createImageDbItem($imageName, $title, $galleryId, $description);
-				if ( ! $isCreated)
-				{
-					// ToDo: Db entry may exist but copy / move has failed then try to fix this
-
-				}
-
-
+				// Image file handling model
+				$model = $this->getModel('Image'); // ToDo: should be in model imagefiles
 
 				//--- Transfer file ----------------------------------
 
-				$isMoved = $model->moveFile2OrignalDir ();
-
-				if($isMoved) {
-
-					// Create display and thumb version ??
-
-
+				$isMoved = $model->moveFile2OrignalDir($fileName); // ToDo: add gallery ID as parameter for subfolder or subfolder itself ...
+				if ( ! $isMoved)
+				{
+					// File from other user may exist
+					// lead to upload at the end ....
+					$msg .= '<br>' . 'Move for file "' . $imageName . '" failed: It may be created by other user. Please try with different name.';
+					$redirectUrl = $redirectRestartUrl;
 				}
+				else
+				{   // file is moved
 
+					//--- Create display  file ----------------------------------
 
+					$isCreated = $model->createDisplayFile($fileName);
+					if (!$isCreated)
+					{
+						//
+						$msg .= '<br>' . 'Create Display File for "' . $imageName . '" failed. Use maintenance -> Consolidate image database to check it ';
+					}
+					else
+					{   // Display file is created
 
+						//--- Create thumb file ----------------------------------
 
+						$isCreated = $model->createThumbFile($fileName);
+						if (!$isCreated)
+						{
+							//
+							$msg .= '<br>' . 'Create Thumb File for "' . $imageName . '" failed. Use maintenance -> Consolidate image database to check it ';
+						}
 
-			}
+						//--- Create watermark file ----------------------------------
 
+						if (!empty($rsgConfig->get('watermark')))
+						{
+							$isCreated = $model->createWatermarkFile($fileName);
+							if (!$isCreated)
+							{
+								//
+								$msg .= '<br>' . 'Create Watermark File for "' . $imageName . '" failed. Use maintenance -> Consolidate image database to check it ';
+							}
+						}
+
+						//--- create db item ----------------------------------
+
+						// Model tells if successful
+						$isCreated = $model->createImageDbItem($imageName, $title, $galleryId, $description);
+						if (!$isCreated)
+						{
+							// ToDo: Db entry may exist but copy / move has failed then try to fix this
+
+							// actual give an error
+							$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+							$msg .= '<br>' . 'Create Watermark File for "' . $imageName . '" failed. Use maintenance -> Consolidate image database to check it ';
+							$msgType = 'warning';
+
+							// replace newlines with html line breaks.
+							//str_replace('\n', '<br>', $msg);
+						}
+						else
+						{
+							// successfull transfer
+							$ImgCount += 1;
+						}
+
+					} // display file
+
+				} // file is moved
+			} // all files
 	    }
+
+	    $msg .= '\n' . 'Uploaded ' . $ImgCount . ' images';
+
+	    $this->setRedirect($redirectUrl, $msg, $msgType);
+
+	    return;
     }
 
 
