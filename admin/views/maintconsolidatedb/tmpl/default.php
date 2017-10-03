@@ -566,9 +566,16 @@ function DisplayImageDataTable($ImageReferences, $form)
 					<strong><?php echo JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT'); ?></strong>
 				</div>
 
-				<?php if (empty($this->ImageReferences)) : ?>
+				<?php
+                    // if (empty($this->ImageReferences)) :
+                    $ImageReferenceList = $this->ImageReferences->getImageReferenceList();
+                    if (count($ImageReferenceList) == 0) :
+                ?>
 					<div class="alert alert-no-items">
-						<?php echo JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_NO_MISSING_ITEMS_TXT'); ?>
+						<?php
+                            // echo JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_NO_MISSING_ITEMS_TXT');
+                            echo JText::_('COM_RSGALLERY2_NO_INCONSISTENCIES_IN_DATABASE');
+                        ?>
 					</div>
 				<?php else : ?>
 
@@ -597,15 +604,19 @@ function DisplayImageDataTable($ImageReferences, $form)
 				</div>
 
 				<fieldset class="refresh">
-					<!--legend><?php echo JText::_('COM_RSGALLERY2_REFRESH_TEXT'); ?></legend-->
-					<div class="form-actions">
-						<a class="btn btn-primary" title="<?php echo JText::_('COM_RSGALLERY2_REFRESH'); ?>"
-								href="index.php?option=com_rsgallery2&amp;view=maintConsolidateDB">
-							<?php echo JText::_('COM_RSGALLERY2_REFRESH'); ?>
-						</a>
-
-					</div>
-				</fieldset>
+					<!--legend><?php echo JText::_('COM_RSGALLERY2_REFRESH_TEXT'); ?>XXXXX</legend-->
+                    <div class="form-actions">
+                        <a class="btn btn-primary"
+                           title="<?php echo JText::_('COM_RSGALLERY2_REPEAT_CHECKING_INCONSITENCIES_DESC'); ?>"
+                           href="index.php?option=com_rsgallery2&amp;view=maintConsolidateDB">
+							<?php echo JText::_('COM_RSGALLERY2_REPEAT_CHECKING'); ?>
+                        </a>
+                        <a class="btn btn-primary"
+                           href="index.php?option=com_rsgallery2&amp;view=maintenance">
+		                    <?php echo JText::_('COM_RSGALLERY2_CANCEL'); ?>
+                        </a>
+                    </div>
+ 				</fieldset>
 
 				<input type="hidden" value="" name="task" />
 				<input type="hidden" name="boxchecked" value="0" />

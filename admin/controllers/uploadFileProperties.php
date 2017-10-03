@@ -123,7 +123,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 	    global $rsgConfig;
 	    global $Rsg2DebugActive;
 
-        $dbgMessage = ''; // debug message
+	    $dbgMessage = ''; // debug message
 		$ImgCount = 0; // successful images
 
         // Return address if all is successful (or ? error)
@@ -263,7 +263,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 
 					//--- Create display  file ----------------------------------
 
-					$isCreated = $model->createDisplayFile($fileName);
+					$isCreated = $model->createDisplayImageFile($fileName);
 					if (!$isCreated)
 					{
 						//
@@ -274,7 +274,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 
 						//--- Create thumb file ----------------------------------
 
-						$isCreated = $model->createThumbFile($fileName);
+						$isCreated = $model->createThumbImageFile($fileName);
 						if (!$isCreated)
 						{
 							//
@@ -285,7 +285,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 
 						if (!empty($rsgConfig->get('watermark')))
 						{
-							$isCreated = $model->createWatermarkFile($fileName);
+							$isCreated = $model->createWaterMarkImageFile($fileName);
 							if (!$isCreated)
 							{
 								//

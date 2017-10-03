@@ -62,7 +62,7 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 		// on develop show open tasks if existing
 		if (!empty ($Rsg2DevelopActive))
 		{
-			echo '<span style="color:red">Task: tooltip for "Refresh button" -> Repeat checking for inconsitencies<br> * Image square a) use thumb if possible b) check for gd2:...<br> * Select for parent galleries -> only when errors exist<br> * cancel button</span><br><br>';
+			echo '<span style="color:red">Tasks:<br>* Delete also watermarked images<br>* Image square a) use thumb if possible b) check for gd2:...<br> * Select for parent galleries -> only when errors exist</span><br><br>';
 		}
 
 //		$xmlFile = JPATH_COMPONENT . '/models/forms/maintregenerateimages.xml';

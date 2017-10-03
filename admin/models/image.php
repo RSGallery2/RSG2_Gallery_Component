@@ -895,7 +895,8 @@ class Rsgallery2ModelImage extends JModelAdmin
 			switch ($graphicsLib)
 			{
 				case 'gd2':
-					$IsImageCreated = GD2::resizeImage($imgSrcPath, $imgDstPath, $targetWidth);
+					// $IsImageCreated = GD2::resizeImage($imgSrcPath, $imgDstPath, $targetWidth);
+					$IsImageCreated = resizeImage($imgSrcPath, $imgDstPath, $targetWidth);
 					break;
 				case 'imagemagick':
 					$IsImageCreated = ImageMagick::resizeImage($imgSrcPath, $imgDstPath, $targetWidth);
@@ -1023,7 +1024,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 	}
 
     /**
-     * Delte database entry (item) for given image name
+     * Delete database entry (item) for given image name
      *
      * @param $imageName
      *
@@ -1068,50 +1069,56 @@ class Rsgallery2ModelImage extends JModelAdmin
      *
      * @since 4.3.0
      */
-    /**
+    /**/
     public function createWaterMarkImageFile ($imageName)
     {
-    global $rsgConfig;
+	    global $rsgConfig;
 
-    $IsImageCreated = false;
+	    $IsImageCreated = false;
 
-    try {
+	    try
+	    {
+		    $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $imageName;
+		    $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . '/' . $imageName;
 
-    $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . $imageName;
-    $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . $imageName . '.jpg';
+		    $width  = getimagesize($imgSrcPath);
+		    $height = $width[1];
+		    $width  = $width[0];
+		    if ($height > $width)
+		    {
+			    $maxSideImage = $height;
+		    }
+		    else
+		    {
+			    $maxSideImage = $width;
+		    }
 
-    $width = getimagesize($imgSrcPath);
-    $height = $width[1];
-    $width = $width[0];
-    if ($height > $width) {
-    $maxSideImage = $height;
-    } else {
-    $maxSideImage = $width;
+		    $userWidth = $rsgConfig->get('image_width');
+
+		    // if original is wider or higher than display size, create a display image
+		    if ($maxSideImage > $userWidth)
+		    {
+			    $IsImageCreated = $this->resizeImage($imgSrcPath, $imgDstPath, $userWidth);
+		    }
+		    else
+		    {
+			    $IsImageCreated = $this->resizeImage($imgSrcPath, $imgDstPath, $maxSideImage);
+		    }
+	    }
+	    catch (RuntimeException $e)
+	    {
+		    $OutTxt = '';
+		    $OutTxt .= 'Error executing createWaterMarkImageFile for image name: "' . $imageName . '"<br>';
+		    $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+		    $app = JFactory::getApplication();
+		    $app->enqueueMessage($OutTxt, 'error');
+	    }
+
+	    return $IsImageCreated;
+
     }
-
-    $userWidth = $rsgConfig->get('image_width');
-
-    // if original is wider or higher than display size, create a display image
-    if ($maxSideImage > $userWidth) {
-    $IsImageCreated = $this->resizeImage($imgSrcPath, $imgDstPath, $userWidth);
-    } else {
-    $IsImageCreated = $this->resizeImage($imgSrcPath, $imgDstPath, $maxSideImage);
-    }
-    }
-    catch (RuntimeException $e)
-    {
-    $OutTxt = '';
-    $OutTxt .= 'Error executing createDisplayImageFile for image name: "' . $imageName . '"<br>';
-    $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-    $app = JFactory::getApplication();
-    $app->enqueueMessage($OutTxt, 'error');
-    }
-
-    return $IsImageCreated;
-
-    }
-	 **/
+	/**/
 
 
     // ToDo: Create imagefile model ?
@@ -1119,6 +1126,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 	public function moveFile2OrignalDir ($srcFileName)
 	{
 		global $rsgConfig;
+		global $Rsg2DebugActive;
 
 		$isMoved = false;
 
@@ -1126,7 +1134,13 @@ class Rsgallery2ModelImage extends JModelAdmin
 		try
 		{
 			$dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . basename($srcFileName);
-			$isMoved = rename($srcFileName, $dstFileName);
+
+			if ($Rsg2DebugActive)
+			{
+				JLog::add('==> moveFile2OrignalDir: "' . $srcFileName . '"');
+			}
+
+			$isMoved     = rename($srcFileName, $dstFileName);
 		}
 		catch (RuntimeException $e)
 		{
@@ -1141,9 +1155,11 @@ class Rsgallery2ModelImage extends JModelAdmin
 		return $isMoved;
 	}
 
+	/**
 	public function createDisplayFile ($originalFileName)
 	{
 		global $rsgConfig;
+		global $Rsg2DebugActive;
 
 		$isCreated = false;
 
@@ -1152,7 +1168,12 @@ class Rsgallery2ModelImage extends JModelAdmin
 		{
 			$baseName = basename($originalFileName);
 			$srcFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $baseName;
-			$dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $baseName;
+			$dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $baseName . '.jpg';
+
+			if ($Rsg2DebugActive)
+			{
+				JLog::add('==> createDisplayFile: "' . $srcFileName . '" -> "' . $dstFileName . '"');
+			}
 
 			// todo: copy and resize ...
 
@@ -1174,6 +1195,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 	public function createThumbFile ($originalFileName)
 	{
 		global $rsgConfig;
+		global $Rsg2DebugActive;
 
 		$isCreated = false;
 
@@ -1182,7 +1204,12 @@ class Rsgallery2ModelImage extends JModelAdmin
 		{
 			$baseName = basename($originalFileName);
 			$srcFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $baseName;
-			$dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . '/' . $baseName;
+			$dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . '/' . $baseName . '.jpg';
+
+			if ($Rsg2DebugActive)
+			{
+				JLog::add('==> createThumbFile: "' . $srcFileName . '" -> "' . $dstFileName . '"');
+			}
 
 			// todo: copy and resize ...
 
@@ -1204,6 +1231,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 	public function createWatermarkFile ($originalFileName)
 	{
 		global $rsgConfig;
+		global $Rsg2DebugActive;
 
 		$isCreated = false;
 
@@ -1213,6 +1241,11 @@ class Rsgallery2ModelImage extends JModelAdmin
 			$baseName = basename($originalFileName);
 			$srcFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $baseName;
 			$dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . '/' . $baseName;
+
+			if ($Rsg2DebugActive)
+			{
+				JLog::add('==> createWatermarkFile: "' . $srcFileName . '" -> "' . $dstFileName . '"');
+			}
 
 			// todo: copy and resize ...
 
@@ -1230,6 +1263,6 @@ class Rsgallery2ModelImage extends JModelAdmin
 
 		return $isCreated;
 	}
-
+	/**/
 
 }
