@@ -1060,69 +1060,6 @@ class Rsgallery2ModelImage extends JModelAdmin
 		return $IsRowDeleted;
 	}
 
-    /**
-     * prepared: Create a watermark image file
-     *
-     * @param $imageName
-     *
-     * @return bool
-     *
-     * @since 4.3.0
-     */
-    /**/
-    public function createWaterMarkImageFile ($imageName)
-    {
-	    global $rsgConfig;
-
-	    $IsImageCreated = false;
-
-	    try
-	    {
-		    $imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $imageName;
-		    $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . '/' . $imageName;
-
-		    $width  = getimagesize($imgSrcPath);
-		    $height = $width[1];
-		    $width  = $width[0];
-		    if ($height > $width)
-		    {
-			    $maxSideImage = $height;
-		    }
-		    else
-		    {
-			    $maxSideImage = $width;
-		    }
-
-		    $userWidth = $rsgConfig->get('image_width');
-
-		    // if original is wider or higher than display size, create a display image
-		    if ($maxSideImage > $userWidth)
-		    {
-			    $IsImageCreated = $this->resizeImage($imgSrcPath, $imgDstPath, $userWidth);
-		    }
-		    else
-		    {
-			    $IsImageCreated = $this->resizeImage($imgSrcPath, $imgDstPath, $maxSideImage);
-		    }
-	    }
-	    catch (RuntimeException $e)
-	    {
-		    $OutTxt = '';
-		    $OutTxt .= 'Error executing createWaterMarkImageFile for image name: "' . $imageName . '"<br>';
-		    $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-		    $app = JFactory::getApplication();
-		    $app->enqueueMessage($OutTxt, 'error');
-	    }
-
-	    return $IsImageCreated;
-
-    }
-	/**/
-
-
-    // ToDo: Create imagefile model ?
-
 	public function moveFile2OrignalDir ($srcFileName)
 	{
 		global $rsgConfig;
@@ -1155,6 +1092,14 @@ class Rsgallery2ModelImage extends JModelAdmin
 		return $isMoved;
 	}
 
+
+/*------------
+
+	ToDo: create image libs ... and use / create following functions then
+
+	ToDo: use ImgFile.php fur sub classes from here
+
+-------------*/
 	/**
 	public function createDisplayFile ($originalFileName)
 	{
