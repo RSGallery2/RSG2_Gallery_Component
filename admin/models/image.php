@@ -14,6 +14,7 @@ use Joomla\Utilities\ArrayHelper;
 
 /**
  * Single image model
+ * Db functions
  *
  * @since 4.3.0
  */
@@ -812,6 +813,14 @@ class Rsgallery2ModelImage extends JModelAdmin
 
 		return $imageId;
 	}
+
+
+	/*******************************************************************************************************
+
+    !!! Move to other file !!!
+
+	 ==> IMG
+	*******************************************************************************************************/
 
 
     /**
