@@ -9,7 +9,7 @@ require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ExtImgLibAbstract.php';
  *
  * @package RSGallery2
  */
-class GD2 extends externalImageLib// genericImageLib
+class external_GD2 extends externalImageLib// genericImageLib
 {
 
 	/**
@@ -28,7 +28,27 @@ class GD2 extends externalImageLib// genericImageLib
 		global $rsgConfig;
 		// an array of image types
 
-		$imageTypes = array(1 => 'gif', 2 => 'jpeg', 3 => 'png', 4 => 'swf', 5 => 'psd', 6 => 'bmp', 7 => 'tiff', 8 => 'tiff', 9 => 'jpc', 10 => 'jp2', 11 => 'jpx', 12 => 'jb2', 13 => 'swc', 14 => 'iff', 15 => 'wbmp', 16 => 'xbm');
+		$imageTypes = array( // ToDo: check if there is there predifined array ?
+			IMAGETYPE_GIF => 'gif',
+			IMAGETYPE_JPEG => 'jpg',
+			IMAGETYPE_PNG => 'png',
+			IMAGETYPE_SWF => 'swf',
+			IMAGETYPE_PSD => 'psd',
+			IMAGETYPE_BMP => 'bmp',
+			IMAGETYPE_TIFF_II => 'tiff',
+			IMAGETYPE_TIFF_MM => 'tiff',
+			IMAGETYPE_JPC => 'jpc',
+			IMAGETYPE_JP2 => 'jp2',
+			IMAGETYPE_JPX => 'jpx',
+			IMAGETYPE_JP2 => 'jP2',
+			IMAGETYPE_SWC => 'swc',
+			IMAGETYPE_IFF => 'iff',
+			IMAGETYPE_WBMP => 'wbmp',
+			IMAGETYPE_XBM => 'xbm',
+			IMAGETYPE_ICO => 'ico'
+		);
+
+
 		$source     = rawurldecode($source);//fix: getimagesize does not like %20
 		$target     = rawurldecode($target);//fix: getimagesize does not like %20
 		$imgInfo    = getimagesize($source);
@@ -224,14 +244,10 @@ class GD2 extends externalImageLib// genericImageLib
 	{
 		$gd2Version = '';
 
-		if (extension_loaded('gd'))
-		{
-			if (function_exists('gd_info'))
-			{
-				$gdInfoArray = gd_info();
-				$gd2Version  = 'gd2 ' . $gdInfoArray["GD Version"];
-			}
-		}
+
+		parent::detect ('gd2');
+		// ToDO: Move to base lib
+
 
 		/*
 				if(strlen ($Gd2Version) < 1) {
