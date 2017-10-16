@@ -1,6 +1,5 @@
 <?php
 /*
-* @version $Id: GraficLibrarySelectList.php  $
 * @package RSGallery2
 * @copyright (C) 2005 - 2017 RSGallery2
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
