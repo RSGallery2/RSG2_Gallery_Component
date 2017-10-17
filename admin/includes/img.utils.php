@@ -1267,7 +1267,7 @@ class waterMarker extends GD2
 	 */
 	static function PathFileName($watermarkFilename)
 	{
-		$watermarkPathFilename = JPATH_WATERMARKED . DS . $watermarkFilename;
+		$watermarkPathFilename = JPATH_WATERMARKED . '/' . $watermarkFilename;
 
 		return $watermarkPathFilename;
 	}
