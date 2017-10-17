@@ -123,6 +123,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 	    global $rsgConfig;
 	    global $Rsg2DebugActive;
 
+
 	    $dbgMessage = ''; // debug message
 		$ImgCount = 0; // successful images
 
@@ -224,7 +225,11 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 		    // Transfer files and create image data in db
 		    //----------------------------------------------------
 
-			$Idx = 0;
+		    // Image file handling model
+		    $modelFile = $this->getModel('imageFile'); // ToDo: should be in model imagefiles
+		    $modelDb = $this->getModel('image');
+
+		    $Idx = 0;
 			foreach ($FileNamesX as $fileName)
 			{
 				//--- collect Data ------------------------------------
@@ -245,12 +250,9 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 					continue;
 				}
 
-				// Image file handling model
-				$model = $this->getModel('Image'); // ToDo: should be in model imagefiles
-
 				//--- Transfer file ----------------------------------
 
-				$isMoved = $model->moveFile2OrignalDir($fileName); // ToDo: add gallery ID as parameter for subfolder or subfolder itself ...
+				$isMoved = $modelFile->moveFile2OriginalDir($fileName); // ToDo: add gallery ID as parameter for subfolder or subfolder itself ...
 				if ( ! $isMoved)
 				{
 					// File from other user may exist
@@ -263,7 +265,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 
 					//--- Create display  file ----------------------------------
 
-					$isCreated = $model->createDisplayImageFile($fileName);
+					$isCreated = $modelFile->createDisplayImageFile($fileName);
 					if (!$isCreated)
 					{
 						//
@@ -274,7 +276,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 
 						//--- Create thumb file ----------------------------------
 
-						$isCreated = $model->createThumbImageFile($fileName);
+						$isCreated = $modelFile->createThumbImageFile($fileName);
 						if (!$isCreated)
 						{
 							//
@@ -285,7 +287,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 
 						if (!empty($rsgConfig->get('watermark')))
 						{
-							$isCreated = $model->createWaterMarkImageFile($fileName);
+							$isCreated = $modelFile->createWaterMarkImageFile($fileName);
 							if (!$isCreated)
 							{
 								//
@@ -296,7 +298,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 						//--- create db item ----------------------------------
 
 						// Model tells if successful
-						$isCreated = $model->createImageDbItem($imageName, $title, $galleryId, $description);
+						$isCreated = $modelDb->createImageDbItem($imageName, $title, $galleryId, $description);
 						if (!$isCreated)
 						{
 							// ToDo: Db entry may exist but copy / move has failed then try to fix this
