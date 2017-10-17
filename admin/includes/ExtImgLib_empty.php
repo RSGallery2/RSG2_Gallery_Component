@@ -21,7 +21,7 @@ class external_empty extends externalImageLib// genericImageLib
 	 *
 	 * @return bool true if successfull, false if error
 	 */
-	static function resizeImage($source, $target, $targetWidth)
+	static function resizeImage($imgSrcPath, $imgDstPath, $targetWidth)
 	{
 		$app = JFactory::getApplication();
 		$app->enqueueMessage('resizeImage called in "empty" image library', 'error');
@@ -38,7 +38,7 @@ class external_empty extends externalImageLib// genericImageLib
 	 *
 	 * @return bool true if successfull, false if error
 	 */
-	static function createSquareThumb($source, $target, $width)
+	static function createSquareThumb($imgSrcPath, $imgDstPath, $thumbWidth)
 	{
 		$app = JFactory::getApplication();
 		$app->enqueueMessage('createSquareThumb called in "empty" image library', 'error');
@@ -46,20 +46,6 @@ class external_empty extends externalImageLib// genericImageLib
 		return false;
 	}
 
-	/**
-	 * detects if gd2 image library is available
-	 *
-	 * @return string user friendly string of library name and version if detected
-	 *                 empty if not detected,
-	 */
-	static function detect()
-	{
-		$app = JFactory::getApplication();
-		$app->enqueueMessage('detect called in "empty" image library', 'error');
-
-		return ""; // ? Dummy name ?
-		/**/
-	}
 
 
 }

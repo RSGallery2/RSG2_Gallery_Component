@@ -117,6 +117,7 @@ class external_GD2 extends externalImageLib// genericImageLib
 
 			return false;
 		}
+
 		// write the image
 		if (!imagejpeg($targetImg, $target, $rsgConfig->get('jpegQuality')))
 		{
@@ -125,6 +126,7 @@ class external_GD2 extends externalImageLib// genericImageLib
 
 			return false;
 		}
+
 		//Free up memory
 		imagedestroy($sourceImg);
 		imagedestroy($targetImg);
@@ -135,19 +137,22 @@ class external_GD2 extends externalImageLib// genericImageLib
 	/**
 	 * Creates a square thumbnail by first resizing and then cutting out the thumb
 	 *
-	 * @param string $source Full path of source image
-	 * @param string $target Full path of target image
-	 * @param int    $width  width of target
+	 * @param string $imgSrcPath Full path of source image
+	 * @param string $imgDstPath Full path of target image
+	 * @param int    $thumbWidth  width of target
 	 *
 	 * @return bool true if successfull, false if error
 	 */
-	static function createSquareThumb($source, $target, $width)
+	static function createSquareThumb($imgSrcPath, $imgDstPath, $thumbWidth)
 	{
 		global $rsgConfig;
-		$source = rawurldecode($source);//fix: getimagesize does not like %20
+
+		// ToDo: thumb type ??
+
+		$source = rawurldecode($imgSrcPath);//fix: getimagesize does not like %20
 		//Create a square image, based on the set width
-		$t_width  = $width;
-		$t_height = $width;
+		$t_width  = $thumbWidth;
+		$t_height = $thumbWidth;
 
 		//Get details on original image
 		$imgdata = getimagesize($source);
@@ -217,10 +222,10 @@ class external_GD2 extends externalImageLib// genericImageLib
 		}
 
 		// write the image
-		if (!imagejpeg($thumb2, $target, $rsgConfig->get('jpegQuality')))
+		if (!imagejpeg($thumb2, $imgDstPath, $rsgConfig->get('jpegQuality')))
 		{
 			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE').": ".$target);
-			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE') . ": " . $target, 'error');
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE') . ": " . $imgDstPath, 'error');
 
 			return false;
 		}
@@ -234,29 +239,6 @@ class external_GD2 extends externalImageLib// genericImageLib
 		}
 	}
 
-	/**
-	 * detects if gd2 image library is available
-	 *
-	 * @return string user friendly string of library name and version if detected
-	 *                 empty if not detected,
-	 */
-	static function detect()
-	{
-		$gd2Version = '';
 
-
-		parent::detect ('gd2');
-		// ToDO: Move to base lib
-
-
-		/*
-				if(strlen ($Gd2Version) < 1) {
-					// echo "<br>false";
-					return false;
-				}
-		/**/
-
-		return $gd2Version;
-	}
 }
 
