@@ -839,6 +839,16 @@
 				class="">
 		</field>
 		<field
+				id="watermark_image"
+				name="watermark_image"
+				type="media"
+				default="0"
+				label="COM_RSGALLERY2_WATERMARK_IMAGE"
+				description="COM_RSGALLERY2_WATERMARK_IMAGE_DESC"
+				preview="tooltip"	
+				class="">
+		</field>
+		<field
 				id="watermark_font_size"
 				name="watermark_font_size"
 				type="list"
