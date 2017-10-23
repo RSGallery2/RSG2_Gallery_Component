@@ -28,7 +28,7 @@ class external_GD2 extends externalImageLib// genericImageLib
 		global $rsgConfig;
 		// an array of image types
 
-		$imageTypes = array( // ToDo: check if there is there predifined array ?
+		$imageTypes = array( // ToDo: check if there is there predefined array ?
 			IMAGETYPE_GIF => 'gif',
 			IMAGETYPE_JPEG => 'jpeg',
 			IMAGETYPE_PNG => 'png',
