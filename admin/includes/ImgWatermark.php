@@ -245,9 +245,9 @@ class waterMarker extends Rsgallery2ImageFile // extends ???GD2
 				if ($rsgConfig->get('watermark_type') == 'image')
 				{
 					//Merge watermark image with image
-					$oWatermark = imagecreatefrompng(JPATH_ROOT . DS . 'images' . DS . 'rsgallery' . DS . $rsgConfig->get('watermark_image'));
+					$oWatermarkMerge = imagecreatefrompng(JPATH_ROOT . DS . 'images' . DS . 'rsgallery' . DS . $rsgConfig->get('watermark_image'));
 					//ImageCopyMerge($im, $watermark, $newX + 1, $newY + 1, 0, 0, $w, $h, $rsgConfig->get('watermark_transparency'));
-					imagecopymerge($im, $oWatermark, $newX + 1, $newY + 1, 0, 0, $w, $h, $rsgConfig->get('watermark_transparency'));
+					imagecopymerge($im, $oWatermarkMerge, $newX + 1, $newY + 1, 0, 0, $w, $h, $rsgConfig->get('watermark_transparency'));
 				}
 				else
 				{
@@ -268,12 +268,11 @@ class waterMarker extends Rsgallery2ImageFile // extends ???GD2
 				$this->imageResource = $outputProc($im, $this->imageTargetPath, 100);
 				imagedestroy($im);
 				imagedestroy($im_copy);
-// yyy
-				if (isset($watermark))
-				{
-					imagedestroy($watermark);
-				}
 
+				if (isset($oWatermarkMerge))
+				{
+					imagedestroy($oWatermarkMerge);
+				}
 
 				$IsMarked = true;
 			}
