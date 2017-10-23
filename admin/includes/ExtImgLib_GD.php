@@ -30,7 +30,7 @@ class external_GD2 extends externalImageLib// genericImageLib
 
 		$imageTypes = array( // ToDo: check if there is there predifined array ?
 			IMAGETYPE_GIF => 'gif',
-			IMAGETYPE_JPEG => 'jpg',
+			IMAGETYPE_JPEG => 'jpeg',
 			IMAGETYPE_PNG => 'png',
 			IMAGETYPE_SWF => 'swf',
 			IMAGETYPE_PSD => 'psd',
