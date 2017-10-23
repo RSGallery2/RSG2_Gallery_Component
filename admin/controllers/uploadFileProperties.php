@@ -28,7 +28,7 @@ jimport('joomla.application.component.controllerform');
  *
  * @since 4.3.0
  */
-class Rsgallery2ControllerUploadFileProperties extends JControllerForm
+class Rsgallery2ControllerUploadFileProperties extends JControllerAdmin
 {
 
 	/**
@@ -149,7 +149,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 
 	    }
 	    else
-	    {
+	    {   // can admin
 	        $dbgMessage .= '--- assign2Gallery ----' . '<br>';
 
             //form.xcat.value = GalleryId;
@@ -226,8 +226,17 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 		    //----------------------------------------------------
 
 		    // Image file handling model
-		    $modelFile = $this->getModel('imageFile'); // ToDo: should be in model imagefiles
+		    $modelFile = $this->getModel('imageFile');
 		    $modelDb = $this->getModel('image');
+
+		    $isWatermarkActive = $rsgConfig->get('watermark');
+		    if (!empty($isWatermarkActive))
+		    {
+			    /** ToDo: Load model ? > use different model from separate watermark class
+			     * $modelWatermark ...
+			    $isCreated = $modelWatermark->createWaterMarkImageFile($fileName);
+			    /**/
+		    }
 
 		    $Idx = 0;
 			foreach ($FileNamesX as $fileName)
@@ -240,7 +249,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 				$galleryId =  isset($galleryIdsX[$Idx]) ? $galleryIdsX[$Idx] : 0;
 				$description =  isset($descriptionsX[$Idx]) ? $descriptionsX[$Idx] : '';
 
-				$delete = isset($deletesX[Idx]) ? $deletesX[$Idx] : false;
+				$delete = isset($deletesX[$Idx]) ? $deletesX[$Idx] : false;
 
 				//If image is marked for deletion, delete and continue with next iteration
 				if ($delete == 'true')
@@ -285,14 +294,16 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 
 						//--- Create watermark file ----------------------------------
 
-						if (!empty($rsgConfig->get('watermark')))
+						if (!empty($isWatermarkActive))
 						{
-							$isCreated = $modelFile->createWaterMarkImageFile($fileName);
+							/** ToDo: Load model ? or above -> use different model from separate watermark class
+							$isCreated = $modelWatermark->createWaterMarkImageFile($fileName);
 							if (!$isCreated)
 							{
 								//
 								$msg .= '<br>' . 'Create Watermark File for "' . $imageName . '" failed. Use maintenance -> Consolidate image database to check it ';
 							}
+							/**/
 						}
 
 						//--- create db item ----------------------------------
@@ -313,7 +324,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 						}
 						else
 						{
-							// successfull transfer
+							// successful transfer
 							$ImgCount += 1;
 						}
 
@@ -328,7 +339,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerForm
 	    $this->setRedirect($redirectUrl, $msg, $msgType);
 
 	    return;
-    }
+    } // assign gallery
 
 
 
