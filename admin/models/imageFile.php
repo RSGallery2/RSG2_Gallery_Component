@@ -18,7 +18,7 @@ defined('_JEXEC') or die;
  *
  * @since 4.3.0
  */
-class Rsgallery2ImageFile
+class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 {
 	/**
 	 * @var  externalImageLib contains external image library handler
@@ -32,47 +32,41 @@ class Rsgallery2ImageFile
 	 *
 	 * @since 4.3.0
 	 */
-	public function __construct($NewImageLib = null) // ToDo: Check if the name shall be given instead of libry object
+	public function __construct()
 	{
 		global $rsgConfig;
+
+		parent::__construct();
 
 		// ToDo: try catch
 		// ToDo: ? fallback when lib is not existing any more ?
 
-		// Image library is already defined (given by caller)
-		if (!empty ($NewImageLib))
+		// Use rsgConfig to determine which image library to load
+		$graphicsLib = $rsgConfig->get('graphicsLib');
+		switch ($graphicsLib)
 		{
-			$this->ImageLib = $NewImageLib;
-		}
-		else
-		{
-			// Use rsgConfig to determine which image library to load
-			$graphicsLib = $rsgConfig->get('graphicsLib');
-			switch ($graphicsLib)
-			{
-				case 'gd2':
-					// return GD
-					require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ExtImgLib_GD.php';
-					$this->ImageLib = new external_GD2;
-					break;
-				case 'imagemagick':
-					//return ImageMagick
-					require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ExtImgLib_imagemagick.php';
-					$this->ImageLib = new external_imagemagick;
-					break;
-				case 'netpbm':
-					//return Netpbm
-					require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ExtImgLib_netpbm.php';
-					$this->ImageLib = new external_netpbm;
-					break;
-				default:
-					require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ExtImgLib_Empty.php';
-					$this->ImageLib = new external_empty;
-					//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get( 'graphicsLib' ));
-					JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get('graphicsLib'), 'error');
+			case 'gd2':
+				// return GD
+				require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ExtImgLib_GD.php';
+				$this->ImageLib = new external_GD2;
+				break;
+			case 'imagemagick':
+				//return ImageMagick
+				require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ExtImgLib_imagemagick.php';
+				$this->ImageLib = new external_imagemagick;
+				break;
+			case 'netpbm':
+				//return Netpbm
+				require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ExtImgLib_netpbm.php';
+				$this->ImageLib = new external_netpbm;
+				break;
+			default:
+				require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ExtImgLib_Empty.php';
+				$this->ImageLib = new external_empty;
+				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get( 'graphicsLib' ));
+				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get('graphicsLib'), 'error');
 
-					return false;
-			}
+				return false;
 		}
 	}
 
@@ -271,69 +265,5 @@ class Rsgallery2ImageFile
 		return $isMoved;
 	}
 
-	/*------------
-
-		ToDo: create image libs ... and use / create following functions then
-
-		ToDo: use ImgFile.php fur sub classes from here
-
-	-------------*/
-
-	/** other file class watermrk ..
-	public function createWaterMarkImageFile($originalFileName)
-	{
-		global $rsgConfig;
-		global $Rsg2DebugActive;
-
-		$isCreated = false;
-
-		// if (JFile::exists(JPATH_DISPLAY . '/' . $basename) || JFile::exists(JPATH_ORIGINAL . '/' . $basename)) {
-		try
-		{
-			$ImageLib = $this->ImageLib;
-
-			// ToDo: make separate functions in each grafics lib
-			// Actual short cut : use GD
-			// Use rsgConfig to determine which image library is loaded
-			$graphicsLib = $rsgConfig->get('graphicsLib');
-			// Use GD even if $graphicsLib is different
-			if ($graphicsLib != 'gd2')
-			{
-				require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ExtImgLib_GD.php';
-				$ImageLib = new external_GD2;
-			}
-
-
-			$IsImageCreated = $ImageLib->resizeImage($imgSrcPath, $imgDstPath, $maxSideImage);
-
-
-				$baseName    = basename($originalFileName);
-			$srcFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $baseName;
-			$dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . '/' . $baseName;
-
-			if ($Rsg2DebugActive)
-			{
-				JLog::add('==> createWatermarkFile: "' . $srcFileName . '" -> "' . $dstFileName . '"');
-			}
-
-
-			// seed is used ...
-			// todo: copy and resize ...
-
-			$isCreated = copy($srcFileName, $dstFileName);
-		}
-		catch (RuntimeException $e)
-		{
-			$OutTxt = '';
-			$OutTxt .= 'createThumbFile: "' . $srcFileName . '"<br>';
-			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-			$app = JFactory::getApplication();
-			$app->enqueueMessage($OutTxt, 'error');
-		}
-
-		return $isCreated;
-	}
-	/**/
-
+	// watermark -> separate class
 }
