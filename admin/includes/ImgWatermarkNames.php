@@ -39,6 +39,7 @@ class ImgWatermarkNames
      *
      * @return string url to watermarked image
      */
+    // ToDo ??? rename to get WaltermarkedUrlAndCreate
     static function watermarkedUrl4Display($imageName, $imageType = 'display', $font = "arial.ttf", $shadow = true)
     {
         global $rsgConfig;
