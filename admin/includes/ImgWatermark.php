@@ -24,6 +24,7 @@ class ImgWatermark
 	 * @author  Ronald Smit <webmaster@rsdev.nl>
 	 */
 
+	/**
 	public function createWaterMarkImageFile($originalFileName)
 	{
 		global $rsgConfig;
@@ -78,7 +79,7 @@ class ImgWatermark
 
 		return $isCreated;
 	}
-
+    /**/
 }
 
 /**/
@@ -97,17 +98,36 @@ class waterMarker extends Rsgallery2ImageFile // extends ???GD2
 	var $size = 10;            //font size
 	var $angle = 45;            //angle to draw watermark text
 	var $imageResource;                //to store the image resource after completion of watermarking
-	var $imageType = "jpg";        //this could be either of png, jpg, jpeg, bmp, or gif (if gif then output will be in png)
 	var $shadow = false;        //if set to true then a shadow will be drawn under every watermark text
 	var $antialiased = true;        //if set to true then watermark text will be drawn anti-aliased. this is recommended
 	var $imageTargetPath = '';        //full path to where to store the watermarked image to
 
-	/**
+    function __construct(??? name , origin ?) {
+		global $rsgConfig;
+
+
+
+        print "Im BaseClass Konstruktor\n";
+
+$imark->waterMarkText   = $rsgConfig->get('watermark_text');
+$imark->imagePath       = $imagePath;
+$imark->font            = JPATH_COMPONENT_ADMINISTRATOR . '/fonts/' . $rsgConfig->get('watermark_font');
+$imark->size            = $rsgConfig->get('watermark_font_size');
+$imark->shadow          = $shadow;
+$imark->angle           = $rsgConfig->get('watermark_angle');
+$imark->imageTargetPath = $watermarkPathFilename;
+
+    }
+    construct -> set
+
+
+
+    /**
 	 * this function draws the watermark over the image
 	 *
-	 * @param string $imageType
+     * @param string $imageOrigin ImageType is either 'display' or 'original' and will precide the output filename
 	 */
-	function createMarker($imageType = 'display')
+	function createMarkedFile($imageOrigin = 'display')
 	{
 		global $rsgConfig;
 
