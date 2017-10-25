@@ -1035,7 +1035,7 @@ class waterMarker extends GD2
 	var $size = 10;            //font size
 	var $angle = 45;            //angle to draw watermark text
 	var $imageResource;                //to store the image resource after completion of watermarking
-	var $imageType = "jpg";        //this could be either of png, jpg, jpeg, bmp, or gif (if gif then output will be in png)
+	var $imageType = "jpg";     //this could be either of png, jpg, jpeg, bmp, or gif (if gif then output will be in png)
 	var $shadow = false;        //if set to true then a shadow will be drawn under every watermark text
 	var $antialiased = true;        //if set to true then watermark text will be drawn anti-aliased. this is recommended
 	var $imageTargetPath = '';        //full path to where to store the watermarked image to
@@ -1043,9 +1043,9 @@ class waterMarker extends GD2
 	/**
 	 * this function draws the watermark over the image
 	 *
-	 * @param string $imageType
+     * @param string $imageOrigin ImageType is either 'display' or 'original' and will precide the output filename
 	 */
-	function mark($imageType = 'display')
+	function mark($imageOrigin = 'display')
 	{
 		global $rsgConfig;
 
@@ -1192,27 +1192,29 @@ class waterMarker extends GD2
 	}
 
 	/**
-	 * Function that takes an image and returns the url to watermarked image
+	 * Function that takes an image name and returns the url to watermarked image
+     * If watermarked file does not exist it is created 'en passant'
 	 *
 	 * @param string  $imageName Name of the image in question
-	 * @param string  $imageType ImageType is either 'display' or 'original' and will precide the output filename
+	 * @param string  $imageOrigin ImageType is either 'display' or 'original' and will precide the output filename
 	 * @param string  $font      Font used for watermark
 	 * @param boolean $shadow    Shadow text yes or no
 	 *
 	 * @return string url to watermarked image
 	 */
-	static function showMarkedImage($imageName, $imageType = 'display', $font = "arial.ttf", $shadow = true)
+	// ToDo rename to get WaltermarkedUrlAndCreate
+	static function showMarkedImage($imageName, $imageOrigin = 'display', $font = "arial.ttf", $shadow = true)
 	{
 		global $rsgConfig, $mainframe;
 
 		// ToDo: Don't know why image type can't be 'display' for creating watermarked file ? Just display on screen ??
 
-		$watermarkFilename     = waterMarker::createWatermarkedFileName($imageName, $imageType);
+		$watermarkFilename     = waterMarker::createWatermarkedFileName($imageName, $imageOrigin);
 		$watermarkPathFilename = waterMarker::PathFileName($watermarkFilename);
 
 		if (!JFile::exists($watermarkPathFilename))
 		{
-			if ($imageType == 'display')
+			if ($imageOrigin == 'display')
 			{
 				$imagePath = JPATH_DISPLAY . DS . $imageName . ".jpg";
 			}
@@ -1230,7 +1232,7 @@ class waterMarker extends GD2
 			$imark->angle           = $rsgConfig->get('watermark_angle');
 			$imark->imageTargetPath = $watermarkPathFilename;
 
-			$imark->mark($imageType); //draw watermark
+			$imark->mark($imageOrigin); //draw watermark
 		}
 
 		return trim(JURI_SITE, '/') . $rsgConfig->get('imgPath_watermarked') . '/' . $watermarkFilename;
@@ -1241,19 +1243,19 @@ class waterMarker extends GD2
 	 * Three functions exists for the access of the filename to do the MD5 just once
 	 *
 	 * @param string $imageName Name of the image in question
-	 * @param string $imageType Image type is either 'display' or 'original' and will precide the output filename
+	 * @param string $imageOrigin Image type is either 'display' or 'original' and will precide the output filename
 	 *
 	 * @return string MD5 name of watermarked image (example "displayc4cef3bababbff9e68015992ff6b8cbb.jpg")
 	 * @throws Exception
 	 */
-	static function createWatermarkedFileName($imageName, $imageType)
+	static function createWatermarkedFileName($imageName, $imageOrigin)
 	{
 
 		$pepper = 'RSG2Watermarked';
 		$app    = JFactory::getApplication();
 
 		$salt     = $app->get('secret');
-		$filename = $imageType . md5($pepper . $imageName . $salt) . '.jpg';
+		$filename = $imageOrigin . md5($pepper . $imageName . $salt) . '.jpg';
 
 		return $filename;
 	}
@@ -1276,13 +1278,13 @@ class waterMarker extends GD2
 	 * Function creates path and file name of watermarked image
 	 *
 	 * @param string $imageName Name of the image in question
-	 * @param        $imageType
+	 * @param        $imageOrigin
 	 *
 	 * @return string url to watermarked image
 	 */
-	static function createWatermarkedPathFileName($imageName, $imageType)
+	static function createWatermarkedPathFileName($imageName, $imageOrigin)
 	{
-		$watermarkPathFilename = waterMarker::PathFileName(waterMarker::createWatermarkedFileName($imageName, $imageType));
+		$watermarkPathFilename = waterMarker::PathFileName(waterMarker::createWatermarkedFileName($imageName, $imageOrigin));
 
 		return $watermarkPathFilename;
 	}
