@@ -92,43 +92,85 @@ class ImgWatermark
  */
 class waterMarker extends Rsgallery2ImageFile // extends ???GD2
 {
-	var $imagePath;                    //valid absolute path to image file
-	var $waterMarkText;                //the text to draw as watermark
+	var $waterMarkText;         //the text to draw as watermark
 	var $font = "arial.ttf";    //font file to use for drawing text. need absolute path
-	var $size = 10;            //font size
+	var $size = 10;             //font size
 	var $angle = 45;            //angle to draw watermark text
-	var $imageResource;                //to store the image resource after completion of watermarking
 	var $shadow = false;        //if set to true then a shadow will be drawn under every watermark text
-	var $antialiased = true;        //if set to true then watermark text will be drawn anti-aliased. this is recommended
-	var $imageTargetPath = '';        //full path to where to store the watermarked image to
+	var $antialiased = true;    //if set to true then watermark text will be drawn anti-aliased. this is recommended
+	var $imageTargetPath = '';  //full path to where to store the watermarked image to
+	var $watermarkPath = '';
 
-    function __construct(??? name , origin ?) {
-		global $rsgConfig;
+	// read once from config
+	// var $imagePath;             //valid absolute path to image file
+	// var $imageResource;         //to store the image resource after completion of watermarking
+
+	public function __construct()
+    {
+	    global $rsgConfig;
+
+	    $this->waterMarkText   = $rsgConfig->get('watermark_text');
+	    $this->font            = JPATH_COMPONENT_ADMINISTRATOR . '/fonts/' . $rsgConfig->get('watermark_font');
+	    $this->size            = $rsgConfig->get('watermark_font_size');
+	    $this->angle           = $rsgConfig->get('watermark_angle');
+	    $this->shadow          = true; // ToDO: make config Yes/No
+	    $this->watermarkPath   = $rsgConfig->get('imgPath_watermarked');
+
+//	    $this->imageTargetPath = $watermarkPathFilename;
+//	    $this->imagePath       = $imagePath;
 
 
-
-        print "Im BaseClass Konstruktor\n";
-
-$imark->waterMarkText   = $rsgConfig->get('watermark_text');
-$imark->imagePath       = $imagePath;
-$imark->font            = JPATH_COMPONENT_ADMINISTRATOR . '/fonts/' . $rsgConfig->get('watermark_font');
-$imark->size            = $rsgConfig->get('watermark_font_size');
-$imark->shadow          = $shadow;
-$imark->angle           = $rsgConfig->get('watermark_angle');
-$imark->imageTargetPath = $watermarkPathFilename;
-
+		writePathIndexFile ();
     }
-    construct -> set
+
+	/**
+	 * Check for existing index file in watermark directory
+	 *
+	 * @since 4.3.2
+	 */
+	private function writePathIndexFile ()
+	{
+		$WatermarkedIndexFile = $this->watermarkPath . '/index.html';
+		// A bit of housekeeping: we want an index.html in the directory storing these images
+		if (!JFile::exists($WatermarkedIndexFile))
+		{
+			$buffer = '';    //needed: Cannot pass parameter 2 [of JFile::write()] by reference...
+			JFile::write($WatermarkedIndexFile, $buffer);
+		}
+	}
 
 
 
-    /**
+
+	/**
+	 *
+	 *
+	 * @param string $imageOrigin ImageType is either 'display' or 'original' and will precide the output filename
+	 */
+	public function createMarkedFile4ImgOriginal()
+	{
+
+
+	}
+
+	public function createMarkedFile4ImgDisplay()
+	{
+
+
+	}
+
+// $imageOrigin = 'display'
+
+
+	/**
 	 * this function draws the watermark over the image
 	 *
-     * @param string $imageOrigin ImageType is either 'display' or 'original' and will precide the output filename
+	 * @param string $imageOrigin ImageType is either 'display' or 'original' and will precide the output filename
 	 */
-	function createMarkedFile($imageOrigin = 'display')
+	public function createMarkedFile($SourceFile='',
+	$imageName, $imageOrigin)
 	{
+
 		global $rsgConfig;
 
 		$IsMarked   = false;
@@ -136,15 +178,6 @@ $imark->imageTargetPath = $watermarkPathFilename;
 
 		try
 		{
-
-			$WatermarkedPath      = $rsgConfig->get('imgPath_watermarked');
-			$WatermarkedIndexFile = $WatermarkedPath . '/index.html';
-			// A bit of housekeeping: we want an index.html in the directory storing these images
-			if (!JFile::exists($WatermarkedIndexFile))
-			{
-				$buffer = '';    //needed: Cannot pass parameter 2 [of JFile::write()] by reference...
-				JFile::write($WatermarkedIndexFile, $buffer);
-			}
 
 			//get basic properties of the image file
 			list($width, $height, $type, $attr) = getimagesize($this->imagePath);
@@ -206,6 +239,7 @@ $imark->imageTargetPath = $watermarkPathFilename;
 				 *
 				 * @return x and y coordinates
 				 */
+				// ToDO: constructor read only once
 				$position = $rsgConfig->get('watermark_position');
 				if ($rsgConfig->get('watermark_type') == 'text')
 				{
@@ -262,6 +296,8 @@ $imark->imageTargetPath = $watermarkPathFilename;
 						break;
 				}
 
+
+				// ToDO: constructor read only once
 				if ($rsgConfig->get('watermark_type') == 'image')
 				{
 					//Merge watermark image with image

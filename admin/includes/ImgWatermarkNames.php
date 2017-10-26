@@ -33,20 +33,20 @@ class ImgWatermarkNames
      * The image will be created if it does not exist
      * 
      * @param string  $imageName Name of the image in question
-     * @param string  $imageType ImageType is either 'display' or 'original' and will precide the output filename
+     * @param string  $imageOrigin ImageType is either 'display' or 'original' and will precide the output filename
      * @param string  $font      Font used for watermark
      * @param boolean $shadow    Shadow text yes or no
      *
      * @return string url to watermarked image
      */
     // ToDo ??? rename to get WaltermarkedUrlAndCreate
-    static function watermarkedUrl4Display($imageName, $imageType = 'display', $font = "arial.ttf", $shadow = true)
+    static function watermarkedUrl4Display($imageName, $imageOrigin = 'display', $font = "arial.ttf", $shadow = true)
     {
         global $rsgConfig;
 
         // ToDo: Don't know why image type can't be 'display' for creating watermarked file ? Just display on screen ??
 
-        $watermarkFilename     = ImgWatermarkNames::createWatermarkedFileName($imageName, $imageType);
+        $watermarkFilename     = ImgWatermarkNames::createWatermarkedFileName($imageName, $imageOrigin);
         $watermarkPathFilename = ImgWatermarkNames::PathFileName($watermarkFilename);
         
         $watermerkUrl = trim(JURI_SITE, '/') . $rsgConfig->get('imgPath_watermarked') . '/' . $watermarkFilename;
@@ -55,7 +55,7 @@ class ImgWatermarkNames
         {
         	// ToDo: load model, create watermarked file
 	        /**
-	        if ($imageType == 'display')
+	        if ($imageOrigin == 'display')
 	        {
 	        $imagePath = JPATH_DISPLAY . DS . $imageName . ".jpg";
 	        }
@@ -75,7 +75,7 @@ class ImgWatermarkNames
             $imark->angle           = $rsgConfig->get('watermark_angle');
             $imark->imageTargetPath = $watermarkPathFilename;
 
-            $imark->createrWatermark($imageType); //draw watermark
+            $imark->createrWatermark($imageOrigin); //draw watermark
 	        /**/
         }
 
@@ -87,19 +87,19 @@ class ImgWatermarkNames
      * Three functions exists for the access of the filename to do the MD5 just once
      *
      * @param string $imageName Name of the image in question
-     * @param string $imageType Image type is either 'display' or 'original' and will precide the output filename
+     * @param string $imageOrigin Image type is either 'display' or 'original' and will precide the output filename
      *
      * @return string MD5 name of watermarked image (example "displayc4cef3bababbff9e68015992ff6b8cbb.jpg")
      * @throws Exception
      */
-    static function createWatermarkedFileName($imageName, $imageType)
+    static function createWatermarkedFileName($imageName, $imageOrigin)
     {
 
         $pepper = 'RSG2Watermarked';
         $app    = JFactory::getApplication();
 
         $salt     = $app->get('secret');
-        $filename = $imageType . md5($pepper . $imageName . $salt) . '.jpg';
+        $filename = $imageOrigin . md5($pepper . $imageName . $salt) . '.jpg';
 
         return $filename;
     }
@@ -122,13 +122,13 @@ class ImgWatermarkNames
      * Function creates path and file name of watermarked image
      *
      * @param string $imageName Name of the image in question
-     * @param        $imageType
+     * @param        $imageOrigin
      *
      * @return string url to watermarked image
      */
-    static function createWatermarkedPathFileName($imageName, $imageType)
+    static function createWatermarkedPathFileName($imageName, $imageOrigin)
     {
-        $watermarkPathFilename = ImgWatermarkNames::PathFileName(waterMarker::createWatermarkedFileName($imageName, $imageType));
+        $watermarkPathFilename = ImgWatermarkNames::PathFileName(waterMarker::createWatermarkedFileName($imageName, $imageOrigin));
 
         return $watermarkPathFilename;
     }
