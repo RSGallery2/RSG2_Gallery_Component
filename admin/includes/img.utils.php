@@ -1196,7 +1196,7 @@ class waterMarker extends GD2
      * If watermarked file does not exist it is created 'en passant'
 	 *
 	 * @param string  $imageName Name of the image in question
-	 * @param string  $imageOrigin ImageType is either 'display' or 'original' and will precide the output filename
+	 * @param string  $imageOrigin is either 'display' or 'original' and will precide the output filename
 	 * @param string  $font      Font used for watermark
 	 * @param boolean $shadow    Shadow text yes or no
 	 *
