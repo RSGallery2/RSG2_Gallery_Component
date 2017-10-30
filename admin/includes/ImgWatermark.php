@@ -13,84 +13,15 @@ defined('_JEXEC') or die();
 require_once JPATH_COMPONENT_ADMINISTRATOR . '/modelsimageFile.php';
 require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ImgWatermarkNames.php';
 
-// ToDo: create class .....
-
-class ImgWatermark
-{
-	/**
-	 * Image watermarking class
-	 *
-	 * @package RSGallery2
-	 * @author  Ronald Smit <webmaster@rsdev.nl>
-	 */
-
-	/**
-	public function createWaterMarkImageFile($originalFileName)
-	{
-		global $rsgConfig;
-		global $Rsg2DebugActive;
-
-		$isCreated = false;
-
-		// if (JFile::exists(JPATH_DISPLAY . '/' . $basename) || JFile::exists(JPATH_ORIGINAL . '/' . $basename)) {
-		try
-		{
-			$ImageLib = $this->ImageLib;
-
-			// ToDo: make separate functions in each grafics lib
-			// Actual short cut : use GD
-			// Use rsgConfig to determine which image library is loaded
-			$graphicsLib = $rsgConfig->get('graphicsLib');
-			// Use GD even if $graphicsLib is different
-			if ($graphicsLib != 'gd2')
-			{
-				require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ExtImgLib_GD.php';
-				$ImageLib = new external_GD2;
-			}
-
-
-//			$IsImageCreated = $ImageLib->resizeImage($imgSrcPath, $imgDstPath, $maxSideImage);
-
-
-			$baseName    = basename($originalFileName);
-			$srcFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $baseName;
-			$dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . '/' . $baseName;
-
-			if ($Rsg2DebugActive)
-			{
-				JLog::add('==> createWatermarkFile: "' . $srcFileName . '" -> "' . $dstFileName . '"');
-			}
-
-
-			// seed is used ...
-			// todo: copy and resize ...
-
-			$isCreated = copy($srcFileName, $dstFileName);
-		}
-		catch (RuntimeException $e)
-		{
-			$OutTxt = '';
-			$OutTxt .= 'createThumbFile: "' . $srcFileName . '"<br>';
-			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-			$app = JFactory::getApplication();
-			$app->enqueueMessage($OutTxt, 'error');
-		}
-
-		return $isCreated;
-	}
-    /**/
-}
-
-/**/
-
 /**
  * Image watermarking class
  *
  * @package RSGallery2
  * @author  Ronald Smit <webmaster@rsdev.nl>
+ *
+ * @since 4.3.2
  */
-class waterMarker extends Rsgallery2ImageFile // extends ???GD2
+class imgWaterMark extends Rsgallery2ImageFile // extends ???GD2
 {
 	var $watermarkText     = ''; // the text to draw as watermark
 	var $watermarkPath     = '';
@@ -130,7 +61,7 @@ class waterMarker extends Rsgallery2ImageFile // extends ???GD2
 	    $this->displayPath       = $rsgConfig->get('imgPath_display');
 
 		// Write empty index.html file into watermark path if not existing
-		writeWatermarkPathIndexFile ();
+		self::writeWatermarkPathIndexFile ();
     }
 
 	/**
@@ -211,9 +142,9 @@ class waterMarker extends Rsgallery2ImageFile // extends ???GD2
 	 * @param $watermarkWidth
 	 * @param $srcHeight
 	 *
-	 * @return array
+	 * @return array int[2] start of watermark x and y coordinates
 	 *
-	 * @since version
+	 *  @since 4.3.2
 	 */
 	public static function watermarkXY($watermarkPosition, $srcWidth, $srcHeight, $watermarkHeight, $watermarkWidth): array
 	{
@@ -223,7 +154,6 @@ class waterMarker extends Rsgallery2ImageFile // extends ???GD2
 		 * (4 = Left        ; 5 = Center        ; 6 = Right)
 		 * (7 = Bottom Left ; 8 = Bottom Center ; 9 = Bottom Right)
 		 *
-		 * @return x and y coordinates
 		 */
 		switch ($watermarkPosition)
 		{
