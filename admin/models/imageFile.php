@@ -81,7 +81,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	/**
 	 * Creates a display image with size from config
 	 *
-	 * @param $originalFileName includes path (May be todifferent path then original)
+	 * @param string $originalFileName includes path (May be a different path then the original)
 	 *
 	 * @return bool  true if successful
 	 *
@@ -137,46 +137,16 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 			$app = JFactory::getApplication();
 			$app->enqueueMessage($OutTxt, 'error');
+
+			if ($Rsg2DebugActive)
+			{
+				JLog::add($OutTxt);
+			}
+
 		}
 
 		return $IsImageCreated;
 	}
-
-	/**
-	 * Generic image resize function
-	 * Uses in config defined grafic library
-	 *
-	 * @param string $imgSrcPath  full path of source image
-	 * @param string $imgDstPath  full path of target image
-	 * @param int    $targetWidth width of target
-	 *
-	 * @return bool true if successful
-	 *
-	 * @since 4.3.0
-	 *
-	 * public function resizeImage($imgSrcPath, $imgDstPath, $targetWidth)
-	 * {
-	 * $IsImageCreated = false;
-	 *
-	 * try
-	 * {
-	 * $IsImageCreated = $this->ImageLib->resizeImage($imgSrcPath, $imgDstPath, $targetWidth);
-	 * }
-	 * catch (RuntimeException $e)
-	 * {
-	 * $OutTxt = '';
-	 * $OutTxt .= 'Error executing imageFile::resizeImage "'
-	 * . '" for image source: "' . $imgSrcPath . '"<br>'
-	 * . '" for image desti.: "' . $imgDstPath . '"<br>';
-	 * $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-	 *
-	 * $app = JFactory::getApplication();
-	 * $app->enqueueMessage($OutTxt, 'error');
-	 * }
-	 *
-	 * return $IsImageCreated;
-	 * }
-	 * /**/
 
 	/**
 	 * Creates a thumb image with size from config
@@ -227,6 +197,11 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 			$app = JFactory::getApplication();
 			$app->enqueueMessage($OutTxt, 'error');
+
+			if ($Rsg2DebugActive)
+			{
+				JLog::add($OutTxt);
+			}
 		}
 
 		return $IsImageCreated;
@@ -260,6 +235,11 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 			$app = JFactory::getApplication();
 			$app->enqueueMessage($OutTxt, 'error');
+
+			if ($Rsg2DebugActive)
+			{
+				JLog::add($OutTxt);
+			}
 		}
 
 		return $isMoved;
