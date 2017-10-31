@@ -102,7 +102,9 @@ class ImgWatermarkNames
      */
     static function PathFileName($watermarkFilename)
     {
-        $watermarkPathFilename = JPATH_WATERMARKED . DS . $watermarkFilename;
+	    global $rsgConfig;
+
+        $watermarkPathFilename = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . '/' . $watermarkFilename;
 
         return $watermarkPathFilename;
     }
@@ -119,7 +121,8 @@ class ImgWatermarkNames
      */
     static function createWatermarkedPathFileName($imageName, $imageOrigin)
     {
-        $watermarkPathFilename = self::PathFileName(waterMarker::createWatermarkedFileName($imageName, $imageOrigin));
+	    $watermarkName = self::createWatermarkedFileName($imageName, $imageOrigin);
+        $watermarkPathFilename = self::PathFileName($watermarkName);
 
         return $watermarkPathFilename;
     }
