@@ -208,7 +208,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerAdmin
             $dbgMessage .= '$descriptionsX: ' . json_encode($descriptionsX). '<br>';
             $dbgMessage .= '$descriptions: ' . json_encode($descriptions). '<br>';
 
-            // ToDO: set redirect to images in gallery ?
+            // ToDo: set redirect to images in gallery ?
 		    //$this->setRedirect('index.php?option=com_rsgallery2&view=????', $msg, $msgType);
 
             $msg = 'assign2Gallery';
@@ -232,10 +232,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerAdmin
 		    $isWatermarkActive = $rsgConfig->get('watermark');
 		    if (!empty($isWatermarkActive))
 		    {
-			    /** ToDo: Load model ? > use different model from separate watermark class
-			     * $modelWatermark ...
-			    $isCreated = $modelWatermark->createWaterMarkImageFile($fileName);
-			    /**/
+			    $modelWatermark = $this->getModel('ImgWaterMark');
 		    }
 
 		    $Idx = 0;
@@ -296,14 +293,12 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerAdmin
 
 						if (!empty($isWatermarkActive))
 						{
-							/** ToDo: Load model ? or above -> use different model from separate watermark class
-							$isCreated = $modelWatermark->createWaterMarkImageFile($fileName);
+							$isCreated = $modelWatermark->createMarkedFromBaseName(basename($fileName), 'original');
 							if (!$isCreated)
 							{
 								//
 								$msg .= '<br>' . 'Create Watermark File for "' . $imageName . '" failed. Use maintenance -> Consolidate image database to check it ';
 							}
-							/**/
 						}
 
 						//--- create db item ----------------------------------
@@ -316,7 +311,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerAdmin
 
 							// actual give an error
 							$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-							$msg .= '<br>' . 'Create Watermark File for "' . $imageName . '" failed. Use maintenance -> Consolidate image database to check it ';
+							$msg .= '<br>' . 'Create DB item for "' . $imageName . '" failed. Use maintenance -> Consolidate image database to check it ';
 							$msgType = 'warning';
 
 							// replace newlines with html line breaks.
