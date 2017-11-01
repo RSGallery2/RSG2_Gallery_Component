@@ -211,8 +211,9 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerAdmin
             // ToDo: set redirect to images in gallery ?
 		    //$this->setRedirect('index.php?option=com_rsgallery2&view=????', $msg, $msgType);
 
-            $msg = 'assign2Gallery';
-            $msg .= '<br><br>' . $dbgMessage;
+
+            $msg = 'assign2Gallery: ';
+            // $msg .= '<br><br>' . $dbgMessage;
 
 
             // Url to restart from the found files view
@@ -329,7 +330,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerAdmin
 			} // all files
 	    }
 
-	    $msg .= '\n' . 'Uploaded ' . $ImgCount . ' images';
+	    $msg .= 'Uploaded ' . $ImgCount . ' images'; // toDo: into gallery name
 
 	    $this->setRedirect($redirectUrl, $msg, $msgType);
 
