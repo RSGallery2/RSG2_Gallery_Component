@@ -23,16 +23,24 @@ require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ImgWatermarkNames.php';
  */
 class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2ModelImageFile // extends ???GD2
 {
-	var $watermarkText     = ''; // the text to draw as watermark
-	var $watermarkPath     = '';
-	var $watermarkType     = 'text'; // Or image
-	var $watermarkMergeImg = ''; //
-	var $watermarkAngle    = 45; //angle to draw watermark text
-	var $watermarkPosition = 5;  //Center;
+	var $watermarkType     = 'text'; // Text or image
 
-	var $transparency      = 50;
+	var $watermarkText     = '';     // The text to draw as watermark
 	var $fontName          = 'arial.ttf'; //font file name to use for drawing text. need absolute path
 	var $fontSize          = 10;
+	var $watermarkAngle    = 45;     // Angle to draw watermark text
+
+	var $watermarkImg      = '';     // The image to use as watermark
+	var $image_scale       = 1.0;    // factor to increase the watermark image before merge
+
+	var $watermarkPosition = 5;      // Center;
+	var $margin_top        = 20;
+	var $margin_right      = 20;
+	var $margin_bottom     = 20;
+	var $margin_left       = 20;
+
+	var $transparency      = 50;
+
 	var $antialiased       = true;    //if set to true then watermark text will be drawn anti-aliased. this is recommended
 
 	var $originalPath      = ''; // where user original images are kept
@@ -52,24 +60,32 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 
 	    parent::__construct();
 
-	    $this->watermarkText     = $rsgConfig->get('watermark_text');
-	    $this->watermarkPath     = $rsgConfig->get('imgPath_watermarked');
 	    $this->watermarkType     = $rsgConfig->get('watermark_type');
-	    $this->watermarkMergeImg = $rsgConfig->get('watermark_image');
-	    $this->watermarkAngle    = $rsgConfig->get('watermark_angle');
-	    $this->watermarkPosition = $rsgConfig->get('watermark_position');
 
-	    $this->transparency      = $rsgConfig->get('watermark_transparency');
-	    //$this->fontName          = JPATH_COMPONENT_ADMINISTRATOR . '/fonts/' . $rsgConfig->get('watermark_font');
+	    $this->watermarkText     = $rsgConfig->get('watermark_text');
 	    $this->fontName          = $rsgConfig->get('watermark_font');
 	    $this->fontSize          = $rsgConfig->get('watermark_font_size');
+	    $this->watermarkAngle    = $rsgConfig->get('watermark_angle');
+
+	    $this->watermarkImg      = $rsgConfig->get('watermark_image');
+	    $this->image_scale       = doubleval ($rsgConfig->get('watermark_image_scale'));
+
+	    $this->watermarkPosition = $rsgConfig->get('watermark_position');
+	    $this->margin_top        = $rsgConfig->get('watermark_margin_top');
+	    $this->margin_right      = $rsgConfig->get('watermark_margin_right');
+	    $this->margin_bottom     = $rsgConfig->get('watermark_margin_bottom');
+	    $this->margin_left       = $rsgConfig->get('watermark_margin_left');
+
+	    $this->transparency      = $rsgConfig->get('watermark_transparency');
+
 	    $this->antialiased       = true;
 
 	    $this->originalPath      = $rsgConfig->get('imgPath_original');
 	    $this->displayPath       = $rsgConfig->get('imgPath_display');
 
 		// Write empty index.html file into watermark path if not existing
-		self::writeWatermarkPathIndexFile ($this->watermarkPath);
+	    $watermarkPath           = $rsgConfig->get('imgPath_watermarked');
+		self::writeWatermarkPathIndexFile ($watermarkPath);
     }
 
 	/**
@@ -196,6 +212,8 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 	}
 
 	/**
+	 *
+	 * regarrds user requested margind to border
 	 * @param $watermarkPosition
 	 * @param $watermarkHeight
 	 * @param $srcWidth
@@ -206,7 +224,13 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 	 *
 	 *  @since 4.3.2
 	 */
-	public static function watermarkXY($watermarkPosition, $srcWidth, $srcHeight, $watermarkHeight, $watermarkWidth): array
+	public static function watermarkXY($watermarkPosition,
+	                                   $srcWidth, $srcHeight,
+	                                   $watermarkWidth, $watermarkHeight,
+	                                   $margin_top        = 20,
+	                                   $margin_right      = 20,
+	                                   $margin_bottom     = 20,
+	                                   $margin_left       = 20): array
 	{
 		/**
 		 * Determines the position of the image and returns x and y
@@ -218,41 +242,41 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 		switch ($watermarkPosition)
 		{
 			case 1://Top Left
-				$watermarkX = 20;
-				$watermarkY = 0 + $watermarkHeight;
+				$watermarkX = $margin_left;
+				$watermarkY = $margin_top;
 				break;
 			case 2://Top Center
 				$watermarkX = ($srcWidth / 2) - ($watermarkWidth / 2);
-				$watermarkY = 0 + $watermarkHeight;
+				$watermarkY = $margin_top;
 				break;
 			case 3://Top Right
-				$watermarkX = $srcWidth - $watermarkWidth;
-				$watermarkY = 0 + $watermarkHeight;
+				$watermarkX = $srcWidth - $watermarkWidth - $margin_right;
+				$watermarkY = $margin_top;
 				break;
 			case 4://Left
-				$watermarkX = 20;
-				$watermarkY = ($srcHeight / 2) + ($watermarkHeight / 2);
+				$watermarkX = $margin_left;
+				$watermarkY = ($srcHeight / 2) - ($watermarkHeight / 2);
 				break;
 			case 5://Center
 			default:
 				$watermarkX = ($srcWidth / 2) - ($watermarkWidth / 2);
-				$watermarkY = ($srcHeight / 2) + ($watermarkHeight / 2);
+				$watermarkY = ($srcHeight / 2) - ($watermarkHeight / 2);
 				break;
 			case 6://Right
-				$watermarkX = $srcWidth - $watermarkWidth;
-				$watermarkY = ($srcHeight / 2) + ($watermarkHeight / 2);
+				$watermarkX = $srcWidth - $watermarkWidth - $margin_right;
+				$watermarkY = ($srcHeight / 2) - ($watermarkHeight / 2);
 				break;
 			case 7://Bottom left
-				$watermarkX = 20;
-				$watermarkY = $srcHeight - ($watermarkHeight / 2);
+				$watermarkX = $margin_left;
+				$watermarkY = $srcHeight - $watermarkHeight - $margin_bottom;
 				break;
 			case 8://Bottom Center
 				$watermarkX = ($srcWidth / 2) - ($watermarkWidth / 2);
-				$watermarkY = $srcHeight - ($watermarkHeight / 2);
+				$watermarkY = $srcHeight - $watermarkHeight - $margin_bottom;
 				break;
 			case 9://Bottom right
-				$watermarkX = $srcWidth - $watermarkWidth;
-				$watermarkY = $srcHeight - ($watermarkHeight / 2);
+				$watermarkX = $srcWidth - $watermarkWidth - $margin_right;
+				$watermarkY = $srcHeight - $watermarkHeight - $margin_bottom;
 				break;
 		}
 
@@ -334,15 +358,24 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 			$targetFile,  //	contains $imageOrigin
 
 			//--- Class properties ---
-			$this->watermarkText,
 			$this->watermarkType,
-			$this->watermarkAngle,
-			$this->watermarkPosition,
-			$this->watermarkMergeImg,
 
-			$this->transparency,
+			$this->watermarkText,
 			$this->fontName,
 			$this->fontSize,
+			$this->watermarkAngle,
+
+			$this->watermarkImg,
+			$this->image_scale,
+
+			$this->watermarkPosition,
+    		$this->margin_top,
+			$this->margin_right,
+			$this->margin_bottom,
+			$this->margin_left,
+
+			$this->transparency,
+
 			$this->antialiased
 		);
 
@@ -358,14 +391,24 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 	 *
 	 * @param string $sourceFile Name includes path
 	 * @param string $targetFile
-	 * @param string $watermarkText
+	 *
 	 * @param string $watermarkType
-	 * @param int    $watermarkAngle
-	 * @param int    $watermarkPosition
-	 * @param string $watermarkMergeImg
-	 * @param int    $transparency
+	 *
+	 * @param string $watermarkText
 	 * @param string $fontName
 	 * @param int    $fontSize
+	 * @param int    $watermarkAngle
+	 *
+	 * @param string $watermarkImg
+	 * @param float  $image_scale
+	 *
+	 * @param int    $watermarkPosition
+	 * @param int    $margin_top
+	 * @param int    $margin_right
+	 * @param int    $margin_bottom
+	 * @param int    $margin_left
+	 *
+	 * @param int    $transparency
 	 * @param bool   $antialiased
 	 *
 	 * @return bool
@@ -377,15 +420,24 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 		$targetFile='',  //	contains $imageOrigin
 
 		//--- Class properties ---
-		$watermarkText = '--- Watermarked ---',
 		$watermarkType = 'text', // or image
-		$watermarkAngle = 45,            //angle to draw watermark text
-		$watermarkPosition = 5, //Center
-		$watermarkMergeImg = '',
 
-		$transparency = 50,
+		$watermarkText = '--- Watermarked ---',
 		$fontName = "arial.ttf",    //font file to use for drawing text. need absolute path
 		$fontSize = 10,             //font size
+		$watermarkAngle = 45,            //angle to draw watermark text
+
+		$watermarkImg = '',
+		$image_scale       = 1.0,
+
+		$watermarkPosition = 5, //Center
+		$margin_top        = 20,
+		$margin_right      = 20,
+		$margin_bottom     = 20,
+		$margin_left       = 20,
+
+		$transparency = 50,
+
 		$antialiased = true    //if set to true then watermark text will be drawn anti-aliased. this is recommended
 	)
 	{
@@ -503,6 +555,10 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 					if ($watermarkType == 'text')
 					{
 						//---------------------------------------------------------
+						// Text watermark
+						//---------------------------------------------------------
+
+						//---------------------------------------------------------
 						// Dimensions of watermark
 						//---------------------------------------------------------
 
@@ -528,15 +584,17 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 						}
 
 						$textBox         = imageTTFBbox($fontSize, $watermarkAngle, $fontFile, $watermarkText);
-						$watermarkWidth  = abs($textBox[0] - $textBox[2]) + 20;
-						$watermarkHeight = abs($textBox[7] - $textBox[1]) + 20;
+						$watermarkWidth  = abs($textBox[0] - $textBox[2]);  // ToDO: use MarginWidth / MarginHeight
+						$watermarkHeight = abs($textBox[7] - $textBox[1]);
 
 						//---------------------------------------------------------
 						// Watermark Position
 						//---------------------------------------------------------
 
 						list($watermarkX, $watermarkY) =
-							self::watermarkXY($watermarkPosition, $srcWidth, $srcHeight, $watermarkHeight, $watermarkWidth);
+							self::watermarkXY($watermarkPosition, $srcWidth, $srcHeight,
+								$watermarkWidth, $watermarkHeight,
+								$margin_top, $margin_right, $margin_bottom, $margin_left);
 
 						//---------------------------------------------------------
 						// Merge Watermark
@@ -551,20 +609,40 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 							$shadowColor *= -1; //shadowColor = shadowColor * -1
 						}
 
-						//draw shadow text over image
+						// draw shadow text over image
 						$ErrorFound = !imagettftext($oImg, $fontSize, $watermarkAngle, $watermarkX + 1, $watermarkY + 1, $shadowColor, $fontFile, $watermarkText);
-						//draw text over image
-						$ErrorFound = !imagettftext($oImg, $fontSize, $watermarkAngle, $watermarkX, $watermarkY, $grey, $fontFile, $watermarkText);
-						//Merge copy and original image
-						$ErrorFound = !imagecopymerge($oImg, $oImgCopy, 0, 0, 0, 0, $srcWidth, $srcHeight, $transparency);
+						if ($ErrorFound)
+						{
+							$OutTxt = '';
+							$OutTxt .= 'Error calling imagettftext (1) shadow for waterMarker: "' . '<br>';
+							$OutTxt .= '$watermarkText: "' . $watermarkText . '"' . '<br>';
+						}
 
+						// draw text over image
+						if (!$ErrorFound)
+						{
+							//draw text over image
+							$ErrorFound = !imagettftext($oImg, $fontSize, $watermarkAngle, $watermarkX, $watermarkY, $grey, $fontFile, $watermarkText);
+							if ($ErrorFound)
+							{
+								$OutTxt = '';
+								$OutTxt .= 'Error calling imagettftext (2) grey for waterMarker: "' . '<br>';
+								$OutTxt .= '$watermarkText: "' . $watermarkText . '"' . '<br>';
+							}
+						}
+
+						// Merge copy and original image
+						$ErrorFound = !imagecopymerge($oImg, $oImgCopy, 0, 0, 0, 0, $srcWidth, $srcHeight, $transparency);
 						// Not merged
 						if ($ErrorFound)
 						{
 							$OutTxt = '';
 							$OutTxt .= 'Error calling imagecopymerge for waterMarker: "' . '<br>';
 							$OutTxt .= '$watermarkText: "' . $watermarkText . '"' . '<br>';
+						}
 
+						if ($ErrorFound)
+						{
 							$app = JFactory::getApplication();
 							$app->enqueueMessage($OutTxt, 'error');
 
@@ -575,14 +653,17 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 						}
 					}
 					else // $watermarkType == 'image')
-
 					{
+						//---------------------------------------------------------
+						// Image watermark
+						//---------------------------------------------------------
+
 						//---------------------------------------------------------
 						// Dimensions of watermark
 						//---------------------------------------------------------
 
 						// ToDo: a) show selection of possible images (? smaller then ...) in config
-						$mergeFile = JPATH_ROOT . '/images/rsgallery/' . $watermarkMergeImg;
+						$stampFile = JPATH_ROOT . '/' . $watermarkImg;
 
 						$isFileExisting = is_file($sourceFile);
 						// file not found
@@ -592,7 +673,7 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 
 							$OutTxt = '';
 							$OutTxt .= 'Error calling imagecopymerge for waterMarker: "' . '<br>';
-							$OutTxt .= '$mergeFile: "' . $mergeFile . '"' . ' does not exist<br>';
+							$OutTxt .= '$stampFile: "' . $stampFile . '"' . ' does not exist<br>';
 
 							$app = JFactory::getApplication();
 							$app->enqueueMessage($OutTxt, 'error');
@@ -605,37 +686,28 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 
 						if (!$ErrorFound)
 						{
+							//---------------------------------------------------------
+							// Watermark type / dimensions
+							//---------------------------------------------------------
+
 							// Get dimensions for watermark image
-							list($mergeWidth, $mergeHeight, $t, $a) = getimagesize($mergeFile);
-							$watermarkWidth  = $mergeWidth + 20;
-							$watermarkHeight = $mergeHeight + 20;
+							list($stampWidth, $stampHeight, $stampType, $a) = getimagesize($stampFile);
+							$watermarkWidth  = intval ($stampWidth * $image_scale);  // ToDO: use MarginWidth / MarginHeight
+							$watermarkHeight = intval ($stampHeight * $image_scale);
 
-							//---------------------------------------------------------
-							// Watermark Position
-							//---------------------------------------------------------
-
-							list($watermarkX, $watermarkY) =
-								self::watermarkXY($watermarkPosition, $srcWidth, $srcHeight,
-									$watermarkHeight, $watermarkWidth);
-
-							//---------------------------------------------------------
-							// Merge Watermark
-							//---------------------------------------------------------
-
-							//Merge watermark image with image
-							$oWatermarkMerge = imagecreatefrompng($mergeFile);
-							//ImageCopyMerge($oImg, $watermark, $watermarkX + 1, $watermarkY + 1, 0, 0, $mergeWidth, $mergeHeight, $rsgConfig->get('watermark_transparency'));
-							$ErrorFound = !imagecopymerge($oImg, $oWatermarkMerge,
-								$watermarkX + 1, $watermarkY + 1,
-								0, 0, $mergeWidth, $mergeHeight,
-								$transparency);
-
-							// Not merged
-							if ($ErrorFound)
+							// Type of stamp $stampFile
+							$imgFunctions = self::imgCreateFunctions($stampType);
+							if (!empty ($imgFunctions))
 							{
+								list($fncCreateStampMemory, $fncCreateStampFileDummy) = $imgFunctions;
+							}
+							else
+							{
+								$ErrorFound = true;
+
 								$OutTxt = '';
-								$OutTxt .= 'Error calling imagecopymerge for waterMarker: "' . '<br>';
-								$OutTxt .= '$mergeFile: "' . $mergeFile . '"' . '<br>';
+								$OutTxt .= 'Error determining processing function for waterMarker: "' . '<br>';
+								$OutTxt .= 'ImageType: "' . $srcType . '"' . '<br>';
 
 								$app = JFactory::getApplication();
 								$app->enqueueMessage($OutTxt, 'error');
@@ -643,6 +715,93 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 								if ($Rsg2DebugActive)
 								{
 									JLog::add($OutTxt);
+								}
+							}
+
+							// Type defined
+							if (!$ErrorFound)
+							{
+								//---------------------------------------------------------
+								// Watermark Position
+								//---------------------------------------------------------
+
+								list($watermarkX, $watermarkY) =
+									self::watermarkXY($watermarkPosition, $srcWidth, $srcHeight,
+										$watermarkWidth, $watermarkHeight,
+										$margin_top, $margin_right, $margin_bottom, $margin_left);
+
+								//---------------------------------------------------------
+								// Create Watermark memory image
+								//---------------------------------------------------------
+
+								//Merge watermark image with image
+								$oStamp = $fncCreateStampMemory($stampFile);
+								if (empty ($oStamp))
+								{
+									$ErrorFound = true;
+
+									$OutTxt = '';
+									$OutTxt .= 'Error determining processing function for waterMarker image: "' . '<br>';
+									$OutTxt .= 'ImageType: "' . $stampType . '"' . '<br>';
+
+									$app = JFactory::getApplication();
+									$app->enqueueMessage($OutTxt, 'error');
+
+									if ($Rsg2DebugActive)
+									{
+										JLog::add($OutTxt);
+									}
+								}
+
+								//---------------------------------------------------------
+								// Scale Watermark memory image
+								//---------------------------------------------------------
+
+								// stamp created
+								if (!$ErrorFound)
+								{
+									// $image_scale is not 1.0
+									if ($image_scale <= 0.9999 || 1.0001 <= $image_scale)
+									{
+										$oStampScaled = imagescale($oStamp, $watermarkWidth, $watermarkHeight);
+										// scale is created
+										if ( ! empty ($oStampScaled))
+										{
+											// destroy useless
+											imagedestroy($oStamp);
+											// use the scaled one
+											$oStamp = $oStampScaled;
+										}
+									}
+								}
+
+								//---------------------------------------------------------
+								// Merge Watermark
+								//---------------------------------------------------------
+
+								if (!$ErrorFound)
+								{
+									//ImageCopyMerge($oImg, $watermark, $watermarkX + 1, $watermarkY + 1, 0, 0, $stampWidth, $stampHeight, $rsgConfig->get('watermark_transparency'));
+									$ErrorFound = !imagecopymerge($oImg, $oStamp,
+										$watermarkX + 1, $watermarkY + 1,
+										0, 0, $watermarkWidth, $watermarkHeight,
+										100 - $transparency);
+
+									// Not merged
+									if ($ErrorFound)
+									{
+										$OutTxt = '';
+										$OutTxt .= 'Error calling imagecopymerge for waterMarker: "' . '<br>';
+										$OutTxt .= '$stampFile: "' . $stampFile . '"' . '<br>';
+
+										$app = JFactory::getApplication();
+										$app->enqueueMessage($OutTxt, 'error');
+
+										if ($Rsg2DebugActive)
+										{
+											JLog::add($OutTxt);
+										}
+									}
 								}
 							}
 						}
@@ -700,9 +859,9 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 
 							imagedestroy($oImg);
 							imagedestroy($oImgCopy);
-							if (isset($oWatermarkMerge))
+							if (isset($oStamp))
 							{
-								imagedestroy($oWatermarkMerge);
+								imagedestroy($oStamp);
 							}
 						}
 					}
@@ -727,5 +886,4 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 		return $IsMarked;
 	}
 
-
-}//END CLASS WATERMARKER
+} // END CLASS
