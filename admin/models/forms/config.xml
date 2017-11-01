@@ -821,13 +821,15 @@
 			<option value="0">JNO</option>
 		</field>
 		<field
-				id="showFontList"
-				name="showFontList"
-				type="AdminFontsSelectList"
-				default="0"
-				label="COM_RSGALLERY2_FONT"
-				description=""
+				id="watermark_type"
+				name="watermark_type"
+				type="list"
+				default="text"
+				label="COM_RSGALLERY2_WATERMARK_TYPE"
+				description="COM_RSGALLERY2_WATERMARK_TYPE_DESC"
 				class="">
+			<option value="text">COM_RSGALLERY2_WATERMARK_TYPE_TEXT</option>
+			<option value="image">COM_RSGALLERY2_WATERMARK_TYPE_IMAGE</option>
 		</field>
 		<field
 				id="watermark_text"
@@ -839,13 +841,12 @@
 				class="">
 		</field>
 		<field
-				id="watermark_image"
-				name="watermark_image"
-				type="media"
+				id="showFontList"
+				name="showFontList"
+				type="AdminFontsSelectList"
 				default="0"
-				label="COM_RSGALLERY2_WATERMARK_IMAGE"
-				description="COM_RSGALLERY2_WATERMARK_IMAGE_DESC"
-				preview="tooltip"	
+				label="COM_RSGALLERY2_FONT"
+				description=""
 				class="">
 		</field>
 		<field
@@ -856,29 +857,29 @@
 				label="COM_RSGALLERY2_WATERMARK_FONT_SIZE"
 				description=""
 				class="">
-			<option value="5">5</option>
-			<option value="6">6</option>
-			<option value="7">7</option>
-			<option value="8">8</option>
 			<option value="9">9</option>
 			<option value="10">10</option>
 			<option value="11">11</option>
 			<option value="12">12</option>
-			<option value="13">13</option>
 			<option value="14">14</option>
-			<option value="15">15</option>
-			<option value="16">16</option>
 			<option value="17">17</option>
-			<option value="18">18</option>
-			<option value="19">19</option>
 			<option value="20">20</option>
-			<option value="22">22</option>
-			<option value="24">24</option>
-			<option value="26">26</option>
-			<option value="28">28</option>
+			<option value="25">25</option>
 			<option value="30">30</option>
 			<option value="36">36</option>
-			<option value="40">40</option>
+			<option value="48">48</option>
+			<option value="60">60</option>
+			<option value="72">72</option>
+			<option value="84">84</option>
+			<option value="96">96</option>
+			<option value="120">120</option>
+			<option value="144">144</option>
+			<option value="168">168</option>
+			<option value="192">192</option>
+			<option value="216">216</option>
+			<option value="240">240</option>
+			<option value="264">264</option>
+			<option value="480">480</option>
 		</field>
 		<field
 				id="watermark_angle"
@@ -893,6 +894,16 @@
 			<option value="90">90</option>
 			<option value="135">135</option>
 			<option value="180">180</option>
+		</field>
+		<field
+				id="watermark_image"
+				name="watermark_image"
+				type="media"
+				default="0"
+				label="COM_RSGALLERY2_WATERMARK_IMAGE"
+				description="COM_RSGALLERY2_WATERMARK_IMAGE_DESC"
+				preview="tooltip"
+				class="">
 		</field>
 		<field
 				id="watermark_position"
@@ -918,7 +929,7 @@
 				type="list"
 				default="0"
 				label="COM_RSGALLERY2_WATERMARK_TRANSPARENCY"
-				description=""
+				description="COM_RSGALLERY2_WATERMARK_TRANSPARENCY_0_100_DESC"
 				class="btn-group btn-group-yesno">
 			<option value="0">0</option>
 			<option value="10">10</option>
