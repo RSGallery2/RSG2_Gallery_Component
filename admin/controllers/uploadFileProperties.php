@@ -330,8 +330,14 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerAdmin
 			} // all files
 	    }
 
-	    $msg .= 'Uploaded ' . $ImgCount . ' images'; // toDo: into gallery name
-
+	    if ($ImgCount != 1)
+	    {
+		    $msg .= 'Uploaded ' . $ImgCount . ' images'; // toDo: into gallery name $galleryId
+	    }
+	    else
+	    {
+		    $msg .= 'Uploaded ' . $ImgCount . ' image'; // toDo: into gallery name
+	    }
 	    $this->setRedirect($redirectUrl, $msg, $msgType);
 
 	    return;
