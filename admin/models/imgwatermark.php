@@ -389,7 +389,6 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 		$antialiased = true    //if set to true then watermark text will be drawn anti-aliased. this is recommended
 	)
 	{
-		global $rsgConfig;
 		global $Rsg2DebugActive;
 
 		$IsMarked   = false;
@@ -553,9 +552,9 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 						}
 
 						//draw shadow text over image
-						imagettftext($oImg, $fontSize, $watermarkAngle, $watermarkX + 1, $watermarkY + 1, $shadowColor, $fontName, $watermarkText);
+						$ErrorFound = !imagettftext($oImg, $fontSize, $watermarkAngle, $watermarkX + 1, $watermarkY + 1, $shadowColor, $fontFile, $watermarkText);
 						//draw text over image
-						imagettftext($oImg, $fontSize, $watermarkAngle, $watermarkX, $watermarkY, $grey, $fontName, $watermarkText);
+						$ErrorFound = !imagettftext($oImg, $fontSize, $watermarkAngle, $watermarkX, $watermarkY, $grey, $fontFile, $watermarkText);
 						//Merge copy and original image
 						$ErrorFound = !imagecopymerge($oImg, $oImgCopy, 0, 0, 0, 0, $srcWidth, $srcHeight, $transparency);
 
@@ -575,7 +574,8 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 							}
 						}
 					}
-					else
+					else // $watermarkType == 'image')
+
 					{
 						//---------------------------------------------------------
 						// Dimensions of watermark
@@ -615,7 +615,8 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 							//---------------------------------------------------------
 
 							list($watermarkX, $watermarkY) =
-								self::watermarkXY($watermarkPosition, $srcWidth, $srcHeight, $watermarkHeight, $watermarkWidth);
+								self::watermarkXY($watermarkPosition, $srcWidth, $srcHeight,
+									$watermarkHeight, $watermarkWidth);
 
 							//---------------------------------------------------------
 							// Merge Watermark
@@ -624,7 +625,10 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 							//Merge watermark image with image
 							$oWatermarkMerge = imagecreatefrompng($mergeFile);
 							//ImageCopyMerge($oImg, $watermark, $watermarkX + 1, $watermarkY + 1, 0, 0, $mergeWidth, $mergeHeight, $rsgConfig->get('watermark_transparency'));
-							$ErrorFound = !imagecopymerge($oImg, $oWatermarkMerge, $watermarkX + 1, $watermarkY + 1, 0, 0, $mergeWidth, $mergeHeight, $rsgConfig->get('watermark_transparency'));
+							$ErrorFound = !imagecopymerge($oImg, $oWatermarkMerge,
+								$watermarkX + 1, $watermarkY + 1,
+								0, 0, $mergeWidth, $mergeHeight,
+								$transparency);
 
 							// Not merged
 							if ($ErrorFound)
