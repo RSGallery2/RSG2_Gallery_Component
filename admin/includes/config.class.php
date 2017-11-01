@@ -114,11 +114,11 @@ class rsgConfig
     // watermarking
     var $watermark = 0;
     var $watermark_type = "text";    //Values are text or image
-    var $watermark_text = "(c) 2016 - RSGallery2";
+    var $watermark_text = "(c) 2017 - RSGallery2";
     var $watermark_image = "watermark.png";
     var $watermark_angle = 0;
     var $watermark_position = 5;
-    var $watermark_font_size = 20;
+    var $watermark_font_size = 96;
     var $watermark_font = "arial.ttf";
     var $watermark_transparency = 50;
 
