@@ -118,9 +118,18 @@ class rsgConfig
     var $watermark_image = "watermark.png";
     var $watermark_angle = 0;
     var $watermark_position = 5;
+
+	var $watermark_image_scale = 1.0;
+	var $watermark_margin_top = 20;
+	var $watermark_margin_right = 20;
+	var $watermark_margin_bottom = 20;
+	var $watermark_margin_left = 20;
+
     var $watermark_font_size = 96;
     var $watermark_font = "arial.ttf";
     var $watermark_transparency = 50;
+
+//	var $ = ;
 
     // Commenting system
     //var $comment						= 1;	//deprecated: v3.0.2 uses permissions

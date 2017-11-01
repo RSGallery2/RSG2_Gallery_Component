@@ -841,8 +841,8 @@
 				class="">
 		</field>
 		<field
-				id="showFontList"
-				name="showFontList"
+				id="watermark_font"
+				name="watermark_font"
 				type="AdminFontsSelectList"
 				default="0"
 				label="COM_RSGALLERY2_FONT"
@@ -895,16 +895,26 @@
 			<option value="135">135</option>
 			<option value="180">180</option>
 		</field>
-		<field
-				id="watermark_image"
-				name="watermark_image"
-				type="media"
-				default="0"
-				label="COM_RSGALLERY2_WATERMARK_IMAGE"
-				description="COM_RSGALLERY2_WATERMARK_IMAGE_DESC"
-				preview="tooltip"
-				class="">
-		</field>
+        <field
+                id="watermark_image"
+                name="watermark_image"
+                type="media"
+                default="0"
+                label="COM_RSGALLERY2_WATERMARK_IMAGE"
+                description="COM_RSGALLERY2_WATERMARK_IMAGE_DESC"
+                preview="tooltip"
+                class="input-xxlarge">
+        </field>
+        <field
+                id="watermark_image_scale"
+                name="watermark_image_scale"
+                type="text"
+                default="1.00"
+                label="COM_RSGALLERY2_WATERMARK_IMAGE_SCALE"
+                description="COM_RSGALLERY2_WATERMARK_IMAGE_SCALE_DESC"
+                preview="tooltip"
+                class="">
+        </field>
 		<field
 				id="watermark_position"
 				name="watermark_position"
@@ -923,6 +933,45 @@
 			<option value="8">COM_RSGALLERY2_BOTTOM_CENTER</option>
 			<option value="9">COM_RSGALLERY2_BOTTOM_RIGHT</option>
 		</field>
+
+        <field
+                id="watermark_margin_top"
+                name="watermark_margin_top"
+                type="text"
+                default="20"
+                label="COM_RSGALLERY2_WATERMARK_MARGIN_TOP"
+                description="COM_RSGALLERY2_WATERMARK_MARGIN_DESC"
+                class="">
+        </field>
+        <field
+                id="watermark_margin_right"
+                name="watermark_margin_right"
+                type="text"
+                default="20"
+                label="COM_RSGALLERY2_WATERMARK_MARGIN_RIGHT"
+                description="COM_RSGALLERY2_WATERMARK_MARGIN_DESC"
+                class="">
+        </field>
+        <field
+                id="watermark_margin_bottom"
+                name="watermark_margin_bottom"
+                type="text"
+                default="20"
+                label="COM_RSGALLERY2_WATERMARK_MARGIN_BOTTOM"
+                description="COM_RSGALLERY2_WATERMARK_MARGIN_DESC"
+                class="">
+        </field>
+        <field
+                id="watermark_margin_left"
+                name="watermark_margin_left"
+                type="text"
+                default="20"
+                label="COM_RSGALLERY2_WATERMARK_MARGIN_LEFT"
+                description="COM_RSGALLERY2_WATERMARK_MARGIN_DESC"
+                class="">
+        </field>
+
+
 		<field
 				id="watermark_transparency"
 				name="watermark_transparency"
