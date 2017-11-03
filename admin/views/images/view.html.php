@@ -82,6 +82,7 @@ class Rsgallery2ViewImages extends JViewLegacy
         $View = JFactory::getApplication()->input->get('view');
         RSG2_SidebarLinks::addItems($View, $Layout);
 //        RSGallery2Helper::addSubmenu('rsgallery2');
+
 		$this->sidebar = JHtmlSidebar::render();
 
 		parent::display($tpl);
