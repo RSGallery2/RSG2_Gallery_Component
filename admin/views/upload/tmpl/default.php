@@ -58,6 +58,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
 
 /* Deprecated old single image upload */
     Joomla.submitbuttonManualFileSingle = function () {
+
         alert('Upload single images: legacy ...');
 
         // href="index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=upload"
@@ -88,7 +89,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
 //        alert('02c');
         var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
 
-        // Is invalid gallerId selected ?
+        // Is invalid galleryId selected ?
 //        if (bOneGalleryName4All && (GalleryId < 1)) {
 //            alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
 //        }
@@ -114,6 +115,9 @@ $return = JFactory::getApplication()->input->getBase64('return');
 
     /* Zip file */
     Joomla.submitbuttonManualFileZipPc = function () {
+
+        alert('Upload Manual File Zip from Pc: legacy ...');
+        
         var form = document.getElementById('adminForm');
 
         var zip_path = form.zip_file.value;
@@ -131,7 +135,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
             alert(Joomla.JText._('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN'));
         }
         else {
-            // Is invalid gallerId selected ?
+            // Is invalid galleryId selected ?
             if (bOneGalleryName4All && (GalleryId < 1)) {
                 alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
             }
@@ -149,8 +153,12 @@ $return = JFactory::getApplication()->input->getBase64('return');
         }
     };
 
-    /* Test Zip file: Not used *
+    /* Test Zip file: Not used ? */
     Joomla.submitbuttonManualFileZipPc2 = function () {
+
+        alert('Upload Manual File Zip from Pc: upload.uploadFromZip ...');
+
+
         var form = document.getElementById('adminForm');
 
         var zip_path = form.zip_file.value;
@@ -168,7 +176,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
             alert(Joomla.JText._('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN'));
         }
         else {
-            // Is invalid gallerId selected ?
+            // Is invalid galleryId selected ?
             if (bOneGalleryName4All && (GalleryId < 1)) {
                 alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
             }
@@ -179,7 +187,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
                 form.ftppath.value = "";
                 form.xcat.value = GalleryId;
                 form.selcat.value = bOneGalleryName4All;
-                form.rsgOption.value = "";
+                // form.rsgOption.value = "";
 
                 jQuery('#loading').css('display', 'block');
                 form.submit();
@@ -190,6 +198,9 @@ $return = JFactory::getApplication()->input->getBase64('return');
 
     /* from server */
     Joomla.submitbuttonManualFileFolderServer = function () {
+
+        alert('Upload Folder server: legacy ...');
+        
         var form = document.getElementById('adminForm');
 
         var GalleryId = jQuery('#SelectGalleries_02').chosen().val();
@@ -208,7 +219,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
             alert(Joomla.JText._('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED'));
         }
         else {
-            // Is invalid gallerId selected ?
+            // Is invalid galleryId selected ?
             if (bOneGalleryName4All && (GalleryId < 1)) {
                 alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
             }
@@ -226,9 +237,12 @@ $return = JFactory::getApplication()->input->getBase64('return');
         }
     };
 
-/* Test from server: Not used *
+/* Test from server: ? Not used ? */
    Joomla.submitbuttonManualFileFolderServer2 = function () {
-        var form = document.getElementById('adminForm');
+
+       alert('Upload Folder server: upload.uploadFromFtpFolder ...');
+
+       var form = document.getElementById('adminForm');
 
         var GalleryId = jQuery('#SelectGalleries_02').chosen().val();
         var ftp_path = form.ftp_path.value;
@@ -246,7 +260,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
             alert(Joomla.JText._('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED'));
         }
         else {
-            // Is invalid gallerId selected ?
+            // Is invalid galleryId selected ?
             if (bOneGalleryName4All && (GalleryId < 1)) {
                 alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
             }
@@ -257,7 +271,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
                 form.ftppath.value = ftp_path;
                 form.xcat.value = GalleryId;
                 form.selcat.value = bOneGalleryName4All;
-                form.rsgOption.value = "";
+                // form.rsgOption.value = "";
 
                 jQuery('#loading').css('display', 'block');
                 form.submit();
@@ -280,13 +294,29 @@ jQuery(document).ready(function ($) {
 		return;
 	}
 
-	var dragZone = $('#dragarea');
-	var fileInput = $('#hidden_file_input');
-	var buttonManualFile = $('#select_manual_file');
-	var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile';
-	var returnUrl = $('#installer-return').val();
-	var token = $('#installer-token').val();
-	var gallery_id = $('#SelectGalleries_03').val();
+    var dragZone = $('#dragarea');
+    var fileInput = $('#hidden_file_input');
+    var buttonManualFile = $('#select_manual_file');
+    var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile';
+    var returnUrl = $('#installer-return').val();
+    var token = $('#installer-token').val();
+    var gallery_id = $('#SelectGalleries_03').val();
+
+    // a) Use class to set conent light red and light green or other colors
+    // when droppable...
+    // b) Use jquery to activate and de activate some
+    $('#dragarea').css('border', '4px dotted red');
+    $('#SelectGalleries_03').change(function() {
+        // drop disabled ?
+        if ($(this).val() == 0)
+        {
+            $('#dragarea').css('border', '4px dotted red');
+        }
+        else
+        {
+            $('#dragarea').css('border', '4px dotted darkgreen');
+        }
+    });
 
 	buttonManualFile.on('click', function (e) {
 //            alert('buttonManualFile.on click: '); // + JSON.stringify($(this)));
@@ -294,23 +324,27 @@ jQuery(document).ready(function ($) {
 	});
 
 	fileInput.on('change', function (e) {
-//            Joomla.submitbuttonManualFilepackage();
 		e.preventDefault();
 		e.stopPropagation();
 
-//            alert('filename: ' + e.target.files[0].name);
+        // prevent empty gallery
+        if (gallery_id < 1) {
+            alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
+        }
+        else {
 
-		var files = e.target.files;
-		alert('files: ' + JSON.stringify(files));
-		//if (!files.length) {
-		if (!files.length) {
-			return;
-		}
+            var files = e.target.files;
+            // alert('files: ' + JSON.stringify(files));
+            // files exist ?
+            if (!files.length) {
+                return;
+            }
 
-		alert('handleFileUpload: ' + files[0].name);
+            //alert('handleFileUpload: ' + files[0].name);
 
-		// We need to send dropped files to Server
-		handleFileUpload(files, dragZone);
+            // We need to send dropped files to Server
+            handleFileUpload(files, dragZone);
+        }
 	});
 
 	dragZone.on('dragenter', function (e) {
@@ -347,15 +381,21 @@ jQuery(document).ready(function ($) {
 		e.preventDefault();
 		e.stopPropagation();
 
-        $(this).css('border', '2px dotted #0B85A1');
-        
-		var files = e.originalEvent.target.files || e.originalEvent.dataTransfer.files;
-		if (!files.length) {
-			return;
-		}
+        // prevent empty gallery
+        if (gallery_id < 1) {
+            alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
+        }
+        else {
+            $(this).css('border', '2px dotted #0B85A1');
 
-		// We need to send dropped files to Server
-		handleFileUpload(files, dragZone);
+            var files = e.originalEvent.target.files || e.originalEvent.dataTransfer.files;
+            if (!files.length) {
+                return;
+            }
+
+            // We need to send dropped files to Server
+            handleFileUpload(files, dragZone);
+        } // empty gallery
 	});
 
     //--- no other drop on the form ---------------------
@@ -377,7 +417,7 @@ jQuery(document).ready(function ($) {
 	// Uploading image count
 	var imgCount = 0;
 
-	// Handle statusbar for one actual uploading image
+	// Handle status bar for one actual uploading image
 	function createStatusbar(obj) {
 		imgCount++;
 		var row = "odd";
@@ -683,7 +723,7 @@ jQuery(document).ready(function ($) {
 
                         <legend><?php echo JText::_('COM_RSGALLERY2_DRAG_FILE_ZONE'); ?></legend>
 
-                        <div id="uploader-wrapper">
+                        <div id="uploader-wrapper" disabled>
                             <div id="dragarea" class="span6">
                                 <div id="dragarea-content" class="text-center">
                                     <p>
@@ -708,44 +748,15 @@ jQuery(document).ready(function ($) {
                                 </div>
                             </div>
 
-                            <!--Action buttonManualFile-->
-                            <div class="form-actions">
-                                <buttonManualFile class="btn btn-primary" type="buttonManualFile"
-                                                  id="AssignUploadedFiles" onclick="Joomla.submitAssignDroppedFiles()"
-                                                  title="<?php echo JText::_('COM_RSGALLERY2_ASSIGN_DROPPED_IMAGES_DESC'); ?>">
-									<?php echo JText::_('COM_RSGALLERY2_ASSIGN_DROPPED_IMAGES'); ?>
-                                </buttonManualFile>
-                            </div>
                         </div>
 
-                        <div id="legacy-uploader" style="display: none;">
-                            <div class="control-group">
-                                <label for="hidden_file_input"
-                                       class="control-label"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_FILE'); ?></label>
-                                <div class="controls">
-                                    <input class="input_box" id="hidden_file_input" name="hidden_file_input" type="file"
-                                           size="57"  multiple /><br>
-									<?php echo JText::sprintf('JGLOBAL_MAXIMUM_UPLOAD_SIZE_LIMIT', $this->MaxSize); ?>
-                                </div>
-                                <div class="controls">
-                                    <buttonManualFile class="btn btn-primary" type="buttonManualFile"
-                                                      id="TransferImageFile" onclick="Joomla.XsubmitTransferImageFile()"
-                                                      title="<?php echo JText::_('COM_RSGALLERY2_TRANSFER_FILE_DESC'); ?>">
-										<?php echo JText::_('COM_RSGALLERY2_TRANSFER_FILE'); ?>
-                                    </buttonManualFile>
-                                </div>
-                            </div>
-
-                            <div class="form-actions">
-                                <buttonManualFile class="btn btn-primary" type="buttonManualFile"
-                                                  id="AssignUploadedFiles" onclick="Joomla.XsubmitAssignUploadedFiles()"
-                                                  title="<?php echo JText::_('COM_RSGALLERY2_ASSIGN_UPLOADED_FILES_DESC'); ?>">
-									<?php echo JText::_('COM_RSGALLERY2_ASSIGN_UPLOADED_FILES'); ?>
-                                </buttonManualFile>
-                            </div>
-
-                            <input id="installer-return" name="installer-return" type="hidden" value="<?php echo $return; ?>"/>
-                            <input id="installer-token" name="installer-token" type="hidden" value="<?php echo $token; ?>"/>
+                        <!--Action buttonManualFile-->
+                        <div class="form-actions" style="margin-top: 10px; ">
+                            <buttonManualFile class="btn btn-primary" type="buttonManualFile"
+                                              id="AssignUploadedFiles" onclick="Joomla.submitAssignDroppedFiles()"
+                                              title="<?php echo JText::_('COM_RSGALLERY2_ADD_IMAGES_INFORMATION_DESC'); ?>">
+			                    <?php echo JText::_('COM_RSGALLERY2_ADD_IMAGES_INFORMATION'); ?>
+                            </buttonManualFile>
                         </div>
 
                         <div class="form-actions">
@@ -775,6 +786,8 @@ jQuery(document).ready(function ($) {
                             </div>
                         </div>
 
+                        <input id="installer-return" name="installer-return" type="hidden" value="<?php echo $return; ?>"/>
+                        <input id="installer-token" name="installer-token" type="hidden" value="<?php echo $token; ?>"/>
                     </fieldset>
 					<?php echo JHtml::_('bootstrap.endTab'); ?>
 
