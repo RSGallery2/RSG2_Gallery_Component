@@ -148,6 +148,9 @@ class Rsgallery2ViewUpload extends JViewLegacy
         $Layout = JFactory::getApplication()->input->get('layout');
         $this->addToolbar($Layout);
 
+	    $View = JFactory::getApplication()->input->get('view');
+	    RSG2_SidebarLinks::addItems($View, $Layout);
+
         $this->sidebar = JHtmlSidebar::render();
 
         return parent::display($tpl);
