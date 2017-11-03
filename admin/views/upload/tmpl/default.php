@@ -10,7 +10,6 @@
 // upload.php gist: https://gist.github.com/karmicdice/e4d6bde183e13c14091d
 // http://us3.php.net/move_uploaded_file
 // show image http://jsfiddle.net/revathskumar/kGYc7/
-// http://hayageek.com/docs/jquery-upload-file.php
 
 // https://techjoomla.com/blog/beyond-joomla/jquery-basics-getting-values-of-form-inputs-using-jquery.html
 
@@ -425,6 +424,114 @@ $return = JFactory::getApplication()->input->getBase64('return');
             }
         }
 
+
+
+//        https://tutorialzine.com/2013/05/mini-ajax-file-upload-form
+
+// Uploading files using HTML5 is actually a combination of three technologies -
+// the new File Reader API, the also new Drag & Drop API,
+// and the good ol' AJAX (with the addition of binary data transfer).
+// Here is a description of a HTML5 file upload process:
+// https://tutorialzine.com/2011/09/html5-file-upload-jquery-php
+// !!! http://makitweb.com/drag-and-drop-file-upload-with-jquery-and-ajax/ thumb
+//
+// return PHP results as array -> echo json_encode($return_arr);
+//        $return_arr = array("name" => $filename,"size" => $filesize, "src"=> $src);
+//
+//
+//
+// ...
+
+/**
+// Added thumbnail
+        function addThumbnail(data){
+            $("#uploadfile h1").remove();
+            var len = $("#uploadfile div.thumbnail").length;
+
+            var num = Number(len);
+            num = num + 1;
+
+            var name = data.name;
+            var size = convertSize(data.size);
+            var src = data.src;
+
+            // Creating an thumbnail
+            $("#uploadfile").append('<div id="thumbnail_'+num+'" class="thumbnail"></div>');
+            $("#thumbnail_"+num).append('<img src="'+src+'" width="100%" height="78%">');
+            $("#thumbnail_"+num).append('<span class="size">'+size+'<span>');
+        }
+/**/
+
+// https://stackoverflow.com/questions/6792878/jquery-ajax-error-function
+/* Deprecation Notice:
+    The jqXHR.success(), jqXHR.error(), and jqXHR.complete()
+    callbacks are deprecated as of jQuery 1.8. To prepare
+    your code for their eventual removal,
+    use jqXHR.done(), jqXHR.fail(), and jqXHR.always() instead.
+/**/
+
+/**
+// Assign handlers immediately after making the request,
+// and remember the jqXHR object for this request
+        var jqxhr = $.ajax("some_unknown_page.html")
+            .done(function (response) {
+                // success logic here
+                $('#post').html(response.responseText);
+            })
+            .fail(function (jqXHR, exception) {
+                // Our error logic here
+                var msg = '';
+                if (jqXHR.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXHR.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXHR.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (exception === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (exception === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (exception === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                }
+                $('#post').html(msg);
+            })
+            .always(function () {
+                alert("complete");
+            });
+/**/
+
+
+/**
+        Category: Global JQuery Ajax Event Handlers
+        These methods register handlers to be called when certain events, such as initialization or completion, take place for any Ajax request on the page. The global events are fired on each Ajax request if the global property in jQuery.ajaxSetup() is true, which it is by default. Note: Global events are never fired for cross-domain script or JSONP requests, regardless of the value of  global.
+
+            .ajaxComplete()
+        Register a handler to be called when Ajax requests complete. This is an AjaxEvent.
+            .ajaxError()
+        Register a handler to be called when Ajax requests complete with an error. This is an Ajax Event.
+            .ajaxSend()
+        Attach a function to be executed before an Ajax request is sent. This is an Ajax Event.
+            .ajaxStart()
+        Register a handler to be called when the first Ajax request begins. This is an Ajax Event.
+            .ajaxStop()
+        Register a handler to be called when all Ajax requests have completed. This is an Ajax Event.
+            .ajaxSuccess()
+        Attach a function to be executed whenever an Ajax request completes successfully. This is an Ajax Event.
+
+/**/
+
+/**
+        success: function (html) {
+            alert('successful : ' + html);
+            $("#result").html("Successful");
+        },
+/**/
+
+
+
         function sendFileToServer(formData, status) {
             /**
             var uploadURL = "http://tomfinnern.de/examples/jquery/drag-drop-file-upload/upload.php"; //Upload URL
@@ -474,6 +581,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
                     if (xhrobj.upload) {
                         xhrobj.upload.addEventListener('progress', function (event) {
                             var percent = 0;
+                            // if (event.lengthComputable) {
                             var position = event.loaded || event.position;
                             var total = event.total;
                             if (event.lengthComputable) {
