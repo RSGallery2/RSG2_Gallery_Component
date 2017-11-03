@@ -10,6 +10,7 @@
 // upload.php gist: https://gist.github.com/karmicdice/e4d6bde183e13c14091d
 // http://us3.php.net/move_uploaded_file
 // show image http://jsfiddle.net/revathskumar/kGYc7/
+// http://talkerscode.com/webtricks/drag-and-drop-image-upload-using-ajax-jquery-and-php.php
 
 // https://techjoomla.com/blog/beyond-joomla/jquery-basics-getting-values-of-form-inputs-using-jquery.html
 
@@ -36,6 +37,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
 
 <script type="text/javascript">
 
+/**
     // Add spindle-wheel for installations:
     jQuery(document).ready(function ($) {
         var outerDiv = $('#installer-install');
@@ -48,8 +50,13 @@ $return = JFactory::getApplication()->input->getBase64('return');
             'display': 'none'
         });
     });
+/**/
 
-    /**/
+//--------------------------------------------------------------------------------------
+// "old" submit buttons
+//--------------------------------------------------------------------------------------
+
+/* Deprecated old single image upload */
     Joomla.submitbuttonManualFileSingle = function () {
         alert('Upload single images: legacy ...');
 
@@ -66,7 +73,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
         form.submit();
     };
 
-    /**/
+    /** obsolete assign dropped files
     Joomla.submitAssignDroppedFiles = function () {
 //        alert('submitAssignDroppedFiles:  ...');
         var form = document.getElementById('adminForm');
@@ -103,8 +110,9 @@ $return = JFactory::getApplication()->input->getBase64('return');
             form.submit();
 //        }
     };
+/**/
 
-
+    /* Zip file */
     Joomla.submitbuttonManualFileZipPc = function () {
         var form = document.getElementById('adminForm');
 
@@ -141,6 +149,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
         }
     };
 
+    /* Test Zip file: Not used *
     Joomla.submitbuttonManualFileZipPc2 = function () {
         var form = document.getElementById('adminForm');
 
@@ -177,7 +186,9 @@ $return = JFactory::getApplication()->input->getBase64('return');
             }
         }
     };
+    /**/
 
+    /* from server */
     Joomla.submitbuttonManualFileFolderServer = function () {
         var form = document.getElementById('adminForm');
 
@@ -215,19 +226,20 @@ $return = JFactory::getApplication()->input->getBase64('return');
         }
     };
 
-    Joomla.submitbuttonManualFileFolderServer2 = function () {
+/* Test from server: Not used *
+   Joomla.submitbuttonManualFileFolderServer2 = function () {
         var form = document.getElementById('adminForm');
 
         var GalleryId = jQuery('#SelectGalleries_02').chosen().val();
         var ftp_path = form.ftp_path.value;
         var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_02"]:checked').val();
 
-//		var OutTxt = ''
-//			+ 'GalleryId2: ' + GalleryId + '\r\n'
-//			+ 'bOneGalleryName4All: ' + bOneGalleryName4All + '\r\n'
-//			+ 'ftp_path: ' + ftp_path + '\r\n'
-//		;
-//		alert (OutTxt);
+    //		var OutTxt = ''
+    //			+ 'GalleryId2: ' + GalleryId + '\r\n'
+    //			+ 'bOneGalleryName4All: ' + bOneGalleryName4All + '\r\n'
+    //			+ 'ftp_path: ' + ftp_path + '\r\n'
+    //		;
+    //		alert (OutTxt);
 
         // ftp path is not given
         if (ftp_path == "") {
@@ -252,177 +264,187 @@ $return = JFactory::getApplication()->input->getBase64('return');
             }
         }
     };
+/**/
 
-    //--------------------------------------------------------------------------------------
-    // drop files
-    //--------------------------------------------------------------------------------------
-    
-    jQuery(document).ready(function ($) {
+//--------------------------------------------------------------------------------------
+// drop files
+//--------------------------------------------------------------------------------------
 
-        // ToDO: Test following with commenting out
-        if (typeof FormData === 'undefined') {
-            $('#legacy-uploader').show();
-            $('#uploader-wrapper').hide();
-            alert("exit");
-            return;
-        }
+jQuery(document).ready(function ($) {
 
-        var dragZone = $('#dragarea');
-        var fileInput = $('#hidden_file_input');
-        var buttonManualFile = $('#select_manual_file');
-        var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile';
-        var returnUrl = $('#installer-return').val();
-        var token = $('#installer-token').val();
-        var gallery_id = $('#SelectGalleries_03').val();
+	// ToDO: Test following with commenting out
+	if (typeof FormData === 'undefined') {
+		$('#legacy-uploader').show();
+		$('#uploader-wrapper').hide();
+		alert("exit");
+		return;
+	}
 
-        buttonManualFile.on('click', function (e) {
+	var dragZone = $('#dragarea');
+	var fileInput = $('#hidden_file_input');
+	var buttonManualFile = $('#select_manual_file');
+	var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile';
+	var returnUrl = $('#installer-return').val();
+	var token = $('#installer-token').val();
+	var gallery_id = $('#SelectGalleries_03').val();
+
+	buttonManualFile.on('click', function (e) {
 //            alert('buttonManualFile.on click: '); // + JSON.stringify($(this)));
-            fileInput.click();
-        });
+		fileInput.click();
+	});
 
-        fileInput.on('change', function (e) {
+	fileInput.on('change', function (e) {
 //            Joomla.submitbuttonManualFilepackage();
-            e.preventDefault();
-            e.stopPropagation();
+		e.preventDefault();
+		e.stopPropagation();
 
 //            alert('filename: ' + e.target.files[0].name);
 
-            var files = e.target.files;
-            alert('files: ' + JSON.stringify(files));
-            //if (!files.length) {
-            if (!files.length) {
-                return;
-            }
+		var files = e.target.files;
+		alert('files: ' + JSON.stringify(files));
+		//if (!files.length) {
+		if (!files.length) {
+			return;
+		}
 
-            alert('handleFileUpload: ' + files[0].name);
+		alert('handleFileUpload: ' + files[0].name);
 
-            // We need to send dropped files to Server
-            handleFileUpload(files, dragZone);
-        });
+		// We need to send dropped files to Server
+		handleFileUpload(files, dragZone);
+	});
 
-        dragZone.on('dragenter', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
+	dragZone.on('dragenter', function (e) {
+		e.preventDefault();
+		e.stopPropagation();
 
-            dragZone.addClass('hover');
+		dragZone.addClass('hover');
 
-            return false;
-        });
+		return false;
+	});
 
-        // Notify user when file is over the drop area
-        dragZone.on('dragover', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
+	// Notify user when file is over the drop area
+	dragZone.on('dragover', function (e) {
+		e.preventDefault();
+		e.stopPropagation();
 
-            dragZone.addClass('hover');
+		dragZone.addClass('hover');
 
-            $(this).css('border', '2px solid #0B85A1');
+		$(this).css('border', '2px solid #0B85A1');
 
-            return false;
-        });
+		return false;
+	});
 
-        dragZone.on('dragleave', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            dragZone.removeClass('hover');
+	dragZone.on('dragleave', function (e) {
+		e.preventDefault();
+		e.stopPropagation();
+		
+		dragZone.removeClass('hover');
 
-            return false;
-        });
+		return false;
+	});
 
-        dragZone.on('drop', function (e) {
-            $(this).css('border', '2px dotted #0B85A1');
-            e.preventDefault();
-            e.stopPropagation();
+	dragZone.on('drop', function (e) {
+		e.preventDefault();
+		e.stopPropagation();
 
-            var files = e.originalEvent.target.files || e.originalEvent.dataTransfer.files;
-            if (!files.length) {
-                return;
-            }
+        $(this).css('border', '2px dotted #0B85A1');
+        
+		var files = e.originalEvent.target.files || e.originalEvent.dataTransfer.files;
+		if (!files.length) {
+			return;
+		}
 
-            // alert('handleFileUpload: ' + files[0].name);
+		// We need to send dropped files to Server
+		handleFileUpload(files, dragZone);
+	});
 
-            // We need to send dropped files to Server
-            handleFileUpload(files, dragZone);
-        });
+    //--- no other drop on the form ---------------------
+    
+	$(document).on('dragenter', function (e) {
+		e.stopPropagation();
+		e.preventDefault();
+	});
+	$(document).on('dragover', function (e) {
+		e.stopPropagation();
+		e.preventDefault();
+		//obj.css('border', '2px dotted #0B85A1');
+	});
+	$(document).on('drop', function (e) {
+		e.stopPropagation();
+		e.preventDefault();
+	});
+
+	// Uploading image count
+	var imgCount = 0;
+
+	// Handle statusbar for one actual uploading image
+	function createStatusbar(obj) {
+		imgCount++;
+		var row = "odd";
+		if (imgCount % 2 == 0) {
+			row = "even";
+		}
+
+		this.statusbar   = $("<div class='statusbar " + row + "'></div>");
+		this.filename    = $("<div class='filename'></div>").appendTo(this.statusbar);
+		this.size        = $("<div class='filesize'></div>").appendTo(this.statusbar);
+		this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
+		this.abort       = $("<div class='abort'>Abort</div>").appendTo(this.statusbar);
+
+		obj.after(this.statusbar);
+
+		this.setFileNameSize = function (name, size) {
+			var sizeStr = "";
+			var sizeKB = size / 1024;
+			if (parseInt(sizeKB) > 1024) {
+				var sizeMB = sizeKB / 1024;
+				sizeStr = sizeMB.toFixed(2) + " MB";
+			}
+			else {
+				sizeStr = sizeKB.toFixed(2) + " KB";
+			}
+
+			this.filename.html(name);
+			this.size.html(sizeStr);
+		}
+		this.setProgress = function (progress) {
+			var progressBarWidth = progress * this.progressBar.width() / 100;
+			this.progressBar.find('div').animate({width: progressBarWidth}, 10).html(progress + "%");
+			if (parseInt(progress) >= 100) {
+				this.abort.hide();
+			}
+		}
+		this.setAbort = function (jqxhr) {
+			var sb = this.statusbar;
+			this.abort.click(function () {
+				jqxhr.abort();
+				sb.hide();
+			});
+		}
+	}
+
+	// image names , container
+	function handleFileUpload(files, obj) {
+
+		// ToDo: On first file upload disable gallery change and isone .. change
+
+		// All files selected by user
+		for (var i = 0; i < files.length; i++) {
+			var data = new FormData();
+			data.append('upload_file', files[i]);
+			data.append('upload_type', 'single');
+			data.append('token', token);
+			data.append('gallery_id', gallery_id);
+
+            alert ("test01");
+			var status = new createStatusbar(obj); //Using this we can set progress.
+			status.setFileNameSize(files[i].name, files[i].size);
+            alert ("test02");
 
 
-        $(document).on('dragenter', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-        });
-        $(document).on('dragover', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            //obj.css('border', '2px dotted #0B85A1');
-        });
-        $(document).on('drop', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-        });
-
-        var rowCount = 0;
-
-        function createStatusbar(obj) {
-            rowCount++;
-            var row = "odd";
-            if (rowCount % 2 == 0) {
-                row = "even";
-            }
-            this.statusbar = $("<div class='statusbar " + row + "'></div>");
-            this.filename = $("<div class='filename'></div>").appendTo(this.statusbar);
-            this.size = $("<div class='filesize'></div>").appendTo(this.statusbar);
-            this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
-            this.abort = $("<div class='abort'>Abort</div>").appendTo(this.statusbar);
-            obj.after(this.statusbar);
-
-            this.setFileNameSize = function (name, size) {
-                var sizeStr = "";
-                var sizeKB = size / 1024;
-                if (parseInt(sizeKB) > 1024) {
-                    var sizeMB = sizeKB / 1024;
-                    sizeStr = sizeMB.toFixed(2) + " MB";
-                }
-                else {
-                    sizeStr = sizeKB.toFixed(2) + " KB";
-                }
-
-                this.filename.html(name);
-                this.size.html(sizeStr);
-            }
-            this.setProgress = function (progress) {
-                var progressBarWidth = progress * this.progressBar.width() / 100;
-                this.progressBar.find('div').animate({width: progressBarWidth}, 10).html(progress + "%");
-                if (parseInt(progress) >= 100) {
-                    this.abort.hide();
-                }
-            }
-            this.setAbort = function (jqxhr) {
-                var sb = this.statusbar;
-                this.abort.click(function () {
-                    jqxhr.abort();
-                    sb.hide();
-                });
-            }
-        }
-
-        function handleFileUpload(files, obj) {
-
-            // ToDo: On first file upload disable gallery change and isone .. change
-
-            // All files selected by user
-            for (var i = 0; i < files.length; i++) {
-                var data = new FormData();
-                data.append('upload_file', files[i]);
-                data.append('upload_type', 'single');
-                data.append('token', token);
-                data.append('gallery_id', gallery_id);
-
-                var status = new createStatusbar(obj); //Using this we can set progress.
-                status.setFileNameSize(files[i].name, files[i].size);
-
-                sendFileToServer(data, status);
-            }
-        }
+			sendFileToServer(data, status);
+		}
+	}
 
 
 
@@ -444,22 +466,22 @@ $return = JFactory::getApplication()->input->getBase64('return');
 
 /**
 // Added thumbnail
-        function addThumbnail(data){
-            $("#uploadfile h1").remove();
-            var len = $("#uploadfile div.thumbnail").length;
+	function addThumbnail(data){
+		$("#uploadfile h1").remove();
+		var len = $("#uploadfile div.thumbnail").length;
 
-            var num = Number(len);
-            num = num + 1;
+		var num = Number(len);
+		num = num + 1;
 
-            var name = data.name;
-            var size = convertSize(data.size);
-            var src = data.src;
+		var name = data.name;
+		var size = convertSize(data.size);
+		var src = data.src;
 
-            // Creating an thumbnail
-            $("#uploadfile").append('<div id="thumbnail_'+num+'" class="thumbnail"></div>');
-            $("#thumbnail_"+num).append('<img src="'+src+'" width="100%" height="78%">');
-            $("#thumbnail_"+num).append('<span class="size">'+size+'<span>');
-        }
+		// Creating an thumbnail
+		$("#uploadfile").append('<div id="thumbnail_'+num+'" class="thumbnail"></div>');
+		$("#thumbnail_"+num).append('<img src="'+src+'" width="100%" height="78%">');
+		$("#thumbnail_"+num).append('<span class="size">'+size+'<span>');
+	}
 /**/
 
 // https://stackoverflow.com/questions/6792878/jquery-ajax-error-function
@@ -655,7 +677,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
                         <legend><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_MORE'); ?></legend>
 
 						<?php
-						// All in one, Specify gallery
+						// All in one, specify gallery
 						echo $this->form->renderFieldset('upload_drag_and_drop');
 						?>
 
