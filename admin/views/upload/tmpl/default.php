@@ -74,7 +74,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
         form.submit();
     };
 
-    /** obsolete assign dropped files
+    /** obsolete assign dropped files **/
     Joomla.submitAssignDroppedFiles = function () {
 //        alert('submitAssignDroppedFiles:  ...');
         var form = document.getElementById('adminForm');
@@ -121,7 +121,9 @@ $return = JFactory::getApplication()->input->getBase64('return');
         var form = document.getElementById('adminForm');
 
         var zip_path = form.zip_file.value;
-        var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
+        //var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
+        var gallery_id = $('#SelectGalleries_03').val();
+
         var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_03"]:checked').val();
 //		var OutTxt = ''
 //			+ 'GalleryId1: ' + GalleryId + '\r\n'
@@ -136,15 +138,15 @@ $return = JFactory::getApplication()->input->getBase64('return');
         }
         else {
             // Is invalid galleryId selected ?
-            if (bOneGalleryName4All && (GalleryId < 1)) {
-                alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
+            if (bOneGalleryName4All && (gallery_id < 1)) {
+                alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(1)');
             }
             else {
                 // yes transfer files ...
                 form.task.value = 'batchupload'; // upload.uploadZipFile
                 form.batchmethod.value = 'zip';
                 form.ftppath.value = "";
-                form.xcat.value = GalleryId;
+                form.xcat.value = gallery_id;
                 form.selcat.value = bOneGalleryName4All;
 
                 jQuery('#loading').css('display', 'block');
@@ -162,7 +164,8 @@ $return = JFactory::getApplication()->input->getBase64('return');
         var form = document.getElementById('adminForm');
 
         var zip_path = form.zip_file.value;
-        var GalleryId = jQuery('#SelectGalleries_01').chosen().val();
+        //var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
+        var gallery_id = $('#SelectGalleries_03').val();
         var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_03"]:checked').val();
 //		var OutTxt = ''
 //			+ 'GalleryId1: ' + GalleryId + '\r\n'
@@ -177,8 +180,8 @@ $return = JFactory::getApplication()->input->getBase64('return');
         }
         else {
             // Is invalid galleryId selected ?
-            if (bOneGalleryName4All && (GalleryId < 1)) {
-                alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
+            if (bOneGalleryName4All && (gallery_id < 1)) {
+                alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(2)');
             }
             else {
                 // yes transfer files ...
@@ -203,7 +206,8 @@ $return = JFactory::getApplication()->input->getBase64('return');
         
         var form = document.getElementById('adminForm');
 
-        var GalleryId = jQuery('#SelectGalleries_02').chosen().val();
+        //var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
+        var gallery_id = $('#SelectGalleries_03').val();
         var ftp_path = form.ftp_path.value;
         var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_02"]:checked').val();
 
@@ -220,8 +224,8 @@ $return = JFactory::getApplication()->input->getBase64('return');
         }
         else {
             // Is invalid galleryId selected ?
-            if (bOneGalleryName4All && (GalleryId < 1)) {
-                alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
+            if (bOneGalleryName4All && (gallery_id < 1)) {
+                alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(3)');
             }
             else {
                 // yes transfer files ...
@@ -244,7 +248,8 @@ $return = JFactory::getApplication()->input->getBase64('return');
 
        var form = document.getElementById('adminForm');
 
-        var GalleryId = jQuery('#SelectGalleries_02').chosen().val();
+        //var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
+        var gallery_id = $('#SelectGalleries_03').val();
         var ftp_path = form.ftp_path.value;
         var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_02"]:checked').val();
 
@@ -261,8 +266,8 @@ $return = JFactory::getApplication()->input->getBase64('return');
         }
         else {
             // Is invalid galleryId selected ?
-            if (bOneGalleryName4All && (GalleryId < 1)) {
-                alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
+            if (bOneGalleryName4All && (gallery_id < 1)) {
+                alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(4)');
             }
             else {
                 // yes transfer files ...
@@ -327,9 +332,11 @@ jQuery(document).ready(function ($) {
 		e.preventDefault();
 		e.stopPropagation();
 
+        var gallery_id = $('#SelectGalleries_03').val();
+
         // prevent empty gallery
         if (gallery_id < 1) {
-            alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
+            alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(5)');
         }
         else {
 
@@ -381,9 +388,11 @@ jQuery(document).ready(function ($) {
 		e.preventDefault();
 		e.stopPropagation();
 
+        var gallery_id = $('#SelectGalleries_03').val();
+
         // prevent empty gallery
         if (gallery_id < 1) {
-            alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
+            alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(6)');
         }
         else {
             $(this).css('border', '2px dotted #0B85A1');
@@ -467,6 +476,8 @@ jQuery(document).ready(function ($) {
 	function handleFileUpload(files, obj) {
 
 		// ToDo: On first file upload disable gallery change and isone .. change
+
+        var gallery_id = $('#SelectGalleries_03').val();
 
 		// All files selected by user
 		for (var i = 0; i < files.length; i++) {
