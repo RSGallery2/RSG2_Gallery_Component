@@ -18,6 +18,9 @@ defined('_JEXEC') or die;
 		data-dismiss="modal">
 	<?php echo JText::_('JCANCEL'); ?>
 </button>
+<button class="btn btn-success" type="submit" onclick="Joomla.submitbutton('images.');">
+	<?php echo JText::_('COM_RSGALLERY2_ADD_IMAGE_PROPERTIES'); ?>
+</button>
 <button class="btn btn-success" type="submit" onclick="Joomla.submitbutton('images.moveImagesTo');">
 	<?php echo JText::_('COM_RSGALLERY2_MOVE_TO'); ?>
 </button>
