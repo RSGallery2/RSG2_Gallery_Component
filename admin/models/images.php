@@ -240,7 +240,7 @@ class Rsgallery2ModelImages extends JModelList
 	}
 
     /**
-     * Saves changed manual ordering of galleries
+     * Resets the hits
      *
      * @return bool true if successful
      *
@@ -327,6 +327,8 @@ class Rsgallery2ModelImages extends JModelList
 	 *
 	 * @return string Name of found gallery or nothing
 	 */
+	 
+	// ToDO: Rename as it may not be parent gallery name :-()
 	protected static function getParentGalleryName($id)
 	{
 		// Create a new query object.
