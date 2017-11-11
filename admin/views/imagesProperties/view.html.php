@@ -43,6 +43,13 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 	/**/
 	
 	//------------------------------------------------
+	/**
+	 * @param null $tpl
+	 *
+	 * @return bool|void
+	 *
+	 * @since version
+	 */
 	public function display($tpl = null)
 	{
 		global $rsgConfig;
@@ -59,7 +66,11 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 		////echo 'ImagePathThumb: ' . JURI_SITE . $rsgConfig->get('imgPath_thumb') . '<br>';
 		//echo $this->HtmlPathThumb . '<br>';
 
-		$this->items = $this->get('Items');
+//		$input = JFactory::getApplication()->input;
+//		$cids = $input->get('cid', 0, 'int');
+//		echo 'cids: "' . json_encode($cids) . '"<br>';
+
+//		$this->items = $this->get('Items');
 		/**
 		$this->pagination = $this->get('Pagination');
 		$this->state      = $this->get('State');
@@ -69,7 +80,7 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/images.xml';
 		/**/		
-		$this->form = JForm::getInstance('imagesProperties', $xmlFile);
+//		$this->form = JForm::getInstance('imagesProperties', $xmlFile);
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))

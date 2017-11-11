@@ -112,6 +112,7 @@ class Rsgallery2ModelImagesProperties extends JModelList
 
 	/**
 	 * Method to build an SQL query to load the list data.
+	 * state,ordering user, ? gallery name ?
 	 *
 	 * @return  string  An SQL query
      *
@@ -122,6 +123,11 @@ class Rsgallery2ModelImagesProperties extends JModelList
 		// Create a new query object.
 		$db    = JFactory::getDBO();
 		$query = $db->getQuery(true);
+
+		$input = JFactory::getApplication()->input;
+		$cids = $input->get('cid', 0, 'int');
+		echo 'cids: "' . json_encode($cids) . '"<br>';
+
 
 		/**
 		// Query for all images data.
