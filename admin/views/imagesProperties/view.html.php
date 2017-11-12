@@ -1,20 +1,22 @@
 <?php
 /**
  * @package       RSGallery2
- * @copyright (C) 2003 - 2017 RSGallery2
+ * @subpackage  com_rsgallery2
+ * @copyright   (C) 2017 - 2017 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @author      finnern
  * RSGallery is Free Software
  */
 
-// no direct access
 defined('_JEXEC') or die;
 
-JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
 jimport('joomla.html.html.bootstrap');
 
 //require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/RSGallery2.php';
 require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
+
+JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
 /**
  * View class for a list of images
@@ -23,25 +25,23 @@ require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
  */
 class Rsgallery2ViewImagesProperties extends JViewLegacy
 {
-	// ToDo: Use other rights instead of core.admin -> IsRoot ?
-	// core.admin is the permission used to control access to 
-	// the global config
-
-	protected $UserIsRoot;
+    // ToDo: Use other rights instead of core.admin -> IsRoot ?
+    // core.admin is the permission used to control access to 
+    // the global config
+    
+    protected $UserIsRoot;
 	protected $sidebar;
-
-	protected $items;
+    
+    protected $items;
+    protected $pagination;
+    protected $state;
+    
 	protected $form;
-
-	/**
-	protected $pagination;
-	protected $state;
-
-	protected $HtmlPathThumb;
-
-//	protected $rsgConfigData;
-	/**/
 	
+	protected $HtmlPathThumb;
+	protected $HtmlPathDisplay;
+	protected $HtmlPathOriginal;
+
 	//------------------------------------------------
 	/**
 	 * @param null $tpl
@@ -61,6 +61,8 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 
 //		$this->rsgConfigData = $rsgConfig;
 		$this->HtmlPathThumb = JURI_SITE . $rsgConfig->get('imgPath_thumb') . '/';
+		$this->HtmlPathDisplay = JURI_SITE . $rsgConfig->get('imgPath_display') . '/';
+		$this->HtmlPathOriginal = JURI_SITE . $rsgConfig->get('imgPath_original') . '/';
 		////echo 'ThumbPath: ' . JPATH_THUMB . '<br>';
 		////echo 'ImagePathThumb: ' . $rsgConfig->imgPath_thumb . '<br>';
 		////echo 'ImagePathThumb: ' . JURI_SITE . $rsgConfig->get('imgPath_thumb') . '<br>';
@@ -70,14 +72,15 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 //		$cids = $input->get('cid', 0, 'int');
 //		echo 'cids: "' . json_encode($cids) . '"<br>';
 
-//		$this->items = $this->get('Items');
-		/**
+		$this->items = $this->get('Items');
+
 		$this->pagination = $this->get('Pagination');
 		$this->state      = $this->get('State');
 
-		$this->filterForm    = $this->get('FilterForm');
-		$this->activeFilters = $this->get('ActiveFilters');
+//		$this->filterForm    = $this->get('FilterForm');
+//		$this->activeFilters = $this->get('ActiveFilters');
 
+		/**
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/images.xml';
 		/**/		
 //		$this->form = JForm::getInstance('imagesProperties', $xmlFile);
@@ -177,7 +180,10 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 //				JToolBarHelper::custom('move_images','forward.png','forward.png','COM_RSGALLERY2_MOVE_TO', true);
 //				JToolBarHelper::custom('copy_images','copy.png','copy.png','COM_RSGALLERY2_COPY', true);
 				/**/
-				
+
+				JToolBarHelper::apply('images.apply');
+				JToolBarHelper::save('images.save');
+
 				JToolbarHelper::deleteList('', 'images.delete', 'JTOOLBAR_DELETE');
 				
 				// batch

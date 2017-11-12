@@ -113,6 +113,7 @@ class Rsgallery2ModelImagesProperties extends JModelList
 	/**
 	 * Method to build an SQL query to load the list data.
 	 * state,ordering user, ? gallery name ?
+	 * // ToDO: Function just copied from image model. Do strip not needed ...
 	 *
 	 * @return  string  An SQL query
      *
@@ -124,12 +125,7 @@ class Rsgallery2ModelImagesProperties extends JModelList
 		$db    = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-		$input = JFactory::getApplication()->input;
-		$cids = $input->get('cid', 0, 'int');
-		echo 'cids: "' . json_encode($cids) . '"<br>';
-
-
-		/**
+		/**/
 		// Query for all images data.
 		$actState =
 			$this->getState(
@@ -169,6 +165,18 @@ class Rsgallery2ModelImagesProperties extends JModelList
 				. ' OR gal.name LIKE ' . $search
 				. ' OR a.date LIKE ' . $search
 			);
+		}
+
+		// cid's in URL ?
+		$input = JFactory::getApplication()->input;
+		$cids = $input->get('cid', 0, 'int');
+		echo 'cids: "' . json_encode($cids) . '"<br>';
+
+		if (!empty ($cids))
+		{
+			echo 'cids: found ';
+			$strCids = implode(", ", $cids);
+			$query->where('a.id IN (' . $strCids . ')');
 		}
 
 		// Add the list ordering clause.
