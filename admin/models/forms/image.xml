@@ -6,7 +6,7 @@
 		<field
 				name="title"
 				type="text"
-				label="COM_RSGALLERY2_NAME"
+				label="COM_RSGALLERY2_TITLE"
 				description="COM_RSGALLERY2_IMAGE_NAME"
 				class="input-large-text input-xxlarge"
 				size="120"
