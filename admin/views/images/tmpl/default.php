@@ -414,7 +414,7 @@ $userId = $user->id;
 							'bootstrap.renderModal',
 							'collapseModal',
 							array(
-								'title'  => JText::_('COM_CONTENT_BATCH_OPTIONS'),
+								'title'  => JText::_('COM_RSGALLERY2_IMAGES_BATCH_OPTIONS'),
 								'footer' => $this->loadTemplate('batch_footer')
 							),
 							$this->loadTemplate('batch_body')
