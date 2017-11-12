@@ -16,7 +16,7 @@ $published = $this->state->get('filter.published');
 <div class="modal hide fade" id="collapseModal">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">&#215;</button>
-		<h3><?php echo JText::_('COM_CONTENT_BATCH_OPTIONS'); ?></h3>
+		<h3><?php echo JText::_('COM_RSGALLERY2_IMAGES_BATCH_OPTIONS'); ?></h3>
 	</div>
 	<div class="modal-body modal-batch">
 		<p><?php echo JText::_('COM_CONTENT_BATCH_TIP'); ?></p>
