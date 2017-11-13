@@ -503,8 +503,13 @@ class Rsgallery2ModelImages extends JModelList
     {
         $msg     = "model images: save_imagesProperties: " . '<br>';
 
-        $Images  = RetrieveImagesPropertiesFromInput ();
-        $imgModel = $this->getModel('image');
+        $Images  = $this->RetrieveImagesPropertiesFromInput ();
+        // $this->getInstance('ModelName', 'ComponentNameModel');
+	    //$model = JModel::getInstance('(ModelName)','(ComponentName)Model');
+
+        // $imgModel = $this->getModel('image');
+        //$imgModel = JModel::getInstance('image', 'RSGallery2');
+        $imgModel = self::getInstance('image', 'RSGallery2Model');
 
         foreach ($Images as $Image)
         {
@@ -526,12 +531,38 @@ class Rsgallery2ModelImages extends JModelList
     {
         $ImagesProperties = array ();
 
+        try
+        {
+	        $input = JFactory::getApplication()->input;
 
+	        $cids         = $input->get('cid', 0, 'int');
+	        $titles       = $input->get('title', 0, 'string');
+	        $descriptions = $input->get('description', 0, 'string');
 
+	        $idx = 0;
+	        foreach ($cids as $Idx => $cid)
+	        {
+		        $ImagesProperty = new stdClass();
+
+		        $ImagesProperty->cid         = $cids [$Idx];
+		        $ImagesProperty->title       = $titles [$Idx];
+		        $ImagesProperty->description = $descriptions [$Idx];
+
+		        $ImagesProperties [] = $ImagesProperty;
+	        }
+        }
+        catch (RuntimeException $e)
+        {
+	        $OutTxt = '';
+	        $OutTxt .= 'Error executing RetrieveImagesPropertiesFromInput: "' . '<br>';
+	        $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+	        $app = JFactory::getApplication();
+	        $app->enqueueMessage($OutTxt, 'error');
+        }
 
         return $ImagesProperties;
     }
-
 
 }  // class
 

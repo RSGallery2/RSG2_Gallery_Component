@@ -79,10 +79,10 @@ $sortDirection = $this->escape($this->state->get('list.direction'));
                                     </div>
 
                                     <div class="control-group">
-                                        <label class="control-label" for="titleX[]"><?php echo JText::_('COM_RSGALLERY2_TITLE'); ?></label>
+                                        <label class="control-label" for="title[]"><?php echo JText::_('COM_RSGALLERY2_TITLE'); ?></label>
                                         <div class="controls">
                                             <!--input type="text" id="inputEmail" placeholder="Email"-->
-                                            <input name="titleX[]" type="text" size="15" aria-invalid="false"
+                                            <input name="title[]" type="text" size="15" aria-invalid="false"
                                                    value="<?php echo $this->escape($item->title);?>"
                                                    style="max-width: 90%; ">
                                         </div>
@@ -90,23 +90,24 @@ $sortDirection = $this->escape($this->state->get('list.direction'));
 
                                     <!-- Gallery can't be changed. Disable input -->
                                     <div class="control-group">
-                                        <label class="control-label" for="galleryIDX[]"><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?>(2)</label>
+                                        <label class="control-label" for="galleryID[]"><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?>(2)</label>
                                         <div class="controls">
-                                            <input type="text" name="galleryIDX[]" placeholder="Idx:"
+                                            <input type="text" name="galleryID[]" placeholder="Idx:"
                                                    value="<?php echo $this->escape($item->gallery_name);?>"
                                                    style="max-width: 90%; "  disabled>
                                         </div>
                                     </div>
 
                                     <div class="control-group">
-                                        <label class="control-label" for="descrX[]"><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION'); ?></label>
+                                        <label class="control-label" for="description[]"><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION'); ?></label>
                                         <div class="controls">
-                                        <textarea cols="15" rows="" name="descriptionX[]" style="max-width: 90%; "
+                                        <textarea cols="15" rows="" name="description[]" style="max-width: 90%; "
                                                   placeholder="Text input"><?php echo $this->escape($item->descr);?></textarea>
                                         </div>
                                     </div>
 
-                                    <input  type="hidden" name="imageId[]" value="<?php echo $item->id;?>">
+                                    <!--input  type="hidden" name="imageId[]" value="<?php echo $item->id;?>"--->
+                                    <input  type="text" name="cid[]" value="<?php echo $item->id;?>">
 
 
                                     <!-- div class="control-group">

@@ -859,9 +859,14 @@ class Rsgallery2ModelImage extends JModelAdmin
      *
      * @since 4.3.2
      */
-    public function save_imageProperties ()
+    public function save_imageProperties ($imageProperties)
     {
         $IsSaved = false;
+
+
+
+        // .....
+
 
 
         return $IsSaved;

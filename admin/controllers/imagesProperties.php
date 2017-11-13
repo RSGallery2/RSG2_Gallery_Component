@@ -79,7 +79,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
             str_replace('\n', '<br>', $msg);
         } else {
             $model = $this->getModel('images');
-            $msg .= $model->save();
+            $msg .= $model->save_imagesProperties();
         }
 
         $link = 'index.php?option=com_rsgallery2&view=images';
@@ -89,6 +89,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 
     /**
      * Apply changes from imagesPropertiesView
+     * Is like save_imagesProperties but redirects to calling view
      *
      * @since version 4.3
      */
@@ -96,7 +97,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
     {
         JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-        $msg     = "save_imagesProperties: " . '<br>';
+        $msg     = "apply_imagesProperties: " . '<br>';
         $msgType = 'notice';
 
         // Access check
@@ -108,7 +109,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
             str_replace('\n', '<br>', $msg);
         } else {
             $model = $this->getModel('images');
-            $msg .= $model->save();
+            $msg .= $model->save_imagesProperties();
         }
 
         // ToDo: Create list of CIDS and append to link URL like in PropertiesView above
@@ -145,7 +146,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
     {
         JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-        $msg     = "save_imagesProperties: " . '<br>';
+        $msg     = "delete_imagesProperties: " . '<br>';
         $msgType = 'notice';
 
         $msg     = "delete_imagesProperties: Not implemented yet" . '<br>';
