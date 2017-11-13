@@ -852,5 +852,21 @@ class Rsgallery2ModelImage extends JModelAdmin
 	}
 
 
+    /**
+     * Save user input from image parameter annotation in database
+     *
+     * @return bool
+     *
+     * @since 4.3.2
+     */
+    public function save_imageProperties ()
+    {
+        $IsSaved = false;
+
+
+        return $IsSaved;
+    }
+
+
 
 }

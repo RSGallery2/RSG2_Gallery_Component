@@ -491,5 +491,47 @@ class Rsgallery2ModelImages extends JModelList
 		return $commentCount;
 	}
 
+
+    /**
+     * Save user input from image parameter annotation in database of each image
+     *
+     * @return string
+     *
+     * @since 4.3.2
+     */
+	public function save_imagesProperties ()
+    {
+        $msg     = "model images: save_imagesProperties: " . '<br>';
+
+        $Images  = RetrieveImagesPropertiesFromInput ();
+        $imgModel = $this->getModel('image');
+
+        foreach ($Images as $Image)
+        {
+            $imgModel->save_imageProperties ($Image);
+        }
+
+        // $msg '... sucessful assigned .... images ...
+        return $msg;
+    }
+
+    /**
+     * Collects from user input the parameter of each image into one object per image
+     *
+     * @return array of images with input properties each
+     *
+     * @since 4.3.2
+     */
+    public function RetrieveImagesPropertiesFromInput ()
+    {
+        $ImagesProperties = array ();
+
+
+
+
+        return $ImagesProperties;
+    }
+
+
 }  // class
 

@@ -343,7 +343,5 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerAdmin
 	    return;
     } // assign gallery
 
-
-
 } // class
 
