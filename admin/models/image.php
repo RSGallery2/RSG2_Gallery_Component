@@ -309,6 +309,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 		// Create unique alias and title
 		list($title, $alias) = $this->generateNewTitle(null, $item->alias, $item->title);
 		$item->title = $title;
+		$item->title = $title;
 		$item->alias = $alias;
 
 		//--- date -------------------------------------------
@@ -863,15 +864,51 @@ class Rsgallery2ModelImage extends JModelAdmin
     {
         $IsSaved = false;
 
+        try {
+            $id = $imageProperties->cid;
+            // ToDO: On changed title change alias
+            $title = $imageProperties->title;
+            $description = $imageProperties->description;
 
+            //--- Db create image object -------------------
 
-        // .....
+            if ($id > 0) {
+                $item = $this->getTable();
+                $isImgFound = $item->load($id);
 
+                // Image found
+                if (!empty ($isImgFound)) {
+                    $item->title = $title;
+                    $item->descr = $description;
 
+                    //----------------------------------------------------
+                    // save changed object
+                    //----------------------------------------------------
+
+                    // Lets store it!
+                    $item->check();
+                    $IsSaved = $item->store();
+                    if (!$IsSaved) {
+                        $OutTxt = '';
+                        $OutTxt .= 'Model image: Error executing store in save_imageProperties: for image id: "' . $id . '"<br>';
+                        //$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+                        $app = JFactory::getApplication();
+                        $app->enqueueMessage($OutTxt, 'error');
+                    }
+                }
+            }
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Model image: Error executing save_imageProperties: for image id: "' . $id . '"<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
 
         return $IsSaved;
     }
-
-
-
 }

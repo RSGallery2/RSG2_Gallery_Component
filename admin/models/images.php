@@ -545,6 +545,7 @@ class Rsgallery2ModelImages extends JModelList
 		        $ImagesProperty = new stdClass();
 
 		        $ImagesProperty->cid         = $cids [$Idx];
+		        // ToDo: Check for not HTML input
 		        $ImagesProperty->title       = $titles [$Idx];
 		        $ImagesProperty->description = $descriptions [$Idx];
 
