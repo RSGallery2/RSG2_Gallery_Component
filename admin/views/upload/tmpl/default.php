@@ -11,7 +11,7 @@
 // http://us3.php.net/move_uploaded_file
 // show image http://jsfiddle.net/revathskumar/kGYc7/
 // http://talkerscode.com/webtricks/drag-and-drop-image-upload-using-ajax-jquery-and-php.php
-
+// + https://joomla.stackexchange.com/questions/146/what-is-the-proper-way-to-make-an-ajax-call-in-component
 // https://techjoomla.com/blog/beyond-joomla/jquery-basics-getting-values-of-form-inputs-using-jquery.html
 
 defined('_JEXEC') or die();
