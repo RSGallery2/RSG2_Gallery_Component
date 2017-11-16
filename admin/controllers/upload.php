@@ -381,6 +381,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
     {
         global $Rsg2DebugActive;
 
+        $IsMoved = false;
+        $msg = 'uploadAjaxSingleFile';
+
         if ($Rsg2DebugActive)
         {
             // identify active file
@@ -557,11 +560,14 @@ class Rsgallery2ControllerUpload extends JControllerForm
         if (is_dir($dstFolder)) {
             if (move_uploaded_file ($fileTmpName, $dstFile))
             {
-                echo '<b>Upload ok!</b>';
+                // echo '<b>Upload ok!</b>';
+                $msg .= '<b>Upload ok!</b>';
+                $IsMoved = true;
             }
             else
             {
-	            echo '<b>Upload failed!</b>';
+	            //echo '<b>Upload failed!</b>';
+	            $msg .= '<b>Upload failed!</b>';
             }
 
         }
@@ -578,6 +584,14 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
         // Destination file exists ? avoid race condition -> filename with date time of server ...
 //        if (JFile::exists(JPATH_DISPLAY . DS . $basename) || JFile::exists(JPATH_ORIGINAL . DS . $basename)) {
+
+        JLog::add('--- ajax retun data');
+
+        $ajaxImgObject['file'] = $dstFile;
+
+
+        // JResponseJson (JasonData, General message, IsErrorfound);
+        echo new JResponseJson($ajaxImgObject, $msg,! $IsMoved);
 
 
 	    if ($Rsg2DebugActive)
