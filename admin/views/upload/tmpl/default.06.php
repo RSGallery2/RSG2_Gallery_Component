@@ -676,24 +676,25 @@ jQuery(document).ready(function ($) {
                 success: function (data) {
                     status.setProgress(100);
                     alert('Success');
-                    alert ('Success: ' + toJson (data))
+                    //alert ('Success: ' + toJson (data))
                     //$("#status1").append("File upload Done<br>");
                 },
                 error: function(status, thrownError) {
                     alert('error');
                     var responseText = jQuery.parseJSON(jqXHR.responseText);
-                    console.log(responseText);
+					//alert('Error: ' + toJson (data))
+                    // console.log(responseText);
                 },
                 complete: (data) {
                     status.setProgress(100);
                     alert('Complete');
-                    alert ('complete: ' + toJson (data))
+                    //alert ('complete: ' + toJson (data))
                     //$("#status1").append("File upload Done<br>");
                 },
                 done: function (data) {
                     status.setProgress(100);
                     alert('Done');
-                    alert ('Done: ' + toJson (data))
+                    //alert ('Done: ' + toJson (data))
                     //$("#status1").append("File upload Done<br>");
                 },
                 fail: function (data) {
