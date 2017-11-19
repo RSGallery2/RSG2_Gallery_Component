@@ -302,6 +302,8 @@ jQuery(document).ready(function ($) {
     var dragZone = $('#dragarea');
     var fileInput = $('#hidden_file_input');
     var buttonManualFile = $('#select_manual_file');
+    //var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile&format=json';
+    //var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile&format=raw';
     var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile';
     var returnUrl = $('#installer-return').val();
     var token = $('#installer-token').val();
@@ -673,19 +675,44 @@ jQuery(document).ready(function ($) {
                 cache: false,
                 data: formData,
                 // use .done(), .fail() and .always() instead of success(), error() and complete().
-                success: function (data) {
-                    status.setProgress(100);
+                success: function (eData) {
+                    // Not needed  as already done in progress
+                    // status.setProgress(100);
                     alert('Success');
-                    //alert ('Success: ' + toJson (data))
+                    //alert('Version jQuery: ' + jQuery.fn.jquery);
+                    //alert ('Success2: ' + String(eData))
                     //$("#status1").append("File upload Done<br>");
-                },
+                    var json = jQuery.parseJSON(eData);
+                    alert('Success2');
+                    alert ('Json: ' + json)
+                    alert('Success3');
+
+
+                    },
                 error: function(status, thrownError) {
                     alert('error');
                     var responseText = jQuery.parseJSON(jqXHR.responseText);
 					//alert('Error: ' + toJson (data))
+					alert('responseText: ' + responseText)
                     // console.log(responseText);
                 }
-            });
+            }).done(function(eData, textStatus, jqXHR) {
+                    // Not needed  as already done in progress
+                    // status.setProgress(100);
+
+                    // $( "#results" ).append( html );
+
+                    alert ('done: ' + String(eData))
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                alert ('fail: ' + textStatus)
+            })  // .always(function( data|jqXHR, textStatus, jqXHR|errorThrown ) {
+                .always(function( eData, textStatus, jqXHR) {
+                // $( "#results" ).append( html );
+                alert ('always: ' + textStatus)
+            })
+                //.then ... (function( data, textStatus, jqXHR ) {}, function( jqXHR, textStatus, errorThrown ) {});
+
+            ;
 
             status.setAbort(jqXHR);
 
