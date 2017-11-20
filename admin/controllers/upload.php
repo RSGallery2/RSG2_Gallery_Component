@@ -649,7 +649,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		    JLog::add('--- ajax retun data');
 
 		    // Link: https://docs.joomla.org/JSON_Responses_with_JResponseJson
-		    $ajaxImgObject['file'] = $fileName; // $dstFile;
+		    $ajaxImgObject['file']    = $fileName; // $dstFile;
+		    $ajaxImgObject['cid']     = 14; //
+		    $ajaxImgObject['dstFile'] = $dstFile; // $dstFile;
 
 		    // JResponseJson (JasonData, General message, IsErrorFound);
 		    echo new JResponseJson($ajaxImgObject, $msg, !$IsMoved);

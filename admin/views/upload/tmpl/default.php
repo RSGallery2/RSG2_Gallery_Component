@@ -436,6 +436,7 @@ jQuery(document).ready(function ($) {
 			row = "even";
 		}
 
+		// Use this:
 		this.statusbar   = $("<div class='statusbar " + row + "'></div>");
 		this.filename    = $("<div class='filename'></div>").appendTo(this.statusbar);
 		this.size        = $("<div class='filesize'></div>").appendTo(this.statusbar);
@@ -683,9 +684,16 @@ jQuery(document).ready(function ($) {
                     //alert ('Success2: ' + String(eData))
                     //$("#status1").append("File upload Done<br>");
                     var json = jQuery.parseJSON(eData);
-                    alert('Success2');
-                    alert ('Json: ' + json)
-                    alert('Success3');
+                    // alert('Success2');
+                    alert ('Json: ' + string (json));
+                    //alert('Success3');
+
+                    // Use this: See Above
+                    // $('#imagesList').append('<li><img src="' + this + '" /></li>');
+                    // this.statusbar   = $("<div class='statusbar " + row + "'></div>");
+                    // this.filename    = $("<div class='filename'></div>").appendTo(this.statusbar);
+
+                    // imagesArea, imagesAreaList
 
 
                     },
@@ -792,6 +800,11 @@ jQuery(document).ready(function ($) {
                                 <div id="status1" class="span6">
 
                                 </div>
+                            </div>
+                            <div id="imagesArea" class="">
+                                <ul id="imagesAreaList" class="">
+
+                                </ul>
                             </div>
 
                         </div>
