@@ -22,6 +22,7 @@ $doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/vie
 //echo 'JURI_SITE: "' . JURI_SITE . '"';
 
 JHtml::_('bootstrap.tooltip');
+JHtml::_('bootstrap.framework');
 //JHtml::_('formbehavior.chosen', 'select');
 JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold' => 3));
 
@@ -685,7 +686,7 @@ jQuery(document).ready(function ($) {
                     //$("#status1").append("File upload Done<br>");
                     var json = jQuery.parseJSON(eData);
                     // alert('Success2');
-                    alert ('Json: ' + string (json));
+                    alert ('Json: ' + String (json));
                     //alert('Success3');
 
                     // Use this: See Above
@@ -695,8 +696,11 @@ jQuery(document).ready(function ($) {
 
                     // imagesArea, imagesAreaList
 
-
-                    },
+                    this.imageBox = $("<div class='imageBox'></div>");
+                    this.xxx = $("<img class='thumbnail' src='" + json.data.dstFile + "' />").appendTo(this.imageBox);
+                    this.xxy = $("<input name='imageCid' type='Xhidden' value='" + json.data.cid + "' />").appendTo(this.imageBox);
+                    $('#imagesAreaList').after(this.imageBox);
+                },
                 error: function(status, thrownError) {
                     alert('error');
                     var responseText = jQuery.parseJSON(jqXHR.responseText);

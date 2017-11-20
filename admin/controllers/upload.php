@@ -577,6 +577,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		    }
 
 		    $dstFolder = JPATH_ROOT . '/media/rsgallery2_' . $gallery_id . '_' . $file_session_id;
+
 		    // folder does not exist
 		    if (!is_dir($dstFolder))
 		    {
@@ -605,6 +606,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 		    }
 
+		    $dstFileUrl = JURI::root().'/media/rsgallery2_' . $gallery_id . '_' . $file_session_id . '/' . $fileName;
 
 		    // images.php:: batchupload
 		    // --> ::extractArchive
@@ -651,12 +653,14 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		    // Link: https://docs.joomla.org/JSON_Responses_with_JResponseJson
 		    $ajaxImgObject['file']    = $fileName; // $dstFile;
 		    $ajaxImgObject['cid']     = 14; //
-		    $ajaxImgObject['dstFile'] = $dstFile; // $dstFile;
+
+		    // ToDo: URL
+		    // $ajaxImgObject['dstFile'] = $dstFile; // $dstFile; // $dstFileUrl
+		    $ajaxImgObject['dstFile'] = $dstFileUrl; // $dstFile; // $dstFileUrl
 
 		    // JResponseJson (JasonData, General message, IsErrorFound);
 		    echo new JResponseJson($ajaxImgObject, $msg, !$IsMoved);
 		    //echo new JResponseJson($ajaxImgObject, $msg,  $IsMoved);
-
 
 		    if ($Rsg2DebugActive)
 		    {
