@@ -680,13 +680,13 @@ jQuery(document).ready(function ($) {
                 success: function (eData) {
                     // Not needed  as already done in progress
                     // status.setProgress(100);
-                    alert('Success');
+                    //alert('Success');
                     //alert('Version jQuery: ' + jQuery.fn.jquery);
                     //alert ('Success2: ' + String(eData))
                     //$("#status1").append("File upload Done<br>");
                     var json = jQuery.parseJSON(eData);
                     // alert('Success2');
-                    alert ('Json: ' + String (json));
+                    //alert ('Json: ' + String (json));
                     //alert('Success3');
 
                     // Use this: See Above
@@ -696,10 +696,15 @@ jQuery(document).ready(function ($) {
 
                     // imagesArea, imagesAreaList
 
-                    this.imageBox = $("<div class='imageBox'></div>");
-                    this.xxx = $("<img class='thumbnail' src='" + json.data.dstFile + "' />").appendTo(this.imageBox);
-                    this.xxy = $("<input name='imageCid' type='Xhidden' value='" + json.data.cid + "' />").appendTo(this.imageBox);
-                    $('#imagesAreaList').after(this.imageBox);
+                    this.imageBox = $("<li></li>").appendTo($('#imagesAreaList'));
+                    this.thumbArea = $("<div class='imgProperty thumbnail'></div>").appendTo(this.imageBox);
+                    this.imgComntainer= $("<img class='imgComntainer' >").appendTo(this.thumbArea);
+                    this.imageDisplay= $("<img class='img-rounded' src='" + json.data.dstFile + "' alt=''/>").appendTo(this.imgComntainer);
+
+                    this.caption = $("<div class='caption' ></div>").appendTo(this.imageBox);
+                    this.imageDisplay= $("<small>" + json.data.file + "</small><br>").appendTo(this.caption);
+                    this.xxy = $("<input name='imageCid' class='imageCid' type='hidden' value='" + json.data.cid + "' />").appendTo(this.imageBox);
+
                 },
                 error: function(status, thrownError) {
                     alert('error');
@@ -714,13 +719,13 @@ jQuery(document).ready(function ($) {
 
                     // $( "#results" ).append( html );
 
-                    alert ('done: ' + String(eData))
+                    //alert ('done: ' + String(eData))
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 alert ('fail: ' + textStatus)
             })  // .always(function( data|jqXHR, textStatus, jqXHR|errorThrown ) {
                 .always(function( eData, textStatus, jqXHR) {
                 // $( "#results" ).append( html );
-                alert ('always: ' + textStatus)
+                //alert ('always: ' + textStatus)
             })
                 //.then ... (function( data, textStatus, jqXHR ) {}, function( jqXHR, textStatus, errorThrown ) {});
 
@@ -805,8 +810,8 @@ jQuery(document).ready(function ($) {
 
                                 </div>
                             </div>
-                            <div id="imagesArea" class="">
-                                <ul id="imagesAreaList" class="">
+                            <div id="imagesArea" class="span2">
+                                <ul id="imagesAreaList" class="thumbnails">
 
                                 </ul>
                             </div>

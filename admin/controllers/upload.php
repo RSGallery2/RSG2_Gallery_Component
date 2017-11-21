@@ -652,7 +652,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 		    // Link: https://docs.joomla.org/JSON_Responses_with_JResponseJson
 		    $ajaxImgObject['file']    = $fileName; // $dstFile;
-		    $ajaxImgObject['cid']     = 14; //
+		    $ajaxImgObject['cid']     = 15; //
 
 		    // ToDo: URL
 		    // $ajaxImgObject['dstFile'] = $dstFile; // $dstFile; // $dstFileUrl
