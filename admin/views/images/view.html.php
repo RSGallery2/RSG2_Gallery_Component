@@ -67,13 +67,11 @@ class Rsgallery2ViewImages extends JViewLegacy
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/images.xml';
 		$this->form = JForm::getInstance('images', $xmlFile);
 
-		// Check for errors.
-		if (count($errors = $this->get('Errors')))
-		{
-			JError::raiseError(500, implode('<br />', $errors));
-
-			return false;
-		}
+        // Check for errors.
+        if (count($errors = $this->get('Errors')))
+        {
+            throw new RuntimeException(implode('<br />', $errors), 500);
+        }
 
 		// different toolbar on different layouts
 		$Layout = JFactory::getApplication()->input->get('layout');

@@ -67,13 +67,11 @@ class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
 
 //		Rsg2Helper::addSubMenu('rsg2'); 
 
-		// Check for errors.
-		if (count($errors = $this->get('Errors')))
-		{
-			JError::raiseError(500, implode('<br />', $errors));
-
-			return false;
-		}
+        // Check for errors.
+        if (count($errors = $this->get('Errors')))
+        {
+            throw new RuntimeException(implode('<br />', $errors), 500);
+        }
 
 		// Assign the Data
 		// $this->form = $form;

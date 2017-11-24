@@ -63,13 +63,11 @@ class Rsgallery2ViewComments extends JViewLegacy
 		$this->filterForm    = $this->get('FilterForm');
 		$this->activeFilters = $this->get('ActiveFilters');
 
-		// Check for errors.
-		if (count($errors = $this->get('Errors')))
-		{
-			JError::raiseError(500, implode('<br />', $errors));
-
-			return false;
-		}
+        // Check for errors.
+        if (count($errors = $this->get('Errors')))
+        {
+            throw new RuntimeException(implode('<br />', $errors), 500);
+        }
 
 		// different toolbar on different layouts
 		$Layout = JFactory::getApplication()->input->get('layout');

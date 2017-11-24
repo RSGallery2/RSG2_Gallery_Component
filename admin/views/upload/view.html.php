@@ -135,12 +135,12 @@ class Rsgallery2ViewUpload extends JViewLegacy
         $form->bind($formParam);
 
         // Check for errors.
-        if (count($errors = $this->get('Errors'))) {
-            JError::raiseError(500, implode('<br />', $errors)); // ToDo: replace error handling
-            return false;
+        if (count($errors = $this->get('Errors')))
+        {
+            throw new RuntimeException(implode('<br />', $errors), 500);
         }
 
-        // Assign the Data
+	    // Assign the Data
         $this->form = $form;
         // $this->item = $item;
 

@@ -116,12 +116,10 @@ class Rsgallery2ViewRsgallery2 extends JViewLegacy
         }
 
         // Check for errors.
-		if (count($errors = $this->get('Errors')))
-		{
-			JError::raiseError(500, implode('<br />', $errors));
-
-			return false;
-		}
+        if (count($errors = $this->get('Errors')))
+        {
+            throw new RuntimeException(implode('<br />', $errors), 500);
+        }
 
         if ($Rsg2DebugActive) {
             JLog::add('    (V11) ');

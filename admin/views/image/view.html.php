@@ -64,13 +64,11 @@ class Rsgallery2ViewImage extends JViewLegacy
 		$this->item  = $this->get('Item');
 		$this->state = $this->get('State');
 
-		// Check for errors.
-		if (count($errors = $this->get('Errors')))
-		{
-			JError::raiseError(500, implode("\n", $errors));
-
-			return false;
-		}
+        // Check for errors.
+        if (count($errors = $this->get('Errors')))
+        {
+            throw new RuntimeException(implode('<br />', $errors), 500);
+        }
 
 		// Assign the Data
 		// $this->form = $form;
