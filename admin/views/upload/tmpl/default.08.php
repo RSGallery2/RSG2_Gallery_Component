@@ -626,57 +626,27 @@ jQuery(document).ready(function ($) {
                 //alert('Version jQuery: ' + jQuery.fn.jquery);
                 //alert ('Success2: ' + String(eData))
                 //$("#status1").append("File upload Done<br>");
-                var jData = jQuery.parseJSON(eData);
+                var json = jQuery.parseJSON(eData);
                 console.log(jqXHR);
                 // alert('Success2');
                 //alert ('Json: ' + String (json));
                 //alert('Success3');
 
-                // Check that JResponseJson data structure may be available
-                //if (!defined (json.success))
-                if ( ! 'success' in jData)
-                {
-                    alert ('Drag and drop returned wrong data');
-                    return;
-                }
+                // Use this: See Above
+                // $('#imagesList').append('<li><img src="' + this + '" /></li>');
+                // this.statusbar   = $("<div class='statusbar " + row + "'></div>");
+                // this.filename    = $("<div class='filename'></div>").appendTo(this.statusbar);
 
-                // ToDo: Handle Error and notification messages first (separate)
+                // imagesArea, imagesAreaList
 
-                // file successful transferred
-                if (jData.success === 'true')
-                {
-                    // Use this: See Above
-                    // $('#imagesList').append('<li><img src="' + this + '" /></li>');
-                    // this.statusbar   = $("<div class='statusbar " + row + "'></div>");
-                    // this.filename    = $("<div class='filename'></div>").appendTo(this.statusbar);
+                this.imageBox = $("<li></li>").appendTo($('#imagesAreaList'));
+                this.thumbArea = $("<div class='imgProperty thumbnail'></div>").appendTo(this.imageBox);
+                this.imgComntainer= $("<img class='imgComntainer' >").appendTo(this.thumbArea);
+                this.imageDisplay= $("<img class='img-rounded' src='" + json.data.dstFile + "' alt=''/>").appendTo(this.imgComntainer);
 
-                    // imagesArea, imagesAreaList
-
-                    this.imageBox = $("<li></li>").appendTo($('#imagesAreaList'));
-                    this.thumbArea = $("<div class='imgProperty thumbnail'></div>").appendTo(this.imageBox);
-                    this.imgComntainer= $("<img class='imgComntainer' >").appendTo(this.thumbArea);
-                    this.imageDisplay= $("<img class='img-rounded' src='" + jData.data.dstFile + "' alt=''/>").appendTo(this.imgComntainer);
-
-                    this.caption = $("<div class='caption' ></div>").appendTo(this.imageBox);
-                    this.imageDisplay= $("<small>" + jData.data.file + "</small><br>").appendTo(this.caption);
-                    this.xxy = $("<input name='imageCid' class='imageCid' type='hidden' value='" + jData.data.cid + "' />").appendTo(this.imageBox);
-
-                    // toDO: Notification may be ... anyhow
-
-
-
-                }
-                else
-                {
-                    // error on file transfer
-                    var msg = jData.message;
-                    alert ("Error on file transfer (1): " + msg);
-
-                    // ToDo: Use count ....
-                    msg = jData.messages.error[0];
-                    alert ("Error on file transfer (2): " + msg);
-                }
-
+                this.caption = $("<div class='caption' ></div>").appendTo(this.imageBox);
+                this.imageDisplay= $("<small>" + json.data.file + "</small><br>").appendTo(this.caption);
+                this.xxy = $("<input name='imageCid' class='imageCid' type='hidden' value='" + json.data.cid + "' />").appendTo(this.imageBox);
 
             })
             // Did not work out

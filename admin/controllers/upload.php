@@ -384,43 +384,152 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	    $IsMoved = false;
 	    $msg     = 'uploadAjaxSingleFile';
 
-	    if ($Rsg2DebugActive)
-	    {
-		    // identify active file
-		    JLog::add('==> uploadAjaxSingleFile');
-	    }
-
-	    $app = JFactory::getApplication();
-
-	    /**
-	    // Send json mime type.
-	    $app->mimeType = 'application/json';
-	    $app->setHeader('Content-Type', $this->app->mimeType . '; charset=' . $this->app->charSet);
-	    $app->sendHeaders();
-		/**/
-
-	    // ToDO: check for user rights ...
-
-	    /**
-	    // Check if user token is valid.
-	    if (!JSession::checkToken('get'))
-	    {
-		    $this->app->enqueueMessage(JText::_('JINVALID_TOKEN'), 'error');
-		    echo new JResponseJson;
-		    $app->close();
-	    }
-
-	    // Check if the user is authorized to do this.
-	    if (!JFactory::getUser()->authorise('core.admin'))
-	    {
-		    $this->app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
-		    echo new JResponseJson;
-		    $app->close();
-	    }
-		/**/
-
 	    try
 	    {
+		    if ($Rsg2DebugActive)
+		    {
+			    // identify active file
+			    JLog::add('==> uploadAjaxSingleFile');
+		    }
+
+		    // $oFile = $input->oFile->get('oFile');
+		    $input = JFactory::getApplication()->input;
+		    if ($Rsg2DebugActive)
+		    {
+			    JLog::add('2:');
+		    }
+
+		    $oFile = $input->files->get('upload_file', array(), 'raw');
+		    if ($Rsg2DebugActive)
+		    {
+			    JLog::add('3:');
+		    }
+
+		    $fileTmpName = $oFile['tmp_name'];
+		    $fileName    = $oFile['name'];
+		    $fileType    = $oFile['type'];
+		    $fileError   = $oFile['error'];
+		    $fileSize    = $oFile['size'];
+
+		    if ($Rsg2DebugActive)
+		    {
+			    // identify active file
+			    JLog::add('$fileTmpName: "' . $fileTmpName . '"');
+			    JLog::add('$fileName : "' . $fileName . '"');
+			    JLog::add('$fileType: "' . $fileType . '"');
+			    JLog::add('$fileError: "' . $fileError . '"');
+			    JLog::add('$fileSize: "' . $fileSize . '"');
+		    }
+
+		    if ($Rsg2DebugActive)
+		    {
+			    JLog::add('1:');
+		    }
+
+
+		    $fileInfo = json_encode($oFile);
+		    if ($Rsg2DebugActive)
+		    {
+			    JLog::add('4:');
+		    }
+
+		    if ($Rsg2DebugActive)
+		    {
+			    // identify active file
+			    JLog::add('$fileInfo: "' . $fileInfo . '"');
+		    }
+
+
+		    // $file_session_id = $input->get('session_id', 0, 'INT');
+		    $file_session_id = $input->get('token', '', 'STRING');
+		    $session_id      = JFactory::getSession();
+
+		    if ($Rsg2DebugActive)
+		    {
+			    JLog::add('$file_session_id: ' . $file_session_id);
+			    // JLog::add('$session_id: ' . $session_id);
+		    }
+
+		    $gallery_id = $input->get('gallery_id', 0, 'INT');
+		    if ($Rsg2DebugActive)
+		    {
+			    // identify active file
+			    JLog::add('$gallery_id: "' . $gallery_id . '"');
+		    }
+
+		    $dstFolder = JPATH_ROOT . '/media/rsgallery2_' . $gallery_id . '_' . $file_session_id;
+
+		    // folder does not exist
+		    if (!is_dir($dstFolder))
+		    {
+			    mkdir($dstFolder, 0755);
+			    //echo "The directory $dstFolder was successfully created.";
+			    //exit;
+		    }
+		    else
+		    {
+		    } //echo "The directory $dstFolder exists.";
+
+		    $dstFile = $dstFolder . '/' . $fileName;
+		    if (is_dir($dstFolder))
+		    {
+			    if (move_uploaded_file($fileTmpName, $dstFile))
+			    {
+				    // echo '<b>Upload ok!</b>';
+				    $msg     .= '<b>Upload ok!</b>';
+				    $IsMoved = true;
+			    }
+			    else
+			    {
+				    //echo '<b>Upload failed!</b>';
+				    $msg .= '<b>Upload failed!</b>';
+			    }
+
+		    }
+
+		    $dstFileUrl = JURI::root() . '/media/rsgallery2_' . $gallery_id . '_' . $file_session_id . '/' . $fileName;
+
+		    // Link: https://docs.joomla.org/JSON_Responses_with_JResponseJson
+		    $ajaxImgObject['file'] = $fileName; // $dstFile;
+		    $ajaxImgObject['cid']  = 15; //
+
+		    // ToDo: URL
+		    // $ajaxImgObject['dstFile'] = $dstFile; // $dstFile; // $dstFileUrl
+		    $ajaxImgObject['dstFile'] = $dstFileUrl; // $dstFile; // $dstFileUrl
+
+		    /**
+		     * // Send json mime type.
+		     * $app->mimeType = 'application/json';
+		     * $app->setHeader('Content-Type', $this->app->mimeType . '; charset=' . $this->app->charSet);
+		     * $app->sendHeaders();
+		     * /**/
+
+		    // ToDO: check for user rights ...
+
+		    $app = JFactory::getApplication();
+
+		    /**/
+		    // Check if user token is valid.
+		    //if (!JSession::checkToken('get'))
+		    if (!JSession::checkToken('post'))
+		    {
+			    $app->enqueueMessage(JText::_('JINVALID_TOKEN'), 'error');
+			    //echo new JResponseJson;
+			    echo new JResponseJson($ajaxImgObject, 'Invalid token at drag and drop upload', true);
+
+			    $app->close();
+		    }
+
+		    /**
+		     * // Check if the user is authorized to do this.
+		     * if (!JFactory::getUser()->authorise('core.admin'))
+		     * {
+		     * $app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+		     * echo new JResponseJson;
+		     * $app->close();
+		     * }
+		     * /**/
+
 		    /**
 		     * // Access check
 		     * $canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
@@ -428,14 +537,14 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		     * {
 		     * $msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 		     * $msgType = 'warning';
-			     * // replace newlines with html line breaks.
+		     * // replace newlines with html line breaks.
 		     * str_replace('\n', '<br>', $msg);
 		     * }
 		     * else {
 		     * /**/
 		    /**
 		     *         var fd = new FormData();
-		     *         fd.append('file', files[i]);
+		     *         fd.append('file', oFile[i]);
 		     * data.append('upload_type', 'single');
 		     * data.append(token, 1);
 		     * /**/
@@ -443,24 +552,24 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		    /**
 		     * $data = array();
 		     *
-		     * if(isset($_GET['files']))
+		     * if(isset($_GET['oFile']))
 		     * {
 		     * $error = false;
-		     * $files = array();
+		     * $oFile = array();
 		     *
 		     * $uploaddir = './uploads/';
 		     * foreach($_FILES as $file)
 		     * {
 		     * if(move_uploaded_file($file['tmp_name'], $uploaddir .basename($file['name'])))
 		     * {
-		     * $files[] = $uploaddir .$file['name'];
+		     * $oFile[] = $uploaddir .$file['name'];
 		     * }
 		     * else
 		     * {
 		     * $error = true;
 		     * }
 		     * }
-		     * $data = ($error) ? array('error' => 'There was an error uploading your files') : array('files' => $files);
+		     * $data = ($error) ? array('error' => 'There was an error uploading your oFile') : array('oFile' => $oFile);
 		     * }
 		     * else
 		     * {
@@ -511,103 +620,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		     * }
 		     * /**/
 
-		    if ($Rsg2DebugActive)
-		    {
-			    JLog::add('1:');
-		    }
-
-
-		    // $files = $input->files->get('files');
-		    $input = JFactory::getApplication()->input;
-		    if ($Rsg2DebugActive)
-		    {
-			    JLog::add('2:');
-		    }
-
-		    $files = $input->files->get('upload_file', array(), 'raw');
-		    if ($Rsg2DebugActive)
-		    {
-			    JLog::add('3:');
-		    }
-
-		    $fileInfo = json_encode($files);
-		    if ($Rsg2DebugActive)
-		    {
-			    JLog::add('4:');
-		    }
-
-		    if ($Rsg2DebugActive)
-		    {
-			    // identify active file
-			    JLog::add('$fileInfo: "' . $fileInfo . '"');
-		    }
-
-
-		    $fileTmpName = $files['tmp_name'];
-		    $fileName    = $files['name'];
-		    $fileType    = $files['type'];
-		    $fileError   = $files['error'];
-		    $fileSize    = $files['size'];
-
-		    if ($Rsg2DebugActive)
-		    {
-			    // identify active file
-			    JLog::add('$fileTmpName: "' . $fileTmpName . '"');
-			    JLog::add('$fileName : "' . $fileName . '"');
-			    JLog::add('$fileType: "' . $fileType . '"');
-			    JLog::add('$fileError: "' . $fileError . '"');
-			    JLog::add('$fileSize: "' . $fileSize . '"');
-		    }
-
-		    // $file_session_id = $input->get('session_id', 0, 'INT');
-		    $file_session_id = $input->get('token', '', 'STRING');
-		    $session_id      = JFactory::getSession();
-
-		    if ($Rsg2DebugActive)
-		    {
-			    JLog::add('$file_session_id: ' . $file_session_id);
-			    // JLog::add('$session_id: ' . $session_id);
-		    }
-
-		    $gallery_id = $input->get('gallery_id', 0, 'INT');
-		    if ($Rsg2DebugActive)
-		    {
-			    // identify active file
-			    JLog::add('$gallery_id: "' . $gallery_id . '"');
-		    }
-
-		    $dstFolder = JPATH_ROOT . '/media/rsgallery2_' . $gallery_id . '_' . $file_session_id;
-
-		    // folder does not exist
-		    if (!is_dir($dstFolder))
-		    {
-			    mkdir($dstFolder, 0755);
-			    //echo "The directory $dstFolder was successfully created.";
-			    //exit;
-		    }
-		    else
-		    {
-		    } //echo "The directory $dstFolder exists.";
-
-		    $dstFile = $dstFolder . '/' . $fileName;
-		    if (is_dir($dstFolder))
-		    {
-			    if (move_uploaded_file($fileTmpName, $dstFile))
-			    {
-				    // echo '<b>Upload ok!</b>';
-				    $msg     .= '<b>Upload ok!</b>';
-				    $IsMoved = true;
-			    }
-			    else
-			    {
-				    //echo '<b>Upload failed!</b>';
-				    $msg .= '<b>Upload failed!</b>';
-			    }
-
-		    }
-
-		    $dstFileUrl = JURI::root().'/media/rsgallery2_' . $gallery_id . '_' . $file_session_id . '/' . $fileName;
-
 		    // images.php:: batchupload
 		    // --> ::extractArchive
 		    //    --> !JFile::upload
@@ -650,13 +662,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 		    JLog::add('--- ajax retun data');
 
-		    // Link: https://docs.joomla.org/JSON_Responses_with_JResponseJson
-		    $ajaxImgObject['file']    = $fileName; // $dstFile;
-		    $ajaxImgObject['cid']     = 15; //
-
-		    // ToDo: URL
-		    // $ajaxImgObject['dstFile'] = $dstFile; // $dstFile; // $dstFileUrl
-		    $ajaxImgObject['dstFile'] = $dstFileUrl; // $dstFile; // $dstFileUrl
 
 		    // JResponseJson (JasonData, General message, IsErrorFound);
 		    echo new JResponseJson($ajaxImgObject, $msg, !$IsMoved);
