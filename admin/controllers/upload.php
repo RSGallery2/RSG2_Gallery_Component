@@ -373,13 +373,19 @@ class Rsgallery2ControllerUpload extends JControllerForm
     /**/
 
     /**
-     * Todo move to model
+     * ToDo: replace by inserting image function
      *
      * @since 4.3
      */
     function uploadAjaxSingleFile()
     {
 	    global $Rsg2DebugActive;
+
+	    /**/
+        uploadAjaxSingleFile2();
+        return;
+	    /**/
+
 
 	    $IsMoved = false;
 	    $msg     = 'uploadAjaxSingleFile';
@@ -405,22 +411,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 			    JLog::add('3:');
 		    }
 
-		    $fileTmpName = $oFile['tmp_name'];
-		    $fileName    = $oFile['name'];
-		    $fileType    = $oFile['type'];
-		    $fileError   = $oFile['error'];
-		    $fileSize    = $oFile['size'];
-
-		    if ($Rsg2DebugActive)
-		    {
-			    // identify active file
-			    JLog::add('$fileTmpName: "' . $fileTmpName . '"');
-			    JLog::add('$fileName : "' . $fileName . '"');
-			    JLog::add('$fileType: "' . $fileType . '"');
-			    JLog::add('$fileError: "' . $fileError . '"');
-			    JLog::add('$fileSize: "' . $fileSize . '"');
-		    }
-
 		    if ($Rsg2DebugActive)
 		    {
 			    JLog::add('1:');
@@ -429,7 +419,23 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 		    $fileInfo = json_encode($oFile);
 		    if ($Rsg2DebugActive)
-		    {
+                $fileTmpName = $oFile['tmp_name'];
+            $fileName    = $oFile['name'];
+            $fileType    = $oFile['type'];
+            $fileError   = $oFile['error'];
+            $fileSize    = $oFile['size'];
+
+            if ($Rsg2DebugActive)
+            {
+                // identify active file
+                JLog::add('$fileTmpName: "' . $fileTmpName . '"');
+                JLog::add('$fileName : "' . $fileName . '"');
+                JLog::add('$fileType: "' . $fileType . '"');
+                JLog::add('$fileError: "' . $fileError . '"');
+                JLog::add('$fileSize: "' . $fileSize . '"');
+            }
+
+            {
 			    JLog::add('4:');
 		    }
 
@@ -441,7 +447,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 
 		    // $file_session_id = $input->get('session_id', 0, 'INT');
-		    $file_session_id = $input->get('token', '', 'STRING');
+		    $postUserId = $input->get('token', '', 'STRING');
 		    $session_id      = JFactory::getSession();
 
 		    if ($Rsg2DebugActive)
@@ -715,6 +721,93 @@ class Rsgallery2ControllerUpload extends JControllerForm
         /**/
 
 
+    /**
+     * ToDo: replace by inserting image function
+     *
+     * @since 4.3
+     */
+    function uploadAjaxSingleFile2()
+    {
+
+        global $Rsg2DebugActive;
+
+        $IsMoved = false;
+        $msg = 'uploadAjaxSingleFile';
+
+        $app = JFactory::getApplication();
+
+        try {
+            if ($Rsg2DebugActive) {
+                // identify active file
+                JLog::add('==> uploadAjaxSingleFile (2)');
+            }
+
+            $input = JFactory::getApplication()->input;
+            $oFile = $input->files->get('upload_file', array(), 'raw');
+
+            $fileTmpName = $oFile['tmp_name'];
+            $fileName    = $oFile['name'];
+            $fileType    = $oFile['type'];
+            $fileError   = $oFile['error'];
+            $fileSize    = $oFile['size'];
+
+            if ($Rsg2DebugActive)
+            {
+                // identify active file
+                JLog::add('$fileTmpName: "' . $fileTmpName . '"');
+                JLog::add('$fileName : "' . $fileName . '"');
+                JLog::add('$fileType: "' . $fileType . '"');
+                JLog::add('$fileError: "' . $fileError . '"');
+                JLog::add('$fileSize: "' . $fileSize . '"');
+            }
+
+            // ToDo: Check session id
+            // $session_id      = JFactory::getSession();
+
+            $ajaxImgObject['file'] = $fileName; // $dstFile;
+
+            $postUserId = $input->get('token', '', 'STRING');
+            $user = JFactory::getUser();
+            if ($postUserId != $user)
+            {
+                // some dummy data
+                $ajaxImgObject['cid']  = -1;
+                $ajaxImgObject['dstFile'] = '';
+
+                $app->enqueueMessage(JText::_('JINVALID_USER'), 'error');
+                //echo new JResponseJson;
+                echo new JResponseJson($ajaxImgObject, 'Invalid token at drag and drop upload', true);
+
+                $app->close();
+            }
+
+
+            .........
+
+            // Model create image with ...
+
+
+
+
+            // ToDo: URL
+            // $ajaxImgObject['dstFile'] = $dstFile; // $dstFile; // $dstFileUrl
+yyy            $ajaxImgObject['dstFile'] = $dstFileUrl; // $dstFile; // $dstFileUrl
+
+
+            // JResponseJson (JasonData, General message, IsErrorFound);
+            echo new JResponseJson($ajaxImgObject, $msg, !$IsMoved);
+            //echo new JResponseJson($ajaxImgObject, $msg,  $IsMoved);
+
+            if ($Rsg2DebugActive) {
+                JLog::add('<== uploadAjaxSingleFile');
+            }
+
+        } catch (Exception $e) {
+            echo new JResponseJson($e);
+        }
+
+        $app->close();
+    }
 
 
 }
