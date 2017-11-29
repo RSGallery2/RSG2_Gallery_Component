@@ -728,8 +728,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
      */
     function uploadAjaxSingleFile2()
     {
-
-        global $Rsg2DebugActive;
+        global $rsgConfig, $Rsg2DebugActive;
 
         $IsMoved = false;
         $msg = 'uploadAjaxSingleFile';
@@ -764,6 +763,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
             // ToDo: Check session id
             // $session_id      = JFactory::getSession();
 
+            //--- check user ID --------------------------------------------
+
             $ajaxImgObject['file'] = $fileName; // $dstFile;
 
             $postUserId = $input->get('token', '', 'STRING');
@@ -781,6 +782,116 @@ class Rsgallery2ControllerUpload extends JControllerForm
                 $app->close();
             }
 
+            $galleryId = $input->get('gId', '-1', 'INT');
+
+            //----------------------------------------------------
+            // Transfer files and create image data in db
+            //----------------------------------------------------
+
+            // Image file handling model
+            $modelFile = $this->getModel('imageFile');
+            $modelDb = $this->getModel('image');
+
+            $isWatermarkActive = $rsgConfig->get('watermark');
+            if (!empty($isWatermarkActive))
+            {
+                $modelWatermark = $this->getModel('ImgWaterMark');
+            }
+
+            //--- Create Destination file name -----------------------
+
+            // ToDo: use subfolder for each gallery and test there
+            // Each filename is only allowed once so create a new one if file already exist
+            $singleFileName = createDestinationFileName ($fileName);
+
+            // Handle title (? add info or not to add info)
+            if ($fileName != $singleFileName)
+            {
+                $title =  $fileName;
+                $title =  $singleFileName . '(' .$fileName . ')';
+
+                $fileName = $singleFileName;
+            }
+
+
+            // ToDo: use exif ...
+
+            // same as below:: $imageName = isset($FileNamesX[$Idx]) ? basename($FileNamesX[$Idx]) : '';
+            $description =  '';
+            $ImgCount = 0; // successful images
+
+
+
+            //--- Transfer file ----------------------------------
+
+            $isMoved = $modelFile->moveFile2OriginalDir($fileName); // ToDo: add gallery ID as parameter for subfolder or subfolder itself ...
+            if ( ! $isMoved)
+            {
+                // File from other user may exist
+                // lead to upload at the end ....
+                $msg .= '<br>' . 'Move for file "' . $imageName . '" failed: It may be created by other user. Please try with different name.';
+                $redirectUrl = $redirectRestartUrl;
+            }
+            else
+            {   // file is moved
+
+                //--- Create display  file ----------------------------------
+
+                $isCreated = $modelFile->createDisplayImageFile($fileName);
+                if (!$isCreated)
+                {
+                    //
+                    $msg .= '<br>' . 'Create Display File for "' . $imageName . '" failed. Use maintenance -> Consolidate image database to check it ';
+                }
+                else
+                {   // Display file is created
+
+                    //--- Create thumb file ----------------------------------
+
+                    $isCreated = $modelFile->createThumbImageFile($fileName);
+                    if (!$isCreated)
+                    {
+                        //
+                        $msg .= '<br>' . 'Create Thumb File for "' . $imageName . '" failed. Use maintenance -> Consolidate image database to check it ';
+                    }
+
+                    //--- Create watermark file ----------------------------------
+
+                    if (!empty($isWatermarkActive))
+                    {
+                        $isCreated = $modelWatermark->createMarkedFromBaseName(basename($fileName), 'original');
+                        if (!$isCreated)
+                        {
+                            //
+                            $msg .= '<br>' . 'Create Watermark File for "' . $imageName . '" failed. Use maintenance -> Consolidate image database to check it ';
+                        }
+                    }
+
+                    //--- create db item ----------------------------------
+
+                    // Model tells if successful
+                    $isCreated = $modelDb->createImageDbItem($imageName, $title, $galleryId, $description);
+                    if (!$isCreated)
+                    {
+                        // ToDo: Db entry may exist but copy / move has failed then try to fix this
+
+                        // actual give an error
+                        $msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+                        $msg .= '<br>' . 'Create DB item for "' . $imageName . '" failed. Use maintenance -> Consolidate image database to check it ';
+                        $msgType = 'warning';
+
+                        // replace newlines with html line breaks.
+                        //str_replace('\n', '<br>', $msg);
+                    }
+                    else
+                    {
+                        // successful transfer
+                        $ImgCount += 1;
+                    }
+
+                } // display file
+
+            } // file is moved
 
             .........
 
@@ -809,6 +920,33 @@ yyy            $ajaxImgObject['dstFile'] = $dstFileUrl; // $dstFile; // $dstFile
         $app->close();
     }
 
+    /**
+     * @param string $fileName
+     *
+     *
+     * @since version
+     */
+    function createDestinationFileName ($fileName='emptyOnCreate')
+    {
+        global $rsgConfig;
+
+        $singleFileName = $fileName;
+
+        $originalPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/';
+        $dstPathFileName = $originalPath . $singleFileName;
+
+        // Test if original can't be used as it does exist already
+        if (JFile::exists ($dstPathFileName))
+        {
+
+yyyy
+
+
+
+        }
+
+        return $singleFileName;
+    }
 
 }
 
