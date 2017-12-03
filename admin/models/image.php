@@ -254,7 +254,7 @@ class Rsgallery2ModelImage extends JModelAdmin
      *
      * @since 4.3.0
 	 */
-	protected function generateNewImageName($name)
+	protected function generateNewImageName($name, $galleryId)
 	{
 		// Alter the title & alias
 		$table = $this->getTable();

@@ -208,12 +208,18 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	}
 
 
-	public function moveFile2OriginalDir($srcFileName)
+	public function moveFile2OriginalDir($uploadFileName, $singleFileName, $galleryId)
 	{
 		global $rsgConfig;
 		global $Rsg2DebugActive;
 
 		$isMoved = false;
+
+
+		* if(move_uploaded_file($file['tmp_name'], $uploaddir .basename($file['name'])))
+
+		
+
 
 		// ToDo: if (JFile::exists(JPATH_DISPLAY . '/' . $basename) || JFile::exists(JPATH_ORIGINAL . '/' . $basename)) {
 		try

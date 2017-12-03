@@ -722,7 +722,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 
     /**
-     * ToDo: replace by inserting image function
+     * ToDo: delete file on error
      *
      * @since 4.3
      */
@@ -766,23 +766,37 @@ class Rsgallery2ControllerUpload extends JControllerForm
             //--- check user ID --------------------------------------------
 
             $ajaxImgObject['file'] = $fileName; // $dstFile;
+	        // some dummy data for error messages
+	        $ajaxImgObject['cid']  = -1;
+	        $ajaxImgObject['dstFile'] = '';
 
-            $postUserId = $input->get('token', '', 'STRING');
+
+	        $postUserId = $input->get('token', '', 'STRING');
             $user = JFactory::getUser();
             if ($postUserId != $user)
             {
-                // some dummy data
-                $ajaxImgObject['cid']  = -1;
-                $ajaxImgObject['dstFile'] = '';
-
                 $app->enqueueMessage(JText::_('JINVALID_USER'), 'error');
                 //echo new JResponseJson;
                 echo new JResponseJson($ajaxImgObject, 'Invalid token at drag and drop upload', true);
 
                 $app->close();
+                return;
             }
 
-            $galleryId = $input->get('gId', '-1', 'INT');
+	        //--- check user ID --------------------------------------------
+
+	        $galleryId = $input->get('gId', '-1', 'INT');
+
+            // wrong id ?
+            if ($galleryId < 1)
+            {
+	            //$app->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GALLERY_ID'), 'error');
+	            //echo new JResponseJson;
+	            echo new JResponseJson($ajaxImgObject, 'Invalid gallery ID at drag and drop upload', true);
+
+	            $app->close();
+	            return;
+            }
 
             //----------------------------------------------------
             // Transfer files and create image data in db
@@ -802,107 +816,132 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
             // ToDo: use subfolder for each gallery and test there
             // Each filename is only allowed once so create a new one if file already exist
-            $singleFileName = createDestinationFileName ($fileName);
+	        //
+	        $singleFileName = $modelDb->generateNewImageName($fileName, $galleryId)
 
-            // Handle title (? add info or not to add info)
+	        $title =  $singleFileName;
+            // Handle title (? add info or not to title)
             if ($fileName != $singleFileName)
             {
-                $title =  $fileName;
+                // $title =  $fileName;
                 $title =  $singleFileName . '(' .$fileName . ')';
 
                 $fileName = $singleFileName;
             }
 
+	        //--- add image information -----------------------
 
-            // ToDo: use exif ...
+	        // ToDo: use exif ...
+
+
 
             // same as below:: $imageName = isset($FileNamesX[$Idx]) ? basename($FileNamesX[$Idx]) : '';
             $description =  '';
-            $ImgCount = 0; // successful images
 
 
+	        //--- create db item ----------------------------------
 
-            //--- Transfer file ----------------------------------
+	        // Attention: Rare race condition: Other user may use same file name inbetween ?
 
-            $isMoved = $modelFile->moveFile2OriginalDir($fileName); // ToDo: add gallery ID as parameter for subfolder or subfolder itself ...
+	        // Model tells if successful
+	        // yyyy ToDo: return image id on success
+	        $imgId = $modelDb->createImageDbItem($singleFileName, $title, $galleryId, $description);
+	        if (empty($imgId))
+	        {
+		        // actual give an error
+		        $msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+		        $msg .= '<br>' . 'Create DB item for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
+		        $msgType = 'warning';
+
+		        // replace newlines with html line breaks.
+		        //str_replace('\n', '<br>', $msg);
+		        echo new JResponseJson($ajaxImgObject, $msg, true);
+
+		        $app->close();
+		        return;
+	        }
+
+	        $ajaxImgObject['cid']  = $imgId;
+
+			//--- Transfer file ----------------------------------
+
+	        $isCreated = false; // successful images
+
+	        $isMoved = $modelFile->moveFile2OriginalDir($fileName, $singleFileName, $galleryId); // ToDo: add gallery ID as parameter for subfolder or subfolder itself ...
             if ( ! $isMoved)
             {
                 // File from other user may exist
                 // lead to upload at the end ....
-                $msg .= '<br>' . 'Move for file "' . $imageName . '" failed: It may be created by other user. Please try with different name.';
-                $redirectUrl = $redirectRestartUrl;
+                $msg .= '<br>' . 'Move for file "' . $singleFileName . '" failed: It may be created by other user. Please try with different name.';
+	            //$app->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GALLERY_ID'), 'error');
+	            //echo new JResponseJson;
+	            echo new JResponseJson($ajaxImgObject, $msg, true);
+
+	            $app->close();
+	            return;
             }
             else
             {   // file is moved
 
                 //--- Create display  file ----------------------------------
 
-                $isCreated = $modelFile->createDisplayImageFile($fileName);
+                $isCreated = $modelFile->createDisplayImageFile($singlePathFileName);
                 if (!$isCreated)
                 {
                     //
-                    $msg .= '<br>' . 'Create Display File for "' . $imageName . '" failed. Use maintenance -> Consolidate image database to check it ';
+                    $msg .= '<br>' . 'Create Display File for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
                 }
                 else
                 {   // Display file is created
 
                     //--- Create thumb file ----------------------------------
 
-                    $isCreated = $modelFile->createThumbImageFile($fileName);
+                    $isCreated = $modelFile->createThumbImageFile($singlePathFileName);
                     if (!$isCreated)
                     {
                         //
-                        $msg .= '<br>' . 'Create Thumb File for "' . $imageName . '" failed. Use maintenance -> Consolidate image database to check it ';
+                        $msg .= '<br>' . 'Create Thumb File for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
+	                    echo new JResponseJson($ajaxImgObject, $msg, true);
+
+	                    $app->close();
+	                    return;
                     }
 
-                    //--- Create watermark file ----------------------------------
+	                // ToDo: Create URL from thumb
+	                $ajaxImgObject['dstFile'] = ''; // $dstFileUrl ???
+
+	                //--- Create watermark file ----------------------------------
 
                     if (!empty($isWatermarkActive))
                     {
-                        $isCreated = $modelWatermark->createMarkedFromBaseName(basename($fileName), 'original');
+                        $isCreated = $modelWatermark->createMarkedFromBaseName(basename($singlePathFileName), 'original');
                         if (!$isCreated)
                         {
                             //
-                            $msg .= '<br>' . 'Create Watermark File for "' . $imageName . '" failed. Use maintenance -> Consolidate image database to check it ';
+                            $msg .= '<br>' . 'Create Watermark File for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
+	                        echo new JResponseJson($ajaxImgObject, $msg, true);
+
+	                        $app->close();
+	                        return;
                         }
                     }
 
-                    //--- create db item ----------------------------------
-
-                    // Model tells if successful
-                    $isCreated = $modelDb->createImageDbItem($imageName, $title, $galleryId, $description);
-                    if (!$isCreated)
-                    {
-                        // ToDo: Db entry may exist but copy / move has failed then try to fix this
-
-                        // actual give an error
-                        $msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-                        $msg .= '<br>' . 'Create DB item for "' . $imageName . '" failed. Use maintenance -> Consolidate image database to check it ';
-                        $msgType = 'warning';
-
-                        // replace newlines with html line breaks.
-                        //str_replace('\n', '<br>', $msg);
-                    }
                     else
                     {
                         // successful transfer
-                        $ImgCount += 1;
+                        $isCreated = true;
                     }
 
                 } // display file
 
             } // file is moved
 
-            .........
-
             // Model create image with ...
-
-
 
 
             // ToDo: URL
             // $ajaxImgObject['dstFile'] = $dstFile; // $dstFile; // $dstFileUrl
-yyy            $ajaxImgObject['dstFile'] = $dstFileUrl; // $dstFile; // $dstFileUrl
+//           $ajaxImgObject['dstFile'] = $dstFileUrl; // $dstFile; // $dstFileUrl
 
 
             // JResponseJson (JasonData, General message, IsErrorFound);
@@ -920,33 +959,56 @@ yyy            $ajaxImgObject['dstFile'] = $dstFileUrl; // $dstFile; // $dstFile
         $app->close();
     }
 
-    /**
-     * @param string $fileName
-     *
-     *
-     * @since version
-     */
-    function createDestinationFileName ($fileName='emptyOnCreate')
+	/**
+	 * Create an not used filename
+	 * @param string $fileName
+	 * @param int    $galleryId Is prepared for own folder per gallery
+	 *
+	 *
+	 * @return array
+	 *
+	 * @since 4.3.2
+	 */
+    function createDestinationFileName ($fileName='emptyOnCreate', $galleryId=0)
     {
+	    // ToDo: Decide We could create a empty file to reserve it so it is not overwritten
+	    //       by other users
         global $rsgConfig;
 
         $singleFileName = $fileName;
 
-        $originalPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/';
-        $dstPathFileName = $originalPath . $singleFileName;
+	    $originalPath    = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/';
+	    $dstPathFileName = $originalPath . $singleFileName;
 
-        // Test if original can't be used as it does exist already
-        if (JFile::exists ($dstPathFileName))
+	    try
         {
+	        // Test if original can't be used as it does exist already
+	        if (JFile::exists($dstPathFileName))
+	        {
+		        // add number
+		        $singleFileName  = $singleFileName . '-01';
+		        $dstPathFileName = $originalPath . $singleFileName;
 
-yyyy
-
-
-
+		        while (JFile::exists($dstPathFileName))
+		        {
+			        // add number
+			        $singleFileName  = $singleFileName . '-01';
+			        $dstPathFileName = $originalPath . $singleFileName;
+		        }
+	        }
         }
+	    catch (RuntimeException $e)
+	    {
+		    $singleFileName = '';
 
-        return $singleFileName;
+		    $OutTxt = '';
+		    $OutTxt .= 'Error executing createDestinationFileName: "' . $fileName . '<br>';
+		    $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+		    $app = JFactory::getApplication();
+		    $app->enqueueMessage($OutTxt, 'error');
+	    }
+        return array ($singleFileName, $dstPathFileName);
     }
-
 }
 
