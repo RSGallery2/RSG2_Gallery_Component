@@ -814,10 +814,10 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
             //--- Create Destination file name -----------------------
 
-            // ToDo: use subfolder for each gallery and test there
+            // ToDo: use subfolder for each gallery and check within gallery
             // Each filename is only allowed once so create a new one if file already exist
 	        //
-	        $singleFileName = $modelDb->generateNewImageName($fileName, $galleryId)
+	        $singleFileName = $modelDb->generateNewImageName($fileName, $galleryId);
 
 	        $title =  $singleFileName;
             // Handle title (? add info or not to title)
@@ -826,18 +826,14 @@ class Rsgallery2ControllerUpload extends JControllerForm
                 // $title =  $fileName;
                 $title =  $singleFileName . '(' .$fileName . ')';
 
-                $fileName = $singleFileName;
+                // $fileName = $singleFileName;
             }
 
 	        //--- add image information -----------------------
 
 	        // ToDo: use exif ...
 
-
-
-            // same as below:: $imageName = isset($FileNamesX[$Idx]) ? basename($FileNamesX[$Idx]) : '';
             $description =  '';
-
 
 	        //--- create db item ----------------------------------
 
