@@ -305,8 +305,8 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerAdmin
 						//--- create db item ----------------------------------
 
 						// Model tells if successful
-						$isCreated = $modelDb->createImageDbItem($imageName, $title, $galleryId, $description);
-						if (!$isCreated)
+                        $imgId = $modelDb->createImageDbItem($imageName, $title, $galleryId, $description);
+						if ($imgId < 1)
 						{
 							// ToDo: Db entry may exist but copy / move has failed then try to fix this
 

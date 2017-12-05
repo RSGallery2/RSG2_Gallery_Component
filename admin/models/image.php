@@ -238,8 +238,8 @@ class Rsgallery2ModelImage extends JModelAdmin
 
 		while ($table->load(array('alias' => $alias)))
 		{
-			$title = JString::increment($title);
-			$alias = JString::increment($alias, 'dash');
+			$title = StringHelper::increment($title);
+			$alias = StringHelper::increment($alias, 'dash');
 		}
 
 		return array($title, $alias);
@@ -265,7 +265,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 			$ext      = pathinfo($name, PATHINFO_EXTENSION);
 
 			// change name
-			$name = JString::increment($fileName, 'dash');
+			$name = StringHelper::increment($fileName, 'dash');
 			$name = $name . "." . $ext;
 		}
 
@@ -364,7 +364,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 	 */
 	public function createImageDbItem($imageName, $title='', $galleryId=0, $description='')
 	{
-		$IsImageDbCreated = false;
+		$ImageId = -1;
 
 		//--- Create new item -------------------
 
@@ -436,17 +436,15 @@ class Rsgallery2ModelImage extends JModelAdmin
 			$UsedNamesText = '<br>SrcImage: ' . $fileName . '<br>DstImage: ' . $item->name;
 			JFactory::getApplication()->enqueueMessage(JText::_('copied image name could not be inseted in database') . $UsedNamesText, 'warning');
 
-			// $IsImageDbCreated = false;
-
 			$this->setError($this->_db->getErrorMsg());
 		}
 		else
 		{
 
-			$IsImageDbCreated = true;
+            $ImageId= $this->id;
 		}
 
-		return $IsImageDbCreated;
+		return $ImageId;
 	}
 
 	/**
