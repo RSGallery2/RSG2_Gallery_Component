@@ -207,7 +207,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 		return $IsImageCreated;
 	}
 
-
+	// ToDo: add gallery ID as parameter for subfolder or subfolder itself ...
 	public function moveFile2OriginalDir($uploadFileName, $singleFileName, $galleryId)
 	{
 		global $rsgConfig;
@@ -215,28 +215,21 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 		$isMoved = false;
 
-
-		* if(move_uploaded_file($file['tmp_name'], $uploaddir .basename($file['name'])))
-
-		
-
-
-		// ToDo: if (JFile::exists(JPATH_DISPLAY . '/' . $basename) || JFile::exists(JPATH_ORIGINAL . '/' . $basename)) {
 		try
 		{
-			$dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . basename($srcFileName);
+			$dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/'  .  $singleFileName;
 
 			if ($Rsg2DebugActive)
 			{
-				JLog::add('==> moveFile2OrignalDir: "' . $srcFileName . '"');
+				JLog::add('==> moveFile2OrignalDir: "' . $singleFileName . '"');
 			}
 
-			$isMoved = rename($srcFileName, $dstFileName);
+			$isMoved = move_uploaded_file($uploadFileName, $dstFileName);
 		}
 		catch (RuntimeException $e)
 		{
 			$OutTxt = '';
-			$OutTxt .= 'moveFile2OrignalDir: "' . $srcFileName . '" -> "' . $dstFileName . '"<br>';
+			$OutTxt .= 'moveFile2OrignalDir: "' . $uploadFileName . '" -> "' . $dstFileName . '"<br>';
 			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
 			$app = JFactory::getApplication();

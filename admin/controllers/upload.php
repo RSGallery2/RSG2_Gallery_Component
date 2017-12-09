@@ -745,7 +745,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
             $oFile = $input->files->get('upload_file', array(), 'raw');
 
             $fileTmpName = $oFile['tmp_name'];
-            $fileName    = $oFile['name'];
+            $uploadFileName    = $oFile['name'];
             $fileType    = $oFile['type'];
             $fileError   = $oFile['error'];
             $fileSize    = $oFile['size'];
@@ -754,7 +754,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
             {
                 // identify active file
                 JLog::add('$fileTmpName: "' . $fileTmpName . '"');
-                JLog::add('$fileName : "' . $fileName . '"');
+                JLog::add('$uploadFileName : "' . $uploadFileName . '"');
                 JLog::add('$fileType: "' . $fileType . '"');
                 JLog::add('$fileError: "' . $fileError . '"');
                 JLog::add('$fileSize: "' . $fileSize . '"');
@@ -765,7 +765,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
             //--- check user ID --------------------------------------------
 
-            $ajaxImgObject['file'] = $fileName; // $dstFile;
+            $ajaxImgObject['file'] = $uploadFileName; // $dstFile;
 	        // some dummy data for error messages
 	        $ajaxImgObject['cid']  = -1;
 	        $ajaxImgObject['dstFile'] = '';
@@ -817,16 +817,16 @@ class Rsgallery2ControllerUpload extends JControllerForm
             // ToDo: use subfolder for each gallery and check within gallery
             // Each filename is only allowed once so create a new one if file already exist
 	        //
-	        $singleFileName = $modelDb->generateNewImageName($fileName, $galleryId);
+	        $singleFileName = $modelDb->generateNewImageName($uploadFileName, $galleryId);
 
 	        $title =  $singleFileName;
             // Handle title (? add info or not to title)
-            if ($fileName != $singleFileName)
+            if ($uploadFileName != $singleFileName)
             {
-                // $title =  $fileName;
-                $title =  $singleFileName . '(' .$fileName . ')';
+                // $title =  $uploadFileName;
+                $title =  $singleFileName . '(' .$uploadFileName . ')';
 
-                // $fileName = $singleFileName;
+                // $uploadFileName = $singleFileName;
             }
 
 	        //--- add image information -----------------------
@@ -863,7 +863,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 	        $isCreated = false; // successful images
 
-	        $isMoved = $modelFile->moveFile2OriginalDir($fileName, $singleFileName, $galleryId); // ToDo: add gallery ID as parameter for subfolder or subfolder itself ...
+	        $isMoved = $modelFile->moveFile2OriginalDir($uploadFileName, $singleFileName, $galleryId);
             if ( ! $isMoved)
             {
                 // File from other user may exist
@@ -879,7 +879,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
             else
             {   // file is moved
 
-                //--- Create display  file ----------------------------------
+	            $singlePathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/'  .  $singleFileName;
+
+	            //--- Create display  file ----------------------------------
 
                 $isCreated = $modelFile->createDisplayImageFile($singlePathFileName);
                 if (!$isCreated)
@@ -903,8 +905,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	                    return;
                     }
 
-	                // ToDo: Create URL from thumb
-	                $ajaxImgObject['dstFile'] = ''; // $dstFileUrl ???
+	                // Create URL for thumb
+	                $urlThumbFile = JUri::root() . $rsgConfig->get('imgPath_thumb') . '/' .  $singleFileName . '.jpg';
+	                $ajaxImgObject['dstFile'] = $urlThumbFile; // $dstFileUrl ???
 
 	                //--- Create watermark file ----------------------------------
 
@@ -921,7 +924,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	                        return;
                         }
                     }
-
                     else
                     {
                         // successful transfer
@@ -933,7 +935,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
             } // file is moved
 
             // Model create image with ...
-
 
             // ToDo: URL
             // $ajaxImgObject['dstFile'] = $dstFile; // $dstFile; // $dstFileUrl
