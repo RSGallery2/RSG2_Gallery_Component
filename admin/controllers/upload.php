@@ -382,7 +382,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	    global $Rsg2DebugActive;
 
 	    /**/
-        uploadAjaxSingleFile2();
+        $this->uploadAjaxSingleFile2();
         return;
 	    /**/
 
@@ -744,7 +744,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
             $input = JFactory::getApplication()->input;
             $oFile = $input->files->get('upload_file', array(), 'raw');
 
-            $fileTmpName = $oFile['tmp_name'];
+            $uploadPathFileName = $oFile['tmp_name'];
             $uploadFileName    = $oFile['name'];
             $fileType    = $oFile['type'];
             $fileError   = $oFile['error'];
@@ -753,7 +753,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
             if ($Rsg2DebugActive)
             {
                 // identify active file
-                JLog::add('$fileTmpName: "' . $fileTmpName . '"');
+                JLog::add('$uploadPathFileName: "' . $uploadPathFileName . '"');
                 JLog::add('$uploadFileName : "' . $uploadFileName . '"');
                 JLog::add('$fileType: "' . $fileType . '"');
                 JLog::add('$fileError: "' . $fileError . '"');
@@ -771,6 +771,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	        $ajaxImgObject['dstFile'] = '';
 
 
+	        /** toDo: activate user token
 	        $postUserId = $input->get('token', '', 'STRING');
             $user = JFactory::getUser();
             if ($postUserId != $user)
@@ -778,15 +779,16 @@ class Rsgallery2ControllerUpload extends JControllerForm
                 $app->enqueueMessage(JText::_('JINVALID_USER'), 'error');
                 //echo new JResponseJson;
                 echo new JResponseJson($ajaxImgObject, 'Invalid token at drag and drop upload', true);
+                echo new JResponseJson($ajaxImgObject, 'Invalid token at drag and drop upload', true);
 
                 $app->close();
                 return;
             }
+			/**/
 
 	        //--- check user ID --------------------------------------------
 
-	        $galleryId = $input->get('gId', '-1', 'INT');
-
+	        $galleryId = $input->get('gallery_id', 0, 'INT');
             // wrong id ?
             if ($galleryId < 1)
             {
@@ -820,6 +822,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	        $singleFileName = $modelDb->generateNewImageName($uploadFileName, $galleryId);
 
 	        $title =  $singleFileName;
+	        /**
             // Handle title (? add info or not to title)
             if ($uploadFileName != $singleFileName)
             {
@@ -828,6 +831,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
                 // $uploadFileName = $singleFileName;
             }
+			/**/
 
 	        //--- add image information -----------------------
 
@@ -863,7 +867,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 	        $isCreated = false; // successful images
 
-	        $isMoved = $modelFile->moveFile2OriginalDir($uploadFileName, $singleFileName, $galleryId);
+	        $isMoved = $modelFile->moveFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId);
             if ( ! $isMoved)
             {
                 // File from other user may exist
