@@ -622,15 +622,15 @@ jQuery(document).ready(function ($) {
             }).done(function(eData, textStatus, jqXHR) {
                 // Not needed  as already done in progress
                 // status.setProgress(100);
-                //alert('Success');
+                alert('Success');
                 //alert('Version jQuery: ' + jQuery.fn.jquery);
-                //alert ('Success2: ' + String(eData))
+                alert ('Success2: ' + String(eData))
                 //$("#status1").append("File upload Done<br>");
                 var jData = jQuery.parseJSON(eData);
                 console.log(jqXHR);
                 // alert('Success2');
                 //alert ('Json: ' + String (json));
-                //alert('Success3');
+                alert('Success3');
 
                 // Check that JResponseJson data structure may be available
                 //if (!defined (json.success))

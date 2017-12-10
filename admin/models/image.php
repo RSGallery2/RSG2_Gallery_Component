@@ -394,7 +394,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 			$item->title = $this->generateNewImageName($fileName);
 		}
 		$item->alias = $item->title;
-		$this->alias = JFilterOutput::stringURLSafe($this->alias);
+		$item->alias = JFilterOutput::stringURLSafe($item->alias);
 
 		// Create unique alias and title
 		list($title, $alias) = $this->generateNewTitle(null, $item->alias, $item->title);
@@ -439,7 +439,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 		{
 			// ToDo: collect erorrs and display over enque .... with errr type
 			$UsedNamesText = '<br>SrcImage: ' . $fileName . '<br>DstImage: ' . $item->name;
-			JFactory::getApplication()->enqueueMessage(JText::_('copied image name could not be inseted in database') . $UsedNamesText, 'warning');
+			JFactory::getApplication()->enqueueMessage(JText::_('copied image name could not be inserted in database') . $UsedNamesText, 'warning');
 
 			$this->setError($this->_db->getErrorMsg());
 		}
