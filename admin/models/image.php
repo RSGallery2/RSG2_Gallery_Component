@@ -11,6 +11,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\Utilities\ArrayHelper;
+use Joomla\String\StringHelper;
 
 /**
  * Single image model
@@ -254,7 +255,7 @@ class Rsgallery2ModelImage extends JModelAdmin
      *
      * @since 4.3.0
 	 */
-	protected function generateNewImageName($name, $galleryId)
+	public function generateNewImageName($name, $galleryId)
 	{
 		// Alter the title & alias
 		$table = $this->getTable();
@@ -419,9 +420,13 @@ class Rsgallery2ModelImage extends JModelAdmin
 		$userId       = $user->id;
 		$item->userid = $userId;
 
+		//--- ordering -------------------------------------------
+
+		$item->ordering = $item->getNextOrder('gallery_id = ' . (int) $item->gallery_id); // . ' AND state >= 0');
+
 		//---  -------------------------------------------
 
-		$item->approved = 0; // dont know why, all images end up with zero ....
+		$item->approved = 0; // don't know why, all images end up with zero ....
 
 		//----------------------------------------------------
 		// save new object
@@ -441,7 +446,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 		else
 		{
 
-            $ImageId= $this->id;
+            $ImageId= $item->id;
 		}
 
 		return $ImageId;
