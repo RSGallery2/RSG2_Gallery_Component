@@ -308,7 +308,7 @@ jQuery(document).ready(function ($) {
     //var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile';
     //var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile&<?PHP echo JSession::getFormToken()?>=1&format=raw';
     var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile&<?PHP echo JSession::getFormToken()?>=1';
-    alert ('urlSingle: ' + urlSingle);
+    //alert ('urlSingle: ' + urlSingle);
     var returnUrl = $('#installer-return').val();
     var token = $('#installer-token').val();
     var gallery_id = $('#SelectGalleries_03').val();
@@ -622,15 +622,15 @@ jQuery(document).ready(function ($) {
             }).done(function(eData, textStatus, jqXHR) {
                 // Not needed  as already done in progress
                 // status.setProgress(100);
-                alert('Success');
+                // alert('Success');
                 //alert('Version jQuery: ' + jQuery.fn.jquery);
-                alert ('Success2: ' + String(eData))
+                // alert ('Success2: ' + String(eData))
                 //$("#status1").append("File upload Done<br>");
                 var jData = jQuery.parseJSON(eData);
                 console.log(jqXHR);
                 // alert('Success2');
                 //alert ('Json: ' + String (json));
-                alert('Success3');
+                // alert('Success3');
 
                 // Check that JResponseJson data structure may be available
                 //if (!defined (json.success))
@@ -640,11 +640,14 @@ jQuery(document).ready(function ($) {
                     return;
                 }
 
+                // alert('Success4 jData.success: "' + jData.success + '"');
+
                 // ToDo: Handle Error and notification messages first (separate)
 
                 // file successful transferred
-                if (jData.success === 'true')
+                if (jData.success == true)
                 {
+                    // alert('Success5');
                     // Use this: See Above
                     // $('#imagesList').append('<li><img src="' + this + '" /></li>');
                     // this.statusbar   = $("<div class='statusbar " + row + "'></div>");
@@ -668,6 +671,7 @@ jQuery(document).ready(function ($) {
                 }
                 else
                 {
+                    // alert('Success40');
                     // error on file transfer
                     var msg = jData.message;
                     alert ("Error on file transfer (1): " + msg);
