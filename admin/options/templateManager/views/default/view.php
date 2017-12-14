@@ -87,7 +87,6 @@ class InstallerViewDefault extends JViewLegacy
 	static function showHeader()
 	{
 
-		//$ext	= JRequest::getWord('type');
 		$input = JFactory::getApplication()->input;
 		$ext   = $input->get('type', '', 'WORD');
 
@@ -110,7 +109,6 @@ class InstallerViewDefault extends JViewLegacy
 	static function showTemplateHeader()
 	{
 
-		//$ext	= JRequest::getWord('type', 'templateGeneral');
 		$input = JFactory::getApplication()->input;
 		$ext   = $input->get('type', 'templateGeneral', 'WORD');
 		if ($ext == 'templates')

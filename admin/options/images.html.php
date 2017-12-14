@@ -31,7 +31,6 @@ class html_rsg2_images
     static function showImages($option, &$rows, &$lists, &$search, &$pageNav)
     {
         global $rsgOption, $rsgConfig;
-        // $option = JRequest::getCmd('option');
         $input = JFactory::getApplication()->input;
         $option = $input->get('option', '', 'CMD');
         $user = JFactory::getUser();
@@ -884,14 +883,10 @@ class html_rsg2_images
 
         // not used: $database = JFactory::getDBO();
         //Get variables from form
-        //$selcat 		= JRequest::getInt('selcat'  , null);
         $selcat = $input->get('selcat', null, 'INT');
-        //$ftppath 		= JRequest::getVar('ftppath'  , null);
         // not used: $ftppath 		= $input->get( 'ftppath', null, 'PATH');
-        //$xcat 			= JRequest::getInt('xcat'  , null);
         // gallery ID
         $xcat = $input->get('xcat', null, 'INT');
-        //$batchmethod 	= JRequest::getVar('batchmethod'  , null);
         // not used: $batchmethod    = $input->get('batchmethod', '', 'STRING');
         ?>
         <script language="javascript" type="text/javascript">

@@ -206,7 +206,6 @@ class menu_rsg2_images
     static function show()
     {
 
-        // $galleryId = JRequest::getInt('gallery_id',0);
         $input = JFactory::getApplication()->input;
         $galleryId = $input->get('gallery_id', 0, 'INT');
         $canDo = Rsgallery2Helper::getActions($galleryId);
@@ -360,7 +359,6 @@ class menuRSGallery
     {
         JToolBarHelper::title(JText::_('COM_RSGALLERY2_BATCH_UPLOAD'), 'generic.png');
 
-        // 140701 original: if( JRequest::getBool('uploaded'  , null) )
         $input = JFactory::getApplication()->input;
         $uploaded = $input->get('uploaded', null, 'BOOL');
         if ($uploaded) {

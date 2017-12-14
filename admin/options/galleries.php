@@ -17,7 +17,6 @@ require_once($rsgOptions_path . 'galleries.html.php');
 require_once($rsgOptions_path . 'galleries.class.php');
 require_once($rsgOptions_path . 'images.class.php');
 
-//$cid = JRequest::getVar( 'cid' , array(), 'default', 'array' );
 $input = JFactory::getApplication()->input;
 $cid   = $input->get('cid', array(), 'ARRAY');
 
@@ -88,7 +87,6 @@ function show()
 {
 	global $mosConfig_list_limit;    //Todo: $app = &JFactory::getApplication();$limit = $app->getCfg('list_limit'); replaces $mosConfig_list_limit
 	$mainframe = JFactory::getApplication();
-	//$option = JRequest::getCmd('option');
 	$input      = JFactory::getApplication()->input;
 	$option     = $input->get('option', '', 'CMD');
 	$database   = JFactory::getDBO();
@@ -355,17 +353,13 @@ function save($option)
 	$database = JFactory::getDBO();
 
 	$input = JFactory::getApplication()->input;
-	//$task = JRequest::getCmd('task');
 	$task = $input->get('task', '', 'CMD');
-	//$id = JRequest::getInt('id');
 	$id = $input->get('id', 0, 'INT');
 
 	$row = new rsgGalleriesItem($database);
 	$row->load($id);
-	//if (!$row->bind( JRequest::get('post') )) {	//here we get id, parent, ... from the user's input
 	//if (!$row->bind( $input->post)) {	//here we get id, parent, ... from the user's input
 	// ToDo: Revisit a) check if $input->post->getArray(); is proper replacement for above b) Remove debug code below
-	//$OrgOldPost = JRequest::get('post');
 	//$Test7Post = $input->post->getArray();
 	if (!$row->bind($input->post->getArray()))
 	{    //here we get id, parent, ... from the user's input
@@ -373,7 +367,6 @@ function save($option)
 		exit();
 	}
 
-	//$row->description = JRequest::getVar( 'description', '', 'post', 'string', JREQUEST_ALLOWRAW );
 	$input            = JFactory::getApplication()->input;
 	$row->description = $input->post->get('description', '', 'RAW');
 
@@ -385,7 +378,6 @@ function save($option)
 	$row->alias = JFilterOutput::stringURLSafe($row->alias);
 
 	// save params
-	//$params = JRequest::getVar( 'params', array() );
 	$input  = JFactory::getApplication()->input;
 	$params = $input->get('params', array(), 'ARRAY');
 	if (is_array($params))
@@ -399,7 +391,6 @@ function save($option)
 	}
 
 	// Get the rules which are in the form … with the name 'rules' with type array (default value array())
-	//$data['rules']	= JRequest::getVar('rules', array(), 'post', 'array');
 	$input         = JFactory::getApplication()->input;
 	$data['rules'] = $input->post->get('rules', array(), 'ARRAY');
 
@@ -505,9 +496,6 @@ function publish($cid = null, $publish = 1, $option)
 	$database  = JFactory::getDBO();
 	$my        =& JFactory::getUser();
 
-	// 140503 $catid not used
-	// $catid = JRequest::getInt( 'catid', array(0) );
-
 	if (!is_array($cid) || count($cid) < 1)
 	{
 		$action = $publish ? 'publish' : 'unpublish';
@@ -590,7 +578,6 @@ function saveOrder(&$cid)
 	$database  = JFactory::getDBO();
 
 	$total = count($cid);
-	// $order 		= JRequest::getVar( 'order', array(0), 'post', 'array' );
 	$input = JFactory::getApplication()->input;
 	$order = $input->post->get('order', array(), 'ARRAY');
 	ArrayHelper::toInteger($order, array(0));

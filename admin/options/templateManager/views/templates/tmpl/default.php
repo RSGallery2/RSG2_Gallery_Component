@@ -6,6 +6,9 @@
  * @copyright      Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.
  * @license        GNU/GPL, see LICENSE.php
  */
+ 
+ defined('_JEXEC') or die();
+ 
 ?>
 <form action="index.php" method="post" name="adminForm">
 

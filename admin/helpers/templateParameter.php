@@ -21,7 +21,7 @@
  *
  */
 
-defined('JPATH_PLATFORM') or die;
+defined('_JEXEC') or die();
 
 /*---------------------------
 Only used:

@@ -292,7 +292,6 @@ class imgUtils extends fileUtils
 			}
 		}
 		// save params
-		// $params = JRequest::getVar( 'params', '' );
 		$input  = JFactory::getApplication()->input;
 		$params = $input->get('params', array(), 'ARRAY');
 		if (is_array($params))

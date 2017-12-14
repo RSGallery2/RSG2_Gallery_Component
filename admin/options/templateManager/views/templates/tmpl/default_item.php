@@ -6,6 +6,8 @@
  * @copyright      Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.
  * @license        GNU/GPL, see LICENSE.php
  */
+ 
+defined('_JEXEC') or die();
 ?>
 <tr class="<?php echo "row" . $this->item->index % 2; ?>" <?php echo $this->item->style; ?>>
 	<td>

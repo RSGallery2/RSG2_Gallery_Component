@@ -12,7 +12,8 @@
  */
 
 // No direct access
-defined('JPATH_BASE') or die();
+defined('_JEXEC') or die();
+// defined('JPATH_BASE') or die();
 jimport("joomla.html.pagination");
 
 /**

@@ -330,7 +330,6 @@ if (count(JHtmlSidebar::getEntries()) > 0) : ?>
 		 */
 		static function showUploadStep2()
 		{
-			//$catid = JRequest::getInt('catid', null); 
 			$input = JFactory::getApplication()->input;
 			$catid = $input->get('catid', null, 'INT');
 			?>
@@ -382,11 +381,8 @@ if (count(JHtmlSidebar::getEntries()) > 0) : ?>
 		static function showUploadStep3()
 		{
 			$input = JFactory::getApplication()->input;
-			//$catid = JRequest::getInt('catid', null); 
 			$catid = $input->get('catid', null, 'INT');
-			//$uploadstep = JRequest::getInt('uploadstep', null); 
 			$uploadstep = $input->get('uploadstep', null, 'INT');
-			//$numberOfUploads = JRequest::getInt('numberOfUploads', null); 
 			$numberOfUploads = $input->get('numberOfUploads', null, 'INT');
 
 			?>

@@ -33,7 +33,6 @@ class html_rsg2_galleries
 	{
 		global $rsgOption; // , $rsgConfig;
 
-		//$option = JRequest::getCmd('option');
 		$input  = JFactory::getApplication()->input;
 		$option = $input->get('option', '', 'CMD');
 
@@ -241,7 +240,6 @@ class html_rsg2_galleries
 		global $rsgOption;
 		global $rsgConfig;
 
-		//$option = JRequest::getCmd('option');
 		$input  = JFactory::getApplication()->input;
 		$option = $input->get('option', '', 'CMD');
 
@@ -334,7 +332,6 @@ class html_rsg2_galleries
 			JToolBarHelper::title($Text, 'generic.png');
 		}
 
-		//$task = JRequest::getCmd( 'task'  , '');
 		$input = JFactory::getApplication()->input;
 		$task  = $input->get('task', '', 'CMD');
 

@@ -480,8 +480,6 @@ class fileHandler
      */
     function extractArchive($archive, $destination = '')
     {
-        //This is what is given to this function: $archive = JRequest::getVar('uploadFile', null, 'FILES', 'ARRAY');
-
         global $rsgConfig;
         $mainframe = JFactory::getApplication();
         $uploadError = 0;

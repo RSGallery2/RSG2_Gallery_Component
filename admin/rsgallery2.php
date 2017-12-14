@@ -60,7 +60,6 @@ global $opt, $catid, $uploadStep, $numberOfUploads, $e_id, $view;
 // ToDo: remove old and actual used parameters
 
 $input = JFactory::getApplication()->input;
-//$task				= JRequest::getCmd('task');
 $task = $input->get('task', '', 'CMD');
 $option = strtolower($input->get('option', '', 'CMD'));
 $catid = $input->get('catid', null, 'INT');
@@ -109,7 +108,6 @@ if ($Rsg2DebugActive) {
 // these tasks require admin or super admin privileges.
 if ($rsgOption == '') {
 
-    // 140701 original: switch ( JRequest::getCmd('task', null) ){
     switch ($task) {
         // old J1.5 tasks
         case 'purgeEverything':

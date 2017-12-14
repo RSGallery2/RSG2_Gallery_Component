@@ -281,7 +281,6 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 		}
 
 		//--- Gallery is selected ?  ----------------------------------------------
-		//$gid = JRequest::getVar( 'gid', array());
 
 		if (empty($gid))
 		{

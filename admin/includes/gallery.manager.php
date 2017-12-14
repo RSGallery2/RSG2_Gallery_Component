@@ -35,7 +35,6 @@ class rsgGalleryManager
 		// Make sure that the $id is an integer
 		if ($id === null)
 		{
-			//$id = JRequest::getInt( 'id', 0 );
 			$input = JFactory::getApplication()->input;
 			$id    = $input->get('id', 0, 'INT');
 		}
@@ -97,18 +96,14 @@ class rsgGalleryManager
 
 		if ($id === null)
 		{
-			//$id = JRequest::getInt( 'catid', 0 );
 			$input = JFactory::getApplication()->input;
 			$id    = $input->get('catid', 0, 'INT');
 
-			//$id = JRequest::getInt( 'gid', $id );
 			$id = $input->get('gid', $id, 'INT');
 
 			if (!$id)
 			{
 				// check if an item id is set and if so return the gallery for that item id
-				// 140701 original: if(JRequest::getInt( 'id', 0 ))
-				//$id = JRequest::getInt( 'id', 0 );
 				$id = $input->get('id', 0, 'INT');
 				if ($id)
 				{

@@ -7,6 +7,9 @@
  * @author      finnern
  * RSGallery is Free Software
  */
+ 
+ defined('_JEXEC') or die();
+
 ?>
 
 <script type="text/javascript">

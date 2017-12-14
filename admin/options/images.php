@@ -19,7 +19,6 @@ require_once($rsgOptions_path . 'images.html.php');
 require_once($rsgOptions_path . 'images.class.php');
 require_once(JPATH_RSGALLERY2_ADMIN . '/admin.rsgallery2.html.php');
 
-//$cid = JRequest::getVar("cid", array(), 'default', 'array' );
 $input = JFactory::getApplication()->input;
 $cid   = $input->get('cid', array(), 'ARRAY');
 
@@ -49,7 +48,6 @@ switch ($task)
 		break;
 
 	case 'edit':
-		// JRequest::setVar('id', $cid[0]);
 		$input->set('id', $cid[0]);
 		editImage($option, $cid[0]);
 		break;
@@ -248,7 +246,6 @@ function editImage($option, $id)
 		$row->published = 1;
 		$row->approved  = 1;
 		$row->ordering  = 0;
-		//$row->gallery_id 	= intval( JRequest::getInt( 'gallery_id', 0 ) );
 		$input           = JFactory::getApplication()->input;
 		$row->gallery_id = $input->get('gallery_id', 0, 'INT');
 	}
@@ -323,25 +320,20 @@ function saveImage($option, $redirect = true)
 	$my       = JFactory::getUser();
 
 	$input = JFactory::getApplication()->input;
-	// $id = JRequest::getInt('id');
 	$id = $input->get('id', 0, 'INT');
-	//$task = JRequest::getCmd('task');
 	$task = $input->get('task', '', 'CMD');
 	// Get the rules which are in the form … with the name ‘rules’ 
 	// with type array (default value array())
-	//$data['rules']		= JRequest::getVar('rules', array(), 'post', 'array');
 	$data['rules'] = $input->post->get('rules', array(), 'ARRAY');
 
 	$row = new rsgImagesItem($database);
 	$row->load($id);
-	//if (!$row->bind( JRequest::get('post') )) {
 	// ToDo: Revisit check if $input->post->getArray(); is proper replacement for above
 	if (!$row->bind($input->post->getArray()))
 	{
 		echo "<script> alert('" . $row->getError() . "'); window.history.go(-1); </script>\n";
 		exit();
 	}
-	//$row->descr = JRequest::getVar( 'descr', '', 'post', 'string', JREQUEST_ALLOWRAW );
 	$row->descr = $input->post->get('descr', '', 'RAW');
 
 	//Make the alias for SEF
@@ -355,7 +347,6 @@ function saveImage($option, $redirect = true)
 	$row->descr = str_replace('<br>', '<br />', $row->descr);
 
 	// save params
-	//$params = JRequest::getVar( 'params', '' );
 	$input  = JFactory::getApplication()->input;
 	$params = $input->get('params', array(), 'ARRAY');
 	if (is_array($params))
@@ -545,7 +536,6 @@ function moveImages($cid, $option)
 	$database = JFactory::getDBO();
 
 	//Get gallery id to move item(s) to
-	//$new_id = JRequest::getInt( 'move_id', '' );
 	$input  = JFactory::getApplication()->input;
 	$new_id = $input->get('move_id', 0, 'INT');
 	if ($new_id == 0)
@@ -712,14 +702,10 @@ function saveUploadedImage($option)
 	$app   = JFactory::getApplication();
 	$input = JFactory::getApplication()->input;
 
-	//$title = JRequest::getVar('title'  , array(), 'default', 'array');// We get an array of titles here  
 	$title = $input->get('title', array(), 'ARRAY');
-	//$descr = JRequest::getVar('descr'  , '', 'post', 'string', JREQUEST_ALLOWRAW); 
 	$descr = $input->post->get('descr', '', 'RAW');
-	//$gallery_id = JRequest::getInt('gallery_id'  , '');
 	$gallery_id = $input->get('gallery_id', 0, 'INT');
 	// Old deprecated below: Each of 5 properties like name error .. had its own array
-	// $files = JRequest::getVar('images', '', 'FILES');
 	// New access is a list of files containing the 5 properties as seperate array
 	$files = $input->files->get('images', array(), 'FILES'); //
 
@@ -824,7 +810,6 @@ function saveOrder(&$cid)
 	$database = JFactory::getDBO();
 
 	$total = count($cid);
-	//$order 		= JRequest::getVar("order", array(), 'default', 'array' );
 	$input = JFactory::getApplication()->input;
 	$order = $input->get('order', array(), 'ARRAY');
 
@@ -893,7 +878,6 @@ function copyImage($cid, $option)
 	$errors = array();
 
 	//Get gallery id to copy item(s) to
-	//$cat_id = JRequest::getInt('move_id', '' );
 	$input  = JFactory::getApplication()->input;
 	$cat_id = $input->get('move_id', 0, 'INT');
 	if (!$cat_id)
@@ -1161,23 +1145,16 @@ function save_batchupload()
 	$input = JFactory::getApplication()->input;
 
 	$FTP_path = $rsgConfig->get('ftp_path');
-	//$teller 	= JRequest::getInt('teller'  , null);
 	$teller = $input->get('teller', null, 'INT');
-	//$delete 	= JRequest::getVar('delete'  , null, 'post', 'array');
 	$delete = $input->post->get('delete', null, 'ARRAY');
-	//$filename 	= JRequest::getVar('filename'  , null, 'post', 'array');
 	$filename = $input->post->get('filename', null, 'ARRAY');
-	//$ptitle 	= JRequest::getVar('ptitle'  , null, 'post', 'array');
 	$ptitle = $input->post->get('ptitle', null, 'ARRAY');
-	//$descr 		= JRequest::getVar('descr'  , array(0), 'post', 'array');
 	$descr = $input->post->get('descr', array(0), 'ARRAY');
-	//$extractdir = JRequest::getCmd('extractdir'  , null);
 	$extractdir = $input->get('extractdir', null, 'CMD');
 
 	//Check if all categories are chosen
 	if (isset($_REQUEST['category']))
 	{
-		//$category = JRequest::getVar('category'  , array(0), 'post', 'array');
 		$category = $input->post->get('category', array(0), 'ARRAY');
 	}
 	else

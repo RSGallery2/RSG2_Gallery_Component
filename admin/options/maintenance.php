@@ -27,9 +27,7 @@ if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2'))
 else
 {
 	$input = JFactory::getApplication()->input;
-	//$cid = JRequest::getVar("cid", array(), 'default', 'array' );
 	$cid = $input->get('cid', array(), 'ARRAY');
-	//$task = JRequest::getVar( 'task', null);
 	$task = $input->get('task', '', 'CMD');
 
 	switch ($task)
@@ -144,7 +142,6 @@ function test()
  * @deprecated ToDo: remove
  * /
  * function doMigration() {
- * //$type    = JRequest::getVar('type', null);
  * $input =JFactory::getApplication()->input;
  * $type = $input->get( 'type', null);
  *
@@ -187,7 +184,6 @@ function executeRegenerateThumbImages()
 //	global $rsgConfig;
 	$app   = JFactory::getApplication();
 	$error = 0;
-	//$gid = JRequest::getVar( 'gid', array());
 	$input = JFactory::getApplication()->input;
 	$gid   = $input->get('gid', array(), 'ARRAY');
 
@@ -251,7 +247,6 @@ function executeRegenerateDisplayImages()
 	global $rsgConfig;
 	$app = JFactory::getApplication();
 
-	//$gid = JRequest::getVar( 'gid', array());
 	$input = JFactory::getApplication()->input;
 	$gid   = $input->get('gid', array(), 'ARRAY');
 
@@ -358,13 +353,11 @@ function createImages()
 	//Check if id or name is set
 	if (isset($_REQUEST['id']))
 	{
-		//$id = JRequest::getInt( 'id', null);
 		$id   = $input->get('id', null, 'INT');
 		$name = galleryUtils::getFileNameFromId($id);
 	}
 	elseif (isset($_REQUEST['name']))
 	{
-		//$name    = JRequest::getVar( 'name', null);
 		$name = $input->get('name', null, 'STRING');
 	}
 	else
@@ -422,7 +415,6 @@ function createImages()
 function deleteImages()
 {
 	$app = JFactory::getApplication();
-	//$name = JRequest::getVar('name', null);
 	$input = JFactory::getApplication()->input;
 	$name  = $input->get('name', null, 'STRING');
 
@@ -445,11 +437,8 @@ function deleteImages()
 function createDbEntries()
 {
 	$input = JFactory::getApplication()->input;
-	//$name = JRequest::getVar('name'  , null);
 	$name = $input->get('name', null, 'STRING');
-	//$t_id = JRequest::getVar('t_id'  , null);
 	$t_id = $input->get('t_id', null);
-	// $gid = JRequest::getInt('gallery_id'  , null);
 	//$gallery_id = $input->get( 'gallery_id', 0, 'INT');
 	echo "<pre>";
 	print_r($name);
@@ -473,14 +462,12 @@ function regenerateImage()
 	//Check if id or name is set
 	if (isset($_REQUEST['id']))
 	{
-		//$id = JRequest::getInt( 'id', null);
 		$input = JFactory::getApplication()->input;
 		$id    = $input->get('id', null, 'INT');
 		$name  = galleryUtils::getFileNameFromId($id);
 	}
 	elseif (isset($_REQUEST['name']))
 	{
-		//$name    = JRequest::getVar( 'name', null);
 		$name = $input->get('name', null, 'STRING');
 	}
 	else

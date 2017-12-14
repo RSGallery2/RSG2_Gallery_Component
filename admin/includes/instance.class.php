@@ -74,7 +74,6 @@ class rsgInstance
 	 */
 	static function mainSwitch()
 	{
-		// 140701 original: switch( JRequest::getCmd( 'rsgOption', '' )) {
 		$input = JFactory::getApplication()->input;
 		$cmd   = $input->get('rsgOption', '', 'CMD');
 		switch ($cmd)
@@ -92,7 +91,6 @@ class rsgInstance
 				require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgsearch' . DS . 'search.php');
 				break;
 			default:
-				// 140701 original: switch( JRequest::getCmd( 'task', '' ) ){
 				$task = $input->get('task', '', 'CMD');
 				switch ($task)
 				{

@@ -55,7 +55,6 @@ class InstallerModelInstall extends JModelLegacy
 
 		$this->setState('action', 'install');
 
-		// 140701 original: switch(JRequest::getWord('installtype'))
 		$input       = JFactory::getApplication()->input;
 		$installtype = $input->get('installtype', '', 'WORD');
 		switch ($installtype)
@@ -137,7 +136,6 @@ class InstallerModelInstall extends JModelLegacy
 	static function _getPackageFromUpload()
 	{
 		// Get the uploaded file information
-		// $userfile = JRequest::getVar('install_package', null, 'files', 'array' );
 		$input    = JFactory::getApplication()->input;
 		$userfile = $input->get('install_package', null, 'FILES');
 
@@ -213,7 +211,6 @@ class InstallerModelInstall extends JModelLegacy
 	{
 
 		// Get the path to the package to install
-		//$p_dir = JRequest::getString('install_directory');
 		$input = JFactory::getApplication()->input;
 		$p_dir = $input->get('install_directory', '', 'STRING');
 		$p_dir = JPath::clean($p_dir);
@@ -265,7 +262,6 @@ class InstallerModelInstall extends JModelLegacy
 		$db = JFactory::getDBO();
 
 		// Get the URL of the package to install
-		//$url = JRequest::getString('install_url');
 		$input = JFactory::getApplication()->input;
 		$url   = $input->get('install_url', '', 'STRING');
 

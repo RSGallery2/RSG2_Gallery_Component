@@ -275,7 +275,6 @@ switch ($rsgOption) {
 // only use the legacy task switch if rsgOption is not used. [MK not truly legacy but still used!]
 // these tasks require admin or super admin privileges.
 if ($rsgOption == '') {
-// 140701 original: switch ( JRequest::getCmd('task', null) ){
 switch ($task) {
 //Special/debug tasks
 case 'purgeEverything':

@@ -212,10 +212,8 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 			$my       = JFactory::getUser();
 			$database = JFactory::getDBO();
 
-			//$filter_order = JRequest::getWord( 'filter_order',  $rsgConfig->get("filter_order") );
 			$input        = JFactory::getApplication()->input;
 			$filter_order = $input->get('filter_order', $rsgConfig->get("filter_order"), 'WORD');
-			//$filter_order_Dir = JRequest::getWord( 'filter_order_Dir', $rsgConfig->get("filter_order_Dir"));
 			$filter_order_Dir = $input->get('filter_order_Dir', $rsgConfig->get("filter_order_Dir"), 'WORD');
 
 			$where = ' WHERE `gallery_id` = ' . (int) $this->get('id');
@@ -284,9 +282,7 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 		} // 0 means display all
 
 		$input = JFactory::getApplication()->input;
-		//$current = $this->indexOfItem(JRequest::getInt( 'id', 0 ));
 		$current = $input->get('id', 0, 'INT');
-		//$current = JRequest::getInt( 'limitstart', $current );
 
         // Fix: >>> Plugin Gallery Display: First page of thumbs are not showing (semantic)  (2017.04.03)
 		// Get index of element "id"
@@ -347,7 +343,6 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 			return $this->items[$id];
 		}
 
-		//$id = JRequest::getInt( 'id', null );
 		$input = JFactory::getApplication()->input;
 		$id    = $input->get('id', null, 'INT');
 		if ($id !== null)
@@ -355,7 +350,6 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 			return $this->items[$id];
 		}
 
-		//$id = JRequest::getInt( 'limitstart', 0 );
 		$id  = $input->get('limitstart', 0, 'INT');
 		$arr = array_slice($this->items, $id, 1);
 
@@ -373,7 +367,6 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 
 		if ($id === null)
 		{
-			// $id = JRequest::getInt( 'id', null );
 			$input = JFactory::getApplication()->input;
 			$id    = $input->get('id', null, 'INT');
 			if ($id === null)
@@ -465,10 +458,8 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 		{
 			jimport('joomla.html.pagination');
 			$input = JFactory::getApplication()->input;
-			//$limitstart = JRequest::getInt( 'limitstart', 0 );
 			$limitstart = $input->get('limitstart', 0, 'INT');
-			//$limit = JRequest::getInt( 'limit', 1 ) ;
-			$limit             = $input->get('limit', 1, 'INT');
+			$limit = $input->get('limit', 1, 'INT');
 			$this->_pagination = new JPagination($this->itemCount(), $limitstart, $limit);
 		}
 

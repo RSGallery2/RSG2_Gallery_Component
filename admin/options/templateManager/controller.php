@@ -57,7 +57,6 @@ class InstallerController extends JControllerLegacy
 	function doInstall()
 	{
 		// Check for request forgeries
-		//JRequest::checkToken() or die( 'Invalid Token' );
 		JSession::checkToken() or jexit('Invalid Token');
 
 		$model = $this->getModel('Install');
@@ -107,10 +106,8 @@ class InstallerController extends JControllerLegacy
 
 		global $rsgConfig;
 		// Check for request forgeries
-		//JRequest::checkToken( 'request' ) or die( 'Invalid Token' );
 		JSession::checkToken() or jexit('Invalid Token');
 
-		//$template = JRequest::getVar( 'template' );
 		$input    = JFactory::getApplication()->input;
 		$template = $input->get('template');
 
@@ -132,10 +129,8 @@ class InstallerController extends JControllerLegacy
 		global $rsgConfig;
 
 		// Check for request forgeries
-		//JRequest::checkToken() or die( 'Invalid Token' );
 		JSession::checkToken() or jexit('Invalid Token');
 
-		//$template = JRequest::getVar( 'template' );
 		$input    = JFactory::getApplication()->input;
 		$template = $input->get('template');
 
@@ -182,7 +177,6 @@ class InstallerController extends JControllerLegacy
 	function editTemplate()
 	{
 		// Check for request forgeries
-		//JRequest::checkToken() or die( 'Invalid Token' );
 		JSession::checkToken() or jexit('Invalid Token');
 
 		$model = $this->getModel('template');
@@ -191,7 +185,6 @@ class InstallerController extends JControllerLegacy
 		$ftp       = JClientHelper::setCredentialsFromRequest('ftp');
 		$view->ftp = $ftp;
 
-		//$template = JRequest::getVar( 'template' );
 		$input    = JFactory::getApplication()->input;
 		$template = $input->get('template');
 
@@ -219,11 +212,9 @@ class InstallerController extends JControllerLegacy
 		$ftp       = JClientHelper::setCredentialsFromRequest('ftp');
 		$view->ftp = $ftp;
 
-		//$template = JRequest::getVar( 'template' );
 		$input    = JFactory::getApplication()->input;
 		$template = $input->get('template');
 
-		//$params	= JRequest::getVar('params', array(), 'post', 'array');
 		$params = $input->post->get('params', array(), 'ARRAY');
 
 		$model->set('template', $template);
@@ -248,11 +239,9 @@ class InstallerController extends JControllerLegacy
 
 		$model = $this->getModel('template');
 
-		//$template = JRequest::getVar( 'template' );
 		$input    = JFactory::getApplication()->input;
 		$template = $input->get('template');
 
-		//$params	= JRequest::getVar('params', array(), 'post', 'array');
 		$params = $input->post->get('params', array(), 'ARRAY');
 
 		$model->set('template', $template);
@@ -274,7 +263,6 @@ class InstallerController extends JControllerLegacy
 	function selectCss()
 	{
 		// Check for request forgeries
-		//JRequest::checkToken() or die( 'Invalid Token' );
 		JSession::checkToken() or jexit('Invalid Token');
 
 		$model = $this->getModel('selectCss');
@@ -283,7 +271,6 @@ class InstallerController extends JControllerLegacy
 		$ftp       = JClientHelper::setCredentialsFromRequest('ftp');
 		$view->ftp = $ftp;
 
-		//$template = JRequest::getVar( 'template' );
 		$input    = JFactory::getApplication()->input;
 		$template = $input->get('template');
 
@@ -304,7 +291,6 @@ class InstallerController extends JControllerLegacy
 	function editCSS()
 	{
 		// Check for request forgeries
-		//JRequest::checkToken() or die( 'Invalid Token' );
 		JSession::checkToken() or jexit('Invalid Token');
 
 		$model = $this->getModel('editCss');
@@ -313,12 +299,10 @@ class InstallerController extends JControllerLegacy
 		$ftp       = JClientHelper::setCredentialsFromRequest('ftp');
 		$view->ftp = $ftp;
 
-		//$template = JRequest::getVar( 'template' );
 		$input    = JFactory::getApplication()->input;
 		$template = $input->get('template');
 
 		$model->template = $template;
-		//$model->filename = JRequest::getVar( 'filename' );
 		$model->filename = $input->get('filename');
 
 		$view->setModel($model, true);
@@ -328,17 +312,13 @@ class InstallerController extends JControllerLegacy
 	function saveCSS()
 	{
 		// Check for request forgeries
-		//JRequest::checkToken() or die( 'Invalid Token' );
 		JSession::checkToken() or jexit('Invalid Token');
 
 		$model = $this->getModel('editCss');
-		//$model->filename = JRequest::getVar( 'filename' );
 		$input           = JFactory::getApplication()->input;
 		$model->filename = $input->get('filename');
 
-		//$model->content = JRequest::getVar('csscontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
 		$model->content = $input->post->get('csscontent', 'RAW');
-		//$model->template = JRequest::getVar( 'template' );
 		$input    = JFactory::getApplication()->input;
 		$template = $input->get('template');
 
@@ -350,17 +330,13 @@ class InstallerController extends JControllerLegacy
 	function applyCSS()
 	{
 		// Check for request forgeries
-		//JRequest::checkToken() or die( 'Invalid Token' );
 		JSession::checkToken() or jexit('Invalid Token');
 
 		$model = $this->getModel('editCss');
-		//$model->filename = JRequest::getVar( 'filename' );
 		$input           = JFactory::getApplication()->input;
 		$model->filename = $input->get('filename');
 
-		//$model->content = JRequest::getVar('csscontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
 		$model->content = $input->post->get('csscontent', 'RAW');
-		//$model->template = JRequest::getVar( 'template' );
 		$input    = JFactory::getApplication()->input;
 		$template = $input->get('template');
 
@@ -385,7 +361,6 @@ class InstallerController extends JControllerLegacy
 	function selectHTML()
 	{
 		// Check for request forgeries
-		//JRequest::checkToken() or die( 'Invalid Token' );
 		JSession::checkToken() or jexit('Invalid Token');
 
 		$model = $this->getModel('selectHtml');
@@ -394,7 +369,6 @@ class InstallerController extends JControllerLegacy
 		$ftp       = JClientHelper::setCredentialsFromRequest('ftp');
 		$view->ftp = $ftp;
 
-		//$template = JRequest::getVar( 'template' );
 		$input           = JFactory::getApplication()->input;
 		$template        = $input->get('template');
 		$model->template = $template;
@@ -414,7 +388,6 @@ class InstallerController extends JControllerLegacy
 	function editHTML()
 	{
 		// Check for request forgeries
-		//JRequest::checkToken() or die( 'Invalid Token' );
 		JSession::checkToken() or jexit('Invalid Token');
 
 		$model = $this->getModel('editHtml');
@@ -423,12 +396,10 @@ class InstallerController extends JControllerLegacy
 		$ftp       = JClientHelper::setCredentialsFromRequest('ftp');
 		$view->ftp = $ftp;
 
-		//$template = JRequest::getVar( 'template' );
 		$input    = JFactory::getApplication()->input;
 		$template = $input->get('template');
 
 		$model->template = $template;
-		//$model->filename = JRequest::getVar( 'filename' );
 		$model->filename = $input->get('filename');
 
 		$view->setModel($model, true);
@@ -438,17 +409,13 @@ class InstallerController extends JControllerLegacy
 	function saveHTML()
 	{
 		// Check for request forgeries
-		//JRequest::checkToken() or die( 'Invalid Token' );
 		JSession::checkToken() or jexit('Invalid Token');
 
 		$model = $this->getModel('editHtml');
-		//$model->filename = JRequest::getVar( 'filename' );
 		$input           = JFactory::getApplication()->input;
 		$model->filename = $input->get('filename');
 
-		//$model->content = JRequest::getVar('htmlcontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
 		$model->content = $input->post->get('htmlcontent', 'RAW');
-		//$model->template = JRequest::getVar( 'template' );
 		$input    = JFactory::getApplication()->input;
 		$template = $input->get('template');
 
@@ -460,17 +427,13 @@ class InstallerController extends JControllerLegacy
 	function applyHTML()
 	{
 		// Check for request forgeries
-		//JRequest::checkToken() or die( 'Invalid Token' );
 		JSession::checkToken() or jexit('Invalid Token');
 
 		$model = $this->getModel('editHtml');
-		//$model->filename = JRequest::getVar( 'filename' );
 		$input           = JFactory::getApplication()->input;
 		$model->filename = $input->get('filename');
 
-		//$model->content = JRequest::getVar('htmlcontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
 		$model->content = $input->post->get('htmlcontent', 'RAW');
-		//$model->template = JRequest::getVar( 'template' );
 		$input    = JFactory::getApplication()->input;
 		$template = $input->get('template');
 

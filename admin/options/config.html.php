@@ -27,7 +27,6 @@ class html_rsg2_config
 	static function config_rawEdit()
 	{
 		global $rsgConfig;
-		//$option = JRequest::getCmd('option');
 		$input  = JFactory::getApplication()->input;
 		$option = $input->get('option', '', 'CMD');
 		$config = get_object_vars($rsgConfig);
