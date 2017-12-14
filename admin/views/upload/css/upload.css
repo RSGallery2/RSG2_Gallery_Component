@@ -1,9 +1,9 @@
 
 #dragarea {
     background-color: #fafbfc;
-    border: 1px dashed #999;
+    border: 5px dotted darkgreen; /**/
     box-sizing: border-box;
-    padding: 5% 0;
+    padding: 5px 5px 30px 5px;
     transition: all 0.2s ease 0s;
     width: 100%;
     margin-bottom: 20px;
@@ -33,6 +33,10 @@
     color: #666;
 }
 
+#dragarea.dragareaDisabled {
+    border: 6px dotted red;
+}
+
 #loading {
     background: rgba(255, 255, 255, .8) url(../../../../media/jui/images/ajax-loader.gif) 50% 15% no-repeat;
     position: fixed;
@@ -40,6 +44,11 @@
     -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
     filter: alpha(opacity=80);
 }
+
+
+
+
+
 
 /*
     .j-jed-message {

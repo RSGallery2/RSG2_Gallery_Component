@@ -80,37 +80,10 @@ $return = JFactory::getApplication()->input->getBase64('return');
 //        alert('submitAssignDroppedFiles:  ...');
         var form = document.getElementById('adminForm');
 
-//(        alert('01');
-        var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_03"]:checked').val();
+        // ToDo: check if one image exists
 
-//        alert('02 bOneGalleryName4All: ' + bOneGalleryName4All);
-//        var GalleryId1 = jQuery('#SelectGalleries_03')
-//       alert('02b');
-//        var GalleryId1 = jQuery('#SelectGalleries_03').chosen();
-//        alert('02c');
-        var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
-
-        // Is invalid galleryId selected ?
-//        if (bOneGalleryName4All && (GalleryId < 1)) {
-//            alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST'));
-//        }
-//        else {
-            // yes transfer files ...
-//        alert('03');
-            form.task.value = 'uploadFileProperties.prepareDroppedImages'; // upload.uploadZipFile
-//        alert('03a');
-            form.batchmethod.value = '';
-//        alert('03b');
-            form.ftppath.value = "";
-            form.xcat.value = GalleryId;
-            form.selcat.value = bOneGalleryName4All;
-
-//        alert('04');
-            jQuery('#loading').css('display', 'block');
-//            alert('submitAssignDroppedFiles:  ...');
-
-            form.submit();
-//        }
+        form.task.value = 'imagesProperties.PropertiesView'; // upload.uploadZipFile
+        form.submit();
     };
 /**/
 
@@ -292,7 +265,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
 
 jQuery(document).ready(function ($) {
 
-	// ToDO: Test following with commenting out
+	// ToDo: Test following with commenting out
 	if (typeof FormData === 'undefined') {
 		$('#legacy-uploader').show();
 		$('#uploader-wrapper').hide();
@@ -316,16 +289,22 @@ jQuery(document).ready(function ($) {
     // a) Use class to set conent light red and light green or other colors
     // when droppable...
     // b) Use jquery to activate and de activate some
-    $('#dragarea').css('border', '4px dotted red');
+
+    if ($('#SelectGalleries_03').val() == 0) {
+        $('#dragarea').addClass ('dragareaDisabled')
+    }
+
     $('#SelectGalleries_03').change(function() {
         // drop disabled ?
         if ($(this).val() == 0)
         {
-            $('#dragarea').css('border', '4px dotted red');
+            // $('#dragarea').css('border', '4px dotted red');
+            $('#dragarea').addClass ('dragareaDisabled')
         }
         else
         {
-            $('#dragarea').css('border', '4px dotted darkgreen');
+            //$('#dragarea').css('border', '4px dotted darkgreen');
+            $('#dragarea').removeClass ('dragareaDisabled')
         }
     });
 
@@ -376,8 +355,6 @@ jQuery(document).ready(function ($) {
 
 		dragZone.addClass('hover');
 
-		$(this).css('border', '2px solid #0B85A1');
-
 		return false;
 	});
 
@@ -401,12 +378,12 @@ jQuery(document).ready(function ($) {
             alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(6)');
         }
         else {
-            $(this).css('border', '2px dotted #0B85A1');
-
             var files = e.originalEvent.target.files || e.originalEvent.dataTransfer.files;
             if (!files.length) {
                 return;
             }
+
+            dragZone.removeClass('hover');
 
             // We need to send dropped files to Server
             handleFileUpload(files, dragZone);
@@ -653,21 +630,19 @@ jQuery(document).ready(function ($) {
                     // this.statusbar   = $("<div class='statusbar " + row + "'></div>");
                     // this.filename    = $("<div class='filename'></div>").appendTo(this.statusbar);
 
-                    // imagesArea, imagesAreaList
+                    // imagesArea, imagesAreaList class='span2'
 
                     this.imageBox = $("<li></li>").appendTo($('#imagesAreaList'));
-                    this.thumbArea = $("<div class='imgProperty thumbnail'></div>").appendTo(this.imageBox);
-                    this.imgComntainer= $("<img class='imgComntainer' >").appendTo(this.thumbArea);
-                    this.imageDisplay= $("<img class='img-rounded' src='" + jData.data.dstFile + "' alt=''/>").appendTo(this.imgComntainer);
+                    this.thumbArea = $("<div class='thumbnail imgProperty'></div>").appendTo(this.imageBox);
+                    this.imgComntainer= $("<img class='imgContainer' >").appendTo(this.thumbArea);
+                    this.imageDisplay= $("<img class='img-rounded' data-src='holder.js/600x400' src='" + jData.data.dstFile + "' alt=''/>").appendTo(this.imgComntainer);
 
                     this.caption = $("<div class='caption' ></div>").appendTo(this.imageBox);
-                    this.imageDisplay= $("<small>" + jData.data.file + "</small><br>").appendTo(this.caption);
-                    this.xxy = $("<input name='imageCid' class='imageCid' type='hidden' value='" + jData.data.cid + "' />").appendTo(this.imageBox);
+                    this.imageDisplay= $("<small>" + jData.data.file + "</small>").appendTo(this.caption);
+                    this.imageId= $("<small> (" + jData.data.cid + ")</small>").appendTo(this.imageDisplay);
+                    this.xxy = $("<input name='cid[]' class='imageCid' type='hidden' value='" + jData.data.cid + "' />").appendTo(this.imageBox);
 
                     // toDO: Notification may be ... anyhow
-
-
-
                 }
                 else
                 {
@@ -751,8 +726,13 @@ jQuery(document).ready(function ($) {
                         <legend><?php echo JText::_('COM_RSGALLERY2_DRAG_FILE_ZONE'); ?></legend>
 
                         <div id="uploader-wrapper" disabled>
-                            <div id="dragarea" class="span6">
+                            <div id="dragarea" class="">
                                 <div id="dragarea-content" class="text-center">
+                                    <div id="imagesArea" class="span12">
+                                        <ul id="imagesAreaList" class='thumbnails'>
+
+                                        </ul>
+                                    </div>
                                     <p>
                                         <span id="upload-icon" class="icon-upload" aria-hidden="true"></span>
                                     </p>
@@ -769,25 +749,15 @@ jQuery(document).ready(function ($) {
                                         </buttonManualFile>
                                     </p>
                                 </div>
-                                <br><br>
-                                <div id="status1" class="span6">
-
-                                </div>
                             </div>
-                            <div id="imagesArea" class="span2">
-                                <ul id="imagesAreaList" class="thumbnails">
-
-                                </ul>
-                            </div>
-
                         </div>
 
                         <!--Action buttonManualFile-->
                         <div class="form-actions" style="margin-top: 10px; ">
                             <buttonManualFile class="btn btn-primary" type="buttonManualFile"
                                               id="AssignUploadedFiles" onclick="Joomla.submitAssignDroppedFiles()"
-                                              title="<?php echo JText::_('COM_RSGALLERY2_ADD_IMAGES_INFORMATION_DESC'); ?>">
-			                    <?php echo JText::_('COM_RSGALLERY2_ADD_IMAGES_INFORMATION'); ?>
+                                              title="<?php echo JText::_('COM_RSGALLERY2_ADD_IMAGES_PROPERTIES_DESC'); ?>">
+			                    <?php echo JText::_('COM_RSGALLERY2_ADD_IMAGES_PROPERTIES'); ?>
                             </buttonManualFile>
                         </div>
 

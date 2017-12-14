@@ -11,8 +11,7 @@
 defined('_JEXEC') or die();
 
 $doc = JFactory::getDocument();
-$doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/views/imageProperties/css/imageProperties.css');
-
+$doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/views/imagesProperties/css/ImagesProperties.css');
 JHtml::_('bootstrap.tooltip');
 
 //global $Rsg2DebugActive;
@@ -36,7 +35,7 @@ $sortDirection = $this->escape($this->state->get('list.direction'));
 			<?php endif; ?>
 			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=imagesProperties'); ?>"
 					method="post" name="adminForm" id="adminForm" enctype="multipart/form-data"
-					class="form-validate form-horizontal">
+					class="form-validate">
 
 	            <legend><?php echo JText::_('COM_RSGALLERY2_PROPERTIES_UPLOADED_FILES'); ?></legend>
 
@@ -67,15 +66,15 @@ $sortDirection = $this->escape($this->state->get('list.direction'));
                             $src   = $this->HtmlPathDisplay . $this->escape($item->name) . '.jpg';
                             // <img data-src="holder.js/200x180" src="<?php echo $file;  class="img-rounded" alt="">
                             ?>
-                            <li>
-                                <div class="imgProperty thumbnail">
+                            <li class="imagesAreaList" >
+                                <div class="thumbnail imgProperty">
                                     <div class='imgContainer'>
                                         <!-- img src="<?php echo $src; ?>" class="img-rounded" alt="" -->
                                         <img src="<?php echo $src; ?>" class="img-rounded" alt="">
                                     </div>
 
                                     <div class="caption" >
-                                        <small><?php echo $this->escape($item->name);?></small><br>
+                                        <small><?php echo $this->escape($item->name);?> (ID: <?php echo $this->escape($item->id);?>)</small><br>
                                     </div>
 
                                     <div class="control-group">
@@ -84,30 +83,31 @@ $sortDirection = $this->escape($this->state->get('list.direction'));
                                             <!--input type="text" id="inputEmail" placeholder="Email"-->
                                             <input name="title[]" type="text" size="15" aria-invalid="false"
                                                    value="<?php echo $this->escape($item->title);?>"
-                                                   style="max-width: 90%; ">
+                                                   style="width:95%;>
                                         </div>
                                     </div>
 
                                     <!-- Gallery can't be changed. Disable input -->
                                     <div class="control-group">
-                                        <label class="control-label" for="galleryID[]"><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?>(2)</label>
+                                        <label class="control-label" for="galleryID[]" ><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?>(2)</label>
                                         <div class="controls">
                                             <input type="text" name="galleryID[]" placeholder="Idx:"
                                                    value="<?php echo $this->escape($item->gallery_name);?>"
-                                                   style="max-width: 90%; "  disabled>
+                                                   disabled style="width:95%;>
                                         </div>
                                     </div>
 
                                     <div class="control-group">
-                                        <label class="control-label" for="description[]"><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION'); ?></label>
+                                        <label class="control-label" for="description[]" ><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION'); ?></label>
                                         <div class="controls">
-                                        <textarea cols="15" rows="" name="description[]" style="max-width: 90%; "
-                                                  placeholder="Text input"><?php echo $this->escape($item->descr);?></textarea>
+                                        <textarea cols="15" rows="" name="description[]"
+                                                  placeholder="Text input"
+                                                  style="width:95%;"><?php echo $this->escape($item->descr);?></textarea>
                                         </div>
                                     </div>
 
                                     <!--input  type="hidden" name="imageId[]" value="<?php echo $item->id;?>"--->
-                                    <input  type="text" name="cid[]" value="<?php echo $item->id;?>">
+                                    <input  type='hidden' name="cid[]" value="<?php echo $item->id;?>">
 
 
                                     <!-- div class="control-group">

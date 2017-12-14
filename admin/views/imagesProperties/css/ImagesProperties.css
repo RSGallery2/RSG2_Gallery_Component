@@ -12,7 +12,10 @@
 }
 
 
-
+.imagesAreaList {
+    /* border: 5px dotted darkgreen; /**/
+    max-width: 250px; /**/
+}
 
 
 
