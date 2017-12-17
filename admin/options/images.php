@@ -118,10 +118,18 @@ switch ($task)
  * @param database $option A database connector object
  *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function showImages($option)
 {
 	global $mosConfig_list_limit;
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/images.php: showImages');
+	}
 
 	require_once JPATH_ADMINISTRATOR . '/components/com_rsgallery2/models/images.php';
 
@@ -203,10 +211,19 @@ function showImages($option)
  * @param int    $id The unique id of the record to edit (0 if new)
  *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function editImage($option, $id)
 {
 	global $rsgOption;
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/images.php: editImage');
+	}
+
 	$my       = JFactory::getUser();
 	$database = JFactory::getDBO();
 	$app      = JFactory::getApplication();
@@ -311,10 +328,19 @@ function editImage($option, $id)
  * @param bool   $redirect
  *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function saveImage($option, $redirect = true)
 {
 	global $rsgOption;
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/images.php: saveImage');
+	}
+
 	$app      = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	$my       = JFactory::getUser();
@@ -416,10 +442,19 @@ function saveImage($option, $redirect = true)
  * @param string $option The current url option
  *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function removeImages($cid, $option)
 {
 	global $rsgOption, $rsgConfig;
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/images.php: removeImages');
+	}
+
 	$app      = JFactory::getApplication();
 	$database = JFactory::getDBO();
 
@@ -518,7 +553,7 @@ function removeImages($cid, $option)
 
 	}
 	// ToDo: Check below text constant
-	$app->enqueueMessage(JText::_('COM_RSGALLERY2_MAGE_S_DELETED_SUCCESFULLY'));
+	$app->enqueueMessage(JText::_('COM_RSGALLERY2_IMAGE_S_DELETED_SUCCESFULLY'));
 	$app->redirect($return);
 }
 
@@ -529,9 +564,18 @@ function removeImages($cid, $option)
  * @param string $option The current url option
  *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function moveImages($cid, $option)
 {
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/images.php: moveImages');
+	}
+
 	$app      = JFactory::getApplication();
 	$database = JFactory::getDBO();
 
@@ -575,10 +619,19 @@ function moveImages($cid, $option)
  * @param string $option  The current url option
  *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function publishImages($cid = null, $publish = 1, $option)
 {
 	global $rsgOption;
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/images.php: publishImages');
+	}
+
 	$app      = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	$my       = JFactory::getUser();
@@ -619,10 +672,18 @@ function publishImages($cid = null, $publish = 1, $option)
  * @param     $option
  *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function orderImages($uid, $inc, $option)
 {
 	global $rsgOption;
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/images.php: orderImages');
+	}
 
 	$app = JFactory::getApplication();
 
@@ -641,10 +702,19 @@ function orderImages($uid, $inc, $option)
  * @param string $option The current url option
  *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function cancelImage($option)
 {
 	global $rsgOption;
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/images.php: cancelImage');
+	}
+
 	$app      = JFactory::getApplication();
 	$database = JFactory::getDBO();
 
@@ -662,10 +732,21 @@ function cancelImage($option)
  * Uploads single images
  *
  * @param string $option
+ *
+ * @since version
+ *
+ * @deprecated Old 1.5 code
  */
 function uploadImage($option)
 {
 	global $rsgConfig;
+
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/images.php: uploadImage');
+	}
 
 	$database = JFactory::getDBO();
 
@@ -695,10 +776,19 @@ function uploadImage($option)
  * @param $option (Not used)
  *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function saveUploadedImage($option)
 {
 	global $id, $rsgOption;
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/images.php: saveUploadedImage');
+	}
+
 	$app   = JFactory::getApplication();
 	$input = JFactory::getApplication()->input;
 
@@ -776,9 +866,18 @@ function saveUploadedImage($option)
  *
  * @todo Warn user with alert before actually deleting
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function resetHits(&$cid)
 {
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/images.php: resetHits');
+	}
+
 	$app      = JFactory::getApplication();
 	$database = JFactory::getDBO();
 
@@ -803,9 +902,18 @@ function resetHits(&$cid)
  * @param $cid
  *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function saveOrder(&$cid)
 {
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/images.php: saveOrder');
+	}
+
 	$app      = JFactory::getApplication();
 	$database = JFactory::getDBO();
 
@@ -868,9 +976,18 @@ function saveOrder(&$cid)
  * @param string $option The current url option
  *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function copyImage($cid, $option)
 {
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/images.php: copyImage');
+	}
+
 	$app      = JFactory::getApplication();
 	$database = JFactory::getDBO();
 
@@ -964,12 +1081,21 @@ function copyImage($cid, $option)
 /**
  * @param string $option
  *
+ * @deprecated Old 1.5 code
+ *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function batchupload($option)
 {
-	global $Rsg2DebugActive;
 	global $rsgConfig;
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/images.php: batchupload');
+	}
 
 	$database = JFactory::getDBO();
 	$app      = JFactory::getApplication();
@@ -983,7 +1109,7 @@ function batchupload($option)
 	$uploaded    = $input->get('uploaded', null, 'BOOL');
 	$selcat      = $input->get('selcat', null, 'INT');
 	//	$zip_file       = $input->files->get('zip_file', array(), 'FILES');
-	// 'FILES' is ignored as a *.zip file marked bad from function  isSafeFile inside get
+	// 'FILES' is ignored as a *.zip file marked bad from function isSafeFile inside get
 	$zip_file = $input->files->get('zip_file', array(), 'raw');
 
 	$ftppath = $input->get('ftppath', null, 'RAW');
@@ -1132,11 +1258,23 @@ function batchupload($option)
 }//End function
 
 /**
+ *
+ * @deprecated Old 1.5 code
+ *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function save_batchupload()
 {
 	global $rsgConfig;
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/images.php: save_batchupload');
+	}
+
 	$app      = JFactory::getApplication();
 	$database = JFactory::getDBO();
 	//Try to bypass max_execution_time as set in php.ini
