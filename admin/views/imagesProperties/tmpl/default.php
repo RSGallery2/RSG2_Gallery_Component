@@ -56,8 +56,9 @@ $sortDirection = $this->escape($this->state->get('list.direction'));
                     </div>
 				<?php else : ?>
 
-	                <ul class="thumbnails">
+                    <span class"">SelectAll <?php echo JHtml::_('grid.checkall'); ?><br></span>
 
+	                <ul class="thumbnails">
                         <?php
                         $Idx = 0;
 
@@ -74,7 +75,8 @@ $sortDirection = $this->escape($this->state->get('list.direction'));
                                     </div>
 
                                     <div class="caption" >
-                                        <small><?php echo $this->escape($item->name);?> (ID: <?php echo $this->escape($item->id);?>)</small><br>
+	                                    <?php echo JHtml::_('grid.id', $Idx, $item->id); ?>
+                                        <small>&nbsp;<?php echo $this->escape($item->name);?> (ID: <?php echo $this->escape($item->id);?>)</small><br>
                                     </div>
 
                                     <div class="control-group">
@@ -106,9 +108,8 @@ $sortDirection = $this->escape($this->state->get('list.direction'));
                                         </div>
                                     </div>
 
-                                    <!--input  type="hidden" name="imageId[]" value="<?php echo $item->id;?>"--->
-                                    <input  type='hidden' name="cid[]" value="<?php echo $item->id;?>">
-
+                                    <!--input  type="hidden" name="imageId[]" value="<?php echo $item->id;?>"-->
+                                    <!--input  type='hidden' name="cid[]" value="<?php echo $item->id;?>"-->
 
                                     <!-- div class="control-group">
                                         <div class="control-label"><label id="delete__-lbl" for="delete__" class="hasPopover" title="" data-content="COM_RSGALLERY2_DELETE_IMAGE_DO_NOT_ASSIGN" data-original-title="Delete Image">
