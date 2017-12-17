@@ -93,6 +93,7 @@ else
 
 /**
  *
+ * @deprecated Old 1.5 code
  */
 function test()
 {
@@ -106,7 +107,7 @@ function test()
 
 /**
  * Shows Migration main screen
- * It shows detected gallerysystem and offers a migration option
+ * It shows detected gallery system and offers a migration option
  *
  * @deprecated ToDo: remove
  *             /
@@ -155,6 +156,7 @@ function test()
 
 /**
  * Shows Control Panel for maintenance of RSGallery2
+ * @deprecated Old 1.5 code
  */
 function showMaintenanceCP()
 {
@@ -163,6 +165,7 @@ function showMaintenanceCP()
 
 /**
  *
+ * @deprecated Old 1.5 code
  */
 function regenerateImages()
 {
@@ -178,6 +181,7 @@ function regenerateImages()
  */
 /**
  * @throws Exception
+ * @deprecated Old 1.5 code
  */
 function executeRegenerateThumbImages()
 {
@@ -241,6 +245,7 @@ function executeRegenerateThumbImages()
  *
  * @todo Check if width really changed, else no resize needed.
  * @throws Exception
+ * @deprecated Old 1.5 code
  */
 function executeRegenerateDisplayImages()
 {
@@ -334,6 +339,7 @@ function executeRegenerateDisplayImages()
 
 /**
  *
+ * @deprecated Old 1.5 code
  */
 function consolidateDB()
 {
@@ -343,6 +349,7 @@ function consolidateDB()
 
 /**
  * @throws Exception
+ * @deprecated Old 1.5 code
  */
 function createImages()
 {
@@ -411,6 +418,7 @@ function createImages()
 
 /**
  * @throws Exception
+ * @deprecated Old 1.5 code
  */
 function deleteImages()
 {
@@ -420,7 +428,7 @@ function deleteImages()
 
 	if (imgUtils::deleteImage($name))
 	{
-		$txt = JText::_('COM_RSGALLERY2_MAGE_S_DELETED_SUCCESFULLY');
+		$txt = JText::_('COM_RSGALLERY2_IMAGE_S_DELETED_SUCCESFULLY');
 	}
 	else
 	{
@@ -433,6 +441,7 @@ function deleteImages()
 
 /**
  * @throws Exception
+ * @deprecated Old 1.5 code
  */
 function createDbEntries()
 {
@@ -451,6 +460,7 @@ function createDbEntries()
  * Creates images based on an image id or an image name
  *
  * @throws Exception
+ * @deprecated Old 1.5 code
  */
 function regenerateImage()
 {
@@ -512,6 +522,7 @@ function regenerateImage()
  * Checks database for problems and optimizes tables
  *
  * @throws Exception
+ * @deprecated Old 1.5 code
  */
 function optimizeDB()
 {
