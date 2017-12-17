@@ -81,4 +81,23 @@ class Rsgallery2TableImage extends JTable
 		}
 	}
 
+	public function delete($pks=null)
+	{
+		$IsDeleted = false;
+
+		echo '<br><br>delete($pks<br><br><br>';
+		// Remove from database
+		//$IsDeleted = parent::delete ($pks);
+
+		$imgFileModel = self::getInstance('imageFile', 'RSGallery2Model');
+
+		foreach ($pks as $pk)
+		{
+			$filename = $pk->filename;
+			// $imgFileModel->deleteImgItemImages ($filename);
+		}
+
+		return $IsDeleted;
+	}  // class
+
 }
