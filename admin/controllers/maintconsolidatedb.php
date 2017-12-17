@@ -812,7 +812,8 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
 			$IsOneImgExisting = $ImageReference->IsOriginalImageFound
 				|| $ImageReference->IsDisplayImageFound
-				|| $ImageReference->IsThumbImageFound;
+				|| $ImageReference->IsThumbImageFound
+				|| $ImageReference->IsWatermarkedImageFound;
 			if ($IsOneImgExisting)
 			{
 				$IsImgagesDeleted = $this->deleteRowItemImages($ImageReference);
@@ -890,7 +891,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
 			if ($ImageReference->IsWatermarkedImageFound)
 			{
-				$imgPath        = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . $ImageReference->imageName;
+				$imgPath        = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . '/' . $ImageReference->imageName;
 				$IsImageDeleted = $this->DeleteImage($imgPath);
 				if (!$IsImageDeleted)
 				{
