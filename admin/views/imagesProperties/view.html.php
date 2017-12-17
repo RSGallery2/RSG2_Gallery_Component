@@ -179,11 +179,13 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 //				JToolBarHelper::custom('copy_images','copy.png','copy.png','COM_RSGALLERY2_COPY', true);
 				/**/
 
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_ADD_IMAGES_PROPERTIES', 'image'));
+
 				JToolBarHelper::apply('imagesProperties.apply_imagesProperties');
 				JToolBarHelper::save('imagesProperties.save_imagesProperties');
                 JToolBarHelper::cancel('imagesProperties.cancel_imagesProperties');
 
-				JToolbarHelper::deleteList('', 'images.delete_imagesProperties', 'JTOOLBAR_DELETE');
+				JToolbarHelper::deleteList('', 'ImagesProperties.delete_imagesProperties', 'JTOOLBAR_DELETE');
 				
 				// batch
 				
