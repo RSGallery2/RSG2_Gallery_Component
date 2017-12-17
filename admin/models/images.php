@@ -17,13 +17,13 @@ defined('_JEXEC') or die;
  */
 class Rsgallery2ModelImages extends JModelList
 {
-    /**
-     * Create list of usable filter fields
-     *
-     * @param array $config Field on which be sorting is available
-     *
-     * @since 4.3.0
-     */
+	/**
+	 * Create list of usable filter fields
+	 *
+	 * @param array $config Field on which be sorting is available
+	 *
+	 * @since 4.3.0
+	 */
 	public function __construct($config = array())
 	{
 		if (empty($config['filter_fields']))
@@ -110,8 +110,8 @@ class Rsgallery2ModelImages extends JModelList
 	 * Method to build an SQL query to load the list data.
 	 *
 	 * @return  string  An SQL query
-     *
-     * @since   4.3.0
+	 *
+	 * @since   4.3.0
 	 */
 	protected function getListQuery()
 	{
@@ -176,18 +176,18 @@ class Rsgallery2ModelImages extends JModelList
 		return $query;
 	}
 
-    /**
-     * Saves changed manual ordering of galleries
-     *
-     * @return bool true if successful
-     *
-     * @since 4.3.0
-     */
+	/**
+	 * Saves changed manual ordering of galleries
+	 *
+	 * @return bool true if successful
+	 *
+	 * @since 4.3.0
+	 */
 	public function saveOrdering()
 	{
-        $IsSaved = false;
+		$IsSaved = false;
 
-        try
+		try
 		{
 
 			$input  = JFactory::getApplication()->input;
@@ -214,17 +214,17 @@ class Rsgallery2ModelImages extends JModelList
 					->where(array($db->quoteName('id') . '=' . $id));
 
 				$result = $db->execute();
-                if (empty($result))
-                {
-                    break;
-                }
+				if (empty($result))
+				{
+					break;
+				}
 			}
-            if (!empty($result))
-            {
-                $IsSaved = true;
-            }
+			if (!empty($result))
+			{
+				$IsSaved = true;
+			}
 
-            // parent::reorder();
+			// parent::reorder();
 		}
 		catch (RuntimeException $e)
 		{
@@ -236,16 +236,16 @@ class Rsgallery2ModelImages extends JModelList
 			$app->enqueueMessage($OutTxt, 'error');
 		}
 
-        return $IsSaved;
+		return $IsSaved;
 	}
 
-    /**
-     * Resets the hits
-     *
-     * @return bool true if successful
-     *
-     * @since 4.3.0
-     */
+	/**
+	 * Resets the hits
+	 *
+	 * @return bool true if successful
+	 *
+	 * @since 4.3.0
+	 */
 	public function resetHits()
 	{
 		$IsSaved = false;
@@ -254,7 +254,7 @@ class Rsgallery2ModelImages extends JModelList
 		{
 
 			$input = JFactory::getApplication()->input;
-			$cids   = $input->get('cid', array(), 'ARRAY');
+			$cids  = $input->get('cid', array(), 'ARRAY');
 
 			if (count($cids) > 0)
 			{
@@ -310,11 +310,11 @@ class Rsgallery2ModelImages extends JModelList
 		}
 		catch (RuntimeException $e)
 		{
-            $OutTxt = 'Error executing model resetHits: "' . '<br>';
+			$OutTxt = 'Error executing model resetHits: "' . '<br>';
 			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-            $app = JFactory::getApplication();
-            $app->enqueueMessage($OutTxt, 'error');
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
 		}
 
 		return $IsSaved;
@@ -327,7 +327,7 @@ class Rsgallery2ModelImages extends JModelList
 	 *
 	 * @return string Name of found gallery or nothing
 	 */
-	 
+
 	// ToDO: Rename as it may not be parent gallery name :-()
 	protected static function getParentGalleryName($id)
 	{
@@ -357,10 +357,10 @@ class Rsgallery2ModelImages extends JModelList
 	 * @param int $limit > 0 will limit the number of lines returned
 	 *
 	 * @return array rows with image name, gallery name, date, and user name as rows
-     *
-     * @since   4.3.0
+	 *
+	 * @since   4.3.0
 	 */
-	static function latestImages($limit)
+	public static function latestImages($limit)
 	{
 		$latest = array();
 
@@ -411,8 +411,8 @@ class Rsgallery2ModelImages extends JModelList
 	 * @param int $limit > 0 will limit the number of lines returned
 	 *
 	 * @return array rows with image name, gallery name, date, and user name as rows
-     *
-     * @since   4.3.0
+	 *
+	 * @since   4.3.0
 	 */
 	public static function lastWeekImages($limit)
 	{
@@ -452,13 +452,13 @@ class Rsgallery2ModelImages extends JModelList
 	}
 
 	/**
-     * Count comments on image
-     *
+	 * Count comments on image
+	 *
 	 * @param $ImageId
 	 *
 	 * @return int returns the total number of items in the given gallery.
-     *
-     * @since   4.3.0
+	 *
+	 * @since   4.3.0
 	 */
 	public static function getCommentCount($ImageId)
 	{
@@ -492,78 +492,77 @@ class Rsgallery2ModelImages extends JModelList
 	}
 
 
-    /**
-     * Save user input from image parameter annotation in database of each image
-     *
-     * @return string
-     *
-     * @since 4.3.2
-     */
-	public function save_imagesProperties ()
-    {
-        $msg     = "model images: save_imagesProperties: " . '<br>';
+	/**
+	 * Save user input from image parameter annotation in database of each image
+	 *
+	 * @return string
+	 *
+	 * @since 4.3.2
+	 */
+	public function save_imagesProperties()
+	{
+		$msg = "model images: save_imagesProperties: " . '<br>';
 
-        $Images  = $this->RetrieveImagesPropertiesFromInput ();
-        // $this->getInstance('ModelName', 'ComponentNameModel');
-	    //$model = JModel::getInstance('(ModelName)','(ComponentName)Model');
+		$Images = $this->RetrieveImagesPropertiesFromInput();
+		// $this->getInstance('ModelName', 'ComponentNameModel');
+		//$model = JModel::getInstance('(ModelName)','(ComponentName)Model');
 
-        // $imgModel = $this->getModel('image');
-        //$imgModel = JModel::getInstance('image', 'RSGallery2');
-        $imgModel = self::getInstance('image', 'RSGallery2Model');
+		// $imgModel = $this->getModel('image');
+		//$imgModel = JModel::getInstance('image', 'RSGallery2');
+		$imgModel = self::getInstance('image', 'RSGallery2Model');
 
-        foreach ($Images as $Image)
-        {
-            $imgModel->save_imageProperties ($Image);
-        }
+		foreach ($Images as $Image)
+		{
+			$imgModel->save_imageProperties($Image);
+		}
 
-        // $msg '... sucessful assigned .... images ...
-        return $msg;
-    }
+		// $msg '... sucessful assigned .... images ...
+		return $msg;
+	}
 
-    /**
-     * Collects from user input the parameter of each image into one object per image
-     *
-     * @return array of images with input properties each
-     *
-     * @since 4.3.2
-     */
-    public function RetrieveImagesPropertiesFromInput ()
-    {
-        $ImagesProperties = array ();
+	/**
+	 * Collects from user input the parameter of each image into one object per image
+	 *
+	 * @return array of images with input properties each
+	 *
+	 * @since 4.3.2
+	 */
+	public function RetrieveImagesPropertiesFromInput()
+	{
+		$ImagesProperties = array();
 
-        try
-        {
-	        $input = JFactory::getApplication()->input;
+		try
+		{
+			$input = JFactory::getApplication()->input;
 
-	        $cids         = $input->get('cid', 0, 'int');
-	        $titles       = $input->get('title', 0, 'string');
-	        $descriptions = $input->get('description', 0, 'string');
+			$cids         = $input->get('cid', 0, 'int');
+			$titles       = $input->get('title', 0, 'string');
+			$descriptions = $input->get('description', 0, 'string');
 
-	        $idx = 0;
-	        foreach ($cids as $Idx => $cid)
-	        {
-		        $ImagesProperty = new stdClass();
+			$idx = 0;
+			foreach ($cids as $Idx => $cid)
+			{
+				$ImagesProperty = new stdClass();
 
-		        $ImagesProperty->cid         = $cids [$Idx];
-		        // ToDo: Check for not HTML input
-		        $ImagesProperty->title       = $titles [$Idx];
-		        $ImagesProperty->description = $descriptions [$Idx];
+				$ImagesProperty->cid = $cids [$Idx];
+				// ToDo: Check for not HTML input
+				$ImagesProperty->title       = $titles [$Idx];
+				$ImagesProperty->description = $descriptions [$Idx];
 
-		        $ImagesProperties [] = $ImagesProperty;
-	        }
-        }
-        catch (RuntimeException $e)
-        {
-	        $OutTxt = '';
-	        $OutTxt .= 'Error executing RetrieveImagesPropertiesFromInput: "' . '<br>';
-	        $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+				$ImagesProperties [] = $ImagesProperty;
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing RetrieveImagesPropertiesFromInput: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-	        $app = JFactory::getApplication();
-	        $app->enqueueMessage($OutTxt, 'error');
-        }
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
 
-        return $ImagesProperties;
-    }
+		return $ImagesProperties;
+	}
 
-}  // class
-
+}

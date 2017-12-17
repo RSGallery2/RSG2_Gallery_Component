@@ -82,10 +82,19 @@ switch ($task)
  * show galleries
  *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function show()
 {
 	global $mosConfig_list_limit;    //Todo: $app = &JFactory::getApplication();$limit = $app->getCfg('list_limit'); replaces $mosConfig_list_limit
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/galleries.php: show');
+	}
+
 	$mainframe = JFactory::getApplication();
 	$input      = JFactory::getApplication()->input;
 	$option     = $input->get('option', '', 'CMD');
@@ -176,10 +185,19 @@ function show()
  *
  * @param string $option
  * @param int    $id The unique id of the record to edit (0 if new)
+ *
+ * @deprecated Old 1.5 code
  */
 function edit($option, $id)
 {
 	global $rsgOptions_path;
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/galleries.php: edit');
+	}
+
 	$mainframe = JFactory::getApplication();
 	$database  = JFactory::getDBO();
 	$my        = JFactory::getUser();
@@ -343,10 +361,19 @@ function edit($option, $id)
  * @param string $option
  *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function save($option)
 {
 	global $rsgOption, $rsgConfig;
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/galleries.php: save');
+	}
+
 	$mainframe = JFactory::getApplication();
 
 	$my       = JFactory::getUser();
@@ -447,9 +474,18 @@ function save($option)
  *
  * @param array  $cid    An array of unique category id numbers
  * @param string $option The current url option
+ *
+ * @deprecated Old 1.5 code
  */
 function removeWarn($cid, $option)
 {
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/galleries.php: removeWarn');
+	}
+
 	if (!is_array($cid) || count($cid) < 1)
 	{
 		echo "<script> alert('Select an item to delete'); window.history.go(-1);</script>\n";
@@ -468,10 +504,19 @@ function removeWarn($cid, $option)
  * @param string $option The current url option
  *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function removeReal($cid, $option)
 {
 	global $rsgOption, $rsgConfig;
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/galleries.php: removeReal');
+	}
+
 	$mainframe =& JFactory::getApplication();
 
 	$result = rsgGalleryManager::deleteArray($cid);
@@ -487,11 +532,20 @@ function removeReal($cid, $option)
  * @param string $option  The current url option
  *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 
 function publish($cid = null, $publish = 1, $option)
 {
 	global $rsgOption;
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/galleries.php: publish');
+	}
+
 	$mainframe =& JFactory::getApplication();
 	$database  = JFactory::getDBO();
 	$my        =& JFactory::getUser();
@@ -532,10 +586,19 @@ function publish($cid = null, $publish = 1, $option)
  * @param string $option
  *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function order($uid, $inc, $option)
 {
 	global $rsgOption;
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/galleries.php: order');
+	}
+
 	$mainframe =& JFactory::getApplication();
 	$database  = JFactory::getDBO();
 
@@ -550,10 +613,19 @@ function order($uid, $inc, $option)
  * Cancels an edit operation
  *
  * @param string $option The current url option
+ *
+ * @deprecated Old 1.5 code
  */
 function cancel($option)
 {
 	global $rsgOption;
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/galleries.php: cancel');
+	}
+
 	$mainframe =& JFactory::getApplication();
 	$database  = JFactory::getDBO();
 
@@ -571,9 +643,18 @@ function cancel($option)
  * @param $cid
  *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function saveOrder(&$cid)
 {
+	global $Rsg2DebugActive;
+
+	if ($Rsg2DebugActive)
+	{
+		JLog::add(' deprecated ==> options/galleries.php: saveOrder');
+	}
+
 	$mainframe =& JFactory::getApplication();
 	$database  = JFactory::getDBO();
 

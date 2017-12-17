@@ -74,6 +74,7 @@ else
 
 /**
  *
+ * @deprecated Old 1.5 code
  */
 function config_dumpVars()
 {
@@ -88,6 +89,8 @@ function config_dumpVars()
 
 /**
  * @param bool $save
+ *
+ * @deprecated Old 1.5 code
  */
 function config_rawEdit($save = false)
 {
@@ -102,6 +105,8 @@ function config_rawEdit($save = false)
 /**
  * @todo if thumbname size has changed, advise user to regenerate thumbs
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function saveConfig()
 {
@@ -129,6 +134,8 @@ function saveConfig()
 
 /**
  *
+ *
+ * @deprecated Old 1.5 code
  */
 function showConfig()
 {
@@ -184,6 +191,8 @@ function showConfig()
  * @param string $option
  *
  * @throws Exception
+ *
+ * @deprecated Old 1.5 code
  */
 function cancelConfig($option)
 {
