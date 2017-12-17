@@ -244,5 +244,114 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 		return $isMoved;
 	}
 
-	// watermark -> separate class
+	// create watermark -> watermark has separate class
+
+
+	/**
+	 * Deletes all childs of given file name of RSGallery image item
+	 * (original, display, thumb and watermarked representation)
+	 *
+	 * @param
+	 * @return bool True on success
+	 *
+	 * @since 4.3.0
+	 */
+	public function deleteImgItemImages()
+	{
+		global $rsgConfig;
+
+		$IsImagesDeleted = false;
+
+		try
+		{
+			$IsImagesDeleted = true;
+
+			// Delete existing images
+			$imgPath        = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $ImageReference->imageName;
+			$IsImageDeleted = $this->DeleteImage($imgPath);
+			if (!$IsImageDeleted)
+			{
+				$IsImagesDeleted = false;
+			}
+
+
+			$imgPath        = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $ImageReference->imageName . '.jpg';
+			$IsImageDeleted = $this->DeleteImage($imgPath);
+			if (!$IsImageDeleted)
+			{
+				$IsImagesDeleted = false;
+			}
+
+			$imgPath = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . '/' . $ImageReference->imageName . '.jpg';;
+			$IsImageDeleted = $this->DeleteImage($imgPath);
+			if (!$IsImageDeleted)
+			{
+				$IsImagesDeleted = false;
+			}
+
+			$imgPath        = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . '/' . $ImageReference->imageName;
+			$IsImageDeleted = $this->DeleteImage($imgPath);
+			if (!$IsImageDeleted)
+			{
+				$IsImagesDeleted = false;
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing deleteRowItemImages: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $IsImagesDeleted;
+	}
+
+	/**
+	 * Delete given file
+	 * @param string $filename
+	 *
+	 * @return bool True on success
+	 *
+	 * @since 4.3.2
+	 */
+	private function DeleteImage($filename='')
+	{
+		global $Rsg2DebugActive;
+
+		$IsImageDeleted = true;
+
+		try
+		{
+			if (file_exists($filename))
+			{
+				$IsImageDeleted = unlink($filename);
+			}
+			else
+			{
+				$IsImageDeleted = false;
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing DeleteImage for image name: "' . $filename . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+
+			if ($Rsg2DebugActive)
+			{
+				JLog::add($OutTxt);
+			}
+
+		}
+
+		return $IsImageDeleted;
+	}
+
+
 }
