@@ -153,6 +153,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
         $msgType = 'notice';
 
 	    $cids = $this->input->get('cid', 0, 'int');
+	    $iids = $this->input->get('iid', 0, 'int');
 
 	    // unset($ids[$i]);
 
@@ -164,24 +165,29 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
             // replace newlines with html line breaks.
             str_replace('\n', '<br>', $msg);
         } else {
-            $model = $this->getModel('images');
-
 	        // &ID[]=2&ID[]=3&ID[]=4&ID[]=12
 	        //127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=imagesProperties&cid[]=1&cid[]=2&cid[]=3&cid[]=4
 
 	        foreach ($cids as $cid)
 	        {
-		        $msg .= $model->delete_imagesProperties();
+	        	echo 'Delete Cid: ' . $cid . '<br>';
 
 
+		        $key = array_search($cid, $iids);
+		        if($key!==false){
+			        unset($iids[$key]);
+		        }
+
+		        //$msg .= $model->delete_imagesProperties();
 
 	        }
 
-
+	        $model = $this->getModel('image');
+	        $model->delete ($cids);
         }
 
 	    // $link = 'index.php?option=com_rsgallery2&view=imagesProperties' .....;
-	    $link = 'index.php?option=' . $this->option . '&view=' . $this->view_item . '&' . http_build_query(array('cid' => $cids));
+	    $link = 'index.php?option=' . $this->option . '&view=' . $this->view_item . '&' . http_build_query(array('cid' => $iids));
 
 	    $this->setRedirect($link, $msg, $msgType);
     }
