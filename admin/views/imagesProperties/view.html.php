@@ -12,7 +12,6 @@ defined('_JEXEC') or die;
 
 
 jimport('joomla.html.html.bootstrap');
-
 //require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/RSGallery2.php';
 require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
 
@@ -122,6 +121,12 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 	protected function addToolbar($Layout = 'default')
 	{
 		global $Rsg2DevelopActive;
+
+		// on develop show open tasks if existing
+		if (!empty ($Rsg2DevelopActive))
+		{
+			echo '<span style="color:red">Task: lightbox modal image (also in edit image ...),  ...</span><br><br>';
+		}
 
 		switch ($Layout)
 		{

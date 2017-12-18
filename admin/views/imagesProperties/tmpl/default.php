@@ -13,6 +13,8 @@ defined('_JEXEC') or die();
 $doc = JFactory::getDocument();
 $doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/views/imagesProperties/css/ImagesProperties.css');
 JHtml::_('bootstrap.tooltip');
+JHtml::_('bootstrap.modal');
+
 
 //global $Rsg2DebugActive;
 // global $rsgConfig;
@@ -52,7 +54,7 @@ $sortDirection = $this->escape($this->state->get('list.direction'));
 
 				<?php if (empty($this->items)) : ?>
                     <div class="alert alert-no-items">
-						<?php echo JText::_('COM_RSGALLERY2_GALLERY_HAS_NO_IMAGES_ASSIGNED'); ?>
+						<?php echo JText::_('COM_RSGALLERY2_NO_IMAGES_SELECTED_FOR_VIEW'); ?>
                     </div>
 				<?php else : ?>
 
@@ -70,8 +72,9 @@ $sortDirection = $this->escape($this->state->get('list.direction'));
                             <li class="imagesAreaList" >
                                 <div class="thumbnail imgProperty">
                                     <div class='imgContainer'>
-                                        <!-- img src="<?php echo $src; ?>" class="img-rounded" alt="" -->
-                                        <img src="<?php echo $src; ?>" class="img-rounded" alt="">
+                                        <a class="modal" href="<?php echo $src; ?>">
+                                            <img src="<?php echo $src; ?>" class="img-rounded" alt="">
+                                        </a>
                                     </div>
 
                                     <div class="caption" >
@@ -108,7 +111,7 @@ $sortDirection = $this->escape($this->state->get('list.direction'));
                                         </div>
                                     </div>
 
-                                    <!--input  type="hidden" name="imageId[]" value="<?php echo $item->id;?>"-->
+                                    <input  type="hidden" name="iid[]" value="<?php echo $item->id;?>">
                                     <!--input  type='hidden' name="cid[]" value="<?php echo $item->id;?>"-->
 
                                     <!-- div class="control-group">
