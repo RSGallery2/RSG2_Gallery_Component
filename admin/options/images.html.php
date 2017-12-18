@@ -50,7 +50,10 @@ class html_rsg2_images
                     <?php endif; ?>
 
                     <div class="clearfix"></div>
-
+					
+					<legend><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW'); ?></legend>
+					<small><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW_DESC'); ?></small>
+					
                     <?php
                     // ToDo: Search tools bar
                     // echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
@@ -275,6 +278,10 @@ class html_rsg2_images
 
         <form action="index.php" method="post" name="adminForm" id="adminForm" class="form-validate">
             <div class="form-horizontal">
+			
+				<legend><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW'); ?></legend>
+				<small><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW_DESC'); ?></small>
+				
                 <?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'edit')); ?>
 
                 <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'edit',
@@ -589,7 +596,10 @@ class html_rsg2_images
                     <?php endif; ?>
 
                     <div class="clearfix"></div>
-
+			
+					<legend><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW'); ?></legend>
+					<small><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW_DESC'); ?></small>
+					
                     <table width="100%">
                         <tr>
                             <td width="60%" valign="top">
@@ -751,6 +761,10 @@ class html_rsg2_images
                     <?php endif; ?>
 
                     <div class="clearfix"></div>
+			
+					<legend><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW'); ?></legend>
+					<small><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW_DESC'); ?></small>
+					
                     <table width="100%">
                         <tr>
                             <!-- td width="50">&nbsp;</td-->
@@ -909,6 +923,10 @@ class html_rsg2_images
         </script>
 
         <form action="index.php" method="post" name="adminForm" id="adminForm" class="form-validate">
+			
+			<legend><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW'); ?></legend>
+			<small><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW_DESC'); ?></small>
+			
             <table class="adminform">
                 <tr>
                     <th colspan="5" class="sectionname">

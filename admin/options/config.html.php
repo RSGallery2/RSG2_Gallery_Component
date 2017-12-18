@@ -30,9 +30,16 @@ class html_rsg2_config
 		$input  = JFactory::getApplication()->input;
 		$option = $input->get('option', '', 'CMD');
 		$config = get_object_vars($rsgConfig);
-
 		?>
+		
+		<legend><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW'); ?></legend>
+		<small><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW_DESC'); ?></small>
+		
 		<form action="index.php" method="post" name="adminForm" id="adminForm">
+			
+			<legend><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW'); ?></legend>
+			<small><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW_DESC'); ?></small>
+			
 			<table id='rsg2-config_rawEdit' align='left'>
 				<?php foreach ($config as $name => $value): ?>
 					<tr>
@@ -311,7 +318,10 @@ class html_rsg2_config
 					?>
 
 					<div class="clearfix"></div>
-
+					
+					<legend><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW'); ?></legend>
+					<small><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW_DESC'); ?></small>
+					
 					<?php echo JHtml::_('bootstrap.startTabSet', 'ID-Tabs-J31-Group', $tabsOptionsJ31); ?>
 
 					<?php echo JHtml::_('bootstrap.addTab', 'ID-Tabs-J31-Group', 'tab1_j31_id', JText::_('COM_RSGALLERY2_GENERAL')); ?>

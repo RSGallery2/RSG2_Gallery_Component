@@ -120,7 +120,12 @@ class html_rsg2_maintenance
 			}
 		</script>
 
+		
 		<form action="index.php" method="post" name="adminForm" id="adminForm">
+			
+			<legend><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW'); ?></legend>
+			<small><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW_DESC'); ?></small>
+			
 			<table width="500">
 				<tr>
 					<td>
@@ -176,6 +181,10 @@ class html_rsg2_maintenance
 			}
 		</script>
 		<form action="index.php?option=com_rsgallery2&rsgOption=maintenance&task=createDbEntries" method="post" name="adminForm" id="adminForm">
+	
+			<legend><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW'); ?></legend>
+			<small><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW_DESC'); ?></small>
+			
 			<input type="hidden" name="t_id" value="" />
 			<input type="hidden" name="g_id" value="" />
 			<table width="100%" border="0">

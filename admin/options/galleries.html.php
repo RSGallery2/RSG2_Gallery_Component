@@ -60,8 +60,11 @@ class html_rsg2_galleries
 				<div id="j-main-container">
 					<?php endif;
 					?>
-
 					<div class="clearfix"></div>
+					
+					<legend><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW'); ?></legend>
+					<small><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW_DESC'); ?></small>
+					
 					<?php
 					// Search tools bar
 					// echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
@@ -247,6 +250,10 @@ class html_rsg2_galleries
 		$config = get_object_vars($rsgConfig);
 		?>
 		<form action="index.php" method="post" name="adminForm" id="adminForm">
+			
+			<legend><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW'); ?></legend>
+			<small><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW_DESC'); ?></small>
+			
 			<input type="hidden" name="option" value="<?php echo $option; ?>" />
 			<input type="hidden" name="rsgOption" value="<?php echo $rsgOption; ?>" />
 			<input type="hidden" name="task" value="" />
@@ -370,9 +377,13 @@ class html_rsg2_galleries
 			}
 		</script>
 
-		<form action="index.php" method="post" name="adminForm" id="adminForm" class="form-validate">
+		<form action="index.php" method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">
 
-			<div class="form-horizontal">
+			<div class="">
+				
+				<legend><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW'); ?></legend>
+				<small><?php echo JText::_('COM_RSGALLERY2_LEGACY_VIEW_DESC'); ?></small>
+				
 				<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'edit')); ?>
 
 				<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'edit',
