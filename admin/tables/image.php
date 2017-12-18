@@ -81,23 +81,43 @@ class Rsgallery2TableImage extends JTable
 		}
 	}
 
-	public function delete($pks=null)
+
+	/**
+	 * Deletes file images related to db image item
+	 * before deleting db item
+	 *
+	 * @param null $pk Id of image item
+	 *
+	 * @return bool True if successful
+	 *
+	 * @since 4.3.2
+	 */
+	public function delete($pk=null)
 	{
 		$IsDeleted = false;
 
-		echo '<br><br>delete($pks<br><br><br>';
-		// Remove from database
-		//$IsDeleted = parent::delete ($pks);
-
-		$imgFileModel = self::getInstance('imageFile', 'RSGallery2Model');
-
-		foreach ($pks as $pk)
+		try
 		{
-			$filename = $pk->filename;
-			// $imgFileModel->deleteImgItemImages ($filename);
+			$imgFileModel = JModelLegacy::getInstance('imageFile', 'RSGallery2Model');
+
+			$filename          = $this->name;
+			$IsFilesAreDeleted = $imgFileModel->deleteImgItemImages($filename);
+			if ($IsFilesAreDeleted)
+			{
+				// Remove from database
+				$IsDeleted = parent::delete($pk);
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing image.table.delete: "' . $pk . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
 		}
 
 		return $IsDeleted;
 	}  // class
-
 }
