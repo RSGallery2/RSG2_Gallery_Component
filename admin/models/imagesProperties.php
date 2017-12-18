@@ -169,14 +169,22 @@ class Rsgallery2ModelImagesProperties extends JModelList
 
 		// cid's in URL ?
 		$input = JFactory::getApplication()->input;
-		$cids = $input->get('cid', 0, 'int');
+		$cids = $input->get('cid', -1, 'int');
 		echo 'cids: "' . json_encode($cids) . '"<br>';
 
-		if (!empty ($cids))
+		if (is_array ($cids))
 		{
 			echo 'cids: found ';
 			$strCids = implode(", ", $cids);
 			$query->where('a.id IN (' . $strCids . ')');
+		}
+		else
+		{
+			if (empty ($cids))
+			{
+				//$query->where('a.id = ' .  (int) $cids . '');
+				$query->where('a.id = 0');
+			}
 		}
 
 		// Add the list ordering clause.
