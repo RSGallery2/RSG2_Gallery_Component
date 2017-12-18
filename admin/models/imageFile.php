@@ -207,7 +207,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 		return $IsImageCreated;
 	}
 
-	// ToDo: add gallery ID as parameter for subfolder or subfolder itself ...
+	// ToDo: add gallery ID as parameter for sub folder or sub folder itself ...
 	public function moveFile2OriginalDir($uploadFileName, $singleFileName, $galleryId)
 	{
 		global $rsgConfig;
@@ -248,15 +248,15 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 
 	/**
-	 * Deletes all childs of given file name of RSGallery image item
+	 * Deletes all children of given file name of RSGallery image item
 	 * (original, display, thumb and watermarked representation)
 	 *
-	 * @param
+	 * @param string $imageName Base filename for images to be deleted
 	 * @return bool True on success
 	 *
 	 * @since 4.3.0
 	 */
-	public function deleteImgItemImages()
+	public function deleteImgItemImages($imageName)
 	{
 		global $rsgConfig;
 
@@ -267,29 +267,28 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			$IsImagesDeleted = true;
 
 			// Delete existing images
-			$imgPath        = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $ImageReference->imageName;
+			$imgPath        = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $imageName;
 			$IsImageDeleted = $this->DeleteImage($imgPath);
 			if (!$IsImageDeleted)
 			{
 				$IsImagesDeleted = false;
 			}
 
-
-			$imgPath        = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $ImageReference->imageName . '.jpg';
+			$imgPath        = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $imageName . '.jpg';
 			$IsImageDeleted = $this->DeleteImage($imgPath);
 			if (!$IsImageDeleted)
 			{
 				$IsImagesDeleted = false;
 			}
 
-			$imgPath = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . '/' . $ImageReference->imageName . '.jpg';;
+			$imgPath = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . '/' . $imageName . '.jpg';;
 			$IsImageDeleted = $this->DeleteImage($imgPath);
 			if (!$IsImageDeleted)
 			{
 				$IsImagesDeleted = false;
 			}
 
-			$imgPath        = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . '/' . $ImageReference->imageName;
+			$imgPath        = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . '/' . $imageName;
 			$IsImageDeleted = $this->DeleteImage($imgPath);
 			if (!$IsImageDeleted)
 			{
@@ -331,7 +330,8 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			}
 			else
 			{
-				$IsImageDeleted = false;
+				// it is not existing so it may be true
+				$IsImageDeleted = true;
 			}
 		}
 		catch (RuntimeException $e)
