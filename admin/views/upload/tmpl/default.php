@@ -406,6 +406,14 @@ jQuery(document).ready(function ($) {
 		e.preventDefault();
 	});
 
+    function wait(ms)
+    {
+        var d = new Date();
+        var d2 = null;
+        do { d2 = new Date(); }
+        while(d2-d < ms);
+    }
+
 	// Uploading image count
 	var imgCount = 0;
 
@@ -478,6 +486,9 @@ jQuery(document).ready(function ($) {
 
 
 			sendFileToServer(data, status);
+
+			// Order needs inserting so ...
+			wait (250);
 		}
 	}
 
