@@ -12,17 +12,10 @@ defined('_JEXEC') or die();
 
 $doc = JFactory::getDocument();
 $doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/views/imagesProperties/css/ImagesProperties.css');
+$doc->addscript(JUri::root() . '/administrator/components/com_rsgallery2/views/imagesProperties/js/modalImage.js');
 JHtml::_('bootstrap.tooltip');
-JHtml::_('bootstrap.modal');
+//JHtml::_('bootstrap.modal');
 
-
-//global $Rsg2DebugActive;
-// global $rsgConfig;
-
-/**
-$sortColumn    = $this->escape($this->state->get('list.ordering')); //Column
-$sortDirection = $this->escape($this->state->get('list.direction'));
-/**/
 
 ?>
 
@@ -58,6 +51,7 @@ $sortDirection = $this->escape($this->state->get('list.direction'));
                     </div>
 				<?php else : ?>
 
+
                     <span class"">SelectAll <?php echo JHtml::_('grid.checkall'); ?><br></span>
 
 	                <ul class="thumbnails">
@@ -72,14 +66,12 @@ $sortDirection = $this->escape($this->state->get('list.direction'));
                             <li class="imagesAreaList" >
                                 <div class="thumbnail imgProperty">
                                     <div class='imgContainer'>
-                                        <a class="modal" href="<?php echo $src; ?>">
-                                            <img src="<?php echo $src; ?>" class="img-rounded" alt="">
-                                        </a>
+                                        <img src="<?php echo $src; ?>" class="img-rounded modalActive" alt="<?php echo $this->escape($item->name);?>">
                                     </div>
 
                                     <div class="caption" >
 	                                    <?php echo JHtml::_('grid.id', $Idx, $item->id); ?>
-                                        <small>&nbsp;<?php echo $this->escape($item->name);?> (ID: <?php echo $this->escape($item->id);?>)</small><br>
+                                        <small>&nbsp;<?php echo $this->escape($item->name);?>(ID: <?php echo $this->escape($item->id);?>)</small><br>
                                     </div>
 
                                     <div class="control-group">
@@ -136,14 +128,14 @@ $sortDirection = $this->escape($this->state->get('list.direction'));
                         ?>
 
                     </ul>
+
+                    <div id="popupModal" class="Xmodal">
+                        <span id="popupClose" class="close">&times;</span>
+                        <img  id="popupImage" class="modal-content">
+                        <div id="popupCaption"></div>
+                    </div>
+
 				<?php endif; ?>
-
-
-
-
-
-
-
 
 
 
