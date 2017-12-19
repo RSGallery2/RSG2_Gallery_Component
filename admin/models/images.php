@@ -501,22 +501,24 @@ class Rsgallery2ModelImages extends JModelList
 	 */
 	public function save_imagesProperties()
 	{
+		$ImgCount = 0;
+
 		$msg = "model images: save_imagesProperties: " . '<br>';
 
 		$Images = $this->RetrieveImagesPropertiesFromInput();
-		// $this->getInstance('ModelName', 'ComponentNameModel');
-		//$model = JModel::getInstance('(ModelName)','(ComponentName)Model');
 
-		// $imgModel = $this->getModel('image');
-		//$imgModel = JModel::getInstance('image', 'RSGallery2');
 		$imgModel = self::getInstance('image', 'RSGallery2Model');
 
 		foreach ($Images as $Image)
 		{
-			$imgModel->save_imageProperties($Image);
+			$IsSaved = $imgModel->save_imageProperties($Image);
+			if ($IsSaved){
+				$ImgCount++;
+			}
 		}
 
-		// $msg '... sucessful assigned .... images ...
+		// $msg '... successful assigned .... images ...
+		$msg =  ' Successful saved ' . $ImgCount . ' image properties';
 		return $msg;
 	}
 

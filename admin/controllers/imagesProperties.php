@@ -70,17 +70,33 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
         $msg     = "save_imagesProperties: " . '<br>';
         $msgType = 'notice';
 
-        // Access check
-        $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
-        if (!$canAdmin) {
-            $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-            $msgType = 'warning';
-            // replace newlines with html line breaks.
-            str_replace('\n', '<br>', $msg);
-        } else {
-            $model = $this->getModel('images');
-            $msg .= $model->save_imagesProperties();
-        }
+	    try
+	    {
+
+		    // Access check
+		    $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+		    if (!$canAdmin)
+		    {
+			    $msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			    $msgType = 'warning';
+			    // replace newlines with html line breaks.
+			    str_replace('\n', '<br>', $msg);
+		    }
+		    else
+		    {
+			    $model = $this->getModel('images');
+			    $msg   = $model->save_imagesProperties();
+		    }
+	    }
+	    catch (RuntimeException $e)
+	    {
+		    $OutTxt = '';
+		    $OutTxt .= 'Error executing apply_imagesProperties: "' . '<br>';
+		    $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+		    $app = JFactory::getApplication();
+		    $app->enqueueMessage($OutTxt, 'error');
+	    }
 
         $link = 'index.php?option=com_rsgallery2&view=images';
         $this->setRedirect($link, $msg, $msgType);
@@ -100,26 +116,38 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
         $msg     = "apply_imagesProperties: " . '<br>';
         $msgType = 'notice';
 
-        // Access check
-        $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
-        if (!$canAdmin) {
-            $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-            $msgType = 'warning';
-            // replace newlines with html line breaks.
-            str_replace('\n', '<br>', $msg);
-        } else {
-            $model = $this->getModel('images');
-            $msg .= $model->save_imagesProperties();
+        try
+        {
+
+	        // Access check
+	        $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+	        if (!$canAdmin)
+	        {
+		        $msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+		        $msgType = 'warning';
+		        // replace newlines with html line breaks.
+		        str_replace('\n', '<br>', $msg);
+	        }
+	        else
+	        {
+		        $model = $this->getModel('images');
+		        $msg = $model->save_imagesProperties();
+	        }
+        }
+        catch (RuntimeException $e)
+        {
+	        $OutTxt = '';
+	        $OutTxt .= 'Error executing apply_imagesProperties: "' . '<br>';
+	        $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+	        $app = JFactory::getApplication();
+	        $app->enqueueMessage($OutTxt, 'error');
         }
 
-        // ToDo: Create list of CIDS and append to link URL like in PropertiesView above
-
+	    // Create list of CIDS and append to link URL like in PropertiesView above
         // &ID[]=2&ID[]=3&ID[]=4&ID[]=12
-        //127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=imagesProperties&cid[]=1&cid[]=2&cid[]=3&cid[]=4
         $cids = $this->input->get('cid', 0, 'int');
-        // $link = 'index.php?option=com_rsgallery2&view=imagesProperties' .....;
         $link = 'index.php?option=' . $this->option . '&view=' . $this->view_item . '&' . http_build_query(array('cid' => $cids));
-
         $this->setRedirect($link, $msg, $msgType);
     }
 
@@ -149,45 +177,55 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
         $msg     = "delete_imagesProperties: " . '<br>';
         $msgType = 'notice';
 
-        $msg     = "delete_imagesProperties: Not implemented yet" . '<br>';
-        $msgType = 'notice';
+        try
+        {
+	        $dids = $this->input->get('did', 0, 'int');
+	        $cids = $this->input->get('cid', 0, 'int');
 
-	    $cids = $this->input->get('cid', 0, 'int');
-	    $iids = $this->input->get('iid', 0, 'int');
+	        // unset($ids[$i]);
 
-	    // unset($ids[$i]);
-
-        // Access check
-        $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
-        if (!$canAdmin) {
-            $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-            $msgType = 'warning';
-            // replace newlines with html line breaks.
-            str_replace('\n', '<br>', $msg);
-        } else {
-	        // &ID[]=2&ID[]=3&ID[]=4&ID[]=12
-	        //127.0.0.1/Joomla3x/administrator/index.php?option=com_rsgallery2&view=imagesProperties&cid[]=1&cid[]=2&cid[]=3&cid[]=4
-
-	        foreach ($cids as $cid)
+	        // Access check
+	        $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+	        if (!$canAdmin)
 	        {
-	        	echo 'Delete Cid: ' . $cid . '<br>';
+		        $msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+		        $msgType = 'warning';
+		        // replace newlines with html line breaks.
+		        str_replace('\n', '<br>', $msg);
+	        }
+	        else
+	        {
+		        // delete them all
+		        $model = $this->getModel('image');
+		        $model->delete($cids);
 
+		        // Remove from display list
+		        foreach ($dids as $did)
+		        {
+			        $key = array_search($did, $cids);
+			        if ($key !== false)
+			        {
+				        unset($cids[$key]);
+			        }
 
-		        $key = array_search($cid, $iids);
-		        if($key!==false){
-			        unset($iids[$key]);
 		        }
 
-		        //$msg .= $model->delete_imagesProperties();
-
+		        // success
+		        $msg = 'Deleted ' . count ($dids) . ' images';
 	        }
+        }
+        catch (RuntimeException $e)
+        {
+	        $OutTxt = '';
+	        $OutTxt .= 'Error executing delete_imagesProperties: "' . '<br>';
+	        $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-	        $model = $this->getModel('image');
-	        $model->delete ($cids);
+	        $app = JFactory::getApplication();
+	        $app->enqueueMessage($OutTxt, 'error');
         }
 
 	    // $link = 'index.php?option=com_rsgallery2&view=imagesProperties' .....;
-	    $link = 'index.php?option=' . $this->option . '&view=' . $this->view_item . '&' . http_build_query(array('cid' => $iids));
+	    $link = 'index.php?option=' . $this->option . '&view=' . $this->view_item . '&' . http_build_query(array('cid' => $cids));
 
 	    $this->setRedirect($link, $msg, $msgType);
     }
