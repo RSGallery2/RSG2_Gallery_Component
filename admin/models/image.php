@@ -869,7 +869,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 
         try {
             $id = $imageProperties->cid;
-            // ToDO: On changed title change alias
+            // ToDo: On changed title change alias
             $title = $imageProperties->title;
             $description = $imageProperties->description;
 
