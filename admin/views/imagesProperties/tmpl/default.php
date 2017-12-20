@@ -87,6 +87,16 @@ JHtml::_('bootstrap.tooltip');
                                                   placeholder="Text input"
                                                   style="width:95%;"><?php echo $this->escape($item->descr);?></textarea>
                                         </div>
+                                        <label class="control-label" for="description2[]" ><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION'); ?></label>
+                                        <div class="controls">
+                                            <?php
+                                            if ( ! empty($this->editor))
+                                            {
+                                                echo $this->editor->display('description2[]', $this->escape($item->descr), '90%', '100', '20', '20', true, null, null, null, $this->editorParams);
+                                            }
+
+                                            ?>
+                                        </div>
                                     </div>
 
                                     <input type="hidden" name="cid[]" value="<?php echo $item->id;?>">

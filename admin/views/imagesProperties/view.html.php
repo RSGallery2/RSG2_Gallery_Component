@@ -14,6 +14,8 @@ defined('_JEXEC') or die;
 jimport('joomla.html.html.bootstrap');
 //require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/RSGallery2.php';
 require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
+// IMPORT EDITOR CLASS
+jimport( 'joomla.html.editor' );
 
 JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
@@ -40,6 +42,9 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 	protected $HtmlPathThumb;
 	protected $HtmlPathDisplay;
 	protected $HtmlPathOriginal;
+
+	protected $editor;
+    protected $editorParams;
 
 	//------------------------------------------------
 	/**
@@ -78,6 +83,9 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 
 //		$this->filterForm    = $this->get('FilterForm');
 //		$this->activeFilters = $this->get('ActiveFilters');
+
+        // select user editor
+        $this->determineEditor ();
 
 		/**
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/images.xml';
@@ -197,8 +205,33 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 				
 				break;
 		}
-
 	}
-}
 
+    protected function determineEditor ()
+    {
+        // ToDo: try and catch
+        // GET EDITOR SELECTED IN GLOBAL SETTINGS
+        $config = JFactory::getConfig();
+        $global_editor = $config->get( 'editor' );
+
+        // GET USER'S DEFAULT EDITOR
+        $user_editor = JFactory::getUser()->getParam("editor");
+
+        if($user_editor && $user_editor !== 'JEditor') {
+            $selected_editor = $user_editor;
+        } else {
+            $selected_editor = $global_editor;
+        }
+
+        // INSTANTIATE THE EDITOR
+        $this->editor = JEditor::getInstance($selected_editor);
+
+        // SET EDITOR PARAMS
+        $this->editorParams = array( 'smilies'=> '0' ,
+            'style'  => '1' ,
+            'layer'  => '0' ,
+            'table'  => '0' ,
+            'clear_entities'=>'0');
+    }
+}
 
