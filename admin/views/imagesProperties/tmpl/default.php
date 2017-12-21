@@ -72,6 +72,7 @@ JHtml::_('bootstrap.tooltip');
 
                                     <!-- Gallery can't be changed. Disable input -->
                                     <div class="control-group">
+                                        </div>
                                         <label class="control-label" for="galleryID[]" ><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?>(2)</label>
                                         <div class="controls">
                                             <input type="text" name="galleryID[]" placeholder="Idx:"
@@ -81,20 +82,21 @@ JHtml::_('bootstrap.tooltip');
                                     </div>
 
                                     <div class="control-group">
-                                        <label class="control-label" for="description[]" ><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION'); ?></label>
+                                        <!-- label class="control-label" for="description2[]" ><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION'); ?></label>
                                         <div class="controls">
                                         <textarea cols="15" rows="" name="description[]"
                                                   placeholder="Text input"
                                                   style="width:95%;"><?php echo $this->escape($item->descr);?></textarea>
-                                        </div>
-                                        <label class="control-label" for="description2[]" ><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION'); ?></label>
+                                        </div-->
+
+                                        <label class="control-label" for="description[]" ><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION') . '2'; ?></label>
                                         <div class="controls">
                                             <?php
                                             if ( ! empty($this->editor))
                                             {
-                                                echo $this->editor->display('description2[]', $this->escape($item->descr), '90%', '100', '20', '20', true, null, null, null, $this->editorParams);
+                                                echo $this->editor->display('description[]', $this->escape($item->descr), '90%', '50%', '20', '10',
+                                                    true, 'description_' . $Idx, null, null, $this->editorParams);
                                             }
-
                                             ?>
                                         </div>
                                     </div>
