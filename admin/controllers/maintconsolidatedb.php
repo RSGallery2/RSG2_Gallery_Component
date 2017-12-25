@@ -80,12 +80,12 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
 				if (!empty ($ImageReferences))
 				{
-					$imageModel = $this->getModel('image');
+					$imageDbModel = $this->getModel('image');
 
 					$IsAllCreated = true;
 					foreach ($ImageReferences as $ImageReference)
 					{
-						$IsCreated = $this->createImageDbBaseItem($ImageReference, $imageModel);
+						$IsCreated = $this->createImageDbBaseItem($ImageReference, $imageDbModel);
 						if (!$IsCreated)
 						{
 							$OutTxt = 'Image in DB not created for: ' . $ImageReference->name;
@@ -151,13 +151,14 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
     /**
      * Creates a database entry (row) for given item
      *
-     * @param ImageReference $ImageReference
-     * @param Rsgallery2ModelImage $imageModel
+     * @param ImageReference       $ImageReference
+     * @param Rsgallery2ModelImage $imageDbModel
+     *
      * @return bool True on success
      *
      * @since 4.3.0
      */
-	public function createImageDbBaseItem($ImageReference, $imageModel)
+	public function createImageDbBaseItem($ImageReference, $imageDbModel)
 	{
 		$IsImageDbCreated = false;
 
@@ -166,7 +167,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 			// Does not exist in db
 			if (!$ImageReference->IsImageInDatabase)
 			{
-				$IsImageDbCreated = $imageModel->createImageDbBaseItem($ImageReference->imageName);
+				$IsImageDbCreated = $imageDbModel->createImageDbBaseItem($ImageReference->imageName);
 			}
 			else
 			{
@@ -224,12 +225,12 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
 				if (!empty ($ImageReferences))
 				{
-					$imageModel = $this->getModel('image');
+					$imageFileModel = $this->getModel('imageFile');
 
 					$IsAllCreated = true;
 					foreach ($ImageReferences as $ImageReference)
 					{
-						$IsCreated = $this->createSelectedMissingImage($ImageReference, $imageModel);
+						$IsCreated = $this->createSelectedMissingImage($ImageReference, $imageFileModel);
 						if (!$IsCreated)
 						{
 							$OutTxt = 'Image not created for: ' . $ImageReference->name;
@@ -278,13 +279,14 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
      * The function tries to find the image with the highest redolution
      * Order: original, display then thumb images (?watermarked?)
      *
-     * @param ImageReference $ImageReference
-     * @param Rsgallery2ModelImage $imageModel
+     * @param ImageReference       $ImageReference
+     * @param Rsgallery2ModelImage $imageFileModel
+     *
      * @return bool True on success
      *
      * @since 4.3.0
      */
-	public function createSelectedMissingImage($ImageReference, $imageModel)
+	public function createSelectedMissingImage($ImageReference, $imageFileModel)
 	{
 		global $rsgConfig;
 
@@ -364,20 +366,20 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 				// Create display
 				if (!$ImageReference->IsDisplayImageFound)
 				{
-					$IsImageCreated &= $imageModel->createDisplayImageFile($ImageReference->imageName);
+					$IsImageCreated &= $imageFileModel->createDisplayImageFile($ImageReference->imageName);
 				}
 
 				// Create thumb
 				if (!$ImageReference->IsThumbImageFound)
 				{
-					$IsImageCreated &= $imageModel->createThumbImageFile($ImageReference->imageName);
+					$IsImageCreated &= $imageFileModel->createThumbImageFile($ImageReference->imageName);
 				}
 
 				/** Watermark files are created when visited by user
 				 * // Create watermark
 				 * if(!$ImageReference->IsWatermarkedImageFound) {
 				 * if ($rsgConfig->watermark) {
-				 * $IsImageCreated &= ! $imageModel->createWaterMarkImageFile ($ImageReference->imageName);
+				 * $IsImageCreated &= ! $imageDbModel->createWaterMarkImageFile ($ImageReference->imageName);
 				 * }
 				 * }
 				 * /**/
@@ -438,7 +440,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
 					if (!empty ($ImageReferences))
 					{
-						$imageModel = $this->getModel('image');
+						$imageDbModel = $this->getModel('image');
 
 						$IsAssigned = true;
 						foreach ($ImageReferences as $ImageReference)
@@ -450,9 +452,9 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 								JFactory::getApplication()->enqueueMessage($OutTxt, 'warning');
 							}
 
-							$ImageId = $imageModel->ImageIdFromName($ImageReference->imageName);
+							$ImageId = $imageDbModel->ImageIdFromName($ImageReference->imageName);
 
-							$IsAssigned = $this->assignGallery($ImageId, $imageModel, $GalleryId);
+							$IsAssigned = $this->assignGallery($ImageId, $imageDbModel, $GalleryId);
 							if (!$IsAssigned)
 							{
 								$OutTxt = 'Parent gallery not assigned for: ' . $ImageReference->name;
@@ -503,21 +505,22 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
     /**
      * Assignes given gallery to one image
      *
-     * @param int $ImageId
-     * @param Rsgallery2ModelImage $imageModel
-     * @param int $galleryId
+     * @param int                  $ImageId
+     * @param Rsgallery2ModelImage $imageDbModel
+     * @param int                  $galleryId
+     *
      * @return bool True on success
      *
      * @since 4.3.0
      */
-	public function assignGallery($ImageId, $imageModel, $galleryId)
+	public function assignGallery($ImageId, $imageDbModel, $galleryId)
 	{
 		try
 		{
 			$IsGalleryAssigned = 0;
 
 			// Does exist in db
-			$IsGalleryAssigned = $imageModel->assignGalleryId($ImageId, $galleryId);
+			$IsGalleryAssigned = $imageDbModel->assignGalleryId($ImageId, $galleryId);
 		}
 		catch (RuntimeException $e)
 		{
@@ -575,12 +578,14 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
 				if (!empty ($ImageReferences))
 				{
-					$imageModel = $this->getModel('image');
+					$imageDbModel = $this->getModel('image');
+					$imageFileModel = $this->getModel('imageFile');
 
 					$IsAllCreated = true;
 					foreach ($ImageReferences as $ImageReference)
 					{
-						$IsCreated = $this->repairAllIssuesItem($ImageReference, $imageModel, $GalleryId);
+						$IsCreated = $this->repairAllIssuesItem($ImageReference, $imageDbModel,
+							$imageFileModel, $GalleryId);
 						if (!$IsCreated)
 						{
 							$OutTxt = '"All" issues not repaired for: ' . $ImageReference->name;
@@ -628,14 +633,16 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
      * Repairs all missing items (issues) of one image
      * and assingn gallery if given
      *
-     * @param ImageReference $ImageReference
-     * @param Rsgallery2ModelImage $imageModel
-     * @param int $galleryId
+     * @param ImageReference       $ImageReference
+     * @param Rsgallery2ModelImage $imageDbModel
+     * @param Rsgallery2ModelImage $imageFileModel
+     * @param int                  $galleryId
+     *
      * @return bool True on success
      *
      * @since 4.3.0
      */
-	public function repairAllIssuesItem($ImageReference, $imageModel, $GalleryId)
+	public function repairAllIssuesItem($ImageReference, $imageDbModel, $imageFileModel, $GalleryId)
 	{
 		try
 		{
@@ -645,7 +652,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 			$IsImageDbCreated = true;
 			if (!$ImageReference->IsImageInDatabase)
 			{
-				$IsImageDbCreated = $imageModel->createImageDbBaseItem($ImageReference->imageName);
+				$IsImageDbCreated = $imageDbModel->createImageDbBaseItem($ImageReference->imageName);
 				if (!$IsImageDbCreated)
 				{
 					$msg = "Error at created missing image in db";
@@ -660,7 +667,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 				|| !$ImageReference->IsThumbImageFound;
 			if ($IsOneImgMissing)
 			{
-				$IsImgageCreated = $this->createSelectedMissingImage($ImageReference, $imageModel);
+				$IsImgageCreated = $this->createSelectedMissingImage($ImageReference, $imageFileModel);
 				if (!$IsImgageCreated)
 				{
 					$msg = 'Image not created for: ' . $ImageReference->name;
@@ -673,9 +680,9 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 			$IsGalleryAssigned = true;
 			if ($GalleryId > 0)
 			{
-				$ImageId = $imageModel->ImageIdFromName($ImageReference->imageName);
+				$ImageId = $imageDbModel->ImageIdFromName($ImageReference->imageName);
 
-				$IsGalleryAssigned = $this->assignGallery($ImageId, $imageModel, $GalleryId);
+				$IsGalleryAssigned = $this->assignGallery($ImageId, $imageDbModel, $GalleryId);
 				if (!$IsGalleryAssigned)
 				{
 					$msg = 'Parent gallery not assigned for: ' . $ImageReference->name;
@@ -733,12 +740,13 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
 				if (!empty ($ImageReferences))
 				{
-					$imageModel = $this->getModel('image');
+					$imageDbModel = $this->getModel('image');
+					$imageFileModel = $this->getModel('imageFile');
 
 					$IsEveryDeleted = true;
 					foreach ($ImageReferences as $ImageReference)
 					{
-						$IsDeleted = $this->deleteRowItem($ImageReference, $imageModel);
+						$IsDeleted = $this->deleteRowItem($ImageReference, $imageDbModel, $imageFileModel);
 						if (!$IsDeleted)
 						{
 							$OutTxt = 'Image in DB not deleted for: ' . $ImageReference->name;
@@ -786,13 +794,15 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
     /**
      * Deletes all existing items of given image
      *
-     * @param ImageReference $ImageReference
-     * @param Rsgallery2ModelImage $imageModel
+     * @param ImageReference       $ImageReference
+     * @param Rsgallery2ModelImage $imageDbModel
+     * @param Rsgallery2ModelImage $imageFileModel
+     *
      * @return bool True on success
      *
      * @since 4.3.0
      */
-	public function deleteRowItem($ImageReference, $imageModel)
+	public function deleteRowItem($ImageReference, $imageDbModel, $imageFileModel)
 	{
 		try
 		{
@@ -801,7 +811,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 			// Does not exist in db
 			if ($ImageReference->IsImageInDatabase)
 			{
-				$IsImageDbDeleted = $imageModel->deleteImageDbItem($ImageReference->imageName);
+				$IsImageDbDeleted = $imageDbModel->deleteImageDbItem($ImageReference->imageName);
 				if (!$IsImageDbDeleted)
 				{
 					$msg = "Error at deleting image in db";
@@ -816,7 +826,9 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 				|| $ImageReference->IsWatermarkedImageFound;
 			if ($IsOneImgExisting)
 			{
-				$IsImgagesDeleted = $this->deleteRowItemImages($ImageReference);
+				//$IsImgagesDeleted = $this->deleteRowItemImages($ImageReference);
+				$IsImgagesDeleted = $imageFileModel->deleteImgItemImages($ImageReference->imageName);
+
 				if (!$IsImgagesDeleted)
 				{
 					$msg = 'Image not deleted for: "' . $ImageReference->name . '"';
@@ -840,100 +852,5 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		return $IsRowDeleted;
 	}
 
-    /**
-     * Delete all existing image files on one image
-     *
-     * @param ImageReference $ImageReference
-     * @return bool True on success
-     *
-     * @since 4.3.0
-     */
-	public function deleteRowItemImages($ImageReference)
-	{
-		global $rsgConfig;
-
-		$IsImagesDeleted = false;
-
-		try
-		{
-			$IsImagesDeleted = true;
-
-			// Delete existing images
-			if ($ImageReference->IsOriginalImageFound)
-			{
-				$imgPath        = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $ImageReference->imageName;
-				$IsImageDeleted = $this->DeleteImage($imgPath);
-				if (!$IsImageDeleted)
-				{
-					$IsImagesDeleted = false;
-				}
-			}
-
-			if ($ImageReference->IsDisplayImageFound)
-			{
-				$imgPath        = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $ImageReference->imageName . '.jpg';
-				$IsImageDeleted = $this->DeleteImage($imgPath);
-				if (!$IsImageDeleted)
-				{
-					$IsImagesDeleted = false;
-				}
-			}
-
-			if ($ImageReference->IsThumbImageFound)
-			{
-				$imgPath = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . '/' . $ImageReference->imageName . '.jpg';;
-				$IsImageDeleted = $this->DeleteImage($imgPath);
-				if (!$IsImageDeleted)
-				{
-					$IsImagesDeleted = false;
-				}
-			}
-
-			if ($ImageReference->IsWatermarkedImageFound)
-			{
-				$imgPath        = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . '/' . $ImageReference->imageName;
-				$IsImageDeleted = $this->DeleteImage($imgPath);
-				if (!$IsImageDeleted)
-				{
-					$IsImagesDeleted = false;
-				}
-			}
-
-		}
-		catch (RuntimeException $e)
-		{
-			$OutTxt = '';
-			$OutTxt .= 'Error executing deleteRowItemImages: "' . '<br>';
-			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-			$app = JFactory::getApplication();
-			$app->enqueueMessage($OutTxt, 'error');
-		}
-
-		return $IsImagesDeleted;
-	}
-
-    /**
-     * Deletes given  file
-     * @param string $filename
-     * @return bool True on success
-     *
-     * @since 4.3.0
-     */
-	private function DeleteImage($filename)
-	{
-		$IsImageDeleted = true;
-
-		if (file_exists($filename))
-		{
-			$IsImageDeleted = unlink($filename);
-		}
-		else
-		{
-			$IsImageDeleted = false;
-		}
-
-		return $IsImageDeleted;
-	}
 
 }
