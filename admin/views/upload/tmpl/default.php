@@ -33,7 +33,6 @@ JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
 // Drag and Drop installation scripts
 $token  = JSession::getFormToken();
 $return = JFactory::getApplication()->input->getBase64('return');
-
 ?>
 
 <script type="text/javascript">
@@ -286,13 +285,15 @@ jQuery(document).ready(function ($) {
     var token = $('#installer-token').val();
     var gallery_id = $('#SelectGalleries_03').val();
 
-    // a) Use class to set conent light red and light green or other colors
-    // when droppable...
-    // b) Use jquery to activate and de activate some
 
-    if ($('#SelectGalleries_03').val() == 0) {
+    /*----------------------------------------------------
+    Red or green border for drag and drop images
+    ----------------------------------------------------*/
+
+    if ( ! $('#SelectGalleries_03').val()) {
         $('#dragarea').addClass ('dragareaDisabled')
     }
+    /**/
 
     $('#SelectGalleries_03').change(function() {
         // drop disabled ?
@@ -309,7 +310,7 @@ jQuery(document).ready(function ($) {
     });
 
 	buttonManualFile.on('click', function (e) {
-//            alert('buttonManualFile.on click: '); // + JSON.stringify($(this)));
+        alert('buttonManualFile.on click: '); // + JSON.stringify($(this)));
 		fileInput.click();
 	});
 
@@ -334,8 +335,8 @@ jQuery(document).ready(function ($) {
 
             //alert('handleFileUpload: ' + files[0].name);
 
-            // We need to send dropped files to Server
-            handleFileUpload(files, dragZone);
+            var progressArea =  $('#uploadProgressArea');
+            handleFileUpload(files, progressArea);
         }
 	});
 
@@ -386,7 +387,8 @@ jQuery(document).ready(function ($) {
             dragZone.removeClass('hover');
 
             // We need to send dropped files to Server
-            handleFileUpload(files, dragZone);
+            var progressArea =  $('#uploadProgressArea');
+            handleFileUpload(files, progressArea);
         } // empty gallery
 	});
 
@@ -725,16 +727,16 @@ jQuery(document).ready(function ($) {
 
 					<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => $this->ActiveSelection)); ?>
 
-					<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'upload_single', JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES', true)); ?>
+					<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'upload_drag_and_drop', JText::_('COM_RSGALLERY2_UPLOAD_BY_DRAG_AND_DROP', true)); ?>
                     <fieldset class="uploadform">
-                        <legend><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_MORE'); ?></legend>
+                        <legend><?php echo JText::_('COM_RSGALLERY2_UPLOAD_BY_DRAG_AND_DROP_LABEL'); ?></legend>
 
 						<?php
 						// All in one, specify gallery
 						echo $this->form->renderFieldset('upload_drag_and_drop');
 						?>
 
-                        <legend><?php echo JText::_('COM_RSGALLERY2_DRAG_FILE_ZONE'); ?></legend>
+                        <!--legend><?php echo JText::_('COM_RSGALLERY2_DRAG_FILE_ZONE'); ?></legend-->
 
                         <div id="uploader-wrapper" disabled>
                             <div id="dragarea" class="">
@@ -763,7 +765,7 @@ jQuery(document).ready(function ($) {
                             </div>
                         </div>
 
-                        <!--Action buttonManualFile-->
+                        <!--Action buttonManualFile -->
                         <div class="form-actions" style="margin-top: 10px; ">
                             <buttonManualFile class="btn btn-primary" type="buttonManualFile"
                                               id="AssignUploadedFiles" onclick="Joomla.submitAssignDroppedFiles()"
@@ -771,6 +773,10 @@ jQuery(document).ready(function ($) {
 			                    <?php echo JText::_('COM_RSGALLERY2_ADD_IMAGES_PROPERTIES'); ?>
                             </buttonManualFile>
                         </div>
+
+                        <input class="input_box hidden" id="hidden_file_input" name="hidden_file_input" type="file" multiple />
+
+                        <div id="uploadProgressArea"></div>
 
                         <div class="form-actions">
                             <a class="btn btn-primary" id="submitbuttonManualFileSingle"
