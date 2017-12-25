@@ -593,6 +593,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
             echo new JResponseJson($ajaxImgObject, $msg, !$isCreated);
             //echo new JResponseJson($ajaxImgObject, $msg,  $IsMoved);
 
+	        // for next upload tell where to start
+	        $rsgConfig->setLastUpdateType('upload_drag_and_drop');
+
             if ($Rsg2DebugActive) {
                 JLog::add('<== uploadAjaxSingleFile');
             }

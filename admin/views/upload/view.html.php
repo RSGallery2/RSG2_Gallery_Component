@@ -89,11 +89,11 @@ class Rsgallery2ViewUpload extends JViewLegacy
 
         //--- Config requests ------------------------
 
-        // register 'upload_single', 'upload_zip_pc', 'upload_folder_server'
+        // register 'upload_drag_and_drop', 'upload_zip_pc', 'upload_folder_server'
         //$this->ActiveSelection = $rsgConfig->getLastUpdateType();
         $this->ActiveSelection = $rsgConfig->last_update_type;
         if (empty ($this->ActiveSelection)) {
-            $this->ActiveSelection = 'upload_single';
+            $this->ActiveSelection = 'upload_drag_and_drop';
         }
 
         // 0: default, 1: enable, 2: disable
@@ -163,7 +163,7 @@ class Rsgallery2ViewUpload extends JViewLegacy
         // on develop show open tasks if existing
         if (!empty ($Rsg2DevelopActive))
         {
-            echo '<span style="color:red">Task: Hide sizes, <br>use $maxSize = JFilesystemHelper::fileUploadMaxSize();,<br>debug print sizes for into log</span><br><br>';
+            echo '<span style="color:red">Tasks: <br>* Order of images: a) prevent wrong order b) reorder images does not work <br>* Repair select files button !!!<br>* Red / Green drag image area border, <br>* Hide progressBar after a while<br>put javascript into file</span><br><br>';
         }
 
         switch ($Layout) {

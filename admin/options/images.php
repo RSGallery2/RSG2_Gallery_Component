@@ -765,9 +765,9 @@ function uploadImage($option)
 	jimport('joomla.application.component.model');
 	JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
-	$rsgConfig->setLastUpdateType('upload_single');
+	$rsgConfig->setLastUpdateType('upload_drag_and_drop');
 
-	// Create gallery selectlist
+	// Create gallery select list
 	$lists['gallery_id'] = galleryUtils::galleriesSelectList(null, 'gallery_id', false, null, 0, true);
 	html_rsg2_images::uploadImage($lists, $option);
 }
