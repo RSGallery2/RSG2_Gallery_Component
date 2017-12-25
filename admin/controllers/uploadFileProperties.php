@@ -115,7 +115,7 @@ class Rsgallery2ControllerUploadFileProperties extends JControllerAdmin
 	    }
 
 	    // for next upload tell where to start
-	    $rsgConfig->setLastUpdateType('upload_single');
+	    $rsgConfig->setLastUpdateType('upload_drag_and_drop');
     }
 
     public function assign2Gallery ()
