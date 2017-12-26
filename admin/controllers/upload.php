@@ -210,7 +210,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
     {
         global $Rsg2DebugActive, $rsgConfig;
 
-        $msg     = "uploadFromZip: ";
+        $msg     = "uploadFromZip: ";  // ToDo: Remove ->empty messge
         $msgType = 'notice';
 
         $msg .= '!!! Not implemented yet !!!';
@@ -295,7 +295,15 @@ class Rsgallery2ControllerUpload extends JControllerForm
     {
         global $Rsg2DebugActive, $rsgConfig;
 
+
+// from imagefile model: Retrieve file list
+// then behave like ajax upload using returned CIDS to call
+
+
+
+
         $msg     = "";
+        $msg     = "uploadFromFtpFolder"; // ToDo: Remove
         $msgType = 'notice';
 
         $msg .= '!!! Not implemented yet !!!';
@@ -495,7 +503,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	        // Attention: Rare race condition: Other user may use same file name inbetween ?
 
 	        // Model tells if successful
-	        // yyyy ToDo: return image id on success
+	        // return image id on success
 	        $imgId = $modelDb->createImageDbItem($singleFileName, $title, $galleryId, $description);
 	        if (empty($imgId))
 	        {

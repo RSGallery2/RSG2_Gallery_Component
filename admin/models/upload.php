@@ -82,6 +82,12 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
         global $Rsg2DebugActive;
 
         $isUploaded = false;
+
+
+
+//	    this->createImageDbItem($singleFileName, $title, $galleryId, $description);
+
+
 /**
         $msg     = "viewConfigPlain: ";
         $msgType = 'notice';
