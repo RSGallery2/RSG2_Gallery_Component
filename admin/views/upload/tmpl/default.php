@@ -221,11 +221,19 @@ $return = JFactory::getApplication()->input->getBase64('return');
 
        var form = document.getElementById('adminForm');
 
+       alert('01');
+       alert(jQuery('#SelectGalleries_02'));
+       alert('01.B' + jQuery('#SelectGalleries_02').val());
+
         //var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
-        var gallery_id = $('#SelectGalleries_03').val();
+       var gallery_id = jQuery('#SelectGalleries_02').val();
+       alert('02');
         var ftp_path = form.ftp_path.value;
+       alert('03');
         var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_02"]:checked').val();
 
+
+       alert('10');
     //		var OutTxt = ''
     //			+ 'GalleryId2: ' + GalleryId + '\r\n'
     //			+ 'bOneGalleryName4All: ' + bOneGalleryName4All + '\r\n'
@@ -243,6 +251,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
                 alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(4)');
             }
             else {
+                alert('20');
                 // yes transfer files ...
                 form.task.value = 'upload.uploadFromFtpFolder'; // upload.uploadZipFile
                 form.batchmethod.value = 'FTP';
@@ -251,7 +260,10 @@ $return = JFactory::getApplication()->input->getBase64('return');
                 form.selcat.value = bOneGalleryName4All;
                 // form.rsgOption.value = "";
 
-                jQuery('#loading').css('display', 'block');
+                //jQuery('#loading').css('display', 'block');
+
+                alert('form.submit');
+
                 form.submit();
             }
         }
