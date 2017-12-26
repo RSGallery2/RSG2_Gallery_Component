@@ -24,10 +24,12 @@ class RSG2_SidebarLinks {
      */
     static function addItems($view = '', $layout = '', $task = '')
     {
+
         $view = strtolower ($view);
         $layout = strtolower ($layout);
 
-        /**/
+        /**
+         echo 'sidebarLinks:Additems'. '<br>';
          echo '$task = "'      . $task      . '"<br>';
          echo '$view = "'      . $view      . '"<br>';
          echo '$layout = "'    . $layout    . '"<br>';
