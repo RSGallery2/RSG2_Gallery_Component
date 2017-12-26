@@ -136,7 +136,7 @@ class Rsgallery2ViewConfig extends JViewLegacy
 				break;
 			// case 'default':
 			default:
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_CONFIGURATION'), 'cog');
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_CONFIGURATION'), 'equalizer');
 
 				JToolBarHelper::apply('config.apply');
 				JToolBarHelper::save('config.save');

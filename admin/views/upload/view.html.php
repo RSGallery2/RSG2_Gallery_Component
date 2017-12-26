@@ -163,7 +163,7 @@ class Rsgallery2ViewUpload extends JViewLegacy
         // on develop show open tasks if existing
         if (!empty ($Rsg2DevelopActive))
         {
-            echo '<span style="color:red">Tasks: <br>* Order of images: a) prevent wrong order b) reorder images does not work <br>* Repair select files button !!!<br>* Red / Green drag image area border, <br>* Hide progressBar after a while<br>put javascript into file</span><br><br>';
+            echo '<span style="color:red">Tasks: <br>* Order of images: a) prevent wrong order b) reorder images does not work <br>* Hide progressBar after a while<br>put javascript into file</span><br><br>';
         }
 
         switch ($Layout) {

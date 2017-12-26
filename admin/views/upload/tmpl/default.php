@@ -796,7 +796,7 @@ jQuery(document).ready(function ($) {
                                 <small class "help-block" style=color:#FF0000;>
 									<?php echo JText::_('COM_RSGALLERY2_UPLOAD_LIMIT_IS') . ' ' . $this->UploadLimit . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
                                 </small>
-                                <div class "help-block">
+                                <small class "help-block">
 									<?php echo JText::_('COM_RSGALLERY2_POST_MAX_SIZE_IS') . ' ' . $this->PostMaxSize . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
                                 </small>
                                 <small style=font-size:smaller;>

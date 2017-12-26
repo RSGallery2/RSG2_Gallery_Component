@@ -137,7 +137,7 @@ class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
 				break;
 			// case 'default':
 			default:
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_CONFIGURATION'), 'cog');
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_CONFIGURATION'), 'screwdriver');
 				JToolBarHelper::apply('\'config.apply');
 				JToolBarHelper::save('\'config.save');
 				JToolBarHelper::cancel('\'config.cancel');
