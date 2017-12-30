@@ -445,8 +445,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
             }
 			/**/
 
-	        //--- check user ID --------------------------------------------
+	        //--- gallery ID --------------------------------------------
 
+	         ToDo: Move to own upload model ...
 	        $galleryId = $input->get('gallery_id', 0, 'INT');
             // wrong id ?
             if ($galleryId < 1)
@@ -463,53 +464,15 @@ class Rsgallery2ControllerUpload extends JControllerForm
             // Transfer files and create image data in db
             //----------------------------------------------------
 
-            // Image file handling model
-            $modelFile = $this->getModel('imageFile');
-            $modelDb = $this->getModel('image');
+	        //--- create image data in DB --------------------------------
 
-            $isWatermarkActive = $rsgConfig->get('watermark');
-            if (!empty($isWatermarkActive))
-            {
-                $modelWatermark = $this->getModel('ImgWaterMark');
-            }
-
-            //--- Create Destination file name -----------------------
-
-            // ToDo: use subfolder for each gallery and check within gallery
-            // Each filename is only allowed once so create a new one if file already exist
-	        //
-	        $singleFileName = $modelDb->generateNewImageName($uploadFileName, $galleryId);
-
-	        $title =  $singleFileName;
-	        /**
-            // Handle title (? add info or not to title)
-            if ($uploadFileName != $singleFileName)
-            {
-                // $title =  $uploadFileName;
-                $title =  $singleFileName . '(' .$uploadFileName . ')';
-
-                // $uploadFileName = $singleFileName;
-            }
-			/**/
-
-	        //--- add image information -----------------------
-
-	        // ToDo: use exif ...
-
-            $description =  '';
-
-	        //--- create db item ----------------------------------
-
-	        // Attention: Rare race condition: Other user may use same file name inbetween ?
-
-	        // Model tells if successful
-	        // return image id on success
-	        $imgId = $modelDb->createImageDbItem($singleFileName, $title, $galleryId, $description);
+	        // ToDo: Move to own upload model ...
+	        list($singleFileName, $imgId) = $this->createOneImageInDb($uploadFileName, $galleryId);
 	        if (empty($imgId))
 	        {
 		        // actual give an error
 		        $msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-		        $msg .= '<br>' . 'Create DB item for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
+		        $msg     .= '<br>' . 'Create DB item for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
 		        $msgType = 'warning';
 
 		        // replace newlines with html line breaks.
@@ -522,84 +485,21 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 	        $ajaxImgObject['cid']  = $imgId;
 
-			//--- Transfer file ----------------------------------
+			//--- Move file and create display, thumbs and watermarked images ---------------------
 
-	        $isCreated = false; // successful images
+	        list($isCreated, $urlThumbFile, $msg) = $this->MoveOneAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId, $msg, $rsgConfig);
+	        if (!$isCreated)
+	        {
+		        echo new JResponseJson($ajaxImgObject, $msg, true);
+		        $app->close();
+		        return;
+	        }
 
-	        $isMoved = $modelFile->moveFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId);
-            if ( ! $isMoved)
-            {
-                // File from other user may exist
-                // lead to upload at the end ....
-                $msg .= '<br>' . 'Move for file "' . $singleFileName . '" failed: It may be created by other user. Please try with different name.';
-	            //$app->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GALLERY_ID'), 'error');
-	            //echo new JResponseJson;
-	            echo new JResponseJson($ajaxImgObject, $msg, true);
+	        $ajaxImgObject['dstFile'] = $urlThumbFile; // $dstFileUrl ???
 
-	            $app->close();
-	            return;
-            }
-            else
-            {   // file is moved
 
-	            $singlePathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/'  .  $singleFileName;
-
-	            //--- Create display  file ----------------------------------
-
-                $isCreated = $modelFile->createDisplayImageFile($singlePathFileName);
-                if (!$isCreated)
-                {
-                    //
-                    $msg .= '<br>' . 'Create Display File for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
-                }
-                else
-                {   // Display file is created
-
-                    //--- Create thumb file ----------------------------------
-
-                    $isCreated = $modelFile->createThumbImageFile($singlePathFileName);
-                    if (!$isCreated)
-                    {
-                        //
-                        $msg .= '<br>' . 'Create Thumb File for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
-	                    echo new JResponseJson($ajaxImgObject, $msg, true);
-
-	                    $app->close();
-	                    return;
-                    }
-
-	                // Create URL for thumb
-	                $urlThumbFile = JUri::root() . $rsgConfig->get('imgPath_thumb') . '/' .  $singleFileName . '.jpg';
-	                $ajaxImgObject['dstFile'] = $urlThumbFile; // $dstFileUrl ???
-
-	                //--- Create watermark file ----------------------------------
-
-                    if (!empty($isWatermarkActive))
-                    {
-                        $isCreated = $modelWatermark->createMarkedFromBaseName(basename($singlePathFileName), 'original');
-                        if (!$isCreated)
-                        {
-                            //
-                            $msg .= '<br>' . 'Create Watermark File for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
-	                        echo new JResponseJson($ajaxImgObject, $msg, true);
-
-	                        $app->close();
-	                        return;
-                        }
-                    }
-                    else
-                    {
-                        // successful transfer
-                        $isCreated = true;
-                    }
-
-                } // display file
-
-            } // file is moved
-
-            // JResponseJson (JasonData, General message, IsErrorFound);
+	        // ??? msg is ???
             echo new JResponseJson($ajaxImgObject, $msg, !$isCreated);
-            //echo new JResponseJson($ajaxImgObject, $msg,  $IsMoved);
 
 	        // for next upload tell where to start
 	        $rsgConfig->setLastUpdateType('upload_drag_and_drop');
@@ -666,5 +566,151 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	    }
         return array ($singleFileName, $dstPathFileName);
     }
+
+	/**
+	 * @param $app
+	 * @param $rsgConfig
+	 * @param $uploadFileName
+	 * @param $galleryId
+	 * @param $msg
+	 * @param $ajaxImgObject
+	 *
+	 * @return array
+	 *
+	 * @since version
+	 */
+	public function createOneImageInDb($uploadFileName, $galleryId): array
+	{
+		//global $rsgConfig, $Rsg2DebugActive;
+
+		// ToDo: try ... catch
+
+		// Database Image model
+		$modelDb = $this->getModel('image');
+
+		//--- Create Destination file name -----------------------
+
+		// ToDo: use sub folder for each gallery and check within gallery
+		// Each filename is only allowed once so create a new one if file already exist
+		//
+		$singleFileName = $modelDb->generateNewImageName($uploadFileName, $galleryId);
+
+		$title = $singleFileName;
+		/**
+		 * // Handle title (? add info or not to title)
+		 * if ($uploadFileName != $singleFileName)
+		 * {
+		 * // $title =  $uploadFileName;
+		 * $title =  $singleFileName . '(' .$uploadFileName . ')';
+		 *
+		 * // $uploadFileName = $singleFileName;
+		 * }
+		 * /**/
+
+		//--- add image information -----------------------
+
+		// ToDo: use exif ...
+
+		$description = '';
+
+		//--- create db item ----------------------------------
+
+		// Attention: Ajax (rare) race condition: Other user may use same file name in between ?
+
+		// Model tells if successful
+		// return image id on success
+		$imgId = $modelDb->createImageDbItem($singleFileName, $title, $galleryId, $description);
+
+		return array($singleFileName, $imgId);
+	}
+
+	/**
+	 * @param $uploadPathFileName
+	 * @param $singleFileName
+	 * @param $galleryId
+	 * @param $msg
+	 * @param $rsgConfig
+	 *
+	 * @return array
+	 *
+	 * @since version
+	 */
+	public function MoveOneAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId): array
+	{
+		global $rsgConfig; //, $Rsg2DebugActive;
+
+		$urlThumbFile = '';
+
+		$msg = '';
+
+		// Image file handling model
+		$modelFile = $this->getModel('imageFile');
+
+		$isCreated = false; // successful images
+
+		// ToDo: try ... catch
+
+		$isMoved = $modelFile->moveFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId);
+		if (!$isMoved)
+		{
+			// File from other user may exist
+			// lead to upload at the end ....
+			$msg .= '<br>' . 'Move for file "' . $singleFileName . '" failed: Other user may have tried to upload with same name at the same moment. Please try again or with different name.';
+		}
+		else
+		{   // file is moved
+
+			$singlePathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $singleFileName;
+
+			//--- Create display  file ----------------------------------
+
+			$isCreated = $modelFile->createDisplayImageFile($singlePathFileName);
+			if (!$isCreated)
+			{
+				//
+				$msg .= '<br>' . 'Create Display File for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
+			}
+			else
+			{   // Display file is created
+
+				//--- Create thumb file ----------------------------------
+
+				$isCreated = $modelFile->createThumbImageFile($singlePathFileName);
+				if (!$isCreated)
+				{
+					//
+					$msg .= '<br>' . 'Create Thumb File for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
+				}
+				else
+				{
+					// Create URL for thumb
+					$urlThumbFile = JUri::root() . $rsgConfig->get('imgPath_thumb') . '/' . $singleFileName . '.jpg';
+
+					//--- Create watermark file ----------------------------------
+
+					$isWatermarkActive = $rsgConfig->get('watermark');
+					if (!empty($isWatermarkActive))
+					{
+						$modelWatermark = $this->getModel('ImgWaterMark');
+
+						$isCreated = $modelWatermark->createMarkedFromBaseName(basename($singlePathFileName), 'original');
+						if (!$isCreated)
+						{
+							//
+							$msg .= '<br>' . 'Create Watermark File for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
+						}
+					}
+					else
+					{
+						// successful transfer
+						$isCreated = true;
+					}
+				}
+			} // display file
+
+		}
+
+		return array($isCreated, $urlThumbFile, $msg); // file is moved
+	}
 }
 
