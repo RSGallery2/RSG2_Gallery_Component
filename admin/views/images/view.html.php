@@ -123,7 +123,7 @@ class Rsgallery2ViewImages extends JViewLegacy
 				// on develop show open tasks if existing
 				if (!empty ($Rsg2DevelopActive))
 				{
-					echo '<span style="color:red">Task: Search controls ...</span><br><br>';
+					echo '<span style="color:red">Task: Search controls ..., Sort by image count is wrong</span><br><br>';
 				}
 
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MANAGE_IMAGES'), 'image');
