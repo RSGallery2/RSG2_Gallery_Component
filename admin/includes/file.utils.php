@@ -513,24 +513,24 @@ class fileHandler
         }
 
         //Create unique install directory and store it for cleanup at the end.
-        $tmpdir = uniqid('rsginstall_');
-        $this->extractDir = $tmpdir;
-        //Clean paths for archive extraction and create extractdir
+        $tmpDir = uniqid('rsginstall_');
+        $this->extractDir = $tmpDir;
+        //Clean paths for archive extraction and create extractDir
         $archivename = JPath::clean($archive['tmp_name']);
         if (!$destination) {
-            $extractdir = JPath::clean(JPATH_ROOT . '/media/' . $tmpdir . '/' );
+            $extractDir = JPath::clean(JPATH_ROOT . '/media/' . $tmpDir . '/' );
         } else {
-            $extractdir = JPath::clean($destination . '/' . $tmpdir . '/' );
+            $extractDir = JPath::clean($destination . '/' . $tmpDir . '/' );
         }
 
         //Unpack archive
         jimport('joomla.filesystem.archive');
-        $result = JArchive::extract($archivename, $extractdir);
+        $result = JArchive::extract($archivename, $extractDir);
         if ($result === false) {
             //Extraction went wrong
             return false;
         } else {
-            //Remove uploaded file on successfull extract
+            //Remove uploaded file on successful extract
             JFile::delete($archive['tmp_name']);
         }
 
@@ -542,11 +542,11 @@ class fileHandler
          * it is a folder, then we will set that folder to be the folder.
          */
 
-        $archivelist = array_merge(JFolder::files($extractdir, ''), JFolder::folders($extractdir, ''));
+        $archivelist = array_merge(JFolder::files($extractDir, ''), JFolder::folders($extractDir, ''));
 
         if (count($archivelist) == 1) {
-            if (JFolder::exists($extractdir . '/' . $archivelist[0])) {
-                $extractdir = JPath::clean($extractdir . '/' . $archivelist[0]);
+            if (JFolder::exists($extractDir . '/' . $archivelist[0])) {
+                $extractDir = JPath::clean($extractDir . '/' . $archivelist[0]);
             }
         }
 
@@ -569,15 +569,15 @@ class fileHandler
         $maxImages = $rsgConfig->get('uu_maxImages');
 
         //Create unique install directory
-        $tmpdir = uniqid('rsginstall_');
+        $tmpDir = uniqid('rsginstall_');
 
         //Store dirname for cleanup at the end.
-        $this->extractDir = $tmpdir;
+        $this->extractDir = $tmpDir;
 
         if (!$destination) {
-            $extractDir = JPath::clean(JPATH_ROOT . '/media/' . $tmpdir . '/' );
+            $extractDir = JPath::clean(JPATH_ROOT . '/media/' . $tmpDir . '/' );
         } else {
-            $extractDir = JPath::clean($destination . '/' . $tmpdir . '/' );
+            $extractDir = JPath::clean($destination . '/' . $tmpDir . '/' );
         }
 
         // Create new zipfile
@@ -625,19 +625,19 @@ class fileHandler
         $mainframe = JFactory::getApplication();
 
         //Create unique install directory
-        $tmpdir = uniqid('rsginstall_');
+        $tmpDir = uniqid('rsginstall_');
 
         //Set destinatiopn
         if (!$destination) {
-            $copyDir = JPath::clean(JPATH_ROOT . '/media/' . $tmpdir . '/' );
+            $copyDir = JPath::clean(JPATH_ROOT . '/media/' . $tmpDir . '/' );
         } else {
-            $copyDir = JPath::clean($destination . '/' . $tmpdir . '/' );
+            $copyDir = JPath::clean($destination . '/' . $tmpDir . '/' );
         }
 
         mkdir($copyDir);
 
-        //Store dirname for cleanup at the end.
-        $this->extractDir = $tmpdir;
+        //Store dirirectory name for cleanup at the end.
+        $this->extractDir = $tmpDir;
 
         //Add trailing slash to source path, clean function will remove it when unnecessary
         $source = JPath::clean($source . '/' );
@@ -659,7 +659,7 @@ class fileHandler
             $mainframe->redirect('index.php?option=com_rsgallery2&view=upload'); // Todo: More information fail ?
         }
 
-        //Create imagelist from FTP-directory
+        //Create image list from FTP-directory
         $list = array();    // This array will hold all files to process
         foreach ($files as $file) {
             if (is_dir($source . $file)) {

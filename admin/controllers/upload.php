@@ -177,7 +177,6 @@ jimport('joomla.application.component.controllerform');
  */
 class Rsgallery2ControllerUpload extends JControllerForm
 {
-
 	/**
 	 * Constructor.
 	 *
@@ -200,7 +199,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
         return  parent::getModel($name, $prefix, $config);
     }
 
-
     /**
      *
      *
@@ -217,7 +215,18 @@ class Rsgallery2ControllerUpload extends JControllerForm
         
         JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-        // Access check
+	    // fallback link
+	    $link = 'index.php?option=com_rsgallery2&view=upload';
+
+	    // Database IDs of created images
+	    $cids = array();
+
+	    // Prepare variables needed /created inside brackets {} for phpstorm code check
+	    $isHasError = false;
+	    $zipPathFileName = '';
+	    //$extractDir = '';
+
+	    // Access check
         $canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
         if (!$canAdmin)
         {
@@ -227,37 +236,195 @@ class Rsgallery2ControllerUpload extends JControllerForm
             str_replace('\n', '<br>', $msg);
         }
         else {
-            try {
-                //Retrieve data from submit form
-                $input = JFactory::getApplication()->input;
-                //	$zip_file       = $input->files->get('zip_file', array(), 'FILES');
-                // 'FILES' is ignored as a *.zip file marked bad from function  isSafeFile inside get
-                $zip_file = $input->files->get('zip_file', array(), 'raw');
-                $isInOneGallery = $input->get('isInOneGallery', null, 'INT');
-                $galleryId = $input->get('GalleryId', null, 'INT');
+            try
+            {
+	            //--- Retrieve data from submit form -------------------
 
-                if ($Rsg2DebugActive) {
-                    $Delim = " ";
-                    // show active parameters
-                    $DebTxt = "==> upload.uploadFromZip.php$Delim----------$Delim";
-                    // array
-                    $DebTxt = $DebTxt . "\$zip_file: " . json_encode($zip_file) . "$Delim";;
-                    $DebTxt = $DebTxt . "\$isInOneGallery: " . $isInOneGallery . "$Delim";
-                    $DebTxt = $DebTxt . "\$galleryId: " . $galleryId . "$Delim";
+	            $input = JFactory::getApplication()->input;
+	            // toDo why not: $zip_file = $input->get('zip_file');
+	            // toDo why not: $zip_file = $input->files->get('zip_file', array(), 'FILES');
+	            // 'FILES' is ignored as a *.zip file marked bad from function  isSafeFile inside get ignored
+	            $zip_file       = $input->files->get('zip_file', array(), 'raw');
+	            $isInOneGallery = $input->get('isInOneGallery', null, 'INT');
+	            $galleryId      = $input->get('GalleryId', null, 'INT');
 
-                    JLog::add($DebTxt); //, JLog::DEBUG);
-                }
+	            if ($Rsg2DebugActive)
+	            {
+		            $Delim = " ";
+		            // show active parameters
+		            $DebTxt = "==> upload.uploadFromZip.php$Delim----------$Delim";
+		            // array
+		            $DebTxt = $DebTxt . "\$zip_file: " . json_encode($zip_file) . "$Delim";;
+		            $DebTxt = $DebTxt . "\$isInOneGallery: " . $isInOneGallery . "$Delim";
+		            $DebTxt = $DebTxt . "\$galleryId: " . $galleryId . "$Delim";
 
-                $app = JFactory::getApplication();
-                $app->setUserState('com_rsgallery2.last_used_uploaded_zip', $zip_file);
-                // $rsgConfig->setLastUsedZipFile($zip_file);
-                $rsgConfig->setLastUpdateType('upload_zip_pc');
+		            JLog::add($DebTxt); //, JLog::DEBUG);
+	            }
 
-                // Model tells if successful
-                $model = $this->getModel('Upload');
-                $isUploaded = $model->uploadFromZip ($zip_file, $galleryId, $isInOneGallery);
-                if ($isUploaded) {
-                    // ToDo: Use FTP upload successful ?
+	            $app = JFactory::getApplication();
+	            $app->setUserState('com_rsgallery2.last_used_uploaded_zip', $zip_file);
+	            // $rsgConfig->setLastUsedZipFile($zip_file);
+	            $rsgConfig->setLastUpdateType('upload_zip_pc');
+
+	            //--- Check zip file name -------------------
+
+	            // Clean up filename to get rid of strange characters like spaces etc
+	            $uploadZipName = JFile::makeSafe($zip_file['name']);
+
+	            jimport('joomla.filesystem.file');
+
+	            if ($zip_file['name'] !== JFile::makeSafe($zip_file['name']) || preg_match('/\s/', JFile::makeSafe($zip_file['name'])))
+	            {
+		            //$app = JFactory::getApplication();
+		            $app->enqueueMessage(JText::_('COM_    _WARNFILENAME'), 'error');
+		            $isHasError = true;
+	            }
+
+	            $extractDir = '';
+
+	            //--- Upload zip -------------------
+
+	            if ( ! $isHasError)
+	            {
+		            //--- Create random upload directory -------------------
+
+		            // Create unique upload directory and store it for cleanup at the end.
+		            $tmpDir = uniqid('rsgUpload_'); // 'rsginstall_'
+		            $extractDir = JPath::clean(JPATH_ROOT . '/media/' . $tmpDir . '/' );
+
+		            //--- Upload zip -------------------
+
+		            // Upload directory will contain *.zip file and extracted image files (for a moment)
+		            $zipPathFileName = $extractDir . $uploadZipName;
+
+		            // Move uploaded file (this is truely uploading the file)
+		            // *.zip needs $allow_unsafe = true since J3.4.x
+		            // upload(string $src, string $dst, boolean $use_streams = false, boolean $allow_unsafe = false, boolean $safeFileOptions = array()) : boolean
+		            $IsUploaded = JFile::upload($zip_file['tmp_name'], $zipPathFileName, false, true);
+		            if (!$IsUploaded)
+		            {
+			            //$app = JFactory::getApplication();
+			            $app->enqueueMessage(JText::_('COM_    _WARNFILENAME'), 'error');
+			            $isHasError = true;
+		            }
+
+	            }
+
+	            //--- Extract images -------------------
+
+	            if ( ! $isHasError)
+	            {
+		            //---  -------------------
+
+		            // toDo:
+		            $isExtracted = JArchive::extract($zipPathFileName, $extractDir);
+		            if (!$IsUploaded)
+		            {
+			            $app->enqueueMessage(JText::_('COM_    _WARNFILENAME'), 'error');
+			            $isHasError = true;
+		            }
+
+	            }
+
+	            //--- Remove uploaded zip file -------------------
+
+	            if ( ! $isHasError)
+	            {
+		            // Remove uploaded file on successful extract
+		            JFile::delete($zipPathFileName['tmp_name']);
+	            }
+
+	            //--- Create list of image files -------------------
+
+	            if ( ! $isHasError)
+	            {
+		            $model = $this->getModel('Upload');
+		            list($files, $ignored) = $model->SelectImagesFromFolder ($extractDir);
+
+		            // Images exist
+		            if ($files)
+		            {
+			            foreach ($files as $filePathName)
+			            {
+
+				            //----------------------------------------------------
+				            // Transfer files and create image data in db
+				            //----------------------------------------------------
+
+				            //--- create image data in DB --------------------------------
+
+				            list($singleFileName, $imgId) = $model->createOneImageInDb(basename($filePathName), $galleryId);
+				            if (empty($imgId))
+				            {
+					            // actual give an error
+					            $msg     .= '<br>' . JText::_('JERROR_ALERTNOAUTHOR');
+					            $msg     .= '<br>' . 'Create DB item for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
+					            $msgType = 'warning';
+
+				            }
+				            else
+				            {
+					            $cids [] = $imgId;
+
+					            //--- Move file and create display, thumbs and watermarked images ---------------------
+
+					            list($isCreated, $urlThumbFile, $subMsg) = $model->MoveOneAndCreateRSG2Images($filePathName, $singleFileName, $galleryId, $msg, $rsgConfig);
+					            if (!$isCreated)
+					            {
+						            // ToDo: remove $imgId from $cids [] array and from image database
+
+
+						            // actual give an error
+						            $msg     .= '<br>' . $subMsg;
+						            $msgType = 'warning';
+					            }
+				            }
+			            } // files
+
+				            //--- Image(s) transferred successfully --------------------
+
+				            if (!empty ($cids))
+				            {
+					            $link = 'index.php?option=' . $this->option . '&view=ImagesProperties&' . http_build_query(array('cid' => $cids));
+				            }
+			            }
+		            }
+		            else
+		            {
+			            // No files found
+			            $app->enqueueMessage(JText::_('COM_RSGALLERY2_NO_VALID_IMAGES_FOUND_IN')
+				            . ' ' . JText::_('COM_RSGALLERY2_FTP_PATH') . ' ' . $ftpPath . "<br>"
+				            . JText::_('COM_RSGALLERY2_PLEASE_CHECK_THE_PATH'));
+		            }
+
+	            }
+
+                //--- Remove added files -----------------------------
+				if ( ! empty ($extractDir))
+				{
+
+					Jfolder::delete($extractDir);
+
+					$delete = JFolder::files($app->get('tmp_path') . '/', uniqid('banners_tracks_'), false, true);
+
+					if (!empty($delete))
+					{
+						if (!JFile::delete($delete))
+						{
+							// JFile::delete throws an error
+							$this->setError(JText::_('COM_BANNERS_ERR_ZIP_DELETE_FAILURE'));
+
+							return false;
+						}
+					}
+
+
+				}
+	            //--- Image(s) transferred successfully ? --------------------
+
+	            if (!empty ($cids))
+	            {
+		            $link = 'index.php?option=' . $this->option . '&view=ImagesProperties&' . http_build_query(array('cid' => $cids));
                     $msg .= JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY');
                 }
                 else
@@ -277,11 +444,10 @@ class Rsgallery2ControllerUpload extends JControllerForm
             }
         }
 
-        $app = JFactory::getApplication();
         $app->enqueueMessage(JText::_('uploadFromZip'));
 
-        //$this->setRedirect('index.php?option=com_rsgallery2&view=upload', $msg, $msgType);
-        $this->setRedirect('index.php?option=com_rsgallery2&amp;view=upload&amp;layout=UploadSingle', $msg, $msgType);
+//	    $cids = $this->input->get('cid', 0, 'int');
+	    $this->setRedirect($link, $msg, $msgType);
     }
     /**/
 
@@ -295,20 +461,19 @@ class Rsgallery2ControllerUpload extends JControllerForm
     {
         global $Rsg2DebugActive, $rsgConfig;
 
-
-// from imagefile model: Retrieve file list
-// then behave like ajax upload using returned CIDS to call
-
-
-
+	    JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
         $msg     = "";
         $msg     = "uploadFromFtpFolder"; // ToDo: Remove
         $msgType = 'notice';
 
         $msg .= '!!! Not implemented yet !!!';
-        
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+        // fallback link
+	    $link = 'index.php?option=com_rsgallery2&view=upload';
+
+	    // Database IDs of created images
+	    $cids = array();
 
         // Access check
         $canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
@@ -319,8 +484,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
             str_replace('\n', '<br>', $msg);
         } else {
             try {
-                //Retrieve data from submit form
-                $input = JFactory::getApplication()->input;
+	            //--- Retrieve data from submit form -------------------
+
+	            $input = JFactory::getApplication()->input;
                 // One gallery for all image:
                 // ToDo: rename in view and here
                 $isInOneGallery = $input->get('selcat', null, 'INT');
@@ -349,11 +515,77 @@ class Rsgallery2ControllerUpload extends JControllerForm
                 $rsgConfig->setLastUsedFtpPath($ftpPath);
                 $rsgConfig->setLastUpdateType('upload_folder_server');
 
-                // Model tells if successful
-                $model = $this->getModel('Upload');
-                $isUploaded = $model->uploadFromFtpFolder ($ftpPath, $galleryId, $isInOneGallery);
-                if ($isUploaded) {
-                    // ToDo: Use FTP upload successful ?
+		            //Add trailing slash to source path, clean function will remove it when unnecessary
+	            $ftpPath = JPath::clean($ftpPath . '/' );
+
+	            if (file_exists($ftpPath) && is_dir($ftpPath))
+	            {
+		            //--- select valid file names from ftp folder -------------------------------
+
+		            $model = $this->getModel('Upload');
+		            list($files, $ignored) = $model->SelectImagesFromFolder ($ftpPath);
+
+		            // Images exist
+		            if ($files)
+		            {
+						foreach ($files as $filePathName)
+						{
+							//----------------------------------------------------
+							// Transfer files and create image data in db
+							//----------------------------------------------------
+
+							//--- create image data in DB --------------------------------
+
+							list($singleFileName, $imgId) = $model->createOneImageInDb(basename($filePathName), $galleryId);
+							if (empty($imgId))
+							{
+								// actual give an error
+								$msg     .= '<br>' . JText::_('JERROR_ALERTNOAUTHOR');
+								$msg     .= '<br>' . 'Create DB item for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
+								$msgType = 'warning';
+
+							}
+							else
+							{
+				                $cids []= $imgId;
+
+								//--- Move file and create display, thumbs and watermarked images ---------------------
+
+								list($isCreated, $urlThumbFile, $subMsg) = $model->MoveOneAndCreateRSG2Images($filePathName, $singleFileName, $galleryId, $msg, $rsgConfig);
+								if (!$isCreated)
+								{
+									// ToDo: remove $imgId from $cids [] array and from image database
+
+
+
+									// actual give an error
+									$msg     .= '<br>' . $subMsg;
+									$msgType = 'warning';
+								}
+							}
+			            } // files
+
+		            }
+		            else
+		            {
+		            	// No files found
+			            $app->enqueueMessage(JText::_('COM_RSGALLERY2_NO_VALID_IMAGES_FOUND_IN')
+				            . ' ' . JText::_('COM_RSGALLERY2_FTP_PATH') . ' ' . $ftpPath . "<br>"
+				            . JText::_('COM_RSGALLERY2_PLEASE_CHECK_THE_PATH'));
+		            }
+	            }
+				else
+				{
+					// folder does not exist
+					$app->enqueueMessage($ftpPath . ' ' . JText::_('COM_RSGALLERY2_FU_FTP_DIR_NOT_EXIST'));
+
+				}
+
+	            //--- Image(s) transferred successfully ? --------------------
+
+	            if (!empty ($cids))
+	            {
+		            $link = 'index.php?option=' . $this->option . '&view=ImagesProperties&' . http_build_query(array('cid' => $cids));
                     $msg .= JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY');
                 }
                 else
@@ -368,15 +600,15 @@ class Rsgallery2ControllerUpload extends JControllerForm
                 $OutTxt .= 'Error executing uploadFromFtpFolder: "' . '<br>';
                 $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-                $app = JFactory::getApplication();
+                //$app = JFactory::getApplication();
                 $app->enqueueMessage($OutTxt, 'error');
             }
         }
 
-        $app = JFactory::getApplication();
         $app->enqueueMessage(JText::_('uploadFromFtpFolder'));
 
-        $this->setRedirect('index.php?option=com_rsgallery2&view=upload', $msg, $msgType);
+//	    $cids = $this->input->get('cid', 0, 'int');
+	    $this->setRedirect($link, $msg, $msgType);
     }
     /**/
 
@@ -430,7 +662,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	        $ajaxImgObject['dstFile'] = '';
 
 
-	        /** toDo: activate user token
+	        /** ToDo: activate user token
 	        $postUserId = $input->get('token', '', 'STRING');
             $user = JFactory::getUser();
             if ($postUserId != $user)
@@ -447,7 +679,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 	        //--- gallery ID --------------------------------------------
 
-	         ToDo: Move to own upload model ...
 	        $galleryId = $input->get('gallery_id', 0, 'INT');
             // wrong id ?
             if ($galleryId < 1)
@@ -460,16 +691,47 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	            return;
             }
 
-            //----------------------------------------------------
+	        //--- Check extension type ---------------------------------
+
+	        yyyy
+
+	        $allowedTypes = $rsgConfig->allowedFileTypes;
+	        if (!in_array($fileType, $allowedTypes))
+	        {
+		        echo new JResponseJson($ajaxImgObject, 'Wrong file type for "' . $uploadFileName . '"', true);
+
+		        $app->close();
+		        return;
+	        }
+
+	        //--- check type for 'is image' -------------------
+
+	        if ( ! @getimagesize($file))
+	        {
+		        echo new JResponseJson($ajaxImgObject, 'Uploaded file is not an image : "' .   . '"'"', true);
+		        
+		        if (is_file ($file))
+		        {
+			        if (!JFile::delete($file))
+			        {
+				        // JFile::delete throws an error
+				        echo new JResponseJson($ajaxImgObject, 'JFile::delete throws an error', true);
+			        }
+		        }
+	        }
+
+	        //----------------------------------------------------
             // Transfer files and create image data in db
             //----------------------------------------------------
 
+	        $model = $this->getModel('Upload');
+
 	        //--- create image data in DB --------------------------------
 
-	        // ToDo: Move to own upload model ...
-	        list($singleFileName, $imgId) = $this->createOneImageInDb($uploadFileName, $galleryId);
+	        list($singleFileName, $imgId) = $model->createOneImageInDb($uploadFileName, $galleryId);
 	        if (empty($imgId))
 	        {
+	        	??? JERROR_ALERTNOAUTHOR
 		        // actual give an error
 		        $msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 		        $msg     .= '<br>' . 'Create DB item for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
@@ -487,9 +749,12 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 			//--- Move file and create display, thumbs and watermarked images ---------------------
 
-	        list($isCreated, $urlThumbFile, $msg) = $this->MoveOneAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId, $msg, $rsgConfig);
+	        list($isCreated, $urlThumbFile, $msg) = $model->MoveOneAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId, $msg, $rsgConfig);
 	        if (!$isCreated)
 	        {
+		        // ToDo: remove $imgId fom image database
+
+
 		        echo new JResponseJson($ajaxImgObject, $msg, true);
 		        $app->close();
 		        return;
@@ -515,202 +780,5 @@ class Rsgallery2ControllerUpload extends JControllerForm
         $app->close();
     }
 
-	/**
-	 * Create an not used filename
-	 * @param string $fileName
-	 * @param int    $galleryId Is prepared for own folder per gallery
-	 *
-	 *
-	 * @return array
-	 *
-	 * @since 4.3.2
-	 */
-    function createDestinationFileName ($fileName='emptyOnCreate', $galleryId=0)
-    {
-	    // ToDo: Decide We could create a empty file to reserve it so it is not overwritten
-	    //       by other users
-        global $rsgConfig;
-
-        $singleFileName = $fileName;
-
-	    $originalPath    = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/';
-	    $dstPathFileName = $originalPath . $singleFileName;
-
-	    try
-        {
-	        // Test if original can't be used as it does exist already
-	        if (JFile::exists($dstPathFileName))
-	        {
-		        // add number
-		        $singleFileName  = $singleFileName . '-01';
-		        $dstPathFileName = $originalPath . $singleFileName;
-
-		        while (JFile::exists($dstPathFileName))
-		        {
-			        // add number
-			        $singleFileName  = $singleFileName . '-01';
-			        $dstPathFileName = $originalPath . $singleFileName;
-		        }
-	        }
-        }
-	    catch (RuntimeException $e)
-	    {
-		    $singleFileName = '';
-
-		    $OutTxt = '';
-		    $OutTxt .= 'Error executing createDestinationFileName: "' . $fileName . '<br>';
-		    $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-		    $app = JFactory::getApplication();
-		    $app->enqueueMessage($OutTxt, 'error');
-	    }
-        return array ($singleFileName, $dstPathFileName);
-    }
-
-	/**
-	 * @param $app
-	 * @param $rsgConfig
-	 * @param $uploadFileName
-	 * @param $galleryId
-	 * @param $msg
-	 * @param $ajaxImgObject
-	 *
-	 * @return array
-	 *
-	 * @since version
-	 */
-	public function createOneImageInDb($uploadFileName, $galleryId): array
-	{
-		//global $rsgConfig, $Rsg2DebugActive;
-
-		// ToDo: try ... catch
-
-		// Database Image model
-		$modelDb = $this->getModel('image');
-
-		//--- Create Destination file name -----------------------
-
-		// ToDo: use sub folder for each gallery and check within gallery
-		// Each filename is only allowed once so create a new one if file already exist
-		//
-		$singleFileName = $modelDb->generateNewImageName($uploadFileName, $galleryId);
-
-		$title = $singleFileName;
-		/**
-		 * // Handle title (? add info or not to title)
-		 * if ($uploadFileName != $singleFileName)
-		 * {
-		 * // $title =  $uploadFileName;
-		 * $title =  $singleFileName . '(' .$uploadFileName . ')';
-		 *
-		 * // $uploadFileName = $singleFileName;
-		 * }
-		 * /**/
-
-		//--- add image information -----------------------
-
-		// ToDo: use exif ...
-
-		$description = '';
-
-		//--- create db item ----------------------------------
-
-		// Attention: Ajax (rare) race condition: Other user may use same file name in between ?
-
-		// Model tells if successful
-		// return image id on success
-		$imgId = $modelDb->createImageDbItem($singleFileName, $title, $galleryId, $description);
-
-		return array($singleFileName, $imgId);
-	}
-
-	/**
-	 * @param $uploadPathFileName
-	 * @param $singleFileName
-	 * @param $galleryId
-	 * @param $msg
-	 * @param $rsgConfig
-	 *
-	 * @return array
-	 *
-	 * @since version
-	 */
-	public function MoveOneAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId): array
-	{
-		global $rsgConfig; //, $Rsg2DebugActive;
-
-		$urlThumbFile = '';
-
-		$msg = '';
-
-		// Image file handling model
-		$modelFile = $this->getModel('imageFile');
-
-		$isCreated = false; // successful images
-
-		// ToDo: try ... catch
-
-		$isMoved = $modelFile->moveFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId);
-		if (!$isMoved)
-		{
-			// File from other user may exist
-			// lead to upload at the end ....
-			$msg .= '<br>' . 'Move for file "' . $singleFileName . '" failed: Other user may have tried to upload with same name at the same moment. Please try again or with different name.';
-		}
-		else
-		{   // file is moved
-
-			$singlePathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $singleFileName;
-
-			//--- Create display  file ----------------------------------
-
-			$isCreated = $modelFile->createDisplayImageFile($singlePathFileName);
-			if (!$isCreated)
-			{
-				//
-				$msg .= '<br>' . 'Create Display File for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
-			}
-			else
-			{   // Display file is created
-
-				//--- Create thumb file ----------------------------------
-
-				$isCreated = $modelFile->createThumbImageFile($singlePathFileName);
-				if (!$isCreated)
-				{
-					//
-					$msg .= '<br>' . 'Create Thumb File for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
-				}
-				else
-				{
-					// Create URL for thumb
-					$urlThumbFile = JUri::root() . $rsgConfig->get('imgPath_thumb') . '/' . $singleFileName . '.jpg';
-
-					//--- Create watermark file ----------------------------------
-
-					$isWatermarkActive = $rsgConfig->get('watermark');
-					if (!empty($isWatermarkActive))
-					{
-						$modelWatermark = $this->getModel('ImgWaterMark');
-
-						$isCreated = $modelWatermark->createMarkedFromBaseName(basename($singlePathFileName), 'original');
-						if (!$isCreated)
-						{
-							//
-							$msg .= '<br>' . 'Create Watermark File for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
-						}
-					}
-					else
-					{
-						// successful transfer
-						$isCreated = true;
-					}
-				}
-			} // display file
-
-		}
-
-		return array($isCreated, $urlThumbFile, $msg); // file is moved
-	}
 }
 

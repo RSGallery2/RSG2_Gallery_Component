@@ -70,13 +70,6 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 		}
 	}
 
-	/*******************************************************************************************************
-	 *
-	 * !!! Moved from other file !!!
-	 *
-	 * ==> IMG
-	 *******************************************************************************************************/
-
 
 	/**
 	 * Creates a display image with size from config

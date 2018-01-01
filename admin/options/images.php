@@ -1216,9 +1216,9 @@ function batchupload($option)
 			{ // if (is_array($zip_file)) {
 				if ($uploadFile->checkSize($zip_file) == 1)
 				{
-					//$ziplist = $uploadFile->handleZIP($zip_file);//MK// [change] [handleZIP uses PclZip that is no longer in J1.6]
-					$ziplist = $uploadFile->extractArchive($zip_file);//MK// [todo] [check extractArchive]
-					if (!$ziplist)
+					//$zipList = $uploadFile->handleZIP($zip_file);//MK// [change] [handleZIP uses PclZip that is no longer in J1.6]
+					$zipList = $uploadFile->extractArchive($zip_file);//MK// [todo] [check extractArchive]
+					if (!$zipList)
 					{
 						// Extracting archive failed
 						// OneUploadForm $app->redirect('index.php?option=com_rsgallery2&rsgOption=images&task=batchupload' );
@@ -1244,10 +1244,10 @@ function batchupload($option)
 		else
 		{
 			//not zip thus ftp
-			$ziplist = $uploadFile->handleFTP($ftppath);
+			$zipList = $uploadFile->handleFTP($ftppath);
 		}
 
-		html_rsg2_images::batchupload_2($ziplist, $uploadFile->extractDir);//Step 2 in batchupload process
+		html_rsg2_images::batchupload_2($zipList, $uploadFile->extractDir);//Step 2 in batchupload process
 	}
 	else
 	{
