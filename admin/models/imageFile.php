@@ -200,44 +200,81 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 		return $IsImageCreated;
 	}
 
-	// ToDo: add gallery ID as parameter for sub folder or sub folder itself ...
-	public function moveFile2OriginalDir($uploadFileName, $singleFileName, $galleryId)
-	{
-		global $rsgConfig;
-		global $Rsg2DebugActive;
+    // ToDo: add gallery ID as parameter for sub folder or sub folder itself ...
+    public function moveFile2OriginalDir($uploadFileName, $singleFileName, $galleryId)
+    {
+        global $rsgConfig;
+        global $Rsg2DebugActive;
 
-		$isMoved = false;
+        $isMoved = false;
 
-		try
-		{
-			$dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/'  .  $singleFileName;
+        try
+        {
+            $dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/'  .  $singleFileName;
 
-			if ($Rsg2DebugActive)
-			{
-				JLog::add('==> moveFile2OrignalDir: "' . $singleFileName . '"');
-			}
+            if ($Rsg2DebugActive)
+            {
+                JLog::add('==> moveFile2OrignalDir: "' . $singleFileName . '"');
+            }
 
-			$isMoved = move_uploaded_file($uploadFileName, $dstFileName);
-		}
-		catch (RuntimeException $e)
-		{
-			$OutTxt = '';
-			$OutTxt .= 'moveFile2OrignalDir: "' . $uploadFileName . '" -> "' . $dstFileName . '"<br>';
-			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+            $isMoved = move_uploaded_file($uploadFileName, $dstFileName);
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'moveFile2OrignalDir: "' . $uploadFileName . '" -> "' . $dstFileName . '"<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-			$app = JFactory::getApplication();
-			$app->enqueueMessage($OutTxt, 'error');
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
 
-			if ($Rsg2DebugActive)
-			{
-				JLog::add($OutTxt);
-			}
-		}
+            if ($Rsg2DebugActive)
+            {
+                JLog::add($OutTxt);
+            }
+        }
 
-		return $isMoved;
-	}
+        return $isMoved;
+    }
 
-	// create watermark -> watermark has separate class
+    // ToDo: add gallery ID as parameter for sub folder or sub folder itself ...
+    public function copyFile2OriginalDir($srcFileName, $dstFileName, $galleryId)
+    {
+        global $rsgConfig;
+        global $Rsg2DebugActive;
+
+        $isCopied = false;
+
+        try
+        {
+            $dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/'  .  $dstFileName;
+
+            if ($Rsg2DebugActive)
+            {
+                JLog::add('==> copyFile2OrignalDir: "' . $dstFileName . '"');
+            }
+
+            $isCopied = JFile::copy($srcFileName, $dstFileName);
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'copyFile2OrignalDir: "' . $srcFileName . '" -> "' . $dstFileName . '"<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+
+            if ($Rsg2DebugActive)
+            {
+                JLog::add($OutTxt);
+            }
+        }
+
+        return $isCopied;
+    }
+
+    // create watermark -> watermark has separate class
 
 
 	/**
