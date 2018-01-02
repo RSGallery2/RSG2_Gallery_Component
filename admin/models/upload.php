@@ -179,6 +179,50 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 		return array($singleFileName, $imgId);
 	}
 
+    /**
+     * Moves the file to rsg...Original
+     * @param $uploadPathFileName
+     * @param $singleFileName
+     * @param $galleryId
+     * @param $msg
+     * @param $rsgConfig
+     *
+     * @return array
+     *
+     * @since version
+     */
+    public function MoveImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId): array
+	{
+		global $rsgConfig; //, $Rsg2DebugActive;
+
+        $urlThumbFile = '';
+
+        $msg = '';
+
+        // Image file handling model
+        $modelFile = $this->getModel('imageFile');
+
+        $isMoved = false; // successful images
+
+        // ToDo: try ... catch
+
+        $singlePathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $singleFileName;
+
+        $isMoved = $modelFile->moveFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId);
+        if ($isMoved)
+        {
+            list($isMoved, $urlThumbFile, $msg) = $this->CopyOneAndCreateRSG2Images($singlePathFileName, $singleFileName, $galleryId, $msg, $rsgConfig);
+        }
+        else
+        {
+            // File from other user may exist
+            // lead to upload at the end ....
+            $msg .= '<br>' . 'Move for file "' . $singleFileName . '" failed: Other user may have tried to upload with same name at the same moment. Please try again or with different name.';
+        }
+
+        return array($isMoved, $urlThumbFile, $msg); // file is moved
+    }
+
 	/**
 	 * @param $uploadPathFileName
 	 * @param $singleFileName
@@ -190,7 +234,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	 *
 	 * @since version
 	 */
-	public function yyy MoveOneAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId): array
+	public function CopyImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId): array
 	{
 		global $rsgConfig; //, $Rsg2DebugActive;
 
@@ -205,17 +249,25 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
 		// ToDo: try ... catch
 
-		$isMoved = $modelFile->moveFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId);
-		if (!$isMoved)
+        $singlePathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $singleFileName;
+
+        // Check if file is already in RSG2 original directory
+        if (realpath ($uploadPathFileName) != realpath ($singlePathFileName))
+        {
+            $isCopied = $modelFile->copyFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId);
+        }
+        else
+        {
+            $isCopied = true;
+        }
+		if (!$isCopied)
 		{
 			// File from other user may exist
 			// lead to upload at the end ....
-			$msg .= '<br>' . 'Move for file "' . $singleFileName . '" failed: Other user may have tried to upload with same name at the same moment. Please try again or with different name.';
+			$msg .= '<br>' . 'Copy for file "' . $singleFileName . '" failed: Other user may have tried to upload with same name at the same moment. Please try again or with different name.';
 		}
 		else
-		{   // file is moved
-
-			$singlePathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $singleFileName;
+		{   // file is copied
 
 			//--- Create display  file ----------------------------------
 

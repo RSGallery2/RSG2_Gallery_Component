@@ -368,7 +368,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 					            //--- Move file and create display, thumbs and watermarked images ---------------------
 
-					            list($isCreated, $urlThumbFile, $subMsg) = $model->MoveOneAndCreateRSG2Images($filePathName, $singleFileName, $galleryId, $msg, $rsgConfig);
+					            list($isCreated, $urlThumbFile, $subMsg) = $model->CopyImageAndCreateRSG2Images($filePathName, $singleFileName, $galleryId, $msg, $rsgConfig);
 					            if (!$isCreated)
 					            {
 						            // ToDo: remove $imgId from $cids [] array and from image database
@@ -551,7 +551,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 								//--- Move file and create display, thumbs and watermarked images ---------------------
 
-								list($isCreated, $urlThumbFile, $subMsg) = $model->MoveOneAndCreateRSG2Images($filePathName, $singleFileName, $galleryId, $msg, $rsgConfig);
+								list($isCreated, $urlThumbFile, $subMsg) = $model->CopyImageAndCreateRSG2Images($filePathName, $singleFileName, $galleryId, $msg, $rsgConfig);
 								if (!$isCreated)
 								{
 									// ToDo: remove $imgId from $cids [] array and from image database
@@ -749,7 +749,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 			//--- Move file and create display, thumbs and watermarked images ---------------------
 
-	        list($isCreated, $urlThumbFile, $msg) = $model->MoveOneAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId, $msg, $rsgConfig);
+	        list($isCreated, $urlThumbFile, $msg) = $model->MoveImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId, $msg, $rsgConfig);
 	        if (!$isCreated)
 	        {
 		        // ToDo: remove $imgId fom image database
