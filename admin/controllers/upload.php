@@ -878,7 +878,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 		        if ($Rsg2DebugActive)
 		        {
-			        JLog::add('MoveImageAndCreateRSG2Images failed: ' . $filePathName . ', ' . $singleFileName);
+			        JLog::add('MoveImageAndCreateRSG2Images failed: ' . $uploadFileName . ', ' . $singleFileName);
 		        }
 
 		        echo new JResponseJson($ajaxImgObject, $msg, true);
