@@ -134,16 +134,19 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	 *
 	 * @since version
 	 */
-	public function createOneImageInDb($uploadFileName, $galleryId): array
+	public function createOneImageInDb($uploadFileName, $galleryId)//: array
 	{
 		//global $rsgConfig, $Rsg2DebugActive;
 
 		// ToDo: try ... catch
 
 		// Database Image model
-		$modelDb = $this->getModel('image');
+		//$modelDb = $this->getModel('image');
+        //$model = JModel::getInstance('(ModelName)','(ComponentName)Model');
+        //$modelDb = JModel::getInstance('image', 'RSGallery2Model');
+        $modelDb = JModel::getInstance('image');
 
-		//--- Create Destination file name -----------------------
+        //--- Create Destination file name -----------------------
 
 		// ToDo: use sub folder for each gallery and check within gallery
 		// Each filename is only allowed once so create a new one if file already exist
@@ -191,7 +194,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
      *
      * @since version
      */
-    public function MoveImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId): array
+    public function MoveImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId)//: array
 	{
 		global $rsgConfig; //, $Rsg2DebugActive;
 
@@ -234,7 +237,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	 *
 	 * @since version
 	 */
-	public function CopyImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId): array
+	public function CopyImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId)//: array
 	{
 		global $rsgConfig; //, $Rsg2DebugActive;
 
@@ -328,7 +331,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	 * @since 4.3.2
 	 */
 	// Todo: ??? move to imageFile ???
-	public function SelectImagesFromFolder ($extractDir): array
+	public function SelectImagesFromFolder ($extractDir)//: array
 	{
 		global $rsgConfig; //, $Rsg2DebugActive;
 
