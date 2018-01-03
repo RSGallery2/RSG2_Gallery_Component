@@ -792,10 +792,12 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	            return;
             }
 
-	        //--- Check extension type ---------------------------------
+	        //--- Check 4 allowed image type ---------------------------------
 
-	        $allowedTypes = $rsgConfig->allowedFileTypes;
-	        if (!in_array($fileType, $allowedTypes))
+            $allowedTypes = explode(",", strtolower($rsgConfig->get('allowedFileTypes')));
+
+            $fileTypeId = array_pop (explode ('/',$fileType));
+            if (!in_array($fileTypeId, $allowedTypes))
 	        {
 		        echo new JResponseJson($ajaxImgObject, 'Wrong file type for "' . $uploadFileName . '"', true);
 
@@ -809,8 +811,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	        }
 
 	        //--- check type for 'is image' -------------------
-
-	        if ( ! @getimagesize($uploadFileName))
+            /* here not necessary as is already checked above *
+	        if ( ! @getimagesize($uploadPathFileName))
 	        {
 		        echo new JResponseJson($ajaxImgObject, 'Uploaded file is not an image : "' . $uploadFileName  . '"', true);
 
@@ -831,6 +833,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		        $app->close();
 		        return;
 	        }
+            /**/
 
 	        //----------------------------------------------------
             // Transfer files and create image data in db
