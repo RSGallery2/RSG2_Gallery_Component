@@ -141,11 +141,9 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 		// ToDo: try ... catch
 
 		// Database Image model
-		//$modelDb = $this->getModel('image');
-        //$model = JModel::getInstance('(ModelName)','(ComponentName)Model');
-        //$modelDb = JModel::getInstance('image', 'RSGallery2Model');
-        $modelDb = JModel::getInstance('image');
-
+        //$modelDb = $this->getModel('image');
+        $modelDb = $this->getInstance('image', 'RSGallery2Model');
+        //
         //--- Create Destination file name -----------------------
 
 		// ToDo: use sub folder for each gallery and check within gallery
@@ -203,7 +201,8 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
         $msg = '';
 
         // Image file handling model
-        $modelFile = $this->getModel('imageFile');
+        //$modelFile = $this->getModel('imageFile');
+        $modelFile = $this->getInstance('imageFile', 'RSGallery2Model');
 
         $isMoved = false; // successful images
 
@@ -214,7 +213,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
         $isMoved = $modelFile->moveFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId);
         if ($isMoved)
         {
-            list($isMoved, $urlThumbFile, $msg) = $this->CopyOneAndCreateRSG2Images($singlePathFileName, $singleFileName, $galleryId, $msg, $rsgConfig);
+            list($isMoved, $urlThumbFile, $msg) = $this->CopyImageAndCreateRSG2Images($singlePathFileName, $singleFileName, $galleryId, $msg, $rsgConfig);
         }
         else
         {
@@ -246,7 +245,8 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 		$msg = '';
 
 		// Image file handling model
-		$modelFile = $this->getModel('imageFile');
+        //$modelFile = $this->getModel('imageFile');
+        $modelFile = $this->getInstance('imageFile', 'RSGallery2Model');
 
 		$isCreated = false; // successful images
 
@@ -301,7 +301,8 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 					$isWatermarkActive = $rsgConfig->get('watermark');
 					if (!empty($isWatermarkActive))
 					{
-						$modelWatermark = $this->getModel('ImgWaterMark');
+						//$modelWatermark = $this->getModel('ImgWaterMark');
+                        $modelWatermark = $this->getInstance('imgwatermark', 'RSGallery2Model');
 
 						$isCreated = $modelWatermark->createMarkedFromBaseName(basename($singlePathFileName), 'original');
 						if (!$isCreated)
