@@ -724,13 +724,22 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
         $app = JFactory::getApplication();
 
-        try {
+
+	    try {
             if ($Rsg2DebugActive) {
                 // identify active file
                 JLog::add('==> uploadAjaxSingleFile');
             }
 
-            $input = JFactory::getApplication()->input;
+            /**
+	        // echo new JResponseJson("uploadAjaxSingleFile (1)", "uploadAjaxSingleFile (2)", true);
+	        echo new JResponseJson("uploadAjaxSingleFile (1)", "uploadAjaxSingleFile (2)", true);
+	        $app->close();
+			return;
+            /**/
+
+
+	        $input = JFactory::getApplication()->input;
             $oFile = $input->files->get('upload_file', array(), 'raw');
 
             $uploadPathFileName = $oFile['tmp_name'];
@@ -763,6 +772,26 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	        $ajaxImgObject['dstFile'] = '';
 
 
+	        /**
+	        // echo new JResponseJson("uploadAjaxSingleFile (1)", "uploadAjaxSingleFile (2)", true);
+	        //echo new JResponseJson("uploadAjaxSingleFile (1)", "uploadAjaxSingleFile (2)", true);
+	        echo new JResponseJson("uploadAjaxSingleFile (1)", "uploadAjaxSingleFile (2)", false);
+	        $app->close();
+	        return;
+	        /**/
+
+	        /**
+	        $msg = "uploadAjaxSingleFile (2)";
+	        $ajaxImgObject['file'] = $uploadFileName; // $dstFile;
+	        // some dummy data for error messages
+	        $ajaxImgObject['cid']  = -1;
+	        //$ajaxImgObject['dstFile'] = $urlThumbFile; // $dstFileUrl ???
+	        $ajaxImgObject['dstFile'] = 'd:\xampp\htdocs\joomla3x\images\rsgallery\thumb\DSC_1088.JPG.jpg';
+	        echo new JResponseJson($ajaxImgObject, $msg, false);
+	        $app->close();
+	        return;
+			/**/
+
 	        /** ToDo: activate user token
 	        $postUserId = $input->get('token', '', 'STRING');
             $user = JFactory::getUser();
@@ -778,10 +807,10 @@ class Rsgallery2ControllerUpload extends JControllerForm
             }
 			/**/
 
-	        //--- gallery ID --------------------------------------------
+		    //--- gallery ID --------------------------------------------
 
 	        $galleryId = $input->get('gallery_id', 0, 'INT');
-            // wrong id ?
+		    // wrong id ?
             if ($galleryId < 1)
             {
 	            //$app->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GALLERY_ID'), 'error');
@@ -792,12 +821,18 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	            return;
             }
 
-	        //--- Check 4 allowed image type ---------------------------------
+		    //--- Check 4 allowed image type ---------------------------------
 
             $allowedTypes = explode(",", strtolower($rsgConfig->get('allowedFileTypes')));
 
-            $fileTypeId = array_pop (explode ('/',$fileType));
-            if (!in_array($fileTypeId, $allowedTypes))
+		    // $this->ajaxDummyAnswerOK (); return; // 03
+		    //$fileTypeId = array_pop (explode ('/', $fileType)); // destroying ajax answer
+		    //$this->ajaxDummyAnswerOK (); return; // 04
+		    $exploded = explode ('/', $fileType);
+		    $fileTypeId = array_pop ($exploded);
+		    // $this->ajaxDummyAnswerOK (); return; //
+
+		    if (!in_array($fileTypeId, $allowedTypes))
 	        {
 		        echo new JResponseJson($ajaxImgObject, 'Wrong file type for "' . $uploadFileName . '"', true);
 
@@ -810,7 +845,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		        return;
 	        }
 
-	        //--- check type for 'is image' -------------------
+		    //--- check type for 'is image' -------------------
             /* here not necessary as is already checked above *
 	        if ( ! @getimagesize($uploadPathFileName))
 	        {
@@ -888,8 +923,23 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 	        $ajaxImgObject['dstFile'] = $urlThumbFile; // $dstFileUrl ???
 
+
+
+	        /**
+	        $msg = "uploadAjaxSingleFile (2)";
+	        $ajaxImgObject['file'] = $uploadFileName; // $dstFile;
+	        // some dummy data for error messages
+	        $ajaxImgObject['cid']  = -1;
+	        //$ajaxImgObject['dstFile'] = $urlThumbFile; // $dstFileUrl ???
+	        $ajaxImgObject['dstFile'] = 'd:\xampp\htdocs\joomla3x\images\rsgallery\thumb\DSC_1088.JPG.jpg';
+	        echo new JResponseJson($ajaxImgObject, $msg, false);
+	        $app->close();
+	        return;
+	        /**/
+
 	        // ??? msg is ???
             echo new JResponseJson($ajaxImgObject, $msg, !$isCreated);
+	        //echo new JResponseJson("uploadAjaxSingleFile (1)", "uploadAjaxSingleFile (2)", true);
 
             if ($Rsg2DebugActive) {
                 JLog::add('<== uploadAjaxSingleFile');
@@ -901,5 +951,26 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
         $app->close();
     }
+
+	// $this->ajaxDummyAnswerOK (); return; // 01
+
+	/**
+    private function ajaxDummyAnswerOK ()
+    {
+	    $msg = "uploadAjaxSingleFile (2)";
+	    $ajaxImgObject['file'] = 'DSC_1043.jpg'; // $dstFile;
+	    // some dummy data for error messages
+	    $ajaxImgObject['cid']  = 1043;
+	    //$ajaxImgObject['dstFile'] = $urlThumbFile; // $dstFileUrl ???
+	    $ajaxImgObject['dstFile'] = 'http://127.0.0.1/joomla3x/images/rsgallery/thumb/DSC_1043.JPG';
+	    echo new JResponseJson($ajaxImgObject, $msg, false);
+
+	    $app = JFactory::getApplication();
+	    $app->close();
+	    return;
+    }
+    /**/
+
+
 }
 
