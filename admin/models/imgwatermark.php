@@ -296,8 +296,9 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 	 */
 	public function createMarkedFromBaseName ($imageName='', $imageOrigin = 'display')
 	{
-		$isCreated = false;
 		global $Rsg2DebugActive;
+
+		$isCreated = false;
 
 		// Not an image file name
 		if (empty ($imageName))
