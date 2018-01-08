@@ -150,7 +150,7 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 	 *
 	 * @since 4.3.2
 	 */
-	public static function isImageExisting($sourceFile=''): array
+	public static function isImageExisting($sourceFile='')//: array
 	{
 		$imageSize = null;
 
@@ -177,7 +177,7 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 	 *
 	 * @since 4.3.2
 	 */
-	public static function imgCreateFunctions($imageType): array
+	public static function imgCreateFunctions($imageType)//: array
 	{
 		// @var $imgFunctions Type[] */
 		$imgFunctions = null;
@@ -230,7 +230,7 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 	                                   $margin_top        = 20,
 	                                   $margin_right      = 20,
 	                                   $margin_bottom     = 20,
-	                                   $margin_left       = 20): array
+	                                   $margin_left       = 20)//: array
 	{
 		/**
 		 * Determines the position of the image and returns x and y
