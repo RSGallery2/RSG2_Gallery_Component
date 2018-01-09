@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016 - 2017 RSGallery2
+ * @copyright   (C) 2016 - 2018 RSGallery2
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -823,6 +823,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 		    //--- Check 4 allowed image type ---------------------------------
 
+
+            /* ToDo: Put in again ... */
+
             $allowedTypes = explode(",", strtolower($rsgConfig->get('allowedFileTypes')));
 
 		    // $this->ajaxDummyAnswerOK (); return; // 03
@@ -844,6 +847,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		        $app->close();
 		        return;
 	        }
+            /**/
 
 		    //--- check type for 'is image' -------------------
             /* here not necessary as is already checked above *
