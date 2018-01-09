@@ -4,7 +4,7 @@
  *
  * @version       $Id: version.rsgallery2.php 1099 2012-10-08 11:37:43Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003 - 2017 RSGallery2
+ * @copyright (C) 2003 - 2018 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  */
@@ -41,7 +41,7 @@ class rsgalleryVersion
     /** @var string Timezone */
 //    var $RELTZ      = 'UTC';
     /** @var string Copyright Text */
-    var $COPYRIGHT = '&copy; 2005 - 2017';
+    var $COPYRIGHT = '&copy; 2005 - 2018';
     /** @var string URL */
     var $URL = '<strong><a class="rsg2-footer" href="http://www.rsgallery2.org">RSGallery2</a></strong>';
     /** @var string Whether site is a production = 1 or demo site = 0: 1 is default */

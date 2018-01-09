@@ -4,7 +4,7 @@
  *
  * @version       $Id: img.utils.php 1090 2012-07-09 18:52:20Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2005 - 2017 RSGallery2
+ * @copyright (C) 2005 - 2018 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery2 is Free Software
  */

@@ -4,7 +4,7 @@
  * resorting galleries in galleries view
  *
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016 - 2017 RSGallery2
+ * @copyright   (C) 2016 - 2018 RSGallery2
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software

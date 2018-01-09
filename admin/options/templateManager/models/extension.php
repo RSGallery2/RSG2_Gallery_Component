@@ -3,7 +3,7 @@
  * @version        $Id: extension.php 1012 2011-02-01 15:13:13Z mirjam $
  * @package        Joomla
  * @subpackage     Installer
- * @copyright      Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.
+ * @copyright      Copyright (C) 2005 - 2018 RSGallery2
  * @license        GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
