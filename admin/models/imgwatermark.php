@@ -331,7 +331,12 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 		// destination  path file name
 		$watermarkFilename = ImgWatermarkNames::createWatermarkedPathFileName($imageName, $imageOrigin);
 
-		//--- create water marked file ------------------------
+        if ($Rsg2DebugActive)
+        {
+            JLog::add('==> createThumbImageFile: "' . $srcImagePath . '" -> "' . $watermarkFilename . '"');
+        }
+
+        //--- create water marked file ------------------------
 		$isCreated = $this->createMarkedFromFileNames ($srcImagePath, $watermarkFilename);
 
 		return $isCreated;

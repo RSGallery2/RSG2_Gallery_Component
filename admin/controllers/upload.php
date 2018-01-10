@@ -849,7 +849,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	        }
             /**/
 
-		    //--- check type for 'is image' -------------------
+            //--- check type for 'is image' -------------------
             /* here not necessary as is already checked above *
 	        if ( ! @getimagesize($uploadPathFileName))
 	        {
@@ -904,7 +904,14 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		        return;
 	        }
 
-	        $ajaxImgObject['cid']  = $imgId;
+            if ($Rsg2DebugActive)
+            {
+                JLog::add('<==After createOneImageInDb: ' . $imgId );
+            }
+
+            // $this->ajaxDummyAnswerOK (); return; // 05
+
+            $ajaxImgObject['cid']  = $imgId;
 
 			//--- Move file and create display, thumbs and watermarked images ---------------------
 
@@ -912,8 +919,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	        if (!$isCreated)
 	        {
 		        // ToDo: remove $imgId fom image database
-
-
 
 		        if ($Rsg2DebugActive)
 		        {
@@ -925,11 +930,18 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		        return;
 	        }
 
-	        $ajaxImgObject['dstFile'] = $urlThumbFile; // $dstFileUrl ???
+            if ($Rsg2DebugActive)
+            {
+                JLog::add('<==After MoveImageAndCreateRSG2Images: ' . $isCreated );
+            }
+
+            $ajaxImgObject['dstFile'] = $urlThumbFile; // $dstFileUrl ???
+
+            $this->ajaxDummyAnswerOK (); return; // 16
 
 
 
-	        /**
+            /**
 	        $msg = "uploadAjaxSingleFile (2)";
 	        $ajaxImgObject['file'] = $uploadFileName; // $dstFile;
 	        // some dummy data for error messages
@@ -958,7 +970,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 	// $this->ajaxDummyAnswerOK (); return; // 01
 
-	/**
+	/**/
     private function ajaxDummyAnswerOK ()
     {
 	    $msg = "uploadAjaxSingleFile (2)";
