@@ -20,7 +20,7 @@ class html_rsg2_search
 
 		if ($document->getType() == 'html')
 		{
-			$document->addStyleSheet(JURI_SITE . "/components/com_rsgallery2/lib/rsgcomments/rsgsearch.css");
+			$document->addStyleSheet(JURI_SITE . "/components/com_rsgallery2/lib/rsgsearch/rsgsearch.css");
 		}
 		?>
 
