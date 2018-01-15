@@ -111,8 +111,12 @@ class Rsgallery2ViewImages extends JViewLegacy
 				// on develop show open tasks if existing
 				if (!empty ($Rsg2DevelopActive))
 				{
-					echo '<span style="color:red">Task: Add pagination, Add delete function</span><br><br>';
-				}
+                    echo '<span style="color:red">'
+                        . 'Tasks: <br>'
+                        . '* Add pagination<br>'
+                        . '* Add delete function<br>'
+                        . '</span><br><br>';
+                }
 
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_IMAGES_VIEW_RAW_DATA'), 'image');
 				JToolBarHelper::editList('image.edit');
@@ -123,7 +127,12 @@ class Rsgallery2ViewImages extends JViewLegacy
 				// on develop show open tasks if existing
 				if (!empty ($Rsg2DevelopActive))
 				{
-					echo '<span style="color:red">Task: Search controls ..., Sort by image count is wrong</span><br><br>';
+                    echo '<span style="color:red">'
+                        . 'Tasks: <br>'
+                        . '* Delete function needs to delete watermarked too !<br>'
+                        . '* Search controls ...<br>'
+                        . '* Sort by image count is wrong<br>'
+                        . '</span><br><br>';
 				}
 
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MANAGE_IMAGES'), 'image');

@@ -53,11 +53,6 @@ class Rsgallery2ViewUpload extends JViewLegacy
     {
         global $Rsg2DevelopActive, $rsgConfig;
 
-        // on develop show open tasks if existing
-        if (!empty ($Rsg2DevelopActive)) {
-            // echo '<span style="color:red">Task: </span><br><br>';
-        }
-
         $xmlFile = JPATH_COMPONENT . '/models/forms/upload.xml';
         $form = JForm::getInstance('upload', $xmlFile);
 
@@ -163,7 +158,16 @@ class Rsgallery2ViewUpload extends JViewLegacy
         // on develop show open tasks if existing
         if (!empty ($Rsg2DevelopActive))
         {
-            echo '<span style="color:red">Tasks: <br>* Order of images: a) prevent wrong order b) reorder images does not work <br>* Hide progressBar after a while<br>put javascript into file<br>use exif ...</span><br><br>';
+            echo '<span style="color:red">'
+                . 'Tasks: <br>'
+                . '* Check if FTP server upload with new data highway is running <br>'
+                . '* Check if Zip upload with new data highway is running <br>'
+                . '* Document model calling order and improve calling as is slow<br>'
+                . '* use exif information...<br>'
+                . '* Order of uploaded images: a) prevent wrong order b) reorder images does not work<br>'
+                . '* Hide progressBar after a while<br>'
+                . '* Move javascript code into *.js file<br>'
+                . '</span><br><br>';
         }
 
         switch ($Layout) {

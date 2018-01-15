@@ -796,7 +796,7 @@ jQuery(document).ready(function ($) {
                                href="index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">
 								<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_LEGACY'); ?>
                             </a>
-                            <!--label for="submitbuttonManualFileSingle"><?php echo JText::_('COM_RSGALLERY2_LEGACY_UPLOAD_SINGLE_IMAGES'); ?></label>
+                            <!--label for="submitbuttonManualFileSingle"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_LEGACY'); ?></label>
                             <buttonManualFile type="buttonManualFile" class="btn btn-primary"  id="submitbuttonManualFileSingle"
                                 title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_DESC'); ?>"
                                 onclick="Joomla.submitbuttonManualFileSingle()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_LEGACY'); ?>
