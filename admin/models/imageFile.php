@@ -10,7 +10,7 @@
 
 defined('_JEXEC') or die;
 
-// Loaded with class require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ExtImgLibAbstract.php';
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ImgWatermarkNames.php';
 
 /**
  * Single image model
@@ -288,13 +288,18 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	 */
 	public function deleteImgItemImages($imageName)
 	{
-		global $rsgConfig;
+		global $rsgConfig, $Rsg2DebugActive;
 
 		$IsImagesDeleted = false;
 
 		try
 		{
 			$IsImagesDeleted = true;
+
+			if ($Rsg2DebugActive)
+			{
+				JLog::add('   deleteImgItemImages: "' . $imageName .'"');
+			}
 
 			// Delete existing images
 			$imgPath        = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $imageName;
@@ -318,11 +323,18 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 				$IsImagesDeleted = false;
 			}
 
-			$imgPath        = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . '/' . $imageName;
-			$IsImageDeleted = $this->DeleteImage($imgPath);
-			if (!$IsImageDeleted)
+			// ToDo: Create filename like original0817254a99efa36171c98a96a81c7214.jpg
+			// destination  path file name
+			$watermarkFilename = ImgWatermarkNames::createWatermarkedPathFileName($imageName, 'original');
+			$IsWatermarkDeleted = $this->DeleteImage($watermarkFilename);
+			if (!$IsWatermarkDeleted)
 			{
-				$IsImagesDeleted = false;
+				$watermarkFilename = ImgWatermarkNames::createWatermarkedPathFileName($imageName, 'display');
+				$IsWatermarkDeleted = $this->DeleteImage($watermarkFilename);
+				if (!$IsWatermarkDeleted)
+				{
+
+				}
 			}
 		}
 		catch (RuntimeException $e)
