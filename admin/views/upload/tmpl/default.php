@@ -59,7 +59,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
 /* Deprecated old single image upload */
     Joomla.submitButtonManualFileSingle = function () {
 
-        alert('Upload single images: legacy ...');
+        // alert('Upload single images: legacy ...');
 
         // href="index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=upload"
 
@@ -89,15 +89,13 @@ $return = JFactory::getApplication()->input->getBase64('return');
     /* Zip file */
     Joomla.submitButtonManualFileZipPcLegacy = function () {
 
-        alert('Upload Manual File Zip from Pc: legacy ...');
+        //alert('Upload Manual File Zip from Pc: legacy ...');
         
         var form = document.getElementById('adminForm');
 
         var zip_path = form.zip_file.value;
         //var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
         var gallery_id = jQuery('#SelectGalleries_01').val();
-
-        alert('01: ' + gallery_id);
 
         var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_03"]:checked').val();
 //		var OutTxt = ''
@@ -119,8 +117,6 @@ $return = JFactory::getApplication()->input->getBase64('return');
             }
             else {
 
-                alert('04');
-
                 // yes transfer files ...
                 form.task.value = 'batchupload'; // upload.uploadZipFile
                 form.rsgOption.value = "images";
@@ -129,17 +125,9 @@ $return = JFactory::getApplication()->input->getBase64('return');
                 form.xcat.value = gallery_id;
                 form.selcat.value = bOneGalleryName4All;
 
-
-                alert('05');
-
                 jQuery('#loading').css('display', 'block');
 
-                alert('06');
-
                 form.submit();
-
-                alert('07');
-
             }
         }
     };
@@ -147,15 +135,13 @@ $return = JFactory::getApplication()->input->getBase64('return');
     /* Test Zip file: Not used ? */
     Joomla.submitButtonManualFileZipPc = function () {
 
-        alert('Upload Manual File Zip from Pc: controller upload.uploadFromZip ...');
+        // alert('Upload Manual File Zip from Pc: controller upload.uploadFromZip ...');
 
         var form = document.getElementById('adminForm');
 
         var zip_path = form.zip_file.value;
-        alert('00B');
         //var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
         var gallery_id = jQuery('#SelectGalleries_01').val();
-        alert('01: ' + gallery_id);
 
         var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_03"]:checked').val();
 //		var OutTxt = ''
@@ -176,8 +162,6 @@ $return = JFactory::getApplication()->input->getBase64('return');
             }
             else {
 
-                alert('04');
-
                 // yes transfer files ...
                 form.task.value = 'upload.uploadFromZip'; // upload.uploadZipFile
                 form.batchmethod.value = 'zip';
@@ -187,15 +171,9 @@ $return = JFactory::getApplication()->input->getBase64('return');
                 form.rsgOption.value = "";
 
 
-                alert('05');
-
                 jQuery('#loading').css('display', 'block');
 
-                alert('06');
-
                 form.submit();
-
-                alert('07');
 
             }
         }
@@ -205,7 +183,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
     /* from server */
     Joomla.submitButtonManualFileFolderServerLegacy = function () {
 
-        alert('Upload Folder server: legacy ...');
+        // alert('Upload Folder server: legacy ...');
         
         var form = document.getElementById('adminForm');
 
@@ -248,18 +226,15 @@ $return = JFactory::getApplication()->input->getBase64('return');
     /* from server */
     Joomla.submitButtonManualFileFolderServer = function () {
 
-        alert('Upload Folder server: upload.uploadFromFtpFolder ...');
+        // alert('Upload Folder server: upload.uploadFromFtpFolder ...');
 
         var form = document.getElementById('adminForm');
 
         //var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
         var gallery_id = jQuery('#SelectGalleries_02').val();
-        alert('01:' + gallery_id);
         var ftp_path = form.ftp_path.value;
-        alert('03: ' + ftp_path);
         var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_02"]:checked').val();
 
-        alert('04: ' + bOneGalleryName4All);
     //		var OutTxt = ''
     //			+ 'GalleryId2: ' + GalleryId + '\r\n'
     //			+ 'bOneGalleryName4All: ' + bOneGalleryName4All + '\r\n'
@@ -277,7 +252,6 @@ $return = JFactory::getApplication()->input->getBase64('return');
                 alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(4)');
             }
             else {
-                // alert('05');
 
                 // yes transfer files ...
                 form.task.value = 'upload.uploadFromFtpFolder'; // upload.uploadZipFile
@@ -289,11 +263,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
 
                 //jQuery('#loading').css('display', 'block');
 
-                alert('form.submit');
-
                 form.submit();
-
-
             }
         }
     };
@@ -522,11 +492,8 @@ jQuery(document).ready(function ($) {
 			data.append('token', token);
 			data.append('gallery_id', gallery_id);
 
-            //alert ("test01");
 			var status = new createStatusbar(obj); //Using this we can set progress.
 			status.setFileNameSize(files[i].name, files[i].size);
-            //alert ("test02");
-
 
 			sendFileToServer(data, status);
 
