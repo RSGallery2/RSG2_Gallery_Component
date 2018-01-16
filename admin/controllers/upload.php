@@ -283,7 +283,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 	            if ($Rsg2DebugActive)
 	            {
-		            JLog::add('JFile::makeSafe:' . str($isHasError));
+		            JLog::add('JFile::makeSafe:' . strval($isHasError));
 	            }
 
 	            $extractDir = '';
@@ -318,7 +318,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 	            if ($Rsg2DebugActive)
 	            {
-		            JLog::add('Upload zip:' . str($isHasError));
+		            JLog::add('Upload zip:' . strval($isHasError));
 	            }
 
 	            //--- Extract images -------------------
@@ -339,7 +339,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 	            if ($Rsg2DebugActive)
 	            {
-		            JLog::add('Extract:' . str($isHasError));
+		            JLog::add('Extract:' . strval($isHasError));
 	            }
 
 	            //--- Remove uploaded zip file -------------------
@@ -551,10 +551,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
                 // ToDo: rename in view and here
                 $galleryId = $input->get('xcat', null, 'INT');
                 $ftpPath = $input->get('ftppath', null, 'RAW');
-                // Path should end with '\\'
-                if (substr($ftpPath, -1) != '/' && substr($ftpPath, -1) == '\\') {
-                    $ftpPath .= '/';
-                }
 
                 if ($Rsg2DebugActive) {
                     $Delim = " ";
@@ -572,15 +568,15 @@ class Rsgallery2ControllerUpload extends JControllerForm
                 $rsgConfig->setLastUsedFtpPath($ftpPath);
                 $rsgConfig->setLastUpdateType('upload_folder_server');
 
-		            //Add trailing slash to source path, clean function will remove it when unnecessary
-	            $ftpPath = JPath::clean($ftpPath . '/' );
+		        // Add trailing slash to source path, clean function will remove it when unnecessary
+	            // $ftpPath = JPath::clean($ftpPath . '/' );
 
 	            if (file_exists($ftpPath) && is_dir($ftpPath))
 	            {
 		            //--- select valid file names from ftp folder -------------------------------
 		            if ($Rsg2DebugActive)
 		            {
-			            JLog::add('Valid folder:' . str($ftpPath));
+			            JLog::add('Valid folder:' . strval($ftpPath));
 		            }
 
 		            $model = $this->getModel('Upload');
@@ -589,6 +585,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		            if ($Rsg2DebugActive)
 		            {
 			            JLog::add('Select Images:' . count($files));
+			            JLog::add('Ignored Images:' . count($ignored));
 		            }
 
 		            // Images exist
