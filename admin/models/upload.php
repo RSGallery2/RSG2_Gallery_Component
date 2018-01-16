@@ -373,14 +373,15 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 				{
 					// check for allowed file types
 					//if (!in_array(fileHandler::getImageType($ftpPath . $file), $allowedTypes))
-					if (true)  // check of allowed types may have to be activated later
+					if (false)  // check of allowed types may have to be activated later
 					{
-						continue;
+						$ignored[] = $file;
+						// continue;
 					}
 					else
 					{
-						// check if file is really
-						if (!@getimagesize($file))
+						// check if file is an image
+						if (@getimagesize($file))
 						{
 							//Add filename to list
 							$files[] = $file;
