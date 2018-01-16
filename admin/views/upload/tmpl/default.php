@@ -57,7 +57,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
 //--------------------------------------------------------------------------------------
 
 /* Deprecated old single image upload */
-    Joomla.submitbuttonManualFileSingle = function () {
+    Joomla.submitButtonManualFileSingle = function () {
 
         alert('Upload single images: legacy ...');
 
@@ -87,7 +87,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
 /**/
 
     /* Zip file */
-    Joomla.submitbuttonManualFileZipPc = function () {
+    Joomla.submitButtonManualFileZipPc = function () {
 
         alert('Upload Manual File Zip from Pc: legacy ...');
         
@@ -129,7 +129,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
     };
 
     /* Test Zip file: Not used ? */
-    Joomla.submitbuttonManualFileZipPc2 = function () {
+    Joomla.submitButtonManualFileZipPc2 = function () {
 
         alert('Upload Manual File Zip from Pc: upload.uploadFromZip ...');
 
@@ -173,7 +173,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
     /**/
 
     /* from server */
-    Joomla.submitbuttonManualFileFolderServer = function () {
+    Joomla.submitButtonManualFileFolderServer = function () {
 
         alert('Upload Folder server: legacy ...');
         
@@ -215,7 +215,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
     };
 
 /* Test from server: ? Not used ? */
-   Joomla.submitbuttonManualFileFolderServer2 = function () {
+   Joomla.submitButtonManualFileFolderServer2 = function () {
 
        alert('Upload Folder server: upload.uploadFromFtpFolder ...');
 
@@ -794,7 +794,7 @@ jQuery(document).ready(function ($) {
 
                         <div class="form-actions">
                             <a class="btn btn-primary" id="submitbuttonManualFileSingle"
-                               title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_DESC'); ?>"
+                               title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_LEGACY_DESC'); ?>"
                                href="index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">
 								<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_LEGACY'); ?>
                             </a>
@@ -802,15 +802,21 @@ jQuery(document).ready(function ($) {
 
                         <div class="control-group">
                             <div class="controls">
-                                <small class "help-block" style=color:#FF0000;>
-									<?php echo JText::_('COM_RSGALLERY2_UPLOAD_LIMIT_IS') . ' ' . $this->UploadLimit . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
-                                </small>
-                                <small class "help-block">
-									<?php echo JText::_('COM_RSGALLERY2_POST_MAX_SIZE_IS') . ' ' . $this->PostMaxSize . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
-                                </small>
-                                <small style=font-size:smaller;>
-									<br><?php echo JText::_('COM_RSGALLERY2_POST_MEMORY_LIMIT_IS') . ' ' . $this->MemoryLimit . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
-                                </small>
+                                <div>
+                                    <small class="help-block" style="color:darkred;">
+	    								<?php echo JText::_('COM_RSGALLERY2_UPLOAD_LIMIT_IS') . ' ' . $this->UploadLimit . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
+                                    </small>
+                                </div>
+                                <div>
+                                    <small class="help-block" style="color:darkred;">
+				    					<?php echo JText::_('COM_RSGALLERY2_POST_MAX_SIZE_IS') . ' ' . $this->PostMaxSize . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
+                                    </small>
+                                </div>
+                                <div>
+                                    <small class="help-block" style="color:darkred;">
+							    		<?php echo JText::_('COM_RSGALLERY2_POST_MEMORY_LIMIT_IS') . ' ' . $this->MemoryLimit . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
+                                    </small>
+                                </div>
                             </div>
                         </div>
 
@@ -831,14 +837,20 @@ jQuery(document).ready(function ($) {
                             <div class="controls">
                                 <!--input type="text" id="zip_file" name="zip_file" class="span5 input_box" size="70" value="http://" /-->
                                 <input type="file" class="input_box  span5" id="zip_file" name="zip_file" size="57"/>
-                                <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
-									<?php echo JText::_('COM_RSGALLERY2_UPLOAD_LIMIT_IS') . ' ' . $this->UploadLimit . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
+                                <div>
+                                    <small class="help-block" style="color:darkred;">
+			                            <?php echo JText::_('COM_RSGALLERY2_UPLOAD_LIMIT_IS') . ' ' . $this->UploadLimit . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
+                                    </small>
                                 </div>
-                                <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
-									<?php echo JText::_('COM_RSGALLERY2_POST_MAX_SIZE_IS') . ' ' . $this->PostMaxSize . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
+                                <div>
+                                    <small class="help-block" style="color:darkred;">
+			                            <?php echo JText::_('COM_RSGALLERY2_POST_MAX_SIZE_IS') . ' ' . $this->PostMaxSize . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
+                                    </small>
                                 </div>
-                                <div style=color:#FF0000;font-weight:bold;font-size:smaller;>
-									<?php echo JText::_('COM_RSGALLERY2_POST_MEMORY_LIMIT_IS') . ' ' . $this->MemoryLimit . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
+                                <div>
+                                    <small class="help-block" style="color:darkred;">
+			                            <?php echo JText::_('COM_RSGALLERY2_POST_MEMORY_LIMIT_IS') . ' ' . $this->MemoryLimit . ' ' . JText::_('COM_RSGALLERY2_MEGABYTES_SET_IN_PHPINI'); ?>
+                                    </small>
                                 </div>
                             </div>
                         </div>
@@ -851,13 +863,13 @@ jQuery(document).ready(function ($) {
                         <!-- Action buttonManualFile -->
                         <div class="form-actions">
                             <buttonManualFile type="buttonManualFile" class="btn btn-primary"
-                                              onclick="Joomla.submitbuttonManualFileZipPc()"
+                                              onclick="Joomla.submitButtonManualFileZipPc()"
                                               title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE_LEGACY_DESC'); ?>"
                             >
                                 <?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE_LEGACY'); ?>
                             </buttonManualFile>
                             <buttonManualFile type="buttonManualFile" class="btn btn-primary"
-                                              onclick="Joomla.submitbuttonManualFileZipPc2()"
+                                              onclick="Joomla.submitButtonManualFileZipPc2()"
                                               title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE_DESC'); ?>"
                             >
                                 <?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE'); ?>
@@ -895,13 +907,13 @@ jQuery(document).ready(function ($) {
 
                         <div class="form-actions">
                             <buttonManualFile type="buttonManualFile" class="btn btn-primary"
-                                              onclick="Joomla.submitbuttonManualFileFolderServer()"
+                                              onclick="Joomla.submitButtonManualFileFolderServer()"
                                               title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER_LEGACY_DESC'); ?>"
                             >
                                 <?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER_LEGACY'); ?>
                             </buttonManualFile>
                             <buttonManualFile type="buttonManualFile" class="btn btn-primary"
-                                              onclick="Joomla.submitbuttonManualFileFolderServer2()"
+                                              onclick="Joomla.submitButtonManualFileFolderServer2()"
                                               title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER_DESC'); ?>"
                             >
                                 <?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER'); ?>
