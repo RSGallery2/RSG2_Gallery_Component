@@ -70,7 +70,8 @@ $layout = $input->get('layout', '', 'CMD');
 $uploadStep = $input->get('uploadStep', 0, 'INT');
 $numberOfUploads = $input->get('numberOfUploads', 1, 'INT');
 
-$testCid = $input->get('cid', array(), 'ARRAY');
+// List of id's (image, gallery ...
+$cids = $input->get('cid', array(), 'ARRAY');
 $id = $input->get('id', 0, 'INT');
 
 $rsgOption = $input->get('rsgOption', null, 'CMD');
@@ -83,7 +84,7 @@ if ($Rsg2DebugActive) {
     $DebTxt = $DebTxt . "\$task: $task" . $Delim;
     $DebTxt = $DebTxt . "\$option: $option" . $Delim;
     $DebTxt = $DebTxt . "\$catid: $catid" . $Delim;
-    $DebTxt = $DebTxt . "\$testCid: " . implode(",", $testCid) . $Delim;
+    $DebTxt = $DebTxt . "\$cids: " . implode(",", $cids) . $Delim;
     $DebTxt = $DebTxt . "\$id: $id" . $Delim;
     $DebTxt = $DebTxt . "\$rsgOption: $rsgOption" . $Delim;
     $DebTxt = $DebTxt . "\$view: $view" . $Delim;
