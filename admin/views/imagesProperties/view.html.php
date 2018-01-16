@@ -133,7 +133,17 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 		// on develop show open tasks if existing
 		if (!empty ($Rsg2DevelopActive))
 		{
-			echo '<span style="color:red">Task: <br> * ON CIDS -1 dont show any image of this gallery<br> * lightbox modal image (also in edit image ...),  ...</span><br><br>';
+			echo '<span style="color:red">'
+				. 'Tasks: <br>'
+				. '* ON CIDS -1 dont show any image of this gallery <br>'
+				. '* Light box modal image also in edit image ... <br>'
+				. '* ? selection of gallery <br>'
+				. '* Why gallery(2) below ??? <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+				. '</span><br><br>';
 		}
 
 		switch ($Layout)
