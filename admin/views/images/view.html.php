@@ -132,6 +132,7 @@ class Rsgallery2ViewImages extends JViewLegacy
                         . '* Delete function needs to delete watermarked too !<br>'
                         . '* Search controls ...<br>'
                         . '* Sort by image count is wrong<br>'
+	                    . '* Image not shown above title (data-original-title?)<br>'
                         . '</span><br><br>';
 				}
 
