@@ -87,7 +87,7 @@ $return = JFactory::getApplication()->input->getBase64('return');
 /**/
 
     /* Zip file */
-    Joomla.submitButtonManualFileZipPc = function () {
+    Joomla.submitButtonManualFileZipPcLegacy = function () {
 
         alert('Upload Manual File Zip from Pc: legacy ...');
         
@@ -95,7 +95,9 @@ $return = JFactory::getApplication()->input->getBase64('return');
 
         var zip_path = form.zip_file.value;
         //var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
-        var gallery_id = $('#SelectGalleries_03').val();
+        var gallery_id = jQuery('#SelectGalleries_01').val();
+
+        alert('01: ' + gallery_id);
 
         var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_03"]:checked').val();
 //		var OutTxt = ''
@@ -110,35 +112,51 @@ $return = JFactory::getApplication()->input->getBase64('return');
             alert(Joomla.JText._('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN'));
         }
         else {
+
             // Is invalid galleryId selected ?
             if (bOneGalleryName4All && (gallery_id < 1)) {
                 alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(1)');
             }
             else {
+
+                alert('04');
+
                 // yes transfer files ...
                 form.task.value = 'batchupload'; // upload.uploadZipFile
+                form.rsgOption.value = "images";
                 form.batchmethod.value = 'zip';
                 form.ftppath.value = "";
                 form.xcat.value = gallery_id;
                 form.selcat.value = bOneGalleryName4All;
 
+
+                alert('05');
+
                 jQuery('#loading').css('display', 'block');
+
+                alert('06');
+
                 form.submit();
+
+                alert('07');
+
             }
         }
     };
 
     /* Test Zip file: Not used ? */
-    Joomla.submitButtonManualFileZipPc2 = function () {
+    Joomla.submitButtonManualFileZipPc = function () {
 
-        alert('Upload Manual File Zip from Pc: upload.uploadFromZip ...');
-
+        alert('Upload Manual File Zip from Pc: controller upload.uploadFromZip ...');
 
         var form = document.getElementById('adminForm');
 
         var zip_path = form.zip_file.value;
+        alert('00B');
         //var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
-        var gallery_id = $('#SelectGalleries_03').val();
+        var gallery_id = jQuery('#SelectGalleries_01').val();
+        alert('01: ' + gallery_id);
+
         var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_03"]:checked').val();
 //		var OutTxt = ''
 //			+ 'GalleryId1: ' + GalleryId + '\r\n'
@@ -157,30 +175,42 @@ $return = JFactory::getApplication()->input->getBase64('return');
                 alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(2)');
             }
             else {
+
+                alert('04');
+
                 // yes transfer files ...
                 form.task.value = 'upload.uploadFromZip'; // upload.uploadZipFile
                 form.batchmethod.value = 'zip';
                 form.ftppath.value = "";
-                form.xcat.value = GalleryId;
+                form.xcat.value = gallery_id;
                 form.selcat.value = bOneGalleryName4All;
-                // form.rsgOption.value = "";
+                form.rsgOption.value = "";
+
+
+                alert('05');
 
                 jQuery('#loading').css('display', 'block');
+
+                alert('06');
+
                 form.submit();
+
+                alert('07');
+
             }
         }
     };
     /**/
 
     /* from server */
-    Joomla.submitButtonManualFileFolderServer = function () {
+    Joomla.submitButtonManualFileFolderServerLegacy = function () {
 
         alert('Upload Folder server: legacy ...');
         
         var form = document.getElementById('adminForm');
 
         //var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
-        var gallery_id = $('#SelectGalleries_03').val();
+        var gallery_id = jQuery('#SelectGalleries_02').val();
         var ftp_path = form.ftp_path.value;
         var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_02"]:checked').val();
 
@@ -203,9 +233,10 @@ $return = JFactory::getApplication()->input->getBase64('return');
             else {
                 // yes transfer files ...
                 form.task.value = 'batchupload'; // upload.uploadZipFile
+                form.rsgOption.value = "images";
                 form.batchmethod.value = 'FTP';
                 form.ftppath.value = ftp_path;
-                form.xcat.value = GalleryId;
+                form.xcat.value = gallery_id;
                 form.selcat.value = bOneGalleryName4All;
 
                 jQuery('#loading').css('display', 'block');
@@ -214,26 +245,21 @@ $return = JFactory::getApplication()->input->getBase64('return');
         }
     };
 
-/* Test from server: ? Not used ? */
-   Joomla.submitButtonManualFileFolderServer2 = function () {
+    /* from server */
+    Joomla.submitButtonManualFileFolderServer = function () {
 
-       alert('Upload Folder server: upload.uploadFromFtpFolder ...');
+        alert('Upload Folder server: upload.uploadFromFtpFolder ...');
 
-       var form = document.getElementById('adminForm');
-
-       alert('01');
-       alert(jQuery('#SelectGalleries_02'));
-       alert('01.B' + jQuery('#SelectGalleries_02').val());
+        var form = document.getElementById('adminForm');
 
         //var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
-       var gallery_id = jQuery('#SelectGalleries_02').val();
-       alert('02');
+        var gallery_id = jQuery('#SelectGalleries_02').val();
+        alert('01:' + gallery_id);
         var ftp_path = form.ftp_path.value;
-       alert('03');
+        alert('03: ' + ftp_path);
         var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_02"]:checked').val();
 
-
-       alert('10');
+        alert('04: ' + bOneGalleryName4All);
     //		var OutTxt = ''
     //			+ 'GalleryId2: ' + GalleryId + '\r\n'
     //			+ 'bOneGalleryName4All: ' + bOneGalleryName4All + '\r\n'
@@ -251,20 +277,23 @@ $return = JFactory::getApplication()->input->getBase64('return');
                 alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(4)');
             }
             else {
-                alert('20');
+                // alert('05');
+
                 // yes transfer files ...
                 form.task.value = 'upload.uploadFromFtpFolder'; // upload.uploadZipFile
                 form.batchmethod.value = 'FTP';
                 form.ftppath.value = ftp_path;
-                form.xcat.value = GalleryId;
+                form.xcat.value = gallery_id;
                 form.selcat.value = bOneGalleryName4All;
-                // form.rsgOption.value = "";
+                form.rsgOption.value = "";
 
                 //jQuery('#loading').css('display', 'block');
 
                 alert('form.submit');
 
                 form.submit();
+
+
             }
         }
     };
@@ -863,13 +892,13 @@ jQuery(document).ready(function ($) {
                         <!-- Action buttonManualFile -->
                         <div class="form-actions">
                             <buttonManualFile type="buttonManualFile" class="btn btn-primary"
-                                              onclick="Joomla.submitButtonManualFileZipPc()"
+                                              onclick="Joomla.submitButtonManualFileZipPcLegacy()"
                                               title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE_LEGACY_DESC'); ?>"
                             >
                                 <?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE_LEGACY'); ?>
                             </buttonManualFile>
                             <buttonManualFile type="buttonManualFile" class="btn btn-primary"
-                                              onclick="Joomla.submitButtonManualFileZipPc2()"
+                                              onclick="Joomla.submitButtonManualFileZipPc()"
                                               title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE_DESC'); ?>"
                             >
                                 <?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE'); ?>
@@ -907,13 +936,13 @@ jQuery(document).ready(function ($) {
 
                         <div class="form-actions">
                             <buttonManualFile type="buttonManualFile" class="btn btn-primary"
-                                              onclick="Joomla.submitButtonManualFileFolderServer()"
+                                              onclick="Joomla.submitButtonManualFileFolderServerLegacy()"
                                               title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER_LEGACY_DESC'); ?>"
                             >
                                 <?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER_LEGACY'); ?>
                             </buttonManualFile>
                             <buttonManualFile type="buttonManualFile" class="btn btn-primary"
-                                              onclick="Joomla.submitButtonManualFileFolderServer2()"
+                                              onclick="Joomla.submitButtonManualFileFolderServer()"
                                               title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER_DESC'); ?>"
                             >
                                 <?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER'); ?>
@@ -933,6 +962,7 @@ jQuery(document).ready(function ($) {
                     <input type="hidden" value="" name="batchmethod">
                     <input type="hidden" value="" name="xcat">
                     <input type="hidden" value="" name="selcat">
+                    <input type="hidden" value="" name="rsgOption">
 
 				<?php endif; ?>
 
