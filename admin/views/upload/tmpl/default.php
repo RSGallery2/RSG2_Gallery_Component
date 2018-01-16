@@ -779,9 +779,11 @@ jQuery(document).ready(function ($) {
 
                         <!--Action buttonManualFile -->
                         <div class="form-actions" style="margin-top: 10px; ">
-                            <buttonManualFile class="btn btn-primary" type="buttonManualFile"
-                                              id="AssignUploadedFiles" onclick="Joomla.submitAssignDroppedFiles()"
-                                              title="<?php echo JText::_('COM_RSGALLERY2_ADD_IMAGES_PROPERTIES_DESC'); ?>">
+                            <buttonManualFile type="buttonManualFile" class="btn btn-primary"
+                                              id="AssignUploadedFiles"
+                                              onclick="Joomla.submitAssignDroppedFiles()"
+                                              title="<?php echo JText::_('COM_RSGALLERY2_ADD_IMAGES_PROPERTIES_DESC'); ?>"
+                            >
 			                    <?php echo JText::_('COM_RSGALLERY2_ADD_IMAGES_PROPERTIES'); ?>
                             </buttonManualFile>
                         </div>
@@ -796,11 +798,6 @@ jQuery(document).ready(function ($) {
                                href="index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">
 								<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_LEGACY'); ?>
                             </a>
-                            <!--label for="submitbuttonManualFileSingle"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_LEGACY'); ?></label>
-                            <buttonManualFile type="buttonManualFile" class="btn btn-primary"  id="submitbuttonManualFileSingle"
-                                title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_DESC'); ?>"
-                                onclick="Joomla.submitbuttonManualFileSingle()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_LEGACY'); ?>
-                            </buttonManualFile-->
                         </div>
 
                         <div class="control-group">
@@ -854,10 +851,16 @@ jQuery(document).ready(function ($) {
                         <!-- Action buttonManualFile -->
                         <div class="form-actions">
                             <buttonManualFile type="buttonManualFile" class="btn btn-primary"
-                                              onclick="Joomla.submitbuttonManualFileZipPc()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE'); ?></buttonManualFile>
+                                              onclick="Joomla.submitbuttonManualFileZipPc()"
+                                              title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE_LEGACY_DESC'); ?>"
+                            >
+                                <?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE_LEGACY'); ?>
+                            </buttonManualFile>
                             <buttonManualFile type="buttonManualFile" class="btn btn-primary"
-                                              onclick="Joomla.submitbuttonManualFileZipPc2()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE'); ?>
-                                test
+                                              onclick="Joomla.submitbuttonManualFileZipPc2()"
+                                              title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE_DESC'); ?>"
+                            >
+                                <?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE'); ?>
                             </buttonManualFile>
                         </div>
                     </fieldset>
@@ -892,11 +895,16 @@ jQuery(document).ready(function ($) {
 
                         <div class="form-actions">
                             <buttonManualFile type="buttonManualFile" class="btn btn-primary"
-                                              onclick="Joomla.submitbuttonManualFileFolderServer()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES'); ?>
+                                              onclick="Joomla.submitbuttonManualFileFolderServer()"
+                                              title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER_LEGACY_DESC'); ?>"
+                            >
+                                <?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER_LEGACY'); ?>
                             </buttonManualFile>
                             <buttonManualFile type="buttonManualFile" class="btn btn-primary"
-                                              onclick="Joomla.submitbuttonManualFileFolderServer2()"><?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES'); ?>
-                                test
+                                              onclick="Joomla.submitbuttonManualFileFolderServer2()"
+                                              title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER_DESC'); ?>"
+                            >
+                                <?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER'); ?>
                             </buttonManualFile>
                         </div>
                     </fieldset>
