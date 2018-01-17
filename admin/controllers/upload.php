@@ -932,7 +932,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
             $ajaxImgObject['dstFile'] = $urlThumbFile; // $dstFileUrl ???
 
-            $this->ajaxDummyAnswerOK (); return; // 16
+            // $this->ajaxDummyAnswerOK (); return; // 16
 
 
 
