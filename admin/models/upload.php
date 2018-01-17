@@ -371,17 +371,30 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 				}
 				else
 				{
-					// check for allowed file types
-					//if (!in_array(fileHandler::getImageType($ftpPath . $file), $allowedTypes))
-					if (false)  // check of allowed types may have to be activated later
+				    //--- File information ----------------------
+
+                    $img_info = @getimagesize($file);
+
+					// check if file is definitely not an image
+					if (empty ($img_info))
 					{
 						$ignored[] = $file;
-						// continue;
 					}
 					else
 					{
-						// check if file is an image
-						if (@getimagesize($file))
+                        //--- file may be an image -----------------------------
+
+					    // ToDo: getimagesize() sollte nicht verwendet werden, um zu überprüfen,
+                        // ToDo: ob eine gegebene Datei ein Bild enthält. Statt dessen sollte
+                        // ToDo: eine für diesen Zweck entwickelte Lösung wie die
+                        // ToDo: Fileinfo-Extension(finfo_file) verwendet werden
+
+                        // $mime   = $img_info['mime']; // mime-type as string for ex. "image/jpeg" etc.
+
+                        // ToDo: Check for allowed file types from config
+                        //if (!in_array(fileHandler::getImageType($ftpPath . $file), $allowedTypes))
+                        $valid_types = array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP);
+                        if(in_array($img_info[2],  $valid_types))
 						{
 							//Add filename to list
 							$files[] = $file;

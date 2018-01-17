@@ -334,7 +334,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 			            $app->enqueueMessage(JText::_('COM_    _WARNFILENAME'), 'error');
 			            $isHasError = true;
 		            }
-
 	            }
 
 	            if ($Rsg2DebugActive)
@@ -367,7 +366,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		            {
 			            foreach ($files as $filePathName)
 			            {
-
 				            //----------------------------------------------------
 				            // Transfer files and create image data in db
 				            //----------------------------------------------------
