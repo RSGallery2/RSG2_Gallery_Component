@@ -136,7 +136,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	 */
 	public function createOneImageInDb($uploadFileName, $galleryId)//: array
 	{
-		//global $rsgConfig, $Rsg2DebugActive;
+		global $rsgConfig; //, $Rsg2DebugActive;
 
 		// ToDo: try ... catch
 
@@ -151,27 +151,47 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 		//
 		$singleFileName = $modelDb->generateNewImageName($uploadFileName, $galleryId);
 
-		$title = $singleFileName;
-		/**
-		 * // Handle title (? add info or not to title)
-		 * if ($uploadFileName != $singleFileName)
-		 * {
-		 * // $title =  $uploadFileName;
-		 * $title =  $singleFileName . '(' .$uploadFileName . ')';
-		 *
-		 * // $uploadFileName = $singleFileName;
-		 * }
-		 * /**/
+        //--- add image information -----------------------
 
-		//--- add image information -----------------------
+        // If IPTC parameter in config is true and the user left either the image title
+        // or description empty in the upload step we want to get that IPTC data.
+        if ($rsgConfig->get('useIPTCinformation'))
+        {
+            getimagesize($uploadFileName, $imageInfo);
+            if (isset($imageInfo['APP13']))
+            {
+                $iptc = iptcparse($imageInfo['APP13']);
 
-		// ToDo: use exif ...
+                //--- title -----------------
 
-		$description = '';
+                $IPTC_title = $iptc["2#005"][0];
+                if (!is_null($IPTC_title))
+                {
+                    $title = $IPTC_title;
+                }
 
+                //--- description -----------------
+
+                $IPTC_caption = $iptc["2#120"][0];
+                if (!is_null($IPTC_caption))
+                {
+                    $description = $IPTC_caption;
+                }
+            }
+        }
+        else {
+            // Standard initialisation
+
+            // $imgTitle = substr($parts['basename'], 0, -(strlen($parts['extension']) + ($parts['extension'] == '' ? 0 : 1)));
+            $shortFileName = pathinfo($singleFileName, PATHINFO_FILENAME);
+            echo '$shortFileName: "' . $shortFileName . '"';
+            $title = $shortFileName;
+            $description = '';
+        }
 		//--- create db item ----------------------------------
 
-		// Attention: Ajax (rare) race condition: Other user may use same file name in between ?
+		// Attention: Ajax (rare) race condition ofr order:
+        //            Other user may use same file name in between ?
 
 		// Model tells if successful
 		// return image id on success
