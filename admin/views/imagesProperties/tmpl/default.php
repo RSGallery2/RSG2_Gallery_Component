@@ -32,7 +32,7 @@ JHtml::_('bootstrap.tooltip');
 					method="post" name="adminForm" id="adminForm" enctype="multipart/form-data"
 					class="form-validate">
 
-	            <legend><?php echo JText::_('COM_RSGALLERY2_PROPERTIES_UPLOADED_FILES'); ?></legend>
+	            <legend><?php echo JText::_('COM_RSGALLERY2_PROPERTIES_UPLOADED_IMAGES'); ?></legend>
 
 				<?php if (empty($this->items)) : ?>
                     <div class="alert alert-no-items">
@@ -73,7 +73,7 @@ JHtml::_('bootstrap.tooltip');
                                     <!-- Gallery can't be changed. Disable input -->
                                     <div class="control-group">
                                         </div>
-                                        <label class="control-label" for="galleryID[]" ><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?>(2)</label>
+                                        <label class="control-label" for="galleryID[]" ><?php echo JText::_('COM_RSGALLERY2_GALLERY'); ?></label>
                                         <div class="controls">
                                             <input type="text" name="galleryID[]" placeholder="Idx:"
                                                    value="<?php echo $this->escape($item->gallery_name);?>"
@@ -89,11 +89,13 @@ JHtml::_('bootstrap.tooltip');
                                                   style="width:95%;"><?php echo $this->escape($item->descr);?></textarea>
                                         </div-->
 
-                                        <label class="control-label" for="description[]" ><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION') . '2'; ?></label>
+                                        <label class="control-label" for="description[]" ><?php echo JText::_('COM_RSGALLERY2_DESCRIPTION'); ?></label>
                                         <div class="controls">
                                             <?php
                                             if ( ! empty($this->editor))
                                             {
+                                                // ToDo: Leave out some editor buttons : use config ...
+                                                // https://joomla.stackexchange.com/questions/5616/how-do-you-specify-to-show-only-certain-editors-xtd-buttons-on-the-editor-form-f
                                                 echo $this->editor->display('description[]', $this->escape($item->descr), '90%', '50%', '20', '10',
                                                     true, 'description_' . $Idx, null, null, $this->editorParams);
                                             }

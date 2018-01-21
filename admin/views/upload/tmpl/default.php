@@ -617,18 +617,15 @@ jQuery(document).ready(function ($) {
                 processData: false,
                 cache: false,
                 data: formData
+
+            // On success / done 
             }).done(function(eData, textStatus, jqXHR) {
-                // Not needed  as already done in progress
-                // status.setProgress(100);
-                // alert('Success');
-                //alert('Version jQuery: ' + jQuery.fn.jquery);
-                // alert ('Success2: ' + String(eData))
-                //$("#status1").append("File upload Done<br>");
+                //alert('done:Success');
+                //alert ('Success2: "' + String(eData) + '"')
                 var jData = jQuery.parseJSON(eData);
                 console.log(jqXHR);
-                // alert('Success2');
                 //alert ('Json: ' + String (json));
-                // alert('Success3');
+                //alert('Success3');
 
                 // Check that JResponseJson data structure may be available
                 //if (!defined (json.success))
@@ -646,13 +643,6 @@ jQuery(document).ready(function ($) {
                 if (jData.success == true)
                 {
                     // alert('Success5');
-                    // Use this: See Above
-                    // $('#imagesList').append('<li><img src="' + this + '" /></li>');
-                    // this.statusbar   = $("<div class='statusbar " + row + "'></div>");
-                    // this.filename    = $("<div class='filename'></div>").appendTo(this.statusbar);
-
-                    // imagesArea, imagesAreaList class='span2'
-
                     this.imageBox = $("<li></li>").appendTo($('#imagesAreaList'));
                     this.thumbArea = $("<div class='thumbnail imgProperty'></div>").appendTo(this.imageBox);
                     this.imgComntainer= $("<img class='imgContainer' >").appendTo(this.thumbArea);
@@ -663,7 +653,7 @@ jQuery(document).ready(function ($) {
                     this.imageId= $("<small> (" + jData.data.cid + ")</small>").appendTo(this.imageDisplay);
                     this.xxy = $("<input name='cid[]' class='imageCid' type='hidden' value='" + jData.data.cid + "' />").appendTo(this.imageBox);
 
-                    // toDO: Notification may be ... anyhow
+                    // ToDo: Notification may be ... anyhow
                 }
                 else
                 {
@@ -679,19 +669,17 @@ jQuery(document).ready(function ($) {
 
 
             })
-            // Did not work out
+            // On fail 
             .fail(function(jqXHR, textStatus, exceptionType) {
                 // alert ('fail: Status: "' + textStatus + '" exceptionType: "' + exceptionType + '" [' + jqXHR.status + ']');
                 alert ('Drag and drop upload failed: "' + textStatus + '" -> "' + exceptionType + '" [' + jqXHR.status + ']');
 
                 console.log(jqXHR);
             })
-            // .always(function( data|jqXHR, textStatus, jqXHR|errorThrown ) {
-            // An alternative construct to the complete callback option,
+            // On always
             // the .always() method replaces the deprecated .complete() method.
             .always(function( eData, textStatus, jqXHR) {
-                // $( "#results" ).append( html );
-                // alert ('always: "' + textStatus + '"');
+                //alert ('always: "' + textStatus + '"');
             });
 
             status.setAbort(jqXHR);

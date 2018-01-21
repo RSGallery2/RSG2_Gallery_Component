@@ -135,10 +135,11 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 		{
 			echo '<span style="color:red">'
 				. 'Tasks: <br>'
+				. '* Leave out some editor buttons : use config ...<br>'
+				. '* Config enable use of textframe for input<br>'
 				. '* ON CIDS -1 dont show any image of this gallery <br>'
 				. '* Light box modal image also in edit image ... <br>'
 				. '* ? selection of gallery <br>'
-				. '* Why gallery(2) below ??? <br>'
 //				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'

@@ -160,14 +160,14 @@ class Rsgallery2ViewUpload extends JViewLegacy
         {
             echo '<span style="color:red">'
                 . 'Tasks: <br>'
-                . '* use exif information...<br>'
-                . '* Check: Why it ois not running on PHP 5.4<br>'
+	            . '* Hide "Drage images here" ... on first successful upload<br>'
+	            . '* Hide progressBar when image appears '
+                . '* Check: Why is it not running on PHP 5.4<br>'
                 . '* Do documentation of model calling order and improve calling as is slow<br>'
                 . '* Move javascript code into *.js file<br>'
                 . '* Test reaction on too big files ? good error message (single and within OK files)<br>'
                 . '* Test reaction on not image files ? good error message ? (single and within OK files)<br>'
                 . '* Order of uploaded images: a) prevent wrong order b) reorder images does not work<br>'
-                . '* Hide progressBar after a while<br>'
                 . '</span><br><br>';
         }
 

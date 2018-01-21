@@ -184,7 +184,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
             // $imgTitle = substr($parts['basename'], 0, -(strlen($parts['extension']) + ($parts['extension'] == '' ? 0 : 1)));
             $shortFileName = pathinfo($singleFileName, PATHINFO_FILENAME);
-            echo '$shortFileName: "' . $shortFileName . '"';
+            //echo '$shortFileName: "' . $shortFileName . '"';
             $title = $shortFileName;
             $description = '';
         }

@@ -121,6 +121,8 @@ class Rsgallery2ModelImagesProperties extends JModelList
 	 */
 	protected function getListQuery()
 	{
+		global $Rsg2DebugActive, $Rsg2DevelopActive;
+
 		// Create a new query object.
 		$db    = JFactory::getDBO();
 		$query = $db->getQuery(true);
@@ -170,11 +172,21 @@ class Rsgallery2ModelImagesProperties extends JModelList
 		// cid's in URL ?
 		$input = JFactory::getApplication()->input;
 		$cids = $input->get('cid', -1, 'int');
-		echo 'cids: "' . json_encode($cids) . '"<br>';
+
+		// on develop show open tasks if existing
+		if (!empty ($Rsg2DevelopActive))
+		{
+			echo 'cids: "' . json_encode($cids) . '"<br>';
+		}
+
+		if ($Rsg2DebugActive) {
+			// identify active file
+			JLog::add('cids: "' . json_encode($cids));
+		}
+
 
 		if (is_array ($cids))
 		{
-			echo 'cids: found ';
 			$strCids = implode(", ", $cids);
 			$query->where('a.id IN (' . $strCids . ')');
 		}
