@@ -160,6 +160,10 @@ class Rsgallery2ViewUpload extends JViewLegacy
         {
             echo '<span style="color:red">'
                 . 'Tasks: <br>'
+				. '*  <br>??? enable/force selection of start gallery ???'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
 	            . '* Hide "Drage images here" ... on first successful upload<br>'
 	            . '* Hide progressBar when image appears '
                 . '* Check: Why is it not running on PHP 5.4<br>'
