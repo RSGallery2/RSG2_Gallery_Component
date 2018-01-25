@@ -27,7 +27,7 @@ $updateCompleteMsg = $rsgInstall->installCompleteMsg(JText::_('COM_RSGALLERY2_RS
 
 
 /** Todo: check/display write message *
-$rsgInstall->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_MIGRATING_FROM_RSGALLERY2', $rsgConfig->get('version')), 'ok');
+$rsgInstall->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_MIGRATING_FROM_RSGALLERY2', $rsgConfig->get( 'version')), 'ok');
 
 $msg = 'Deleted old RSGallery2 J!1.5 language files: <br>' . $msg;
 $rsgInstall->writeInstallMsg($msg, 'ok');

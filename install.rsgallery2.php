@@ -2,7 +2,6 @@
 /**
  * This file contains the install routine for RSGallery2
  *
- * @version       $Id: install.rsgallery2.php 1011 2011-01-26 15:36:02Z mirjam $
  * @package       RSGallery2
  * @copyright (C) 2003 - 2018 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -281,7 +280,7 @@ class com_rsgallery2InstallerScript
         //--- Initialize install  --------------------------------------------
 
         $rsgInstall = new rsgInstall();
-        $rsgInstall->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_MIGRATING_FROM_RSGALLERY2', $rsgConfig->get('version')), 'ok');
+        $rsgInstall->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_MIGRATING_FROM_RSGALLERY2', $this->oldRelease), 'ok');
 
 		/* Removed as plugins couldn't find lang files *
         //--- delete RSG2 J!1.5 language files ------------------------------
