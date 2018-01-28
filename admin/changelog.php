@@ -21,26 +21,39 @@ code fixes.
 Legend:
 * -> Security Fix, # -> Bug Fix, + -> Addition
 ^ -> Change, - -> Removed, ! -> Note
-		 
 
-^ Seperate inlude files for new view form and load it all from rsg2 in J1.5/2.5
+* --- 4.3.1 --- 2018-01-28 --- whazzup ------------------------------
+
+alpha version
+
++ Added "drag and drop" functionality (working uloads limited to 20 images at once 
+     and file size not too big)
++ Redesign of upload form
+  ^old buttons still available as "... legacy"
+  FTP and server upload will lead to the new page
+^ Image properties like title and description got a new form with editor input
++ Image properties form can be reached over images list batch 
+ 
+^ Redesigned creating of images when uploading (display, thumbs and watermark creation)
+ 
+^ Separate include files for new view form and load it all from rsg2 in J1.5/2.5
 		 
-* --- 4.3.1 --- 2017-01-10 --- whazzup ------------------------------
+* --- 4.3.1 --- 2017-07-23 --- whazzup ------------------------------
 		 
 ^ General additional source documentation
   -> Header of functions in a lot of files
 
 # giobag 2017.07.21 Restrict added galleries to galleries owned by logged in user   
-# Display of multiple slideshows on one form did lead on the second 
-  slideshow to show all pictures at once and clutter the layout.
+# Display of multiple slide shows on one form did lead on the second 
+  slide show to show all pictures at once and clutter the layout.
 # The gallery list view did not display child galleries direct below 
   parent galleries. Now the ordering of galleries will sort child 
   galleries direct after parents so if sorting by ordering the 
   childs appear direct after parents before the next the next 
   parent is displayed.
 
-# slideshow_parth fixed: Multiple slideshows per web form 
-   did distroy view of second gallery 
+# slideshow_parth fixed: Multiple slide shows per web form 
+   did destroy view of second gallery 
 		 
 * --- 4.3.0 --- 2017-01-10 --- whazzup ------------------------------
 
@@ -59,7 +72,7 @@ Legend:
 
 ^ Improved:
   -> Moved the buttons "images copy" and images move" in images view to button "batch"
-  -> Copy and move images is handled like in the article batrch handling
+  -> Copy and move images is handled like in the article batch handling
 
 * --- 4.2.101 --- 2016-12-06 --- whazzup ------------------------------
 
@@ -77,7 +90,7 @@ This release is a beta test release and contains most parts of the next release 
     -> Added search tools
     -> Added sorting by title of column
     -> Added sorting by selection from list
-    -> Changed ordering behaviour (Still with integer input)
+    -> Changed ordering behavior (Still with integer input)
 
 ^ Redesigned gallery edit view
     -> It has now its own view in J!3 Model view construct
@@ -92,7 +105,7 @@ This release is a beta test release and contains most parts of the next release 
     -> Added search tools
     -> Added sorting by title of column
     -> Added sorting by selection from list
-    -> Changed ordering behaviour (Still with integer input)
+    -> Changed ordering behavior (Still with integer input)
     -> ...
     -> Copy function temporarily removed
 
@@ -112,12 +125,12 @@ This release is a beta test release and contains most parts of the next release 
 
 Known issues:
 	* Maintenance -> comments: This is not working but a demo how it will be in the near future
-	* Galleries list view: Ordering behaviour is changed. May not work as "needed"
-	* Galleries list view: Sorting on name will not display child galleries below parent galleriy.
+	* Galleries list view: Ordering behavior is changed. May not work as "needed"
+	* Galleries list view: Sorting on name will not display child galleries below parent gallery.
 	  May not work as "needed", Wait for User response with exact rules
 	* Permissions may not work as expected (user input of "working Web site" is needed)
 	
-	* Images list view: Ordering behaviour is changed. May not work as "needed"
+	* Images list view: Ordering behavior is changed. May not work as "needed"
 
 	* Slideshow slideshow_pathfusion is not running.
 
@@ -128,7 +141,7 @@ Known issues:
      -> Repair zone: View config, improve db and images
 	 -> Danger zone: Configuration raw edit, purge data and delete all images
 	 -> Upgrade zone: (from 1.x or 2.x) Repair missing database tables, ... 
-  * New in Maintenance->Upgrade zone: Compare actual DB with requierd 
+  * New in Maintenance->Upgrade zone: Compare actual DB with required 
      RSG2 sql file and fix any discrepancies
   * Maintenance design with icomoon icons
   * Rewritten code
@@ -173,7 +186,7 @@ Known issues:
 * --------------- 4.0.8 -- 2015-05-15 -------------
 15.05.2015 finnern
 
-    Fixed: My galleries in frontend: Users can't change the information of 
+    Fixed: My galleries in front end: Users can't change the information of 
     galleries or images. Button "Save" is activated
     User confirmation for buttons "purge tables" and "Remove RSGallery2 
     tables" in control panel when debug state is active
