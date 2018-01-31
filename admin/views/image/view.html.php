@@ -45,12 +45,6 @@ class Rsgallery2ViewImage extends JViewLegacy
 		global $Rsg2DevelopActive;
 		global $rsgConfig;
 
-		// on develop show open tasks if existing
-		if (!empty ($Rsg2DevelopActive))
-		{
-			echo '<span style="color:red">Task: Compare results original, Image too big, Click on image ? -> view big one as modal ? </span><br><br>';
-		}
-
 		//--- get needed data ------------------------------------------
 
 		// Check rights of user
@@ -103,6 +97,24 @@ class Rsgallery2ViewImage extends JViewLegacy
 
 	protected function addToolbar($Layout = 'default')
 	{
+		// on develop show open tasks if existing
+		if (!empty ($Rsg2DevelopActive))
+		{
+			echo '<span style="color:red">'
+				. 'Tasks: <br>'
+//				. '* show image big as modal on  click<br>'
+//				. '*  <br>'
+//				. '*  <br>'
+				. '* Rotate left, right, flip<br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+				. '</span><br><br>';
+		}
+
 		switch ($Layout)
 		{
 			case 'edit':

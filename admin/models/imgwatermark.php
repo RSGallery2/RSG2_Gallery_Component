@@ -333,7 +333,7 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 
         if ($Rsg2DebugActive)
         {
-            JLog::add('==> createThumbImageFile: "' . $srcImagePath . '" -> "' . $watermarkFilename . '"');
+            JLog::add('==> createMarkedFromBaseName: "' . $srcImagePath . '" -> "' . $watermarkFilename . '"');
         }
 
         //--- create water marked file ------------------------

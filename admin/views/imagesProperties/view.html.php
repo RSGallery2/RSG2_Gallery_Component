@@ -141,7 +141,7 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 				. '* Light box modal image also in edit image ... <br>'
 				. '* ? selection of gallery <br>'
 				. '* Test: The gallery name may be changed to move the image to a different folder <br>'
-//				. '*  <br>'
+				. '* Rotate left, right, flip<br>'
 //				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'
