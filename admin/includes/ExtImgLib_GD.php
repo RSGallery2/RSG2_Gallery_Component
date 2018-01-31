@@ -79,7 +79,7 @@ class external_GD2 extends externalImageLib// genericImageLib
 
 		// Determine target sizes: the $targetWidth that is put in this function is actually
 		// the size of the largest side of the image, with that calculate the other side:
-		// - landscape: function input $targetWidth is the actual $targetWidht
+		// - landscape: function input $targetWidth is the actual $targetWidth
 		// - portrait: function input $targetWidth is the height to achieve, so switch!
 		if ($sourceWidth > $sourceHeight)
 		{    // landscape
@@ -91,7 +91,14 @@ class external_GD2 extends externalImageLib// genericImageLib
 			$targetWidth  = ($targetHeight / $sourceHeight) * $sourceWidth;
 		}
 
+
+		// Creating a new JImage object, passing it an image path
+		// Test for *.jpg
+		//$image = new JImage($source);
+		$image = new JImage;
+		$image->loadFile($source);
 		// load source image file into a resource
+		// ToDo: This function does not honour EXIF orientation data. See imagecreatefromjpegexif and PHP doc http://php.net/manual/de/function.imagecreatefromjpeg.php
 		$loadImg   = "imagecreatefrom" . $type;
 		$sourceImg = $loadImg($source);
 		if (!$sourceImg)
@@ -105,14 +112,14 @@ class external_GD2 extends externalImageLib// genericImageLib
 		$targetImg = imagecreatetruecolor($targetWidth, $targetHeight);
 
 		// resize from source resource image to target
-		if (!imagecopyresampled(
+		$IsReSampled = imagecopyresampled(
 			$targetImg,
 			$sourceImg,
 			0, 0, 0, 0,
 			$targetWidth, $targetHeight,
 			$sourceWidth, $sourceHeight
-		)
-		)
+			);
+		if (!$IsReSampled)
 		{
 			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_RESIZING_IMAGE').': '.$source);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_RESIZING_IMAGE') . ': ' . $source, 'error');
@@ -241,6 +248,27 @@ class external_GD2 extends externalImageLib// genericImageLib
 		}
 	}
 
+	/**
+	function imagecreatefromjpegexif($filename)
+	{
+		$img = imagecreatefromjpeg($filename);
+		$exif = exif_read_data($filename);
+		if ($img && $exif && isset($exif['Orientation']))
+		{
+			$ort = $exif['Orientation'];
 
+			if ($ort == 6 || $ort == 5)
+				$img = imagerotate($img, 270, null);
+			if ($ort == 3 || $ort == 4)
+				$img = imagerotate($img, 180, null);
+			if ($ort == 8 || $ort == 7)
+				$img = imagerotate($img, 90, null);
+
+			if ($ort == 5 || $ort == 4 || $ort == 7)
+				imageflip($img, IMG_FLIP_HORIZONTAL);
+		}
+		return $img;
+	}
+	/**/
 }
 
