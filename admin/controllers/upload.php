@@ -294,6 +294,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	            {
 		            //--- Create random upload directory -------------------
 
+		            // ToDo: is it deleted again ?
+
 		            // Create unique upload directory and store it for cleanup at the end.
 		            $tmpDir = uniqid('rsgUpload_'); // 'rsginstall_'
 		            $extractDir = JPath::clean(JPATH_ROOT . '/media/' . $tmpDir . '/' );
@@ -327,7 +329,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	            {
 		            //---  -------------------
 
-		            // toDo:
+		            // toDo: Check how it is done in Joomla upload ZIP
 		            $isExtracted = JArchive::extract($zipPathFileName, $extractDir);
 		            if (!$IsUploaded)
 		            {
@@ -707,6 +709,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
     /**
      * ToDo: ? delete file on error
+     * ToDo: Check access rights : how is it done in Joomla Upload drag and drop
      *
      * @since 4.3
      */

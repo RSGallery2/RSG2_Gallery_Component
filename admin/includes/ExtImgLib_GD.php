@@ -184,6 +184,7 @@ class external_GD2 extends externalImageLib// genericImageLib
 
 		$width  = $t_width;    //New width
 		$height = $t_height;   //New height
+		// ToDo: is double, see above
 		list($width_orig, $height_orig) = getimagesize($source);
 
 		if ($width_orig < $height_orig)

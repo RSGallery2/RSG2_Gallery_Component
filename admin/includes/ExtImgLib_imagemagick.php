@@ -11,7 +11,7 @@ require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ExtImgLibAbstract.php';
  *
  * @package RSGallery2
  */
-class external_GD2 extends externalImageLib// genericImageLib
+class external_imageMagick extends externalImageLib// genericImageLib
 {
 
 	/**
