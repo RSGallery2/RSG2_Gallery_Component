@@ -740,8 +740,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	        $input = JFactory::getApplication()->input;
             $oFile = $input->files->get('upload_file', array(), 'raw');
 
-            $uploadPathFileName = $oFile['tmp_name'];
-            $uploadFileName    = $oFile['name'];
+            $uploadPathFileName = JFile::makeSafe($oFile['tmp_name']);
+            $uploadFileName    = JFile::makeSafe($oFile['name']);
             $fileType    = $oFile['type'];
             $fileError   = $oFile['error'];
             $fileSize    = $oFile['size'];
