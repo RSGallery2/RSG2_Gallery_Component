@@ -113,11 +113,11 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
      */
     public function MoveImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId)//: array
 	{
-		global $rsgConfig; //, $Rsg2DebugActive;
+		global $rsgConfig, $Rsg2DebugActive;
 
 		if ($Rsg2DebugActive)
 		{
-			JLog::add('==>Start MoveImageAndCreateRSG2Images: ' . $imgId );
+			JLog::add('==>Start MoveImageAndCreateRSG2Images: ' . $singleFileName );
 		}
 
         $urlThumbFile = '';
@@ -148,7 +148,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
 		if ($Rsg2DebugActive)
 		{
-			JLog::add('==>After MoveImageAndCreateRSG2Images: ' . $imgId );
+			JLog::add('==>After MoveImageAndCreateRSG2Images: ');
 		}
 
         return array($isMoved, $urlThumbFile, $msg); // file is moved
@@ -167,7 +167,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	 */
 	public function CopyImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId)//: array
 	{
-		global $rsgConfig; //, $Rsg2DebugActive;
+		global $rsgConfig, $Rsg2DebugActive;
 
 		$urlThumbFile = '';
 
@@ -175,7 +175,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
 		if ($Rsg2DebugActive)
 		{
-			JLog::add('==>Start CopyImageAndCreateRSG2Images: ' . $imgId );
+			JLog::add('==>Start CopyImageAndCreateRSG2Images: ' . $singleFileName );
 		}
 
 		// Image file handling model
@@ -257,7 +257,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
 		if ($Rsg2DebugActive)
 		{
-			JLog::add('==>After MoveImageAndCreateRSG2Images: ' . $imgId );
+			JLog::add('==>After MoveImageAndCreateRSG2Images: ');
 		}
 
 		return array($isCreated, $urlThumbFile, $msg); // file is moved
