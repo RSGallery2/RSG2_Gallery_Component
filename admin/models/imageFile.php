@@ -40,6 +40,11 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 		// ToDo: try catch
 		// ToDo: ? fallback when lib is not existing any more ?
+		
+		if ($Rsg2DebugActive)
+		{
+			JLog::add('==>Start __construct: ' . $imgId );
+		}
 
 		// Use rsgConfig to determine which image library to load
 		$graphicsLib = $rsgConfig->get('graphicsLib');
@@ -68,6 +73,12 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 				return false;
 		}
+		
+        if ($Rsg2DebugActive)
+        {
+            JLog::add('<==After __construct: ' . $imgId );
+        }
+
 	}
 
 

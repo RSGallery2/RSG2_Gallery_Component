@@ -667,7 +667,6 @@ jQuery(document).ready(function ($) {
                     alert ("Error on file transfer (2): " + msg);
                 }
 
-
             })
             // On fail 
             .fail(function(jqXHR, textStatus, exceptionType) {

@@ -115,6 +115,11 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	{
 		global $rsgConfig; //, $Rsg2DebugActive;
 
+		if ($Rsg2DebugActive)
+		{
+			JLog::add('==>Start MoveImageAndCreateRSG2Images: ' . $imgId );
+		}
+
         $urlThumbFile = '';
 
         $msg = '';
@@ -141,6 +146,11 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
             $msg .= '<br>' . 'Move for file "' . $singleFileName . '" failed: Other user may have tried to upload with same name at the same moment. Please try again or with different name.';
         }
 
+		if ($Rsg2DebugActive)
+		{
+			JLog::add('==>After MoveImageAndCreateRSG2Images: ' . $imgId );
+		}
+
         return array($isMoved, $urlThumbFile, $msg); // file is moved
     }
 
@@ -162,6 +172,11 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 		$urlThumbFile = '';
 
 		$msg = '';
+
+		if ($Rsg2DebugActive)
+		{
+			JLog::add('==>Start CopyImageAndCreateRSG2Images: ' . $imgId );
+		}
 
 		// Image file handling model
         //$modelFile = $this->getModel('imageFile');
@@ -238,6 +253,11 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 				}
 			} // display file
 
+		}
+
+		if ($Rsg2DebugActive)
+		{
+			JLog::add('==>After MoveImageAndCreateRSG2Images: ' . $imgId );
 		}
 
 		return array($isCreated, $urlThumbFile, $msg); // file is moved
