@@ -120,32 +120,51 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 			JLog::add('==>Start MoveImageAndCreateRSG2Images: ' . $singleFileName );
 		}
 
+//		if (false) {
         $urlThumbFile = '';
-
+		$isMoved = false; // successful images
         $msg = '';
 
-        // Image file handling model
-        //$modelFile = $this->getModel('imageFile');
-        $modelFile = $this->getInstance('imageFile', 'RSGallery2Model');
+		try {
+			// Image file handling model
+			//$modelFile = $this->getModel('imageFile');
+			$modelFile = $this->getInstance('imageFile', 'RSGallery2Model');
 
-        $isMoved = false; // successful images
+			// ToDo: try ... catch
 
-        // ToDo: try ... catch
+			$singlePathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $singleFileName;
 
-        $singlePathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $singleFileName;
+			$isMoved = $modelFile->moveFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId);
 
-        $isMoved = $modelFile->moveFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId);
-        if ($isMoved)
-        {
-            list($isMoved, $urlThumbFile, $msg) = $this->CopyImageAndCreateRSG2Images($singlePathFileName, $singleFileName, $galleryId, $msg, $rsgConfig);
-        }
-        else
-        {
-            // File from other user may exist
-            // lead to upload at the end ....
-            $msg .= '<br>' . 'Move for file "' . $singleFileName . '" failed: Other user may have tried to upload with same name at the same moment. Please try again or with different name.';
-        }
+		if (false) {
 
+			if ($isMoved)
+			{
+				list($isMoved, $urlThumbFile, $msg) = $this->CopyImageAndCreateRSG2Images($singlePathFileName, $singleFileName, $galleryId, $msg, $rsgConfig);
+			}
+			else
+			{
+				// File from other user may exist
+				// lead to upload at the end ....
+				$msg .= '<br>' . 'Move for file "' . $singleFileName . '" failed: Other user may have tried to upload with same name at the same moment. Please try again or with different name.';
+			}
+		}	
+		}
+		catch (RuntimeException $e)
+		{
+			if ($Rsg2DebugActive)
+			{
+				JLog::add('MoveImageAndCreateRSG2Images: RuntimeException');
+			}
+
+			$OutTxt = '';
+			$OutTxt .= 'Error executing MoveImageAndCreateRSG2Images: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+		
 		if ($Rsg2DebugActive)
 		{
 			JLog::add('==>After MoveImageAndCreateRSG2Images: ');

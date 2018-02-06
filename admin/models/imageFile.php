@@ -221,14 +221,22 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
         try
         {
-            $dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/'  .  $singleFileName;
-
             if ($Rsg2DebugActive)
             {
                 JLog::add('==> moveFile2OrignalDir: "' . $singleFileName . '"');
             }
 
+		if (false) {
+
+            $dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/'  .  $singleFileName;
+
+            if ($Rsg2DebugActive)
+            {
+                JLog::add('    uploadFileName: "' . uploadFileName . '"');
+            }
+
             $isMoved = move_uploaded_file($uploadFileName, $dstFileName);
+        }
         }
         catch (RuntimeException $e)
         {

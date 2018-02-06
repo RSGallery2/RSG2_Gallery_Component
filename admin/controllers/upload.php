@@ -913,7 +913,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 			//--- Move file and create display, thumbs and watermarked images ---------------------
 
-	        list($isCreated, $urlThumbFile, $msg) = $model->MoveImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId, $msg, $rsgConfig);
+	        list($isCreated, $urlThumbFile, $msg) = $model->MoveImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId);
 	        if (!$isCreated)
 	        {
 		        // ToDo: remove $imgId fom image database
