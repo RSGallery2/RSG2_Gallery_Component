@@ -136,7 +136,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
 			$isMoved = $modelFile->moveFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId);
 
-		if (false) {
+		if (true) {
 
 			if ($isMoved)
 			{
@@ -167,7 +167,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 		
 		if ($Rsg2DebugActive)
 		{
-			JLog::add('==>After MoveImageAndCreateRSG2Images: ');
+			JLog::add('<== Exit MoveImageAndCreateRSG2Images: ');
 		}
 
         return array($isMoved, $urlThumbFile, $msg); // file is moved
@@ -276,7 +276,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
 		if ($Rsg2DebugActive)
 		{
-			JLog::add('==>After MoveImageAndCreateRSG2Images: ');
+			JLog::add('<== Exit CopyImageAndCreateRSG2Images: ');
 		}
 
 		return array($isCreated, $urlThumbFile, $msg); // file is moved

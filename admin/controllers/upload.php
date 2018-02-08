@@ -904,7 +904,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
             if ($Rsg2DebugActive)
             {
-                JLog::add('<==After createOneImageInDb: ' . $imgId );
+                JLog::add('<== uploadAjax: After createOneImageInDb: ' . $imgId );
             }
 
             // $this->ajaxDummyAnswerOK (); return; // 05
@@ -930,7 +930,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
             if ($Rsg2DebugActive)
             {
-                JLog::add('<==After MoveImageAndCreateRSG2Images: ' . $isCreated );
+                JLog::add('<== uploadAjax: After MoveImageAndCreateRSG2Images isCreated: ' . $isCreated );
             }
 
             $ajaxImgObject['dstFile'] = $urlThumbFile; // $dstFileUrl ???
@@ -952,11 +952,18 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	        /**/
 
 	        // ??? msg is ???
+
+		    if ($Rsg2DebugActive) {
+			    JLog::add('    $ajaxImgObject: ' . json_encode($ajaxImgObject));
+			    JLog::add('    $msg: "' . $msg . '"');
+			    JLog::add('    !$isCreated (error):     ' . (!$isCreated) ? 'true' : 'false');
+		    }
+
             echo new JResponseJson($ajaxImgObject, $msg, !$isCreated);
 	        //echo new JResponseJson("uploadAjaxSingleFile (1)", "uploadAjaxSingleFile (2)", true);
 
             if ($Rsg2DebugActive) {
-                JLog::add('<== uploadAjaxSingleFile');
+                JLog::add('<== Exit uploadAjaxSingleFile');
             }
 
         } catch (Exception $e) {

@@ -622,10 +622,36 @@ jQuery(document).ready(function ($) {
             }).done(function(eData, textStatus, jqXHR) {
                 //alert('done:Success');
                 //alert ('Success2: "' + String(eData) + '"')
+
+                // first part dummy echo sdtring ?
+                // find start of json
+                var StartIdx = eData.indexOf("{");
+                alert ("StartIdx: " + StartIdx);
+                /**
+                var jsonText = "{}"
+                if (StartIdx == 0) {
+                    jsonText = eData;
+                }
+                else
+                {
+                    alert ("eData: " + eData);
+                    //var echoText = substring (eData, 0, StartIdx -1);
+                    //alert ("Server alarm/redirect (echo): " + echoText);
+                    jsonText = substring (eData, StartIdx);
+                    alert ("jsonText: " + jsonText);
+                }
+
+                var jData = jQuery.parseJSON(jsonText);
+                /**/
+                alert ('success 01: ');
+                alert ("eData: " + eData);
+                alert ('success 02');
                 var jData = jQuery.parseJSON(eData);
-                console.log(jqXHR);
-                //alert ('Json: ' + String (json));
+                alert ('success 03');
+                //console.log(jqXHR);
+                alert ('Json: ' + String (json));
                 //alert('Success3');
+                alert ('success 04');
 
                 // Check that JResponseJson data structure may be available
                 //if (!defined (json.success))

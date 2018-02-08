@@ -76,7 +76,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 		
         if ($Rsg2DebugActive)
         {
-            JLog::add('<==After __construct: ' . $imgId );
+            JLog::add('<==Exit __construct: ');
         }
 
 	}
@@ -106,7 +106,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 			if ($Rsg2DebugActive)
 			{
-				JLog::add('==> createDisplayFile: "' . $imgSrcPath . '" -> "' . $imgDstPath . '"');
+				JLog::add('==> start createDisplayImageFile: "' . $imgSrcPath . '" -> "' . $imgDstPath . '"');
 			}
 
 			$width  = getimagesize($imgSrcPath);
@@ -149,6 +149,11 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 		}
 
+		if ($Rsg2DebugActive)
+		{
+			JLog::add('<== Exit createDisplayImageFile: ');
+		}
+
 		return $IsImageCreated;
 	}
 
@@ -178,7 +183,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 			if ($Rsg2DebugActive)
 			{
-				JLog::add('==> createThumbImageFile: "' . $imgSrcPath . '" -> "' . $imgDstPath . '"');
+				JLog::add('==>start createThumbImageFile: "' . $imgSrcPath . '" -> "' . $imgDstPath . '"');
 			}
 
 // ??			$IsImageCreated = $this->ImageLib->createSquareThumb($imgSrcPath, $imgDstPath, $thumbWidth);
@@ -208,6 +213,11 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			}
 		}
 
+		if ($Rsg2DebugActive)
+		{
+			JLog::add('<== Exit createThumbImageFile: ');
+		}
+
 		return $IsImageCreated;
 	}
 
@@ -223,16 +233,16 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
         {
             if ($Rsg2DebugActive)
             {
-                JLog::add('==> moveFile2OrignalDir: "' . $singleFileName . '"');
+                JLog::add('==>start moveFile2OrignalDir: "' . $singleFileName . '"');
             }
 
-		if (false) {
+		if (true) {
 
             $dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/'  .  $singleFileName;
 
             if ($Rsg2DebugActive)
             {
-                JLog::add('    uploadFileName: "' . uploadFileName . '"');
+                JLog::add('    uploadFileName: "' . $uploadFileName . '"');
             }
 
             $isMoved = move_uploaded_file($uploadFileName, $dstFileName);
@@ -253,7 +263,12 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
             }
         }
 
-        return $isMoved;
+	    if ($Rsg2DebugActive)
+	    {
+		    JLog::add('<== Exit moveFile2OriginalDir: ');
+	    }
+
+	    return $isMoved;
     }
 
     // ToDo: add gallery ID as parameter for sub folder or sub folder itself ...
@@ -266,11 +281,11 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
         try
         {
-            $dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/'  .  $dstFileName;
+	        $dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/'  .  $dstFileName;
 
             if ($Rsg2DebugActive)
             {
-                JLog::add('==> copyFile2OrignalDir: "' . $dstFileName . '"');
+                JLog::add('==> start copyFile2OrignalDir: "' . $dstFileName . '"');
             }
 
             $isCopied = JFile::copy($srcFileName, $dstFileName);
@@ -290,7 +305,12 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
             }
         }
 
-        return $isCopied;
+	    if ($Rsg2DebugActive)
+	    {
+		    JLog::add('<== Exit copyFile2OrignalDir: ');
+	    }
+
+	    return $isCopied;
     }
 
     // create watermark -> watermark has separate class
@@ -317,7 +337,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 			if ($Rsg2DebugActive)
 			{
-				JLog::add('   deleteImgItemImages: "' . $imageName .'"');
+				JLog::add('==> start deleteImgItemImages: "' . $imageName .'"');
 			}
 
 			// Delete existing images
@@ -364,6 +384,11 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 			$app = JFactory::getApplication();
 			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		if ($Rsg2DebugActive)
+		{
+			JLog::add('<== Exit deleteImgItemImages: ');
 		}
 
 		return $IsImagesDeleted;
