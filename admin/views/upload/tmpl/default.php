@@ -623,33 +623,47 @@ jQuery(document).ready(function ($) {
                 //alert('done:Success');
                 //alert ('Success2: "' + String(eData) + '"')
 
-                // first part dummy echo sdtring ?
+                // first part dummy echo string ?
                 // find start of json
-                var StartIdx = eData.indexOf("{");
+                var StartIdx = eData.indexOf('{"');
                 alert ("StartIdx: " + StartIdx);
-                /**
+                var jData;
                 var jsonText = "{}"
                 if (StartIdx == 0) {
-                    jsonText = eData;
+                    jData = jQuery.parseJSON(jsonText);
                 }
                 else
                 {
+                    alert ('parse error 01: ');
                     alert ("eData: " + eData);
-                    //var echoText = substring (eData, 0, StartIdx -1);
+                    alert ('parse error 03: ');
+
+                    var errorText = eData.substring (0, StartIdx -1);
+                    alert ('parse error 03a: ');
+                    var progressArea =  $('#uploadProgressArea');
+                    alert ('parse error 03b: ');
+                    progressArea.append(errorText);
+                    alert ('parse error 03c: ');
+
                     //alert ("Server alarm/redirect (echo): " + echoText);
-                    jsonText = substring (eData, StartIdx);
+                    jsonText = eData.substring (StartIdx);
+                    alert ('parse error 04: ');
                     alert ("jsonText: " + jsonText);
+                    alert ('parse error 05: ');
+                    jData = jQuery.parseJSON(jsonText);
+                    alert ('parse error 06: ');
                 }
 
-                var jData = jQuery.parseJSON(jsonText);
                 /**/
-                alert ('success 01: ');
-                alert ("eData: " + eData);
-                alert ('success 02');
-                var jData = jQuery.parseJSON(eData);
+                //alert ('success 01: ');
+                //alert ("eData: " + eData);
+                //alert ('success 02');
+                //var jData = jQuery.parseJSON(eData);
                 alert ('success 03');
                 //console.log(jqXHR);
-                alert ('Json: ' + String (json));
+
+                alert ('jData.data.dstFile: "' + jData.data.dstFile + '"');
+                //alert ('Json: ' + String (json));
                 //alert('Success3');
                 alert ('success 04');
 
@@ -668,7 +682,7 @@ jQuery(document).ready(function ($) {
                 // file successful transferred
                 if (jData.success == true)
                 {
-                    // alert('Success5');
+                    alert('Success5');
                     this.imageBox = $("<li></li>").appendTo($('#imagesAreaList'));
                     this.thumbArea = $("<div class='thumbnail imgProperty'></div>").appendTo(this.imageBox);
                     this.imgComntainer= $("<img class='imgContainer' >").appendTo(this.thumbArea);
@@ -683,7 +697,7 @@ jQuery(document).ready(function ($) {
                 }
                 else
                 {
-                    // alert('Success40');
+                    alert('Success40');
                     // error on file transfer
                     var msg = jData.message;
                     alert ("Error on file transfer (1): " + msg);
@@ -800,6 +814,8 @@ jQuery(document).ready(function ($) {
                         <input class="input_box hidden" id="hidden_file_input" name="hidden_file_input" type="file" multiple />
 
                         <div id="uploadProgressArea"></div>
+
+                        <div id="uploadErrorArea"></div>
 
                         <div class="form-actions">
                             <a class="btn btn-primary" id="submitbuttonManualFileSingle"
