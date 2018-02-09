@@ -628,9 +628,8 @@ jQuery(document).ready(function ($) {
                 var StartIdx = eData.indexOf('{"');
                 alert ("StartIdx: " + StartIdx);
                 var jData;
-                var jsonText = "{}"
                 if (StartIdx == 0) {
-                    jData = jQuery.parseJSON(jsonText);
+                    jData = jQuery.parseJSON(eData);
                 }
                 else
                 {
@@ -639,7 +638,7 @@ jQuery(document).ready(function ($) {
                     alert ('parse error 03: ');
 
                     var errorText = eData.substring (0, StartIdx -1);
-                    alert ('parse error 03a: ');
+                    alert ('parclass="img-rounded"se error 03a: ');
                     var progressArea =  $('#uploadProgressArea');
                     alert ('parse error 03b: ');
                     progressArea.append(errorText);
@@ -686,7 +685,7 @@ jQuery(document).ready(function ($) {
                     this.imageBox = $("<li></li>").appendTo($('#imagesAreaList'));
                     this.thumbArea = $("<div class='thumbnail imgProperty'></div>").appendTo(this.imageBox);
                     this.imgComntainer= $("<img class='imgContainer' >").appendTo(this.thumbArea);
-                    this.imageDisplay= $("<img class='img-rounded' data-src='holder.js/600x400' src='" + jData.data.dstFile + "' alt=''/>").appendTo(this.imgComntainer);
+                    this.imageDisplay= $("<img class='img-rounded' data-src='holder.js/600x400' src='" + jData.data.dstFile + "' alt='' />").appendTo(this.imgComntainer);
 
                     this.caption = $("<div class='caption' ></div>").appendTo(this.imageBox);
                     this.imageDisplay= $("<small>" + jData.data.file + "</small>").appendTo(this.caption);
