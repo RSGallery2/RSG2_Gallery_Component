@@ -956,7 +956,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		    if ($Rsg2DebugActive) {
 			    JLog::add('    $ajaxImgObject: ' . json_encode($ajaxImgObject));
 			    JLog::add('    $msg: "' . $msg . '"');
-			    JLog::add('    !$isCreated (error):     ' . (!$isCreated) ? 'true' : 'false');
+			    JLog::add('    !$isCreated (error):     ' . ((!$isCreated) ? 'true' : 'false'));
 		    }
 
             echo new JResponseJson($ajaxImgObject, $msg, !$isCreated);

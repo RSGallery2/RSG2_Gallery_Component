@@ -103,7 +103,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			$baseName    = basename($originalFileName);
 			$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $baseName;
 			$imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $baseName . '.jpg';
-
+			
 			if ($Rsg2DebugActive)
 			{
 				JLog::add('==> start createDisplayImageFile: "' . $imgSrcPath . '" -> "' . $imgDstPath . '"');
@@ -151,7 +151,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 		if ($Rsg2DebugActive)
 		{
-			JLog::add('<== Exit createDisplayImageFile: ');
+			JLog::add('<== Exit createDisplayImageFile: ' . (($IsImageCreated) ? 'true' : 'false'));
 		}
 
 		return $IsImageCreated;
@@ -215,14 +215,14 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 		if ($Rsg2DebugActive)
 		{
-			JLog::add('<== Exit createThumbImageFile: ');
+			JLog::add('<== Exit createThumbImageFile: ' . (($IsImageCreated) ? 'true' : 'false'));
 		}
 
 		return $IsImageCreated;
 	}
 
     // ToDo: add gallery ID as parameter for sub folder or sub folder itself ...
-    public function moveFile2OriginalDir($uploadFileName, $singleFileName, $galleryId)
+    public function moveFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId)
     {
         global $rsgConfig;
         global $Rsg2DebugActive;
@@ -233,8 +233,11 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
         {
             if ($Rsg2DebugActive)
             {
-                JLog::add('==>start moveFile2OrignalDir: "' . $singleFileName . '"');
+                JLog::add('==>start moveFile2OrignalDir: ');
+                JLog::add('    uploadPathFileName: "' . $uploadPathFileName . '"');
+                JLog::add('    singleFileName: "' . $singleFileName . '"');
             }
+
 
 		if (true) {
 
@@ -242,16 +245,18 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
             if ($Rsg2DebugActive)
             {
-                JLog::add('    uploadFileName: "' . $uploadFileName . '"');
+                JLog::add('    dstFileName: "' . $dstFileName . '"');
             }
 
-            $isMoved = move_uploaded_file($uploadFileName, $dstFileName);
+// return $isMoved;
+
+            $isMoved = move_uploaded_file($uploadPathFileName, $dstFileName);
         }
         }
         catch (RuntimeException $e)
         {
             $OutTxt = '';
-            $OutTxt .= 'moveFile2OrignalDir: "' . $uploadFileName . '" -> "' . $dstFileName . '"<br>';
+            $OutTxt .= 'moveFile2OrignalDir: "' . $uploadPathFileName . '" -> "' . $dstFileName . '"<br>';
             $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
             $app = JFactory::getApplication();
@@ -265,7 +270,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 	    if ($Rsg2DebugActive)
 	    {
-		    JLog::add('<== Exit moveFile2OriginalDir: ');
+		    JLog::add('<== Exit moveFile2OriginalDir: ' . (($isMoved) ? 'true' : 'false'));
 	    }
 
 	    return $isMoved;
@@ -307,7 +312,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 	    if ($Rsg2DebugActive)
 	    {
-		    JLog::add('<== Exit copyFile2OrignalDir: ');
+		    JLog::add('<== Exit copyFile2OrignalDir: ' . (($isCopied) ? 'true' : 'false'));
 	    }
 
 	    return $isCopied;
@@ -388,7 +393,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 		if ($Rsg2DebugActive)
 		{
-			JLog::add('<== Exit deleteImgItemImages: ');
+			JLog::add('<== Exit deleteImgItemImages: ' . (($IsImagesDeleted) ? 'true' : 'false'));
 		}
 
 		return $IsImagesDeleted;

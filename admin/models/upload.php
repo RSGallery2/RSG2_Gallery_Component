@@ -117,7 +117,9 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
 		if ($Rsg2DebugActive)
 		{
-			JLog::add('==>Start MoveImageAndCreateRSG2Images: ' . $singleFileName );
+			JLog::add('==>Start MoveImageAndCreateRSG2Images:');
+			JLog::add('    $uploadPathFileName: "' . $uploadPathFileName . '"');
+			JLog::add('    $singleFileName: "' . $singleFileName . '"');
 		}
 
 //		if (false) {
@@ -130,12 +132,19 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 			//$modelFile = $this->getModel('imageFile');
 			$modelFile = $this->getInstance('imageFile', 'RSGallery2Model');
 
-			// ToDo: try ... catch
-
 			$singlePathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $singleFileName;
+			if ($Rsg2DebugActive)
+			{
+				JLog::add('    $singlePathFileName: "' . $singlePathFileName . '"');
+				$Empty = empty ($modelFile);
+				JLog::add('    $Empty: "' . $Empty . '"');
+			}
+			
+// return array($isMoved, $urlThumbFile, $msg); // file is moved
 
 			$isMoved = $modelFile->moveFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId);
 
+		
 		if (true) {
 
 			if ($isMoved)
@@ -167,7 +176,9 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 		
 		if ($Rsg2DebugActive)
 		{
-			JLog::add('<== Exit MoveImageAndCreateRSG2Images: ');
+			JLog::add('<== Exit MoveImageAndCreateRSG2Images: ' 
+				. (($isMoved) ? 'true' : 'false')
+				. ' Msg: ' . $msg);
 		}
 
         return array($isMoved, $urlThumbFile, $msg); // file is moved
@@ -276,9 +287,11 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
 		if ($Rsg2DebugActive)
 		{
-			JLog::add('<== Exit CopyImageAndCreateRSG2Images: ');
+			JLog::add('<== Exit CopyImageAndCreateRSG2Images: ' 
+				. (($isCreated) ? 'true' : 'false')
+				. ' Msg: ' . $msg);
 		}
-
+		
 		return array($isCreated, $urlThumbFile, $msg); // file is moved
 	}
 

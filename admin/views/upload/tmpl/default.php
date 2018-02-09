@@ -662,10 +662,10 @@ jQuery(document).ready(function ($) {
                 alert ('success 03');
                 //console.log(jqXHR);
 
-                alert ('jData.data.dstFile: "' + jData.data.dstFile + '"');
+                //alert ('jData.data.dstFile: "' + jData.data.dstFile + '"');
                 //alert ('Json: ' + String (json));
                 //alert('Success3');
-                alert ('success 04');
+                //alert ('success 04');
 
                 // Check that JResponseJson data structure may be available
                 //if (!defined (json.success))
@@ -697,11 +697,12 @@ jQuery(document).ready(function ($) {
                 }
                 else
                 {
-                    alert('Success40');
+                    alert('Result Error40');
                     // error on file transfer
                     var msg = jData.message;
-                    alert ("Error on file transfer (1): " + msg);
-
+                    alert ('Error on file transfer (1): "' + msg + '"');
+					alert ("eData: " + eData);
+					
                     // ToDo: Use count ....
                     msg = jData.messages.error[0];
                     alert ("Error on file transfer (2): " + msg);
