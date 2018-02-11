@@ -684,7 +684,7 @@ jQuery(document).ready(function ($) {
                     alert('Success5');
                     this.imageBox = $("<li></li>").appendTo($('#imagesAreaList'));
                     this.thumbArea = $("<div class='thumbnail imgProperty'></div>").appendTo(this.imageBox);
-                    this.imgComntainer= $("<img class='imgContainer' >").appendTo(this.thumbArea);
+                    this.imgComntainer= $("<div class='imgContainer' ></div>").appendTo(this.thumbArea);
                     this.imageDisplay= $("<img class='img-rounded' data-src='holder.js/600x400' src='" + jData.data.dstFile + "' alt='' />").appendTo(this.imgComntainer);
 
                     this.caption = $("<div class='caption' ></div>").appendTo(this.imageBox);
