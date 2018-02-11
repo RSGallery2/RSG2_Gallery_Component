@@ -67,7 +67,7 @@ class ImageReferences
 	/**
 	 * ImageReference constructor. init all variables
 	 */
-	public function __construct()
+	public function __construct($watermarked = false)
 	{
 		$this->ImageReferences = array();
 
@@ -78,18 +78,10 @@ class ImageReferences
 		$this->IsAnyImageMissingInWatermarked = false;
 		$this->IsAnyOneImageMissing           = false;
 
-		$this->UseWatermarked = false;
-	}
-
-	/**
-	 * ImageReference constructor. Tells if watermarked images shall be checked too
-	 *
-	 * @param bool $watermarked
-	 */
-	public function __construct1($watermarked)
-	{
-
-		__construct();
+		if ($watermarked)
+		{
+			require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ImgWatermarkNames.php';
+		}
 
 		$this->UseWatermarked = $watermarked;
 	}
@@ -160,13 +152,16 @@ class ImageReferences
 			$files_watermarked = $this->getFilenameArray($rsgConfig->get('imgPath_watermarked'));
 		}
 
+		//$files_merged = array_unique(array_merge($DbImageNames, $files_display,
+		//	$files_original, $files_thumb, $files_watermarked));
+
 		$files_merged = array_unique(array_merge($DbImageNames, $files_display,
-			$files_original, $files_thumb, $files_watermarked));
+			$files_original, $files_thumb));
 
-		//--- Check 4 missing data. Collect reult in ImageReferenceList ---------------------
+		//--- Check 4 missing data. Collect result in ImageReferenceList ---------------------
 
-		$msg .= $this->CreateImagesData($files_merged, $DbImageNames, $DbImageGalleryList,
-			$files_display, $files_original, $files_thumb, $files_watermarked);
+		$msg .= $this->CreateImagesData($files_merged, $DbImageNames, $DbImageGalleryList, $files_display,
+			$files_original, $files_thumb, $files_watermarked);
 
 		return $msg;
 	}
@@ -248,7 +243,7 @@ class ImageReferences
 
 		//Files to exclude from the check
 		$exclude  = array('.', '..', 'Thumbs.db', 'thumbs.db');
-		$allowed  = array('jpg', 'gif', 'png');
+		$allowed  = array('jpg', 'gif', 'png', 'jpeg');
 		$names_fs = array();
 
 		while (false !== ($filename = readdir($dh)))
@@ -317,13 +312,14 @@ class ImageReferences
 
 		$this->ImageReferenceList = array();
 
+		// Not watermarked
 		foreach ($AllFiles as $BaseFile)
 		{
-			$MissingImage = false;
+			//$MissingImage = false;
 
-			$ImagesData                 = new ImageReference();
+			$ImagesData                 = new ImageReference($this->UseWatermarked);
 			$ImagesData->imageName      = $BaseFile;
-			$ImagesData->UseWatermarked = $this->UseWatermarked;
+			// $ImagesData->UseWatermarked = $this->UseWatermarked;
 
 			$ImagesData->IsGalleryAssigned = false;
 			if (in_array($BaseFile, $DbImageNames))
@@ -356,15 +352,32 @@ class ImageReferences
 				$ImagesData->IsThumbImageFound = true;
 			}
 
-			if (in_array($BaseFile, $files_watermarked))
+			if ($this->UseWatermarked)
 			{
-				$ImagesData->IsWatermarkedImageFound = true;
+				// Needs creation of hidden filename -> either from original or display folder
+				$imageOrigin = 'original';
+				$BaseFileWatermarked = ImgWatermarkNames::createWatermarkedFileName($BaseFile, $imageOrigin);
+				if (in_array($BaseFileWatermarked, $files_watermarked))
+				{
+					$ImagesData->IsWatermarkedImageFound = true;
+					$ImagesData->WatermarkedFileName = $BaseFileWatermarked;
+				}
+				else
+				{
+					$imageOrigin         = 'display';
+					$BaseFileWatermarked = ImgWatermarkNames::createWatermarkedFileName($BaseFile, $imageOrigin);
+					if (in_array($BaseFileWatermarked, $files_watermarked))
+					{
+						$ImagesData->IsWatermarkedImageFound = true;
+						$ImagesData->WatermarkedFileName = $BaseFileWatermarked;
+					}
+				}
 			}
 
 			//-------------------------------------------------
 			// Does file need to be handled ?
 			//-------------------------------------------------
-			// "dont care" used as watermarked images are not missing as such.
+			// "do not care" used as watermarked images are not missing as such.
 			// watermarked images will be created when displaying image
 			if ($ImagesData->IsMainImageMissing(ImageReference::dontCareForWatermarked)
 				|| !$ImagesData->IsImageInDatabase
@@ -405,11 +418,40 @@ class ImageReferences
 
 				if ($ImagesData->IsWatermarkedImageFound)
 				{
-					$ImagesData->imagePath = $rsgConfig->get('imgPath_watermarked') . '/' . $ImagesData->imageName; // . '.jpg';
+					//$ImagesData->imagePath = $rsgConfig->get('imgPath_watermarked') . '/' . $ImagesData->imageName; // . '.jpg';
+					$ImagesData->imagePath = $rsgConfig->get('imgPath_watermarked') . '/' . $ImagesData->WatermarkedFileName; // . '.jpg';
 				}
 
 				$this->ImageReferenceList [] = $ImagesData;
 			}
+		}
+
+		// Check watermarked
+		foreach ($files_watermarked as $BaseFile)
+		{
+			$IsFileFound = false;
+
+			foreach ($this->ImageReferenceList as $ImagesData)
+			{
+				if (isset ($ImagesData->WatermarkedFileName))
+				{
+					if ($ImagesData->WatermarkedFileName == $BaseFile)
+					{
+						$IsFileFound = true;
+						break;
+					}
+				}
+			}
+
+			if (! $IsFileFound)
+			{
+				$ImagesData                 = new ImageReference($this->UseWatermarked);
+				$ImagesData->imageName      = $BaseFile;
+				$ImagesData->IsWatermarkedImageFound = true;
+
+				$this->ImageReferenceList [] = $ImagesData;
+			}
+
 		}
 
 		//--- Set column bits: Is one entry missing in column ? --------------------------------------
@@ -441,7 +483,7 @@ class ImageReferences
 		$this->IsAnyOneImageMissing = false;
 		foreach ($this->ImageReferenceList as $ImageReference)
 		{
-			// dont care as watermarked images are not missing as such. watermarked images will be created when displaying image
+			// do not care as watermarked images are not missing as such. watermarked images will be created when displaying image
 			$this->IsAnyOneImageMissing |= $ImageReference->IsMainImageMissing(ImageReference::dontCareForWatermarked);
 		}
 

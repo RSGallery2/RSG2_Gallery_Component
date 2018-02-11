@@ -68,13 +68,12 @@ class rsgallery2ModelMaintConsolidateDB extends JModelList
 		// ToDo: Instead of message return HasError;
 		$msg = ''; //  ": " . '<br>';
 
-		//
-		$ImageReferences       = new ImageReferences ();
+		// Include watermarked files to search and check for missing
+		//$ImageReferences->UseWatermarked = $this->IsWatermarkActive();
+		// $ImageReferences->UseWatermarked = true; // ToDO: remove
+		//$ImageReferences       = new ImageReferences ($this->IsWatermarkActive());
+		$ImageReferences       = new ImageReferences (1);
 		$this->ImageReferences = $ImageReferences;
-
-		// Include watermarked files to search and check for missing 
-		$ImageReferences->UseWatermarked = $this->IsWatermarkActive();
-		$ImageReferences->UseWatermarked = true; // ToDO: remove
 
 		try
 		{
