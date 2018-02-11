@@ -130,7 +130,8 @@ class Rsgallery2ViewImages extends JViewLegacy
                     echo '<span style="color:red">'
                         . 'Tasks: <br>'
                         . '* Delete function needs to delete watermarked too !<br>'
-                        . '* Search controls ...<br>'
+	                    . '* Search selection has on option too many<br>'
+	                    . '* Search controls ...<br>'
                         . '* Sort by image count is wrong<br>'
 	                    . '* Image not shown above title (data-original-title?)<br>'
                         . '</span><br><br>';
