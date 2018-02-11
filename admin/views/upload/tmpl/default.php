@@ -626,7 +626,7 @@ jQuery(document).ready(function ($) {
                 // first part dummy echo string ?
                 // find start of json
                 var StartIdx = eData.indexOf('{"');
-                alert ("StartIdx: " + StartIdx);
+                //alert ("StartIdx: " + StartIdx);
                 var jData;
                 if (StartIdx == 0) {
                     jData = jQuery.parseJSON(eData);
@@ -658,7 +658,7 @@ jQuery(document).ready(function ($) {
                 //alert ("eData: " + eData);
                 //alert ('success 02');
                 //var jData = jQuery.parseJSON(eData);
-                alert ('success 03');
+                //alert ('success 03');
                 //console.log(jqXHR);
 
                 //alert ('jData.data.dstFile: "' + jData.data.dstFile + '"');
@@ -681,7 +681,7 @@ jQuery(document).ready(function ($) {
                 // file successful transferred
                 if (jData.success == true)
                 {
-                    alert('Success5');
+                    //alert('Success5');
                     this.imageBox = $("<li></li>").appendTo($('#imagesAreaList'));
                     this.thumbArea = $("<div class='thumbnail imgProperty'></div>").appendTo(this.imageBox);
                     this.imgComntainer= $("<div class='imgContainer' ></div>").appendTo(this.thumbArea);
@@ -696,7 +696,7 @@ jQuery(document).ready(function ($) {
                 }
                 else
                 {
-                    alert('Result Error40');
+                    alert('Result Error5');
                     // error on file transfer
                     var msg = jData.message;
                     alert ('Error on file transfer (1): "' + msg + '"');
