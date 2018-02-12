@@ -312,6 +312,8 @@ class ImageReferences
 
 		$this->ImageReferenceList = array();
 
+		$ValidWatermarkNames = array();
+
 		// Not watermarked
 		foreach ($AllFiles as $BaseFile)
 		{
@@ -361,6 +363,7 @@ class ImageReferences
 				{
 					$ImagesData->IsWatermarkedImageFound = true;
 					$ImagesData->WatermarkedFileName = $BaseFileWatermarked;
+					$ValidWatermarkNames [] = $BaseFileWatermarked;
 				}
 				else
 				{
@@ -370,6 +373,7 @@ class ImageReferences
 					{
 						$ImagesData->IsWatermarkedImageFound = true;
 						$ImagesData->WatermarkedFileName = $BaseFileWatermarked;
+						$ValidWatermarkNames [] = $BaseFileWatermarked;
 					}
 				}
 			}
@@ -431,15 +435,12 @@ class ImageReferences
 		{
 			$IsFileFound = false;
 
-			foreach ($this->ImageReferenceList as $ImagesData)
+			foreach ($ValidWatermarkNames as $WatermarkName)
 			{
-				if (isset ($ImagesData->WatermarkedFileName))
+				if ($WatermarkName == $BaseFile)
 				{
-					if ($ImagesData->WatermarkedFileName == $BaseFile)
-					{
-						$IsFileFound = true;
-						break;
-					}
+					$IsFileFound = true;
+					break;
 				}
 			}
 
@@ -453,7 +454,6 @@ class ImageReferences
 
 				$this->ImageReferenceList [] = $ImagesData;
 			}
-
 		}
 
 		//--- Set column bits: Is one entry missing in column ? --------------------------------------
