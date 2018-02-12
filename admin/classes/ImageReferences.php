@@ -449,6 +449,8 @@ class ImageReferences
 				$ImagesData->imageName      = $BaseFile;
 				$ImagesData->IsWatermarkedImageFound = true;
 
+                $ImagesData->IsGalleryAssigned = false;
+
 				$this->ImageReferenceList [] = $ImagesData;
 			}
 

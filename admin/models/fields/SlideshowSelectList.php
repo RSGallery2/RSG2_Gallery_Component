@@ -47,7 +47,7 @@ class JFormFieldSlideshowSelectList extends JFormFieldList
 			 */
 
 			// Format values for slideshow dropdownbox
-			$folders = JFolder::folders(JPATH_RSGALLERY2_SITE . DS . '/templates');
+			$folders = JFolder::folders(JPATH_RSGALLERY2_SITE . '/templates');
 			foreach ($folders as $folder)
 			{
 				if (preg_match("/slideshow/i", $folder))

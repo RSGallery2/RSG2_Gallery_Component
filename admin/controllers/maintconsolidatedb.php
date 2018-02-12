@@ -375,14 +375,13 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 					$IsImageCreated &= $imageFileModel->createThumbImageFile($ImageReference->imageName);
 				}
 
-				/** Watermark files are created when visited by user
-				 * // Create watermark
-				 * if(!$ImageReference->IsWatermarkedImageFound) {
-				 * if ($rsgConfig->watermark) {
-				 * $IsImageCreated &= ! $imageDbModel->createWaterMarkImageFile ($ImageReference->imageName);
-				 * }
-				 * }
-				 * /**/
+				/** Normally Watermark files are created when visited by user */
+				// Create watermark
+                if ($rsgConfig->get('imgPath_watermarked')) {
+                    if(!$ImageReference->IsWatermarkedImageFound) {
+				        $IsImageCreated &= ! $imageFileModel->createWaterMarkImageFile ($ImageReference->imageName);
+				    }
+                }
 			}
 		}
 		catch (RuntimeException $e)

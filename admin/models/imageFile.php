@@ -367,7 +367,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 				$IsImagesDeleted = false;
 			}
 
-			// ToDo: Create filename like original0817254a99efa36171c98a96a81c7214.jpg
+
 			// destination  path file name
 			$watermarkFilename = ImgWatermarkNames::createWatermarkedPathFileName($imageName, 'original');
 			$IsWatermarkDeleted = $this->DeleteImage($watermarkFilename);
@@ -380,7 +380,18 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 				}
 			}
-		}
+
+            // Delete filename like original0817254a99efa36171c98a96a81c7214.jpg
+            $imgPath = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . '/' . $imageName;
+            $IsImageDeleted = $this->DeleteImage($imgPath);
+            if (!$IsImageDeleted)
+            {
+                // $IsImagesDeleted = false;
+            }
+
+
+
+        }
 		catch (RuntimeException $e)
 		{
 			$OutTxt = '';
