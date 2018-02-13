@@ -388,9 +388,6 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
             {
                 // $IsImagesDeleted = false;
             }
-
-
-
         }
 		catch (RuntimeException $e)
 		{

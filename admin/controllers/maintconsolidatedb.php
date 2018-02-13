@@ -129,6 +129,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
 	}
 
+
     /**
      *
      * @param string $name
@@ -240,6 +241,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 							$IsAllCreated = false;
 						}
 					}
+
 					/**
 					 * if (!$IsAllCreated) {
 					 * $OutTxt = 'Image not created for: ' . $ImageReference->name;
@@ -275,6 +277,85 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 	}
 
     /**
+     * Creates all missing image files
+     * The function tries to find the image with the highest redolution
+     * Order: original, display then thumb images (?watermarked?)
+     *
+     * @since 4.3.0
+     */
+    public function createWatermarkImages()
+    {
+        $msg     = "controller.createWatermarkImages: ";
+        $msgType = 'notice';
+
+        $canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
+        if (!$canAdmin)
+        {
+            //JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+            $msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+            $msgType = 'warning';
+            // replace newlines with html line breaks.
+            str_replace('\n', '<br>', $msg);
+        }
+        else
+        {
+
+            // Model tells if successful
+            $model = $this->getModel('maintConsolidateDB');
+
+            // $IsAllCreated = false;
+
+            try
+            {
+                // Retrieve image list with attributes
+                $ImageReferences = $model->SelectedImageReferences();
+
+                if (!empty ($ImageReferences))
+                {
+                    $imageWatermarkModel = $this->getModel('imgWatermark');
+
+                    $IsAllCreated = true;
+                    foreach ($ImageReferences as $ImageReference)
+                    {
+                        $IsCreated = $this->createSelectedWatermarkImage($ImageReference, $imageWatermarkModel);
+                        if (!$IsCreated)
+                        {
+                            $OutTxt = 'Image not created for: ' . $ImageReference->name;
+                            $app    = JFactory::getApplication();
+                            $app->enqueueMessage($OutTxt, 'warning');
+
+                            $IsAllCreated = false;
+                        }
+                    }
+
+                }
+            }
+            catch (RuntimeException $e)
+            {
+                $OutTxt = '';
+                $OutTxt .= 'Error executing createMissingImages: "' . '<br>';
+                $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+                $app = JFactory::getApplication();
+                $app->enqueueMessage($OutTxt, 'error');
+            }
+
+            if ($IsAllCreated)
+            {
+                $msg .= "Successful created missing image files";
+            }
+            else
+            {
+                $msg .= "Error at created missing image files";
+                $msgType = 'warning';
+            }
+        }
+
+        $this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
+
+    }
+
+    /**
      * Creates one missing image file
      * The function tries to find the image with the highest redolution
      * Order: original, display then thumb images (?watermarked?)
@@ -286,7 +367,131 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
      *
      * @since 4.3.0
      */
-	public function createSelectedMissingImage($ImageReference, $imageFileModel)
+    public function createSelectedMissingImage($ImageReference, $imageFileModel)
+    {
+        global $rsgConfig;
+
+        $IsImageCreated = false;
+
+        try
+        {
+            $isOriginalImageFound = $ImageReference->IsOriginalImageFound;
+
+            // Original does not exist in original folder -> copy from other sources
+
+            if (!$isOriginalImageFound)
+            {
+
+                $IsAnyImageExists = $ImageReference->IsDisplayImageFound
+                    || $ImageReference->IsThumbImageFound
+                    || $ImageReference->IsWatermarkedImageFound;
+
+                $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $ImageReference->imageName;
+
+                if ($IsAnyImageExists)
+                {
+
+                    // copy from Display folder
+                    if ($ImageReference->IsDisplayImageFound)
+                    {
+                        //$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $ImageReference->imageName;;
+                        $imgSrcPath = JPATH_ROOT . $ImageReference->imagePath;
+                        // ToDO: Type may have changed from *.png to *.jpg -> name in db ig in db
+                        $isOriginalImageFound = copy($imgSrcPath, $imgDstPath);
+                    } // copy from thumbs folder
+                    else
+                    {
+                        if ($ImageReference->IsThumbImageFound)
+                        {
+                            //$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . '/' . $ImageReference->imageName;;
+                            $imgSrcPath = JPATH_ROOT . $ImageReference->imagePath;
+                            $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $ImageReference->imageName;
+                            // ToDO: Type may have changed from *.png to *.jpg -> name in db ig in db
+                            $isOriginalImageFound = copy($imgSrcPath, $imgDstPath);
+                        } // copy from watermarks folder
+                        else
+                        {
+                            if ($ImageReference->IsWatermarkedImageFound)
+                            {
+                                //$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . '/' . $ImageReference->imageName;;
+                                $imgSrcPath = JPATH_ROOT . $ImageReference->imagePath;
+                                $imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $ImageReference->imageName;
+                                // ToDO: Type may have changed from *.png to *.jpg -> name in db ig in db
+                                $isOriginalImageFound = copy($imgSrcPath, $imgDstPath);
+                            }
+                        }
+                    }
+
+                    // not existing after failed copy
+                    if (!$isOriginalImageFound)
+                    {
+                        $OutTxt = 'Could not copy files  ' . $ImageReference->imageName;
+                        $OutTxt .= '<br>$imgSrcPath: ' . $imgSrcPath;
+                        $OutTxt .= '<br>$imgDstPath: ' . $imgDstPath;
+
+                        JFactory::getApplication()->enqueueMessage($OutTxt, 'error');
+                    }
+                }
+                else
+                {
+                    $OutTxt = 'No image file exist for ' . $ImageReference->imageName;
+                    JFactory::getApplication()->enqueueMessage($OutTxt, 'warning');
+                }
+            }
+
+            // When original image exists: Use standard creation of display, thumb
+            if ($isOriginalImageFound)
+            {
+                $IsImageCreated = true;
+
+                // Create display
+                if (!$ImageReference->IsDisplayImageFound)
+                {
+                    $IsImageCreated &= $imageFileModel->createDisplayImageFile($ImageReference->imageName);
+                }
+
+                // Create thumb
+                if (!$ImageReference->IsThumbImageFound)
+                {
+                    $IsImageCreated &= $imageFileModel->createThumbImageFile($ImageReference->imageName);
+                }
+
+                /** Normally Watermark files are created when visited by user *
+                // Create watermark
+                if ($rsgConfig->get('imgPath_watermarked')) {
+                if(!$ImageReference->IsWatermarkedImageFound) {
+                $IsImageCreated &= ! $imageFileModel->createWaterMarkImageFile ($ImageReference->imageName);
+                }
+                }
+                /**/
+            }
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing createSelectedMissingImage: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $IsImageCreated;
+    }
+
+    /**
+     * Creates one watermark image file
+     * The function tries to find the image with the highest redolution
+     * Order: original, display then thumb images (?watermarked?)
+     *
+     * @param ImageReference       $ImageReference
+     * @param Rsgallery2ModelImage $imageWatermarkedModel
+     *
+     * @return bool True on success
+     *
+     * @since 4.3.0
+     */
+	public function createSelectedWatermarkImage($ImageReference, $imageWatermarkedModel)
 	{
 		global $rsgConfig;
 
@@ -295,94 +500,35 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		try
 		{
 			$isOriginalImageFound = $ImageReference->IsOriginalImageFound;
+            $isDisplayImageFound = $ImageReference->IsDisplayImageFound;
 
 			// Original does not exist in original folder -> copy from other sources
 
-			if (!$isOriginalImageFound)
+			if (!$isOriginalImageFound && !$isDisplayImageFound)
 			{
-
-				$IsAnyImageExists = $ImageReference->IsDisplayImageFound
-					|| $ImageReference->IsThumbImageFound
-					|| $ImageReference->IsWatermarkedImageFound;
-
-				$imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $ImageReference->imageName;
-
-				if ($IsAnyImageExists)
-				{
-
-					// copy from Display folder
-					if ($ImageReference->IsDisplayImageFound)
-					{
-						//$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $ImageReference->imageName;;
-						$imgSrcPath = JPATH_ROOT . $ImageReference->imagePath;
-						// ToDO: Type may have changed from *.png to *.jpg -> name in db ig in db
-						$isOriginalImageFound = copy($imgSrcPath, $imgDstPath);
-					} // copy from thumbs folder
-					else
-					{
-						if ($ImageReference->IsThumbImageFound)
-						{
-							//$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . '/' . $ImageReference->imageName;;
-							$imgSrcPath = JPATH_ROOT . $ImageReference->imagePath;
-							$imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $ImageReference->imageName;
-							// ToDO: Type may have changed from *.png to *.jpg -> name in db ig in db
-							$isOriginalImageFound = copy($imgSrcPath, $imgDstPath);
-						} // copy from watermarks folder
-						else
-						{
-							if ($ImageReference->IsWatermarkedImageFound)
-							{
-								//$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_watermarked') . '/' . $ImageReference->imageName;;
-								$imgSrcPath = JPATH_ROOT . $ImageReference->imagePath;
-								$imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $ImageReference->imageName;
-								// ToDO: Type may have changed from *.png to *.jpg -> name in db ig in db
-								$isOriginalImageFound = copy($imgSrcPath, $imgDstPath);
-							}
-						}
-					}
-
-					// not existing after failed copy
-					if (!$isOriginalImageFound)
-					{
-						$OutTxt = 'Could not copy files  ' . $ImageReference->imageName;
-						$OutTxt .= '<br>$imgSrcPath: ' . $imgSrcPath;
-						$OutTxt .= '<br>$imgDstPath: ' . $imgDstPath;
-
-						JFactory::getApplication()->enqueueMessage($OutTxt, 'error');
-					}
-				}
-				else
-				{
-					$OutTxt = 'No image file exist for ' . $ImageReference->imageName;
+					$OutTxt = 'No Original/Display image file exist for ' . $ImageReference->imageName;
 					JFactory::getApplication()->enqueueMessage($OutTxt, 'warning');
-				}
 			}
+            else {
+                // When original image exists: Use standard creation of display, thumb
+                if ($isOriginalImageFound) {
+                    $IsImageCreated = true;
 
-			// When original image exists: Use standard creation of display, thumb
-			if ($isOriginalImageFound)
-			{
-				$IsImageCreated = true;
-
-				// Create display
-				if (!$ImageReference->IsDisplayImageFound)
-				{
-					$IsImageCreated &= $imageFileModel->createDisplayImageFile($ImageReference->imageName);
-				}
-
-				// Create thumb
-				if (!$ImageReference->IsThumbImageFound)
-				{
-					$IsImageCreated &= $imageFileModel->createThumbImageFile($ImageReference->imageName);
-				}
-
-				/** Normally Watermark files are created when visited by user */
-				// Create watermark
-                if ($rsgConfig->get('imgPath_watermarked')) {
-                    if(!$ImageReference->IsWatermarkedImageFound) {
-				        $IsImageCreated &= ! $imageFileModel->createWaterMarkImageFile ($ImageReference->imageName);
-				    }
+                    /** Normally Watermark files are created when visited by user */
+                    // Create watermark
+                    $IsImageCreated &= !$imageWatermarkedModel->createMarkedFromBaseName($ImageReference->imageName, 'Original');
+                    /**/
                 }
-			}
+                // When original image exists: Use standard creation of display, thumb
+                if ($isDisplayImageFound) {
+                    $IsImageCreated = true;
+
+                    /** Normally Watermark files are created when visited by user */
+                    // Create watermark
+                    $IsImageCreated &= !$imageWatermarkedModel->createMarkedFromBaseName($ImageReference->imageName, 'display');
+                    /**/
+                }
+            }
 		}
 		catch (RuntimeException $e)
 		{
