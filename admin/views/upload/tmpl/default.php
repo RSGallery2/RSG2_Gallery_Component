@@ -295,7 +295,8 @@ jQuery(document).ready(function ($) {
     var returnUrl = $('#installer-return').val();
     var token = $('#installer-token').val();
     var gallery_id = $('#SelectGalleries_03').val();
-
+    
+    var dropStack; // File list to be uploaded 
 
     /*----------------------------------------------------
     Red or green border for drag and drop images
@@ -431,7 +432,7 @@ jQuery(document).ready(function ($) {
 	var imgCount = 0;
 
 	// Handle status bar for one actual uploading image
-	function createStatusbar(obj) {
+	function createStatusBar(obj) {
 		imgCount++;
 		var row = "odd";
 		if (imgCount % 2 == 0) {
@@ -485,22 +486,51 @@ jQuery(document).ready(function ($) {
         var gallery_id = $('#SelectGalleries_03').val();
 
 		// All files selected by user
-		for (var i = 0; i < files.length; i++) {
+		for (var idx = 0; idx < files.length; idx++) {
 			var data = new FormData();
-			data.append('upload_file', files[i]);
+			data.append('upload_file', files[idx]);
 			data.append('upload_type', 'single');
 			data.append('token', token);
 			data.append('gallery_id', gallery_id);
+            data.append('idx', idx);
 
-			var status = new createStatusbar(obj); //Using this we can set progress.
+            // Set progress bar
+			var status = new createStatusBar(obj);
 			status.setFileNameSize(files[i].name, files[i].size);
 
-			sendFileToServer(data, status);
+			var stackObj = {}
+            stackObj.data = data;
+            stackObj.status = status ;
 
-			// Order needs inserting so ...
-			wait (250);
+            dropStack.push (stackObj);
+
+			//// Order needs inserting so ...
+			// wait (250);
+            // sendFileToServer(data, status);
 		}
+
+		startSendFileToServer ();
 	}
+
+	var sendState = 0; // 1 busy
+    var sendTimeout = 10; // sec;  continue sending next on no answer or error -> alarm ?
+
+    function startSendFileToServer () {
+
+        // Not busy
+        if (sendState = 0)
+        {
+            stackObj= dropStack (pop)
+            var data = stackObj.data;
+            var status = stackObj.status:
+
+            sendState = 1; // 1 busy
+
+            sendFileToServer(data, status);
+        }
+    }
+
+    on 100 % ?success? or fail or timeout send next
 
 
 
