@@ -512,21 +512,19 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
             else {
                 // When original image exists: Use standard creation of display, thumb
                 if ($isOriginalImageFound) {
-                    $IsImageCreated = true;
-
                     /** Normally Watermark files are created when visited by user */
                     // Create watermark
-                    $IsImageCreated &= !$imageWatermarkedModel->createMarkedFromBaseName($ImageReference->imageName, 'Original');
+                    $IsImageCreated = $imageWatermarkedModel->createMarkedFromBaseName($ImageReference->imageName, 'Original');
                     /**/
                 }
-                // When original image exists: Use standard creation of display, thumb
-                if ($isDisplayImageFound) {
-                    $IsImageCreated = true;
-
-                    /** Normally Watermark files are created when visited by user */
-                    // Create watermark
-                    $IsImageCreated &= !$imageWatermarkedModel->createMarkedFromBaseName($ImageReference->imageName, 'display');
-                    /**/
+                else {
+                    // When original image exists: Use standard creation of display, thumb
+                    if ($isDisplayImageFound) {
+                        /** Normally Watermark files are created when visited by user */
+                        // Create watermark
+                        $IsImageCreated = $imageWatermarkedModel->createMarkedFromBaseName($ImageReference->imageName, 'display');
+                        /**/
+                    }
                 }
             }
 		}
