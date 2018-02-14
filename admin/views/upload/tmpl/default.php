@@ -296,7 +296,7 @@ jQuery(document).ready(function ($) {
     var token = $('#installer-token').val();
     var gallery_id = $('#SelectGalleries_03').val();
     
-    var dropStack; // File list to be uploaded 
+    var dropQueue; // File list to be uploaded 
 
     /*----------------------------------------------------
     Red or green border for drag and drop images
@@ -461,14 +461,19 @@ jQuery(document).ready(function ($) {
 
 			this.filename.html(name);
 			this.size.html(sizeStr);
-		}
+		};
 		this.setProgress = function (progress) {
 			var progressBarWidth = progress * this.progressBar.width() / 100;
 			this.progressBar.find('div').animate({width: progressBarWidth}, 10).html(progress + "%");
-			if (parseInt(progress) >= 100) {
+			if (parseInt(progress) >= 99.999) {
 				this.abort.hide();
-			}
-		}
+                alert ("100%");
+
+                // start next upload
+                sendState = 0; // 1 == busy
+                startSendFileToServer () ;
+            }
+		};
 		this.setAbort = function (jqxhr) {
 			var sb = this.statusbar;
 			this.abort.click(function () {
@@ -498,11 +503,11 @@ jQuery(document).ready(function ($) {
 			var status = new createStatusBar(obj);
 			status.setFileNameSize(files[i].name, files[i].size);
 
-			var stackObj = {}
-            stackObj.data = data;
-            stackObj.status = status ;
+			var queueObj = {};
+            queueObj.data = data;
+            queueObj.status = status ;
 
-            dropStack.push (stackObj);
+            dropQueue.push (queueObj);
 
 			//// Order needs inserting so ...
 			// wait (250);
@@ -520,9 +525,10 @@ jQuery(document).ready(function ($) {
         // Not busy
         if (sendState = 0)
         {
-            stackObj= dropStack (pop)
-            var data = stackObj.data;
-            var status = stackObj.status:
+            var queueObj= dropQueue.shift();
+            
+            var data = queueObj.data;
+            var status = queueObj.status;
 
             sendState = 1; // 1 busy
 
@@ -530,7 +536,7 @@ jQuery(document).ready(function ($) {
         }
     }
 
-    on 100 % ?success? or fail or timeout send next
+//    on 100 % ?success? or fail or timeout send next
 
 
 
