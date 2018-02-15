@@ -296,7 +296,7 @@ jQuery(document).ready(function ($) {
     var token = $('#installer-token').val();
     var gallery_id = $('#SelectGalleries_03').val();
     
-    var dropQueue; // File list to be uploaded 
+    var dropQueue = []; // File list to be uploaded
 
     /*----------------------------------------------------
     Red or green border for drag and drop images
@@ -448,7 +448,7 @@ jQuery(document).ready(function ($) {
 
 		obj.after(this.statusbar);
 
-		this.setFileNameSize = function (name, size) {
+        this.setFileNameSize = function (name, size) {
 			var sizeStr = "";
 			var sizeKB = size / 1024;
 			if (parseInt(sizeKB) > 1024) {
@@ -465,9 +465,10 @@ jQuery(document).ready(function ($) {
 		this.setProgress = function (progress) {
 			var progressBarWidth = progress * this.progressBar.width() / 100;
 			this.progressBar.find('div').animate({width: progressBarWidth}, 10).html(progress + "%");
+            alert ("01.100%");
 			if (parseInt(progress) >= 99.999) {
 				this.abort.hide();
-                alert ("100%");
+                alert ("10.100%");
 
                 // start next upload
                 sendState = 0; // 1 == busy
@@ -501,19 +502,26 @@ jQuery(document).ready(function ($) {
 
             // Set progress bar
 			var status = new createStatusBar(obj);
-			status.setFileNameSize(files[i].name, files[i].size);
+			status.setFileNameSize(files[idx].name, files[idx].size);
 
-			var queueObj = {};
+            //alert ("01.drop");
+
+            var queueObj = {};
             queueObj.data = data;
             queueObj.status = status ;
 
+            //alert ("10.drop");
+
             dropQueue.push (queueObj);
+
+            alert ("11.drop");
 
 			//// Order needs inserting so ...
 			// wait (250);
             // sendFileToServer(data, status);
 		}
 
+        alert ("30.drop");
 		startSendFileToServer ();
 	}
 
@@ -522,18 +530,31 @@ jQuery(document).ready(function ($) {
 
     function startSendFileToServer () {
 
+        //alert ("01.startSendFileToServer:: sendState" + sendState);
+
         // Not busy
-        if (sendState = 0)
+        if (sendState == 0)
         {
+            alert ("02.startSendFileToServer.NotBusy");
+
             var queueObj= dropQueue.shift();
-            
+
+            alert ("04.startSendFileToServer")
             var data = queueObj.data;
+            alert ("06.startSendFileToServer")
             var status = queueObj.status;
+            alert ("08.startSendFileToServer")
 
             sendState = 1; // 1 busy
 
             sendFileToServer(data, status);
+            alert ("20.startSendFileToServer")
         }
+        else
+        {
+            alert ("0!.startSendFileToServer. !!! Busy !!!");
+        }
+
     }
 
 //    on 100 % ?success? or fail or timeout send next
