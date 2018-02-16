@@ -514,14 +514,14 @@ jQuery(document).ready(function ($) {
 
             dropQueue.push (queueObj);
 
-            alert ("11.drop");
+            //alert ("11.drop");
 
 			//// Order needs inserting so ...
 			// wait (250);
             // sendFileToServer(data, status);
 		}
 
-        alert ("30.drop");
+        //alert ("30.drop");
 		startSendFileToServer ();
 	}
 
@@ -535,24 +535,24 @@ jQuery(document).ready(function ($) {
         // Not busy
         if (sendState == 0)
         {
-            alert ("02.startSendFileToServer.NotBusy");
+            ////alert ("02.startSendFileToServer.NotBusy");
 
             var queueObj= dropQueue.shift();
 
-            alert ("04.startSendFileToServer")
+            //alert ("04.startSendFileToServer")
             var data = queueObj.data;
-            alert ("06.startSendFileToServer")
+            //alert ("06.startSendFileToServer")
             var status = queueObj.status;
-            alert ("08.startSendFileToServer")
+            //alert ("08.startSendFileToServer")
 
             sendState = 1; // 1 busy
 
             sendFileToServer(data, status);
-            alert ("20.startSendFileToServer")
+           //alert ("20.startSendFileToServer")
         }
         else
         {
-            alert ("0!.startSendFileToServer. !!! Busy !!!");
+            alert ("0X.startSendFileToServer. !!! Busy !!!");
         }
 
     }
@@ -690,24 +690,24 @@ jQuery(document).ready(function ($) {
                 }
                 else
                 {
-                    alert ('parse error 01: ');
-                    alert ("eData: " + eData);
-                    alert ('parse error 03: ');
+                    //alert ('parse error 01: ');
+                    //alert ("eData: " + eData);
+                    //alert ('parse error 03: ');
 
                     var errorText = eData.substring (0, StartIdx -1);
-                    alert ('parclass="img-rounded"se error 03a: ');
+                    //alert ('parclass="img-rounded"se error 03a: ');
                     var progressArea =  $('#uploadProgressArea');
-                    alert ('parse error 03b: ');
+                    //alert ('parse error 03b: ');
                     progressArea.append(errorText);
-                    alert ('parse error 03c: ');
+                    //alert ('parse error 03c: ');
 
                     //alert ("Server alarm/redirect (echo): " + echoText);
                     jsonText = eData.substring (StartIdx);
-                    alert ('parse error 04: ');
-                    alert ("jsonText: " + jsonText);
-                    alert ('parse error 05: ');
+                    //alert ('parse error 04: ');
+                    //alert ("jsonText: " + jsonText);
+                    //alert ('parse error 05: ');
                     jData = jQuery.parseJSON(jsonText);
-                    alert ('parse error 06: ');
+                    //alert ('parse error 06: ');
                 }
 
                 /**/
