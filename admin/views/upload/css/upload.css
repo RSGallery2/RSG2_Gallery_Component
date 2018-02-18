@@ -37,20 +37,6 @@
     border: 6px dotted red;
 }
 
-/**
-#loading {
-    background: rgba(255, 255, 255, .8) url(../../../../media/jui/images/ajax-loader.gif) 50% 15% no-repeat;
-    position: fixed;
-    opacity: 0.8;
-    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
-    filter: alpha(opacity=80);
-}
-/**/
-
-
-
-
-
 /*
     .j-jed-message {
         margin-bottom: 40px;
