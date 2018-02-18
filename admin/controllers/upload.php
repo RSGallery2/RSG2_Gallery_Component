@@ -821,7 +821,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 		    //--- Check 4 allowed image type ---------------------------------
 
-
             /* ToDo: Put in again ... */
 
             $allowedTypes = explode(",", strtolower($rsgConfig->get('allowedFileTypes')));
