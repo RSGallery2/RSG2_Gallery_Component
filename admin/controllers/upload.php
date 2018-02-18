@@ -753,7 +753,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
             {
                 // identify active file
                 JLog::add('$uploadPathFileName: "' . $uploadPathFileName . '"');
-                JLog::add('$uploadFileName : "' . $uploadFileName . '"');
+                JLog::add('$uploadFileName: "' . $uploadFileName . '"');
                 JLog::add('$fileType: "' . $fileType . '"');
                 JLog::add('$fileError: "' . $fileError . '"');
                 JLog::add('$fileSize: "' . $fileSize . '"');
@@ -821,9 +821,10 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 		    //--- Check 4 allowed image type ---------------------------------
 
-            /* ToDo: Put in again ... */
+		    // ToDO: May checked when opening file ...
 
-            $allowedTypes = explode(",", strtolower($rsgConfig->get('allowedFileTypes')));
+			/**
+		    $allowedTypes = explode(",", strtolower($rsgConfig->get('allowedFileTypes')));
 
 		    // $this->ajaxDummyAnswerOK (); return; // 03
 		    //$fileTypeId = array_pop (explode ('/', $fileType)); // destroying ajax answer
@@ -872,7 +873,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
             /**/
 
 	        //----------------------------------------------------
-            // Transfer files and create image data in db
+            // Create image data in db
             //----------------------------------------------------
 
 	        $model = $this->getModel('Upload');
@@ -886,7 +887,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		        //$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 		        $msg     .= '<br>' . 'Create DB item for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
 		        $msgType = 'warning';
-
 
 		        if ($Rsg2DebugActive)
 		        {
@@ -910,9 +910,18 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
             $ajaxImgObject['cid']  = $imgId;
 
-			//--- Move file and create display, thumbs and watermarked images ---------------------
+		    //----------------------------------------------------
+	        // for debug purposes fetch image order
+		    //----------------------------------------------------
 
-	        list($isCreated, $urlThumbFile, $msg) = $model->MoveImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId);
+		    $imageOrder = $this->imageOrderFromId ($imgId);
+		    $ajaxImgObject['order']  = $imageOrder;
+
+		    //----------------------------------------------------
+		    // Move file and create display, thumbs and watermarked images ---------------------
+		    //----------------------------------------------------
+
+		    list($isCreated, $urlThumbFile, $msg) = $model->MoveImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId);
 	        if (!$isCreated)
 	        {
 		        // ToDo: remove $imgId fom image database
@@ -992,5 +1001,192 @@ class Rsgallery2ControllerUpload extends JControllerForm
     /**/
 
 
+	function uploadAjaxReserveDbImageId ()
+	{
+		global $rsgConfig, $Rsg2DebugActive;
+
+		$IsMoved = false;
+		$msg = 'uploadAjaxReserveImageInDB';
+
+		$app = JFactory::getApplication();
+
+
+		try {
+			if ($Rsg2DebugActive) {
+				// identify active file
+				JLog::add('==> uploadAjaxInsertInDB');
+			}
+
+			$input = JFactory::getApplication()->input;
+			$inName = $input->get('title', 0, 'string');
+			$fileName = JFile::makeSafe($inName);
+			$baseName = basename($fileName);
+
+			if ($Rsg2DebugActive)
+			{
+				// identify active file
+				JLog::add('$inName: "' . $inName . '"');
+				JLog::add('$fileName: "' . $fileName . '"');
+				JLog::add('$baseName: "' . $baseName . '"');
+			}
+
+			// ToDo: Check session id
+			// $session_id      = JFactory::getSession();
+
+			$ajaxImgDbObject['file'] = $fileName; // $dstFile;
+			// some dummy data for error messages
+			$ajaxImgDbObject['cid']  = -1;
+			$ajaxImgDbObject['dstFile'] = '';
+
+			//--- gallery ID --------------------------------------------
+
+			$galleryId = $input->get('gallery_id', 0, 'INT');
+			// wrong id ?
+			if ($galleryId < 1)
+			{
+				//$app->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GALLERY_ID'), 'error');
+				//echo new JResponseJson;
+				$msg .= ': Invalid gallery ID at drag and drop upload';
+
+				if ($Rsg2DebugActive)
+				{
+					JLog::add($msg);
+				}
+
+				echo new JResponseJson($ajaxImgDbObject, $msg, true);
+
+				$app->close();
+				return;
+			}
+
+			//--- Check 4 allowed image type ---------------------------------
+
+			// May be checked when opening file ...
+
+			//----------------------------------------------------
+			// Create image data in db
+			//----------------------------------------------------
+
+			$modelDb = $this->getModel('image');
+
+			//--- Create Destination file name -----------------------
+
+			// ToDo: use sub folder for each gallery and check within gallery
+			// Each filename is only allowed once so create a new one if file already exist
+			//
+			$useFileName = $modelDb->generateNewImageName($baseName, $galleryId);
+
+			// toDO: error check
+			if (empty ($useFileName)) {}
+			{
+				//$app->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GALLERY_ID'), 'error');
+				//echo new JResponseJson;
+				$msg .= ': Creating unused filename failed';
+
+				if ($Rsg2DebugActive)
+				{
+					JLog::add($msg);
+				}
+
+				echo new JResponseJson($ajaxImgDbObject, $msg, true);
+
+				$app->close();
+				return;
+			}
+
+			//--- create image data in DB --------------------------------
+
+			$title = $baseName;
+			$description = '';
+
+			$imgId = $modelDb->createImageDbItem($useFileName, $title, $galleryId, $description);
+			if (empty($imgId))
+			{
+				// actual give an error
+				//$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+				$msg     .= 'uploadAjaxReserveImageInDB: Create DB item for "' . $baseName . '"->"' . $useFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
+
+				if ($Rsg2DebugActive)
+				{
+					JLog::add($msg);
+				}
+
+				// replace newlines with html line breaks.
+				//str_replace('\n', '<br>', $msg);
+				echo new JResponseJson($ajaxImgDbObject, $msg, true);
+
+				$app->close();
+				return;
+			}
+
+			if ($Rsg2DebugActive)
+			{
+				JLog::add('<== uploadAjax: After createOneImageInDb: ' . $imgId );
+			}
+
+			// $this->ajaxDummyAnswerOK (); return; // 05
+
+			$ajaxImgDbObject['cid']  = $imgId;
+
+			/**
+			//----------------------------------------------------
+			// for debug purposes fetch image order
+			//----------------------------------------------------
+
+			$imageOrder = $this->imageOrderFromId ($imgId);
+			$ajaxImgDbObject['order']  = $imageOrder;
+			/**/
+
+			//----------------------------------------------------
+			// return result
+			//----------------------------------------------------
+
+			if ($Rsg2DebugActive) {
+				JLog::add('    $ajaxImgDbObject: ' . json_encode($ajaxImgDbObject));
+				JLog::add('    $msg: "' . $msg . '"');
+				JLog::add('    !$isCreated (error):     ' . ((!$isCreated) ? 'true' : 'false'));
+			}
+
+			echo new JResponseJson($ajaxImgDbObject, $msg, !$isCreated);
+			//echo new JResponseJson("uploadAjaxSingleFile (1)", "uploadAjaxSingleFile (2)", true);
+
+			if ($Rsg2DebugActive) {
+				JLog::add('<== Exit uploadAjaxSingleFile');
+			}
+
+		} catch (Exception $e) {
+			echo new JResponseJson($e);
+		}
+
+		$app->close();
+	}
+
+
+	private function imageOrderFromId ($imageId)
+	{
+		$imageOrder = -1;
+
+		try
+		{
+			$db    = JFactory::getDbo();
+			$query = $db->getQuery(true)
+				->select('ordering')
+				->from($db->quoteName('#__rsgallery2_files'))
+				->where($db->quoteName('id') . ' = ' . $db->quote($imageId));
+			$db->setQuery($query);
+			$imageOrder = $db->loadResult();
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing imageOrderFromId for $imageId: "' . $imageId . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $imageOrder;
+	}
 }
 

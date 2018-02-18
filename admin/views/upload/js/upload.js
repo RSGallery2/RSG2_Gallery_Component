@@ -241,12 +241,10 @@ jQuery(document).ready(function ($) {
     var dragZone = $('#dragarea');
     var fileInput = $('#hidden_file_input');
     var buttonManualFile = $('#select_manual_file');
-    //var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile&format=json';
-    //var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile&format=raw';
-    //var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile';
-    //var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile&<?PHP echo JSession::getFormToken()?>=1&format=raw';
-    var urlSingle = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile&<?PHP echo JSession::getFormToken()?>=1';
-    //alert ('urlSingle: ' + urlSingle);
+    var urlFileUploAd = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile&<?PHP echo JSession::getFormToken()?>=1';
+    //alert ('urlFileUploAd: ' + urlFileUploAd);
+    var urlReserveDbImageId = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxReserveDbImageId&<?PHP echo JSession::getFormToken()?>=1';
+    //alert ('urlReserveDbImageId: ' + urlReserveDbImageId);
     var returnUrl = $('#installer-return').val();
     var token = $('#installer-token').val();
     var gallery_id = $('#SelectGalleries_03').val();
@@ -257,22 +255,20 @@ jQuery(document).ready(function ($) {
     Red or green border for drag and drop images
     ----------------------------------------------------*/
 
-    if ( ! $('#SelectGalleries_03').val()) {
-        $('#dragarea').addClass ('dragareaDisabled')
+    if (!$('#SelectGalleries_03').val()) {
+        $('#dragarea').addClass('dragareaDisabled')
     }
     /**/
 
-    $('#SelectGalleries_03').change(function() {
+    $('#SelectGalleries_03').change(function () {
         // drop disabled ?
-        if ($(this).val() == 0)
-        {
+        if ($(this).val() == 0) {
             // $('#dragarea').css('border', '4px dotted red');
-            $('#dragarea').addClass ('dragareaDisabled')
+            $('#dragarea').addClass('dragareaDisabled')
         }
-        else
-        {
+        else {
             //$('#dragarea').css('border', '4px dotted darkgreen');
-            $('#dragarea').removeClass ('dragareaDisabled')
+            $('#dragarea').removeClass('dragareaDisabled')
         }
     });
 
@@ -299,7 +295,7 @@ jQuery(document).ready(function ($) {
                 return;
             }
 
-            var progressArea =  $('#uploadProgressArea');
+            var progressArea = $('#uploadProgressArea');
             handleFileUpload(files, progressArea);
         }
     });
@@ -351,7 +347,7 @@ jQuery(document).ready(function ($) {
             dragZone.removeClass('hover');
 
             // We need to send dropped files to Server
-            var progressArea =  $('#uploadProgressArea');
+            var progressArea = $('#uploadProgressArea');
             handleFileUpload(files, progressArea);
         } // empty gallery
     });
@@ -372,12 +368,13 @@ jQuery(document).ready(function ($) {
         e.preventDefault();
     });
 
-    function wait(ms)
-    {
+    function wait(ms) {
         var d = new Date();
         var d2 = null;
-        do { d2 = new Date(); }
-        while(d2-d < ms);
+        do {
+            d2 = new Date();
+        }
+        while (d2 - d < ms);
     }
 
     // Uploading image count
@@ -392,11 +389,11 @@ jQuery(document).ready(function ($) {
         }
 
         // Use this:
-        this.statusbar   = $("<div class='statusbar " + row + "'></div>");
-        this.filename    = $("<div class='filename'></div>").appendTo(this.statusbar);
-        this.size        = $("<div class='filesize'></div>").appendTo(this.statusbar);
+        this.statusbar = $("<div class='statusbar " + row + "'></div>");
+        this.filename = $("<div class='filename'></div>").appendTo(this.statusbar);
+        this.size = $("<div class='filesize'></div>").appendTo(this.statusbar);
         this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
-        this.abort       = $("<div class='abort'>Abort</div>").appendTo(this.statusbar);
+        this.abort = $("<div class='abort'>Abort</div>").appendTo(this.statusbar);
 
         obj.after(this.statusbar);
 
@@ -415,7 +412,6 @@ jQuery(document).ready(function ($) {
             this.size.html(sizeStr);
         };
         this.setProgress = function (progress) {
-            console.log('progress: ' + this.progressBar.id + ':' + progress + '%');
 
             var progressBarWidth = progress * this.progressBar.width() / 100;
             this.progressBar.find('div').animate({width: progressBarWidth}, 10).html(progress + "%");
@@ -424,9 +420,9 @@ jQuery(document).ready(function ($) {
                 this.abort.hide();
 
                 // Here it is more immediate and parallel -> order wrong
-                //// start next upload
-                //sendState = 0; // 1 == busy
-                //startSendFileToServer () ;
+                // start next upload
+                sendState = 0; // 1 == busy
+                setTimeout(startSendFileToServer, 2000);
             }
         };
         this.setAbort = function (jqxhr) {
@@ -458,43 +454,41 @@ jQuery(document).ready(function ($) {
             data.append('idx', idx);
 
             // Set progress bar
-            var status = new createStatusBar(obj);
-            status.setFileNameSize(files[idx].name, files[idx].size);
+            var statusBar = new createStatusBar(obj);
+            statusBar.setFileNameSize(files[idx].name, files[idx].size);
 
             var queueObj = {};
             queueObj.data = data;
-            queueObj.status = status ;
+            queueObj.statusBar = statusBar;
 
-            dropQueue.push (queueObj);
+            dropQueue.push(queueObj);
 
             // console.log('test: ' + data);
             console.log(data);
         }
 
-        startSendFileToServer ();
+        startSendFileToServer();
     }
 
     var sendState = 0; // 1 busy
-    var sendTimeout = 10; // sec: continue sending next on no answer or error -> alarm ?
+    var sendTimeout = 3000; // sec: continue sending next on no answer or error -> alarm ?
 
-    function startSendFileToServer () {
+    function startSendFileToServer() {
 
         // Not busy
-        if (sendState == 0)
-        {
+        if (sendState == 0) {
             if (dropQueue.length > 0) {
                 var queueObj = dropQueue.shift();
                 var data = queueObj.data;
-                var status = queueObj.status;
+                var statusBar = queueObj.statusBar;
 
                 sendState = 1; // 1 busy
 
-                sendFileToServer(data, status);
+                sendFileToServer(data, statusBar);
             }
         }
-        else
-        {
-            alert ("0X.startSendFileToServer. !!! Busy !!!");
+        else {
+            alert("0X.startSendFileToServer. !!! Busy !!!");
         }
 
     }
@@ -543,56 +537,14 @@ jQuery(document).ready(function ($) {
         use jqXHR.done(), jqXHR.fail(), and jqXHR.always() instead.
     /**/
 
-    function sendFileToServer(formData, status) {
-//            console.log(formData);
-//            console.log(status);
+    function sendFileToServer(formData, statusBar) {
 
-//            alert ('formData: "' + JSON.stringify(formData) + '"\r\n');
-        // formData.get("email");
         var fileName = formData.get('upload_file').name;
         console.log('out: ' + fileName);
 
-        /**
-         var uploadURL = "http://tomfinnern.de/examples/jquery/drag-drop-file-upload/upload.php"; //Upload URL
-         var extraData = {}; //Extra Data.
-         var jqXHR = $.ajax({
-                xhr: function () {
-                    var xhrobj = $.ajaxSettings.xhr();
-                    if (xhrobj.upload) {
-                        xhrobj.upload.addEventListener('progress', function (event) {
-                            var percent = 0;
-                            var position = event.loaded || event.position;
-                            var total = event.total;
-                            if (event.lengthComputable) {
-                                percent = Math.ceil(position / total * 100);
-                            }
-                            //Set progress
-                            status.setProgress(percent);
-                        }, false);
-                    }
-                    return xhrobj;
-                },
-                url: uploadURL,
-                type: "POST",
-                contentType: false,
-                processData: false,
-                cache: false,
-                data: formData,
-                success: function (data) {
-                    status.setProgress(100);
-
-                    //$("#status1").append("File upload Done<br>");
-                }
-            });
-
-         status.setAbort(jqXHR);
-         /**/
-
         /*=========================================================
-
-         */
-
-        //JoomlaInstaller.showLoading();
+           ajax file uploader
+        =========================================================*/
 
         var jqXHR = $.ajax({
             xhr: function () {
@@ -607,117 +559,168 @@ jQuery(document).ready(function ($) {
                             percent = Math.ceil(position / total * 100);
                         }
                         //Set progress
-                        status.setProgress(percent);
+                        statusBar.setProgress(percent);
                     }, false);
                 }
                 return xhrobj;
             },
-            url: urlSingle,
+            url: urlFileUploAd,
             type: "POST",
             contentType: false,
             processData: false,
             cache: false,
+            // timeout:20000, // 20 seconds timeout (was too short)
             data: formData
-
-
         })
+
         //--- On success / done --------------------------------
-        .done(function(eData, textStatus, jqXHR) {
-            //alert('done Success: "' + String(eData) + '"')
+            .done(function (eData, textStatus, jqXHR) {
+                //alert('done Success: "' + String(eData) + '"')
 
-            // start next upload
-            sendState = 0; // 1 == busy
-            startSendFileToServer () ;
+                //// start next upload
+                //sendState = 0; // 1 == busy
+                //startSendFileToServer () ;
 
-            var jData;
+                var jData;
 
-            // Handle PHP Error and notification messages first (separate)
+                //--- Handle PHP Error and notification messages first (separate) -------------------------
 
-            // first part dummy echo string ?
-            // find start of json
-            var StartIdx = eData.indexOf('{"');
-            if (StartIdx == 0) {
-                jData = jQuery.parseJSON(eData);
+                // first part php error- or debug- echo string ?
+                // find start of json
+                var StartIdx = eData.indexOf('{"');
+                if (StartIdx == 0) {
+                    jData = jQuery.parseJSON(eData);
+                }
+                else {
+                    // find error html text
+                    var errorText = eData.substring(0, StartIdx - 1);
+                    // append to be viewed
+                    var progressArea = $('#uploadProgressArea');
+                    progressArea.append(errorText);
+
+                    // extract json data of uploaded image
+                    jsonText = eData.substring(StartIdx);
+                    jData = jQuery.parseJSON(jsonText);
+                }
+
+                // Check that JResponseJson data structure may be available
+                //if (!defined (json.success))
+                if (!'success' in jData) {
+                    alert('Drag and drop returned wrong data');
+                    return;
+                }
+
+                // ToDo: Handle JOOMLA Error and notification messages -> inside Json
+
+                // file successful transferred
+                if (jData.success == true) {
+                    //alert('Success 05');
+                    this.imageBox = $("<li></li>").appendTo($('#imagesAreaList'));
+                    this.thumbArea = $("<div class='thumbnail imgProperty'></div>").appendTo(this.imageBox);
+                    this.imgComntainer = $("<div class='imgContainer' ></div>").appendTo(this.thumbArea);
+                    this.imageDisplay = $("<img class='img-rounded' data-src='holder.js/600x400' src='" + jData.data.dstFile + "' alt='' />").appendTo(this.imgComntainer);
+
+                    this.caption = $("<div class='caption' ></div>").appendTo(this.imageBox);
+                    this.imageDisplay = $("<small>" + jData.data.file + "</small>").appendTo(this.caption);
+                    this.imageId = $("<small> (" + jData.data.cid + ":" + jData.data.order + ")</small>").appendTo(this.imageDisplay);
+                    this.xxy = $("<input name='cid[]' class='imageCid' type='hidden' value='" + jData.data.cid + "' />").appendTo(this.imageBox);
+
+                    // ToDo: Notification may be ... anyhow
+                }
+                else {
+                    alert('Result Error 05');
+                    // error on file transfer
+                    var msg = jData.message;
+                    alert('Error on file transfer (1): "' + msg + '"');
+                    alert("eData: " + eData);
+
+                    // ToDo: Use count ....
+                    msg = jData.messages.error[0];
+                    alert("Error on file transfer (2): " + msg);
+                }
+
+            })
+
+            //--- On fail / error  --------------------------------
+            .fail(function (jqXHR, textStatus, exceptionType) {
+
+                //// start next upload
+                //sendState = 0; // 1 == busy
+                //startSendFileToServer () ;
+
+                // alert ('fail: Status: "' + textStatus + '" exceptionType: "' + exceptionType + '" [' + jqXHR.status + ']');
+                alert('Drag and drop upload failed: "' + textStatus + '" -> "' + exceptionType + '" [' + jqXHR.status + ']');
+
+                console.log(jqXHR);
+            })
+
+            //--- On always / complete --------------------------------
+            // the .always() method replaces the deprecated .complete() method.
+            .always(function (eData, textStatus, jqXHR) {
+                //alert ('always: "' + textStatus + '"');
+
+            });
+
+        // create abort HTML
+        statusBar.setAbort(jqXHR);
+    }
+
+    function ReserveDbImageId (formData, statusBar) {
+
+        var fileName = formData.get('upload_file').name;
+        console.log('out: ' + fileName);
+
+        /*=========================================================
+           ajax file uploader
+        =========================================================*/
+
+        /**
+        var data = new FormData();
+        data.append('upload_file', files[idx]);
+        data.append('upload_type', 'single');
+        data.append('token', token);
+        /**/
+
+        var jqXHR = $.ajax({
+            xhr: function () {
+                var xhrobj = $.ajaxSettings.xhr();
+
+/**
+                url: 'index.php?option=com_contushdvideoshare&task=updateView&format=raw',
+                    method: "POST", //Use post method
+                    cache: false, //Specify no cache
+                    success: function(data){
+                    if(!data.length){
+                        // Throw an error
+                        return;
+                    }
+                    $('.container').html(data);
+/**/
+
+jQuery.ajax({
+    type: "POST",
+    dataType: "json",
+    timeout: 6000,
+    url: "index.php?option=com_mycomponent&task=component.save",
+    data: formdata,
+    processData: false,
+    success:function(result) {
+        jQuery.each(result.data, function(i, item) {
+        ..........
+        });
+
+    }
+
+
+
+                // timeout:20000, // 20 seconds timeout (was too short)
+
+                data: formData
             }
-            else
-            {
-                // find error html text
-                var errorText = eData.substring (0, StartIdx -1);
-                // append to be viewed
-                var progressArea =  $('#uploadProgressArea');
-                progressArea.append(errorText);
-
-                // extract json data of uploaded image
-                jsonText = eData.substring (StartIdx);
-                jData = jQuery.parseJSON(jsonText);
-            }
-
-            // Check that JResponseJson data structure may be available
-            //if (!defined (json.success))
-            if ( ! 'success' in jData)
-            {
-                alert ('Drag and drop returned wrong data');
-                return;
-            }
-
-            // ToDo: Handle JOOMLA Error and notification messages -> inside Json
-
-            // file successful transferred
-            if (jData.success == true)
-            {
-                //alert('Success 05');
-                this.imageBox = $("<li></li>").appendTo($('#imagesAreaList'));
-                this.thumbArea = $("<div class='thumbnail imgProperty'></div>").appendTo(this.imageBox);
-                this.imgComntainer= $("<div class='imgContainer' ></div>").appendTo(this.thumbArea);
-                this.imageDisplay= $("<img class='img-rounded' data-src='holder.js/600x400' src='" + jData.data.dstFile + "' alt='' />").appendTo(this.imgComntainer);
-
-                this.caption = $("<div class='caption' ></div>").appendTo(this.imageBox);
-                this.imageDisplay= $("<small>" + jData.data.file + "</small>").appendTo(this.caption);
-                this.imageId= $("<small> (" + jData.data.cid + ")</small>").appendTo(this.imageDisplay);
-                this.xxy = $("<input name='cid[]' class='imageCid' type='hidden' value='" + jData.data.cid + "' />").appendTo(this.imageBox);
-
-                // ToDo: Notification may be ... anyhow
-            }
-            else
-            {
-                alert('Result Error 05');
-                // error on file transfer
-                var msg = jData.message;
-                alert ('Error on file transfer (1): "' + msg + '"');
-                alert ("eData: " + eData);
-
-                // ToDo: Use count ....
-                msg = jData.messages.error[0];
-                alert ("Error on file transfer (2): " + msg);
-            }
-
-        })
-
-        //--- On fail / error  --------------------------------
-        .fail(function(jqXHR, textStatus, exceptionType) {
-
-            // start next upload
-            sendState = 0; // 1 == busy
-            startSendFileToServer () ;
-
-            // alert ('fail: Status: "' + textStatus + '" exceptionType: "' + exceptionType + '" [' + jqXHR.status + ']');
-            alert ('Drag and drop upload failed: "' + textStatus + '" -> "' + exceptionType + '" [' + jqXHR.status + ']');
-
-            console.log(jqXHR);
-        })
-
-        //--- On always / complete --------------------------------
-        // the .always() method replaces the deprecated .complete() method.
-        .always(function( eData, textStatus, jqXHR) {
-            //alert ('always: "' + textStatus + '"');
 
         });
 
-        status.setAbort(jqXHR);
-
-        /*=========================================================
-
-        */
     }
+}) // Joomla ready ... ?
 
-});
+
