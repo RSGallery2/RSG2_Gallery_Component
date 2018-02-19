@@ -20,6 +20,7 @@ Joomla.submitButtonManualFileSingle = function () {
 
     // yes transfer files ...
     form.task.value = 'upload'; // upload.uploadZipFile
+    form.task.value = 'upload'; // upload.uploadZipFile
     form.batchmethod.value = 'zip';
     form.ftppath.value = "";
     form.xcat.value = "";
@@ -296,7 +297,7 @@ jQuery(document).ready(function ($) {
             }
 
             var progressArea = $('#uploadProgressArea');
-            handleFileUpload(files, progressArea);
+            prepareFileUpload(files, progressArea);
         }
     });
 
@@ -348,7 +349,7 @@ jQuery(document).ready(function ($) {
 
             // We need to send dropped files to Server
             var progressArea = $('#uploadProgressArea');
-            handleFileUpload(files, progressArea);
+            prepareFileUpload(files, progressArea);
         } // empty gallery
     });
 
@@ -419,10 +420,10 @@ jQuery(document).ready(function ($) {
 
                 this.abort.hide();
 
-                // Here it is more immediate and parallel -> order wrong
-                // start next upload
-                sendState = 0; // 1 == busy
-                setTimeout(startSendFileToServer, 2000);
+                //// Here it is more immediate and parallel -> order wrong
+                //// start next upload
+                //sendState = 0; // 1 == busy
+                //setTimeout(startReserveDbImageId, 2000);
             }
         };
         this.setAbort = function (jqxhr) {
@@ -435,7 +436,7 @@ jQuery(document).ready(function ($) {
     }
 
     // image names , container
-    function handleFileUpload(files, obj) {
+    function prepareFileUpload(files, obj) {
 
         // ToDo: On first file upload disable gallery change and isone .. change
 
@@ -446,12 +447,13 @@ jQuery(document).ready(function ($) {
 
             console.log('in: ' + files[idx].name);
 
+            // for function reserveDbImageId
             var data = new FormData();
             data.append('upload_file', files[idx]);
-            data.append('upload_type', 'single');
-            data.append('token', token);
+            //data.append('upload_type', 'single');
+            data.append(token, "1");
             data.append('gallery_id', gallery_id);
-            data.append('idx', idx);
+            //data.append('idx', idx);
 
             // Set progress bar
             var statusBar = new createStatusBar(obj);
@@ -467,13 +469,13 @@ jQuery(document).ready(function ($) {
             console.log(data);
         }
 
-        startSendFileToServer();
+        startReserveDbImageId();
     }
 
     var sendState = 0; // 1 busy
     var sendTimeout = 3000; // sec: continue sending next on no answer or error -> alarm ?
 
-    function startSendFileToServer() {
+    function startReserveDbImageId() {
 
         // Not busy
         if (sendState == 0) {
@@ -484,58 +486,13 @@ jQuery(document).ready(function ($) {
 
                 sendState = 1; // 1 busy
 
-                sendFileToServer(data, statusBar);
+                reserveDbImageId(data, statusBar);
             }
         }
         else {
-            alert("0X.startSendFileToServer. !!! Busy !!!");
+            alert("0X.startReserveDbImageId. !!! Busy !!!");
         }
-
     }
-
-//        https://tutorialzine.com/2013/05/mini-ajax-file-upload-form
-
-// Uploading files using HTML5 is actually a combination of three technologies -
-// the new File Reader API, the also new Drag & Drop API,
-// and the good ol' AJAX (with the addition of binary data transfer).
-// Here is a description of a HTML5 file upload process:
-// https://tutorialzine.com/2011/09/html5-file-upload-jquery-php
-// !!! http://makitweb.com/drag-and-drop-file-upload-with-jquery-and-ajax/ thumb
-//
-// return PHP results as array -> echo json_encode($return_arr);
-//        $return_arr = array("name" => $filename,"size" => $filesize, "src"=> $src);
-//
-//
-//
-// ...
-
-    /**
-     // Added thumbnail
-     function addThumbnail(data){
-		$("#uploadfile h1").remove();
-		var len = $("#uploadfile div.thumbnail").length;
-
-		var num = Number(len);
-		num = num + 1;
-
-		var name = data.name;
-		var size = convertSize(data.size);
-		var src = data.src;
-
-		// Creating an thumbnail
-		$("#uploadfile").append('<div id="thumbnail_'+num+'" class="thumbnail"></div>');
-		$("#thumbnail_"+num).append('<img src="'+src+'" width="100%" height="78%">');
-		$("#thumbnail_"+num).append('<span class="size">'+size+'</span>');
-	}
-     /**/
-
-// https://stackoverflow.com/questions/6792878/jquery-ajax-error-function
-    /* Deprecation Notice:
-        The jqXHR.success(), jqXHR.error(), and jqXHR.complete()
-        callbacks are deprecated as of jQuery 1.8. To prepare
-        your code for their eventual removal,
-        use jqXHR.done(), jqXHR.fail(), and jqXHR.always() instead.
-    /**/
 
     function sendFileToServer(formData, statusBar) {
 
@@ -546,9 +503,9 @@ jQuery(document).ready(function ($) {
            ajax file uploader
         =========================================================*/
 
-        var jqXHR = $.ajax({
+        var jqXHR = jQuery.ajax({
             xhr: function () {
-                var xhrobj = $.ajaxSettings.xhr();
+                var xhrobj = jQuery.ajaxSettings.xhr();
                 if (xhrobj.upload) {
                     xhrobj.upload.addEventListener('progress', function (event) {
                         var percent = 0;
@@ -574,104 +531,101 @@ jQuery(document).ready(function ($) {
         })
 
         //--- On success / done --------------------------------
-            .done(function (eData, textStatus, jqXHR) {
-                //alert('done Success: "' + String(eData) + '"')
+        .done(function (eData, textStatus, jqXHR) {
+            //alert('done Success: "' + String(eData) + '"')
 
-                //// start next upload
-                //sendState = 0; // 1 == busy
-                //startSendFileToServer () ;
 
-                var jData;
+            var jData;
 
-                //--- Handle PHP Error and notification messages first (separate) -------------------------
+            //--- Handle PHP Error and notification messages first (separate) -------------------------
 
-                // first part php error- or debug- echo string ?
-                // find start of json
-                var StartIdx = eData.indexOf('{"');
-                if (StartIdx == 0) {
-                    jData = jQuery.parseJSON(eData);
-                }
-                else {
-                    // find error html text
-                    var errorText = eData.substring(0, StartIdx - 1);
-                    // append to be viewed
-                    var progressArea = $('#uploadProgressArea');
-                    progressArea.append(errorText);
+            // first part php error- or debug- echo string ?
+            // find start of json
+            var StartIdx = eData.indexOf('{"');
+            if (StartIdx == 0) {
+                jData = jQuery.parseJSON(eData);
+            }
+            else {
+                // find error html text
+                var errorText = eData.substring(0, StartIdx - 1);
+                // append to be viewed
+                var progressArea = $('#uploadProgressArea');
+                progressArea.append(errorText);
 
-                    // extract json data of uploaded image
-                    jsonText = eData.substring(StartIdx);
-                    jData = jQuery.parseJSON(jsonText);
-                }
+                // extract json data of uploaded image
+                jsonText = eData.substring(StartIdx);
+                jData = jQuery.parseJSON(jsonText);
+            }
 
-                // Check that JResponseJson data structure may be available
-                //if (!defined (json.success))
-                if (!'success' in jData) {
-                    alert('Drag and drop returned wrong data');
-                    return;
-                }
+            // Check that JResponseJson data structure may be available
+            //if (!defined (json.success))
+            if (!'success' in jData) {
+                alert('Drag and drop returned wrong data');
+                return;
+            }
 
-                // ToDo: Handle JOOMLA Error and notification messages -> inside Json
+            // ToDo: Handle JOOMLA Error and notification messages -> inside Json
 
-                // file successful transferred
-                if (jData.success == true) {
-                    //alert('Success 05');
-                    this.imageBox = $("<li></li>").appendTo($('#imagesAreaList'));
-                    this.thumbArea = $("<div class='thumbnail imgProperty'></div>").appendTo(this.imageBox);
-                    this.imgComntainer = $("<div class='imgContainer' ></div>").appendTo(this.thumbArea);
-                    this.imageDisplay = $("<img class='img-rounded' data-src='holder.js/600x400' src='" + jData.data.dstFile + "' alt='' />").appendTo(this.imgComntainer);
+            // file successful transferred
+            if (jData.success == true) {
+                //alert('Success 05');
+                this.imageBox = $("<li></li>").appendTo($('#imagesAreaList'));
+                this.thumbArea = $("<div class='thumbnail imgProperty'></div>").appendTo(this.imageBox);
+                this.imgComntainer = $("<div class='imgContainer' ></div>").appendTo(this.thumbArea);
+                this.imageDisplay = $("<img class='img-rounded' data-src='holder.js/600x400' src='" + jData.data.dstFile + "' alt='' />").appendTo(this.imgComntainer);
 
-                    this.caption = $("<div class='caption' ></div>").appendTo(this.imageBox);
-                    this.imageDisplay = $("<small>" + jData.data.file + "</small>").appendTo(this.caption);
-                    this.imageId = $("<small> (" + jData.data.cid + ":" + jData.data.order + ")</small>").appendTo(this.imageDisplay);
-                    this.xxy = $("<input name='cid[]' class='imageCid' type='hidden' value='" + jData.data.cid + "' />").appendTo(this.imageBox);
+                this.caption = $("<div class='caption' ></div>").appendTo(this.imageBox);
+                this.imageDisplay = $("<small>" + jData.data.file + "</small>").appendTo(this.caption);
+                this.imageId = $("<small> (" + jData.data.cid + ":" + jData.data.order + ")</small>").appendTo(this.imageDisplay);
+                this.xxy = $("<input name='cid[]' class='imageCid' type='hidden' value='" + jData.data.cid + "' />").appendTo(this.imageBox);
 
-                    // ToDo: Notification may be ... anyhow
-                }
-                else {
-                    alert('Result Error 05');
-                    // error on file transfer
-                    var msg = jData.message;
-                    alert('Error on file transfer (1): "' + msg + '"');
-                    alert("eData: " + eData);
+                // ToDo: Notification may be ... anyhow
+            }
+            else {
+                alert('Result Error 05');
+                // error on file transfer
+                var msg = jData.message;
+                alert('Error on file transfer (1): "' + msg + '"');
+                alert("eData: " + eData);
 
-                    // ToDo: Use count ....
-                    msg = jData.messages.error[0];
-                    alert("Error on file transfer (2): " + msg);
-                }
+                // ToDo: Use count ....
+                msg = jData.messages.error[0];
+                alert("Error on file transfer (2): " + msg);
+            }
 
-            })
+        })
 
-            //--- On fail / error  --------------------------------
-            .fail(function (jqXHR, textStatus, exceptionType) {
+        //--- On fail / error  --------------------------------
+        .fail(function (jqXHR, textStatus, exceptionType) {
 
-                //// start next upload
-                //sendState = 0; // 1 == busy
-                //startSendFileToServer () ;
+            //// start next upload
+            //sendState = 0; // 1 == busy
+            //startReserveDbImageId () ;
 
-                // alert ('fail: Status: "' + textStatus + '" exceptionType: "' + exceptionType + '" [' + jqXHR.status + ']');
-                alert('Drag and drop upload failed: "' + textStatus + '" -> "' + exceptionType + '" [' + jqXHR.status + ']');
+            // alert ('fail: Status: "' + textStatus + '" exceptionType: "' + exceptionType + '" [' + jqXHR.status + ']');
+            alert('Drag and drop upload failed: "' + textStatus + '" -> "' + exceptionType + '" [' + jqXHR.status + ']');
 
-                console.log(jqXHR);
-            })
+            console.log(jqXHR);
+        })
 
-            //--- On always / complete --------------------------------
-            // the .always() method replaces the deprecated .complete() method.
-            .always(function (eData, textStatus, jqXHR) {
-                //alert ('always: "' + textStatus + '"');
+        //--- On always / complete --------------------------------
+        // the .always() method replaces the deprecated .complete() method.
+        .always(function (eData, textStatus, jqXHR) {
+            //alert ('always: "' + textStatus + '"');
 
-            });
+        });
 
         // create abort HTML
         statusBar.setAbort(jqXHR);
     }
 
-    function ReserveDbImageId (formData, statusBar) {
+    function reserveDbImageId (formData, statusBar) {
 
         var fileName = formData.get('upload_file').name;
         console.log('out: ' + fileName);
 
         /*=========================================================
-           ajax file uploader
+         Reserve database image entry for the order of the dropped
         =========================================================*/
 
         /**
@@ -681,42 +635,72 @@ jQuery(document).ready(function ($) {
         data.append('token', token);
         /**/
 
-        var jqXHR = $.ajax({
-            xhr: function () {
-                var xhrobj = $.ajaxSettings.xhr();
+        var jqXHR = jQuery.ajax({
+            //xhr: function () {
+            //    var xhrobj = jQuery.ajaxSettings.xhr();
+            //}
+            url: urlReserveDbImageId,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            cache: false,
+            // timeout:20000, // 20 seconds timeout (was too short)
+            data: formData
+        })
 
-/**
-                url: 'index.php?option=com_contushdvideoshare&task=updateView&format=raw',
-                    method: "POST", //Use post method
-                    cache: false, //Specify no cache
-                    success: function(data){
-                    if(!data.length){
-                        // Throw an error
-                        return;
-                    }
-                    $('.container').html(data);
-/**/
+        //--- On success / done --------------------------------
+        .done(function (eData, textStatus, jqXHR) {
+            //alert('done reserveDbImageId.Success: "' + String(eData) + '"')
 
-jQuery.ajax({
-    type: "POST",
-    dataType: "json",
-    timeout: 6000,
-    url: "index.php?option=com_mycomponent&task=component.save",
-    data: formdata,
-    processData: false,
-    success:function(result) {
-        jQuery.each(result.data, function(i, item) {
-        ..........
-        });
+            // start next reserveDbImageId
+            sendState = 0; // 1 == busy
+            startReserveDbImageId();
 
-    }
+            // ToDo:
+            //--- Handle PHP Error and notification messages first (separate) -------------------------
 
-
-
-                // timeout:20000, // 20 seconds timeout (was too short)
-
-                data: formData
+            // first part php error- or debug- echo string ?
+            // find start of json
+            var StartIdx = eData.indexOf('{"');
+            if (StartIdx == 0) {
+                jData = jQuery.parseJSON(eData);
             }
+            else {
+                // find error html text
+                var errorText = eData.substring(0, StartIdx - 1);
+                // append to be viewed
+                var progressArea = $('#uploadProgressArea');
+                progressArea.append(errorText);
+
+                // extract json data of uploaded image
+                jsonText = eData.substring(StartIdx);
+                jData = jQuery.parseJSON(jsonText);
+            }
+
+            // Check that JResponseJson data structure may be available
+            //if (!defined (json.success))
+            if (!'success' in jData) {
+                alert('Drag and drop returned wrong data');
+                return;
+            }
+
+            // ToDo: Handle JOOMLA Error and notification messages -> inside Json
+
+            // file successful transferred
+            if (jData.success == true) {
+                // for function reserveDbImageId
+                var data = new FormData();
+                data.append('upload_file', files[idx]);
+                //data.append('upload_type', 'single');
+                data.append(token, "1");
+                data.append('gallery_id', gallery_id);
+                //data.append('idx', idx);
+
+                sendFileToServer(data, statusBar)
+            }
+        }
+
+
 
         });
 
