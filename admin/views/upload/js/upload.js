@@ -680,7 +680,7 @@ jQuery(document).ready(function ($) {
             // Check that JResponseJson data structure may be available
             //if (!defined (json.success))
             if (!'success' in jData) {
-                alert('Drag and drop returned wrong data');
+                alert('reserveDbImageId: returned wrong data');
                 return;
             }
 
@@ -696,13 +696,47 @@ jQuery(document).ready(function ($) {
                 data.append('gallery_id', gallery_id);
                 //data.append('idx', idx);
 
+                alert('reserveDbImageId: ');
+
                 sendFileToServer(data, statusBar)
             }
-        }
+            else {
+                alert('Result Error 05');
+                // error on file transfer
+                var msg = jData.message;
+                alert('Error on reserve DB image ID (1): "' + msg + '"');
+                alert("eData: " + eData);
 
+                // ToDo: Use count ....
+                msg = jData.messages.error[0];
+                alert("Error on reserveDbImageId (2): " + msg);
+            }
 
+        })
+
+        //--- On fail / error  --------------------------------
+        .fail(function (jqXHR, textStatus, exceptionType) {
+
+            //// start next upload
+            //sendState = 0; // 1 == busy
+            //startReserveDbImageId () ;
+
+            // alert ('fail: Status: "' + textStatus + '" exceptionType: "' + exceptionType + '" [' + jqXHR.status + ']');
+            alert('reserveDbImageId: Drag and drop upload failed: "' + textStatus + '" -> "' + exceptionType + '" [' + jqXHR.status + ']');
+
+            console.log(jqXHR);
+        })
+
+        //--- On always / complete --------------------------------
+        // the .always() method replaces the deprecated .complete() method.
+        .always(function (eData, textStatus, jqXHR) {
+            //alert ('always: "' + textStatus + '"');
 
         });
+
+
+
+
 
     }
 }) // Joomla ready ... ?
