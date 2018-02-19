@@ -28,6 +28,34 @@ $return = JFactory::getApplication()->input->getBase64('return');
 
 $doc->addScript(JUri::root() . '/administrator/components/com_rsgallery2/views/upload/js/upload.js');
 
+/**
+The controller does the token check like this:
+JSession::checkToken('get') or die( 'Invalid Token');
+
+The view makes the ajax request using the token as a URL variable:
+index.php?option=com_mycomponent&format=raw&task=ajax.myTask&50e6a74276c578d2ebfc40fd526a193f=1
+
+The token is generated using an ajax call to another function that generates the token using:
+echo JFactory::getSession()->getFormToken();
+---------------------------------------
+$.post('index.php',
+{
+'option':   'com_tieraerzte',
+'task':     'parser.importColumns',
+'tmpl':     'component',
+'app':      sourceSelect.val(),
+!!! '<?php echo JSession::getFormToken()?>': 1 !!!
+},
+function(result) {
+$('td.add_column').html(result);
+$('button#parse.btn').show();
+//edit the result here
+return;
+},
+'html'
+);
+
+/**/
 ?>
 
 <div id="installer-install" class="clearfix">
