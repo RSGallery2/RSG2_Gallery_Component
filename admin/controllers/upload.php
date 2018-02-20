@@ -983,7 +983,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 	// $this->ajaxDummyAnswerOK (); return; // 01
 
-	/**/
+	/**
     private function ajaxDummyAnswerOK ()
     {
 	    $msg = "uploadAjaxSingleFile (2)";
@@ -1010,6 +1010,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 		$app = JFactory::getApplication();
 
+		// ToDO: security check
 
 		try {
 			if ($Rsg2DebugActive) {
@@ -1018,17 +1019,19 @@ class Rsgallery2ControllerUpload extends JControllerForm
 			}
 
 			$input = JFactory::getApplication()->input;
-			$oFile = $input->files->get('upload_file', array(), 'raw');
-			$uploadFileName    = JFile::makeSafe($oFile['name']);
+			//$oFile = $input->files->get('upload_file', array(), 'raw');
+			//$uploadFileName    = JFile::makeSafe($oFile['name']);
 
-			$inName = $uploadFileName; // $input->get('title', 0, 'string');
-			$fileName = JFile::makeSafe($inName);
+            //--- file name  --------------------------------------------
+
+            $uploadFileName = $input->get('upload_file', '', 'string');
+			$fileName = JFile::makeSafe($uploadFileName);
 			$baseName = basename($fileName);
 
 			if ($Rsg2DebugActive)
 			{
 				// identify active file
-				JLog::add('$inName: "' . $inName . '"');
+				JLog::add('$uploadFileName: "' . $uploadFileName . '"');
 				JLog::add('$fileName: "' . $fileName . '"');
 				JLog::add('$baseName: "' . $baseName . '"');
 			}
@@ -1062,7 +1065,14 @@ class Rsgallery2ControllerUpload extends JControllerForm
 				return;
 			}
 
-			//--- Check 4 allowed image type ---------------------------------
+            //--- dropListIdx --------------------------------------------
+
+            // Return index into files list
+            $dropListIdx = $input->get('dropListIdx', -1, 'INT');
+            $ajaxImgDbObject['dropListIdx']  = (string) $dropListIdx;
+
+
+            //--- Check 4 allowed image type ---------------------------------
 
 			// May be checked when opening file ...
 
@@ -1078,24 +1088,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 			// Each filename is only allowed once so create a new one if file already exist
 			//
 			$useFileName = $modelDb->generateNewImageName($baseName, $galleryId);
-
-			// toDO: error check
-			if (empty ($useFileName)) {}
-			{
-				//$app->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GALLERY_ID'), 'error');
-				//echo new JResponseJson;
-				$msg .= ': Creating unused filename failed';
-
-				if ($Rsg2DebugActive)
-				{
-					JLog::add($msg);
-				}
-
-				echo new JResponseJson($ajaxImgDbObject, $msg, true);
-
-				$app->close();
-				return;
-			}
 
 			//--- create image data in DB --------------------------------
 
@@ -1124,12 +1116,13 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 			if ($Rsg2DebugActive)
 			{
-				JLog::add('<== uploadAjax: After createOneImageInDb: ' . $imgId );
+				JLog::add('<== uploadAjax: After createImageDbItem: ' . $imgId );
 			}
 
 			// $this->ajaxDummyAnswerOK (); return; // 05
 
 			$ajaxImgDbObject['cid']  = $imgId;
+            $isCreated = $imgId > 0;
 
 			/**
 			//----------------------------------------------------

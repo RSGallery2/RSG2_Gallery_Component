@@ -251,6 +251,7 @@ jQuery(document).ready(function ($) {
     var gallery_id = $('#SelectGalleries_03').val();
 
     var dropQueue = []; // File list to be uploaded
+    var dropList = [];
 
     /*----------------------------------------------------
     Red or green border for drag and drop images
@@ -447,9 +448,17 @@ jQuery(document).ready(function ($) {
 
             console.log('in: ' + files[idx].name);
 
+            // Save for later send
+
+            dropList.push(files[idx]);
+            dropListIdx = dropList.length;
+
             // for function reserveDbImageId
             var data = new FormData();
-            data.append('upload_file', files[idx]);
+            // data.append('upload_file', files[idx]);
+            data.append('upload_file', files[idx].name);
+            data.append('dropListIdx', dropListIdx);
+
             //data.append('upload_type', 'single');
             data.append(token, "1");
             data.append('gallery_id', gallery_id);
@@ -688,8 +697,22 @@ jQuery(document).ready(function ($) {
 
             // file successful transferred
             if (jData.success == true) {
+
+                // Return index into files list
+                $ajaxImgDbObject['dropListIdx']  = (string) dropListIdx;
+
                 // for function reserveDbImageId
                 var data = new FormData();
+
+                dropListIdx = jData.data.dropListIdx;
+                if (dropListIdx < dropList.length or dropList.length < dropListIdx)
+                {
+                    alert...
+
+                    return;
+                }
+                var UploadFile = dropList [$dropListIdx];
+
                 data.append('upload_file', files[idx]);
                 //data.append('upload_type', 'single');
                 data.append(token, "1");
