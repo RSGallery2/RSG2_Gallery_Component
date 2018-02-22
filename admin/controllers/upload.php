@@ -819,7 +819,23 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	            return;
             }
 
-		    //--- Check 4 allowed image type ---------------------------------
+            //--- image ID --------------------------------------------
+
+            $imgId = $input->get('cid', 0, 'INT');
+            // wrong id ?
+            if ($galleryId < 1)
+            {
+                //$app->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GALLERY_ID'), 'error');
+                //echo new JResponseJson;
+                echo new JResponseJson($ajaxImgObject, 'Invalid image ID at drag and drop upload', true);
+
+                $app->close();
+                return;
+            }
+
+            $ajaxImgObject['cid']  = $imgId;
+
+            //--- Check 4 allowed image type ---------------------------------
 
 		    // ToDO: May checked when opening file ...
 
@@ -872,6 +888,14 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	        }
             /**/
 
+
+            // ToDo: activate following partly with reserve new file name
+
+            $singleFileName = $uploadFileName;
+
+            // ToDo: Assing image data to DB (descr. title ... from Raw data ...
+
+            /**
 	        //----------------------------------------------------
             // Create image data in db
             //----------------------------------------------------
@@ -905,10 +929,11 @@ class Rsgallery2ControllerUpload extends JControllerForm
             {
                 JLog::add('<== uploadAjax: After createOneImageInDb: ' . $imgId );
             }
+            /**/
 
             // $this->ajaxDummyAnswerOK (); return; // 05
 
-            $ajaxImgObject['cid']  = $imgId;
+            //$ajaxImgObject['cid']  = $imgId;
 
 		    //----------------------------------------------------
 	        // for debug purposes fetch image order
@@ -917,10 +942,13 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		    $imageOrder = $this->imageOrderFromId ($imgId);
 		    $ajaxImgObject['order']  = $imageOrder;
 
+
+
 		    //----------------------------------------------------
 		    // Move file and create display, thumbs and watermarked images ---------------------
 		    //----------------------------------------------------
 
+            $model = $this->getModel('Upload');
 		    list($isCreated, $urlThumbFile, $msg) = $model->MoveImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId);
 	        if (!$isCreated)
 	        {
@@ -1005,12 +1033,11 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	{
 		global $rsgConfig, $Rsg2DebugActive;
 
-		$IsMoved = false;
 		$msg = 'uploadAjaxReserveImageInDB';
 
 		$app = JFactory::getApplication();
 
-		// ToDO: security check
+		// ToDo: security check
 
 		try {
 			if ($Rsg2DebugActive) {
@@ -1039,10 +1066,10 @@ class Rsgallery2ControllerUpload extends JControllerForm
 			// ToDo: Check session id
 			// $session_id      = JFactory::getSession();
 
-			$ajaxImgDbObject['file'] = $fileName; // $dstFile;
+			$ajaxImgDbObject['file'] = $uploadFileName; // $dstFile;
 			// some dummy data for error messages
 			$ajaxImgDbObject['cid']  = -1;
-			$ajaxImgDbObject['dstFile'] = '';
+			$ajaxImgDbObject['dstFile'] = '$fileName';
 
 			//--- gallery ID --------------------------------------------
 
@@ -1070,7 +1097,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
             // Return index into files list
             $dropListIdx = $input->get('dropListIdx', -1, 'INT');
             $ajaxImgDbObject['dropListIdx']  = (string) $dropListIdx;
-
 
             //--- Check 4 allowed image type ---------------------------------
 

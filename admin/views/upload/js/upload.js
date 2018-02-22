@@ -451,7 +451,7 @@ jQuery(document).ready(function ($) {
             // Save for later send
 
             dropList.push(files[idx]);
-            dropListIdx = dropList.length;
+            dropListIdx = dropList.length -1;
 
             // for function reserveDbImageId
             var data = new FormData();
@@ -459,7 +459,6 @@ jQuery(document).ready(function ($) {
             data.append('upload_file', files[idx].name);
             data.append('dropListIdx', dropListIdx);
 
-            //data.append('upload_type', 'single');
             data.append(token, "1");
             data.append('gallery_id', gallery_id);
             //data.append('idx', idx);
@@ -475,7 +474,6 @@ jQuery(document).ready(function ($) {
             dropQueue.push(queueObj);
 
             // console.log('test: ' + data);
-            console.log(data);
         }
 
         startReserveDbImageId();
@@ -506,7 +504,7 @@ jQuery(document).ready(function ($) {
     function sendFileToServer(formData, statusBar) {
 
         var fileName = formData.get('upload_file').name;
-        console.log('out: ' + fileName);
+        console.log('sendFile: ' + fileName);
 
         /*=========================================================
            ajax file uploader
@@ -543,6 +541,7 @@ jQuery(document).ready(function ($) {
         .done(function (eData, textStatus, jqXHR) {
             //alert('done Success: "' + String(eData) + '"')
 
+            console.log('sendFile: Success');
 
             var jData;
 
@@ -607,6 +606,8 @@ jQuery(document).ready(function ($) {
         //--- On fail / error  --------------------------------
         .fail(function (jqXHR, textStatus, exceptionType) {
 
+            console.log('sendFile: fail');
+
             //// start next upload
             //sendState = 0; // 1 == busy
             //startReserveDbImageId () ;
@@ -630,19 +631,12 @@ jQuery(document).ready(function ($) {
 
     function reserveDbImageId (formData, statusBar) {
 
-        var fileName = formData.get('upload_file').name;
-        console.log('out: ' + fileName);
+        var fileName = formData.get('upload_file');
+        console.log('reserve: ' + fileName);
 
         /*=========================================================
          Reserve database image entry for the order of the dropped
         =========================================================*/
-
-        /**
-        var data = new FormData();
-        data.append('upload_file', files[idx]);
-        data.append('upload_type', 'single');
-        data.append('token', token);
-        /**/
 
         var jqXHR = jQuery.ajax({
             //xhr: function () {
@@ -660,6 +654,8 @@ jQuery(document).ready(function ($) {
         //--- On success / done --------------------------------
         .done(function (eData, textStatus, jqXHR) {
             //alert('done reserveDbImageId.Success: "' + String(eData) + '"')
+
+            console.log('reserve: Success');
 
             // start next reserveDbImageId
             sendState = 0; // 1 == busy
@@ -698,28 +694,24 @@ jQuery(document).ready(function ($) {
             // file successful transferred
             if (jData.success == true) {
 
-                // Return index into files list
-                $ajaxImgDbObject['dropListIdx']  = (string) dropListIdx;
+                var gallery_id = $('#SelectGalleries_03').val();
 
                 // for function reserveDbImageId
                 var data = new FormData();
 
                 dropListIdx = jData.data.dropListIdx;
-                if (dropListIdx < dropList.length or dropList.length < dropListIdx)
+                if (dropListIdx < 0 || dropList.length < dropListIdx)
                 {
-                    alert...
+                    alert('reserveDbImageId: dropListIdx: ' + dropListIdx + ' out of range (' + dropList.length + ')');
 
                     return;
                 }
-                var UploadFile = dropList [$dropListIdx];
+                var UploadFile = dropList [dropListIdx];
 
-                data.append('upload_file', files[idx]);
-                //data.append('upload_type', 'single');
+                data.append('upload_file', UploadFile);
                 data.append(token, "1");
                 data.append('gallery_id', gallery_id);
-                //data.append('idx', idx);
-
-                alert('reserveDbImageId: ');
+                data.append('cid', jData.data.cid);
 
                 sendFileToServer(data, statusBar)
             }
@@ -739,6 +731,9 @@ jQuery(document).ready(function ($) {
 
         //--- On fail / error  --------------------------------
         .fail(function (jqXHR, textStatus, exceptionType) {
+
+            console.log('reserve: fail');
+
 
             //// start next upload
             //sendState = 0; // 1 == busy
