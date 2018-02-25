@@ -229,7 +229,5 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 
 	    $this->setRedirect($link, $msg, $msgType);
     }
-
-
 }
 
