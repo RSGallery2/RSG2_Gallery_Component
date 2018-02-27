@@ -741,18 +741,22 @@ class Rsgallery2ControllerUpload extends JControllerForm
             $oFile = $input->files->get('upload_file', array(), 'raw');
 
             $uploadPathFileName = $oFile['tmp_name'];
-            $uploadFileName    = JFile::makeSafe($oFile['name']);
             $fileType    = $oFile['type'];
             $fileError   = $oFile['error'];
             $fileSize    = $oFile['size'];
 
-	        // for next upload tell where to start
+		    // Changed name on existing file name
+		    $originalFileName = JFile::makeSafe($oFile['name']);
+		    $uploadFileName = $uploadFileName = $input->get('dstFileName', '', 'string');
+
+		    // for next upload tell where to start
 	        $rsgConfig->setLastUpdateType('upload_drag_and_drop');
 
 	        if ($Rsg2DebugActive)
             {
                 // identify active file
                 JLog::add('$uploadPathFileName: "' . $uploadPathFileName . '"');
+                JLog::add('$originalFileName: "' . $originalFileName . '"');
                 JLog::add('$uploadFileName: "' . $uploadFileName . '"');
                 JLog::add('$fileType: "' . $fileType . '"');
                 JLog::add('$fileError: "' . $fileError . '"');
@@ -767,7 +771,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
             $ajaxImgObject['file'] = $uploadFileName; // $dstFile;
 	        // some dummy data for error messages
 	        $ajaxImgObject['cid']  = -1;
-	        $ajaxImgObject['dstFile'] = '';
+	        $ajaxImgObject['dstFile']  = '';
+	        $ajaxImgObject['originalFileName'] = $originalFileName;
 
 
 	        /**
@@ -1066,7 +1071,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 			// ToDo: Check session id
 			// $session_id      = JFactory::getSession();
 
-			$ajaxImgDbObject['file'] = $uploadFileName; // $dstFile;
+			$ajaxImgDbObject['fileName'] = $uploadFileName; // $dstFile;
 			// some dummy data for error messages
 			$ajaxImgDbObject['cid']  = -1;
 			$ajaxImgDbObject['dstFile'] = '$fileName';
@@ -1114,6 +1119,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 			// Each filename is only allowed once so create a new one if file already exist
 			//
 			$useFileName = $modelDb->generateNewImageName($baseName, $galleryId);
+			$ajaxImgDbObject['dstFileName'] = $useFileName;
 
 			//--- create image data in DB --------------------------------
 
@@ -1150,7 +1156,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 			$ajaxImgDbObject['cid']  = $imgId;
             $isCreated = $imgId > 0;
 
-			/**
+			/**/
 			//----------------------------------------------------
 			// for debug purposes fetch image order
 			//----------------------------------------------------

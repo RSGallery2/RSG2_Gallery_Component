@@ -11,8 +11,8 @@
 defined('_JEXEC') or die();
 
 $doc = JFactory::getDocument();
-$doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/views/imagesProperties/css/ImagesProperties.css');
-$doc->addscript(JUri::root() . '/administrator/components/com_rsgallery2/views/imagesProperties/js/modalImage.js');
+$doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/views/imagesproperties/css/ImagesProperties.css');
+$doc->addscript(JUri::root() . '/administrator/components/com_rsgallery2/views/imagesproperties/js/modalImage.js');
 JHtml::_('bootstrap.tooltip');
 //JHtml::_('bootstrap.modal');
 

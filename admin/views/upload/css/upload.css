@@ -37,14 +37,6 @@
     border: 6px dotted red;
 }
 
-/*
-    .j-jed-message {
-        margin-bottom: 40px;
-        line-height: 2em;
-        color:#333333;
-    }
-*/
-
 #dragandrophandler {
     border:2px dotted #0B85A1;
     width:400px;
@@ -106,13 +98,23 @@
     background-color:#A8352F;
     -moz-border-radius:4px;
     -webkit-border-radius:4px;
-    border-radius:4px;display:inline-block;
+    border-radius:4px;
+    display:inline-block;
     color:#fff;
     font-family:arial;font-size:13px;font-weight:normal;
     padding:4px 15px;
     cursor:pointer;
     vertical-align:top
 }
+/**
+.tmp_order {
+    display:inline-block;
+    vertical-align:top;
+    color:#30693D;
+    margin-left:20px;
+    margin-right:20px;
+}
+/**/
 
 /**
 .thumbnails img {

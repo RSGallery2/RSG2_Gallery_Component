@@ -7,9 +7,9 @@
  * @copyright   (C) 2016-2018 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
- * RSGallery is Free Software
+ * @since       4.3.0
  */
-//class GalleriesOrdering {
+
 var GalleriesOrdering = {
     /**
      * Keeps server database gallery objects (Id,Parent, ordering, name)

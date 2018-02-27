@@ -131,7 +131,7 @@ return;
                         <div class="form-actions" style="margin-top: 10px; ">
                             <buttonManualFile type="buttonManualFile" class="btn btn-primary"
                                               id="AssignUploadedFiles"
-                                              onclick="Joomla.submitAssignDroppedFiles()"
+                                              onclick="Joomla.submitAssign2DroppedFiles()"
                                               title="<?php echo JText::_('COM_RSGALLERY2_ADD_IMAGES_PROPERTIES_DESC'); ?>"
                             >
 			                    <?php echo JText::_('COM_RSGALLERY2_ADD_IMAGES_PROPERTIES'); ?>
