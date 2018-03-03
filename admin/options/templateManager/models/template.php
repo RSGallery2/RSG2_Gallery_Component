@@ -6,8 +6,11 @@
  * @license        GNU/GPL, see LICENSE.php
  */
 
+
+defined('_JEXEC') or die;
+
 // Import library dependencies
-require_once(dirname(__FILE__) . DS . 'extension.php');
+require_once(dirname(__FILE__) . '/extension.php');
 jimport('joomla.filesystem.folder');
 
 /**
@@ -31,6 +34,7 @@ class InstallerModelTemplate extends InstallerModel
 	 * Overridden constructor
 	 *
 	 * @access    protected
+	 * @since 4.3.0
 	 */
 	function __construct()
 	{
@@ -45,25 +49,22 @@ class InstallerModelTemplate extends InstallerModel
 
 	/**
 	 * @return object|stdClass
+	 * @since 4.3.0
 	 */
 	function getItem()
 	{
 		jimport('joomla.filesystem.path');
 		if (!$this->template)
 		{
-			// return JError::raiseWarning( 500, 'Template not specified' );
-			JFactory::getApplication()->enqueueMessage(
-				'Template not specified'
-				, 'warning');
+			JFactory::getApplication()->enqueueMessage('Template not specified', 'warning');
 
 			return null;
 		}
 
-		$tBaseDir = JPath::clean(JPATH_RSGALLERY2_SITE . DS . 'templates');
+		$tBaseDir = JPath::clean(JPATH_RSGALLERY2_SITE . '/templates');
 
-		if (!is_dir($tBaseDir . DS . $this->template))
+		if (!is_dir($tBaseDir. '/' .$this->template))
 		{
-			// return JError::raiseWarning( 500, 'Template not found' );
 			JFactory::getApplication()->enqueueMessage(
 				'Template not found'
 				, 'warning');
@@ -73,8 +74,8 @@ class InstallerModelTemplate extends InstallerModel
 		$lang = JFactory::getLanguage();
 		$lang->load('tpl_' . $this->template, JPATH_RSGALLERY2_SITE);
 
-		$ini = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $this->template . DS . 'params.ini';
-		$xml = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $this->template . DS . 'templateDetails.xml';
+		$ini = JPATH_RSGALLERY2_SITE . '/templates'. '/' .$this->template . '/params.ini';
+		$xml = JPATH_RSGALLERY2_SITE . '/templates'. '/' .$this->template . '/templateDetails.xml';
 		$row = TemplatesHelper::parseXMLTemplateFile($tBaseDir, $this->template);
 
 		jimport('joomla.filesystem.file');
@@ -89,7 +90,7 @@ class InstallerModelTemplate extends InstallerModel
 			$content = null;
 		}
 
-		// $params = new JParameter($content, $xml, 'template');
+		// $params = new J Parameter($content, $xml, 'template');
 		$jparams = new JRegistry();
 		$params  = $jparams->get($content, $xml);  // Ignore parameter 'template' ?		
 
@@ -112,6 +113,7 @@ class InstallerModelTemplate extends InstallerModel
 	 *
 	 * @access protected
 	 * @throws Exception
+	 * @since 4.3.0
 	 */
 	function update()
 	{
@@ -122,9 +124,8 @@ class InstallerModelTemplate extends InstallerModel
 
 		if (!$this->template)
 		{
-			JError::raiseError(500, "No template specified");
-
-			return;
+			JFactory::getApplication()->enqueueMessage('RSGallery2 update:<pre>' . "No template specified" . '</pre>', 'error');
+			return false;
 		}
 
 		// Set FTP credentials, if given
@@ -132,7 +133,7 @@ class InstallerModelTemplate extends InstallerModel
 		JClientHelper::setCredentialsFromRequest('ftp');
 		$ftp = JClientHelper::getCredentials('ftp');
 
-		$file = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $this->template . DS . 'params.ini';
+		$file = JPATH_RSGALLERY2_SITE . '/templates'. '/' .$this->template . '/params.ini';
 
 		jimport('joomla.filesystem.file');
 		if (JFile::exists($file) && count($this->params))
@@ -146,7 +147,6 @@ class InstallerModelTemplate extends InstallerModel
 			// Try to make the params file writeable
 			if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0755'))
 			{
-				//JError::raiseNotice('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_COULD_NOT_MAKE_THE_TEMPLATE_PARAMETER_FILE_WRITABLE'));
 				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_COULD_NOT_MAKE_THE_TEMPLATE_PARAMETER_FILE_WRITABLE'), 'error');
 
 				return;
@@ -157,7 +157,6 @@ class InstallerModelTemplate extends InstallerModel
 			// Try to make the params file unwriteable
 			if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0555'))
 			{
-				//JError::raiseNotice('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_COULD_NOT_MAKE_THE_TEMPLATE_PARAMETER_FILE_UNWRITABLE'));
 				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_COULD_NOT_MAKE_THE_TEMPLATE_PARAMETER_FILE_UNWRITABLE'), 'error');
 
 				return;

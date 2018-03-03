@@ -39,8 +39,8 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 	 * @param   array $config An optional associative array of configuration settings.
 	 *
 	 * @see     JController
-	 * @since
-	 */
+	  * @since 4.3.0
+    */
 	public function __construct($config = array())
 	{
 		parent::__construct($config);
@@ -67,7 +67,8 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 	 * @param int $gid Gallery ID
 	 *
 	 * @return bool True if size has changed, false if not.
-	 *
+	 * @since 4.3.0
+     *
 	static function displaySizeChanged($gid)
 	{
 		global $rsgConfig;
@@ -269,7 +270,7 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 
 		if ($Rsg2DebugActive)
 		{
-			JLog::add('==> ctrl.maintenance.php/function RegenerateImagesThumb');
+			JLog::add('==> ctrl.maintenance.php/RegenerateImagesThumb');
 		}
 
 		//--- Check credits ----------------------------------------------

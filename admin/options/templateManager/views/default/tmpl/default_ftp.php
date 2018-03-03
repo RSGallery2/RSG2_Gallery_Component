@@ -1,11 +1,28 @@
+<?php
+/**
+ * @package     RSGallery2
+ * @subpackage  com_rsgallery2
+ * @copyright   (C) 2017-2018 RSGallery2 Team
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @author      finnern
+ * RSGallery is Free Software
+ */
+
+defined('_JEXEC') or die;
+
+?>
 <fieldset title="<?php echo JText::_('COM_RSGALLERY2_DESCFTPTITLE'); ?>">
 	<legend><?php echo JText::_('COM_RSGALLERY2_DESCFTPTITLE'); ?></legend>
 
 	<?php echo JText::_('COM_RSGALLERY2_DESCFTP'); ?>
 
-	<?php if (JError::isError($this->ftp)): ?>
-		<p><?php echo JText::_($this->ftp->message); ?></p>
-	<?php endif; ?>
+	<?php 
+	/* Outdated ...
+	if (J Error::is Error($this->ftp)): 
+		<p>echo JText::_($this->ftp->message);</p>
+	endif; 
+	/**/
+	?>
 
 	<table class="adminform nospace">
 		<tbody>

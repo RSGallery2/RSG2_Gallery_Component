@@ -1,8 +1,19 @@
+<?php
+/**
+ * @package     RSGallery2
+ * @subpackage  com_rsgallery2
+ * @copyright   (C) 2017-2018 RSGallery2 Team
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @author      finnern
+ * RSGallery is Free Software
+ */
+
+defined('_JEXEC') or die;
+
+?>
 <script language="javascript" type="text/javascript">
 	<!--
-	function Joomla
-	.submitbutton3(pressbutton)
-	{
+	function Joomla.submitbutton3(pressbutton) {
 		var form = document.adminForm;
 
 		// do field validation
@@ -12,11 +23,9 @@
 			form.installtype.value = 'folder';
 			form.submit();
 		}
-	}
+	};
 
-	function Joomla
-	.submitbutton4(pressbutton)
-	{
+	function Joomla.submitbutton4(pressbutton) {
 		var form = document.adminForm;
 
 		// do field validation
@@ -26,7 +35,7 @@
 			form.installtype.value = 'url';
 			form.submit();
 		}
-	}
+	};
 	//-->
 </script>
 

@@ -29,7 +29,7 @@ class rsgVoting
 		if (JFactory::getUser()->authorise('rsgallery2.vote', 'com_rsgallery2.gallery.' . $gid))
 		{
 			$id = $item->id;
-			require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgvoting' . DS . 'tmpl' . DS . 'form.php');
+			require_once(JPATH_RSGALLERY2_SITE . '/lib' . '/rsgvoting' . '/tmpl' . '/form.php');
 		}
 	}
 
@@ -74,7 +74,7 @@ class rsgVoting
 		$gallery = rsgGalleryManager::get();
 		$item    = $gallery->getItem();;
 		$id = $item->id;
-		require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgvoting' . DS . 'tmpl' . DS . 'result.php');
+		require_once(JPATH_RSGALLERY2_SITE . '/lib' . '/rsgvoting' . '/tmpl' . '/result.php');
 	}
 
 	/**

@@ -26,6 +26,7 @@ class RSGallery2Helper // extends JHelperContent
      * @param    int $galleryId The gallery ID.
      *
      * @return    JObject
+     * @since 4.3.0
      */
     // ToDo: Warning: Declaration of RSGallery2Helper::getActions($galleryId = 0) should be compatible with JHelperContent::getActions($component = '', $section = '', $id = 0) in D:\xampp\htdocs\joomla3x\administrator\components\com_rsgallery2\helpers\rsgallery2.php on line 19
     public static function getActions($galleryId = 0)
@@ -53,7 +54,7 @@ class RSGallery2Helper // extends JHelperContent
     /**
      * Standard sidebar links for all views
      *
-     * @param string $ViewName
+     * @param string $view
      *
      *
      * @since 4.3.2

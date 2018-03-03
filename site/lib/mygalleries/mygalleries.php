@@ -22,9 +22,9 @@ if ($document->getType() == 'html')
 }
 
 //Load required class file
-require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'mygalleries' . DS . 'mygalleries.class.php');
+require_once(JPATH_RSGALLERY2_SITE . '/lib/mygalleries/mygalleries.class.php');
 //Need galleries.class.php for rsgGalleriesItem that extends JTable
-$rsgOptions_path = JPATH_RSGALLERY2_ADMIN . DS . 'options' . DS;
+$rsgOptions_path = JPATH_RSGALLERY2_ADMIN . '/options' . '/';
 require_once($rsgOptions_path . 'galleries.class.php');
 require_once($rsgOptions_path . 'images.class.php');
 
@@ -176,7 +176,6 @@ function deleteItem()
 	//Check if delete is allowed for this item
 	if (!rsgAuthorisation::authorisationDeleteItem($id))
 	{
-		//JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 		JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 
 		$mainframe->redirect(JRoute::_($redirect));
@@ -219,7 +218,6 @@ function editItem()
 	//Redirect if user is not allowed to edit the item 
 	if (!$allowed)
 	{
-		//JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 		JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 		$mainframe->redirect(JRoute::_($redirect));
 	}
@@ -264,7 +262,6 @@ function saveItem()
 	$allowed = rsgAuthorisation::authorisationEditItem($id);
 	if (!$allowed)
 	{
-		//JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 		JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 		$mainframe->redirect(JRoute::_($redirect));
 	}
@@ -320,7 +317,6 @@ function saveUploadedItem()
 	//Check if user is allowed to upload in this gallery (parent gallery has id $gallery_id)
 	if (!rsgAuthorisation::authorisationCreate((int) $gallery_id))
 	{
-		//JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 		JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 		$mainframe->redirect(JRoute::_($redirect));
 	}
@@ -336,7 +332,6 @@ function saveUploadedItem()
 	if ($image_count >= $max_images)
 	{
 		//Notify user and redirect
-		//JError::raiseWarning(404, JText::_('COM_RSGALLERY2_MAXIMUM_NUMBER_OF_IMAGES_UPLOADED_REACHED_DELETE_SOME_IMAGES_FIRST'));
 		JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_MAXIMUM_NUMBER_OF_IMAGES_UPLOADED_REACHED_DELETE_SOME_IMAGES_FIRST'), 'warning');
 		$mainframe->redirect(JRoute::_($redirect));
 	}
@@ -376,7 +371,7 @@ function saveUploadedItem()
 				{
 					$ziplist = $upload->extractArchive($i_file);
 					//Set extract dir for uninstall purposes
-					$extractdir = JPATH_ROOT . DS . "media" . DS . $upload->extractDir . DS;
+					$extractdir = JPATH_ROOT . '/media/' .  $upload->extractDir . '/';
 					//Import images into right folder
 					for ($i = 0; $i < sizeof($ziplist); $i++)
 					{
@@ -403,16 +398,16 @@ function saveUploadedItem()
 				}
 
 				$file_name = $i_file['name'];
-				if (move_uploaded_file($i_file['tmp_name'], JPATH_ROOT . DS . "media" . DS . $file_name))
+				if (move_uploaded_file($i_file['tmp_name'], JPATH_ROOT . '/media"  . '/' .  $file_name))
 				{
 					//Import into database and copy to the right places
-					$imported = imgUtils::importImage(JPATH_ROOT . DS . "media" . DS . $file_name, $file_name, $gallery_id, $title, $descr);
+					$imported = imgUtils::importImage(JPATH_ROOT . '/media"  . '/' .  $file_name, $file_name, $gallery_id, $title, $descr);
 
 					if ($imported == 1)
 					{
-						if (file_exists(JPATH_ROOT . DS . "media" . DS . $file_name))
+						if (file_exists(JPATH_ROOT . '/media"  . '/' .  $file_name))
 						{
-							unlink(JPATH_ROOT . DS . "media" . DS . $file_name);
+							unlink(JPATH_ROOT . '/media"  . '/' .  $file_name);
 						}
 					}
 					else
@@ -451,7 +446,6 @@ function editCat($id)
 		$allowed = rsgAuthorisation::authorisationEditGallery($id);
 		if (!$allowed)
 		{
-			//JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 			JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 			$mainframe->redirect(JRoute::_($redirect));
 		}
@@ -510,7 +504,6 @@ function saveCat($gid)
 		$allowed = rsgAuthorisation::authorisationEditGallery($gid);
 		if (!$allowed)
 		{
-			//JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 			JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 			$mainframe->redirect(JRoute::_($redirect));
 		}
@@ -524,7 +517,6 @@ function saveCat($gid)
 
 		if (!rsgAuthorisation::authorisationCreate($parent_gallery))
 		{
-			// JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 			JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 			$mainframe->redirect(JRoute::_($redirect));
 		}
@@ -565,24 +557,6 @@ function saveCat($gid)
 			exit();
 		}
 
-		//Description: html is allowed
-		/* ToDo: May be used to write unwanted code into database
-		Check if raw data may be replaced by Jinput with filter
-		see below
-
-		$input_options = JFilterInput::getInstance(
-			array(
-				'img','p','a','u','i','b','strong','span','div','ul','li','ol','h1','h2','h3','h4','h5',
-				'table','tr','td','th','tbody','theader','tfooter','br'
-			),
-			array(
-				'src','width','height','alt','style','href','rel','target','align','valign','border','cellpading',
-				'cellspacing','title','id','class'
-			)
-		);
-
-		$postData = new JInput($_POST, array('filter' => $input_options));
-		 */
 		//$row->description = JRequest::getVar( 'description', '', 'post', 'string', JREQUEST_ALLOWRAW );
 		$input            = JFactory::getApplication()->input;
 		$row->description = $input->post->get('description', '', 'RAW');
@@ -711,7 +685,6 @@ function editStateGallery($galleryId, $newState)
 	//Check if user is allowed to edit the state of this gallery (to prevent direct access)
 	if (!rsgAuthorisation::authorisationEditStateGallery((int) $galleryId))
 	{
-		//JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 		JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 		$mainframe->redirect(JRoute::_($redirect));
 	}
@@ -747,7 +720,6 @@ function editStateItem($id, $newState)
 	//Check if user is allowed to edit the state of this item (to prevent direct access)
 	if (!rsgAuthorisation::authorisationEditStateItem((int) $id))
 	{
-		//JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 		JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 		$mainframe->redirect(JRoute::_($redirect));
 	}
@@ -837,10 +809,7 @@ function deleteItems($cid)
 		else
 		{
 			$title = galleryUtils::getTitleFromId($value);
-			// JError::raiseWarning(404, JText::_('COM_RSGALLERY2_PERMISSION_NOT_ALLOWED_DELETE_ITEM'));
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_PERMISSION_NOT_ALLOWED_DELETE_ITEM'), 'warning');
-			//JError::raiseWarning(404, $title);
-			JFactory::getApplication()->enqueueMessage($title, 'warning');
 		}
 	}
 	if ($success)

@@ -17,10 +17,9 @@ require_once($rsgOptions_path . 'config.html.php');
 // Check if core.admin is allowed
 if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2'))
 {
-	// return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 	JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 
-	return;    // 150518 Does not return JError::raiseWarning object $error 
+	return false;
 }
 else
 {
@@ -75,7 +74,8 @@ else
 /**
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function config_dumpVars()
 {
 	global $rsgConfig;
@@ -91,7 +91,8 @@ function config_dumpVars()
  * @param bool $save
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function config_rawEdit($save = false)
 {
 	if ($save)
@@ -107,7 +108,8 @@ function config_rawEdit($save = false)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function saveConfig()
 {
 	global $rsgConfig;
@@ -136,7 +138,8 @@ function saveConfig()
  *
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function showConfig()
 {
 	global $rsgConfig;
@@ -193,11 +196,11 @@ function showConfig()
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function cancelConfig($option)
 {
 	$mainframe =& JFactory::getApplication();
 	$mainframe->redirect("index.php?option=$option");
 }
 
-?>

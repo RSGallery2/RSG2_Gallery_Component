@@ -1,4 +1,12 @@
 <?php
+/**
+ * @package     RSGallery2
+ * @subpackage  com_rsgallery2
+ * @copyright   (C) 2017-2018 RSGallery2 Team
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @author      finnern
+ * RSGallery is Free Software
+ */
 
 defined('_JEXEC') or die();
 
@@ -17,12 +25,13 @@ class external_netpbm extends externalImageLib// genericImageLib
 	/**
 	 * image resize function
 	 *
-	 * @param string $source      full path of source image
-	 * @param string $target      full path of target image
+	 * @param string $imgSrcPath      full path of source image
+	 * @param string $imgDstPath      full path of target image
 	 * @param int    $targetWidth width of target
 	 *
 	 * @return bool true if successfull, false if error
-	 */
+	 * @since 4.3.0
+     */
 	static function resizeImage($imgSrcPath, $imgDstPath, $targetWidth)
 	{
 		global $rsgConfig;
@@ -62,12 +71,13 @@ class external_netpbm extends externalImageLib// genericImageLib
 	/**
 	 * Creates a square thumbnail by first resizing and then cutting out the thumb
 	 *
-	 * @param string $source Full path of source image
-	 * @param string $target Full path of target image
-	 * @param int    $width  width of target
+	 * @param string $imgSrcPath Full path of source image
+	 * @param string $imgDstPath Full path of target image
+	 * @param int    $thumbWidth  width of target
 	 *
 	 * @return bool true if successfull, false if error
-	 */
+	 * @since 4.3.0
+     */
 	static function createSquareThumb($imgSrcPath, $imgDstPath, $thumbWidth)
 	{
 		// ToDo: thumb type ??

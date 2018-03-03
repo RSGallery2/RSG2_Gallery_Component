@@ -23,8 +23,9 @@ class imgUtils extends fileUtils
 {
 
 	/**
-	 * @return string array
-	 */
+	 * @return string []
+	 * @since 4.3.0
+     */
 	static function allowedFileTypes()
 	{
 		return array("jpg", 'jpeg', "gif", "png");
@@ -38,7 +39,8 @@ class imgUtils extends fileUtils
 	 * @param $name string name of original image
 	 *
 	 * @return string filename of image
-	 */
+	 * @since 4.3.0
+     */
 	static function getImgNameThumb($name)
 	{
 		return $name . '.jpg';
@@ -52,7 +54,8 @@ class imgUtils extends fileUtils
 	 * @param string $name name of original image
 	 *
 	 * @return string filename of image
-	 */
+	 * @since 4.3.0
+     */
 	static function getImgNameDisplay($name)
 	{
 		return $name . '.jpg';
@@ -64,7 +67,8 @@ class imgUtils extends fileUtils
 	 * @param int    $width
 	 *
 	 * @return true if successfull, false if error
-	 */
+	 * @since 4.3.0
+     */
 	static function makeDisplayImage($source, $name = '', $width)
 	{
 
@@ -73,7 +77,7 @@ class imgUtils extends fileUtils
 			$parts = pathinfo($source);
 			$name  = $parts['basename'];
 		}
-		$target = JPATH_DISPLAY . DS . imgUtils::getImgNameDisplay($name);
+		$target = JPATH_DISPLAY . '/' .imgUtils::getImgNameDisplay($name);
 
 		return imgUtils::resizeImage($source, $target, $width);
 	}
@@ -83,7 +87,8 @@ class imgUtils extends fileUtils
 	 * @param string $name   name destination file (path is retrieved from rsgConfig)
 	 *
 	 * @return true if successfull, false if error
-	 */
+	 * @since 4.3.0
+     */
 	static function makeThumbImage($source, $name = '')
 	{
 		global $rsgConfig;
@@ -93,7 +98,7 @@ class imgUtils extends fileUtils
 			$parts = pathinfo($source);
 			$name  = $parts['basename'];
 		}
-		$target = JPATH_THUMB . DS . imgUtils::getImgNameThumb($name);
+		$target = JPATH_THUMB . '/' .imgUtils::getImgNameThumb($name);
 
 		if ($rsgConfig->get('thumb_style') == 1 && $rsgConfig->get('graphicsLib') == 'gd2')
 		{
@@ -114,9 +119,10 @@ class imgUtils extends fileUtils
 	 * @param string $target      full path of target image
 	 * @param int    $targetWidth width of target
 	 *
-	 * @return $targetWidth, true if successfull, false if error
+	 * @return bool $targetWidth, true if successfull, false if error
 	 * @todo   only writes in JPEG, this should be given as a user option
-	 */
+	 * @since 4.3.0
+     */
 	static function resizeImage($source, $target, $targetWidth)
 	{
 		global $rsgConfig;
@@ -133,7 +139,6 @@ class imgUtils extends fileUtils
 				return Netpbm::resizeImage($source, $target, $targetWidth);
 				break;
 			default:
-				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get( 'graphicsLib' ));
 				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get('graphicsLib'), 'error');
 
 				return false;
@@ -151,7 +156,8 @@ class imgUtils extends fileUtils
 	 *
 	 * @return bool|imageUploadError, returns true if successfull otherwise returns an ImageUploadError
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	static function importImage($imgTmpName, $imgName, $imgCat, $imgTitle = '', $imgDesc = '')
 	{
 		global $rsgConfig;
@@ -334,7 +340,8 @@ class imgUtils extends fileUtils
 	 * @param string $name name of image
 	 *
 	 * @return bool true if success or notice and false if error
-	 */
+	 * @since 4.3.0
+     */
 	static function deleteImage($name)
 	{
 		global $rsgConfig;
@@ -352,21 +359,19 @@ class imgUtils extends fileUtils
 		if (!rsgAuthorisation::authorisationDeleteItem($id))
 		{
 //mk	if (!JFactory::getUser()->authorise('core.delete','com_rsgallery2.item.'.$id)) {
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_PERMISSION_NOT_ALLOWED_DELETE_ITEM') .": ". $name);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_PERMISSION_NOT_ALLOWED_DELETE_ITEM') . $rsgConfig->get('graphicsLib'), 'notice');
 
 			return false;
 		}
 
-		$thumb    = JPATH_THUMB . DS . imgUtils::getImgNameThumb($name);
-		$display  = JPATH_DISPLAY . DS . imgUtils::getImgNameDisplay($name);
-		$original = JPATH_ORIGINAL . DS . $name;
+		$thumb    = JPATH_THUMB. '/' .imgUtils::getImgNameThumb($name);
+		$display  = JPATH_DISPLAY. '/' .imgUtils::getImgNameDisplay($name);
+		$original = JPATH_ORIGINAL. '/' .$name;
 
 		if (file_exists($thumb))
 		{
 			if (!JFile::delete($thumb))
 			{
-				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_THUMB_IMAGE') .": ". $thumb);
 				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_THUMB_IMAGE') . ": " . $thumb, 'error');
 
 				return false;
@@ -376,7 +381,6 @@ class imgUtils extends fileUtils
 		{
 			if (!JFile::delete($display))
 			{
-				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_DISPLAY_IMAGE') .": ". $display);
 				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_DISPLAY_IMAGE') . ": " . $display, 'error');
 
 				return false;
@@ -386,7 +390,6 @@ class imgUtils extends fileUtils
 		{
 			if (!JFile::delete($original))
 			{
-				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE') .": ". $original);
 				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE') . ": " . $original, 'error');
 
 				return false;
@@ -399,7 +402,6 @@ class imgUtils extends fileUtils
 		{    //When upload goes wrong, there is no item in the database when this function is called to remove the thumb/display/original images + database entry
 			if (!$row->delete($id))
 			{
-				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ITEMINFORMATION_DATABASE')) ;
 				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_ITEMINFORMATION_DATABASE'), 'error');
 
 				return false;
@@ -419,7 +421,8 @@ class imgUtils extends fileUtils
 	 * @param bool   $local return a local path instead of URL
 	 *
 	 * @return string complete URL of the image
-	 */
+	 * @since 4.3.0
+     */
 //	static function getImgOriginalPath($name, $local=false){
 	static function getImgOriginal($name, $local = false)
 	{
@@ -476,7 +479,8 @@ class imgUtils extends fileUtils
 	 * @param bool   $local return a local path instead of URL
 	 *
 	 * @return string complete URL of the image
-	 */
+	 * @since 4.3.0
+     */
 	//static function getImgThumbPath($name, $local=false){
 	static function getImgThumb($name, $local = false)
 	{
@@ -505,7 +509,8 @@ class imgUtils extends fileUtils
 	 * @param $imagefile
 	 *
 	 * @return bool
-	 */
+	 * @since 4.3.0
+     */
 	static function showEXIF($imagefile)
 	{
 		if (!function_exists('exif_read_data'))
@@ -560,7 +565,8 @@ class imgUtils extends fileUtils
 	 *
 	 * @return string HTML representation of a selectbox
 	 * @todo Also offer the possiblity to select thumbs from subgalleries
-	 */
+	 * @since 4.3.0
+     */
 	static function showThumbNames($id, $current_id, $selectname = 'thumb_id')
 	{
 		$database = JFactory::getDBO();
@@ -625,10 +631,10 @@ class genericImageLib
 	 * @param int    $targetWidth width of target
 	 *
 	 * @return bool true if successfull, false if error
-	 */
+	 * @since 4.3.0
+     */
 	static function resizeImage($source, $target, $targetWidth)
 	{
-		//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ABSTRACT_IMAGE_LIBRARY_CLASS_NO_RESIZE_AVAILABLE'));
 		JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ABSTRACT_IMAGE_LIBRARY_CLASS_NO_RESIZE_AVAILABLE'), 'error');
 
 		return false;
@@ -638,7 +644,8 @@ class genericImageLib
 	 * detects if image library is available
 	 *
 	 * @return false if not detected, user friendly string of library name and version if detected
-	 */
+	 * @since 4.3.0
+     */
 	static function detect()
 	{
 		return false;
@@ -661,7 +668,8 @@ class Netpbm extends genericImageLib
 	 *
 	 * @return bool true if successfull, PEAR_Error if error
 	 * @todo only writes in JPEG, this should be given as a user option
-	 */
+	 * @since 4.3.0
+     */
 	static function resizeImage($source, $target, $targetWidth)
 	{
 		global $rsgConfig;
@@ -685,7 +693,8 @@ class Netpbm extends genericImageLib
 	 * @param string $status
 	 *
 	 * @return bool false if not detected, user friendly string of library name and version if detected
-	 */
+	 * @since 4.3.0
+     */
 	static function detect($shell_cmd = '', $output = '', $status = '')
 	{
 		@exec($shell_cmd . 'jpegtopnm -version 2>&1', $output, $status);
@@ -722,7 +731,8 @@ class ImageMagick extends genericImageLib
 	 *
 	 * @return bool true if successfull, false if error
 	 * @todo only writes in JPEG, this should be given as a user option
-	 */
+	 * @since 4.3.0
+     */
 	static function resizeImage($source, $target, $targetWidth)
 	{
 		global $rsgConfig;
@@ -735,7 +745,6 @@ class ImageMagick extends genericImageLib
 		exec($cmd, $results, $return);
 		if ($return > 0)
 		{
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_IMAGE_COULD_NOT_BE_MADE_WITH_IMAGEMAGICK').": ".$target);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_IMAGE_COULD_NOT_BE_MADE_WITH_IMAGEMAGICK') . ": " . $target, 'error');
 
 			return false;
@@ -753,7 +762,8 @@ class ImageMagick extends genericImageLib
 	 * @param string $status
 	 *
 	 * @return bool false if not detected, user friendly string of library name and version if detected
-	 */
+	 * @since 4.3.0
+     */
 	static function detect($output = '', $status = '')
 	{
 		global $rsgConfig;
@@ -798,7 +808,8 @@ class GD2 extends genericImageLib
 	 * @return bool true if successfull, false if error
 	 * @todo only writes in JPEG, this should be given as a user option
 	 * @todo use constants found in http://www.php.net/gd rather than numbers
-	 */
+	 * @since 4.3.0
+     */
 	static function resizeImage($source, $target, $targetWidth)
 	{
 		global $rsgConfig;
@@ -811,7 +822,6 @@ class GD2 extends genericImageLib
 
 		if (!$imgInfo)
 		{
-			//JError::raiseNotice('ERROR_CODE', $source ." ". JText::_('COM_RSGALLERY2_IS_NOT_A_VALID_IMAGE_OR_IMAGENAME'));
 			JFactory::getApplication()->enqueueMessage($source . " " . JText::_('COM_RSGALLERY2_IS_NOT_A_VALID_IMAGE_OR_IMAGENAME'), 'error');
 
 			return false;
@@ -825,7 +835,6 @@ class GD2 extends genericImageLib
 		// check if we can read this type of file
 		if (!function_exists('imagecreatefrom' . $type))
 		{
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_GD2_DOES_NOT_SUPPORT_READING_IMAGE_TYPE').' '.$type);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_GD2_DOES_NOT_SUPPORT_READING_IMAGE_TYPE') . ' ' . $type, 'error');
 
 			return false;
@@ -850,7 +859,6 @@ class GD2 extends genericImageLib
 		$sourceImg = $loadImg($source);
 		if (!$sourceImg)
 		{
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_READING_SOURCE_IMAGE').': '.$source);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_READING_SOURCE_IMAGE') . ': ' . $source, 'error');
 
 			return false;
@@ -868,7 +876,6 @@ class GD2 extends genericImageLib
 		    )
 		)
 		{
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_RESIZING_IMAGE').': '.$source);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_RESIZING_IMAGE') . ': ' . $source, 'error');
 
 			return false;
@@ -876,7 +883,6 @@ class GD2 extends genericImageLib
 		// write the image
 		if (!imagejpeg($targetImg, $target, $rsgConfig->get('jpegQuality')))
 		{
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE').': '.$target);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE') . ': ' . $target, 'error');
 
 			return false;
@@ -896,7 +902,8 @@ class GD2 extends genericImageLib
 	 * @param int    $width  width of target
 	 *
 	 * @return bool true if successfull, false if error
-	 */
+	 * @since 4.3.0
+     */
 	static function createSquareThumb($source, $target, $width)
 	{
 		global $rsgConfig;
@@ -955,7 +962,6 @@ class GD2 extends genericImageLib
 		$thumb = imagecreatetruecolor($width, $height);
 		if (!imagecopyresampled($thumb, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig))
 		{
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_RESIZING_IMAGE').": ".$source);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_RESIZING_IMAGE') . ": " . $source, 'error');
 
 			return false;
@@ -966,7 +972,6 @@ class GD2 extends genericImageLib
 		$thumb2 = imagecreatetruecolor($t_width, $t_height);
 		if (!imagecopyresampled($thumb2, $thumb, 0, 0, $w1, $h1, $t_width, $t_height, $t_width, $t_height))
 		{
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_CROPPING_IMAGE').": ".$source);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_CROPPING_IMAGE') . ": " . $source, 'error');
 
 			return false;
@@ -975,7 +980,6 @@ class GD2 extends genericImageLib
 		// write the image
 		if (!imagejpeg($thumb2, $target, $rsgConfig->get('jpegQuality')))
 		{
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE').": ".$target);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE') . ": " . $target, 'error');
 
 			return false;
@@ -995,7 +999,8 @@ class GD2 extends genericImageLib
 	 *
 	 * @return string user friendly string of library name and version if detected
 	 *                 empty if not detected,
-	 */
+	 * @since 4.3.0
+     */
 	static function detect()
 	{
 		$gd2Version = '';
@@ -1043,16 +1048,17 @@ class waterMarker extends GD2
 	 * this function draws the watermark over the image
 	 *
      * @param string $imageOrigin ImageType is either 'display' or 'original' and will precide the output filename
-	 */
+	 * @since 4.3.0
+     */
 	function mark($imageOrigin = 'display')
 	{
 		global $rsgConfig;
 
 		// A bit of housekeeping: we want an index.html in the directory storing these images
-		if (!JFile::exists(JPATH_WATERMARKED . DS . 'index.html'))
+		if (!JFile::exists(JPATH_WATERMARKED . '/index.html'))
 		{
 			$buffer = '';    //needed: Cannot pass parameter 2 [of JFile::write()] by reference...
-			JFile::write(JPATH_WATERMARKED . DS . 'index.html', $buffer);
+			JFile::write(JPATH_WATERMARKED . '/index.html', $buffer);
 		}
 
 		//get basic properties of the image file
@@ -1114,7 +1120,7 @@ class waterMarker extends GD2
 		else
 		{
 			//Get dimensions for watermark image
-			list($w, $h, $t, $a) = getimagesize(JPATH_ROOT . DS . 'images' . DS . 'rsgallery' . DS . $rsgConfig->get('watermark_image'));
+			list($w, $h, $t, $a) = getimagesize(JPATH_ROOT . '/images/rsgallery'. '/' .$rsgConfig->get('watermark_image'));
 			$textW = $w + 20;
 			$textH = $h + 20;
 		}
@@ -1163,7 +1169,7 @@ class waterMarker extends GD2
 		if ($rsgConfig->get('watermark_type') == 'image')
 		{
 			//Merge watermark image with image
-			$watermark = imagecreatefrompng(JPATH_ROOT . DS . 'images' . DS . 'rsgallery' . DS . $rsgConfig->get('watermark_image'));
+			$watermark = imagecreatefrompng(JPATH_ROOT . '/images/rsgallery'. '/' .$rsgConfig->get('watermark_image'));
 			ImageCopyMerge($im, $watermark, $newX + 1, $newY + 1, 0, 0, $w, $h, $rsgConfig->get('watermark_transparency'));
 		}
 		else
@@ -1200,7 +1206,8 @@ class waterMarker extends GD2
 	 * @param boolean $shadow    Shadow text yes or no
 	 *
 	 * @return string url to watermarked image
-	 */
+	 * @since 4.3.0
+     */
 	// ToDo rename to get WaltermarkedUrlAndCreate
 	static function showMarkedImage($imageName, $imageOrigin = 'display', $font = "arial.ttf", $shadow = true)
 	{
@@ -1215,17 +1222,17 @@ class waterMarker extends GD2
 		{
 			if ($imageOrigin == 'display')
 			{
-				$imagePath = JPATH_DISPLAY . DS . $imageName . ".jpg";
+				$imagePath = JPATH_DISPLAY. '/' .$imageName . ".jpg";
 			}
 			else
 			{
-				$imagePath = JPATH_ORIGINAL . DS . $imageName;
+				$imagePath = JPATH_ORIGINAL. '/' .$imageName;
 			}
 
 			$imark                  = new waterMarker();
 			$imark->waterMarkText   = $rsgConfig->get('watermark_text');
 			$imark->imagePath       = $imagePath;
-			$imark->font            = JPATH_RSGALLERY2_ADMIN . DS . "fonts" . DS . $rsgConfig->get('watermark_font');
+			$imark->font            = JPATH_RSGALLERY2_ADMIN. '/' ."fonts". '/' .$rsgConfig->get('watermark_font');
 			$imark->size            = $rsgConfig->get('watermark_font_size');
 			$imark->shadow          = $shadow;
 			$imark->angle           = $rsgConfig->get('watermark_angle');
@@ -1246,7 +1253,8 @@ class waterMarker extends GD2
 	 *
 	 * @return string MD5 name of watermarked image (example "displayc4cef3bababbff9e68015992ff6b8cbb.jpg")
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	static function createWatermarkedFileName($imageName, $imageOrigin)
 	{
 
@@ -1265,7 +1273,8 @@ class waterMarker extends GD2
 	 * @param $watermarkFilename
 	 *
 	 * @return string url to watermarked image
-	 */
+	 * @since 4.3.0
+     */
 	static function PathFileName($watermarkFilename)
 	{
 		$watermarkPathFilename = JPATH_WATERMARKED . '/' . $watermarkFilename;
@@ -1280,7 +1289,8 @@ class waterMarker extends GD2
 	 * @param        $imageOrigin
 	 *
 	 * @return string url to watermarked image
-	 */
+	 * @since 4.3.0
+     */
 	static function createWatermarkedPathFileName($imageName, $imageOrigin)
 	{
 		$watermarkPathFilename = waterMarker::PathFileName(waterMarker::createWatermarkedFileName($imageName, $imageOrigin));

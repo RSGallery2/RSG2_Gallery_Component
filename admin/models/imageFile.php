@@ -28,8 +28,6 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	/**
 	 * Constructor.
 	 *
-	 * @param   array $config An optional associative array of configuration settings.
-	 *
 	 * @since 4.3.0
 	 */
 	public function __construct()
@@ -68,7 +66,6 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			default:
 				require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ExtImgLib_Empty.php';
 				$this->ImageLib = new external_empty;
-				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get( 'graphicsLib' ));
 				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get('graphicsLib'), 'error');
 
 				return false;
@@ -222,6 +219,15 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	}
 
     // ToDo: add gallery ID as parameter for sub folder or sub folder itself ...
+	/**
+	 * @param $uploadPathFileName
+	 * @param $singleFileName
+	 * @param $galleryId
+	 *
+	 * @return bool
+	 *
+	 * @since 4.3.0
+	 */
     public function moveFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId)
     {
         global $rsgConfig;
@@ -277,6 +283,15 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
     }
 
     // ToDo: add gallery ID as parameter for sub folder or sub folder itself ...
+	/**
+	 * @param $srcFileName
+	 * @param $dstFileName
+	 * @param $galleryId
+	 *
+	 * @return bool
+	 *
+	 * @since 4.3.0
+	 */
     public function copyFile2OriginalDir($srcFileName, $dstFileName, $galleryId)
     {
         global $rsgConfig;

@@ -44,6 +44,7 @@ class Rsgallery2ViewMaintDatabase extends JViewLegacy
 	 * @param null $tpl
 	 *
 	 * @return mixed bool or void
+	 * @since 4.3.0
 	 */
 	public function display($tpl = null)
 	{
@@ -87,6 +88,7 @@ class Rsgallery2ViewMaintDatabase extends JViewLegacy
 //		Rsg2Helper::addSubMenu('rsg2'); 
 
         // Check for errors.
+		// ToDo: Wrong in following
         if (count($errors = $this->get('Errors')))
         {
             throw new RuntimeException(implode('<br />', $errors), 500);
@@ -103,6 +105,7 @@ class Rsgallery2ViewMaintDatabase extends JViewLegacy
 
         // different toolbar on different layouts
         $Layout = JFactory::getApplication()->input->get('layout');
+		// ToDo: Wrong error count in following call
 		$this->addToolbar($this->UserIsRoot, $this->errorCount); //$Layout);
 
         $View = JFactory::getApplication()->input->get('view');
@@ -120,6 +123,7 @@ class Rsgallery2ViewMaintDatabase extends JViewLegacy
 	 * If errors are detected repair is enabled
 	 *
 	 * @return    bool
+	 * @since 4.3.0
 	 */
 	function CheckUserIsRoot()
 	{
@@ -129,6 +133,11 @@ class Rsgallery2ViewMaintDatabase extends JViewLegacy
 		return $canAdmin;
 	}
 
+	/**
+	 * @param $UserIsRoot
+	 * @param $errorCount
+	 * @since 4.3.0
+	*/
 	protected function addToolbar($UserIsRoot, $errorCount) //$Layout='default')
 	{
 		// Title

@@ -26,6 +26,7 @@ class TemplatesHelper
 	 * @param int $clientId
 	 *
 	 * @return int
+	 * @since 4.3.0
 	 */
 	static function isTemplateDefault($template, $clientId)
 	{
@@ -38,6 +39,7 @@ class TemplatesHelper
 	 * @param string $templateBaseDir
 	 *
 	 * @return string array
+	 * @since 4.3.0
 	 */
 	static function parseXMLTemplateFiles($templateBaseDir)
 	{
@@ -68,18 +70,19 @@ class TemplatesHelper
 	 * @param string $templateDir
 	 *
 	 * @return bool|StdClass
+	 * @since 4.3.0
 	 */
 	static function parseXMLTemplateFile($templateBaseDir, $templateDir)
 	{
 		// Check of the xml file exists
-		if (!is_file($templateBaseDir . DS . $templateDir . DS . 'templateDetails.xml'))
+		if (!is_file($templateBaseDir. '/' .$templateDir . '/templateDetails.xml'))
 		{
 			return false;
 		}
 
 //		JApplicationHelper::parseXMLInstallFile is deprecated in J3, need to use JInstaller::parseXMLInstallFile instead.			
-//		$xml = JApplicationHelper::parseXMLInstallFile($templateBaseDir.DS.$templateDir.DS.'templateDetails.xml');
-		$xml = JInstaller::parseXMLInstallFile($templateBaseDir . DS . $templateDir . DS . 'templateDetails.xml');
+//		$xml = JApplicationHelper::parseXMLInstallFile($templateBaseDir . '/' . $templateDir . '/' . 'templateDetails.xml');
+		$xml = JInstaller::parseXMLInstallFile($templateBaseDir. '/' .$templateDir . '/templateDetails.xml');
 
 		if ($xml['type'] != 'rsgTemplate')
 		{

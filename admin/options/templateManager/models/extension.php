@@ -39,6 +39,7 @@ class InstallerModel extends JModelLegacy
 	 *
 	 * @access    protected
 	 * @throws Exception
+	 * @since 4.3.0
 	 */
 	function __construct()
 	{
@@ -55,6 +56,7 @@ class InstallerModel extends JModelLegacy
 
 	/**
 	 * @return array
+	 * @since 4.3.0
 	 */
 	function &getItems()
 	{
@@ -69,6 +71,7 @@ class InstallerModel extends JModelLegacy
 
 	/**
 	 * @return JPagination|object
+	 * @since 4.3.0
 	 */
 	function &getPagination()
 	{
@@ -101,7 +104,7 @@ class InstallerModel extends JModelLegacy
 	 */
 	function remove($eid = array())
 	{
-		$mainframe = JFactory::getApplication();
+		$app = JFactory::getApplication();
 
 		// Initialize variables
 		$failed = array();
@@ -122,7 +125,7 @@ class InstallerModel extends JModelLegacy
 		jimport('joomla.installer.installer');
 		$installer = &JInstaller::getInstance();
 
-		require_once(rsgOptions_installer_path . DS . 'adapters' . DS . 'rsgtemplate.php');
+		require_once(rsgOptions_installer_path . '/adapters/rsgtemplate.php');
 		$installer->setAdapter('template', new JInstaller_rsgTemplate($installer));
 
 		// Uninstall the chosen extensions
@@ -151,7 +154,7 @@ class InstallerModel extends JModelLegacy
 			$result = true;
 		}
 
-		$mainframe->enqueueMessage($msg);
+		$app->enqueueMessage($msg);
 		$this->setState('action', 'remove');
 		$this->setState('name', $installer->get('name'));
 		$this->setState('message', $installer->message);
@@ -162,9 +165,13 @@ class InstallerModel extends JModelLegacy
 
 	/**
 	 * @return object
+	 * @since 4.3.0
 	 */
 	function _loadItems()
 	{
-		return JError::raiseError(500, JText::_('COM_RSGALLERY2_METHOD_NOT_IMPLEMENTED'));
+		JFactory::getApplication()->enqueueMessage('RSGallery2 _loadItems:<pre>'
+			. JText::_('COM_RSGALLERY2_METHOD_NOT_IMPLEMENTED') . '</pre>', 'error');
+
+        return false;
 	}
 }

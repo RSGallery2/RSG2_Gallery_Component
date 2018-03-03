@@ -136,17 +136,20 @@ class InstallerController extends JControllerLegacy
 
 		if ($rsgConfig->template == $template)
 		{
-			// JError::raiseWarning( 500, 'Can not delete default template. Select an other template and then delete this one.' );
 			JFactory::getApplication()->enqueueMessage('Can not delete default template. Select an other template and then delete this one.', 'warning');
 		}
 		else
 		{
-			JFolder::delete(JPATH_RSGALLERY2_SITE . DS . "templates" . DS . $template);
+			JFolder::delete(JPATH_RSGALLERY2_SITE. '/' ."templates". '/' .$template);
 		}
 
 		$this->manage();
 	}
 
+	/**
+	
+	 * @since 4.3.0
+    */
 	function template()
 	{
 		switch ($this->get('task_type', 'templateGeneral'))
@@ -309,6 +312,10 @@ class InstallerController extends JControllerLegacy
 		$view->display();
 	}
 
+	/**
+	
+	@since 4.3.0
+	*/
 	function saveCSS()
 	{
 		// Check for request forgeries
@@ -326,7 +333,11 @@ class InstallerController extends JControllerLegacy
 
 		$this->selectCss();
 	}
-
+	
+	/**
+	
+	@since 4.3.0
+	*/
 	function applyCSS()
 	{
 		// Check for request forgeries
@@ -345,6 +356,10 @@ class InstallerController extends JControllerLegacy
 		$this->editCSS();
 	}
 
+	/**
+	
+	@since 4.3.0
+	*/
 	function cancelCSS()
 	{
 		$this->selectCss();
@@ -406,6 +421,10 @@ class InstallerController extends JControllerLegacy
 		$view->display();
 	}
 
+	/**
+	
+	
+	porelaire.com*/
 	function saveHTML()
 	{
 		// Check for request forgeries
@@ -424,6 +443,9 @@ class InstallerController extends JControllerLegacy
 		$this->selectHTML();
 	}
 
+	/**
+	
+	porelaire.com*/
 	function applyHTML()
 	{
 		// Check for request forgeries
@@ -442,6 +464,9 @@ class InstallerController extends JControllerLegacy
 		$this->editHTML();
 	}
 
+	/**
+	
+	porelaire.com*/
 	function cancelHTML()
 	{
 		$this->selectHTML();

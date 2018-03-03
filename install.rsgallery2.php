@@ -114,8 +114,7 @@ class com_rsgallery2InstallerScript
         {
             echo '    Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release;
             echo '    Current Joomla version = ' . $this->actual_joomla_release;
-            Jerror::raiseWarning(null, 'Cannot install com_rsgallery2 in a Joomla release prior to ' . $this->minimum_joomla_release);
-
+            JFactory::getApplication()->enqueueMessage('Cannot install com_rsgallery2 in a Joomla release prior to ' . $this->minimum_joomla_release, 'warning');
             return false;
         }
 
@@ -131,7 +130,8 @@ class com_rsgallery2InstallerScript
             // (overwrite same version is permitted)
             if (version_compare($this->newRelease, $this->oldRelease, 'lt'))
             {
-                Jerror::raiseWarning(null, 'Incorrect version sequence. Cannot upgrade ' . $rel);
+				JFactory::getApplication()->enqueueMessage('Incorrect version sequence. Cannot upgrade ' . $rel, 'warning');
+            
 
                 return false;
             }

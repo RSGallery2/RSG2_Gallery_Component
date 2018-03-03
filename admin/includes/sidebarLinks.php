@@ -20,7 +20,7 @@ class RSG2_SidebarLinks {
      * @param string $layout
      *
      *
-     * @since version
+     * @since 4.3.0
      */
     static function addItems($view = '', $layout = '', $task = '')
     {

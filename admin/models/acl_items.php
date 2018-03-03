@@ -21,6 +21,10 @@ defined('_JEXEC') or die;
  */
 class Rsgallery2ModelAcl_items extends JModelList
 {
+	/**
+	
+	 * @since 4.3.0
+    
 	public function __construct($config = array())
 	{
 		if (empty($config['filter_fields']))
@@ -81,7 +85,8 @@ class Rsgallery2ModelAcl_items extends JModelList
 	 * Method to build an SQL query to load the list data.
 	 *
 	 * @return      string  An SQL query
-	 */
+	 * @since 4.3.0
+     */
 	protected function getListQuery()
 	{
 		// Create a new query object.

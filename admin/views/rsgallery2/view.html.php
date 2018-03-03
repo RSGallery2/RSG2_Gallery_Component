@@ -60,6 +60,11 @@ class Rsgallery2ViewRsgallery2 extends JViewLegacy
 	protected $sidebar;
 
 	//------------------------------------------------
+	/**
+	 * @param null $tpl
+	 *
+	 * @since 4.3.0
+	*/
 	public function display($tpl = null)
 	{
 		global $Rsg2DevelopActive;
@@ -173,6 +178,7 @@ class Rsgallery2ViewRsgallery2 extends JViewLegacy
 	 * Checks if user has root status (is re.admin')
 	 *
 	 * @return    bool
+	 * @since 4.3.0
 	 */
 	function CheckUserIsAdmin()
 	{
@@ -192,10 +198,16 @@ class Rsgallery2ViewRsgallery2 extends JViewLegacy
 	 * $document = JFactory::getDocument();
 	 * $document->setTitle(JText::_('COM_RSGALLERY2_MENU_CONTROL_PANEL'));
 	 * }
-	 */
+	  * @since 4.3.0
+	*/
 
 	/**
 	 * Inserts the HTML placed at the bottom of (all) RSGallery Admin pages.
+	 * @param $rsg2ShortVersion
+	 *
+	 * @return string
+	 *
+	 * @since 4.3.0
 	 */
 	function RSGallery2Footer($rsg2ShortVersion)
 	{

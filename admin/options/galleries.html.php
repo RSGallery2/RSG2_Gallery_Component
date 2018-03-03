@@ -28,7 +28,8 @@ class html_rsg2_galleries
 	 * @param $pageNav
 	 *
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	static function show(&$rows, &$lists, &$search, &$pageNav)
 	{
 		global $rsgOption; // , $rsgConfig;
@@ -237,7 +238,8 @@ class html_rsg2_galleries
 	 * @param $galleries
 	 *
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	static function removeWarn($galleries)
 	{
 		global $rsgOption;
@@ -277,7 +279,8 @@ class html_rsg2_galleries
 
 	/**
 	 * @param $galleries
-	 */
+	 * @since 4.3.0
+     */
 	static function printTree($galleries)
 	{
 		echo "<ul>";
@@ -302,7 +305,8 @@ class html_rsg2_galleries
 	 * @param array      $lists  An array of select lists
 	 * @param object     $params Parameters
 	 * @param string     $option The option
-	 */
+	 * @since 4.3.0
+     */
 	static function edit(&$row, &$lists, &$params, $option)
 	{
 		global $rsgOption, $rsgConfig;
@@ -362,19 +366,19 @@ class html_rsg2_galleries
 				}
 
 				return;
-			}
+			};
 
 			function selectAll() {
 				if (document.adminForm.checkbox0.checked) {
-					for (i = 0; i < 12; i++) {
+					for (var i = 0; i < 12; i++) {
 						document.getElementById('p' + i).checked = true;
 					}
 				} else {
-					for (i = 0; i < 12; i++) {
+					for (var i = 0; i < 12; i++) {
 						document.getElementById('p' + i).checked = false;
 					}
 				}
-			}
+			};
 		</script>
 
 		<form action="index.php" method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">

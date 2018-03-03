@@ -39,6 +39,7 @@ class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
 	 * @param null $tpl
 	 *
 	 * @return mixed bool or void
+	 * @since 4.3.0
 	 */
 	public function display($tpl = null)
 	{
@@ -94,6 +95,7 @@ class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
 	 * Checks if user has root status (is re.admin')
 	 *
 	 * @return    bool
+	 * @since 4.3.0
 	 */
 	function CheckUserIsRoot()
 	{
@@ -103,6 +105,11 @@ class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
 		return $canAdmin;
 	}
 
+	/**
+	 * @param $UserIsRoot
+	 *
+	 * @since 4.3.0
+	*/
 	protected function addToolbar($UserIsRoot) //$Layout='default')
 	{
 		// Title

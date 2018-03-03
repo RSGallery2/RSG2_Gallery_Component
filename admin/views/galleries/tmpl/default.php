@@ -67,13 +67,13 @@ $userId = $user->id;
 					return;
 				}
 
-                Ordering = GalleriesOrdering;
+                var Ordering = GalleriesOrdering;
 
                 //--- User element order value --------------------------------------
 
 				var strUserOrdering = actElement.value;
                 var UserOrdering = parseInt(actElement.value);
-                var UserId = Ordering.GetGalleryId(actElement.id);
+                // var UserId = Ordering.GetGalleryId(actElement.id);
                 var UserIdString = actElement.id; //
 
                 UserIdString = UserIdString.replace( /^\D+/g, ''); // replace all leading non-digits with nothing
@@ -105,7 +105,7 @@ $userId = $user->id;
                     return;
                 }
 
-                oServerDbOrdering = jQuery.parseJSON (serverDbOrderingValue);
+                var oServerDbOrdering = jQuery.parseJSON (serverDbOrderingValue);
 
                 //-----------------------------------------
                 // Order by parent / child
@@ -462,7 +462,7 @@ $userId = $user->id;
                                                 class="input-mini changeOrder form-control"
                                                 min="0" step="1"
                                                 id="ordering_<?php echo $item->id; ?>"
-                                                value="<?php echo $item->ordering; ?>"
+                                                value="<?php echo $item->ordering; ?>">
                                         </input>
                                     </div>
                                 <?php else : ?>

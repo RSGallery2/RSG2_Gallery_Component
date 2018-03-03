@@ -70,7 +70,7 @@ $userId = $user->id;
 
 				Count = OrderingAll.length;
 
-				var Ordering = new Array;
+				var Ordering = [];
 				for (Idx = 0; Idx < Count; Idx++) {
 
 					element = OrderingAll[Idx];
@@ -361,7 +361,7 @@ $userId = $user->id;
 													min="0" step="1"
 													id="ordering_<?php echo $item->id; ?>"
 													value="<?php echo $item->ordering; ?>"
-													gallery_id="<?php echo $item->gallery_id; ?>"
+													gallery_id="<?php echo $item->gallery_id; ?>">
 											</input>
 										</div>
 									<?php else : ?>

@@ -84,7 +84,7 @@ class JInstaller_rsgTemplate extends JObject
 		$this->set('name', $name);
 
 		// Set the template root path
-		$this->parent->setPath('extension_root', $basePath . DS . 'templates' . DS . strtolower(str_replace(" ", "_", $this->get('name'))));
+		$this->parent->setPath('extension_root', $basePath . '/templates'. '/' .strtolower(str_replace(" ", "_", $this->get('name'))));
 
 		/*
 		 * If the template directory already exists, then we will assume that the template is already
@@ -92,7 +92,6 @@ class JInstaller_rsgTemplate extends JObject
 		 */
 		if (file_exists($this->parent->getPath('extension_root')) && !$this->parent->getOverwrite())
 		{
-			// JError::raiseWarning(100, JText::_('COM_RSGALLERY2_TEMPLATE').' '.JText::_('COM_RSGALLERY2_INSTALL').': '.JText::_('COM_RSGALLERY2_ANOTHER_TEMPLATE_IS_ALREADY_USING_DIRECTORY').': "'.$this->parent->getPath('extension_root').'"');
 			JFactory::getApplication()->enqueueMessage(
 				JText::_('COM_RSGALLERY2_TEMPLATE') . ' ' . JText::_('COM_RSGALLERY2_INSTALL') . ': '
 				. JText::_('COM_RSGALLERY2_ANOTHER_TEMPLATE_IS_ALREADY_USING_DIRECTORY') . ': "'
@@ -191,7 +190,6 @@ class JInstaller_rsgTemplate extends JObject
 		// For a template the id will be the template name which represents the subfolder of the templates folder that the template resides in.
 		if (!$name)
 		{
-			// JError::raiseWarning(100, JText::_('COM_RSGALLERY2_TEMPLATE').' '.JText::_('COM_RSGALLERY2_UNINSTALL').': '.JText::_('COM_RSGALLERY2_TEMPLATE_ID_IS_EMPTY,_CANNOT_UNINSTALL_FILES'));
 			JFactory::getApplication()->enqueueMessage(
 				JText::_('COM_RSGALLERY2_TEMPLATE') . ' ' . JText::_('COM_RSGALLERY2_UNINSTALL') . ': '
 				. JText::_('COM_RSGALLERY2_TEMPLATE_ID_IS_EMPTY') . ': "'
@@ -206,7 +204,6 @@ class JInstaller_rsgTemplate extends JObject
 		$client = $rsgConfig->getClientInfo($clientId);
 		if (!$client)
 		{
-			// JError::raiseWarning(100, JText::_('COM_RSGALLERY2_TEMPLATE').' '.JText::_('COM_RSGALLERY2_UNINSTALL').': '.JText::_('COM_RSGALLERY2_INVALID_APPLICATION'));
 			JFactory::getApplication()->enqueueMessage(
 				JText::_('COM_RSGALLERY2_TEMPLATE') . ' ' . JText::_('COM_RSGALLERY2_UNINSTALL') . ': '
 				. JText::_('COM_RSGALLERY2_INVALID_APPLICATION')
@@ -214,7 +211,7 @@ class JInstaller_rsgTemplate extends JObject
 
 			return false;
 		}
-		$this->parent->setPath('extension_root', $client->path . DS . 'templates' . DS . $name);
+		$this->parent->setPath('extension_root', $client->path . '/templates'. '/' .$name);
 		$this->parent->setPath('source', $this->parent->getPath('extension_root'));
 
 		$manifest = $this->parent->getManifest();
@@ -222,7 +219,6 @@ class JInstaller_rsgTemplate extends JObject
 		{
 			// Make sure we delete the folders
 			JFolder::delete($this->parent->getPath('extension_root'));
-			//JError::raiseWarning(100, JTEXT::_('COM_RSGALLERY2_TEMPLATE').' '.JTEXT::_('COM_RSGALLERY2_UNINSTALL').': '.JTEXT::_('COM_RSGALLERY2_PACKAGE_MANIFEST_FILE_INVALID_OR_NOT_FOUND'));
 			JFactory::getApplication()->enqueueMessage(
 				JText::_('COM_RSGALLERY2_TEMPLATE') . ' ' . JText::_('COM_RSGALLERY2_UNINSTALL') . ': '
 				. JText::_('COM_RSGALLERY2_PACKAGE_MANIFEST_FILE_INVALID_OR_NOT_FOUND')
@@ -244,7 +240,6 @@ class JInstaller_rsgTemplate extends JObject
 		}
 		else
 		{
-			//JError::raiseWarning(100, JText::_('COM_RSGALLERY2_TEMPLATE').' '.JText::_('COM_RSGALLERY2_UNINSTALL').': '.JText::_('COM_RSGALLERY2_DIRECTORY_DOES_NOT_EXIST,_CANNOT_REMOVE_FILES'));
 			JFactory::getApplication()->enqueueMessage(
 				JText::_('COM_RSGALLERY2_TEMPLATE') . ' ' . JText::_('COM_RSGALLERY2_UNINSTALL') . ': '
 				. JText::_('COM_RSGALLERY2_DIRECTORY_DOES_NOT_EXIST') . ': "'

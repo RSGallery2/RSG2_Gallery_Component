@@ -66,6 +66,9 @@ class ImageReferences
 
 	/**
 	 * ImageReference constructor. init all variables
+	 * @param bool $watermarked
+	 *
+	 * @since 4.3.0
 	 */
 	public function __construct($watermarked = false)
 	{
@@ -297,11 +300,15 @@ class ImageReferences
 	 *
 	 * @param string [] $AllFiles     file names
 	 * @param string [] $DbImageNames in lower case
+	 * @param           $DbImageGalleryList
 	 * @param           $files_display
 	 * @param           $files_original
 	 * @param           $files_thumb
+	 * @param $files_watermarked
 	 *
 	 * @return string Message
+	 *
+	 * @throws Exception
 	 *
 	 * @since version 4.3
 	 */

@@ -38,6 +38,7 @@ class InstallerModelInstall extends JModelLegacy
 	 * Overridden constructor
 	 *
 	 * @access    protected
+	 * @since 4.3.0
 	 */
 	function __construct()
 	{
@@ -48,6 +49,7 @@ class InstallerModelInstall extends JModelLegacy
 	/**
 	 * @return bool
 	 * @throws Exception
+	 * @since 4.3.0
 	 */
 	function install()
 	{
@@ -91,7 +93,7 @@ class InstallerModelInstall extends JModelLegacy
 
 		// Get an installer instance
 		$installer = JInstaller::getInstance();
-		require_once(rsgOptions_installer_path . DS . 'adapters' . DS . 'rsgtemplate.php');
+		require_once(rsgOptions_installer_path . '/adapters/rsgtemplate.php');
 		$installer->setAdapter('rsgTemplate', new JInstaller_rsgTemplate($installer));
 
 		// Install the package
@@ -119,7 +121,7 @@ class InstallerModelInstall extends JModelLegacy
 		if (!is_file($package['packagefile']))
 		{
 			$config                 = JFactory::getConfig();
-			$package['packagefile'] = $config->getValue('config.tmp_path') . DS . $package['packagefile'];
+			$package['packagefile'] = $config->getValue('config.tmp_path'). '/' .$package['packagefile'];
 		}
 
 		JInstallerHelper::cleanupInstall($package['packagefile'], $package['extractdir']);
@@ -132,6 +134,7 @@ class InstallerModelInstall extends JModelLegacy
 	 *
 	 * @return bool|mixed
 	 * @throws Exception
+	 * @since 4.3.0
 	 */
 	static function _getPackageFromUpload()
 	{
@@ -142,7 +145,6 @@ class InstallerModelInstall extends JModelLegacy
 		// Make sure that file uploads are enabled in php
 		if (!(bool) ini_get('file_uploads'))
 		{
-			// JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_WARNINSTALLFILE'));
 			JFactory::getApplication()->enqueueMessage(
 				JText::_('SOME_ERROR_CODE') . ' ' . JText::_('COM_RSGALLERY2_WARNINSTALLFILE')
 				, 'warning');
@@ -153,7 +155,6 @@ class InstallerModelInstall extends JModelLegacy
 		// Make sure that zlib is loaded so that the package can be unpacked
 		if (!extension_loaded('zlib'))
 		{
-			//JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_WARNINSTALLZLIB'));
 			JFactory::getApplication()->enqueueMessage(
 				JText::_('SOME_ERROR_CODE') . ' ' . JText::_('COM_RSGALLERY2_WARNINSTALLFILE')
 				, 'warning');
@@ -164,7 +165,6 @@ class InstallerModelInstall extends JModelLegacy
 		// If there is no uploaded file, we have a problem...
 		if (!is_array($userfile))
 		{
-			//JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_NO_FILE_SELECTED'));
 			JFactory::getApplication()->enqueueMessage(
 				JText::_('SOME_ERROR_CODE') . ' ' . JText::_('COM_RSGALLERY2_NO_FILE_SELECTED')
 				, 'warning');
@@ -175,7 +175,6 @@ class InstallerModelInstall extends JModelLegacy
 		// Check if there was a problem uploading the file.
 		if ($userfile['error'] || $userfile['size'] < 1)
 		{
-			//JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_WARNINSTALLUPLOADERROR'));
 			JFactory::getApplication()->enqueueMessage(
 				JText::_('SOME_ERROR_CODE') . ' ' . JText::_('COM_RSGALLERY2_WARNINSTALLUPLOADERROR')
 				, 'warning');
@@ -185,7 +184,7 @@ class InstallerModelInstall extends JModelLegacy
 
 		// Build the appropriate paths
 		$config   = JFactory::getConfig();
-		$tmp_dest = $config->getValue('config.tmp_path') . DS . $userfile['name'];
+		$tmp_dest = $config->getValue('config.tmp_path'). '/' .$userfile['name'];
 		$tmp_src  = $userfile['tmp_name'];
 
 		// Move uploaded file
@@ -218,7 +217,6 @@ class InstallerModelInstall extends JModelLegacy
 		// Did you give us a valid directory?
 		if (!is_dir($p_dir))
 		{
-			// JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_PLEASE_ENTER_A_PACKAGE_DIRECTORY'));
 			JFactory::getApplication()->enqueueMessage(
 				JText::_('SOME_ERROR_CODE') . ' ' . JText::_('COM_RSGALLERY2_PLEASE_ENTER_A_PACKAGE_DIRECTORY')
 				, 'warning');
@@ -232,7 +230,6 @@ class InstallerModelInstall extends JModelLegacy
 		// Did you give us a valid package?
 		if (!$type)
 		{
-			// JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_PATH_DOES_NOT_HAVE_A_VALID_PACKAGE'));
 			JFactory::getApplication()->enqueueMessage(
 				JText::_('SOME_ERROR_CODE') . ' ' . JText::_('COM_RSGALLERY2_PATH_DOES_NOT_HAVE_A_VALID_PACKAGE')
 				, 'warning');
@@ -268,7 +265,6 @@ class InstallerModelInstall extends JModelLegacy
 		// Did you give us a URL?
 		if (!$url)
 		{
-			//JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_PLEASE_ENTER_A_URL'));
 			JFactory::getApplication()->enqueueMessage(
 				JText::_('SOME_ERROR_CODE') . ' ' . JText::_('COM_RSGALLERY2_PLEASE_ENTER_A_URL')
 				, 'warning');
@@ -282,7 +278,6 @@ class InstallerModelInstall extends JModelLegacy
 		// Was the package downloaded?
 		if (!$p_file)
 		{
-			//JError::raiseWarning('SOME_ERROR_CODE', JText::_('COM_RSGALLERY2_INVALID_URL'));
 			JFactory::getApplication()->enqueueMessage(
 				JText::_('SOME_ERROR_CODE') . ' ' . JText::_('COM_RSGALLERY2_INVALID_URL')
 				, 'warning');
@@ -294,7 +289,7 @@ class InstallerModelInstall extends JModelLegacy
 		$tmp_dest = $config->getValue('config.tmp_path');
 
 		// Unpack the downloaded package file
-		$package = JInstallerHelper::unpack($tmp_dest . DS . $p_file);
+		$package = JInstallerHelper::unpack($tmp_dest. '/' .$p_file);
 
 		return $package;
 	}

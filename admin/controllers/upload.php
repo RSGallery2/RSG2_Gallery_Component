@@ -16,6 +16,10 @@
 require_once JPATH_COMPONENT.'/controller.php';
 class ExampleControllerForAjax extends ExampleController
 {
+	/**
+	
+	 * @since 4.3.0
+    *
     public function MyTaskName()
     {
         $app = JFactory::getApplication();
@@ -157,6 +161,8 @@ The second parameter is set to "false" so we can use this in javascript calls wi
 /*=======================================================================================*/
 defined('_JEXEC') or die;
 
+use Joomla\Archive\Archive;
+
 global $Rsg2DebugActive;
 
 if ($Rsg2DebugActive)
@@ -183,17 +189,24 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	 * @param   array $config An optional associative array of configuration settings.
 	 *
 	 * @see     JController
-	 * @since
-	 *
+	 * @since 4.3.0
+     *
 	public function __construct($config = array())
 	{
 		parent::__construct($config);
 	}
     /**/
 
-    /**
-     * Proxy for getModel.
-     */
+	/**
+	 * Proxy for getModel.
+	 * @param string $name
+	 * @param string $prefix
+	 * @param array  $config
+	 *
+	 * @return mixed
+	 *
+	 * @since 4.3.0
+	 */
     public function getModel($name = 'Upload', $prefix = 'Rsgallery2Model', $config = array('ignore_request' => true))
     {
         return  parent::getModel($name, $prefix, $config);
@@ -331,7 +344,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 		            // toDo: Check how it is done in Joomla upload ZIP
 		            $isExtracted = JArchive::extract($zipPathFileName, $extractDir);
-		            if (!$IsUploaded)
+		            if (!$isExtracted)
 		            {
 			            $app->enqueueMessage(JText::_('COM_    _WARNFILENAME'), 'error');
 			            $isHasError = true;
@@ -702,7 +715,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
         $app->enqueueMessage(JText::_('uploadFromFtpFolder'));
 
-//	    $cids = $this->input->get('cid', 0, 'int');
 	    $this->setRedirect($link, $msg, $msgType);
     }
     /**/
@@ -716,6 +728,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
     function uploadAjaxSingleFile()
     {
         global $rsgConfig, $Rsg2DebugActive;
+
+	    JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
         $IsMoved = false;
         $msg = 'uploadAjaxSingleFile';
@@ -1017,6 +1031,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	// $this->ajaxDummyAnswerOK (); return; // 01
 
 	/**
+	
+	 * @since 4.3.0
+    
     private function ajaxDummyAnswerOK ()
     {
 	    $msg = "uploadAjaxSingleFile (2)";
@@ -1033,10 +1050,16 @@ class Rsgallery2ControllerUpload extends JControllerForm
     }
     /**/
 
-
+	/*
+	
+	 * @since 4.3.0
+    
+	*/
 	function uploadAjaxReserveDbImageId ()
 	{
 		global $rsgConfig, $Rsg2DebugActive;
+
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		$msg = 'uploadAjaxReserveImageInDB';
 
@@ -1189,7 +1212,13 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		$app->close();
 	}
 
-
+	/**
+	 * @param $imageId
+	 *
+	 * @return int
+	 *
+	 * @since 4.3.0
+    */
 	private function imageOrderFromId ($imageId)
 	{
 		$imageOrder = -1;

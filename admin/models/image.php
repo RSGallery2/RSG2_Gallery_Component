@@ -224,14 +224,14 @@ class Rsgallery2ModelImage extends JModelAdmin
 	/**
 	 * Method to change the title & alias.
 	 *
-	 * @param   integer $category_id The id of the category.
-	 * @param   string  $alias       The alias.
-	 * @param   string  $title       The title.
+	 * @param   integer $dummy  Not used.
+	 * @param   string  $alias  The alias.
+	 * @param   string  $title  The title.
 	 *
 	 * @return    array  Contains the modified title and alias.
 	 *
-	 * @since    12.2
-	 */
+	 * @since 4.3.0
+     */
 	protected function generateNewTitle($dummy, $alias, $title)
 	{
 		// Alter the title & alias
@@ -249,9 +249,10 @@ class Rsgallery2ModelImage extends JModelAdmin
 	/**
 	 * Method to retrive unused image name from database
 	 *
-	 * @param   string $name image name.
+	 * @param string $name image name.
+	 * @param int $galleryId
 	 *
-	 * @return    array  Contains the modified title and alias.
+	 * @return string changed or not changed name
      *
      * @since 4.3.0
 	 */
@@ -357,7 +358,10 @@ class Rsgallery2ModelImage extends JModelAdmin
 	/**
 	 * Create a new item in database for image
 	 *
-	 * @param $imageName
+	 * @param string $imageName
+	 * @param string $title
+	 * @param int    $galleryId
+	 * @param string $description
 	 *
 	 * @return bool true if successful
 	 *
@@ -858,8 +862,9 @@ class Rsgallery2ModelImage extends JModelAdmin
 
     /**
      * Save user input from image parameter annotation in database
+     * @param $imageProperties
      *
-     * @return bool
+     * @return bool True on save ok
      *
      * @since 4.3.2
      */

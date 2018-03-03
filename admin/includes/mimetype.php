@@ -50,7 +50,8 @@ class MimeTypes
 	 * @param $filename
 	 *
 	 * @return mixed
-	 */
+	 * @since 4.3.0
+     */
 	static function getMimeType($filename)
 	{
 		static $mimeTypes = array(
@@ -217,7 +218,8 @@ class MimeTypes
 	 * @param $uploadedName
 	 *
 	 * @return null
-	 */
+	 * @since 4.3.0
+     */
 	static function futuregetMimeType($filename, $uploadedName)
 	{
 		global $mtypes;
@@ -231,4 +233,4 @@ class MimeTypes
 	}
 }
 
-?>
+

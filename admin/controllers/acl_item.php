@@ -31,6 +31,7 @@ if ($Rsg2DebugActive)
  * May not be needed ToDo: Delete table when one user has had a problem and we know how to move local acl to standard acl
  *
  * Class Rsgallery2ControllerAcl_item
+ * @since 4.3.0
  */
 class Rsgallery2ControllerAcl_item extends JControllerForm
 {

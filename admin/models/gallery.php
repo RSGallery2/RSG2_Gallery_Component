@@ -235,9 +235,9 @@ class Rsgallery2ModelGallery extends JModelAdmin
 	/**
 	 * Method to change the title & alias.
 	 *
-	 * @param   integer $category_id The id of the category.
-	 * @param   string  $alias       The alias.
-	 * @param   string  $title       The title.
+	 * @param   integer $dummy  not used.
+	 * @param   string  $alias  The alias.
+	 * @param   string  $title  The title.
 	 *
 	 * @return    array  Contains the modified title and alias.
      *

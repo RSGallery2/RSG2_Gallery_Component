@@ -10,7 +10,7 @@
  */
 defined('_JEXEC') or die();
 
-require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgvoting' . DS . 'rsgvoting.class.php');
+require_once(JPATH_RSGALLERY2_SITE . '/lib' . '/rsgvoting' . '/rsgvoting.class.php');
 
 $input = JFactory::getApplication()->input;
 // 140503 $cid not used ?

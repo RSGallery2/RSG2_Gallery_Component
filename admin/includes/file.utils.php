@@ -37,7 +37,8 @@ class imageUploadError
      *
      * @param string $f Filename for which the error was found
      * @param string $e Error message
-     */
+      * @since 4.3.0
+    */
     function __construct($f, $e)
     {
         $this->filename = $f;
@@ -46,6 +47,7 @@ class imageUploadError
 
     /**
      * @return string
+     * @since 4.3.0
      */
     function getFilename()
     {
@@ -54,6 +56,7 @@ class imageUploadError
 
     /**
      * @return string
+     * @since 4.3.0
      */
     function getError()
     {
@@ -62,6 +65,7 @@ class imageUploadError
 
     /**
      * @return string
+     * @since 4.3.0
      */
     function toString()
     {
@@ -78,7 +82,10 @@ class imageUploadError
 class fileUtils
 {
 
-    /** Constructor */
+    /** Constructor 
+	
+	 * @since 4.3.0
+    */
     function __construct()
     {
         //$this->allowedFiles = $this->allowedFileTypes();
@@ -88,6 +95,7 @@ class fileUtils
      * Retrieves the allowed file types list from the Control Panel.
      *
      * @return array with allowed file types
+     * @since 4.3.0
      */
     static function allowedFileTypes()
     {
@@ -107,6 +115,7 @@ class fileUtils
      * @param string $imgDesc description of image, if empty will remain empty
      *
      * @return bool|imageUploadError|returns|string returns true if successful otherwise returns an ImageUploadError
+     * @since 4.3.0
      */
     static function importImage($imgTmpName, $imgName, $imgCat, $imgTitle = '', $imgDesc = '')
     {
@@ -133,10 +142,11 @@ class fileUtils
      *
      * @todo Check filenames against database instead of filesystem
      *
-     * @param string $tmpName Temporary upload location as provided by $_FILES['tmp_name'] or from filename array
+     * @param string $tmpName Temporary upload location as provided by $ _ FILES['tmp_name'] or from filename array
      * @param string $name Destination location path
      *
      * @return imageUploadError|string Path to the file where the image was saved to
+     * @since 4.3.0
      */
     static function move_uploadedFile_to_orignalDir($tmpName, $name)
     {
@@ -175,6 +185,7 @@ class fileUtils
      * @param $filename
      *
      * @return bool|string
+     * @since 4.3.0
      */
     static function determineHandle($filename)
     {
@@ -215,7 +226,9 @@ class fileHandler
     /** @var string Name of dir in which files are extracted */
     var $extractDir;
 
-    /** Constructor */
+    /** Constructor 
+	 * @since 4.3.0
+    */
     function __construct()
     {
         global $rsgConfig;
@@ -234,6 +247,7 @@ class fileHandler
      * Check if OS is Windows
      *
      * @return bool
+     * @since 4.3.0
      */
     static function is_win()
     {
@@ -250,7 +264,8 @@ class fileHandler
      * @param string $folder full path to folder to check
      *
      * @return string from int 4 digit folder permissions
-     */
+      * @since 4.3.0
+    */
     static function getPerms($folder)
     {
         $perms = substr(sprintf('%o', fileperms($folder)), -4);
@@ -262,6 +277,7 @@ class fileHandler
      * Check routine to see is all prerequisites are met to start handling the upload process
      *
      * @return bool|string True if all is well, false if something is missing
+     * @since 4.3.0
      */
     function preHandlerCheck()
     {
@@ -293,6 +309,7 @@ class fileHandler
      * @param $zip_file array File array from form post method
      *
      * @return boolean True if size is within the upload limit, false if not
+     * @since 4.3.0
      */
     static function checkSize($zip_file)
     {
@@ -320,6 +337,7 @@ class fileHandler
      * @param string $filename filename
      *
      * @return string 'zip' if zip-file, 'image' if image file, 'error' if illegal file type
+     * @since 4.3.0
      */
     function checkFileType($filename)
     {
@@ -345,6 +363,7 @@ class fileHandler
      * @param string $filename Full path to image
      *
      * @return string
+     * @since 4.3.0
      */
     static function getImageType($filename)
     {
@@ -396,6 +415,7 @@ class fileHandler
      * @param string $zip_count
      *
      * @return bool  True if number is within boundaries, false if number exceeds maximum
+     * @since 4.3.0
      */
     static function checkMaxImages($zip = false, $zip_count = '')
     {
@@ -427,6 +447,7 @@ class fileHandler
      * returns boolean True upon completion, false if some files remain in media
      *
      * @param $extractDir
+     * @since 4.3.0
      */
     static function cleanMediaDir($extractDir)
     {
@@ -447,6 +468,7 @@ class fileHandler
      * @param string $dir
      *
      * @return bool
+     * @since 4.3.0
      */
     static function deldir($dir)
     {
@@ -477,7 +499,8 @@ class fileHandler
      *
      * @return    array|bool    Array with filenames
      * @throws Exception
-     */
+      * @since 4.3.0
+    */
     function extractArchive($archive, $destination = '')
     {
         global $rsgConfig;
@@ -560,6 +583,7 @@ class fileHandler
      * @param string $destination Absolute path to destination folder, defaults to Joomla /media folder
      *
      * @return array|int with filenames
+     * @since 4.3.0
      */
     function handleZIP($zip_file, $destination = '')
     {
@@ -619,6 +643,7 @@ class fileHandler
      *
      * @return array
      * @throws Exception
+     * @since 4.3.0
      */
     function handleFTP($source, $destination = '')
     {
@@ -693,9 +718,10 @@ class fileHandler
     /**
      * Reads the error code from the upload routine and generates corresponding message.
      *
-     * @param int $error Error code, from $_FILES['i_file']['error']
+     * @param int $error Error code, from $ _ FILES['i_file']['error']
      *
      * @return int|string 0 if upload is OK, $msg with error message if error has occured
+     * @since 4.3.0
      */
     static function returnUploadError($error)
     {

@@ -75,13 +75,23 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 
 	/**
 	 * Proxy for getModel
+	 * @param string $name
+	 * @param string $prefix
+	 * @param array  $config
+	 *
+	 * @return mixed
+	 *
+	 * @since 4.3.0
 	 */
 	public function getModel($name = 'maintSql', $prefix = 'Rsgallery2Model', $config = array('ignore_request' => true))
 	{
 		return parent::getModel($name, $prefix, $config);
 	}
 
-	/*
+	/**
+	
+	 * @since 4.3.0
+    
     public function createMissingSqlFields()
     {
         $msg = '<strong>' . JText::_('COM_RSGALLERY2_MAINT_OPTDB') . ':</strong><br>';

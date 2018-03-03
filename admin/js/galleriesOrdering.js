@@ -178,7 +178,7 @@ var GalleriesOrdering = {
             if (this.dbOrdering[idx].parent != 0) {
 
                 if (!this.IsParentExisting(this.dbOrdering[idx].parent)) {
-                    var outText = "Orphan:" + JSON.stringify(this.dbOrdering[idx]) + "\n"
+                    var outText = "Orphan:" + JSON.stringify(this.dbOrdering[idx]) + "\n";
                     this.add2DebugTextArea(outText);
                     this.dbOrdering[idx].parent = 0;
                 }

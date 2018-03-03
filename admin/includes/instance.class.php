@@ -32,7 +32,12 @@ class rsgInstance
 	 * @param string $newInstance  What parameters to use for the new instance.  Your options are:
 	 *                             'request'    Use the request array (default).
 	 * @param bool   $showTemplate show a template or not.
-	 */
+	 *
+	 * @return bool
+	 * @throws Exception
+	 * @since 4.3.0
+     */
+
 	static function instance($newInstance = 'request', $showTemplate = true)
 	{
 		static $instanceStack = array();
@@ -45,7 +50,8 @@ class rsgInstance
 
 			if (count($instanceStack) > 9)
 			{
-				JError::raiseError('9', 'RSGallery2 instance stack exceeds 9.  Probable endless recursion, $instanceStack:<pre>' . print_r($instanceStack, 1) . '</pre>');
+				JFactory::getApplication()->enqueueMessage('RSGallery2 instance stack exceeds 9.  Probable endless recursion, $instanceStack:<pre>' . print_r($instanceStack, 1) . '</pre>', 'error');
+                return false;
 			}
 
 			// push current instance on stack
@@ -57,7 +63,7 @@ class rsgInstance
 		if ($showTemplate)
 		{
 			// execute a frontend template based instance
-			require_once(JPATH_RSGALLERY2_SITE . DS . 'main.rsgallery2.php');
+			require_once(JPATH_RSGALLERY2_SITE . '/main.rsgallery2.php');
 			rsgInstance::mainSwitch();
 		}
 
@@ -71,7 +77,8 @@ class rsgInstance
 	 * This is the main task switch where we decide what to do.
 	 *
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	static function mainSwitch()
 	{
 		$input = JFactory::getApplication()->input;
@@ -79,16 +86,16 @@ class rsgInstance
 		switch ($cmd)
 		{
 			case 'rsgComments':
-				require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.php');
+				require_once(JPATH_RSGALLERY2_SITE . '/lib/rsgcomments/rsgcomments.php');
 				break;
 			case 'rsgVoting':
-				require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgvoting' . DS . 'rsgvoting.php');
+				require_once(JPATH_RSGALLERY2_SITE . '/lib/rsgvoting/rsgvoting.php');
 				break;
 			case 'myGalleries':
-				require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'mygalleries' . DS . 'mygalleries.php');
+				require_once(JPATH_RSGALLERY2_SITE . '/lib/mygalleries/mygalleries.php');
 				break;
 			case'search':
-				require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgsearch' . DS . 'search.php');
+				require_once(JPATH_RSGALLERY2_SITE . '/lib/rsgsearch/search.php');
 				break;
 			default:
 				$task = $input->get('task', '', 'CMD');
@@ -103,7 +110,7 @@ class rsgInstance
 						break;
 					default:
 						// require the base class rsgDisplay
-						require_once(JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'meta' . DS . 'display.class.php');
+						require_once(JPATH_RSGALLERY2_SITE . '/templates/meta/display.class.php');
 						// show the template
 						template();
 				}

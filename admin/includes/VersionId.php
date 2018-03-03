@@ -18,7 +18,8 @@ interface Comparable
 	 *
 	 * @return int negative value if $this < $object, positive if $this > $object, 0 otherwise (if objects are considered equal)
 	 * @throws ComparatorException if objects are not comparable to each other
-	 */
+	 * @since 4.3.0
+     */
 	public function compareTo($object);
 }
 
@@ -30,7 +31,8 @@ interface Comparator
 	 *
 	 * @return int Negative value if $object1 < $object2, positive if $object1 > $object2, 0 otherwise
 	 * @throws ComparatorException if objects are not comparable to each other
-	 */
+	 * @since 4.3.0
+     */
 	public static function compare($object1, $object2);
 }
 
@@ -42,7 +44,8 @@ class VersionId implements Comparator
 	 * VersionId constructor.
 	 *
 	 * @param string $strId Version id like "1.4.0.2"
-	 */
+	 * @since 4.3.0
+     */
 	public function __construct($strId)
 	{
 		$this->AssignId($strId);
@@ -50,7 +53,8 @@ class VersionId implements Comparator
 
 	/**
 	 * @param string $strId Version id like "1.4.0.2"
-	 */
+	 * @since 4.3.0
+     */
 	public function AssignId($strId)
 	{
 		$this->IdParts = array();
@@ -62,7 +66,8 @@ class VersionId implements Comparator
 
 	/**
 	 * @return int depth of version id '1' -> 1, '1.1' -> 2,  '1.1.1' -> 3
-	 */
+	 * @since 4.3.0
+     */
 	public function Count()
 	{
 		return count($this->IdParts);
@@ -75,7 +80,8 @@ class VersionId implements Comparator
 	 * @param VersionId $secondId
 	 *
 	 * @return int returns -1, 0, or 1
-	 */
+	 * @since 4.3.0
+     */
 	public static function Compare($firstId, $secondId)
 	{
 		$LengthFirst  = count($firstId->IdParts);
@@ -110,7 +116,8 @@ class VersionId implements Comparator
 	 * @param VersionId $secondId
 	 *
 	 * @return bool
-	 */
+	 * @since 4.3.0
+     */
 	public function IsBiggerThen($secondId)
 	{
 		return (VersionId::Compare($this, $secondId) > 0);
@@ -120,7 +127,8 @@ class VersionId implements Comparator
 	 * @param VersionId $secondId
 	 *
 	 * @return bool
-	 */
+	 * @since 4.3.0
+     */
 	public function IsBiggerOrEqualThen($secondId)
 	{
 		return (VersionId::Compare($this, $secondId) >= 0);
@@ -130,7 +138,8 @@ class VersionId implements Comparator
 	 * @param VersionId $secondId
 	 *
 	 * @return bool
-	 */
+	 * @since 4.3.0
+     */
 	public function IsSmallerThen($secondId)
 	{
 		return (VersionId::Compare($this, $secondId) < 0);
@@ -140,7 +149,8 @@ class VersionId implements Comparator
 	 * @param $secondId
 	 *
 	 * @return bool
-	 */
+	 * @since 4.3.0
+     */
 	public function IsSmallerOrEqualThen($secondId)
 	{
 		return (VersionId::Compare($this, $secondId) <= 0);
@@ -150,7 +160,8 @@ class VersionId implements Comparator
 	 * @param VersionId $secondId
 	 *
 	 * @return bool
-	 */
+	 * @since 4.3.0
+     */
 	public function IsEqualTo($secondId)
 	{
 		return (VersionId::Compare($this, $secondId) == 0);

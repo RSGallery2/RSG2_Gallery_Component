@@ -52,7 +52,7 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 	 *
 	 * @return bool|void
 	 *
-	 * @since version
+	 * @since 4.3.0
 	 */
 	public function display($tpl = null)
 	{
@@ -117,6 +117,7 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 	 * Checks if user has root status (is re.admin')
 	 *
 	 * @return    bool
+	 * @since 4.3.0
 	 */
 	function CheckUserIsRoot()
 	{
@@ -126,6 +127,11 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 		return $canAdmin;
 	}
 
+	/**
+	 * @param string $Layout
+	 *
+	 * @since 4.3.0
+	*/
 	protected function addToolbar($Layout = 'default')
 	{
 		global $Rsg2DevelopActive;
@@ -222,6 +228,10 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 		}
 	}
 
+	/**
+	
+	 * @since 4.3.0
+	*/
     protected function determineEditor ()
     {
         // ToDo: try and catch

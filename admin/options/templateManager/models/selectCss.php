@@ -6,8 +6,11 @@
  * @license        GNU/GPL, see LICENSE.php
  */
 
+
+defined('_JEXEC') or die;
+
 // Import library dependencies
-require_once(dirname(__FILE__) . DS . 'extension.php');
+require_once(dirname(__FILE__) . '/extension.php');
 jimport('joomla.filesystem.folder');
 
 /**
@@ -30,6 +33,7 @@ class InstallerModelSelectCss extends InstallerModel
 	 * Overridden constructor
 	 *
 	 * @access    protected
+	 * @since 4.3.0
 	 */
 	function __construct()
 	{
@@ -44,11 +48,12 @@ class InstallerModelSelectCss extends InstallerModel
 
 	/**
 	 * @return stdClass
+	 * @since 4.3.0
 	 */
 	function getItems()
 	{
 		// Determine template CSS directory
-		$dir = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $this->template . DS . 'css';
+		$dir = JPATH_RSGALLERY2_SITE . '/templates'. '/' .$this->template . '/css';
 
 		// List template .css files
 		jimport('joomla.filesystem.folder');

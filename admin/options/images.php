@@ -118,9 +118,10 @@ switch ($task)
  * @param database $option A database connector object
  *
  * @throws Exception
- *
+ * @return True on success false otherwise
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function showImages($option)
 {
 	global $mosConfig_list_limit;
@@ -213,7 +214,8 @@ function showImages($option)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function editImage($option, $id)
 {
 	global $rsgOption;
@@ -301,7 +303,7 @@ function editImage($option, $id)
 	$file = JPATH_SITE . '/administrator/components/com_rsgallery2/options/images.item.xml';
 
 	// ToDo: Debug / Test to check if following replacement is working 
-	//$params = new JParameter( $row->params, $file);
+	//$params = new J Parameter( $row->params, $file);
 	$jparams = new JRegistry();
 	$params  = $jparams->get($row->params, $file);
 
@@ -330,7 +332,8 @@ function editImage($option, $id)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function saveImage($option, $redirect = true)
 {
 	global $rsgOption;
@@ -444,7 +447,8 @@ function saveImage($option, $redirect = true)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function removeImages($cid, $option)
 {
 	global $rsgOption, $rsgConfig;
@@ -486,7 +490,6 @@ function removeImages($cid, $option)
 			{
 				if (!JFile::delete($thumb))
 				{
-					//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_THUMB_IMAGE') ." ". $thumb);
 					JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_THUMB_IMAGE') . " " . $thumb, 'error');
 					$app->redirect($return);
 
@@ -497,7 +500,6 @@ function removeImages($cid, $option)
 			{
 				if (!JFile::delete($display))
 				{
-					//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_DISPLAY_IMAGE') ." ". $display);
 					JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_DISPLAY_IMAGE') . " " . $display, 'error');
 					$app->redirect($return);
 
@@ -508,7 +510,6 @@ function removeImages($cid, $option)
 			{
 				if (!JFile::delete($original))
 				{
-					//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE') ." ". $original);
 					JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE') . " " . $original, 'error');
 					$app->redirect($return);
 
@@ -520,7 +521,6 @@ function removeImages($cid, $option)
 			{
 				if (!JFile::delete($WaterMakerDisplay))
 				{
-					//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_$WATERMARKED_DISPLAY_IMAGE') ." ". $WaterMakerDisplay);
 					JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_$WATERMARKED_DISPLAY_IMAGE') . " " . $WaterMakerDisplay, 'error');
 					$app->redirect($return);
 
@@ -531,7 +531,6 @@ function removeImages($cid, $option)
 			{
 				if (!JFile::delete($WaterMakerOriginal))
 				{
-					//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_WATERMARKED_ORIGINAL_IMAGE') ." ". $WaterMakerOriginal);
 					JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_WATERMARKED_ORIGINAL_IMAGE') . " " . $WaterMakerOriginal, 'error');
 					$app->redirect($return);
 
@@ -543,7 +542,6 @@ function removeImages($cid, $option)
 			$row = new rsgImagesItem($database);
 			if (!$row->delete($id))
 			{
-				//JError::raiseNotice('ERROR_CODE', JText::sprintf('COM_RSGALLERY2_ERROR_DELETING_ITEMINFORMATION_DATABASE_ID',$id ));
 				JFactory::getApplication()->enqueueMessage(JText::sprintf('COM_RSGALLERY2_ERROR_DELETING_ITEMINFORMATION_DATABASE_ID', $id), 'error');
 				$app->redirect($return);
 
@@ -566,7 +564,8 @@ function removeImages($cid, $option)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function moveImages($cid, $option)
 {
 	global $Rsg2DebugActive;
@@ -621,7 +620,8 @@ function moveImages($cid, $option)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function publishImages($cid = null, $publish = 1, $option)
 {
 	global $rsgOption;
@@ -674,7 +674,8 @@ function publishImages($cid = null, $publish = 1, $option)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function orderImages($uid, $inc, $option)
 {
 	global $rsgOption;
@@ -704,7 +705,8 @@ function orderImages($uid, $inc, $option)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function cancelImage($option)
 {
 	global $rsgOption;
@@ -719,7 +721,6 @@ function cancelImage($option)
 	$database = JFactory::getDBO();
 
 	$row = new rsgImagesItem($database);
-	//$row->bind( $_POST );
 	$input = JFactory::getApplication()->input;
 	// ToDo: Revisit check if $input->post->getArray(); is proper replacement for above
 	$row->bind($input->post->getArray());
@@ -736,7 +737,8 @@ function cancelImage($option)
  * @since version
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function uploadImage($option)
 {
 	global $rsgConfig;
@@ -778,7 +780,8 @@ function uploadImage($option)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function saveUploadedImage($option)
 {
 	global $id, $rsgOption;
@@ -845,7 +848,6 @@ function saveUploadedImage($option)
 		foreach ($errors as $e)
 		{
 			// Warnings are depending on fileUtils::importImage -> type imageUploadError
-			// JError::raiseWarning(0, $e->toString());
 			JFactory::getApplication()->enqueueMessage($e->toString(), 'warning');
 		}
 		//If there were more files than errors, assure the user the rest went well
@@ -868,7 +870,8 @@ function saveUploadedImage($option)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function resetHits(&$cid)
 {
 	global $Rsg2DebugActive;
@@ -886,7 +889,7 @@ function resetHits(&$cid)
 
 	$query = 'UPDATE `#__rsgallery2_files` SET ' .
 		' `hits` = 0 ' .
-		' WHERE `id` IN ( ' . $cids . ' )';
+		' WHERE `id` IN ( ' . cids . '/ )';
 	$database->setQuery($query);
 
 	if (!$database->execute())
@@ -904,7 +907,8 @@ function resetHits(&$cid)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function saveOrder(&$cid)
 {
 	global $Rsg2DebugActive;
@@ -978,7 +982,8 @@ function saveOrder(&$cid)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function copyImage($cid, $option)
 {
 	global $Rsg2DebugActive;
@@ -1007,7 +1012,7 @@ function copyImage($cid, $option)
 	$tmpdir = uniqid('rsgcopy_');
 
 	//Get full path to copy directory
-	$tmpCopyDir = JPath::clean(JPATH_ROOT . DS . 'media' . DS . $tmpdir . DS);
+	$tmpCopyDir = JPath::clean(JPATH_ROOT . '/media'. '/' .$tmpdir . '/');
 	if (!JFolder::create($tmpCopyDir))
 	{
 		$errors[] = 'Unable to create temp directory ' . $tmpCopyDir;
@@ -1086,7 +1091,8 @@ function copyImage($cid, $option)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function batchupload($option)
 {
 	global $rsgConfig;
@@ -1264,7 +1270,8 @@ function batchupload($option)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function save_batchupload()
 {
 	global $rsgConfig;
@@ -1315,13 +1322,13 @@ function save_batchupload()
 		if (isset($delete[$i]) AND ($delete[$i] == 'true'))
 		{
 			//Delete file from server
-			unlink(JPATH_ROOT . DS . "media" . DS . $extractdir . DS . $filename[$i]);
+			unlink(JPATH_ROOT. '/' ."media". '/' .$extractdir. '/' .$filename[$i]);
 			continue;
 		}
 		else
 		{
 			//Setting variables for importImage()
-			$imgTmpName = JPATH_ROOT . DS . "media" . DS . $extractdir . DS . $filename[$i];
+			$imgTmpName = JPATH_ROOT. '/' ."media". '/' .$extractdir. '/' .$filename[$i];
 			$imgName    = $filename[$i];
 			$imgCat     = $category[$i];
 			$imgTitle   = $ptitle[$i];

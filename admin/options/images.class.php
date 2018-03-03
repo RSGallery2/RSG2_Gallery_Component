@@ -61,8 +61,9 @@ class rsgImagesItem extends JTable
 
 	/**
 	 * @param JDatabaseDriver $db A database connector object
-	 */
-        function __construct(&$db)
+	 * @since 4.3.0
+     */
+    function __construct(&$db)
 	{
 		parent::__construct('#__rsgallery2_files', 'id', $db);
 	}
@@ -70,7 +71,8 @@ class rsgImagesItem extends JTable
 	/** overloaded check function
 	 *
 	 * @return bool
-	 */
+	 * @since 4.3.0
+     */
 	function check()
 	{
 		// filter malicious code
@@ -106,7 +108,8 @@ class rsgImagesItem extends JTable
 	 * where id is the value of the primary key of the table.
 	 *
 	 * @return string
-	 */
+	 * @since 4.3.0
+     */
 	protected function _getAssetName()
 	{
 		$k = $this->_tbl_key;
@@ -118,7 +121,8 @@ class rsgImagesItem extends JTable
 	 * Method to return the title to use for the asset table.
 	 *
 	 * @return      string
-	 */
+	 * @since 4.3.0
+     */
 	protected function _getAssetTitle()
 	{
 		return $this->title;
@@ -131,7 +135,8 @@ class rsgImagesItem extends JTable
 	 * @param int    $id
 	 *
 	 * @return int|null
-	 */
+	 * @since 4.3.0
+     */
 	protected function _getAssetParentId(JTable $table = null, $id = null)
 	{
 		// Initialise variables
@@ -163,4 +168,3 @@ class rsgImagesItem extends JTable
 	}
 }
 
-?>

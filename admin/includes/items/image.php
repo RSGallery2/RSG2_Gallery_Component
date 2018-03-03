@@ -34,7 +34,8 @@ class rsgItem_image extends rsgItem
 	 * @param            $mimetype
 	 * @param            $gallery
 	 * @param            $row
-	 */
+	 * @since 4.3.0
+     */
 	function __construct($type, $mimetype, &$gallery, $row)
 	{
 		parent::__construct($type, $mimetype, $gallery, $row);
@@ -44,7 +45,8 @@ class rsgItem_image extends rsgItem
 
 	/**
 	 * @return the thumbnail
-	 */
+	 * @since 4.3.0
+     */
 	function thumb()
 	{
 		return $this->thumb;
@@ -52,7 +54,8 @@ class rsgItem_image extends rsgItem
 
 	/**
 	 * @return the display image
-	 */
+	 * @since 4.3.0
+     */
 	function display()
 	{
 		return $this->display;
@@ -60,7 +63,8 @@ class rsgItem_image extends rsgItem
 
 	/**
 	 * @return the original image
-	 */
+	 * @since 4.3.0
+     */
 	function original()
 	{
 		return $this->original;
@@ -69,7 +73,8 @@ class rsgItem_image extends rsgItem
 	/**
 	 * @todo check if exif_read_data() fails
 	 * @return EXIF data
-	 */
+	 * @since 4.3.0
+     */
 	function exif()
 	{
 		if (!function_exists('exif_read_data'))
@@ -82,6 +87,11 @@ class rsgItem_image extends rsgItem
 		return $exif;
 	}
 
+	/**
+	
+	
+	 * @since 4.3.0
+    */
 	function _determineResources()
 	{
 		global $rsgConfig;

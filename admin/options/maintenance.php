@@ -19,7 +19,6 @@ require_once($rsgOptions_path . 'maintenance.class.php');
 // Check if core.admin is allowed
 if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2'))
 {
-	// return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 	JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 
 	return;
@@ -94,7 +93,8 @@ else
 /**
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function test()
 {
 	// http://JOOMLA/administrator/index.php?option=com_rsgallery2&rsgOption=maintenance&task=test
@@ -157,7 +157,8 @@ function test()
 /**
  * Shows Control Panel for maintenance of RSGallery2
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function showMaintenanceCP()
 {
 	html_rsg2_maintenance::showMaintenanceCP();
@@ -166,7 +167,8 @@ function showMaintenanceCP()
 /**
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function regenerateImages()
 {
 	//Select the right gallery, multiple galleries or select them all
@@ -182,7 +184,8 @@ function regenerateImages()
 /**
  * @throws Exception
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function executeRegenerateThumbImages()
 {
 //	global $rsgConfig;
@@ -340,7 +343,8 @@ function executeRegenerateDisplayImages()
 /**
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function consolidateDB()
 {
 	$consolidate = new rsg2_consolidate();
@@ -350,7 +354,8 @@ function consolidateDB()
 /**
  * @throws Exception
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function createImages()
 {
 	global $rsgConfig;
@@ -376,9 +381,9 @@ function createImages()
 	}
 
 	//Just for readability of code
-	$original = JPATH_ORIGINAL . DS . $name;
-	$display  = JPATH_DISPLAY . DS . imgUtils::getImgNameDisplay($name);
-	$thumb    = JPATH_THUMB . DS . imgUtils::getImgNameThumb($name);
+	$original = JPATH_ORIGINAL. '/' .$name;
+	$display  = JPATH_DISPLAY. '/' .imgUtils::getImgNameDisplay($name);
+	$thumb    = JPATH_THUMB. '/' .imgUtils::getImgNameThumb($name);
 
 	//If only thumb exists, no generation possible so redirect.
 	if (!file_exists($original) AND !file_exists($display) AND file_exists($thumb))
@@ -419,7 +424,8 @@ function createImages()
 /**
  * @throws Exception
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function deleteImages()
 {
 	$app = JFactory::getApplication();
@@ -442,7 +448,8 @@ function deleteImages()
 /**
  * @throws Exception
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function createDbEntries()
 {
 	$input = JFactory::getApplication()->input;
@@ -461,7 +468,8 @@ function createDbEntries()
  *
  * @throws Exception
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function regenerateImage()
 {
 	$app = JFactory::getApplication();
@@ -489,9 +497,9 @@ function regenerateImage()
 	}
 
 	// Just for readability of code
-	$original = JPATH_ORIGINAL . DS . $name;
-	$display  = JPATH_DISPLAY . DS . imgUtils::getImgNameDisplay($name);
-	$thumb    = JPATH_THUMB . DS . imgUtils::getImgNameThumb($name);
+	$original = JPATH_ORIGINAL. '/' .$name;
+	$display  = JPATH_DISPLAY. '/' .imgUtils::getImgNameDisplay($name);
+	$thumb    = JPATH_THUMB. '/' .imgUtils::getImgNameThumb($name);
 
 	if (file_exists($original))
 	{
@@ -523,13 +531,14 @@ function regenerateImage()
  *
  * @throws Exception
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function optimizeDB()
 {
 	$app      = JFactory::getApplication();
 	$database = JFactory::getDBO();
 
-	require_once(JPATH_ROOT . DS . "administrator" . DS . "components" . DS . "com_rsgallery2" . DS . "includes" . DS . "install.class.php");
+	require_once(JPATH_ROOT. '/' ."administrator". '/' ."components". '/' ."com_rsgallery2". '/' ."includes". '/' ."install.class.php");
 	$install = new rsgInstall();
 	$tables  = $install->tablelistNew;
 	foreach ($tables as $table)
@@ -541,4 +550,3 @@ function optimizeDB()
 	$app->redirect("index.php?option=com_rsgallery2&amp;rsgOption=maintenance");
 }
 
-?>

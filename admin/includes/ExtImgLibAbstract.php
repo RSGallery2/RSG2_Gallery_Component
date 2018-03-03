@@ -33,7 +33,8 @@ abstract class externalImageLib
 	 * @param int    $targetWidth width of target
 	 *
 	 * @return bool true if successfull, false if error
-	 */
+	 * @since 4.3.0
+     */
 	abstract static function resizeImage($source, $target, $targetWidth);
 
 	/**
@@ -44,22 +45,23 @@ abstract class externalImageLib
 	 * @param int    $width  width of target
 	 *
 	 * @return bool true if successfull, false if error
-	 */
+	 * @since 4.3.0
+     */
 	abstract static function createSquareThumb($source, $target, $width);
-
-
-	/**
-	 * detects if image library is available
-	 *
-	 * @return string user friendly string of library name and version if detected
-	 *                 empty if not detected,
-	 */
-	// abstract static function detect();
-
 
 	/*--------------------------------------------
 	global functions
 	--------------------------------------------*/
+	
+	/**
+	 * detects if image library is available
+	 * @param $ImagLibName
+	 *
+	 * @return string user friendly string of library name and version if detected
+	 *                 empty if not detected,
+	 * @since 4.3.0
+     */
+	// abstract static function detect();
 	static function detectExistance($ImagLibName) //ToDo: Replace in all calls with correct path ....
 	{
 		global $rsgConfig;

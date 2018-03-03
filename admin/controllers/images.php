@@ -34,7 +34,8 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 	 * Saves changed manual ordering of galleries
 	 *
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	public function saveOrdering()
 	{
         $msg     = "";
@@ -81,6 +82,15 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 		$this->setRedirect('index.php?option=com_rsgallery2&view=images', $msg, $msgType);
 	}
 
+	/**
+	 * @param string $name
+	 * @param string $prefix
+	 * @param array  $config
+	 *
+	 * @return mixed
+	 *
+	 * @since 4.3.0
+     */
 	public function getModel($name = 'Image',
 		$prefix = 'Rsgallery2Model',
 		$config = array('ignore_request' => true))
@@ -94,7 +104,8 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 	 * Moves one or more items (images) to another gallery, ordering each item as the last one.
 	 *
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	public function moveImagesTo()
 	{
 		//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
@@ -148,7 +159,8 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 	 * Saves changed manual ordering of galleries
 	 *
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	public function copyImagesTo()
 	{
 		//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
@@ -202,7 +214,8 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 	 * Saves changed manual ordering of galleries
 	 *
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	public function uploadImages()
 	{
 		//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
@@ -218,7 +231,8 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 	 * Saves changed manual ordering of galleries
 	 *
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	public function resetHits()
 	{
 		//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');

@@ -1,4 +1,12 @@
 <?php
+/**
+ * @package     RSGallery2
+ * @subpackage  com_rsgallery2
+ * @copyright   (C) 2017-2018 RSGallery2 Team
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @author      finnern
+ * RSGallery is Free Software
+ */
 
 defined('_JEXEC') or die();
 
@@ -24,7 +32,8 @@ class external_GD2 extends externalImageLib// genericImageLib
 	 * @return bool true if successfull, false if error
 	 * @todo only writes in JPEG, this should be given as a user option
 	 * @todo use constants found in http://www.php.net/gd rather than numbers
-	 */
+	 * @since 4.3.0
+     */
 	static function resizeImage($source, $target, $targetWidth)
 	{
 		global $rsgConfig;
@@ -57,7 +66,6 @@ class external_GD2 extends externalImageLib// genericImageLib
 
 		if (!$imgInfo)
 		{
-			//JError::raiseNotice('ERROR_CODE', $source ." ". JText::_('COM_RSGALLERY2_IS_NOT_A_VALID_IMAGE_OR_IMAGENAME'));
 			JFactory::getApplication()->enqueueMessage($source . " " . JText::_('COM_RSGALLERY2_IS_NOT_A_VALID_IMAGE_OR_IMAGENAME'), 'error');
 
 			return false;
@@ -71,7 +79,6 @@ class external_GD2 extends externalImageLib// genericImageLib
 		// check if we can read this type of file
 		if (!function_exists('imagecreatefrom' . $type))
 		{
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_GD2_DOES_NOT_SUPPORT_READING_IMAGE_TYPE').' '.$type);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_GD2_DOES_NOT_SUPPORT_READING_IMAGE_TYPE') . ' ' . $type, 'error');
 
 			return false;
@@ -103,7 +110,6 @@ class external_GD2 extends externalImageLib// genericImageLib
 		$sourceImg = $loadImg($source);
 		if (!$sourceImg)
 		{
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_READING_SOURCE_IMAGE').': '.$source);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_READING_SOURCE_IMAGE') . ': ' . $source, 'error');
 
 			return false;
@@ -121,7 +127,6 @@ class external_GD2 extends externalImageLib// genericImageLib
 			);
 		if (!$IsReSampled)
 		{
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_RESIZING_IMAGE').': '.$source);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_RESIZING_IMAGE') . ': ' . $source, 'error');
 
 			return false;
@@ -130,7 +135,6 @@ class external_GD2 extends externalImageLib// genericImageLib
 		// write the image
 		if (!imagejpeg($targetImg, $target, $rsgConfig->get('jpegQuality')))
 		{
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE').': '.$target);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE') . ': ' . $target, 'error');
 
 			return false;
@@ -151,7 +155,8 @@ class external_GD2 extends externalImageLib// genericImageLib
 	 * @param int    $thumbWidth  width of target
 	 *
 	 * @return bool true if successfull, false if error
-	 */
+	 * @since 4.3.0
+     */
 	static function createSquareThumb($imgSrcPath, $imgDstPath, $thumbWidth)
 	{
 		global $rsgConfig;
@@ -214,7 +219,6 @@ class external_GD2 extends externalImageLib// genericImageLib
 		$thumb = imagecreatetruecolor($width, $height);
 		if (!imagecopyresampled($thumb, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig))
 		{
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_RESIZING_IMAGE').": ".$source);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_RESIZING_IMAGE') . ": " . $source, 'error');
 
 			return false;
@@ -225,7 +229,6 @@ class external_GD2 extends externalImageLib// genericImageLib
 		$thumb2 = imagecreatetruecolor($t_width, $t_height);
 		if (!imagecopyresampled($thumb2, $thumb, 0, 0, $w1, $h1, $t_width, $t_height, $t_width, $t_height))
 		{
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_CROPPING_IMAGE').": ".$source);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_CROPPING_IMAGE') . ": " . $source, 'error');
 
 			return false;
@@ -234,7 +237,6 @@ class external_GD2 extends externalImageLib// genericImageLib
 		// write the image
 		if (!imagejpeg($thumb2, $imgDstPath, $rsgConfig->get('jpegQuality')))
 		{
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE').": ".$target);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_WRITING_TARGET_IMAGE') . ": " . $imgDstPath, 'error');
 
 			return false;
@@ -250,6 +252,8 @@ class external_GD2 extends externalImageLib// genericImageLib
 	}
 
 	/**
+	 * @since 4.3.0
+    *
 	function imagecreatefromjpegexif($filename)
 	{
 		$img = imagecreatefromjpeg($filename);

@@ -40,6 +40,11 @@ class Rsgallery2ViewImage extends JViewLegacy
 	protected $HtmlImageSrc;
 
 	//------------------------------------------------
+	/**
+	 * @param null $tpl
+	 *
+	 * @since 4.3.0
+	*/
 	public function display($tpl = null)
 	{
 		global $Rsg2DevelopActive;
@@ -86,6 +91,7 @@ class Rsgallery2ViewImage extends JViewLegacy
 	 * Checks if user has root status (is re.admin')
 	 *
 	 * @return    bool
+	 * @since 4.3.0
 	 */
 	function CheckUserIsRoot()
 	{
@@ -95,6 +101,11 @@ class Rsgallery2ViewImage extends JViewLegacy
 		return $canAdmin;
 	}
 
+	/**
+	 * @param string $Layout
+	 *
+	 * @since 4.3.0
+	*/
 	protected function addToolbar($Layout = 'default')
 	{
 		// on develop show open tasks if existing

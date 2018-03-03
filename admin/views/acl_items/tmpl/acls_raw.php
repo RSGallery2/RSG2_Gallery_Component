@@ -194,7 +194,6 @@ $sortDirection = $this->escape($this->state->get('list.direction'));
 						}
 						?>
 
-						</tr>
 						</tbody>
 					</table>
 

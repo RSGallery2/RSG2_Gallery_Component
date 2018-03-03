@@ -41,7 +41,8 @@ class Rsgallery2Controller extends JControllerLegacy
      * @param bool $urlparams
      *
      * @return $this
-     */
+     * @since 4.3.0
+    */
     public function display($cachable = false, $urlparams = false)
     {
         global $Rsg2DebugActive;
@@ -119,7 +120,8 @@ class Rsgallery2Controller extends JControllerLegacy
             }
             if ($view == 'config') {
                 if (!JFactory::getUser()->authorise('core.manage', 'com_rsgallery2')) {
-                    return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+                    JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+                    return false;
                 }
 
                 /**

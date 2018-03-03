@@ -18,7 +18,7 @@ defined('_JEXEC') or die();
  * @since          1.5
  */
 
-include_once(dirname(__FILE__) . DS . '..' . DS . 'default' . DS . 'view.php');
+include_once(dirname(__FILE__) . '/../default/view.php');
 
 /**
  * Class InstallerViewTemplates
@@ -27,6 +27,7 @@ class InstallerViewTemplates extends InstallerViewDefault
 {
 	/**
 	 * @param null $tpl
+	 * @since 4.3.0
 	 */
 	function display($tpl = null)
 	{
@@ -52,6 +53,7 @@ class InstallerViewTemplates extends InstallerViewDefault
 
 	/**
 	 * @param int $index
+	 * @since 4.3.0
 	 */
 	function loadItem($index = 0)
 	{

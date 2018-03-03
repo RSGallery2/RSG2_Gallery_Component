@@ -29,7 +29,8 @@ class rsgItem_audio extends rsgItem
 	 * @param            $mimetype
 	 * @param            $gallery
 	 * @param            $row
-	 */
+	 * @since 4.3.0
+     */
 	function __construct($type, $mimetype, &$gallery, $row)
 	{
 		parent::__construct($type, $mimetype, $gallery, $row);
@@ -40,7 +41,8 @@ class rsgItem_audio extends rsgItem
 	/**
 	 * @return the thumbnail
 	 * @todo: we need to return a nice generic audio thumbnail
-	 */
+	 * @since 4.3.0
+     */
 	function thumb()
 	{
 		return $this->thumb;
@@ -48,17 +50,21 @@ class rsgItem_audio extends rsgItem
 
 	/**
 	 * @return the original image
-	 */
+	 * @since 4.3.0
+     */
 	function original()
 	{
 		return $this->original;
 	}
-
+	/**
+	
+	 * @since 4.3.0
+    */
 	function _determineResources()
 	{
 		global $rsgConfig;
 
-		$original = $rsgConfig->get('imgPath_original') . DS . $this->name;
+		$original = $rsgConfig->get('imgPath_original'). '/' .$this->name;
 
 		if (file_exists(JPATH_ROOT . $original))
 		{

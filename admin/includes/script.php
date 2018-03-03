@@ -17,7 +17,8 @@
 	/**
 	 * @param element
 	 * @param toValue
-	 */
+	 * @since 4.3.0
+     */
 	function setInnerHTML(element, toValue) {
 		// IE has this built in...
 		if (typeof(element.innerHTML) != 'undefined')
@@ -36,7 +37,8 @@
 	 *
 	 * @param element
 	 * @param toValue
-	 */
+	 * @since 4.3.0
+     */
 	function setOuterHTML(element, toValue) {
 		if (typeof(element.outerHTML) != 'undefined')
 			element.outerHTML = toValue;
@@ -52,7 +54,8 @@
 	 *
 	 * @param element
 	 * @returns {*}
-	 */
+	 * @since 4.3.0
+     */
 	function getInnerHTML(element) {
 		if (typeof(element.innerHTML) != 'undefined')
 			return element.innerHTML;
@@ -69,7 +72,8 @@
 	 *
 	 * @param node
 	 * @returns {*}
-	 */
+	 * @since 4.3.0
+     */
 	function getOuterHTML(node) {
 		if (typeof(node.outerHTML) != 'undefined')
 			return node.outerHTML;
@@ -123,7 +127,8 @@
 	/**
 	 *
 	 * @type {number}
-	 */
+	 * @since 4.3.0
+     */
 	var allowed_attachments = 10 - 1;
 	function addAttachment() {
 		if (allowed_attachments <= 0) {

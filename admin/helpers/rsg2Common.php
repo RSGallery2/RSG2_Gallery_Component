@@ -19,7 +19,8 @@ class rsg2Common
 	 *
 	 * @return string the username
 	 * @todo isn't there a joomla function for this?
-	 */
+	 * @since 4.3.0
+     */
 	static function getUsernameFromId($uid)
 	{  // ToDO: Move to somewhere else
 		// Create a new query object.
@@ -39,7 +40,10 @@ class rsg2Common
 
 		return $name;
 	}
-
+	/**
+	
+	 * @since 4.3.0
+    */
 	static function getRsg2ComponentVersion()
 	{
 		$Version = '';

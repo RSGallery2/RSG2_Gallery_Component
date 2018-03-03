@@ -38,6 +38,11 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 	protected $sidebar;
 
 	//------------------------------------------------
+	/**
+	 * @param null $tpl
+	 *
+	 * @since 4.3.0
+	*/
 	public function display($tpl = null)
 	{
 		global $Rsg2DevelopActive;
@@ -81,6 +86,7 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 	 * Checks if user has root status (is re.admin')
 	 *
 	 * @return    bool
+	 * @since 4.3.0
 	 */
 	function CheckUserIsRoot()
 	{
@@ -90,6 +96,10 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 		return $canAdmin;
 	}
 
+	/**
+	
+	 * @since 4.3.0
+	*/
 	protected function addToolbar()
 	{
 		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE'), 'screwdriver'); // 'maintenance');

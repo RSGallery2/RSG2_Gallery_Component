@@ -11,7 +11,7 @@
 
 defined('_JEXEC') or die();
 
-require_once(JPATH_RSGALLERY2_SITE . DS . 'lib' . DS . 'rsgcomments' . DS . 'rsgcomments.class.php');
+require_once(JPATH_RSGALLERY2_SITE . '/lib' . '/rsgcomments' . '/rsgcomments.class.php');
 
 $input = JFactory::getApplication()->input;
 
@@ -152,7 +152,7 @@ function saveComment($option)
 	{
 		//Securimage check - http://www.phpcaptcha.org
 		//Include and call Securimage class
-		include_once(JPATH_SITE . DS . 'components' . DS . 'com_rsgallery2' . DS . 'lib' . DS . 'rsgcomments' . DS . 'securimage' . DS . 'securimage.php');
+		include_once(JPATH_SITE . '/components' . '/com_rsgallery2' . '/lib' . '/rsgcomments' . '/securimage' . '/securimage.php');
 		$securimage = new Securimage();
 		//Check if user input is correct
 		//$captcha_code = JRequest::getString('captcha_code','','POST');

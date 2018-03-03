@@ -779,7 +779,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
      * @param ImageReference       $ImageReference
      * @param Rsgallery2ModelImage $imageDbModel
      * @param Rsgallery2ModelImage $imageFileModel
-     * @param int                  $galleryId
+     * @param int                  $GalleryId
      *
      * @return bool True on success
      *

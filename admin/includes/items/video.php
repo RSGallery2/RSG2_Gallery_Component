@@ -33,7 +33,8 @@ class rsgItem_video extends rsgItem
 	 * @param            $mimetype
 	 * @param            $gallery
 	 * @param            $row
-	 */
+	 * @since 4.3.0
+     */
 	function __construct($type, $mimetype, &$gallery, $row)
 	{
 		parent::__construct($type, $mimetype, $gallery, $row);
@@ -44,7 +45,8 @@ class rsgItem_video extends rsgItem
 	/**
 	 * @return the thumbnail
 	 * @todo: we need to return video thumbnail
-	 */
+	 * @since 4.3.0
+     */
 	function thumb()
 	{
 		return $this->thumb;
@@ -52,7 +54,8 @@ class rsgItem_video extends rsgItem
 
 	/**
 	 * @return the display image
-	 */
+	 * @since 4.3.0
+     */
 	function display()
 	{
 		return $this->display;
@@ -60,12 +63,17 @@ class rsgItem_video extends rsgItem
 
 	/**
 	 * @return the original image
-	 */
+	 * @since 4.3.0
+     */
 	function original()
 	{
 		return $this->original;
 	}
-
+	/**
+	
+	
+	 * @since 4.3.0
+    */
 	function _determineResources()
 	{
 		global $rsgConfig;

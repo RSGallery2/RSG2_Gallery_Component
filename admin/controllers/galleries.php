@@ -31,6 +31,13 @@ class Rsgallery2ControllerGalleries extends JControllerAdmin
 {
     /**
      * Proxy for getModel.
+	 * @param string $name
+	 * @param string $prefix
+	 * @param array  $config
+	 *
+	 * @return mixed
+	 *
+     * @since 4.3.0
      */
     public function getModel($name = 'Gallery', $prefix = 'Rsgallery2Model', $config = array('ignore_request' => true))
     {

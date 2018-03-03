@@ -455,7 +455,7 @@ class Rsgallery2ModelMaintSql extends JModelList
      * For each possible type (table, column, ... is called a separate check
      * The result is displayed for the user
 	 *
-	 * @return string array containing messages on all errors found
+	 * @return string []  array containing messages on all errors found
 	 *
 	 * @since 4.3.0
 	 */

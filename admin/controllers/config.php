@@ -34,16 +34,23 @@ class Rsgallery2ControllerConfig extends JControllerForm
 	 * @param   array $config An optional associative array of configuration settings.
 	 *
 	 * @see     JController
-	 * @since
-	 */
+	 * @since 4.3.0
+     */
 	public function __construct($config = array())
 	{
 		parent::__construct($config);
 	}
 
-    /**
-     * Proxy for getModel.
-     */
+	/**
+	 * Proxy for getModel.
+	 * @param string $name
+	 * @param string $prefix
+	 * @param array  $config
+	 *
+	 * @return mixed
+	 *
+	 * @since 4.3.0
+	 */
     public function getModel($name = 'Config', $prefix = 'Rsgallery2Model', $config = array('ignore_request' => true))
     {
         return parent::getModel($name, $prefix, $config);
@@ -128,6 +135,9 @@ class Rsgallery2ControllerConfig extends JControllerForm
 
     /**
      * On cancel raw exit goto maintenance
+     * @param null $key
+     *
+     * @return bool
      *
      * @since version 4.3
      */
@@ -164,6 +174,8 @@ class Rsgallery2ControllerConfig extends JControllerForm
 
     /**
      * Standard save of configuration
+     * @param null $key
+     * @param null $urlVar
      *
      * @since version 4.3
      */

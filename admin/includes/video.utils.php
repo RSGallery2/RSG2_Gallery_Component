@@ -23,7 +23,8 @@ class videoUtils extends fileUtils
 {
 	/**
 	 * @return string array
-	 */
+	 * @since 4.3.0
+     */
 	static function allowedFileTypes()
 	{
 		global $rsgConfig;
@@ -46,7 +47,8 @@ class videoUtils extends fileUtils
 	 * @param string $name name of original image
 	 *
 	 * @return string filename of image
-	 */
+	 * @since 4.3.0
+     */
 	static function getImgNameThumb($name)
 	{
 		return $name . '.jpg';
@@ -58,7 +60,8 @@ class videoUtils extends fileUtils
 	 * @param string $name name of original image
 	 *
 	 * @return string filename of image
-	 */
+	 * @since 4.3.0
+     */
 	static function getImgNameDisplay($name)
 	{
 		global $rsgConfig;
@@ -85,7 +88,8 @@ class videoUtils extends fileUtils
 	 *
 	 * @todo deleteImage (video)
 	 * @return bool|imageUploadError|string|true returns true if successfull otherwise returns an ImageUploadError
-	 */
+	 * @since 4.3.0
+     */
 	static function importImage($tmpName, $name, $cat, $title = '', $desc = '')
 	{
 		global $rsgConfig;
@@ -119,7 +123,7 @@ class videoUtils extends fileUtils
 		do
 		{
 			// New video will be located in display folder
-			$newVideo = JPATH_DISPLAY . DS . $newName . "." . $rsgConfig->get("videoConverter_extension");
+			$newVideo = JPATH_DISPLAY. '/' .$newName . "." . $rsgConfig->get("videoConverter_extension");
 			$result   = Ffmpeg::convertVideo($original_video, $newVideo);
 			if (!$result)
 			{
@@ -128,7 +132,7 @@ class videoUtils extends fileUtils
 			}
 
 			// get first frame of the video to genetrate a thumbnail from
-			$videoPreviewImage = JPATH_ORIGINAL . DS . $newName . ".png";
+			$videoPreviewImage = JPATH_ORIGINAL. '/' .$newName . ".png";
 			$result            = Ffmpeg::capturePreviewImage($original_video, $videoPreviewImage);
 			if (!$result)
 			{
@@ -216,10 +220,10 @@ class genericVideoLib
 	 *
 	 * @return bool true if successfull, notice and false if error
 	 * @todo not final yet (No code)
-	 */
+	 * @since 4.3.0
+     */
 	static function convertVideo($source, $target)
 	{
-		//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_ABSTRACT_IMAGE_LIB_NO_RESIZE'));
 		JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_VIDEO_ABSTRACT_IMAGE_LIB_NO_RESIZE'), 'error');
 
 		return false;
@@ -233,10 +237,10 @@ class genericVideoLib
 	 *
 	 * @return bool true if successfull, notice and false if error
 	 * @todo not final yet (No code)
-	 */
+	 * @since 4.3.0
+     */
 	static function capturePreviewImage($source, $target)
 	{
-		//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_ABSTRACT_IMAGE_LIB_NO_RESIZE'));
 		JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_VIDEO_ABSTRACT_IMAGE_LIB_NO_RESIZE'), 'error');
 
 		return false;
@@ -246,7 +250,8 @@ class genericVideoLib
 	 * detects if image library is available
 	 *
 	 * @return true false if not detected, user friendly string of library name and version if detected
-	 */
+	 * @since 4.3.0
+     */
 	static function detect()
 	{
 		return false;
@@ -268,7 +273,8 @@ class Ffmpeg extends genericVideoLib
 	 *
 	 * @return bool true if successfull, notice and false if error
 	 * @todo not final yet
-	 */
+	 * @since 4.3.0
+     */
 	static function convertVideo($source, $target)
 	{
 		global $rsgConfig;
@@ -300,7 +306,6 @@ class Ffmpeg extends genericVideoLib
 		}
 		else
 		{
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_CONVERSION_TO_FVL_ERROR'));
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_VIDEO_CONVERSION_TO_FVL_ERROR'), 'error');
 
 			return false;
@@ -315,7 +320,8 @@ class Ffmpeg extends genericVideoLib
 	 *
 	 * @return bool true if successfull, notice and false if error
 	 * @todo not final yet
-	 */
+	 * @since 4.3.0
+     */
 	static function capturePreviewImage($source, $target)
 	{
 		global $rsgConfig;
@@ -347,7 +353,6 @@ class Ffmpeg extends genericVideoLib
 		}
 		else
 		{
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_VIDEO_CAPTURE_PREVIEW_IMAGE_ERROR'));
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_VIDEO_CAPTURE_PREVIEW_IMAGE_ERROR'), 'error');
 
 			return false;
@@ -362,7 +367,8 @@ class Ffmpeg extends genericVideoLib
 	 * @param string $status
 	 *
 	 * @return bool false if not detected, user friendly string of library name and version if detected
-	 */
+	 * @since 4.3.0
+     */
 	static function detect($shell_cmd = '', $output = '', $status = '')
 	{
 
@@ -374,4 +380,3 @@ class Ffmpeg extends genericVideoLib
 
 	}
 } // END CLASS FFMPEG
-?>

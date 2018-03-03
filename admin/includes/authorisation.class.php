@@ -26,7 +26,8 @@ class rsgAuthorisation
 	 * @param int $gallery_id gallery id defaults to null
 	 *
 	 * @return bool true if authorised, false if not.
-	 */
+	 * @since 4.3.0
+     */
 	static function authorisationEditGallery($gallery_id = null)
 	{
 		$user    = JFactory::getUser();
@@ -73,7 +74,8 @@ class rsgAuthorisation
 	 * @param int $item_id item id
 	 *
 	 * @return boolean true if authorised, false if not.
-	 */
+	 * @since 4.3.0
+     */
 	static function authorisationEditItem($item_id = null)
 	{
 		$user    = JFactory::getUser();
@@ -120,7 +122,8 @@ class rsgAuthorisation
 	 * @param int $gallery_id gallery id
 	 *
 	 * @return boolean true if authorised, false if not.
-	 */
+	 * @since 4.3.0
+     */
 	static function authorisationDeleteGallery($gallery_id = null)
 	{
 		$user    = JFactory::getUser();
@@ -167,7 +170,8 @@ class rsgAuthorisation
 	 * @param int $item_id item id
 	 *
 	 * @return boolean true if authorised, false if not.
-	 */
+	 * @since 4.3.0
+     */
 	static function authorisationDeleteItem($item_id = null)
 	{
 		$user    = JFactory::getUser();
@@ -214,7 +218,8 @@ class rsgAuthorisation
 	 * @param int $gallery_id gallery id
 	 *
 	 * @return boolean true if authorised, false if not.
-	 */
+	 * @since 4.3.0
+     */
 	static function authorisationEditStateGallery($gallery_id = null)
 	{
 		$user    = JFactory::getUser();
@@ -261,7 +266,8 @@ class rsgAuthorisation
 	 * @param int $item_id item id
 	 *
 	 * @return boolean true if authorised, false if not.
-	 */
+	 * @since 4.3.0
+     */
 	static function authorisationEditStateItem($item_id = null)
 	{
 		$user    = JFactory::getUser();
@@ -308,7 +314,8 @@ class rsgAuthorisation
 	 * @param int $parent_gallery item id
 	 *
 	 * @return boolean true if authorised, false if not.
-	 */
+	 * @since 4.3.0
+     */
 	static function authorisationCreate($parent_gallery = null)
 	{
 		$user    = JFactory::getUser();
@@ -378,7 +385,8 @@ class rsgAuthorisation
 	 * Method to return a list of all galleries that a user has permission for a given action
 	 *
 	 * @return    array    List of galleries that the user can do this action to (empty array if none). Galleries may be unpublished
-	 */
+	 * @since 4.3.0
+     */
 	static function authorisationCreate_galleryList()
 	{
 		$user = JFactory::getUser();

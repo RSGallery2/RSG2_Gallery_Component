@@ -85,6 +85,7 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
      *
      * rsgGallery constructor.
      * @param mixed|null $row  (rsgGallery parameters as associatian array)
+     * @since 4.3.0
      */
 	function __construct($row)
 	{
@@ -126,7 +127,8 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 	 *
 	 * @return true if there is new images within the given time span
 	 * @todo rewrite the sql to use better date features
-	 */
+	 * @since 4.3.0
+     */
 	function hasNewImages($days = 7)
 	{
 		$database = JFactory::getDBO();
@@ -143,7 +145,8 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 	 * returns the total number of items in this gallery.
 	 *
 	 * @return int
-	 */
+	 * @since 4.3.0
+     */
 	function itemCount()
 	{
 		if ($this->_itemCount === null)
@@ -173,7 +176,8 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 	 * returns an array of sub galleries in this gallery
 	 *
 	 * @return array rsgGallery|bool
-	 */
+	 * @since 4.3.0
+     */
 	function kids()
 	{
 		// check if we need to generate the list
@@ -189,7 +193,8 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 	 * returns the parent gallery item.
 	 *
 	 * @return null|rsgGallery
-	 */
+	 * @since 4.3.0
+     */
 	function parent()
 	{
 		return rsgGalleryManager::get($this->parent);
@@ -201,7 +206,8 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 	 * @todo image listing should be based on what the current visitor can see (owner, administrator, un/published, etc.)
 	 * @return array rsgGallery|mixed
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	function itemRows()
 	{
 
@@ -244,7 +250,8 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 	 *  returns an array of all item objects (images)
 	 *
 	 * @return array rsgGallery
-	 */
+	 * @since 4.3.0
+     */
 	function items()
 	{
 		if ($this->items === null)
@@ -266,7 +273,8 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 	 *
 	 * @return array rsgGallery
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	function currentItems()
 	{
 		global $rsgConfig;
@@ -306,7 +314,8 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 	 * @param string $default
 	 *
 	 * @return mixed|null
-	 */
+	 * @since 4.3.0
+     */
 	function get($key, $default = null)
 	{
 
@@ -329,7 +338,8 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 	 *
 	 * @return mixed
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	function getItem($id = null)
 	{
 
@@ -361,7 +371,8 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 	 *
 	 * @return bool|int|mixed|string
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	function indexOfItem($id = null)
 	{
 
@@ -391,7 +402,8 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 	 *  returns the thumbnail representing this gallery
 	 *
 	 * @return string | null|the thump image ? path
-	 */
+	 * @since 4.3.0
+     */
 	function thumb()
 	{
 		// check if we need to find out what it is first
@@ -425,7 +437,8 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 	 *
 	 * @todo doesn't work right now
 	 * @return bool
-	 */
+	 * @since 4.3.0
+     */
 	function hit()
 	{
 		$query = 'UPDATE `#__rsgallery2_galleries` SET `hits` = hits + 1 WHERE `id` = ' . (int) $this->id;
@@ -450,7 +463,8 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 	 * @access public
 	 * @return JPagination
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	function getPagination()
 	{
 		// Lets load the content if it doesn't already exist
@@ -468,11 +482,12 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 
 	/** get local path to gallery
 	 *
-	 * @param string $path_separator char to separate path with (default = DS)
+	 * @param string $path_separator char to separate path with (default = '/')
 	 *
 	 * @return string path to gallery
-	 **/
-	function getPath($path_separator = DS)
+	 * @since 4.3.0
+     **/
+	function getPath($path_separator = '/')
 	{
 
 		global $rsgConfig;
@@ -521,7 +536,8 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 	 * @param int   $length Length
 	 *
 	 * @return array
-	 */
+	 * @since 4.3.0
+     */
 	static function array_slice_preserve_keys($array, $offset, $length = null)
 	{
 		// PHP >= 5.0.2 is able to do this itself
@@ -573,7 +589,8 @@ class rsgGallery extends JObject // ToDO: Fix: Use of Jobject ...
 	 * @param $array
 	 *
 	 * @return mixed
-	 */
+	 * @since 4.3.0
+     */
 	static function explode_assoc($glue1, $glue2, $array)
 	{
 		//$array3 = []; // 141031 thomas

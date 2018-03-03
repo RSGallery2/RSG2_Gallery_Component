@@ -218,9 +218,8 @@ jQuery(document).ready(function ($) {
     var dragZone = $('#dragarea');
     var fileInput = $('#hidden_file_input');
     var buttonManualFile = $('#select_manual_file');
-    var urlFileUploAd = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile&<?PHP echo JSession::getFormToken()?>=1';
-    //alert ('urlFileUploAd: ' + urlFileUploAd);
-    var urlReserveDbImageId = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxReserveDbImageId&<?PHP echo JSession::getFormToken()?>=1';
+    var urlFileUploAd = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile';
+    var urlReserveDbImageId = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxReserveDbImageId';
     //alert ('urlReserveDbImageId: ' + urlReserveDbImageId);
     var returnUrl = $('#installer-return').val();
     var token = $('#installer-token').val();
@@ -391,8 +390,9 @@ jQuery(document).ready(function ($) {
 
         this.setFileNameSize = function (name, size) {
             var sizeStr = "";
-            var sizeKB = size / 1024;
-            if (parseInt(sizeKB) > 1024) {
+            var sizeKB = parseInt(size) / 1024;
+
+            if (sizeKB > 1024) {
                 var sizeMB = sizeKB / 1024;
                 sizeStr = sizeMB.toFixed(2) + " MB";
             }
@@ -455,7 +455,7 @@ jQuery(document).ready(function ($) {
 
             // Save for later send
             dropList.push(files[idx]);
-            dropListIdx = dropList.length -1;
+            var dropListIdx = dropList.length -1;
 
             // for function reserveDbImageId
             var data = new FormData();
@@ -544,6 +544,8 @@ jQuery(document).ready(function ($) {
 
             console.log('reserveDb: Success');
 
+            var jData;
+
             // Start next ajax reserveDbImageId image file
             sendState = 0; // 1 == busy
             startReserveDbImageId();
@@ -564,7 +566,7 @@ jQuery(document).ready(function ($) {
                 progressArea.append(errorText);
 
                 // extract json data of uploaded image
-                jsonText = eData.substring(StartIdx);
+                var jsonText = eData.substring(StartIdx);
                 jData = jQuery.parseJSON(jsonText);
             }
 
@@ -590,7 +592,7 @@ jQuery(document).ready(function ($) {
                 var data = new FormData();
 
                 // fetch saved file data
-                dropListIdx = jData.data.dropListIdx;
+                var dropListIdx = jData.data.dropListIdx;
                 if (dropListIdx < 0 || dropList.length < dropListIdx)
                 {
                     alert('reserveDbImageId: dropListIdx: ' + dropListIdx + ' out of range (' + dropList.length + ')');
@@ -727,7 +729,7 @@ jQuery(document).ready(function ($) {
                 progressArea.append(errorText);
 
                 // extract json data of uploaded image
-                jsonText = eData.substring(StartIdx);
+                var jsonText = eData.substring(StartIdx);
                 jData = jQuery.parseJSON(jsonText);
             }
 
@@ -802,6 +804,6 @@ jQuery(document).ready(function ($) {
         statusBar.setAbort(jqXHR);
     }
 
-}) // Joomla ready ... ?
+}); // Joomla ready ... ?
 
 

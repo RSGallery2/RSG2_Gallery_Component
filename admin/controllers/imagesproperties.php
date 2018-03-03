@@ -30,8 +30,8 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 	 *
 	 * @param   array  $config  A named array of configuration variables.
 	 *
-	 * @since   1.6
-	 *
+	  * @since 4.3.0
+    *
 	public function __construct($config = array())
 	{
 		parent::__construct($config);
@@ -46,6 +46,10 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 	}
 	/**/
 
+	/**
+	
+	 * @since 4.3.0
+     */
 	public function PropertiesView ()
 	{
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));

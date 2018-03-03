@@ -52,6 +52,8 @@
  *
  */
 
+defined('_JEXEC') or die;
+
 /** * Start Of Frame N */
 define("M_SOF0", 0xC0);
 /** * N indicates which compression process */

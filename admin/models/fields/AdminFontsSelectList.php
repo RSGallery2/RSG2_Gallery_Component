@@ -42,7 +42,7 @@ class JFormFieldAdminFontsSelectList extends JFormFieldList
 		try
 		{
 			// Detect available font files
-			$fonts = JFolder::files(JPATH_RSGALLERY2_ADMIN . DS . 'fonts', 'ttf');
+			$fonts = JFolder::files(JPATH_RSGALLERY2_ADMIN . '/fonts', 'ttf');
 			foreach ($fonts as $font)
 			{
 				$admin_fonts[] = JHtml::_("select.option", $font, $font);

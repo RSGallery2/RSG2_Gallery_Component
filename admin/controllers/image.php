@@ -21,7 +21,10 @@ if ($Rsg2DebugActive)
 	// identify active file
 	JLog::add('==> ctrl.image.php ');
 }
-/**/
+
+/**
+ * @since 4.3.0
+ */
 
 class Rsgallery2ControllerImage extends JControllerForm
 {

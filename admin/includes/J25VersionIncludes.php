@@ -54,7 +54,8 @@ Functions
 
 /**
  *
- */
+ * @since 4.3.0
+     */
 function viewChangelog()
 {
 	echo '<pre>';
@@ -66,8 +67,8 @@ function viewChangelog()
  * deletes all pictures, thumbs and their database entries. It leaves category information in DB intact.
  * this is a quick n dirty function for development, it shouldn't be available for regular users.
  *
- * @return object
- */
+ * @since 4.3.0
+*/
 function purgeEverything()
 {
 	global $rsgConfig;
@@ -75,10 +76,10 @@ function purgeEverything()
 	//Access check
 	$canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
 	if (!$canAdmin) {
-		// return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+
 		JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 
-		return;    // 150518 Does not return JError::raiseWarning object $error
+		return;    // 150518 Does not return J Error::raiseWarning object $error
 	} else {
 		$fullPath_thumb = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . '/';
 		$fullPath_display = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/';
@@ -125,18 +126,17 @@ function purgeEverything()
  * use before uninstalling to REALLY uninstall
  *
  * @todo This is a quick hack.  make it work on all OS and with non default directories.
- * @return object
- */
+ * @since 4.3.0
+     */
 function reallyUninstall()
 {
 
 	//Access check
 	$canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
 	if (!$canAdmin) {
-		// return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 		JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 
-		return;    // 150518 Does not return JError::raiseWarning object $error
+		return;    // 150518 Does not return J Error::raiseWarning object $error
 	} else {
 		passthru("rm -r " . JPATH_SITE . "/images/rsgallery");
 		HTML_RSGALLERY::printAdminMsg(JText::_('COM_RSGALLERY2_USED_RM_MINUS_R_TO_ATTEMPT_TO_REMOVE_JPATH_SITE_IMAGES_RSGALLERY'));
@@ -161,7 +161,8 @@ function reallyUninstall()
  * @param string $successMsg message to display on success
  *
  * @return boolean value indicating success
- */
+ * @since 4.3.0
+     */
 function processAdminSqlQueryVerbosely($query, $successMsg)
 {
 	$database = JFactory::getDBO();
@@ -181,7 +182,8 @@ function processAdminSqlQueryVerbosely($query, $successMsg)
 
 /**
  * @param string $option
- */
+ * @since 4.3.0
+     */
 function cancelGallery($option)
 {
 	global $mainframe;
@@ -223,10 +225,9 @@ require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/rsgallery2.php';
 $canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
 $canManage = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
 if (!$canManage) {
-	// return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 	JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 
-	return; // 150518 Does not return JError::raiseWarning object $error
+	return; // 150518 Does not return J Error::raiseWarning object $error
 }
 
 // ToDO: remove loading ...

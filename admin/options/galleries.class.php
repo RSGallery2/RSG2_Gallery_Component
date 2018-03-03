@@ -59,7 +59,8 @@ class rsgGalleriesItem extends JTable
 
 	/**
 	 * @param database $db A database connector object
-	 */
+	 * @since 4.3.0
+     */
 	function __construct(&$db)
 	{
 		parent::__construct('#__rsgallery2_galleries', 'id', $db);
@@ -69,7 +70,8 @@ class rsgGalleriesItem extends JTable
 	 * overloaded check function
 	 *
 	 * @return bool
-	 */
+	 * @since 4.3.0
+     */
 	function check()
 	{
 		$db = JFactory::getDBO();
@@ -121,7 +123,8 @@ class rsgGalleriesItem extends JTable
 	 * where id is the value of the primary key of the table.
 	 *
 	 * @return      string
-	 */
+	 * @since 4.3.0
+     */
 	protected function _getAssetName()
 	{
 		$k = $this->_tbl_key;
@@ -133,7 +136,8 @@ class rsgGalleriesItem extends JTable
 	 * Method to return the title to use for the asset table.
 	 *
 	 * @return      string
-	 */
+	 * @since 4.3.0
+     */
 	protected function _getAssetTitle()
 	{
 		return $this->name;
@@ -146,7 +150,8 @@ class rsgGalleriesItem extends JTable
 	 * @param null   $id
 	 *
 	 * @return int|null
-	 */
+	 * @since 4.3.0
+     */
 	protected function _getAssetParentId(JTable $table = null, $id = null)
 	{
 		// Initialise variables
@@ -196,7 +201,8 @@ class rsgGalleriesItem extends JTable
  * @param $row current gallery
  *
  * @return string HTML Selectlist
- */
+ * @since 4.3.0
+     */
 function galleryParentSelectList(&$row)
 {
 	$database = JFactory::getDBO();
@@ -270,7 +276,8 @@ function galleryParentSelectList(&$row)
  * @param int $gallery_id Gallery ID from the parent ID to check
  *
  * @return array Array with Gallery ID's from children
- */
+ * @since 4.3.0
+     */
 function subList($gallery_id)
 {
 	$database = JFactory::getDBO();
@@ -287,4 +294,3 @@ function subList($gallery_id)
 	}
 }
 
-?>

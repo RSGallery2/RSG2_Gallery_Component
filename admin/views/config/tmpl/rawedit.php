@@ -31,7 +31,8 @@ ksort($configVars);
  *
  * @param string $name  name of config variable
  * @param string $value of config variable
- */
+ * @since 4.3.0
+	 */
 function configInputField($name = 'unknown', $value = '')
 {
 	?>

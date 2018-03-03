@@ -1,4 +1,17 @@
 <?php
+/**
+ * @package     RSGallery2
+ * @subpackage  com_rsgallery2
+ * @copyright   (C) 2017-2018 RSGallery2 Team
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @author      finnern
+ * RSGallery is Free Software
+ */
+?>
+<?php
+
+defined('_JEXEC') or die;
+
 /* ----------------------------------------------------------------
 Script coming with JonDesign's SmoothGallery (http://smoothgallery.jondesign.net).
 
@@ -12,34 +25,33 @@ Thanks to:
 Tim Novinger for finding the image extension problem (fixed by an strtolower())
 ---------------------------------------------------------------- */
 
+/*
 $max_height = 1000;
 $max_width  = 2000;
-// ToDo: ? use Jinput ... in all cases 
-if (isset($_GET["imgfile"]))
-{
-	if (function_exists(get_magic_quotes_gpc) && get_magic_quotes_gpc())
-	{
-		$image = stripslashes($_GET["imgfile"]);
-	}
-	else
-	{
-		$image = $_GET["imgfile"];
-	}
-	if (isset($_GET["max_width"]))
-	{
-		if ($_GET["max_width"] < 2000)
-		{
-			$max_width = $_GET["max_width"];
-		}
-	}
-	if (isset($_GET["max_height"]))
-	{
-		if ($_GET["max_height"] < 1000)
-		{
-			$max_height = $_GET["max_height"];
-		}
-	}
+/**/
 
+//
+// Old: imgfile was "strpped" from slashes ...
+
+//--- Read URL input -------------------------------
+
+$input = JFactory::getApplication()->input;
+
+// Old: get part was used, may need adjusting
+$image = $input->get ('imgfile', '', 'STRING');
+$max_height = $input->get('max_height', 0, 'INT');
+$max_width  = $input->get('max_width', 0, 'INT');
+
+	
+if($max_width > 2000){
+	$max_width = 2000;
+}
+	
+if($max_height > 1000){
+	$max_height = 1000;
+}
+	
+if(!empty ($image)) {
 	if (strrchr($image, '/'))
 	{
 		$filename = substr(strrchr($image, '/'), 1); // remove folder references

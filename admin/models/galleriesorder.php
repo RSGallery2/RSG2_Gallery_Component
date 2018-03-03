@@ -214,6 +214,12 @@ class rsgallery2ModelGalleriesOrder extends JModelList
     }
 
 
+	/**
+	 * @param string $Title
+	 *
+	 *
+	 * @since 4.3.0
+    */
     private function displayDbOrderingArray ($Title='') {
 
         $app = JFactory::getApplication();
@@ -231,7 +237,13 @@ class rsgallery2ModelGalleriesOrder extends JModelList
         $app->enqueueMessage($OutText, 'notice');
     }
 
-
+	/**
+	 * @param $ParentId
+	 *
+	 * @return bool
+	 *
+	 * @since 4.3.0
+	 */
     function IsParentExisting ($ParentId)
     {
         $bIsParentExisting = false;
@@ -249,6 +261,13 @@ class rsgallery2ModelGalleriesOrder extends JModelList
         return $bIsParentExisting;
     }
 
+	/**
+	 * @param $HtmlArray
+	 *
+	 * @return array
+	 *
+	 * @since 4.3.0
+    */
     function ConvertOrderingHtml2PhpObject ($HtmlArray)
     {
         //  init arrays
@@ -281,6 +300,7 @@ class rsgallery2ModelGalleriesOrder extends JModelList
 
     /**
      * Remove child parent value if parent doesn't exist
+     * @since 4.3.0
      */
     private function RemoveOrphanIds ()
     {
@@ -337,6 +357,7 @@ class rsgallery2ModelGalleriesOrder extends JModelList
      *
      * @param int $actIdx
      * @param int $parentId
+     * @param int $level
      *
      * @return int
      *
@@ -406,7 +427,7 @@ class rsgallery2ModelGalleriesOrder extends JModelList
      * sort by ordering and assing new ordering "1..n" from first element
      * @return bool
      *
-     * @since version
+     * @since 4.3.0
      */
     public function SortByOrdering()
     {
@@ -441,6 +462,13 @@ class rsgallery2ModelGalleriesOrder extends JModelList
         return $IsSaved;
     }
 
+	/**
+	 * @param $galleryId
+	 *
+	 * @return int
+	 *
+	 * @since 4.3.0
+    */
     public function UserOrderingFromId ($galleryId)
     {
         $Order = -1;
@@ -474,6 +502,7 @@ class rsgallery2ModelGalleriesOrder extends JModelList
     /**
      *
      * Only when order is changed it will be written back
+     * @param $dbOrdering
      *
      * @return bool
      *
@@ -689,7 +718,13 @@ class rsgallery2ModelGalleriesOrder extends JModelList
         return $Ids2Ordering;
     }
 
-
+	/**
+	 * @param $ParentId
+	 *
+	 * @return array
+	 *
+	 * @since 4.3.0
+	 */
     public static function CollectChildGalleries ($ParentId)
     {
         $Ids2Ordering = array();
@@ -718,7 +753,10 @@ class rsgallery2ModelGalleriesOrder extends JModelList
         return $Ids2Ordering;
     }
 
-
+	/**
+	
+	 * @since 4.3.0
+    */
     public static function GalleriesByParentAndOrdering ()
     {
         $Ids2Ordering = array();
@@ -751,7 +789,7 @@ class rsgallery2ModelGalleriesOrder extends JModelList
      * Collects 'id', 'ordering', 'parent', 'name' of all gelleries in an array
      * @return array|mixed 'id', 'ordering', 'parent', 'name'
      *
-     * @since version
+     * @since 4.3.0
      */
     public static function OrderedGalleries ()
     {
@@ -813,6 +851,12 @@ class rsgallery2ModelGalleriesOrder extends JModelList
     $db->setQuery($query);
     return $query;
     /**/
+	
+	/**
+	
+	
+	 * @since 4.3.0
+    */
 
     public static function LeftJoinGalleries ()
     {
@@ -905,7 +949,10 @@ class rsgallery2ModelGalleriesOrder extends JModelList
     }
 
 
-
+	/**
+	
+	 * @since 4.3.0
+    */
     public static function countGalleries()
     {
         $galleryCount = 0;
@@ -943,6 +990,8 @@ class rsgallery2ModelGalleriesOrder extends JModelList
     /**/
 
     /**
+	
+	.
     public static function ()
     {
         $... = array();

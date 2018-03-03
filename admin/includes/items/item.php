@@ -40,7 +40,7 @@ class rsgItem extends JObject
 	var $thumb = null;
 
 	/**
-	 * JParameter object representing the params
+	 * JRegistry object representing the params
 	 */
 	var $parameters = null;
 
@@ -52,7 +52,8 @@ class rsgItem extends JObject
 	 * @param            $mimetype
 	 * @param            $gallery
 	 * @param            $row
-	 */
+	 * @since 4.3.0
+     */
 	function __construct($type, $mimetype, &$gallery, $row)
 	{
 		$this->type     = $type;
@@ -64,13 +65,17 @@ class rsgItem extends JObject
 	}
 
 	/**
-	 * @return JParameter|null
-	 */
+	 * @return JRegistry|null (J Parameter)
+	 * @since 4.3.0
+     */
 	function parameters()
 	{
 		if ($this->parameters === null)
 		{
-			$this->parameters = new JParameter($this->params);
+			// $this->parameters = new J Parameter($this->params);
+			$registry = new JRegistry;
+			$registry->loadString($this->params);
+			$this->parameters = $registry->toArray();
 		}
 
 		return $this->parameters;
@@ -80,7 +85,8 @@ class rsgItem extends JObject
 	 * increases the hit counter for this object
 	 *
 	 * @return bool
-	 */
+	 * @since 4.3.0
+     */
 	function hit()
 	{
 		$query = 'UPDATE `#__rsgallery2_files` SET `hits` = hits + 1 WHERE `id` = ' . (int) $this->id;
@@ -108,7 +114,8 @@ class rsgItem extends JObject
 	 * @param int id of the target gallery
 	 *
 	 * @return bool true if succesfull
-	 */
+	 * @since 4.3.0
+     */
 	function move($target_gallery)
 	{
 
@@ -146,7 +153,8 @@ class rsgItem extends JObject
 	 * @param int id of the target gallery
 	 *
 	 * @return rsgItem newly created rsgItem
-	 */
+	 * @since 4.3.0
+     */
 	function copy($target_gallery)
 	{
 
@@ -184,7 +192,8 @@ class rsgItem extends JObject
 	 * @param $target_gallery
 	 *
 	 * @return bool true if succesfull
-	 */
+	 * @since 4.3.0
+     */
 	function remove($target_gallery)
 	{
 
@@ -228,7 +237,8 @@ class rsgItem extends JObject
 	 * save items data to datastore
 	 *
 	 * @return bool true if succesfull
-	 */
+	 * @since 4.3.0
+     */
 	function save()
 	{
 
@@ -252,7 +262,8 @@ class rsgItem extends JObject
 	 * @param array      of the database row
 	 *
 	 * @return the apropriate item object
-	 */
+	 * @since 4.3.0
+     */
 	static function getCorrectItemObject(&$gallery, $row)
 	{
 		// get mime type of file
@@ -293,7 +304,8 @@ class rsgResource extends JObject
 
 	/**
 	 * @param mixed|null $name
-	 */
+	 * @since 4.3.0
+     */
 	function __construct($name)
 	{
 		$this->name = $name;
@@ -301,7 +313,8 @@ class rsgResource extends JObject
 
 	/**
 	 * @return working URL to the resource
-	 */
+	 * @since 4.3.0
+     */
 	function url()
 	{
 		$url = JURI_SITE . trim($this->name, "/");
@@ -311,17 +324,19 @@ class rsgResource extends JObject
 
 	/**
 	 * @return the mime type of the file
-	 */
+	 * @since 4.3.0
+     */
 	function mimeType()
 	{
 	}
 
 	/**
 	 * @return the absolute local file path
-	 */
+	 * @since 4.3.0
+     */
 	function filePath()
 	{
-		return JPATH_ROOT . DS . $this->name;
+		return JPATH_ROOT. '/' .$this->name;
 	}
 
 	/**
@@ -330,7 +345,8 @@ class rsgResource extends JObject
 	 * @param string path of file
 	 *
 	 * @return bool true on success
-	 **/
+	 * @since 4.3.0
+     **/
 	function store($path)
 	{
 
@@ -362,7 +378,8 @@ class rsgResource extends JObject
 	 * deletes resource from locale file system
 	 *
 	 * @return bool true if success
-	 **/
+	 * @since 4.3.0
+     **/
 	function delete()
 	{
 

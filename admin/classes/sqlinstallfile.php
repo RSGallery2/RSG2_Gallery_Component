@@ -25,7 +25,7 @@ class SqlInstallFile
 	/**
 	 * @var string
 	 */
-	protected $sqlPathFileName; //
+	protected $sqlPathFileName;
 
 	/**
 	 * @var string [] list of 'create table queries'

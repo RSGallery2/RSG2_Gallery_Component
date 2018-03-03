@@ -37,7 +37,8 @@ class JGPagination extends JPagination
 	 * @since     1.0
 	 * @return null|string
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	public function getPagesLinks()
 	{
 
@@ -53,7 +54,7 @@ class JGPagination extends JPagination
 		$itemOverride = false;
 		$listOverride = false;
 
-		$chromePath = JPATH_THEMES . DS . $appl->getTemplate() . DS . 'html' . DS . 'gpagination.php';
+		$chromePath = JPATH_THEMES . '/' . $appl->getTemplate() . '/html/gpagination.php';
 		if (file_exists($chromePath))
 		{
 			require_once $chromePath;
@@ -166,7 +167,7 @@ class JGPagination extends JPagination
 		$list['pagescounter'] = $this->getPagesCounter();
 		$list['pageslinks']   = $this->getPagesLinks();
 
-		$chromePath = JPATH_THEMES . DS . $appl->getTemplate() . DS . 'html' . DS . 'gpagination.php';
+		$chromePath = JPATH_THEMES . '/' . $appl->getTemplate() . '/html/gpagination.php';
 		if (file_exists($chromePath))
 		{
 			require_once $chromePath;
@@ -221,7 +222,8 @@ class JGPagination extends JPagination
 	 * @param array $list
 	 *
 	 * @return null|string
-	 */
+	 * @since 4.3.0
+     */
 	public function _list_render($list)
 	{
 		// Initialize variables
@@ -249,96 +251,99 @@ class JGPagination extends JPagination
 	 *
 	 * @return string
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	public function _item_active(&$item)
 	{
 		$canManage = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
 		if (!$canManage)
 		{
+			if (true)
 			{
 				if ($item->base > 0)
 				{
-					return "<a title=\"" . $item->text . "\" onclick=\"javascript: document.adminForm.limitstartg.value=" . $item->base . "; submitform();return false;\">" . $item->text . "</a>";
+					return "<a title=\"" . $item->text . "\" onclick=\"document.adminForm.limitstartg.value=" . $item->base . ";submitform(); return false;\">" . $item->text . "</a>";
 				}
 				else
 				{
-					return "<a title=\"" . $item->text . "\" onclick=\"javascript: document.adminForm.limitstartg.value=0; submitform();return false;\">" . $item->text . "</a>";
+					return "<a title=\"" . $item->text . "\" onclick=\"document.adminForm.limitstartg.value=0; submitform();return false;\">" . $item->text . "</a>";
 				}
-			} else
+			}
+			else
 			{
 				return "<a title=\"" . $item->text . "\" href=\"" . $item->link . "\" class=\"pagenav\">" . $item->text . "</a>";
 			}
 		}
-
-		/**
-		 * Create and return the pagination data object
-		 *
-		 * @access    public
-		 * @return    object    Pagination data object
-		 * @since     1.5
-		 */
-		public
-		function _buildDataObject()
-		{
-			// Initialize variables
-			$data = new stdClass();
-
-			$data->all = new JPaginationObject(JText::_('COM_RSGALLERY2_VIEW_ALL'));
-			//if (!$this->_viewall) { J3
-			if (!$this->viewall)
-			{
-				$data->all->base = '0';
-				$data->all->link = JRoute::_("&limitstartg=");
-			}
-
-			// Set the start and previous data objects
-			$data->start    = new JPaginationObject(JText::_('JLIB_HTML_START'));
-			$data->previous = new JPaginationObject(JText::_('JPREVIOUS'));
-
-			if ($this->get('pages.current') > 1)
-			{
-				$page = ($this->get('pages.current') - 2) * $this->limit;
-
-				$page = $page == 0 ? '' : $page; //set the empty for removal from route
-
-				$data->start->base    = '0';
-				$data->start->link    = JRoute::_("&limitstartg=");
-				$data->previous->base = $page;
-				$data->previous->link = JRoute::_("&limitstartg=" . $page);
-			}
-
-			// Set the next and end data objects
-			$data->next = new JPaginationObject(JText::_('JNEXT'));
-			$data->end  = new JPaginationObject(JText::_('JLIB_HTML_END'));
-
-			if ($this->get('pages.current') < $this->get('pages.total'))
-			{
-				$next = $this->get('pages.current') * $this->limit;
-				$end  = ($this->get('pages.total') - 1) * $this->limit;
-
-				$data->next->base = $next;
-				$data->next->link = JRoute::_("&limitstartg=" . $next);
-				$data->end->base  = $end;
-				$data->end->link  = JRoute::_("&limitstartg=" . $end);
-			}
-
-			$data->pages = array();
-			$stop        = $this->get('pages.stop');
-			for ($i = $this->get('pages.start'); $i <= $stop; $i++)
-			{
-				$offset = ($i - 1) * $this->limit;
-
-				$offset = $offset == 0 ? '' : $offset;  //set the empty for removal from route
-
-				$data->pages[$i] = new JPaginationObject($i);
-				//if ($i != $this->get('pages.current') || $this->_viewall) J3
-				if ($i != $this->get('pages.current') || $this->viewall)
-				{
-					$data->pages[$i]->base = $offset;
-					$data->pages[$i]->link = JRoute::_("&limitstartg=" . $offset);
-				}
-			}
-
-			return $data;
-		}
 	}
+
+	/**
+	 * Create and return the pagination data object
+	 *
+	 * @access    public
+	 * @return    object    Pagination data object
+	 * @since     1.5
+	 */
+	public function _buildDataObject()
+	{
+		// Initialize variables
+		$data = new stdClass();
+
+		$data->all = new JPaginationObject(JText::_('COM_RSGALLERY2_VIEW_ALL'));
+		//if (!$this->_viewall) { J3
+		if (!$this->viewall)
+		{
+			$data->all->base = '0';
+			$data->all->link = JRoute::_("&limitstartg=");
+		}
+
+		// Set the start and previous data objects
+		$data->start    = new JPaginationObject(JText::_('JLIB_HTML_START'));
+		$data->previous = new JPaginationObject(JText::_('JPREVIOUS'));
+
+		if ($this->get('pages.current') > 1)
+		{
+			$page = ($this->get('pages.current') - 2) * $this->limit;
+
+			$page = $page == 0 ? '' : $page; //set the empty for removal from route
+
+			$data->start->base    = '0';
+			$data->start->link    = JRoute::_("&limitstartg=");
+			$data->previous->base = $page;
+			$data->previous->link = JRoute::_("&limitstartg=" . $page);
+		}
+
+		// Set the next and end data objects
+		$data->next = new JPaginationObject(JText::_('JNEXT'));
+		$data->end  = new JPaginationObject(JText::_('JLIB_HTML_END'));
+
+		if ($this->get('pages.current') < $this->get('pages.total'))
+		{
+			$next = $this->get('pages.current') * $this->limit;
+			$end  = ($this->get('pages.total') - 1) * $this->limit;
+
+			$data->next->base = $next;
+			$data->next->link = JRoute::_("&limitstartg=" . $next);
+			$data->end->base  = $end;
+			$data->end->link  = JRoute::_("&limitstartg=" . $end);
+		}
+
+		$data->pages = array();
+		$stop        = $this->get('pages.stop');
+		for ($i = $this->get('pages.start'); $i <= $stop; $i++)
+		{
+			$offset = ($i - 1) * $this->limit;
+
+			$offset = $offset == 0 ? '' : $offset;  //set the empty for removal from route
+
+			$data->pages[$i] = new JPaginationObject($i);
+			//if ($i != $this->get('pages.current') || $this->_viewall) J3
+			if ($i != $this->get('pages.current') || $this->viewall)
+			{
+				$data->pages[$i]->base = $offset;
+				$data->pages[$i]->link = JRoute::_("&limitstartg=" . $offset);
+			}
+		}
+
+		return $data;
+	}
+}

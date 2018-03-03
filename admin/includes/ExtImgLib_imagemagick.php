@@ -1,4 +1,12 @@
 <?php
+/**
+ * @package     RSGallery2
+ * @subpackage  com_rsgallery2
+ * @copyright   (C) 2017-2018 RSGallery2 Team
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @author      finnern
+ * RSGallery is Free Software
+ */
 
 defined('_JEXEC') or die();
 
@@ -23,7 +31,8 @@ class external_imageMagick extends externalImageLib// genericImageLib
 	 *
 	 * @return bool true if successfull, false if error
 	 * @todo only writes in JPEG, this should be given as a user option
-	 */
+	 * @since 4.3.0
+     */
 	static function resizeImage($imgSrcPath, $imgDstPath, $targetWidth)
 	{
 		global $rsgConfig;
@@ -36,7 +45,6 @@ class external_imageMagick extends externalImageLib// genericImageLib
 		exec($cmd, $results, $return);
 		if ($return > 0)
 		{
-			//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_IMAGE_COULD_NOT_BE_MADE_WITH_IMAGEMAGICK').": ".$target);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_IMAGE_COULD_NOT_BE_MADE_WITH_IMAGEMAGICK') . ": " . $imgDstPath, 'error');
 
 			return false;
@@ -50,12 +58,13 @@ class external_imageMagick extends externalImageLib// genericImageLib
 	/**
 	 * Creates a square thumbnail by first resizing and then cutting out the thumb
 	 *
-	 * @param string $source Full path of source image
-	 * @param string $target Full path of target image
-	 * @param int    $width  width of target
+	 * @param string $imgSrcPath Full path of source image
+	 * @param string $imgDstPath Full path of target image
+	 * @param int    $thumbWidth  width of target
 	 *
 	 * @return bool true if successfull, false if error
-	 */
+	 * @since 4.3.0
+     */
 	static function createSquareThumb($imgSrcPath, $imgDstPath, $thumbWidth)
 	{
 		// ToDo: thumb type ??

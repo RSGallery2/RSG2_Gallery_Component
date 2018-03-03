@@ -48,7 +48,8 @@ class Rsgallery2ViewUpload extends JViewLegacy
      * @param null $tpl
      *
      * @return bool
-     */
+     * @since 4.3.0
+	 */
     public function display($tpl = null)
     {
         global $Rsg2DevelopActive, $rsgConfig;
@@ -151,6 +152,11 @@ class Rsgallery2ViewUpload extends JViewLegacy
         return parent::display($tpl);
     }
 
+	/**
+	 * @param string $Layout
+	 *
+	 * @since 4.3.0
+	*/
     protected function addToolbar($Layout = 'default')
     {
         global $Rsg2DevelopActive;
@@ -161,6 +167,10 @@ class Rsgallery2ViewUpload extends JViewLegacy
             echo '<span style="color:red">'
                 . 'Tasks: <br>'
 				. '*  <br>??? enable/force selection of start gallery ???'
+				. '*  <br>Check ajax securitiy on call'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'

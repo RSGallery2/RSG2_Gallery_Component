@@ -18,7 +18,7 @@ defined('_JEXEC') or die();
  * @since          1.5
  */
 
-include_once(dirname(__FILE__) . DS . '..' . DS . 'default' . DS . 'view.php');
+include_once(dirname(__FILE__) . '/../default/view.php');
 
 /**
  * Class InstallerViewSelectHtml
@@ -27,6 +27,7 @@ class InstallerViewSelectHtml extends InstallerViewDefault
 {
 	/**
 	 * @param null $tpl
+	 * @since 4.3.0
 	 */
 	function display($tpl = null)
 	{

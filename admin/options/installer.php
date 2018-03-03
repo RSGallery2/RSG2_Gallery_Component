@@ -15,7 +15,6 @@ defined('_JEXEC') or die();
 // Check if core.admin is allowed
 if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2'))
 {
-	// return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 	JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 
 	return;
@@ -23,5 +22,5 @@ if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2'))
 else
 {
 	define('rsgOptions_installer_path', $rsgOptions_path . 'templateManager');
-	require_once(rsgOptions_installer_path . DS . 'admin.installer.php');
+	require_once(rsgOptions_installer_path . '/admin.installer.php');
 }

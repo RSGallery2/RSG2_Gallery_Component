@@ -84,7 +84,8 @@ switch ($task)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function show()
 {
 	global $mosConfig_list_limit;    //Todo: $app = &JFactory::getApplication();$limit = $app->getCfg('list_limit'); replaces $mosConfig_list_limit
@@ -187,7 +188,8 @@ function show()
  * @param int    $id The unique id of the record to edit (0 if new)
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function edit($option, $id)
 {
 	global $rsgOptions_path;
@@ -265,10 +267,10 @@ function edit($option, $id)
 	$file = JPATH_SITE . '/administrator/components/com_rsgallery2/options/galleries.item.xml';
 
 	// ToDo: Debug / Test to check if following replacement is working 
-	//$params = new JParameter( $row->params, $file );
+	//$params = new J Parameter( $row->params, $file );
 	$jparams = new JRegistry();
 	$params  = $jparams->get($row->params, $file);
-/// ToDo: Jparameter ... Try this for J3:
+/// ToDo: J parameter ... Try this for J3:
 	/*
 	$params2 = new JForm('params');
 	$params2->loadFile($file);///var_dump($row);
@@ -363,7 +365,8 @@ function edit($option, $id)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function save($option)
 {
 	global $rsgOption, $rsgConfig;
@@ -476,7 +479,8 @@ function save($option)
  * @param string $option The current url option
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function removeWarn($cid, $option)
 {
 	global $Rsg2DebugActive;
@@ -506,7 +510,8 @@ function removeWarn($cid, $option)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function removeReal($cid, $option)
 {
 	global $rsgOption, $rsgConfig;
@@ -534,8 +539,8 @@ function removeReal($cid, $option)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
-
+ * @since 4.3.0
+     */
 function publish($cid = null, $publish = 1, $option)
 {
 	global $rsgOption;
@@ -588,7 +593,8 @@ function publish($cid = null, $publish = 1, $option)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function order($uid, $inc, $option)
 {
 	global $rsgOption;
@@ -615,7 +621,8 @@ function order($uid, $inc, $option)
  * @param string $option The current url option
  *
  * @deprecated Old 1.5 code
- */
+ * @since 4.3.0
+     */
 function cancel($option)
 {
 	global $rsgOption;
@@ -630,7 +637,6 @@ function cancel($option)
 	$database  = JFactory::getDBO();
 
 	$row = new rsgGalleriesItem($database);
-	//$row->bind( $_POST );
 	$input = JFactory::getApplication()->input;
 	// ToDo: Revisit check if $input->post->getArray(); is proper replacement for above
 	$row->bind($input->post->getArray());
@@ -645,7 +651,9 @@ function cancel($option)
  * @throws Exception
  *
  * @deprecated Old 1.5 code
- */
+ * @return True on success false otherwise
+ * @since 4.3.0
+     */
 function saveOrder(&$cid)
 {
 	global $Rsg2DebugActive;
@@ -676,7 +684,8 @@ function saveOrder(&$cid)
 			$row->ordering = $order[$i];
 			if (!$row->store())
 			{
-				JError::raiseError(500, $mainframe->getErrorMsg());
+				JFactory::getApplication()->enqueueMessage('RSGallery2 saveOrder:<pre>' . $mainframe->getErrorMsg() . '</pre>', 'error');
+                return false;
 			} // if
 		} // if
 	} // for
@@ -696,4 +705,3 @@ function saveOrder(&$cid)
 	$mainframe->enqueueMessage($msg);
 	$mainframe->redirect('index.php?option=com_rsgallery2&rsgOption=galleries');
 } // saveOrder
-?>

@@ -36,16 +36,13 @@ class Rsgallery2ViewComment extends JViewLegacy
 	protected $rsgConfigData;
 
 	//------------------------------------------------
+	/**
+	 * @param null $tpl
+	 *
+	 * @since 4.3.0
+	*/
 	public function display($tpl = null)
 	{
-		global $Rsg2DevelopActive;
-
-		// on develop show open tasks if existing
-		if (!empty ($Rsg2DevelopActive))
-		{
-			// echo '<span style="color:red">Task: </span><br><br>';
-		}
-
 		//--- get needed form data ------------------------------------------
 
 		// Check rights of user
@@ -85,6 +82,7 @@ class Rsgallery2ViewComment extends JViewLegacy
 	 * Checks if user has root status (is re.admin')
 	 *
 	 * @return    bool
+	 * @since 4.3.0
 	 */
 	function CheckUserIsRoot()
 	{
@@ -94,8 +92,21 @@ class Rsgallery2ViewComment extends JViewLegacy
 		return $canAdmin;
 	}
 
+	/**
+	 * @param string $Layout
+	 *
+	 * @since 4.3.0
+	*/
 	protected function addToolbar($Layout = 'default')
 	{
+		global $Rsg2DevelopActive;
+
+		// on develop show open tasks if existing
+		if (!empty ($Rsg2DevelopActive))
+		{
+			echo '<span style="color:red">Task: </span><br><br>';
+		}
+
 		switch ($Layout)
 		{
 			case 'edit':

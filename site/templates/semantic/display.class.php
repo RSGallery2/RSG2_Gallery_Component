@@ -55,7 +55,7 @@ class rsgDisplay_semantic extends rsgDisplay
 			$rsgConfig->get('dispLimitbox') == 2
 		)
 		{
-//			require_once( JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'gpagination.php' );
+//			require_once( JPATH_RSGALLERY2_ADMIN . '/includes' . '/gpagination.php' );
 			//When users wants "All" galleries to show, $limit = 0, no need to slice
 			if ($limit)
 			{

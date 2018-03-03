@@ -495,15 +495,6 @@ class Securimage
 	 * Check a submitted code against the stored value
 	 *
 	 * @param string $code The captcha code to check
-	 *                     <code>
-	 *                     $code = $_POST['code'];
-	 *                     $img  = new Securimage();
-	 *                     if ($img->check($code) == true) {
-	 *                     $captcha_valid = true;
-	 *                     } else {
-	 *                     $captcha_valid = false;
-	 *                     }
-	 *                     </code>
 	 */
 	public function check($code)
 	{

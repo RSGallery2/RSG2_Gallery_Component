@@ -102,6 +102,26 @@
 		/>
 	</fieldset>
 
+    <fields name="params">
+        <fieldset
+                name="params"
+                label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS"
+        >
+			<field name="link"
+				   type="text"
+				   default=""
+				   label="COM_RSGALLERY2_PARAM_IMAGES_LINK"
+				   description="COM_RSGALLERY2_PARAM_IMAGES_LINK_DESC">
+			</field>
+			<field name="link_text"
+				   type="text"
+				   default=""
+				   label="COM_RSGALLERY2_LINK_TEXT"
+				   description="COM_RSGALLERY2_LINK_TEXT_DESC">
+			</field>
+        </fieldset>
+    </fields>
+	
 	<fieldset name="permission_col">
 		<!-- asset_id: needed for the Calculated Settings of the Rules to work correctly -->
 		<field

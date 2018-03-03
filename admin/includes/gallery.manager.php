@@ -26,7 +26,8 @@ class rsgGalleryManager
 	 *
 	 * @return null|rsgGallery
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	static function getGalleryByItemID($id = null)
 	{
 		$database  = JFactory::getDBO();
@@ -68,7 +69,8 @@ class rsgGalleryManager
 	 * @param int|null $id
 	 *
 	 * @return mixed
-	 */
+	 * @since 4.3.0
+     */
 	static function getItem($id = null)
 	{
 		$gallery = rsgGalleryManager::get();
@@ -78,15 +80,16 @@ class rsgGalleryManager
 
 	/**
 	 * Returns an rsgGallery object.
-	 * Checks for catid, gid in $_GET if no item id is given,
-	 * and if those are not found then checks for (item) id in $_GET
-	 * to get gallery id.
+	 * Checks for catid, gid in $input from URL if no item id is given,
+	 * and if those are not found then checks for (item) id in $input 
+	 * from URL to get gallery id.
 	 *
 	 * @param int|null $id
 	 *
 	 * @return null|rsgGallery
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	static function get($id = null)
 	{
 		//global $rsgConfig;
@@ -147,7 +150,8 @@ class rsgGalleryManager
 	 * @param $parent
 	 *
 	 * @return bool
-	 */
+	 * @since 4.3.0
+     */
 	static function getFlatArrayofImages($parent)
 	{
 		return true;
@@ -162,7 +166,8 @@ class rsgGalleryManager
 	 * @param $parent
 	 *
 	 * @return bool
-	 */
+	 * @since 4.3.0
+     */
 	static function getFlatArrayofGalleries($parent)
 	{
 		return true;
@@ -174,7 +179,8 @@ class rsgGalleryManager
 	 * @param int [] $cid
 	 *
 	 * @return array
-	 */
+	 * @since 4.3.0
+     */
 	static function getArray($cid)
 	{
 		$galleries = array();
@@ -194,7 +200,8 @@ class rsgGalleryManager
 	 *
 	 * @return array rsgGallery|bool
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	static function getList($parent)
 	{
 		// global $rsgConfig;
@@ -246,7 +253,8 @@ class rsgGalleryManager
 	 * @param int [] $cid array of gallery ids
 	 *
 	 * @return bool
-	 */
+	 * @since 4.3.0
+     */
 	static function deleteArray($cid)
 	{
 		// delete all galleries and sub galleries
@@ -267,7 +275,8 @@ class rsgGalleryManager
 	 * @param int $gallery the id of a gallery
 	 *
 	 * @return rsgGallery
-	 */
+	 * @since 4.3.0
+     */
 	static function _get($gallery)
 	{
 		static $galleries = array();
@@ -289,7 +298,8 @@ class rsgGalleryManager
 			$row = $database->loadAssocList();
 			if (count($row) == 0 && $gallery != 0)
 			{
-				JError::raiseError(1, "gallery id does not exist: $gallery");
+				JFactory::getApplication()->enqueueMessage("gallery id does not exist: $gallery", 'error');
+                return false;
 			}
 			else
 			{
@@ -315,7 +325,8 @@ class rsgGalleryManager
 	 * @todo possibly have the top level gallery be a real gallery in the db.  this obviously needs to be discussed more.
 	 * @todo are these good defaults?  not sure....
 	 * @return rsgGallery
-	 */
+	 * @since 4.3.0
+     */
 	static function _getRootGallery()
 	{
 		global $rsgConfig;
@@ -346,7 +357,8 @@ class rsgGalleryManager
 	 * @param int [] $cid array of gallery ids
 	 *
 	 * @return rsgGallery []
-	 */
+	 * @since 4.3.0
+     */
 	static function _getArray($cid)
 	{
 		$galleries = array();
@@ -368,7 +380,8 @@ class rsgGalleryManager
 	 *
 	 * @return bool
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	static function _deleteTree($galleries)
 	{
 		$database = JFactory::getDBO();
@@ -406,7 +419,8 @@ class rsgGalleryManager
 				$row = new rsgGalleriesItem($database);
 				if (!$row->delete($id))
 				{
-					JError::raiseError(500, $row->getError());
+					JFactory::getApplication()->enqueueMessage('RSGallery2 _deleteTree:<pre>' . $row->getError() . '</pre>', 'error');
+					return false;
 				}
 			}
 		}

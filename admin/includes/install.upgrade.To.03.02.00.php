@@ -36,7 +36,8 @@ class upgrade_com_rsgallery2_03_02_00
 	* (Attention the SQL part may or may not be handled before)
 	* It cares only for data itself not for the table structure
 	* @return true on failure
-	*/
+	 * @since 4.3.0
+    */
 	function upgrade($oldRelease)
 	{
 
@@ -84,7 +85,8 @@ class upgrade_com_rsgallery2_03_02_00
 	 * if Joomla! was installed using a different prefix then #__rsgallery2_acl will be missing.
 	 *
 	 * @todo this needs to be tested
-	 */
+	 * @since 4.3.0
+     */
 	function upgradeTo_1_12_2()
 	{
 		$failed = false;
@@ -146,7 +148,8 @@ class upgrade_com_rsgallery2_03_02_00
 
 	/**
 	 * Create not existing aliases
-	 */
+	 * @since 4.3.0
+     */
 	function upgradeTo_2_2_1()
 	{
 		$failed = false;
@@ -182,7 +185,6 @@ class upgrade_com_rsgallery2_03_02_00
 				if (!$result)
 				{
 					$msg = JText::_('COM_RSGALLERY2_MIGRATE_ERROR_FILLING_ALIAS_GALLERY', $value[id], $value[name]);
-					//JError::raiseNotice( 100, $msg);
 					JFactory::getApplication()->enqueueMessage($msg, 'error');
 					$failed = true;
 				}
@@ -211,7 +213,6 @@ class upgrade_com_rsgallery2_03_02_00
 				if (!$result)
 				{
 					$msg = JText::_('COM_RSGALLERY2_MIGRATE_ERROR_FILLING_ALIAS_ITEM', $value[id], $value[title]);
-					//JError::raiseNotice( 100, $msg);
 					JFactory::getApplication()->enqueueMessage($msg, 'error');
 					$failed = true;
 				}
@@ -239,7 +240,8 @@ class upgrade_com_rsgallery2_03_02_00
 
 	/**
 	 * Change comments in table from BB Code to HTML
-	 */
+	 * @since 4.3.0
+     */
 	function upgradeTo_3_2_0()
 	{
 		$failed = false;
@@ -296,7 +298,8 @@ class rsgCommentsOld
 
 	/**
 	 * Constructor
-	 */
+	 * @since 4.3.0
+     */
 	function __construct()
 	{
 		global $mainframe;
@@ -341,7 +344,8 @@ class rsgCommentsOld
 	 * @param int    $hide
 	 *
 	 * @return mixed
-	 */
+	 * @since 4.3.0
+     */
 	static function parseUBB($html, $hide = 0)
 	{    //needed
 		$html         = str_replace(']www.', ']http://www.', $html);
@@ -380,7 +384,12 @@ class rsgCommentsOld
 
 	/**
 	 * Replaces emoticons code with emoticons
-	 */
+	 * @param $html
+	 *
+	 * @return mixed
+	 *
+	 * @since 4.3.0
+     */
 	function parseEmoticons($html)
 	{ //needed
 		foreach ($this->_emoticons as $ubb => $icon)
@@ -397,7 +406,8 @@ class rsgCommentsOld
 	 * @param string $html
 	 *
 	 * @return mixed
-	 */
+	 * @since 4.3.0
+     */
 	static function parseImgElement($html)
 	{    //needed
 		return preg_replace('/\[img\](.*?)\[\/img\]/i', '<img src=\'\\1\' alt=\'Posted image\' />', $html);
@@ -409,7 +419,8 @@ class rsgCommentsOld
 	 * @param string $html
 	 *
 	 * @return mixed
-	 */
+	 * @since 4.3.0
+     */
 	static function parseQuoteElement($html)
 	{    //needed
 		$q1 = substr_count($html, "[/quote]");
@@ -441,7 +452,8 @@ class rsgCommentsOld
 	 * @param $html
 	 *
 	 * @return mixed
-	 */
+	 * @since 4.3.0
+     */
 	function parseCodeElement($html)
 	{    //needed
 		if (preg_match_all('/\[code\](.+?)\[\/code\]/is', $html, $replacementI))
@@ -462,7 +474,8 @@ class rsgCommentsOld
 	 * @param $html
 	 *
 	 * @return mixed
-	 */
+	 * @since 4.3.0
+     */
 	function parse($html)
 	{    //needed
 		$html = $this->parseEmoticons($html);
@@ -479,7 +492,8 @@ class rsgCommentsOld
 	 * @param $val
 	 *
 	 * @return mixed
-	 */
+	 * @since 4.3.0
+     */
 	static function code_unprotect($val)
 	{    //needed
 		$val = str_replace("{ : }", ":", $val);

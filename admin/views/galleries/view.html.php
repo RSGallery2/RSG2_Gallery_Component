@@ -37,6 +37,11 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 //	protected $rsgConfigData;
 
 	//------------------------------------------------
+	/**
+	 * @param null $tpl
+	 *
+	 * @since 4.3.0
+	*/
 	public function display($tpl = null)
 	{
 		global $Rsg2DevelopActive;
@@ -45,7 +50,6 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot();
-
 
 //		global $rsgConfig;
 //		$this->rsgConfigData = $rsgConfig;
@@ -88,6 +92,7 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 	 * Checks if user has root status (is re.admin')
 	 *
 	 * @return    bool
+	 * @since 4.3.0
 	 */
 	function CheckUserIsRoot()
 	{
@@ -96,6 +101,12 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 
 		return $canAdmin;
 	}
+
+	/**
+	 * @param string $Layout
+	 *
+	 * @since 4.3.0
+	*/
 
 	protected function addToolbar($Layout = 'default')
 	{

@@ -11,8 +11,8 @@
 defined('_JEXEC') or die();
 
 // bring in display code
-$templatePath = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . 'slideshow_phatfusion';
-require_once($templatePath . DS . 'display.class.php');
+$templatePath = JPATH_RSGALLERY2_SITE . '/templates' . '/slideshow_phatfusion';
+require_once($templatePath . '/display.class.php');
 
 $rsgDisplay = new rsgDisplay_slideshow_phatfusion();
 

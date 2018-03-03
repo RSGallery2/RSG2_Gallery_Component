@@ -67,7 +67,11 @@ class rsgInstall
 	/** @var array List of allowed image formats */
 	var $allowedExt;
 
-	/** Constructor */
+	/** Constructor 
+	
+	
+	 * @since 4.3.0
+    */
 	function __construct()
 	{
 
@@ -96,7 +100,9 @@ class rsgInstall
 
 	}
 
-	/** For debug purposes only */
+	/** For debug purposes only 
+	 * @since 4.3.0
+    */
 	function echo_values()
 	{
 		echo JText::_('COM_RSGALLERY2_THUMBDIRECTORY_IS') . $this->dirThumbs;
@@ -105,7 +111,8 @@ class rsgInstall
 	/**
 	 * Creates the default gallery directory structure
 	 * ToDo: create index.html for each folder if not exists
-	 */
+	 * @since 4.3.0
+     */
 	function createDirStructure()
 	{
 
@@ -141,7 +148,8 @@ class rsgInstall
 	 *
 	 * @param string $msg  Message to write
 	 * @param string $type Type of message (ok,error)
-	 */
+	 * @since 4.3.0
+     */
 	static function writeInstallMsg($msg, $type = null)
 	{
 		if ($type == "ok")
@@ -190,9 +198,9 @@ class rsgInstall
 	 */
 	/**
 	 * @param string $msg
-	 */
-
-
+	 * @return string $HtmlString Lines of HTML
+	 * @since 4.3.0
+     */
 	static function installCompleteMsg($msg = null)
 	{
 	    $HtmlString = '';
@@ -243,7 +251,8 @@ class rsgInstall
 
 	/**
 	 * Create dir structure, save config and tell user ...
-	 */
+	 * @since 4.3.0
+     */
 	function freshInstall()
 	{
 		global $rsgConfig;

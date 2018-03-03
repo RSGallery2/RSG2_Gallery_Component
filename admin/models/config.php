@@ -31,7 +31,8 @@ class Rsgallery2ModelConfig extends JModelAdmin
 	 * retrieves state if debug is activated on user config
 	 *
 	 * @return bool true when set in config data
-	 */
+	 * @since 4.3.0
+     */
 	/*
     public static function getIsDebugActive()
     {
@@ -179,7 +180,13 @@ class Rsgallery2ModelConfig extends JModelAdmin
      * @since 4.3.0
      */
 
-    /** ToDo: */
+    /**
+     *
+     * @param $table
+     *
+     *
+	 * @since 4.3.0
+    */
 	protected function prepareTable($table)
 	{
 		// $table->title		= htmlspecialchars_decode($table->title, ENT_QUOTES);
@@ -191,7 +198,8 @@ class Rsgallery2ModelConfig extends JModelAdmin
 	 * @param   integer $pk The id of the primary key.
 	 *
 	 * @return  mixed  Object on success, false on failure.
-	 * /
+	 * @since 4.3.0
+     * /
 	public function getItem($pk = null)
 	{
 		$items = parent::getItems(); 

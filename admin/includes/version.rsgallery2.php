@@ -49,6 +49,10 @@ class rsgalleryVersion
     /** @var string Whether site has restricted functionality mostly used for demo sites: 0 is default */
 //    var $RESTRICT   = 0;
 
+	/**
+	
+	 * @since 4.3.0
+    */
     function __construct()
     {
         //--- collect data from manifest -----------------
@@ -100,6 +104,7 @@ class rsgalleryVersion
 
     /**
      * @return string Long format version
+     * @since 4.3.0
      */
     function getLongVersion()
     {
@@ -108,12 +113,14 @@ class rsgalleryVersion
 //            . $this->DEV_STATUS . ' '
 //            . $this->AUTHOR . ' '
 //            . ' [ '.$this->CODENAME .' ] ' . ' '
-            . '(' . $this->RELDATE . ')' . ' '//            . $this->RELTIME .' '. $this->RELTZ
+            . '(' . $this->RELDATE . ')' . ' '
+//            . $this->RELTIME .' '. $this->RELTZ
             ;
     }
 
     /**
      * @return string Short version format
+     * @since 4.3.0
      */
     function getShortVersion()
     {
@@ -122,6 +129,7 @@ class rsgalleryVersion
 
     /**
      * @return string Short version format
+     * @since 4.3.0
      */
     function getCopyrightVersion()
     {
@@ -131,6 +139,7 @@ class rsgalleryVersion
 
     /**
      * @return string PHP standardized version format
+     * @since 4.3.0
      */
     function getVersionOnly()
     {
@@ -143,6 +152,7 @@ class rsgalleryVersion
      * @param $version
      *
      * @return int -1 (lower), 0 (equal) or 1 (higher)
+     * @since 4.3.0
      */
     function checkVersion($version)
     {
@@ -153,4 +163,4 @@ class rsgalleryVersion
 
 }
 
-?>
+

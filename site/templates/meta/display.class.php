@@ -12,14 +12,14 @@ defined('_JEXEC') or die();
 //require_once( 'joomla.filesystem.files' );
 // ToDo: Remove call of file helpers/parameter.php. actual needed for compatibility with 2.5
 // require_once (JPATH_COMPONENT_ADMINISTRATOR.'/helpers/parameter.php');
-require_once(JPATH_ROOT . '/administrator/components/com_rsgallery2/helpers/parameter.php');
+//require_once(JPATH_ROOT . '/administrator/components/com_rsgallery2/helpers/parameter.php');
 //require_once (JPATH_ROOT.'/administrator/components/com_rsgallery2/helpers/TemplateParameter.php');
 jimport('joomla.filesystem.files');
 
 class rsgDisplay extends JObject
 {
 
-	var $params = null; // Type of JParameter    ToDo: change type to Jregistry ...
+	var $params = null; // Type of J Parameter    ToDo: change type to Jregistry ...
 
 	var $currentItem = null;
 
@@ -47,7 +47,7 @@ class rsgDisplay extends JObject
 		// load template parameters
 		jimport('joomla.filesystem.file');
 		// Read the ini file
-		$ini = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'params.ini';
+		$ini = JPATH_RSGALLERY2_SITE . '/templates'  . '/' .  $template . '/params.ini';
 		if (JFile::exists($ini))
 		{
 			//$content = JFile::read($ini); J3
@@ -59,9 +59,10 @@ class rsgDisplay extends JObject
 			$ini_contents = '';
 			JFile::write($ini, $ini_contents);
 		}
-		$xmlPath      = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'templateDetails.xml';
-		$this->params = new JParameter($content, $xmlPath, 'template');
+		$xmlPath      = JPATH_RSGALLERY2_SITE . '/templates' . '/' .  $template . '/templateDetails.xml';
 		//$this->params = new TemplateParameter($content, $xmlPath);
+		//$this->params = new J Parameter($content, $xmlPath, 'template');
+		$this->params = new JRegistry($content, $xmlPath, 'template'); // Something is missing here ;-( fith 2018.03.02
 	}
 
 	/**
@@ -159,11 +160,11 @@ class rsgDisplay extends JObject
 		$PreTemplate = $input->get('rsgTemplate', $rsgConfig->get('template'), 'CMD');
 
 		$template    = preg_replace('#\W#', '', $PreTemplate);
-		$templateDir = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $template . DS . 'html';
+		$templateDir = JPATH_RSGALLERY2_SITE . '/templates' . '/' .  $template . '/html';
 
 		$file = preg_replace('/[^A-Z0-9_\.-]/i', '', $file);
 
-		include $templateDir . DS . $file;
+		include $templateDir . '/' .  $file;
 	}
 
 	/**
@@ -689,7 +690,7 @@ class rsgDisplay extends JObject
 	 */
 	function _showEXIF()
 	{
-		require_once(JPATH_ROOT . DS . "components" . DS . "com_rsgallery2" . DS . "lib" . DS . "exifreader" . DS . "exifReader.php");
+		require_once(JPATH_ROOT . '/components/com_rsgallery2/lib/exifreader/exifReader.php");
 		// $image = rsgInstance::getItem();
 		$gallery = rsgGalleryManager::get();
 		$image   = $gallery->getItem();;
@@ -708,7 +709,7 @@ class rsgDisplay extends JObject
 
 		if ($rsgConfig->get('displaySearch') != 0)
 		{
-			require_once(JPATH_ROOT . DS . "components" . DS . "com_rsgallery2" . DS . "lib" . DS . "rsgsearch" . DS . "search.html.php");
+			require_once(JPATH_ROOT . '/components/com_rsgallery2/lib/rsgsearch/search.html.php");
 			html_rsg2_search::showSearchBox();
 		}
 	}

@@ -31,6 +31,9 @@ $doc->addStyleSheet(JURI::root(true) . "/administrator/components/com_rsgallery2
 
 /**
  * @param ImageReferences $ImageReferences
+ * @param $form not used
+ *
+ * @since 4.3.0
  */
 function DisplayImageDataTable($ImageReferences, $form)
 {

@@ -28,17 +28,19 @@ class InstallerViewDefault extends JViewLegacy
 {
 	/**
 	 * @param null $config
+	 * @since 4.3.0
 	 */
 	function __construct($config = null)
 	{
 		parent::__construct($config);
-		$this->_addPath('template', $this->_basePath . DS . 'views' . DS . 'default' . DS . 'tmpl');
+		$this->_addPath('template', $this->_basePath . '/views/default/tmpl');
 	}
 
 	/**
 	 * @param null $tpl template
 	 *
 	 * @throws Exception
+	 * @since 4.3.0
 	 */
 	function display($tpl = null)
 	{
@@ -76,6 +78,7 @@ class InstallerViewDefault extends JViewLegacy
 	 * Should be overloaded by extending view
 	 *
 	 * @param    int $index
+	 * @since 4.3.0
 	 */
 	function loadItem($index = 0)
 	{
@@ -83,6 +86,7 @@ class InstallerViewDefault extends JViewLegacy
 
 	/**
 	 * @throws Exception
+	 * @since 4.3.0
 	 */
 	static function showHeader()
 	{
@@ -105,6 +109,7 @@ class InstallerViewDefault extends JViewLegacy
 
 	/**
 	 * @throws Exception
+	 * @since 4.3.0
 	 */
 	static function showTemplateHeader()
 	{

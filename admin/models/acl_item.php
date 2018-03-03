@@ -80,7 +80,9 @@ class Rsgallery2ModelAcl_item extends JModelAdmin
 	}
 
 	// Transform some data before it is displayed
-	/* extension development 129 bottom
+	/** extension development 129 bottom
+	 * @since 4.3.0
+    
 	protected function prepareTable ($table)
 	{
 		$table->title = htmlspecialchars_decode ($table->title, ENT_Quotes);

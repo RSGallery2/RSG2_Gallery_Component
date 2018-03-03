@@ -29,6 +29,13 @@ class Rsgallery2TableComment extends JTable
 		parent::__construct('#__rsgallery2_comments', 'id', $db);
 	}
 
+	/**
+	 * @param bool $updateNulls
+	 *
+	 * @return mixed
+	 *
+	 * @since 4.3.0
+	 */
 	public function store($updateNulls = false)
 	{
 

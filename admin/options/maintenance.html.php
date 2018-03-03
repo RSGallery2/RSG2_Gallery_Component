@@ -22,7 +22,8 @@ class html_rsg2_maintenance
 
 	/**
 	 *
-	 */
+	 * @since 4.3.0
+     */
 	static function showMaintenanceCP()
 	{
 		?>
@@ -74,7 +75,8 @@ class html_rsg2_maintenance
 	 * @param string $image Image name for button image
 	 * @param        $title
 	 * @param string $text  Text to show in button
-	 */
+	 * @since 4.3.0
+     */
 	static function quickiconBar($link, $image, $title, $text = "")
 	{
 		?>
@@ -98,7 +100,8 @@ class html_rsg2_maintenance
 
 	/**
 	 * @param $lists
-	 */
+	 * @since 4.3.0
+     */
 	static function regenerateImages($lists)
 	{
 		global $rsgConfig;
@@ -168,7 +171,8 @@ class html_rsg2_maintenance
 	 * @param $file_original
 	 * @param $file_thumb
 	 * @param $files_total
-	 */
+	 * @since 4.3.0
+     */
 	static function consolidateDB($db_name, $file_display, $file_original, $file_thumb, $files_total)
 	{
 		global $rsgConfig;

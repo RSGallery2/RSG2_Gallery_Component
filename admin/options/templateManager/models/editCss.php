@@ -6,8 +6,10 @@
  * @license        GNU/GPL, see LICENSE.php
  */
 
+defined('_JEXEC') or die;
+
 // Import library dependencies
-require_once(dirname(__FILE__) . DS . 'extension.php');
+require_once(dirname(__FILE__) . '/extension.php');
 jimport('joomla.filesystem.folder');
 
 /**
@@ -30,6 +32,7 @@ class InstallerModelEditCss extends InstallerModel
 	 * Overridden constructor
 	 *
 	 * @access    protected
+	 * @since 4.3.0
 	 */
 	function __construct()
 	{
@@ -44,14 +47,15 @@ class InstallerModelEditCss extends InstallerModel
 
 	/**
 	 * @return stdClass
+	 * @since 4.3.0
 	 */
 	function getItem()
 	{
 		jimport('joomla.filesystem.file');
 
 		// Determine template CSS directory
-		$dir  = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $this->template . DS . 'css';
-		$file = $dir . DS . $this->filename;
+		$dir  = JPATH_RSGALLERY2_SITE . '/templates'. '/' .$this->template . '/css';
+		$file = $dir. '/' .$this->filename;
 
 		//$content = JFile::read($ini); J3
 		// ToDo: Fix undefined variable $ini
@@ -60,7 +64,6 @@ class InstallerModelEditCss extends InstallerModel
 
 		if ($content == false)
 		{
-			// JError::raiseWarning( 500, JText::sprintf('COM_RSGALLERY2_OPERATION_FAILED_COULD_NOT_OPEN', $client->path.$filename) );
 			JFactory::getApplication()->enqueueMessage(
 				JText::sprintf('COM_RSGALLERY2_OPERATION_FAILED_COULD_NOT_OPEN', $client->path . $filename)
 				, 'warning');
@@ -81,6 +84,7 @@ class InstallerModelEditCss extends InstallerModel
 	/**
 	 * @return bool
 	 * @throws Exception
+	 * @since 4.3.0
 	 */
 	function save()
 	{
@@ -92,13 +96,12 @@ class InstallerModelEditCss extends InstallerModel
 		JClientHelper::setCredentialsFromRequest('ftp');
 		$ftp = JClientHelper::getCredentials('ftp');
 
-		$file = JPATH_RSGALLERY2_SITE . DS . 'templates' . DS . $this->template . DS . 'css' . DS . $this->filename;
+		$file = JPATH_RSGALLERY2_SITE . '/templates'. '/' .$this->template . '/css'. '/' .$this->filename;
 
 		// Try to make the css file writeable
 		if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0755'))
 		{
 			// ToDo: Translate
-			//JError::raiseNotice('SOME_ERROR_CODE', 'Could not make the css file writable');
 			JFactory::getApplication()->enqueueMessage('Could not make the css file writable', 'error');
 		}
 
@@ -109,7 +112,6 @@ class InstallerModelEditCss extends InstallerModel
 		if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0555'))
 		{
 			// ToDo: Translate
-			//JError::raiseNotice('SOME_ERROR_CODE', 'Could not make the css file unwritable');
 			JFactory::getApplication()->enqueueMessage('Could not make the css file unwritable', 'error');
 		}
 

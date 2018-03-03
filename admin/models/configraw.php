@@ -24,12 +24,27 @@ jimport('joomla.application.component.helper');
 //class Rsgallery2ModelConfigRaw extends JModelAdmin  // JModelForm
 class Rsgallery2ModelConfigRaw extends JModelList
 {
+	/**
+	 * @param string $type
+	 * @param string $prefix
+	 * @param array  $config
+	 *
+	 * @return mixed
+	 *
+	 * @since 4.3.0
+	 */
 	public function getTable($type = 'Config', $prefix = 'Rsgallery2Table', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
 	}
 
-	// save raw ...
+	/**
+	 * save raw ...
+	 *
+	 * @return string
+	 *
+	 * @since 4.3.0
+    */
 	public function save()
 	{
 	    // ToDO: Move message to controller, return true or false

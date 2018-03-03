@@ -44,156 +44,155 @@ $ListDirn  = '';
 
 					<table class="table table-striped" id="commentsList">
 						<thead>
-						<tr>
+                            <tr>
 
-							<th width="1%" class="center">
-								<?php echo JHtml::_('grid.checkall'); ?>
-							</th>
+                                <th width="1%" class="center">
+                                    <?php echo JHtml::_('grid.checkall'); ?>
+                                </th>
 
-							<th width="1%" class="center">
-								`id`
-							</th>
-							<th width="1%" class="center">
-								`name`
-							</th>
-							<th width="1%" class="center">
-								`alias`
-							</th>
-							<th width="1%" class="center">
-								`descr`
-							</th>
-							<th width="1%" class="center">
-								`gallery_id`
-							</th>
-							<th width="1%" class="center">
-								`title`
-							</th>
-							<th width="1%" class="center">
-								`hits`
-							</th>
-							<th width="1%" class="center">
-								`date`
-							</th>
-							<th width="1%" class="center">
-								`rating`
-							</th>
-							<th width="1%" class="center">
-								`votes`
-							</th>
-							<th width="1%" class="center">
-								`comments`
-							</th>
-							<th width="1%" class="center">
-								`published`
-							</th>
-							<th width="1%" class="center">
-								`checked_out`
-							</th>
-							<th width="1%" class="center">
-								`checked_out_time`
-							</th>
-							<th width="1%" class="center">
-								`ordering`
-							</th>
-							<th width="1%" class="center">
-								`approved`
-							</th>
-							<th width="1%" class="center">
-								`userid`
-							</th>
-							<th width="1%" class="center">
-								`params`
-							</th>
-							<th width="1%" class="center">
-								`asset_id`
-							</th>
-						</tr>
+                                <th width="1%" class="center">
+                                    `id`
+                                </th>
+                                <th width="1%" class="center">
+                                    `name`
+                                </th>
+                                <th width="1%" class="center">
+                                    `alias`
+                                </th>
+                                <th width="1%" class="center">
+                                    `descr`
+                                </th>
+                                <th width="1%" class="center">
+                                    `gallery_id`
+                                </th>
+                                <th width="1%" class="center">
+                                    `title`
+                                </th>
+                                <th width="1%" class="center">
+                                    `hits`
+                                </th>
+                                <th width="1%" class="center">
+                                    `date`
+                                </th>
+                                <th width="1%" class="center">
+                                    `rating`
+                                </th>
+                                <th width="1%" class="center">
+                                    `votes`
+                                </th>
+                                <th width="1%" class="center">
+                                    `comments`
+                                </th>
+                                <th width="1%" class="center">
+                                    `published`
+                                </th>
+                                <th width="1%" class="center">
+                                    `checked_out`
+                                </th>
+                                <th width="1%" class="center">
+                                    `checked_out_time`
+                                </th>
+                                <th width="1%" class="center">
+                                    `ordering`
+                                </th>
+                                <th width="1%" class="center">
+                                    `approved`
+                                </th>
+                                <th width="1%" class="center">
+                                    `userid`
+                                </th>
+                                <th width="1%" class="center">
+                                    `params`
+                                </th>
+                                <th width="1%" class="center">
+                                    `asset_id`
+                                </th>
+                            </tr>
 						</thead>
-						<tbody>
 
-						<?php
+                        <tbody>
 
-						foreach ($this->items as $i => $item)
-						{
-//	                    echo json_encode($comment) . '<br>';
-							?>
+                            <?php
 
-							<tr>
+                            foreach ($this->items as $i => $item)
+                            {
+    //	                    echo json_encode($comment) . '<br>';
+                            ?>
 
-								<td class="center">
-									<?php echo JHtml::_('grid.id', $i, $item->id); ?>
-								</td>
+                                <tr>
 
-								<td width="1%" class="center">
-									<?php
-									$link = JRoute::_("index.php?option=com_rsgallery2&view=image&task=image.edit&id=" . $item->id);
-									echo '<a href="' . $link . '"">' . $item->id . '</a>';
-									?>
-								</td>
-								<td width="1%" class="center">
-									<?php
-									$link = JRoute::_("index.php?option=com_rsgallery2&view=image&task=image.edit&id=" . $item->id);
-									echo '<a href="' . $link . '"">' . $item->name . '</a>';
-									?>
-								</td>
-								<td width="1%" class="center">
-									<?php echo $item->alias; ?>
-								</td>
-								<td width="1%" class="center">
-									<?php echo $item->descr; ?>
-								</td>
-								<td width="1%" class="center">
-									<?php echo $item->gallery_id; ?>
-								</td>
-								<td width="1%" class="center">
-									<?php echo $item->title; ?>
-								</td>
-								<td width="1%" class="center">
-									<?php echo $item->hits; ?>
-								</td>
-								<td width="1%" class="center">
-									<?php echo $item->date; ?>
-								</td>
-								<td width="1%" class="center">
-									<?php echo $item->rating; ?>
-								</td>
-								<td width="1%" class="center">
-									<?php echo $item->votes; ?>
-								</td>
-								<td width="1%" class="center">
-									<?php echo $item->comments; ?>
-								</td>
-								<td width="1%" class="center">
-									<?php echo $item->published; ?>
-								</td>
-								<td width="1%" class="center">
-									<?php echo $item->checked_out; ?>
-								</td>
-								<td width="1%" class="center">
-									<?php echo $item->checked_out_time; ?>
-								</td>
-								<td width="1%" class="center">
-									<?php echo $item->ordering; ?>
-								</td>
-								<td width="1%" class="center">
-									<?php echo $item->approved; ?>
-								</td>
-								<td width="1%" class="center">
-									<?php echo $item->userid; ?>
-								</td>
-								<td width="1%" class="center">
-									<?php echo $item->params; ?>
-								</td>
-								<td width="1%" class="center">
-									<?php echo $item->asset_id; ?>
-								</td>
-							</tr>
+                                    <td class="center">
+                                        <?php echo JHtml::_('grid.id', $i, $item->id); ?>
+                                    </td>
 
-							<?php
-						}
-						?>
+                                    <td width="1%" class="center">
+                                        <?php
+                                        $link = JRoute::_("index.php?option=com_rsgallery2&view=image&task=image.edit&id=" . $item->id);
+                                        echo '<a href="' . $link . '"">' . $item->id . '</a>';
+                                        ?>
+                                    </td>
+                                    <td width="1%" class="center">
+                                        <?php
+                                        $link = JRoute::_("index.php?option=com_rsgallery2&view=image&task=image.edit&id=" . $item->id);
+                                        echo '<a href="' . $link . '"">' . $item->name . '</a>';
+                                        ?>
+                                    </td>
+                                    <td width="1%" class="center">
+                                        <?php echo $item->alias; ?>
+                                    </td>
+                                    <td width="1%" class="center">
+                                        <?php echo $item->descr; ?>
+                                    </td>
+                                    <td width="1%" class="center">
+                                        <?php echo $item->gallery_id; ?>
+                                    </td>
+                                    <td width="1%" class="center">
+                                        <?php echo $item->title; ?>
+                                    </td>
+                                    <td width="1%" class="center">
+                                        <?php echo $item->hits; ?>
+                                    </td>
+                                    <td width="1%" class="center">
+                                        <?php echo $item->date; ?>
+                                    </td>
+                                    <td width="1%" class="center">
+                                        <?php echo $item->rating; ?>
+                                    </td>
+                                    <td width="1%" class="center">
+                                        <?php echo $item->votes; ?>
+                                    </td>
+                                    <td width="1%" class="center">
+                                        <?php echo $item->comments; ?>
+                                    </td>
+                                    <td width="1%" class="center">
+                                        <?php echo $item->published; ?>
+                                    </td>
+                                    <td width="1%" class="center">
+                                        <?php echo $item->checked_out; ?>
+                                    </td>
+                                    <td width="1%" class="center">
+                                        <?php echo $item->checked_out_time; ?>
+                                    </td>
+                                    <td width="1%" class="center">
+                                        <?php echo $item->ordering; ?>
+                                    </td>
+                                    <td width="1%" class="center">
+                                        <?php echo $item->approved; ?>
+                                    </td>
+                                    <td width="1%" class="center">
+                                        <?php echo $item->userid; ?>
+                                    </td>
+                                    <td width="1%" class="center">
+                                        <?php echo $item->params; ?>
+                                    </td>
+                                    <td width="1%" class="center">
+                                        <?php echo $item->asset_id; ?>
+                                    </td>
+                                </tr>
 
-						</tr>
+                            <?php
+                            }
+                            ?>
 						</tbody>
 					</table>
 

@@ -20,6 +20,7 @@ class Rsgallery2TableAcl_item extends JTable
 	 * Constructor
 	 *
 	 * @param   JDatabaseDriver &$db A database connector object
+	 * @since 4.3.0
 	 */
 	function __construct(&$db)
 	{

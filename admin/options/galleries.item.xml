@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <mosparams type="component">
 	<params>
-		<!--        <param name="voting_view" type="list" default="0" label="Voting - View Results" description="Choose who can view the voting results.">
+		<!--        
+		<param name="voting_view" type="list" default="0" label="Voting - View Results" description="Choose who can view the voting results.">
 			<option value="global">Use Global</option>
 			<option value="anyone">Anyone</option>
 			<option value="registered">Registered</option>

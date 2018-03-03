@@ -1,3 +1,14 @@
+<?php
+/**
+ * @package     RSGallery2
+ * @subpackage  com_rsgallery2
+ * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @author      finnern
+ * RSGallery is Free Software
+ */
+?>
+
 <?php defined('_JEXEC') or die(); ?>
 
 <table width="100%" border="0" cellspacing="1" cellpadding="0" class="imageExif">

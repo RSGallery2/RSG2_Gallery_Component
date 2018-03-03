@@ -19,7 +19,10 @@ defined('_JEXEC') or die();
  */
 class rsg2_maintenance
 {
-
+	/**
+	
+	 * @since 4.3.0
+    */
 	function __construct()
 	{
 
@@ -31,7 +34,8 @@ class rsg2_maintenance
 	 * @param Int $gid Gallery ID
 	 *
 	 * @return bool True if size has changed, false if not.
-	 */
+	 * @since 4.3.0
+     */
 	static function thumbSizeChanged($gid)
 	{
 		global $rsgConfig;
@@ -61,7 +65,8 @@ class rsg2_maintenance
 	 * @param int $gid Gallery ID
 	 *
 	 * @return bool True if size has changed, false if not.
-	 */
+	 * @since 4.3.0
+     */
 	static function displaySizeChanged($gid)
 	{
 		global $rsgConfig;
@@ -94,7 +99,8 @@ class rsg2_consolidate extends rsg2_maintenance
 
 	/**
 	 *
-	 */
+	 * @since 4.3.0
+     */
 	static function consolidateDB()
 	{
 		global $rsgConfig;
@@ -118,7 +124,8 @@ class rsg2_consolidate extends rsg2_maintenance
 	 * @param string $dir Directory from Joomla root
 	 *
 	 * @return array Array with file names
-	 */
+	 * @since 4.3.0
+     */
 	static function getFilenameArray($dir)
 	{
 		global $rsgConfig;
@@ -166,7 +173,8 @@ class rsg2_consolidate extends rsg2_maintenance
 	 * @param array $array mixed case mixed or upper case values
 	 *
 	 * @return array lower case values
-	 */
+	 * @since 4.3.0
+     */
 	static function arrayToLower($array)
 	{
 		$array = explode("|", strtolower(implode("|", $array)));
@@ -175,4 +183,3 @@ class rsg2_consolidate extends rsg2_maintenance
 	}
 }
 
-?>

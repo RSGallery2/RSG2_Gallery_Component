@@ -20,10 +20,14 @@ defined('_JEXEC') or die();
  */
 class menu_rsg2_submenu
 {
-    /**
-     * @param string $rsgOption
-     * @param string $task
-     */
+	/**
+	 * @param string $rsgOption
+	 * @param string $task
+	 * @param string $view
+	 * @param string $layout
+	 *
+	 * @since 4.3.0
+	 */
     static function addRSG2Submenu($rsgOption = '', $task = '', $view = '', $layout = '')
     {
 

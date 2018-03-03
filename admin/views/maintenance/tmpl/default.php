@@ -104,10 +104,13 @@ function quickIconMoonBar($link, $imageClass, $title, $text = "", $addClass = ''
  * Used to generate buttons with two icomoon icon
  *
  * @param string $link       URL for button link
- * @param string $imageClass Image name for button image
+ * @param string $imageClass1 Image name for button image 1
+ * @param string $imageClass2 Image name for button image 2
  * @param string $title      Command title
  * @param string $text       Command explaining text
  * @param string $addClass
+ *
+ * @since 4.3.0
  */
 function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = "", $addClass = '')
 {

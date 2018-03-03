@@ -6,8 +6,10 @@
  * @license        GNU/GPL, see LICENSE.php
  */
 
+defined('_JEXEC') or die;
+
 // Import library dependencies
-require_once(dirname(__FILE__) . DS . 'extension.php');
+require_once(dirname(__FILE__) . '/extension.php');
 jimport('joomla.filesystem.folder');
 
 /**
@@ -30,6 +32,7 @@ class InstallerModelTemplates extends InstallerModel
 	 * Overridden constructor
 	 *
 	 * @access    protected
+	 * @since 4.3.0
 	 */
 	function __construct()
 	{
@@ -44,6 +47,7 @@ class InstallerModelTemplates extends InstallerModel
 
 	/**
 	 *
+	 * @since 4.3.0
 	 */
 	function _loadItems()
 	{
@@ -53,14 +57,14 @@ class InstallerModelTemplates extends InstallerModel
 
 		$clientInfo   = $rsgConfig->getClientInfo('site', true);
 		$client       = $clientInfo->name;
-		$templateDirs = JFolder::folders($clientInfo->path . DS . 'templates');
+		$templateDirs = JFolder::folders($clientInfo->path . '/templates');
 
 		for ($i = 0; $i < count($templateDirs); $i++)
 		{
 			$template          = new stdClass();
 			$template->folder  = $templateDirs[$i];
 			$template->client  = $clientInfo->id;
-			$template->baseDir = $clientInfo->path . DS . 'templates';
+			$template->baseDir = $clientInfo->path . '/templates';
 
 			if ($this->state->get('filter.string'))
 			{
@@ -83,14 +87,14 @@ class InstallerModelTemplates extends InstallerModel
 		// Check that the directory contains an xml file
 		foreach ($templates as $template)
 		{
-			$dirName       = $template->baseDir . DS . $template->folder;
+			$dirName       = $template->baseDir. '/' .$template->folder;
 			$xmlFilesInDir = JFolder::files($dirName, '.xml$');
 
 			foreach ($xmlFilesInDir as $xmlfile)
 			{
 //				JApplicationHelper::parseXMLInstallFile is deprecated in J3, need to use JInstaller::parseXMLInstallFile instead.			
-//				$data = JApplicationHelper::parseXMLInstallFile($dirName . DS. $xmlfile);
-				$data = JInstaller::parseXMLInstallFile($dirName . DS . $xmlfile);
+//				$data = JApplicationHelper::parseXMLInstallFile($dirName . '/' . $xmlfile);
+				$data = JInstaller::parseXMLInstallFile($dirName. '/' .$xmlfile);
 
 				$row            = new StdClass();
 				$row->id        = $rowid;

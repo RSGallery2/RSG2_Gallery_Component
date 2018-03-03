@@ -23,7 +23,8 @@ class audioUtils extends fileUtils
 {
 	/**
 	 * @return array
-	 */
+	 * @since 4.3.0
+     */
 	static function allowedFileTypes()
 	{
 		return array('mp3');
@@ -39,8 +40,8 @@ class audioUtils extends fileUtils
 	 * @param string $desc    description of image, if empty will remain empty
 	 *
 	 * @return bool|imageUploadError|string returns true if successfull otherwise returns an ImageUploadError
-	 */
-
+	 * @since 4.3.0
+     */
 	static function importImage($tmpName, $name, $cat, $title = '', $desc = '')
 	{
 		global $rsgConfig;
@@ -95,7 +96,8 @@ class audioUtils extends fileUtils
 	 * @param bool $local
 	 *
 	 * @return string|void
-	 */
+	 * @since 4.3.0
+     */
 	static function getAudio($name, $local = false)
 	{
 		global $rsgConfig;
@@ -119,19 +121,19 @@ class audioUtils extends fileUtils
 	 * @param $name string name of image
 	 *
 	 * @return true if success or notice and false if error
-	 */
-	function deleteAudio($name)
+	 * @since 4.3.0
+     */
+	static function deleteAudio($name)
 	{
 		global $rsgConfig;
 		$database = JFactory::getDBO();
 
-		$original = JPATH_ORIGINAL . DS . $name;
+		$original = JPATH_ORIGINAL . '/' . $name;
 
 		if (file_exists($original))
 		{
 			if (!unlink($original))
 			{
-				//JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE').": ".$original);
 				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_ORIGINAL_IMAGE') . ": " . $original, 'error');
 
 				return false;
@@ -145,7 +147,6 @@ class audioUtils extends fileUtils
 		$database->setQuery($query);
 		if (!$database->execute())
 		{
-			// JError::raiseNotice('ERROR_CODE', JText::_('COM_RSGALLERY2_ERROR_DELETING_DATABASE_ENTRY_FOR_IMAGE').": ".$name);
 			JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_ERROR_DELETING_DATABASE_ENTRY_FOR_IMAGE' . ": " . $name), 'error');
 
 			return false;
@@ -161,7 +162,8 @@ class audioUtils extends fileUtils
 	 * @param string $name
 	 *
 	 * @return mixed
-	 */
+	 * @since 4.3.0
+     */
 	static function getAudioName($name)
 	{
 		return $name;

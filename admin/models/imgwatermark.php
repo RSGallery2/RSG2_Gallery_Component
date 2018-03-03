@@ -53,7 +53,8 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 	 * imgWaterMark constructor.
 	 *
 	 * Collects the class attributes from RSGallery2 configuration
-	 */
+	 * @since 4.3.0
+     */
 	public function __construct()
     {
 	    global $rsgConfig;
@@ -213,12 +214,16 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 
 	/**
 	 *
-	 * regarrds user requested margind to border
-	 * @param $watermarkPosition
-	 * @param $watermarkHeight
-	 * @param $srcWidth
-	 * @param $watermarkWidth
-	 * @param $srcHeight
+	 * regards user requested margin to border
+	 * @param int $watermarkPosition
+	 * @param int $srcWidth
+	 * @param int $srcHeight
+	 * @param int $watermarkWidth
+	 * @param int $watermarkHeight
+	 * @param int $margin_top
+	 * @param int $margin_right
+	 * @param int $margin_bottom
+	 * @param int $margin_left
 	 *
 	 * @return array int[2] start of watermark x and y coordinates
 	 *
@@ -353,8 +358,8 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 	 *
 	 * @return bool
 	 *
-	 * @since version
-	 */
+	 * @since 4.3.0
+     */
 	public function createMarkedFromFileNames ($sourceFile='', $targetFile='')
 	{
 		//$isCreated = false;

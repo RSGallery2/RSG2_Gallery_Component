@@ -23,7 +23,8 @@ class html_rsg2_config
 	 * raw configuration editor, debug only
 	 *
 	 * @throws Exception
-	 */
+	 * @since 4.3.0
+     */
 	static function config_rawEdit()
 	{
 		global $rsgConfig;
@@ -62,7 +63,8 @@ class html_rsg2_config
 	 **/
 	/**
 	 * @param array $lists
-	 */
+	 * @since 4.3.0
+     */
 	static function showconfig(&$lists)
 	{
 		global $rsgConfig;
@@ -139,7 +141,7 @@ class html_rsg2_config
 		}
 
 		//Format values for slideshow dropdownbox
-		$folders = JFolder::folders(JPATH_RSGALLERY2_SITE . DS . '/templates');
+		$folders = JFolder::folders(JPATH_RSGALLERY2_SITE . '//templates');
 		foreach ($folders as $folder)
 		{
 			if (preg_match("/slideshow/i", $folder))
@@ -263,7 +265,8 @@ class html_rsg2_config
 		 * Routine checks if Freetype library is compiled with GD2
 		 *
 		 * @return boolean True or False
-		 */
+		 * @since 4.3.0
+     */
 		if (function_exists('gd_info'))
 		{
 			$gd_info  = gd_info();
@@ -443,7 +446,7 @@ class html_rsg2_config
 										<?php echo JText::_('COM_RSGALLERY2_FTP_PATH') ?>
 									</td>
 									<td>
-										<?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', JPATH_SITE . DS); ?>
+										<?php echo JText::sprintf('COM_RSGALLERY2_FTP_BASE_PATH', JPATH_SITE . '/'); ?>
 										<br />
 										<input class="text_area" type="text" name="ftp_path" size="50" style="width: 98%;" value="<?php echo $config->ftp_path ?>" /><br /><br />
 										<div style="color:#FF0000;font-weight:bold;font-size:smaller;margin-top: 0px;padding-top: 0px;">

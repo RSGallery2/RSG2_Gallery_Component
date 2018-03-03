@@ -244,6 +244,7 @@ class Rsgallery2ModelImages extends JModelList
 	 *
 	 * @return bool true if successful
 	 *
+	 * @throws Exception
 	 * @since 4.3.0
 	 */
 	public function resetHits()
@@ -326,8 +327,8 @@ class Rsgallery2ModelImages extends JModelList
 	 * @param string $id gallery id ? string or int ?
 	 *
 	 * @return string Name of found gallery or nothing
-	 */
-
+	 * @since 4.3.0
+     */
 	// ToDO: Rename as it may not be parent gallery name :-()
 	protected static function getParentGalleryName($id)
 	{

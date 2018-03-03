@@ -22,17 +22,13 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
     protected $text_prefix = 'COM_RSGallery2';
 
 	/**
-	 * @param $app
-	 * @param $rsgConfig
 	 * @param $uploadFileName
 	 * @param $galleryId
-	 * @param $msg
-	 * @param $ajaxImgObject
 	 *
 	 * @return array
 	 *
-	 * @since version
-	 */
+	 * @since 4.3.0
+     */
 	public function createOneImageInDb($uploadFileName, $galleryId)//: array
 	{
 		global $rsgConfig; //, $Rsg2DebugActive;
@@ -104,12 +100,10 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
      * @param $uploadPathFileName
      * @param $singleFileName
      * @param $galleryId
-     * @param $msg
-     * @param $rsgConfig
      *
      * @return array
      *
-     * @since version
+     * @since 4.3.0
      */
     public function MoveImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId)//: array
 	{
@@ -188,13 +182,11 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	 * @param $uploadPathFileName
 	 * @param $singleFileName
 	 * @param $galleryId
-	 * @param $msg
-	 * @param $rsgConfig
 	 *
 	 * @return array
 	 *
-	 * @since version
-	 */
+	 * @since 4.3.0
+     */
 	public function CopyImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId)//: array
 	{
 		global $rsgConfig, $Rsg2DebugActive;

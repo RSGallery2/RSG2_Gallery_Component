@@ -86,6 +86,10 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 	}
 
 	/**
+	
+	
+	 * @since 4.3.0
+     * 
 	function ConsolidateDatabase()
 	{
 		global $Rsg2DebugActive;
@@ -196,12 +200,12 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
      * recursive files search in starting folder
      *
      * @param $startDir Example: \administrator\language\
+	 * @return bool True on delete successful False otherwise
 	 *
 	 * @since 4.3
 	 */
 	function findAndDelete_1_5_LangFiles($startDir)
 	{
-
 		$IsDeleted = false;
 
 		if ($startDir != '')

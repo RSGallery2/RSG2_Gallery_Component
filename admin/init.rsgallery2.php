@@ -11,9 +11,9 @@
  */
 defined('_JEXEC') or die();
 
-if (!defined('DS')) {
-    define('DS', DIRECTORY_SEPARATOR);
-}
+//if (!defined('DS')) {
+//    define('DS', DIRECTORY_SEPARATOR);
+//}
 
 global $Rsg2DebugActive, $Rsg2DevelopActive;
 
@@ -64,12 +64,6 @@ if(empty($rsgConfig))
 // ToDo: <<
 
 //Set image paths for RSGallery2
-/**
- * define('JPATH_ORIGINAL', JPATH_ROOT . str_replace('/', DS, $rsgConfig->get('imgPath_original')));
- * define('JPATH_DISPLAY', JPATH_ROOT . str_replace('/', DS, $rsgConfig->get('imgPath_display')));
- * define('JPATH_THUMB', JPATH_ROOT . str_replace('/', DS, $rsgConfig->get('imgPath_thumb')));
- * define('JPATH_WATERMARKED', JPATH_ROOT . str_replace('/', DS, $rsgConfig->get('imgPath_watermarked')));
- * /**/
 define('JPATH_ORIGINAL', JPATH_ROOT . $rsgConfig->get('imgPath_original'));
 define('JPATH_DISPLAY', JPATH_ROOT . $rsgConfig->get('imgPath_display'));
 define('JPATH_THUMB', JPATH_ROOT . $rsgConfig->get('imgPath_thumb'));

@@ -14,11 +14,12 @@ defined('_JEXEC') or die();
 // ToDo: Move file to include folder (clean start directory)
 
 /**
- * The HTML_RSGALLERY class is used to encapsulate the HTML processing for RSGallery.
- *
- * @package RSGallery2
- * @todo    Move this class to a separate class file and add loose functions to it
- **/
+  * The HTML_RSGALLERY class is used to encapsulate the HTML processing for RSGallery.
+  *
+  * @package RSGallery2
+  * @todo    Move this class to a separate class file and add loose functions to it
+  * @since 4.3.0
+**/
 class HTML_RSGALLERY
 {
 /**
@@ -31,7 +32,8 @@ class HTML_RSGALLERY
  *
  * @param string $msg       message to print
  * @param bool   $important optionally display the message as important, possibly changing the text to red or bold, etc.  as a general rule, expected results should be normal, unexpected results should be marked important.
- */
+  * @since 4.3.0
+*/
 static function printAdminMsg($msg, $important = false)
 {
 	// replace newlines with html line breaks.
@@ -53,6 +55,7 @@ static function printAdminMsg($msg, $important = false)
  * @param string $link  URL for button link
  * @param string $image Image name for button image
  * @param string $text  Text to show in button
+ * @since 4.3.0
  */
 static function quickIconButton($link, $image, $text)
 {
@@ -77,6 +80,7 @@ static function quickIconButton($link, $image, $text)
  * @param string $link       URL for button link
  * @param string $imageClass Class name for icomoon image
  * @param string $text       Text to show in button
+ * @since 4.3.0
  */
 static function quickIconMoonButton($link, $imageClass, $text)
 {
@@ -105,6 +109,7 @@ static function quickIconMoonButton($link, $imageClass, $text)
  * @param string $link  URL for button link
  * @param string $image Image name for button image
  * @param string $text  Text to show in button
+ * @since 4.3.0
  */
 static function quickIconDebugButton($Id, $link, $image, $text)
 {
@@ -124,6 +129,7 @@ static function quickIconDebugButton($Id, $link, $image, $text)
 
 /**
  * Shows the RSGallery control panel in backend.
+ * @since 4.3.0
  */
 static function showCP()
 {
@@ -139,6 +145,7 @@ static function showCP()
  * @param string $message
  * @param string $title
  * @param string $url
+ * @since 4.3.0
  */
 function showInstallMessage($message, $title, $url)
 {
@@ -171,6 +178,7 @@ function showInstallMessage($message, $title, $url)
 /**
  * If there are no categories and a user has requested an action that
  * requires a category, this is the error message to display
+ * @since 4.3.0
  */
 static function requestCatCreation()
 {
@@ -218,7 +226,8 @@ static function requestCatCreation()
  *
  * @param string $type
  * @param string $text
- */
+  * @since 4.3.0
+*/
 static function RSGalleryHeader($type = '', $text = '')
 {
 	?>
@@ -233,6 +242,7 @@ static function RSGalleryHeader($type = '', $text = '')
 
 /**
  * Inserts the HTML placed at the bottom of all RSGallery Admin pages.
+ * @since 4.3.0
  */
 static function RSGalleryFooter()
 {
@@ -245,6 +255,7 @@ static function RSGalleryFooter()
 
 /**
  * Inserts the HTML placed at the bottom of all RSGallery Admin pages.
+ * @since 4.3.0
  */
 static function RSGallerySidebar()
 {
@@ -263,7 +274,8 @@ if (count(JHtmlSidebar::getEntries()) > 0) : ?>
 
 		/**
 		 *
-		 */
+		 * @since 4.3.0
+		*/
 		static function showUploadStep1()
 		{
 			?>
@@ -327,6 +339,7 @@ if (count(JHtmlSidebar::getEntries()) > 0) : ?>
 
 		/**
 		 * asks user to choose how many files to upload
+		 * @since 4.3.0
 		 */
 		static function showUploadStep2()
 		{
@@ -377,7 +390,8 @@ if (count(JHtmlSidebar::getEntries()) > 0) : ?>
 
 		/**
 		 * asks user to choose what files to upload
-		 */
+		 * @since 4.3.0
+		*/
 		static function showUploadStep3()
 		{
 			$input = JFactory::getApplication()->input;

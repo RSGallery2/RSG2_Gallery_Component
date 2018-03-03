@@ -55,10 +55,14 @@
 //Modification to original script - start
 //Access Joomla Session variables from this script by initiating the Joomla application
 define('_JEXEC', 1);
+
+// Done for JED CHECKER
+defined('_JEXEC') or die;
+
 define('JPATH_BASE', dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))));
-define('DS', DIRECTORY_SEPARATOR);
-require_once(JPATH_BASE . DS . 'includes' . DS . 'defines.php');
-require_once(JPATH_BASE . DS . 'includes' . DS . 'framework.php');
+//define('DS', DIRECTORY_SEPARATOR);
+require_once(JPATH_BASE . '/includes' . '/defines.php');
+require_once(JPATH_BASE . '/includes' . '/framework.php');
 
 $mainframe = JFactory::getApplication('site');
 $mainframe->initialise();
@@ -68,9 +72,9 @@ $session = JFactory::getSession();
 // initialize the rsg config file
 if (!defined('JPATH_RSGALLERY2_ADMIN'))
 {    //might also be defined in router.php is SEF is used
-	define('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT . DS . 'administrator' . DS . 'components' . DS . 'com_rsgallery2');
+	define('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT . '/administrator' . '/components' . '/com_rsgallery2');
 }
-require_once(JPATH_RSGALLERY2_ADMIN . DS . 'includes' . DS . 'config.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes' . '/config.class.php');
 $rsgConfig = new rsgConfig();
 //Modification to original script - end
 

@@ -12,6 +12,9 @@
  * details.
  */
 
+ defined('_JEXEC') or die;
+
+
 /**
  * RSGallery2 Template Manager Helper
  *
@@ -28,10 +31,11 @@ class InstallerHelper
 	 * @param string $folder
 	 *
 	 * @return string
+	 * @since 4.3.0
 	 */
 	static function writable($folder)
 	{
-		return is_writable(JPATH_ROOT . DS . $folder)
+		return is_writable(JPATH_ROOT. '/' .$folder)
 			? '<strong><span class="writable">' . JText::_('COM_RSGALLERY2_WRITABLE') . '</span></strong>'
 			: '<strong><span class="unwritable">' . JText::_('COM_RSGALLERY2_UNWRITABLE') . '</span></strong>';
 	}

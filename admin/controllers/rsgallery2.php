@@ -42,8 +42,8 @@ class Rsgallery2ControllerRsgallery2 extends JControllerForm
 	 * @param   array $config An optional associative array of configuration settings.
 	 *
 	 * @see     JController
-	 * @since
-	 */
+	  * @since 4.3.0
+    */
 	public function __construct($config = array())
 	{
 		parent::__construct($config);

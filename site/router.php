@@ -26,6 +26,9 @@
  * @throws Exception
  */
 
+defined('_JEXEC') or die;
+
+
 function Rsgallery2BuildRoute(&$query)
 {
 	//Get config values
