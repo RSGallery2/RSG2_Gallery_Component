@@ -430,9 +430,9 @@ class rsgDisplay extends JObject
 	 * shows the image
 	 *
 	 * @param string $name
-	 * @param string $descr
+	 * @param string $title  (!!! was $descr )
 	 */
-	function _showImageBox($name, $descr)
+	function _showImageBox($name, $title)
 	{
 		global $rsgConfig;
 
@@ -690,7 +690,7 @@ class rsgDisplay extends JObject
 	 */
 	function _showEXIF()
 	{
-		require_once(JPATH_ROOT . '/components/com_rsgallery2/lib/exifreader/exifReader.php");
+		require_once(JPATH_ROOT . '/components/com_rsgallery2/lib/exifreader/exifReader.php');
 		// $image = rsgInstance::getItem();
 		$gallery = rsgGalleryManager::get();
 		$image   = $gallery->getItem();;
@@ -709,11 +709,9 @@ class rsgDisplay extends JObject
 
 		if ($rsgConfig->get('displaySearch') != 0)
 		{
-			require_once(JPATH_ROOT . '/components/com_rsgallery2/lib/rsgsearch/search.html.php");
+			require_once(JPATH_ROOT . '/components/com_rsgallery2/lib/rsgsearch/search.html.php');
 			html_rsg2_search::showSearchBox();
 		}
 	}
 
 }
-
-?>
