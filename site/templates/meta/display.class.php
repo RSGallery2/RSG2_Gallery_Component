@@ -446,7 +446,7 @@ class rsgDisplay extends JObject
 		{
 			?>
 			<img class="rsg2-displayImage" src="<?php
-			//echo imgUtils::getImgDisplayPath($name);
+			// echo imgUtils::getImgDisplayPath($name);
 			echo imgUtils::getImgDisplay($name);
 			?>" alt="<?php echo $title; ?>" title="<?php echo $title; ?>" />
 			<?php
