@@ -81,7 +81,7 @@ function quickiconBar($link, $image, $title, $text = "", $addClass = '')
  * @param string $title      Command title
  * @param string $text       Command explaining text
  * @param string $addClass
- */
+ *
 function quickIconMoonBar($link, $imageClass, $title, $text = "", $addClass = '')
 {
 	?>
@@ -111,23 +111,60 @@ function quickIconMoonBar($link, $imageClass, $title, $text = "", $addClass = ''
  * @param string $addClass
  *
  * @since 4.3.0
- */
+ *
 function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = "", $addClass = '')
 {
 	?>
-	<div class="rsg2-icon-bar">
-		<a href="<?php echo $link; ?>" class="<?php echo $addClass; ?>">
-			<figure class="rsg2-icon">
-				<span class="<?php echo $imageClass1 ?> iconMoon01" style="font-size:30px;"></span>
-				<span class="<?php echo $imageClass2 ?> iconMoon02" style="font-size:30px;"></span>
-				<figcaption class="rsg2-text">
-					<span class="maint-title"><?php echo $title; ?></span>
-					<!--br-->
-					<span class="maint-text"><?php echo $text; ?></span>
-				</figcaption>
-			</figure>
-		</a>
-	</div>
+    <div class="rsg2-icon-bar">
+        <a href="<?php echo $link; ?>" class="<?php echo $addClass; ?>">
+            <figure class="rsg2-icon">
+                <span class="<?php echo $imageClass1 ?> iconMoon01" style="font-size:30px;"></span>
+                <span class="<?php echo $imageClass2 ?> iconMoon02" style="font-size:30px;"></span>
+                <figcaption class="rsg2-text">
+                    <span class="maint-title"><?php echo $title; ?></span>
+                    <!--br-->
+                    <span class="maint-text"><?php echo $text; ?></span>
+                </figcaption>
+            </figure>
+        </a>
+    </div>
+	<?php
+}
+
+/**
+ * Used to generate buttons with multiple icomoon icons
+ *
+ * @param string $link       URL for button link
+ * @param string $imageClass1 Image name for button image 1
+ * @param string $imageClass2 Image name for button image 2
+ * @param string $title      Command title
+ * @param string $text       Command explaining text
+ * @param string $addClass
+ *
+ * @since 4.3.0
+ */
+function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addClass = '')
+{
+	?>
+    <div class="rsg2-icon-bar">
+        <a href="<?php echo $link; ?>" class="<?php echo $addClass; ?>">
+            <figure class="rsg2-icon">
+                <?php
+                foreach ($imageClasses as $Idx => $imageClass )
+                {
+	            ?>
+                    <span class="<?php echo $imageClass ?> iconMoon0<?php echo $Idx+1?>" style="font-size:30px;"></span>
+	            <?php
+                }
+	            ?>
+                <figcaption class="rsg2-text">
+                    <span class="maint-title"><?php echo $title; ?></span>
+                    <!--br-->
+                    <span class="maint-text"><?php echo $text; ?></span>
+                </figcaption>
+            </figure>
+        </a>
+    </div>
 	<?php
 }
 
@@ -157,15 +194,15 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 									</h3>
 								</div>
 
-								<div class='icons-panel-info'>
-									<strong>
+			                                <div class='icons-panel-info'>
+                                    <strong>
 										<?php echo JText::_('COM_RSGALLERY2_RSGALLERY2_ZONE_DESC'); ?>
-									</strong>
-								</div>
+                                    </strong>
+                                </div>
 
 								<?php
 								$link = 'index.php?option=com_rsgallery2&amp;view=comments';
-								quickTwoIconMoonBar($link, 'icon-comment', 'icon-list-2',
+								quickIconsBar($link, array('icon-comment', 'icon-list-2'),
 									JText::_('COM_RSGALLERY2_COMMENTS_LIST'),
 									JText::_('COM_RSGALLERY2_COMMENTS_TXT'),
 									'consolidateDB');
@@ -175,7 +212,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 								<?php
 								$link = 'index.php?option=com_rsgallery2&rsgOption=installer';
 
-								quickIconMoonBar($link, 'icon-scissors clsTemplate',
+								quickIconsBar($link, array('icon-scissors clsTemplate'),
 									JText::_('COM_RSGALLERY2_TEMPLATE_MANAGER'),
 									JText::_('COM_RSGALLERY2_TEMPLATE_EXPLANATION'),
 									'templateManager');
@@ -204,7 +241,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 
 									<?php
 									$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawView';
-									quickTwoIconMoonBar($link, 'icon-equalizer', 'icon-eye',
+									quickIconsBar($link, array('icon-equalizer', 'icon-eye'),
 										JText::_('COM_RSGALLERY2_CONFIGURATION_VARIABLES'),
 										JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT') . '                        ',
 										'viewConfigRaw');
@@ -213,7 +250,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 									<?php
 									//$link = 'index.php?option=com_rsgallery2&amp;view=images';
 									$link = 'index.php?option=com_rsgallery2&amp;view=images&amp;layout=images_raw';
-									quickTwoIconMoonBar($link, 'icon-image', 'icon-list-2',
+									quickIconsBar($link, array('icon-image', 'icon-list-2'),
 										JText::_('COM_RSGALLERY2_IMAGES_LIST'),
 										JText::_('COM_RSGALLERY2_RAW_IMAGES_TXT'),
 										'consolidateDB');
@@ -221,7 +258,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 
 									<?php
 									$link = 'index.php?option=com_rsgallery2&amp;view=galleries&amp;layout=galleries_raw';
-									quickTwoIconMoonBar($link, 'icon-images', 'icon-list-2',
+									quickIconsBar($link, array('icon-images', 'icon-list-2'),
 										JText::_('COM_RSGALLERY2_GALLERIES_LIST'),
 										JText::_('COM_RSGALLERY2_RAW_GALLERIES_TXT'),
 										'consolidateDB');
@@ -229,7 +266,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 
 									<?php
 									$link = 'index.php?option=com_rsgallery2&amp;view=comments&amp;layout=comments_raw';
-									quickTwoIconMoonBar($link, 'icon-comment', 'icon-list-2',
+									quickIconsBar($link, array('icon-comment', 'icon-list-2'),
 										JText::_('COM_RSGALLERY2_COMMENTS_LIST'),
 										JText::_('COM_RSGALLERY2_RAW_COMMENTS_TXT'),
 										'consolidateDB');
@@ -238,7 +275,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 									<?php
 									/**
 					            $link = 'index.php?option=com_rsgallery2&amp;view=acl_items&amp;layout=acls_raw';
-					            quickTwoIconMoonBar ($link, 'icon-eye-close', 'icon-list-2',
+					            quickIconsBar ($link, array('icon-eye-close', 'icon-list-2',
 						            JText::_('COM_RSGALLERY2_ACLS_LIST'),
 						            JText::_('COM_RSGALLERY2_RAW_ACLS_TXT'),
 						            'consolidateDB');
@@ -346,13 +383,30 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 
 								<?php
 								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawEdit';
-								quickTwoIconMoonBar($link, 'icon-equalizer', 'icon-edit',
+								quickIconsBar($link, array('icon-equalizer', 'icon-edit'),
 									JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'),
 									JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'),
 									'editConfigRaw');
 								?>
 
 								<?php
+								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawViewOld';
+								quickIconsBar($link, array('icon-equalizer', 'icon-eye', 'icon-eye-close'),
+									JText::_('COM_RSGALLERY2_CONFIGURATION_VARIABLES'),
+									JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT') . '                        ',
+									'viewConfigRaw');
+								?>
+
+								<?php
+								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawEditOld';
+								quickIconsBar($link, array('icon-equalizer', 'icon-edit', 'icon-eye-close'),
+									JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'),
+									JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'),
+									'editConfigRaw');
+								?>
+
+
+                                <?php
 								if ($this->UserIsRoot)
 								{
 									?>
@@ -360,7 +414,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 									<?php
 									// $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
 									$link = 'index.php?option=com_rsgallery2&amp;view=maintConsolidateDB';
-									quickTwoIconMoonBar($link, 'icon-database', 'icon-checkbox-checked',
+									quickIconsBar($link, array('icon-database', 'icon-checkbox-checked'),
 										JText::_('COM_RSGALLERY2_MAINT_CONSOLIDATE_IMAGE_DATABASE'),
 										JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT'),
 										'consolidateDB');
@@ -368,7 +422,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 
 									<?php
 									$link = 'index.php?option=com_rsgallery2&amp;view=maintUploadLeftOverImages';
-									quickTwoIconMoonBar($link, 'icon-image', 'icon-upload',
+									quickIconsBar($link, array('icon-image', 'icon-upload'),
 										JText::_('COM_RSGALLERY2_MAINT_UPLOAD_LEFT_OVER_IMAGES'),
 										JText::_('COM_RSGALLERY2_MAINT_UPLOAD_LEFT_OVER_IMAGES_DESC') . '                        ',
 										'uploadLeftOverImages');
@@ -376,7 +430,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 
 									<?php
 									$link = 'index.php?option=com_rsgallery2&amp;view=maintRegenerateImages';
-									quickTwoIconMoonBar($link, 'icon-image', 'icon-wand',
+									quickIconsBar($link, array('icon-image', 'icon-wand'),
 										JText::_('COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY'),
 										JText::_('COM_RSGALLERY2_MAINT_REGEN_TXT') . '                        ',
 										'regenerateThumbs');
@@ -384,7 +438,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 
 									<?php
 									$link = 'index.php?option=com_rsgallery2&amp;task=maintSql.optimizeDB';
-									quickTwoIconMoonBar($link, 'icon-database', 'icon-clock', // 'icon-checkbox-checked'
+									quickIconsBar($link, array('icon-database', 'icon-clock'), // 'icon-checkbox-checked'
 										JText::_('COM_RSGALLERY2_MAINT_OPTDB'),
 										JText::_('COM_RSGALLERY2_MAINT_OPTDB_TXT'),
 										'optimizeDB');
@@ -419,7 +473,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 									<?php
 									$link = 'index.php?option=com_rsgallery2&amp;task=MaintCleanUp.purgeImagesAndData';
 									//$link = 'index.php?option=com_rsgallery2&task=purgeEverything';
-									quickTwoIconMoonBar($link, 'icon-database ', 'icon-purge',
+									quickIconsBar($link, array('icon-database ', 'icon-purge'),
 										JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING'),
 										JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING_TXT'),
 										'purgeImagesAndData');
@@ -427,7 +481,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 									<?php
 									$link = 'index.php?option=com_rsgallery2&amp;task=MaintCleanUp.removeImagesAndData';
 									//$link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
-									quickTwoIconMoonBar($link, 'icon-database ', 'icon-delete',
+									quickIconsBar($link, array('icon-database ', 'icon-delete'),
 										JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL'),
 										'<del>' . JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL_TXT') . '</del><br>'
 										. JText::_('COM_RSGALLERY2_C_TODO_UNINSTALL_TXT'),
@@ -473,7 +527,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 
 									<?php
 									$link = 'index.php?option=com_rsgallery2&amp;view=maintDatabase';
-									quickTwoIconMoonBar($link, 'icon-database', 'icon-book',
+									quickIconsBar($link, array('icon-database', 'icon-book'),
 										JText::_('JLIB_FORM_VALUE_SESSION_DATABASE'),
 										JText::_('COM_RSGALLERY2_DATABASE_REPAIR_DESC'),
 										'compareDb2SqlFile');
@@ -481,7 +535,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 
 									<?php
 									$link = 'index.php?option=com_rsgallery2&amp;task=maintSql.createGalleryAccessField';
-									quickTwoIconMoonBar($link, 'icon-database', 'icon-wrench',
+									quickIconsBar($link, array('icon-database', 'icon-wrench'),
 										JText::_('COM_RSGALLERY2_CREATE_GALLERY_ACCESS_FIELD'),
 										JText::_('COM_RSGALLERY2_CREATE_GALLERY_ACCESS_FIELD_DESCRIPTION'),
 										'createGalleryAccessField');
@@ -489,7 +543,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 
 									<?php
 									$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.delete_1_5_LangFiles';
-									quickTwoIconMoonBar($link, 'icon-delete', 'icon-flag',
+									quickIconsBar($link, array('icon-delete', 'icon-flag'),
 										JText::_('COM_RSGALLERY2_DELETE_1_5_LANG_FILES'),
 										JText::_('COM_RSGALLERY2_DELETE_1_5_LANG_FILES_DESC'),
 										'consolidateDB');
@@ -524,7 +578,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 
 									<?php
 									$link = 'index.php?option=com_rsgallery2&amp;view=comments';
-									quickTwoIconMoonBar($link, 'icon-comment', 'icon-list-2',
+									quickIconsBar($link, array('icon-comment', 'icon-list-2'),
 										JText::_('COM_RSGALLERY2_COMMENTS_LIST'),
 										JText::_('COM_RSGALLERY2_COMMENTS_TXT'),
 										'consolidateDB');
@@ -532,7 +586,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 
 									<?php
 									$link = 'index.php?option=com_rsgallery2&amp;view=acl_items';
-									quickTwoIconMoonBar($link, 'icon-eye-close', 'icon-list-2',
+									quickIconsBar($link, array('icon-eye-close', 'icon-list-2'),
 										JText::_('COM_RSGALLERY2_ACLS_LIST'),
 										JText::_('List of ACL: niot ready'),
 										'consolidateDB');
@@ -572,7 +626,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 
 									<?php
 									$link = 'index.php?option=com_rsgallery2&amp;view=maintRemoveLogFiles';
-									quickTwoIconMoonBar($link, 'icon-file-check', 'icon-file-remove',
+									quickIconsBar($link, array('icon-file-check', 'icon-file-remove'),
 										JText::_('COM_RSGALLERY2_REMOVE_LOG_FILES'),
 										JText::_('COM_RSGALLERY2_REMOVE_LOG_FILES_TXT'),
 										'consolidateDB');
@@ -580,7 +634,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 
 									<?php
 									$link = 'index.php?option=com_rsgallery2&amp;view=maintRemoveInstallLeftovers';
-									quickTwoIconMoonBar($link, 'icon-upload', 'icon-file-remove',
+									quickIconsBar($link, array('icon-upload', 'icon-file-remove'),
 										JText::_('COM_RSGALLERY2_REMOVE_INSTALLATION_LEFTOVERS'),
 										JText::_('COM_RSGALLERY2_REMOVE_INSTALLATION_LEFTOVERS_TXT'),
 										'consolidateDB');
@@ -589,7 +643,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
                                     <?php
                                     // ToDO: ? Move to comments ?
                                     $link = 'index.php?option=com_rsgallery2&amp;task=maintSql.updateCommentsVoting';
-                                    quickTwoIconMoonBar($link, 'icon-comment', 'icon-wand',
+                                    quickIconsBar($link, array('icon-comment', 'icon-wand'),
                                         JText::_('COM_RSGALLERY2_UPDATE_COMMENTS_AND_VOTING'),
                                         JText::_('COM_RSGALLERY2_UPDATE_COMMENTS_AND_VOTING_TXT'),
                                         'consolidateDB');
@@ -597,7 +651,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 
                                     <?php
                                     $link = 'index.php?option=com_rsgallery2&amp;view=develop&amp;layout=InitUpgradeMessage';
-                                    quickTwoIconMoonBar($link, 'icon-eye-open', 'icon-expand',
+                                    quickIconsBar($link, array('icon-eye-open', 'icon-expand'),
                                         JText::_('Test Install/Update message'),
                                         JText::_('Check the output result of the install finish and upgrade finish result view part'),
                                         'consolidateDB');
@@ -605,7 +659,7 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 
                                     <?php
                                     $link = 'index.php?option=com_rsgallery2&amp;view=develop&amp;layout=DebugGalleryOrder';
-                                    quickTwoIconMoonBar($link, 'icon-expand-2', 'icon-contract-2',
+                                    quickIconsBar($link, array('icon-expand-2', 'icon-contract-2'),
                                         JText::_('COM_RSGALLERY2_DEBUG_GALLERY_ORDER'),
                                         JText::_('COM_RSGALLERY2_DEBUG_GALLERY_ORDER_DESC'),
                                         'consolidateDB');

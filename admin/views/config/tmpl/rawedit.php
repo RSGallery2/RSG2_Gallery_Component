@@ -16,7 +16,7 @@ JHtml::_('bootstrap.tooltip');
 global $Rsg2DebugActive;
 
 global $rsgConfig;
-$this->configVars = $rsgConfig;
+//$this->configVars = $rsgConfig;
 
 /* Sort config variables */
 $configVars = array();
@@ -35,34 +35,64 @@ ksort($configVars);
 	 */
 function configInputField($name = 'unknown', $value = '')
 {
-	?>
+    try
+    {
+	    if (! is_string ($name))
+	    {
+		    $name = 'configInputField: Name is not a string';
+	    }
 
-	<div class="control-group">
-		<div class="control-label">
-			<label id="jform_<?php echo $name ?>-lbl" class="jform_control-label"
-					for="jform_<?php echo $name ?>"><?php echo $name ?>:</label>
-		</div>
-		<div class="controls">
-			<input id="jform_<?php echo $name ?>" class="input-xxlarge input_box" type="text"
-					value="<?php echo $value ?>" size="70" name="jform[<?php echo $name ?>] aria-invalid=" false">
-		</div>
-	</div>
+	    if (! is_string ($value))
+	    {
+	        if (gettype($value) == 'array')
+            {
+	            $value = implode (',' , $value);
+            }
+            else
+            {
+	            $value = 'Value type is ' . gettype($value) . ' and not a string';
+            }
+	    }
 
-	<?php
-	/*
-	<div class="control-group">
-		<label class="control-label" for="<?php echo $name?>"><?php echo $name?>:</label>
-		<div class="controls">
-			<input id="<?php echo $name?>" class="input-xxlarge input_box" type="text"
-				value="<?php echo $value?>" size="70" name="<?php echo $name?>">
-		</div>
-	</div>
+	    ?>
 
-	<td>version</td>
-	<td>
-		<input type="text" value="4.1.0" name="version">
-	</td>
-	*/
+        <div class="control-group">
+            <div class="control-label">
+                <label id="jform_<?php echo $name ?>-lbl" class="jform_control-label"
+                       for="jform_<?php echo $name ?>"><?php echo $name ?>:</label>
+            </div>
+            <div class="controls">
+                <input id="jform_<?php echo $name ?>" class="input-xxlarge input_box" type="text"
+                       value="<?php echo $value ?>" size="70" name="jform[<?php echo $name ?>] aria-invalid=" false">
+            </div>
+        </div>
+
+	    <?php
+	    /*
+		<div class="control-group">
+			<label class="control-label" for="<?php echo $name?>"><?php echo $name?>:</label>
+			<div class="controls">
+				<input id="<?php echo $name?>" class="input-xxlarge input_box" type="text"
+					value="<?php echo $value?>" size="70" name="<?php echo $name?>">
+			</div>
+		</div>
+
+		<td>version</td>
+		<td>
+			<input type="text" value="4.1.0" name="version">
+		</td>
+		*/
+    }
+    catch (RuntimeException $e)
+    {
+	    $OutTxt = '';
+	    $OutTxt .= 'Error rawEdit view: "' . 'configInputField' . '"<br>';
+	    $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+	    $app = JFactory::getApplication();
+	    $app->enqueueMessage($OutTxt, 'error');
+    }
+
 }
 
 ?>
@@ -80,17 +110,33 @@ function configInputField($name = 'unknown', $value = '')
 			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=config&amp;layout=RawEdit'); ?>"
 					method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">
 
+                <legend><?php echo JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'); ?></legend>
+                <div><strong><?php echo JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'); ?></strong><br></div>
+
 				<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'ConfigRawView')); ?>
 
 				<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'ConfigRawView', JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT', true)); ?>
 
-				<legend><?php echo JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'); ?></legend>
 				<?php
-				/**/
-				foreach ($configVars as $name => $value)
+				try
 				{
-					configInputField($name, $value);
+
+					/**/
+					foreach ($configVars as $name => $value)
+					{
+						configInputField($name, $value);
+					}
 				}
+                catch (RuntimeException $e)
+                {
+                    $OutTxt = '';
+                    $OutTxt .= 'Error rawEdit view: "' . 'configInputField' . '"<br>';
+                    $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+                    $app = JFactory::getApplication();
+                    $app->enqueueMessage($OutTxt, 'error');
+                }
+
 				?>
 
 				<?php echo JHtml::_('bootstrap.endTab'); ?>

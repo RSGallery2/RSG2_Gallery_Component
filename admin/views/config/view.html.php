@@ -53,7 +53,7 @@ class Rsgallery2ViewConfig extends JViewLegacy
 	*/
 	public function display($tpl = null)
 	{
-		global $Rsg2DevelopActive;
+		global $Rsg2DevelopActive, $rsgConfig;
 
 		// on develop show open tasks if existing
 		if (!empty ($Rsg2DevelopActive))
@@ -69,8 +69,40 @@ class Rsgallery2ViewConfig extends JViewLegacy
 		$this->form = $this->get('Form');
 //		$this->item = $this->get('Item');
 
-        $rsgVersion = new rsgalleryVersion();
-        $this->rsgVersion = $rsgVersion->getLongVersion();
+		$rsgVersion       = new rsgalleryVersion();
+		$this->rsgVersion = $rsgVersion->getLongVersion();
+
+
+		$Layout = JFactory::getApplication()->input->get('layout');
+
+		// get config from different sources
+
+		$this->configVars = array ();
+
+		try
+		{
+			// Not Old sql config table
+			$FoundIdx = strpos(strtolower($Layout), 'old');
+			if (empty($FoundIdx))
+			{
+				$this->configVars = JComponentHelper::getParams('com_rsgallery2');
+			}
+			else
+			{
+				// Sql param ...
+				//$this->configVars =  new rsgConfig();
+				$this->configVars = $rsgConfig;
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error collecting config Data for: "' . $Layout . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
 
 //		global $rsgConfig;
 //		$this->rsgConfigData = $rsgConfig;
@@ -98,7 +130,6 @@ class Rsgallery2ViewConfig extends JViewLegacy
 		// $this->form = $form;
 
 		// different toolbar on different layouts
-		$Layout = JFactory::getApplication()->input->get('layout');
 		$this->addToolbar($Layout);
 
         $View = JFactory::getApplication()->input->get('view');
@@ -144,6 +175,25 @@ class Rsgallery2ViewConfig extends JViewLegacy
 				JToolBarHelper::apply('config.apply_rawEdit');
 				JToolBarHelper::save('config.save_rawEdit');
 				JToolBarHelper::cancel('config.cancel_rawEdit');
+				JToolbarHelper::custom('config.copy_rawEditFromOld', 'next', 'next', 'Copy old to new configuration data', false);
+				JToolbarHelper::custom('config.save_rawEditAndCopy', 'previous', 'previous', 'Save and copy to old configuration data', false);
+				JToolbarHelper::custom('config.save_rawEdit2Text', 'file-2', 'file-2', 'Save to Text file', false);
+				JToolbarHelper::custom('config.write_rawEdit2Text', 'file', 'file', 'Write to Text file', false);
+				break;
+			case 'RawViewOld':
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
+					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW') . ' Old', 'screwdriver');
+				JToolBarHelper::cancel('config.cancel_rawViewOld');
+				break;
+			case 'RawEditOld':
+				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
+					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT') . ' Old', 'screwdriver');
+				JToolBarHelper::apply('config.apply_rawEditOld');
+				JToolBarHelper::save('config.save_rawEditOld');
+				JToolBarHelper::cancel('config.cancel_rawEdit');
+				JToolbarHelper::custom('config.save_rawEditOldAndCopy', 'previous', 'previous', 'Save (old) and copy to new configuration data', false);
+				JToolbarHelper::custom('config.save_rawEditOld2Text', 'file-2', 'file-2', 'Save to Text file', false);
+				JToolbarHelper::custom('config.write_rawEditOld2Text', 'file', 'file', 'Write to Text file', false);
 				break;
 			// case 'default':
 			default:

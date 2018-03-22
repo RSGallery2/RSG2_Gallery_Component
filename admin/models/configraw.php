@@ -33,10 +33,12 @@ class Rsgallery2ModelConfigRaw extends JModelList
 	 *
 	 * @since 4.3.0
 	 */
+	/**
 	public function getTable($type = 'Config', $prefix = 'Rsgallery2Table', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
 	}
+	/**/
 
 	/**
 	 * save raw ...
@@ -47,17 +49,43 @@ class Rsgallery2ModelConfigRaw extends JModelList
     */
 	public function save()
 	{
-	    // ToDO: Move message to controller, return true or false
-
-		$msg = "Rsgallery2ModelConfigRaw: ";
+		// $msg = "Rsgallery2ModelConfigRaw: ";
+		$isSaved = false;
 
 		$input = JFactory::getApplication()->input;
 		//$jform = $input->get( 'jform', array(), 'ARRAY');
 		$data = $input->post->get('jform', array(), 'array');
 
-        // ToDo: Remove bad injected code
+		// ToDo: Remove bad injected code
 
-		$row = $this->getTable();
+		// ToDo: Try ...
+
+		//$row = $this->getTable();
+		$Rsg2Id = JComponentHelper::getComponent('com_rsgallery2')->id;
+		$table  = JTable::getInstance('extension');
+		$table->load($Rsg2Id);
+		//$table->bind(array('params' => $data->toString()));
+		$table->bind(array('params' => $data));
+
+		// check for error
+		if (!$table->check())
+		{
+			JFactory::getApplication()->enqueueMessage(JText::_('ConfigRaw: Check for save failed ') . $table->getError(), 'error');
+		}
+		else
+		{
+			// Save to database
+			if ($table->store())
+			{
+				$isSaved = false;
+			}
+			else
+			{
+				JFactory::getApplication()->enqueueMessage(JText::_('ConfigRaw: Store for save failed ') . $table->getError(), 'error');
+			}
+		}
+
+		/**
 		foreach ($data as $key => $value)
 		{
             // fill an array, bind and check and store ?
@@ -69,7 +97,174 @@ class Rsgallery2ModelConfigRaw extends JModelList
 			$row->check();
 			$row->store();
 		}
+		/**/
 
-		return $msg;
+		return $isSaved;
 	}
+
+
+	/**
+	 *  ...
+	 *
+	 * @return string
+	 *
+	 * @since 4.3.0
+	 */
+	public function copyOld2New()
+	{
+		$isCopied = false;
+
+		try
+		{
+			// ToDo: Read From DB
+
+			$db = JFactory::getDbo();
+			$query = $db->getQuery(true);
+
+			//$query->select('*')
+			$query->select($db->quoteName(array('name', 'value')))
+				->from($db->quoteName('#__rsgallery2_config'));
+
+            $db->setQuery($query);
+	        if ($db->execute())
+	        {
+		        //$OldParameters = $db->loadAssocList();
+		        //$OldParameters = $db->loadAssocList();
+		        //$OldParameters = $db->loadResult();
+		        $OldParameters = $db->loadAssocList('name', 'value');
+	        if (empty ($OldParameters))
+		        {
+			        JFactory::getApplication()->enqueueMessage(
+				        'Config: copyOld2New failed. Old Parameters not found', 'error');
+		        }
+		        else
+		        {
+			        /**
+			         * foreach ($vars as $v) {
+			         * if ($v['name'] != "") {
+			         * // $this->$v['name'] = $v['value'];
+			         * $k = $v['name'];
+			         * $this->$k = $v['value'];
+			         * }
+			         * }
+			         * /**/
+
+			        //$type = 'Config', $prefix = 'Rsgallery2Table', $config = array()
+			        //
+			        //JTable::getInstance($type, $prefix, $config);
+
+
+			        //$OldParameters = new rsgConfig(); // JComponentHelper::getParams('com_rsgallery2');
+
+			        /**
+			         * foreach ($OldParameters as $name => $value)
+			         * {
+			         * configInputField($name, $value);
+			         * }
+			         * /**/
+
+			        // ToDo: Try ...
+
+			        //$row = $this->getTable();
+			        $Rsg2Id = JComponentHelper::getComponent('com_rsgallery2')->id;
+			        $table  = JTable::getInstance('extension');
+			        $table->load($Rsg2Id);
+			        //$table->bind(array('params' => $data->toString()));
+			        $table->bind(array('params' => $OldParameters));
+
+			        // check for error
+			        if (!$table->check())
+			        {
+				        JFactory::getApplication()->enqueueMessage(JText::_('ConfigRaw: Check for save failed ') . $table->getError(), 'error');
+			        }
+			        else
+			        {
+				        // Save to database
+				        if ($table->store())
+				        {
+					        $isSaved = true;
+				        }
+				        else
+				        {
+					        JFactory::getApplication()->enqueueMessage(JText::_('ConfigRaw: Store for save failed ') . $table->getError(), 'error');
+				        }
+			        }
+		        }
+	        }
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing copyOld2New: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $isCopied;
+	}
+
+	/**
+	 *  ...
+	 *
+	 * @return string
+	 *
+	 * @since 4.3.0
+	 */
+	public function copyNew2Old()
+	{
+		$isCopied = false;
+
+		$ConfigParameter = JComponentHelper::getParams('com_rsgallery2');
+
+
+		return $isCopied;
+	}
+
+	/**
+	 *  ...
+	 *
+	 * @return string
+	 *
+	 * @since 4.3.0
+	 */
+	public function createConfigTextFile()
+	{
+		$isSaved = false;
+
+		$ConfigParameter = JComponentHelper::getParams('com_rsgallery2');
+		$ConfigParameter = $ConfigParameter->toArray();
+		ksort($ConfigParameter);
+
+		echo '<br>Config: '	. json_encode($ConfigParameter) . '<br>' . '<br>';
+
+		try
+		{
+			$fileName = JPATH_ADMINISTRATOR . '/logs/RSGallery2_Configuration.txt';
+			$cfgFile = fopen($fileName, "w") or die("Unable to open file!");
+			$txt = "RSGallery2 Configuration\n";
+			fwrite($cfgFile, $txt);
+			fwrite($cfgFile, json_encode($ConfigParameter, JSON_PRETTY_PRINT));
+			fclose($cfgFile);
+
+			$isSaved = true;
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing save createConfigTextFile: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $isSaved;
+	}
+
+
+
+
+
 }

@@ -8,7 +8,7 @@
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  */
-defined('_JEXEC') or die();
++defined('_JEXEC') or die();
 
 global $Rsg2DebugActive, $Rsg2DevelopActive, $rsgConfig;
 
@@ -54,6 +54,15 @@ if ($Rsg2DebugActive) {
     JLog::add('Start rsgallery2.php in admin: debug active in RSGallery2'); //, JLog::DEBUG);
 }
 
+//--- Config tests -----------------------------------------------------------
+/**
+if ($Rsg2DevelopActive)
+{
+	$ConfigParameter = JComponentHelper::getParams('com_rsgallery2');
+
+	echo '<br>Config: '	. json_encode($ConfigParameter) . '<br>' . '<br>';
+}
+/**/
 
 global $opt, $catid, $uploadStep, $numberOfUploads, $e_id, $view;
 

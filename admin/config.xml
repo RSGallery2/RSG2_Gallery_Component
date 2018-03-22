@@ -19,6 +19,1334 @@
 				addfieldpath="/administrator/components/com_rsgallery2/models/fields"
 				size="4"
 		/>
+	</fieldset>
+	<fieldset name="General"
+	          label="COM_RSGALLERY2_GENERAL"
+	          description="COM_RSGALLERY2_GENERAL_SETTINGS"
+	>
+		<field name="intro_text"
+		       type="editor"
+		       label="COM_RSGALLERY2_INTRODUCTION_TEXT"
+		       description="COM_RSGALLERY2_INTRODUCTION_DESC"
+		       filter="JComponentHelper::filterText"
+		       buttons="false"
+		/>
+		<field
+				id="debug"
+				name="debug"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DEBUG"
+				description="COM_RSGALLERY2_DEBUG_ACTIVATED_INFO"
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+				id="develop"
+				name="develop"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DEVELOP"
+				description="COM_RSGALLERY2_DEVELOP_DESC"
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id="advancedSef"
+				name="advancedSef"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_ADVANCED_SEF"
+				description="COM_RSGALLERY2_ADVANCED_SEF_DESC"
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+	</fieldset>
+
+	<fieldset name="Images_settings"
+			  label="COM_RSGALLERY2_IMAGE_SETTINGS"
+			  description="COM_RSGALLERY2_IMAGE_SETTINGS_DESC"
+	>
+		<field 
+			type="spacer" 
+			name="spacerImageSettings" 
+			class="text"
+			label="COM_RSGALLERY2_IMAGE_MANIPULATION"
+		/>
+
+		<field
+				name="image_width"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_PICTURE_WIDTH"
+				description="COM_RSGALLERY2_DISPLAY_PICTURE_WIDTH_DESC"
+				class="">
+		</field>
+		<field
+				name="thumb_width"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_THUMBNAIL_WIDTH"
+				description="COM_RSGALLERY2_THUMBNAIL_WIDTH_DESC"
+				class="">
+		</field>
+		<field
+				name="thumb_style"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_THUMBNAIL_STYLE"
+				description="COM_RSGALLERY2_THUMBNAIL_STYLE_DESC"
+				class=""
+		>
+			<option value="0">COM_RSGALLERY2_PROPORTIONAL</option>
+			<option value="1">COM_RSGALLERY2_SQUARE</option>
+		</field>
+		<field
+				name="jpegQuality"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_JPEG_QUALITY_PERCENTAGE"
+				description="COM_RSGALLERY2_JPEG_QUALITY_PERCENTAGE_DESC"
+				class="">
+		</field>
+		<field
+				name="allowedFileTypes"
+				type="text"
+				default="jpg,jpeg,gif,png"
+				label="COM_RSGALLERY2_ALLOWED_FILETYPES"
+				description  = "COM_RSGALLERY2_ALLOWED_FILETYPES_DESC"
+				readonly="true"
+				class="readonly"
+		>
+		</field>
+
+		<field
+			name="spacerImageUpload1"
+			type="spacer"
+			hr="true"
+		/>
+		<field 
+			type="spacer" 
+			name="spacerImageUpload" 
+			class="font-weight-bold"
+			label="COM_RSGALLERY2_IMAGE_UPLOAD"
+		/>
+		<field
+				name="ftp_path"
+				type="text"
+				default=""
+				label="COM_RSGALLERY2_FTP_PATH"
+				description="COM_RSGALLERY2_FTP_PATH_DESC"
+				class="input-large-text input-xxlarge"
+		>
+		</field>
+		<field
+				name="useIPTCinformation"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_RSG2_USE_IPTC"
+				description="COM_RSGALLERY2_RSG2_IPTC_TOOLTIP"
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+				name="uploadState"
+				type="list"
+				class="chzn-color-state"
+				default="1"
+				size="1"
+				label="COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP_TITLE"
+				description="COM_RSGALLERY2_DEFAULT_UPLOAD_STATE_TOOLTIP">
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+			<option value="2">JARCHIVED</option>
+			<option value="-2">JTRASHED</option>
+		</field>
+		<field
+				name="isUseOneGalleryNameForAllImages"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_PRESELECT_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
+				description="COM_RSGALLERY2_PRESELECT_ONE_GALLERY_FOR_ALL_IMAGES_PRESELECT"
+				class="btn-group btn-group-yesno">
+			<option value="-1">JDEFAULT</option>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+				name="isPreSelectLatestGallery"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_LABEL"
+				description="COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_DESC"
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+			name="spacerGraficsLibrary1"
+			type="spacer"
+			hr="true"
+		/>
+		<field 
+			type="spacer" 
+			name="spacerGraficsLibrary" 
+			class="font-weight-bold"
+			label="COM_RSGALLERY2_IMAGES_GRAFICS_LIBRARIES"
+		/>
+
+		<field
+				name="graphicsLib"
+				type="GraficLibrarySelectList"
+				default="0"
+				label="COM_RSGALLERY2_GRAPHICS_LIBRARY"
+				description=""
+				class=""
+		>
+		</field>
+		<field
+				name="imageMagick_path"
+				type="text"
+				default=""
+				label="COM_RSGALLERY2_IMAGEMAGICK_PATH"
+				description="COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_LABEL"
+				class="input-large-text input-xxlarge"
+		>
+		</field>
+		<field
+				name="netpbm_path"
+				type="text"
+				default=""
+				label="COM_RSGALLERY2_NETPBM_PATH"
+				description=""
+				class="input-large-text input-xxlarge"
+		>
+		</field>
+		<field
+				name="videoConverter_path"
+				type="text"
+				default=""
+				label="COM_RSGALLERY2_VIDEO_CONVERTER_PATH"
+				description="COM_RSGALLERY2_PAREN_EXAMPLE"
+				class="input-large-text input-xxlarge"
+		>
+		</field>
+		<field
+				name="videoConverter_param"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_VIDEO_CONVERTER_PARAMETERS"
+				description=""
+				class="btn-group btn-group-yesno">
+		</field>
+		<field
+				name="videoConverter_thumbParam"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_THUMBNAIL_EXTRACTION_PARAMETERS"
+				description=""
+				class="btn-group btn-group-yesno">
+		</field>
+		<field
+				name="videoConverter_extension"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_VIDEO_OUTPUT_TYPE"
+				description=""
+				class="btn-group btn-group-yesno">
+		</field>
+
+		<field
+			name="spacerImageStorage1"
+			type="spacer"
+			hr="true"
+		/>
+		<field 
+			type="spacer" 
+			name="spacerImageStorage" 
+			class="font-weight-bold"
+			label="COM_RSGALLERY2_IMAGES_STORAGE"
+		/>
+		<field
+				name="keepOriginalImage"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_KEEP_ORIGINAL_IMAGE"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+				name="imgPath_original"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_ORIGINAL_IMAGE_PATH"
+				description=""
+				class="input-large-text input-xxlarge"
+		>
+		</field>
+		<field
+				name="imgPath_display"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_IMAGE_PATH"
+				description=""
+				class="input-large-text input-xxlarge"
+		>
+		</field>
+		<field
+				name="imgPath_thumb"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_THUMB_PATH"
+				description=""
+				class="input-large-text input-xxlarge"
+		>
+		</field>
+
+
+		<field
+			name="spacerImagesComment1"
+			type="spacer" 
+			hr="true"
+		/>
+		<field 
+			type="spacer" 
+			name="spacerImagesComment" 
+			class="font-weight-bold"
+			label="COM_RSGALLERY2_IMAGES_COMMENTS"
+		/>
+
+		<field
+				name="comment_security"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_USE_CAPTCHA_COMMENT_FORM"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+				name="captcha_type"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_TYPE"
+				description=""
+				class=""
+		>
+			<option value="0">COM_RSGALLERY2_CAPTCHA_ALFANUMERIC</option>
+			<option value="1">COM_RSGALLERY2_CAPTCHA_MATH</option>
+		</field>
+		<field
+				name="captcha_image_height"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_IMAGE_HEIGHT"
+				description=""
+				class="">
+		</field>
+		<field
+				name="captcha_perturbation"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_PERTURBATION"
+				description=""
+				class="">
+		</field>
+		<field
+				name="captcha_num_lines"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_NUM_LINES"
+				description=""
+				class="">
+		</field>
+		<field
+				name="captcha_image_bg_color"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_IMAGE_BG_COLOR"
+				description=""
+				class="">
+		</field>
+		<field
+				name="captcha_text_color"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_TEXT_COLOR"
+				description=""
+				class="">
+		</field>
+		<field
+				name="captcha_line_color"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_LINE_COLOR"
+				description=""
+				class="">
+		</field>
+		<field
+				name="captcha_case_sensitive"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_CASE_SENSITIVE"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				name="captcha_charset"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_CHARSET"
+				description=""
+				class="">
+		</field>
+		<field
+				name="captcha_code_length"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_CAPTCHA_CODE_LENGTH"
+				description=""
+				class="">
+		</field>
+
+
+		<field
+			name="spacerImageVoting1"
+			type="spacer" 
+			hr="true"
+		/>
+		<field 
+			type="spacer" 
+			name="spacerImageVoting" 
+			class="font-weight-bold"
+			label="COM_RSGALLERY2_IMAGES_VOTING"
+		/>
+
+		<field
+				name="voting_once"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_USER_CAN_ONLY_VOTE_ONCE_COOKIE_BASED"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+				name="cookie_prefix"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_COOKIE_PREFIX"
+				description=""
+				class="">
+		</field>
+	</fieldset>
+
+	<fieldset name="display_settings"
+			  label="COM_RSGALLERY2_DISPLAY_SETTINGS"
+			  description="COM_RSGALLERY2_DISPLAY_SETTINGS_DESC"
+	>
+
+		<field
+			name="spacerDisplayFrontPage1"
+			type="spacer"
+			hr="true"
+		/>
+		<field 
+			type="spacer" 
+			name="spacerDisplayFrontPage" 
+			class="font-weight-bold"
+			label="COM_RSGALLERY2_DISPLAY_FRONT_PAGE"
+		/>
+
+		<field
+				id="displaySearch"
+				name="displaySearch"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_SEARCH"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id="displayRandom"
+				name="displayRandom"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_RANDOM"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id="displayLatest"
+				name="displayLatest"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_LATEST"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id="displayBranding"
+				name="displayBranding"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_BRANDING"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id="displayDownload"
+				name="displayDownload"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_DOWNLOADLINK"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id="displayStatus"
+				name="displayStatus"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_STATUS_ICONS"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id="dispLimitbox"
+				name="dispLimitbox"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_GALLERY_LIMITBOX"
+				description=""
+				class="">
+			<option value="2">COM_RSGALLERY2_ALWAYS</option>
+			<option value="1">COM_RSGALLERY2_IF_MORE_GALLERIES_THAN_LIMIT</option>
+			<option value="0">COM_RSGALLERY2_NEVER</option>
+		</field>
+
+		<field
+				id="galcountNrs"
+				name="galcountNrs"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_DEFAULT_NUMBER_OF_GALLERIES_ON_FRONTPAGE"
+				description=""
+				class="">
+			<option value="5">5</option>
+			<option value="10">10</option>
+			<option value="15">15</option>
+			<option value="20">20</option>
+			<option value="25">25</option>
+			<option value="30">30</option>
+			<option value="50">50</option>
+		</field>
+
+		<field
+				id="displaySlideshow"
+				name="displaySlideshow"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_SLIDESHOW"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id="current_slideshow"
+				name="current_slideshow"
+				type="SlideshowSelectList"
+				label="COM_RSGALLERY2_SELECT_SLIDESHOW"
+				description=""
+				class="">
+		</field>
+
+		<field
+				id="showGalleryOwner"
+				name="showGalleryOwner"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_OWNER_INFORMATION"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id="showGallerySize"
+				name="showGallerySize"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_NUMBER_OF_ITEMS_IN_GALLERY"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id="includeKids"
+				name="includeKids"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_NUMBER_OF_ITEMS_IN_GALLERY_INCLUDE_KIDS"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id="showGalleryDate"
+				name="showGalleryDate"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_CREATION_DATE"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+			name="spacerDisplayImage1"
+			type="spacer"
+			hr="true"
+		/>
+		<field 
+			type="spacer" 
+			name="spacerDisplayIMAGE" 
+			class="font-weight-bold"
+			label="COM_RSGALLERY2_DISPLAY_IMAGE"
+		/>
+
+		<field
+				id="displaySlideshowImageDisplay"
+				name="displaySlideshowImageDisplay"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_SLIDESHOW_IMAGE_DISPLAY"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id="displayPopup"
+				name="displayPopup"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_POPUP_STYLE"
+				description=""
+				class="">
+			<option value="0">COM_RSGALLERY2_NO_POPUP</option>
+			<option value="1">COM_RSGALLERY2_NORMAL_POPUP</option>
+			<option value="2">COM_RSGALLERY2_JOOMLA_MODAL</option>
+		</field>
+
+		<field
+				id="displayDesc"
+				name="displayDesc"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_DESCRIPTION"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id="displayHits"
+				name="displayHits"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_HITS"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id="displayVoting"
+				name="displayVoting"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_VOTING"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+				id="displayComments"
+				name="displayComments"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_COMMENTS"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+			name="spacerDisplayImageOrder1"
+			type="spacer"
+			hr="true"
+		/>
+		<field 
+			type="spacer" 
+			name="spacerDisplayImageOrder" 
+			class="font-weight-bold"
+			label="COM_RSGALLERY2_DISPLAY_IMAGE"
+		/>
+
+		<field
+				id="filter_order"
+				name="filter_order"
+				type="list"
+				default="ordering"
+				label="COM_RSGALLERY2_ORDER_IMAGES_BY"
+				description=""
+				class="">
+			<option value="ordering">COM_RSGALLERY2_DEFAULT</option>
+			<option value="date">COM_RSGALLERY2_DATE</option>
+			<option value="name">COM_RSGALLERY2_NAME</option>
+			<option value="rating">COM_RSGALLERY2_RATING</option>
+			<option value="hits">COM_RSGALLERY2_HITS</option>
+		</field>
+		<field
+				id="filter_order_Dir"
+				name="filter_order_Dir"
+				type="list"
+				default="ASC"
+				label="COM_RSGALLERY2_ORDER_DIRECTION"
+				description=""
+				class="">
+			<option value="ASC">COM_RSGALLERY2_ASCENDING</option>
+			<option value="DESC">COM_RSGALLERY2_DESCENDING</option>
+		</field>
+
+		<field
+			name="spacerDisplayImageOrder1"
+			type="spacer"
+			hr="true"
+		/>
+		<field 
+			type="spacer" 
+			name="spacerDisplayImageOrder" 
+			class="font-weight-bold"
+			label="COM_RSGALLERY2_DISPLAY_IMAGE_ORDER"
+		/>
+
+		<field
+				id="filter_order"
+				name="filter_order"
+				type="list"
+				default="ordering"
+				label="COM_RSGALLERY2_ORDER_IMAGES_BY"
+				description=""
+				class="">
+			<option value="ordering">COM_RSGALLERY2_DEFAULT</option>
+			<option value="date">COM_RSGALLERY2_DATE</option>
+			<option value="name">COM_RSGALLERY2_NAME</option>
+			<option value="rating">COM_RSGALLERY2_RATING</option>
+			<option value="hits">COM_RSGALLERY2_HITS</option>
+		</field>
+		<field
+				id="filter_order_Dir"
+				name="filter_order_Dir"
+				type="list"
+				default="ASC"
+				label="COM_RSGALLERY2_ORDER_DIRECTION"
+				description=""
+				class="">
+			<option value="ASC">COM_RSGALLERY2_ASCENDING</option>
+			<option value="DESC">COM_RSGALLERY2_DESCENDING</option>
+		</field>
+
+		<field
+			name="spacerDisplayExifSettings1"
+			type="spacer"
+			hr="true"
+		/>
+		<field 
+			type="spacer" 
+			name="spacerDisplayExifSettings" 
+			class="font-weight-bold"
+			label="COM_RSGALLERY2_DISPLAY_EXIF_SETTINGS"
+		/>
+
+		<field
+				id="displayEXIF"
+				name="displayEXIF"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_EXIF_DATA"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+
+		<field
+				id="exifTags"
+				name="exifTags"
+				type="list"
+				label="COM_RSGALLERY2_SELECT_EXIF_TAGS_TO_DISPLAY"
+				description=""
+				class="inputbox"
+				size="5"
+				multiple="true"
+		>
+			<option value="resolutionUnit">Resolution unit</option>
+			<option value="resolutionUnit">Resolution unit</option>
+			<option value="FileName">Filename</option>
+			<option value="FileSize">Filesize</option>
+			<option value="FileDateTime">File Date</option>
+			<option value="FlashUsed">Flash used</option>
+			<option value="imageDesc">Image description</option>
+			<option value="make">Camera make</option>
+			<option value="model">Camera model</option>
+			<option value="xResolution">X Resolution</option>
+			<option value="yResolution">Y Resolution</option>
+			<option value="software">Software used</option>
+			<option value="fileModifiedDate">File modified date</option>
+			<option value="YCbCrPositioning">YCbCrPositioning</option>
+			<option value="exposureTime">Exposure time</option>
+			<option value="fnumber">f-Number</option>
+			<option value="exposure">Exposure</option>
+			<option value="isoEquiv">ISO equivalent</option>
+			<option value="exifVersion">EXIF version</option>
+			<option value="DateTime">Date &amp; time</option>
+			<option value="dateTimeDigitized">Original date</option>
+			<option value="componentConfig">Component config</option>
+			<option value="jpegQuality">Jpeg quality</option>
+			<option value="exposureBias">Exposure bias</option>
+			<option value="aperture">Aperture</option>
+			<option value="meteringMode">Metering Mode</option>
+			<option value="whiteBalance">White balance</option>
+			<option value="flashUsed">Flash used</option>
+			<option value="focalLength">Focal lenght</option>
+			<option value="makerNote">Maker note</option>
+			<option value="subSectionTime">Subsection time</option>
+			<option value="flashpixVersion">Flashpix version</option>
+			<option value="colorSpace">Color Space</option>
+			<option value="Width">Width</option>
+			<option value="Height">Height</option>
+			<option value="GPSLatitudeRef">GPS Latitude reference</option>
+			<option value="Thumbnail">Thumbnail</option>
+			<option value="ThumbnailSize">Thumbnail size</option>
+			<option value="sourceType">Source type</option>
+			<option value="sceneType">Scene type</option>
+			<option value="compressScheme">Compress scheme</option>
+			<option value="IsColor">Color or B&amp;W</option>
+			<option value="Process">Process</option>
+			<option value="resolution">Resolution</option>
+			<option value="color">Color</option>
+			<option value="jpegProcess">Jpeg process</option>
+		</field>
+
+		<field
+			name="spacerDisplayGalleryView1"
+			type="spacer"
+			hr="true"
+		/>
+		<field 
+			type="spacer" 
+			name="spacerDisplayGalleryView" 
+			class="font-weight-bold"
+			label="COM_RSGALLERY2_DISPLAY_GALLERY_VIEW"
+		/>
+
+		<field
+				id="display_thumbs_style"
+				name="display_thumbs_style"
+				type="list"
+				default="table"
+				label="COM_RSGALLERY2_THUMBNAIL_STYLE_USE_FLOAT_FOR_VARIABLE_WIDTH_TEMPLATES"
+				description=""
+				class="">
+			<option value="table">COM_RSGALLERY2_TABLE</option>
+			<option value="float">COM_RSGALLERY2_FLOAT</option>
+			<option value="magic">COM_RSGALLERY2_MAGIC_NOT_SUPPORTED_YET</option>
+		</field>
+		<field
+				id="display_thumbs_floatDirection"
+				name="display_thumbs_floatDirection"
+				type="list"
+				default="left"
+				label="COM_RSGALLERY2_DIRECTION_ONLY_WORKS_FOR_FLOAT"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="left">COM_RSGALLERY2_LEFT_TO_RIGHT</option>
+			<option value="right">COM_RSGALLERY2_RIGHT_TO_LEFT</option>
+		</field>
+		<field
+				id="display_thumbs_colsPerPage"
+				name="display_thumbs_colsPerPage"
+				type="integer"
+				default="9"
+				label="COM_RSGALLERY2_NUMBER_OF_THUMBNAIL_COLUMNS_ONLY_FOR_TABLE"
+				description=""
+				class=""
+				first="1"
+				last="19"
+				step="1">
+		</field>
+		<field
+				id="display_thumbs_maxPerPage"
+				name="display_thumbs_maxPerPage"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_THUMBNAILS_PER_PAGE"
+				description=""
+				class="">
+		</field>
+		<field
+				id="display_thumbs_showImgName"
+				name="display_thumbs_showImgName"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_SHOW_IMAGE_NAME_BELOW_THUMBNAIL"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+				id="display_navigation_bar_mode"
+				name="display_navigation_bar_mode"
+				type="list"
+				default="1"
+				label="COM_RSGALLERY2_NAVIGATION_BAR_DISPLAY"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">COM_RSGALLERY2_BOTH</option>
+			<option value="2">COM_RSGALLERY2_TOP</option>
+			<option value="3">COM_RSGALLERY2_BOTTOM</option>
+			<option value="0">COM_RSGALLERY2_NONE</option>
+		</field>
+		<field
+				id="displaySlideshowGalleryView"
+				name="displaySlideshowGalleryView"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_SLIDESHOW_GALLERY_VIEW"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+			name="spacerDisplayImageWatermark1"
+			type="spacer"
+			hr="true"
+		/>
+		<field 
+			type="spacer" 
+			name="spacerDisplayImageWatermark" 
+			class="font-weight-bold"
+			label="COM_RSGALLERY2_DISPLAY_IMAGE_WATERMARK"
+		/>
+
+		<field
+				id="watermark"
+				name="watermark"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_WATERMARK"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+				id="watermark_type"
+				name="watermark_type"
+				type="list"
+				default="text"
+				label="COM_RSGALLERY2_WATERMARK_TYPE"
+				description="COM_RSGALLERY2_WATERMARK_TYPE_DESC"
+				class="">
+			<option value="text">COM_RSGALLERY2_WATERMARK_TYPE_TEXT</option>
+			<option value="image">COM_RSGALLERY2_WATERMARK_TYPE_IMAGE</option>
+		</field>
+		<field
+				id="watermark_text"
+				name="watermark_text"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_WATERMARK_TEXT"
+				description=""
+				class="">
+		</field>
+		<field
+				id="watermark_font"
+				name="watermark_font"
+				type="AdminFontsSelectList"
+				default="0"
+				label="COM_RSGALLERY2_FONT"
+				description=""
+				class="">
+		</field>
+		<field
+				id="watermark_font_size"
+				name="watermark_font_size"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_WATERMARK_FONT_SIZE"
+				description=""
+				class="">
+			<option value="9">9</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+			<option value="14">14</option>
+			<option value="17">17</option>
+			<option value="20">20</option>
+			<option value="25">25</option>
+			<option value="30">30</option>
+			<option value="36">36</option>
+			<option value="48">48</option>
+			<option value="60">60</option>
+			<option value="72">72</option>
+			<option value="84">84</option>
+			<option value="96">96</option>
+			<option value="120">120</option>
+			<option value="144">144</option>
+			<option value="168">168</option>
+			<option value="192">192</option>
+			<option value="216">216</option>
+			<option value="240">240</option>
+			<option value="264">264</option>
+			<option value="480">480</option>
+		</field>
+		<field
+				id="watermark_angle"
+				name="watermark_angle"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_WATERMARK_TEXT_ANGLE"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="0">0</option>
+			<option value="45">45</option>
+			<option value="90">90</option>
+			<option value="135">135</option>
+			<option value="180">180</option>
+		</field>
+		<field
+                id="watermark_image"
+                name="watermark_image"
+                type="media"
+                default="0"
+                label="COM_RSGALLERY2_WATERMARK_IMAGE"
+                description="COM_RSGALLERY2_WATERMARK_IMAGE_DESC"
+                preview="tooltip"
+                class="input-xxlarge">
+		</field>
+		<field
+                id="watermark_image_scale"
+                name="watermark_image_scale"
+                type="text"
+                default="1.00"
+                label="COM_RSGALLERY2_WATERMARK_IMAGE_SCALE"
+                description="COM_RSGALLERY2_WATERMARK_IMAGE_SCALE_DESC"
+                preview="tooltip"
+                class="">
+		</field>
+		<field
+				id="watermark_position"
+				name="watermark_position"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_WATERMARK_POSITION"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">COM_RSGALLERY2_TOP_LEFT</option>
+			<option value="2">COM_RSGALLERY2_TOP_CENTER</option>
+			<option value="3">COM_RSGALLERY2_TOP_RIGHT</option>
+			<option value="4">COM_RSGALLERY2_LEFT</option>
+			<option value="5">COM_RSGALLERY2_CENTER</option>
+			<option value="6">COM_RSGALLERY2_RIGHT</option>
+			<option value="7">COM_RSGALLERY2_BOTTOM_LEFT</option>
+			<option value="8">COM_RSGALLERY2_BOTTOM_CENTER</option>
+			<option value="9">COM_RSGALLERY2_BOTTOM_RIGHT</option>
+		</field>
+
+		<field
+                id="watermark_margin_top"
+                name="watermark_margin_top"
+                type="text"
+                default="20"
+                label="COM_RSGALLERY2_WATERMARK_MARGIN_TOP"
+                description="COM_RSGALLERY2_WATERMARK_MARGIN_DESC"
+                class="">
+		</field>
+		<field
+                id="watermark_margin_right"
+                name="watermark_margin_right"
+                type="text"
+                default="20"
+                label="COM_RSGALLERY2_WATERMARK_MARGIN_RIGHT"
+                description="COM_RSGALLERY2_WATERMARK_MARGIN_DESC"
+                class="">
+		</field>
+		<field
+                id="watermark_margin_bottom"
+                name="watermark_margin_bottom"
+                type="text"
+                default="20"
+                label="COM_RSGALLERY2_WATERMARK_MARGIN_BOTTOM"
+                description="COM_RSGALLERY2_WATERMARK_MARGIN_DESC"
+                class="">
+		</field>
+		<field
+                id="watermark_margin_left"
+                name="watermark_margin_left"
+                type="text"
+                default="20"
+                label="COM_RSGALLERY2_WATERMARK_MARGIN_LEFT"
+                description="COM_RSGALLERY2_WATERMARK_MARGIN_DESC"
+                class="">
+		</field>
+
+
+		<field
+				id="watermark_transparency"
+				name="watermark_transparency"
+				type="list"
+				default="0"
+				label="COM_RSGALLERY2_WATERMARK_TRANSPARENCY"
+				description="COM_RSGALLERY2_WATERMARK_TRANSPARENCY_0_100_DESC"
+				class="btn-group btn-group-yesno">
+			<option value="0">0</option>
+			<option value="10">10</option>
+			<option value="20">20</option>
+			<option value="30">30</option>
+			<option value="40">40</option>
+			<option value="50">50</option>
+			<option value="60">60</option>
+			<option value="70">70</option>
+			<option value="80">80</option>
+			<option value="90">90</option>
+			<option value="100">100</option>
+		</field>
+		<field
+				id="imgPath_watermarked"
+				name="imgPath_watermarked"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_WATERMARKED_IMAGE_PATH"
+				description=""
+				class="input-large-text input-xxlarge"
+		>
+		</field>
+
+	</fieldset>
+
+	<fieldset name="Mygalleries_setting"
+			  label="COM_RSGALLERY2_MYGALLERIES_SETTINGS"
+			  description="COM_RSGALLERY2_MYGALLERIES_SETTINGS_DESC"
+	>
+		<field
+			name="spacerMayGallerySettings1"
+			type="spacer"
+			hr="true"
+		/>
+		<field 
+			type="spacer" 
+			name="spacerMayGallerySettings" 
+			class="font-weight-bold"
+			label="COM_RSGALLERY2_MY_GALLERY_SETTINGS"
+		/>
+
+		<field
+				id="show_mygalleries"
+				name="show_mygalleries"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_SHOW_MY_GALLERIES"
+				description="COM_RSGALLERY2_SHOW_MY_GALLERIES_TOOLTIP"
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+				id="show_mygalleries_onlyOwnItems"
+				name="show_mygalleries_onlyOwnItems"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_SHOW_ONLY_OWN_ITEMS_IN_MY_GALLERIES"
+				description="COM_RSGALLERY2_SHOW_ONLY_OWN_ITEMS_IN_MY_GALLERIES_TOOLTIP"
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+				id="show_mygalleries_onlyOwnGalleries"
+				name="show_mygalleries_onlyOwnGalleries"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_SHOW_ONLY_OWN_GALLERIES_IN_MY_GALLERIES"
+				description="COM_RSGALLERY2_SHOW_ONLY_OWN_GALLERIES_IN_MY_GALLERIES_TOOLTIP"
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+			name="spacerMayGalleryUpload1"
+			type="spacer"
+			hr="true"
+		/>
+		<field 
+			type="spacer" 
+			name="spacerMayGalleryUpload" 
+			class="font-weight-bold"
+			label="COM_RSGALLERY2_MY_GALLERY_UPLOAD"
+		/>
+
+		<field
+				name="uu_maxCat"
+				type="text"
+				label="COM_RSGALLERY2_MAXIMUM_NUMBER_OF_GALLERIES_A_USER_CAN_HAVE"
+				description=""
+				filter="string"
+				size="20"
+		/>
+		<field
+				name="uu_maxImages"
+				type="text"
+				label="COM_RSGALLERY2_MAX_NUMBERS_OF_PICTURES_A_USER_CAN_HAVE"
+				description=""
+				filter="string"
+				size="20"
+		/>
+
+	</fieldset>
+
+
+	<fieldset name="rsg2_internals"
+			  label="COM_RSGALLERY2_INTERNAL_SETTINGS"
+			  description="COM_RSGALLERY2_INTERNAL_SETTINGS_DESC"
+	>
+		<field
+			name="spacerInternalSettings1"
+			type="spacer"
+			hr="true"
+		/>
+		<field 
+			type="spacer" 
+			name="spacerInternalSettings" 
+			class="font-weight-bold"
+			label="COM_RSGALLERY2_INTERNAL_PREPARED_SETTINGS"
+		/>
+
+		<!-- "template": "semantic", -->
+		<field
+				name="template"
+				type="list"
+				default="semantic"
+				label="ToDo: Select template"
+				description="ToDo: More options"
+
+				showon="develop:1"
+				
+				class="">
+				<option value="semantic">COM_RSGALLERY2_SEMANTIC</option>
+		</field>
+		
+		<field
+			name="spacerInternalLastUsedSettings1"
+			type="spacer"
+			hr="true"
+		/>
+		<field 
+			type="spacer" 
+			name="spacerInternalLastUsedSettings" 
+			class="font-weight-bold"
+			label="COM_RSGALLERY2_INTERNAL_LAST_USED_SETTINGS"
+		/>
+
+		<!-- "last_update_type": "upload_drag_and_drop", -->
+		<field
+				name="last_update_type"
+				type="text"
+				default="upload_drag_and_drop"
+				label="last_update_type"
+				description="last used update type"
+
+				showon="develop:1"
+				
+				class="">
+		</field>
+		
+		<!-- "last_used_ftp_path": "D:\\xampp\\htdocs\\joomla3x\\UploadImages", -->
+		<field
+				name="last_used_ftp_path"
+				type="text"
+				default="D:"
+				label="last_used_ftp_path"
+				description="last used ftp path"
+
+				showon="develop:1"
+				
+				class="">
+		</field>
+		
+
+	<!-- acl_enabled: "0" deprecated -->
+    <!-- comment_once: "0", COM_RSGALLERY2_USER_CAN_ONLY_COMMENT_ONCE')."(".JText::_('COM_RSGALLERY2_NOT_WORKING_YET :: separate after captcha -->
+    <!-- "createImgDirs": "", COM_RSGALLERY2_CREATING_IMAGE_DIRECTORIES_NOT_IMPLEMENTED_YET :: COM_RSGALLERY2_THUMB_PATH -->
+    <!-- "gallery_folders": "", if gallery images are stored in separate folders, Not ready rename -->
+    <!-- "hideRoot": "", deprecated -->
+    <!-- "showFontList": "arial.ttf", not used or replaced -->
+    <!-- "tags": "", not found -->
+    <!-- "uu_createCat": "0", user upload deprecated -->
+    <!-- "uu_enabled": "0", user upload not used -->
+    <!-- "version": "4.3.1", -->
 
 	</fieldset>
 

@@ -13,8 +13,8 @@ JHtml::_('bootstrap.tooltip');
 
 global $Rsg2DebugActive;
 
-global $rsgConfig;
-// $this->configVars = $rsgConfig;
+//global $rsgConfig;
+//$this->configVars = $rsgConfig;
 
 ?>
 
@@ -28,11 +28,11 @@ global $rsgConfig;
 		<div id="j-main-container">
 			<?php endif; ?>
 
-			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=config&amp;layout=RawView'); ?>"
+			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=config&amp;layout=RawViewOld'); ?>"
 					method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">
 
-                <legend><?php echo JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'); ?></legend>
-                <div></div><strong><?php echo JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT'); ?></strong><br></div>
+                <legend><?php echo JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'); ?> Old</legend>
+                <div><strong><?php echo JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT'); ?> Old</strong><br></div>
 
 				<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'ConfigRawView')); ?>
 
@@ -41,8 +41,7 @@ global $rsgConfig;
 				<?php
 
 				echo '<pre>';
-				// Old RSG2 config vars echo json_encode(get_object_vars($this->configVars), JSON_PRETTY_PRINT);
-				echo json_encode($this->configVars, JSON_PRETTY_PRINT);
+				echo json_encode(get_object_vars($this->configVars), JSON_PRETTY_PRINT);
 				echo '</pre>';
 				?>
 

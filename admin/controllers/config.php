@@ -99,7 +99,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
             str_replace('\n', '<br>', $msg);
         } else {
             $model = $this->getModel('ConfigRaw');
-            $msg .= $model->save();
+	        $isSaved = $model->save();
 
         }
         $link = 'index.php?option=com_rsgallery2&view=config&layout=RawEdit';
@@ -126,14 +126,69 @@ class Rsgallery2ControllerConfig extends JControllerForm
             str_replace('\n', '<br>', $msg);
         } else {
             $model = $this->getModel('ConfigRaw');
-            $msg .= $model->save();
+	        $isSaved = $model->save();
         }
 
 		$link = 'index.php?option=com_rsgallery2&view=maintenance';
 		$this->setRedirect($link, $msg, $msgType);
 	}
 
-    /**
+	/**
+	 * Save changes in raw edit view value by value
+	 *
+	 * @since version 4.3
+	 */
+	public function apply_rawEditOld()
+	{
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		$msg = "apply_rawEdit: " . '<br>';
+		$msgType = 'notice';
+
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+		if (!$canAdmin) {
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
+			$model = $this->getModel('ConfigRawOld');
+			$isSaved = $model->saveOld();
+
+		}
+		$link = 'index.php?option=com_rsgallery2&view=config&layout=RawEdit';
+		$this->setRedirect($link, $msg, $msgType);
+	}
+	/**
+	 * Save changes in raw edit view value by value
+	 *
+	 * @since version 4.3
+	 */
+	public function save_rawEditOld()
+	{
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		$msg     = "save_rawEdit: " . '<br>';
+		$msgType = 'notice';
+
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+		if (!$canAdmin) {
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
+			$model = $this->getModel('ConfigRawOld');
+			$isSaved = $model->save();
+		}
+
+		$link = 'index.php?option=com_rsgallery2&view=maintenance';
+		$this->setRedirect($link, $msg, $msgType);
+	}
+
+	/**
      * On cancel raw exit goto maintenance
      * @param null $key
      *
@@ -149,6 +204,227 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		$this->setRedirect($link);
 
 		return true;
+	}
+
+	/**
+	 * Save changes in raw edit view value by value and copy items to the
+	 * old configuration  data
+	 *
+	 * @since version 4.3
+	 */
+	public function save_rawEditAndCopy()
+	{
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		$msg     = "save_rawEdit: " . '<br>';
+		$msgType = 'notice';
+
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+		if (!$canAdmin) {
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
+			$model = $this->getModel('ConfigRaw');
+			$isSaved = $model->save();
+			$isSaved = $model->copyNew2Old();
+		}
+
+		$link = 'index.php?option=com_rsgallery2&view=config&layout=RawEditOld';
+		$this->setRedirect($link, $msg, $msgType);
+	}
+
+	/**
+	 * Save changes in old raw edit view value by value and copy the items
+	 * to the new configuration data
+	 *
+	 * @since version 4.3
+	 */
+	public function save_rawEditOldAndCopy()
+	{
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		$msg     = "save_rawEdit: " . '<br>';
+		$msgType = 'notice';
+
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+		if (!$canAdmin) {
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
+			$model = $this->getModel('ConfigRawOld');
+			$isSaved = $model->saveOld();
+			$model = $this->getModel('ConfigRaw');
+			$isSaved = $model->copyOld2New();
+		}
+
+		$link = 'index.php?option=com_rsgallery2&view=maintenance';
+		$this->setRedirect($link, $msg, $msgType);
+	}
+
+
+	/**
+	 * Save changes in raw edit view value by value and copy items to the
+	 * old configuration  data
+	 *
+	 * @since version 4.3
+	 */
+	public function copy_rawEditFromOld()
+	{
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		$msg     = "copy_rawEditFromOld: " . '<br>';
+		$msgType = 'notice';
+		$isSaved = false;
+
+			// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+		if (!$canAdmin) {
+			$msg .= JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
+			$model = $this->getModel('ConfigRaw');
+			$isSaved = $model->copyOld2New();
+		}
+
+		if ($isSaved)
+		{
+			$msg .= " done";
+		}
+		else
+		{
+			$msg .= " !!! not done !!!";
+		}
+
+		$link = 'index.php?option=com_rsgallery2&view=config&layout=RawEdit';
+		$this->setRedirect($link, $msg, $msgType);
+	}
+
+
+
+	/**
+	 * Save changes in raw edit view value by value and copy items to the
+	 * old configuration  data
+	 *
+	 * @since version 4.3
+	 */
+	public function save_rawEdit2Text()
+	{
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		$msg     = "save_rawEdit: " . '<br>';
+		$msgType = 'notice';
+
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+		if (!$canAdmin) {
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
+			$model = $this->getModel('ConfigRaw');
+			$isSaved = $model->save();
+			$isSaved = $model->createConfigTextFile();
+		}
+
+		$link = 'index.php?option=com_rsgallery2&view=config&layout=RawEdit';
+		$this->setRedirect($link, $msg, $msgType);
+	}
+
+	/**
+	 * Save changes in raw edit view value by value and copy items to the
+	 * old configuration  data
+	 *
+	 * @since version 4.3
+	 */
+	public function write_rawEdit2Text()
+	{
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		$msg     = "write_rawEdit2Text: " . '<br>';
+		$msgType = 'notice';
+
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+		if (!$canAdmin) {
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
+			$model = $this->getModel('ConfigRaw');
+			$isSaved = $model->createConfigTextFile();
+		}
+
+		$link = 'index.php?option=com_rsgallery2&view=config&layout=RawEdit';
+		$this->setRedirect($link, $msg, $msgType);
+	}
+
+	/**
+	 * Save changes in old raw edit view value by value and copy the items
+	 * to the new configuration data
+	 *
+	 * @since version 4.3
+	 */
+	public function save_rawEditOld2Text()
+	{
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		$msg     = "save_rawEdit: " . '<br>';
+		$msgType = 'notice';
+
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+		if (!$canAdmin) {
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
+			$model = $this->getModel('ConfigRawOld');
+			$isSaved = $model->saveOld();
+			$isSaved = $model->createConfigTextFileOld();
+		}
+
+		$link = 'index.php?option=com_rsgallery2&view=config&layout=RawEditOld';
+		$this->setRedirect($link, $msg, $msgType);
+	}
+
+	/**
+	 * Save changes in old raw edit view value by value and copy the items
+	 * to the new configuration data
+	 *
+	 * @since version 4.3
+	 */
+	public function write_rawEditOld2Text()
+	{
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		$msg     = "write_rawEditOld2Text: " . '<br>';
+		$msgType = 'notice';
+
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+		if (!$canAdmin) {
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
+			$model = $this->getModel('ConfigRawOld');
+			$isSaved = $model->createConfigTextFileOld();
+		}
+
+		$link = 'index.php?option=com_rsgallery2&view=config&layout=RawEditOld';
+		$this->setRedirect($link, $msg, $msgType);
 	}
 
 	/**

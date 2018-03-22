@@ -278,6 +278,13 @@ figure .iconMoon02 {
 	color   : #3071a9;
 }
 
+figure .iconMoon03 {
+	float   : left; /**/
+	padding : 10px 15px 15px 0px; /**/
+	/*	display: inline-block; /**/
+	color   : #3071a9;
+}
+
 /**/
 .rsg2-old-icon img {
 	height : 35px;

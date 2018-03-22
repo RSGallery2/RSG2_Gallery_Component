@@ -579,7 +579,7 @@ class rsgConfig
 
     $query->select($db->quoteName('value'))
     ->from($db->quoteName('#__rsgallery2_config'))
-    ->where($db->quoteName('name') . " = " . $db->quote('UploadPreselectLatestGallery'));
+    ->where($db->quoteName('name') . " = " . $db->quote('isPreselectLatestGallery'));
 
     $db->setQuery($query);
     $this->isPreSelectLatestGallery = $db->loadResult();
