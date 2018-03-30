@@ -58,14 +58,6 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
-		global $Rsg2DevelopActive;
-
-		// on develop show open tasks if existing
-		if (!empty ($Rsg2DevelopActive))
-		{
-			echo '<span style="color:red">Tasks:<br>* Delete also watermarked images<br>* Image square a) use thumb if possible b) check for gd2:...<br> * Select for parent galleries -> only when errors exist</span><br><br>';
-		}
-
 //		$xmlFile = JPATH_COMPONENT . '/models/forms/maintregenerateimages.xml';
 //		$this->form = JForm::getInstance('maintRegenerateImages', $xmlFile);
 
@@ -144,6 +136,23 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 	*/
 	protected function addToolbar($UserIsRoot) //$Layout='default')
 	{
+		global $Rsg2DevelopActive;
+
+		// on develop show open tasks if existing
+		if (!empty ($Rsg2DevelopActive))
+		{
+			echo '<span style="color:red">'
+				. 'Tasks: <br>'
+				. '* !!! Assign of gallery is not working !!! <br>'
+				. '* Delete also watermarked images <br>'
+				. '* Image square a) use thumb if possible b) check for gd2:... <br>'
+				. '* Select for parent galleries -> only when errors exist <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+				. '</span><br><br>';
+		}
+		
 		// Title
 		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINT_CONSOLIDATE_IMAGE_DATABASE'), 'icon-database icon-checkbox-checked');
 
