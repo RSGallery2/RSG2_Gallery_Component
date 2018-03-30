@@ -143,7 +143,6 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 		{
 			echo '<span style="color:red">'
 				. 'Tasks: <br>'
-				. '* !!! Assign of gallery is not working !!! <br>'
 				. '* Delete also watermarked images <br>'
 				. '* Image square a) use thumb if possible b) check for gd2:... <br>'
 				. '* Select for parent galleries -> only when errors exist <br>'
