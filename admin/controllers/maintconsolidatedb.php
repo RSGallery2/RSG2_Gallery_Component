@@ -588,11 +588,12 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 						$IsAssigned = true;
 						foreach ($ImageReferences as $ImageReference)
 						{
-							// Does not exist in db
+							// Image does not exist in db
 							if (!$ImageReference->IsImageInDatabase)
 							{
-								$OutTxt = 'Database item does not exist for ' . $ImageReference->imageName;
-								JFactory::getApplication()->enqueueMessage($OutTxt, 'warning');
+								$OutTxt = 'Gallery not assigned: Database item does not exist for ' . $ImageReference->imageName;
+								JFactory::getApplication()->enqueueMessage($OutTxt, 'error');
+								continue;
 							}
 
 							$ImageId = $imageDbModel->ImageIdFromName($ImageReference->imageName);

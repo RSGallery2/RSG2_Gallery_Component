@@ -256,7 +256,7 @@ class Rsgallery2ModelImage extends JModelAdmin
      *
      * @since 4.3.0
 	 */
-	public function generateNewImageName($name, $galleryId)
+	public function generateNewImageName($name, $galleryId=0)
 	{
 		// Alter the title & alias
 		$table = $this->getTable();
@@ -304,7 +304,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 		$path_parts = pathinfo($imageName);
 		$fileName   = $path_parts['filename'];
 
-		$item->title = $this->generateNewImageName($fileName);
+		$item->title = $this->generateNewImageName($fileName, 0);
 		$item->alias = $item->title;
 		$this->alias = JFilterOutput::stringURLSafe($this->alias);
 
