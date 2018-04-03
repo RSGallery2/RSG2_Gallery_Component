@@ -83,52 +83,77 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	 * Creates a display image with size from config
 	 *
 	 * @param string $originalFileName includes path (May be a different path then the original)
+	 * @param Jimage $memImage
 	 *
-	 * @return bool  true if successful
+	 * @return bool true if successful
 	 *
+	 * @throws Exception
 	 * @since 4.3.0
 	 */
-	public function createDisplayImageFile($originalFileName)
+	public function createDisplayImageFile($originalFileName = '', $memImage = null)
 	{
 		global $rsgConfig;
 		global $Rsg2DebugActive;
 
 		$IsImageCreated = false;
+		$IsImageLocal = false;
 
 		try
 		{
 			$baseName    = basename($originalFileName);
-			$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $baseName;
 			$imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $baseName . '.jpg';
 			
 			if ($Rsg2DebugActive)
 			{
-				JLog::add('==> start createDisplayImageFile: "' . $imgSrcPath . '" -> "' . $imgDstPath . '"');
+				JLog::add('==> start createDisplayImageFile: "' . $originalFileName . '" -> "' . $imgDstPath . '"');
 			}
 
-			$width  = getimagesize($imgSrcPath);
-			$height = $width[1];
-			$width  = $width[0];
-			if ($height > $width)
+			// Create memory image if not given
+			if ($memImage == null)
 			{
-				$maxSideImage = $height;
+				$IsImageLocal = True;
+				$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $baseName;
+				$memImage = JImage ($imgSrcPath);
+			}
+
+			//---- target size -------------------------------------
+
+			// target width
+			$targetWidth = $rsgConfig->get('image_width');
+			// source sizes
+			$imgHeight = $memImage->getHeight();
+			$imgWidth  = $memImage->getWidth();
+
+			if ($imgWidth > $imgHeight)
+			{
+				// landscape
+				$width = $imgWidth;
+				$height = ($targetWidth / $imgWidth) * $imgHeight;
 			}
 			else
 			{
-				$maxSideImage = $width;
+				// portrait or square
+				$width  = ($targetWidth / $imgHeight) * $imgWidth;
+				$height = $targetWidth;
 			}
 
-			$userWidth = $rsgConfig->get('image_width');
 
-			// if original is wider or higher than display size, create a display image
-			if ($maxSideImage > $userWidth)
+			//--- Resize and save -----------------------------------
+
+
+			$memImage->resize ($width, $height, false, self::SCALE_INSIDE);
+
+//--- Resize and save -----------------------------------
+			$memImage->toFile($imgDstPath, $type);;
+
+			// Release memory if created
+			if ($IsImageLocal)
 			{
-				$IsImageCreated = $this->ImageLib->resizeImage($imgSrcPath, $imgDstPath, $userWidth);
+				$memImage->destroy();
+
 			}
-			else
-			{
-				$IsImageCreated = $this->ImageLib->resizeImage($imgSrcPath, $imgDstPath, $maxSideImage);
-			}
+
+
 		}
 		catch (RuntimeException $e)
 		{
@@ -465,6 +490,191 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 		}
 
 		return $IsImageDeleted;
+	}
+
+	/**
+	 * Moves the file to rsg...Original and creates all RSG2 images
+	 * @param $uploadPathFileName
+	 * @param $singleFileName
+	 * @param $galleryId
+	 *
+	 * @return array
+	 *
+	 * @since 4.3.0
+	 */
+	public function MoveImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId)//: array
+	{
+		global $rsgConfig, $Rsg2DebugActive;
+
+		if ($Rsg2DebugActive)
+		{
+			JLog::add('==>Start MoveImageAndCreateRSG2Images: (Imagefile)');
+			JLog::add('    $uploadPathFileName: "' . $uploadPathFileName . '"');
+			JLog::add('    $singleFileName: "' . $singleFileName . '"');
+		}
+
+//		if (false) {
+		$urlThumbFile = '';
+		$isMoved = false; // successful images
+		$msg = '';
+
+		try {
+			$singlePathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $singleFileName;
+			if ($Rsg2DebugActive)
+			{
+				JLog::add('    $singlePathFileName: "' . $singlePathFileName . '"');
+				$Empty = empty ($this);
+				JLog::add('    $Empty: "' . $Empty . '"');
+			}
+
+			// return array($isMoved, $urlThumbFile, $msg); // file is moved
+
+			$isMoved = $this->moveFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId);
+
+			if (true) {
+
+				if ($isMoved)
+				{
+					list($isMoved, $urlThumbFile, $msg) = $this->CreateRSG2Images($singleFileName, $galleryId);
+				}
+				else
+				{
+					// File from other user may exist
+					// lead to upload at the end ....
+					$msg .= '<br>' . 'Move for file "' . $singleFileName . '" failed: Other user may have tried to upload with same name at the same moment. Please try again or with different name.';
+				}
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			if ($Rsg2DebugActive)
+			{
+				JLog::add('MoveImageAndCreateRSG2Images: RuntimeException');
+			}
+
+			$OutTxt = '';
+			$OutTxt .= 'Error executing MoveImageAndCreateRSG2Images: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		if ($Rsg2DebugActive)
+		{
+			JLog::add('<== Exit MoveImageAndCreateRSG2Images: '
+				. (($isMoved) ? 'true' : 'false')
+				. ' Msg: ' . $msg);
+		}
+
+		return array($isMoved, $urlThumbFile, $msg); // file is moved
+	}
+
+	/**
+	 *
+	 * @param $uploadPathFileName
+	 * @param $singleFileName
+	 * @param $galleryId
+	 *
+	 * @return array
+	 *
+	 * @since 4.3.0
+	 */
+	public function CreateRSG2Images($singleFileName, $galleryId)//: array
+	{
+		global $rsgConfig, $Rsg2DebugActive;
+
+		$urlThumbFile = '';
+		$msg = ''; // ToDo: Raise errors instead
+
+		if ($Rsg2DebugActive)
+		{
+			JLog::add('==>Start CreateRSG2Images: ' . $singleFileName );
+		}
+
+
+		$isCreated = false; // successful images
+
+		// ToDo: try ... catch
+
+		// file exists
+		$singlePathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $singleFileName;
+		if (JFile::exists($singlePathFileName))
+		{
+			// Create memory image
+
+			$imageOriginal = JImage ($singlePathFileName);
+
+			//--- Create display  file ----------------------------------
+
+			$isCreated = $this->createDisplayImageFile($singlePathFileName);
+			if (!$isCreated)
+			{
+				//
+				$msg .= '<br>' . 'Create Display File for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
+			}
+			else
+			{   // Display file is created
+
+				//--- Create thumb file ----------------------------------
+
+				$isCreated = $this->createThumbImageFile($singlePathFileName);
+				if (!$isCreated)
+				{
+					//
+					$msg .= '<br>' . 'Create Thumb File for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
+				}
+				else
+				{
+					// Create URL for thumb
+					$urlThumbFile = JUri::root() . $rsgConfig->get('imgPath_thumb') . '/' . $singleFileName . '.jpg';
+
+					//--- Create watermark file ----------------------------------
+
+					$isWatermarkActive = $rsgConfig->get('watermark');
+					if (!empty($isWatermarkActive))
+					{
+						//$modelWatermark = $this->getModel('ImgWaterMark');
+						$modelWatermark = $this->getInstance('imgwatermark', 'RSGallery2Model');
+
+						$isCreated = $modelWatermark->createMarkedFromBaseName(basename($singlePathFileName), 'original');
+						if (!$isCreated)
+						{
+							//
+							$msg .= '<br>' . 'Create Watermark File for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
+						}
+					}
+					else
+					{
+						// successful transfer
+						$isCreated = true;
+					}
+				}
+			} // display file
+
+		}
+		else
+		{
+			$OutTxt = ''; // ToDo: Raise errors instead
+			$OutTxt .= 'CreateRSG2Images Error. Could not find original file: "' . $singlePathFileName . '"';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+
+			if ($Rsg2DebugActive)
+			{
+				JLog::add($OutTxt);
+			}
+		}
+
+		if ($Rsg2DebugActive)
+		{
+			JLog::add('<== Exit CreateRSG2Images: '
+				. (($isCreated) ? 'true' : 'false')
+				. ' Msg: ' . $msg);
+		}
+
+		return array($isCreated, $urlThumbFile, $msg); // file is moved
 	}
 
 
