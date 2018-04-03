@@ -912,7 +912,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
             $singleFileName = $uploadFileName;
 
-            // ToDo: Assing image data to DB (descr. title ... from Raw data ...
+            // ToDo: Assign image data to DB (descr. title ... from Raw data ...
 
             /**
 	        //----------------------------------------------------
@@ -961,10 +961,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		    $imageOrder = $this->imageOrderFromId ($imgId);
 		    $ajaxImgObject['order']  = $imageOrder;
 
-
-
 		    //----------------------------------------------------
-		    // Move file and create display, thumbs and watermarked images ---------------------
+		    // Move file and create display, thumbs and watermarked images
 		    //----------------------------------------------------
 
             $model = $this->getModel('Upload');

@@ -647,7 +647,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
 
     /**
-     * Assignes given gallery to one image
+     * Assigns given gallery to one image
      *
      * @param int                  $ImageId
      * @param Rsgallery2ModelImage $imageDbModel
