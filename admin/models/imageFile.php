@@ -78,14 +78,14 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 	}
 
-
 	/**
 	 * Creates a display image with size from config
+	 * If memory of image not given it creates and destroys the created image
 	 *
 	 * @param string $originalFileName includes path (May be a different path then the original)
 	 * @param Jimage $memImage
 	 *
-	 * @return bool true if successful
+	 * @return Jimage|bool|null if successful returns resized image handler
 	 *
 	 * @throws Exception
 	 * @since 4.3.0
@@ -105,11 +105,12 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			
 			if ($Rsg2DebugActive)
 			{
-				JLog::add('==> start createDisplayImageFile: "' . $originalFileName . '" -> "' . $imgDstPath . '"');
+				JLog::add('==> start createDisplayImageFile from: "' . $originalFileName . '" -> "' . $imgDstPath . '"');
 			}
 
 			// Create memory image if not given
-			if ($memImage == null)
+			//if ($memImage == null)
+			if (empty ($memImage))
 			{
 				$IsImageLocal = True;
 				$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $baseName;
@@ -140,20 +141,23 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 			//--- Resize and save -----------------------------------
 
-
-			$memImage->resize ($width, $height, false, self::SCALE_INSIDE);
-
-//--- Resize and save -----------------------------------
-			$memImage->toFile($imgDstPath, $type);;
-
-			// Release memory if created
-			if ($IsImageLocal)
+			$IsImageCreated = $memImage->resize ($width, $height, false, jimage::SCALE_INSIDE);
+			if (!empty($IsImageCreated))
 			{
-				$memImage->destroy();
-
+				//--- Resize and save -----------------------------------
+				$type = IMAGETYPE_JPEG;
+				$memImage->toFile($imgDstPath, $type);;
 			}
 
-
+			// Release memory if created locally
+			if ($IsImageLocal)
+			{
+				if (!empty($IsImageCreated))
+				{
+					$IsImageCreated = True;
+				}
+				$memImage->destroy();
+			}
 		}
 		catch (RuntimeException $e)
 		{
@@ -168,7 +172,6 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			{
 				JLog::add($OutTxt);
 			}
-
 		}
 
 		if ($Rsg2DebugActive)
@@ -181,26 +184,36 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 	/**
 	 * Creates a thumb image with size from config
+	 * THe folder used is either orignal or display image.
+	 * One of these must exist
+	 * If memory of image not given it creates and destroys the created image
 	 *
-	 * @param $originalFileName
+	 * @param string $originalFileName includes path (May be a different path then the original)
 	 *
-	 * @return bool true if successful
+	 * @param Jimage $memImage
 	 *
+	 * @return Jimage if successful
+	 *
+	 * @throws Exception
 	 * @since 4.3.0
 	 */
-	public function createThumbImageFile($originalFileName)
+	public function createThumbImageFile($originalFileName = '', $memImage = null)
 	{
 		global $rsgConfig;
 		global $Rsg2DebugActive;
 
 		$IsImageCreated = false;
+		$IsImageLocal = false;
 
 		try
 		{
-			$thumbWidth = $rsgConfig->get('thumb_width');
 
 			$baseName    = basename($originalFileName);
 			$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $baseName;
+			if (! file_exists ($imgSrcPath))
+			{
+				$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $baseName;
+			}
 			$imgDstPath = JPATH_ROOT . $rsgConfig->get('imgPath_thumb') . '/' . $baseName . '.jpg';
 
 			if ($Rsg2DebugActive)
@@ -208,10 +221,28 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 				JLog::add('==>start createThumbImageFile: "' . $imgSrcPath . '" -> "' . $imgDstPath . '"');
 			}
 
+			// Create memory image if not given
+			//if ($memImage == null)
+			if (empty ($memImage))
+			{
+				$IsImageLocal = True;
+				$memImage = JImage ($imgSrcPath);
+			}
+
+			//---- target size -------------------------------------
+
+			$thumbWidth = $rsgConfig->get('thumb_width');
+			// ToDo: Use thumb styles from Joomla jimage
+			// 0->PROPORTIONAL 1->SQUARE
+			$thumbStyle = $rsgConfig->get('thumb_style');
+
+-------------------
+
+
 // ??			$IsImageCreated = $this->ImageLib->createSquareThumb($imgSrcPath, $imgDstPath, $thumbWidth);
 
 			// Is thumb style square // ToDo: Thumb style -> enum  // ToDo: general: Config enums
-			if ($rsgConfig->get('thumb_style') == 1)
+			if ( == 1)
 			{
 				$IsImageCreated = $this->ImageLib->createSquareThumb($imgSrcPath, $imgDstPath, $thumbWidth);
 			}
