@@ -232,17 +232,133 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			//---- target size -------------------------------------
 
 			$thumbWidth = $rsgConfig->get('thumb_width');
+			// source sizes
+			$imgHeight = $memImage->getHeight();
+			$imgWidth  = $memImage->getWidth();
+
 			// ToDo: Use thumb styles from Joomla jimage
 			// 0->PROPORTIONAL 1->SQUARE
 			$thumbStyle = $rsgConfig->get('thumb_style');
 
--------------------
+			// Is thumb style square // ToDo: Thumb style -> enum  // ToDo: general: Config enums
+			if ($thumbStyle == 1)
+			{
+				$width = $thumbWidth;
+				$height = $thumbWidth;
+			}
+			else
+			{
+				// ??? $thumbWidth should be max ????
+				if ($imgWidth > $imgHeight)
+				{
+					// landscape
+					$width  = $imgWidth;
+					$height = ($thumbWidth / $imgWidth) * $imgHeight;
+				}
+				else
+				{
+					// portrait or square
+					$width  = ($thumbWidth / $imgHeight) * $imgWidth;
+					$height = $thumbWidth;
+				}
+			}
+
+			//--- create thumb and save directly -----------------------------------
+
+			//$thumbSizes = array( '50x50', '250x100' );
+			$thumbSizes = array (str($width) . 'x' . str($height));
+
+			$thumbsFolder = dirname($destFile) . DIRECTORY_SEPARATOR . 'thumbs';
+			// create thumbs resizing with forced proportions
+			$createdThumbs = createThumbs($destFile, $thumbSizes, $thumbsFolder, 1);
+
+			$creationMethod = Jimage::SCALE_INSIDE;
+			$IsImageCreated = $memImage->createThumbs($thumbSizes, $creationMethod, $thumbsFolder, );
+
+
+
+			// Make sure the resource handle is valid.
+			if (!$this->isLoaded())
+			{
+				throw new \LogicException('No valid image was loaded.');
+			}
+
+			// Process thumbs
+			$thumbsCreated = array();
+
+			if ($thumbs = $this->generateThumbs($thumbSizes, $creationMethod))
+			{
+				// Parent image properties
+				$imgProperties = static::getImageFileProperties($this->getPath());
+
+				foreach ($thumbs as $thumb)
+				{
+					// Get thumb properties
+					$thumbWidth     = $thumb->getWidth();
+					$thumbHeight    = $thumb->getHeight();
+
+					// Generate thumb name
+					$filename       = pathinfo($this->getPath(), PATHINFO_FILENAME);
+					$fileExtension  = pathinfo($this->getPath(), PATHINFO_EXTENSION);
+					$thumbFileName  = $filename . '_' . $thumbWidth . 'x' . $thumbHeight . '.' . $fileExtension;
+
+					// Save thumb file to disk
+					$thumbFileName = $thumbsFolder . '/' . $thumbFileName;
+
+					if ($thumb->toFile($thumbFileName, $imgProperties->type))
+					{
+						// Return Image object with thumb path to ease further manipulation
+						$thumb->path = $thumbFileName;
+						$thumbsCreated[] = $thumb;
+					}
+				}
+			}
+
+			return $thumbsCreated;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			resize ($width, $height, false, jimage::SCALE_INSIDE);
+			if (!empty($IsImageCreated))
+			{
+				//--- Resize and save -----------------------------------
+				$type = IMAGETYPE_JPEG;
+				$memImage->toFile($imgDstPath, $type);;
+			}
+
 
 
 // ??			$IsImageCreated = $this->ImageLib->createSquareThumb($imgSrcPath, $imgDstPath, $thumbWidth);
 
 			// Is thumb style square // ToDo: Thumb style -> enum  // ToDo: general: Config enums
-			if ( == 1)
+			if ($thumbStyle == 1)
 			{
 				$IsImageCreated = $this->ImageLib->createSquareThumb($imgSrcPath, $imgDstPath, $thumbWidth);
 			}
