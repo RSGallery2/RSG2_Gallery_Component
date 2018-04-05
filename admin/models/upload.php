@@ -143,7 +143,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
 			if ($isMoved)
 			{
-				list($isMoved, $urlThumbFile, $msg) = $this->CopyImageAndCreateRSG2Images($singlePathFileName, $singleFileName, $galleryId, $msg, $rsgConfig);
+				list($isMoved, $urlThumbFile, $msg) = $this->CopyImageAndCreateRSG2Images($singlePathFileName, $singleFileName, $galleryId);
 			}
 			else
 			{
