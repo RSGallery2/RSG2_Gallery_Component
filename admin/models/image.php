@@ -464,13 +464,13 @@ class Rsgallery2ModelImage extends JModelAdmin
      *
      * @since 4.3.0
 	 */
-	public function moveImagesTo()
+	public function moveImagesTo() // ToDo: Rename moveImagesToGallery (imageIds, galleryId)
 	{
 		$IsMoved = false;
 
 		try
 		{
-
+			// ToDo: Jinput should be handled in  a controller
 			$input = JFactory::getApplication()->input;
 			$cids  = $input->get('cid', array(), 'ARRAY');
 			ArrayHelper::toInteger($cids);
@@ -585,7 +585,7 @@ class Rsgallery2ModelImage extends JModelAdmin
      *
      * @since 4.3.0
 	 */
-	public function copyImagesTo()
+	public function copyImagesTo() // ToDo: Rename copyImagesToToGallery (imageIds, galleryId)
 	{
 		global $rsgConfig;
 
@@ -594,6 +594,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 
 		try
 		{
+			// ToDo: Jinput should be handled in  a controller
 			$input = JFactory::getApplication()->input;
 			$cids  = $input->get('cid', array(), 'ARRAY');
 			ArrayHelper::toInteger($cids);
