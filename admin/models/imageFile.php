@@ -117,6 +117,12 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 				$memImage = JImage ($imgSrcPath);
 			}
 
+			// Make sure the resource handle is valid.
+			if (!$memImage->isLoaded())
+			{
+				throw new \LogicException('No valid image was loaded.');
+			}
+
 			//---- target size -------------------------------------
 
 			// target width
@@ -207,7 +213,6 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 		try
 		{
-
 			$baseName    = basename($originalFileName);
 			$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $baseName;
 			if (! file_exists ($imgSrcPath))
@@ -227,6 +232,12 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			{
 				$IsImageLocal = True;
 				$memImage = JImage ($imgSrcPath);
+			}
+
+			// Make sure the resource handle is valid.
+			if (!$memImage->isLoaded())
+			{
+				throw new \LogicException('No valid image was loaded.');
 			}
 
 			//---- target size -------------------------------------
@@ -268,103 +279,52 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			//$thumbSizes = array( '50x50', '250x100' );
 			$thumbSizes = array (str($width) . 'x' . str($height));
 
-			$thumbsFolder = dirname($destFile) . DIRECTORY_SEPARATOR . 'thumbs';
-			// create thumbs resizing with forced proportions
-			$createdThumbs = createThumbs($destFile, $thumbSizes, $thumbsFolder, 1);
+//			$thumbsFolder = dirname($destFile) . DIRECTORY_SEPARATOR . 'thumbs';
+//			// create thumbs resizing with forced proportions
+//			$createdThumbs = createThumbs($destFile, $thumbSizes, $thumbsFolder, 1);
 
 			$creationMethod = Jimage::SCALE_INSIDE;
-			$IsImageCreated = $memImage->createThumbs($thumbSizes, $creationMethod, $thumbsFolder, );
+//			$IsImageCreated = $memImage->createThumbs($thumbSizes, $creationMethod, $thumbsFolder, );
 
-
-
-			// Make sure the resource handle is valid.
-			if (!$this->isLoaded())
-			{
-				throw new \LogicException('No valid image was loaded.');
-			}
-
-			// Process thumbs
-			$thumbsCreated = array();
-
+			// generateThumbs successfully ?
 			if ($thumbs = $this->generateThumbs($thumbSizes, $creationMethod))
 			{
 				// Parent image properties
-				$imgProperties = static::getImageFileProperties($this->getPath());
+				$imgProperties = static::getImageFileProperties($imgSrcPath);
 
 				foreach ($thumbs as $thumb)
 				{
-					// Get thumb properties
-					$thumbWidth     = $thumb->getWidth();
-					$thumbHeight    = $thumb->getHeight();
+//					// Get thumb properties
+//					$thumbWidth     = $thumb->getWidth();
+//					$thumbHeight    = $thumb->getHeight();
+//
+//					// Generate thumb name
+//					$filename       = pathinfo($this->getPath(), PATHINFO_FILENAME);
+//					$fileExtension  = pathinfo($this->getPath(), PATHINFO_EXTENSION);
+//					$thumbFileName  = $filename . '_' . $thumbWidth . 'x' . $thumbHeight . '.' . $fileExtension;
+//
+//					// Save thumb file to disk
+//					$thumbFileName = $thumbsFolder . '/' . $thumbFileName;
 
-					// Generate thumb name
-					$filename       = pathinfo($this->getPath(), PATHINFO_FILENAME);
-					$fileExtension  = pathinfo($this->getPath(), PATHINFO_EXTENSION);
-					$thumbFileName  = $filename . '_' . $thumbWidth . 'x' . $thumbHeight . '.' . $fileExtension;
-
-					// Save thumb file to disk
-					$thumbFileName = $thumbsFolder . '/' . $thumbFileName;
-
-					if ($thumb->toFile($thumbFileName, $imgProperties->type))
+					//if ($thumb->toFile($thumbFileName, $imgProperties->type))
+					if ($thumb->toFile($imgDstPath, $imgProperties->type))
 					{
-						// Return Image object with thumb path to ease further manipulation
-						$thumb->path = $thumbFileName;
-						$thumbsCreated[] = $thumb;
+						$IsImageCreated = True;
+//						// Return Image object with thumb path to ease further manipulation
+//						$thumb->path = $thumbFileName;
+//						$thumbsCreated[] = $thumb;
 					}
 				}
 			}
 
-			return $thumbsCreated;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			resize ($width, $height, false, jimage::SCALE_INSIDE);
-			if (!empty($IsImageCreated))
+			// Release memory if created locally
+			if ($IsImageLocal)
 			{
-				//--- Resize and save -----------------------------------
-				$type = IMAGETYPE_JPEG;
-				$memImage->toFile($imgDstPath, $type);;
-			}
-
-
-
-// ??			$IsImageCreated = $this->ImageLib->createSquareThumb($imgSrcPath, $imgDstPath, $thumbWidth);
-
-			// Is thumb style square // ToDo: Thumb style -> enum  // ToDo: general: Config enums
-			if ($thumbStyle == 1)
-			{
-				$IsImageCreated = $this->ImageLib->createSquareThumb($imgSrcPath, $imgDstPath, $thumbWidth);
-			}
-			else
-			{
-				$IsImageCreated = $this->ImageLib->resizeImage($imgSrcPath, $imgDstPath, $thumbWidth);
+				if (!empty($IsImageCreated))
+				{
+					$IsImageCreated = True;
+				}
+				$memImage->destroy();
 			}
 		}
 		catch (RuntimeException $e)
