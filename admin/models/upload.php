@@ -105,6 +105,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
      *
      * @since 4.3.0
      */
+	/**
     public function MoveImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId)//: array
 	{
 		global $rsgConfig, $Rsg2DebugActive;
@@ -177,6 +178,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
         return array($isMoved, $urlThumbFile, $msg); // file is moved
     }
+	/**/
 
 	/**
 	 * @param $uploadPathFileName
@@ -187,6 +189,8 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 	 *
 	 * @since 4.3.0
      */
+
+	/**
 	public function CopyImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId)//: array
 	{
 		global $rsgConfig, $Rsg2DebugActive;
@@ -286,6 +290,8 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 		
 		return array($isCreated, $urlThumbFile, $msg); // file is moved
 	}
+	/**/
+
 
 	/**
 	 * @param $extractDir folder with with sub folders and images
