@@ -10,6 +10,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\Image\Image;
+
 require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ImgWatermarkNames.php';
 
 /**
@@ -114,7 +116,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			{
 				$IsImageLocal = True;
 				$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $baseName;
-				$memImage = JImage ($imgSrcPath);
+				$memImage = new JImage ($imgSrcPath);
 			}
 
 			// Make sure the resource handle is valid.
@@ -231,7 +233,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			if (empty ($memImage))
 			{
 				$IsImageLocal = True;
-				$memImage = JImage ($imgSrcPath);
+				$memImage = new JImage ($imgSrcPath);
 			}
 
 			// Make sure the resource handle is valid.
@@ -710,11 +712,11 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 		{
 			// Create memory image
 
-			$imageOriginal = JImage ($singlePathFileName);
+			$imageOriginal = new JImage ($singlePathFileName);
 
 			//--- Create display  file ----------------------------------
 
-			$isCreated = $this->createDisplayImageFile($singlePathFileName);
+			$isCreated = $this->createDisplayImageFile($singlePathFileName, $imageOriginal);
 			if (!$isCreated)
 			{
 				//
@@ -725,7 +727,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 				//--- Create thumb file ----------------------------------
 
-				$isCreated = $this->createThumbImageFile($singlePathFileName);
+				$isCreated = $this->createThumbImageFile($singlePathFileName, $imageOriginal);
 				if (!$isCreated)
 				{
 					//
