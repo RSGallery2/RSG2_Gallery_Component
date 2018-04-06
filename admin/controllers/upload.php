@@ -965,7 +965,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		    // Move file and create display, thumbs and watermarked images
 		    //----------------------------------------------------
 
-            $model = $this->getModel('Upload');
+            //$model = $this->getModel('Upload');
+            $model = $this->getModel('imageFile');
 		    list($isCreated, $urlThumbFile, $msg) = $model->MoveImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId);
 	        if (!$isCreated)
 	        {
