@@ -279,7 +279,8 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			//--- create thumb and save directly -----------------------------------
 
 			//$thumbSizes = array( '50x50', '250x100' );
-			$thumbSizes = array (str($width) . 'x' . str($height));
+			//$thumbSizes = array (str($width) . 'x' . str($height));
+			$thumbSizes = array ('250x100');
 
 //			$thumbsFolder = dirname($destFile) . DIRECTORY_SEPARATOR . 'thumbs';
 //			// create thumbs resizing with forced proportions
@@ -289,10 +290,10 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 //			$IsImageCreated = $memImage->createThumbs($thumbSizes, $creationMethod, $thumbsFolder, );
 
 			// generateThumbs successfully ?
-			if ($thumbs = $this->generateThumbs($thumbSizes, $creationMethod))
+			if ($thumbs = $memImage->generateThumbs($thumbSizes, $creationMethod))
 			{
 				// Parent image properties
-				$imgProperties = static::getImageFileProperties($imgSrcPath);
+				$imgProperties = JImage::getImageFileProperties($imgSrcPath);
 
 				foreach ($thumbs as $thumb)
 				{
