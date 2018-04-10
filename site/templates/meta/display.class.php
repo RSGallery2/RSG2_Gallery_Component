@@ -713,5 +713,5 @@ class rsgDisplay extends JObject
 			html_rsg2_search::showSearchBox();
 		}
 	}
-
 }
+

@@ -40,9 +40,16 @@ class rsgInstance
 
 	static function instance($newInstance = 'request', $showTemplate = true)
 	{
+		global $Rsg2DebugActive;
+		
 		static $instanceStack = array();
 		$stacked = false;
 
+		if ($Rsg2DebugActive)
+		{
+			JLog::add('New instance (?site): ');
+		}
+		
 		// if rsg2 is already instanced then push the current instance to be pop'd later
 		if ($GLOBALS['_RSGINSTANCE'])
 		{
@@ -81,8 +88,16 @@ class rsgInstance
      */
 	static function mainSwitch()
 	{
+		global $Rsg2DebugActive;
+		
 		$input = JFactory::getApplication()->input;
 		$cmd   = $input->get('rsgOption', '', 'CMD');
+		
+		if ($Rsg2DebugActive)
+		{
+			JLog::add('instance mainSwitch cmd: "' . $cmd . '"');
+		}
+		
 		switch ($cmd)
 		{
 			case 'rsgComments':
@@ -99,6 +114,10 @@ class rsgInstance
 				break;
 			default:
 				$task = $input->get('task', '', 'CMD');
+				if ($Rsg2DebugActive)
+				{
+					JLog::add('instance mainSwitch task: "' . $task . '"');
+				}
 				switch ($task)
 				{
 					case 'xml':

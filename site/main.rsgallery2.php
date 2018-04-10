@@ -19,7 +19,7 @@ defined('_JEXEC') or die();
  */
 function template()
 {
-	global $rsgConfig;
+	global $rsgConfig, $Rsg2DebugActive;
 
 	//Set template selection
 	//$template = preg_replace( '#\W#', '', JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template') ));
@@ -29,7 +29,12 @@ function template()
 
 	$templateLocation = JPATH_RSGALLERY2_SITE . '/templates'  . '/' .  $template . '/index.php';
 
-	if (!file_exists($templateLocation))
+	if ($Rsg2DebugActive)
+	{
+		JLog::add('template: "' . $templateLocation . '"');
+	}
+	
+		if (!file_exists($templateLocation))
 	{
 		JFactory::getApplication()->enqueueMessage('RSGallery2 template:<pre>' . "Template $template does not exist.<br/>Please select an existing template in the Template Manager." . '</pre>', 'error');
 		return false;
