@@ -43,7 +43,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 		
 		if ($Rsg2DebugActive)
 		{
-			JLog::add('==>Start __construct');
+			JLog::add('==>Start __construct ImageFile');
 		}
 
 		// Use rsgConfig to determine which image library to load
@@ -75,7 +75,6 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 		
         if ($Rsg2DebugActive)
         {
-            JLog::add('<==Exit __construct: ');
         }
 
 	}

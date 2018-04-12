@@ -967,6 +967,13 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
             //$model = $this->getModel('Upload');
             $model = $this->getModel('imageFile');
+			if (empty($model))
+			{
+				if ($Rsg2DebugActive) {
+					JLog::add('<== Empty Model imageFile');
+				}
+			}
+			
 		    list($isCreated, $urlThumbFile, $msg) = $model->MoveImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId);
 	        if (!$isCreated)
 	        {
@@ -1021,7 +1028,12 @@ class Rsgallery2ControllerUpload extends JControllerForm
             }
 
         } catch (Exception $e) {
+		    if ($Rsg2DebugActive) {
+			    JLog::add('    Exception: ' . $e->getMessage();
+			}
+
             echo new JResponseJson($e);
+			
         }
 
         $app->close();
