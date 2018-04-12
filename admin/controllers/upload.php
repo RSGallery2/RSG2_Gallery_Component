@@ -1029,7 +1029,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
         } catch (Exception $e) {
 		    if ($Rsg2DebugActive) {
-			    JLog::add('    Exception: ' . $e->getMessage();
+			    JLog::add('    Exception: ' . $e->getMessage());
 			}
 
             echo new JResponseJson($e);
