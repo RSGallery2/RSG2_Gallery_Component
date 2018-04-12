@@ -75,6 +75,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 		
         if ($Rsg2DebugActive)
         {
+            JLog::add('<==Exit __construct ImageFile');
         }
 
 	}
