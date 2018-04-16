@@ -343,7 +343,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		            //---  -------------------
 
 		            // toDo: Check how it is done in Joomla upload ZIP
-		            $isExtracted = JArchive::extract($zipPathFileName, $extractDir);
+		            $isExtracted = Archive::extract($zipPathFileName, $extractDir);
 		            if (!$isExtracted)
 		            {
 			            $app->enqueueMessage(JText::_('COM_    _WARNFILENAME'), 'error');
