@@ -85,9 +85,9 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	 * If memory of image not given it creates and destroys the created image
 	 *
 	 * @param string $originalFileName includes path (May be a different path then the original)
-	 * @param Jimage $memImage
+	 * @param  image $memImage
 	 *
-	 * @return Jimage|bool|null if successful returns resized image handler
+	 * @return image|bool|null if successful returns resized image handler
 	 *
 	 * @throws Exception
 	 * @since 4.3.0
@@ -116,7 +116,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			{
 				$IsImageLocal = True;
 				$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $baseName;
-				$memImage = new JImage ($imgSrcPath);
+				$memImage = new image ($imgSrcPath);
 			}
 
 			// Make sure the resource handle is valid.
@@ -149,7 +149,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 			//--- Resize and save -----------------------------------
 
-			$IsImageCreated = $memImage->resize ($width, $height, false, jimage::SCALE_INSIDE);
+			$IsImageCreated = $memImage->resize ($width, $height, false, image::SCALE_INSIDE);
 			if (!empty($IsImageCreated))
 			{
 				//--- Resize and save -----------------------------------
@@ -198,9 +198,9 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	 *
 	 * @param string $originalFileName includes path (May be a different path then the original)
 	 *
-	 * @param Jimage $memImage
+	 * @param image $memImage
 	 *
-	 * @return Jimage if successful
+	 * @return image if successful
 	 *
 	 * @throws Exception
 	 * @since 4.3.0
@@ -233,7 +233,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			if (empty ($memImage))
 			{
 				$IsImageLocal = True;
-				$memImage = new JImage ($imgSrcPath);
+				$memImage = new image ($imgSrcPath);
 			}
 
 			// Make sure the resource handle is valid.
@@ -249,7 +249,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			$imgHeight = $memImage->getHeight();
 			$imgWidth  = $memImage->getWidth();
 
-			// ToDo: Use thumb styles from Joomla jimage
+			// ToDo: Use thumb styles from Joomla image
 			// 0->PROPORTIONAL 1->SQUARE
 			$thumbStyle = $rsgConfig->get('thumb_style');
 
@@ -286,14 +286,14 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 //			// create thumbs resizing with forced proportions
 //			$createdThumbs = createThumbs($destFile, $thumbSizes, $thumbsFolder, 1);
 
-			$creationMethod = Jimage::SCALE_INSIDE;
+			$creationMethod = image::SCALE_INSIDE;
 //			$IsImageCreated = $memImage->createThumbs($thumbSizes, $creationMethod, $thumbsFolder, );
 
 			// generateThumbs successfully ?
 			if ($thumbs = $memImage->generateThumbs($thumbSizes, $creationMethod))
 			{
 				// Parent image properties
-				$imgProperties = JImage::getImageFileProperties($imgSrcPath);
+				$imgProperties = Image::getImageFileProperties($imgSrcPath);
 
 				foreach ($thumbs as $thumb)
 				{
