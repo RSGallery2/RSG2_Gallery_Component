@@ -25,7 +25,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	/**
 	 * @var  externalImageLib contains external image library handler
 	 */
-	public $ImageLib = null;
+	// public $ImageLib = null;
 
 	/**
 	 * Constructor.
@@ -46,6 +46,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			JLog::add('==>Start __construct ImageFile');
 		}
 
+		/**
 		// Use rsgConfig to determine which image library to load
 		$graphicsLib = $rsgConfig->get('graphicsLib');
 		switch ($graphicsLib)
@@ -72,7 +73,8 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 				return false;
 		}
-		
+		/**/
+
         if ($Rsg2DebugActive)
         {
             JLog::add('<==Exit __construct ImageFile');
