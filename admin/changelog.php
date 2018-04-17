@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Changelog for RSGallery2
  *
@@ -21,6 +21,15 @@ code fixes.
 Legend:
 * -> Security Fix, # -> Bug Fix, + -> Addition
 ^ -> Change, - -> Removed, ! -> Note
+
+* --- 4.3.1 --- 2018-01-28 --- whazzup ------------------------------
+
+beta version
+
+# Drag and drop was limited to 20 images per drop. It is tested now 
+  with drop of 150 images at once
+^ Upload does use Joomla intern Jimage function
+! Zip upload may not run properlly
 
 * --- 4.3.1 --- 2018-01-28 --- whazzup ------------------------------
 
