@@ -224,8 +224,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
         $msg     = "uploadFromZip: ";  // ToDo: Remove ->empty messge
         $msgType = 'notice';
 
-        $msg .= '!!! Not implemented yet !!!';
-        
         JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 	    // fallback link
@@ -534,13 +532,12 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 	    JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-        $msg     = "";
         $msg     = "uploadFromFtpFolder"; // ToDo: Remove
         $msgType = 'notice';
 
-        $msg .= '!!! Not implemented yet !!!';
+	    JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-        // fallback link
+	    // fallback link
 	    $link = 'index.php?option=com_rsgallery2&view=upload';
 
 	    // Database IDs of created images
