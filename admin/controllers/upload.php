@@ -316,7 +316,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		            //--- Upload zip -------------------
 
 		            // Upload directory will contain *.zip file and extracted image files (for a moment)
-		            $zipPathFileName = $extractDir . $uploadZipName;
+		            $zipPathFileName = $extractDir . strtolower($uploadZipName);
 
 		            // Move uploaded file (this is truely uploading the file)
 		            // *.zip needs $allow_unsafe = true since J3.4.x
@@ -342,8 +342,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	            {
 		            //---  -------------------
 
-		            // toDo: Check how it is done in Joomla upload ZIP
-		            $isExtracted = Archive::extract($zipPathFileName, $extractDir);
+		            // ToDo: Check how it is done in Joomla upload ZIP
+		            $archive = new Archive();
+		            $isExtracted = $archive->extract($zipPathFileName, $extractDir);
 		            if (!$isExtracted)
 		            {
 			            $app->enqueueMessage(JText::_('COM_    _WARNFILENAME'), 'error');
@@ -361,7 +362,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	            if ( ! $isHasError)
 	            {
 		            // Remove uploaded file on successful extract
-		            JFile::delete($zipPathFileName['tmp_name']);
+		            JFile::delete($zipPathFileName);
 	            }
 
 	            //--- Create list of image files -------------------
@@ -856,7 +857,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
             //--- Check 4 allowed image type ---------------------------------
 
-		    // ToDO: May checked when opening file ...
+		    // ToDo: May checked when opening file ...
 
 			/**
 		    $allowedTypes = explode(",", strtolower($rsgConfig->get('allowedFileTypes')));
