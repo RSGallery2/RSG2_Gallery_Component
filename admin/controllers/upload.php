@@ -331,7 +331,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 	            if ($Rsg2DebugActive)
 	            {
-		            JLog::add('Upload zip:' . strval($isHasError));
+		            JLog::add('Upload zip: ' . strval($isHasError));
 	            }
 
 	            //--- Extract images -------------------
@@ -367,8 +367,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 	            if ( ! $isHasError)
 	            {
-		            $model = $this->getModel('Upload');
-		            list($files, $ignored) = $model->SelectImagesFromFolder ($extractDir);
+		            $modelFile = $this->getModel('imageFile');
+		            list($files, $ignored) = $modelFile->SelectImagesFromFolder ($extractDir);
 
 		            if ($Rsg2DebugActive)
 		            {
@@ -384,15 +384,33 @@ class Rsgallery2ControllerUpload extends JControllerForm
 				            // Transfer files and create image data in db
 				            //----------------------------------------------------
 
+				            $baseName = basename($filePathName);
+
+				            //----------------------------------------------------
+				            // Create image data in db
+				            //----------------------------------------------------
+
+				            $modelDb = $this->getModel('image');
+
+				            //--- Create Destination file name -----------------------
+
+				            // ToDo: use sub folder for each gallery and check within gallery
+				            // Each filename is only allowed once so create a new one if file already exist
+				            $useFileName = $modelDb->generateNewImageName($baseName, $galleryId);
+
 				            //--- create image data in DB --------------------------------
 
-				            list($singleFileName, $imgId) = $model->createOneImageInDb(basename($filePathName), $galleryId);
+				            $title = $baseName;
+				            $description = '';
+
+				            list($singleFileName, $imgId) = $model->createOneImageInDb($baseName, $galleryId);
 				            if (empty($imgId))
 				            {
 					            // actual give an error
 					            //$msg     .= '<br>' . JText::_('JERROR_ALERTNOAUTHOR');
 					            $msg     .= '<br>' . 'Create DB item for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
 					            $msgType = 'warning';
+					            $app->enqueueMessage($msg, $msgType);
 
 					            if ($Rsg2DebugActive)
 					            {
@@ -405,22 +423,19 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 					            //--- Move file and create display, thumbs and watermarked images ---------------------
 
-					            list($isCreated, $urlThumbFile, $subMsg) = $model->CopyImageAndCreateRSG2Images($filePathName, $singleFileName, $galleryId, $msg, $rsgConfig);
+					            // $modelFile = $this->getModel('imageFile');
+					            list($isCreated, $urlThumbFile, $msg) = $modelFile->MoveImageAndCreateRSG2Images($filePathName, $singleFileName, $galleryId);
 					            if (!$isCreated)
 					            {
 						            // ToDo: remove $imgId from $cids [] array and from image database
 
-
-
-
 						            if ($Rsg2DebugActive)
 						            {
-							            JLog::add('CopyImageAndCreateRSG2Images failed: ' . $filePathName . ', ' . $singleFileName);
+							            JLog::add('MoveImageAndCreateRSG2Images failed: ' . $filePathName . ', ' . $singleFileName);
 						            }
 
-						            // actual give an error
-						            $msg     .= '<br>' . $subMsg;
 						            $msgType = 'warning';
+						            $app->enqueueMessage($msg, $msgType);
 					            }
 				            }
 			            } // files
@@ -634,8 +649,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 								if (!$isCreated)
 								{
 									// ToDo: remove $imgId from $cids [] array and from image database
-
-
 
 									if ($Rsg2DebugActive)
 									{
@@ -917,11 +930,11 @@ class Rsgallery2ControllerUpload extends JControllerForm
             // Create image data in db
             //----------------------------------------------------
 
-	        $model = $this->getModel('Upload');
+	        $modelFile = $this->getModel('imageFile');
 
 	        //--- create image data in DB --------------------------------
 
-	        list($singleFileName, $imgId) = $model->createOneImageInDb($uploadFileName, $galleryId);
+	        list($singleFileName, $imgId) = $modelFile->createOneImageInDb($uploadFileName, $galleryId);
 	        if (empty($imgId))
 	        {
 		        // actual give an error
@@ -963,16 +976,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		    // Move file and create display, thumbs and watermarked images
 		    //----------------------------------------------------
 
-            //$model = $this->getModel('Upload');
-            $model = $this->getModel('imageFile');
-			if (empty($model))
-			{
-				if ($Rsg2DebugActive) {
-					JLog::add('<== Empty Model imageFile');
-				}
-			}
-			
-		    list($isCreated, $urlThumbFile, $msg) = $model->MoveImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId);
+            $modelFile = $this->getModel('imageFile');
+		    list($isCreated, $urlThumbFile, $msg) = $modelFile->MoveImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId);
 	        if (!$isCreated)
 	        {
 		        // ToDo: remove $imgId fom image database
@@ -1149,7 +1154,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 			// ToDo: use sub folder for each gallery and check within gallery
 			// Each filename is only allowed once so create a new one if file already exist
-			//
 			$useFileName = $modelDb->generateNewImageName($baseName, $galleryId);
 			$ajaxImgDbObject['dstFileName'] = $useFileName;
 
