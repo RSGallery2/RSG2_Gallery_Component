@@ -258,7 +258,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	            // 'FILES' is ignored as a *.zip file marked bad from function  isSafeFile inside get ignored
 	            $zip_file       = $input->files->get('zip_file', array(), 'raw');
 	            $isInOneGallery = $input->get('isInOneGallery', null, 'INT');
-	            $galleryId      = $input->get('GalleryId', null, 'INT');
+	            $galleryId      = $input->get('SelectGalleries01', null, 'INT');
 
 	            if ($Rsg2DebugActive)
 	            {
@@ -403,7 +403,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 				            $title = $baseName;
 				            $description = '';
 
-				            list($singleFileName, $imgId) = $model->createOneImageInDb($baseName, $galleryId);
+				            list($singleFileName, $imgId) = $modelDb->createImageDbItem($baseName, '', $galleryId);
 				            if (empty($imgId))
 				            {
 					            // actual give an error
@@ -414,7 +414,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 					            if ($Rsg2DebugActive)
 					            {
-						            JLog::add('createOneImageInDb failed: ' . $filePathName);
+						            JLog::add('createImageDbItem failed: ' . $filePathName);
 					            }
 				            }
 				            else
@@ -605,8 +605,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
 			            JLog::add('Valid folder:' . strval($ftpPath));
 		            }
 
-		            $model = $this->getModel('Upload');
-		            list($files, $ignored) = $model->SelectImagesFromFolder ($ftpPath);
+		            $updModel = $this->getModel('Upload');
+		            list($files, $ignored) = $updModel->SelectImagesFromFolder ($ftpPath);
 
 		            if ($Rsg2DebugActive)
 		            {
@@ -625,7 +625,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 							//--- create image data in DB --------------------------------
 
-							list($singleFileName, $imgId) = $model->createOneImageInDb(basename($filePathName), $galleryId);
+							list($singleFileName, $imgId) = $updModel->createImageDbItem(basename($filePathName), '', $galleryId);
 							if (empty($imgId))
 							{
 								// actual give an error
@@ -636,7 +636,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 								if ($Rsg2DebugActive)
 								{
-									JLog::add('createOneImageInDb failed: ' . $filePathName);
+									JLog::add('createImageDbItem failed: ' . $filePathName);
 								}
 							}
 							else
@@ -645,7 +645,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 								//--- Move file and create display, thumbs and watermarked images ---------------------
 
-								list($isCreated, $urlThumbFile, $subMsg) = $model->CopyImageAndCreateRSG2Images($filePathName, $singleFileName, $galleryId, $msg, $rsgConfig);
+								list($isCreated, $urlThumbFile, $subMsg) = $updModel->CopyImageAndCreateRSG2Images($filePathName, $singleFileName, $galleryId, $msg, $rsgConfig);
 								if (!$isCreated)
 								{
 									// ToDo: remove $imgId from $cids [] array and from image database
