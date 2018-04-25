@@ -635,8 +635,8 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			if ($Rsg2DebugActive)
 			{
 				JLog::add('    $singlePathFileName: "' . $singlePathFileName . '"');
-				$Empty = empty ($this);
-				JLog::add('    $Empty: "' . $Empty . '"');
+				//$Empty = empty ($this);
+				//JLog::add('    $Empty: "' . $Empty . '"');
 			}
 
 			// return array($isMoved, $urlThumbFile, $msg); // file is moved
