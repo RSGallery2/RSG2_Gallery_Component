@@ -376,30 +376,29 @@ class Rsgallery2ControllerUpload extends JControllerForm
 			            JLog::add('Select Images:' . count($files));
 		            }
 
-		            $modelDb = $this->getModel('image');
-
 		            // Images exist
 		            if ($files)
 		            {
+			            $modelDb = $this->getModel('image');
+
 			            foreach ($files as $filePathName)
 			            {
 				            //----------------------------------------------------
 				            // Transfer files and create image data in db
 				            //----------------------------------------------------
-				            $filePathName = realpath ($filePathName);
-				            $baseName = basename($filePathName);
-
-				            //----------------------------------------------------
-				            // Create image data in db
-				            //----------------------------------------------------
 
 				            //--- Create Destination file name -----------------------
+
+				            $filePathName = realpath ($filePathName);
+				            $baseName = basename($filePathName);
 
 				            // ToDo: use sub folder for each gallery and check within gallery
 				            // Each filename is only allowed once so create a new one if file already exist
 				            $useFileName = $modelDb->generateNewImageName($baseName, $galleryId);
 
-				            //--- create image data in DB --------------------------------
+				            //----------------------------------------------------
+				            // Create image data in db
+				            //----------------------------------------------------
 
 				            $title = $baseName;
 				            $description = '';
@@ -452,18 +451,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 				            . ' ' . JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE'));
 		            }
 
-		            //--- Image(s) transferred successfully --------------------
-
-		            if (!empty ($cids))
-		            {
-			            $link = 'index.php?option=' . $this->option . '&view=ImagesProperties&' . http_build_query(array('cid' => $cids));
-		            }
-		            else
-		            {
-			            // No files found
-			            $app->enqueueMessage(JText::_('COM_RSGALLERY2_NO_VALID_IMAGES_FOUND_IN')
-				            . ' ' . JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE') . ' ' . basename($uploadZipName) );
-		            }
 	            }
 
                 //--- Remove added files -----------------------------
@@ -504,6 +491,10 @@ class Rsgallery2ControllerUpload extends JControllerForm
                     // COM_RSGALLERY2_ERROR_IMAGE_UPLOAD
                     $msg .= JText::_('Upload from Zip file failed');
                     $msgType = 'error';
+
+	                // No files found
+	                $app->enqueueMessage(JText::_('COM_RSGALLERY2_NO_VALID_IMAGES_FOUND_IN')
+		                . ' ' . JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE') . ' ' . basename($uploadZipName) );
 
 	                if ($Rsg2DebugActive)
 	                {
@@ -558,6 +549,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	    // Database IDs of created images
 	    $cids = array();
 
+	    // Prepare variables needed /created inside brackets {} for phpstorm code check
+	    $isHasError = false;
+
         // Access check
         $canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
         if (!$canAdmin) {
@@ -605,8 +599,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
 			            JLog::add('Valid folder:' . strval($ftpPath));
 		            }
 
-		            $updModel = $this->getModel('Upload');
-		            list($files, $ignored) = $updModel->SelectImagesFromFolder ($ftpPath);
+		            //$updModel = $this->getModel('Upload');
+		            $modelFile = $this->getModel('imageFile');
+		            list($files, $ignored) = $modelFile->SelectImagesFromFolder ($ftpPath);
 
 		            if ($Rsg2DebugActive)
 		            {
@@ -617,22 +612,38 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		            // Images exist
 		            if ($files)
 		            {
-						foreach ($files as $filePathName)
+			            $modelDb = $this->getModel('image');
+
+			            foreach ($files as $filePathName)
 						{
 							//----------------------------------------------------
 							// Transfer files and create image data in db
 							//----------------------------------------------------
 
-							//--- create image data in DB --------------------------------
+							//--- Create Destination file name -----------------------
 
-							list($singleFileName, $imgId) = $updModel->createImageDbItem(basename($filePathName), '', $galleryId);
+							$filePathName = realpath ($filePathName);
+							$baseName = basename($filePathName);
+
+							// ToDo: use sub folder for each gallery and check within gallery
+							// Each filename is only allowed once so create a new one if file already exist
+							$useFileName = $modelDb->generateNewImageName($baseName, $galleryId);
+
+							//----------------------------------------------------
+							// Create image data in db
+							//----------------------------------------------------
+
+							$title = $baseName;
+							$description = '';
+
+							$imgId = $modelDb->createImageDbItem($useFileName, '', $galleryId);
 							if (empty($imgId))
 							{
 								// actual give an error
-								$msg     .= '<br>' . JText::_('JERROR_ALERTNOAUTHOR');
-								$msg     .= '<br>' . 'Create DB item for "' . $singleFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
+								//$msg     .= '<br>' . JText::_('JERROR_ALERTNOAUTHOR');
+								$msg     .= '<br>' . 'Create DB item for "' . $baseName . '" failed. Use maintenance -> Consolidate image database to check it ';
 								$msgType = 'warning';
-
+								$app->enqueueMessage($msg, $msgType);
 
 								if ($Rsg2DebugActive)
 								{
@@ -645,23 +656,21 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 								//--- Move file and create display, thumbs and watermarked images ---------------------
 
-								list($isCreated, $urlThumbFile, $subMsg) = $updModel->CopyImageAndCreateRSG2Images($filePathName, $singleFileName, $galleryId, $msg, $rsgConfig);
+								list($isCreated, $urlThumbFile, $msg) = $modelFile->CopyImageAndCreateRSG2Images($filePathName, $useFileName, $galleryId);
 								if (!$isCreated)
 								{
 									// ToDo: remove $imgId from $cids [] array and from image database
 
 									if ($Rsg2DebugActive)
 									{
-										JLog::add('CopyImageAndCreateRSG2Images failed: ' . $filePathName . ', ' . $singleFileName);
+										JLog::add('CopyImageAndCreateRSG2Images failed: ' . $filePathName . ', ' . $useFileName);
 									}
 
-									// actual give an error
-									$msg     .= '<br>' . $subMsg;
 									$msgType = 'warning';
+									$app->enqueueMessage($msg, $msgType);
 								}
 							}
 			            } // files
-
 		            }
 		            else
 		            {
@@ -694,12 +703,21 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	            {
 		            $link = 'index.php?option=' . $this->option . '&view=ImagesProperties&' . http_build_query(array('cid' => $cids));
                     $msg .= JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY');
+
+		            if ($Rsg2DebugActive)
+		            {
+			            JLog::add('uploadFromZip: Success');
+		            }
                 }
                 else
                 {
                     // COM_RSGALLERY2_ERROR_IMAGE_UPLOAD
                     $msg .= JText::_('Upload from FTP folder failed');
                     $msgType = 'error';
+
+	                // No files found
+	                $app->enqueueMessage(JText::_('COM_RSGALLERY2_NO_VALID_IMAGES_FOUND_IN')
+		                . ' ' . JText::_('COM_RSGALLERY2_FTP_PATH')  );
 
 	                if ($Rsg2DebugActive)
 	                {
