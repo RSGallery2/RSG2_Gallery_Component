@@ -381,10 +381,12 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
                 JLog::add('    singleFileName: "' . $singleFileName . '"');
             }
 
-
-		if (true) {
-
+			//$dstFilePath = JPATH_ROOT . $rsgConfig->get('imgPath_original');
+	        //$dstFilePath = realpath (JPATH_ROOT . $rsgConfig->get('imgPath_original'));
+	        //$dstFilePath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/';
+	        //$dstFilePath = realpath (JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/');
             $dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/'  .  $singleFileName;
+	        //$dstFileName = realpath ($dstFileName);
 
             if ($Rsg2DebugActive)
             {
@@ -393,8 +395,8 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 // return $isMoved;
 
-            $isMoved = move_uploaded_file($uploadPathFileName, $dstFileName);
-        }
+            // $isMoved = move_uploaded_file($uploadPathFileName, $dstFileName);
+	        $isMoved = JFile::move($uploadPathFileName, $dstFileName);
         }
         catch (RuntimeException $e)
         {
@@ -683,6 +685,84 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	}
 
 	/**
+	 * Moves the file to rsg...Original and creates all RSG2 images
+	 * @param $uploadPathFileName
+	 * @param $singleFileName
+	 * @param $galleryId
+	 *
+	 * @return array
+	 *
+	 * @since 4.3.0
+	 */
+	public function CopyImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId)//: array
+	{
+		global $rsgConfig, $Rsg2DebugActive;
+
+		if ($Rsg2DebugActive)
+		{
+			JLog::add('==>Start CopyImageAndCreateRSG2Images: (Imagefile)');
+			JLog::add('    $uploadPathFileName: "' . $uploadPathFileName . '"');
+			JLog::add('    $singleFileName: "' . $singleFileName . '"');
+		}
+
+//		if (false) {
+		$urlThumbFile = '';
+		$isCopied = false; // successful images
+		$msg = '';
+
+		try {
+			$singlePathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $singleFileName;
+			if ($Rsg2DebugActive)
+			{
+				JLog::add('    $singlePathFileName: "' . $singlePathFileName . '"');
+				$Empty = empty ($this);
+				JLog::add('    $Empty: "' . $Empty . '"');
+			}
+
+			// return array($isCopied, $urlThumbFile, $msg); // file is moved
+
+			$isCopied = $this->copyFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId);
+
+			if (true) {
+
+				if ($isCopied)
+				{
+					list($isCopied, $urlThumbFile, $msg) = $this->CreateRSG2Images($singleFileName, $galleryId);
+				}
+				else
+				{
+					// File from other user may exist
+					// lead to upload at the end ....
+					$msg .= '<br>' . 'Move for file "' . $singleFileName . '" failed: Other user may have tried to upload with same name at the same moment. Please try again or with different name.';
+				}
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			if ($Rsg2DebugActive)
+			{
+				JLog::add('CopyImageAndCreateRSG2Images: RuntimeException');
+			}
+
+			$OutTxt = '';
+			$OutTxt .= 'Error executing CopyImageAndCreateRSG2Images: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		if ($Rsg2DebugActive)
+		{
+			JLog::add('<== Exit CopyImageAndCreateRSG2Images: '
+				. (($isCopied) ? 'true' : 'false')
+				. ' Msg: ' . $msg);
+		}
+
+		return array($isCopied, $urlThumbFile, $msg); // file is moved
+	}
+
+	/**
 	 *
 	 * @param $uploadPathFileName
 	 * @param $singleFileName
@@ -789,5 +869,99 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 		return array($isCreated, $urlThumbFile, $msg); // file is moved
 	}
 
+	/**
+	 * @param $extractDir folder with sub folders and images
+	 *
+	 * @return array  List of valid image files and List of ignored files (directories do npt count)
+	 *
+	 * @since 4.3.2
+	 */
+	public function SelectImagesFromFolder ($extractDir)//: array
+	{
+		global $rsgConfig; //, $Rsg2DebugActive;
+
+		//--- Read (all) files from directory ------------------
+
+		// $folderFiles = JFolder::files($ftpPath, '');
+		// $tree = JFolder::listFolderTree($extractDir);
+		$recurse = true;
+		$fullPath = true;
+		$folderFiles = JFolder::files($extractDir, $filter = '.', $recurse, $fullPath);
+
+		//--- Allowed file types ------------------
+
+		// wrong: $this->allowedFiles = array('jpg', 'gif', 'png', 'avi', 'flv', 'mpg');
+		// $imageTypes   = explode(',', $params->get('image_formats'));
+
+		// ToDo: remove "allowed files" from config
+		// Use all files which are identified as images
+		// $allowedTypes = strtolower($rsgConfig->allowedFileTypes);
+		// $allowedTypes = explode(',', strtolower($rsgConfig->allowedFileTypes));
+
+		//--- select images ------------------
+
+		$files = array ();
+		$ignored = array ();
+		$file = '';
+
+		try
+		{
+			foreach ($folderFiles as $file)
+			{
+				// ignore folders
+				if (is_dir($file))
+				{
+					continue;
+				}
+				else
+				{
+					//--- File information ----------------------
+
+					$img_info = @getimagesize($file);
+
+					// check if file is definitely not an image
+					if (empty ($img_info))
+					{
+						$ignored[] = $file;
+					}
+					else
+					{
+						//--- file may be an image -----------------------------
+
+						// ToDo: getimagesize() sollte nicht verwendet werden, um zu überprüfen,
+						// ToDo: ob eine gegebene Datei ein Bild enthält. Statt dessen sollte
+						// ToDo: eine für diesen Zweck entwickelte Lösung wie die
+						// ToDo: Fileinfo-Extension(finfo_file) verwendet werden
+
+						// $mime   = $img_info['mime']; // mime-type as string for ex. "image/jpeg" etc.
+
+						// ToDo: Check for allowed file types from config
+						//if (!in_array(fileHandler::getImageType($ftpPath . $file), $allowedTypes))
+						$valid_types = array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP);
+						if(in_array($img_info[2],  $valid_types))
+						{
+							//Add filename to list
+							$files[] = $file;
+						}
+						else
+						{
+							$ignored[] = $file;
+						}
+					}
+				}
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing SelectImagesFromFolder: "' . $file . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return array ($files, $ignored);
+	}
 
 }
