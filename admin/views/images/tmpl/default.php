@@ -8,12 +8,12 @@
 
 defined('_JEXEC') or die;
 
+global $Rsg2DebugActive;
+// global $rsgConfig;
+
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.multiselect');
 JHtml::_('formbehavior.chosen', 'select');
-
-global $Rsg2DebugActive;
-// global $rsgConfig;
 
 $sortColumn    = $this->escape($this->state->get('list.ordering')); //Column
 $sortDirection = $this->escape($this->state->get('list.direction'));

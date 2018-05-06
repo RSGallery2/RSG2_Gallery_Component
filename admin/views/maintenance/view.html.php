@@ -48,12 +48,6 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 		global $Rsg2DevelopActive;
 		global $rsgConfig;
 
-		// on develop show open tasks if existing
-		if (!empty ($Rsg2DevelopActive))
-		{
-			echo '<span style="color:red">Task: repair -> box: Check for left over upload files <br>  ==> finish comments list, add consolidate gallery database -> orphans without parents</span><br><br>';
-		}
-
 		//--- get needed data ------------------------------------------
 
 		// Check rights of user
@@ -102,6 +96,12 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 	*/
 	protected function addToolbar()
 	{
+		// on develop show open tasks if existing
+		if (!empty ($Rsg2DevelopActive))
+		{
+			echo '<span style="color:red">Task: repair -> box: Check for left over upload files <br>  ==> finish comments list, add consolidate gallery database -> orphans without parents</span><br><br>';
+		}
+
 		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE'), 'screwdriver'); // 'maintenance');
 	}
 }

@@ -381,10 +381,12 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
                 JLog::add('    singleFileName: "' . $singleFileName . '"');
             }
 
-
-		if (true) {
-
+			//$dstFilePath = JPATH_ROOT . $rsgConfig->get('imgPath_original');
+	        //$dstFilePath = realpath (JPATH_ROOT . $rsgConfig->get('imgPath_original'));
+	        //$dstFilePath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/';
+	        //$dstFilePath = realpath (JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/');
             $dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/'  .  $singleFileName;
+	        //$dstFileName = realpath ($dstFileName);
 
             if ($Rsg2DebugActive)
             {
@@ -393,8 +395,8 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 // return $isMoved;
 
-            $isMoved = move_uploaded_file($uploadPathFileName, $dstFileName);
-        }
+            // $isMoved = move_uploaded_file($uploadPathFileName, $dstFileName);
+	        $isMoved = JFile::move($uploadPathFileName, $dstFileName);
         }
         catch (RuntimeException $e)
         {
@@ -635,8 +637,8 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			if ($Rsg2DebugActive)
 			{
 				JLog::add('    $singlePathFileName: "' . $singlePathFileName . '"');
-				//$Empty = empty ($this);
-				//JLog::add('    $Empty: "' . $Empty . '"');
+				$Empty = empty ($this);
+				JLog::add('    $Empty: "' . $Empty . '"');
 			}
 
 			// return array($isMoved, $urlThumbFile, $msg); // file is moved
@@ -680,6 +682,84 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 		}
 
 		return array($isMoved, $urlThumbFile, $msg); // file is moved
+	}
+
+	/**
+	 * Moves the file to rsg...Original and creates all RSG2 images
+	 * @param $uploadPathFileName
+	 * @param $singleFileName
+	 * @param $galleryId
+	 *
+	 * @return array
+	 *
+	 * @since 4.3.0
+	 */
+	public function CopyImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId)//: array
+	{
+		global $rsgConfig, $Rsg2DebugActive;
+
+		if ($Rsg2DebugActive)
+		{
+			JLog::add('==>Start CopyImageAndCreateRSG2Images: (Imagefile)');
+			JLog::add('    $uploadPathFileName: "' . $uploadPathFileName . '"');
+			JLog::add('    $singleFileName: "' . $singleFileName . '"');
+		}
+
+//		if (false) {
+		$urlThumbFile = '';
+		$isCopied = false; // successful images
+		$msg = '';
+
+		try {
+			$singlePathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $singleFileName;
+			if ($Rsg2DebugActive)
+			{
+				JLog::add('    $singlePathFileName: "' . $singlePathFileName . '"');
+				$Empty = empty ($this);
+				JLog::add('    $Empty: "' . $Empty . '"');
+			}
+
+			// return array($isCopied, $urlThumbFile, $msg); // file is moved
+
+			$isCopied = $this->copyFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId);
+
+			if (true) {
+
+				if ($isCopied)
+				{
+					list($isCopied, $urlThumbFile, $msg) = $this->CreateRSG2Images($singleFileName, $galleryId);
+				}
+				else
+				{
+					// File from other user may exist
+					// lead to upload at the end ....
+					$msg .= '<br>' . 'Move for file "' . $singleFileName . '" failed: Other user may have tried to upload with same name at the same moment. Please try again or with different name.';
+				}
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			if ($Rsg2DebugActive)
+			{
+				JLog::add('CopyImageAndCreateRSG2Images: RuntimeException');
+			}
+
+			$OutTxt = '';
+			$OutTxt .= 'Error executing CopyImageAndCreateRSG2Images: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		if ($Rsg2DebugActive)
+		{
+			JLog::add('<== Exit CopyImageAndCreateRSG2Images: '
+				. (($isCopied) ? 'true' : 'false')
+				. ' Msg: ' . $msg);
+		}
+
+		return array($isCopied, $urlThumbFile, $msg); // file is moved
 	}
 
 	/**
@@ -883,5 +963,171 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 		return array ($files, $ignored);
 	}
+
+	/**
+	 *
+	 *
+	 * @return string
+	 *
+	 * @since 4.3.2
+	 */
+	public function rotate_images($fileNames, $galleryId, $angle)
+	{
+		$ImgCount = 0;
+
+		$msg = "model images: rotate_images: " . '<br>';
+
+		foreach ($fileNames as $fileName)
+		{
+			$IsSaved = $this->rotate_image($fileName, $galleryId, $angle);
+			if ($IsSaved){
+				$ImgCount++;
+			}
+		}
+
+		return $ImgCount;
+	}
+
+	/**
+	 *
+	 *
+	 * @return string
+	 *
+	 * @since 4.3.2
+	 */
+	public function rotate_image($fileName, $galleryId, $angle)
+	{
+		global $rsgConfig;
+		global $Rsg2DebugActive;
+
+		$isRotated = 0;
+
+		try
+		{
+			//--- image source ------------------------------------------
+
+			$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $fileName;
+			if (JFile::exists($imgSrcPath))
+			{
+				$memImage = new image ($imgSrcPath);
+			}
+			if (empty ($memImage))
+			{
+				$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $fileName . '.jpg';
+				if (JFile::exists($imgSrcPath))
+				{
+					$memImage = new image ($imgSrcPath);
+				}
+			}
+
+			if ( ! empty ($memImage))
+			{
+				$type = IMAGETYPE_JPEG;
+
+				//--- rotate and save ------------------
+
+				$memImage->rotate($angle, -1, false);
+				$memImage->toFile($imgSrcPath, $type);
+				$memImage->destroy();
+
+				list($isRotated, $urlThumbFile, $msg) = $this->CreateRSG2Images($fileName, $galleryId);
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing rotate_image: "' . $fileName . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $isRotated;
+	}
+
+	/**
+	 *
+	 *
+	 * @return string
+	 *
+	 * @since 4.3.2
+	 */
+	public function flip_images($fileNames, $galleryId, $angle)
+	{
+		$ImgCount = 0;
+
+		$msg = "model images: flip_images: " . '<br>';
+
+		foreach ($fileNames as $fileName)
+		{
+			$IsSaved = $this->flip_image($fileName, $galleryId, $angle);
+			if ($IsSaved){
+				$ImgCount++;
+			}
+		}
+
+		return $ImgCount;
+	}
+
+	/**
+	 *
+	 *
+	 * @return string
+	 *
+	 * @since 4.3.2
+	 */
+	public function flip_image($fileName, $galleryId, $flipMode)
+	{
+		global $rsgConfig;
+		global $Rsg2DebugActive;
+
+		$isRotated = 0;
+
+		try
+		{
+			//--- image source ------------------------------------------
+
+			$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $fileName;
+			if (JFile::exists($imgSrcPath))
+			{
+				$memImage = new image ($imgSrcPath);
+			}
+			if (empty ($memImage))
+			{
+				$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $fileName . '.jpg';
+				if (JFile::exists($imgSrcPath))
+				{
+					$memImage = new image ($imgSrcPath);
+				}
+			}
+
+			if ( ! empty ($memImage))
+			{
+				$type = IMAGETYPE_JPEG;
+
+				//--- rotate and save ------------------
+
+				$memImage->flip($flipMode, false);
+				$memImage->toFile($imgSrcPath, $type);
+				$memImage->destroy();
+
+				list($isRotated, $urlThumbFile, $msg) = $this->CreateRSG2Images($fileName, $galleryId);
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing flip_image: "' . $fileName . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $isRotated;
+	}
+
+
 
 }

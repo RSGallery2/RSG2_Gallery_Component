@@ -220,10 +220,19 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
                 JToolBarHelper::cancel('imagesProperties.cancel_imagesProperties');
 
 				JToolbarHelper::deleteList('', 'ImagesProperties.delete_imagesProperties', 'JTOOLBAR_DELETE');
-				
-				// batch
-				
-				
+
+
+				//--- turn image -> flip / rotate -------------------------------
+
+				// JToolBarHelper::spacer('50px');
+				JToolBarHelper::custom('', '', '', '   ', false);
+
+				JToolBarHelper::custom('imagesProperties.rotate_images_left', 'undo-2', '', 'COM_RSGALLERY2_ROTATE_LEFT', true);
+				JToolBarHelper::custom('imagesProperties.rotate_images_right', 'redo-2', '', 'COM_RSGALLERY2_ROTATE_RIGHT', true);
+				JToolBarHelper::custom('imagesProperties.rotate_images_180', 'backward-2', '', 'COM_RSGALLERY2_ROTATE_180', true);
+				JToolBarHelper::custom('imagesProperties.flip_images_horizontal', 'arrow-right-4', '', 'COM_RSGALLERY2_FLIP_HORIZONTAL', true);
+				JToolBarHelper::custom('imagesProperties.flip_images_vertical', 'arrow-down-4', '', 'COM_RSGALLERY2_FLIP_VERTICAL', true);
+
 				break;
 		}
 	}

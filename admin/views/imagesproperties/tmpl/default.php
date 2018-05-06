@@ -16,7 +16,6 @@ $doc->addscript(JUri::root() . '/administrator/components/com_rsgallery2/views/i
 JHtml::_('bootstrap.tooltip');
 //JHtml::_('bootstrap.modal');
 
-
 ?>
 
 <div id="installer-install" class="clearfix">
@@ -57,7 +56,7 @@ JHtml::_('bootstrap.tooltip');
                                     </div>
 
                                     <div class="caption" >
-	                                    <?php echo JHtml::_('grid.id', $Idx, $item->id, false, 'did'); ?>
+	                                    <?php echo JHtml::_('grid.id', $Idx, $item->id, false, 'sid'); ?>
                                         <small>&nbsp;<?php echo $this->escape($item->name);?>&nbsp;(ID: <?php echo $this->escape($item->id);?>)</small><br>
                                     </div>
 
