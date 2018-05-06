@@ -964,4 +964,170 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 		return array ($files, $ignored);
 	}
 
+	/**
+	 *
+	 *
+	 * @return string
+	 *
+	 * @since 4.3.2
+	 */
+	public function rotate_images($fileNames, $galleryId, $angle)
+	{
+		$ImgCount = 0;
+
+		$msg = "model images: rotate_images: " . '<br>';
+
+		foreach ($fileNames as $fileName)
+		{
+			$IsSaved = $this->rotate_image($fileName, $galleryId, $angle);
+			if ($IsSaved){
+				$ImgCount++;
+			}
+		}
+
+		return $ImgCount;
+	}
+
+	/**
+	 *
+	 *
+	 * @return string
+	 *
+	 * @since 4.3.2
+	 */
+	public function rotate_image($fileName, $galleryId, $angle)
+	{
+		global $rsgConfig;
+		global $Rsg2DebugActive;
+
+		$isRotated = 0;
+
+		try
+		{
+			//--- image source ------------------------------------------
+
+			$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $fileName;
+			if (JFile::exists($imgSrcPath))
+			{
+				$memImage = new image ($imgSrcPath);
+			}
+			if (empty ($memImage))
+			{
+				$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $fileName . '.jpg';
+				if (JFile::exists($imgSrcPath))
+				{
+					$memImage = new image ($imgSrcPath);
+				}
+			}
+
+			if ( ! empty ($memImage))
+			{
+				$type = IMAGETYPE_JPEG;
+
+				//--- rotate and save ------------------
+
+				$memImage->rotate($angle, -1, false);
+				$memImage->toFile($imgSrcPath, $type);
+				$memImage->destroy();
+
+				list($isRotated, $urlThumbFile, $msg) = $this->CreateRSG2Images($fileName, $galleryId);
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing rotate_image: "' . $fileName . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $isRotated;
+	}
+
+	/**
+	 *
+	 *
+	 * @return string
+	 *
+	 * @since 4.3.2
+	 */
+	public function flip_images($fileNames, $galleryId, $angle)
+	{
+		$ImgCount = 0;
+
+		$msg = "model images: flip_images: " . '<br>';
+
+		foreach ($fileNames as $fileName)
+		{
+			$IsSaved = $this->flip_image($fileName, $galleryId, $angle);
+			if ($IsSaved){
+				$ImgCount++;
+			}
+		}
+
+		return $ImgCount;
+	}
+
+	/**
+	 *
+	 *
+	 * @return string
+	 *
+	 * @since 4.3.2
+	 */
+	public function flip_image($fileName, $galleryId, $flipMode)
+	{
+		global $rsgConfig;
+		global $Rsg2DebugActive;
+
+		$isRotated = 0;
+
+		try
+		{
+			//--- image source ------------------------------------------
+
+			$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $fileName;
+			if (JFile::exists($imgSrcPath))
+			{
+				$memImage = new image ($imgSrcPath);
+			}
+			if (empty ($memImage))
+			{
+				$imgSrcPath = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $fileName . '.jpg';
+				if (JFile::exists($imgSrcPath))
+				{
+					$memImage = new image ($imgSrcPath);
+				}
+			}
+
+			if ( ! empty ($memImage))
+			{
+				$type = IMAGETYPE_JPEG;
+
+				//--- rotate and save ------------------
+
+				$memImage->flip($flipMode, false);
+				$memImage->toFile($imgSrcPath, $type);
+				$memImage->destroy();
+
+				list($isRotated, $urlThumbFile, $msg) = $this->CreateRSG2Images($fileName, $galleryId);
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing flip_image: "' . $fileName . '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $isRotated;
+	}
+
+
+
 }

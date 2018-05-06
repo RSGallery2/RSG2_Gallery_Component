@@ -143,7 +143,16 @@ class Rsgallery2ViewImage extends JViewLegacy
 				{
 					JToolBarHelper::cancel('image.cancel');
 				}
-				break;
+				// JToolBarHelper::spacer('50%');
+				JToolbarHelper::divider();
+
+				JToolBarHelper::custom('image.rotate_image_left', 'undo-2', '', 'COM_RSGALLERY2_ROTATE_LEFT', false);
+				JToolBarHelper::custom('image.rotate_image_right', 'redo-2', '', 'COM_RSGALLERY2_ROTATE_RIGHT', false);
+				JToolBarHelper::custom('image.rotate_image_180', 'backward-2', '', 'COM_RSGALLERY2_ROTATE_180', false);
+				JToolBarHelper::custom('image.flip_image_horizontal', 'arrow-right-4', '', 'COM_RSGALLERY2_FLIP_HORIZONTAL', false);
+				JToolBarHelper::custom('image.flip_image_vertical', 'arrow-down-4', '', 'COM_RSGALLERY2_FLIP_VERTICAL', false);
+
+			break;
 		}
 	}
 

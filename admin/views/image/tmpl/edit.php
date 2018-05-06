@@ -10,13 +10,12 @@
 defined('_JEXEC') or die();
 
 global $Rsg2DebugActive;
+// global $rsgConfig;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
 // JHtml::_('behavior.tooltip');
 JHtml::_('bootstrap.tooltip');
-
-JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.keepalive');
 //JHtml::_('formbehavior.chosen', 'select');
@@ -31,6 +30,10 @@ JFactory::getDocument()->addScriptDeclaration('
 		}
 	};
 ');
+
+// $user   = JFactory::getUser();
+// $userId = $user->id;
+
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=image&task=image.edit&id=' . (int) $this->item->id); ?>"
@@ -118,8 +121,11 @@ JFactory::getDocument()->addScriptDeclaration('
 		<?php echo JHtml::_('bootstrap.endTabSet'); ?>
 	</div>
 
-	<input type="hidden" name="task" value="" />
-	<?php echo JHtml::_('form.token'); ?>
+    <div>
+    	<input type="hidden" name="task" value="" />
+
+        <?php echo JHtml::_('form.token'); ?>
+    </div>
 
 </form>
 

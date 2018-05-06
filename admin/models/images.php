@@ -495,24 +495,23 @@ class Rsgallery2ModelImages extends JModelList
 
 	/**
 	 * Save user input from image parameter annotation in database of each image
+	 * @param $ImageIds List of image ids from database
 	 *
 	 * @return string
 	 *
 	 * @since 4.3.2
 	 */
-	public function save_imagesProperties()
+	public function save_imagesProperties($ImageIds)
 	{
 		$ImgCount = 0;
 
 		$msg = "model images: save_imagesProperties: " . '<br>';
 
-		$Images = $this->RetrieveImagesPropertiesFromInput();
-
 		$imgModel = self::getInstance('image', 'RSGallery2Model');
 
-		foreach ($Images as $Image)
+		foreach ($ImageIds as $ImageId)
 		{
-			$IsSaved = $imgModel->save_imageProperties($Image);
+			$IsSaved = $imgModel->save_imageProperties($ImageId);
 			if ($IsSaved){
 				$ImgCount++;
 			}
@@ -524,48 +523,82 @@ class Rsgallery2ModelImages extends JModelList
 	}
 
 	/**
-	 * Collects from user input the parameter of each image into one object per image
 	 *
-	 * @return array of images with input properties each
+	 * @param $ImageIds array List of image ids from database
+	 *
+	 * @return string
 	 *
 	 * @since 4.3.2
 	 */
-	public function RetrieveImagesPropertiesFromInput()
+	public function fileNamesFromIds($ImageIds)
 	{
-		$ImagesProperties = array();
+		$fileNames = [];
+
+		$msg = "model images: fileNamesFromIds : " . '<br>';
 
 		try
 		{
-			$input = JFactory::getApplication()->input;
+			$db    = JFactory::getDbo();
+			$query = $db->getQuery(true);
 
-			$cids         = $input->get('cid', 0, 'int');
-			$titles       = $input->get('title', 0, 'string');
-			$descriptions = $input->get('description', 0, 'string');
+			$query->select($db->quoteName('name'))
+				->from($db->quoteName('#__rsgallery2_files'))
+				->where($db->quoteName('id') . ' IN ' . ' (' . implode(',', $ImageIds) . ')');
+			$db->setQuery($query);
 
-			$idx = 0;
-			foreach ($cids as $Idx => $cid)
-			{
-				$ImagesProperty = new stdClass();
-
-				$ImagesProperty->cid = $cids [$Idx];
-				// ToDo: Check for not HTML input
-				$ImagesProperty->title       = $titles [$Idx];
-				$ImagesProperty->description = $descriptions [$Idx];
-
-				$ImagesProperties [] = $ImagesProperty;
-			}
+			$fileNames = $db->loadColumn(); // wrong $db->loadObjectList();
 		}
+
 		catch (RuntimeException $e)
 		{
 			$OutTxt = '';
-			$OutTxt .= 'Error executing RetrieveImagesPropertiesFromInput: "' . '<br>';
+			$OutTxt .= 'Error executing query: "' . $query . '" in fileNamesFromIds $ImageIds count:' . count ($ImageIds) . '<br>';
 			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
 			$app = JFactory::getApplication();
 			$app->enqueueMessage($OutTxt, 'error');
 		}
 
-		return $ImagesProperties;
+		return $fileNames;
 	}
 
+	/**
+	 *
+	 * @param $ImageIds aList of image ids from database
+	 *
+	 * @return string
+	 *
+	 * @since 4.3.2
+	 */
+	public function galleryIdFromId($ImageId)
+	{
+		$galleryId = -1;
+
+		try
+		{
+			$db    = JFactory::getDbo();
+			$query = $db->getQuery(true);
+
+			$query->select($db->quoteName('gallery_id'))
+				->from($db->quoteName('#__rsgallery2_files'))
+				->where(array($db->quoteName('id') . '=' . $ImageId));
+			$db->setQuery($query);
+			$db->execute();
+
+			$galleryId = $db->loadResult();
+		}
+
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing query: "' . $query . '" in galleryIdFromId $ImageId: "' . $ImageId .  '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $galleryId;
+	}
 }
+
