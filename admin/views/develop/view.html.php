@@ -65,13 +65,6 @@ class Rsgallery2ViewDevelop extends JViewLegacy
                 $this->OrderedGalleries = $this->GalleriesOrderModel->OrderedGalleries();
                 $this->LeftJoinGalleries = $this->GalleriesOrderModel->LeftJoinGalleries();
                 break;
-            case 'Edit':
-            	// It is considered to be bad style to instantiate a model within a view
-	            $model = JModel::getInstance('com_rsgallery2', 'image');
-
-	            $this->item  = $model->get('Item');
-
-	            break;
         }
         $this->addToolbar($Layout);
 

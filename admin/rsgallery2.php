@@ -8,7 +8,7 @@
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  */
-+defined('_JEXEC') or die();
+defined('_JEXEC') or die();
 
 global $Rsg2DebugActive, $Rsg2DevelopActive, $rsgConfig;
 
