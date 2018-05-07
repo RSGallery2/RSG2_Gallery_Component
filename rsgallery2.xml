@@ -127,7 +127,7 @@
 			<filename>template.css</filename>
 		</files>
 
-		<languages folder="language">
+		<languages folder="admin/language">
 			<language tag="da-DK">da-DK/da-DK.com_rsgallery2.ini</language>
 			<language tag="de-DE">de-DE/de-DE.com_rsgallery2.ini</language>
 			<language tag="el-GR">el-GR/el-GR.com_rsgallery2.ini</language>
