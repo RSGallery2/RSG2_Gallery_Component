@@ -359,7 +359,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 	 * Create a new item in database for image
 	 *
 	 * @param string $imageName
-	 * @param string $title
+	 * @param string $title Often left empty for the filename without extension
 	 * @param int    $galleryId
 	 * @param string $description
 	 *
