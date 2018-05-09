@@ -37,7 +37,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
 		// Database Image model
         //$modelDb = $this->getModel('image');
-        $modelDb = $this->getInstance('image', 'RSGallery2Model');
+        $modelDb = $this->getInstance('image', 'Rsgallery2Model');
         //
         //--- Create Destination file name -----------------------
 
@@ -125,7 +125,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 		try {
 			// Image file handling model
 			//$modelFile = $this->getModel('imageFile');
-			$modelFile = $this->getInstance('imageFile', 'RSGallery2Model');
+			$modelFile = $this->getInstance('imageFile', 'Rsgallery2Model');
 
 			$singlePathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $singleFileName;
 			if ($Rsg2DebugActive)
@@ -206,7 +206,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 
 		// Image file handling model
         //$modelFile = $this->getModel('imageFile');
-        $modelFile = $this->getInstance('imageFile', 'RSGallery2Model');
+        $modelFile = $this->getInstance('imageFile', 'Rsgallery2Model');
 
 		$isCreated = false; // successful images
 
@@ -262,7 +262,7 @@ class rsgallery2ModelUpload extends JModelLegacy  // JModelForm
 					if (!empty($isWatermarkActive))
 					{
 						//$modelWatermark = $this->getModel('ImgWaterMark');
-                        $modelWatermark = $this->getInstance('imgwatermark', 'RSGallery2Model');
+                        $modelWatermark = $this->getInstance('imgwatermark', 'Rsgallery2Model');
 
 						$isCreated = $modelWatermark->createMarkedFromBaseName(basename($singlePathFileName), 'original');
 						if (!$isCreated)
