@@ -23,15 +23,13 @@ Legend:
 ^ -> Change, - -> Removed, ! -> Note
 
 
-* --- 4.3.1 --- 2018-05-05 --- whazzup ------------------------------
+* --- 4.3.102 --- 2018-05-05 --- whazzup ------------------------------
 
 beta version
 
 + Rotate and flip functions for edit image and imaged properties files view
 
-
-
-* --- 4.3.1 --- 2018-01-28 --- whazzup ------------------------------
+* --- 4.3.101 --- 2018-01-28 --- whazzup ------------------------------
 
 beta version
 
