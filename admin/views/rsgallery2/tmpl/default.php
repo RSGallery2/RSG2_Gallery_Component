@@ -243,10 +243,10 @@ $doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/css
 						<?php
 						if ($this->UserIsAdmin)
 						{
-							//$link = 'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig';
-							$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;task=config.edit';
+							//$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;task=config.edit';
+							$link = 'index.php?option=com_config&view=component&component=com_rsgallery2';
 							RsgIconMoonButton($link, 'icon-equalizer clsProperties', JText::_('COM_RSGALLERY2_CONFIGURATION'));
-				}
+				        }
 
 						//$link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
 						$link = 'index.php?option=com_rsgallery2&view=galleries';

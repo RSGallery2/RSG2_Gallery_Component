@@ -85,7 +85,6 @@ class RSGallery2Helper // extends JHelperContent
             $link,
             True);
 
-
         //--- Add images view link ------------------------------------
 
         $link = 'index.php?option=com_rsgallery2&view=images';
@@ -98,19 +97,9 @@ class RSGallery2Helper // extends JHelperContent
 
         //--- Add maintenance view link ------------------------------------
 
-        if ($view == 'config') {
-            $link = 'index.php?option=com_rsgallery2&view=maintenance';
-            // In config add maintenance
-            JHtmlSidebar::addEntry(
-                '<span class="icon-screwdriver" >  </span>' .
-                JText::_('COM_RSGALLERY2_MAINTENANCE'),
-                $link,
-                false);
-        }
-
         if (substr($view, 0, 5) == 'devel') {
             $link = 'index.php?option=com_rsgallery2&view=maintenance';
-            // In config add maintenance
+            // In develop add maintenance
             JHtmlSidebar::addEntry(
                 '<span class="icon-screwdriver" >  </span>' .
                 JText::_('COM_RSGALLERY2_MAINTENANCE'),
@@ -134,7 +123,8 @@ class RSGallery2Helper // extends JHelperContent
         // inside maintenance ....
         if (substr($view, 0, 5) == 'maint') {
             if ($view == 'maintenance') {
-                $link = 'index.php?option=com_rsgallery2&view=config&task=config.edit';
+                //$link = 'index.php?option=com_rsgallery2&view=config&task=config.edit';
+	            $link = 'index.php?option=com_config&view=component&component=com_rsgallery2';
                 // In maintenance add config
                 JHtmlSidebar::addEntry(
                     '<span class="icon-equalizer" >  </span>' .
@@ -151,6 +141,29 @@ class RSGallery2Helper // extends JHelperContent
                     false);
             }
         }
+        else
+        {
+        	// config raw views
+	        //$link = 'index.php?option=com_rsgallery2&view=config&task=config.edit';
+	        if (substr($view, 0, 5) == 'config') {
+		        $link = 'index.php?option=com_rsgallery2&view=maintenance';
+		        // In config add maintenance
+		        JHtmlSidebar::addEntry(
+			        '<span class="icon-screwdriver" >  </span>' .
+			        JText::_('COM_RSGALLERY2_MAINTENANCE'),
+			        $link,
+			        false);
+	        }
+
+	        $link = 'index.php?option=com_config&view=component&component=com_rsgallery2';
+	        // In maintenance add config
+	        JHtmlSidebar::addEntry(
+		        '<span class="icon-equalizer" >  </span>' .
+		        JText::_('COM_RSGALLERY2_CONFIGURATION'),
+		        $link,
+		        false);
+        }
+
 
         return;
     }

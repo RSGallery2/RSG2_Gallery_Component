@@ -12,6 +12,10 @@
 
 defined('_JEXEC') or die();
 
+
+// This is used 2018.05.10
+
+
 class RSG2_SidebarLinks {
 
     /**
@@ -117,7 +121,8 @@ class RSG2_SidebarLinks {
         // inside maintenance ....
         if (substr($view, 0, 5) == 'maint') {
             if ($view == 'maintenance') {
-                $link = 'index.php?option=com_rsgallery2&view=config&task=config.edit';
+                // $link = 'index.php?option=com_rsgallery2&view=config&task=config.edit';
+	            $link = 'index.php?option=com_config&view=component&component=com_rsgallery2';
                 // In maintenance add config
                 JHtmlSidebar::addEntry(
                     '<span class="icon-equalizer" >  </span>' .
