@@ -189,6 +189,35 @@ class Rsgallery2ControllerConfig extends JControllerForm
 	}
 
 	/**
+	 * removes all entries fromm old
+	 *
+	 * @since version 4.3
+	 */
+	public function remove_OldConfigData()
+	{
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		$msg     = "remove_OldConfigData: " . '<br>';
+		$msgType = 'notice';
+
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+		if (!$canAdmin) {
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
+			$model = $this->getModel('ConfigRawOld');
+			$isSaved = $model->removeOldConfigData();
+		}
+
+		$link = 'index.php?option=com_rsgallery2&view=config&layout=RawEditOld';
+		// $link = 'index.php?option=com_rsgallery2&view=maintenance';
+		$this->setRedirect($link, $msg, $msgType);
+	}
+
+	/**
      * On cancel raw exit goto maintenance
      * @param null $key
      *
@@ -340,12 +369,11 @@ class Rsgallery2ControllerConfig extends JControllerForm
 	}
 
 	/**
-	 * Save changes in raw edit view value by value and copy items to the
-	 * old configuration  data
+	 * Read text file and copy items to the configuration  data
 	 *
 	 * @since version 4.3
 	 */
-	public function write_rawEdit2Text()
+	public function read_rawEdit2Text()
 	{
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
@@ -361,7 +389,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
 			str_replace('\n', '<br>', $msg);
 		} else {
 			$model = $this->getModel('ConfigRaw');
-			$isSaved = $model->createConfigTextFile();
+			$isSaved = $model->readConfigTextFile();
 		}
 
 		$link = 'index.php?option=com_rsgallery2&view=config&layout=RawEdit';
@@ -399,12 +427,11 @@ class Rsgallery2ControllerConfig extends JControllerForm
 	}
 
 	/**
-	 * Save changes in old raw edit view value by value and copy the items
-	 * to the new configuration data
+	 * Read text file and copy items to the old configuration data
 	 *
 	 * @since version 4.3
 	 */
-	public function write_rawEditOld2Text()
+	public function read_rawEditOld2Text()
 	{
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
@@ -420,7 +447,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
 			str_replace('\n', '<br>', $msg);
 		} else {
 			$model = $this->getModel('ConfigRawOld');
-			$isSaved = $model->createConfigTextFileOld();
+			$isSaved = $model->readConfigTextFileOld();
 		}
 
 		$link = 'index.php?option=com_rsgallery2&view=config&layout=RawEditOld';

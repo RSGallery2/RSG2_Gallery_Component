@@ -177,8 +177,9 @@ class Rsgallery2ViewConfig extends JViewLegacy
 				JToolBarHelper::cancel('config.cancel_rawEdit');
 				JToolbarHelper::custom('config.copy_rawEditFromOld', 'next', 'next', 'Copy old to new configuration data', false);
 				JToolbarHelper::custom('config.save_rawEditAndCopy', 'previous', 'previous', 'Save and copy to old configuration data', false);
-				JToolbarHelper::custom('config.save_rawEdit2Text', 'file-2', 'file-2', 'Save to Text file', false);
-				JToolbarHelper::custom('config.write_rawEdit2Text', 'file', 'file', 'Write to Text file', false);
+				JToolbarHelper::custom('config.save_rawEdit2Text', 'file-2', 'file-2', 'Save to text file', false);
+				JToolbarHelper::custom('config.read_rawEdit2Text', 'file', 'file', 'Read from text file', false);
+				JToolbarHelper::custom('config.remove_OldConfigData', 'next', 'next', 'Remove old configuration data', false);
 				break;
 			case 'RawViewOld':
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
@@ -192,8 +193,9 @@ class Rsgallery2ViewConfig extends JViewLegacy
 				JToolBarHelper::save('config.save_rawEditOld');
 				JToolBarHelper::cancel('config.cancel_rawEdit');
 				JToolbarHelper::custom('config.save_rawEditOldAndCopy', 'previous', 'previous', 'Save (old) and copy to new configuration data', false);
-				JToolbarHelper::custom('config.save_rawEditOld2Text', 'file-2', 'file-2', 'Save to Text file', false);
-				JToolbarHelper::custom('config.write_rawEditOld2Text', 'file', 'file', 'Write to Text file', false);
+				JToolbarHelper::custom('config.save_rawEditOld2Text', 'file-2', 'file-2', 'Save (old) to text file', false);
+				JToolbarHelper::custom('config.read_rawEditOld2Text', 'file', 'file', 'Read (old) from text file', false);
+				JToolbarHelper::custom('config.remove_OldConfigData', 'next', 'next', 'Remove old configuration data', false);
 				break;
 			// case 'default':
 			default:
@@ -202,7 +204,6 @@ class Rsgallery2ViewConfig extends JViewLegacy
 				JToolBarHelper::apply('config.apply');
 				JToolBarHelper::save('config.save');
 				JToolBarHelper::cancel('config.cancel');
-
 				break;
 		}
 	}

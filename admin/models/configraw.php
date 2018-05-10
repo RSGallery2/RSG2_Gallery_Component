@@ -85,20 +85,6 @@ class Rsgallery2ModelConfigRaw extends JModelList
 			}
 		}
 
-		/**
-		foreach ($data as $key => $value)
-		{
-            // fill an array, bind and check and store ?
-			$row->id    = null;
-			$row->name  = $key;
-			$row->value = $value;
-			$row->id    = null;
-
-			$row->check();
-			$row->store();
-		}
-		/**/
-
 		return $isSaved;
 	}
 
@@ -243,8 +229,10 @@ class Rsgallery2ModelConfigRaw extends JModelList
 		{
 			$fileName = JPATH_ADMINISTRATOR . '/logs/RSGallery2_Configuration.txt';
 			$cfgFile = fopen($fileName, "w") or die("Unable to open file!");
-			$txt = "RSGallery2 Configuration\n";
-			fwrite($cfgFile, $txt);
+
+//			$txt = "RSGallery2 Configuration\n";
+//			fwrite($cfgFile, $txt);
+
 			fwrite($cfgFile, json_encode($ConfigParameter, JSON_PRETTY_PRINT));
 			fclose($cfgFile);
 
@@ -266,5 +254,68 @@ class Rsgallery2ModelConfigRaw extends JModelList
 
 
 
+	/**
+	 *  ...
+	 *
+	 * @return string
+	 *
+	 * @since 4.3.0
+	 */
+	public function readConfigTextFile()
+	{
+		$isSaved = false;
+
+//		// Prepare merge
+//		$ConfigParameter = JComponentHelper::getParams('com_rsgallery2');
+//		$ConfigParameter = $ConfigParameter->toArray();
+///		ksort($ConfigParameter);
+
+//		echo '<br>Config: '	. json_encode($ConfigParameter) . '<br>' . '<br>';
+
+		try
+		{
+			$fileName = JPATH_ADMINISTRATOR . '/logs/RSGallery2_Configuration.txt';
+			$content = file_get_contents($fileName);
+			$data = json_decode($content, true);
+
+			// Db connection
+			$Rsg2Id = JComponentHelper::getComponent('com_rsgallery2')->id;
+			$table  = JTable::getInstance('extension');
+			$table->load($Rsg2Id);
+
+			// Insert data
+			//$table->bind(array('params' => $data->toString()));
+			$table->bind(array('params' => $data));
+
+			// check for error
+			if (!$table->check())
+			{
+				JFactory::getApplication()->enqueueMessage(JText::_('ConfigRaw readConfigTextFile: Check for save failed ') . $table->getError(), 'error');
+			}
+			else
+			{
+				// Save to database
+				if ($table->store())
+				{
+					$isSaved = false;
+				}
+				else
+				{
+					JFactory::getApplication()->enqueueMessage(JText::_('ConfigRaw readConfigTextFile: Store for save failed ') . $table->getError(), 'error');
+				}
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing save createConfigTextFile: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $isSaved;
+	}
 
 }

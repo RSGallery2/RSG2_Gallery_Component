@@ -336,18 +336,23 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                     'test');
                                 ?>
 
-
-                                <?php
-								/**
-                            $link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
-                            quickiconBar($link, 'menu.png',
-                            JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT'),
-                            JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'),
-                            'editConfigRaw');
-                            /**/
+								<?php
+								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawViewOld';
+								quickIconsBar($link, array('icon-equalizer', 'icon-eye', 'icon-eye-close'),
+									JText::_('COM_RSGALLERY2_CONFIGURATION_VARIABLES') . ' deprecated',
+									JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT') . '              ',
+									'viewConfigRaw');
 								?>
 
 								<?php
+								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawEditOld';
+								quickIconsBar($link, array('icon-equalizer', 'icon-edit', 'icon-eye-close'),
+									JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT') . ' deprecated',
+									JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'),
+									'editConfigRaw');
+								?>
+
+                                <?php
 								if ($this->UserIsRoot)
 								{
 									?>
@@ -381,31 +386,6 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
 									</strong>
 								</div>
 
-								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawEdit';
-								quickIconsBar($link, array('icon-equalizer', 'icon-edit'),
-									JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'),
-									JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'),
-									'editConfigRaw');
-								?>
-
-								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawViewOld';
-								quickIconsBar($link, array('icon-equalizer', 'icon-eye', 'icon-eye-close'),
-									JText::_('COM_RSGALLERY2_CONFIGURATION_VARIABLES'),
-									JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT') . '                        ',
-									'viewConfigRaw');
-								?>
-
-								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawEditOld';
-								quickIconsBar($link, array('icon-equalizer', 'icon-edit', 'icon-eye-close'),
-									JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'),
-									JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'),
-									'editConfigRaw');
-								?>
-
-
                                 <?php
 								if ($this->UserIsRoot)
 								{
@@ -421,11 +401,21 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
 									?>
 
 									<?php
+									$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawEdit';
+									quickIconsBar($link, array('icon-equalizer', 'icon-edit'),
+										JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'),
+										JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'),
+										'editConfigRaw');
+									?>
+
+									<?php
+                                    /**
 									$link = 'index.php?option=com_rsgallery2&amp;view=maintUploadLeftOverImages';
 									quickIconsBar($link, array('icon-image', 'icon-upload'),
 										JText::_('COM_RSGALLERY2_MAINT_UPLOAD_LEFT_OVER_IMAGES'),
 										JText::_('COM_RSGALLERY2_MAINT_UPLOAD_LEFT_OVER_IMAGES_DESC') . '                        ',
 										'uploadLeftOverImages');
+                                    **/
 									?>
 
 									<?php
