@@ -15,12 +15,12 @@ JFormHelper::loadFieldClass('list');
 /**
  * Collects available gallery ids and names and creates contents of dropdown box
  * for gallery selection
- * Includes "-- Select --" as first entry
+ * Includes "Root gallery" as first entry for selection of start gallery
+   Used in rsgallery menu assignment view
  * Sorted by ordering (newest first)
- *
  * @since 4.3.0
  */
-class JFormFieldGallerySelectList extends JFormFieldList
+class JFormFieldGalleryRootList extends JFormFieldList
 {
     /**
      * The field type.
@@ -65,8 +65,9 @@ class JFormFieldGallerySelectList extends JFormFieldList
 		$options = $galleries;
 
         // Put "Select an option" on the top of the list.
-		array_unshift($options, JHtml::_('select.option', '0', JText::_('COM_RSGALLERY2_SELECT_GALLERY')));
-
+		//array_unshift($options, JHtml::_('select.option', '0', JText::_('COM_RSGALLERY2_RSGALLERY2S_VIEW_DEFAULT_TITLE')));
+		array_unshift($options, JHtml::_('select.option', '0', JText::_('COM_RSGALLERY2_GALLERY_OVERVIEW')));
+		
         $options = array_merge(parent::getOptions(), $options);
 
         return $options;

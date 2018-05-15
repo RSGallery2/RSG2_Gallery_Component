@@ -14,7 +14,7 @@
 			<field
 					id="gid"
 					name="gid"
-					type="gallery"
+					type="galleryrootlist"
 					label="COM_RSGALLERY2_CHOOSE_GALLERY"
 					description="COM_RSGALLERY2_CHOOSE_GALLERY_DESC"
 					default="0"
