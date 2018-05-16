@@ -10,7 +10,6 @@
 		<fieldset name="request"
 		          addfieldpath="/administrator/components/com_rsgallery2/models/fields"
 		>
-
 			<field
 					id="gid"
 					name="gid"
@@ -19,7 +18,7 @@
 					description="COM_RSGALLERY2_CHOOSE_GALLERY_DESC"
 					default="0"
 					required="true"
-			><!-- introduces new field type gallery -->
+			>
 			</field>
 		</fieldset>
 	</fields>
