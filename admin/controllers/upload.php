@@ -280,10 +280,10 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 	            //--- Check zip file name -------------------
 
+				jimport('joomla.filesystem.file'); // JFolder
+				
 	            // Clean up filename to get rid of strange characters like spaces etc
 	            $uploadZipName = JFile::makeSafe($zip_file['name']);
-
-	            jimport('joomla.filesystem.file');
 
 	            if ($zip_file['name'] !== JFile::makeSafe($zip_file['name']) || preg_match('/\s/', JFile::makeSafe($zip_file['name'])))
 	            {
@@ -456,7 +456,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
                 //--- Remove added files -----------------------------
 				if ( ! empty ($extractDir))
 				{
-
+					jimport('joomla.filesystem.folder'); // JFolder
+					
 					Jfolder::delete($extractDir);
 
 					$delete = JFolder::files($app->get('tmp_path') . '/', uniqid('banners_tracks_'), false, true);

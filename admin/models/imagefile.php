@@ -10,6 +10,9 @@
 
 defined('_JEXEC') or die;
 
+//jimport('joomla.filesystem.file'); // JFolder
+
+use Joomla\Filesystem\Folder;
 use Joomla\Image\Image;
 
 require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ImgWatermarkNames.php';
@@ -886,7 +889,8 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 		// $tree = JFolder::listFolderTree($extractDir);
 		$recurse = true;
 		$fullPath = true;
-		$folderFiles = JFolder::files($extractDir, $filter = '.', $recurse, $fullPath);
+		//$folderFiles = JFolder::files($extractDir, $filter = '.', $recurse, $fullPath);
+		$folderFiles = Folder::files($extractDir, $filter = '.', $recurse, $fullPath);
 
 		//--- Allowed file types ------------------
 
