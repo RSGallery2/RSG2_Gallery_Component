@@ -15,7 +15,7 @@ JFormHelper::loadFieldClass('list');
 /**
  * Collects available gallery ids and names and creates contents of dropdown box
  * for gallery selection
- * Sort by name ASC
+ * Sorted by name ASC
  *
  * @since 4.3.0
  */
