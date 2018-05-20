@@ -2,24 +2,6 @@
 <!-- $Id $-->
 <config>
 	<!-- standard -->
-	<fieldset name="component"
-	          label="COM_RSGALLERY2_COMPONENT_LABEL"
-	          description="COM_RSGALLERY2_COMPONENT_DESC"
-	>
-		<!-- link to real configuration -->
-		<field
-				id="link2configView"
-				name="link2configView"
-				type="Rsg2Link"
-				label="COM_RSGALLERY2_RSG2_CONFIG_VIEW"
-				description="COM_RSGALLERY2_RSG2_CONFIG_VIEW_DESC"
-				required="false"
-				class="btn"
-				linktext="COM_RSGALLERY2_GOTO_RSG2_CONFIG_VIEW"
-				addfieldpath="/administrator/components/com_rsgallery2/models/fields"
-				size="4"
-		/>
-	</fieldset>
 	<fieldset name="General"
 	          label="COM_RSGALLERY2_GENERAL"
 	          description="COM_RSGALLERY2_GENERAL_SETTINGS"
@@ -1365,5 +1347,23 @@
 				validate="rules"
 				component="com_rsgallery2"
 				section="component"/>
+	</fieldset>
+	<fieldset name="component"
+	          label="COM_RSGALLERY2_COMPONENT_LABEL"
+	          description="COM_RSGALLERY2_COMPONENT_DESC"
+	>
+		<!-- link to old configuration -->
+		<field
+				id="link2configView"
+				name="link2configView"
+				type="Rsg2Link"
+				label="COM_RSGALLERY2_RSG2_CONFIG_VIEW"
+				description="COM_RSGALLERY2_RSG2_CONFIG_VIEW_DESC"
+				required="false"
+				class="btn"
+				linktext="COM_RSGALLERY2_GOTO_RSG2_CONFIG_VIEW"
+				addfieldpath="/administrator/components/com_rsgallery2/models/fields"
+				size="4"
+		/>
 	</fieldset>
 </config>
