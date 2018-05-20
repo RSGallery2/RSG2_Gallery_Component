@@ -837,7 +837,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 			$title = $baseName;
 			$description = '';
 
-			$imgId = $modelDb->createImageDbItem($useFileName, $title, $galleryId, $description);
+			$imgId = $modelDb->createImageDbItem($useFileName, '', $galleryId, $description);
 			if (empty($imgId))
 			{
 				// actual give an error
