@@ -10,8 +10,6 @@
 
 defined('_JEXEC') or die;
 
-//jimport('joomla.filesystem.file'); // JFolder
-
 use Joomla\Filesystem\Folder;
 use Joomla\Image\Image;
 

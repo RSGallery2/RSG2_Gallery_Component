@@ -30,7 +30,7 @@ class JFormFieldRsg2Link extends JFormField
 	protected $type = 'Rsg2Link';
 
 	/**
-	 * Creates html for buton with link to Returns HTML to dislpay the link to the RSGALLERY2 configuration
+	 * Creates html for button with link to Returns HTML to dislpay the link to the RSGALLERY2 configuration
 	 *
 	 * @access protected
 	 * @return    string    The field input markup.
