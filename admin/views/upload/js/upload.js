@@ -56,7 +56,7 @@ Joomla.submitButtonManualFileZipPcLegacy = function () {
 
     var zip_path = form.zip_file.value;
     var gallery_id = jQuery('#SelectGalleries_01').val();
-    var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_03"]:checked').val();
+    var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_01"]:checked').val();
 
     // No file path given
     if (zip_path == "") {
@@ -94,7 +94,7 @@ Joomla.submitButtonManualFileZipPc = function () {
 
     var zip_path = form.zip_file.value;
     var gallery_id = jQuery('#SelectGalleries_01').val();
-    var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_03"]:checked').val();
+    var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_01"]:checked').val();
 
     // No file path given
     if (zip_path == "") {
