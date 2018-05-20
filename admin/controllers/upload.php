@@ -154,7 +154,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		            // Upload directory will contain *.zip file and extracted image files (for a moment)
 		            $zipPathFileName = $extractDir . strtolower($uploadZipName);
 
-		            // Move uploaded file (this is truely uploading the file)
+		            // Move uploaded file (this is truly uploading the file)
 		            // *.zip needs $allow_unsafe = true since J3.4.x
 		            // upload(string $src, string $dst, boolean $use_streams = false, boolean $allow_unsafe = false, boolean $safeFileOptions = array()) : boolean
 		            $IsUploaded = JFile::upload($zip_file['tmp_name'], $zipPathFileName, false, true);
@@ -296,6 +296,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 					Jfolder::delete($extractDir);
 
+					/* ToDo: Is there something more to delete ?
 					$delete = JFolder::files($app->get('tmp_path') . '/', uniqid('banners_tracks_'), false, true);
 
 					if (!empty($delete))
@@ -308,6 +309,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 							return false;
 						}
 					}
+					/**/
 				}
 				
 	            //--- Image(s) transferred successfully ? --------------------
