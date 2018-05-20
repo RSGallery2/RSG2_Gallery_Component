@@ -13,6 +13,9 @@ defined('_JEXEC') or die;
 
 use Joomla\Archive\Archive;
 
+\JLoader::import('joomla.filesystem.file');
+\JLoader::import('joomla.filesystem.folder');
+
 global $Rsg2DebugActive;
 
 if ($Rsg2DebugActive)
@@ -117,11 +120,10 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	            //--- Check zip file name -------------------
 
 	            // Clean up filename to get rid of strange characters like spaces etc
-	            $uploadZipName = JFile::makeSafe($zip_file['name']);
+	            //$uploadZipName = JFile::makeSafe($zip_file['name']);
+	            $uploadZipName = \JFile::makeSafe($zip_file['name']);
 
-	            jimport('joomla.filesystem.file');
-
-	            if ($zip_file['name'] !== JFile::makeSafe($zip_file['name']) || preg_match('/\s/', JFile::makeSafe($zip_file['name'])))
+	            if ($zip_file['name'] !== \JFile::makeSafe($zip_file['name']) || preg_match('/\s/', \JFile::makeSafe($zip_file['name'])))
 	            {
 		            //$app = JFactory::getApplication();
 		            $app->enqueueMessage(JText::_('COM_    _WARNFILENAME'), 'error');
@@ -130,7 +132,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 	            if ($Rsg2DebugActive)
 	            {
-		            JLog::add('JFile::makeSafe:' . strval($isHasError));
+		            JLog::add('\JFile::makeSafe:' . strval($isHasError));
 	            }
 
 	            $extractDir = '';
