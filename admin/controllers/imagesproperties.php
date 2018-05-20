@@ -87,7 +87,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 		    }
 		    else
 		    {
-			    $ImagesProperties = ImagesPropertiesFromInput ();
+			    $ImagesProperties = $this->ImagesPropertiesFromInput ();
 
 			    $model = $this->getModel('images');
 			    $msg   = $model->save_imagesProperties($ImagesProperties);
@@ -134,7 +134,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 	        }
 	        else
 	        {
-		        $ImagesProperties = ImagesPropertiesFromInput ();
+		        $ImagesProperties = $this->ImagesPropertiesFromInput ();
 
 		        $model = $this->getModel('images');
 		        $msg = $model->save_imagesProperties($ImagesProperties);
