@@ -144,7 +144,7 @@ return;
                         <div id="uploadErrorArea"></div>
 
                         <div class="form-actions">
-                            <a class="btn btn-primary muted" id="submitbuttonManualFileSingle"
+                            <a class="btn btn-inverse" id="submitbuttonManualFileSingle"
                                title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_LEGACY_DESC'); ?>"
                                href="index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">
 								<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_LEGACY'); ?>
