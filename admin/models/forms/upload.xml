@@ -15,7 +15,7 @@
 		/>
 	</fieldset>
 	<fieldset name="upload_zip">
-		<field
+		<!--field
 				id="all_img_in_step1_01"
 				name="all_img_in_step1_01"
 				type="radio"
@@ -25,7 +25,13 @@
 				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
-		</field>
+		</field-->
+		<field 
+				id="all_img_in_step1_01"
+				name="all_img_in_step1_01" 
+				type="hidden" 
+				default="1" 
+		/>
 		<!-- Gallery selection -->
 		<field
 				id="SelectGalleries_01"
@@ -40,7 +46,7 @@
 		/>
 	</fieldset>
 	<fieldset name="upload_folder">
-		<field
+		<!--field
 				id="all_img_in_step1_02"
 				name="all_img_in_step1_02"
 				type="radio"
@@ -50,7 +56,14 @@
 				class="btn-group btn-group-yesno span5">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
-		</field>
+		</field-->
+		<field 
+				id="all_img_in_step1_02"
+				name="all_img_in_step1_02" 
+				type="hidden" 
+				default="1" 
+		/>
+
 		<!-- Gallery selection -->
 		<field
 				id="SelectGalleries_02"

@@ -144,7 +144,7 @@ return;
                         <div id="uploadErrorArea"></div>
 
                         <div class="form-actions">
-                            <a class="btn btn-primary" id="submitbuttonManualFileSingle"
+                            <a class="btn btn-primary muted" id="submitbuttonManualFileSingle"
                                title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_LEGACY_DESC'); ?>"
                                href="index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=upload">
 								<?php echo JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES_LEGACY'); ?>
@@ -211,18 +211,22 @@ return;
 
                         <!-- Action buttonManualFile -->
                         <div class="form-actions">
-                            <buttonManualFile type="buttonManualFile" class="btn btn-primary"
-                                              onclick="Joomla.submitButtonManualFileZipPcLegacy()"
-                                              title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE_LEGACY_DESC'); ?>"
-                            >
-                                <?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE_LEGACY'); ?>
-                            </buttonManualFile>
+                            <div class="control-group ">
                             <buttonManualFile type="buttonManualFile" class="btn btn-primary"
                                               onclick="Joomla.submitButtonManualFileZipPc()"
                                               title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE_DESC'); ?>"
                             >
                                 <?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE'); ?>
                             </buttonManualFile>
+                            </div>
+                            <div class="control-group">
+                                <buttonManualFile type="buttonManualFile" class="btn btn-inverse"
+                                                  onclick="Joomla.submitButtonManualFileZipPcLegacy()"
+                                                  title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE_LEGACY_DESC'); ?>"
+                                >
+			                        <?php echo JText::_('COM_RSGALLERY2_UPLOAD_ZIP_MINUS_FILE_LEGACY'); ?>
+                                </buttonManualFile>
+                            </div>
                         </div>
                     </fieldset>
 					<?php echo JHtml::_('bootstrap.endTab'); ?>
@@ -255,18 +259,22 @@ return;
 						?>
 
                         <div class="form-actions">
-                            <buttonManualFile type="buttonManualFile" class="btn btn-primary"
-                                              onclick="Joomla.submitButtonManualFileFolderServerLegacy()"
-                                              title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER_LEGACY_DESC'); ?>"
-                            >
-                                <?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER_LEGACY'); ?>
-                            </buttonManualFile>
-                            <buttonManualFile type="buttonManualFile" class="btn btn-primary"
-                                              onclick="Joomla.submitButtonManualFileFolderServer()"
-                                              title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER_DESC'); ?>"
-                            >
-                                <?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER'); ?>
-                            </buttonManualFile>
+                            <div class="control-group ">
+                                <buttonManualFile type="buttonManualFile" class="btn btn-primary"
+                                                  onclick="Joomla.submitButtonManualFileFolderServer()"
+                                                  title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER_DESC'); ?>"
+                                >
+                                    <?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER'); ?>
+                                </buttonManualFile>
+                            </div>
+                            <div class="control-group ">
+                                <buttonManualFile type="buttonManualFile" class="btn btn-inverse"
+                                                  onclick="Joomla.submitButtonManualFileFolderServerLegacy()"
+                                                  title="<?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER_LEGACY_DESC'); ?>"
+                                >
+			                        <?php echo JText::_('COM_RSGALLERY2_UPLOAD_IMAGES_SERVER_LEGACY'); ?>
+                                </buttonManualFile>
+                            </div>
                         </div>
                     </fieldset>
 					<?php echo JHtml::_('bootstrap.endTab'); ?>
