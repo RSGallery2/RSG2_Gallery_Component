@@ -69,6 +69,7 @@ Joomla.submitButtonManualFileZipPcLegacy = function () {
             alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(1)');
         }
         else {
+            alert ('bOneGalleryName4All' + bOneGalleryName4All);
 
             // yes transfer files ...
             form.task.value = 'batchupload'; // upload.uploadZipFile
@@ -146,6 +147,7 @@ Joomla.submitButtonManualFileFolderServerLegacy = function () {
             alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(3)');
         }
         else {
+            alert ('bOneGalleryName4All' + bOneGalleryName4All);
 
             // yes transfer files ...
             form.task.value = 'batchupload'; // upload.uploadZipFile
