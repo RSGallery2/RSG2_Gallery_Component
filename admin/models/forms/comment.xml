@@ -98,6 +98,7 @@
 				cols="50"
 				rows="5"
 				default=""
+				filter="safehtml"
 		/>
 
 		<field name="published"

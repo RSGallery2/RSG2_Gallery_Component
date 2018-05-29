@@ -260,9 +260,10 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
         // INSTANTIATE THE EDITOR
         $this->editor = JEditor::getInstance($selected_editor);
 
-        // SET EDITOR PARAMS
-        $this->editorParams = array( 'smilies'=> '0' ,
-            'style'  => '1' ,
+	    // SET EDITOR PARAMS
+        $this->editorParams = array(
+        	'smilies'=> '1' ,
+	        'style'  => '1' ,
             'layer'  => '0' ,
             'table'  => '0' ,
             'clear_entities'=>'0');
