@@ -56,7 +56,8 @@ Joomla.submitButtonManualFileZipPcLegacy = function () {
 
     var zip_path = form.zip_file.value;
     var gallery_id = jQuery('#SelectGalleries_01').val();
-    var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_01"]:checked').val();
+    //var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_01"]:checked').val();
+    var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_01"]').val();
 
     // No file path given
     if (zip_path == "") {
@@ -69,8 +70,6 @@ Joomla.submitButtonManualFileZipPcLegacy = function () {
             alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(1)');
         }
         else {
-            alert ('bOneGalleryName4All' + bOneGalleryName4All);
-
             // yes transfer files ...
             form.task.value = 'batchupload'; // upload.uploadZipFile
             form.rsgOption.value = "images";
@@ -95,7 +94,7 @@ Joomla.submitButtonManualFileZipPc = function () {
 
     var zip_path = form.zip_file.value;
     var gallery_id = jQuery('#SelectGalleries_01').val();
-    var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_01"]:checked').val();
+    var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_01"]').val();
 
     // No file path given
     if (zip_path == "") {
@@ -107,7 +106,6 @@ Joomla.submitButtonManualFileZipPc = function () {
             alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(2)');
         }
         else {
-
             // yes transfer files ...
             form.task.value = 'upload.uploadFromZip'; // upload.uploadZipFile
             form.batchmethod.value = 'zip';
@@ -135,7 +133,7 @@ Joomla.submitButtonManualFileFolderServerLegacy = function () {
 
     var gallery_id = jQuery('#SelectGalleries_02').val();
     var ftp_path = form.ftp_path.value;
-    var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_02"]:checked').val();
+    var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_02"]').val();
 
     // ftp path is not given
     if (ftp_path == "") {
@@ -147,8 +145,6 @@ Joomla.submitButtonManualFileFolderServerLegacy = function () {
             alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(3)');
         }
         else {
-            alert ('bOneGalleryName4All' + bOneGalleryName4All);
-
             // yes transfer files ...
             form.task.value = 'batchupload'; // upload.uploadZipFile
             form.rsgOption.value = "images";
@@ -174,7 +170,7 @@ Joomla.submitButtonManualFileFolderServer = function () {
     //var GalleryId = jQuery('#SelectGalleries_03').chosen().val();
     var gallery_id = jQuery('#SelectGalleries_02').val();
     var ftp_path = form.ftp_path.value;
-    var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_02"]:checked').val();
+    var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_02"]').val();
 
     // ftp path is not given
     if (ftp_path == "") {
@@ -186,7 +182,6 @@ Joomla.submitButtonManualFileFolderServer = function () {
             alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(4)');
         }
         else {
-
             // yes transfer files ...
             form.task.value = 'upload.uploadFromFtpFolder'; // upload.uploadZipFile
             form.batchmethod.value = 'FTP';
