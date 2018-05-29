@@ -94,9 +94,8 @@ JHtml::_('bootstrap.tooltip');
                                             if ( ! empty($this->editor))
                                             {
                                                 // ToDo: Leave out some editor buttons : use config ...
-                                                // https://joomla.stackexchange.com/questions/5616/how-do-you-specify-to-show-only-certain-editors-xtd-buttons-on-the-editor-form-f
-                                                echo $this->editor->display('description[]', $this->escape($item->descr), '90%', '50%', '20', '10',
-                                                    true, 'description_' . $Idx, null, null, $this->editorParams);
+	                                            echo $this->editor->display('description[]', $this->escape($item->descr), '90%', '100', '20', '20',
+		                                            false, 'description_' . $Idx, null, null, $this->editorParams);
                                             }
                                             ?>
                                         </div>
