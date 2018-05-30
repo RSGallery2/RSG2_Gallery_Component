@@ -25,29 +25,11 @@ if ($Rsg2DebugActive)
 
 class Rsgallery2ControllerImagesProperties extends JControllerForm
 {
-	/**
-	 * Class constructor.
-	 *
-	 * @param   array  $config  A named array of configuration variables.
-	 *
-	  * @since 4.3.0
-    *
-	public function __construct($config = array())
-	{
-		parent::__construct($config);
-
-		// An article edit form can come from the articles or featured view.
-		// Adjust the redirect view on the value of 'return' in the request.
-		if ($this->input->get('return') == 'featured')
-		{
-			$this->view_list = 'featured';
-			$this->view_item = 'article&return=featured';
-		}
-	}
-	/**/
 
 	/**
-	
+	 * Redirect to standard image peoprties tile view
+	 * Called from upload
+	 *
 	 * @since 4.3.0
      */
 	public function PropertiesView ()
@@ -63,7 +45,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 	}
 
     /**
-     * Save changes from imagesPropertiesView
+     * Save user changes from imagesPropertiesView
      *
      * @since version 4.3
      */
@@ -158,7 +140,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
     }
 
     /**
-     * Save changes from imagesPropertiesView
+     * Exit without saving
      *
      * @since version 4.3
      */
@@ -172,7 +154,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 
 
     /**
-     * Save changes from imagesPropertiesView
+     * Delete selected images
      *
      * @since version 4.3
      */
@@ -238,7 +220,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
     }
 
 	/**
-	 *
+	 * rotate_images_left directs selected master images and all dependent images to be turned left against the clock
 	 *
 	 *
 	 * @since version 4.3
@@ -254,7 +236,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 	}
 
 	/**
-	 *
+	 * rotate_images_right directs selected master images and all dependent images to be turned right with the clock
 	 *
 	 *
 	 * @since version 4.3
@@ -270,7 +252,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 	}
 
 	/**
-	 *
+	 * rotate_images_180 directs selected master image and all dependent images to be turned 180 degrees (upside down)
 	 *
 	 *
 	 * @since version 4.3
@@ -286,8 +268,8 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 	}
 
 	/**
-	 *
-	 *
+	 * rotate_images directs the master image and all dependent images to be turned by given degrees
+	 * @param string $msg       start of message to be given to the user on setRedirect
 	 *
 	 * @since version 4.3
 	 */
@@ -348,7 +330,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 	}
 
 	/**
-	 *
+	 * flip_images_horizontal directs selected master images and all dependent images to be flipped horizontal (left <-> right)
 	 *
 	 *
 	 * @since version 4.3
@@ -364,7 +346,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 	}
 
 	/**
-	 *
+	 * flip_images_vertical directs selected master image and all dependent images to be flipped horizontal (top <-> bottom)
 	 *
 	 *
 	 * @since version 4.3
@@ -380,7 +362,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 	}
 
 	/**
-	 *
+	 * flip_images_both directs the master image and all dependent images to be flipped horizontal and vertical
 	 *
 	 *
 	 * @since version 4.3
@@ -396,8 +378,9 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 	}
 
 	/**
-	 *
-	 *
+	 * flip_images directs the master image and all dependent images to be flipped
+	 * according to mode horizontal, vertical or both
+	 * @param string $msg       start of message to be given to the user on setRedirect
 	 *
 	 * @since version 4.3
 	 */
@@ -407,7 +390,6 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 
 		try
 		{
-
 			// Access check
 			$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
 			if (!$canAdmin)
@@ -500,6 +482,5 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 
 		return $ImagesProperties;
 	}
-
 }
 

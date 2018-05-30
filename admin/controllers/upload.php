@@ -52,7 +52,11 @@ class Rsgallery2ControllerUpload extends JControllerForm
     }
 
     /**
-     *
+     * Takes a zip file from user and delegates the upload.
+     * The files will be extracted and assigned to the given gallery
+     * The dependent files display and thumb will also be created
+     * The user will be redirected to the imageproperties
+     * page where he can change title and description
      *
      * @since 4.3.2
      */
@@ -365,7 +369,12 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 
     /**
-     *
+     * Takes a image files from server directory given by user
+     * and delegates the upload. The files will be assigned to
+     * the given gallery. The dependent files display and thumb
+     * will also be created
+     * The user will be redirected to the imageproperties
+     * page where he can change title and description
      *
      * @since 4.3
      */
@@ -584,8 +593,10 @@ class Rsgallery2ControllerUpload extends JControllerForm
     /**/
 
     /**
-     * ToDo: ? delete file on error
-     * ToDo: Check access rights : how is it done in Joomla Upload drag and drop
+     * The dropped file will be uploaded. The dependent files
+     * display and thumb will also be created
+     * The gallery id was created before and is read from the
+     * ajax parameters
      *
      * @since 4.3
      */
@@ -606,13 +617,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
                 // identify active file
                 JLog::add('==> uploadAjaxSingleFile');
             }
-
-            /**
-	        // echo new JResponseJson("uploadAjaxSingleFile (1)", "uploadAjaxSingleFile (2)", true);
-	        echo new JResponseJson("uploadAjaxSingleFile (1)", "uploadAjaxSingleFile (2)", true);
-	        $app->close();
-			return;
-            /**/
 
 
 	        $input = JFactory::getApplication()->input;
@@ -743,11 +747,15 @@ class Rsgallery2ControllerUpload extends JControllerForm
         $app->close();
     }
 
-	/*
-	
+	/**
+	 * The database entry for the image will be created here
+	 * It is called for each image for preserving the correct
+	 * ordering before uploading the images
+	 * Reason: The parallel uploaded images may appear unordered
+	 *
 	 * @since 4.3.0
-    
-	*/
+	 * @throws Exception
+	 */
 	function uploadAjaxReserveDbImageId ()
 	{
 		global $rsgConfig, $Rsg2DebugActive;
@@ -871,14 +879,12 @@ class Rsgallery2ControllerUpload extends JControllerForm
 			$ajaxImgDbObject['cid']  = $imgId;
             $isCreated = $imgId > 0;
 
-			/**/
 			//----------------------------------------------------
 			// for debug purposes fetch image order
 			//----------------------------------------------------
 
 			$imageOrder = $this->imageOrderFromId ($imgId);
 			$ajaxImgDbObject['order']  = $imageOrder;
-			/**/
 
 			//----------------------------------------------------
 			// return result
@@ -905,9 +911,10 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	}
 
 	/**
-	 * @param $imageId
+	 * Returns the order value of the image given by image ID
 	 *
-	 * @return int
+	 * @param $imageId Id of image
+	 * @return int  value "order" of image
 	 *
 	 * @since 4.3.0
     */
