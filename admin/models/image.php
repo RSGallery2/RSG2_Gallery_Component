@@ -63,8 +63,9 @@ class Rsgallery2ModelImage extends JModelAdmin
 	/**
 	 * Method to get the data that should be injected in the form.
 	 *
-	 * @return      mixed   The data for the form.
+	 * @return array|bool|JObject|mixed
 	 * @since       4.3.0
+	 * @throws Exception
 	 */
 	protected function loadFormData()
 	{
@@ -155,6 +156,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 	 * @return  boolean  True on success.
      *
      * @since 4.3.0
+	 * @throws Exception
 	 */
 	public function save($data)
 	{
@@ -282,6 +284,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 	 * @return bool true if successful
 	 *
 	 * @since 4.3.0
+	 * @throws Exception
 	 */
 	public function createImageDbBaseItem($imageName)
 	{
@@ -457,7 +460,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 	}
 
 	/**
-	 * Move already defined images to a different gallery
+	 * Move images to a different gallery
 	 * in database and care for new ordering
 	 *
 	 * @return bool true if successful
@@ -748,6 +751,7 @@ class Rsgallery2ModelImage extends JModelAdmin
      * @return bool true if successful
      *
      * @since 4.3.0
+     * @throws Exception
      */
 	public function assignGalleryId($imageId, $galleryId)
 	{
@@ -793,7 +797,8 @@ class Rsgallery2ModelImage extends JModelAdmin
      *
      * @return int image id
      *
-     * @since version
+     * @since version 4.3.2
+     * @throws Exception
      */
 	public function ImageIdFromName($imageName)
 	{
@@ -831,6 +836,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 	 * @return bool true if successful
 	 *
 	 * @since 4.3.0
+	 * @throws Exception
 	 */
 	public function deleteImageDbItem($imageName)
 	{
@@ -868,6 +874,7 @@ class Rsgallery2ModelImage extends JModelAdmin
      * @return bool True on save ok
      *
      * @since 4.3.2
+     * @throws Exception
      */
     public function save_imageProperties ($imageProperties)
     {
