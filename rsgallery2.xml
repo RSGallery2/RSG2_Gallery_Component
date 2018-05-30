@@ -9,7 +9,7 @@
 	<license>This component is released under the GNU/GPL License</license>
 	<authorEmail>team@rsgallery2.org</authorEmail>
 	<authorUrl>http://www.rsgallery2.org</authorUrl>
-	<version>4.4.0</version>
+	<version>4.4.1</version>
 	<description>COM_RSGALLERY2_XML_DESCRIPTION</description>
 
 	<scriptfile>install.rsgallery2.php</scriptfile>
