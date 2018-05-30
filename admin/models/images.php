@@ -11,7 +11,7 @@
 defined('_JEXEC') or die;
 
 /**
- * Image list model
+ * Image(s) list model
  *
  * @since 4.3.0
  */
@@ -182,6 +182,7 @@ class Rsgallery2ModelImages extends JModelList
 	 * @return bool true if successful
 	 *
 	 * @since 4.3.0
+	 * @throws Exception
 	 */
 	public function saveOrdering()
 	{
@@ -360,6 +361,7 @@ class Rsgallery2ModelImages extends JModelList
 	 * @return array rows with image name, gallery name, date, and user name as rows
 	 *
 	 * @since   4.3.0
+	 * @throws Exception
 	 */
 	public static function latestImages($limit)
 	{
@@ -460,6 +462,7 @@ class Rsgallery2ModelImages extends JModelList
 	 * @return int returns the total number of items in the given gallery.
 	 *
 	 * @since   4.3.0
+	 * @throws Exception
 	 */
 	public static function getCommentCount($ImageId)
 	{
@@ -495,6 +498,7 @@ class Rsgallery2ModelImages extends JModelList
 
 	/**
 	 * Save user input from image parameter annotation in database of each image
+	 *
 	 * @param $ImageIds List of image ids from database
 	 *
 	 * @return string
@@ -523,12 +527,14 @@ class Rsgallery2ModelImages extends JModelList
 	}
 
 	/**
+	 * Fetches base file names identified by the list of given image ids
 	 *
 	 * @param $ImageIds array List of image ids from database
 	 *
-	 * @return string
+	 * @return string [] file names
 	 *
 	 * @since 4.3.2
+	 * @throws Exception
 	 */
 	public function fileNamesFromIds($ImageIds)
 	{
@@ -563,12 +569,14 @@ class Rsgallery2ModelImages extends JModelList
 	}
 
 	/**
+	 * Fetches base file name identified by the given image id
 	 *
-	 * @param $ImageIds aList of image ids from database
+	 * @param $ImageId
 	 *
-	 * @return string
+	 * @return string filename
 	 *
 	 * @since 4.3.2
+	 * @throws Exception
 	 */
 	public function galleryIdFromId($ImageId)
 	{

@@ -96,6 +96,7 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 	 *                                    where the watermarked files are kept
 	 *
 	 * @since 4.3.2
+	 * @throws Exception
 	 */
 	private static function writeWatermarkPathIndexFile ($watermarkConfigPath='')
 	{
@@ -227,7 +228,7 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 	 *
 	 * @return array int[2] start of watermark x and y coordinates
 	 *
-	 *  @since 4.3.2
+	 * @since 4.3.2
 	 */
 	public static function watermarkXY($watermarkPosition,
 	                                   $srcWidth, $srcHeight,
@@ -293,11 +294,12 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 	 * The full path name will be created in the standard way using $imageOrigin as source path
 	 *
 	 * @param string $imageName Just the name no path added
-	 * @param string  $imageOrigin is either 'display' or 'original' and will precide the output filename
+	 * @param string $imageOrigin is either 'display' or 'original' and will precide the output filename
 	 *
-	 * @return bool
+	 * @return bool success
 	 *
 	 * @since 4.3.2
+	 * @throws Exception
 	 */
 	public function createMarkedFromBaseName ($imageName='', $imageOrigin = 'display')
 	{
@@ -356,7 +358,7 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 	 * @param string $sourceFile
 	 * @param string $targetFile
 	 *
-	 * @return bool
+	 * @return bool success
 	 *
 	 * @since 4.3.0
      */
@@ -425,6 +427,7 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 	 * @return bool
 	 *
 	 * @since 4.3.2
+	 * @throws Exception
 	 */
 	public static function createMarkedFile(
 		$sourceFile='',
@@ -595,7 +598,7 @@ class rsgallery2ModelImgWaterMark extends JModelList  // extends rsgallery2Model
 						}
 
 						$textBox         = imageTTFBbox($fontSize, $watermarkAngle, $fontFile, $watermarkText);
-						$watermarkWidth  = abs($textBox[0] - $textBox[2]);  // ToDO: use MarginWidth / MarginHeight
+						$watermarkWidth  = abs($textBox[0] - $textBox[2]);  // ToDo: use MarginWidth / MarginHeight
 						$watermarkHeight = abs($textBox[7] - $textBox[1]);
 
 						//---------------------------------------------------------

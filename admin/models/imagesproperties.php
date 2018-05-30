@@ -12,6 +12,8 @@ defined('_JEXEC') or die;
 
 /**
  * Image list model
+ * ToDo: Check if it is needed
+ * ToDo: ??? Handle Limit of image numbers shown on one page ???
  *
  * @since 4.3.0
  */
