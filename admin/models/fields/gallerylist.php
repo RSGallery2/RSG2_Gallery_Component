@@ -13,8 +13,8 @@ defined('_JEXEC') or die;
 JFormHelper::loadFieldClass('list');
 
 /**
- * Collects available gallery ids and names and creates contents of dropdown box
- * for gallery selection
+ * Collects available gallery ids and names and creates
+ * contents of a dropdown box for gallery selection
  * Sorted by name ASC
  *
  * @since 4.3.0
@@ -36,6 +36,7 @@ class JFormFieldGalleryList extends JFormFieldList
 	 * @return  array  The field option objects
      *
      * @since 4.3.0
+	 * @throws Exception
 	 */
 	protected function getOptions()
 	{

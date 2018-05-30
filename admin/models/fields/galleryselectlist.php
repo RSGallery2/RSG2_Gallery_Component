@@ -1,20 +1,20 @@
 <?php
 /*
-* @version $Id: gallery.php 1073 2012-05-14 12:35:41Z mirjam $
-* @package RSGallery2
-* @copyright (C) 2005-2018 RSGallery2 Team
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-* RSGallery2 is Free Software
-*/
+ * @package     RSGallery2
+ * @subpackage  com_rsgallery2
+ * @copyright   (C) 2005-2018 RSGallery2 Team
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @author      rsgallery2 team
+ * RSGallery is Free Software
+ */
 
-// Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die;
 
 JFormHelper::loadFieldClass('list');
 
 /**
- * Collects available gallery ids and names and creates contents of dropdown box
- * for gallery selection
+ * Collects available gallery ids and names and creates
+ * contents of a dropdown box for gallery selection
  * Includes "-- Select --" as first entry
  * Sorted by ordering (newest first)
  *
