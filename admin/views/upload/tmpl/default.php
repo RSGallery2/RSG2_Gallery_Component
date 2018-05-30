@@ -11,8 +11,6 @@ defined('_JEXEC') or die();
 $doc = JFactory::getDocument();
 $doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/views/upload/css/upload.css');
 
-//echo 'JURI_SITE: "' . JURI_SITE . '"';
-
 JHtml::_('bootstrap.tooltip');
 JHtml::_('bootstrap.framework');
 //JHtml::_('formbehavior.chosen', 'select');
@@ -27,34 +25,6 @@ $token  = JSession::getFormToken();
 
 $doc->addScript(JUri::root() . '/administrator/components/com_rsgallery2/views/upload/js/upload.js');
 
-/**
-The controller does the token check like this:
-JSession::checkToken('get') or die( 'Invalid Token');
-
-The view makes the ajax request using the token as a URL variable:
-index.php?option=com_mycomponent&format=raw&task=ajax.myTask&50e6a74276c578d2ebfc40fd526a193f=1
-
-The token is generated using an ajax call to another function that generates the token using:
-echo JFactory::getSession()->getFormToken();
----------------------------------------
-$.post('index.php',
-{
-'option':   'com_tieraerzte',
-'task':     'parser.importColumns',
-'tmpl':     'component',
-'app':      sourceSelect.val(),
-!!! '<?php echo JSession::getFormToken()?>': 1 !!!
-},
-function(result) {
-$('td.add_column').html(result);
-$('button#parse.btn').show();
-//edit the result here
-return;
-},
-'html'
-);
-
-/**/
 ?>
 
 <div id="installer-install" class="clearfix">
@@ -182,7 +152,8 @@ return;
                         <!-- Zip filename -->
                         <div class="control-group">
                             <label for="zip_file"
-                                   class="control-label"><?php echo JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE'); ?></label>
+                                   class="control-label"><?php echo JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE'); ?>
+                            </label>
                             <div class="controls">
                                 <!--input type="text" id="zip_file" name="zip_file" class="span5 input_box" size="70" value="http://" /-->
                                 <input type="file" class="input_box  span5" id="zip_file" name="zip_file" size="57"/>
