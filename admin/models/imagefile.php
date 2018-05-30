@@ -16,18 +16,13 @@ use Joomla\Image\Image;
 require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ImgWatermarkNames.php';
 
 /**
- * Single image model
- * Db functions
+ * Handles files of images with actions like
+ * Creating Thumb, watermarked and turning and flipping of images
  *
  * @since 4.3.0
  */
 class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 {
-	/**
-	 * @var  externalImageLib contains external image library handler
-	 */
-	// public $ImageLib = null;
-
 	/**
 	 * Constructor.
 	 *
@@ -39,47 +34,10 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 		parent::__construct();
 
-		// ToDo: try catch
-		// ToDo: ? fallback when lib is not existing any more ?
-		
 		if ($Rsg2DebugActive)
 		{
 			JLog::add('==>Start __construct ImageFile');
 		}
-
-		/**
-		// Use rsgConfig to determine which image library to load
-		$graphicsLib = $rsgConfig->get('graphicsLib');
-		switch ($graphicsLib)
-		{
-			case 'gd2':
-				// return GD
-				require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ExtImgLib_GD.php';
-				$this->ImageLib = new external_GD2;
-				break;
-			case 'imagemagick':
-				//return ImageMagick
-				require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ExtImgLib_imagemagick.php';
-				$this->ImageLib = new external_imagemagick;
-				break;
-			case 'netpbm':
-				//return Netpbm
-				require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ExtImgLib_netpbm.php';
-				$this->ImageLib = new external_netpbm;
-				break;
-			default:
-				require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/ExtImgLib_Empty.php';
-				$this->ImageLib = new external_empty;
-				JFactory::getApplication()->enqueueMessage(JText::_('COM_RSGALLERY2_INVALID_GRAPHICS_LIBRARY') . $rsgConfig->get('graphicsLib'), 'error');
-
-				return false;
-		}
-		/**/
-
-        if ($Rsg2DebugActive)
-        {
-            JLog::add('<==Exit __construct ImageFile');
-        }
 
 	}
 
@@ -148,7 +106,6 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 				$width  = ($targetWidth / $imgHeight) * $imgWidth;
 				$height = $targetWidth;
 			}
-
 
 			//--- Resize and save -----------------------------------
 
@@ -281,16 +238,10 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 			//--- create thumb and save directly -----------------------------------
 
-			//$thumbSizes = array( '50x50', '250x100' );
-			//$thumbSizes = array (str($width) . 'x' . str($height));
-			$thumbSizes = array ('250x100');
-
-//			$thumbsFolder = dirname($destFile) . DIRECTORY_SEPARATOR . 'thumbs';
-//			// create thumbs resizing with forced proportions
-//			$createdThumbs = createThumbs($destFile, $thumbSizes, $thumbsFolder, 1);
+			//$thumbSizes = array ('250x100');
+			$thumbSizes = array (str($width) . 'x' . str($height));
 
 			$creationMethod = image::SCALE_INSIDE;
-//			$IsImageCreated = $memImage->createThumbs($thumbSizes, $creationMethod, $thumbsFolder, );
 
 			// generateThumbs successfully ?
 			if ($thumbs = $memImage->generateThumbs($thumbSizes, $creationMethod))
@@ -300,25 +251,9 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 				foreach ($thumbs as $thumb)
 				{
-//					// Get thumb properties
-//					$thumbWidth     = $thumb->getWidth();
-//					$thumbHeight    = $thumb->getHeight();
-//
-//					// Generate thumb name
-//					$filename       = pathinfo($this->getPath(), PATHINFO_FILENAME);
-//					$fileExtension  = pathinfo($this->getPath(), PATHINFO_EXTENSION);
-//					$thumbFileName  = $filename . '_' . $thumbWidth . 'x' . $thumbHeight . '.' . $fileExtension;
-//
-//					// Save thumb file to disk
-//					$thumbFileName = $thumbsFolder . '/' . $thumbFileName;
-
-					//if ($thumb->toFile($thumbFileName, $imgProperties->type))
 					if ($thumb->toFile($imgDstPath, $imgProperties->type))
 					{
 						$IsImageCreated = True;
-//						// Return Image object with thumb path to ease further manipulation
-//						$thumb->path = $thumbFileName;
-//						$thumbsCreated[] = $thumb;
 					}
 				}
 			}
@@ -356,15 +291,17 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 		return $IsImageCreated;
 	}
 
-    // ToDo: add gallery ID as parameter for sub folder or sub folder itself ...
 	/**
-	 * @param $uploadPathFileName
-	 * @param $singleFileName
-	 * @param $galleryId
+	 * Move given file to rsgallery2 original directory
 	 *
-	 * @return bool
+	 * @param string $uploadPathFileName Origin path file name
+	 * @param string $singleFileName  Destination base file name
+	 * @param int $galleryId May be used in destination path
+	 *
+	 * @return bool success
 	 *
 	 * @since 4.3.0
+	 * @throws Exception
 	 */
     public function moveFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId)
     {
@@ -382,21 +319,13 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
                 JLog::add('    singleFileName: "' . $singleFileName . '"');
             }
 
-			//$dstFilePath = JPATH_ROOT . $rsgConfig->get('imgPath_original');
-	        //$dstFilePath = realpath (JPATH_ROOT . $rsgConfig->get('imgPath_original'));
-	        //$dstFilePath = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/';
-	        //$dstFilePath = realpath (JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/');
             $dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/'  .  $singleFileName;
-	        //$dstFileName = realpath ($dstFileName);
 
             if ($Rsg2DebugActive)
             {
                 JLog::add('    dstFileName: "' . $dstFileName . '"');
             }
 
-// return $isMoved;
-
-            // $isMoved = move_uploaded_file($uploadPathFileName, $dstFileName);
 	        $isMoved = JFile::move($uploadPathFileName, $dstFileName);
         }
         catch (RuntimeException $e)
@@ -424,15 +353,16 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
     // ToDo: add gallery ID as parameter for sub folder or sub folder itself ...
 	/**
-	 * @param $srcFileName
-	 * @param $dstFileName
-	 * @param $galleryId
+	 * @param string $srcFileName Origin path file name
+	 * @param string $singleFileName  Destination base file name
+	 * @param int $galleryId May be used in destination path
 	 *
-	 * @return bool
+	 * @return bool success
 	 *
 	 * @since 4.3.0
+	 * @throws Exception
 	 */
-    public function copyFile2OriginalDir($srcFileName, $dstFileName, $galleryId)
+    public function copyFile2OriginalDir($srcFileName, $singleFileName, $galleryId)
     {
         global $rsgConfig;
         global $Rsg2DebugActive;
@@ -441,7 +371,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
         try
         {
-	        $dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/'  .  $dstFileName;
+	        $dstFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/'  .  $singleFileName;
 
             if ($Rsg2DebugActive)
             {
@@ -484,6 +414,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	 * @return bool True on success
 	 *
 	 * @since 4.3.0
+	 * @throws Exception
 	 */
 	public function deleteImgItemImages($imageName)
 	{
@@ -608,14 +539,16 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	}
 
 	/**
-	 * Moves the file to rsg...Original and creates all RSG2 images
-	 * @param $uploadPathFileName
-	 * @param $singleFileName
-	 * @param $galleryId
+	 * Moves the file to rsg...Original path and creates all RSG2 images
 	 *
-	 * @return array
+	 * @param string $uploadPathFileName Origin path file name
+	 * @param string $singleFileName  Destination base file name
+	 * @param int $galleryId May be used in destination path
+	 *
+	 * @return array ($isMoved, $urlThumbFile, $msg) Tells about success, the URL to the thumb file and a message on error
 	 *
 	 * @since 4.3.0
+	 * @throws Exception
 	 */
 	public function MoveImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId)//: array
 	{
@@ -687,13 +620,15 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 	/**
 	 * Moves the file to rsg...Original and creates all RSG2 images
-	 * @param $uploadPathFileName
-	 * @param $singleFileName
-	 * @param $galleryId
 	 *
-	 * @return array
+	 * @param string $uploadPathFileName Origin path file name
+	 * @param string $singleFileName  Destination base file name
+	 * @param int $galleryId May be used in destination path
+	 *
+	 * @return array ($isMoved, $urlThumbFile, $msg) Tells about success, the URL to the thumb file and a message on error
 	 *
 	 * @since 4.3.0
+	 * @throws Exception
 	 */
 	public function CopyImageAndCreateRSG2Images($uploadPathFileName, $singleFileName, $galleryId)//: array
 	{
@@ -719,8 +654,6 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 				$Empty = empty ($this);
 				JLog::add('    $Empty: "' . $Empty . '"');
 			}
-
-			// return array($isCopied, $urlThumbFile, $msg); // file is moved
 
 			$isCopied = $this->copyFile2OriginalDir($uploadPathFileName, $singleFileName, $galleryId);
 
@@ -764,14 +697,16 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	}
 
 	/**
+	 * Delegates the creation of display, thumb and watermark images
 	 *
-	 * @param $uploadPathFileName
-	 * @param $singleFileName
-	 * @param $galleryId
+	 * @param string $uploadPathFileName Origin path file name
+	 * @param string $singleFileName  Destination base file name
+	 * @param int $galleryId May be used in destination path
 	 *
-	 * @return array
+	 * @return array ($isMoved, $urlThumbFile, $msg) Tells about success, the URL to the thumb file and a message on error
 	 *
 	 * @since 4.3.0
+	 * @throws Exception
 	 */
 	public function CreateRSG2Images($singleFileName, $galleryId)//: array
 	{
@@ -871,6 +806,9 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	}
 
 	/**
+	 * Selects all recognised images names in given folder
+	 * All other file names will be returned in the ignores list
+	 *
 	 * @param $extractDir folder with sub folders and images
 	 *
 	 * @return array  List of valid image files and List of ignored files (directories do npt count)
@@ -904,7 +842,6 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 		$files = array ();
 		$ignored = array ();
-		$file = '';
 
 		try
 		{
@@ -919,6 +856,11 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 				{
 					//--- File information ----------------------
 
+					// ToDo: getimagesize() sollte nicht verwendet werden, um zu überprüfen,
+					// ToDo: ob eine gegebene Datei ein Bild enthält. Statt dessen sollte
+					// ToDo: eine für diesen Zweck entwickelte Lösung wie die
+					// ToDo: Fileinfo-Extension(finfo_file) verwendet werden
+
 					$img_info = @getimagesize($file);
 
 					// check if file is definitely not an image
@@ -929,11 +871,6 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 					else
 					{
 						//--- file may be an image -----------------------------
-
-						// ToDo: getimagesize() sollte nicht verwendet werden, um zu überprüfen,
-						// ToDo: ob eine gegebene Datei ein Bild enthält. Statt dessen sollte
-						// ToDo: eine für diesen Zweck entwickelte Lösung wie die
-						// ToDo: Fileinfo-Extension(finfo_file) verwendet werden
 
 						// $mime   = $img_info['mime']; // mime-type as string for ex. "image/jpeg" etc.
 
@@ -967,11 +904,15 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	}
 
 	/**
+	 * rotate_images directs the master image and all dependent images to be turned by given degrees
 	 *
+	 * @param string [] $fileNames list of file names of images to be turned
+	 * @param int $galleryId May be used in destination path
+	 * @param double $angle Angle to turn the image
 	 *
-	 * @return string
+	 * @return int Number of successful turned images
 	 *
-	 * @since 4.3.2
+	 * @since version 4.3.2
 	 */
 	public function rotate_images($fileNames, $galleryId, $angle)
 	{
@@ -991,9 +932,14 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	}
 
 	/**
+	 * rotate_image rotates the master image by given degrees.
+	 * All dependent images will be created anwew from the turned image
 	 *
+	 * @param string $fileName file name of image to be turned
+	 * @param int $galleryId May be used in destination path
+	 * @param double $angle Angle to turn the image
 	 *
-	 * @return string
+	 * @return bool success
 	 *
 	 * @since 4.3.2
 	 */
@@ -1049,13 +995,17 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	}
 
 	/**
+	 * flip_images directs the master image and all dependent images to be flipped in given mode
 	 *
+	 * @param string [] $fileNames list of file names of images to be flipped
+	 * @param int $galleryId May be used in destination path
+	 * @param int $flipMode flip direction horiontal, vertical or both
 	 *
-	 * @return string
+	 * @return int Number of successful turned images
 	 *
 	 * @since 4.3.2
 	 */
-	public function flip_images($fileNames, $galleryId, $angle)
+	public function flip_images($fileNames, $galleryId, $flipMode)
 	{
 		$ImgCount = 0;
 
@@ -1063,7 +1013,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 		foreach ($fileNames as $fileName)
 		{
-			$IsSaved = $this->flip_image($fileName, $galleryId, $angle);
+			$IsSaved = $this->flip_image($fileName, $galleryId, $flipMode);
 			if ($IsSaved){
 				$ImgCount++;
 			}
@@ -1073,9 +1023,14 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	}
 
 	/**
+	 * flip_images directs the master image to be flipped in given mode
+	 * All dependent images will be created anwew from the flipped image
 	 *
+	 * @param string $fileName File name of image to be flipped
+	 * @param int $galleryId May be used in destination path
+	 * @param int $flipMode flip direction horiontal, vertical or both
 	 *
-	 * @return string
+	 * @return bool success
 	 *
 	 * @since 4.3.2
 	 */
@@ -1129,7 +1084,5 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 
 		return $isRotated;
 	}
-
-
-
 }
+

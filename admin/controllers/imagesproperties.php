@@ -231,7 +231,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 
 		$msg     = "rotate_left: " . '<br>';
 
-		$direction = 90;
+		$direction = 90.000;
 		$this->rotate_images ($direction, $msg);
 	}
 
@@ -247,7 +247,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 
 		$msg     = "rotate_right: " . '<br>';
 
-		$direction = -90;
+		$direction = -90.000;
 		$this->rotate_images ($direction, $msg);
 	}
 
@@ -263,17 +263,21 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 
 		$msg     = "rotate_180: " . '<br>';
 
-		$direction = 180;
+		$direction = 180.000;
 		$this->rotate_images ($direction, $msg);
 	}
 
 	/**
 	 * rotate_images directs the master image and all dependent images to be turned by given degrees
+	 *
+	 * @param double $direction angle to turn the image
 	 * @param string $msg       start of message to be given to the user on setRedirect
 	 *
+	 *
 	 * @since version 4.3
+	 * @throws Exception
 	 */
-	public function rotate_images($direction = -90, $msg)
+	public function rotate_images($direction = -90.000, $msg)
 	{
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
