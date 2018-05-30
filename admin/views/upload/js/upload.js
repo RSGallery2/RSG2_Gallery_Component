@@ -11,30 +11,13 @@
  * @since       4.3.0
  */
 
-// https://joomla.stackexchange.com/questions/146/what-is-the-proper-way-to-make-an-ajax-call-in-component
-
 //--------------------------------------------------------------------------------------
-// "old" submit buttons
+// new functions and new submit buttons
 //--------------------------------------------------------------------------------------
 
-/* Deprecated old single image upload */
-Joomla.submitButtonManualFileSingle = function () {
-
-    // alert('Upload single images: legacy ...');
-
-    var form = document.getElementById('adminForm');
-
-    // yes transfer files ...
-    form.task.value = 'upload'; // upload.uploadZipFile
-    form.batchmethod.value = 'zip';
-    form.ftppath.value = "";
-    form.xcat.value = "";
-    form.selcat.value = "";
-
-    form.submit();
-};
-
-/** assign properties to dropped files **/
+/**
+ * call imagesProperties view. There assign properties to dropped files
+ */
 Joomla.submitAssign2DroppedFiles = function () {
 //        alert('submitAssignDroppedFiles:  ...');
     var form = document.getElementById('adminForm');
@@ -45,47 +28,10 @@ Joomla.submitAssign2DroppedFiles = function () {
 
     form.submit();
 };
-/**/
 
-/* Zip file */
-Joomla.submitButtonManualFileZipPcLegacy = function () {
-
-    //alert('Upload Manual File Zip from Pc: legacy ...');
-
-    var form = document.getElementById('adminForm');
-
-    var zip_path = form.zip_file.value;
-    var gallery_id = jQuery('#SelectGalleries_01').val();
-    //var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_01"]:checked').val();
-    var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_01"]').val();
-
-    // No file path given
-    if (zip_path == "") {
-        alert(Joomla.JText._('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN'));
-    }
-    else {
-
-        // Is invalid galleryId selected ?
-        if (bOneGalleryName4All && (gallery_id < 1)) {
-            alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(1)');
-        }
-        else {
-            // yes transfer files ...
-            form.task.value = 'batchupload'; // upload.uploadZipFile
-            form.rsgOption.value = "images";
-            form.batchmethod.value = 'zip';
-            form.ftppath.value = "";
-            form.xcat.value = gallery_id;
-            form.selcat.value = bOneGalleryName4All;
-
-            jQuery('#loading').css('display', 'block');
-
-            form.submit();
-        }
-    }
-};
-
-/* Test Zip file: Not used ? */
+/**
+ * Upload zip file chacks and calls
+ */
 Joomla.submitButtonManualFileZipPc = function () {
 
     // alert('Upload Manual File Zip from Pc: controller upload.uploadFromZip ...');
@@ -124,43 +70,9 @@ Joomla.submitButtonManualFileZipPc = function () {
 };
 /**/
 
-/* from server */
-Joomla.submitButtonManualFileFolderServerLegacy = function () {
-
-    // alert('Upload Folder server: legacy ...');
-
-    var form = document.getElementById('adminForm');
-
-    var gallery_id = jQuery('#SelectGalleries_02').val();
-    var ftp_path = form.ftp_path.value;
-    var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_02"]').val();
-
-    // ftp path is not given
-    if (ftp_path == "") {
-        alert(Joomla.JText._('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED'));
-    }
-    else {
-        // Is invalid galleryId selected ?
-        if (bOneGalleryName4All && (gallery_id < 1)) {
-            alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(3)');
-        }
-        else {
-            // yes transfer files ...
-            form.task.value = 'batchupload'; // upload.uploadZipFile
-            form.rsgOption.value = "images";
-            form.batchmethod.value = 'FTP';
-            form.ftppath.value = ftp_path;
-            form.xcat.value = gallery_id;
-            form.selcat.value = bOneGalleryName4All;
-
-            jQuery('#loading').css('display', 'block');
-
-            form.submit();
-        }
-    }
-};
-
-/* from server */
+/*
+ * Upload server file checks and calls
+ */
 Joomla.submitButtonManualFileFolderServer = function () {
 
     // alert('Upload Folder server: upload.uploadFromFtpFolder ...');
@@ -198,9 +110,15 @@ Joomla.submitButtonManualFileFolderServer = function () {
 };
 /**/
 
-//--------------------------------------------------------------------------------------
-// drop files
-//--------------------------------------------------------------------------------------
+/**-------------------------------------------------------------------------------------
+ * drag and drop files
+ * -------------------------------------------------------------------------------------
+ * each dropped filename gets a statusbar.
+ * All image file names are collected in a list in order as they are dropped
+ * Each filename will be send by ajax to create a database entry to keep the dropped order
+ * On answer the files are uploaded parallel all at once
+ * -------------------------------------------------------------------------------------
+ */
 
 jQuery(document).ready(function ($) {
 
@@ -435,7 +353,7 @@ jQuery(document).ready(function ($) {
     }
 
     //=================================================================================
-    // Add file data to a list which will be processed in order of apperance
+    // Add file data to a list which will be processed in order of appearance
     // Parameter: image file set, progressArea
     function prepareFileUpload(files, progressArea) {
 
@@ -481,7 +399,7 @@ jQuery(document).ready(function ($) {
     }
 
     //=================================================================================
-    // If sending is not busy start with latest file.
+    // If sending is not busy start with oldest file.
     // Call first step -> reserve DB item and return ID
 
     var sendState = 0; // 1 busy
@@ -509,7 +427,7 @@ jQuery(document).ready(function ($) {
 
     //=================================================================================
     // 1. ajax request for image database reservation so order is intact before sending files
-    // ajax returns imagage db ID
+    // ajax returns image db ID
     function reserveDbImageId (formData, statusBar, fileName) {
 
         // only running in firefox and chrome
@@ -802,5 +720,100 @@ jQuery(document).ready(function ($) {
     }
 
 }); // Joomla ready ... ?
+
+//--------------------------------------------------------------------------------------
+// "old" submit buttons
+//--------------------------------------------------------------------------------------
+
+/* Deprecated old single image upload */
+Joomla.submitButtonManualFileSingle = function () {
+
+    // alert('Upload single images: legacy ...');
+
+    var form = document.getElementById('adminForm');
+
+    // yes transfer files ...
+    form.task.value = 'upload'; // upload.uploadZipFile
+    form.batchmethod.value = 'zip';
+    form.ftppath.value = "";
+    form.xcat.value = "";
+    form.selcat.value = "";
+
+    form.submit();
+};
+
+/* Zip file */
+Joomla.submitButtonManualFileZipPcLegacy = function () {
+
+    //alert('Upload Manual File Zip from Pc: legacy ...');
+
+    var form = document.getElementById('adminForm');
+
+    var zip_path = form.zip_file.value;
+    var gallery_id = jQuery('#SelectGalleries_01').val();
+    //var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_01"]:checked').val();
+    var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_01"]').val();
+
+    // No file path given
+    if (zip_path == "") {
+        alert(Joomla.JText._('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN'));
+    }
+    else {
+
+        // Is invalid galleryId selected ?
+        if (bOneGalleryName4All && (gallery_id < 1)) {
+            alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(1)');
+        }
+        else {
+            // yes transfer files ...
+            form.task.value = 'batchupload'; // upload.uploadZipFile
+            form.rsgOption.value = "images";
+            form.batchmethod.value = 'zip';
+            form.ftppath.value = "";
+            form.xcat.value = gallery_id;
+            form.selcat.value = bOneGalleryName4All;
+
+            jQuery('#loading').css('display', 'block');
+
+            form.submit();
+        }
+    }
+};
+
+/* from server */
+Joomla.submitButtonManualFileFolderServerLegacy = function () {
+
+    // alert('Upload Folder server: legacy ...');
+
+    var form = document.getElementById('adminForm');
+
+    var gallery_id = jQuery('#SelectGalleries_02').val();
+    var ftp_path = form.ftp_path.value;
+    var bOneGalleryName4All = jQuery('input[name="all_img_in_step1_02"]').val();
+
+    // ftp path is not given
+    if (ftp_path == "") {
+        alert(Joomla.JText._('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED'));
+    }
+    else {
+        // Is invalid galleryId selected ?
+        if (bOneGalleryName4All && (gallery_id < 1)) {
+            alert(Joomla.JText._('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST') + '(3)');
+        }
+        else {
+            // yes transfer files ...
+            form.task.value = 'batchupload'; // upload.uploadZipFile
+            form.rsgOption.value = "images";
+            form.batchmethod.value = 'FTP';
+            form.ftppath.value = ftp_path;
+            form.xcat.value = gallery_id;
+            form.selcat.value = bOneGalleryName4All;
+
+            jQuery('#loading').css('display', 'block');
+
+            form.submit();
+        }
+    }
+};
 
 

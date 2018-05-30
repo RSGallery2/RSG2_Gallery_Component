@@ -40,15 +40,15 @@ class Rsgallery2ViewUpload extends JViewLegacy
     // protected $LastUsedUploadZip;
     protected $is1GalleryExisting;
 
-    // ToDo: Config -> update gallery selection preselect latest gallery  (User input ...)
-    // ToDo: Config -> update gallery selection preselect last used gallery ? show combo opened for n entries
-
     //------------------------------------------------
     /**
+     * Prepare view
+     *
      * @param null $tpl
      *
      * @return bool
      * @since 4.3.0
+     * @throws Exception
 	 */
     public function display($tpl = null)
     {
@@ -164,24 +164,18 @@ class Rsgallery2ViewUpload extends JViewLegacy
         // on develop show open tasks if existing
         if (!empty ($Rsg2DevelopActive))
         {
-            echo '<span style="color:red">'
+	        echo '<span style="color:red">'
                 . 'Tasks: <br>'
 				. '*  <br>??? enable/force selection of start gallery ???'
-				. '*  <br>Check ajax securitiy on call'
 //				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'
-//				. '*  <br>'
-//				. '*  <br>'
+				. '* Config -> update gallery selection preselect last used gallery ? show combo opened for n entries <br>'
+				. '* Config -> update gallery selection preselect latest gallery  (User input ...) <br>'
 	            . '* Hide "Drage images here" ... on first successful upload<br>'
 	            . '* Hide progressBar when image appears '
-                . '* Check: Why is it not running on PHP 5.4<br>'
                 . '* Do documentation of model calling order and improve calling as is slow<br>'
-                . '* Move javascript code into *.js file<br>'
-                . '* Test reaction on too big files ? good error message (single and within OK files)<br>'
-                . '* Test reaction on not image files ? good error message ? (single and within OK files)<br>'
-                . '* Order of uploaded images: a) prevent wrong order b) reorder images does not work<br>'
                 . '</span><br><br>';
         }
 
@@ -199,6 +193,8 @@ class Rsgallery2ViewUpload extends JViewLegacy
 
 
     /**
+     * Query for ID of latest gallery
+     *
      * @return string ID of latest gallery
      *
      * @since 4.3.0
@@ -220,7 +216,8 @@ class Rsgallery2ViewUpload extends JViewLegacy
     }
 
     /**
-     *    //Check if at least one gallery exists, if not link to gallery creation
+     * Check if at least one gallery exists
+     *
      * @return string ID of latest gallery
      *
      * @since 4.3.0
@@ -243,7 +240,5 @@ class Rsgallery2ViewUpload extends JViewLegacy
 
         return $is1GalleryExisting;
     }
-
-
 }
 
