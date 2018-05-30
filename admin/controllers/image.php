@@ -31,8 +31,7 @@ class Rsgallery2ControllerImage extends JControllerForm
 
 
 	/**
-	 *
-	 *
+	 * rotate_image_left directs the master image and all dependent images to be turned left against the clock
 	 *
 	 * @since version 4.3
 	 */
@@ -47,7 +46,7 @@ class Rsgallery2ControllerImage extends JControllerForm
 	}
 
 	/**
-	 *
+	 * rotate_image_right directs master image and all dependent images to be turned right with the clock
 	 *
 	 *
 	 * @since version 4.3
@@ -63,8 +62,7 @@ class Rsgallery2ControllerImage extends JControllerForm
 	}
 
 	/**
-	 *
-	 *
+	 * rotate_image_180 directs the master image and all dependent images to be turned 180 degrees (upside down)
 	 *
 	 * @since version 4.3
 	 */
@@ -79,12 +77,15 @@ class Rsgallery2ControllerImage extends JControllerForm
 	}
 
 	/**
+	 * rotate_image directs the master image and all dependent images to be turned by given degrees
 	 *
-	 *
+	 * @param double $direction degree in DEG (-360 -.. 360)
+	 * @param string $msg       start of message to be given to the user on setRedirect
 	 *
 	 * @since version 4.3
+	 * @throws Exception
 	 */
-	public function rotate_image($direction = -90, $msg)
+	public function rotate_image($direction = -90.000, $msg ='')
 	{
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
@@ -110,12 +111,18 @@ class Rsgallery2ControllerImage extends JControllerForm
 				// Get the form data
 				$formData = new JInput($input->get('jform', '', 'array'));
 
+				//--- Select master file (as array) ------------
+
 				$galleryId = $formData->get('gallery_id', -1, 'int');
 				$fileName = $formData->get('name', '???', 'string');
 				$fileNames = array($fileName);
 
+				//--- Call rotate of master and dependent images ----------
+
 				$modelFile = $this->getModel('imageFile');
 				$ImgCount = $modelFile->rotate_images($fileNames, $galleryId, $direction);
+
+				//--- Message to user ----------
 
 				$msg = ' Successful rotated ' . $ImgCount . ' images';
 				// not all images were rotated
@@ -140,8 +147,7 @@ class Rsgallery2ControllerImage extends JControllerForm
 	}
 
 	/**
-	 *
-	 *
+	 * flip_image_horizontal directs the master image and all dependent images to be flipped horizontal (left <-> right)
 	 *
 	 * @since version 4.3
 	 */
@@ -156,8 +162,7 @@ class Rsgallery2ControllerImage extends JControllerForm
 	}
 
 	/**
-	 *
-	 *
+	 * flip_image_vertical directs the master image and all dependent images to be flipped horizontal (top <-> bottom)
 	 *
 	 * @since version 4.3
 	 */
@@ -172,7 +177,7 @@ class Rsgallery2ControllerImage extends JControllerForm
 	}
 
 	/**
-	 *
+	 * flip_image_both directs the master image and all dependent images to be flipped horizontal and vertical
 	 *
 	 *
 	 * @since version 4.3
@@ -188,18 +193,21 @@ class Rsgallery2ControllerImage extends JControllerForm
 	}
 
 	/**
+	 * flip_image directs the master image and all dependent images to be flipped
+	 * according to mode horizontal, vertical or both
 	 *
-	 *
+	 * @param int    $flipMode mode horizontal, vertical or both
+	 * @param string $msg       start of message to be given to the user on setRedirect
 	 *
 	 * @since version 4.3
+	 * @throws Exception
 	 */
-	public function flip_image($flipMode, $msg)
+	public function flip_image($flipMode=0, $msg='')
 	{
 		$msgType = 'notice';
 
 		try
 		{
-
 			// Access check
 			$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
 			if (!$canAdmin)
@@ -218,12 +226,18 @@ class Rsgallery2ControllerImage extends JControllerForm
 				// Get the form data
 				$formData = new JInput($input->get('jform', '', 'array'));
 
+				//--- Select master file (as array) ------------
+
 				$galleryId = $formData->get('gallery_id', -1, 'int');
 				$fileName = $formData->get('name', '???', 'string');
 				$fileNames = array($fileName);
 
+				//--- Call flip of master and dependent images ----------
+
 				$modelFile = $this->getModel('imageFile');
 				$ImgCount = $modelFile->flip_images($fileNames, $galleryId, $flipMode);
+
+				//--- Message to user ----------
 
 				$msg = ' Successful flipped ' . $ImgCount . ' images';
 				// not all images were flipped
