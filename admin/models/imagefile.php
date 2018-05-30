@@ -239,7 +239,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			//--- create thumb and save directly -----------------------------------
 
 			//$thumbSizes = array ('250x100');
-			$thumbSizes = array (str($width) . 'x' . str($height));
+			$thumbSizes = array ($width . 'x' . $height);
 
 			$creationMethod = image::SCALE_INSIDE;
 
