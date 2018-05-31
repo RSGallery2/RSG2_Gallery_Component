@@ -9,7 +9,7 @@
 	<license>This component is released under the GNU/GPL License</license>
 	<authorEmail>team@rsgallery2.org</authorEmail>
 	<authorUrl>http://www.rsgallery2.org</authorUrl>
-	<version>4.3.2.104</version>
+	<version>4.4.100</version>
 	<description>COM_RSGALLERY2_XML_DESCRIPTION</description>
 
 	<scriptfile>install.rsgallery2.php</scriptfile>
@@ -152,7 +152,7 @@
 	<updateservers>
 		<server type="extension"
 		        priority="1"
-		        name="Github RSGallery2 component updates">http://releases.rsgallery2.org/RSG2_component_update.xml
+		        name="Github RSGallery2 component updates">https://github.com/RSGallery2/RSGallery2_Component/raw/master/update.xml
 		</server>
 	</updateservers>
 </extension>
