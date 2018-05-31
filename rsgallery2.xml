@@ -152,7 +152,7 @@
 	<updateservers>
 		<server type="extension"
 		        priority="1"
-		        name="Github RSGallery2 component updates">http://releases.rsgallery2.org/RSG2_component_update.xml
+		        name="Github RSGallery2 component updates">https://github.com/RSGallery2/RSGallery2_Component/raw/master/update.xml
 		</server>
 	</updateservers>
 </extension>
