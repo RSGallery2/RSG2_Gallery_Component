@@ -629,7 +629,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 		    // Changed name on existing file name
 		    $originalFileName = JFile::makeSafe($oFile['name']);
-		    $uploadFileName = $uploadFileName = $input->get('dstFileName', '', 'string');
+		    $uploadFileName = $input->get('dstFileName', '', 'string');
 
 		    // for next upload tell where to start
 	        $rsgConfig->setLastUpdateType('upload_drag_and_drop');
@@ -824,8 +824,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
             //--- dropListIdx --------------------------------------------
 
             // Return index into files list
-            $dropListIdx = $input->get('dropListIdx', -1, 'INT');
-            $ajaxImgDbObject['dropListIdx']  = (string) $dropListIdx;
+            $dropListIdx = $input->get('imagesDroppedListIdx', -1, 'INT');
+            $ajaxImgDbObject['imagesDroppedListIdx']  = (string) $dropListIdx;
 
             //--- Check 4 allowed image type ---------------------------------
 
