@@ -367,11 +367,11 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 									?>
 
 									<?php
-									$link = 'index.php?option=com_rsgallery2&amp;view=maintUploadLeftOverImages';
+									$link = 'index.php?option=com_rsgallery2&amp;view=maintDeleteLeftOverImages';
 									quickTwoIconMoonBar($link, 'icon-image', 'icon-upload',
-										JText::_('COM_RSGALLERY2_MAINT_UPLOAD_LEFT_OVER_IMAGES'),
-										JText::_('COM_RSGALLERY2_MAINT_UPLOAD_LEFT_OVER_IMAGES_DESC') . '                        ',
-										'uploadLeftOverImages');
+										JText::_('COM_RSGALLERY2_MAINT_DELETE_LEFT_OVER_IMAGES'),
+										JText::_('COM_RSGALLERY2_MAINT_DELETE_LEFT_OVER_IMAGES_DESC') . '                        ',
+										'deleteLeftOverImages');
 									?>
 
 									<?php

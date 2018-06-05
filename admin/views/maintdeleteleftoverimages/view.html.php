@@ -24,7 +24,7 @@ JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
  *
  * @since 4.3.0
  */
-class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
+class Rsgallery2ViewMaintDeleteLeftOverImages extends JViewLegacy
 {
 	// core.admin is the permission used to control access to
 	// the global config
@@ -35,26 +35,16 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 	protected $UserIsRoot;
 
 	/**
-	 * @var ImageReferences
+	 * @var FolderReferences
 	 */
-	protected $ImageReferences;
-
-	/**
-	 * protected $IsHeaderActive4DB;
-	 * protected $IsHeaderActive4Display;
-	 * protected $IsHeaderActive4Original;
-	 * protected $IsHeaderActive4Thumb;
-	 * protected $IsHeaderActive4Parent;
-	 * /**/
-
-	protected $IsAnyDbRefMissing; // header
+	protected $FolderReferences;
 
 	//------------------------------------------------
 	/**
 	 * @param null $tpl
 	 *
 	 * @return mixed bool or void
-	 * @since 4.3.0
+	 * @since 4.4.1
 	 * @throws Exception
 	 */
 	public function display($tpl = null)
@@ -67,44 +57,19 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot();
 
-		$ConsolidateModel      = JModelLegacy::getInstance('MaintConsolidateDB', 'rsgallery2Model');
-		$this->ImageReferences = $ConsolidateModel->GetImageReferences();
+		$LeftOverModel = JModelLegacy::getInstance('MaintDeleteLeftOverImages', 'rsgallery2Model');
+		$this->FolderReferences = $LeftOverModel->GetLeftOverFolderReferences();
 
 		// echo json_encode($this->DisplayImageData);
 
-		/*
-                global $rsgConfig;
-                // $this->rsgConfigData = $rsgConfig;
-                $this->imageWidth = $rsgConfig->get('image_width');
-                $this->thumbWidth = $rsgConfig->get('thumb_width');
-
-
-                //--- begin to display --------------------------------------------
-
-				//		Rsg2Helper::addSubMenu('rsg2');
-
-				// Check for errors.
-				if (count($errors = $this->get('Errors')))
-				{
-					throw new RuntimeException(implode('<br />', $errors), 500);
-				}
-
-                // Assign the Data
-                // $this->form = $form;
-
-                // different toolbar on different layouts
-                // $Layout = JFactory::getApplication()->input->get('layout');
-
-                // Assign the Data
-        //		$this->form = $form;
-        */
-
+		/**
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/maintConsolidateDB.xml';
 		$this->form = JForm::getInstance('maintConsolidateDB', $xmlFile);
-
+		/**/
         // different toolbar on different layouts
         $Layout = JFactory::getApplication()->input->get('layout');
 		$this->addToolbar($this->UserIsRoot); //$Layout);
+
 
         $View = JFactory::getApplication()->input->get('view');
         RSG2_SidebarLinks::addItems($View, $Layout);
@@ -140,13 +105,19 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 		global $Rsg2DevelopActive;
 
 		// on develop show open tasks if existing
-		if (!empty ($Rsg2DevelopActive))
+		//if (!empty ($Rsg2DevelopActive))
 		{
 			echo '<span style="color:red">'
 				. 'Tasks: <br>'
-				. '* Delete also watermarked images <br>'
-				. '* Image square a) use thumb if possible b) check for gd2:... <br>'
-				. '* Select for parent galleries -> only when errors exist <br>'
+				. '*  !!! Do real delete of folders and images within !!!<br>'
+				. '*  Display images a) as one row name list<br>'
+				. '*  Display images b) as one row image list<br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'
@@ -154,8 +125,11 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 		}
 		
 		// Title
-		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINT_CONSOLIDATE_IMAGE_DATABASE'), 'icon-database icon-checkbox-checked');
+		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINT_DELETE_LEFT_OVER_IMAGES'), 'icon-database icon-checkbox-checked');
 
+		JToolBarHelper::custom('MaintDeleteLeftOverImages.DeleteFromFolderList', 'database', '', 'COM_RSGALLERY2_DELETE_SUPERFLOUS_ITEMS', true);
+
+		/**
 		JToolBarHelper::custom('MaintConsolidateDb.createImageDbItems', 'database', '', 'COM_RSGALLERY2_CREATE_DATABASE_ENTRIES', true);
         JToolBarHelper::custom('MaintConsolidateDb.createMissingImages', 'image', '', 'COM_RSGALLERY2_CREATE_MISSING_IMAGES', true);
         JToolBarHelper::custom('MaintConsolidateDb.createWatermarkImages', 'scissors', '', 'COM_RSGALLERY2_CREATE_MISSING_WATERMARKS', true);
@@ -165,7 +139,7 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 		//JToolBarHelper::custom ('MaintConsolidateDb.deleteReferences','delete-2','','COM_RSGALLERY2_ASSIGN_SELECTED_GALLLERIES', true);
 		//JToolBarHelper::custom ('MaintConsolidateDb..','next','','COM_RSGALLERY2_MOVE_TO', true);
 		//JToolBarHelper::custom ('MaintConsolidateDb.','copy','','COM_RSGALLERY2_COPY', true);
-
+		/**/
 	}
 
 }
