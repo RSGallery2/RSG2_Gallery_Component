@@ -15,7 +15,7 @@ defined('_JEXEC') or die();
  * Class with util functions for RSGallery2
  *
  * @package RSGallery2
- * @since 4.3.0
+ * @since   4.3.0
  */
 class galleryUtils
 {
@@ -28,10 +28,11 @@ class galleryUtils
 	 * @param integer $gallery_id     ID of selected gallery
 	 * @param string  $js             Additional select tag attributes
 	 * @param bool    $showTopGallery show Top Gallery to select, default no
+	 *
 	 * @since 4.3.0
 	 */
 	static function showUserGalSelectList($action = '', $select_name = 'catid', $gallery_id = null,
-		$js = '', $showTopGallery = false)
+	                                      $js = '', $showTopGallery = false)
 	{
 		$user = JFactory::getUser();
 
@@ -68,8 +69,9 @@ class galleryUtils
 	 * @param integer $gallery_id     ID of selected gallery
 	 * @param string  $js             Additional select tag attributes
 	 * @param bool    $showTopGallery show Top Gallery to select, default no
-		 * @since 4.3.0
- */
+	 *
+	 * @since 4.3.0
+	 */
 	static function showUserGalSelectListCreateAllowed($select_name = 'catid', $gallery_id = null, $js = '', $showTopGallery = false)
 	{
 		$user = JFactory::getUser();
@@ -107,22 +109,22 @@ class galleryUtils
 	 * @param int []  $galleriesAllowed ID of selected gallery
 	 *
 	 * @return string HTML to add
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function addToGalSelectList($level, $galid, $gallery_id, $galleriesAllowed)
 	{
 		// provided by Klaas on Dec.13.2007
-		$database      = JFactory::getDBO();
+		$database = JFactory::getDBO();
 		$my       = JFactory::getUser();//giobag
 		$my_id    = $my->id; //giobag
 
 		$dropDown_html = "";
 
-  // giobag 2017.07.21 Restrict added galleries to galleries owned by logged in user 
+		// giobag 2017.07.21 Restrict added galleries to galleries owned by logged in user
 		// $query = 'SELECT * FROM `#__rsgallery2_galleries` WHERE `parent` = ' . (int) $galid . ' ORDER BY `ordering` ASC';
 		$query = 'SELECT * FROM `#__rsgallery2_galleries` WHERE `uid` = ' . (int) $my_id . ' and `parent` = ' . (int) $galid . ' ORDER BY `ordering` ASC';//giobag
-		
-		
+
+
 		$database->setQuery($query);
 
 		$rows = $database->loadObjectList();
@@ -143,7 +145,7 @@ class galleryUtils
 			}
 
 			$dropDown_html .= " >";
-			$indent = "";
+			$indent        = "";
 			for ($i = 0; $i < $level; $i++)
 			{
 				$indent .= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
@@ -168,8 +170,8 @@ class galleryUtils
 	 *
 	 * @return string HTML representation for selectlist
 	 * Seems to be unused in v3.1.0
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function createGalSelectList($galleryid = null, $listName = 'galleryid', $style = true)
 	{
 		$database = JFactory::getDBO();
@@ -239,10 +241,10 @@ class galleryUtils
 	 * @param bool    $excludeTopGallery
 	 *
 	 * @return string HTML representation for selectlist
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function galleriesSelectList($galleryid = null, $listName = 'gallery_id', $style = true,
-		$javascript = null, $showUnauthorised = 1, $excludeTopGallery = false)
+	                                    $javascript = null, $showUnauthorised = 1, $excludeTopGallery = false)
 	{
 		$database = JFactory::getDBO();
 		if ($style == true)
@@ -295,7 +297,7 @@ class galleryUtils
 		{
 			$canCreateInGallery = JFactory::getUser()->authorise('core.create', 'com_rsgallery2.gallery.' . $item->id);
 			//MK: The original treename holds &#160; as a non breacking space for subgalleries, but JHtmlSelect::option cannot handle that, nor &nbsp;, so replaced string
-			$item->treename     = str_replace('&#160;&#160;', '...', $item->treename);
+			$item->treename = str_replace('&#160;&#160;', '...', $item->treename);
 			//When $showUnauthorised is false only galleries where create is allowed or which are the current selected gallery can be choosen.
 			if ($canCreateInGallery OR $showUnauthorised OR $galleryid == $item->id)
 			{
@@ -322,9 +324,9 @@ class galleryUtils
 	 * @param string $class  Class name to format thumb view in css files
 	 *
 	 * @return string html tag, showing the thumbnail
-	 * @todo being depreciated in favor of $rsgGallery->thumb() and $rsgDisplay functions
-	 	 * @since 4.3.0
-*/
+	 * @todo  being depreciated in favor of $rsgGallery->thumb() and $rsgDisplay functions
+	 * @since 4.3.0
+	 */
 	static function getThumb($catid, $height = 0, $width = 0, $class = "")
 	{
 		$thumb_id = null;
@@ -399,8 +401,8 @@ class galleryUtils
 	 * @param bool $withKids Get the number if items in the child-galleries or not
 	 *
 	 * @return int Number of items in gallery and possibly subgalleries
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function getFileCount($id, $withKids = true)
 	{
 		$database = JFactory::getDBO();
@@ -425,8 +427,8 @@ class galleryUtils
 	 * @param int $id The ID of the currently selected category
 	 *
 	 * @return string Category Name
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function getCatnameFromId($id)
 	{
 		$database = JFactory::getDBO();
@@ -443,8 +445,8 @@ class galleryUtils
 	 * @param int $id The ID of the currently selected file
 	 *
 	 * @return string Category ID
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function getCatIdFromFileId($id)
 	{
 		$database = JFactory::getDBO();
@@ -461,8 +463,8 @@ class galleryUtils
 	 * @param int $id The ID of the currently selected file
 	 *
 	 * @return string Filename
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function getFileNameFromId($id)
 	{
 		$database = JFactory::getDBO();
@@ -479,8 +481,8 @@ class galleryUtils
 	 * @param int $id The ID of the currently selected file
 	 *
 	 * @return string title
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function getTitleFromId($id)
 	{
 		$database = JFactory::getDBO();
@@ -497,8 +499,8 @@ class galleryUtils
 	 * @param int $gallery_id Gallery ID
 	 *
 	 * @return int Parent ID
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function getParentId($gallery_id)
 	{
 		$database = JFactory::getDBO();
@@ -513,8 +515,9 @@ class galleryUtils
 	 * Creates new thumbnails with new settings
 	 *
 	 * @param int $catid Category ID
-		 * @since 4.3.0
- */
+	 *
+	 * @since 4.3.0
+	 */
 	static function regenerateThumbs($catid = null)
 	{
 		global $rsgConfig;
@@ -544,10 +547,10 @@ class galleryUtils
 	/**
 	 * @param $xid
 	 * ToDo: Fix: Remove
-     *
+	 *
 	 * @depreciated use rsgGallery->hasNewImages() instead;
-		 * @since 4.3.0
- */
+	 * @since       4.3.0
+	 */
 	static function newImages($xid)
 	{
 		$database = JFactory::getDBO();
@@ -582,8 +585,8 @@ class galleryUtils
 	 *
 	 * @return int the requested user id
 	 * Seems to be no longer used in 3.1.0
-	 	 * @since 4.3.0
-*/
+	 * @since 4.3.0
+	 */
 	static function getUID($catid)
 	{
 		$database = JFactory::getDBO();
@@ -600,8 +603,8 @@ class galleryUtils
 	 * @param int $id user ID
 	 *
 	 * @return int number of created categories
-	 	 * @since 4.3.0
-*/
+	 * @since 4.3.0
+	 */
 	static function userCategoryTotal($id)
 	{
 		$database = JFactory::getDBO();
@@ -618,8 +621,8 @@ class galleryUtils
 	 * @param int $id user ID
 	 *
 	 * @return int $id number of uploaded images
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function userImageTotal($id)
 	{
 		$database = JFactory::getDBO();
@@ -634,8 +637,8 @@ class galleryUtils
 	 * This function returns the number of uploaded images  by the logged in user
 	 *
 	 * @return gallery names in HTML
-		 * @since 4.3.0
-     */
+	 * @since 4.3.0
+	 */
 	static function latestCats()
 	{
 		$my       = JFactory::getUser();
@@ -649,11 +652,11 @@ class galleryUtils
 			foreach ($rows as $row)
 			{
 				?>
-				<tr>
-					<td><?php echo $row->name; ?></td>
-					<td><?php echo galleryUtils::genericGetUsername($row->uid); ?></td>
-					<td><?php echo $row->id; ?></td>
-				</tr>
+                <tr>
+                    <td><?php echo $row->name; ?></td>
+                    <td><?php echo galleryUtils::genericGetUsername($row->uid); ?></td>
+                    <td><?php echo $row->id; ?></td>
+                </tr>
 				<?php
 			}
 		}
@@ -669,9 +672,9 @@ class galleryUtils
 	 * @param int $uid user id
 	 *
 	 * @return string the username
-	 * @todo isn't there a joomla function for this?
-	 	 * @since 4.3.0
-*/
+	 * @todo  isn't there a joomla function for this?
+	 * @since 4.3.0
+	 */
 	static function genericGetUsername($uid)
 	{
 		$my       = JFactory::getUser();
@@ -687,8 +690,8 @@ class galleryUtils
 
 	/**
 	 * This function will show the 5 last uploaded images
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function latestImages()
 	{
 		global $rows;
@@ -706,12 +709,12 @@ class galleryUtils
 			foreach ($rows as $row)
 			{
 				?>
-				<tr>
-					<td><?php echo $row->name; ?></td>
-					<td><?php echo galleryUtils::getCatnameFromId($row->gallery_id); ?></td>
-					<td><?php echo $row->date; ?></td>
-					<td><?php echo galleryUtils::genericGetUsername($row->userid); ?></td>
-				</tr>
+                <tr>
+                    <td><?php echo $row->name; ?></td>
+                    <td><?php echo galleryUtils::getCatnameFromId($row->gallery_id); ?></td>
+                    <td><?php echo $row->date; ?></td>
+                    <td><?php echo galleryUtils::genericGetUsername($row->userid); ?></td>
+                </tr>
 				<?php
 			}
 		}
@@ -728,8 +731,8 @@ class galleryUtils
 	 * @param string $text input text
 	 *
 	 * @return string cleaned up text
-		 * @since 4.3.0
- **/
+	 * @since 4.3.0
+	 **/
 	static function replaceStrangeChar($text)
 	{
 		$text = str_replace(" ", "_", $text);
@@ -744,8 +747,8 @@ class galleryUtils
 	 * @param string $filename filename
 	 *
 	 * @return integer File ID
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function getFileIdFromName($filename)
 	{
 		$database = JFactory::getDBO();
@@ -761,8 +764,8 @@ class galleryUtils
 	 * @param string $where , defaults to null
 	 *
 	 * @return bool
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function reorderRSGallery($tbl, $where = null)
 	{
 		// reorders either the categories or images within a category
@@ -797,8 +800,8 @@ class galleryUtils
 	/**
 	 * Functions shows a warning box above the control panel is something is preventing
 	 * RSGallery2 from functioning properly
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function writeWarningBox()
 	{
 		global $rsgConfig;
@@ -843,13 +846,13 @@ class galleryUtils
 		if ($html !== '')
 		{
 			?>
-			<div style="clear: both; margin: 3px; margin-top: 10px; padding: 5px 15px; display: block; float: left; border: 1px solid #cc0000; background: #ffffcc; text-align: left; width: 50%;">
-				<p style="color: #CC0000;"><?php echo JText::_('COM_RSGALLERY2_THE_FOLLOWING_SETTINGS_PREVENT_RSGALLERY2_FROM_WORKING_WITHOUT_ERRORS') ?></p>
+            <div style="clear: both; margin: 3px; margin-top: 10px; padding: 5px 15px; display: block; float: left; border: 1px solid #cc0000; background: #ffffcc; text-align: left; width: 50%;">
+                <p style="color: #CC0000;"><?php echo JText::_('COM_RSGALLERY2_THE_FOLLOWING_SETTINGS_PREVENT_RSGALLERY2_FROM_WORKING_WITHOUT_ERRORS') ?></p>
 				<?php echo $html; ?>
-				<p style="color: #CC0000;text-align:right;">
-					<a href="index.php?option=com_rsgallery2"><?php echo JText::_('COM_RSGALLERY2_REFRESH') ?></a></p>
-			</div>
-			<div class='rsg2-clr'>&nbsp;</div>
+                <p style="color: #CC0000;text-align:right;">
+                    <a href="index.php?option=com_rsgallery2"><?php echo JText::_('COM_RSGALLERY2_REFRESH') ?></a></p>
+            </div>
+            <div class='rsg2-clr'>&nbsp;</div>
 			<?php
 		}
 	}
@@ -861,31 +864,33 @@ class galleryUtils
 	 * @param bool   $showtext Button or HTML link (button/link)
 	 * @param string $type
 	 *                         writes HTML for downloadlink
-		 * @since 4.3.0
- */
+	 *
+	 * @since 4.3.0
+	 */
 	static function writeDownloadLink($id, $showtext = true, $type = 'button')
 	{
 		echo "<div class=\"rsg2-toolbar\">";
 		if ($type == 'button')
 		{
 			?>
-			<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id=' . $id); ?>">
-				<img height="20" width="20" src="<?php echo JURI_SITE; ?>/administrator/images/download_f2.png" alt="<?php echo JText::_('COM_RSGALLERY2_DOWNLOAD') ?>">
+            <a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id=' . $id); ?>">
+                <img height="20" width="20" src="<?php echo JURI_SITE; ?>/administrator/images/download_f2.png"
+                     alt="<?php echo JText::_('COM_RSGALLERY2_DOWNLOAD') ?>">
 				<?php
 				if ($showtext == true)
 				{
 					?>
-					<br /><span style="font-size:smaller;"><?php echo JText::_('COM_RSGALLERY2_DOWNLOAD') ?></span>
+                    <br/><span style="font-size:smaller;"><?php echo JText::_('COM_RSGALLERY2_DOWNLOAD') ?></span>
 					<?php
 				}
 				?>
-			</a>
+            </a>
 			<?php
 		}
 		else
 		{
 			?>
-			<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id=' . $id); ?>"><?php echo JText::_('COM_RSGALLERY2_DOWNLOAD') ?></a>
+            <a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id=' . $id); ?>"><?php echo JText::_('COM_RSGALLERY2_DOWNLOAD') ?></a>
 			<?php
 		}
 		echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";
@@ -895,8 +900,8 @@ class galleryUtils
 	 * @param $gallery
 	 *
 	 * @return string|""
-		 * @since 4.3.0
- */
+	 * @since         4.3.0
+	 */
 	static function writeGalleryStatus($gallery)
 	{
 		global $rsgConfig;
@@ -922,15 +927,16 @@ class galleryUtils
 		$html = "";
 
 		$uid       = $gallery->uid;
+		$mid       = $my->id;
 		$published = $gallery->published;
 
-		//Check if user is owner of the gallery
-		if ($gallery->uid == $my->id)
+		// Check if user is owner of the gallery (user 0 is not logged in and does just view galleries)
+		if ($gallery->uid == $mid)
 		{
 			$html .= $owner;
 		}
 
-		//Check if gallery is published
+		// Check if gallery is published
 		if ($gallery->published == 0)
 		{
 			$html .= $unpublished;
@@ -950,8 +956,8 @@ class galleryUtils
 	 * @param int $gallery_id Gallery id for which the child galleries must be found
 	 *
 	 * @return string String with all child galleries separated by a comma (e.g. 1,2,3)
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function getChildList($gallery_id)
 	{
 		$array = galleryUtils::getChildListArray($gallery_id);
@@ -967,8 +973,8 @@ class galleryUtils
 	 * @param int [] $array      , defaults to null
 	 *
 	 * @return int [] Array with all child galleries separated by a comma
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function getChildListArray($gallery_id, $array = null)
 	{
 		$database = JFactory::getDBO();
@@ -999,8 +1005,8 @@ class galleryUtils
 
 	/**
 	 * @return string
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function showFontList()
 	{
 		global $rsgConfig;
@@ -1027,8 +1033,8 @@ class galleryUtils
 	 * @param string $tail   Tail to print after substring is printed
 	 *
 	 * @return string Subtext, followed by tail
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function subText($text, $length = 20, $tail = "...")
 	{
 		$text = trim($text);
@@ -1057,8 +1063,8 @@ class galleryUtils
 	 * @param string $component_name Component name
 	 *
 	 * @return int
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function isComponentInstalled($component_name)
 	{
 		$database = JFactory::getDBO();
@@ -1091,8 +1097,8 @@ class galleryUtils
 	 * @param string $color    , defaults to yellow ? not used ?
 	 *
 	 * @return string
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function highlight_keywords($string, $keywords, $color = "yellow")
 	{
 		if ($keywords != "" || $keywords != null)
@@ -1115,12 +1121,12 @@ class galleryUtils
 								$string         = substr_replace($string, $replace_string, $position, strlen($word));
 							}
 						}
-						elseif (!ctype_alnum($string{$position - 1}) && strlen($string) == $position + strlen($word))
+                        elseif (!ctype_alnum($string{$position - 1}) && strlen($string) == $position + strlen($word))
 						{
 							$replace_string = "<span style=\"background-color: yellow;\">" . $replace_string . "</span>";
 							$string         = substr_replace($string, $replace_string, $position, strlen($word));
 						}
-						elseif (!ctype_alnum($string{$position - 1}) && !ctype_alnum($string{$position + strlen($word)}))
+                        elseif (!ctype_alnum($string{$position - 1}) && !ctype_alnum($string{$position + strlen($word)}))
 						{
 							$replace_string = "<span style=\"background-color: yellow;\">" . $replace_string . "</span>";
 							$string         = substr_replace($string, $replace_string, $position, strlen($word));
@@ -1140,8 +1146,8 @@ class galleryUtils
 	 * @param    string $action The action
 	 *
 	 * @return    int []    List of galleries that the user can do this action to (empty array if none). Galleries may be unpublished
-		 * @since 4.3.0
- */
+	 * @since 4.3.0
+	 */
 	static function getAuthorisedGalleries($action)
 	{
 		$user = JFactory::getUser();
