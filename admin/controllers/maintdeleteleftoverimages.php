@@ -66,7 +66,7 @@ class Rsgallery2ControllerMaintDeleteLeftOverImages extends JControllerAdmin
 		{
 			// ToDo: move to model
 
-			
+
 			//
 			$Folders = $this->CollectSelectedFolders();
 
