@@ -81,7 +81,8 @@ class rsgInstall
 
 		if (!defined("JURI_SITE"))
 		{
-			define('JURI_SITE', $app->isSite() ? JUri::base() : JUri::root());
+			// define('JURI_SITE', $app->isSite() ? JUri::base() : JUri::root());
+			define('JURI_SITE', $app->isClient('site') ? JUri::base() : JUri::root());
 		}
 
 		$this->galleryDir     = '/images/rsgallery';

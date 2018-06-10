@@ -121,7 +121,7 @@ class rsgGalleryManager
 		// else only show it when user is owner (shows red H icon to show that the gallery is
 		// unpublished in the frontend) --> View Access Levels
 		// In the backend they all galleries are shown.
-		if ($mainframe->isSite())
+		if ($mainframe->isClient('site'))
 		{    // Frontend check
 			$owner     = ($user->id == $gallery->uid);            // Owner check
 			$access    = in_array($gallery->access, $groups);    // Access check
@@ -227,7 +227,7 @@ class rsgGalleryManager
 			// Only show gallery in the frontend if it's published and user has view access, 
 			// else only show it when user is owner (shows red H icon to show that the gallery 
 			// is unpublished in the frontend) --> View Access Levels
-			if ($app->isSite())
+			if ($app->isClient('site'))
 			{    // Frontend check
 				$owner     = ($user->id == $row['uid']);            // Check user is owner
 				$access    = in_array($row['access'], $groups);    // Check view access
