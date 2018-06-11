@@ -81,11 +81,14 @@ class rsgDisplay extends JObject
 		{
 			case 'slideshow':
 				$gallery = rsgGalleryManager::get();
-				//JRequest::setVar( 'rsgTemplate', $rsgConfig->get('current_slideshow'));
-				$input->set('rsgTemplate', $rsgConfig->get('current_slideshow'));
+				if (!empty ($gallery))
+				{
+					//JRequest::setVar( 'rsgTemplate', $rsgConfig->get('current_slideshow'));
+					$input->set('rsgTemplate', $rsgConfig->get('current_slideshow'));
 
-				//@todo This bit is leftover from J!1.5: look into whether or not this can be removed and how.
-				rsgInstance::instance(array('rsgTemplate' => $rsgConfig->get('current_slideshow'), 'gid' => $gallery->id));
+					//@todo This bit is leftover from J!1.5: look into whether or not this can be removed and how.
+					rsgInstance::instance(array('rsgTemplate' => $rsgConfig->get('current_slideshow'), 'gid' => $gallery->id));
+				}
 				break;
 			case 'inline':
 				//@todo Methode inline not found in class rsgDisplay

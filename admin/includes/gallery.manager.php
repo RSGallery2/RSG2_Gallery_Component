@@ -116,23 +116,25 @@ class rsgGalleryManager
 		}
 
 		$gallery = rsgGalleryManager::_get($id);
-
-		// Only show a gallery in the frontend if it's published and user has view access, 
-		// else only show it when user is owner (shows red H icon to show that the gallery is
-		// unpublished in the frontend) --> View Access Levels
-		// In the backend they all galleries are shown.
-		if ($mainframe->isClient('site'))
-		{    // Frontend check
-			$owner     = ($user->id == $gallery->uid);            // Owner check
-			$access    = in_array($gallery->access, $groups);    // Access check
-			$published = ($gallery->published == 1);            // Published check
-			if (!($published AND $access))
-			{
-				if (!$owner)
+		if (!empty ($gallery))
+		{
+			// Only show a gallery in the frontend if it's published and user has view access,
+			// else only show it when user is owner (shows red H icon to show that the gallery is
+			// unpublished in the frontend) --> View Access Levels
+			// In the backend they all galleries are shown.
+			if ($mainframe->isClient('site'))
+			{    // Frontend check
+				$owner     = ($user->id == $gallery->uid);            // Owner check
+				$access    = in_array($gallery->access, $groups);    // Access check
+				$published = ($gallery->published == 1);            // Published check
+				if (!($published AND $access))
 				{
-					// "You are not authorised to view this resource."
-					$mainframe->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'));
-					$mainframe->redirect("index.php");
+					if (!$owner)
+					{
+						// "You are not authorised to view this resource."
+						$mainframe->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'));
+						$mainframe->redirect("index.php");
+					}
 				}
 			}
 		}
