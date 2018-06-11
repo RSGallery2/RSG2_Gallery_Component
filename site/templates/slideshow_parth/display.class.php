@@ -28,6 +28,11 @@ class rsgDisplay_slideshow_parth extends rsgDisplay
 
 		$gallery = rsgGalleryManager::get();
 
+		if (empty($gallery))
+		{
+			return;
+		}
+
 		// show nothing if there are no items
 		if (!$gallery->itemCount())
 		{
