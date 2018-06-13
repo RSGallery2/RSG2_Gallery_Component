@@ -530,7 +530,6 @@ jQuery(document).ready(function ($) {
                 console.log ('   >dstFileName: ' + jData.data.dstFileName);
 
                 fileName = jData.data.fileName;
-                console.log('sendFile1: ' + formData ['fileName']);
 
                 //// Add order text
                 // statusBar.AddOrderText (jData.data.order);
@@ -646,7 +645,6 @@ jQuery(document).ready(function ($) {
     function sendFileToServer(formData, statusBar, fileName) {
 
         console.log('sendFile: ' + fileName);
-        console.log('sendFile2: ' + formData ['fileName']);
 
         /*=========================================================
           ajax: Upload original file to server and create dependend images
