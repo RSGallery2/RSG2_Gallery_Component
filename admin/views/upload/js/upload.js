@@ -530,7 +530,6 @@ jQuery(document).ready(function ($) {
                 console.log ('   >dstFileName: ' + jData.data.dstFileName);
 
                 fileName = jData.data.fileName;
-                console.log('sendFile1: ' + formData ['fileName']);
 
                 //// Add order text
                 // statusBar.AddOrderText (jData.data.order);
@@ -646,7 +645,6 @@ jQuery(document).ready(function ($) {
     function sendFileToServer(formData, statusBar, fileName) {
 
         console.log('sendFile: ' + fileName);
-        console.log('sendFile2: ' + formData ['fileName']);
 
         /*=========================================================
           ajax: Upload original file to server and create dependend images
@@ -700,6 +698,7 @@ jQuery(document).ready(function ($) {
                 jData = jQuery.parseJSON(eData);
             }
             else {
+				console.log('sendFile: Success with message');
                 // find error html text
                 var errorText = eData.substring(0, StartIdx - 1);
                 // append to be viewed
@@ -723,6 +722,7 @@ jQuery(document).ready(function ($) {
 
             // file successful transferred
             if (jData.success == true) {
+				// console.log('sendFile: Html image link ');
 
                 // Add HTML to show thumb of uploaded image
 
