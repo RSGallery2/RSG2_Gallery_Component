@@ -299,8 +299,10 @@ jQuery(document).ready(function ($) {
         //this.order = $("<div class='tmp_order'>O:____</div>").appendTo(this.statusbar);
         this.abort = $("<div class='abort'>Abort</div>").appendTo(this.statusbar);
 
-        // set as first element: Latest file on top to compare if already shown in image area
-        progressArea.prepend(this.statusbar);
+        //// set as first element: Latest file on top to compare if already shown in image area
+        //progressArea.prepend(this.statusbar);
+        // set as last element: Latest file on top to compare if already shown in image area
+        progressArea.append(this.statusbar);
 
         //--- file size in KB/MB .... -------------------
 
@@ -350,6 +352,23 @@ jQuery(document).ready(function ($) {
                 jqxhr.abort();
                 sb.hide();
             });
+        }
+
+
+        //========================================
+        // Remove item after successful file upload
+        // ToDo: Test for second ajax still working ?
+        this.remove = function () {
+
+            var sb = this.statusbar;
+            sb.hide();
+
+        /**
+            this.abort.click(function () {
+                jqxhr.abort();
+                sb.hide();
+            });
+         /**/
         }
     }
 
@@ -736,6 +755,9 @@ jQuery(document).ready(function ($) {
                 this.imageId = $("<small> (" + jData.data.cid + ":" + jData.data.order + ")</small>").appendTo(this.imageDisplay);
                 this.cid = $("<input name='cid[]' class='imageCid' type='hidden' value='" + jData.data.cid + "' />").appendTo(this.imageBox);
 
+                // Find statusbar and remove it
+
+                statusBar.remove ();
             }
             else {
                 alert('Result Error 05');
