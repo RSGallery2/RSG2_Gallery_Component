@@ -218,7 +218,7 @@ class Rsgallery2ModelConfig extends JModelAdmin
 	 *
 	 * @since   4.3.0
 	 */
-	/** ToDo: function save hanldes old config: Assign to new config */
+	/** ToDo: function save does handle old config: Assign to new config */
 	public function save($data) // !!! OLD configuration data !!!
 	{
 		$isSaved = false;

@@ -188,6 +188,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		$this->setRedirect($link, $msg, $msgType);
 	}
 
+	/*-------------------------------------------------------------------------------------*/
 	/**
 	 * removes all entries fromm old
 	 *
@@ -241,7 +242,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
 	 *
 	 * @since version 4.3
 	 */
-	public function save_rawEditAndCopy()
+	public function save_rawEditAndCopyOld()
 	{
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
@@ -271,7 +272,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
 	 *
 	 * @since version 4.3
 	 */
-	public function save_rawEditOldAndCopy()
+	public function save_rawEditOldAndCopy2New()
 	{
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
@@ -336,7 +337,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		$this->setRedirect($link, $msg, $msgType);
 	}
 
-
+/** yyyy */
 
 	/**
 	 * Save changes in raw edit view value by value and copy items to the
@@ -359,9 +360,12 @@ class Rsgallery2ControllerConfig extends JControllerForm
 			// replace newlines with html line breaks.
 			str_replace('\n', '<br>', $msg);
 		} else {
+			$ConfigParameter = JComponentHelper::getParams('com_rsgallery2');
+			$ConfigParameter = $ConfigParameter->toArray();
+
 			$model = $this->getModel('ConfigRaw');
 			$isSaved = $model->save();
-			$isSaved = $model->createConfigTextFile();
+			$isSaved = $model->createConfigTextFile($ConfigParameter);
 		}
 
 		$link = 'index.php?option=com_rsgallery2&view=config&layout=RawEdit';
@@ -417,9 +421,12 @@ class Rsgallery2ControllerConfig extends JControllerForm
 			// replace newlines with html line breaks.
 			str_replace('\n', '<br>', $msg);
 		} else {
+			$ConfigParameter = JComponentHelper::getParams('com_rsgallery2');
+			$ConfigParameter = $ConfigParameter->toArray();
+
 			$model = $this->getModel('ConfigRawOld');
 			$isSaved = $model->saveOld();
-			$isSaved = $model->createConfigTextFileOld();
+			$isSaved = $model->createConfigTextFileOld($ConfigParameter);
 		}
 
 		$link = 'index.php?option=com_rsgallery2&view=config&layout=RawEditOld';

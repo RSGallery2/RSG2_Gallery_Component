@@ -215,28 +215,29 @@ class Rsgallery2ModelConfigRaw extends JModelList
 	 *
 	 * @since 4.3.0
 	 */
-	public function createConfigTextFile()
+	public function createConfigTextFile($ConfigParameter)
 	{
 		$isSaved = false;
 
-		$ConfigParameter = JComponentHelper::getParams('com_rsgallery2');
-		$ConfigParameter = $ConfigParameter->toArray();
 		ksort($ConfigParameter);
 
 		echo '<br>Config: '	. json_encode($ConfigParameter) . '<br>' . '<br>';
 
 		try
 		{
-			$fileName = JPATH_ADMINISTRATOR . '/logs/RSGallery2_Configuration.txt';
-			$cfgFile = fopen($fileName, "w") or die("Unable to open file!");
+			// Create unique upload directory and store it for cleanup at the end.
+			//$tmpDir = uniqid('rsgUpload_'); // 'rsginstall_'
+			//$extractDir = JPath::clean(JPATH_ROOT . '/media/' . $tmpDir );
 
-//			$txt = "RSGallery2 Configuration\n";
-//			fwrite($cfgFile, $txt);
+			$fileName = JPath::clean(JPATH_ROOT . '/media/RSGallery2_Configuration.txt');
+			$cfgFile = fopen($fileName, "w"); // or die("Unable to open file!");
+			if ($cfgFile)
+			{
+				fwrite($cfgFile, json_encode($ConfigParameter, JSON_PRETTY_PRINT));
+				fclose($cfgFile);
 
-			fwrite($cfgFile, json_encode($ConfigParameter, JSON_PRETTY_PRINT));
-			fclose($cfgFile);
-
-			$isSaved = true;
+				$isSaved = true;
+			}
 		}
 		catch (RuntimeException $e)
 		{
@@ -250,8 +251,6 @@ class Rsgallery2ModelConfigRaw extends JModelList
 
 		return $isSaved;
 	}
-
-
 
 
 	/**
@@ -274,34 +273,37 @@ class Rsgallery2ModelConfigRaw extends JModelList
 
 		try
 		{
-			$fileName = JPATH_ADMINISTRATOR . '/logs/RSGallery2_Configuration.txt';
-			$content = file_get_contents($fileName);
-			$data = json_decode($content, true);
-
-			// Db connection
-			$Rsg2Id = JComponentHelper::getComponent('com_rsgallery2')->id;
-			$table  = JTable::getInstance('extension');
-			$table->load($Rsg2Id);
-
-			// Insert data
-			//$table->bind(array('params' => $data->toString()));
-			$table->bind(array('params' => $data));
-
-			// check for error
-			if (!$table->check())
+			$fileName = JPath::clean(JPATH_ROOT . '/media/RSGallery2_Configuration.txt');
+			$content  = file_get_contents($fileName);
+			if ($content)
 			{
-				JFactory::getApplication()->enqueueMessage(JText::_('ConfigRaw readConfigTextFile: Check for save failed ') . $table->getError(), 'error');
-			}
-			else
-			{
-				// Save to database
-				if ($table->store())
+				$data = json_decode($content, true);
+
+				// Db connection
+				$Rsg2Id = JComponentHelper::getComponent('com_rsgallery2')->id;
+				$table  = JTable::getInstance('extension');
+				$table->load($Rsg2Id);
+
+				// Insert data
+				//$table->bind(array('params' => $data->toString()));
+				$table->bind(array('params' => $data));
+
+				// check for error
+				if (!$table->check())
 				{
-					$isSaved = false;
+					JFactory::getApplication()->enqueueMessage(JText::_('ConfigRaw readConfigTextFile: Check for save failed ') . $table->getError(), 'error');
 				}
 				else
 				{
-					JFactory::getApplication()->enqueueMessage(JText::_('ConfigRaw readConfigTextFile: Store for save failed ') . $table->getError(), 'error');
+					// Save to database
+					if ($table->store())
+					{
+						$isSaved = false;
+					}
+					else
+					{
+						JFactory::getApplication()->enqueueMessage(JText::_('ConfigRaw readConfigTextFile: Store for save failed ') . $table->getError(), 'error');
+					}
 				}
 			}
 		}
