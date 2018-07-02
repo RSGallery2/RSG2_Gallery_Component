@@ -345,14 +345,6 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 								</div>
 
 								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawEdit';
-								quickTwoIconMoonBar($link, 'icon-equalizer', 'icon-edit',
-									JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'),
-									JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'),
-									'editConfigRaw');
-								?>
-
-								<?php
 								if ($this->UserIsRoot)
 								{
 									?>
@@ -364,6 +356,14 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 										JText::_('COM_RSGALLERY2_MAINT_CONSOLIDATE_IMAGE_DATABASE'),
 										JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT'),
 										'consolidateDB');
+									?>
+
+									<?php
+									$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawEdit';
+									quickTwoIconMoonBar($link, 'icon-equalizer', 'icon-edit',
+										JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'),
+										JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'),
+										'editConfigRaw');
 									?>
 
 									<?php
