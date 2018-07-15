@@ -220,6 +220,33 @@ function DisplayInfoRsgallery2($Rsg2Version)
 $doc = JFactory::getDocument();
 $doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/css/ControlPanel.css');
 
+// $script ="$('#toolbar').parent().parent().parent().parent().remove();";
+// .css('background-color', '#000').css('color', '#fff');
+/**
+//$('#toolbar').parent().parent().parent().parent().css('background-color', '#000');
+//OK    $('#toolbar').parent().parent().parent().parent().parent().css('background-color', 'red');
+//      $('#toolbar').parent().parent().parent().parent().parent().hide();
+//        $('#toolbar').parent().parent().parent().parent().css('background-color', 'red');
+//        $('#toolbar').parent().parent().parent().parent().parent().css('height', '10px');
+//        $('#toolbar').parent().parent().parent().parent().parent().hide();
+ **/
+
+/**
+$script ="
+    jQuery(document).ready(function($){
+        //$('#toolbar').parent().parent().parent().parent().parent().css('background-color', 'red');
+        $('#toolbar').parent().parent().parent().parent().parent().css('height', '10px');
+        $('#toolbar').parent().parent().parent().parent().css('height', '10px');
+        $('#toolbar').parent().parent().parent().parent().parent().css('background-color', 'red');
+//        $('#toolbar').parent().parent().parent().parent().parent().css('color', 'red');
+        $('#toolbar').parent().parent().parent().parent().css('background-color', 'red');
+        //$('#toolbar').parent().parent().parent().css('background-color', 'red');
+        //$('#toolbar').parent().parent().css('background-color', 'red');
+    });
+";
+$doc->addScriptDeclaration($script);
+/**/
+
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=rsgallery2'); ?>" method="post" name="adminForm" id="adminForm">
