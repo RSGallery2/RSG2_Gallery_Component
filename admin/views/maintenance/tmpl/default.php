@@ -303,40 +303,15 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
 								</div>
 
 								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;rsgOption=config&amp;task=showConfig';
-								quickiconBar($link, 'config.png',
-									JText::_('COM_RSGALLERY2_CONFIGURATION'),
-									JText::_('        '), // COM_RSGALLERY2_CONFIG_MINUS_VIEW
+								$link = 'index.php?option=com_rsgallery2&amp;view=config&task=config.edit';
+								quickIconsBar($link, array('icon-equalizer', 'icon-delete'),
+									JText::_('COM_RSGALLERY2_CONFIGURATION') . ' view V4.4.x',
+									//JText::_('        RSGallery2 V4.4.x'), // COM_RSGALLERY2_CONFIG_MINUS_VIEW
+									'Shows the old configuration view from RSGallery2 V4.4.x.<br> Actually it references to old empty (not existing) data as the cofiguration data is move to standard Joomla place',
 									'test');
 								?>
-
-								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;rsgOption=galleries';
-								quickiconBar($link, 'categories.png',
-									JText::_('COM_RSGALLERY2_MANAGE_GALLERIES'),
-									JText::_('        '),
-									'test');
-								?>
-
-
-								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;rsgOption=images&task=view_images';
-								quickiconBar($link, 'mediamanager.png',
-									JText::_('COM_RSGALLERY2_MANAGE_IMAGES'),
-									JText::_('        '),
-									'test');
-								?>
-
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=upload';
-                                quickiconBar($link, 'upload.png',
-                                    JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'),
-                                    JText::_('        '),
-                                    'test');
-                                ?>
-
-								<?php
 								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawViewOld';
 								quickIconsBar($link, array('icon-equalizer', 'icon-eye', 'icon-eye-close'),
 									JText::_('COM_RSGALLERY2_CONFIGURATION_VARIABLES') . ' deprecated',
@@ -353,6 +328,40 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
 								?>
 
                                 <?php
+								$link = 'index.php?option=com_rsgallery2&amp;rsgOption=config&amp;task=showConfig';
+								quickiconBar($link, 'config.png',
+									JText::_('COM_RSGALLERY2_CONFIGURATION') . ' J!2.5',
+									JText::_('        '), // COM_RSGALLERY2_CONFIG_MINUS_VIEW
+									'test');
+								?>
+
+								<?php
+								$link = 'index.php?option=com_rsgallery2&amp;rsgOption=galleries';
+								quickiconBar($link, 'categories.png',
+									JText::_('COM_RSGALLERY2_MANAGE_GALLERIES') . ' J!2.5',
+									JText::_('        '),
+									'test');
+								?>
+
+
+								<?php
+								$link = 'index.php?option=com_rsgallery2&amp;rsgOption=images&task=view_images';
+								quickiconBar($link, 'mediamanager.png',
+									JText::_('COM_RSGALLERY2_MANAGE_IMAGES') . ' J!2.5',
+									JText::_('        '),
+									'test');
+								?>
+
+
+                                <?php
+                                $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=upload';
+                                quickiconBar($link, 'upload.png',
+                                    JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES') . ' J!2.5',
+                                    JText::_('        '),
+                                    'test');
+                                ?>
+
+                                <?php
 								if ($this->UserIsRoot)
 								{
 									?>
@@ -360,7 +369,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
 									//$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
 									$link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB';
 									quickiconBar($link, 'blockdevice.png',
-										JText::_('COM_RSGALLERY2_MAINT_CONSOLDB'),
+										JText::_('COM_RSGALLERY2_MAINT_CONSOLDB') . ' J!2.5',
 										JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT'),
 										'consolidateDB');
 									?>
