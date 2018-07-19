@@ -28,6 +28,22 @@ class Rsgallery2ModelConfig extends JModelAdmin
 	protected $IsDebugActive;
 
 	/**
+	 * Returns a reference to the a Table object, always creating it.
+	 *
+	 * @param       string $type   The table type to instantiate
+	 * @param       string $prefix A prefix for the table class name. Optional.
+	 * @param       array  $config Configuration array for model. Optional.
+	 *
+	 * @return      JTable  A database object
+	 * @since       4.3.0
+	 */
+	/** ToDo: function getTable handles old config: remove later */
+	public function getTable($type = 'Config', $prefix = 'Rsgallery2Table', $config = array())
+	{
+		return JTable::getInstance($type, $prefix, $config);
+	}
+
+	/**
 	 * Method to get the record form.
 	 *
 	 * @param       array   $data     Data for the form.
@@ -36,7 +52,7 @@ class Rsgallery2ModelConfig extends JModelAdmin
 	 * @return      mixed   A JForm object on success, false on failure
 	 * @since       4.3.0
 	 */
-	/** ToDo: function getForm handles old config: Assign to new config */
+	/** ToDo: function getForm handles old config: remove later */
 	public function getForm($data = array(), $loadData = true)
 	{
 		$options = array('control' => 'jform', 'load_data' => $loadData);
