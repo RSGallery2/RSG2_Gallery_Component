@@ -391,6 +391,14 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 									?>
 
 									<?php
+									$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.repairImagePermissions';
+									quickTwoIconMoonBar($link, 'icon-image', 'icon-unlock', // 'icon-checkbox-checked'
+										JText::_('COM_RSGALLERY2_MAINT_REPAIR_IMAGE_PERMISSION'),
+										JText::_('COM_RSGALLERY2_MAINT_REPAIR_IMAGE_PERMISSION_DESC'),
+										'optimizeDB');
+									?>
+
+									<?php
 								}
 								?>
 
