@@ -27,13 +27,13 @@ class Rsgallery2ModelMaintImageFiles extends JModelList
 	protected $imagePath_original;
 	protected $imagePath_watermarked;
 
-    /**
-     * Remove all image files of RSG2
-     *
-     * @return string Success message per folder
-     *
-     * @since 4.3.0
-     */
+	/**
+	 * Remove all image files of RSG2
+	 *
+	 * @return string Success message per folder
+	 *
+	 * @since 4.3.0
+	 */
 	public function removeAllImageFiles()
 	{
 		$msg = "Remove image files: \n";
@@ -49,15 +49,15 @@ class Rsgallery2ModelMaintImageFiles extends JModelList
 		return $msg;
 	}
 
-    /**
-     * Remove image files in given folder
-     *
-     * @param string $fullPath Path to images to be deleted
-     *
-     * @return string Success message of folder
-     *
-     * @since 4.3.0
-     */
+	/**
+	 * Remove image files in given folder
+	 *
+	 * @param string $fullPath Path to images to be deleted
+	 *
+	 * @return string Success message of folder
+	 *
+	 * @since 4.3.0
+	 */
 	private function RemoveImagesInFolder($fullPath = '')
 	{
 		$msg = 'Remove images in folder: "' . $fullPath . '"';
@@ -67,7 +67,7 @@ class Rsgallery2ModelMaintImageFiles extends JModelList
 		if (empty ($fullPath))
 		{
 			$errMsg = JText::_('COM_RSGALLERY2_FOLDER_DOES_NOT_EXIST');
-			$msg .= "\n" . $errMsg;
+			$msg    .= "\n" . $errMsg;
 
 			JFactory::getApplication()->enqueueMessage($msg, 'error');
 
@@ -78,7 +78,7 @@ class Rsgallery2ModelMaintImageFiles extends JModelList
 		if (!is_dir($fullPath))
 		{
 			$errMsg = JText::_('COM_RSGALLERY2_FOLDER_DOES_NOT_EXIST') . ': "' . $fullPath . '""';
-			$msg .= "\n" . $errMsg;
+			$msg    .= "\n" . $errMsg;
 
 			JFactory::getApplication()->enqueueMessage($msg, 'error');
 
@@ -119,12 +119,12 @@ class Rsgallery2ModelMaintImageFiles extends JModelList
 	}
 
 	// ToDo: Move to model image path and inherit from there or rename this class ...
-    // ToDo: Add try catch
-    /**
-     * Retrieve all pathes to RSG2 image files from database
-     *
-     * @since 4.3.0
-     */
+	// ToDo: Add try catch
+	/**
+	 * Retrieve all pathes to RSG2 image files from database
+	 *
+	 * @since 4.3.0
+	 */
 	private function getImagePaths()
 	{
 		// ToDo: Throws .... \Jdatabaseexception ....
@@ -207,4 +207,68 @@ class Rsgallery2ModelMaintImageFiles extends JModelList
 		/**/
 	}
 
+	/**
+	 *
+	 *
+	 * @return string Success message per folder
+	 *
+	 * @since 4.4.2
+	 */
+	public function repairImagePermissions()
+	{
+		//$msg = "Repaired image permissions: \n";
+		$msg = "";
+
+		// assign class variables
+		$this->getImagePaths();
+
+		$msg .= 'thumb ' . $this->repairImagePermissionsInFolder($this->imagePath_thumb) . '<br>';
+		$msg .= 'display ' . $this->repairImagePermissionsInFolder($this->imagePath_display) . '<br>';
+		$msg .= 'original ' . $this->repairImagePermissionsInFolder($this->imagePath_original) . '<br>';
+		$msg .= 'watermarked ' . $this->repairImagePermissionsInFolder($this->imagePath_watermarked) . '<br>';
+
+		return $msg;
+	}
+
+	/**
+	 *
+	 *
+	 * @return string Success message per folder
+	 *
+	 * @since 4.4.2
+	 */
+	public function repairImagePermissionsInFolder($imgFolder)
+	{
+		$count = 0;
+		$msg = "";
+
+		// ? folder exists
+
+		// all files
+		$files = new DirectoryIterator($imgFolder);
+		foreach ($files as $file)
+		{
+			if ($file->isFile())
+			{
+				$pathFileName = $file->getPathname();
+				$filePermission = JPath::getPermissions($pathFileName);
+				$mode = @ decoct(@ fileperms($pathFileName) & 0777);
+
+				if ($mode != '644')
+				{
+					JPath::setPermissions($pathFileName, '0644');
+					//$msg .= $pathFileName . ":" . $filePermission . ":" . $mode . ", ";
+					$count += 1;
+				}
+			}
+		}
+
+		// $msg .= '<br>count:' . $count;
+		$msg .= 'count: ' . $count;
+
+		return $msg;
+	}
+
+
 }
+

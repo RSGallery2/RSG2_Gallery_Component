@@ -444,6 +444,14 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
 									?>
 
 									<?php
+									$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.repairImagePermissions';
+									quickIconsBar($link, array('icon-image', 'icon-unlock'), // 'icon-'
+										JText::_('COM_RSGALLERY2_MAINT_REPAIR_IMAGE_PERMISSION'),
+										JText::_('COM_RSGALLERY2_MAINT_REPAIR_IMAGE_PERMISSION_DESC'),
+										'optimizeDB');
+									?>
+
+									<?php
 								}
 								?>
 

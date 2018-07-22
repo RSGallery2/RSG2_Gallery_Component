@@ -70,109 +70,6 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
-	/**
-	 * Checks if user has root status (is re.admin')
-	 *
-	 * @return    bool
-     *
-     * @since 4.3
-	 *
-	function IsUserRoot()
-	{
-		$user     = JFactory::getUser();
-		$canAdmin = $user->authorise('core.manage');
-
-		return $canAdmin;
-	}
-
-	/**
-	
-	
-	 * @since 4.3.0
-     * 
-	function ConsolidateDatabase()
-	{
-		global $Rsg2DebugActive;
-
-		if ($Rsg2DebugActive)
-		{
-			JLog::add('==> ctrl.maintenance.php/function ConsolidateDatabase');
-		}
-
-		$msg     = 'RSG2 database is consolidated. ';
-		$msgType = 'notice';
-
-		$msg .= '!!! Not implemented yet !!!';
-
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
-	}
-    /**/
-
-    /**
-     *
-     *
-     * @since 4.3
-     *
-	function consolidateDB()
-	{
-		$msg     = "consolidateDB: ";
-		$msgType = 'notice';
-
-		$msg .= '!!! Not implemented yet !!!';
-
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
-	}
-    /**/
-
-    /**
-     *
-     *
-     * @since 4.3
-     *
-	function regenerateThumbs()
-	{
-		$msg     = "regenerateThumbs: ";
-		$msgType = 'notice';
-
-		$msg .= '!!! Not implemented yet !!!';
-
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
-	}
-    /**/
-
-    /**
-     *
-     *
-     * @since 4.3
-     *
-	function viewConfigPlain()
-	{
-		$msg     = "viewConfigPlain: ";
-		$msgType = 'notice';
-
-		$msg .= '!!! Not implemented yet !!!';
-
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
-	}
-    /**/
-
-
-    /**
-     *
-     *
-     * @since 4.3
-     *
-	function editConfigRaw()
-	{
-		$msg     = "editConfigRaw: ";
-		$msgType = 'notice';
-
-		$msg .= '!!! Not implemented yet !!!';
-
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
-	}
-    /**/
-
     /**
      * Delete RSGallery language files in joomla 1.5 version or older style for backend
      * recursive files search in backend folder
@@ -253,6 +150,39 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 
 		return $IsDeleted;
 	}
+
+	/**
+	 *
+	 *
+	 * @since 4.4.2
+	 */
+	function repairImagePermissions()
+	{
+		//$msg     = "repairImagePermissions: ";
+		$msg = "Repaired image permissions: <br>";
+		$msgType = 'notice';
+
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
+		if (!$canAdmin)
+		{
+			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		}
+		else
+		{
+
+			//--- Delete all images -------------------------------
+
+			$imageModel = $this->getModel('MaintImageFiles');
+			$msg .= $imageModel->repairImagePermissions();
+		}
+
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+	}
+
 
 } // class
 
