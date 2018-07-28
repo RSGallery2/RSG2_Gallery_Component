@@ -320,4 +320,39 @@ class Rsgallery2ModelConfigRaw extends JModelList
 		return $isSaved;
 	}
 
+	/**
+	 * Remove all elements of old J2.5 config data
+	 * Truncates not used table
+	 *
+	 * @return bool (successful or not)
+	 *
+	 * @since 4.3.0
+	 * @throws Exception
+	 */
+	public function removeOldConfigData()
+	{
+		$isRemoved = False;
+
+		// ToDo: Move message to controller, return true or false
+
+		try
+		{
+			$table = '__rsgallery2_config';
+			$db = JFactory::getDbo();
+			$db->truncateTable($table);
+
+			$isRemoved = true;
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing removeOldConfigData: table="' . $table. '"<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $isRemoved;
+	}
 }
