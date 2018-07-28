@@ -512,12 +512,12 @@ class html_rsg2_config
 
 						<?php echo JHtml::_('bootstrap.endSlide'); ?>
 
-						<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_GRAPHICS_LIBRARY'), 'cfg_images_id_3'); ?>
+						<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_IMAGES_GRAFICS_LIBRARIES'), 'cfg_images_id_3'); ?>
 
 						<fieldset>
 							<table width="100%">
 								<tr>
-									<td width=200><?php echo JText::_('COM_RSGALLERY2_GRAPHICS_LIBRARY') ?></td>
+									<td width=200><?php echo JText::_('COM_RSGALLERY2_IMAGES_GRAFICS_LIBRARIES') ?></td>
 									<td width="78%"><?php echo $lists['graphicsLib'] ?></td>
 								</tr>
 								<tr>

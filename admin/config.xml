@@ -14,12 +14,23 @@
 		       buttons="false"
 		/>
 		<field
-				id="debug"
+				id="debugBackend"
 				name="debug"
 				type="radio"
 				default="0"
-				label="COM_RSGALLERY2_DEBUG"
+				label="COM_RSGALLERY2_DEBUG_BACKEND"
 				description="COM_RSGALLERY2_DEBUG_ACTIVATED_INFO"
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+				id="debugSite"
+				name="debug"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DEBUG_SITE"
+				description="COM_RSGALLERY2_DEBUG_SITE_DESC"
 				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
@@ -187,7 +198,7 @@
 				name="graphicsLib"
 				type="GraficLibrarySelectList"
 				default="0"
-				label="COM_RSGALLERY2_GRAPHICS_LIBRARY"
+				label="COM_RSGALLERY2_IMAGES_GRAFICS_LIBRARIES"
 				description=""
 				class=""
 		>
@@ -1278,6 +1289,21 @@
 				
 				class="">
 				<option value="semantic">COM_RSGALLERY2_SEMANTIC</option>
+		</field>
+		
+		<field
+				id="configOldViewUseJ25Data"
+				name="configOldViewUseJ25Data"
+				type="radio"
+				default="0"
+				label="Old config view: Use old config data"
+				description="To check if old config data exists: On Yes the data from table __config is used for the fieldsSwitch between "
+				class="btn-group btn-group-yesno">
+
+				showon="develop:1"
+				
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		
 		<field

@@ -311,6 +311,17 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
 									'test');
 								?>
 
+								<?php
+								/**
+								$link = 'index.php?option=com_rsgallery2&amp;view=config_J25&task=config_J25.edit';
+								quickIconsBar($link, array('icon-equalizer', 'icon-delete'),
+									JText::_('COM_RSGALLERY2_CONFIGURATION') . ' view V4.4.x',
+									//JText::_('        RSGallery2 V4.4.x'), // COM_RSGALLERY2_CONFIG_MINUS_VIEW
+									'Shows the old configuration view from RSGallery2 V4.4.x.<br> Actually it references to old empty (not existing) data as the cofiguration data is move to standard Joomla place',
+									'test');
+								/**/
+								?>
+
                                 <?php
 								$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawViewOld';
 								quickIconsBar($link, array('icon-equalizer', 'icon-eye', 'icon-eye-close'),
