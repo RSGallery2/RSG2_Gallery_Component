@@ -44,7 +44,8 @@ class Rsgallery2ModelConfigRawOld extends JModelList
 	 * @return string
 	 *
 	 * @since 4.3.0
-    */
+	 */
+	//public function save_raw_Old()
 	public function saveOld()
 	{
 	    // ToDO: Move message to controller, return true or false
@@ -172,49 +173,5 @@ class Rsgallery2ModelConfigRawOld extends JModelList
 
 		return $isSaved;
 	}
-
-	/**
-	 * save raw ...
-	 *
-	 * @return string
-	 *
-	 * @since 4.3.0
-	 */
-	public function removeOldConfigData()
-	{
-		// ToDO: Move message to controller, return true or false
-
-		$msg = "removeOldConfigData: ";
-
-		/**
-		$input = JFactory::getApplication()->input;
-		//$jform = $input->get( 'jform', array(), 'ARRAY');
-		$data = $input->post->get('jform', array(), 'array');
-
-		// ToDo: Remove bad injected code
-
-		$row = $this->getTable();
-		foreach ($data as $key => $value)
-		{
-			// fill an array, bind and check and store ?
-			$row->id    = null;
-			$row->name  = $key;
-			$row->value = $value;
-
-			$row->check();
-			$row->store();
-		}
-		/**/
-
-
-		$OutTxt = '';
-		$OutTxt .= 'removeOldConfigData (Old): "' . '<br>';
-
-		$app = JFactory::getApplication();
-		$app->enqueueMessage($OutTxt, 'error');
-
-		return $msg;
-	}
-
 
 }
