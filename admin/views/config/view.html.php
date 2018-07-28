@@ -189,12 +189,12 @@ class Rsgallery2ViewConfig extends JViewLegacy
 			case 'RawEditOld':
 				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
 					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT') . ' Old', 'screwdriver');
-				JToolBarHelper::apply('config.apply_rawEditOld');
-				JToolBarHelper::save('config.save_rawEditOld');
+				JToolBarHelper::apply('config_j25.apply_rawEditOld');
+				JToolBarHelper::save('config_j25.save_rawEditOld');
 				JToolBarHelper::cancel('config.cancel_rawEdit');
-				JToolbarHelper::custom('config.save_rawEditOldAndCopy2New', 'previous', 'previous', 'Save (old) and copy to new configuration data', false);
-				JToolbarHelper::custom('config.save_rawEditOld2Text', 'file-2', 'file-2', 'Save (old) to text file', false);
-				JToolbarHelper::custom('config.read_rawEditOld2Text', 'file', 'file', 'Read (old) from text file', false);
+				JToolbarHelper::custom('config_j25.save_rawEditOldAndCopy2New', 'previous', 'previous', 'Save (old) and copy to new configuration data', false);
+				JToolbarHelper::custom('config_j25.save_rawEditOld2Text', 'file-2', 'file-2', 'Save (old) to text file', false);
+				JToolbarHelper::custom('config_j25.read_rawEditOld2Text', 'file', 'file', 'Read (old) from text file', false);
 				JToolbarHelper::custom('config.remove_OldConfigData', 'next', 'next', 'Remove old configuration data', false);
 				break;
 			// case 'default':

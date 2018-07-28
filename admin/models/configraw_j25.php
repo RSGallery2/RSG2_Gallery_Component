@@ -44,9 +44,8 @@ class Rsgallery2ModelConfigRawOld extends JModelList
 	 * @return string
 	 *
 	 * @since 4.3.0
-	 */
-	//public function save_raw_Old()
-	public function saveOld()
+    */
+	public function save_raw_Old()
 	{
 	    // ToDO: Move message to controller, return true or false
 
