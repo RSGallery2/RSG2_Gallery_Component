@@ -58,7 +58,7 @@ class Rsgallery2ViewConfig extends JViewLegacy
 		// on develop show open tasks if existing
 		if (!empty ($Rsg2DevelopActive))
 		{
-			echo '<span style="color:red">Task: Save should not leave programm, rename save in controller as it is used by Raw ...</span><br><br>';
+			echo '<span style="color:red">Task: Save should not leave program, rename save in controller as it is used by Raw ...</span><br><br>';
 		}
 
 		//--- get needed form data ------------------------------------------
