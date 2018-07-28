@@ -208,9 +208,21 @@ class Rsgallery2ControllerConfig extends JControllerForm
 			$msgType = 'warning';
 			// replace newlines with html line breaks.
 			str_replace('\n', '<br>', $msg);
-		} else {
-			$model = $this->getModel('ConfigRawOld');
-			$isSaved = $model->removeOldConfigData();
+		} else
+		{
+			// $model = $this->getModel('ConfigRawOld');
+			$model     = $this->getModel('ConfigRaw');
+			$isRemoved = $model->removeOldConfigData();
+
+			if ($isRemoved)
+			{
+				$msg .= 'Successfully removed J2.5 configuration data';
+			}
+			else
+			{
+				$msg .= '!!! Failed at removing J2.5 configuration data !!! ';
+				$msgType = 'error';
+			}
 		}
 
 		$link = 'index.php?option=com_rsgallery2&view=config&layout=RawEditOld';
