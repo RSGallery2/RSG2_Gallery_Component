@@ -704,7 +704,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	        if (!$isCreated)
 	        {
 		        // ToDo: remove $imgId fom image database
-
 		        if ($Rsg2DebugActive)
 		        {
 			        JLog::add('MoveImageAndCreateRSG2Images failed: ' . $uploadFileName . ', ' . $singleFileName);
@@ -782,6 +781,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
             $uploadFileName = $input->get('upload_file', '', 'string');
 			$fileName = JFile::makeSafe($uploadFileName);
+
+// ==>			joomla replace spaces in filenames
+// ==>			'file_name' => str_replace(" ", "", $file_name);
 			$baseName = basename($fileName);
 
 			if ($Rsg2DebugActive)
