@@ -22,11 +22,14 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . '/init.rsgallery2.php');
 require_once(JPATH_COMPONENT_ADMINISTRATOR . '/includes/baseDefines.php');
 
 // Initialize the rsg config file
-require_once(JPATH_COMPONENT_ADMINISTRATOR . '/includes/config.class.php');
-$rsgConfig = new rsgConfig();
+//require_once(JPATH_COMPONENT_ADMINISTRATOR . '/includes/config.class.php');
+
+//$rsgConfig = new rsgConfig();
+$rsgConfig = JComponentHelper::getParams('com_rsgallery2');
 
 $Rsg2DevelopActive = $rsgConfig->get('develop');
 $Rsg2DebugActive = $rsgConfig->get('debug');
+$isDebugBackActive = $rsgConfig->get('debugBackend');
 
 if ($Rsg2DebugActive) {
     // Include the JLog class.

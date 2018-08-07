@@ -164,13 +164,17 @@ class JFormFieldGraficLibrarySelectList extends JFormFieldList
      */
 	private function ImageMagick_detect()
 	{
-		global $rsgConfig;
+		//global $rsgConfig;
 
 		$VersionId = '';
 
 		try
 		{
 			$status    = '';
+
+			//$app = JFactory::getApplication();
+			//$rsgConfig = $app->getParams();
+			$rsgConfig = JComponentHelper::getParams('com_rsgallery2');
 
 			// if path exists add the final /
 			$impath = $rsgConfig->get("imageMagick_path");

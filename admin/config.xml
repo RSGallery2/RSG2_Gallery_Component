@@ -48,6 +48,16 @@
 		</field>
 
 		<field
+				id="formatVersion"
+				name="formatVersion"
+				type="hidden"
+				default="0.001"
+				label="COM_RSGALLERY2_FORMAT_VERSION"
+				description="COM_RSGALLERY2_FORMAT_VERSION_DESC"
+				class="">
+		</field>
+
+		<field
 				id="advancedSef"
 				name="advancedSef"
 				type="radio"
