@@ -11,6 +11,10 @@ defined('_JEXEC') or die;
 
 JFormHelper::loadFieldClass('list');
 
+if (!defined('JPATH_RSGALLERY2_SITE')) {
+	define('JPATH_RSGALLERY2_SITE', JPATH_ROOT . '/components/com_rsgallery2');
+}
+
 /**
  *  Select slideshow List Form Field class to create contents of dropdown box for
  * usable grafic libraries on the system

@@ -6,13 +6,18 @@
 	          label="COM_RSGALLERY2_GENERAL"
 	          description="COM_RSGALLERY2_GENERAL_SETTINGS"
 	>
-		<field name="intro_text"
-		       type="editor"
-		       label="COM_RSGALLERY2_INTRODUCTION_TEXT"
-		       description="COM_RSGALLERY2_INTRODUCTION_DESC"
-		       filter="JComponentHelper::filterText"
-		       buttons="false"
-		/>
+		<field
+				id="advancedSef"
+				name="advancedSef"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_ADVANCED_SEF"
+				description="COM_RSGALLERY2_ADVANCED_SEF_DESC"
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
 		<field
 				id="debugBackend"
 				name="debug"
@@ -47,6 +52,13 @@
 			<option value="0">JNO</option>
 		</field>
 
+		<field name="intro_text"
+		       type="editor"
+		       label="COM_RSGALLERY2_INTRODUCTION_TEXT"
+		       description="COM_RSGALLERY2_INTRODUCTION_DESC"
+		       filter="JComponentHelper::filterText"
+		       buttons="false"
+		/>
 		<field
 				id="formatVersion"
 				name="formatVersion"
@@ -57,17 +69,6 @@
 				class="">
 		</field>
 
-		<field
-				id="advancedSef"
-				name="advancedSef"
-				type="radio"
-				default="0"
-				label="COM_RSGALLERY2_ADVANCED_SEF"
-				description="COM_RSGALLERY2_ADVANCED_SEF_DESC"
-				class="btn-group btn-group-yesno">
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
-		</field>
 	</fieldset>
 
 	<fieldset name="Images_settings"
