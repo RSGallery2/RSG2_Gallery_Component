@@ -73,7 +73,7 @@ class Rsgallery2ViewUpload extends JViewLegacy
         $FtpUploadPath = $rsgConfig->get('ftp_path');
         // On empty use last successful
         if (empty ($FtpUploadPath)) {
-            $FtpUploadPath = $rsgConfig->getLastUsedFtpPath();
+            $FtpUploadPath = $rsgConfig->get('last_used_ftp_path');
         }
         $this->FtpUploadPath = $FtpUploadPath;
 

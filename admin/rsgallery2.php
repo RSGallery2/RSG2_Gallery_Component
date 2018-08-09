@@ -18,7 +18,7 @@ global $Rsg2DebugActive, $Rsg2DevelopActive, $rsgConfig;
 require_once(JPATH_COMPONENT_ADMINISTRATOR . '/init.rsgallery2.php');
 /**/
 
-// ToDo remove ....
+// Define folder pathes and URI base definitions
 require_once(JPATH_COMPONENT_ADMINISTRATOR . '/includes/baseDefines.php');
 
 // Initialize the rsg config file
