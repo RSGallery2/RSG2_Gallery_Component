@@ -517,6 +517,7 @@ class rsgConfig
 
         $this->LastUpdateType = $NewLastUpdateType;
     }
+	/**/
 
     /**
      * return last used ftp_path
@@ -570,7 +571,7 @@ class rsgConfig
      * @return bool true when set in config data
      *
      * @since 4.3.0
-     */
+     *
     public function getIsPreSelectLatestGallery()
     {
     if (!isset($this->isPreSelectLatestGallery)) {

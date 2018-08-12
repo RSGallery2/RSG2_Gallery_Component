@@ -87,7 +87,7 @@ class Rsgallery2ViewUpload extends JViewLegacy
 
         // register 'upload_drag_and_drop', 'upload_zip_pc', 'upload_folder_server'
         //$this->ActiveSelection = $rsgConfig->getLastUpdateType();
-        $this->ActiveSelection = $rsgConfig->last_update_type;
+        $this->ActiveSelection = $rsgConfig->get('last_update_type');
         if (empty ($this->ActiveSelection)) {
             $this->ActiveSelection = 'upload_drag_and_drop';
         }
@@ -113,7 +113,7 @@ class Rsgallery2ViewUpload extends JViewLegacy
             $IdGallerySelect = $Id;
         }
 
-        $isPreSelectLatestGallery = $rsgConfig->getIsPreSelectLatestGallery();
+        $isPreSelectLatestGallery = $rsgConfig->get('IsPreSelectLatestGallery');
         if ($isPreSelectLatestGallery) {
             $IdGallerySelect = $this->getIdLatestGallery();
         }

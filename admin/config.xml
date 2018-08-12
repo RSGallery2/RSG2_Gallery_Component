@@ -59,16 +59,6 @@
 		       filter="JComponentHelper::filterText"
 		       buttons="false"
 		/>
-		<field
-				id="formatVersion"
-				name="formatVersion"
-				type="hidden"
-				default="0.001"
-				label="COM_RSGALLERY2_FORMAT_VERSION"
-				description="COM_RSGALLERY2_FORMAT_VERSION_DESC"
-				class="">
-		</field>
-
 	</fieldset>
 
 	<fieldset name="Images_settings"
@@ -142,16 +132,6 @@
 		<field
 				name="ftp_path"
 				type="text"
-				default=""
-				label="COM_RSGALLERY2_FTP_PATH"
-				description="COM_RSGALLERY2_FTP_PATH_DESC"
-				class="input-large-text input-xxlarge"
-		>
-		</field>
-		<!-- general path. Path may not change too often // otherwise session parameter ? -->
-		<field
-				name="last_used_ftp_path"
-				type="hidden"
 				default=""
 				label="COM_RSGALLERY2_FTP_PATH"
 				description="COM_RSGALLERY2_FTP_PATH_DESC"
@@ -1346,10 +1326,10 @@
 				default="upload_drag_and_drop"
 				label="last_update_type"
 				description="last used update type"
+				class=""
 
 				showon="develop:1"
-				
-				class="">
+		>
 		</field>
 		
 		<!-- "last_used_ftp_path": "D:\\xampp\\htdocs\\joomla3x\\UploadImages", -->
@@ -1357,14 +1337,27 @@
 				name="last_used_ftp_path"
 				type="text"
 				default="D:"
-				label="last_used_ftp_path"
-				description="last used ftp path"
+				label="COM_RSGALLERY2_FTP_PATH"
+				description="COM_RSGALLERY2_FTP_PATH_DESC"
+				class="input-large-text input-xxlarge"
 
 				showon="develop:1"
-				
-				class="">
 		</field>
 		
+		<!-- general path. Path may not change too often // otherwise session parameter ? -->
+		<field
+				id="formatVersion"
+				name="formatVersion"
+				type="text"
+				default="0.001"
+				label="COM_RSGALLERY2_FORMAT_VERSION"
+				description="COM_RSGALLERY2_FORMAT_VERSION_DESC"
+				class=""
+		
+				showon="develop:1"
+		>
+		</field>
+
 
 	<!-- acl_enabled: "0" deprecated -->
     <!-- comment_once: "0", COM_RSGALLERY2_USER_CAN_ONLY_COMMENT_ONCE')."(".JText::_('COM_RSGALLERY2_NOT_WORKING_YET :: separate after captcha -->

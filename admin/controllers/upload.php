@@ -15,6 +15,11 @@ use Joomla\Archive\Archive;
 
 \JLoader::import('joomla.filesystem.file');
 \JLoader::import('joomla.filesystem.folder');
+\JLoader::import('joomla.filesystem.folder');
+
+jimport('joomla.application.component.controllerform');
+
+require_once(JPATH_COMPONENT_ADMINISTRATOR . '/includes\configDb.php');
 
 global $Rsg2DebugActive;
 
@@ -27,7 +32,6 @@ if ($Rsg2DebugActive)
 	JLog::add('==> ctrl.upload.php ');
 }
 
-jimport('joomla.application.component.controllerform');
 
 /**
  * Functions supporting upload
@@ -116,10 +120,10 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		            JLog::add($DebTxt); //, JLog::DEBUG);
 	            }
 
-	            $app = JFactory::getApplication();
-	            $app->setUserState('com_rsgallery2.last_used_uploaded_zip', $zip_file);
-	            // $rsgConfig->setLastUsedZipFile($zip_file);
-	            $rsgConfig->setLastUpdateType('upload_zip_pc');
+	            //$app = JFactory::getApplication();
+	            //$app->setUserState('com_rsgallery2.last_used_uploaded_zip', $zip_file);
+	            //$rsgConfig->setLastUpdateType('upload_zip_pc');
+	            configDb::write2Config ('last_update_type', 'upload_zip_pc', $rsgConfig);
 
 	            //--- Check zip file name -------------------
 
@@ -429,10 +433,12 @@ class Rsgallery2ControllerUpload extends JControllerForm
                     JLog::add($DebTxt); //, JLog::DEBUG);
                 }
 
-                $app = JFactory::getApplication();
-                $app->setUserState('com_rsgallery2.last_used_ftp_path', $ftpPath);
-                $rsgConfig->setLastUsedFtpPath($ftpPath);
-                $rsgConfig->setLastUpdateType('upload_folder_server');
+                //$app = JFactory::getApplication();
+                //$app->setUserState('com_rsgallery2.last_used_ftp_path', $ftpPath);
+                //$rsgConfig->setLastUsedFtpPath($ftpPath);
+	            configDb::write2Config ('last_used_ftp_path', $ftpPath, $rsgConfig);
+                //$rsgConfig->setLastUpdateType('upload_folder_server');
+	            configDb::write2Config ('last_update_type', 'upload_folder_server', $rsgConfig);
 
 		        // Add trailing slash to source path, clean function will remove it when unnecessary
 	            // $ftpPath = JPath::clean($ftpPath . '/' );
@@ -632,7 +638,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		    $uploadFileName = $input->get('dstFileName', '', 'string');
 
 		    // for next upload tell where to start
-	        $rsgConfig->setLastUpdateType('upload_drag_and_drop');
+	        //$rsgConfig->setLastUpdateType('upload_drag_and_drop');
+		    configDb::write2Config ('last_update_type', 'upload_drag_and_drop', $rsgConfig);
 
 	        if ($Rsg2DebugActive)
             {
