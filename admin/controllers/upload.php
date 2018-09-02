@@ -611,13 +611,19 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
         $app = JFactory::getApplication();
 
-
 	    try {
             if ($Rsg2DebugActive) {
                 // identify active file
                 JLog::add('==> uploadAjaxSingleFile');
             }
 
+		    // do check token
+		    if ( ! JSession::checkToken()) {
+			    $errMsg = JText::_('JINVALID_TOKEN') . " (01)";
+			    $hasError = 1;
+			    echo new JResponseJson($msg, $errMsg, $hasError);
+			    $app->close();
+		    }
 
 	        $input = JFactory::getApplication()->input;
             $oFile = $input->files->get('upload_file', array(), 'raw');
@@ -704,7 +710,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	        if (!$isCreated)
 	        {
 		        // ToDo: remove $imgId fom image database
-
 		        if ($Rsg2DebugActive)
 		        {
 			        JLog::add('MoveImageAndCreateRSG2Images failed: ' . $uploadFileName . ', ' . $singleFileName);
@@ -772,6 +777,14 @@ class Rsgallery2ControllerUpload extends JControllerForm
 			if ($Rsg2DebugActive) {
 				// identify active file
 				JLog::add('==> uploadAjaxInsertInDB');
+			}
+
+			// do check token
+			if ( ! JSession::checkToken()) {
+				$errMsg = JText::_('JINVALID_TOKEN') . " (02)";
+				$hasError = 1;
+				echo new JResponseJson($msg, $errMsg, $hasError);
+				$app->close();
 			}
 
 			$input = JFactory::getApplication()->input;

@@ -135,9 +135,7 @@ jQuery(document).ready(function ($) {
     var buttonManualFile = $('#select_manual_file');
     var urlFileUploAd = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile';
     var urlReserveDbImageId = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxReserveDbImageId';
-    //alert ('urlReserveDbImageId: ' + urlReserveDbImageId);
     var returnUrl = $('#installer-return').val();
-    var token = $('#installer-token').val();
     var gallery_id = $('#SelectGalleries_03').val();
 
     var dbReserveQueue = []; // File list for database image id request (keeping order)
@@ -398,7 +396,7 @@ jQuery(document).ready(function ($) {
             data.append('upload_file', files[idx].name);
             data.append('imagesDroppedListIdx', imagesDroppedListIdx);
 
-            data.append(token, "1");
+            data.append(Token, '1');
             data.append('gallery_id', gallery_id);
             //data.append('idx', idx);
 
@@ -540,7 +538,8 @@ jQuery(document).ready(function ($) {
                 console.log('imagesDroppedListIdx: ' + imagesDroppedListIdx);
                 console.log('UploadFile1: ' + UploadFile);
                 data.append('upload_file', UploadFile);
-                data.append(token, "1");
+
+                data.append(Token, '1');
                 data.append('gallery_id', gallery_id);
                 data.append('cid', jData.data.cid);
                 data.append('fileName', jData.data.fileName);
