@@ -73,6 +73,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
         JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
+	    $app = JFactory::getApplication();
+
 	    // fallback link
 	    $link = 'index.php?option=com_rsgallery2&view=upload';
 
@@ -393,6 +395,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 	    JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
+	    $app = JFactory::getApplication();
+
 	    // fallback link
 	    $link = 'index.php?option=com_rsgallery2&view=upload';
 
@@ -617,15 +621,21 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
         $app = JFactory::getApplication();
 
-
 	    try {
             if ($Rsg2DebugActive) {
                 // identify active file
                 JLog::add('==> uploadAjaxSingleFile');
             }
 
+		    // do check token
+		    if ( ! JSession::checkToken()) {
+			    $errMsg = JText::_('JINVALID_TOKEN') . " (01)";
+			    $hasError = 1;
+			    echo new JResponseJson($msg, $errMsg, $hasError);
+			    $app->close();
+		    }
 
-	        $input = JFactory::getApplication()->input;
+		    $input = JFactory::getApplication()->input;
             $oFile = $input->files->get('upload_file', array(), 'raw');
 
             $uploadPathFileName = $oFile['tmp_name'];
@@ -778,6 +788,14 @@ class Rsgallery2ControllerUpload extends JControllerForm
 			if ($Rsg2DebugActive) {
 				// identify active file
 				JLog::add('==> uploadAjaxInsertInDB');
+			}
+
+			// do check token
+			if ( ! JSession::checkToken()) {
+				$errMsg = JText::_('JINVALID_TOKEN') . " (02)";
+				$hasError = 1;
+				echo new JResponseJson($msg, $errMsg, $hasError);
+				$app->close();
 			}
 
 			$input = JFactory::getApplication()->input;
