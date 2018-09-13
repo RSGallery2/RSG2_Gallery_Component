@@ -27,11 +27,13 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . '/includes/baseDefines.php');
 //$rsgConfig = new rsgConfig();
 $rsgConfig = JComponentHelper::getParams('com_rsgallery2');
 
-$Rsg2DevelopActive = $rsgConfig->get('develop');
-$Rsg2DebugActive = $rsgConfig->get('debug');
-$isDebugBackActive = $rsgConfig->get('debugBackend');
+$Rsg2DevelopActive = $rsgConfig->get('develop'); // $isDevelopActive
+$Rsg2DebugActive = $rsgConfig->get('debug'); // debugsite $isDebugSite
+$isDebugBackActive = $rsgConfig->get('debugBackend'); // $isDebugBackend
 
-if ($Rsg2DebugActive) {
+// Activate logging
+if ($Rsg2DebugActive)
+{
     // Include the JLog class.
     jimport('joomla.log.log');
 
@@ -43,7 +45,6 @@ if ($Rsg2DebugActive) {
     // Pass an array of configuration options
         array(
             // Set the name of the log file
-            //'text_file' => substr($application->scope, 4) . ".log.php",
             'text_file' => 'rsgallery2.adm.log.' . $date . '.php',
 
             // (optional) you can change the directory
