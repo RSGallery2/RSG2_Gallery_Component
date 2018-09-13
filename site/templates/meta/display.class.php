@@ -9,12 +9,15 @@
  */
 defined('_JEXEC') or die();
 
-//require_once( 'joomla.filesystem.files' );
 // ToDo: Remove call of file helpers/parameter.php. actual needed for compatibility with 2.5
-// require_once (JPATH_COMPONENT_ADMINISTRATOR.'/helpers/parameter.php');
-//require_once(JPATH_ROOT . '/administrator/components/com_rsgallery2/helpers/parameter.php');
-//require_once (JPATH_ROOT.'/administrator/components/com_rsgallery2/helpers/TemplateParameter.php');
 jimport('joomla.filesystem.files');
+
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/gallery.manager.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/gallery.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/config.rsgallery2.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/authorisation.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/img.utils.php');
+
 
 class rsgDisplay extends JObject
 {

@@ -10,12 +10,25 @@
  */
 defined('_JEXEC') or die();
 
-global $rsgConfig;
+global $Rsg2DebugActive, $Rsg2DevelopActive, $rsgConfig;
 
+/** Old part:
 // Initialize RSG2 core functionality
-require_once(JPATH_SITE . "/administrator/components/com_rsgallery2/init.rsgallery2.php");
+// Does open a lot of files
+require_once(JPATH_COMPONENT_ADMINISTRATOR . '/init.rsgallery2.php');
+/**/
 
-$Rsg2DebugActive = $rsgConfig->get('debug');
+// Define folder pathes and URI base definitions
+require_once(JPATH_COMPONENT_ADMINISTRATOR . '/includes/baseDefines.php');
+
+//$rsgConfig = new rsgConfig();
+$rsgConfig = JComponentHelper::getParams('com_rsgallery2');
+
+$Rsg2DevelopActive = $rsgConfig->get('develop'); // $isDevelopActive
+$Rsg2DebugActive = $rsgConfig->get('debug'); // debugsite $isDebugSite
+$isDebugBackActive = $rsgConfig->get('debugBackend'); // $isDebugBackend
+
+// Activate logging
 if ($Rsg2DebugActive)
 {
 	// Include the JLog class.
@@ -29,7 +42,6 @@ if ($Rsg2DebugActive)
 	// Pass an array of configuration options
 		array(
 			// Set the name of the log file
-			//'text_file' => substr($application->scope, 4) . ".log.php",
 			'text_file' => 'rsgallery2.' . $date . '.log.php',
 
 			// (optional) you can change the directory
@@ -41,6 +53,10 @@ if ($Rsg2DebugActive)
 	// start logging...
 	JLog::add('Start rsgallery2.php in site: debug active in RSGallery2'); //, JLog::DEBUG);
 }
+
+// ToDO: Remove following
+// include rsgInstance
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/instance.class.php');
 
 // Create a new instance of RSGallery2
 rsgInstance::instance();
