@@ -14,9 +14,9 @@ defined('_JEXEC') or die();
 
 global $Rsg2DebugActive;
 
-require_once($rsgClasses_path . 'file.utils.php');
-require_once($rsgOptions_path . 'images.html.php');
-require_once($rsgOptions_path . 'images.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/file.utils.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/options/images.html.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/options/images.class.php');
 require_once(JPATH_RSGALLERY2_ADMIN . '/admin.rsgallery2.html.php');
 
 $input = JFactory::getApplication()->input;

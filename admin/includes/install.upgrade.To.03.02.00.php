@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 // Include the JLog class.
 jimport('joomla.log.log');
 
-//require_once( $rsgClasses_path . 'file.utils.php' );
+//require_once(JPATH_RSGALLERY2_ADMIN . '/includes/file.utils.php' );
 
 global $rsgConfig;
 global $rsgVersion;

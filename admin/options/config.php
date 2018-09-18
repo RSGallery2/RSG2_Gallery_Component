@@ -11,7 +11,7 @@
 
 defined('_JEXEC') or die();
 
-require_once($rsgOptions_path . 'config.html.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/options/config.html.php');
 
 // Only those with core.manage can get here via $rsgOption = config
 // Check if core.admin is allowed

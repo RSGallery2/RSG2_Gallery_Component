@@ -21,6 +21,6 @@ if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2'))
 }
 else
 {
-	define('rsgOptions_installer_path', $rsgOptions_path . 'templateManager');
+	define('rsgOptions_installer_path', JPATH_RSGALLERY2_ADMIN . '/options/templateManager');
 	require_once(rsgOptions_installer_path . '/admin.installer.php');
 }

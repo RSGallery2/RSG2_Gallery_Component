@@ -25,8 +25,8 @@ if ($document->getType() == 'html')
 require_once(JPATH_RSGALLERY2_SITE . '/lib/mygalleries/mygalleries.class.php');
 //Need galleries.class.php for rsgGalleriesItem that extends JTable
 $rsgOptions_path = JPATH_RSGALLERY2_ADMIN . '/options' . '/';
-require_once($rsgOptions_path . 'galleries.class.php');
-require_once($rsgOptions_path . 'images.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/options/galleries.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/options/images.class.php');
 
 //Get parameters from URL and/or form
 $input = JFactory::getApplication()->input;

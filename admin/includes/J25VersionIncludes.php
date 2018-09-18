@@ -245,28 +245,28 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . '/toolbar.rsgallery2.php');
  */
 switch ($rsgOption) {
 	case 'galleries':
-		require_once($rsgOptions_path . 'galleries.php');
+		require_once(JPATH_RSGALLERY2_ADMIN . '/options/galleries.php');
 		break;
 
 	case 'images':
-		require_once($rsgOptions_path . 'images.php');
+		require_once(JPATH_RSGALLERY2_ADMIN . '/options/images.php');
 		break;
 
 	case 'comments':
-		require_once($rsgOptions_path . 'comments.php');
+		require_once(JPATH_RSGALLERY2_ADMIN . '/options/comments.php');
 		break;
 
 	case 'config':
-		require_once($rsgOptions_path . 'config.php');
+		require_once(JPATH_RSGALLERY2_ADMIN . '/options/config.php');
 		break;
 	//	case 'template':
-	//		require_once( $rsgOptions_path . 'templates.php' );
+	//		require_once( JPATH_RSGALLERY2_ADMIN . '/options/templates.php' );
 	//		break;
 	case 'installer':
-		require_once($rsgOptions_path . 'installer.php');
+		require_once(JPATH_RSGALLERY2_ADMIN . '/options/installer.php');
 		break;
 	case 'maintenance':
-		require_once($rsgOptions_path . 'maintenance.php');
+		require_once(JPATH_RSGALLERY2_ADMIN . '/options/maintenance.php');
 		break;
 }
 
@@ -300,7 +300,7 @@ case 'config_rawEdit_apply':
 case 'config_rawEdit_save':
 case 'config_rawEdit':
 $rsgOption = 'config';
-require_once($rsgOptions_path . 'config.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/options/config.php');
 break;
 //Image tasks
 case "edit_image":

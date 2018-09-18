@@ -11,7 +11,7 @@
 
 defined('_JEXEC') or die();
 
-require_once($rsgClasses_path . 'file.utils.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/file.utils.php');
 
 /**
  * Image utilities class

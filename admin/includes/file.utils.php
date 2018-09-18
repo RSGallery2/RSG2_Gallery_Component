@@ -13,7 +13,7 @@ defined('_JEXEC') or die();
 
 require_once(JPATH_RSGALLERY2_ADMIN . '/includes/mimetype.php');
 //require_once(JPATH_ROOT.'/includes/PEAR/PEAR.php');				//Mirjam: no longer used since SVN 975
-//require_once( $rsgClasses_path . 'file.utils.php' );
+//require_once(JPATH_RSGALLERY2_ADMIN . '/includes/file.utils.php' );
 
 //Load Joomla filesystem class
 jimport('joomla.base.tree');

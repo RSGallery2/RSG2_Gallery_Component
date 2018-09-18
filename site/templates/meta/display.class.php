@@ -17,6 +17,7 @@ require_once(JPATH_RSGALLERY2_ADMIN . '/includes/gallery.class.php');
 require_once(JPATH_RSGALLERY2_ADMIN . '/config.rsgallery2.php');
 require_once(JPATH_RSGALLERY2_ADMIN . '/includes/authorisation.class.php');
 require_once(JPATH_RSGALLERY2_ADMIN . '/includes/img.utils.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/includes/items/item.php');
 
 
 class rsgDisplay extends JObject
