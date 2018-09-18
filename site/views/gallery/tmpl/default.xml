@@ -20,6 +20,17 @@
 					required="true"
 			>
 			</field>
+			<field
+				id="useJ25Display"
+				name="advancedSef"
+				type="radio"
+				default="1"
+				label="COM_RSGALLERY2_USE_J25_DISPLAY"
+				description="COM_RSGALLERY2_USE_J25_DISPLAY_DESC"
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>			>
+			</field>
 		</fieldset>
 	</fields>
 </metadata>
