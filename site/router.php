@@ -41,7 +41,7 @@ function Rsgallery2BuildRoute(&$query)
 	//Now define non-advanced SEF as v2 way and advanced SEF as v3 way
 	if ($rsgConfig->get("advancedSef") == true)
 	{
-		//Find gid from menu --> $menuGid (can be an independant function)
+		//Find gid from menu --> $menuGid (can be an independent function)
 		$app  = JFactory::getApplication();
 		$menu = $app->getMenu();
 		if (empty($query['Itemid']))
@@ -230,43 +230,43 @@ function Rsgallery2ParseRoute($segments)
 
 				//This could be gid and galleryname: check if it is the correct galleryname
 				//or else an id and itemname: check if it it the correct itemname
-//Check needed because we don't know if its a gallery or an item
+                //Check needed because we don't know if its a gallery or an item
 				if (Rsgallery2GetGalleryName($partOne[0]) == $partOne[1])
 				{
 					//add gid //this is never the same as the gid in the menulink
 					$vars['gid'] = $partOne[0]; //make sure we have an integer here
 				}
-//Check not needed per se
-//				  elseif (Rsgallery2GetItemName($partOne[0]) == $partOne[1]) {
+                //Check not needed per se
+                // elseif (Rsgallery2GetItemName($partOne[0]) == $partOne[1]) {
 				else
 				{
 					//add id and &page=inline
 					$vars['id']   = $partOne[0]; //make sure we have an integer here
 					$vars['page'] = 'inline';
-//				} else {
-//					//error
+                // } else {
+                // //error
 				}
 				break;
 			case 2:
 				//2: it's an item
 				//Get id and itemname from part 2 (explode into two parts)
 				$partTwo = explode(':', $segments[1], 2);
-//Check not needed per se
-//				if (Rsgallery2GetItemName($partTwo[0]) == $partTwo[1]) {
+                // Check not needed per se
+                // if (Rsgallery2GetItemName($partTwo[0]) == $partTwo[1]) {
 				//add id and &page=inline
 				$vars['id']   = (int) $partTwo[0]; //make sure we have an integer here
 				$vars['page'] = 'inline';
-//				} else {
-//					//error
-//				}
+                // } else {
+                // //error
+                // }
 				break;
 			default:
 				//error
 		}
 	}
 	else
-	{//not advancedSEF
-
+	{
+	    // not advancedSEF
 		// Get the active menu item.
 		//$menu	= JSite::getMenu();
 		$app  = JFactory::getApplication();
@@ -361,7 +361,8 @@ function Rsgallery2GetGalleryName($gid)
 		}
 	}
 	else
-	{// No advanced SEF
+	{
+	    // No advanced SEF
 		$segment = $gid;
 	}
 
@@ -567,8 +568,8 @@ function Rsgallery2GetItemIdFromGalleryIdAndLimitStart($gid, $limitstart)
 	}
 	else
 	{
-		//todo: error //need to have non-zero number of items
-		//Redirect user and display error...
+		// todo: error //need to have non-zero number of items
+		// Redirect user and display error...
 		$app = JFactory::getApplication();
 		JFactory::getLanguage()->load("com_rsgallery2");
 		$app->redirect("index.php", JText::sprintf('COM_RSGALLERY2_COULD_NOT_FIND_IMAGE_BASED_ON_GALLERYID_AND_LIMITSTART', (int) $gid, (int) $limitstart));//todo add to languange file

@@ -2,21 +2,21 @@
 /**
  * Initialize default instance of RSGallery2
  *
- * @version       $Id: rsgallery2.php 1011 2011-01-26 15:36:02Z mirjam $
  * @package       RSGallery2
+ *
+ * @author     finnern <[AUTHOR_EMAIL]>
  * @copyright (C) 2003 - 2018 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
+ * @link       www.rsgallery2.org
  */
-defined('_JEXEC') or die();
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Controller\BaseController;
+
+defined('_JEXEC') or die;
 
 global $Rsg2DebugActive, $Rsg2DevelopActive, $rsgConfig;
-
-/** Old part:
-// Initialize RSG2 core functionality
-// Does open a lot of files
-require_once(JPATH_COMPONENT_ADMINISTRATOR . '/init.rsgallery2.php');
-/**/
 
 // Define folder pathes and URI base definitions
 require_once(JPATH_COMPONENT_ADMINISTRATOR . '/includes/baseDefines.php');
@@ -27,6 +27,10 @@ $rsgConfig = JComponentHelper::getParams('com_rsgallery2');
 $Rsg2DevelopActive = $rsgConfig->get('develop'); // $isDevelopActive
 $Rsg2DebugActive = $rsgConfig->get('debug'); // debugsite $isDebugSite
 $isDebugBackActive = $rsgConfig->get('debugBackend'); // $isDebugBackend
+
+//$input = JFactory::getApplication()->input;
+//$useJ25Display = $input->get('useJ25Display', 0, 'INT');
+$useJ25Display = $rsgConfig->get('useJ25Display'); // $isDebugBackend
 
 // Activate logging
 if ($Rsg2DebugActive)
@@ -54,10 +58,19 @@ if ($Rsg2DebugActive)
 	JLog::add('Start rsgallery2.php in site: debug active in RSGallery2'); //, JLog::DEBUG);
 }
 
-// ToDO: Remove following
-// include rsgInstance
-require_once(JPATH_RSGALLERY2_ADMIN . '/includes/instance.class.php');
+$useJ25Display = true;
+if ($useJ25Display) {
+    // ToDo: Remove following
+    // include rsgInstance
+    require_once(JPATH_RSGALLERY2_ADMIN . '/includes/instance.class.php');
+    
+    // Create a new instance of RSGallery2
+    rsgInstance::instance();
+}
+else
+{
+    $controller = BaseController::getInstance('rsgallery2');
+    $controller->execute(Factory::getApplication()->input->get('task'));
+    $controller->redirect();
+}
 
-// Create a new instance of RSGallery2
-rsgInstance::instance();
-	
