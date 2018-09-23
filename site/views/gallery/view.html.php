@@ -20,4 +20,27 @@ defined('_JEXEC') or die;
  */
 class RSGallery2ViewGallery extends HtmlView
 {
+    /**
+     * Display job item
+     *
+     * @param   string  $tpl  template name
+     *
+     * @return void
+     */
+    public function display($tpl = null)
+    {
+        echo "RSGallery2ViewRSGallery2";
+
+        // Get gallery data for the view
+        $this->item = $this->get('Item');
+
+        // Check for errors.
+        if (count($errors = $this->get('Errors')))
+        {
+            throw new RuntimeException(implode('<br />', $errors), 500);
+        }
+
+        // Display the view
+        parent::display($tpl);
+    }
 }

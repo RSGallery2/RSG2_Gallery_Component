@@ -58,7 +58,7 @@ if ($Rsg2DebugActive)
 	JLog::add('Start rsgallery2.php in site: debug active in RSGallery2'); //, JLog::DEBUG);
 }
 
-$useJ25Display = true;
+//$useJ25Display = true;
 if ($useJ25Display) {
     // ToDo: Remove following
     // include rsgInstance

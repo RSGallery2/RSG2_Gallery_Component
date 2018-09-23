@@ -20,4 +20,5 @@ defined('_JEXEC') or die;
  */
 class RSGallery2ControllerRSGallery2 extends BaseDatabaseModel
 {
+
 }

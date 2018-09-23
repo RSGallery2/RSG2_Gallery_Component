@@ -8,16 +8,17 @@
  * @link       [AUTHOR_URL]
  */
 
-use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 
 defined('_JEXEC') or die;
 
 /**
- * RSGgallery2 Controller
+ * Foo model.
  *
  * @package  [PACKAGE_NAME]
  * @since    1.0
  */
-class Rsgallery2Controller extends BaseController 
-{ 
+class RSGallery2ControllerImages extends BaseDatabaseModel
+{
+
 }
