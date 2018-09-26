@@ -33,11 +33,15 @@ $gid = $input->get('gid', null, 'INT');
 $view = $input->get('view', null, 'CMD');
 $option = $input->get('option', null, 'CMD');
 
+$layout = new JLayoutFile('ClassicJ25.search');
+echo $layout->render();
+
 $galleryData = array(
 		'item' => $this->item
 //       ,
 //		'model' => $model
 	);
+
 //$layoutGallery = JLayoutHelper::render('.', $myLayoutData);
 //echo "--- Before render ---------------<br>";
 //$layout = new JLayoutFile('ClassicJ25.gallery', null, array('debug' => true, 'client' => 1)); // , null, array('debug' => true, 'client' => 1, 'component' => 'com_tags')
