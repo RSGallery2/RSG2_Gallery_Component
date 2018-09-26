@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_RSGALLERY2_GALLERYVIEW_DUMMY_TITLE">
+		<message>
+			COM_RSGALLERY2_GALLERYVIEW_DUMMY_DESC
+		</message>
+	</layout>
+
+	<fields name="request">
+		<fieldset name="request"
+		          addfieldpath="/administrator/components/com_rsgallery2/models/fields"
+		>
+			<field
+					id="dummy"
+					name="dummy"
+					type="text"
+					label="COM_RSGALLERY2_DUMMY_TEXT"
+					description="COM_RSGALLERY2_DUMMY_TEXT_DESC"
+					default="Nothing"
+					required="true"
+			>
+			</field>
+		</fieldset>
+	</fields>
+</metadata>

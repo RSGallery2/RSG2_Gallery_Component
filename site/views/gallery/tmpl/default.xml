@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="COM_RSGALLERY2_GALLERYVIEW_DUMMY_TITLE">
+	<layout title="COM_RSGALLERY2_GALLERYVIEW_DEFAULT_TITLE">
 		<message>
-			COM_RSGALLERY2_GALLERYVIEW_DUMMY_DESC
+			COM_RSGALLERY2_GALLERYVIEW_DEFAULT_DESC
 		</message>
 	</layout>
 
 	<fields name="request">
 		<fieldset name="request"
-		          addfieldpath="/administrator/components/com_rsgallery2/models/fields"
+				  addfieldpath="/administrator/components/com_rsgallery2/models/fields"
 		>
 			<field
-					id="dummy"
-					name="dummy"
-					type="text"
-					label="COM_RSGALLERY2_DUMMY_TEXT"
-					description="COM_RSGALLERY2_DUMMY_TEXT_DESC"
-					default="Nothing"
+					id="gid"
+					name="gid"
+					type="galleryrootlist"
+					label="COM_RSGALLERY2_CHOOSE_GALLERY"
+					description="COM_RSGALLERY2_CHOOSE_GALLERY_DESC"
+					default="0"
 					required="true"
 			>
+			</field>
+			<field
+					id="useJ25Display"
+					name="advancedSef"
+					type="radio"
+					default="1"
+					label="COM_RSGALLERY2_USE_J25_DISPLAY"
+					description="COM_RSGALLERY2_USE_J25_DISPLAY_DESC"
+					class="btn-group btn-group-yesno">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>			>
 			</field>
 		</fieldset>
 	</fields>
