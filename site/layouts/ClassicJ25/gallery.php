@@ -2,16 +2,18 @@
 /**
  * @package     rsgallery2
  * @subpackage  Layout
- *
- * @copyright   Copyright (C) 2005 - 2018 
+ * @copyright   (C) 2017-2018 RSGallery2 Team
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @author      finnern
+ * RSGallery is Free Software
  */
 
 defined('_JEXEC') or die;
 
+global $rsgConfig;
+
 //JHtml::_('behavior.core');
 
-//$doTask  = $displayData['doTask'];
  echo "layout classic: gallery: <br>";
 /**
 <!--button onclick="<?php echo $doTask; ?>" class="btn btn-small" data-toggle="collapse" data-target="#collapse-<?php echo $name; ?>"<?php echo $onClose; ?>>
@@ -20,8 +22,8 @@ defined('_JEXEC') or die;
 </button--> 
 /**/
 
-$Found = json_encode($displayData['item']);
-echo "Item: " . $Found;
+$gallery = json_encode($displayData['item']);
+echo "Gallery: " . $gallery;
 
 ?>
 
