@@ -63,9 +63,9 @@ if ($slideshow)
 			<?php echo '<br /><i>' . ((!$item->published) ? JText::_('JUNPUBLISHED') : '') . '</i>'; ?>
 		</td>
 		<?php if (++$i % $cols == 0)
-	{
-		echo "</tr>\n";
-	} ?>
+        {
+            echo "</tr>\n";
+        } ?>
 	<?php endforeach; ?>
 	<?php if ($i % $cols != 0)
 	{

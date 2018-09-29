@@ -38,7 +38,7 @@ if ($slideshow)
 		echo ($item->published) ? "" : "class='system-unpublished'"; ?> >
 			<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&page=inline&id=" . $item->id); ?>">
 				<!--<div class="img-shadow">-->
-				<img alt="<?php echo htmlspecialchars(stripslashes($item->descr), ENT_QUOTES); ?>" src="<?php echo $thumb->url(); ?>" />
+				<img src="<?php echo $thumb->url(); ?>" alt="<?php echo htmlspecialchars(stripslashes($item->descr), ENT_QUOTES); ?>" />
 				<!--</div>-->
 				<span class="rsg2-clr"></span>
 				<?php if ($rsgConfig->get("display_thumbs_showImgName")): ?>

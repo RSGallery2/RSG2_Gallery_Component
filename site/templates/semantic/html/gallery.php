@@ -14,7 +14,7 @@ JHtml::_('behavior.framework', true);  // ToDo: Remove mootools
 global $rsgConfig;
 
 //Testing
-echo('<!-- using template parameter: testParameter = ' . $this->params->get('testParameter') . ' -->');
+//echo('<!-- using template parameter: testParameter = ' . $this->params->get('testParameter') . ' -->');
 
 //Show My Galleries link (if user is logged in (user id not 0))
 if ($rsgConfig->get('show_mygalleries') AND (JFactory::getUser()->id))
