@@ -1342,6 +1342,7 @@
 				class="input-large-text input-xxlarge"
 
 				showon="develop:1"
+		>
 		</field>
 		
 		<!-- general path. Path may not change too often // otherwise session parameter ? -->
