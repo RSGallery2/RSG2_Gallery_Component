@@ -307,7 +307,8 @@ class rsgGalleryManager
 			{
 				if (count($row) == 0 && $gallery == 0)
 				{
-					// gallery is root, and it aint in the db, so we have to create it.
+					// gallery is root, and it ain't in the db, so we have to create it
+                    // with 'empty' data using Config->get("intro_text"),
 					return rsgGalleryManager::_getRootGallery();
 				}
 			}
@@ -321,10 +322,12 @@ class rsgGalleryManager
 
 	/**
 	 * return the top level gallery
-	 * this is a little interesting, because the top level gallery is a pseudo gallery, but we need to create some
+	 * this is a little interesting, because the top level
+     * gallery is a pseudo gallery, but we need to create some
 	 * useful values so that it can be used as a real gallery.
 	 *
-	 * @todo possibly have the top level gallery be a real gallery in the db.  this obviously needs to be discussed more.
+	 * @todo possibly have the top level gallery be a real
+     *  gallery in the db.  this obviously needs to be discussed more.
 	 * @todo are these good defaults?  not sure....
 	 * @return rsgGallery
 	 * @since 4.3.0

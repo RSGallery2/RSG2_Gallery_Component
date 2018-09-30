@@ -25,7 +25,8 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . '/includes/baseDefines.php');
 $rsgConfig = JComponentHelper::getParams('com_rsgallery2');
 
 $Rsg2DevelopActive = $rsgConfig->get('develop'); // $isDevelopActive
-$Rsg2DebugActive = $rsgConfig->get('debug'); // debugsite $isDebugSite
+$Rsg2DebugActive = $rsgConfig->get('debugSite'); // debugsite $isDebugSite
+$isDebugSiteActive = $rsgConfig->get('debugSite'); // debugsite $isDebugSite
 $isDebugBackActive = $rsgConfig->get('debugBackend'); // $isDebugBackend
 
 //$input = JFactory::getApplication()->input;
@@ -46,7 +47,7 @@ if ($Rsg2DebugActive)
 	// Pass an array of configuration options
 		array(
 			// Set the name of the log file
-			'text_file' => 'rsgallery2.' . $date . '.log.php',
+			'text_file' => 'rsgallery2Site.' . $date . '.log.php',
 
 			// (optional) you can change the directory
 			// 'text_file_path' => 'logs'
@@ -58,7 +59,7 @@ if ($Rsg2DebugActive)
 	JLog::add('Start rsgallery2.php in site: debug active in RSGallery2'); //, JLog::DEBUG);
 }
 
-//$useJ25Display = true;
+$useJ25Display = $rsgConfig->get('useJ25Views');;
 if ($useJ25Display) {
     // ToDo: Remove following
     // include rsgInstance

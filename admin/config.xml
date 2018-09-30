@@ -6,6 +6,13 @@
 	          label="COM_RSGALLERY2_GENERAL"
 	          description="COM_RSGALLERY2_GENERAL_SETTINGS"
 	>
+		<field 
+			type="spacer" 
+			name="spacerImageSettings" 
+			class="text-info"
+			label="*Debug setting"
+		/>
+
 		<field
 				id="advancedSef"
 				name="advancedSef"
@@ -52,12 +59,18 @@
 			<option value="0">JNO</option>
 		</field>
 
-		<field name="intro_text"
-		       type="editor"
-		       label="COM_RSGALLERY2_INTRODUCTION_TEXT"
-		       description="COM_RSGALLERY2_INTRODUCTION_DESC"
-		       filter="JComponentHelper::filterText"
-		       buttons="false"
+		<field
+			name="spacerImageIntro"
+			type="spacer"
+			hr="true"
+		/>
+		<field 
+				name="intro_text"
+				type="editor"
+				label="COM_RSGALLERY2_INTRODUCTION_TEXT"
+				description="COM_RSGALLERY2_INTRODUCTION_DESC"
+				filter="JComponentHelper::filterText"
+				buttons="false"
 		/>
 	</fieldset>
 
@@ -68,7 +81,7 @@
 		<field 
 			type="spacer" 
 			name="spacerImageSettings" 
-			class="text"
+			class="text-info"
 			label="COM_RSGALLERY2_IMAGE_MANIPULATION"
 		/>
 
@@ -126,7 +139,7 @@
 		<field 
 			type="spacer" 
 			name="spacerImageUpload" 
-			class="font-weight-bold"
+			class="text-info"
 			label="COM_RSGALLERY2_IMAGE_UPLOAD"
 		/>
 		<field
@@ -191,7 +204,7 @@
 		<field 
 			type="spacer" 
 			name="spacerGraficsLibrary" 
-			class="font-weight-bold"
+			class="text-info"
 			label="COM_RSGALLERY2_IMAGES_GRAFICS_LIBRARIES"
 		/>
 
@@ -264,7 +277,7 @@
 		<field 
 			type="spacer" 
 			name="spacerImageStorage" 
-			class="font-weight-bold"
+			class="text-info"
 			label="COM_RSGALLERY2_IMAGES_STORAGE"
 		/>
 		<field
@@ -314,7 +327,7 @@
 		<field 
 			type="spacer" 
 			name="spacerImagesComment" 
-			class="font-weight-bold"
+			class="text-info"
 			label="COM_RSGALLERY2_IMAGES_COMMENTS"
 		/>
 
@@ -424,7 +437,7 @@
 		<field 
 			type="spacer" 
 			name="spacerImageVoting" 
-			class="font-weight-bold"
+			class="text-info"
 			label="COM_RSGALLERY2_IMAGES_VOTING"
 		/>
 
@@ -461,7 +474,7 @@
 		<field 
 			type="spacer" 
 			name="spacerDisplayFrontPage" 
-			class="font-weight-bold"
+			class="text-info"
 			label="COM_RSGALLERY2_DISPLAY_FRONT_PAGE"
 		/>
 
@@ -644,7 +657,7 @@
 		<field 
 			type="spacer" 
 			name="spacerDisplayIMAGE" 
-			class="font-weight-bold"
+			class="text-info"
 			label="COM_RSGALLERY2_DISPLAY_IMAGE"
 		/>
 
@@ -729,7 +742,7 @@
 		<field 
 			type="spacer" 
 			name="spacerDisplayImageOrder" 
-			class="font-weight-bold"
+			class="text-info"
 			label="COM_RSGALLERY2_DISPLAY_IMAGE"
 		/>
 
@@ -767,7 +780,7 @@
 		<field 
 			type="spacer" 
 			name="spacerDisplayImageOrder" 
-			class="font-weight-bold"
+			class="text-info"
 			label="COM_RSGALLERY2_DISPLAY_IMAGE_ORDER"
 		/>
 
@@ -805,7 +818,7 @@
 		<field 
 			type="spacer" 
 			name="spacerDisplayExifSettings" 
-			class="font-weight-bold"
+			class="text-info"
 			label="COM_RSGALLERY2_DISPLAY_EXIF_SETTINGS"
 		/>
 
@@ -888,7 +901,7 @@
 		<field 
 			type="spacer" 
 			name="spacerDisplayGalleryView" 
-			class="font-weight-bold"
+			class="text-info"
 			label="COM_RSGALLERY2_DISPLAY_GALLERY_VIEW"
 		/>
 
@@ -980,7 +993,7 @@
 		<field 
 			type="spacer" 
 			name="spacerDisplayImageWatermark" 
-			class="font-weight-bold"
+			class="text-info"
 			label="COM_RSGALLERY2_DISPLAY_IMAGE_WATERMARK"
 		/>
 
@@ -1192,7 +1205,7 @@
 		<field 
 			type="spacer" 
 			name="spacerMayGallerySettings" 
-			class="font-weight-bold"
+			class="text-info"
 			label="COM_RSGALLERY2_MY_GALLERY_SETTINGS"
 		/>
 
@@ -1238,7 +1251,7 @@
 		<field 
 			type="spacer" 
 			name="spacerMayGalleryUpload" 
-			class="font-weight-bold"
+			class="text-info"
 			label="COM_RSGALLERY2_MY_GALLERY_UPLOAD"
 		/>
 
@@ -1274,7 +1287,7 @@
 		<field 
 			type="spacer" 
 			name="spacerInternalSettings" 
-			class="font-weight-bold"
+			class="text-info"
 			label="COM_RSGALLERY2_INTERNAL_PREPARED_SETTINGS"
 		/>
 
@@ -1283,8 +1296,8 @@
 				name="template"
 				type="list"
 				default="semantic"
-				label="ToDo: Select template"
-				description="ToDo: More options"
+				label="*ToDo: Select template"
+				description="*ToDo: More options"
 
 				showon="develop:1"
 				
@@ -1297,12 +1310,13 @@
 				name="configOldViewUseJ25Data"
 				type="radio"
 				default="0"
-				label="Old config view: Use old config data"
-				description="To check if old config data exists: On Yes the data from table __config is used for the fieldsSwitch between "
-				class="btn-group btn-group-yesno">
+				label="*Old config view: Use old config data"
+				description="*To check if old config data exists: On Yes the data from table __config is used for the fieldsSwitch between "
+				class="btn-group btn-group-yesno"
 
 				showon="develop:1"
-				
+
+			>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
@@ -1315,7 +1329,7 @@
 		<field 
 			type="spacer" 
 			name="spacerInternalLastUsedSettings" 
-			class="font-weight-bold"
+			class="text-info"
 			label="COM_RSGALLERY2_INTERNAL_LAST_USED_SETTINGS"
 		/>
 
@@ -1324,8 +1338,8 @@
 				name="last_update_type"
 				type="text"
 				default="upload_drag_and_drop"
-				label="last_update_type"
-				description="last used update type"
+				label="*last_update_type"
+				description="*last used update type"
 				class=""
 
 				showon="develop:1"
@@ -1359,6 +1373,19 @@
 		>
 		</field>
 
+		<field
+				id="useJ25Views"
+				name="useJ25Views"
+				type="radio"
+				default="0"
+				label="*Use old J25 views (old code)"
+				description="*Uses the old code to display the old J25 view. These views were standard up to J3.x (-> 2018). The selection in the menu does switch between new an simulation old J25 views"
+				class="btn-group btn-group-yesno"
+				>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
 
 	<!-- acl_enabled: "0" deprecated -->
     <!-- comment_once: "0", COM_RSGALLERY2_USER_CAN_ONLY_COMMENT_ONCE')."(".JText::_('COM_RSGALLERY2_NOT_WORKING_YET :: separate after captcha -->
