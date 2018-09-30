@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="*imagesoverview">
+		<message>
+			COM_RSGALLERY2_GALimagesoverviewLERYVIEW_DUMMY_DESC
+		</message>
+	</layout>
+
+	<fields name="request">
+		<fieldset name="request"
+		          addfieldpath="/administrator/components/com_rsgallery2/models/fields"
+		>
+			<field
+					id="gid"
+					name="gid"
+					type="galleryrootlist"
+					label="COM_RSGALLERY2_CHOOSE_GALLERY"
+					description="COM_RSGALLERY2_CHOOSE_GALLERY_DESC"
+					default="0"
+					required="true"
+			>
+			</field>
+			<field
+					id="dummy"
+					name="dummy"
+					type="text"
+					label="*imagesoverview"
+					description="*imagesoverview"
+					default="Nothing"
+					required="true"
+			>
+			</field>
+		</fieldset>
+	</fields>
+</metadata>
