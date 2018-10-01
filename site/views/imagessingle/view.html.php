@@ -18,7 +18,7 @@ defined('_JEXEC') or die;
  * @package  [PACKAGE_NAME]
  * @since    1.0
  */
-class RSGallery2ViewDummy extends HtmlView
+class RSGallery2ViewImagesSingle extends HtmlView
 {
 	/**
 	 * Display job item

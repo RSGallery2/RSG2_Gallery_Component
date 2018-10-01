@@ -38,8 +38,10 @@ function Rsgallery2BuildRoute(&$query)
 
 	$segments = array();
 
+	$rsgConfig = JComponentHelper::getParams('com_rsgallery2');
+	$advancedSef = $rsgConfig->get("advancedSef", false);
 	//Now define non-advanced SEF as v2 way and advanced SEF as v3 way
-	if ($rsgConfig->get("advancedSef") == true)
+	if ($advancedSef == true)
 	{
 		//Find gid from menu --> $menuGid (can be an independent function)
 		$app  = JFactory::getApplication();
