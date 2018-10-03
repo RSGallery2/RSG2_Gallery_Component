@@ -52,7 +52,7 @@ class RSGallery2ControllerImagesOverview extends JModelList
         /**/
     }
 
-    
+
 
 
 }

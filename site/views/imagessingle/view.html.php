@@ -29,7 +29,7 @@ class RSGallery2ViewImagesSingle extends HtmlView
 	 */
 	public function display($tpl = null)
 	{
-		echo "RSGallery2ViewImagesSingle";
+		echo "RSGallery2ViewImagesSingle<br />";
 
 		/**
 		// Get gallery data for the view

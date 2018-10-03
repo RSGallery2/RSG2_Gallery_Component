@@ -29,7 +29,7 @@ class RSGallery2ViewGallery extends HtmlView
      */
     public function display($tpl = null)
     {
-        echo "RSGallery2ViewRSGallery2";
+        echo "RSGallery2ViewRSGallery2<br />";
 
         // Get gallery data for the view
         $this->item = $this->get('Item');

@@ -20,7 +20,7 @@ defined('_JEXEC') or die;
 </button--> 
 /**/
 
-$gallery = json_encode($displayData['item']);
+// $gallery = json_encode($displayData['item']);
 $url = $gallery->url;
 $thumb = $gallery->thumb;
 

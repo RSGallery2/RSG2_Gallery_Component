@@ -90,7 +90,7 @@
 			      link="option=com_rsgallery2&amp;view=images">COM_RSGALLERY2_MENU_ITEMS
 			</menu>
 			<menu view="COM_RSGALLERY2_MENU_CONFIG"
-			      link="option=com_rsgallery2&amp;view=config&amp;task=config.edit">COM_RSGALLERY2_MENU_CONFIG
+			      link="option=com_config&view=component&component=com_rsgallery2">COM_RSGALLERY2_MENU_CONFIG
 			</menu>
 			<menu view="COM_RSGALLERY2_MENU_MAINTENANCE"
 			      link="option=com_rsgallery2&amp;view=maintenance">COM_RSGALLERY2_MENU_MAINTENANCE

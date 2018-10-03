@@ -29,7 +29,7 @@ class RSGallery2ViewDummy extends HtmlView
 	 */
 	public function display($tpl = null)
 	{
-		echo "RSGallery2ViewDummy";
+		echo "RSGallery2ViewDummy<br />";
 
 		/**
 		// Get gallery data for the view
