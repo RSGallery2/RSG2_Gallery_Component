@@ -182,13 +182,13 @@ class Rsgallery2ViewConfig extends JViewLegacy
 				JToolbarHelper::custom('config.remove_OldConfigData', 'next', 'next', 'Remove old configuration data', false);
 				break;
 			case 'RawViewOld':
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
-					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW') . ' Old', 'screwdriver');
+				JToolBarHelper::title('OLD: ' . JText::_('COM_RSGALLERY2_MAINTENANCE')
+					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'), 'screwdriver');
 				JToolBarHelper::cancel('config.cancel_rawViewOld');
 				break;
 			case 'RawEditOld':
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
-					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT') . ' Old', 'screwdriver');
+				JToolBarHelper::title('OLD: ' . JText::_('COM_RSGALLERY2_MAINTENANCE')
+					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'), 'screwdriver');
 				JToolBarHelper::apply('config_j25.apply_rawEditOld');
 				JToolBarHelper::save('config_j25.save_rawEditOld');
 				JToolBarHelper::cancel('config.cancel_rawEdit');
@@ -199,7 +199,7 @@ class Rsgallery2ViewConfig extends JViewLegacy
 				break;
 			// case 'default':
 			default:
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_CONFIGURATION'), 'equalizer');
+				JToolBarHelper::title('OLD: ' . JText::_('COM_RSGALLERY2_CONFIGURATION'), 'equalizer');
 
 				JToolBarHelper::apply('config.apply');
 				JToolBarHelper::save('config.save');
