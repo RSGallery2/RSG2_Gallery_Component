@@ -14,7 +14,7 @@ global $rsgConfig;
 
 //JHtml::_('behavior.core');
 
-echo "layout classic: galleryRootTitle: <br>";
+echo "layout classic J25: galleryRootTitle: <br>";
 /**
 <!--button onclick="<?php echo $doTask; ?>" class="btn btn-small" data-toggle="collapse" data-target="#collapse-<?php echo $name; ?>"<?php echo $onClose; ?>>
 <span class="icon-cog" aria-hidden="true"></span>
@@ -22,7 +22,7 @@ echo "layout classic: galleryRootTitle: <br>";
 </button-->
 /**/
 
-// This displays the root gallery text
+// This displays the root gallery text 2
 
 //$gallery = json_encode($displayData['item']);
 //echo "Gallery: " . $gallery;

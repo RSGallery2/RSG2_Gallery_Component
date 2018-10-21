@@ -14,7 +14,7 @@ global $rsgConfig;
 
 //JHtml::_('behavior.core');
 
-echo "layout classic: image: <br>";
+echo "layout classic J25: image: <br>";
 
 $image = json_encode($displayData['item']);
 echo "Image: " . $gallery;
@@ -22,7 +22,7 @@ echo "Image: " . $gallery;
 
 //$item      = $this->currentItem;
 
-// ToDo: Prepare URL and watermark databefore
+// ToDo: Prepare URL and watermark data before
 
 // $watermark = $rsgConfig->get('watermark');
 

@@ -13,6 +13,8 @@ use Joomla\CMS\Layout\FileLayout;
 
 defined('_JEXEC') or die;
 
+global $rsgConfig;
+
 // https://magazine.joomla.org/issues/issue-nov-2013/item/1590-jlayout-layouts-improvements-joomla-3-2
 
 // $layout = new JLayoutFile('joomla.content.tags', null, array('component' => 'com_tags'));
@@ -33,8 +35,10 @@ $gid = $input->get('gid', null, 'INT');
 $view = $input->get('view', null, 'CMD');
 $option = $input->get('option', null, 'CMD');
 
-$layout = new JLayoutFile('ClassicJ25.search');
-echo $layout->render();
+if ($rsgConfig->get('displaySearch')) {
+    $layout = new JLayoutFile('ClassicJ25.search');
+    echo $layout->render();
+}
 
 $galleryData = array(
 		'item' => $this->item
@@ -43,9 +47,9 @@ $galleryData = array(
 	);
 
 //$layoutGallery = JLayoutHelper::render('.', $myLayoutData);
-//echo "--- Before render ---------------<br>";
+echo "--- Before render ClassicJ25.image overview ---------------<br>";
 //$layout = new JLayoutFile('ClassicJ25.gallery', null, array('debug' => true, 'client' => 1)); // , null, array('debug' => true, 'client' => 1, 'component' => 'com_tags')
 $layout = new JLayoutFile('ClassicJ25.gallery');
 echo $layout->render($galleryData);
-//echo "---After Render ---------------<br>";
+echo "--- After Render ---------------<br>";
 

@@ -93,12 +93,13 @@ class RSGallery2ModelGallery extends JModelLegacy
                 $params->loadString($this->item->params, 'JSON');
 
                 $this->item->params = $params;
-
+                /**
                 // Merge global params with item params
                 $params = clone $this->getState('params');
                 $params->merge($this->item->params);
 
                 $this->item->params = $params;
+                /**/
             }
         }
 

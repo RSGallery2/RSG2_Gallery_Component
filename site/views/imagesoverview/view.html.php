@@ -47,7 +47,9 @@ class RSGallery2ViewImagesOverview extends JViewLegacy
      */
     protected $galleryId;
 
-    /**
+    protected $useJ25Views;
+
+        /**
 	 * Display job item
 	 *
 	 * @param   string  $tpl  template name
@@ -71,6 +73,10 @@ class RSGallery2ViewImagesOverview extends JViewLegacy
         //$this->pagination = $imagesModel->get('Pagination');
         $this->pagination = $imagesModel->getPagination();
         $this->state      = $this->get('State');
+
+        global $rsgConfig;
+        $this->useJ25Views = $rsgConfig->get ('useJ25Views');
+
 
         /**
         if ($images)

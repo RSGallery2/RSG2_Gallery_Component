@@ -22,7 +22,7 @@ echo "layout new: gallery thumbs: <br>";
 </button-->
 /**/
 
-// This displays the root gallery text
+// This displays the  gallery thumbs
 //$images = json_encode($displayData['images']);
 $images = $displayData['images'];
 $pagination = $displayData['pagination'];

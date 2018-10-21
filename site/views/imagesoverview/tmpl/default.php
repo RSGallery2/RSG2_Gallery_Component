@@ -22,10 +22,15 @@ echo "--- Before render image overview ---------------<br>";
 $displayData['images'] = $this->images;
 $displayData['pagination'] = $this->pagination;
 
+// Use simulation of old J25
+if ($this->useJ25Views) {
+    $layout = new JLayoutFile('ClassicJ25.galleryThumbs');
+    echo $layout->render($displayData);
+}
+else {
+    $layout = new JLayoutFile('galleryThumbs');
+    echo $layout->render($displayData);
+}
 
-
-$layout = new JLayoutFile('galleryThumbs');
-echo $layout->render($displayData);
-
-echo "---After Render ---------------<br>";
+echo "--- After Render ---------------<br>";
 
