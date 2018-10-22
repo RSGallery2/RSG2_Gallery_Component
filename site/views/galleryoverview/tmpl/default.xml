@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="*galleryoverview">
+	<layout title="*gallerysurvey">
 		<message>
-			galleryoverview
+			* message gallery survey
 		</message>
 	</layout>
 
@@ -10,7 +10,7 @@
 		<fieldset name="request"
 		          addfieldpath="/administrator/components/com_rsgallery2/models/fields"
 		>
-			<field
+			<!--field
 					id="gid"
 					name="gid"
 					type="galleryrootlist"
@@ -29,7 +29,7 @@
 					default="Nothing"
 					required="true"
 			>
-			</field>
+			</field-->
 		</fieldset>
 	</fields>
 </metadata>
