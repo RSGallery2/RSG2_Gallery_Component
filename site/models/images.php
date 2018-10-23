@@ -30,7 +30,7 @@ class RSGallery2ModelImages extends JModelList
     /**
      * @var     object
      * @since   1.6
-     *
+     */
     protected $state;
     /**/
 
