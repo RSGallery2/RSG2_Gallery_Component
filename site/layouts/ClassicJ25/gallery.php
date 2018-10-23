@@ -22,11 +22,22 @@ global $rsgConfig;
 </button--> 
 /**/
 
-
-
-$gallery = json_encode($displayData['item']);
-echo "Gallery: " . $gallery;
+/**
+$galleryJson = json_encode($displayData['gallery']);
+echo "Gallery: " . $galleryJson;
 echo "<br>layout classic: gallery end <br>";
+//echo "<br><br>";
+//echo "<br>";
+/**/
 
+$gallery = $displayData['gallery'];
+echo '<h3>' . $gallery->name . '</h3>';
+
+/**/
+$imagesJson = json_encode($displayData['images']);
+echo "Images: " . $imagesJson;
+/**/
+
+$images = $displayData['images'];
 ?>
 

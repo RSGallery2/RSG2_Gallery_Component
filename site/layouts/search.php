@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+// ToDo: Add GID and use it for search only images in given gallery
+
 //JHtml::_('behavior.core');
 
 //$doTask  = $displayData['doTask'];
@@ -37,11 +39,6 @@ if ($document->getType() == 'html')
 		<input type="hidden" name="option" value="com_rsgallery2" />
 		<input type="hidden" name="rsgOption" value="search" />
 		<input type="hidden" name="task" value="showResults" />
-		
-		
-		
-		
-		
 	</form>
 	
 	<form class="form-search">

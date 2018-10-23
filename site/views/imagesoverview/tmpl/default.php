@@ -11,6 +11,8 @@
 //use Joomla\CMS\HTML\HTMLHelper;
 //use Joomla\CMS\Layout\FileLayout;
 
+// ToDo: Rename to galleryImages
+
 defined('_JEXEC') or die;
 
 //$layoutGallery = JLayoutHelper::render('.', $myLayoutData);

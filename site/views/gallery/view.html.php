@@ -32,9 +32,13 @@ class RSGallery2ViewGallery extends HtmlView
         echo "RSGallery2ViewRSGallery2<br />";
 
         // Get gallery data for the view
-        $this->item = $this->get('Item');
+        $this->gallery = $this->get('Item');
 
-        // Check for errors.
+        // Get Images of gallery
+	    $ImageModel = JModelLegacy::getInstance('images', 'rsgallery2Model');
+	    $this->images = $ImageModel->get('Items');
+
+	    // Check for errors.
         if (count($errors = $this->get('Errors')))
         {
             throw new RuntimeException(implode('<br />', $errors), 500);

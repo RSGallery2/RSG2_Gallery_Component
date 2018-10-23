@@ -41,13 +41,14 @@ if ($rsgConfig->get('displaySearch')) {
 }
 
 $galleryData = array(
-		'item' => $this->item
-//       ,
-//		'model' => $model
+		'gallery' => $this->gallery,
+        'images' => $this->images
+//      ,''
+//		,''
 	);
 
 //$layoutGallery = JLayoutHelper::render('.', $myLayoutData);
-echo "--- Before render ClassicJ25.image overview ---------------<br>";
+echo "--- Before render ClassicJ25.gallery images ---------------<br>";
 //$layout = new JLayoutFile('ClassicJ25.gallery', null, array('debug' => true, 'client' => 1)); // , null, array('debug' => true, 'client' => 1, 'component' => 'com_tags')
 $layout = new JLayoutFile('ClassicJ25.gallery');
 echo $layout->render($galleryData);
