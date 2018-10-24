@@ -34,6 +34,8 @@ class RSGallery2ModelImages extends JModelList
     protected $state;
     /**/
 
+	protected $TestImagesModel;
+
     /**
      * The category context (allows other extensions to derived from this model).
      *
@@ -238,5 +240,30 @@ class RSGallery2ModelImages extends JModelList
     }
     /**/
 
+
+	public function AssignImageUrls ($images)
+	{
+		global $rsgConfig;
+		// path to image
+
+		// ToDo: Watermarked path and create watermark image if does not exist
+		$urlPathThumb = JUri::root() . $rsgConfig->get('imgPath_thumb');
+		$urlPathDisplay = JUri::root() . $rsgConfig->get('imgPath_display');
+		$urlPathOriginal = JUri::root() . $rsgConfig->get('imgPath_original');
+
+		// Create URL for thumb
+		// $urlThumbFile = JUri::root() . $rsgConfig->get('imgPath_thumb') . '/' . $singleFileName . '.jpg';
+
+		foreach ($images as $image)
+		{
+			$urlPathThumbFile = $urlPathThumb . $image->name;
+			$urlPathDisplayFile = $urlPathDisplay . $image->name;
+			$urlPathOriginalFile = $urlPathOriginal . $image->name;
+
+			$image->UrlThumbFile = $urlPathThumbFile;
+			$image->UrlDisplayFile = $urlPathDisplayFile;
+			$image->UrlOriginalFile = $urlPathOriginalFile;
+		}
+	}
 }
 

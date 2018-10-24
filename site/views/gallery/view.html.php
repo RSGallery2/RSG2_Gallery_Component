@@ -36,8 +36,10 @@ class RSGallery2ViewGallery extends HtmlView
 
         // Get Images of gallery
 	    $ImageModel = JModelLegacy::getInstance('images', 'rsgallery2Model');
-	    $this->images = $ImageModel->get('Items');
-	    $this->images = $ImageModel->get('items');
+	    $this->images = $ImageModel->getItems();
+
+	    // Assign image url links to images
+	    $ImageModel->AssignImageUrls ($this->images);
 
 	    // Check for errors.
         if (count($errors = $this->get('Errors')))

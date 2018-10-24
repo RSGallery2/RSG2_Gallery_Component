@@ -39,5 +39,14 @@ echo "Images: " . $imagesJson;
 /**/
 
 $images = $displayData['images'];
+
+foreach ($images as $image)
+{
+	echo "<h4>" . $image->name . "</h4>";
+	
+	echo '<img src="' . $image->UrlThumbFile . '" alt="" />';
+	echo "<br>";
+}
+
 ?>
 
