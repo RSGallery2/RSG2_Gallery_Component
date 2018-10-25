@@ -57,12 +57,13 @@ echo '   <tbody>';
 foreach ($images as $idx=>$image)
 {
 	// Start new row
-	if ($idx  % $rowLimit == 0)
+	if (($idx  % $rowLimit) == 0)
 	{
-		echo '      <tr>';
-
+		echo "      <tr>";
 	}
-	echo "<h4>" . $image->name . "</h4>";
+
+	echo "<h4>" . $idx . ': ' . ($idx  % $rowLimit) . "</h4>";
+	echo "<h4>" . $idx . ': ' . $image->name . "</h4>";
 
 	echo '			<td>';
 	echo '				<div class="shadow-box">';
@@ -86,7 +87,7 @@ foreach ($images as $idx=>$image)
 	echo "<br>";
 
 	// Start new row
-	if (($idx + 1)% $rowLimit == 0)
+	if (($idx + 1) % $rowLimit == 0)
 	{
 		echo '      <\tr>';
 	}

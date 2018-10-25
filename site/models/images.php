@@ -247,18 +247,18 @@ class RSGallery2ModelImages extends JModelList
 		// path to image
 
 		// ToDo: Watermarked path and create watermark image if does not exist
-		$urlPathThumb = JUri::root() . $rsgConfig->get('imgPath_thumb');
-		$urlPathDisplay = JUri::root() . $rsgConfig->get('imgPath_display');
-		$urlPathOriginal = JUri::root() . $rsgConfig->get('imgPath_original');
+		$urlPathThumb = JUri::root() . $rsgConfig->get('imgPath_thumb') . '/';
+		$urlPathDisplay = JUri::root() . $rsgConfig->get('imgPath_display') . '/';
+		$urlPathOriginal = JUri::root() . $rsgConfig->get('imgPath_original') . '/';
 
 		// Create URL for thumb
 		// $urlThumbFile = JUri::root() . $rsgConfig->get('imgPath_thumb') . '/' . $singleFileName . '.jpg';
 
 		foreach ($images as $image)
 		{
-			$urlPathThumbFile = $urlPathThumb . $image->name;
-			$urlPathDisplayFile = $urlPathDisplay . $image->name;
-			$urlPathOriginalFile = $urlPathOriginal . $image->name;
+			$urlPathThumbFile = $urlPathThumb . $image->name . '.jpg'; // /images/rsgallery/thumb
+			$urlPathDisplayFile = $urlPathDisplay . $image->name; // /images/rsgallery/display
+			$urlPathOriginalFile = $urlPathOriginal . $image->name; // /images/rsgallery/original
 
 			$image->UrlThumbFile = $urlPathThumbFile;
 			$image->UrlDisplayFile = $urlPathDisplayFile;
