@@ -34,19 +34,17 @@ class RSGallery2ModelImages extends JModelList
     protected $state;
     /**/
 
-	protected $TestImagesModel;
-
     /**
      * The category context (allows other extensions to derived from this model).
      *
      * @var		string
      */
 
-    /**
     protected $_extension = 'com_rsgallery2';
 
     protected $_items = array();
 
+    /**
     protected $_total = null;
     protected $_pagination  = null;
 
@@ -241,6 +239,12 @@ class RSGallery2ModelImages extends JModelList
     /**/
 
 
+    /**
+     * @param $images
+     *
+     *
+     * @since version
+     */
 	public function AssignImageUrls ($images)
 	{
 		global $rsgConfig;

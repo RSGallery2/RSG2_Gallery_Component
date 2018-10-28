@@ -18,7 +18,7 @@ defined('_JEXEC') or die;
  * @package  [PACKAGE_NAME]
  * @since    1.0
  */
-class RSGallery2ControllerRSGallery2 extends BaseDatabaseModel
+class RSGallery2ModelRSGallery2 extends BaseDatabaseModel
 {
 
 }

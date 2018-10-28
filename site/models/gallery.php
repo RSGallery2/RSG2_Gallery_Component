@@ -18,7 +18,6 @@ defined('_JEXEC') or die;
  * @package  [PACKAGE_NAME]
  * @since    1.0
  */
-//class RSGallery2ControllerGallery extends BaseDatabaseModel
 class RSGallery2ModelGallery extends JModelLegacy
 {
     protected $text_prefix = 'COM_RSGALLERY2';

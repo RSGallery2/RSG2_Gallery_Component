@@ -18,7 +18,7 @@ defined('_JEXEC') or die;
  * @package  [PACKAGE_NAME]
  * @since    1.0
  */
-class RSGallery2ControllerImagesOverview extends JModelList
+class RSGallery2ModelImagesOverview extends JModelList
 {
     /**
      * @var object

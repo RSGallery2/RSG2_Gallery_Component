@@ -45,7 +45,7 @@ onfocus="if(this.value=='<?php echo JText::_('COM_RSGALLERY2_KEYWORDS'); ?>') th
 
 
 <div align="right" class="j25search_box">
-	<form name="rsg2_search" class="form-search form-inline" method="post" action="<?php echo JRoute::_('index.php'); ?>" >
+	<form name="rsg2_search" class="form-search form-inline warning" method="post" action="<?php echo JRoute::_('index.php'); ?>" >
         <div class="input-prepend">
             <button type="submit" class="btn">Search</button>
             <input type="search" name="searchtextX"  maxlength="200"
