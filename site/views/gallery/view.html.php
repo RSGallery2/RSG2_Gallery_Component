@@ -52,7 +52,10 @@ class RSGallery2ViewGallery extends HtmlView
         $config->includeKids = $rsgConfig->get('includeKids');
         $config->showGalleryDate = $rsgConfig->get('showGalleryDate');
 
-        return $config;
+	    $config->template = $rsgConfig->get('template');
+
+
+	    return $config;
     }
 
     /**
@@ -91,9 +94,11 @@ class RSGallery2ViewGallery extends HtmlView
         // Single gallery view ?
         if($this->galleryId > 0) {
             // Get gallery data for the view
-            $this->gallery = $this->get('Item');
+	        //$galleryModel = JModelLegacy::getInstance('gallery', 'rsgallery2Model');
+	        //$this->gallery = $galleryModel->get('Item');
+	        $this->gallery = $this->get('Item');
 
-            // get images of gallery
+        // Get Images of gallery
             $ImageModel = JModelLegacy::getInstance('images', 'rsgallery2Model');
             $this->images = $ImageModel->getItems();
 

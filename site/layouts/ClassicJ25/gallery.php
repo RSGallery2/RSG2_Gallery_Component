@@ -59,44 +59,36 @@ foreach ($images as $idx=>$image)
 	// Start new row
 	if (($idx  % $rowLimit) == 0)
 	{
-		echo "      <tr>";
+		echo '      <tr>' . '<br>';
 	}
 
-	echo "<h4>" . $idx . ': ' . ($idx  % $rowLimit) . "</h4>";
-	echo "<h4>" . $idx . ': ' . $image->name . "</h4>";
-
-	echo '			<td>';
-	echo '				<div class="shadow-box">';
-		echo '					<div class="img-shadow">';
-		echo '						<a href="/Joomla3x/index.php/gallery-test/item/1925/asInline">';
-		//v falsch <img src="http://127.0.0.1/joomla3x/0DSC_5504-3.JPG" alt="">
-		//echo '							<img src="http://127.0.0.1/Joomla3x/images/rsgallery/thumb/2006-10-05_00002.jpg.jpg" alt="">';
-		echo '<img src="' . $image->UrlThumbFile . '" alt="" />';
-		echo '						</a>';
-		echo '					</div>';
-		echo '				</div>';
-		echo '				<div class="rsg2-clr"/>';
-		echo '				<br>';
-		echo '				<span class="rsg2_thumb_name">';
-		echo '		2006-10-05_00002';
-		echo '		</span>';
-		echo '				<br>';
-		echo '				<i/>';
-		echo '			</td>';
-	echo '<img src="' . $image->UrlThumbFile . '" alt="" />';
-	echo "<br>";
+	echo '			<td>' . '<br>';
+	echo '				<div class="shadow-box">' . '<br>';
+	echo '					<div class="img-shadow">' . '<br>';
+	echo '						<a href="/Joomla3x/index.php/gallery-test/item/1925/asInline">' . '<br>';
+	echo '                         <img src="' . $image->UrlThumbFile . '" alt="" />' . '<br>';
+	echo '						</a>' . '<br>';
+	echo '					</div>' . '<br>';
+	echo '				</div>' . '<br>';
+	echo '				<div class="rsg2-clr"/>' . '<br>';
+	echo '				<br>';
+	echo '				<span class="rsg2_thumb_name">' . '<br>';
+	echo '		           ' . $image->name;
+	echo '				</span>' . '<br>';
+	echo '				<br>';
+	echo '			</td>' . '<br>';
 
 	// Start new row
 	if (($idx + 1) % $rowLimit == 0)
 	{
-		echo '      <\tr>';
+		echo '      </tr>' . '<br>';
 	}
 }
 echo '   </tbody>';
 echo '</table>';
+echo '<br>';
 
-
-echo '<\\div>'; // <div class="rsg2">
+echo '</div>'; // <div class="rsg2">
 
 
 

@@ -22,6 +22,10 @@ defined('_JEXEC') or die;
 //HTMLHelper::_('script', 'com_foo/script.js', array('version' => 'auto', 'relative' => true));
 //HTMLHelper::_('stylesheet', 'com_foo/style.css', array('version' => 'auto', 'relative' => true));
 
+$template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $this->config->template;
+$doc          = JFactory::getDocument();
+$doc->addStyleSheet($template_dir . "/css/template.css", "text/css");
+
 /* Does work so far
 $layout = new FileLayout('rsgallery2.page');
 $data = array();
@@ -52,6 +56,7 @@ $rootGalleryData = array(
 
 
 $singleGalleryData = array(
+	'gallery' => $this->gallery,
     'images' => $this->images,
     'config' => $this->config, // front part of rsgallery config
 //		''//,
@@ -111,5 +116,6 @@ else
     echo $layout->render($singleGalleryData);
 }
 
+echo '<br>';
 echo "--- After Render ---------------<br>";
 
