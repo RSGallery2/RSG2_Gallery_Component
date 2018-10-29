@@ -3,8 +3,8 @@
 <config>
 	<!-- standard -->
 	<fieldset name="General"
-			label="COM_RSGALLERY2_GENERAL"
-			description="COM_RSGALLERY2_GENERAL_SETTINGS"
+	          label="COM_RSGALLERY2_GENERAL"
+	          description="COM_RSGALLERY2_GENERAL_SETTINGS"
 	>
 		<field 
 			type="spacer" 
@@ -1084,24 +1084,24 @@
 			<option value="180">180</option>
 		</field>
 		<field
-				id="watermark_image"
-				name="watermark_image"
-				type="media"
-				default="0"
-				label="COM_RSGALLERY2_WATERMARK_IMAGE"
-				description="COM_RSGALLERY2_WATERMARK_IMAGE_DESC"
-				preview="tooltip"
-				class="input-xxlarge">
+                id="watermark_image"
+                name="watermark_image"
+                type="media"
+                default="0"
+                label="COM_RSGALLERY2_WATERMARK_IMAGE"
+                description="COM_RSGALLERY2_WATERMARK_IMAGE_DESC"
+                preview="tooltip"
+                class="input-xxlarge">
 		</field>
 		<field
-				id="watermark_image_scale"
-				name="watermark_image_scale"
-				type="text"
-				default="1.00"
-				label="COM_RSGALLERY2_WATERMARK_IMAGE_SCALE"
-				description="COM_RSGALLERY2_WATERMARK_IMAGE_SCALE_DESC"
-				preview="tooltip"
-				class="">
+                id="watermark_image_scale"
+                name="watermark_image_scale"
+                type="text"
+                default="1.00"
+                label="COM_RSGALLERY2_WATERMARK_IMAGE_SCALE"
+                description="COM_RSGALLERY2_WATERMARK_IMAGE_SCALE_DESC"
+                preview="tooltip"
+                class="">
 		</field>
 		<field
 				id="watermark_position"
@@ -1123,40 +1123,40 @@
 		</field>
 
 		<field
-				id="watermark_margin_top"
-				name="watermark_margin_top"
-				type="text"
-				default="20"
-				label="COM_RSGALLERY2_WATERMARK_MARGIN_TOP"
-				description="COM_RSGALLERY2_WATERMARK_MARGIN_DESC"
-				class="">
+                id="watermark_margin_top"
+                name="watermark_margin_top"
+                type="text"
+                default="20"
+                label="COM_RSGALLERY2_WATERMARK_MARGIN_TOP"
+                description="COM_RSGALLERY2_WATERMARK_MARGIN_DESC"
+                class="">
 		</field>
 		<field
-				id="watermark_margin_right"
-				name="watermark_margin_right"
-				type="text"
-				default="20"
-				label="COM_RSGALLERY2_WATERMARK_MARGIN_RIGHT"
-				description="COM_RSGALLERY2_WATERMARK_MARGIN_DESC"
-				class="">
+                id="watermark_margin_right"
+                name="watermark_margin_right"
+                type="text"
+                default="20"
+                label="COM_RSGALLERY2_WATERMARK_MARGIN_RIGHT"
+                description="COM_RSGALLERY2_WATERMARK_MARGIN_DESC"
+                class="">
 		</field>
 		<field
-				id="watermark_margin_bottom"
-				name="watermark_margin_bottom"
-				type="text"
-				default="20"
-				label="COM_RSGALLERY2_WATERMARK_MARGIN_BOTTOM"
-				description="COM_RSGALLERY2_WATERMARK_MARGIN_DESC"
-				class="">
+                id="watermark_margin_bottom"
+                name="watermark_margin_bottom"
+                type="text"
+                default="20"
+                label="COM_RSGALLERY2_WATERMARK_MARGIN_BOTTOM"
+                description="COM_RSGALLERY2_WATERMARK_MARGIN_DESC"
+                class="">
 		</field>
 		<field
-				id="watermark_margin_left"
-				name="watermark_margin_left"
-				type="text"
-				default="20"
-				label="COM_RSGALLERY2_WATERMARK_MARGIN_LEFT"
-				description="COM_RSGALLERY2_WATERMARK_MARGIN_DESC"
-				class="">
+                id="watermark_margin_left"
+                name="watermark_margin_left"
+                type="text"
+                default="20"
+                label="COM_RSGALLERY2_WATERMARK_MARGIN_LEFT"
+                description="COM_RSGALLERY2_WATERMARK_MARGIN_DESC"
+                class="">
 		</field>
 
 
@@ -1388,15 +1388,15 @@
 		
 
 	<!-- acl_enabled: "0" deprecated -->
-	<!-- comment_once: "0", COM_RSGALLERY2_USER_CAN_ONLY_COMMENT_ONCE')."(".JText::_('COM_RSGALLERY2_NOT_WORKING_YET :: separate after captcha -->
-	<!-- "createImgDirs": "", COM_RSGALLERY2_CREATING_IMAGE_DIRECTORIES_NOT_IMPLEMENTED_YET :: COM_RSGALLERY2_THUMB_PATH -->
-	<!-- "gallery_folders": "", if gallery images are stored in separate folders, Not ready rename -->
-	<!-- "hideRoot": "", deprecated -->
-	<!-- "showFontList": "arial.ttf", not used or replaced -->
-	<!-- "tags": "", not found -->
-	<!-- "uu_createCat": "0", user upload deprecated -->
-	<!-- "uu_enabled": "0", user upload not used -->
-	<!-- "version": "4.3.1", -->
+    <!-- comment_once: "0", COM_RSGALLERY2_USER_CAN_ONLY_COMMENT_ONCE')."(".JText::_('COM_RSGALLERY2_NOT_WORKING_YET :: separate after captcha -->
+    <!-- "createImgDirs": "", COM_RSGALLERY2_CREATING_IMAGE_DIRECTORIES_NOT_IMPLEMENTED_YET :: COM_RSGALLERY2_THUMB_PATH -->
+    <!-- "gallery_folders": "", if gallery images are stored in separate folders, Not ready rename -->
+    <!-- "hideRoot": "", deprecated -->
+    <!-- "showFontList": "arial.ttf", not used or replaced -->
+    <!-- "tags": "", not found -->
+    <!-- "uu_createCat": "0", user upload deprecated -->
+    <!-- "uu_enabled": "0", user upload not used -->
+    <!-- "version": "4.3.1", -->
 
 	</fieldset>
 
