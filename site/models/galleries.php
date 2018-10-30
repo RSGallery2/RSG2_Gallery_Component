@@ -177,19 +177,102 @@ class RSGallery2ModelGalleries extends JModelList
      * /**/
 
 
-    /**
-     * @param $images
-     *
-     *
-     * @since version
-     */
-    public function AssignImageUrls($images)
-    {
-        global $rsgConfig;
-        // path to image
+	/**
+	 * @param $images
+	 *
+	 *
+	 * @since version
+	 */
+	public function AssignThumbUrls ($galleries)
+	{
+		global $rsgConfig;
+		// path to image
 
-    }
+		// ToDo: Watermarked path and create watermark image if does not exist
+		$urlPathThumb = JUri::root() . $rsgConfig->get('imgPath_thumb') . '/';
+    	// prepare empty gallery
+		$urlPathEmptyThumbFile = JURI_SITE . "/components/com_rsgallery2/images/no_pics.gif";
+		//$urlPathThumbFile = $urlPathEmptyThumbFile;
+
+		// all galleries
+		foreach ($galleries as $gallery)
+		{
+			// images existing ?
+			if ($gallery->count > 0)
+			{
+				//--- Create URL for thumb -----------------
+
+				$thumbId = $gallery->thumb_id;
+				// Random thumb
+				if ($thumbId == 0)
+				{
+					$thumbId = $this->randomThumb ($gallery->id);
+				}
+
+				$imageName = $this->imageNameFromId ($thumbId);
+
+				$urlPathThumbFile = $urlPathThumb . $imageName . '.jpg'; // /images/rsgallery/thumb
+			}
+			else
+			{
+				// empty gallery
+				$urlPathThumbFile = $urlPathEmptyThumbFile;
+			}
+
+			$gallery->UrlThumbFile = $urlPathThumbFile;
+		}
+	}
+
+	public function randomThumb ($galleryId)
+	{
+		// Create a new query object.
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+
+		// Select required fields
+		$query->select('id')
+			->from($db->quoteName('#__rsgallery2_files'))
+			->where($db->quoteName('gallery_id') . '=' . (int) $galleryId)
+			->order('RAND() LIMIT 1');
+
+		$db->setQuery($query);
 
 
+		$list = $db->loadAssoc();
+
+		if ($db->getErrorNum())
+		{
+			echo $db->stderr();
+			return false;
+		}
+
+		return $list;
+	}
+
+	public function imageNameFromId ($thumbId)
+	{
+		// Create a new query object.
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+
+		// Select required fields
+		$query->select('name')
+			->from($db->quoteName('#__rsgallery2_files'))
+			->where($db->quoteName('id') . '=' . (int) $thumbId)
+			;
+
+		$db->setQuery($query);
+
+
+		$list = $db->loadAssoc();
+
+		if ($db->getErrorNum())
+		{
+			echo $db->stderr();
+			return false;
+		}
+
+		return $list;
+	}
 
 }

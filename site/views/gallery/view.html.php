@@ -108,10 +108,13 @@ class RSGallery2ViewGallery extends HtmlView
         else
         {
             // prepare root galleries data
-            $galleryModel = JModelLegacy::getInstance('galleries', 'rsgallery2Model');
+            $galleriesModel = JModelLegacy::getInstance('galleries', 'rsgallery2Model');
             //$this->galleries = $galleryModel->getRootGalleries($this->config->rootGalleriesCount);
-            // $galleryModel->populatestate (...);
-            $this->galleries = $galleryModel->getItems ();
+            // $galleriesModel->populatestate (...);
+            $this->galleries = $galleriesModel->getItems ();
+
+	        // Assign thumb url links to images
+	        $galleriesModel->AssignThumbUrls($this->galleries);
 
             // image model needed ?
             if ($this->config->displayRandom or $this->config->displayLatest)
