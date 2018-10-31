@@ -190,7 +190,7 @@ class RSGallery2ModelGalleries extends JModelList
 
 		// ToDo: Watermarked path and create watermark image if does not exist
 		$urlPathThumb = JUri::root() . $rsgConfig->get('imgPath_thumb') . '/';
-    	// prepare empty gallery
+		// prepare empty gallery
 		$urlPathEmptyThumbFile = JURI_SITE . "/components/com_rsgallery2/images/no_pics.gif";
 		//$urlPathThumbFile = $urlPathEmptyThumbFile;
 
@@ -198,7 +198,7 @@ class RSGallery2ModelGalleries extends JModelList
 		foreach ($galleries as $gallery)
 		{
 			// images existing ?
-			if ($gallery->count > 0)
+			if ($gallery->imgCount > 0)
 			{
 				//--- Create URL for thumb -----------------
 
@@ -220,6 +220,42 @@ class RSGallery2ModelGalleries extends JModelList
 			}
 
 			$gallery->UrlThumbFile = $urlPathThumbFile;
+		}
+	}
+
+	/**
+	 * @param $images
+	 *
+	 *
+	 * @since version
+	 */
+	public function AssignImageCount ($galleries)
+	{
+		global $rsgConfig;
+		// path to image
+
+
+		// all galleries
+		foreach ($galleries as $gallery)
+		{
+			$imgCount = -1;
+
+			try
+			{
+				//--- Create URL for thumb -----------------
+				$imgCount = $this->GalleryImageCount ($gallery->id);
+			}
+			catch (RuntimeException $e)
+			{
+				$OutTxt = '';
+				$OutTxt .= 'AssignImageCount to ' . $gallery->name . ': Error executing query in GalleryImageCount' . '<br>';
+				$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+				$app = JFactory::getApplication();
+				$app->enqueueMessage($OutTxt, 'error');
+			}
+
+			$gallery->imgCount  = $imgCount;
 		}
 	}
 
@@ -273,6 +309,25 @@ class RSGallery2ModelGalleries extends JModelList
 		}
 
 		return $list;
+	}
+
+	public function GalleryImageCount ($galleryId)
+	{
+		// Create a new query object.
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+
+		// Select required fields
+		$query->select('COUNT(*)')
+			->from($db->quoteName('#__rsgallery2_files'))
+			->where($db->quoteName('gallery_id') . '=' . (int) $galleryId)
+			->order('RAND() LIMIT 1');
+
+		$db->setQuery($query);
+
+		$count = $db->loadResult();
+
+		return $count;
 	}
 
 }

@@ -38,29 +38,30 @@ foreach ($galleries as $idx=>$gallery)
 {
     //echo "<h4>" . $idx . ': ' . ($idx  % $rowLimit) . "</h4>";
     //echo "<h4>" . $idx . ': ' . $gallery->name . "</h4>";
+	$date = $gallery->date; // ToDO: format
 
     echo '<div class="rsg_galleryblock">';
     //echo '   <div class="rsg2-galleryList-status"/>' . $gallery->status . '</div>';
     echo '   <div class="rsg2-galleryList-status"/>' . '</div>';
 	echo '   <div class="rsg2-galleryList-thumb">';
 	echo '      <div class="img-shadow">';
-	echo '         <a href="/Joomla3xRelease/index.php/galleries-overview/gallery/5">';
-	echo '            <img  class="rsg2-galleryList-thumb"  src="http://127.0.0.1/Joomla3xRelease//components/com_rsgallery2/images/no_pics.gif" alt="No pictures in gallery" />';
+	echo '         <a href="/Joomla3xRelease/index.php/galleries-overview/gallery/' . $gallery->id . '">';
+	echo '            <img  class="rsg2-galleryList-thumb"  src="' . $gallery->UrlThumbFile . '" alt="No pictures in gallery" />';
 	echo '         </a>';
 	echo '       </div>';
 	echo '    </div>';
 	echo '    <div class="rsg2-galleryList-text">';
-    echo "            Empty gallery			<span class='rsg2-galleryList-newImages'>";
+    echo "            ' . $gallery->name . 	<span class='rsg2-galleryList-newImages'>";
 	echo '<sup/>';
 	echo '</span>';
 	echo '<div class="rsg_gallery_details">';
 	echo '<div class="rsg2_details">';
     echo 'Owner: finnern						<br />';
-    echo '						Size: 0 images						<br />';
-    echo '						Created: 28 October 2018						<br />';
+    echo '						Size: ' . $gallery->imgCount . ' images						<br />';
+    echo '						' . $date . '						<br />';
     echo '				</div>';
     echo '			</div>';
-    echo '			<div class="rsg2-galleryList-description">			</div>';
+    echo '			<div class="rsg2-galleryList-description">	' .  $gallery->description . '		</div>';
     echo '		</div>';
     echo '		<div class="rsg_sub_url_single">';
     echo '		</div>';

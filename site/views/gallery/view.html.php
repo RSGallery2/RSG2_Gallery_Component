@@ -98,11 +98,11 @@ class RSGallery2ViewGallery extends HtmlView
 	        //$this->gallery = $galleryModel->get('Item');
 	        $this->gallery = $this->get('Item');
 
-        // Get Images of gallery
+	        // Get Images of gallery
             $ImageModel = JModelLegacy::getInstance('images', 'rsgallery2Model');
             $this->images = $ImageModel->getItems();
 
-            // Assign image url links to images
+            // Assign image url link to images
             $ImageModel->AssignImageUrls($this->images);
         }
         else
@@ -113,10 +113,13 @@ class RSGallery2ViewGallery extends HtmlView
             // $galleriesModel->populatestate (...);
             $this->galleries = $galleriesModel->getItems ();
 
-	        // Assign thumb url links to images
+	        // Assign image count to galleries
+	        $galleriesModel->AssignImageCount($this->galleries);
+
+	        // Assign thumb url link to galleries
 	        $galleriesModel->AssignThumbUrls($this->galleries);
 
-            // image model needed ?
+	        // image model needed ?
             if ($this->config->displayRandom or $this->config->displayLatest)
             {
                 $ImageModel = JModelLegacy::getInstance('images', 'rsgallery2Model');
