@@ -116,10 +116,16 @@ class RSGallery2ViewGallery extends HtmlView
 	        // Assign image count to galleries
 	        $galleriesModel->AssignImageCount($this->galleries);
 
-	        // Assign thumb url link to galleries
-	        $galleriesModel->AssignThumbUrls($this->galleries);
+            // Assign thumb url link to galleries
+            $galleriesModel->AssignThumbUrls($this->galleries);
 
-	        // image model needed ?
+            // Assign has new image bool values
+            $galleriesModel->AssignHasNewImages($this->galleries);
+
+            // Assign has new image bool values
+            $galleriesModel->AssignOwners($this->galleries);
+
+            // image model needed ?
             if ($this->config->displayRandom or $this->config->displayLatest)
             {
                 $ImageModel = JModelLegacy::getInstance('images', 'rsgallery2Model');

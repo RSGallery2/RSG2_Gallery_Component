@@ -209,7 +209,7 @@ class RSGallery2ModelGalleries extends JModelList
 					$thumbId = $this->randomThumb ($gallery->id);
 				}
 
-				$imageName = $this->imageNameFromId ($thumbId);
+				$imageName = $this->thumbNameFromId ($thumbId);
 
 				$urlPathThumbFile = $urlPathThumb . $imageName . '.jpg'; // /images/rsgallery/thumb
 			}
@@ -274,7 +274,7 @@ class RSGallery2ModelGalleries extends JModelList
 		$db->setQuery($query);
 
 
-		$list = $db->loadAssoc();
+        $list = $db->loadResult();
 
 		if ($db->getErrorNum())
 		{
@@ -285,7 +285,7 @@ class RSGallery2ModelGalleries extends JModelList
 		return $list;
 	}
 
-	public function imageNameFromId ($thumbId)
+	public function thumbNameFromId ($thumbId)
 	{
 		// Create a new query object.
 		$db = $this->getDbo();
@@ -300,7 +300,7 @@ class RSGallery2ModelGalleries extends JModelList
 		$db->setQuery($query);
 
 
-		$list = $db->loadAssoc();
+		$list = $db->loadResult();
 
 		if ($db->getErrorNum())
 		{
@@ -321,7 +321,8 @@ class RSGallery2ModelGalleries extends JModelList
 		$query->select('COUNT(*)')
 			->from($db->quoteName('#__rsgallery2_files'))
 			->where($db->quoteName('gallery_id') . '=' . (int) $galleryId)
-			->order('RAND() LIMIT 1');
+            //    ->order('RAND() LIMIT 1')
+        ;
 
 		$db->setQuery($query);
 
@@ -329,5 +330,132 @@ class RSGallery2ModelGalleries extends JModelList
 
 		return $count;
 	}
+
+
+    /**
+     * @param $images
+     *
+     *
+     * @since version
+     */
+    public function AssignHasNewImages ($galleries)
+    {
+        global $rsgConfig;
+        // path to image
+
+
+        // all galleries
+        foreach ($galleries as $gallery)
+        {
+            $IsHasNewImages = false;
+
+            try
+            {
+                //--- Create URL for thumb -----------------
+                // toDo: ? new images defined as within 7 days use config ??
+                $IsHasNewImages = $this->GalleryHasNewImages ($gallery->id);
+            }
+            catch (RuntimeException $e)
+            {
+                $OutTxt = '';
+                $OutTxt .= 'AssignHasNewImages to ' . $gallery->name . ': Error executing query in hasNewImages' . '<br>';
+                $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+                $app = JFactory::getApplication();
+                $app->enqueueMessage($OutTxt, 'error');
+            }
+
+            $gallery->IsHasNewImages  = $IsHasNewImages;
+        }
+    }
+
+
+    /**
+     *
+     * @param int $days amount of days to the past
+     *
+     * @return true if there is new images within the given time span
+     * @todo rewrite the sql to use better date features
+     * @since 4.3.0
+     */
+    function GalleryHasNewImages($galleryId, $days = 7)
+    {
+        $count = 0;
+
+        $lastWeek = mktime(0, 0, 0, date("m"), date("d") - $days, date("Y"));
+        $lastWeek = date("Y-m-d H:m:s", $lastWeek);
+
+        // Create a new query object.
+        $db = $this->getDbo();
+        $query = $db->getQuery(true);
+
+        // Select required fields
+        $query->select('COUNT(*)')
+            ->from($db->quoteName('#__rsgallery2_files'))
+            ->where($db->quoteName('gallery_id') . '=' . (int) $galleryId)
+            ->where($db->quoteName('date') . '>=' . $db->quote($lastWeek))
+            ->where($db->quoteName('published') . '=' . (int) 1)
+        //    ->order('RAND() LIMIT 1')
+        ;
+
+        $db->setQuery($query);
+        $count = $db->loadResult();
+
+        return $count > 0;
+    }
+
+    /**
+     * @param $images
+     *
+     *
+     * @since version
+     */
+    public function AssignOwners ($galleries)
+    {
+        global $rsgConfig;
+        // path to image
+
+
+        // all galleries
+        foreach ($galleries as $gallery)
+        {
+            $OwnerName = "";
+
+            try
+            {
+                //--- Create URL for thumb -----------------
+                // toDo: ? new images defined as within 7 days use config ??
+                $OwnerName = $this->GalleryOwnerName ($gallery);
+            }
+            catch (RuntimeException $e)
+            {
+                $OutTxt = '';
+                $OutTxt .= 'AssignHasNewImages to ' . $gallery->name . ': Error executing query in hasNewImages' . '<br>';
+                $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+                $app = JFactory::getApplication();
+                $app->enqueueMessage($OutTxt, 'error');
+            }
+
+            $gallery->OwnerName  = $OwnerName;
+        }
+    }
+    /**/
+
+    /**
+     *
+     * @param int $days amount of days to the past
+     *
+     * @return true if there is new images within the given time span
+     * @todo rewrite the sql to use better date features
+     * @since 4.3.0
+     */
+    function GalleryOwnerName($galleryId)
+    {
+        $user = JFactory::getUser($galleryId->uid);
+        $userName=$user->get('username');
+
+        return $userName;
+    }
 
 }
