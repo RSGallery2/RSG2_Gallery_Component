@@ -44,15 +44,16 @@ class RSGallery2ViewGallery extends HtmlView
         $config->displayBranding = $rsgConfig->get('displayBranding');
         $config->displayDownload = $rsgConfig->get('displayDownload');
         $config->displayStatus = $rsgConfig->get('displayStatus');
-        $config->dispLimitbox = $rsgConfig->get('dispLimitbox');
-        //$config->galcountNrs = $rsgConfig->get('galcountNrs');
+        $config->dispLimitBox = $rsgConfig->get('dispLimitbox');
         $config->rootGalleriesCount = $rsgConfig->get('galcountNrs');
         $config->showGalleryOwner = $rsgConfig->get('showGalleryOwner');
         $config->showGallerySize = $rsgConfig->get('showGallerySize');
         $config->includeKids = $rsgConfig->get('includeKids');
         $config->showGalleryDate = $rsgConfig->get('showGalleryDate');
 
-	    $config->template = $rsgConfig->get('template');
+        $config->thumb_width = $rsgConfig->get('thumb_width');
+
+        $config->template = $rsgConfig->get('template');
 
 
 	    return $config;
@@ -85,14 +86,16 @@ class RSGallery2ViewGallery extends HtmlView
         $this->imagesRandom = new \stdClass();
         $this->imagesLatest = new \stdClass();
 
-
-
         /*-------------------------------------------------
         where the music plays
         -------------------------------------------------*/
 
         // Single gallery view ?
         if($this->galleryId > 0) {
+            /*--------------------------------------------------
+               prepare single gallery data
+            --------------------------------------------------*/
+
             // Get gallery data for the view
 	        //$galleryModel = JModelLegacy::getInstance('gallery', 'rsgallery2Model');
 	        //$this->gallery = $galleryModel->get('Item');
@@ -107,23 +110,18 @@ class RSGallery2ViewGallery extends HtmlView
         }
         else
         {
-            // prepare root galleries data
-            $galleriesModel = JModelLegacy::getInstance('galleries', 'rsgallery2Model');
-            //$this->galleries = $galleryModel->getRootGalleries($this->config->rootGalleriesCount);
-            // $galleriesModel->populatestate (...);
-            $this->galleries = $galleriesModel->getItems ();
+            /*--------------------------------------------------
+               prepare root galleries data
+            --------------------------------------------------*/
 
-	        // Assign image count to galleries
-	        $galleriesModel->AssignImageCount($this->galleries);
+            $galleriesModel = JModelLegacy::getInstance('rootGalleries', 'rsgallery2Model');
+            $this->galleries = $galleriesModel->getRootGalleryData ();
 
-            // Assign thumb url link to galleries
-            $galleriesModel->AssignThumbUrls($this->galleries);
+            $this->galleryCount = $galleriesModel->getDisplayGalleryCount ();
 
-            // Assign has new image bool values
-            $galleriesModel->AssignHasNewImages($this->galleries);
-
-            // Assign has new image bool values
-            $galleriesModel->AssignOwners($this->galleries);
+            /*--------------------------------------------------
+               random and latest images
+            --------------------------------------------------*/
 
             // image model needed ?
             if ($this->config->displayRandom or $this->config->displayLatest)
@@ -135,20 +133,20 @@ class RSGallery2ViewGallery extends HtmlView
             if ($this->config->displayRandom)
             {
                 // prepare root galleries data
-                // $this->imagesRandom = $ImageModel->getRandomImages(count);
+                $RandomCount = 3;
+                $this->imagesRandom = $ImageModel->getRandomImages($RandomCount);
                 // Assign image url links to images
-                //$ImageModel->AssignImageUrls($this->imagesRandom);
+                $ImageModel->AssignImageUrls($this->imagesRandom);
             }
 
             if ($this->config->displayLatest)
             {
                 // prepare root galleries data
-                // $this->imagesLatest = $ImageModel->getLatestImages(count);
+                $LatestCount = 3;
+                $this->imagesLatest = $ImageModel->getLatestImages($LatestCount);
                 // Assign image url links to images
-                //$ImageModel->AssignImageUrls($this->imagesLatest);
-
+                $ImageModel->AssignImageUrls($this->imagesLatest);
             }
-
         }
 
 	    // Check for errors.
@@ -160,4 +158,6 @@ class RSGallery2ViewGallery extends HtmlView
         // Display the view
         parent::display($tpl);
     }
+
+
 }

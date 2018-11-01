@@ -32,16 +32,25 @@ echo "layout classic J25: rootGalleries: <br>";
 
 $galleries = $displayData['galleries'];
 
-// ToDO: get somewhere
+// ToDO: get limit somewhere
 $rowLimit = 3;
 
+/**
 //$isDisplaySlideshow   = $rsgConfig->get('displaySlideshow') && $kid->itemCount() > 1;
 $isDisplayOwner       = $rsgConfig->get('showGalleryOwner');
 $isDisplaySize        = $rsgConfig->get('showGallerySize');
 $isDisplayDate        = $rsgConfig->get('showGalleryDate');
 $isDisplayIncludeKids = $rsgConfig->get('includeKids', true);
+/**/
 
+// Part of general rsgConfig
+$config = $displayData['config'];
 
+//$isDisplaySlideshow   = $config->displaySlideshow && $kid->itemCount() > 1;
+$isDisplayOwner       = $config->showGalleryOwner;
+$isDisplaySize        = $config->showGallerySize;
+$isDisplayDate        = $config->showGalleryDate;
+$isDisplayIncludeKids = $config->includeKids;
 
 foreach ($galleries as $idx=>$gallery)
 {
@@ -96,6 +105,11 @@ foreach ($galleries as $idx=>$gallery)
     echo '		</div>';
     echo '	</div>';
 
+    echo '		' . '<br />';
+    echo '		<div class="warning">';
+    echo '		pagination when bigger than ...';
+    echo '		</div>' . '<br />';
+    echo '		' . '<br />';
 
 }
 

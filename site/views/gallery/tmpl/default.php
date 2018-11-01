@@ -44,15 +44,30 @@ if ($this->config->displaySearch) {
     echo $layout->render();
 }
 
-
 $rootGalleryData = array(
     'galleries' => $this->galleries,
-    'imagesRandom' => $this->imagesRandom,
-    'imagesLatest' => $this->imagesLatest,
     'config' => $this->config, // front part of rsgallery config
 //		''//,
 //		''//,
 );
+
+$rootRandomData = array(
+    'images' => $this->imagesRandom,
+    'config' => $this->config, // front part of rsgallery config
+    'title' => JText::_('COM_RSGALLERY2_RANDOM_IMAGES')
+//		''//,
+//		''//,
+);
+
+$rootLatestData = array(
+    'images' => $this->imagesLatest,
+    'config' => $this->config, // front part of rsgallery config
+    'title' => JText::_('COM_RSGALLERY2_LATEST_IMAGES')
+//		''//,
+//		''//,
+);
+
+
 
 
 $singleGalleryData = array(
@@ -79,7 +94,31 @@ if($this->galleryId == 0)
 
     //--- root limit box -------------------------------------
 
-    if ($this->config->displayRandom) {
+    /**
+    <option value="2">COM_RSGALLERY2_ALWAYS</option>
+	<option value="1">COM_RSGALLERY2_IF_MORE_GALLERIES_THAN_LIMIT</option>
+	<option value="0">COM_RSGALLERY2_NEVER</option>    $isDisplayLimitbox = true;
+    /**/
+    $isDisplayLimitBox = false;
+    $cfgDisplayLimitBox = $this->config->dispLimitBox;
+    // Display always
+    if ($cfgDisplayLimitBox == 2)
+    {
+        $isDisplayLimitBox = true;
+    }
+    else
+    {
+        // More galleries existing than displayed ?
+        if ($cfgDisplayLimitBox == 1)
+        {
+            if ($this->galleryCount > $this->config->rootGalleriesCount)
+            {
+                $isDisplayLimitBox = true;
+            }
+        }
+    }
+    
+    if ($isDisplayLimitBox) {
         $layout = new JLayoutFile('ClassicJ25.rootLimitBox');
         echo $layout->render($rootGalleryData);
     }
@@ -93,16 +132,16 @@ if($this->galleryId == 0)
 
     if ($this->config->displayRandom)
     {
-        $layout = new JLayoutFile('ClassicJ25.rootRandomImages');
-        echo $layout->render($rootGalleryData);
+        $layout = new JLayoutFile('ClassicJ25.rootImagesBoxHorizontal');
+        echo $layout->render($rootRandomData);
     }
 
     //--- root latest images -------------------------------------
 
     if ($this->config->displayLatest)
     {
-        $layout = new JLayoutFile('ClassicJ25.rootLatestImages');
-        echo $layout->render($rootGalleryData);
+        $layout = new JLayoutFile('ClassicJ25.rootImagesBoxHorizontal');
+        echo $layout->render($rootLatestData);
     }
 
 }
