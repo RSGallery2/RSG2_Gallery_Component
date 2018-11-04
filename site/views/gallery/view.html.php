@@ -21,7 +21,11 @@ defined('_JEXEC') or die;
 class RSGallery2ViewGallery extends HtmlView
 {
     // toDo: protected ...
+    protected $pagination;
+    protected $state;
 
+    protected $images;
+    protected $galleries;
 
     /**
      * Collect all rsgConfig variables which are used
@@ -70,7 +74,7 @@ class RSGallery2ViewGallery extends HtmlView
     {
         global $rsgConfig;
 
-        echo "RSGallery2ViewRSGallery2<br />";
+//        echo "RSGallery2ViewRSGallery2<br />";
 
         $this->config = $this->rootConfig ();
 
@@ -107,6 +111,11 @@ class RSGallery2ViewGallery extends HtmlView
 
             // Assign image url link to images
             $ImageModel->AssignImageUrls($this->images);
+
+            // $this->state = $ImageModel->getState();
+
+            //$this->pagination = $ImageModel->get('Pagination');
+            $this->pagination = $ImageModel->getPagination();
         }
         else
         {
@@ -118,6 +127,10 @@ class RSGallery2ViewGallery extends HtmlView
             $this->galleries = $galleriesModel->getRootGalleryData ();
 
             $this->galleryCount = $galleriesModel->getDisplayGalleryCount ();
+
+            // $this->state = $galleriesModel->getState();
+
+            $this->pagination = $galleriesModel->getPagination();
 
             /*--------------------------------------------------
                random and latest images

@@ -31,11 +31,11 @@ class RSGallery2ModelGalleries extends JModelList
 
     protected $_items = array();
 
-    /**
-     * protected $_total = null;
-     * protected $_pagination  = null;
-     *
-     * /**/
+    /**/
+     protected $_total = null;
+     protected $_pagination  = null;
+
+
     function __construct()
     {
         parent::__construct();
@@ -55,7 +55,7 @@ class RSGallery2ModelGalleries extends JModelList
         /**/
         $app = JFactory::getApplication();
         // Get the job id
-        $input = $app->input;
+        //$input = $app->input;
 
         //$gid = $input->get('gid', '', 'INT');
         //$this->setState('images.galleryId', $gid);
@@ -67,17 +67,12 @@ class RSGallery2ModelGalleries extends JModelList
         /**/
         // Load the list state.
         $this->setState('list.start', 0);
-        $this->setState('list.limit', 10); // ToDo: thumbs per page
-        /**/
-
-        /**/
-        //$limit = $app->input->get('limit', $app->get('list_limit', 0), 'uint');
-        //$limit = $params->display_thumbs_maxPerPage;
-        $limit = $params['display_thumbs_maxPerPage'];
+        // thumbs per page
+        $limit = $params['galcountNrs'];
         $this->setState('list.limit', $limit);
+        /**/
 
-        //$limitStart = $app->input->get('limitstart', 0, 'uint');
-        $limitStart = 0;
+        $limitStart = $app->input->get('limitstart', 0, 'uint');
         $this->setState('list.start', $limitStart);
         /**/
     }
@@ -138,42 +133,5 @@ class RSGallery2ModelGalleries extends JModelList
         return $items;
         /**/
     }
-
-    /**
-     * Method to get the starting number of items for the data set.
-     *
-     * @return  integer  The starting number of items available in the data set.
-     *
-     * @since   12.2
-     */
-    /**
-     * public function getStart()
-     * {
-     * return $this->getState('list.start');
-     * }
-     * /**/
-
-    /**
-     * @return JPagination|object
-     * @since 4.3.0
-     *
-     * function getPagination()
-     * {
-     * if (empty($this->_pagination))
-     * {
-     * // Make sure items are loaded for a proper total
-     * if (empty($this->_items))
-     * {
-     * // Load the items
-     * $this->_loadItems();
-     * }
-     * // Load the pagination object
-     * jimport('joomla.html.pagination');
-     * $this->_pagination = new JPagination($this->state->get('pagination.total'), $this->state->get('pagination.offset'), $this->state->get('pagination.limit'));
-     * }
-     *
-     * return $this->_pagination;
-     * }
-     * /**/
 
 }

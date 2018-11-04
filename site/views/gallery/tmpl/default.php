@@ -22,16 +22,6 @@ defined('_JEXEC') or die;
 //HTMLHelper::_('script', 'com_foo/script.js', array('version' => 'auto', 'relative' => true));
 //HTMLHelper::_('stylesheet', 'com_foo/style.css', array('version' => 'auto', 'relative' => true));
 
-$template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $this->config->template;
-$doc          = JFactory::getDocument();
-$doc->addStyleSheet($template_dir . "/css/template.css", "text/css");
-
-/* Does work so far
-$layout = new FileLayout('rsgallery2.page');
-$data = array();
-$data['text'] = 'RSGallery2 Hello Joomla!  (2)';
-echo $layout->render($data);
-/**/
 $input = JFactory::getApplication()->input;
 
 $ItemId = $input->get('Itemid', null, 'INT');
@@ -47,6 +37,7 @@ if ($this->config->displaySearch) {
 $rootGalleryData = array(
     'galleries' => $this->galleries,
     'config' => $this->config, // front part of rsgallery config
+    'pagination' => $this->pagination //,
 //		''//,
 //		''//,
 );
@@ -68,18 +59,17 @@ $rootLatestData = array(
 );
 
 
-
-
 $singleGalleryData = array(
 	'gallery' => $this->gallery,
     'images' => $this->images,
+    'pagination' => $this->pagination,
     'config' => $this->config, // front part of rsgallery config
 //		''//,
 //		''//,
 );
 
 //$layoutGallery = JLayoutHelper::render('.', $myLayoutData);
-echo "--- Before render ClassicJ25.rootGallery / One Gallery thumbs ---------------<br>";
+//echo "--- Before render ClassicJ25.rootGallery / One Gallery thumbs ---------------<br>";
 //$layout = new JLayoutFile('ClassicJ25.gallery', null, array('debug' => true, 'client' => 1)); // , null, array('debug' => true, 'client' => 1, 'component' => 'com_tags')
 
 //---  -------------------------------------
@@ -118,11 +108,6 @@ if($this->galleryId == 0)
         }
     }
     
-    if ($isDisplayLimitBox) {
-        $layout = new JLayoutFile('ClassicJ25.rootLimitBox');
-        echo $layout->render($rootGalleryData);
-    }
-
     //--- root gallery display -------------------------------------
 
     $layout = new JLayoutFile('ClassicJ25.rootGalleries');
@@ -155,6 +140,6 @@ else
     echo $layout->render($singleGalleryData);
 }
 
-echo '<br>';
-echo "--- After Render ---------------<br>";
+//echo '<br>';
+//echo "--- After Render ---------------<br>";
 

@@ -44,11 +44,11 @@ class RSGallery2ModelImages extends JModelList
 
     protected $_items = array();
 
-    /**
-     * protected $_total = null;
-     * protected $_pagination  = null;
-     *
-     * /**/
+    /**/
+    protected $_total = null;
+    protected $_pagination  = null;
+
+     /**/
     function __construct()
     {
         parent::__construct();
@@ -74,36 +74,6 @@ class RSGallery2ModelImages extends JModelList
      * /**/
 
     /**
-     * Method to auto-populate the model state.
-     *
-     * Note. Calling getState in this method will result in recursion.
-     *
-     * @param   string $ordering An optional ordering field.
-     * @param   string $direction An optional direction (asc|desc).
-     *
-     * @return  void
-     *
-     * @since   1.6
-     */
-    /**
-     * protected function populateState($ordering = null, $direction = null)
-     * {
-     * $app = JFactory::getApplication();
-     * $this->setState('filter.extension', $this->_extension);
-     *
-     * // Get the parent id if defined.
-     * $parentId = $app->input->getInt('id');
-     * $this->setState('filter.parentId', $parentId);
-     *
-     * $params = $app->getParams();
-     * $this->setState('params', $params);
-     *
-     * $this->setState('filter.published',    1);
-     * $this->setState('filter.access',    true);
-     * }
-     * /**/
-
-    /**
      * populate internal state
      *
      * @return void
@@ -120,6 +90,12 @@ class RSGallery2ModelImages extends JModelList
         $gid = $input->get('gid', '', 'INT');
         $this->setState('images.galleryId', $gid);
 
+        /**
+        // Get the parent id if defined.
+        $parentId = $app->input->getInt('id');
+        $this->setState('filter.parentId', $parentId);
+        /**/
+
         // Load the config parameters.
         $params = $app->getParams();
         $this->setState('params', $params);
@@ -127,19 +103,14 @@ class RSGallery2ModelImages extends JModelList
         /**/
         // Load the list state.
         $this->setState('list.start', 0);
-        $this->setState('list.limit', 10); // ToDo: thumbs per page
-        /**/
-
-        /**/
-        //$limit = $app->input->get('limit', $app->get('list_limit', 0), 'uint');
-        //$limit = $params->display_thumbs_maxPerPage;
+        // thumbs per page
         $limit = $params['display_thumbs_maxPerPage'];
         $this->setState('list.limit', $limit);
 
-        //$limitStart = $app->input->get('limitstart', 0, 'uint');
-        $limitStart = 0;
+        $limitStart = $app->input->get('limitstart', 0, 'uint');
         $this->setState('list.start', $limitStart);
         /**/
+
     }
 
     protected function getListQuery()
@@ -199,44 +170,6 @@ class RSGallery2ModelImages extends JModelList
         return $items;
         /**/
     }
-
-    /**
-     * Method to get the starting number of items for the data set.
-     *
-     * @return  integer  The starting number of items available in the data set.
-     *
-     * @since   12.2
-     */
-    /**
-     * public function getStart()
-     * {
-     * return $this->getState('list.start');
-     * }
-     * /**/
-
-    /**
-     * @return JPagination|object
-     * @since 4.3.0
-     *
-     * function getPagination()
-     * {
-     * if (empty($this->_pagination))
-     * {
-     * // Make sure items are loaded for a proper total
-     * if (empty($this->_items))
-     * {
-     * // Load the items
-     * $this->_loadItems();
-     * }
-     * // Load the pagination object
-     * jimport('joomla.html.pagination');
-     * $this->_pagination = new JPagination($this->state->get('pagination.total'), $this->state->get('pagination.offset'), $this->state->get('pagination.limit'));
-     * }
-     *
-     * return $this->_pagination;
-     * }
-     * /**/
-
 
     /**
      * @param $images

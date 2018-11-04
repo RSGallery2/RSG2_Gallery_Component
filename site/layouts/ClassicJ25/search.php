@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 //JHtml::_('behavior.core');
 
 //$doTask  = $displayData['doTask'];
- echo "layout classic J25: search: <br>";
+// echo "layout classic J25: search: <br>";
 /**
 <!--button onclick="<?php echo $doTask; ?>" class="btn btn-small" data-toggle="collapse" data-target="#collapse-<?php echo $name; ?>"<?php echo $onClose; ?>>
 	<span class="icon-cog" aria-hidden="true"></span>
@@ -20,8 +20,8 @@ defined('_JEXEC') or die;
 </button--> 
 /**/
 
+/*
 $document = JFactory::getDocument();
-
 if ($document->getType() == 'html')
 {
 	$document->addStyleSheet(JURI_SITE . "/components/com_rsgallery2/lib/rsgsearch/rsgsearch.css");
@@ -41,20 +41,8 @@ onfocus="if(this.value=='<?php echo JText::_('COM_RSGALLERY2_KEYWORDS'); ?>') th
 </div>
 /**/
 
+/**
 ?>
 
 
-<div align="right" class="j25search_box">
-	<form name="rsg2_search" class="form-search form-inline warning" method="post" action="<?php echo JRoute::_('index.php'); ?>" >
-        <div class="input-prepend">
-            <button type="submit" class="btn">Search</button>
-            <input type="search" name="searchtextX"  maxlength="200"
-                   class="inputbox search-query input-medium"
-                   placeholder="<?php echo JText::_('COM_RSGALLERY2_KEYWORDS'); ?>">
-        </div>
-        <input type="hidden" name="option" value="com_rsgallery2" />
-        <input type="hidden" name="rsgOption" value="search" />
-        <input type="hidden" name="task" value="showResults" />
-	</form>
-</div>
-
+/**/

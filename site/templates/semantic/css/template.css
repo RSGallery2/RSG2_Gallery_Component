@@ -1,6 +1,12 @@
-/* Style introtext with this css tag*/
+/* Style intro text with this css tag*/
 div.intro_text {
 
+}
+
+div.rsg2-title {
+	/* border         : 1px #999999 solid; /**/
+	margin-left  : 20px;
+	margin-top   : -11px; 
 }
 
 /* General style for all images within the rsg2 container */

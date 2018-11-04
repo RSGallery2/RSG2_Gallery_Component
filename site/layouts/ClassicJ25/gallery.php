@@ -14,7 +14,40 @@ global $rsgConfig;
 
 //JHtml::_('behavior.core');
 
- echo "layout classic J25: gallery: <br>";
+// echo 'layout classic J25: gallery: <br>';
+// on develop show open tasks if existing
+//if (!empty ($Rsg2DevelopActive))
+if (false)
+{
+    echo '<span style="color:red">'
+        . 'Tasks: <br>'
+        . '* Fix pagination<br>'
+        . '* Add call to slideshow <br>'
+        . '* !!! Sub galleries at the end !!!<br>'
+        . '* <br>'
+//        . '* <br>'
+//        . '* <br>'
+//        . '* <br>'
+        . '</span><br><br>';
+}
+
+$gallery = $displayData['gallery'];
+$pagination = $displayData['pagination'];
+$images = $displayData['images'];
+$config = $displayData['config'];
+
+$document = JFactory::getDocument();
+if ($document->getType() == 'html')
+{
+    $document->addStyleSheet(JURI_SITE . "/components/com_rsgallery2/lib/rsgsearch/rsgsearch.css");
+}
+
+$template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $config->template;
+$doc          = JFactory::getDocument();
+$doc->addStyleSheet($template_dir . "/css/template.css", "text/css");
+
+
+
 /**
 <!--button onclick="<?php echo $doTask; ?>" class="btn btn-small" data-toggle="collapse" data-target="#collapse-<?php echo $name; ?>"<?php echo $onClose; ?>>
 	<span class="icon-cog" aria-hidden="true"></span>
@@ -32,22 +65,66 @@ echo "<br>layout classic: gallery end <br>";
 
 echo '<div class="rsg2">';
 
-$gallery = $displayData['gallery'];
-echo '<hr>';
-echo '<h3>' . $gallery->name . '</h3><br>';
+echo '<div class="row inline">';
+
+//--- limit box ----------------------------------------
+
+echo '<div class="btn-group pull-right hidden-phone">';
+echo '   <label for "limit" class="element-invisible">';
+echo '      ' . JText::_('JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC');
+echo '   </label>';
+echo '   ' . $pagination->getlimitBox();
+echo '</div>';
+
+//--- search box ----------------------------------------
+
+//echo '<div align="right" class="j25search_box">';
+echo '<div class="j25search_box pull-right">';
+echo '	<form name="rsg2_search" class="form-search form-inline warning" method="post" action="' . JRoute::_('index.php') . '" >';
+echo '   <div class="input-prepend">';
+echo '            <button type="submit" class="btn">Search</button>';
+echo '            <input type="search" name="searchtextX"  maxlength="200"';
+echo '                   class="inputbox search-query input-medium"';
+echo '                   placeholder="'. JText::_('COM_RSGALLERY2_KEYWORDS') . '">';
+echo '        </div>';
+echo '        <input type="hidden" name="option" value="com_rsgallery2" />';
+echo '        <input type="hidden" name="rsgOption" value="search" />';
+echo '        <input type="hidden" name="task" value="showResults" />';
+echo '	</form>';
+echo '</div>';
+
+//--- gallery name ----------------------------------------
+
+//echo '<hr>';
+//echo '<h3>' . $gallery->name . '</h3>';
+//echo '<p class="lead">' . $gallery->name . '</p>';
+//echo '<div class="pull-right">';
+//echo '<div class="pull-left">';
+//echo '<div align="center" class=">';
+
+//echo '<p class="lead text-center">' . $gallery->name . '</p>';
+//echo '<div class="text-center">';
+//echo '<div align="center">';
+echo '<div class="rsg2-title">';
+echo '<h2>' . $gallery->name . '</h2>';
+echo '</div>';
+//echo '</div>';
+//
+
+// end of row
+echo '</div>';
+
+//--- gallery text ----------------------------------------
+
 echo '<div class="intro_text">';
 echo    $rsgConfig->get('intro_text');
 echo '</div>';
-echo '<hr>';
 
-echo '<div class="rsg2-clr"/>';
+// echo '<hr>';
 
-/**
-$imagesJson = json_encode($displayData['images']);
-echo "Images: " . $imagesJson;
-/**/
+echo '<div class="rsg2-clr"></div>';
 
-$images = $displayData['images'];
+
 //$rowLimit = $rsgConfig->rowlimit;
 $rowLimit = 3;
 
@@ -59,37 +136,44 @@ foreach ($images as $idx=>$image)
 	// Start new row
 	if (($idx  % $rowLimit) == 0)
 	{
-		echo '      <tr>' . '<br>';
+		echo '      <tr>';
 	}
 
-	echo '			<td>' . '<br>';
-	echo '				<div class="shadow-box">' . '<br>';
-	echo '					<div class="img-shadow">' . '<br>';
-	echo '						<a href="/Joomla3x/index.php/gallery-test/item/1925/asInline">' . '<br>';
-	echo '                         <img src="' . $image->UrlThumbFile . '" alt="" />' . '<br>';
-	echo '						</a>' . '<br>';
-	echo '					</div>' . '<br>';
-	echo '				</div>' . '<br>';
-	echo '				<div class="rsg2-clr"/>' . '<br>';
+	echo '			<td>';
+	echo '				<div class="shadow-box">';
+	echo '					<div class="img-shadow">';
+	echo '						<a href="/Joomla3x/index.php/gallery-test/item/1925/asInline">';
+	echo '                         <img src="' . $image->UrlThumbFile . '" alt="" />';
+	echo '						</a>';
+	echo '					</div>';
+	echo '				</div>';
+	echo '				<div class="rsg2-clr"></div>';
 	echo '				<br>';
-	echo '				<span class="rsg2_thumb_name">' . '<br>';
+	echo '				<span class="rsg2_thumb_name">';
 	echo '		           ' . $image->name;
-	echo '				</span>' . '<br>';
+	echo '				</span>';
 	echo '				<br>';
-	echo '			</td>' . '<br>';
+	echo '				<i></i>';
+	echo '			</td>';
 
 	// Start new row
 	if (($idx + 1) % $rowLimit == 0)
 	{
-		echo '      </tr>' . '<br>';
+		echo '      </tr>';
 	}
 }
 echo '   </tbody>';
 echo '</table>';
 echo '<br>';
+echo '<br>';
+
+//echo 'ListFooter start -------------' . '<br>';
+echo '<div colspan="10">';
+echo $pagination->getListFooter();
+echo '</div>';
+//echo 'ListFooter end -------------' . '<br>';
 
 echo '</div>'; // <div class="rsg2">
-
 
 
 ?>
