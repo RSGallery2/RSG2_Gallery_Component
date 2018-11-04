@@ -38,7 +38,6 @@ $pagination = $displayData['pagination'];
 $config = $displayData['config'];
 
 
-
 $template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $config->template;
 $doc          = JFactory::getDocument();
 $doc->addStyleSheet($template_dir . "/css/template.css", "text/css");
@@ -76,6 +75,7 @@ echo '</div>';
 // end of row
 echo '</div>';
 
+
 /**
 //$isDisplaySlideshow   = $rsgConfig->get('displaySlideshow') && $kid->itemCount() > 1;
 $isDisplayOwner       = $rsgConfig->get('showGalleryOwner');
@@ -110,6 +110,7 @@ foreach ($galleries as $idx=>$gallery)
     $galleryStatus = "";
 
     $thumbAlt = "";
+    $imageHref = JRoute::_("index.php?option=com_rsgallery2&view=gallery&gid=" . $gallery->id);
 
     $HasNewImagesText = "";
     if ($gallery->IsHasNewImages)
@@ -126,7 +127,7 @@ foreach ($galleries as $idx=>$gallery)
     echo '   <div class="rsg2-galleryList-status"/>' . $galleryStatus . '</div>';
 	echo '   <div class="rsg2-galleryList-thumb">';
 	echo '      <div class="img-shadow">';
-	echo '         <a href="/Joomla3xRelease/index.php/galleries-overview/gallery/' . $gallery->id . '">';
+	echo '         <a href="' . $imageHref . '">';
 	echo '            <img  class="rsg2-galleryList-thumb"  src="' . $gallery->UrlThumbFile . '" alt="' . $thumbAlt . '" />';
 	echo '         </a>';
 	echo '      </div>';
@@ -136,14 +137,14 @@ foreach ($galleries as $idx=>$gallery)
     echo '       <span class="rsg2-galleryList-newImages">';
 	echo '            ' . $HasNewImagesText;
 	echo '       </span>';
-	echo '       <div class="rsg_gallery_details">';
+/*y*/	echo '       <div class="rsg_gallery_details">';
 	echo '          <div class="rsg2_details">';
     echo '            ' . JText::_('COM_RSGALLERY2_OWNER_DBLPT') . $gallery->OwnerName . '<br />';
     echo '						Size: ' . $gallery->imgCount . ' ' . JText::_('COM_RSGALLERY2_IMAGES') . '<br />';
     echo '              ' . JText::_('COM_RSGALLERY2_CREATED') . JHTML::_("date", $gallery->date, JText::_('COM_RSGALLERY2_DATE_FORMAT_LC3')) . '<br />';
     echo '			</div>';
     echo '		</div>';
-    echo '		<div class="rsg2-galleryList-description">	' .  $gallery->description . '		</div>';
+    echo '		<div class="rsg2-galleryList-description">	' /* yyyy */ .  $gallery->description . '		</div>';
     echo '		</div>';
     echo '		<div class="rsg_sub_url_single">';
     echo '		</div>';

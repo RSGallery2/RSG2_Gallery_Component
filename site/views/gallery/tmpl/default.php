@@ -24,10 +24,12 @@ defined('_JEXEC') or die;
 
 $input = JFactory::getApplication()->input;
 
+/**
 $ItemId = $input->get('Itemid', null, 'INT');
 $gid = $input->get('gid', null, 'INT');
 $view = $input->get('view', null, 'CMD');
 $option = $input->get('option', null, 'CMD');
+/**/
 
 if ($this->config->displaySearch) {
     $layout = new JLayoutFile('ClassicJ25.search');
@@ -37,7 +39,7 @@ if ($this->config->displaySearch) {
 $rootGalleryData = array(
     'galleries' => $this->galleries,
     'config' => $this->config, // front part of rsgallery config
-    'pagination' => $this->pagination //,
+    'pagination' => $this->pagination,
 //		''//,
 //		''//,
 );
