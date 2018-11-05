@@ -166,11 +166,14 @@ class RSGallery2ModelImages extends JModelList
         $this->_total = count($this->_items);
 
         $items = $this->_items;
+
+        /*
         if ($limit !== 0) {
             $start = (int)$this->getState('list.start', 0);
 
             $items = array_slice($this->_items, $start, $start + $limit);
         }
+        /**/
         return $items;
         /**/
     }
