@@ -100,12 +100,16 @@ class RSGallery2ModelImages extends JModelList
         $params = $app->getParams();
         $this->setState('params', $params);
 
-        /**/
+        /**
         // Load the list state.
         $this->setState('list.start', 0);
+        /**/
+
+        /**/
         // thumbs per page
         $limit = $params['display_thumbs_maxPerPage'];
         $this->setState('list.limit', $limit);
+		/**/
 
         $limitStart = $app->input->get('limitstart', 0, 'uint');
         $this->setState('list.start', $limitStart);
@@ -165,7 +169,7 @@ class RSGallery2ModelImages extends JModelList
         if ($limit !== 0) {
             $start = (int)$this->getState('list.start', 0);
 
-            $items = array_slice($this->_items, $start, $limit);
+            $items = array_slice($this->_items, $start, $start + $limit);
         }
         return $items;
         /**/

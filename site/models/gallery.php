@@ -33,6 +33,8 @@ class RSGallery2ModelGallery extends JModelLegacy
     {
         $app = JFactory::getApplication();
 
+	    parent::populateState();
+
         // Get the gallery id
         $id = $app->input->get('gid', '', 'INT');
         $this->setState('gallery.id', $id);
@@ -41,7 +43,6 @@ class RSGallery2ModelGallery extends JModelLegacy
         $params = $app->getParams();
         $this->setState('params', $params);
 
-        parent::populateState();
     }
 
     /**
