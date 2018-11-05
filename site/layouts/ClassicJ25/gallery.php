@@ -36,14 +36,13 @@ $pagination = $displayData['pagination'];
 $images = $displayData['images'];
 $config = $displayData['config'];
 
-$document = JFactory::getDocument();
-if ($document->getType() == 'html')
+$doc          = JFactory::getDocument();
+if ($doc->getType() == 'html')
 {
-    $document->addStyleSheet(JURI_SITE . "/components/com_rsgallery2/lib/rsgsearch/rsgsearch.css");
+    $doc->addStyleSheet(JURI_SITE . "/components/com_rsgallery2/lib/rsgsearch/rsgsearch.css");
 }
 
 $template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $config->template;
-$doc          = JFactory::getDocument();
 $doc->addStyleSheet($template_dir . "/css/template.css", "text/css");
 
 

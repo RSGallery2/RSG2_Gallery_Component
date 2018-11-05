@@ -14,7 +14,7 @@ global $rsgConfig;
 
 //JHtml::_('behavior.core');
 
-echo "layout classic J25: rootGalleries: <br>";
+// echo "layout classic J25: rootGalleries: <br>";
 
 // on develop show open tasks if existing
 //if (!empty ($Rsg2DevelopActive))
@@ -38,8 +38,13 @@ $pagination = $displayData['pagination'];
 $config = $displayData['config'];
 
 
-$template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $config->template;
 $doc          = JFactory::getDocument();
+if ($doc->getType() == 'html')
+{
+    $doc->addStyleSheet(JURI_SITE . "/components/com_rsgallery2/lib/rsgsearch/rsgsearch.css");
+}
+
+$template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $config->template;
 $doc->addStyleSheet($template_dir . "/css/template.css", "text/css");
 
 echo '<div class="rsg2">';
