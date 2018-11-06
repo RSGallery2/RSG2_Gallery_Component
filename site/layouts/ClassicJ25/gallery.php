@@ -94,16 +94,6 @@ echo '</div>';
 
 //--- gallery name ----------------------------------------
 
-//echo '<hr>';
-//echo '<h3>' . $gallery->name . '</h3>';
-//echo '<p class="lead">' . $gallery->name . '</p>';
-//echo '<div class="pull-right">';
-//echo '<div class="pull-left">';
-//echo '<div align="center" class=">';
-
-//echo '<p class="lead text-center">' . $gallery->name . '</p>';
-//echo '<div class="text-center">';
-//echo '<div align="center">';
 echo '<div class="rsg2-title">';
 echo '<h2>' . $gallery->name . '</h2>';
 echo '</div>';

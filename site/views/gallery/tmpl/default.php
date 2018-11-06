@@ -79,37 +79,6 @@ $singleGalleryData = array(
 // root galleries display ?
 if($this->galleryId == 0)
 {
-    //--- root gallery title -------------------------------------
-
-    $layout = new JLayoutFile('ClassicJ25.rootGalleryTitle');
-    echo $layout->render($rootGalleryData);
-
-    //--- root limit box -------------------------------------
-
-    /**
-    <option value="2">COM_RSGALLERY2_ALWAYS</option>
-	<option value="1">COM_RSGALLERY2_IF_MORE_GALLERIES_THAN_LIMIT</option>
-	<option value="0">COM_RSGALLERY2_NEVER</option>    $isDisplayLimitbox = true;
-    /**/
-    $isDisplayLimitBox = false;
-    $cfgDisplayLimitBox = $this->config->dispLimitBox;
-    // Display always
-    if ($cfgDisplayLimitBox == 2)
-    {
-        $isDisplayLimitBox = true;
-    }
-    else
-    {
-        // More galleries existing than displayed ?
-        if ($cfgDisplayLimitBox == 1)
-        {
-            if ($this->galleryCount > $this->config->rootGalleriesCount)
-            {
-                $isDisplayLimitBox = true;
-            }
-        }
-    }
-    
     //--- root gallery display -------------------------------------
 
     $layout = new JLayoutFile('ClassicJ25.rootGalleries');

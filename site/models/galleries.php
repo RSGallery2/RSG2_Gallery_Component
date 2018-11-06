@@ -31,10 +31,8 @@ class RSGallery2ModelGalleries extends JModelList
 
     protected $_items = array();
 
-    /**/
-     protected $_total = null;
-     protected $_pagination  = null;
-
+	protected $_total = null;
+	protected $_pagination  = null;
 
     function __construct()
     {

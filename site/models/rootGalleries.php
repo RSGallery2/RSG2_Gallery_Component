@@ -31,115 +31,116 @@ class RSGallery2ModelRootGalleries extends JModelList
 
     protected $_items = array();
 
-    /**
-     * protected $_total = null;
-     * protected $_pagination  = null;
-     *
-     * /**/
-    function __construct()
+	protected $_total = null;
+	protected $_pagination  = null;
+
+	function __construct()
     {
         parent::__construct();
     }
     /**/
 
-    /**
-     * populate internal state
-     *
-     * @return void
-     *
-    protected function populateState($ordering = 'ordering', $direction = 'dsc')
-    {
-        // List state information.
-        parent::populateState($ordering, $direction);
+	/**
+	 * populate internal state
+	 *
+	 * @return void
+	 */
+	protected function populateState($ordering = 'ordering', $direction = 'dsc')
+	{
+		// List state information.
+		parent::populateState($ordering, $direction);
 
-        /**
-        $app = JFactory::getApplication();
-        // Get the job id
-        $input = $app->input;
+		/**/
+		$app = JFactory::getApplication();
+		// Get the job id
+		//$input = $app->input;
 
-        //$gid = $input->get('gid', '', 'INT');
-        //$this->setState('images.galleryId', $gid);
+		//$gid = $input->get('gid', '', 'INT');
+		//$this->setState('images.galleryId', $gid);
 
-        // Load the config parameters.
-        $params = $app->getParams();
-        $this->setState('params', $params);
+		// Load the config parameters.
+		$params = $app->getParams();
+		$this->setState('params', $params);
 
-        /**
-        // Load the list state.
-        $this->setState('list.start', 0);
-        $this->setState('list.limit', 10); // ToDo: thumbs per page
-        /**/
+		/**/
+		// Load the list state.
 
-        /**
-        //$limit = $app->input->get('limit', $app->get('list_limit', 0), 'uint');
-        //$limit = $params->display_thumbs_maxPerPage;
-        $limit = $params['display_thumbs_maxPerPage'];
-        $this->setState('list.limit', $limit);
+		//$this->setState('list.start', 0);
 
-        //$limitStart = $app->input->get('limitstart', 0, 'uint');
-        $limitStart = 0;
-        $this->setState('list.start', $limitStart);
-        /**
-    }
+		// thumbs per page
+		$limit = $params['galcountNrs'];
+		$this->setState('list.limit', $limit);
+		/**/
 
-    protected function getListQuery()
-    {
-        /**
-        //$galleryId = $this->getState('images.galleryId');
-
-        // Create a new query object.
-        $db = $this->getDbo();
-        $query = $db->getQuery(true);
-
-        // Select required fields
-        $query->select('*')
-            ->from($db->quoteName('#__rsgallery2_galleries'))
-            ->order('ordering');
-
-        return $query;
-        /**
-    }
+		/**/
+		$limitStart = $app->input->get('limitstart', 0, 'uint');
+		$this->setState('list.start', $limitStart);
+		/**/
+	}
 
 
-    /**
-     * Method to get a list of articles.
-     *
-     * @return  mixed  An array of objects on success, false on failure.
-     *
-     * @since   1.6
-     *
-    public function getItems()
-    {
-        /**
-        // Get the items.
-        $this->_items = parent::getItems();
+	protected function getListQuery()
+	{
+		/**/
+		//$galleryId = $this->getState('images.galleryId');
 
-        /**
-         * // Convert them to a simple array.
-         * foreach ($items as $k => $v)
-         * {
-         * $items[$k] = $v->term;
-         * }
-         * /**/
+		// Create a new query object.
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
 
-        /**
-        // Process pagination.
-        $limit = (int)$this->getState('list.limit', 5); // ToDo: origin of list limit ?
+		// Select required fields
+		$query->select('*')
+			->from($db->quoteName('#__rsgallery2_galleries'))
+			->order('ordering');
 
-        // Sets the total for pagination.
-        $this->_total = count($this->_items);
+		return $query;
+		/**/
+	}
 
-        $items = $this->_items;
-        if ($limit !== 0) {
-            $start = (int)$this->getState('list.start', 0);
 
-            $items = array_slice($this->_items, $start, $limit);
-        }
-        return $items;
-        /**
-    }
+	/**
+	 * Method to get a list of articles.
+	 *
+	 * @return  mixed  An array of objects on success, false on failure.
+	 *
+	 * @since   1.6
+	 */
+	public function getItems()
+	{
+		/**/
+		// Get the items.
+		$this->_items = parent::getItems();
 
-    /**
+		/**
+		 * // Convert them to a simple array.
+		 * foreach ($items as $k => $v)
+		 * {
+		 * $items[$k] = $v->term;
+		 * }
+		 * /**/
+
+		/**/
+		// Process pagination.
+		$limit = (int)$this->getState('list.limit', 5); // ToDo: origin of list limit ?
+
+		// Sets the total for pagination.
+		$this->_total = count($this->_items);
+
+		$items = $this->_items;
+
+		/**
+		if ($limit !== 0) {
+		$start = (int)$this->getState('list.start', 0);
+
+		$items = array_slice($this->_items, $start, $start + $limit);
+		}
+		/**/
+
+		return $items;
+		/**/
+	}
+
+	/**
      * Method to get the starting number of items for the data set.
      *
      * @return  integer  The starting number of items available in the data set.
