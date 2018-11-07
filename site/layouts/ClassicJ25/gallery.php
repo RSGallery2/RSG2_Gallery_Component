@@ -24,6 +24,8 @@ if (false)
         . '* Fix pagination<br>'
         . '* Add call to slideshow <br>'
         . '* !!! Sub galleries at the end !!!<br>'
+        . '* slideshow button<br>'
+        . '* Check original code again<br>'
         . '* <br>'
 //        . '* <br>'
 //        . '* <br>'

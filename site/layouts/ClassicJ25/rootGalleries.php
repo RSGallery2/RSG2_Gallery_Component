@@ -69,7 +69,7 @@ echo '<div class="row inline">';
 <option value="0">COM_RSGALLERY2_NEVER</option>    $isDisplayLimitbox = true;
 /**/
 $isDisplayLimitBox = false;
-$cfgDisplayLimitBox = $this->config->dispLimitBox;
+$cfgDisplayLimitBox = $config->dispLimitBox;
 // Display always
 if ($cfgDisplayLimitBox == 2)
 {
@@ -80,7 +80,7 @@ else
 	// More galleries existing than displayed ?
 	if ($cfgDisplayLimitBox == 1)
 	{
-		if ($this->galleryCount > $this->config->rootGalleriesCount)
+		if ($pagination->total > (int) $config->rootGalleriesCount)
 		{
 			$isDisplayLimitBox = true;
 		}
@@ -103,8 +103,8 @@ if ($isDisplayLimitBox)
 }
 
 //--- search box ----------------------------------------
-
-if (true)
+$isDisplaySearch = $config->displaySearch;
+if ($isDisplaySearch)
 {
 //echo '<div align="right" class="j25search_box">';
 	echo '<div class="j25search_box pull-right">';

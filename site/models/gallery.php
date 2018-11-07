@@ -113,7 +113,6 @@ class RSGallery2ModelGallery extends JModelLegacy
      */
     public function getImageCount()
     {
-        $db = JFactory::getDbo();
 		$imageCount = 0;
 
 		try
@@ -150,7 +149,9 @@ class RSGallery2ModelGallery extends JModelLegacy
         }
 
 		return $imageCount;
-
-
     }
+
+
+
+
 }

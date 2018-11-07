@@ -112,6 +112,12 @@ class RSGallery2ViewGallery extends HtmlView
             // Assign image url link to images
             $ImageModel->AssignImageUrls($this->images);
 
+            // Child galleries
+            $galleriesModel = JModelLegacy::getInstance('Galleries', 'rsgallery2Model');
+            $this->galleries = $galleriesModel->getChildGalleries($this->gallery->id);
+
+            $galleriesModel->AddGalleryExtraData($this->galleries);
+
             // $this->state = $ImageModel->getState();
 
             //$this->pagination = $ImageModel->get('Pagination');
@@ -123,9 +129,15 @@ class RSGallery2ViewGallery extends HtmlView
                prepare root galleries data
             --------------------------------------------------*/
 
-            $galleriesModel = JModelLegacy::getInstance('rootGalleries', 'rsgallery2Model');
-            $this->galleries = $galleriesModel->getRootGalleryData ();
+            // Root galleries
+            $galleriesModel = JModelLegacy::getInstance('Galleries', 'rsgallery2Model');
 
+            // ToDO: _> get items,  AddGalleryExtraData seperate
+            //$this->galleries = $galleriesModel->getRootGalleryData ();
+            $this->galleries = $galleriesModel->getItems ();
+            //$galleriesModel->AddGalleryExtraData($this->galleries);
+
+            // ToDo: is this needed ?
             $this->galleryCount = $galleriesModel->getDisplayGalleryCount ();
 
             // $this->state = $galleriesModel->getState();

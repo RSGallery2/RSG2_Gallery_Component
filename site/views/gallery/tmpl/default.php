@@ -64,6 +64,7 @@ $rootLatestData = array(
 $singleGalleryData = array(
 	'gallery' => $this->gallery,
     'images' => $this->images,
+    'galleries' => $this->galleries,
     'pagination' => $this->pagination,
     'config' => $this->config, // front part of rsgallery config
 //		''//,
