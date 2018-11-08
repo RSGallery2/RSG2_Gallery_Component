@@ -45,15 +45,21 @@ $isDisplayDate        = $rsgConfig->get('showGalleryDate');
 $isDisplayIncludeKids = $rsgConfig->get('includeKids', true);
 /**/
 
-//$isDisplaySlideshow   = $config->displaySlideshow && $kid->itemCount() > 1;
+$isDisplaySlideshow   = $config->displaySlideshow; // && $kid->itemCount() > 1;
 $isDisplayOwner       = $config->showGalleryOwner;
 $isDisplaySize        = $config->showGallerySize;
 $isDisplayDate        = $config->showGalleryDate;
+
+$isDisplayDate        = $config->showGalleryDate;
+
+
 $isDisplayIncludeKids = $config->includeKids;
 $rootGalleriesCount   = $config->rootGalleriesCount;
 
 $doc          = JFactory::getDocument();
+/**
 $doc->addStyleSheet(JURI_SITE . "/components/com_rsgallery2/lib/rsgsearch/rsgsearch.css");
+/**/
 
 $template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $config->template;
 $doc->addStyleSheet($template_dir . "/css/template.css", "text/css");
@@ -103,12 +109,21 @@ foreach ($galleries as $idx=>$gallery)
     echo '       <span class="rsg2-galleryList-newImages">';
 	echo '            ' . $HasNewImagesText;
 	echo '       </span>';
-/*y*/	echo '       <div class="rsg_gallery_details">';
+	echo '       <div class="rsg_gallery_details">';
 	echo '          <div class="rsg2_details">';
-    echo '            ' . JText::_('COM_RSGALLERY2_OWNER_DBLPT') . $gallery->OwnerName . '<br />';
-    echo '						Size: ' . $gallery->imgCount . ' ' . JText::_('COM_RSGALLERY2_IMAGES') . '<br />';
-    echo '              ' . JText::_('COM_RSGALLERY2_CREATED') . JHTML::_("date", $gallery->date, JText::_('COM_RSGALLERY2_DATE_FORMAT_LC3')) . '<br />';
-    echo '			</div>';
+    if($isDisplaySlideshow && $gallery->imgCount > 0) {
+        echo '            <a href="' . JRoute::_("index.php?option=com_rsgallery2&page=slideshow&gid=" . $gallery->id) . '">' . JText::_('COM_RSGALLERY2_SLIDESHOW') . '</a>';
+	}
+    if($isDisplayOwner) {
+        echo '            ' . JText::_('COM_RSGALLERY2_OWNER_DBLPT') . $gallery->OwnerName . '<br />';
+    }
+	if($isDisplaySize) {
+        echo '						' .   JText::_('COM_RSGALLERY2_SIZE_DBLPT') . ' ' . $gallery->imgCount . ' ' . JText::_('COM_RSGALLERY2_IMAGES') . '<br />';
+    }
+	if($isDisplayDate) {
+        echo '              ' . JText::_('COM_RSGALLERY2_CREATED') . JHTML::_("date", $gallery->date, JText::_('COM_RSGALLERY2_DATE_FORMAT_LC3')) . '<br />';
+    }
+    echo '			</div>'; // rsg_gallery_details
     echo '		</div>';
     echo '		<div class="rsg2-galleryList-description">	' /* yyyy */ .  $gallery->description . '		</div>';
     echo '		</div>';

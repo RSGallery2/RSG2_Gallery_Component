@@ -54,6 +54,9 @@ class RSGallery2ViewGallery extends HtmlView
         $config->showGallerySize = $rsgConfig->get('showGallerySize');
         $config->includeKids = $rsgConfig->get('includeKids');
         $config->showGalleryDate = $rsgConfig->get('showGalleryDate');
+        $config->displaySlideshow = $rsgConfig->get('displaySlideshow');
+        $config->displaySlideshowGalleryView = $rsgConfig->get('displaySlideshowGalleryView');
+
 
         $config->thumb_width = $rsgConfig->get('thumb_width');
 

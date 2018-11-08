@@ -151,7 +151,7 @@ class RSGallery2ModelGalleries extends JModelList
 
         try
         {
-            // ToDO: pagination start / end ...
+            // ToDo: pagination start / end ...
             // ToDo: either input or config
             $limit = $rsgConfig->get ('galcountNrs');
 

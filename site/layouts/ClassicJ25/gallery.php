@@ -108,10 +108,22 @@ echo '</div>';
 //--- gallery text ----------------------------------------
 
 echo '<div class="intro_text">';
-echo    $rsgConfig->get('intro_text');
+//echo    $rsgConfig->get('intro_text');
+echo    $gallery->description;
 echo '</div>';
 
 // echo '<hr>';
+
+$isDisplaySlideshow = $config->displaySlideshowGalleryView;
+if ($isDisplaySlideshow)
+{
+    ?>
+	<a href='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=slideshow&gid=" . $gallery->id); ?>'>
+        <?php echo JText::_('COM_RSGALLERY2_SLIDESHOW'); ?></a>
+	<br />
+    <?php
+}
+
 
 echo '<div class="rsg2-clr"></div>';
 

@@ -35,35 +35,31 @@ if (false)
 // Part of general rsgConfig
 $galleries = $displayData['galleries'];
 $pagination = $displayData['pagination'];
+
 $config = $displayData['config'];
 
 /**
-//$isDisplaySlideshow   = $rsgConfig->get('displaySlideshow') && $kid->itemCount() > 1;
-$isDisplayOwner       = $rsgConfig->get('showGalleryOwner');
-$isDisplaySize        = $rsgConfig->get('showGallerySize');
-$isDisplayDate        = $rsgConfig->get('showGalleryDate');
-$isDisplayIncludeKids = $rsgConfig->get('includeKids', true);
-/**/
-
 //$isDisplaySlideshow   = $config->displaySlideshow && $kid->itemCount() > 1;
 $isDisplayOwner       = $config->showGalleryOwner;
 $isDisplaySize        = $config->showGallerySize;
 $isDisplayDate        = $config->showGalleryDate;
 $isDisplayIncludeKids = $config->includeKids;
 $rootGalleriesCount   = $config->rootGalleriesCount;
+/**/
 
+/**
 $doc          = JFactory::getDocument();
 $doc->addStyleSheet(JURI_SITE . "/components/com_rsgallery2/lib/rsgsearch/rsgsearch.css");
 
 $template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $config->template;
 $doc->addStyleSheet($template_dir . "/css/template.css", "text/css");
+/**/
 
-
-echo 'ListFooter start -------------' . '<br>';
+//echo 'ListFooter start -------------' . '<br>';
 echo '<div colspan="10">';
 echo $pagination->getListFooter();
 echo '</div>';
-echo 'ListFooter end -------------' . '<br>';
+//echo 'ListFooter end -------------' . '<br>';
 
 echo '</div>'; // <div class="rsg2">
 
