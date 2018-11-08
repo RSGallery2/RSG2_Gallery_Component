@@ -114,7 +114,7 @@ class RSGallery2ViewGallery extends HtmlView
 
             // Child galleries
             $galleriesModel = JModelLegacy::getInstance('Galleries', 'rsgallery2Model');
-            $this->galleries = $galleriesModel->getChildGalleries($this->gallery->id);
+            $this->galleries = $galleriesModel->getChildGalleries($this->gallery->id, 10);
 
             $galleriesModel->AddGalleryExtraData($this->galleries);
 
@@ -135,7 +135,7 @@ class RSGallery2ViewGallery extends HtmlView
             // ToDO: _> get items,  AddGalleryExtraData seperate
             //$this->galleries = $galleriesModel->getRootGalleryData ();
             $this->galleries = $galleriesModel->getItems ();
-            //$galleriesModel->AddGalleryExtraData($this->galleries);
+            $galleriesModel->AddGalleryExtraData($this->galleries);
 
             // ToDo: is this needed ?
             $this->galleryCount = $galleriesModel->getDisplayGalleryCount ();

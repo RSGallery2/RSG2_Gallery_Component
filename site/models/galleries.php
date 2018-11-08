@@ -40,33 +40,6 @@ class RSGallery2ModelGalleries extends JModelList
     }
 
     /**
-     * @param $galleries
-     *
-     *
-     * @since version
-     */
-    public function AddGalleryExtraData($galleries): void
-    {
-        if (!empty ($galleries)) {
-            // ToDo: Optimize further runtime with quering data for all 'id's in list at once
-
-            // Assign image count to galleries
-            $this->AssignImageCount($galleries);
-
-            // Assign thumb url link to galleries
-            $this->AssignThumbUrls($galleries);
-
-            // Assign has new image bool values
-            $this->AssignHasNewImages($galleries);
-
-            // Assign has new image bool values
-            $this->AssignOwners($galleries);
-
-        }
-    }
-    /**/
-
-    /**
      * populate internal state
      *
      * @return void
@@ -520,7 +493,7 @@ class RSGallery2ModelGalleries extends JModelList
     }
 
 
-    public function getChildGalleries ($galleryId)
+    public function getChildGalleries ($galleryId, $limit=0)
     {
         $galleries = [];
 
@@ -537,6 +510,11 @@ class RSGallery2ModelGalleries extends JModelList
                 ->where('parent=' . (int) $galleryId)
                 //->order('RAND()')
             ;
+
+            if ($limit > 0)
+            {
+	            $query->setLimit($limit);
+            }
 
             /**/
             $db->setQuery($query);
@@ -555,6 +533,33 @@ class RSGallery2ModelGalleries extends JModelList
         return $galleries;
     }
 
+
+	/**
+	 * @param $galleries
+	 *
+	 *
+	 * @since version
+	 */
+	public function AddGalleryExtraData($galleries)
+	{
+		if (!empty ($galleries)) {
+			// ToDo: Optimize further runtime with quering data for all 'id's in list at once
+
+			// Assign image count to galleries
+			$this->AssignImageCount($galleries);
+
+			// Assign thumb url link to galleries
+			$this->AssignThumbUrls($galleries);
+
+			// Assign has new image bool values
+			$this->AssignHasNewImages($galleries);
+
+			// Assign has new image bool values
+			$this->AssignOwners($galleries);
+
+		}
+	}
+	/**/
 
 
 

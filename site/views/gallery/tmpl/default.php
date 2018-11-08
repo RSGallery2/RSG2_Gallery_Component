@@ -78,14 +78,43 @@ $singleGalleryData = array(
 //---  -------------------------------------
 
 // root galleries display ?
-if($this->galleryId == 0)
+if($this->galleryId > 0)
 {
-    //--- root gallery display -------------------------------------
+	/*--------------------------------------------------------
+	   single gallery display
+	--------------------------------------------------------*/
 
-    $layout = new JLayoutFile('ClassicJ25.rootGalleries');
-    echo $layout->render($rootGalleryData);
+	//--- gallery display -------------------------------------
 
-    //--- root random images -------------------------------------
+	$layout = new JLayoutFile('ClassicJ25.gallery');
+	echo $layout->render($singleGalleryData);
+
+	// child galleries
+	if (count($this->galleries))
+	{
+		$layout = new JLayoutFile('ClassicJ25.rootGalleries');
+		echo $layout->render($rootGalleryData);
+	}
+}
+else
+{
+    /*--------------------------------------------------------
+	   root gallery display
+    --------------------------------------------------------*/
+
+    // Header
+	$layout = new JLayoutFile('ClassicJ25.rootGalleriesHeader');
+	echo $layout->render($rootGalleryData);
+
+	// galleries
+	$layout = new JLayoutFile('ClassicJ25.rootGalleries');
+	echo $layout->render($rootGalleryData);
+
+	// footer
+	$layout = new JLayoutFile('ClassicJ25.rootGalleriesFooter');
+	echo $layout->render($rootGalleryData);
+
+	//--- root random images -------------------------------------
 
     if ($this->config->displayRandom)
     {
@@ -102,16 +131,6 @@ if($this->galleryId == 0)
     }
 
 }
-else
-{
-    //--- single gallery display -------------------------------------
-
-    //--- gallery display -------------------------------------
-
-    $layout = new JLayoutFile('ClassicJ25.gallery');
-    echo $layout->render($singleGalleryData);
-}
-
 //echo '<br>';
 //echo "--- After Render ---------------<br>";
 
