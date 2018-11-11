@@ -172,7 +172,7 @@ function DisplayInfoRsgallery2($Rsg2Version)
 	echo '        <tr>';
 	echo '            <td>' . JText::_('COM_RSGALLERY2_LICENSE') . ': ' . '</td>';
 	echo '            <td>';
-	echo '               <a href="http://www.gnu.org/copyleft/gpl.html" target="_blank" title="';
+	echo '               <a href="//www.gnu.org/copyleft/gpl.html" target="_blank" title="';
 	echo JText::_('COM_RSGALLERY2_JUMP_TO_GNU_ORG') . '" >GNU GPL</a>';
 	echo '            </td>';
 	echo '        </tr>';
@@ -181,7 +181,7 @@ function DisplayInfoRsgallery2($Rsg2Version)
 	echo '        <tr>';
 	echo '            <td>' . JText::_('COM_RSGALLERY2_HOME_PAGE') . '</td>';
 	echo '            <td>';
-	echo '                <a href="http://www.rsgallery2.org/" target="_blank" ' . ' title="' . JText::_('COM_RSGALLERY2_JUMP_TO_FORUM') . '" >www.rsgallery2.org</a>';
+	echo '                <a href="//www.rsgallery2.org/" target="_blank" ' . ' title="' . JText::_('COM_RSGALLERY2_JUMP_TO_FORUM') . '" >www.rsgallery2.org</a>';
 	echo '            </td>';
 	echo '        </tr>';
 	/**/
@@ -189,7 +189,7 @@ function DisplayInfoRsgallery2($Rsg2Version)
 	echo '        <tr>';
 	echo '            <td>' . JText::_('COM_RSGALLERY2_FORUM') . '</td>';
 	echo '            <td>';
-	echo '                <a href="http://www.forum.rsgallery2.org/" target="_blank" ' . ' title="' . JText::_('COM_RSGALLERY2_JUMP_TO_FORUM') . '" >www.forum.rsgallery2.org</a>';
+	echo '                <a href="//www.forum.rsgallery2.org/" target="_blank" ' . ' title="' . JText::_('COM_RSGALLERY2_JUMP_TO_FORUM') . '" >www.forum.rsgallery2.org</a>';
 	echo '            </td>';
 	echo '        </tr>';
 	/**/
@@ -198,7 +198,7 @@ function DisplayInfoRsgallery2($Rsg2Version)
 	echo '            <td>' . JText::_('COM_RSGALLERY2_DOCUMENTATION') . '</td>';
 	echo '            <td>';
 //	echo '                <a href="http://joomlacode.org/gf/project/rsgallery2/frs/?action=FrsReleaseBrowse&frs_package_id=6273" target="_blank" ';
-    echo '                <a href="http://www.rsgallery2.org/documentation/" target="_blank" ';
+    echo '                <a href="//www.rsgallery2.org/documentation/" target="_blank" ';
 	echo '                    title="' . JText::_('COM_RSGALLERY2_JUMP_TO_DOCUMENTATION') . '" >www.rsgallery2.org/documentation</a>';
 	echo '            </td>';
 	echo '        </tr>';

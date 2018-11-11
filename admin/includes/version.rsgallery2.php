@@ -43,7 +43,7 @@ class rsgalleryVersion
     /** @var string Copyright Text */
     var $COPYRIGHT = '&copy; 2005 - 2018';
     /** @var string URL */
-    var $URL = '<strong><a class="rsg2-footer" href="http://www.rsgallery2.org">RSGallery2</a></strong>';
+    var $URL = '<strong><a class="rsg2-footer" href="//www.rsgallery2.org">RSGallery2</a></strong>';
     /** @var string Whether site is a production = 1 or demo site = 0: 1 is default */
 //    var $SITE       = 1;
     /** @var string Whether site has restricted functionality mostly used for demo sites: 0 is default */
