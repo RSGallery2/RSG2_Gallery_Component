@@ -13,7 +13,12 @@ use Joomla\CMS\MVC\View\HtmlView;
 defined('_JEXEC') or die;
 
 /**
- * Foo view.
+ * This is the legacy class for displaying the root gallery
+ * and single gallery images view.
+ * The layouts will be found in ...\layouts\ClassicJ25
+ * The Classic25 form supports the 'classic' style of RSG2
+ * until the front end sources and paths of sources
+ * were changed to the J3x layout inend of 2018
  *
  * @package  [PACKAGE_NAME]
  * @since    1.0
@@ -56,12 +61,14 @@ class RSGallery2ViewGallery extends HtmlView
         $config->showGalleryDate = $rsgConfig->get('showGalleryDate');
         $config->displaySlideshow = $rsgConfig->get('displaySlideshow');
         $config->displaySlideshowGalleryView = $rsgConfig->get('displaySlideshowGalleryView');
-
+        $config->displayThumbsStyle  = $rsgConfig->get('display_thumbs_style');
+        $config->displayThumbsShowName = $rsgConfig->get('display_thumbs_showImgName');
 
         $config->thumb_width = $rsgConfig->get('thumb_width');
-
+        $config->floatDirection =  $rsgConfig->get('display_thumbs_floatDirection');
         $config->template = $rsgConfig->get('template');
 
+        $config->thumbsColPerPage = $rsgConfig->get('display_thumbs_colsPerPage');
 
 	    return $config;
     }

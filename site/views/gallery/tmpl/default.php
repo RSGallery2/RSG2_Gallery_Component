@@ -86,8 +86,28 @@ if($this->galleryId > 0)
 
 	//--- gallery display -------------------------------------
 
-	$layout = new JLayoutFile('ClassicJ25.gallery');
-	echo $layout->render($singleGalleryData);
+    // display as table
+    if ($this->config->displayThumbsStyle == 'table')
+    {
+        // display as table
+        $layout = new JLayoutFile('ClassicJ25.galleryAsTable');
+        echo $layout->render($singleGalleryData);
+    }
+    else
+    {
+        // display as float
+        if ($this->config->displayThumbsStyle == 'float')
+        {
+            // display as float
+            $layout = new JLayoutFile('ClassicJ25.galleryAsFloat');
+            echo $layout->render($singleGalleryData);
+        }
+        else
+        {
+            // display as "magic"
+            echo '<br><br><br><strong>' . JText::_('COM_RSGALLERY2_MAGIC_NOT_SUPPORTED_YET') . '</strong><br><br><br>';
+        }
+    }
 
 	// child galleries
 	if (count($this->galleries))

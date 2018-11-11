@@ -113,19 +113,7 @@ echo '</div>';
 
 // echo '<hr>';
 
-$isDisplaySlideshow = $config->displaySlideshowGalleryView;
-if ($isDisplaySlideshow)
-{
-    ?>
-	<a href='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=slideshow&gid=" . $gallery->id); ?>'>
-        <?php echo JText::_('COM_RSGALLERY2_SLIDESHOW'); ?></a>
-	<br />
-    <?php
-}
-
-
 echo '<div class="rsg2-clr"></div>';
-
 
 //$rowLimit = $rsgConfig->rowlimit;
 $rowLimit = 3;
@@ -141,6 +129,79 @@ foreach ($images as $idx=>$image)
 		echo '      <tr>';
 	}
 
+
+    echo '<div class="parth_content">';
+
+/**
+	//Show link only when menu-item is a direct link to the slideshow
+	$input = JFactory::getApplication()->input;
+	//$view  = $input->get('view', '', 'CMD');
+	if ($view !== 'slideshow')
+	{
+		 >
+		<div style="float: right;">
+			<a href="index.php?option=com_rsgallery2&Itemid=<?php
+			// echo JRequest::getInt('Itemid');
+			echo $input->get('Itemid', null, 'INT'); ?>&gid=<?php echo $this->gid; ?>">
+				<?php echo JText::_('COM_RSGALLERY2_BACK_TO_GALLERY'); ?>
+			</a>
+		</div>
+		< ? php
+	}
+	? >
+	<div class="rsg2-clr"></div>
+	<div style="text-align:center;font-size:24px;">
+		< ?php echo $this->galleryname; ? >
+	</div>
+	<div class="rsg2-clr"></div>
+	<div id="myGallery< ?php echo $this->gid; ? >" class="myGallery">
+		< ? php echo $this->slides; ? >
+	</div><!-- end myGallery -->
+</div><!-- End parth_content -->
+/**/	
+//** --------------------------------------------
+/**	
+			$display = $item->display();
+			$thumb   = $item->thumb();
+
+			//Get maximum height/width of display images
+			$imgSizes = getimagesize($display->filePath());
+			if ($this->maxSlideshowWidth < $imgSizes[0])
+			{
+				$this->maxSlideshowWidth = $imgSizes[0];
+			}
+			if ($this->maxSlideshowHeight < $imgSizes[1])
+			{
+				$this->maxSlideshowHeight = $imgSizes[1];
+			}
+
+			//The subtitleSelector for jd.gallery.js is p. This interferes with any
+			//p-tags in the item description. Changing p tag to div.descr tag works for Firefox
+			//but not for IE (tested IE7). So removing p tags from item description:
+			$search[]    = \'<p>\';
+			$search[]    = \'</p>\';
+			$replace     = \' \';
+			$item->descr = str_replace($search, $replace, $item->descr);
+			//$openImageLink = \'index.php?option=com_rsgallery2&page=inline&Itemid=\'.JRequest::getInt(\'Itemid\').\'&id=\'.$item->id;
+			$input         = JFactory::getApplication()->input;
+			$itemId        = $input->get(\'Itemid\', null, \'INT\');
+			$openImageLink = \'index.php?option=com_rsgallery2&page=inline&Itemid=\' . $itemId . \'&id=\' . $item->id;
+
+			$text .= "<div class=\"imageElement\">" .
+				"<h3>$item->title</h3>" .
+				"<p>$item->descr</p>" .
+				"<a href=\"$openImageLink\" title=\"open image\" class=\"open\"></a>" .
+				"<img src=\"" . $display->url() . "\" class=\"full\" />" .
+				"<img src=\"" . $thumb->url() . "\" class=\"thumbnail\" />" .
+				"</div>";
+			$k++;
+		}
+
+	
+	
+	
+	
+	
 	echo '			<td>';
 	echo '				<div class="shadow-box">';
 	echo '					<div class="img-shadow">';
@@ -163,6 +224,7 @@ foreach ($images as $idx=>$image)
 	{
 		echo '      </tr>';
 	}
+/**/	
 }
 echo '   </tbody>';
 echo '</table>';
