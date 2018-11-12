@@ -3,8 +3,6 @@
 	<layout title="COM_RSGALLERY2_GALLERYVIEW_DEFAULT_TITLE">
 		<message>
 			COM_RSGALLERY2_GALLERYVIEW_DEFAULT_DESC
-			
-			<strong>Add fields to the parameters object for the layout.</strong>
 		</message>
 	</layout>
 
@@ -12,6 +10,9 @@
 		<fieldset name="request"
 				  addfieldpath="/administrator/components/com_rsgallery2/models/fields"
 		>
+
+			<strong>*You may </strong>
+
 			<field
 					id="gid"
 					name="gid"
@@ -30,11 +31,23 @@
 					label="*Use J25 views applied to J3.x structure"
 					description="*The code to display J25 views (until 2018) was adapted to the structure of J!3.x. So layouts can now be overwritten in J!3.x method by any template overwriting. Attention: You may use the new menu selections for root gallery, gallery and slideshow instead"
 					class="btn-group btn-group-yesno"
-					showon="gid!:0" 
 				>
 				<option value="1">JYES</option>
 				<option value="0">JNO</option>
 			>
+			</field>
+			<field
+					id="startShowSingleImage"
+					name="startShowSingleImage"
+					type="radio"
+					default="0"
+					label="COM_RSGALLERY2_GALLERY_START_SINGLE_IMAGE"
+					description="COM_RSGALLERY2_GALLERY_START_SINGLE_IMAGE_DESC"
+					class="btn-group btn-group-yesno"
+					showon="gid!:0"
+					>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
 			</field>
 		</fieldset>
 	</fields>
