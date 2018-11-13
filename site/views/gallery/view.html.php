@@ -32,46 +32,7 @@ class RSGallery2ViewGallery extends HtmlView
     protected $images;
     protected $galleries;
 
-    /**
-     * Collect all rsgConfig variables which are used
-     * on the 'front' page like root galleries and
-     *
-     * @since version
-     */
-    public function rootConfig()
-    {
-        global $rsgConfig;
-
-        $config = new \stdClass;
-
-        $config->intro_text = $rsgConfig->get('intro_text');
-
-        $config->displaySearch = $rsgConfig->get('displaySearch');
-        $config->displayRandom = $rsgConfig->get('displayRandom');
-        $config->displayLatest = $rsgConfig->get('displayLatest');
-
-        $config->displayBranding = $rsgConfig->get('displayBranding');
-        $config->displayDownload = $rsgConfig->get('displayDownload');
-        $config->displayStatus = $rsgConfig->get('displayStatus');
-        $config->dispLimitBox = $rsgConfig->get('dispLimitbox');
-        $config->rootGalleriesCount = $rsgConfig->get('galcountNrs');
-        $config->showGalleryOwner = $rsgConfig->get('showGalleryOwner');
-        $config->showGallerySize = $rsgConfig->get('showGallerySize');
-        $config->includeKids = $rsgConfig->get('includeKids');
-        $config->showGalleryDate = $rsgConfig->get('showGalleryDate');
-        $config->displaySlideshow = $rsgConfig->get('displaySlideshow');
-        $config->displaySlideshowGalleryView = $rsgConfig->get('displaySlideshowGalleryView');
-        $config->displayThumbsStyle  = $rsgConfig->get('display_thumbs_style');
-        $config->displayThumbsShowName = $rsgConfig->get('display_thumbs_showImgName');
-
-        $config->thumb_width = $rsgConfig->get('thumb_width');
-        $config->floatDirection =  $rsgConfig->get('display_thumbs_floatDirection');
-        $config->template = $rsgConfig->get('template');
-
-        $config->thumbsColPerPage = $rsgConfig->get('display_thumbs_colsPerPage');
-
-	    return $config;
-    }
+	protected $isGallerySingleImageView;
 
     /**
      * Display job item
@@ -86,10 +47,13 @@ class RSGallery2ViewGallery extends HtmlView
 
 //        echo "RSGallery2ViewRSGallery2<br />";
 
+	    // collect parts of complete configuration
         $this->config = $this->rootConfig ();
 
         $input = JFactory::getApplication()->input;
         $this->galleryId = $input->get('gid', 0, 'INT');
+		$this->isGallerySingleImageView = $input->get('startShowSingleImage', 0, 'INT');
+
 
         //--- fall backs ----------------------------------
 
@@ -106,32 +70,56 @@ class RSGallery2ViewGallery extends HtmlView
 
         // Single gallery view ?
         if($this->galleryId > 0) {
-            /*--------------------------------------------------
-               prepare single gallery data
-            --------------------------------------------------*/
 
-            // Get gallery data for the view
-	        //$galleryModel = JModelLegacy::getInstance('gallery', 'rsgallery2Model');
-	        //$this->gallery = $galleryModel->get('Item');
-	        $this->gallery = $this->get('Item');
+        	// Standard tiles ?
+	        if(empty($this->isGallerySingleImageView))
+	        {
+		        /*--------------------------------------------------
+				   prepare single gallery data
+				--------------------------------------------------*/
 
-	        // Get Images of gallery
-            $ImageModel = JModelLegacy::getInstance('images', 'rsgallery2Model');
-            $this->images = $ImageModel->getItems();
+		        // Get gallery data for the view
+		        $this->gallery = $this->get('Item');
 
-            // Assign image url link to images
-            $ImageModel->AssignImageUrls($this->images);
+		        // Get Images of gallery
+		        $ImageModel   = JModelLegacy::getInstance('images', 'rsgallery2Model');
+		        $this->images = $ImageModel->getItems();
 
-            // Child galleries
-            $galleriesModel = JModelLegacy::getInstance('Galleries', 'rsgallery2Model');
-            $this->galleries = $galleriesModel->getChildGalleries($this->gallery->id, 10);
+		        // Assign image url link to images
+		        $ImageModel->AssignImageUrls($this->images);
 
-            $galleriesModel->AddGalleryExtraData($this->galleries);
+		        // Child galleries
+		        $galleriesModel  = JModelLegacy::getInstance('Galleries', 'rsgallery2Model');
+		        $this->galleries = $galleriesModel->getChildGalleries($this->gallery->id, 10);
 
-            // $this->state = $ImageModel->getState();
+		        $galleriesModel->AddGalleryExtraData($this->galleries);
 
-            //$this->pagination = $ImageModel->get('Pagination');
-            $this->pagination = $ImageModel->getPagination();
+		        // $this->state = $ImageModel->getState();
+
+		        //$this->pagination = $ImageModel->get('Pagination');
+		        $this->pagination = $ImageModel->getPagination();
+	        }
+	        else
+	        {
+		        /*--------------------------------------------------
+				   prepare gallery single images slider
+				--------------------------------------------------*/
+
+		        // Get gallery data for the view
+		        $this->gallery = $this->get('Item');
+
+		        // Get Images of gallery
+		        $ImageModel = JModelLegacy::getInstance('images', 'rsgallery2Model');
+
+		        $ImageModel->setState('list.limit', 1); // always one image
+
+		        $this->images = $ImageModel->getItems();
+
+		        $this->pagination = $ImageModel->getPagination();
+
+		        // Assign image url link to images
+		        $ImageModel->AssignImageUrls($this->images);
+	        }
         }
         else
         {
@@ -193,6 +181,47 @@ class RSGallery2ViewGallery extends HtmlView
         // Display the view
         parent::display($tpl);
     }
+
+	/**
+	 * Collect all rsgConfig variables which are used
+	 * on the 'front' page like root galleries and
+	 *
+	 * @since version
+	 */
+	public function rootConfig()
+	{
+		global $rsgConfig;
+
+		$config = new \stdClass;
+
+		$config->intro_text = $rsgConfig->get('intro_text');
+
+		$config->displaySearch = $rsgConfig->get('displaySearch');
+		$config->displayRandom = $rsgConfig->get('displayRandom');
+		$config->displayLatest = $rsgConfig->get('displayLatest');
+
+		$config->displayBranding = $rsgConfig->get('displayBranding');
+		$config->displayDownload = $rsgConfig->get('displayDownload');
+		$config->displayStatus = $rsgConfig->get('displayStatus');
+		$config->dispLimitBox = $rsgConfig->get('dispLimitbox');
+		$config->rootGalleriesCount = $rsgConfig->get('galcountNrs');
+		$config->showGalleryOwner = $rsgConfig->get('showGalleryOwner');
+		$config->showGallerySize = $rsgConfig->get('showGallerySize');
+		$config->includeKids = $rsgConfig->get('includeKids');
+		$config->showGalleryDate = $rsgConfig->get('showGalleryDate');
+		$config->displaySlideshow = $rsgConfig->get('displaySlideshow');
+		$config->displaySlideshowGalleryView = $rsgConfig->get('displaySlideshowGalleryView');
+		$config->displayThumbsStyle  = $rsgConfig->get('display_thumbs_style');
+		$config->displayThumbsShowName = $rsgConfig->get('display_thumbs_showImgName');
+
+		$config->thumb_width = $rsgConfig->get('thumb_width');
+		$config->floatDirection =  $rsgConfig->get('display_thumbs_floatDirection');
+		$config->template = $rsgConfig->get('template');
+
+		$config->thumbsColPerPage = $rsgConfig->get('display_thumbs_colsPerPage');
+
+		return $config;
+	}
 
 
 }
