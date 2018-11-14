@@ -219,6 +219,11 @@ class RSGallery2ViewGallery extends HtmlView
 		$config->template = $rsgConfig->get('template');
 
 		$config->thumbsColPerPage = $rsgConfig->get('display_thumbs_colsPerPage');
+		$config->displaySlideshowImageDisplay = $rsgConfig->get('displaySlideshowImageDisplay');
+		$config->displayPaginationBarMode = $rsgConfig->get('display_navigation_bar_mode');
+
+
+
 
 		return $config;
 	}

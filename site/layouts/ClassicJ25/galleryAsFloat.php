@@ -24,7 +24,7 @@ if (false)
         . '* Fix pagination (button for per page)<br>'
         . '* test links to single image in batch<br>'
         . '* image alt -> do escape of bad characters<br>'
-//        . '* <br>'
+        . '* pagination above/below<br>'
 //        . '* <br>'
         . '</span><br><br>';
 }

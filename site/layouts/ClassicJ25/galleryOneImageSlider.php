@@ -50,8 +50,34 @@ $doc->addStyleSheet($template_dir . "/css/template.css", "text/css");
 $galleryId = $gallery->id;
 $isDisplayGalleryName = true; // $config->; // ToDo: reserve in config,  name
 $isDisplayGalleryDescription = true; // $config->; // ToDo: reserve in config, name
-$isDisplaySlideshow = $config->displaySlideshowGalleryView;
+$isDisplaySlideshow = $config->displaySlideshowImageDisplay;
 $isThumbsShowName = $config->displayThumbsShowName;
+$displayPaginationBarMode =$config->displayPaginationBarMode;
+
+// Display none:0, Display both:1, Display top:2, Display bottom:3
+const PAGINATION_MODE_NONE   = '0';
+const PAGINATION_MODE_BOTH   = '1';
+const PAGINATION_MODE_TOP    = '2';
+const PAGINATION_MODE_BOTTOM = '3';
+
+$isDisplayPaginationTop = false; 
+$isDisplayPaginationBottom = false; 
+
+switch ($displayPaginationBarMode)
+{
+    case PAGINATION_MODE_TOP:
+        $isDisplayPaginationTop = true; 
+    break;
+    case PAGINATION_MODE_BOTH:
+        $isDisplayPaginationTop = true; 
+        $isDisplayPaginationBottom = true; 
+    break;
+    case PAGINATION_MODE_BOTTOM:
+        $isDisplayPaginationBottom = true; 
+    break;
+}
+
+
 
 $imageColumns = $config->thumbsColPerPage;
 
@@ -105,93 +131,113 @@ echo '<div class="rsg2-clr"></div>';
 
 echo '<br>';
 
+/*---------------------------------------------------------------
+   top pagination
+/*-------------------------------------------------------------*/
 
-<div class="rsg2">
-		<a href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=slideshow&amp;gid=2&amp;Itemid=110">
-		Slideshow</a>
-	<br>
+if ($isDisplayPaginationBottom)
+{
+	echo 'PaginationTop start -------------' . '<br>';
+	echo '<div colspan="10">';
+	echo $pagination->getListFooter();
+	echo '</div>';
+	echo 'PaginationTop end -------------' . '<br>';
 
-<div class="rsg_sem_inl">
-		<div class="rsg_sem_inl_Nav">
-			</div>
-		<div class="rsg_sem_inl_dispImg">
-				<table width="100%" cellspacing="0" cellpadding="0" border="0">
-			<tbody><tr>
-				<td>
-					<h2 class="rsg2_display_name" align="center">Dia_1992_10_Nr001</h2>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div align="center">
-								<a href="http://127.0.0.1/joomla3xRelease//images/rsgallery/original/Dia_1992_10_Nr001.jpg" target="_blank">
-			<img class="rsg2-displayImage" src="http://127.0.0.1/joomla3xRelease/images/rsgallery/display/Dia_1992_10_Nr001.jpg.jpg" alt="Dia_1992_10_Nr001.jpg" title="Dia_1992_10_Nr001.jpg">
-		</a>
-							</div>
-				</td>
-			</tr>
-			<tr>
-				<td><div class="rsg2-toolbar">				<a href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;task=downloadfile&amp;id=5&amp;Itemid=110">
-					<img src="http://127.0.0.1/joomla3xRelease//components/com_rsgallery2/images/download_f2.png" alt="Download" width="20" height="20">
-											<br><span style="font-size:smaller;">Download</span>
-										</a>
-				</div><div class="rsg2-clr">&nbsp;</div></td>
-			</tr>
-		</tbody></table>
-			</div>
-		<div class="rsg_sem_inl_Nav">
-				<div align="center">
-			<div class="pagination">
-				<nav role="navigation" aria-label="Pagination"><ul class="pagination-list"><li><a title="Start" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=0" class="pagenav" aria-label="Go to start page"><span class="icon-first" aria-hidden="true"></span></a></li><li><a title="Prev" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=0" class="pagenav" aria-label="Go to prev page"><span class="icon-previous" aria-hidden="true"></span></a></li><li class="hidden-phone"><a title="1" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=0" class="pagenav" aria-label="Go to page 1">1</a></li><li class="active hidden-phone"><a aria-current="true" aria-label="Page 2">2</a></li><li class="hidden-phone"><a title="3" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=2" class="pagenav" aria-label="Go to page 3">3</a></li><li class="hidden-phone"><a title="4" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=3" class="pagenav" aria-label="Go to page 4">4</a></li><li class="hidden-phone"><a title="5" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=4" class="pagenav" aria-label="Go to page 5">...</a></li><li><a title="Next" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=2" class="pagenav" aria-label="Go to next page"><span class="icon-next" aria-hidden="true"></span></a></li><li><a title="End" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=4" class="pagenav" aria-label="Go to end page"><span class="icon-last" aria-hidden="true"></span></a></li></ul></nav>			</div>
-		</div>
-			</div>
-		<div class="rsg_sem_inl_ImgDetails">
-		<dl class="tabs" id="page_inline_tabs"><dt style="display:none;"></dt><dd style="display:none;"></dd><dt class="tabs page_inline_tabs_description open" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">Description</a></h3></span></dt><dt class="tabs page_inline_tabs_voting closed" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">Voting</a></h3></span></dt><dt class="tabs page_inline_tabs_comments closed" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">Comments</a></h3></span></dt><dt class="tabs page_inline_tabs_exif closed" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">EXIF</a></h3></span></dt></dl><div class="current"><dd class="tabs" style="display: block;">			<p class="rsg2_hits">Hits <span>1</span>
-			</p>
-			</dd><dd class="tabs" style="display: none;">Voting is disabled!</dd><dd class="tabs" style="display: none;">Commenting is disabled</dd><dd class="tabs" style="display: none;">		<div class="rsg2_exif_container">
-			<table class="adminlist" border="1">
-				<tbody><tr>
-					<th>Setting</th>
-					<th>Value</th>
-				</tr>
-										<tr>
-							<td><span class="rsg2_label">FileName</span></td>
-							<td>C:\xampp\htdocs\Joomla3xRelease/images/rsgallery/original/Dia_1992_10_Nr001.jpg</td>
-						</tr>
-												<tr>
-							<td><span class="rsg2_label">FileDateTime</span></td>
-							<td>28-Sep-2018 12:23:59</td>
-						</tr>
-												<tr>
-							<td><span class="rsg2_label">resolution</span></td>
-							<td>2442x1588</td>
-						</tr>
-									</tbody></table>
-		</div>
-		</dd></div>	</div>
-	<div class="rsg_sem_inl_footer">
-				<div id="rsg2-footer">
-			<br><br>com_rsgallery2 4.4.1<br>(c) 2005-2018 RSGallery2 Team		</div>
-		<div class="rsg2-clr">&nbsp;</div>
-			</div>
-</div></div>
+	echo '</div>'; // <div class="rsg2">
+}
 
+/*---------------------------------------------------------------
+   image
+/*-------------------------------------------------------------*/
+
+/**/
+echo '    <div class="rsg_sem_inl">';
+echo '        <div class="rsg_sem_inl_dispImg">';
+echo '            <table width="100%" cellspacing="0" cellpadding="0" border="0">';
+echo '                <tbody>';
+echo '                    <tr>';
+echo '                        <td>';
+echo '                            <h2 class="rsg2_display_name" align="center">Dia_1992_10_Nr001</h2>';
+echo '                        </td>';
+echo '                    </tr>';
+echo '                    <tr>';
+echo '                        <td>';
+echo '                            <div align="center">';
+echo '                                <a href="http://127.0.0.1/joomla3xRelease//images/rsgallery/original/Dia_1992_10_Nr001.jpg" target="_blank">';
+echo '                                    <img class="rsg2-displayImage" src="http://127.0.0.1/joomla3xRelease/images/rsgallery/display/Dia_1992_10_Nr001.jpg.jpg" alt="Dia_1992_10_Nr001.jpg" title="Dia_1992_10_Nr001.jpg">';
+echo '                                </a>';
+echo '                            </div>';
+echo '                        </td>';
+echo '                    </tr>';
+echo '                    <tr>';
+echo '                        <td>';
+echo '                            <div class="rsg2-toolbar">';
+echo '                                <a href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;task=downloadfile&amp;id=5&amp;Itemid=110">';
+echo '                                    <img src="http://127.0.0.1/joomla3xRelease//components/com_rsgallery2/images/download_f2.png" alt="Download" width="20" height="20">';
+echo '                                    <br><span style="font-size:smaller;">Download</span>';
+echo '                                </a>';
+echo '                            </div>
+				<div class="rsg2-clr">&nbsp;</div>
+				</td>';
+echo '			</tr>';
+echo '		</tbody></table>';
+echo '			</div>';
+echo '		<div class="rsg_sem_inl_Nav">';
+echo '				<div align="center">';
+echo '			<div class="pagination">';
+echo '				<nav role="navigation" aria-label="Pagination"><ul class="pagination-list"><li><a title="Start" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=0" class="pagenav" aria-label="Go to start page"><span class="icon-first" aria-hidden="true"></span></a></li><li><a title="Prev" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=0" class="pagenav" aria-label="Go to prev page"><span class="icon-previous" aria-hidden="true"></span></a></li><li class="hidden-phone"><a title="1" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=0" class="pagenav" aria-label="Go to page 1">1</a></li><li class="active hidden-phone"><a aria-current="true" aria-label="Page 2">2</a></li><li class="hidden-phone"><a title="3" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=2" class="pagenav" aria-label="Go to page 3">3</a></li><li class="hidden-phone"><a title="4" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=3" class="pagenav" aria-label="Go to page 4">4</a></li><li class="hidden-phone"><a title="5" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=4" class="pagenav" aria-label="Go to page 5">...</a></li><li><a title="Next" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=2" class="pagenav" aria-label="Go to next page"><span class="icon-next" aria-hidden="true"></span></a></li><li><a title="End" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=4" class="pagenav" aria-label="Go to end page"><span class="icon-last" aria-hidden="true"></span></a></li></ul></nav>			</div>';
+echo '		</div>';
+echo '			</div>';
+echo '		<div class="rsg_sem_inl_ImgDetails">';
+echo '		<dl class="tabs" id="page_inline_tabs"><dt style="display:none;"></dt><dd style="display:none;"></dd><dt class="tabs page_inline_tabs_description open" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">Description</a></h3></span></dt><dt class="tabs page_inline_tabs_voting closed" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">Voting</a></h3></span></dt><dt class="tabs page_inline_tabs_comments closed" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">Comments</a></h3></span></dt><dt class="tabs page_inline_tabs_exif closed" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">EXIF</a></h3></span></dt></dl><div class="current"><dd class="tabs" style="display: block;">			<p class="rsg2_hits">Hits <span>1</span>';
+echo '			</p>';
+echo '			</dd><dd class="tabs" style="display: none;">Voting is disabled!</dd><dd class="tabs" style="display: none;">Commenting is disabled</dd><dd class="tabs" style="display: none;">		<div class="rsg2_exif_container">';
+echo '			<table class="adminlist" border="1">';
+echo '				<tbody><tr>';
+echo '					<th>Setting</th>';
+echo '					<th>Value</th>';
+echo '				</tr>';
+echo '										<tr>';
+echo '							<td><span class="rsg2_label">FileName</span></td>';
+echo '							<td>C:\xampp\htdocs\Joomla3xRelease/images/rsgallery/original/Dia_1992_10_Nr001.jpg</td>';
+echo '						</tr>';
+echo '												<tr>';
+echo '							<td><span class="rsg2_label">FileDateTime</span></td>';
+echo '							<td>28-Sep-2018 12:23:59</td>';
+echo '						</tr>';
+echo '												<tr>';
+echo '							<td><span class="rsg2_label">resolution</span></td>';
+echo '							<td>2442x1588</td>';
+echo '						</tr>';
+echo '									</tbody></table>';
+echo '		</div>';
+echo '		</dd></div>	</div>';
+echo '	<div class="rsg_sem_inl_footer">';
+echo '				<div id="rsg2-footer">';
+echo '			<br><br>com_rsgallery2 4.4.1<br>(c) 2005-2018 RSGallery2 Team		</div>';
+echo '		<div class="rsg2-clr">&nbsp;</div>';
+echo '			</div>';
+echo '    </div>';
+echo '</div>';
+/**/
 
 
 echo '<br>';
 
 /*---------------------------------------------------------------
-   footer pagination
+   bottom pagination
 /*-------------------------------------------------------------*/
 
-echo 'ListFooter start -------------' . '<br>';
-echo '<div colspan="10">';
-echo $pagination->getListFooter();
-echo '</div>';
-echo 'ListFooter end -------------' . '<br>';
-
-echo '</div>'; // <div class="rsg2">
-
+if ($isDisplayPaginationBottom)
+{
+    echo 'PaginationFooter start -------------' . '<br>';
+    echo '<div colspan="10">';
+    echo $pagination->getListFooter();
+    echo '</div>';
+    echo 'PaginationFooter end -------------' . '<br>';
+    
+    echo '</div>'; // <div class="rsg2">
+}
 
 ?>
 
