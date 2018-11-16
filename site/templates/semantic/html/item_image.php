@@ -47,7 +47,7 @@ switch ($rsgConfig->get('displayPopup'))
 	}
 	case 2:
 	{
-		// ToDo: Place it on start ???
+		// echo modal ....
 		JHTML::_('behavior.modal');
 		?>
 

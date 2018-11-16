@@ -36,6 +36,15 @@ if (false)
 $gallery = $displayData['gallery'];
 $pagination = $displayData['pagination'];
 $images = $displayData['images'];
+// ToDO: exit on no images with message on screen -> better message ....
+if (count ($images) < 1)
+{
+    // Jtext:: ....
+    echo "<br><br><h2>No images in gallery found</h2>h2><br><br><br>";
+    return;
+}
+
+$image = $images [0];
 $config = $displayData['config'];
 
 //--- include css --------------------------------------
@@ -150,6 +159,9 @@ if ($isDisplayPaginationBottom)
    image
 /*-------------------------------------------------------------*/
 
+// ToDo: count image hits
+// ToDO count gallery hits
+
 /**/
 echo '    <div class="rsg_sem_inl">';
 echo '        <div class="rsg_sem_inl_dispImg">';
@@ -157,15 +169,51 @@ echo '            <table width="100%" cellspacing="0" cellpadding="0" border="0"
 echo '                <tbody>';
 echo '                    <tr>';
 echo '                        <td>';
-echo '                            <h2 class="rsg2_display_name" align="center">Dia_1992_10_Nr001</h2>';
+echo '                            <h2 class="rsg2_display_name" align="center">' . htmlspecialchars(stripslashes($image->title), ENT_QUOTES); ?> . '</h2>';
 echo '                        </td>';
 echo '                    </tr>';
 echo '                    <tr>';
 echo '                        <td>';
 echo '                            <div align="center">';
-echo '                                <a href="http://127.0.0.1/joomla3xRelease//images/rsgallery/original/Dia_1992_10_Nr001.jpg" target="_blank">';
-echo '                                    <img class="rsg2-displayImage" src="http://127.0.0.1/joomla3xRelease/images/rsgallery/display/Dia_1992_10_Nr001.jpg.jpg" alt="Dia_1992_10_Nr001.jpg" title="Dia_1992_10_Nr001.jpg">';
-echo '                                </a>';
+
+global $rsgConfig; // Remove
+switch ($rsgConfig->get('displayPopup'))
+{
+    //No popup
+    case 0:
+    {
+        echo '                    <img class="rsg2-displayImage" src="' . $image->Url . '" alt="' . $item->name. '" title="' . $item->name . '">";
+		break;
+	}
+	//Normal popup
+	case 1:
+	{
+        echo '                    <a href="' . $image->OriginalUrl; .'" target="_blank" rel="noopener" >';
+        echo '                        <img class="rsg2-displayImage" src="' . $image->Url . '" alt="' . $image->name . '" title="' . $image->name . '" />';
+        echo '                    </a>';
+        break;
+    }
+    // Modal popup
+    case 2:
+    {
+        // echo modal ....
+        echo JHTML::_('behavior.modal');
+        echo '                    <a class="modal" href="' . $image->OriginalUrl . '">';
+        echo '                        <img class="rsg2-displayImage" src="' . $image->Url . '" alt="' . $image->name . '" title="' . $image->name . '>" . '/>';
+        echo '                    </a>';
+
+        /**
+         * $doc = JFactory::getDocument();
+         * $doc->addScriptDeclaration($jsModal);
+         * /**/
+        break;
+    }
+}
+
+//echo '                                <a href="http://127.0.0.1/joomla3xRelease//images/rsgallery/original/Dia_1992_10_Nr001.jpg" target="_blank">';
+//echo '                                    <img class="rsg2-displayImage" src="http://127.0.0.1/joomla3xRelease/images/rsgallery/display/Dia_1992_10_Nr001.jpg.jpg" alt="Dia_1992_10_Nr001.jpg" title="Dia_1992_10_Nr001.jpg">';
+//echo '                                </a>';
+
 echo '                            </div>';
 echo '                        </td>';
 echo '                    </tr>';
