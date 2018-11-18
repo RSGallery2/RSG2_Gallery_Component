@@ -222,10 +222,11 @@ class RSGallery2ViewGallery extends HtmlView
 		$config->displaySlideshowImageDisplay = $rsgConfig->get('displaySlideshowImageDisplay');
 		$config->displayPaginationBarMode = $rsgConfig->get('display_navigation_bar_mode');
 
+        $config->imagePopupMode = $rsgConfig->get('displayPopup');
 
 
 
-		return $config;
+        return $config;
 	}
 
 

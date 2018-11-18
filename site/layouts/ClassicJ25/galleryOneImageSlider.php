@@ -86,10 +86,6 @@ switch ($displayPaginationBarMode)
     break;
 }
 
-
-
-$imageColumns = $config->thumbsColPerPage;
-
 /*---------------------------------------------------------------
     Header: search/pagination selector (images per page)
 ---------------------------------------------------------------*/
@@ -162,6 +158,10 @@ if ($isDisplayPaginationBottom)
 // ToDo: count image hits
 // ToDO count gallery hits
 
+$imageDisplayUrl = $image->UrlDisplayFile;
+$imageOriginalUrl = $image->UrlOriginalFile;
+
+
 /**/
 echo '    <div class="rsg_sem_inl">';
 echo '        <div class="rsg_sem_inl_dispImg">';
@@ -169,27 +169,26 @@ echo '            <table width="100%" cellspacing="0" cellpadding="0" border="0"
 echo '                <tbody>';
 echo '                    <tr>';
 echo '                        <td>';
-echo '                            <h2 class="rsg2_display_name" align="center">' . htmlspecialchars(stripslashes($image->title), ENT_QUOTES); ?> . '</h2>';
+echo '                            <h2 class="rsg2_display_name" align="center">' . htmlspecialchars(stripslashes($image->title), ENT_QUOTES) . '</h2>';
 echo '                        </td>';
 echo '                    </tr>';
 echo '                    <tr>';
 echo '                        <td>';
 echo '                            <div align="center">';
 
-global $rsgConfig; // Remove
-switch ($rsgConfig->get('displayPopup'))
+switch ($config->imagePopupMode)
 {
     //No popup
     case 0:
     {
-        echo '                    <img class="rsg2-displayImage" src="' . $image->Url . '" alt="' . $item->name. '" title="' . $item->name . '">";
+        echo '                    <img class="rsg2-displayImage" src="' . $imageDisplayUrl . '" alt="' . $item->name. '" title="' . $item->name . '">';
 		break;
 	}
 	//Normal popup
 	case 1:
 	{
-        echo '                    <a href="' . $image->OriginalUrl; .'" target="_blank" rel="noopener" >';
-        echo '                        <img class="rsg2-displayImage" src="' . $image->Url . '" alt="' . $image->name . '" title="' . $image->name . '" />';
+        echo '                    <a href="' . $imageOriginalUrl . '" target="_blank" rel="noopener" >';
+        echo '                        <img class="rsg2-displayImage" src="' . $imageDisplayUrl . '" alt="' . $image->name . '" title="' . $image->name . '" />';
         echo '                    </a>';
         break;
     }
@@ -198,8 +197,8 @@ switch ($rsgConfig->get('displayPopup'))
     {
         // echo modal ....
         echo JHTML::_('behavior.modal');
-        echo '                    <a class="modal" href="' . $image->OriginalUrl . '">';
-        echo '                        <img class="rsg2-displayImage" src="' . $image->Url . '" alt="' . $image->name . '" title="' . $image->name . '>" . '/>';
+        echo '                    <a class="modal" href="' . $imageOriginalUrl . '">';
+        echo '                        <img class="rsg2-displayImage" src="' . $imageDisplayUrl . '" alt="' . $image->name . '" title="' . $image->name . '">';
         echo '                    </a>';
 
         /**
@@ -217,6 +216,52 @@ switch ($rsgConfig->get('displayPopup'))
 echo '                            </div>';
 echo '                        </td>';
 echo '                    </tr>';
+
+echo 'download<br>';
+echo '                    <a href="' . $imageOriginalUrl . '" download class="icon-download""><strong> Download image 2</strong></a>';
+echo 'download<br>';
+/**
+a[download] {
+    color: hsla(216, 70%, 53%, 1);
+    text-decoration: underline;
+}
+
+a[download]::before {
+    content: url('../icons/icon-download.svg');
+    height: 1em;
+  position: relative;
+  top: 0.75em;
+  right: 0.5em;
+  width: 1em;
+}
+
+a[download]:hover,
+a[download]:focus {
+    text-decoration: none;
+}
+/**/
+
+/*
+<ul>
+    <li>
+        <a href="download/320" media="min-width: 320px">
+            <img src="files/320.jpg" alt="">
+        </a>
+    </li>
+    <li>
+        <a href="download/1382" media="min-width: 1382px">
+            <img src="files/1382.jpg" alt="">
+        </a>
+    </li>
+</ul>
+/**/
+
+
+
+
+
+/**
+
 echo '                    <tr>';
 echo '                        <td>';
 echo '                            <div class="rsg2-toolbar">';
@@ -224,10 +269,12 @@ echo '                                <a href="/joomla3xRelease/index.php?option
 echo '                                    <img src="http://127.0.0.1/joomla3xRelease//components/com_rsgallery2/images/download_f2.png" alt="Download" width="20" height="20">';
 echo '                                    <br><span style="font-size:smaller;">Download</span>';
 echo '                                </a>';
-echo '                            </div>
+echo '                            </div>';
 				<div class="rsg2-clr">&nbsp;</div>
 				</td>';
 echo '			</tr>';
+/**/
+
 echo '		</tbody></table>';
 echo '			</div>';
 echo '		<div class="rsg_sem_inl_Nav">';
@@ -244,21 +291,25 @@ echo '			<table class="adminlist" border="1">';
 echo '				<tbody><tr>';
 echo '					<th>Setting</th>';
 echo '					<th>Value</th>';
+/**/
+
+
 echo '				</tr>';
-echo '										<tr>';
-echo '							<td><span class="rsg2_label">FileName</span></td>';
-echo '							<td>C:\xampp\htdocs\Joomla3xRelease/images/rsgallery/original/Dia_1992_10_Nr001.jpg</td>';
-echo '						</tr>';
-echo '												<tr>';
-echo '							<td><span class="rsg2_label">FileDateTime</span></td>';
-echo '							<td>28-Sep-2018 12:23:59</td>';
-echo '						</tr>';
-echo '												<tr>';
-echo '							<td><span class="rsg2_label">resolution</span></td>';
-echo '							<td>2442x1588</td>';
-echo '						</tr>';
-echo '									</tbody></table>';
-echo '		</div>';
+echo '				<tr>';
+echo '				    <td><span class="rsg2_label">FileName</span></td>';
+echo '					<td>C:\xampp\htdocs\Joomla3xRelease/images/rsgallery/original/Dia_1992_10_Nr001.jpg</td>';
+echo '				</tr>';
+echo '				<tr>';
+echo '				    <td><span class="rsg2_label">FileDateTime</span></td>';
+echo '					<td>28-Sep-2018 12:23:59</td>';
+echo '				</tr>';
+echo '				<tr>';
+echo '				<td><span class="rsg2_label">resolution</span></td>';
+echo '				<td>2442x1588</td>';
+echo '				</tr>';
+echo '		    </tbody>';
+echo '		</table>';
+echo '	</div>';
 echo '		</dd></div>	</div>';
 echo '	<div class="rsg_sem_inl_footer">';
 echo '				<div id="rsg2-footer">';

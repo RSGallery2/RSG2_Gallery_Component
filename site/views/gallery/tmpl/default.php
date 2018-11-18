@@ -25,7 +25,7 @@ defined('_JEXEC') or die;
 $input = JFactory::getApplication()->input;
 
 /**
-$ItemId = $input->get('Itemid', null, 'INT');
+##############################$ItemId = $input->get('Itemid', null, 'INT');
 $gid = $input->get('gid', null, 'INT');
 $view = $input->get('view', null, 'CMD');
 $option = $input->get('option', null, 'CMD');
