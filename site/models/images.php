@@ -199,7 +199,9 @@ class RSGallery2ModelImages extends JModelList
 
         foreach ($images as $image) {
             $urlPathThumbFile = $urlPathThumb . $image->name . '.jpg'; // /images/rsgallery/thumb
-            $urlPathDisplayFile = $urlPathDisplay . $image->name; // /images/rsgallery/display
+            $urlPathDisplayFile = $urlPathDisplay . $image->name . '.jpg'; // /images/rsgallery/display
+
+	        // ToDo: Check if original exists otherwise use display
             $urlPathOriginalFile = $urlPathOriginal . $image->name; // /images/rsgallery/original
 
             $image->UrlThumbFile = $urlPathThumbFile;

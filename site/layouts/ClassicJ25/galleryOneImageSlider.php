@@ -156,7 +156,7 @@ if ($isDisplayPaginationBottom)
 /*-------------------------------------------------------------*/
 
 // ToDo: count image hits
-// ToDO count gallery hits
+// ToDO count gallery hits other view
 
 $imageDisplayUrl = $image->UrlDisplayFile;
 $imageOriginalUrl = $image->UrlOriginalFile;
@@ -178,13 +178,13 @@ echo '                            <div align="center">';
 
 switch ($config->imagePopupMode)
 {
-    //No popup
+    // No popup
     case 0:
     {
-        echo '                    <img class="rsg2-displayImage" src="' . $imageDisplayUrl . '" alt="' . $item->name. '" title="' . $item->name . '">';
+        echo '                    <img class="rsg2-displayImage" src="' . $imageDisplayUrl . '" alt="' . $item->name. '" title="' . $item->name . '" / >';
 		break;
 	}
-	//Normal popup
+	// Normal popup
 	case 1:
 	{
         echo '                    <a href="' . $imageOriginalUrl . '" target="_blank" rel="noopener" >';
@@ -213,13 +213,33 @@ switch ($config->imagePopupMode)
 //echo '                                    <img class="rsg2-displayImage" src="http://127.0.0.1/joomla3xRelease/images/rsgallery/display/Dia_1992_10_Nr001.jpg.jpg" alt="Dia_1992_10_Nr001.jpg" title="Dia_1992_10_Nr001.jpg">';
 //echo '                                </a>';
 
-echo '                            </div>';
+echo '                            </div>'; // center
 echo '                        </td>';
 echo '                    </tr>';
 
+echo '                    <tr>';
+echo '                        <td>';
+echo '                            <div class="rsg2-toolbar">';
 echo 'download<br>';
-echo '                    <a href="' . $imageOriginalUrl . '" download class="icon-download""><strong> Download image 2</strong></a>';
+echo '                                <a href="' . $imageOriginalUrl . '" download class="icon-download">';
+echo '                                    <strong>Download image 2</strong>';
+echo '                                </a>';
 echo 'download<br>';
+
+echo '                                <a href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;task=downloadfile&amp;id=5&amp;Itemid=110">';
+echo '                                    <img src="http://127.0.0.1/joomla3xRelease//components/com_rsgallery2/images/download_f2.png" alt="Download" width="20" height="20">';
+echo '                                    <br><span style="font-size:smaller;">Download</span>';
+echo '                                </a>';
+echo '                            </div>';
+echo '                            <div class="rsg2-clr">&nbsp;</div>';
+echo '                        </td>';
+echo '			          </tr>';
+
+echo '                </tbody>';
+echo '            </table>';
+echo '        </div>'; // rsg_sem_inl_dispImg
+echo '    </div>'; // rsg_sem_inl
+
 /**
 a[download] {
     color: hsla(216, 70%, 53%, 1);
@@ -275,7 +295,7 @@ echo '                            </div>';
 echo '			</tr>';
 /**/
 
-echo '		</tbody></table>';
+/**
 echo '			</div>';
 echo '		<div class="rsg_sem_inl_Nav">';
 echo '				<div align="center">';
@@ -293,7 +313,7 @@ echo '					<th>Setting</th>';
 echo '					<th>Value</th>';
 /**/
 
-
+/**
 echo '				</tr>';
 echo '				<tr>';
 echo '				    <td><span class="rsg2_label">FileName</span></td>';
@@ -319,7 +339,6 @@ echo '			</div>';
 echo '    </div>';
 echo '</div>';
 /**/
-
 
 echo '<br>';
 
