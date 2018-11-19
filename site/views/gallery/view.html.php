@@ -111,7 +111,7 @@ class RSGallery2ViewGallery extends HtmlView
 		        // Get Images of gallery
 		        $ImageModel = JModelLegacy::getInstance('images', 'rsgallery2Model');
 
-		        $ImageModel->setState('list.limit', 1); // always one image
+		        $ImageModel->setState('list.limit', 1); // always one image per page
 
 		        $this->images = $ImageModel->getItems();
 

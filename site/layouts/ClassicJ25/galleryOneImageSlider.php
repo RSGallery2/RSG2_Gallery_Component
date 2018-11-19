@@ -123,7 +123,8 @@ if ($isDisplaySlideshow)
 {
     ?>
 	<a href='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=slideshow&gid=" . $gallery->id); ?>'>
-        <?php echo JText::_('COM_RSGALLERY2_SLIDESHOW'); ?></a>
+        <?php echo JText::_('COM_RSGALLERY2_SLIDESHOW'); ?>
+    </a>
 	<br />
     <?php
 }
@@ -140,15 +141,15 @@ echo '<br>';
    top pagination
 /*-------------------------------------------------------------*/
 
-if ($isDisplayPaginationBottom)
+if ($isDisplayPaginationTop)
 {
-	echo 'PaginationTop start -------------' . '<br>';
-	echo '<div colspan="10">';
-	echo $pagination->getListFooter();
-	echo '</div>';
-	echo 'PaginationTop end -------------' . '<br>';
-
-	echo '</div>'; // <div class="rsg2">
+//	echo 'PaginationTop start -------------' . '<br>';
+	//echo '<div colspan="10">';
+    echo '    <div align="center">';
+	echo          $pagination->getListFooter();
+    echo '    </div>'; // center
+	//echo '</div>';
+//	echo 'PaginationTop end -------------' . '<br>';
 }
 
 /*---------------------------------------------------------------
@@ -220,18 +221,30 @@ echo '                    </tr>';
 echo '                    <tr>';
 echo '                        <td>';
 echo '                            <div class="rsg2-toolbar">';
-echo 'download<br>';
-echo '                                <a href="' . $imageOriginalUrl . '" download class="icon-download">';
-echo '                                    <strong>Download image 2</strong>';
+echo '                                <a class="btn" id="download-image" '; //
+echo '                                    href="' . $imageOriginalUrl . '" download';
+echo '                                    title="' . JText::_("COM_RSGALLERY2_DOWNLOAD") . '"';
+echo '                                    ';
+echo '                                    role="button" ';
+echo '                                    >';
+echo '                                    <i class="icon-download"></i>';
 echo '                                </a>';
-echo 'download<br>';
+/**
+echo '                                <a id="back-to-top" href="#" class="btn btn-primary btn-lg" role="button"';
+echo '                                    title="Click to return on the top page" ';
+echo '                                    data-toggle="tooltip" data-placement="left">';
+echo '                                    <span class="glyphicon glyphicon-chevron-up"></span>';
+echo '                                </a>';
+/**/
 
+/**
 echo '                                <a href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;task=downloadfile&amp;id=5&amp;Itemid=110">';
 echo '                                    <img src="http://127.0.0.1/joomla3xRelease//components/com_rsgallery2/images/download_f2.png" alt="Download" width="20" height="20">';
 echo '                                    <br><span style="font-size:smaller;">Download</span>';
 echo '                                </a>';
+/**/
 echo '                            </div>';
-echo '                            <div class="rsg2-clr">&nbsp;</div>';
+//echo '                            <div class="rsg2-clr">&nbsp;</div>';
 echo '                        </td>';
 echo '			          </tr>';
 
@@ -296,13 +309,7 @@ echo '			</tr>';
 /**/
 
 /**
-echo '			</div>';
-echo '		<div class="rsg_sem_inl_Nav">';
-echo '				<div align="center">';
-echo '			<div class="pagination">';
-echo '				<nav role="navigation" aria-label="Pagination"><ul class="pagination-list"><li><a title="Start" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=0" class="pagenav" aria-label="Go to start page"><span class="icon-first" aria-hidden="true"></span></a></li><li><a title="Prev" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=0" class="pagenav" aria-label="Go to prev page"><span class="icon-previous" aria-hidden="true"></span></a></li><li class="hidden-phone"><a title="1" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=0" class="pagenav" aria-label="Go to page 1">1</a></li><li class="active hidden-phone"><a aria-current="true" aria-label="Page 2">2</a></li><li class="hidden-phone"><a title="3" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=2" class="pagenav" aria-label="Go to page 3">3</a></li><li class="hidden-phone"><a title="4" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=3" class="pagenav" aria-label="Go to page 4">4</a></li><li class="hidden-phone"><a title="5" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=4" class="pagenav" aria-label="Go to page 5">...</a></li><li><a title="Next" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=2" class="pagenav" aria-label="Go to next page"><span class="icon-next" aria-hidden="true"></span></a></li><li><a title="End" href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;page=inline&amp;Itemid=110&amp;gid=2&amp;limitstart=4" class="pagenav" aria-label="Go to end page"><span class="icon-last" aria-hidden="true"></span></a></li></ul></nav>			</div>';
-echo '		</div>';
-echo '			</div>';
+ *
 echo '		<div class="rsg_sem_inl_ImgDetails">';
 echo '		<dl class="tabs" id="page_inline_tabs"><dt style="display:none;"></dt><dd style="display:none;"></dd><dt class="tabs page_inline_tabs_description open" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">Description</a></h3></span></dt><dt class="tabs page_inline_tabs_voting closed" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">Voting</a></h3></span></dt><dt class="tabs page_inline_tabs_comments closed" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">Comments</a></h3></span></dt><dt class="tabs page_inline_tabs_exif closed" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">EXIF</a></h3></span></dt></dl><div class="current"><dd class="tabs" style="display: block;">			<p class="rsg2_hits">Hits <span>1</span>';
 echo '			</p>';
@@ -330,14 +337,6 @@ echo '				</tr>';
 echo '		    </tbody>';
 echo '		</table>';
 echo '	</div>';
-echo '		</dd></div>	</div>';
-echo '	<div class="rsg_sem_inl_footer">';
-echo '				<div id="rsg2-footer">';
-echo '			<br><br>com_rsgallery2 4.4.1<br>(c) 2005-2018 RSGallery2 Team		</div>';
-echo '		<div class="rsg2-clr">&nbsp;</div>';
-echo '			</div>';
-echo '    </div>';
-echo '</div>';
 /**/
 
 echo '<br>';
@@ -348,14 +347,16 @@ echo '<br>';
 
 if ($isDisplayPaginationBottom)
 {
-    echo 'PaginationFooter start -------------' . '<br>';
-    echo '<div colspan="10">';
-    echo $pagination->getListFooter();
-    echo '</div>';
-    echo 'PaginationFooter end -------------' . '<br>';
-    
-    echo '</div>'; // <div class="rsg2">
+//    echo 'PaginationFooter start -------------' . '<br>';
+//    echo '<div colspan="10">';
+    echo '    <div align="center">';
+    echo          $pagination->getListFooter();
+    echo '    </div>'; // center
+//    echo '</div>';
+//    echo 'PaginationFooter end -------------' . '<br>';
 }
+
+echo '</div>'; // <div class="rsg2">
 
 ?>
 

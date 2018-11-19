@@ -89,6 +89,7 @@ class RSGallery2ModelImages extends JModelList
         $input = $app->input;
         $gid = $input->get('gid', '', 'INT');
         $this->setState('images.galleryId', $gid);
+        $isGallerySingleImageView = $input->get('startShowSingleImage', 0, 'INT');
 
         /**
         // Get the parent id if defined.
@@ -105,9 +106,15 @@ class RSGallery2ModelImages extends JModelList
         $this->setState('list.start', 0);
         /**/
 
-        /**/
         // thumbs per page
         $limit = $params['display_thumbs_maxPerPage'];
+
+        /* Limit may be set to one for single image 'slider' */
+        if ($isGallerySingleImageView > 0)
+        {
+            $limit = 1;
+        }
+
         $this->setState('list.limit', $limit);
 		/**/
 

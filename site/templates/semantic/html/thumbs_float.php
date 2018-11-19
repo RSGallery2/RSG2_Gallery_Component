@@ -10,6 +10,9 @@
 defined('_JEXEC') or die(); ?>
 
 <?php
+
+// ToDo: collect all variables and use short name later
+
 $floatDirection = $rsgConfig->get('display_thumbs_floatDirection');
 
 // Show slideshow link when viewing thumbs in table?
