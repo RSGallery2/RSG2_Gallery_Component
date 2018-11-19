@@ -229,20 +229,6 @@ echo '                                    role="button" ';
 echo '                                    >';
 echo '                                    <i class="icon-download"></i>';
 echo '                                </a>';
-/**
-echo '                                <a id="back-to-top" href="#" class="btn btn-primary btn-lg" role="button"';
-echo '                                    title="Click to return on the top page" ';
-echo '                                    data-toggle="tooltip" data-placement="left">';
-echo '                                    <span class="glyphicon glyphicon-chevron-up"></span>';
-echo '                                </a>';
-/**/
-
-/**
-echo '                                <a href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;task=downloadfile&amp;id=5&amp;Itemid=110">';
-echo '                                    <img src="http://127.0.0.1/joomla3xRelease//components/com_rsgallery2/images/download_f2.png" alt="Download" width="20" height="20">';
-echo '                                    <br><span style="font-size:smaller;">Download</span>';
-echo '                                </a>';
-/**/
 echo '                            </div>';
 //echo '                            <div class="rsg2-clr">&nbsp;</div>';
 echo '                        </td>';
@@ -341,6 +327,7 @@ echo '	</div>';
 
 echo '<br>';
 
+
 /*---------------------------------------------------------------
    bottom pagination
 /*-------------------------------------------------------------*/
@@ -355,6 +342,53 @@ if ($isDisplayPaginationBottom)
 //    echo '</div>';
 //    echo 'PaginationFooter end -------------' . '<br>';
 }
+
+/*---------------------------------------------------------------
+   bottom pagination
+/*-------------------------------------------------------------*/
+
+echo '    <ul class="nav nav-tabs">';
+echo '        <li class="active">';
+echo '            <a href="#">Description</a>';
+echo '        </li>';
+echo '        <li >';
+echo '            <a href="#">Voting</a>';
+echo '        </li>';
+echo '        <li >';
+echo '            <a href="#">Comments</a>';
+echo '        </li>';
+echo '        <li >';
+echo '            <a href="#">Exif</a>';
+echo '        </li>';
+echo '    </ul>';
+
+
+echo 'Tabbable example';
+
+echo '    <div class="tabbable">'; // <!-- Only required for left/right tabs -->
+echo '      <ul class="nav nav-tabs">';
+echo '        <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>';
+echo '        <li><a href="#tab2" data-toggle="tab">Voting</a></li>';
+echo '        <li><a href="#tab3" data-toggle="tab">Comments</a></li>';
+echo '        <li><a href="#tab4" data-toggle="tab">Exif</a></li>';
+echo '      </ul>';
+echo '      <div class="tab-content">';
+echo '        <div class="tab-pane active" id="tab1">';
+echo '          <p>I\'m in Section 1.</p>';
+echo '        </div>';
+echo '        <div class="tab-pane" id="tab2">';
+echo '          <p>Howdy, I\'m in Section 2.</p>';
+echo '        </div>';
+echo '        <div class="tab-pane" id="tab3">';
+echo '          <p>Howdy, I\'m in Section 3.</p>';
+echo '        </div>';
+echo '        <div class="tab-pane" id="tab4">';
+echo '          <p>Howdy, I\'m in Section 4.</p>';
+echo '        </div>';
+echo '      </div>';
+echo '    </div>';
+
+
 
 echo '</div>'; // <div class="rsg2">
 
