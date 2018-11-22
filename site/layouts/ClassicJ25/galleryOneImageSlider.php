@@ -239,91 +239,6 @@ echo '            </table>';
 echo '        </div>'; // rsg_sem_inl_dispImg
 echo '    </div>'; // rsg_sem_inl
 
-/**
-a[download] {
-    color: hsla(216, 70%, 53%, 1);
-    text-decoration: underline;
-}
-
-a[download]::before {
-    content: url('../icons/icon-download.svg');
-    height: 1em;
-  position: relative;
-  top: 0.75em;
-  right: 0.5em;
-  width: 1em;
-}
-
-a[download]:hover,
-a[download]:focus {
-    text-decoration: none;
-}
-/**/
-
-/*
-<ul>
-    <li>
-        <a href="download/320" media="min-width: 320px">
-            <img src="files/320.jpg" alt="">
-        </a>
-    </li>
-    <li>
-        <a href="download/1382" media="min-width: 1382px">
-            <img src="files/1382.jpg" alt="">
-        </a>
-    </li>
-</ul>
-/**/
-
-
-
-
-
-/**
-
-echo '                    <tr>';
-echo '                        <td>';
-echo '                            <div class="rsg2-toolbar">';
-echo '                                <a href="/joomla3xRelease/index.php?option=com_rsgallery2&amp;task=downloadfile&amp;id=5&amp;Itemid=110">';
-echo '                                    <img src="http://127.0.0.1/joomla3xRelease//components/com_rsgallery2/images/download_f2.png" alt="Download" width="20" height="20">';
-echo '                                    <br><span style="font-size:smaller;">Download</span>';
-echo '                                </a>';
-echo '                            </div>';
-				<div class="rsg2-clr">&nbsp;</div>
-				</td>';
-echo '			</tr>';
-/**/
-
-/**
- *
-echo '		<div class="rsg_sem_inl_ImgDetails">';
-echo '		<dl class="tabs" id="page_inline_tabs"><dt style="display:none;"></dt><dd style="display:none;"></dd><dt class="tabs page_inline_tabs_description open" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">Description</a></h3></span></dt><dt class="tabs page_inline_tabs_voting closed" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">Voting</a></h3></span></dt><dt class="tabs page_inline_tabs_comments closed" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">Comments</a></h3></span></dt><dt class="tabs page_inline_tabs_exif closed" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">EXIF</a></h3></span></dt></dl><div class="current"><dd class="tabs" style="display: block;">			<p class="rsg2_hits">Hits <span>1</span>';
-echo '			</p>';
-echo '			</dd><dd class="tabs" style="display: none;">Voting is disabled!</dd><dd class="tabs" style="display: none;">Commenting is disabled</dd><dd class="tabs" style="display: none;">		<div class="rsg2_exif_container">';
-echo '			<table class="adminlist" border="1">';
-echo '				<tbody><tr>';
-echo '					<th>Setting</th>';
-echo '					<th>Value</th>';
-/**/
-
-/**
-echo '				</tr>';
-echo '				<tr>';
-echo '				    <td><span class="rsg2_label">FileName</span></td>';
-echo '					<td>C:\xampp\htdocs\Joomla3xRelease/images/rsgallery/original/Dia_1992_10_Nr001.jpg</td>';
-echo '				</tr>';
-echo '				<tr>';
-echo '				    <td><span class="rsg2_label">FileDateTime</span></td>';
-echo '					<td>28-Sep-2018 12:23:59</td>';
-echo '				</tr>';
-echo '				<tr>';
-echo '				<td><span class="rsg2_label">resolution</span></td>';
-echo '				<td>2442x1588</td>';
-echo '				</tr>';
-echo '		    </tbody>';
-echo '		</table>';
-echo '	</div>';
-/**/
 
 echo '<br>';
 
@@ -344,51 +259,70 @@ if ($isDisplayPaginationBottom)
 }
 
 /*---------------------------------------------------------------
-   bottom pagination
+
 /*-------------------------------------------------------------*/
-
-echo '    <ul class="nav nav-tabs">';
-echo '        <li class="active">';
-echo '            <a href="#">Description</a>';
-echo '        </li>';
-echo '        <li >';
-echo '            <a href="#">Voting</a>';
-echo '        </li>';
-echo '        <li >';
-echo '            <a href="#">Comments</a>';
-echo '        </li>';
-echo '        <li >';
-echo '            <a href="#">Exif</a>';
-echo '        </li>';
-echo '    </ul>';
+global $rsgConfig;
+if ($rsgConfig->get("displayDesc") || $rsgConfig->get("displayVoting") || $rsgConfig->get("displayComments") || $rsgConfig->get("displayEXIF")) {
 
 
-echo 'Tabbable example';
+    echo '<div class="well">';
 
-echo '    <div class="tabbable">'; // <!-- Only required for left/right tabs -->
-echo '      <ul class="nav nav-tabs">';
-echo '        <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>';
-echo '        <li><a href="#tab2" data-toggle="tab">Voting</a></li>';
-echo '        <li><a href="#tab3" data-toggle="tab">Comments</a></li>';
-echo '        <li><a href="#tab4" data-toggle="tab">Exif</a></li>';
-echo '      </ul>';
-echo '      <div class="tab-content">';
-echo '        <div class="tab-pane active" id="tab1">';
-echo '          <p>I\'m in Section 1.</p>';
-echo '        </div>';
-echo '        <div class="tab-pane" id="tab2">';
-echo '          <p>Howdy, I\'m in Section 2.</p>';
-echo '        </div>';
-echo '        <div class="tab-pane" id="tab3">';
-echo '          <p>Howdy, I\'m in Section 3.</p>';
-echo '        </div>';
-echo '        <div class="tab-pane" id="tab4">';
-echo '          <p>Howdy, I\'m in Section 4.</p>';
-echo '        </div>';
-echo '      </div>';
-echo '    </div>';
+    echo '    <div class="tabbable">'; // <!-- Only required for left/right tabs -->
+    echo '      <ul class="nav nav-tabs">';
+    echo '        <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>';
+    echo '        <li><a href="#tab2" data-toggle="tab">Voting</a></li>';
+    echo '        <li><a href="#tab3" data-toggle="tab">Comments</a></li>';
+    echo '        <li><a href="#tab4" data-toggle="tab">Exif</a></li>';
+    echo '      </ul>';
+    echo '      <div class="tab-content">';
+    echo '        <div class="tab-pane active" id="tab1">';
+    echo '          <p>I\'m in Section 1.</p>';
+    echo '        </div>';
+    echo '        <div class="tab-pane" id="tab2">';
+    echo '          <p>Howdy, I\'m in Section 2.</p>';
+    echo '        </div>';
+    echo '        <div class="tab-pane" id="tab3">';
+    echo '          <p>Howdy, I\'m in Section 3.</p>';
+    echo '        </div>';
+    echo '        <div class="tab-pane" id="tab4">';
+    echo '          <p>Howdy, I\'m in Section 4.</p>';
+    echo '        </div>';
+    echo '      </div>';
+    echo '    </div>';
 
+    echo '</div>'; // well
 
+    /**
+     *
+     * echo '        <div class="rsg_sem_inl_ImgDetails">';
+     * echo '        <dl class="tabs" id="page_inline_tabs"><dt style="display:none;"></dt><dd style="display:none;"></dd><dt class="tabs page_inline_tabs_description open" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">Description</a></h3></span></dt><dt class="tabs page_inline_tabs_voting closed" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">Voting</a></h3></span></dt><dt class="tabs page_inline_tabs_comments closed" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">Comments</a></h3></span></dt><dt class="tabs page_inline_tabs_exif closed" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">EXIF</a></h3></span></dt></dl><div class="current"><dd class="tabs" style="display: block;">            <p class="rsg2_hits">Hits <span>1</span>';
+     * echo '            </p>';
+     * echo '            </dd><dd class="tabs" style="display: none;">Voting is disabled!</dd><dd class="tabs" style="display: none;">Commenting is disabled</dd><dd class="tabs" style="display: none;">        <div class="rsg2_exif_container">';
+     * echo '            <table class="adminlist" border="1">';
+     * echo '                <tbody><tr>';
+     * echo '                    <th>Setting</th>';
+     * echo '                    <th>Value</th>';
+     * /**/
+
+    /**
+     * echo '                </tr>';
+     * echo '                <tr>';
+     * echo '                    <td><span class="rsg2_label">FileName</span></td>';
+     * echo '                    <td>C:\xampp\htdocs\Joomla3xRelease/images/rsgallery/original/Dia_1992_10_Nr001.jpg</td>';
+     * echo '                </tr>';
+     * echo '                <tr>';
+     * echo '                    <td><span class="rsg2_label">FileDateTime</span></td>';
+     * echo '                    <td>28-Sep-2018 12:23:59</td>';
+     * echo '                </tr>';
+     * echo '                <tr>';
+     * echo '                <td><span class="rsg2_label">resolution</span></td>';
+     * echo '                <td>2442x1588</td>';
+     * echo '                </tr>';
+     * echo '            </tbody>';
+     * echo '        </table>';
+     * echo '    </div>';
+     * /**/
+}
 
 echo '</div>'; // <div class="rsg2">
 

@@ -73,11 +73,19 @@ class RSGallery2ModelImages extends JModelList
      * }
      * /**/
 
+
     /**
-     * populate internal state
-     *
-     * @return void
-     */
+    public function setModelState ()
+    {
+        $this->populateState();
+    }
+    /**/
+    
+    /**
+    * populate internal state
+    *
+    * @return void
+    */
     protected function populateState($ordering = 'ordering', $direction = 'dsc')
     {
         // List state information.
@@ -109,11 +117,13 @@ class RSGallery2ModelImages extends JModelList
         // thumbs per page
         $limit = $params['display_thumbs_maxPerPage'];
 
-        /* Limit may be set to one for single image 'slider' */
+        //* Limit may be set to one for single image 'slider'
+        /**
         if ($isGallerySingleImageView > 0)
         {
             $limit = 1;
         }
+        /**/
 
         $this->setState('list.limit', $limit);
 		/**/
