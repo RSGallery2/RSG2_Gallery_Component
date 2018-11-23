@@ -63,6 +63,14 @@ $isDisplaySlideshow = $config->displaySlideshowImageDisplay;
 $isThumbsShowName = $config->displayThumbsShowName;
 $displayPaginationBarMode =$config->displayPaginationBarMode;
 
+$isDisplayDesc = $config->displayDesc;
+$isDisplayVoting = $config->displayVoting;
+$isDisplayComments = $config->displayComments;
+$isDisplayEXIF = $config->displayEXIF;
+
+
+
+
 // Display none:0, Display both:1, Display top:2, Display bottom:3
 const PAGINATION_MODE_NONE   = '0';
 const PAGINATION_MODE_BOTH   = '1';
@@ -259,35 +267,112 @@ if ($isDisplayPaginationBottom)
 }
 
 /*---------------------------------------------------------------
-
+   description / voting / comments / EXIF
 /*-------------------------------------------------------------*/
-global $rsgConfig;
-if ($rsgConfig->get("displayDesc") || $rsgConfig->get("displayVoting") || $rsgConfig->get("displayComments") || $rsgConfig->get("displayEXIF")) {
 
+$isDisplayImgDetails = false;
+
+if ($isDisplayDesc || $isDisplayVoting = $config->displayVoting || $isDisplayComments || $isDisplayEXIF)
+{
+	$isDisplayImgDetails = true;
+}
+
+// Display image details
+if ($isDisplayImgDetails)
+{
+    //--- active tab --------------------------------
+
+	$isDisplayDescActive = '';
+	$isDisplayVotingActive = '';
+	$isDisplayCommentsActive = '';
+	$isDisplayEXIFActive = '';
+
+	if ($isDisplayDesc)
+    {
+	    $isDisplayDescActive = 'active';
+    }
+    else
+    {
+	    if ($isDisplayVoting)
+	    {
+		    $isDisplayVotingActive = 'active';
+	    }
+	    else
+	    {
+		    if ($isDisplayComments)
+		    {
+			    $isDisplayCommentsActive = 'active';
+		    }
+		    else
+		    {
+			    if ($isDisplayEXIF)
+			    {
+				    $isDisplayEXIFActive = 'active';
+			    }
+		    }
+	    }
+    }
 
     echo '<div class="well">';
 
     echo '    <div class="tabbable">'; // <!-- Only required for left/right tabs -->
-    echo '      <ul class="nav nav-tabs">';
-    echo '        <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>';
-    echo '        <li><a href="#tab2" data-toggle="tab">Voting</a></li>';
-    echo '        <li><a href="#tab3" data-toggle="tab">Comments</a></li>';
-    echo '        <li><a href="#tab4" data-toggle="tab">Exif</a></li>';
-    echo '      </ul>';
-    echo '      <div class="tab-content">';
-    echo '        <div class="tab-pane active" id="tab1">';
-    echo '          <p>I\'m in Section 1.</p>';
+    echo '        <ul class="nav nav-tabs">';
+    if ($isDisplayDesc)
+    {
+	    echo '        <li class="' . $isDisplayDescActive . '"><a href="#tab1" data-toggle="tab">' . JText::_('COM_RSGALLERY2_DESCRIPTION') . '</a></li>';
+    }
+    if ($isDisplayVoting)
+    {
+        echo '        <li class="' . $isDisplayVoting . '"><a href="#tab2" data-toggle="tab">' . JText::_('COM_RSGALLERY2_VOTING') . '</a></li>';
+    }
+    if ($isDisplayComments)
+    {
+        echo '        <li class="' . $isDisplayCommentsActive . '"><a href="#tab3" data-toggle="tab">' . JText::_('COM_RSGALLERY2_COMMENTS') . '</a></li>';
+    }
+    if ($isDisplayEXIF)
+    {
+        echo '        <li class="' . $isDisplayEXIFActive . '"><a href="#tab4" data-toggle="tab">' . JText::_('COM_RSGALLERY2_EXIF') . '</a></li>';
+    }
+    echo '        </ul>';
+    echo '        <div class="tab-content">';
+    if ($isDisplayDesc)
+    {
+	    echo '        <div class="tab-pane ' . $isDisplayDescActive . '" id="tab1">';
+	    echo '        <div  class="page_inline_tabs_description" >';
+	    echo '            <p>I\'m in Section 1.</p>';
+        if ($rsgConfig->get('displayHits'))
+        {
+	        echo '            <p class="rsg2_hits">' . JText::_('COM_RSGALLERY2_HITS') . '<span>' . $image->hits . '</span>';
+	        echo '            <p class="rsg2_description">' . stripslashes($image->descr) . '</p>';
+	    }
+	    echo '        </div>';
+	    echo '        </div>';
+    }
+    if ($isDisplayVoting)
+    {
+	    echo '        <div class="tab-pane ' . $isDisplayVoting . '" id="tab2">';
+	    echo '        <div  class="page_inline_tabs_voting" >';
+	    echo '            <p>Howdy, I\'m in Section 2.</p>';
+	    echo '        </div>';
+	    echo '        </div>';
+    }
+    if ($isDisplayComments)
+    {
+	    echo '        <div class="tab-pane' . $isDisplayCommentsActive . '" id="tab3">';
+	    echo '        <div  class="page_inline_tabs_comments" >';
+	    echo '            <p>Howdy, I\'m in Section 3.</p>';
+	    echo '        </div>';
+	    echo '        </div>';
+    }
+    if ($isDisplayEXIF)
+    {
+	    echo '        <div class="tab-pane' . $isDisplayEXIFActive . '" id="tab4">';
+	    echo '        <div  class="page_inline_tabs_exif" >';
+	    echo '            <p>Howdy, I\'m in Section 4.</p>';
+	    echo '        </div>';
+	    echo '        </div>';
+    }
     echo '        </div>';
-    echo '        <div class="tab-pane" id="tab2">';
-    echo '          <p>Howdy, I\'m in Section 2.</p>';
-    echo '        </div>';
-    echo '        <div class="tab-pane" id="tab3">';
-    echo '          <p>Howdy, I\'m in Section 3.</p>';
-    echo '        </div>';
-    echo '        <div class="tab-pane" id="tab4">';
-    echo '          <p>Howdy, I\'m in Section 4.</p>';
-    echo '        </div>';
-    echo '      </div>';
     echo '    </div>';
 
     echo '</div>'; // well

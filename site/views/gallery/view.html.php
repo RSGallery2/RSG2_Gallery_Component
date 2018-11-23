@@ -230,7 +230,10 @@ class RSGallery2ViewGallery extends HtmlView
 
         $config->imagePopupMode = $rsgConfig->get('displayPopup');
 
-
+		$config->displayDesc = $rsgConfig->get("displayDesc");
+		$config->displayVoting = $rsgConfig->get("displayVoting");
+		$config->displayComments = $rsgConfig->get("displayComments");
+		$config->displayEXIF = $rsgConfig->get("displayEXIF");
 
         return $config;
 	}
