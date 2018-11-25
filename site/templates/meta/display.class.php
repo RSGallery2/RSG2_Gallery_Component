@@ -700,7 +700,7 @@ class rsgDisplay extends JObject
 		require_once(JPATH_ROOT . '/components/com_rsgallery2/lib/exifreader/exifReader.php');
 		// $image = rsgInstance::getItem();
 		$gallery = rsgGalleryManager::get();
-		$image   = $gallery->getItem();;
+		$image   = $gallery->getItem();
 		$filename = JPATH_ROOT . $image->original->name;
 
 		$exif = new phpExifReader($filename);

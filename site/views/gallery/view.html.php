@@ -47,12 +47,12 @@ class RSGallery2ViewGallery extends HtmlView
 
 //        echo "RSGallery2ViewRSGallery2<br />";
 
-	    // collect parts of complete configuration
-        $this->config = $this->rootConfig ();
-
         $input = JFactory::getApplication()->input;
         $this->galleryId = $input->get('gid', 0, 'INT');
 		$this->isGallerySingleImageView = $input->get('startShowSingleImage', 0, 'INT');
+
+        // collect parts of complete configuration (checks authorization)
+        $this->config = $this->rootConfig ($this->galleryId);
 
 
         //--- fall backs ----------------------------------
@@ -123,9 +123,30 @@ class RSGallery2ViewGallery extends HtmlView
 
 		        $this->pagination = $ImageModel->getPagination();
 
-		        // Assign image url link to images
-		        $ImageModel->AssignImageUrls($this->images);
-	        }
+		        //-- additional image data -----------------------------------
+
+                // Assign image url link to images
+                $ImageModel->AssignImageUrls($this->images);
+
+                // Assign voting data to images
+                if ($this->config->displayVoting)
+                {
+                    $ImageModel->AssignImageVotingData($this->images);
+                }
+
+                // Assign comments to images
+                if ($this->config->displayComments)
+                {
+                    $ImageModel->AssignImageComments($this->images);
+                }
+
+                // Assign EXIF data to images
+                if ($this->config->displayEXIF)
+                {
+                    $ImageModel->AssignImageExifData($this->images);
+                }
+
+            }
         }
         else
         {
@@ -194,7 +215,7 @@ class RSGallery2ViewGallery extends HtmlView
 	 *
 	 * @since version
 	 */
-	public function rootConfig()
+	public function rootConfig($galleryId)
 	{
 		global $rsgConfig;
 
@@ -230,13 +251,31 @@ class RSGallery2ViewGallery extends HtmlView
 
         $config->imagePopupMode = $rsgConfig->get('displayPopup');
 
-		$config->displayDesc = $rsgConfig->get("displayDesc");
-		$config->displayVoting = $rsgConfig->get("displayVoting");
-		$config->displayComments = $rsgConfig->get("displayComments");
-		$config->displayEXIF = $rsgConfig->get("displayEXIF");
+        $config->displayDesc = $rsgConfig->get("displayDesc");
+        $config->displayVoting = $rsgConfig->get("displayVoting");
+        $config->displayComments = $rsgConfig->get("displayComments");
+        $config->displayEXIF = $rsgConfig->get("displayEXIF");
+
+        $config->isDisplayExit = $rsgConfig->get("displayEXIF");
+        $config->isDisplayImgHits = $rsgConfig->get('displayHits');
+
+        //--- Correct vars for athorisation issues ----------------------------------------
+
+        // voting authorisated
+        if ($config->displayVoting)
+        {
+            //Check if user is allowed to vote (permission rsgallery2.vote on asset com_rsgallery2.gallery."gallery id"
+            // Only valid for single gallery
+            if (! JFactory::getUser()->authorise('rsgallery2.vote', 'com_rsgallery2.gallery.' . $galleryId))
+            {
+                // ToDo: activate again $config->displayVoting = false;
+            }
+        }
 
         return $config;
 	}
+
+
 
 
 }

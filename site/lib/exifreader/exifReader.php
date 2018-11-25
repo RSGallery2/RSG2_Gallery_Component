@@ -16,38 +16,38 @@
  *   - Extract and display emdedded thumbnails
  *
  *  Tested With
- *
- * - Sony
- * - Cybershot (Sony)
- * - DSC-D700
- * - PowerShotA5
- * - Sony P71
- * - SANYO Electric Co.,Ltd
- * - SR6
- * - SX113
- * - OLYMPUS OPTICAL CO.,LTD
- * - C960Z, D460Z
- * - C3000Z
- * - Canon
- * PowerShot A40 (Canon)
- * Canon DIGITAL IXUS
- * Canon 300D
- * - RICOH
- * - Caplio RR30
- * - RDC-5300
- * - NIKON
- * - D100 (NIKON CORPORATION)
- * - E5700 (NIKON)
- * - E950
- * - CASIO QV-8000SX
- * - KODAK
- * - DC290 Zoom Digital Camera (V01.00) [Eastman Kodak Company]
- * - DC210 Zoom (V05.00) [Eastman Kodak Company]
- * - KODAK DC240 ZOOM DIGITAL CAMERA
- * - FujiFilm
- * DX10
- * FinePix40i
- * MX-1700ZOOM
+
+        - Sony
+            - Cybershot (Sony)
+            - DSC-D700
+            - PowerShotA5
+			- Sony P71
+        - SANYO Electric Co.,Ltd
+            - SR6
+            - SX113
+        - OLYMPUS OPTICAL CO.,LTD
+            - C960Z, D460Z
+			- C3000Z
+        - Canon
+            PowerShot A40 (Canon)
+            Canon DIGITAL IXUS
+			Canon 300D
+        - RICOH
+            - Caplio RR30
+            - RDC-5300
+        - NIKON
+            - D100 (NIKON CORPORATION)
+            - E5700 (NIKON)
+            - E950
+        - CASIO QV-8000SX
+        - KODAK
+            - DC290 Zoom Digital Camera (V01.00) [Eastman Kodak Company]
+            - DC210 Zoom (V05.00) [Eastman Kodak Company]
+            - KODAK DC240 ZOOM DIGITAL CAMERA
+        - FujiFilm
+            DX10
+            FinePix40i
+            MX-1700ZOOM
  *
  *
  */
@@ -277,19 +277,20 @@ define("TAG_BRIGHTNESS", "0x9203");; //Brightness
 //--------------------------------
 /** error Description  */
 /**
- * 1 - File does not exists!
- * 2 -
- * 3 - Filename not provided
- *
- * 10 - too many padding bytes
- * 11 - "invalid marker"
- * 12 - Premature end of file?
- *
- *
- * 51 - "Illegal subdirectory link"
- * 52 - "NOT EXIF FORMAT"
- * 53 - "Invalid Exif alignment marker.\n"
- * 54 - "Invalid Exif start (1)"
+  1 - File does not exists!
+  2 -
+  3 - Filename not provided
+
+  10 - too many padding bytes
+  11 - "invalid marker"
+  12 - Premature end of file?
+
+
+  51 - "Illegal subdirectory link"
+  52 - "NOT EXIF FORMAT"
+  53 - "Invalid Exif alignment marker.\n"
+  54 - "Invalid Exif start (1)"
+
  */
 
 /**
@@ -474,7 +475,7 @@ class phpExifReader
 		$this->ImageInfo["h"]["FileDateTime"] = filectime($this->file);
 		/** File node change time */
 
-		/** check whether jped image or not */
+		/** check whether jpeg image or not */
 		$a = fgetc($fp);
 		if (ord($a) != 0xff || ord(fgetc($fp)) != M_SOI)
 		{

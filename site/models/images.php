@@ -117,8 +117,8 @@ class RSGallery2ModelImages extends JModelList
         // thumbs per page
         $limit = $params['display_thumbs_maxPerPage'];
 
-        //* Limit may be set to one for single image 'slider'
-        /**
+        // Limit is set to one for single image 'slider'
+        /**/
         if ($isGallerySingleImageView > 0)
         {
             $limit = 1;
@@ -147,7 +147,7 @@ class RSGallery2ModelImages extends JModelList
         $query->select('*')
             ->from($db->quoteName('#__rsgallery2_files'))
             ->where($db->quoteName('gallery_id') . '=' . (int)$galleryId)
-            ->order('ordering');
+            ->order('ordering DESC');
 
         return $query;
         /**/
@@ -214,7 +214,8 @@ class RSGallery2ModelImages extends JModelList
         // Create URL for thumb
         // $urlThumbFile = JUri::root() . $rsgConfig->get('imgPath_thumb') . '/' . $singleFileName . '.jpg';
 
-        foreach ($images as $image) {
+        foreach ($images as $image)
+        {
             $urlPathThumbFile = $urlPathThumb . $image->name . '.jpg'; // /images/rsgallery/thumb
             $urlPathDisplayFile = $urlPathDisplay . $image->name . '.jpg'; // /images/rsgallery/display
 
@@ -299,8 +300,187 @@ class RSGallery2ModelImages extends JModelList
         return $images;
     }
 
+    /**
+     * @param $images
+     *
+     *
+     * @since version
+     */
+    public function AssignImageVotingData($images)
+    {
+        global $rsgConfig;
+        // path to image
 
 
+        foreach ($images as $image)
+        {
+
+            $image->votingData = 0;
+        }
+    }
+
+
+    /**
+     * @param $images
+     *
+     *
+     * @since version
+     */
+    public function AssignImageComments($images)
+    {
+        global $rsgConfig;
+
+        foreach ($images as $image)
+        {
+            $image->comments = 0;
+        }
+    }
+
+
+    /**
+     * @param $images
+     *
+     *
+     * @since version
+     */
+    public function AssignImageExifData($images)
+    {
+        global $rsgConfig;
+
+        // preset result
+        $ImgExifData = [];
+
+        try
+        {
+            // user requested EXIF tags
+            // $strExifTags = $rsgConfig->get('exifTags');
+            // $useExifTags = explode("|", $strExifTags);
+            $useExifTags = $rsgConfig->get('exifTags');
+            $useExifTags = array_map('strtolower', $useExifTags);
+
+            // all images (Normally one)
+            foreach ($images as $image)
+            {
+                $fileName = $image->name;
+
+                try {
+                    $pathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $fileName;
+                    if (!file_exists($pathFileName))
+                    {
+                        $pathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $fileName;
+                    }
+
+                    if (!file_exists($pathFileName))
+                    {
+                        continue;
+                    }
+
+                    // ToDo: Cache exif Data
+                    // $exifData = exif_read_data($pathFileName, 'IFD0');
+                    $exifData = exif_read_data($pathFileName);
+
+                    foreach ($exifData as $exifKey => $exifValue)
+                    {
+                        // single value pair
+                        if ( ! is_array ($exifValue)) {
+
+                            if (in_array(strtolower($exifKey), $useExifTags))
+                            {
+                                $exifValue = $this->ExifValue2String ($exifKey, $exifValue);
+                                $ImgExifData [$exifKey] = $exifValue;
+                            }
+                        }
+                        else
+                        {
+                            foreach ($exifValue as $exifSubKey => $exifSubValue)
+                            {
+                                if (in_array(strtolower($exifSubKey), $useExifTags))
+                                {
+                                    $exifSubValue = $this->ExifValue2String ($exifSubKey, $exifSubValue);
+                                    $ImgExifData [$exifSubKey] = $exifSubValue;
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (RuntimeException $e)
+                {
+                    $OutTxt = '';
+                    $OutTxt .= ': Error executing AssignImageExifData (inner): "' . $fileName . '"<br>';
+                    $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+                    $app = JFactory::getApplication();
+                    $app->enqueueMessage($OutTxt, 'error');
+                }
+
+
+                /**
+                 * $exif = exif_read_data('tests/test1.jpg', 'IFD0');
+                 * echo $exif===false ? "No header data found.<br />\n" : "Image contains headers<br />\n";
+                 *
+                 * $exif = exif_read_data('tests/test2.jpg', 0, true);
+                 * echo "test2.jpg:<br />\n";
+                 * foreach ($exif as $key => $section) {
+                 * foreach ($section as $name => $val) {
+                 * echo "$key.$name: $val<br />\n";
+                 * }
+                 * }
+                 * /**/
+
+                /**
+                 * $filedata = exif_read_data($images[$i]);
+                 * if(is_array($filedata) && isset($filedata['ImageDescription'])){
+                 * $filename = $filedata['ImageDescription'];
+                 * } else{
+                 * $filename = explode('.', basename($images[$i]));
+                 * $filename = $filename[0];
+                 * }
+                 * /**/
+
+                // $ImgExifData =
+            } // all images
+
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= ': Error executing AssignImageExifData (outer)' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+
+        $image->exifData = $ImgExifData;
+
+    }
+
+    private function  ExifValue2String ($exifKey, $exifValue)
+    {
+
+        try
+        {
+            switch ($exifKey)
+            {
+                case 'FileDateTime':  $exifValue = date("d-M-Y H:i:s", $exifValue); break;
+
+
+            }
+
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= ': Error executing ExifValue2String exifKey: ' . $exifKey . ' exifValue: ' . $exifValue . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return  $exifValue;
+    }
 
 
 

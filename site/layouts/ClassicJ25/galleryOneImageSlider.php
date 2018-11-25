@@ -25,6 +25,7 @@ if (false)
         . '* Add call to slideshow <br>'
         . '* !!! Sub galleries at the end !!!<br>'
         . '* slideshow button<br>'
+        . '* !!! slideshow button only if image count ... also in other<br>'
         . '* Check original code again<br>'
         . '* <br>'
 //        . '* <br>'
@@ -47,13 +48,6 @@ if (count ($images) < 1)
 $image = $images [0];
 $config = $displayData['config'];
 
-//--- include css --------------------------------------
-
-$doc          = JFactory::getDocument();
-$doc->addStyleSheet(JURI_SITE . "/components/com_rsgallery2/lib/rsgsearch/rsgsearch.css");
-$template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $config->template;
-$doc->addStyleSheet($template_dir . "/css/template.css", "text/css");
-
 //--- definition data --------------------------------------
 
 $galleryId = $gallery->id;
@@ -68,7 +62,7 @@ $isDisplayVoting = $config->displayVoting;
 $isDisplayComments = $config->displayComments;
 $isDisplayEXIF = $config->displayEXIF;
 
-
+$isDisplayImgHits = $config->isDisplayImgHits;
 
 
 // Display none:0, Display both:1, Display top:2, Display bottom:3
@@ -92,6 +86,19 @@ switch ($displayPaginationBarMode)
     case PAGINATION_MODE_BOTTOM:
         $isDisplayPaginationBottom = true; 
     break;
+}
+
+//--- include css --------------------------------------
+
+$doc          = JFactory::getDocument();
+$doc->addStyleSheet(JURI_SITE . "/components/com_rsgallery2/lib/rsgsearch/rsgsearch.css");
+$template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $config->template;
+$doc->addStyleSheet($template_dir . "/css/template.css", "text/css");
+
+//Adding stylesheet for voting
+if ($isDisplayVoting)
+{
+    $doc->addStyleSheet(JURI_SITE . "/components/com_rsgallery2/lib/rsgvoting/rsgvoting.css");
 }
 
 /*---------------------------------------------------------------
@@ -137,17 +144,17 @@ if ($isDisplaySlideshow)
     <?php
 }
 
-echo '<div class="rsg2-clr"></div>';
-
 /*---------------------------------------------------------------
-   image box ...
-/*-------------------------------------------------------------*/
+   RSG part: image box ...
+---------------------------------------------------------------*/
+
+echo '<div class="rsg2-clr"></div>';
 
 echo '<br>';
 
 /*---------------------------------------------------------------
    top pagination
-/*-------------------------------------------------------------*/
+---------------------------------------------------------------*/
 
 if ($isDisplayPaginationTop)
 {
@@ -162,7 +169,7 @@ if ($isDisplayPaginationTop)
 
 /*---------------------------------------------------------------
    image
-/*-------------------------------------------------------------*/
+---------------------------------------------------------------*/
 
 // ToDo: count image hits
 // ToDO count gallery hits other view
@@ -253,7 +260,7 @@ echo '<br>';
 
 /*---------------------------------------------------------------
    bottom pagination
-/*-------------------------------------------------------------*/
+---------------------------------------------------------------*/
 
 if ($isDisplayPaginationBottom)
 {
@@ -268,7 +275,7 @@ if ($isDisplayPaginationBottom)
 
 /*---------------------------------------------------------------
    description / voting / comments / EXIF
-/*-------------------------------------------------------------*/
+---------------------------------------------------------------*/
 
 $isDisplayImgDetails = false;
 
@@ -317,99 +324,236 @@ if ($isDisplayImgDetails)
 
     echo '    <div class="tabbable">'; // <!-- Only required for left/right tabs -->
     echo '        <ul class="nav nav-tabs">';
+
+    /*---------------------------------------------------------------
+       tab headers
+    ---------------------------------------------------------------*/
+
+    //--- tab headers --------------------------------
+
     if ($isDisplayDesc)
     {
-	    echo '        <li class="' . $isDisplayDescActive . '"><a href="#tab1" data-toggle="tab">' . JText::_('COM_RSGALLERY2_DESCRIPTION') . '</a></li>';
+	    echo '        <li class="' . $isDisplayDescActive . '"><a href="#tabDesc" data-toggle="tab">' . JText::_('COM_RSGALLERY2_DESCRIPTION') . '</a></li>';
     }
     if ($isDisplayVoting)
     {
-        echo '        <li class="' . $isDisplayVoting . '"><a href="#tab2" data-toggle="tab">' . JText::_('COM_RSGALLERY2_VOTING') . '</a></li>';
+        echo '        <li class="' . $isDisplayVoting . '"><a href="#tabVote" data-toggle="tab">' . JText::_('COM_RSGALLERY2_VOTING') . '</a></li>';
     }
     if ($isDisplayComments)
     {
-        echo '        <li class="' . $isDisplayCommentsActive . '"><a href="#tab3" data-toggle="tab">' . JText::_('COM_RSGALLERY2_COMMENTS') . '</a></li>';
+        echo '        <li class="' . $isDisplayCommentsActive . '"><a href="#tabComment" data-toggle="tab">' . JText::_('COM_RSGALLERY2_COMMENTS') . '</a></li>';
     }
     if ($isDisplayEXIF)
     {
-        echo '        <li class="' . $isDisplayEXIFActive . '"><a href="#tab4" data-toggle="tab">' . JText::_('COM_RSGALLERY2_EXIF') . '</a></li>';
+        echo '        <li class="' . $isDisplayEXIFActive . '"><a href="#tabExif" data-toggle="tab">' . JText::_('COM_RSGALLERY2_EXIF') . '</a></li>';
     }
     echo '        </ul>';
+
+    /*---------------------------------------------------------------
+       tab content
+    ---------------------------------------------------------------*/
+
     echo '        <div class="tab-content">';
+
+    //--- image description --------------------------------
+
     if ($isDisplayDesc)
     {
-	    echo '        <div class="tab-pane ' . $isDisplayDescActive . '" id="tab1">';
-	    echo '        <div  class="page_inline_tabs_description" >';
-	    echo '            <p>I\'m in Section 1.</p>';
-        if ($rsgConfig->get('displayHits'))
+	    echo '        <div class="tab-pane ' . $isDisplayDescActive . '" id="tabDesc">';
+	    echo '            <div  class="page_inline_tabs_description" >';
+	    // Hits
+        if ($isDisplayImgHits)
         {
-	        echo '            <p class="rsg2_hits">' . JText::_('COM_RSGALLERY2_HITS') . '<span>' . $image->hits . '</span>';
-	        echo '            <p class="rsg2_description">' . stripslashes($image->descr) . '</p>';
-	    }
-	    echo '        </div>';
+	        //echo '            <p class="rsg2_hits">' . JText::_('COM_RSGALLERY2_HITS') . '&nbsp;<span>' . $image->hits . '</span>';
+            echo '            <dl class="dl-horizontal">';
+            echo '                <dt>' . JText::_('COM_RSGALLERY2_HITS') . '</dt><dd>' . $image->hits . '</dd>';
+            echo '            </dl>';
+        }
+        // Description
+        echo '                <p class="rsg2_description">' . nl2br($image->descr) . '</p>';
+	    echo '            </div>';
 	    echo '        </div>';
     }
+
+    //--- voting --------------------------------
+
     if ($isDisplayVoting)
     {
-	    echo '        <div class="tab-pane ' . $isDisplayVoting . '" id="tab2">';
-	    echo '        <div  class="page_inline_tabs_voting" >';
-	    echo '            <p>Howdy, I\'m in Section 2.</p>';
-	    echo '        </div>';
+	    echo '        <div class="tab-pane ' . $isDisplayVoting . '" id="tabVote">';
+	    echo '            <div  class="page_inline_tabs_voting" >';
+        if ( ! empty ($image->votingData))
+        {
+            echo $this->htmlVotingData ($image->votingData);
+        }
+        else
+        {
+            echo '                <p>' . JText::_('COM_RSGALLERY2_VOTING_IS_DISABLED') . '</p>';
+        }
+        echo '            </div>';
 	    echo '        </div>';
     }
+
+    //--- comments --------------------------------
+
     if ($isDisplayComments)
     {
-	    echo '        <div class="tab-pane' . $isDisplayCommentsActive . '" id="tab3">';
-	    echo '        <div  class="page_inline_tabs_comments" >';
-	    echo '            <p>Howdy, I\'m in Section 3.</p>';
-	    echo '        </div>';
+	    echo '        <div class="tab-pane' . $isDisplayCommentsActive . '" id="tabComment">';
+	    echo '            <div  class="page_inline_tabs_comments" >';
+        if ( ! empty ($image->Comments))
+        {
+            echo $this->htmlComments ($image->Comments);
+        }
+        else
+        {
+            echo '                <p>' . JText::_('COM_RSGALLERY2_COMMENTING_IS_DISABLED') . '</p>';
+        }
+	    echo '            </div>';
 	    echo '        </div>';
     }
+
+    //--- EXIF data --------------------------------
+
     if ($isDisplayEXIF)
     {
-	    echo '        <div class="tab-pane' . $isDisplayEXIFActive . '" id="tab4">';
-	    echo '        <div  class="page_inline_tabs_exif" >';
-	    echo '            <p>Howdy, I\'m in Section 4.</p>';
-	    echo '        </div>';
+	    echo '        <div class="tab-pane' . $isDisplayEXIFActive . '" id="tabExif">';
+	    echo '            <div  class="page_inline_tabs_exif" >';
+	    //echo '                <p>Howdy, I\'m in Section 4.</p>';
+        if ( ! empty ($image->exifData))
+        {
+            echo htmlExifData ($image->exifData);
+        }
+        else
+        {
+            // echo '                <p>' . JText::_('COM_RSGALLERY2_NO_EXIF_ITEM_SELECTED_') . '</p>';
+        }
+	    echo '            </div>';
 	    echo '        </div>';
     }
-    echo '        </div>';
-    echo '    </div>';
+
+    echo '        </div>'; // tab-content
+    echo '    </div>'; // tabbable
 
     echo '</div>'; // well
 
     /**
      *
-     * echo '        <div class="rsg_sem_inl_ImgDetails">';
-     * echo '        <dl class="tabs" id="page_inline_tabs"><dt style="display:none;"></dt><dd style="display:none;"></dd><dt class="tabs page_inline_tabs_description open" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">Description</a></h3></span></dt><dt class="tabs page_inline_tabs_voting closed" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">Voting</a></h3></span></dt><dt class="tabs page_inline_tabs_comments closed" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">Comments</a></h3></span></dt><dt class="tabs page_inline_tabs_exif closed" style="cursor: pointer;"><span><h3><a href="javascript:void(0);">EXIF</a></h3></span></dt></dl><div class="current"><dd class="tabs" style="display: block;">            <p class="rsg2_hits">Hits <span>1</span>';
-     * echo '            </p>';
-     * echo '            </dd><dd class="tabs" style="display: none;">Voting is disabled!</dd><dd class="tabs" style="display: none;">Commenting is disabled</dd><dd class="tabs" style="display: none;">        <div class="rsg2_exif_container">';
-     * echo '            <table class="adminlist" border="1">';
-     * echo '                <tbody><tr>';
-     * echo '                    <th>Setting</th>';
-     * echo '                    <th>Value</th>';
-     * /**/
-
-    /**
-     * echo '                </tr>';
-     * echo '                <tr>';
-     * echo '                    <td><span class="rsg2_label">FileName</span></td>';
-     * echo '                    <td>C:\xampp\htdocs\Joomla3xRelease/images/rsgallery/original/Dia_1992_10_Nr001.jpg</td>';
-     * echo '                </tr>';
-     * echo '                <tr>';
-     * echo '                    <td><span class="rsg2_label">FileDateTime</span></td>';
-     * echo '                    <td>28-Sep-2018 12:23:59</td>';
-     * echo '                </tr>';
-     * echo '                <tr>';
-     * echo '                <td><span class="rsg2_label">resolution</span></td>';
-     * echo '                <td>2442x1588</td>';
-     * echo '                </tr>';
-     * echo '            </tbody>';
-     * echo '        </table>';
-     * echo '    </div>';
+    echo '    <div class="rsg_sem_inl_ImgDetails">';
+    echo '    	<dl class="tabs" id="page_inline_tabs">';
+    echo '    		<dt style="display:none;"/>';
+    echo '    		<dd style="display:none;"/>';
+    echo '    		<dt class="tabs page_inline_tabs_description open" style="cursor: pointer;">';
+    echo '    			<span>';
+    echo '    				<h3>';
+    echo '    					<a href="javascript:void(0);">Description</a>';
+    echo '    				</h3>';
+    echo '    			</span>';
+    echo '    		</dt>';
+    echo '    		<dt class="tabs page_inline_tabs_voting closed" style="cursor: pointer;">';
+    echo '    			<span>';
+    echo '    				<h3>';
+    echo '    					<a href="javascript:void(0);">Voting</a>';
+    echo '    				</h3>';
+    echo '    			</span>';
+    echo '    		</dt>';
+    echo '    		<dt class="tabs page_inline_tabs_comments closed" style="cursor: pointer;">';
+    echo '    			<span>';
+    echo '    				<h3>';
+    echo '    					<a href="javascript:void(0);">Comments</a>';
+    echo '    				</h3>';
+    echo '    			</span>';
+    echo '    		</dt>';
+    echo '    		<dt class="tabs page_inline_tabs_exif closed" style="cursor: pointer;">';
+    echo '    			<span>';
+    echo '    				<h3>';
+    echo '    					<a href="javascript:void(0);">EXIF</a>';
+    echo '    				</h3>';
+    echo '    			</span>';
+    echo '    		</dt>';
+    echo '    	</dl>';
+    echo '    	<div class="current">';
+    echo '    		<dd class="tabs" style="display: block;">';
+    echo '    			<p class="rsg2_hits">Hits <span>1</span>';';
+    echo '    			</p>';';
+    echo '    		</dd>';
+    echo '    		<dd class="tabs" style="display: none;">Voting is disabled!</dd>';
+    echo '    		<dd class="tabs" style="display: none;">Commenting is disabled</dd>';
+    echo '    		<dd class="tabs" style="display: none;">';
+    echo '    			<div class="rsg2_exif_container">';';
+    echo '    				<table class="adminlist" border="1">';';
+    echo '    					<tbody>';
+    echo '    						<tr>';';
+    echo '    							<th>Setting</th>';';
+    echo '    							<th>Value</th>';';
+    echo '    						</tr>';';
+    echo '    						<tr>';';
+    echo '    							<td>';
+    echo '    								<span class="rsg2_label">FileName</span>';
+    echo '    							</td>';';
+    echo '    							<td>C:\xampp\htdocs\Joomla3xRelease/images/rsgallery/original/Dia_1992_10_Nr001.jpg</td>';';
+    echo '    						</tr>';';
+    echo '    						<tr>';';
+    echo '    							<td>';
+    echo '    								<span class="rsg2_label">FileDateTime</span>';
+    echo '    							</td>';';
+    echo '    							<td>28-Sep-2018 12:23:59</td>';';
+    echo '    						</tr>';';
+    echo '    						<tr>';';
+    echo '    							<td>';
+    echo '    								<span class="rsg2_label">resolution</span>';
+    echo '    							</td>';';
+    echo '    							<td>2442x1588</td>';';
+    echo '    						</tr>';';
+    echo '    					</tbody>';';
+    echo '    				</table>';';
+    echo '    			</div>';
+    echo '    		</dd>';
+    echo '    	</div>	';
+    echo '    </div>';
      * /**/
 }
 
 echo '</div>'; // <div class="rsg2">
+
+function htmlVotingData($votingData)
+{
+    $Html = [];
+
+    $Html[] = "";
+
+    return $Html;
+}
+
+function htmlComments ($comments)
+{
+    $Html = [];
+
+    $Html[] = "";
+
+    return $Html;
+}
+
+function htmlExifData ($exifData)
+{
+    $Html = [];
+
+    $Html[] = "";
+
+    $Html[] =  '        <div class="rsg2_exif_container">';
+    $Html[] =  '            <dl class="dl-horizontal">';
+
+    // user requested EXIF tags
+    foreach ($exifData as $exifKey => $exifValue)
+    {
+        $Html[] =  '            <dt>' . $exifKey . '</dt><dd>' . $exifValue . '</dd>';
+    }
+
+    $Html[] =  '            </dl>';
+    $Html[] =  '		</div>'; // rsg2_exif_container
+
+
+    return implode("\n", $Html);
+}
+
 
 ?>
 

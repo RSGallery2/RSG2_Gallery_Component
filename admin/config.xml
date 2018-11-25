@@ -846,7 +846,6 @@
 				multiple="true"
 		>
 			<option value="resolutionUnit">Resolution unit</option>
-			<option value="resolutionUnit">Resolution unit</option>
 			<option value="FileName">Filename</option>
 			<option value="FileSize">Filesize</option>
 			<option value="FileDateTime">File Date</option>
