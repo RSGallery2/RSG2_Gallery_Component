@@ -381,9 +381,9 @@ if ($isDisplayImgDetails)
     {
 	    echo '        <div class="tab-pane ' . $isDisplayVoting . '" id="tabVote">';
 	    echo '            <div  class="page_inline_tabs_voting" >';
-        if ( ! empty ($image->votingData))
+        if ( ! empty ($image->ratingData))
         {
-            echo $this->htmlRatingData ($image->votingData);
+            echo htmlRatingData ($image->ratingData);
         }
         else
         {
@@ -401,7 +401,7 @@ if ($isDisplayImgDetails)
 	    echo '            <div  class="page_inline_tabs_comments" >';
         if ( ! empty ($image->Comments))
         {
-            echo $this->htmlComments ($image->Comments);
+            echo htmlComments ($image->Comments);
         }
         else
         {
@@ -514,6 +514,43 @@ if ($isDisplayImgDetails)
 
 echo '</div>'; // <div class="rsg2">
 
+
+function htmlStars ($idx, $average)
+{
+    $html = '';
+
+    $idx ++;
+
+    // Full Star
+    if ($idx <= (double) $average)
+    {
+        $html = '                    <i class="icon-star"></i>';
+    }
+    else
+    {
+        //  empty Star
+        if ($idx > (double) $average)
+        {
+            $html = '                    <i class="icon-star-empty"></i>';
+        }
+        else
+        {
+            // Half Star
+            if ($idx < (double) $average)
+            {
+                $html = '                    <i class="icon-star-2"></i>';
+            }
+            else
+            {
+
+            }
+        }
+    }
+
+    return $html;
+}
+
+
 function htmlRatingData($votingData)
 {
     $Html = [];
@@ -529,8 +566,42 @@ function htmlRatingData($votingData)
 	//	$Html[] =  '            <dt>' . $exifKey . '</dt><dd>' . $exifValue . '</dd>';
 	}
     // &nbsp
-	$Html[] =  '            <dt>' . JText::_('COM_RSGALLERY2_RATING') . '</dt>'
-                         . '<dd>' . $votingData->avarage . ' / ' . $votingData->count . ' ' . JText::_('COM_RSGALLERY2_RATING') . '</dd>';
+	$Html[] =  '            <dt>' . JText::_('COM_RSGALLERY2_RATING') . '</dt>';
+    $Html[] =  '            <dd>';
+
+    $Html[] =  '                <div class="rate-container">';
+    for ($idx = 0; $idx < 5; $idx++)
+    {
+        $Html[] =  htmlStars ($idx, $votingData->average);
+    }
+    $Html[] =  '                    (' . $votingData->count . ' X ' . JText::_('COM_RSGALLERY2_VOTES') . ')';
+    $Html[] =  '                </div>';
+
+
+    $Html[] =  '            </dd>';
+/**
+-------------------
+.rate-container > i {
+    float: right;
+}
+
+.rate-container > i:HOVER,
+.rate-container > i:HOVER ~ i {
+    color: gold;
+}
+HTML:
+<div class="rate-container">
+    <i class="fa fa-star "></i>
+    <i class="fa fa-star "></i>
+    <i class="fa fa-star "></i>
+    <i class="fa fa-star "></i>
+    <i class="fa fa-star "></i>
+</div>
+---------------------------------
+/**/
+
+//    . $votingData->avarage . ' / ' . $votingData->count . ' ' . JText::_('COM_RSGALLERY2_VOTES') . '</dd>';
+
 
 /**
 <table border="0" width="200">
@@ -544,7 +615,7 @@ function htmlRatingData($votingData)
 	$Html[] =  '            </dl>';
 	$Html[] =  '		</div>'; // rsg2_exif_container
 
-	return $Html;
+    return implode("\n", $Html);
 }
 
 function htmlComments ($comments)
@@ -553,7 +624,7 @@ function htmlComments ($comments)
 
     $Html[] = "";
 
-    return $Html;
+    return implode("\n", $Html);
 }
 
 function htmlExifData ($exifData)

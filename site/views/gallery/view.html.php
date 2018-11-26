@@ -268,7 +268,7 @@ class RSGallery2ViewGallery extends HtmlView
             // Only valid for single gallery
             if (! JFactory::getUser()->authorise('rsgallery2.vote', 'com_rsgallery2.gallery.' . $galleryId))
             {
-                // ToDo: activate again $config->displayVoting = false;
+                $config->displayVoting = false;
             }
         }
 
