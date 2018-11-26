@@ -131,7 +131,7 @@ class RSGallery2ViewGallery extends HtmlView
                 // Assign voting data to images
                 if ($this->config->displayVoting)
                 {
-                    $ImageModel->AssignImageVotingData($this->images);
+                    $ImageModel->AssignImageRatingData($this->images);
                 }
 
                 // Assign comments to images
@@ -259,7 +259,7 @@ class RSGallery2ViewGallery extends HtmlView
         $config->isDisplayExit = $rsgConfig->get("displayEXIF");
         $config->isDisplayImgHits = $rsgConfig->get('displayHits');
 
-        //--- Correct vars for athorisation issues ----------------------------------------
+        //--- Correct vars for authorisation issues ----------------------------------------
 
         // voting authorisated
         if ($config->displayVoting)

@@ -383,7 +383,7 @@ if ($isDisplayImgDetails)
 	    echo '            <div  class="page_inline_tabs_voting" >';
         if ( ! empty ($image->votingData))
         {
-            echo $this->htmlVotingData ($image->votingData);
+            echo $this->htmlRatingData ($image->votingData);
         }
         else
         {
@@ -514,13 +514,37 @@ if ($isDisplayImgDetails)
 
 echo '</div>'; // <div class="rsg2">
 
-function htmlVotingData($votingData)
+function htmlRatingData($votingData)
 {
     $Html = [];
 
     $Html[] = "";
 
-    return $Html;
+	$Html[] =  '        <div class="rsg2_exif_container">';
+	$Html[] =  '            <dl class="dl-horizontal">';
+
+	// user requested EXIF tags
+	//foreach ($votingData as $exifKey => $exifValue)
+	{
+	//	$Html[] =  '            <dt>' . $exifKey . '</dt><dd>' . $exifValue . '</dd>';
+	}
+    // &nbsp
+	$Html[] =  '            <dt>' . JText::_('COM_RSGALLERY2_RATING') . '</dt>'
+                         . '<dd>' . $votingData->avarage . ' / ' . $votingData->count . ' ' . JText::_('COM_RSGALLERY2_RATING') . '</dd>';
+
+/**
+<table border="0" width="200">
+	<tr>
+		<td><?php echo JText::_('COM_RSGALLERY2_RATING'); ?>:</td>
+		<td><?php echo rsgVoting::calculateAverage($id); ?>&nbsp;/&nbsp;<?php echo rsgVoting::getVoteCount($id); ?>&nbsp;<?php echo JText::_('COM_RSGALLERY2_VOTES'); ?></td>
+	</tr>
+</table>
+/**/
+
+	$Html[] =  '            </dl>';
+	$Html[] =  '		</div>'; // rsg2_exif_container
+
+	return $Html;
 }
 
 function htmlComments ($comments)

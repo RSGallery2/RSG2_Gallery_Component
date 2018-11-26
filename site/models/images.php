@@ -306,7 +306,7 @@ class RSGallery2ModelImages extends JModelList
      *
      * @since version
      */
-    public function AssignImageVotingData($images)
+    public function AssignImageRatingData($images)
     {
         global $rsgConfig;
         // path to image
@@ -314,8 +314,21 @@ class RSGallery2ModelImages extends JModelList
 
         foreach ($images as $image)
         {
+	        $image->ratingData = 0;
 
-            $image->votingData = 0;
+			// Try ...
+	        //
+
+            /**/
+	        $RatingData = new stdClass();
+	        $RatingData->avarage= 3;
+	        $RatingData->count = 15;
+
+	        // catch
+
+	        $image->ratingData = $RatingData;
+
+            /**/
         }
     }
 
