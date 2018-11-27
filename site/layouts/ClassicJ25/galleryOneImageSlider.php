@@ -521,28 +521,34 @@ function htmlStars ($idx, $average)
 
     $idx ++;
 
-    // Full Star
-    if ($idx <= (double) $average)
+	$intAvg = (int) floor($average);
+	//$intAvg = intdiv($average); // PHP 7
+	//$avgRem = ((double) $average) % 1;
+	$avgRem = ((double) $average) - $intAvg;
+
+	// below: Full Star
+    if ($idx <=  $intAvg)
     {
-        $html = '                    <i class="icon-star"></i>';
+        $html = '                    <i class="icon-star checked"></i>';
     }
     else
     {
-        //  empty Star
-        if ($idx > (double) $average)
+        // above empty Star
+        if ($idx > ($intAvg+1))
         {
-            $html = '                    <i class="icon-star-empty"></i>';
+            $html = '                    <i class="icon-star-empty "></i>';
         }
         else
         {
             // Half Star
-            if ($idx < (double) $average)
+            if ($avgRem > 0.49)
             {
-                $html = '                    <i class="icon-star-2"></i>';
+                $html = '                    <i class="icon-star-2 checked"></i>';
             }
             else
             {
-
+	            // empty Star
+	            $html = '                    <i class="icon-star-empty "></i>';
             }
         }
     }
@@ -574,7 +580,7 @@ function htmlRatingData($votingData)
     {
         $Html[] =  htmlStars ($idx, $votingData->average);
     }
-    $Html[] =  '                    (' . $votingData->count . ' X ' . JText::_('COM_RSGALLERY2_VOTES') . ')';
+    $Html[] =  '                    <span>(' . $votingData->avarage . ' / ' . $votingData->count . '&nbsp' . JText::_('COM_RSGALLERY2_VOTES') . ')</span>';
     $Html[] =  '                </div>';
 
 
