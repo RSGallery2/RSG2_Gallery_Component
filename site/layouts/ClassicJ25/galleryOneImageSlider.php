@@ -556,6 +556,70 @@ function htmlStars ($idx, $average)
     return $html;
 }
 
+function htmlUserRatingForm ()
+{
+//	$html = [];
+
+	/**
+	 * https://bootsnipp.com/snippets/featured/average-user-rating-rating-breakdown
+	 *
+	$html[] = '
+	<div class="rating-block">
+	<h4>Average user rating</h4>
+	<h2 class="bold padding-bottom-7">4.3 <small>/ 5</small></h2>
+	<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+	<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+	</button>
+	<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+	<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+	</button>
+	<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+	<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+	</button>
+	<button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
+	<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+	</button>
+	<button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
+	<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+	</button>
+	</div>
+	';
+	/**/
+
+	/**/
+
+    /* https://codepen.io/tammykimkim/pen/yegZRw */
+
+	$html[] = '
+	<div class="rating-block">
+	<h4>Average user rating</h4>
+	<h2 class="bold padding-bottom-7">4.3 <small>/ 5</small></h2>
+	<button type="button" class="btn btn-warning btn-mini" aria-label="Left Align">
+	<span class="icon-star" aria-hidden="true"></span>
+	</button>
+	<button type="button" class="btn btn-warning btn-mini" aria-label="Left Align">
+	<span class="icon-star" aria-hidden="true"></span>
+	</button>
+	<button type="button" class="btn btn-warning btn-mini" aria-label="Left Align">
+	<span class="icon-star" aria-hidden="true"></span>
+	</button>
+	<button type="button" class="btn btn-default btn-grey btn-mini" aria-label="Left Align">
+	<span class="icon-star" aria-hidden="true"></span>
+	</button>
+	<button type="button" class="btn btn-default btn-grey btn-mini" aria-label="Left Align">
+	<span class="icon-star" aria-hidden="true"></span>
+	</button>
+	</div>
+	';
+	/**/
+
+	return implode("\n", $html);
+}
+
+
+
+
+
 
 function htmlRatingData($votingData)
 {
@@ -563,63 +627,39 @@ function htmlRatingData($votingData)
 
     $Html[] = "";
 
-	$Html[] =  '        <div class="rsg2_exif_container">';
-	$Html[] =  '            <dl class="dl-horizontal">';
+	$Html[] =  '        <div class="rsg2_rating_container">';
 
-	// user requested EXIF tags
-	//foreach ($votingData as $exifKey => $exifValue)
-	{
-	//	$Html[] =  '            <dt>' . $exifKey . '</dt><dd>' . $exifValue . '</dd>';
-	}
-    // &nbsp
-	$Html[] =  '            <dt>' . JText::_('COM_RSGALLERY2_RATING') . '</dt>';
-    $Html[] =  '            <dd>';
+	//--- result of rating ------------------------------------
 
-    $Html[] =  '                <div class="rate-container">';
+	$Html[] =  '            <div class="rating-result">';
+	$Html[] =  '                <dl class="dl-horizontal">';
+
+	$Html[] =  '                    <dt>' . JText::_('COM_RSGALLERY2_RATING') . '</dt>';
+    $Html[] =  '                    <dd>';
+
+    $Html[] =  '                        <div class="rate-container">';
     for ($idx = 0; $idx < 5; $idx++)
     {
-        $Html[] =  htmlStars ($idx, $votingData->average);
+        $Html[] =  '                    ' . htmlStars ($idx, $votingData->average);
     }
-    $Html[] =  '                    <span>(' . $votingData->avarage . ' / ' . $votingData->count . '&nbsp' . JText::_('COM_RSGALLERY2_VOTES') . ')</span>';
-    $Html[] =  '                </div>';
+    $Html[] =  '                            <span>(' . $votingData->average . ' / ' . $votingData->count . '&nbsp' . JText::_('COM_RSGALLERY2_VOTES') . ')</span>';
+    $Html[] =  '                        </div>';
 
 
-    $Html[] =  '            </dd>';
-/**
--------------------
-.rate-container > i {
-    float: right;
-}
+    $Html[] =  '                    </dd>';
 
-.rate-container > i:HOVER,
-.rate-container > i:HOVER ~ i {
-    color: gold;
-}
-HTML:
-<div class="rate-container">
-    <i class="fa fa-star "></i>
-    <i class="fa fa-star "></i>
-    <i class="fa fa-star "></i>
-    <i class="fa fa-star "></i>
-    <i class="fa fa-star "></i>
-</div>
----------------------------------
-/**/
+	$Html[] =  '                </dl>';
+	$Html[] =  '            </div>'; // rating-result
 
-//    . $votingData->avarage . ' / ' . $votingData->count . ' ' . JText::_('COM_RSGALLERY2_VOTES') . '</dd>';
+	//--- user rating input ------------------------------------
 
 
-/**
-<table border="0" width="200">
-	<tr>
-		<td><?php echo JText::_('COM_RSGALLERY2_RATING'); ?>:</td>
-		<td><?php echo rsgVoting::calculateAverage($id); ?>&nbsp;/&nbsp;<?php echo rsgVoting::getVoteCount($id); ?>&nbsp;<?php echo JText::_('COM_RSGALLERY2_VOTES'); ?></td>
-	</tr>
-</table>
-/**/
+	$Html[] =  '            <div class="rating-input">';
+    $Html[] =  '            ' . htmlUserRatingForm ();
+	$Html[] =  '            </div>'; // rating-input
 
-	$Html[] =  '            </dl>';
-	$Html[] =  '		</div>'; // rsg2_exif_container
+
+    $Html[] =  '		</div>'; // rsg2_exif_container
 
     return implode("\n", $Html);
 }
