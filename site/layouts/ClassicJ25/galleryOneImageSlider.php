@@ -63,6 +63,8 @@ $isDisplayComments = $config->displayComments;
 $isDisplayEXIF = $config->displayEXIF;
 
 $isDisplayImgHits = $config->isDisplayImgHits;
+$isVotingEnabled = true; // $config->isVotingEnabled
+
 
 
 // Display none:0, Display both:1, Display top:2, Display bottom:3
@@ -653,11 +655,11 @@ function htmlRatingData($votingData)
 
 	//--- user rating input ------------------------------------
 
-
-	$Html[] =  '            <div class="rating-input">';
-    $Html[] =  '            ' . htmlUserRatingForm ();
-	$Html[] =  '            </div>'; // rating-input
-
+    if ($isVotingEnabled) {
+        $Html[] = '            <div class="rating-input">';
+        $Html[] = '            ' . htmlUserRatingForm();
+        $Html[] = '            </div>'; // rating-input
+    }
 
     $Html[] =  '		</div>'; // rsg2_exif_container
 
