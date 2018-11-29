@@ -63,8 +63,7 @@ $isDisplayComments = $config->displayComments;
 $isDisplayEXIF = $config->displayEXIF;
 
 $isDisplayImgHits = $config->isDisplayImgHits;
-$isVotingEnabled = true; // $config->isVotingEnabled
-
+$isVotingEnabled = $config->isVotingEnabled;
 
 
 // Display none:0, Display both:1, Display top:2, Display bottom:3
@@ -385,7 +384,7 @@ if ($isDisplayImgDetails)
 	    echo '            <div  class="page_inline_tabs_voting" >';
         if ( ! empty ($image->ratingData))
         {
-            echo htmlRatingData ($image->ratingData);
+            echo htmlRatingData ($image->ratingData, $isVotingEnabled);
         }
         else
         {
@@ -623,7 +622,7 @@ function htmlUserRatingForm ()
 
 
 
-function htmlRatingData($votingData)
+function htmlRatingData($votingData, $isVotingEnabled)
 {
     $Html = [];
 
@@ -652,6 +651,13 @@ function htmlRatingData($votingData)
 
 	$Html[] =  '                </dl>';
 	$Html[] =  '            </div>'; // rating-result
+
+	$Html[] =  '                <hr>';
+
+	//--- result of rating ------------------------------------
+
+	COM_RSGALLERY2_AVERAGE_USER_RATING
+
 
 	//--- user rating input ------------------------------------
 

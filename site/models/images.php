@@ -321,8 +321,8 @@ class RSGallery2ModelImages extends JModelList
 
             /**/
 	        $RatingData = new stdClass();
-	        $RatingData->average= 2.4;
-	        //$RatingData->average= 2.5;
+	        //$RatingData->average= 2.4;
+	        $RatingData->average= 2.5;
 	        //$RatingData->average= 3.6;
 	        $RatingData->count = 15;
 

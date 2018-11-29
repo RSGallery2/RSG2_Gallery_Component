@@ -266,9 +266,10 @@ class RSGallery2ViewGallery extends HtmlView
         {
             //Check if user is allowed to vote (permission rsgallery2.vote on asset com_rsgallery2.gallery."gallery id"
             // Only valid for single gallery
+	        $config->isVotingEnabled = true;
             if (! JFactory::getUser()->authorise('rsgallery2.vote', 'com_rsgallery2.gallery.' . $galleryId))
             {
-                $config->displayVoting = false;
+	            $config->isVotingEnabled = false;
             }
         }
 
