@@ -564,6 +564,7 @@ function htmlUserRatingForm ()
 	/**
 	 * https://bootsnipp.com/snippets/featured/average-user-rating-rating-breakdown
 	 *
+    /**/
 	$html[] = '
 	<div class="rating-block">
 	<h4>Average user rating</h4>
@@ -591,25 +592,6 @@ function htmlUserRatingForm ()
 
     /* https://codepen.io/tammykimkim/pen/yegZRw */
 
-	$html[] = '<div class="rating-block row-fluid text-center" >';
-    $html[] = '<h4>Average user rating</h4>';
-    $html[] = '<h2 class="bold padding-bottom-7">4.3<small>/5</small></h2>';
-    $html[] = '' . JText::_('COM_RSGALLERY2_VOTE') . '&nbsp;&nbsp;<button type="button" class="btn btn-warning btn-mini" aria-label="Left Align">';
-    $html[] = '<span class="icon-star" aria-hidden="true"></span>';
-    $html[] = '</button>';
-    $html[] = '<button type="button" class="btn btn-warning btn-mini" aria-label="Left Align">';
-	$html[] = '<span class="icon-star" aria-hidden="true"></span>';
-	$html[] = '</button>';
-	$html[] = '<button type="button" class="btn btn-warning btn-mini" aria-label="Left Align">';
-	$html[] = '<span class="icon-star" aria-hidden="true"></span>';
-	$html[] = '</button>';
-	$html[] = '<button type="button" class="btn btn-default btn-grey btn-mini" aria-label="Left Align">';
-	$html[] = '<span class="icon-star" aria-hidden="true"></span>';
-	$html[] = '</button>';
-	$html[] = '<button type="button" class="btn btn-default btn-grey btn-mini" aria-label="Left Align">';
-	$html[] = '<span class="icon-star" aria-hidden="true"></span>';
-	$html[] = '</button>';
-	$html[] = '</div>';
 
 	/**/
 
@@ -623,90 +605,121 @@ function htmlUserRatingForm ()
 
 function htmlRatingData($votingData, $isVotingEnabled)
 {
-    $Html = [];
+    $html = [];
 
-    $Html[] = "";
+    $html[] = "";
 
-	$Html[] =  '        <div class="rsg2_rating_container">';
+	$html[] =  '        <div class="rsg2_rating_container">';
 
 	//--- result of rating ------------------------------------
 
-	$Html[] =  '            <div class="rating-result">';
-	$Html[] =  '                <dl class="dl-horizontal">';
+	$html[] =  '            <div class="rating-result">';
 
-    //$Html[] =  '                    <h5>';
-	$Html[] =  '                    <dt>' . JText::_('COM_RSGALLERY2_AVERAGE_USER_RATING') . '</dt>';
-    $Html[] =  '                    <dd>';
+	/**
+	$html[] =  '                <dl class="dl-horizontal">';
 
-    $Html[] =  '                        <div class="rate-container">';
-    //$Html[] =  '                        <h5>';
+    //$html[] =  '                    <h5>';
+	$html[] =  '                    <dt>' . JText::_('COM_RSGALLERY2_AVERAGE_USER_RATING') . '</dt>';
+    $html[] =  '                    <dd>';
+
+    $html[] =  '                        <div class="rate-container">';
+    //$html[] =  '                        <h5>';
     for ($idx = 0; $idx < 5; $idx++)
     {
-        $Html[] =  '                    ' . htmlStars ($idx, $votingData->average);
+        $html[] =  '                    ' . htmlStars ($idx, $votingData->average);
     }
-    $Html[] =  '                            <span>(' . $votingData->average . ' / ' . $votingData->count . '&nbsp' . JText::_('COM_RSGALLERY2_VOTES') . ')</span>';
-    $Html[] =  '                        </div>';
+    $html[] =  '                            <span>(' . $votingData->average . ' / ' . $votingData->count . '&nbsp' . JText::_('COM_RSGALLERY2_VOTES') . ')</span>';
+    $html[] =  '                        </div>';
 
 
-    $Html[] =  '                    </dd>';
-    //$Html[] =  '                    </h5>';
+    $html[] =  '                    </dd>';
+    //$html[] =  '                    </h5>';
 
-	$Html[] =  '                </dl>';
-	$Html[] =  '            </div>'; // rating-result
-
-	$Html[] =  '                <hr>';
+	$html[] =  '                </dl>';
+    /**/
+	$html[] =  '            </div>'; // rating-result
 
 	//--- result of rating ------------------------------------
+
+    echo htmlUserRatingForm();
+
+	$html[] =  '                <hr>';
+	
+	$html[] = '                <div class="rating-block row-fluid text-center" >';
+	$html[] = '                    <h4>' . JText::_('COM_RSGALLERY2_AVERAGE_USER_RATING') . '</h4>';
+	$html[] = '                    <h2 class="bold padding-bottom-7">' . $votingData->average . '&nbsp<small>/&nbsp' . $votingData->count . '</small></h2>';
+	$html[] = '                    <button type="button" class="btn btn-warning btn-mini btn-star" aria-label="Left Align">';
+	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
+	$html[] = '                    </button>';
+	$html[] = '                    <button type="button" class="btn btn-warning btn-mini btn-star" aria-label="Left Align">';
+	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
+	$html[] = '                    </button>';
+	$html[] = '                    <button type="button" class="btn btn-warning btn-mini btn-star" aria-label="Left Align">';
+	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
+	$html[] = '                    </button>';
+	$html[] = '                    <button type="button" class="btn btn-default btn-grey btn-mini btn-star" aria-label="Left Align">';
+	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
+	$html[] = '                    </button>';
+	$html[] = '                    <button type="button" class="btn btn-default btn-grey btn-mini btn-star" aria-label="Left Align">';
+	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
+	$html[] = '                    </button>';
+
+	$html[] = '                    <label title="' . JText::_('COM_RSGALLERY2_AVERAGE_RATE_IMAGE_DESC') . '">' . JText::_('COM_RSGALLERY2_AVERAGE_RATE_IMAGE') . '&nbsp;&nbsp;</label>';
+
+	$html[] = '                </div>'; //
+
+
 
     // echo JText::_('COM_RSGALLERY2_AVERAGE_USER_RATING');
 
 
 	//--- user rating input ------------------------------------
-
+    /**
     if ($isVotingEnabled) {
 
 
-        $Html[] = '            <div class="rating-input">';
-        $Html[] = '            ' . htmlUserRatingForm();
-        $Html[] = '            </div>'; // rating-input
+        $html[] = '            <div class="rating-input">';
+        $html[] = '            ' . htmlUserRatingForm();
+        $html[] = '            </div>'; // rating-input
 
 
     }
+    /**/
 
-    $Html[] =  '		</div>'; // rsg2_exif_container
+    $html[] =  '		</div>'; // rsg2_exif_container
 
-    return implode("\n", $Html);
+    return implode("\n", $html);
 }
 
 function htmlComments ($comments)
 {
-    $Html = [];
+    $html = [];
 
-    $Html[] = "";
+    $html[] = "";
 
-    return implode("\n", $Html);
+    return implode("\n", $html);
 }
 
 function htmlExifData ($exifData)
 {
-    $Html = [];
+    $html = [];
 
-    $Html[] = "";
+    $html[] = "";
 
-    $Html[] =  '        <div class="rsg2_exif_container">';
-    $Html[] =  '            <dl class="dl-horizontal">';
+    $html[] =  '        <div class="rsg2_exif_container">';
+    $html[] =  '            <dl class="dl-horizontal">';
 
     // user requested EXIF tags
     foreach ($exifData as $exifKey => $exifValue)
     {
-        $Html[] =  '            <dt>' . $exifKey . '</dt><dd>' . $exifValue . '</dd>';
+        $html[] =  '            <dt>' . $exifKey . '</dt><dd>' . $exifValue . '</dd>';
     }
 
-    $Html[] =  '            </dl>';
-    $Html[] =  '		</div>'; // rsg2_exif_container
+    $html[] =  '            </dl>';
+    $html[] =  '		</div>'; // rsg2_exif_container
 
 
-    return implode("\n", $Html);
+    return implode("\n", $html);
 }
 
 
