@@ -19,5 +19,62 @@ defined('_JEXEC') or die;
  * @since    1.0
  */
 class Rsgallery2Controller extends BaseController 
-{ 
+{
+
+    public function rateSingleImage()
+    {
+        $msgType = 'notice';
+        $msg     = 'Save and goto upload ';
+
+        // JSession::checkToken() or jexit(JText:_('JINVALID_TOKEN'));
+
+        // http://127.0.0.1/Joomla3x/index.php?option=com_rsgallery2&view=gallery&gid=42&advancedSef=1&startShowSingleImage=1&Itemid=218
+        $link = 'index.php?option=com_rsgallery2'; // &startShowSingleImage=1&Itemid=218
+
+        // Access check
+        $canVote = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
+        $canVote = true;
+
+        if ( ! $canVote)
+        {
+            $msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+            $msgType = 'warning';
+            // replace newlines with html line breaks.
+            str_replace('\n', '<br>', $msg);
+        }
+        else
+        {
+            try
+            {
+                echo "<br><br><br>rateSingleImage<br><br><br>";
+
+                $input = JFactory::getApplication()->input;
+                $galleryId = $input->get('gid', 0, 'INT');
+                $ImageId = $input->get('iid', 0, 'INT');
+                $rating = $input->get('iid', 0, 'INT');
+
+                $ratingModel = $this->getModel('rating');
+                $SumAndVotes = $ratingModel->getRatingSumAndVotes ($ImageId);
+
+                $average = $SumAndVotes->average + $rating;
+                $count = $SumAndVotes->votes + 1;
+
+                $ratingModel ....
+
+                $link = 'index.php?option=com_rsgallery2&view=gallery&gid=' . $galleryId . '&id=' . $ImageId . '&startShowSingleImage=1'; // &startShowSingleImage=1&Itemid=218
+            }
+            catch (RuntimeException $e)
+			{
+                $OutTxt = '';
+                $OutTxt .= 'Error executing saveOrdering: "' . '<br>';
+                $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+                $app = JFactory::getApplication();
+                $app->enqueueMessage($OutTxt, 'error');
+            }
+		}
+
+        $this->setRedirect($link, $msg, $msgType);
+    }
+
 }

@@ -311,25 +311,40 @@ class RSGallery2ModelImages extends JModelList
         global $rsgConfig;
         // path to image
 
+        $ratingModel = $this->getModel('rating');
+
 
         foreach ($images as $image)
         {
-	        $image->ratingData = 0;
-
-			// Try ...
-	        //
-
             /**/
-	        $RatingData = new stdClass();
-	        //$RatingData->average= 2.4;
-	        $RatingData->average= 2.5;
-	        //$RatingData->average= 3.6;
-	        $RatingData->count = 15;
+            $RatingData = new stdClass();
+
+            $SumAndVotes = $ratingModel->getRatingSumAndVotes ($image->id);
+
+            $average = calculateAverage($SumAndVotes->rating, $SumAndVotes->votes);
+            $RatingData->average = $average;
+            $RatingData->count = $SumAndVotes->votes;
+
+
+	        //$RatingData->average = 0.4;
+	        //$RatingData->average = 0.5;
+            //$RatingData->average = 0.9;
+            //$RatingData->average = 1.0;
+            //$RatingData->average = 1.1;
+	        //$RatingData->average = 2.4;
+	        //$RatingData->average = 2.5;
+	        //$RatingData->average = 2.9;
+            //$RatingData->average = 3.0;
+            //$RatingData->average = 3.1;
+
+	        //$RatingData->average = 4.4;
+	        //$RatingData->average = 4.5;
+            //$RatingData->average = 4.6;
+            //$RatingData->average = 4.9;
+            //$RatingData->average = 5.0;
 
 	        // catch
-
 	        $image->ratingData = $RatingData;
-
             /**/
         }
     }

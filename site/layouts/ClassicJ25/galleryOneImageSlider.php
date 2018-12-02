@@ -12,6 +12,9 @@ defined('_JEXEC') or die;
 
 global $rsgConfig;
 
+// Load Jquery
+JHtml::_('jquery.framework', false);
+
 //JHtml::_('behavior.core');
 
 // echo 'layout classic J25: gallery: <br>';
@@ -384,7 +387,7 @@ if ($isDisplayImgDetails)
 	    echo '            <div  class="page_inline_tabs_voting" >';
         if ( ! empty ($image->ratingData))
         {
-            echo htmlRatingData ($image->ratingData, $isVotingEnabled);
+            echo htmlRatingData ($image->ratingData, $isVotingEnabled, $image->gallery_id, $image->id);
         }
         else
         {
@@ -518,92 +521,64 @@ echo '</div>'; // <div class="rsg2">
 
 function htmlStars ($idx, $average)
 {
-    $html = '';
+    $html = [];
 
-    $idx ++;
+    /**
+    $html[] = '                    <button id="star_1" type="button" class="btn btn-warning btn-mini btn_star" aria-label="Left Align">';
+    $html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
+    $html[] = '                    </button>';
+
+    $html[] = '                    <button id="star_1" type="button" class="btn btn-warning btn-mini btn_star" aria-label="Left Align">';
+	$html[] = '                    <button id="star_5" type="button" class="btn btn-default btn-mini btn_star btn-grey" aria-label="Left Align">';
+	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
+	$html[] = '                    </button>';
+    ;
+    /**/
+
+    //$idx ++;  0-4
 
 	$intAvg = (int) floor($average);
-	//$intAvg = intdiv($average); // PHP 7
-	//$avgRem = ((double) $average) % 1;
-	$avgRem = ((double) $average) - $intAvg;
+	$avgRem = ((double) $average) - $intAvg; // reminder
 
-	// below: Full Star
-    if ($idx <=  $intAvg)
+	$isButtonActive = false;
+	$isHalfStar = false;
+    if ($idx < $intAvg)
     {
-        $html = '                    <i class="icon-star checked"></i>';
+        $isButtonActive = true;
+    }
+
+    if ($idx == $intAvg)
+    {
+        if ($avgRem > 0.49)
+        {
+            $isHalfStar = true;
+            $isButtonActive = true;
+        }
+    }
+
+    if ($isHalfStar) {
+        $iconClass = "icon-star-2";
     }
     else
     {
-        // above empty Star
-        if ($idx > ($intAvg+1))
-        {
-            $html = '                    <i class="icon-star-empty "></i>';
-        }
-        else
-        {
-            // Half Star
-            if ($avgRem > 0.49)
-            {
-                $html = '                    <i class="icon-star-2 checked"></i>';
-            }
-            else
-            {
-	            // empty Star
-	            $html = '                    <i class="icon-star-empty "></i>';
-            }
-        }
+        $iconClass = "icon-star";
     }
 
-    return $html;
-}
+    $buttonClassAdd = 'btn-warning ';
+    if ( ! $isButtonActive)
+    {
+        $buttonClassAdd = 'btn-default btn-grey ';
+    }
 
-function htmlUserRatingForm ()
-{
-	$html = [];
+    $html[] = '<button id="star_' . ($idx+1) . '" type="button" class="btn ' .  $buttonClassAdd . ' btn-mini btn_star" aria-label="Left Align">';
+    $html[] = '    <span class="' . $iconClass . '" aria-hidden="true"></span>';
+    $html[] = '</button>';
 
-	/**
-	 * https://bootsnipp.com/snippets/featured/average-user-rating-rating-breakdown
-	 *
-    /**/
-	$html[] = '
-	<div class="rating-block">
-	<h4>Average user rating</h4>
-	<h2 class="bold padding-bottom-7">4.3 <small>/ 5</small></h2>
-	<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-	<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-	</button>
-	<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-	<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-	</button>
-	<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-	<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-	</button>
-	<button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
-	<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-	</button>
-	<button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
-	<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-	</button>
-	</div>
-	';
-	/**/
-
-	/**/
-
-    /* https://codepen.io/tammykimkim/pen/yegZRw */
-
-
-	/**/
-
-	return implode("\n", $html);
+    return implode("\n", $html);
 }
 
 
-
-
-
-
-function htmlRatingData($votingData, $isVotingEnabled)
+function htmlRatingData($votingData, $isVotingEnabled, $gid, $iid)
 {
     $html = [];
 
@@ -613,6 +588,7 @@ function htmlRatingData($votingData, $isVotingEnabled)
 
 	//--- result of rating ------------------------------------
 
+    /**
 	$html[] =  '            <div class="rating-result">';
 
 	/**
@@ -636,39 +612,66 @@ function htmlRatingData($votingData, $isVotingEnabled)
     //$html[] =  '                    </h5>';
 
 	$html[] =  '                </dl>';
-    /**/
+
 	$html[] =  '            </div>'; // rating-result
+    /**/
 
 	//--- result of rating ------------------------------------
 
-    echo htmlUserRatingForm();
+    //echo htmlUserRatingForm();
 
-	$html[] =  '                <hr>';
-	
+	// $html[] = '                <hr>';
+    // http://127.0.0.1/Joomla3x/index.php?option=com_rsgallery2&view=gallery&gid=42&advancedSef=1&startShowSingleImage=1&Itemid=218&XDEBUG_SESSION_START=11337
+    // http://127.0.0.1/Joomla3x/index.php?option=com_rsgallery2&view=gallery&gid=42&advancedSef=1&startShowSingleImage=1&Itemid=218&XDEBUG_SESSION_START=11337&limitstart=7
+    $html[] = '                <form name="rsgvoteform" method="post" action="' . JRoute::_('index.php?option=com_rsgallery2&view=gallery&gid=' . $gid) .'&startShowSingleImage=1" id="rsgVoteForm">';
+
 	$html[] = '                <div class="rating-block row-fluid text-center" >';
+
 	$html[] = '                    <h4>' . JText::_('COM_RSGALLERY2_AVERAGE_USER_RATING') . '</h4>';
 	$html[] = '                    <h2 class="bold padding-bottom-7">' . $votingData->average . '&nbsp<small>/&nbsp' . $votingData->count . '</small></h2>';
-	$html[] = '                    <button type="button" class="btn btn-warning btn-mini btn-star" aria-label="Left Align">';
-	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
-	$html[] = '                    </button>';
-	$html[] = '                    <button type="button" class="btn btn-warning btn-mini btn-star" aria-label="Left Align">';
-	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
-	$html[] = '                    </button>';
-	$html[] = '                    <button type="button" class="btn btn-warning btn-mini btn-star" aria-label="Left Align">';
-	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
-	$html[] = '                    </button>';
-	$html[] = '                    <button type="button" class="btn btn-default btn-grey btn-mini btn-star" aria-label="Left Align">';
-	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
-	$html[] = '                    </button>';
-	$html[] = '                    <button type="button" class="btn btn-default btn-grey btn-mini btn-star" aria-label="Left Align">';
-	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
-	$html[] = '                    </button>';
 
-	$html[] = '                    <label title="' . JText::_('COM_RSGALLERY2_AVERAGE_RATE_IMAGE_DESC') . '">' . JText::_('COM_RSGALLERY2_AVERAGE_RATE_IMAGE') . '&nbsp;&nbsp;</label>';
+    for ($idx = 0; $idx < 5; $idx++)
+    {
+        $html[] =  '                    ' . htmlStars ($idx, $votingData->average);
+    }
 
-	$html[] = '                </div>'; //
+    /**
+    $html[] = '                    <button id="star_1" type="button" class="btn btn-warning btn-mini btn_star" aria-label="Left Align">';
+	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
+	$html[] = '                    </button>';
+	$html[] = '                    <button id="star_2" type="button" class="btn btn-warning btn-mini btn_star" aria-label="Left Align">';
+	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
+	$html[] = '                    </button>';
+	$html[] = '                    <button id="star_3" type="button" class="btn btn-warning btn-mini btn_star" aria-label="Left Align">';
+	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
+	$html[] = '                    </button>';
+	$html[] = '                    <button id="star_4" type="button" class="btn btn-default btn-grey btn-mini btn_star" aria-label="Left Align">';
+	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
+	$html[] = '                    </button>';
+	$html[] = '                    <button id="star_5" type="button" class="btn btn-default btn-grey btn-mini btn_star" aria-label="Left Align">';
+	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
+	$html[] = '                    </button>';
+    /**/
+
+    if ($isVotingEnabled)
+    {
+        $html[] = '                <label id="DoVote" title="' . JText::_('COM_RSGALLERY2_AVERAGE_RATE_IMAGE_DESC') . '">' . JText::_('COM_RSGALLERY2_AVERAGE_RATE_IMAGE') . '&nbsp;&nbsp;</label>';
+        //$html[] = '                <label id="Has voted" title="' . JText::_('COM_RSGALLERY2_AVERAGE_RATE_IMAGE_DESC') . '">' . JText::_('COM_RSGALLERY2_AVERAGE_RATE_IMAGE') . '&nbsp;&nbsp;</label>';
 
 
+//        // $document   = \Joomla\CMS\Factor::getDocument();
+//        $document = JFactory::getDocument();
+//        $document->addScript(JURI_SITE . '/components/com_rsgallery2/layouts/ClassicJ25/OneImageVote.js');
+        JHtml::script (JURI_SITE . '/components/com_rsgallery2/layouts/ClassicJ25/OneImageVote.js');
+    }
+
+    $html[] = '                </div>'; //
+
+    $html[] = '                <input type="hidden" name="task" value="rateSingleImage" />';
+    $html[] = '                <input type="hidden" name="rating" value="" />';
+    $html[] = '                <input type="hidden" name="debug" value="" />;';
+    $html[] = '                <input type="hidden" name="id" value="' . $iid . '" />;';
+    $html[] = '                </form>';
 
     // echo JText::_('COM_RSGALLERY2_AVERAGE_USER_RATING');
 
