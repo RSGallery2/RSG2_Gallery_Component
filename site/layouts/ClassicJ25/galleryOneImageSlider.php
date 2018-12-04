@@ -671,6 +671,7 @@ function htmlRatingData($votingData, $isVotingEnabled, $gid, $iid)
     $html[] = '                <input type="hidden" name="rating" value="" />';
     $html[] = '                <input type="hidden" name="debug" value="" />;';
     $html[] = '                <input type="hidden" name="id" value="' . $iid . '" />;';
+	$html[] = '                <input id="token" type="hidden" name="' . JSession::getFormToken() . '" value="1" />';
     $html[] = '                </form>';
 
     // echo JText::_('COM_RSGALLERY2_AVERAGE_USER_RATING');

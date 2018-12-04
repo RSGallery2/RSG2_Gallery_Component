@@ -75,12 +75,12 @@ class RSGallery2ModelRating extends JModelLegacy
         return $voteAllowed;
     }
 
-    public function doRate ($id, $rating)
+    public function doRating ($imageId, $userRating)
     {
-        $isOk = false;
+	    $isRated = false;
 
-        $imgVal = getRatingSumAndVotes($id);
-        $ratingSum = $imgVal->rating + $rating;
+        $imgVal = $this->getRatingSumAndVotes($imageId);
+        $ratingSum = $imgVal->rating + $userRating;
         $votes = $imgVal->voting +1;
 
         // Save new ordering
@@ -90,33 +90,33 @@ class RSGallery2ModelRating extends JModelLegacy
         $query->update($db->quoteName('#__rsgallery2_files'))
             ->set($db->quoteName('rating') . '=' . $db->quote((int) $ratingSum))
             ->set($db->quoteName('votes') . '=' . $db->quote((int) $votes))
-            ->where(array($db->quoteName('id') . '=' . $db->quote((int) $id)));
+            ->where(array($db->quoteName('id') . '=' . $db->quote((int) $imageId)));
         $db->setQuery($query);
 
         $result = $db->execute();
         if ( ! empty($result))
         {
-            $isOk = true;
+	        $isRated = true;
         }
 
-        return $isOk;
+        return $isRated;
     }
 
-    public function UserHasRated ($id)
+    public function UserHasRated ($imageId, $userRating)
     {
         global $rsgConfig;
 
         // save needed
         if ($rsgConfig->get('voting_once') != 0)
         {
-            $cookie_name = $rsgConfig->get('cookie_prefix') . $id;
+            $cookie_name = 'rsgvoting_' . $rsgConfig->get('cookie_prefix') . $imageId;
 
             // setcookie($rsgConfig->get('cookie_prefix') . $id, $my->id, time() + 60 * 60 * 24 * 365, "/");
             $time = time() + 60 * 60 * 24 * 365; // one year
 
             // Set cookie data
             $cookies  = JFactory::getApplication()->input->cookie;
-            $cookies->set($name = $cookie_name, $value = '1', $expire = $time);
+            $cookies->set($name = $cookie_name, $value = $userRating, $expire = $time);
         }
     }
 
@@ -125,37 +125,30 @@ class RSGallery2ModelRating extends JModelLegacy
      *
      * @param int ID of item to vote on
      *
-     * @return True or False
+     * @return int 0 or user rating
      */
-    public function isUserHasRated($id)
+    public function isUserHasRated($imageId)
     {
         global $rsgConfig;
 
-        $isHasRated = false;
+	    $rated = (int) 0;
 
         // check needed
         if ($rsgConfig->get('voting_once') != 0) {
 
             // Check if cookie rsgvoting was set for this image!
-            $cookie_name = $rsgConfig->get('cookie_prefix') . $id;
-            /**
-            if (isset($_COOKIE[$cookie_name])) {
-                return true;
-            } else {
-                return false;
-            }
-            /**/
+            $cookie_name = 'rsgvoting_' . $rsgConfig->get('cookie_prefix') . $imageId;
 
-            // Get the cookie
+	        // Get the cookie
             $cookies  = JFactory::getApplication()->input->cookie;
             $value = $cookies->get($cookie_name, null);
             if(!empty($value))
             {
-                $isHasRated = true;
+                $rated = (int) $value;
             }
         }
 
-        return $isHasRated;
+        return $rated;
     }
 
 }
