@@ -56,15 +56,16 @@ class Rsgallery2Controller extends BaseController
                 $ratingModel = $this->getModel('rating');
 	            $isRated = $ratingModel->doRating ($imageId, $userRating);
 
+                // Set cookie
+	            if ($isRated)
+	            {
+                    $ratingModel->SetUserHasRated($imageId, $userRating);
+                }
 
-	            if ()
+		            see also isUserHasRated -> update it
 
-		            UserHasRated
-
-
-		            see also isUserHasRated -> update it  
-
-                $link = 'index.php?option=com_rsgallery2&view=gallery&gid=' . $galleryId . '&id=' . $imageId . '&startShowSingleImage=1'; // &startShowSingleImage=1&Itemid=218
+                $link = 'index.php?option=com_rsgallery2&view=gallery&gid=' . $galleryId . '&id=' . $imageId
+                    . '&startShowSingleImage=1' . '&rating=' . $userRating; // &startShowSingleImage=1&Itemid=218
             }
             catch (RuntimeException $e)
 			{

@@ -102,7 +102,7 @@ class RSGallery2ModelRating extends JModelLegacy
         return $isRated;
     }
 
-    public function UserHasRated ($imageId, $userRating)
+    public function SetUserHasRated ($imageId, $userRating)
     {
         global $rsgConfig;
 
