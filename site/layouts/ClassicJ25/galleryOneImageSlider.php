@@ -519,7 +519,7 @@ if ($isDisplayImgDetails)
 echo '</div>'; // <div class="rsg2">
 
 
-function htmlStars ($idx, $average)
+function htmlStars ($idx, $average, $lastRating)
 {
     $html = [];
 
@@ -539,6 +539,12 @@ function htmlStars ($idx, $average)
 
 	$intAvg = (int) floor($average);
 	$avgRem = ((double) $average) - $intAvg; // reminder
+
+    $isSelected = "";
+    if ($lastRating > 0 && ($lastRating -1) == $idx)
+    {
+	    $isSelected = "checked";
+    }
 
 	$isButtonActive = false;
 	$isHalfStar = false;
@@ -570,7 +576,7 @@ function htmlStars ($idx, $average)
         $buttonClassAdd = 'btn-default btn-grey ';
     }
 
-    $html[] = '<button id="star_' . ($idx+1) . '" type="button" class="btn ' .  $buttonClassAdd . ' btn-mini btn_star" aria-label="Left Align">';
+    $html[] = '<button id="star_' . ($idx+1) . '" type="button" class="btn ' .  $buttonClassAdd . ' btn-mini btn_star ' .  $isSelected . '" aria-label="Left Align">';
     $html[] = '    <span class="' . $iconClass . '" aria-hidden="true"></span>';
     $html[] = '</button>';
 
@@ -578,7 +584,7 @@ function htmlStars ($idx, $average)
 }
 
 
-function htmlRatingData($votingData, $isVotingEnabled, $gid, $iid)
+function htmlRatingData($ratingData, $isVotingEnabled, $gid, $iid)
 {
     $html = [];
 
@@ -602,9 +608,9 @@ function htmlRatingData($votingData, $isVotingEnabled, $gid, $iid)
     //$html[] =  '                        <h5>';
     for ($idx = 0; $idx < 5; $idx++)
     {
-        $html[] =  '                    ' . htmlStars ($idx, $votingData->average);
+        $html[] =  '                    ' . htmlStars ($idx, $ratingData->average);
     }
-    $html[] =  '                            <span>(' . $votingData->average . ' / ' . $votingData->count . '&nbsp' . JText::_('COM_RSGALLERY2_VOTES') . ')</span>';
+    $html[] =  '                            <span>(' . $ratingData->average . ' / ' . $ratingData->count . '&nbsp' . JText::_('COM_RSGALLERY2_VOTES') . ')</span>';
     $html[] =  '                        </div>';
 
 
@@ -628,11 +634,11 @@ function htmlRatingData($votingData, $isVotingEnabled, $gid, $iid)
 	$html[] = '                <div class="rating-block row-fluid text-center" >';
 
 	$html[] = '                    <h4>' . JText::_('COM_RSGALLERY2_AVERAGE_USER_RATING') . '</h4>';
-	$html[] = '                    <h2 class="bold padding-bottom-7">' . $votingData->average . '&nbsp<small>/&nbsp' . $votingData->count . '</small></h2>';
+	$html[] = '                    <h2 class="bold padding-bottom-7">' . $ratingData->average . '&nbsp<small>/&nbsp' . $ratingData->count . '</small></h2>';
 
     for ($idx = 0; $idx < 5; $idx++)
     {
-        $html[] =  '                    ' . htmlStars ($idx, $votingData->average);
+        $html[] =  '                    ' . htmlStars ($idx, $ratingData->average, $ratingData->lastRating);
     }
 
     /**

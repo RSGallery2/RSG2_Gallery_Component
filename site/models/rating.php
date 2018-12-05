@@ -87,9 +87,10 @@ class RSGallery2ModelRating extends JModelLegacy
         $db = JFactory::getDBO();
         $query = $db->getQuery(true);
 
+        // $query->set('h.name = "apple", h.description= "orange", h.url = "bannana"');
         $query->update($db->quoteName('#__rsgallery2_files'))
-            ->set($db->quoteName('rating') . '=' . $db->quote((int) $ratingSum))
-            ->set($db->quoteName('votes') . '=' . $db->quote((int) $votes))
+            ->set($db->quoteName('rating') . '=' . $db->quote((int) $ratingSum),
+                  $db->quoteName('votes') . '=' . $db->quote((int) $votes))
             ->where(array($db->quoteName('id') . '=' . $db->quote((int) $imageId)));
         $db->setQuery($query);
 
@@ -107,7 +108,7 @@ class RSGallery2ModelRating extends JModelLegacy
         global $rsgConfig;
 
         // save needed
-        if ($rsgConfig->get('voting_once') != 0)
+        //if ($rsgConfig->get('voting_once') != 0)
         {
             $cookie_name = 'rsgvoting_' . $rsgConfig->get('cookie_prefix') . $imageId;
 
@@ -131,10 +132,11 @@ class RSGallery2ModelRating extends JModelLegacy
     {
         global $rsgConfig;
 
-	    $rated = (int) 0;
+	    $userRating = (int) 0;
 
         // check needed
-        if ($rsgConfig->get('voting_once') != 0) {
+        //if ($rsgConfig->get('voting_once') != 0)
+        {
 
             // Check if cookie rsgvoting was set for this image!
             $cookie_name = 'rsgvoting_' . $rsgConfig->get('cookie_prefix') . $imageId;
@@ -144,11 +146,11 @@ class RSGallery2ModelRating extends JModelLegacy
             $value = $cookies->get($cookie_name, null);
             if(!empty($value))
             {
-                $rated = (int) $value;
+	            $userRating = (int) $value;
             }
         }
 
-        return $rated;
+        return $userRating;
     }
 
 }

@@ -62,8 +62,6 @@ class Rsgallery2Controller extends BaseController
                     $ratingModel->SetUserHasRated($imageId, $userRating);
                 }
 
-		            see also isUserHasRated -> update it
-
                 $link = 'index.php?option=com_rsgallery2&view=gallery&gid=' . $galleryId . '&id=' . $imageId
                     . '&startShowSingleImage=1' . '&rating=' . $userRating; // &startShowSingleImage=1&Itemid=218
             }

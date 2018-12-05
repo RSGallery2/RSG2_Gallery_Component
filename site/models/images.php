@@ -317,35 +317,41 @@ class RSGallery2ModelImages extends JModelList
 	    foreach ($images as $image)
         {
             /**/
-            $RatingData = new stdClass();
+            $ratingData = new stdClass();
 
             $SumAndVotes = $ratingModel->getRatingSumAndVotes ($image->id);
 
             $average = $ratingModel->calculateAverage($SumAndVotes->rating, $SumAndVotes->votes);
-            $RatingData->average = $average;
-            $RatingData->count = $SumAndVotes->votes;
+            $ratingData->average = $average;
+            $ratingData->count = $SumAndVotes->votes;
 
+            // Only if voting is only once
+	        $ratingData->lastRating = $ratingModel->isUserHasRated($image->id);
 
-	        //$RatingData->average = 0.4;
-	        //$RatingData->average = 0.5;
-            //$RatingData->average = 0.9;
-            //$RatingData->average = 1.0;
-            //$RatingData->average = 1.1;
-	        //$RatingData->average = 2.4;
-	        //$RatingData->average = 2.5;
-	        //$RatingData->average = 2.9;
-            //$RatingData->average = 3.0;
-            //$RatingData->average = 3.1;
+	        //$ratingData->average = 0.4;
+	        //$ratingData->average = 0.5;
+            //$ratingData->average = 0.9;
+            //$ratingData->average = 1.0;
+            //$ratingData->average = 1.1;
+	        //$ratingData->average = 2.4;
+	        //$ratingData->average = 2.5;
+	        //$ratingData->average = 2.9;
+            //$ratingData->average = 3.0;
+            //$ratingData->average = 3.1;
 
-	        //$RatingData->average = 4.4;
-	        //$RatingData->average = 4.5;
-            //$RatingData->average = 4.6;
-            //$RatingData->average = 4.9;
-            //$RatingData->average = 5.0;
+	        //$ratingData->average = 4.4;
+	        //$ratingData->average = 4.5;
+            //$ratingData->average = 4.6;
+            //$ratingData->average = 4.9;
+            //$ratingData->average = 5.0;
 
 	        // catch
-	        $image->ratingData = $RatingData;
+	        $image->ratingData = $ratingData;
             /**/
+
+
+
+
         }
     }
 
