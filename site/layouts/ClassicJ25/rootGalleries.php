@@ -10,7 +10,7 @@
 
 defined('_JEXEC') or die;
 
-global $rsgConfig;
+global $rsgConfig, $isDevelopSiteActive;
 
 //JHtml::_('behavior.core');
 
@@ -18,7 +18,7 @@ global $rsgConfig;
 
 // on develop show open tasks if existing
 //if (!empty ($Rsg2DevelopActive))
-if (false)
+if ($isDevelopSiteActive)
 {
     echo '<span style="color:red">'
         . 'Tasks: <br>'

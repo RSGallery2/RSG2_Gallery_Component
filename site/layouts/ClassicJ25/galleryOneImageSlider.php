@@ -10,7 +10,7 @@
 
 defined('_JEXEC') or die;
 
-global $rsgConfig;
+global $rsgConfig, $isDevelopSiteActive;
 
 // Load Jquery
 JHtml::_('jquery.framework', false);
@@ -20,7 +20,7 @@ JHtml::_('jquery.framework', false);
 // echo 'layout classic J25: gallery: <br>';
 // on develop show open tasks if existing
 //if (!empty ($Rsg2DevelopActive))
-if (false)
+if ($isDevelopSiteActive)
 {
     echo '<span style="color:red">'
         . 'Tasks: <br>'
@@ -583,7 +583,6 @@ function htmlStars ($idx, $average, $lastRating)
     return implode("\n", $html);
 }
 
-
 function htmlRatingData($ratingData, $isVotingEnabled, $gid, $iid)
 {
     $html = [];
@@ -594,41 +593,6 @@ function htmlRatingData($ratingData, $isVotingEnabled, $gid, $iid)
 
 	//--- result of rating ------------------------------------
 
-    /**
-	$html[] =  '            <div class="rating-result">';
-
-	/**
-	$html[] =  '                <dl class="dl-horizontal">';
-
-    //$html[] =  '                    <h5>';
-	$html[] =  '                    <dt>' . JText::_('COM_RSGALLERY2_AVERAGE_USER_RATING') . '</dt>';
-    $html[] =  '                    <dd>';
-
-    $html[] =  '                        <div class="rate-container">';
-    //$html[] =  '                        <h5>';
-    for ($idx = 0; $idx < 5; $idx++)
-    {
-        $html[] =  '                    ' . htmlStars ($idx, $ratingData->average);
-    }
-    $html[] =  '                            <span>(' . $ratingData->average . ' / ' . $ratingData->count . '&nbsp' . JText::_('COM_RSGALLERY2_VOTES') . ')</span>';
-    $html[] =  '                        </div>';
-
-
-    $html[] =  '                    </dd>';
-    //$html[] =  '                    </h5>';
-
-	$html[] =  '                </dl>';
-
-	$html[] =  '            </div>'; // rating-result
-    /**/
-
-	//--- result of rating ------------------------------------
-
-    //echo htmlUserRatingForm();
-
-	// $html[] = '                <hr>';
-    // http://127.0.0.1/Joomla3x/index.php?option=com_rsgallery2&view=gallery&gid=42&advancedSef=1&startShowSingleImage=1&Itemid=218&XDEBUG_SESSION_START=11337
-    // http://127.0.0.1/Joomla3x/index.php?option=com_rsgallery2&view=gallery&gid=42&advancedSef=1&startShowSingleImage=1&Itemid=218&XDEBUG_SESSION_START=11337&limitstart=7
     $html[] = '                <form name="rsgvoteform" method="post" action="' . JRoute::_('index.php?option=com_rsgallery2&view=gallery&gid=' . $gid) .'&startShowSingleImage=1" id="rsgVoteForm">';
 
 	$html[] = '                <div class="rating-block row-fluid text-center" >';
@@ -641,33 +605,10 @@ function htmlRatingData($ratingData, $isVotingEnabled, $gid, $iid)
         $html[] =  '                    ' . htmlStars ($idx, $ratingData->average, $ratingData->lastRating);
     }
 
-    /**
-    $html[] = '                    <button id="star_1" type="button" class="btn btn-warning btn-mini btn_star" aria-label="Left Align">';
-	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
-	$html[] = '                    </button>';
-	$html[] = '                    <button id="star_2" type="button" class="btn btn-warning btn-mini btn_star" aria-label="Left Align">';
-	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
-	$html[] = '                    </button>';
-	$html[] = '                    <button id="star_3" type="button" class="btn btn-warning btn-mini btn_star" aria-label="Left Align">';
-	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
-	$html[] = '                    </button>';
-	$html[] = '                    <button id="star_4" type="button" class="btn btn-default btn-grey btn-mini btn_star" aria-label="Left Align">';
-	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
-	$html[] = '                    </button>';
-	$html[] = '                    <button id="star_5" type="button" class="btn btn-default btn-grey btn-mini btn_star" aria-label="Left Align">';
-	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
-	$html[] = '                    </button>';
-    /**/
-
     if ($isVotingEnabled)
     {
         $html[] = '                <label id="DoVote" title="' . JText::_('COM_RSGALLERY2_AVERAGE_RATE_IMAGE_DESC') . '">' . JText::_('COM_RSGALLERY2_AVERAGE_RATE_IMAGE') . '&nbsp;&nbsp;</label>';
-        //$html[] = '                <label id="Has voted" title="' . JText::_('COM_RSGALLERY2_AVERAGE_RATE_IMAGE_DESC') . '">' . JText::_('COM_RSGALLERY2_AVERAGE_RATE_IMAGE') . '&nbsp;&nbsp;</label>';
 
-
-//        // $document   = \Joomla\CMS\Factor::getDocument();
-//        $document = JFactory::getDocument();
-//        $document->addScript(JURI_SITE . '/components/com_rsgallery2/layouts/ClassicJ25/OneImageVote.js');
         JHtml::script (JURI_SITE . '/components/com_rsgallery2/layouts/ClassicJ25/OneImageVote.js');
     }
 
@@ -683,18 +624,6 @@ function htmlRatingData($ratingData, $isVotingEnabled, $gid, $iid)
     // echo JText::_('COM_RSGALLERY2_AVERAGE_USER_RATING');
 
 
-	//--- user rating input ------------------------------------
-    /**
-    if ($isVotingEnabled) {
-
-
-        $html[] = '            <div class="rating-input">';
-        $html[] = '            ' . htmlUserRatingForm();
-        $html[] = '            </div>'; // rating-input
-
-
-    }
-    /**/
 
     $html[] =  '		</div>'; // rsg2_exif_container
 

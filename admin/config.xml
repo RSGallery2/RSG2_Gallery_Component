@@ -846,6 +846,7 @@
 				multiple="true"
 		>
 			<option value="resolutionUnit">Resolution unit</option>
+			<option value="resolutionUnit">Resolution unit</option>
 			<option value="FileName">Filename</option>
 			<option value="FileSize">Filesize</option>
 			<option value="FileDateTime">File Date</option>
@@ -1377,8 +1378,21 @@
 				name="useJ25Views"
 				type="radio"
 				default="0"
-				label="*Use old J25 views (old code)"
-				description="*Uses the old code to display the old J25 view. These views were standard up to J3.x (-> 2018). The selection in the menu does switch between new an simulation old J25 views"
+				label="*Use old J2.5 views (old code)"
+				description="*Uses the old code to display the old J2.5 view. These views were standard up to J3.x (-> 2018). The selection in the menu does switch to the old code of J2.5/J3.x views"
+				class="btn-group btn-group-yesno"
+				>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field
+				id="useJ25SimLayout"
+				name="useJ25SimLayout"
+				type="radio"
+				default="1"
+				label="*Use J25(J35) style layout"
+				description="*Uses the upgraded forms to display a layout similar to the J2.5 view. These views were standard up to J3.x (-> 2018). The selection in the menu does switch between actual layout and simulation of old J25 views"
 				class="btn-group btn-group-yesno"
 				>
 			<option value="1">JYES</option>

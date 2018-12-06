@@ -10,14 +10,14 @@
 
 defined('_JEXEC') or die;
 
-global $rsgConfig;
+global $rsgConfig, $isDevelopSiteActive;
 
 //JHtml::_('behavior.core');
 
 // echo 'layout classic J25: gallery: <br>';
 // on develop show open tasks if existing
-//if (!empty ($Rsg2DevelopActive))
-if (false)
+//if (!empty ($isDevelopSiteActive))
+if ($isDevelopSiteActive)
 {
     echo '<span style="color:red">'
         . 'Tasks: <br>'

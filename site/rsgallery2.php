@@ -16,7 +16,7 @@ use Joomla\CMS\MVC\Controller\BaseController;
 
 defined('_JEXEC') or die;
 
-global $Rsg2DebugActive, $Rsg2DevelopActive, $rsgConfig;
+global $isDebugSiteActive, $isDevelopSiteActive, $rsgConfig;
 
 // Define folder pathes and URI base definitions
 require_once(JPATH_COMPONENT_ADMINISTRATOR . '/includes/baseDefines.php');
@@ -24,17 +24,25 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . '/includes/baseDefines.php');
 //$rsgConfig = new rsgConfig();
 $rsgConfig = JComponentHelper::getParams('com_rsgallery2');
 
-$Rsg2DevelopActive = $rsgConfig->get('develop'); // $isDevelopActive
-$Rsg2DebugActive = $rsgConfig->get('debugSite'); // debugsite $isDebugSite
-$isDebugSiteActive = $rsgConfig->get('debugSite'); // debugsite $isDebugSite
-$isDebugBackActive = $rsgConfig->get('debugBackend'); // $isDebugBackend
+//$isDebugBackActive = $rsgConfig->get('debugBackend');
 
-//$input = JFactory::getApplication()->input;
-//$useJ25Display = $input->get('useJ25Display', 0, 'INT');
-$useJ25Display = $rsgConfig->get('useJ25Display'); // $isDebugBackend
+// Enable settings from URL
+$input = JFactory::getApplication()->input;
+
+//$isUseJ25View = $input->get('useJ25Display', 0, 'INT');
+//$isUseJ25View = $rsgConfig->get('useJ25Display');
+$isUseJ25View = $rsgConfig->get('useJ25Views');;
+$bValue = $input->get('useJ25Views', 0, 'INT');
+$isUseJ25View |= ! empty($bValue);
+$isDebugSiteActive = $rsgConfig->get('debugSite');
+$bValue = $input->get('debugSite', 0, 'INT');
+$isDebugSiteActive |= ! empty($bValue);
+$isDevelopSiteActive = $rsgConfig->get('developSite');
+$bValue = $input->get('developSite', 0, 'INT');
+$isDevelopSiteActive |= ! empty($bValue);
 
 // Activate logging
-if ($Rsg2DebugActive)
+if ($isDebugSiteActive)
 {
 	// Include the JLog class.
 	jimport('joomla.log.log');
@@ -59,8 +67,8 @@ if ($Rsg2DebugActive)
 	JLog::add('Start rsgallery2.php in site: debug active in RSGallery2'); //, JLog::DEBUG);
 }
 
-$useJ25Display = $rsgConfig->get('useJ25Views');;
-if ($useJ25Display) {
+// Use the old J25 files and tasks
+if ($isUseJ25View) {
     // ToDo: Remove following
     // include rsgInstance
     require_once(JPATH_RSGALLERY2_ADMIN . '/includes/instance.class.php');
