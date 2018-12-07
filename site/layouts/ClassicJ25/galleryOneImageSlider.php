@@ -614,7 +614,7 @@ function htmlRatingData($ratingData, $isVotingEnabled, $gid, $iid)
 
     $html[] = '                </div>'; //
 
-    $html[] = '                <input type="hidden" name="task" value="rateSingleImage" />';
+    $html[] = '                <input type="hidden" name="task" value="gallery.rateSingleImage" />';
     $html[] = '                <input type="hidden" name="rating" value="" />';
     $html[] = '                <input type="hidden" name="debug" value="" />;';
     $html[] = '                <input type="hidden" name="id" value="' . $iid . '" />;';
