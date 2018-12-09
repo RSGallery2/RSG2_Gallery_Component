@@ -27,9 +27,6 @@ class RSGallery2ModelRating extends JModelLegacy
     {
         $db = JFactory::getDBO();
 
-        // $rating = 0; // avarage
-        // $votes = 0;
-
         $query = $db->getQuery(true);
         $query
             ->select($db->quoteName(array('rating', 'votes')))
@@ -38,11 +35,6 @@ class RSGallery2ModelRating extends JModelLegacy
         $db->setQuery($query);
 
         $results = $db->loadObject();
-
-        // $rating = $results->rating;
-        // $votes  = $results->votes;
-        // return array($rating, $votes);
-        // list($rating, $votes) = getRatingAndVotes($id);
 
         return $results;
     }
@@ -81,16 +73,20 @@ class RSGallery2ModelRating extends JModelLegacy
 
         $imgVal = $this->getRatingSumAndVotes($imageId);
         $ratingSum = $imgVal->rating + $userRating;
-        $votes = $imgVal->voting +1;
+        $votes = $imgVal->votes +1;
 
         // Save new ordering
         $db = JFactory::getDBO();
         $query = $db->getQuery(true);
-
+        // ->set($db->quoteName($columns) = $db->quote($values))
         // $query->set('h.name = "apple", h.description= "orange", h.url = "bannana"');
+        //$query->update($db->quoteName('#__rsgallery2_files'))
+        //    ->set($db->quoteName('rating') . '=' . $db->quote((int) $ratingSum),
+        //        $db->quoteName('votes') . '=' . $db->quote((int) $votes))
+        //    ->where(array($db->quoteName('id') . '=' . $db->quote((int) $imageId)));
         $query->update($db->quoteName('#__rsgallery2_files'))
-            ->set($db->quoteName('rating') . '=' . $db->quote((int) $ratingSum),
-                  $db->quoteName('votes') . '=' . $db->quote((int) $votes))
+            ->set(array($db->quoteName('rating') . '=' . $db->quote((int) $ratingSum),
+                $db->quoteName('votes') . '=' . $db->quote((int) $votes)))
             ->where(array($db->quoteName('id') . '=' . $db->quote((int) $imageId)));
         $db->setQuery($query);
 

@@ -614,9 +614,10 @@ function htmlRatingData($ratingData, $isVotingEnabled, $gid, $iid)
 
     $html[] = '                </div>'; //
 
-    $html[] = '                <input type="hidden" name="task" value="gallery.rateSingleImage" />';
+    $html[] = '                <input type="hidden" name="task" value="rating.rateSingleImage" />';
     $html[] = '                <input type="hidden" name="rating" value="" />';
     $html[] = '                <input type="hidden" name="debug" value="" />;';
+    $html[] = '                <input type="hidden" name="paginationImgIdx" value="" />;';
     $html[] = '                <input type="hidden" name="id" value="' . $iid . '" />;';
 	$html[] = '                <input id="token" type="hidden" name="' . JSession::getFormToken() . '" value="1" />';
     $html[] = '                </form>';
