@@ -18,22 +18,13 @@ defined('_JEXEC') or die;
  * @package  [PACKAGE_NAME]
  * @since    1.0
  */
-class RSGallery2ControllerRating extends BaseController
+class RSGallery2ControllerComment extends BaseController
 {
-/**
-You do a task=controller.function
 
-As an example: You want to call the MycomponentControllerFoo in /controllers/foo.php and execute the function bar(). You use the following URL to call this:
-index.php?option=com_mycomponent&task=foo.bar
-
-
-Or you can use a form where there is a hidden task field.
-/**/
-
-	public function rateSingleImage()
+	public function saveComment()
 	{
 		$msgType = 'notice';
-    	$msg     = 'Rate Single Image: ';
+    	$msg     = 'Save coment: ';
 
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
@@ -41,10 +32,10 @@ Or you can use a form where there is a hidden task field.
 		$link = 'index.php?option=com_rsgallery2'; // &startShowSingleImage=1&Itemid=218
 
 		// Access check
-		$canVote = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
-		//$canVote = true;
+		$canComment = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
+		//$canComment = true;
 
-		if ( ! $canVote)
+		if ( ! $canComment)
 		{
 			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 			$msgType = 'warning';
@@ -55,35 +46,38 @@ Or you can use a form where there is a hidden task field.
 		{
 			try
 			{
-				echo "<br><br><br>*RateSingleImage<br><br><br>";
+				echo "<br><br><br>*CommentSingleImage<br><br><br>";
 
 				$input = JFactory::getApplication()->input;
-				$galleryId = $input->get('gid', 0, 'INT');
-				$imageId = $input->get('id', 0, 'INT');
+
+                $galleryId = $input->get('gid', 0, 'INT');
+                $imageId = $input->get('id', 0, 'INT');
+
+                /**
 				$userRating = $input->get('rating', 0, 'INT');
 				// Show same image -> pagination limitstart
 				$limitStart = $input->get('paginationImgIdx', 0, 'INT');
+                /**/
 
-
-				$ratingModel = $this->getModel('rating');
-				$isRated = $ratingModel->doRating ($imageId, $userRating);
+				$commentModel = $this->getModel('comment');
+				$isSaved = $commentModel->saveComment (/* $imageId, $userRating */);
                 // $limitStart = 4;
 
 				// Set cookie
-				if ($isRated)
+				if ($isSaved)
 				{
-					$ratingModel->SetUserHasRated($imageId, $userRating);
+					$commentModel->SetUserHasCommented(/* $imageId, $userRating*/);
 				}
 
-                //	limitstart=3 ....
-                // http://127.0.0.1/joomla3x/index.php?option=com_rsgallery2&view=gallery&gid=2&advancedSef=1&startShowSingleImage=1&Itemid=145&XDEBUG_SESSION_START=12302&limitstart=3
+//				limitstart=3 ....
+// http://127.0.0.1/joomla3x/index.php?option=com_rsgallery2&view=gallery&gid=2&advancedSef=1&startShowSingleImage=1&Itemid=145&XDEBUG_SESSION_START=12302&limitstart=3
 				$link = 'index.php?option=com_rsgallery2&view=gallery&gid=' . $galleryId . '&id=' . $imageId
 					. '&startShowSingleImage=1' . '&rating=' . $userRating . '&limitstart=' . $limitStart;
 			}
 			catch (RuntimeException $e)
 			{
 				$OutTxt = '';
-				$OutTxt .= 'Error executing rateSingleImage: "' . '<br>';
+				$OutTxt .= 'Error executing saveComment: "' . '<br>';
 				$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
 				$app = JFactory::getApplication();

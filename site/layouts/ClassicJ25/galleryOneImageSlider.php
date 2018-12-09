@@ -365,16 +365,9 @@ if ($isDisplayImgDetails)
     {
 	    echo '        <div class="tab-pane ' . $isDisplayDescActive . '" id="tabDesc">';
 	    echo '            <div  class="page_inline_tabs_description" >';
-	    // Hits
-        if ($isDisplayImgHits)
-        {
-	        //echo '            <p class="rsg2_hits">' . JText::_('COM_RSGALLERY2_HITS') . '&nbsp;<span>' . $image->hits . '</span>';
-            echo '            <dl class="dl-horizontal">';
-            echo '                <dt>' . JText::_('COM_RSGALLERY2_HITS') . '</dt><dd>' . $image->hits . '</dd>';
-            echo '            </dl>';
-        }
-        // Description
-        echo '                <p class="rsg2_description">' . nl2br($image->descr) . '</p>';
+
+        echo htmlDescription ($image, $isDisplayImgHits);
+
 	    echo '            </div>';
 	    echo '        </div>';
     }
@@ -403,9 +396,9 @@ if ($isDisplayImgDetails)
     {
 	    echo '        <div class="tab-pane' . $isDisplayCommentsActive . '" id="tabComment">';
 	    echo '            <div  class="page_inline_tabs_comments" >';
-        if ( ! empty ($image->Comments))
+        if (true) // ToDo: when tp display authorise: ! empty ($image->Comments))
         {
-            echo htmlComments ($image->Comments);
+            echo htmlComments ($image->comments, $image->gallery_id, $image->id);
         }
         else
         {
@@ -439,81 +432,6 @@ if ($isDisplayImgDetails)
 
     echo '</div>'; // well
 
-    /**
-     *
-    echo '    <div class="rsg_sem_inl_ImgDetails">';
-    echo '    	<dl class="tabs" id="page_inline_tabs">';
-    echo '    		<dt style="display:none;"/>';
-    echo '    		<dd style="display:none;"/>';
-    echo '    		<dt class="tabs page_inline_tabs_description open" style="cursor: pointer;">';
-    echo '    			<span>';
-    echo '    				<h3>';
-    echo '    					<a href="javascript:void(0);">Description</a>';
-    echo '    				</h3>';
-    echo '    			</span>';
-    echo '    		</dt>';
-    echo '    		<dt class="tabs page_inline_tabs_voting closed" style="cursor: pointer;">';
-    echo '    			<span>';
-    echo '    				<h3>';
-    echo '    					<a href="javascript:void(0);">Voting</a>';
-    echo '    				</h3>';
-    echo '    			</span>';
-    echo '    		</dt>';
-    echo '    		<dt class="tabs page_inline_tabs_comments closed" style="cursor: pointer;">';
-    echo '    			<span>';
-    echo '    				<h3>';
-    echo '    					<a href="javascript:void(0);">Comments</a>';
-    echo '    				</h3>';
-    echo '    			</span>';
-    echo '    		</dt>';
-    echo '    		<dt class="tabs page_inline_tabs_exif closed" style="cursor: pointer;">';
-    echo '    			<span>';
-    echo '    				<h3>';
-    echo '    					<a href="javascript:void(0);">EXIF</a>';
-    echo '    				</h3>';
-    echo '    			</span>';
-    echo '    		</dt>';
-    echo '    	</dl>';
-    echo '    	<div class="current">';
-    echo '    		<dd class="tabs" style="display: block;">';
-    echo '    			<p class="rsg2_hits">Hits <span>1</span>';';
-    echo '    			</p>';';
-    echo '    		</dd>';
-    echo '    		<dd class="tabs" style="display: none;">Voting is disabled!</dd>';
-    echo '    		<dd class="tabs" style="display: none;">Commenting is disabled</dd>';
-    echo '    		<dd class="tabs" style="display: none;">';
-    echo '    			<div class="rsg2_exif_container">';';
-    echo '    				<table class="adminlist" border="1">';';
-    echo '    					<tbody>';
-    echo '    						<tr>';';
-    echo '    							<th>Setting</th>';';
-    echo '    							<th>Value</th>';';
-    echo '    						</tr>';';
-    echo '    						<tr>';';
-    echo '    							<td>';
-    echo '    								<span class="rsg2_label">FileName</span>';
-    echo '    							</td>';';
-    echo '    							<td>C:\xampp\htdocs\Joomla3xRelease/images/rsgallery/original/Dia_1992_10_Nr001.jpg</td>';';
-    echo '    						</tr>';';
-    echo '    						<tr>';';
-    echo '    							<td>';
-    echo '    								<span class="rsg2_label">FileDateTime</span>';
-    echo '    							</td>';';
-    echo '    							<td>28-Sep-2018 12:23:59</td>';';
-    echo '    						</tr>';';
-    echo '    						<tr>';';
-    echo '    							<td>';
-    echo '    								<span class="rsg2_label">resolution</span>';
-    echo '    							</td>';';
-    echo '    							<td>2442x1588</td>';';
-    echo '    						</tr>';';
-    echo '    					</tbody>';';
-    echo '    				</table>';';
-    echo '    			</div>';
-    echo '    		</dd>';
-    echo '    	</div>	';
-    echo '    </div>';
-     * /**/
 }
 
 echo '</div>'; // <div class="rsg2">
@@ -522,20 +440,6 @@ echo '</div>'; // <div class="rsg2">
 function htmlStars ($idx, $average, $lastRating)
 {
     $html = [];
-
-    /**
-    $html[] = '                    <button id="star_1" type="button" class="btn btn-warning btn-mini btn_star" aria-label="Left Align">';
-    $html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
-    $html[] = '                    </button>';
-
-    $html[] = '                    <button id="star_1" type="button" class="btn btn-warning btn-mini btn_star" aria-label="Left Align">';
-	$html[] = '                    <button id="star_5" type="button" class="btn btn-default btn-mini btn_star btn-grey" aria-label="Left Align">';
-	$html[] = '                        <span class="icon-star" aria-hidden="true"></span>';
-	$html[] = '                    </button>';
-    ;
-    /**/
-
-    //$idx ++;  0-4
 
 	$intAvg = (int) floor($average);
 	$avgRem = ((double) $average) - $intAvg; // reminder
@@ -583,7 +487,7 @@ function htmlStars ($idx, $average, $lastRating)
     return implode("\n", $html);
 }
 
-function htmlRatingData($ratingData, $isVotingEnabled, $gid, $iid)
+function htmlRatingData($ratingData, $isVotingEnabled, $gid, $imageId)
 {
     $html = [];
 
@@ -593,6 +497,7 @@ function htmlRatingData($ratingData, $isVotingEnabled, $gid, $iid)
 
 	//--- result of rating ------------------------------------
 
+    // ToDo: add limit here and remove from *js
     $html[] = '                <form name="rsgvoteform" method="post" action="' . JRoute::_('index.php?option=com_rsgallery2&view=gallery&gid=' . $gid) .'&startShowSingleImage=1" id="rsgVoteForm">';
 
 	$html[] = '                <div class="rating-block row-fluid text-center" >';
@@ -616,27 +521,120 @@ function htmlRatingData($ratingData, $isVotingEnabled, $gid, $iid)
 
     $html[] = '                <input type="hidden" name="task" value="rating.rateSingleImage" />';
     $html[] = '                <input type="hidden" name="rating" value="" />';
-    $html[] = '                <input type="hidden" name="debug" value="" />;';
-    $html[] = '                <input type="hidden" name="paginationImgIdx" value="" />;';
-    $html[] = '                <input type="hidden" name="id" value="' . $iid . '" />;';
+    $html[] = '                <input type="hidden" name="paginationImgIdx" value="" />';
+    $html[] = '                <input type="hidden" name="id" value="' . $imageId . '" />';
 	$html[] = '                <input id="token" type="hidden" name="' . JSession::getFormToken() . '" value="1" />';
+	
     $html[] = '                </form>';
-
-    // echo JText::_('COM_RSGALLERY2_AVERAGE_USER_RATING');
-
-
 
     $html[] =  '		</div>'; // rsg2_exif_container
 
     return implode("\n", $html);
 }
 
-function htmlComments ($comments)
+function htmlDescription ($image, $isDisplayImgHits)
 {
     $html = [];
 
-    $html[] = "";
 
+    /**
+    $html[] = '<div class ="alert alert-info">';
+    $html[] = '</div>';
+    $html[] = '';
+    $html[] = '';
+    $html[] = '';
+    $html[] = '';
+    $html[] = '';
+    /**/
+    /**
+    $html[] = '<div class ="info">';
+    $html[] = '<caption>';
+    /**/
+
+    //--- Hits --------------------------------
+
+    if ($isDisplayImgHits)
+    {
+        //$html[] = '<div class="well well-small">';
+        //$html[] = '    <span class="' . $iconClass . '" aria-hidden="true"></span>';
+        //echo '            <p class="rsg2_hits"> ' . JText::_('COM_RSGALLERY2_HITS') . '&nbsp;<span>' . $image->hits . '</span>';
+        //$html[] = '<div class ="rsg2_hits">';
+        $html[] = '            <dl class="dl-horizontal">'; // dl-horizontal
+        //$html[] = '                <dt>' . JText::_('COM_RSGALLERY2_HITS') . ' <i class="icon-flag"></i> </dt><dd>' . $image->hits . '</dd>';
+        $html[] = '                <dt> <i class="icon-flag"></i> ' . JText::_('COM_RSGALLERY2_HITS') . '</dt><dd><strong>' . $image->hits . '</strong></dd>';
+        $html[] = '            </dl>';
+        //$html[] = '</div>';
+    }
+
+    //--- Description --------------------------
+
+    //$html[] = '<div class ="alert alert-info">';
+    $html[] = '<div class ="well">';
+
+    $html[] = '                <p class="rsg2_description">' . nl2br($image->descr) . '</p>';
+    //$html[] = '                <p class="rsg2_description">' . $image->descr . '</p>';
+
+    $html[] = '</div>';
+
+    /**
+     * $html[] = '</caption>';
+    /**/
+    /**/
+
+    return implode("\n", $html);
+}
+
+function htmlComments ($comments, $gid, $imageId)
+{
+    $formFields = $comments->formFields;
+
+
+    $html = [];
+
+    $html[] =  '        <div class="rsg2_rating_container">';
+
+    $html[] = '                <form name="rsgcommentform" method="post" action="' . JRoute::_('index.php?option=com_rsgallery2&view=gallery&gid=' . $gid) .'&startShowSingleImage=1" id="rsgVoteForm">';
+
+    $html[] = '                    <div class ="well">';
+    $html[] = '                       <h4>'. JText::_('COM_RSGALLERY2_ADD_COMMENT') . '</h4>';
+    $html[] = '';
+    $html[] = '';
+
+                // 				echo $this->form->renderFieldset('Images_manipulation');
+    $html[] = '                        ' . $formFields->renderFieldset ('comment');
+    $html[] = '';
+    $html[] = '';
+    $html[] = ''; //     $html[] = ''; //
+    $html[] = '' . JText::_('COM_RSGALLERY2_SEND_COMMENT') . '';
+    $html[] = '';
+    $html[] = '';
+
+    <button id="filter_go" class="btn btn-micro"
+											onclick="Joomla.submitbutton('images.saveOrdering')"
+											title="<?php echo JText::_('COM_RSGALLERY2_ASSIGN_CHANGED_ORDER'); ?>">
+										<i class="icon-save"></i>
+									</button>
+
+$html[] = '';
+    $html[] = '';
+    $html[] = '';
+    $html[] = '';
+    $html[] = '';
+    $html[] = '';
+    $html[] = '';
+    $html[] = '';
+    $html[] = '';
+    $html[] = '                <input type="hidden" name="task" value="comment.save" />';
+    $html[] = '                <input type="hidden" name="rating" value="" />';
+    $html[] = '                <input type="hidden" name="paginationImgIdx" value="" />';
+    $html[] = '                <input type="hidden" name="id" value="' . $imageId . '" />';
+    $html[] = '                <input id="token" type="hidden" name="' . JSession::getFormToken() . '" value="1" />';
+
+    $html[] = '</div>';
+    $html[] = '                </form>';
+    
+    $html[] = '                </div>'; //
+    
     return implode("\n", $html);
 }
 

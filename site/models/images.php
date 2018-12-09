@@ -366,9 +366,24 @@ class RSGallery2ModelImages extends JModelList
     {
         global $rsgConfig;
 
+        // d:\xampp\htdocs\Joomla3x\components\com_rsgallery2\models\forms\comment.xml
+        // D:\xampp\htdocs\joomla3x/components/rsgallery2/models/forms/comment.xml
+        $xmlFile    = JPATH_SITE . '/components/com_rsgallery2/models/forms/comment.xml';
+        $formFields = JForm::getInstance('comment', $xmlFile);
+
+        /**
+        $params = YireoHelper::toRegistry($this->item->params)->toArray();
+        $params_form = JForm::getInstance('params', $file);
+        $params_form->bind(array('params' => $params));
+        $this->params_form = $params_form;
+        /**/
+
         foreach ($images as $image)
         {
-            $image->comments = 0;
+            $image->comments = new stdClass();
+
+            $image->comments->formFields = $formFields;
+            //$image->comments->;
         }
     }
 
