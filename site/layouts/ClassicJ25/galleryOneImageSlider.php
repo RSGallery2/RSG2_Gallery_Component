@@ -594,7 +594,7 @@ function htmlComments ($comments, $gid, $imageId)
     $html[] =  '        <div class="rsg2_rating_container">';
 
     $html[] = '                <form name="rsgcommentform" method="post" action="' . JRoute::_('index.php?option=com_rsgallery2&view=gallery&gid=' . $gid) .'&startShowSingleImage=1" id="rsgVoteForm">';
-
+#
     $html[] = '                    <div class ="well">';
     $html[] = '                       <h4>'. JText::_('COM_RSGALLERY2_ADD_COMMENT') . '</h4>';
     $html[] = '';
@@ -605,17 +605,17 @@ function htmlComments ($comments, $gid, $imageId)
     $html[] = '';
     $html[] = '';
     $html[] = ''; //     $html[] = ''; //
-    $html[] = '' . JText::_('COM_RSGALLERY2_SEND_COMMENT') . '';
+    //$html[] = '' . JText::_('COM_RSGALLERY2_SEND_COMMENT') . '';
     $html[] = '';
     $html[] = '';
 
-    <button id="filter_go" class="btn btn-micro"
-											onclick="Joomla.submitbutton('images.saveOrdering')"
-											title="<?php echo JText::_('COM_RSGALLERY2_ASSIGN_CHANGED_ORDER'); ?>">
-										<i class="icon-save"></i>
-									</button>
+    $html[] = '                             <button id="filter_go" class="btn btn-primary" ';
+    $html[] = '								  onclick="Joomla.submitbutton(\'images.saveOrdering\')"';
+	$html[] = '										title="' . JText::_('COM_RSGALLERY2_ASSIGN_CHANGED_ORDER') . '">';
+	$html[] = '									<i class="icon-save"></i> ' . JText::_('COM_RSGALLERY2_SEND_COMMENT') . '';
+	$html[] = '								</button>';
 
-$html[] = '';
+    $html[] = '';
     $html[] = '';
     $html[] = '';
     $html[] = '';
