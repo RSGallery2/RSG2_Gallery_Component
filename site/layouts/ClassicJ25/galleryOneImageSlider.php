@@ -632,7 +632,7 @@ function htmlComments ($comments, $gid, $imageId)
 	$html[] = '                    action="' . JRoute::_('index.php?option=com_rsgallery2&view=gallery&gid=' . $gid) .'&startShowSingleImage=1" id="rsgCommentForm">';
 #
     $html[] = '                    <div class ="well">';
-    $html[] = '                        <h4>'. JText::_('COM_RSGALLERY2_ADD_COMMENT') . '</h4>';
+    $html[] = '                        <h4>'. JText::_('COM_RSGALLERY2_CREATE_COMMENT') . '</h4>';
 
     $html[] = '                        ' . $formFields->renderFieldset ('comment');
 
@@ -641,7 +641,7 @@ function htmlComments ($comments, $gid, $imageId)
 //    $html[] = '						       onclick="Joomla.submitbutton(\'comment.saveComment\')"';
     $html[] = '						       onclick="Joomla.submitbutton(this.form);return false"';
 	$html[] = '							   title="' . JText::_('COM_RSGALLERY2_SEND_COMMENT_DESC') . '">';
-	$html[] = '						       <i class="icon-save"></i> ' . JText::_('COM_RSGALLERY2_SEND_COMMENT') . '';
+	$html[] = '						       <i class="icon-save"></i> ' . JText::_('COM_RSGALLERY2_ADD_COMMENT') . '';
 	$html[] = '						   </button>';
 
     $html[] = '                    	   <input type="hidden" name="task" value="comment.saveComment" />';

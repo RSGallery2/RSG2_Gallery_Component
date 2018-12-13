@@ -67,6 +67,38 @@ if ($isDebugSiteActive)
 	JLog::add('Start rsgallery2.php in site: debug active in RSGallery2'); //, JLog::DEBUG);
 }
 
+$input = JFactory::getApplication()->input;
+$task = $input->get('task', '', 'CMD');
+//$option = strtolower($input->get('option', '', 'CMD'));
+//$catid = $input->get('catid', null, 'INT');
+
+$view = $input->get('view', null, 'CMD');
+$layout = $input->get('layout', '', 'CMD');
+
+// List of id's (image, gallery ...
+// $cids = $input->get('cid', array(), 'ARRAY');
+// $id = $input->get('id', 0, 'INT');
+
+// $rsgOption = $input->get('rsgOption', null, 'CMD');
+
+if ($isDebugSiteActive) {
+    //$Delim = "\n";
+    $Delim = " ";
+    // show active task
+    $DebTxt = "==> base.rsgallery2.php" . $Delim . "----------" . $Delim;
+    $DebTxt = $DebTxt . "\$task: $task" . $Delim;
+    //$DebTxt = $DebTxt . "\$option: $option" . $Delim;
+    //$DebTxt = $DebTxt . "\$catid: $catid" . $Delim;
+    //$DebTxt = $DebTxt . "\$cids: " . implode(",", $cids) . $Delim;
+    //$DebTxt = $DebTxt . "\$id: $id" . $Delim;
+    //$DebTxt = $DebTxt . "\$rsgOption: $rsgOption" . $Delim;
+    $DebTxt = $DebTxt . "\$view: $view" . $Delim;
+    $DebTxt = $DebTxt . "\$layout: $layout" . $Delim;
+
+    JLog::add($DebTxt); //, JLog::DEBUG);
+}
+
+
 // ToDO: Task and other vars
 
 
