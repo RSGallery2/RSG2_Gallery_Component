@@ -105,6 +105,11 @@ if ($isDisplayVoting)
     $doc->addStyleSheet(JURI_SITE . "/components/com_rsgallery2/lib/rsgvoting/rsgvoting.css");
 }
 
+// Adding stylesheet for commenting
+if ($isDisplayComments)
+{
+	$doc->addStyleSheet(JURI_SITE . "/components/com_rsgallery2/lib/rsgcomments/rsgcomments.css");
+}
 /*---------------------------------------------------------------
     Header: search/pagination selector (images per page)
 ---------------------------------------------------------------*/
@@ -591,7 +596,37 @@ function htmlComments ($comments, $gid, $imageId)
 
     $html = [];
 
-    $html[] =  '           <div class="rsg2_rating_container">';
+    //if (count($comments) > 0)
+    // {
+
+    // }
+    // else
+    // {
+
+	$html[] = '<div id="comment">';
+	$html[] = '    <table width="100%" class="comment_table">';
+	$html[] = '        <tr>';
+	$html[] = '            <td class="title">';
+	$html[] = '                <span class="posttitle">' . JText::_('COM_RSGALLERY2_NO_COMMENTS_YET') . ' <br></span>';
+	$html[] = '                 ';
+	$html[] = '                 <br>';
+    $html[] = '            </td>';
+	$html[] = '        </tr>';
+	$html[] = '    </table>';
+	$html[] = '</div>';
+
+	$html[] = '';
+	$html[] = '';
+	$html[] = '';
+	$html[] = '';
+
+    // }
+
+	$html[] = '';
+	$html[] = '<hr>';
+	$html[] = '';
+
+    $html[] =  '           <div class="rsg2_comments_container">';
 
     $html[] = '                <form name="rsgCommentForm" class="form-horizontal" method="post"';
 	$html[] = '                    action="' . JRoute::_('index.php?option=com_rsgallery2&view=gallery&gid=' . $gid) .'&startShowSingleImage=1" id="rsgCommentForm">';
@@ -609,7 +644,7 @@ function htmlComments ($comments, $gid, $imageId)
 	$html[] = '						       <i class="icon-save"></i> ' . JText::_('COM_RSGALLERY2_SEND_COMMENT') . '';
 	$html[] = '						   </button>';
 
-    $html[] = '                    	   <input type="hidden" name="task" value="comment.save" />';
+    $html[] = '                    	   <input type="hidden" name="task" value="comment.saveComment" />';
     $html[] = '                    	   <input type="hidden" name="rating" value="" />';
     $html[] = '                    	   <input type="hidden" name="paginationImgIdx" value="" />';
     $html[] = '                    	   <input type="hidden" name="id" value="' . $imageId . '" />';

@@ -67,6 +67,9 @@ if ($isDebugSiteActive)
 	JLog::add('Start rsgallery2.php in site: debug active in RSGallery2'); //, JLog::DEBUG);
 }
 
+// ToDO: Task and other vars
+
+
 // Use the old J25 files and tasks
 if ($isUseJ25View) {
     // ToDo: Remove following
