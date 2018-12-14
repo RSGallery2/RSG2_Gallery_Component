@@ -33,6 +33,14 @@ class RSGallery2ModelComments extends JModelList
 		$isCommented = false;
 
 		/**
+		$comment [commentUserName] = $commentUserName;
+		$comment [commentTitle] = $commentTitle;
+		$comment [commentText] = $commentText;
+		/**/
+
+
+
+		/**
 		  `id` int(11) NOT NULL auto_increment,
 		  `user_id` int(11) NOT NULL,
 		  `user_name` varchar(100) NOT NULL,

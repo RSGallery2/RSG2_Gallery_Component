@@ -4,7 +4,7 @@
 		<field
 				name="commentUserName"
 				type="text"
-				class="readonly"
+				class="input"
 				label="COM_RSGALLERY2_YOUR_NAME"
 				description="COM_RSGALLERY2_YOUR_NAME_DESC"
 				size="10"
@@ -24,7 +24,7 @@
 
 
 		<field
-				name="commentComment"
+				name="commentText"
 				type="editor"
 				label="COM_RSGALLERY2_ACCESS_COMPONENT_COMMENT"
 				description="COM_RSGALLERY2_COMMENTS_FIELD_COMMENT_DESC"

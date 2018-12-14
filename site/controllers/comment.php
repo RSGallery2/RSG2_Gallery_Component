@@ -21,6 +21,9 @@ defined('_JEXEC') or die;
 class RSGallery2ControllerComment extends BaseController
 {
 
+	// saveComment Below / ToDO: delete comment
+
+
 	public function addComment()
 	{
 		$msgType = 'notice';
@@ -37,59 +40,98 @@ class RSGallery2ControllerComment extends BaseController
 
 		if ( ! $canComment)
 		{
-			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-			$msgType = 'warning';
+			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR') . " " . JText::_('COM_RSGALLERY2_COMMENTING_IS_DISABLED');
+			$msgType = 'Warning: ';
 			// replace newlines with html line breaks.
 			str_replace('\n', '<br>', $msg);
 		}
 		else
 		{
-			try
+			// Check user ID
+			$user    = JFactory::getUser();
+			$user_id = (int) $user->id;
+
+			if (empty($user_id))
 			{
-				echo "<br><br><br>*CommentSingleImage<br><br><br>";
-
-				$input = JFactory::getApplication()->input;
-
-                $galleryId = $input->get('gid', 0, 'INT');
-                $imageId = $input->get('id', 0, 'INT');
-
-                /**
-				$userRating = $input->get('rating', 0, 'INT');
-				// Show same image -> pagination limitstart
-				$limitStart = $input->get('paginationImgIdx', 0, 'INT');
-                /**/
-
-				$comment = '';
-
-				$commentModel = $this->getModel('comments');
-				$isSaved = $commentModel->addComment ($imageId, $comment);
-
-				// Set cookie
-				if ($isSaved)
+				$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR') . " " . JText::_('COM_RSGALLERY2_COMMENTING_IS_DISABLED');
+				$msgType = 'Warning: ';
+				// replace newlines with html line breaks.
+				str_replace('\n', '<br>', $msg);
+			}
+			else
+			{
+				try
 				{
-					$commentModel->SetUserHasCommented($imageId);
+					echo "<br><br><br>*CommentSingleImage<br><br><br>";
+
+					$input = JFactory::getApplication()->input;
+
+					$galleryId = $input->get('gid', 0, 'INT');
+					$imageId   = $input->get('id', 0, 'INT');
+					$item_id = $input->get('item_id', 0, 'INT');
+
+					/**
+					 * $userRating = $input->get('rating', 0, 'INT');
+					 * // Show same image -> pagination limitstart
+					 * $limitStart = $input->get('paginationImgIdx', 0, 'INT');
+					 * /**/
+
+
+					$commentUserName = $input->get('commentUserName', 0, 'string');
+					$commentTitle    = $input->get('commentTitle', 0, 'string');
+					$commentText     = $input->get('commentText', 0, 'string');
+
+					$comment = new \stdClass;
+
+
+
+					$comment ['user_id']         = $user_id;
+					$comment ['user_name'] = $commentUserName;
+					$comment ['user_ip']   = $input->server->get('REMOTE_ADDR', '', '');
+					$comment ['parent_id'  = ;
+					$comment ['item_id'    = ;
+					$comment ['item_table' = ;
+					$comment ['datetime'   = ;
+					$comment ['subject'    = $commentTitle;
+					$comment ['comment'    = $commentText;
+					$comment ['published'  = ;
+					$comment ['ordering'   = ;
+					$comment ['params'     = ;
+					$comment ['hits'       = ;
+
+
+					$commentModel = $this->getModel('comments');
+					$isSaved      = $commentModel->addComment($imageId, $comment);
+
+					// Set cookie
+					if ($isSaved)
+					{
+						$commentModel->SetUserHasCommented($imageId);
+					}
+
+					// limitstart=3 ....
+					// http://127.0.0.1/joomla3x/index.php?option=com_rsgallery2&view=gallery&gid=2&advancedSef=1&startShowSingleImage=1&Itemid=145&XDEBUG_SESSION_START=12302&limitstart=3
+					$link = 'index.php?option=com_rsgallery2&view=gallery&gid=' . $galleryId . '&id=' . $imageId
+						. '&startShowSingleImage=1' . '&rating=' . $userRating . '&limitstart=' . $limitStart;
 				}
+				catch
+					(RuntimeException $e)
+				{
+					$OutTxt = '';
+					$OutTxt .= 'Error executing addComment: "' . '<br>';
+					$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-				// limitstart=3 ....
-				// http://127.0.0.1/joomla3x/index.php?option=com_rsgallery2&view=gallery&gid=2&advancedSef=1&startShowSingleImage=1&Itemid=145&XDEBUG_SESSION_START=12302&limitstart=3
-				$link = 'index.php?option=com_rsgallery2&view=gallery&gid=' . $galleryId . '&id=' . $imageId
-					. '&startShowSingleImage=1' . '&rating=' . $userRating . '&limitstart=' . $limitStart;
-			}
-			catch (RuntimeException $e)
-			{
-				$OutTxt = '';
-				$OutTxt .= 'Error executing saveComment: "' . '<br>';
-				$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-				$app = JFactory::getApplication();
-				$app->enqueueMessage($OutTxt, 'error');
-			}
+					$app = JFactory::getApplication();
+					$app->enqueueMessage($OutTxt, 'error');
+				}
+			} // user ID
 		}
 
 		$this->setRedirect($link, $msg, $msgType);
 	}
 
 
+	// After editing
 	public function saveComment()
 	{
 		$msgType = 'notice';

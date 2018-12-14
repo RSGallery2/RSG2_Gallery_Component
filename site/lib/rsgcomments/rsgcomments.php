@@ -63,8 +63,8 @@ function test($option)
 function saveComment($option)
 {
 	global $rsgConfig;
-	$mainframe = JFactory::getApplication();
-	$my        = JFactory::getUser();
+	$app = JFactory::getApplication();
+	$user  = JFactory::getUser();
 	$database  = JFactory::getDBO();
 
 	//Retrieve parameters
@@ -89,7 +89,7 @@ function saveComment($option)
 	//Check if commenting is enabled (need $gid and $redirect_url)
 	if (!JFactory::getUser()->authorise('rsgallery2.comment', 'com_rsgallery2.gallery.' . $gid))
 	{
-		$mainframe->redirect($redirect_url, JText::_('COM_RSGALLERY2_COMMENTING_IS_DISABLED'));
+		$app->redirect($redirect_url, JText::_('COM_RSGALLERY2_COMMENTING_IS_DISABLED'));
 		exit();
 	}
 
@@ -117,16 +117,16 @@ function saveComment($option)
 		}
 		if ($testFailed)
 		{
-			$mainframe->redirect($redirect_url, JText::_('COM_RSGALLERY2_COMMENT_COULD_NOT_BE_ADDED'));
+			$app->redirect($redirect_url, JText::_('COM_RSGALLERY2_COMMENT_COULD_NOT_BE_ADDED'));
 		}
 	}
 	//	Get comment "database ready"
 	$comment = $database->Quote($comment);                            // Used in sql!
 
 	//Check if user is logged in
-	if ($my->id)
+	if ($user->id)
 	{
-		$user_id = (int) $my->id;
+		$user_id = (int) $user->id;
 		//Check if only one comment is allowed
 		if ($rsgConfig->get('comment_once') == 1)
 		{
@@ -137,7 +137,7 @@ function saveComment($option)
 			if ($result > 0)
 			{
 				//No further comments allowed, redirect
-				$mainframe->redirect($redirect_url, JText::_('COM_RSGALLERY2_USER_CAN_ONLY_COMMENT_ONCE'));
+				$app->redirect($redirect_url, JText::_('COM_RSGALLERY2_USER_CAN_ONLY_COMMENT_ONCE'));
 			}
 		}
 	}
@@ -190,11 +190,11 @@ function saveComment($option)
 	$database->setQuery($sql);
 	if ($database->execute())
 	{
-		$mainframe->redirect($redirect_url, JText::_('COM_RSGALLERY2_COMMENT_ADDED_SUCCESFULLY'));
+		$app->redirect($redirect_url, JText::_('COM_RSGALLERY2_COMMENT_ADDED_SUCCESFULLY'));
 	}
 	else
 	{
-		$mainframe->redirect($redirect_url, JText::_('COM_RSGALLERY2_COMMENT_COULD_NOT_BE_ADDED'));
+		$app->redirect($redirect_url, JText::_('COM_RSGALLERY2_COMMENT_COULD_NOT_BE_ADDED'));
 	}
 
 }
