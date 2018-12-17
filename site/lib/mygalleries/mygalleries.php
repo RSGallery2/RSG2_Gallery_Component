@@ -398,21 +398,21 @@ function saveUploadedItem()
 				}
 
 				$file_name = $i_file['name'];
-				if (move_uploaded_file($i_file['tmp_name'], JPATH_ROOT . '/media"  . '/' .  $file_name))
+				if (move_uploaded_file($i_file['tmp_name'], JPATH_ROOT . '/media/' .  $file_name))
 				{
 					//Import into database and copy to the right places
-					$imported = imgUtils::importImage(JPATH_ROOT . '/media"  . '/' .  $file_name, $file_name, $gallery_id, $title, $descr);
+					$imported = imgUtils::importImage(JPATH_ROOT . '/media/' .  $file_name, $file_name, $gallery_id, $title, $descr);
 
 					if ($imported == 1)
 					{
-						if (file_exists(JPATH_ROOT . '/media"  . '/' .  $file_name))
+						if (file_exists(JPATH_ROOT . '/media/' .  $file_name))
 						{
-							unlink(JPATH_ROOT . '/media"  . '/' .  $file_name);
+							unlink(JPATH_ROOT . '/media/' .  $file_name);
 						}
 					}
 					else
 					{
-						$mainframe->redirect($redirect, 'Importing image failed! Notify RSGallery2. This should never happen!');
+						$mainframe->redirect($redirect, 'Importing image failed! Notify RSGallery2. This should never happen!')  ;
 					}
 					$mainframe->redirect($redirect, JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY'));
 				}
