@@ -89,7 +89,7 @@ class RSGallery2ControllerComment extends BaseController
 					$comment ['user_name'] = $commentUserName;
 					$comment ['user_ip']   = $input->server->get('REMOTE_ADDR', '', '');
 					$comment ['parent_id'  = ;
-					$comment ['item_id'    = ;
+					$comment ['item_id'    =  $input->get('item_id', 0, 'INT');
 					$comment ['item_table' = ;
 					$comment ['datetime'   = ;
 					$comment ['subject'    = $commentTitle;
