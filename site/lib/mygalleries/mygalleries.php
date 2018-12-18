@@ -402,7 +402,6 @@ function saveUploadedItem()
 				{
 					//Import into database and copy to the right places
 					$imported = imgUtils::importImage(JPATH_ROOT . '/media/' .  $file_name, $file_name, $gallery_id, $title, $descr);
-
 					if ($imported == 1)
 					{
 						if (file_exists(JPATH_ROOT . '/media/' .  $file_name))
