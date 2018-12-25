@@ -9,7 +9,7 @@
 				description="COM_RSGALLERY2_YOUR_NAME_DESC"
 				size="10"
 				default=""
-				readonly="true"
+				filter="username"
 		/>
 
 		<field
@@ -20,6 +20,7 @@
 				class="input-xxlarge input-large-text"
 				size="120"
 				required="true"
+				filter="string"
 		/>
 
 

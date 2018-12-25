@@ -371,6 +371,8 @@ class RSGallery2ModelImages extends JModelList
         $xmlFile    = JPATH_SITE . '/components/com_rsgallery2/models/forms/comment.xml';
         $formFields = JForm::getInstance('comment', $xmlFile);
 
+	    $commentsModel = self::getInstance('comments', 'RSGallery2Model');
+
         /**
         $params = YireoHelper::toRegistry($this->item->params)->toArray();
         $params_form = JForm::getInstance('params', $file);
@@ -383,6 +385,9 @@ class RSGallery2ModelImages extends JModelList
             $image->comments = new stdClass();
 
             $image->comments->formFields = $formFields;
+	        $image->comments->comments = $commentsModel->getImageComments ($image->id);
+
+
             //$image->comments->;
         }
     }

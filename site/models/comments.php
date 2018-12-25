@@ -28,6 +28,31 @@ class RSGallery2ModelComments extends JModelList
     private $item;
 
 
+	public function addComment($imageId, $comment)
+	{
+		$isCommented = false;
+
+		try
+		{
+			$db = JFactory::getDBO();
+			//$query = $db->getQuery(true);
+
+			// Insert the object into the user profile table.
+			$isCommented = $db->insertObject('#__rsgallery2_comments', $comment);
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= ': Error executing insertObject in addComment' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $isCommented;
+	}
+
 	public function saveComment($imageId, $comment)
 	{
 		$isCommented = false;
@@ -91,6 +116,44 @@ class RSGallery2ModelComments extends JModelList
 		return $isCommented;
 	}
 
+	public function getImageComments ($imageId)
+	{
+		$imageComments = [];
+
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		try
+		{
+			// ToDo: select only needed data
+			$query
+				->select('*')
+				->from($db->quoteName('#__rsgallery2_comments'))
+				->where('item_id=' . (int) $imageId);
+			$db->setQuery($query);
+
+			$comments = $db->loadObjectList();
+			if (!empty ($comments))
+			{
+				$imageComments = $comments;
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= ': Error executing query in getItems' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $imageComments;
+	}
+
+
+
+
+
 	public function SetUserHasCommented ($imageId)
 	{
 		global $rsgConfig;
@@ -116,7 +179,7 @@ class RSGallery2ModelComments extends JModelList
 	 *
 	 * @return int 0 or user rating
 	 */
-	public function isUserHasRated($imageId)
+	public function isUserHasCommented($imageId)
 	{
 		global $rsgConfig;
 

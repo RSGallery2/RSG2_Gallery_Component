@@ -303,6 +303,7 @@ if ($isDisplayImgDetails)
 	$isDisplayCommentsActive = '';
 	$isDisplayEXIFActive = '';
 
+	/**
 	if ($isDisplayDesc)
     {
 	    $isDisplayDescActive = 'active';
@@ -328,6 +329,8 @@ if ($isDisplayImgDetails)
 		    }
 	    }
     }
+    /**/
+	$isDisplayCommentsActive = 'active';
 
     echo '<div class="well">';
 
@@ -346,11 +349,11 @@ if ($isDisplayImgDetails)
     }
     if ($isDisplayVoting)
     {
-        echo '        <li class="' . $isDisplayVoting . '"><a href="#tabVote" data-toggle="tab">' . JText::_('COM_RSGALLERY2_VOTING') . '</a></li>';
+        echo '        <li class="' . $isDisplayVotingActive . '"><a href="#tabVote" data-toggle="tab">' . JText::_('COM_RSGALLERY2_VOTING') . '</a></li>';
     }
     if ($isDisplayComments)
     {
-        echo '        <li class="' . $isDisplayCommentsActive . '"><a href="#tabComment" data-toggle="tab">' . JText::_('COM_RSGALLERY2_COMMENTS') . '</a></li>';
+        echo '        <li class="' . $isDisplayCommentsActive . '"><a href="#tabComments" data-toggle="tab">' . JText::_('COM_RSGALLERY2_COMMENTS') . '</a></li>';
     }
     if ($isDisplayEXIF)
     {
@@ -373,6 +376,7 @@ if ($isDisplayImgDetails)
 
         echo htmlDescription ($image, $isDisplayImgHits);
 
+	    //echo '                <p>Howdy, I\'m in Section 1.</p>';
 	    echo '            </div>';
 	    echo '        </div>';
     }
@@ -381,7 +385,7 @@ if ($isDisplayImgDetails)
 
     if ($isDisplayVoting)
     {
-	    echo '        <div class="tab-pane ' . $isDisplayVoting . '" id="tabVote">';
+	    echo '        <div class="tab-pane ' . $isDisplayVotingActive . '" id="tabVote">';
 	    echo '            <div  class="page_inline_tabs_voting" >';
         if ( ! empty ($image->ratingData))
         {
@@ -391,6 +395,7 @@ if ($isDisplayImgDetails)
         {
             echo '                <p>' . JText::_('COM_RSGALLERY2_VOTING_IS_DISABLED') . '</p>';
         }
+	    //echo '                <p>Howdy, I\'m in Section 2.</p>';
         echo '            </div>';
 	    echo '        </div>';
     }
@@ -399,9 +404,9 @@ if ($isDisplayImgDetails)
 
     if ($isDisplayComments)
     {
-	    echo '        <div class="tab-pane' . $isDisplayCommentsActive . '" id="tabComment">';
+	    echo '        <div class="tab-pane ' . $isDisplayCommentsActive . '" id="tabComments">';
 	    echo '            <div  class="page_inline_tabs_comments" >';
-        if (true) // ToDo: when tp display authorise: ! empty ($image->Comments))
+        if (! empty ($image->comments))
         {
             echo htmlComments ($image->comments, $image->gallery_id, $image->id);
         }
@@ -409,6 +414,7 @@ if ($isDisplayImgDetails)
         {
             echo '                <p>' . JText::_('COM_RSGALLERY2_COMMENTING_IS_DISABLED') . '</p>';
         }
+	    // echo '                <p>Howdy, I\'m in Section 3.</p>';
 	    echo '            </div>';
 	    echo '        </div>';
     }
@@ -417,9 +423,8 @@ if ($isDisplayImgDetails)
 
     if ($isDisplayEXIF)
     {
-	    echo '        <div class="tab-pane' . $isDisplayEXIFActive . '" id="tabExif">';
+	    echo '        <div class="tab-pane ' . $isDisplayEXIFActive . '" id="tabExif">';
 	    echo '            <div  class="page_inline_tabs_exif" >';
-	    //echo '                <p>Howdy, I\'m in Section 4.</p>';
         if ( ! empty ($image->exifData))
         {
             echo htmlExifData ($image->exifData);
@@ -428,6 +433,7 @@ if ($isDisplayImgDetails)
         {
             // echo '                <p>' . JText::_('COM_RSGALLERY2_NO_EXIF_ITEM_SELECTED_') . '</p>';
         }
+	    echo '                <p>Howdy, I\'m in Section 4.</p>';
 	    echo '            </div>';
 	    echo '        </div>';
     }
@@ -496,7 +502,7 @@ function htmlRatingData($ratingData, $isVotingEnabled, $gid, $imageId)
 {
     $html = [];
 
-    $html[] = "";
+	$html[] = '<div class="container span12">';
 
 	$html[] =  '        <div class="rsg2_rating_container">';
 
@@ -534,6 +540,8 @@ function htmlRatingData($ratingData, $isVotingEnabled, $gid, $imageId)
 
     $html[] =  '		</div>'; // rsg2_exif_container
 
+	$html[] = '</div>'; // class="container span12">';
+
     return implode("\n", $html);
 }
 
@@ -542,7 +550,7 @@ function htmlDescription ($image, $isDisplayImgHits)
     $html = [];
 
 
-    /**
+	/**
     $html[] = '<div class ="alert alert-info">';
     $html[] = '</div>';
     $html[] = '';
@@ -555,6 +563,8 @@ function htmlDescription ($image, $isDisplayImgHits)
     $html[] = '<div class ="info">';
     $html[] = '<caption>';
     /**/
+
+	$html[] = '<div class="container span12">';
 
     //--- Hits --------------------------------
 
@@ -585,6 +595,7 @@ function htmlDescription ($image, $isDisplayImgHits)
      * $html[] = '</caption>';
     /**/
     /**/
+	$html[] = '</div>'; // class="container span12">';
 
     return implode("\n", $html);
 }
@@ -592,37 +603,115 @@ function htmlDescription ($image, $isDisplayImgHits)
 function htmlComments ($comments, $gid, $imageId)
 {
     $formFields = $comments->formFields;
-
+	$imgComments = $comments->comments;
 
     $html = [];
 
-    //if (count($comments) > 0)
-    // {
+	$html[] = '<div class="container span12">';
 
-    // }
-    // else
-    // {
+	$html[] =  '        <div class="rsg2_rating_container">';
 
-	$html[] = '<div id="comment">';
-	$html[] = '    <table width="100%" class="comment_table">';
-	$html[] = '        <tr>';
-	$html[] = '            <td class="title">';
-	$html[] = '                <span class="posttitle">' . JText::_('COM_RSGALLERY2_NO_COMMENTS_YET') . ' <br></span>';
-	$html[] = '                 ';
-	$html[] = '                 <br>';
-    $html[] = '            </td>';
-	$html[] = '        </tr>';
-	$html[] = '    </table>';
-	$html[] = '</div>';
+
+
+	if (empty($imgComments))
+    {
+	    $html[] = '<div id="comment">';
+	    $html[] = '    <table width="100%" class="comment_table">';
+	    $html[] = '        <tr>';
+	    $html[] = '            <td class="title">';
+	    $html[] = '                <span class="posttitle">' . JText::_('COM_RSGALLERY2_NO_COMMENTS_YET') . ' <br></span>';
+	    $html[] = '                 ';
+	    $html[] = '                 <br>';
+	    $html[] = '            </td>';
+	    $html[] = '        </tr>';
+	    $html[] = '    </table>';
+	    $html[] = '</div>';
+    }
+    else
+    {
+        // Comments existing
+
+	    // $html[] = '<div class="container span12">';
+
+	    /**
+	    $html[] = '<div id="comment">';
+	    $html[] = '    <table width="100%" class="comment_table">';
+	    $html[] = '        <tr>';
+//	    $html[] = '            <td class="title">';
+
+	    $html[] = '	           <td class="title" width="25%"><?php echo JText::_(\'COM_RSGALLERY2_COMMENTS\') ?></td>';
+	    $html[] = '	           <td class="title" width="50%"><?php echo JText::_(\'COM_RSGALLERY2_COMMENTS_ADDED\') ?></td>';
+	    $html[] = '	           <td class="title">';
+	    $html[] = '	               <div class="addcomment">';
+	    $html[] = '	                   <a class="special" href="#comment2">' . JText::_('COM_RSGALLERY2_ADD_COMMENT') . '</a>';
+	    $html[] = '	               </div>';
+	    $html[] = '	           </td>';
+	    $html[] = '	       </tr>';
+	    $html[] = '    </table>';
+	    $html[] = '    <br />';
+	    $html[] = '</div>';
+	    $html[] = '';
+	    $html[] = '';
+        /**/
+
+	    // https://bootsnipp.com/snippets/a35Pl
+
+
+        /**/
+        // each comment
+	    foreach ($imgComments as $comment)
+	    {
+		    $html[] = 'test ';
+
+		    // $html[] = '<div class="row">';
+
+		    // $html[] = '<div class="media">';
+		    /**
+		    $html[] = '    <a class="pull-left span2" href="#">';
+		    //$html[] = '<div class="thumbnail">';
+
+		    // $html[] = '<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">';
+		    $html[] = '        <div>';
+		    $html[] = '            <i class="icon-user"></i>';
+		    $html[] = '            <strong>' . $comment->user_name . '</strong>';
+		    //$html[] = '            <br> <span class="text-muted">commented 5 days ago</span>';
+		    $html[] = '        </div>';
+
+		    //$html[] = '</div>'; //<!-- /thumbnail -->
+		    $html[] = '    </a>';
+            /**
+
+		    $html[] = '<div class="media-body  span10">';
+		    $html[] = '    <i class="icon-comment"></i>';
+		    $html[] = '    <strong class="media-heading title">' . $comment->subject . '</strong>';
+		    //$html[] = '    <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>';
+
+		    $html[] = '    <p><div>' . $comment->comment . '</div></p>';
+		    $html[] = '<hr>';
+
+		    $html[] = '</div>';
+		    $html[] = '';
+
+		    $html[] = '</div>'; // class="media">';
+		    $html[] = '';
+		    // $html[] = '</div>'; // row
+		    $html[] = '';
+
+//		    $html[] = '<hr>';
+            /**/
+	    }
+	    /**
+	    $html[] = '                 <br>';
+	    $html[] = '            </td>';
+	    $html[] = '        </tr>';
+	    $html[] = '    </table>';
+	    $html[] = '</div>';
+        /**/
+        /**/
+    }
 
 	$html[] = '';
-	$html[] = '';
-	$html[] = '';
-	$html[] = '';
-
-    // }
-
-	$html[] = '';
+    /**
 	$html[] = '<hr>';
 	$html[] = '';
 
@@ -630,21 +719,22 @@ function htmlComments ($comments, $gid, $imageId)
 
     $html[] = '                <form name="rsgCommentForm" class="form-horizontal" method="post"';
 	$html[] = '                    action="' . JRoute::_('index.php?option=com_rsgallery2&view=gallery&gid=' . $gid) .'&startShowSingleImage=1" id="rsgCommentForm">';
-#
+
     $html[] = '                    <div class ="well">';
     $html[] = '                        <h4>'. JText::_('COM_RSGALLERY2_CREATE_COMMENT') . '</h4>';
 
-    $html[] = '                        ' . $formFields->renderFieldset ('comment');
-
-    $html[] = '                        <button id="commitSend" class="btn btn-primary pull-right" '; // ToDo: text-align="center
-	$html[] = '                            type="submit"';
+	                                    // ToDo: text-align="center
+    $html[] = '                        <button id="commitSend" class="btn btn-primary pull-right" ';
+    $html[] = '                            type="submit" ';
 //    $html[] = '						       onclick="Joomla.submitbutton(\'comment.saveComment\')"';
-    $html[] = '						       onclick="Joomla.submitbutton(this.form);return false"';
+    $html[] = '						       onclick="Joomla.submitbutton(this.form);return false" ';
 	$html[] = '							   title="' . JText::_('COM_RSGALLERY2_SEND_COMMENT_DESC') . '">';
 	$html[] = '						       <i class="icon-save"></i> ' . JText::_('COM_RSGALLERY2_ADD_COMMENT') . '';
 	$html[] = '						   </button>';
 
-    $html[] = '                    	   <input type="hidden" name="task" value="comment.saveComment" />';
+	$html[] = '                        ' . $formFields->renderFieldset ('comment');
+
+	$html[] = '                    	   <input type="hidden" name="task" value="comment.addComment" />';
     $html[] = '                    	   <input type="hidden" name="rating" value="" />';
     $html[] = '                    	   <input type="hidden" name="paginationImgIdx" value="" />';
     $html[] = '                    	   <input type="hidden" name="id" value="' . $imageId . '" />';
@@ -652,16 +742,12 @@ function htmlComments ($comments, $gid, $imageId)
 
     $html[] = '                    </div>';
     $html[] = '                </form>';
-    
+    /**/
+
     $html[] = '            </div>'; // rsg2_rating_container
 
-	$html[] = '';
-	$html[] = '';
-	$html[] = '';
-	$html[] = '';
-	$html[] = '';
-	$html[] = '';
-	$html[] = '';
+	$html[] = '</div>'; // class="container">';
+
 	$html[] = '';
 
     return implode("\n", $html);
@@ -671,9 +757,9 @@ function htmlExifData ($exifData)
 {
     $html = [];
 
-    $html[] = "";
+	$html[] = '<div class="container span12">';
 
-    $html[] =  '        <div class="rsg2_exif_container">';
+	$html[] =  '        <div class="rsg2_exif_container">';
     $html[] =  '            <dl class="dl-horizontal">';
 
     // user requested EXIF tags
@@ -685,6 +771,7 @@ function htmlExifData ($exifData)
     $html[] =  '            </dl>';
     $html[] =  '		</div>'; // rsg2_exif_container
 
+	$html[] = '</div>'; // class="container span12">';
 
     return implode("\n", $html);
 }

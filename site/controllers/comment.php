@@ -27,16 +27,25 @@ class RSGallery2ControllerComment extends BaseController
 	public function addComment()
 	{
 		$msgType = 'notice';
-    	$msg     = 'Save coment: ';
+    	$msg     = 'Add coment: ';
 
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		// http://127.0.0.1/Joomla3x/index.php?option=com_rsgallery2&view=gallery&gid=42&advancedSef=1&startShowSingleImage=1&Itemid=218
 		$link = 'index.php?option=com_rsgallery2'; // &startShowSingleImage=1&Itemid=218
 
+		$input = JFactory::getApplication()->input;
+
+		$galleryId = $input->get('gid', 0, 'INT');
+		// ToDo: check for appearance
+		$limitStart = $input->get('paginationImgIdx', 0, 'INT');
+		$userRating = $input->get('rating', 0, 'INT');
+
+
 		// Access check
-		$canComment = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
-		//$canComment = true;
+		//$canComment = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
+		$canComment = JFactory::getUser()->authorise('rsgallery2.comment', 'com_rsgallery2.gallery.' . $galleryId);
+		$canComment = true;
 
 		if ( ! $canComment)
 		{
@@ -64,10 +73,7 @@ class RSGallery2ControllerComment extends BaseController
 				{
 					echo "<br><br><br>*CommentSingleImage<br><br><br>";
 
-					$input = JFactory::getApplication()->input;
-
-					$galleryId = $input->get('gid', 0, 'INT');
-					$imageId   = $input->get('id', 0, 'INT');
+					$imageId = $input->get('id', 0, 'INT');
 					$item_id = $input->get('item_id', 0, 'INT');
 
 					/**
@@ -81,24 +87,28 @@ class RSGallery2ControllerComment extends BaseController
 					$commentTitle    = $input->get('commentTitle', 0, 'string');
 					$commentText     = $input->get('commentText', 0, 'string');
 
+					$dateTime = date('Y-m-d H:i:s');
+
+
 					$comment = new \stdClass;
 
+					$comment->user_id   = $user_id;
+					$comment->user_name = $commentUserName;
+					$comment->user_ip   = $input->server->get('REMOTE_ADDR', '', '');
+					//$comment->parent_id  = ;
+					$comment->item_id    =  $imageId; //
+					$comment->item_table = 'com_rsgallery2';
+					$comment->datetime   = $dateTime;
+					$comment->subject    = $commentTitle;
+					$comment->comment    = $commentText;
+					//$comment->published  = ;
+					//$comment->ordering   = ;
+					//$comment->params     = ;
+					//$comment->hits       = ;
 
+// ToDo: captcha ? ...
 
-					$comment ['user_id']         = $user_id;
-					$comment ['user_name'] = $commentUserName;
-					$comment ['user_ip']   = $input->server->get('REMOTE_ADDR', '', '');
-					$comment ['parent_id'  = ;
-					$comment ['item_id'    =  $input->get('item_id', 0, 'INT');
-					$comment ['item_table' = ;
-					$comment ['datetime'   = ;
-					$comment ['subject'    = $commentTitle;
-					$comment ['comment'    = $commentText;
-					$comment ['published'  = ;
-					$comment ['ordering'   = ;
-					$comment ['params'     = ;
-					$comment ['hits'       = ;
-
+// check cooky comment once
 
 					$commentModel = $this->getModel('comments');
 					$isSaved      = $commentModel->addComment($imageId, $comment);
@@ -139,8 +149,17 @@ class RSGallery2ControllerComment extends BaseController
 
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
+		// Align like above
+
 		// http://127.0.0.1/Joomla3x/index.php?option=com_rsgallery2&view=gallery&gid=42&advancedSef=1&startShowSingleImage=1&Itemid=218
 		$link = 'index.php?option=com_rsgallery2'; // &startShowSingleImage=1&Itemid=218
+
+		$input = JFactory::getApplication()->input;
+
+		$galleryId = $input->get('gid', 0, 'INT');
+		// ToDo: check for appearance
+		$limitStart = $input->get('paginationImgIdx', 0, 'INT');
+		$userRating = $input->get('rating', 0, 'INT');
 
 		// Access check
 		$canComment = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
