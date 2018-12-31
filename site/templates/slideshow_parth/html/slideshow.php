@@ -131,29 +131,40 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
 } // End script not loaded
 ?>
 
-<div class="parth_content">
 
 	<?php
-	//Show link only when menu-item is a direct link to the slideshow
+	//Show link only when menu-item is not a direct link to the slideshow
 	$input = JFactory::getApplication()->input;
 	$view  = $input->get('view', '', 'CMD');
 	if ($view !== 'slideshow')
 	{
-		?>
-		<div style="float: right;">
-			<a href="index.php?option=com_rsgallery2&Itemid=<?php
-			// echo JRequest::getInt('Itemid');
-			echo $input->get('Itemid', null, 'INT'); ?>&gid=<?php echo $this->gid; ?>">
-				<?php echo JText::_('COM_RSGALLERY2_BACK_TO_GALLERY'); ?>
-			</a>
-		</div>
-		<?php
+    	$menuId = $input->get('Itemid', null, 'INT');
+    	$gid = $this->gid;
+
+        $html = [];
+
+		$html[] = '<div style="float: right;">' ."\n"
+		          //. '<a href="' .  JRoute::_('index.php?option=com_rsgallery2&Itemid=' . $menuId . '&gid=' . $gid) . '">'
+		          . '<a href="#XXX">'
+		          . JText::_('COM_RSGALLERY2_BACK_TO_GALLERY')
+		          . '</a>';
+		$html[] = '</div>';
+
+        echo implode("\n", $html);
 	}
+    // <!-- div class="rsg2-clr"></div -->
+
+    /**
+
+    /**/
 	?>
-	<div class="rsg2-clr"></div>
-	<div style="text-align:center;font-size:24px;">
+
+<div class="parth_content">
+<h3>
+    <div style="text-align:center;font-size:24px;">
 		<?php echo $this->galleryname; ?>
 	</div>
+</h3>
 	<div class="rsg2-clr"></div>
 	<div id="myGallery<?php echo $this->gid; ?>" class="myGallery">
 		<?php echo $this->slides; ?>

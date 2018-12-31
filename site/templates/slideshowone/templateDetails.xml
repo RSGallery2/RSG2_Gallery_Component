@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<install version="1.5" type="rsgTemplate">
+<extension version="3.1" type="rsgTemplate">
 	<name>SlideshowOne</name>
-	<creationDate>2007</creationDate>
-	<author>RSGallery2</author>
-	<copyright>Open Source, GPL</copyright>
-	<authorEmail>team@rsgallery2.nl</authorEmail>
-	<authorUrl>http://www.rsgallery2.nl</authorUrl>
 	<version>2.0</version>
+	<creationDate>2007</creationDate>
+	<author>RSGallery2 Team</author>
+	<authorEmail>team@rsgallery2.org</authorEmail>
+	<authorUrl>http://www.rsgallery2.org</authorUrl>
+	<copyright>(c) 2010-2018 RSGallery2 Team</copyright>
+	<license>This component is released under the GNU/GPL License</license>
 	<description>Default slideshow that we have been shipping with for a while.</description>
 	<files>
 		<filename>index.php</filename>
@@ -16,7 +17,11 @@
 	<css>
 		<filename>css/template.css</filename>
 	</css>
-	<params>
+	<config>
+		<fields name="params">
+			<fieldset name="advanced">
 		<!-- No parameters-->
-	</params>
-</install>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
