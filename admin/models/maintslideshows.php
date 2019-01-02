@@ -129,15 +129,20 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 				//echo '<br>';
 
 				//$params = $xml->install->params;
-				$params = $xml->params;
+				$params = $xml->config->fields;
 				if (!empty($params))
 				{
+					/**
 					echo '<br>';
 					echo $xmlFile;
+					/**
 					echo '<br>';
 					echo json_encode($params);
 					echo '<br>';
+					/**/
+					/**
 					echo '<hr>';
+					/**/
 				}
 			}
 		}

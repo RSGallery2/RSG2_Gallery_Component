@@ -28,7 +28,7 @@
 		<filename>css/template.css</filename>
 	</css>
 	<config>
-        <fields name="params">
+		<fields name="params">
 			<fieldset name="advanced">
 		        <field name="testParameter"
 		               type="list"

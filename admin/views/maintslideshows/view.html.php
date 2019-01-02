@@ -27,6 +27,7 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 	protected $slidesConfigFiles;
 	protected $slidesConfig;
 
+	protected $forms;
 
 	/**
 	// core.admin is the permission used to control access to
@@ -61,7 +62,14 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		$this->slidesConfigFiles = $maintSlidesModel->collectSlideshowsConfigFiles();
 		$this->slidesParameter = $maintSlidesModel->parameterFromConfigFiles($this->slidesConfigFiles);
 
+		$forms = [];
 
+		foreach ($this->slidesConfigFiles as $xmlFileInfo)
+		{
+			$xmlFile    = $xmlFileInfo->cfgFieldsFileName;
+			$forms [$xmlFileInfo->name] = JForm::getInstance($xmlFileInfo->name, $xmlFile);
+		}
+		$this->forms = $forms;
 
 		/**
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/maintregenerateimages.xml';
