@@ -11,11 +11,12 @@
 defined('_JEXEC') or die();
 
 // bring in display code
-$templatePath = JPATH_RSGALLERY2_SITE . '/templates' . '/slideshowone';
+$templatePath = JPATH_RSGALLERY2_SITE . '/templates' . '/slideshow_fith';
 require_once($templatePath . '/display.class.php');
 
-$rsgDisplay = new rsgDisplay_slideshowone();
+$rsgDisplay = new rsgDisplay_slideshow_fith();
 
+// ToDo: thought it is coming from params.ini ???
 //$rsgDisplay->autostart = JRequest::getBool( 'autostart' );
 $input                  = JFactory::getApplication()->input;
 $rsgDisplay->autostart = $input->get('autostart', True, 'BOOL');

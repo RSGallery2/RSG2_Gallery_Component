@@ -1,0 +1,350 @@
+
+Debugging 10:00
+
+
+scope ! alles in klammern ?
+
+let sachen ?
+
+caniuse.command
+
+
+babel compilieren ?
+
+    <div class="carousel__track-container">
+      <ul class="carousel__track jsTrack">
+        <li class="carousel__slide is-selected">
+          <a href="#" style="background-image: url('images/image1.jpg')"></a>
+        </li>
+        <li class="carousel__slide">
+          <a href="#" style="background-image: url('images/image2.jpg')"></a>
+        </li>
+        <li class="carousel__slide">
+          <a href="#" style="background-image: url('images/image3.jpg')"></a>
+        </li>
+      </ul>
+    </div>
+
+svg-logo: 4:57
+
+joomla-logo-1
+
+<div class="carousel__track-container">
+      <ul class="carousel__track">
+        <li class="carousel__slide is-selected">
+          <a href="#" style="background-image: url('images/carousel_image_1.jpg')"></a>
+        </li>
+        <li class="carousel__slide">
+          <a href="#" style="background-image: url('carousel_image_2.jpg')"></a>
+        </li>
+        <li class="carousel__slide">
+          <a href="#" style="background-image: url('carousel_image_3.jpg')"></a>
+        </li>
+        <li class="carousel__slide">
+          <a href="#" style="background-image: url('carousel_image_4.jpg')"></a>
+        </li>
+      </ul>
+</div>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 398.7 398.2">
+        <title>
+          Joomla!-Logo
+        </title>
+        <path id="j-green" d="M85.1,213.7l-7.5-7.4c-23.9-23.9-30.8-57.4-22.3-87"
+            class="joomla-logo-1 is-selected" transform="translate(-13.8 -13.3)" />
+          <path id="j-orange" d="M129.2,17"
+            class="joomla-logo-2" transform="translate(-13.8 -13.3)" />
+          <path id="j-red" d="M306.2,368.4c-3.2,368.4Z"
+            class="joomla-logo-3" transform="translate(-13.8 -13.3)" />
+          <path id="j-blue" d="M290.8,257....."
+            class="joomla-logo-4" transform="translate(-13.8 -13.3)" />
+       
+      </svg>
+	  
+<button class="carousel__button">
+      <svg >
+        ......
+      </svg>
+    </button>
+	
+Positionierung der Bilder mit JS
+
+const track = document.querySelector('.carousel__track')
+const slides = Array.from(track.children)
+console.log('slides', slides)
+
+const rect = slides[0].getBoundingClientRect()
+const slideWidth = rect.width
+console.log('slideWidth', slideWidth)
+
+Positionierung der Bilder mit JS
+
+const slideWidth = slides[0].getBoundingClientRect().width
+
+
+slides[0].style.left = slideWidth * 0 + 'px'
+slides[1].style.left = slideWidth * 1 + 'px'
+slides[2].style.left = slideWidth * 2 + 'px'
+slides[3].style.left = slideWidth * 3 + 'px'
+
+slides.forEach((slide, index) => {
+  slide.style.left = slideWidth * index + 'px'
+})
+
+Click -> nächste Bild
+nextButton.addEventListener('click', e => {
+  const currentSlide = track.querySelector('.is-selected')
+  const nextSlide = currentSlide.nextElementSibling
+  const movingWidth = nextSlide.style.left
+  console.log('movingWidth', movingWidth)
+})
+nextButton.addEventListener('click', e => {
+  //..
+   track.style.left = '-' + movingWidth
+})
+
+Click -> nächste Bilder
+nextButton.addEventListener('click', e => {
+  //...
+  currentSlide.classList.remove('is-selected')
+  nextSlide.classList.add('is-selected')
+})
+
+nextButton.addEventListener('click', e => {
+  //...
+  const isLastSlide = !nextSlide.nextElementSibling
+  if (isLastSlide) {
+    nextButton.classList.add('is-hidden')
+  }
+})
+
+CSS
+
+.is-hidden {
+  display: none;
+}
+
+nextButton.addEventListener('click', e => {
+  //...
+  const isLastSlide = !nextSlide.nextElementSibling
+  if (isLastSlide) {
+    nextButton.classList.add('is-hidden')
+  }
+})
+.is-hidden {
+  display: none;
+}
+
+Änderung des 'nextButton' to 'backButton'
+const backButton = document.querySelector('.back')
+
+
+backButton.addEventListener('click', e => {
+  const currentSlide = track.querySelector('.is-selected')
+  const backSlide = currentSlide.previousElementSibling
+  const movingWidth = backSlide.style.left
+  track.style.left = '-' + movingWidth
+  currentSlide.classList.remove('is-selected')
+  backSlide.classList.add('is-selected')
+
+  const isLastSlide = !backSlide.previousElementSibling
+  if (isLastSlide) {
+    backButton.classList.add('is-hidden')
+  }
+
+  const currentLogoPart = joomlaLogo.querySelector('.is-selected')
+  const backLogoPart = currentLogoPart.previousElementSibling
+
+  currentLogoPart.classList.remove('is-selected')
+  backLogoPart.classList.add('is-selected')
+})
+
+Joomla Rotation Logo
+
+joomlaLogo.addEventListener('click', e => {
+  const clickPath = e.target.closest('path')
+  console.log('clickPath', clickPath)
+
+})
+
+ Current Slide
+joomlaLogo.addEventListener('click', e => {
+  const clickPath = e.target.closest('path')
+  if (clickPath) {
+    const currentPath = clickPath.querySelector('.is-selected')
+    const currentSlide = track.querySelector('.is_selected')
+    const targetPath = clickPath
+  }
+})
+
+Joomla Logo indexieren
+for (let index = 0; index < paths.length; index++) {
+      if (paths[index] === targetPath) {
+        targetIndex = index - 1
+      }
+    }
+
+    const targetSlide = slides[targetIndex]
+	
+Slide ändern/bewegen
+zusätzlich Select-Status ändern
+
+ const targetSlide = slides[targetIndex]
+
+ const movingWidth = targetSlide.style.left
+ track.style.left = '-' + movingWidth
+
+ currentSlide.classList.remove('is-selected')
+ targetSlide.classList.add('is-selected')
+
+ currentPath.classList.remove('is-selected')
+ targetPath.classList.add('is-selected')
+
+ Buttons ausblenden
+  if (targetIndex === 0) {
+      backButton.classList.add('is-hidden')
+      nextButton.classList.remove('is-hidden')
+    } else if (targetIndex === slides.length - 1) {
+      backButton.classList.remove('is-hidden')
+      nextButton.classList.add('is-hidden')
+    } else {
+      backButton.classList.remove('is-hidden')
+      nextButton.classList.remove('is-hidden')
+    } const targetSlide = slides[targetIndex]
+
+}
+
+Buttons zeigen
+wenn wir auf den zurück oder nächste klicken
+
+backButton.addEventListener('click', e => {
+  
+    nextButton.classList.remove('is-hidden')
+
+}
+
+nextButton.addEventListener('click', e => {
+ 
+    backButton.classList.remove('is-hidden')
+    
+}
+
+Slides animieren
+track.style.left = '-' + movingWidth
+ersetzen von
+mit
+ track.style.transform = `translateX(-${movingWidth})`
+CSS
+.carousel__track {
+  transform: translateX(0);
+  transition: transform 0.3s ease-out;
+}
+	
+	
+Auslagern in Funktionen
+	
+setzte Position Slide:
+const setSlidePostion = (slide, index) => {
+  slide.style.left = slideWidth * index + 'px'
+}
+slides.forEach(setSlidePostion)
+
+
+Code vereinfachen
+nextButton.addEventListener('click', e => {
+  //...
+  const movingWidth = nextSlide.style.left
+  track.style.transform = `translateX(-${movingWidth})`
+  currentSlide.classList.remove('is-selected')
+  nextSlide.classList.add('is-selected')
+}
+
+
+Code vereinfachen
+const moveSlide = (track, targetSlide, currentSlide) => {
+  track.style.transform = `translateX(-${targetSlide.style.left})`
+  currentSlide.classList.remove('is-selected')
+  targetSlide.classList.add('is-selected')
+}
+
+nextButton.addEventListener('click', e => {
+
+  //...
+
+  moveSlide(track, nextSlide, currentSlide)
+
+}
+
+Early return - Verschachtelungen vermeiden
+ if (clickPath) {
+
+}
+
+ if (!clickPath) return
+ 
+ 
+Logo Farbe updaten
+const updateLogoColor = (targetLogoPart, currentLogoPart) => {
+  currentLogoPart.classList.remove('is-selected')
+  targetLogoPart.classList.add('is-selected')
+}
+ 
+Buttons ein- und ausblenden
+const showHideNextBackButtons = (targetIndex, backButton, nextButton) => {
+  if (targetIndex === 0) {
+    backButton.classList.add('is-hidden')
+    nextButton.classList.remove('is-hidden')
+  } else if (targetIndex === slides.length - 1) {
+    backButton.classList.remove('is-hidden')
+    nextButton.classList.add('is-hidden')
+  } else {
+    backButton.classList.remove('is-hidden')
+    nextButton.classList.remove('is-hidden')
+  }
+}
+ 
+
+
+for Schleife kürzen
+ let targetIndex
+
+  for (let index = 0; index < paths.length; index++) {
+    if (paths[index] === clickPath) {
+      targetIndex = index - 1
+    }
+  }
+const targetIndex = paths.findIndex(path => path === clickPath) - 1
+
+
+findIndex bietet neue Möglichkeiten
+const currentSlide = track.querySelector('.is-selected')
+const nextSlide = currentSlide.nextElementSibling
+
+
+
+
+const currentIndexSlide = slides.findIndex(slide => slide.classList.contains('is-selected'))
+Scope?
+E-Mail: info@mittl-medien.de
+Twitter: @mittlmedien
+Fragen?
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	  
