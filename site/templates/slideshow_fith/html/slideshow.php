@@ -36,8 +36,29 @@ $firstImage = $firstImage->display();
 <div class="rsg2-slideshowone">
 
 	<form name="_slideShow">
+        <?php
+        //Show link only when menu-item is not a direct link to the slideshow
+        $input = JFactory::getApplication()->input;
+        $view  = $input->get('view', '', 'CMD');
+        if ($view !== 'slideshow')
+        {
+        $menuId = $input->get('Itemid', null, 'INT');
+        $gid = $this->gid;
 
-		<input type="Hidden" name="currSlide" value="0">
+        $html = [];
+
+        $html[] = '<div style="float: right;">' ."\n"
+            //. '<a href="' .  JRoute::_('index.php?option=com_rsgallery2&Itemid=' . $menuId . '&gid=' . $gid) . '">'
+                . '<a href="#XXX">'
+                    . JText::_('COM_RSGALLERY2_BACK_TO_GALLERY')
+                    . '</a>';
+                $html[] = '</div>';
+
+        echo implode("\n", $html);
+        }
+        ?>
+
+        <input type="Hidden" name="currSlide" value="0">
 		<input type="Hidden" name="delay">
 
 		<div class="slideshow_fith_content">

@@ -85,35 +85,110 @@ class rsgDisplay_slideshow_fith extends rsgDisplay
 
 		$html = [];
 		
-		$html[] = '<div class="carousel_container">';
+		$html[] = '<div class="carousel_container_fith">';
 
-		$html[] = '    <button class="carousel_button next is-hidden">';
-		$html[] = '        <svg viewBox="0 0 54 69.007">';
-        //$html[] = '            <use xlink:href="images/sprite.svg#left" />';
-        $html[] = '            <symbol id="left" width="54" height="69.007" viewBox="0 0 54 69.007"><path d="M47 0L3.44 34.502 47 69.007z"/></symbol>';
+		$html[] = '    <div class="row-fluid center">';
+
+		//--- button previous -------------------------
+
+		$html[] = '    <button class="carousel_button_fith back btn">'; // is-hidden
+		//$html[] = '        <svg width="20" height="32" viewBox="0 0 54 67.007">'; // xmlns="http://www.w3.org/2000/svg"';
+		$html[] = '        <svg width="16" height="24" viewBox="0 -2 44 67.007">'; // xmlns="http://www.w3.org/2000/svg"';
+		//$html[] = '                <path d="M47 2 L3.44 34.502 47 68.007z" />';
+		$html[] = '                <path d="M47 0 L3.44 34.502 47 69.007z"/>';
+		$html[] = '            Sorry, your browser does not support inline SVG.';
 		$html[] = '        </svg>';
 		$html[] = '    </button>';
 
-		$html[] = '    <ul class="carousel_images">';
+
+		$imgLink = 'http://127.0.0.1/Joomla3xRelease/images/rsgallery/display/2017-11-02_00040.jpg.jpg';
+		$imgLinkHyphened = "'" . $imgLink . "'";
+
+		/**
+		$html[] = '    <img id="image" src="' . $imgLink . '" />';
+		$html[] = '    <br>';
+
+		$html[] = '    <a width="599" height="400" href="link" style="background-image:url(' . $imgLinkHyphened . ');" >link</a>';
+		$html[] = '    <br>';
+
+		$html[] = '    <a href="http://rsgallery2.org/" title="test background image" id="range-logo">Range Web Development</a>';
+		$html[] = '    <br>';
+		/**/
+
+		//--- images  -------------------------
+
+
+		//$html[] = '    <ul class="carousel_images_fith">';
 		$isSelected = ' is-selected'; // for first element
-		foreach ($gallery->items() as $item)
+
+		$images = $gallery->items();
+		$imgCount = count($images);
+		foreach ($images as $imgIdx => $item)
 		{
 			$display = $item->display();
+			$thumb = $item->thumb();
 
-			$html[] = '        <li class="carousel_image' . $isSelected .'">';
-			$html[] = '            <a href="#" style="background-image: url(\'' . $display->url() . '\')"></a>';
+			$imgLink         = $display->url(); // 'http://127.0.0.1/Joomla3xRelease/images/rsgallery/display/2017-11-02_00040.jpg.jpg';
+			$imgLinkHyphened = "'" . $imgLink . "'";
+
+			/* Mittl ....
+			$html[] = '        <li class="carousel_image_fith ' . $isSelected . ' ">';
+			$html[] = '            <a href="#" style="background-image: url(' . $imgLinkHyphened . ')" >';
+			// $html[] = '            <a href="#" style="width:300px height:200px background-image: url(' . $imgLinkHyphened . ')" >';
+			//$html[] = '            <a href="#" style="width:300px background-image: url(' . $imgLinkHyphened . ')" >';
+			//$html[] = '                 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X';
+			$html[] = '            </a>';
+			//$html[] = '            <a href="#" style="width:300px background-color: blue" >';
+			/**
+			$html[] = '            <a href="#" style="background-color: blue" >';
+			$html[] = '                 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X';
+			$html[] = '            </a>';
+			/**
 			$html[] = '        </li>';
+			/**/
 
-			$isSelected = '';
+			$link = '#';
+			$html[] = '            <a class="carousel_image_link_fith ' . $isSelected . '" href="' . $link  . '" >'; // style="background-color: blue" >';
+			$html[] = '                 <img class="carousel_image_fith" src="' . $display->url() . '" class="full" />';
+			//$html[] = '                 <img src="' . $thumb->url() . '" class="full" />';
+			$html[] = '            </a>';
+
+			$isSelected = 'is-hidden';
+
+			if ($imgIdx > 4)
+			{
+				break;
+			}
 		}
-		$html[] = '    </ul>';
+		// $html[] = '    </ul>';
 
-		$html[] = '    <button class="carousel_button back">'; //  is-hidden
-		$html[] = '        <svg viewBox="0 0 54 69.007">   xmlns="http://www.w3.org/2000/svg"';
-		//$html[] = '        <use xlink:href="images/sprite.svg#left" />';
-		$html[] = '            <symbol id="right" width="54" height="69.007" viewBox="0 0 54 69.007"><path d="M5-.121l43.56 34.502L5 68.886z"/></symbol>';
+		//--- button next -------------------------
+
+		/**/
+		$html[] = '    <button class="carousel_button_fith next btn">'; //  is-hidden
+		//$html[] = '        <svg width="20" height="32" viewBox="0 0 54 67.007">'; // xmlns="http://www.w3.org/2000/svg"';
+		$html[] = '        <svg width="16" height="24" viewBox="0 -2 44 67.007">'; // xmlns="http://www.w3.org/2000/svg"';
+		//$html[] = '                <path d="M5 -.121l43.56 34.502 L5 68.886z" />';
+		$html[] = '                <path d="M5 -.121 L43.56 34.502 L5 68.886z" />';
+		$html[] = '            Sorry, your browser does not support inline SVG.';
 		$html[] = '        </svg>';
 		$html[] = '    </button>';
+		/**/
+		$html[] = '    </div>'; // class=row
+
+		$html[] = '    <br>';
+		$html[] = '    <br>';
+		$html[] = '    <br>';
+		$html[] = '    <br>';
+		$html[] = '    <br>';
+		$html[] = '    <br>';
+		$html[] = '    <br>';
+		$html[] = '    <hr>';
+
+		/**
+		$html[] = '    <img id="image" src="' . $imgLink . '" />';
+		$html[] = '    <br>';
+		/**/
 
 		$html[] = '</div>';
 		
