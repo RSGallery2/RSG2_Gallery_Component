@@ -27,12 +27,11 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 {
 
 	/**
-	 * Searches for xml files which defines installalled slideshows
+	 * Searches for xml files which defines installed slideshows
 	 * Therefore checks for existing 'templateDetails.xml' file which will
 	 * contain the parameters to be displayed
 	 * Attention the found folders do contain templates for gallery view
-	 * and meta data which has to be seperated later on
-	 *
+	 * and meta data which has to be separated later on
 	 *
 	 * @return array
 	 *
@@ -64,9 +63,28 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 
 				$foundSlideshow->name        = $folder;
 				$foundSlideshow->cfgFieldsFileName = $fileSlidePath . '/' . $fieldsFileName; // $cfgFile [0];
-				$foundSlideshow->cfgParameterFileName = $fileSlidePath . '/' . $parameterFileName;
 
-				$configFiles [] = $foundSlideshow;
+				// extract form fields
+				$formFields = $this->formFieldsFromTemplateFile($foundSlideshow->cfgFieldsFileName);
+
+				// ignore found name when templateDetails.xml does not contain xml->config->fields part
+				if (!empty ($formFields))
+				{
+					$foundSlideshow->formFields = $formFields;
+
+					/**
+					$formFieldsReg = new JRegistry;
+					$formFieldsReg->loadFile($foundSlideshow->cfgFieldsFileName, 'XML');
+					$foundSlideshow->formFieldsReg = $formFieldsReg;
+					/**/
+
+					// extract settings from params.ini file
+					$foundSlideshow->cfgParameterFileName = $fileSlidePath . '/' . $parameterFileName;
+					$foundSlideshow->parameterValues = $this->SettingsFromParamsFile($foundSlideshow->cfgParameterFileName);
+
+					// save found values
+					$configFiles [] = $foundSlideshow;
+				}
 
 				//echo json_encode($foundSlideshow) ;
 				//echo '<br>';
@@ -76,23 +94,23 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 		return $configFiles;
 	}
 
-	/**/
-	public function parameterFromConfigFiles($slidesConfigFiles)
+	/**
+	private function addFormFieldsFromTemplateFile($slidesConfigFiles)
 	{
-		$parameterSets = [];
-
 		try
 		{
 			foreach ($slidesConfigFiles as $xmlFileInfo)
 			{
 				// extract parameter
-				$xmlFile      = $xmlFileInfo->cfgFieldsFileName;
-				$parameterSet = $this->parameterFromXmlFile($xmlFile);
-				if (!empty ($parameterSet))
+				$xmlFile    = $xmlFileInfo->cfgFieldsFileName;
+				$formFields = $this->formFieldsFromTemplateFile($xmlFile);
+				/**
+				if (!empty ($formFields))
 				{
-					$parameterSets [] = $parameterSet;
-
+					$xmlFileInfo->formFields = $formFields;
 				}
+				/** /
+				$xmlFileInfo->formFields = $formFields;
 			}
 		}
 		catch (RuntimeException $e)
@@ -105,21 +123,29 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 			$app->enqueueMessage($OutTxt, 'error');
 		}
 
-
-		return $parameterSets;
+		return;
 	}
-
 	/**/
-	public function parameterFromXmlFile($xmlFile)
+
+	/**
+	 * @param $xmlFile
+	 *
+	 * @return SimpleXMLElement|stdClass
+	 *
+	 * @since version
+	 * @throws Exception
+	 */
+	public function formFieldsFromTemplateFile($xmlFile)
 	{
 		$parameter = [];
+		//$parameter = new stdClass();
 
 		try
 		{
 			/**
-			 * $xml = JFactory::getXMLParser('Simple');
-			 * $xml->loadFile($xmlFile);
-			 * /**/
+			$xmlFile                    = $xmlFileInfo->cfgFieldsFileName;
+			$formFields = JForm::getInstance($xmlFileInfo->name, $xmlFile);
+			/**/
 
 			$xml = simplexml_load_file($xmlFile);
 			if (!empty($xml))
@@ -128,28 +154,23 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 				//echo json_encode($xml);
 				//echo '<br>';
 
+				/**/
 				//$params = $xml->install->params;
-				$params = $xml->config->fields;
-				if (!empty($params))
+				$config = $xml->config->fields;
+				if (!empty($config))
 				{
-					/**
-					echo '<br>';
-					echo $xmlFile;
-					/**
-					echo '<br>';
-					echo json_encode($params);
-					echo '<br>';
-					/**/
-					/**
-					echo '<hr>';
-					/**/
+					$parameter = $xml;
+
 				}
+
+
+				/**/
 			}
 		}
 		catch (RuntimeException $e)
 		{
 			$OutTxt = '';
-			$OutTxt .= 'Error executing parameterFromConfigFiles: "' . '<br>';
+			$OutTxt .= 'Error executing formFieldsFromTemplateFile: "' . '<br>';
 			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
 			$app = JFactory::getApplication();
@@ -160,14 +181,91 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 		return $parameter;
 	}
 
-	public function parameterValuesFromFile($paramsFile)
+	/**
+	 * @param $paramsFile  params.ini
+	 *
+	 *
+	 * @since version
+	 *
+	public function addSettingsFromParamsFile($slidesConfigFiles)
 	{
-
-		if (JFile::exists($paramsFile))
+		try
 		{
-			$cont = JFile::read($paramsFile);
+			foreach ($slidesConfigFiles as $xmlFileInfo)
+			{
+				$xmlFileInfo->parameterValues = '';
+				//
+				$slidesParamsFile = $xmlFileInfo->cfgParameterFileName;
+
+				if (JFile::exists($slidesParamsFile))
+				{
+					$content = JFile::read($slidesParamsFile);
+					if ( ! empty ($content ))
+					{
+						$xmlFileInfo->parameterValues = $content;
+
+					}
+				}
+			}
+
 		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing addSettingsFromParamsFile: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return;
+	}
+	/**/
+
+	private function SettingsFromParamsFile($slidesParamsFile)
+	{
+		$params = new JRegistry;
+
+		try
+		{
+			if (JFile::exists($slidesParamsFile))
+			{
+				/**
+				$content = JFile::read($slidesParamsFile);
+
+				/*
+				if ( ! empty ($content))
+				{
+					// $xmlFileInfo->parameterValues = $content;
+					// toDo: ? make html save
+				}
+				/** /
+
+				if (empty ($content))
+				{
+					$content = '';
+				}
+				/**/
+
+				$params->loadFile($slidesParamsFile, 'INI');
+
+			}
+
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing SettingsFromParamsFile: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $params;
 	}
 
-
 }
+
+
