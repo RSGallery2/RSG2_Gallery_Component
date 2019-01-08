@@ -246,7 +246,7 @@ function SimpleXMLElement_append($parent, $child)
                 if ( ! empty ($this->slidesConfigFiles))
                 {
 
-	                $form = new JForm ($xmlFileInfo->form);
+	                $form = new JForm ($this->slidesConfigFiles->form);
 	                echo $form->renderFieldset('maintslideshows');
 
 

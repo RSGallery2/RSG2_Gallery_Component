@@ -37,6 +37,9 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 	 *
 	 * @since version
 	 */
+
+	// ToDo: rename to slidesConfigData and make two funtion out of it
+
 	public function collectSlideshowsConfigFiles()
 	{
 		$configFiles = [];

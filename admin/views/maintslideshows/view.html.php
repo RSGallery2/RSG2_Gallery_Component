@@ -59,8 +59,9 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		$this->UserIsRoot = $this->CheckUserIsRoot();
 
 		$maintSlidesModel   = JModelLegacy::getInstance('MaintSlideshows', 'rsgallery2Model');
+		// ToDo: rename to slidesConfigData
 		$this->slidesConfigFiles = $maintSlidesModel->collectSlideshowsConfigFiles();
-		$this->slidesParameter = $maintSlidesModel->parameterFromConfigFiles($this->slidesConfigFiles);
+		//$this->slidesParameter = $maintSlidesModel->parameterFromConfigFiles($this->slidesConfigFiles);
 
 		$forms = [];
 
@@ -70,7 +71,6 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 			$forms [$xmlFileInfo->name] = JForm::getInstance($xmlFileInfo->name, $xmlFile);
 		}
 		$this->forms = $forms;
-
 
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/maintslideshows.xml';
 		$this->form = JForm::getInstance('maintslideshows', $xmlFile);
