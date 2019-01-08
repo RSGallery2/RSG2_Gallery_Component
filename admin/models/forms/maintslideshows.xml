@@ -19,7 +19,7 @@
 				type="SlideshowSelectList"
 				label="COM_RSGALLERY2_SELECT_SLIDESHOW"
 				description="COM_RSGALLERY2_SELECT_SLIDESHOW_MAINT_DESC"
-				class="inputbox"
+				class=""
 				>
 		</field>
 	</fieldset>

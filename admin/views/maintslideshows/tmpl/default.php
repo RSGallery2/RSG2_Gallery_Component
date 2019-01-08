@@ -245,13 +245,9 @@ function SimpleXMLElement_append($parent, $child)
                 /**/
                 if ( ! empty ($this->slidesConfigFiles))
                 {
-
-	                $form = new JForm ($this->slidesConfigFiles->form);
+	                //$form = new JForm ($this->slidesConfigFiles->form);
+	                $form = $this->formX;
 	                echo $form->renderFieldset('maintslideshows');
-
-
-
-
 
 	                // activate first (?last ?) element
                     // toDo: Last used ....

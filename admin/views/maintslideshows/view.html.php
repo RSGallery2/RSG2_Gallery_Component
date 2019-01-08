@@ -73,7 +73,7 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		$this->forms = $forms;
 
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/maintslideshows.xml';
-		$this->form = JForm::getInstance('maintslideshows', $xmlFile);
+		$this->formX = JForm::getInstance('maintslideshows', $xmlFile);
 
 		/**
 		// $this->rsgConfigData = $rsgConfig;
