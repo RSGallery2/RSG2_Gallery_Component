@@ -37,50 +37,6 @@ function tabContent ($xmlFileInfo)
 
 	$config = $xmlFileInfo->formFields->config->fields;
 
-	/**
-	$formFieldsXml = $config->asXML();
-	echo '<div class="control-group">';
-	echo '    <label class="control-label" for="templateDetails_xml">Email</label>';
-	echo '    <div class="controls">';
-	echo '        <textarea  id="templateDetails_xml" class="input-xxlarge" rows="20"  readonly>'. $formFieldsXml . '</textarea>';
-	echo '    </div>';
-	echo '</div>';
-	/**/
-
-	/**
-	$formFieldsXml = $config->asXML();
-	echo '<div class="control-group">';
-	echo '    <label class="control-label" for="templateDetails_xml">Email</label>';
-	echo '    <div class="controls">';
-	echo '        <textarea  id="templateDetails_xml" class="span12" rows="20"  readonly>'. $formFieldsXml . '</textarea>';
-	echo '    </div>';
-	echo '</div>';
-	/**/
-
-	/**
-	$formFieldsXml = $config->asXML();
-	echo '<div class="control-group">';
-	//echo '    <label class="control-label" for="templateDetails_xml">Email</label>';
-	echo '    <div class="controls">';
-	echo '        <textarea  id="templateDetails_xml" class="span12" rows="20"  readonly>'. $formFieldsXml . '</textarea>';
-	echo '    </div>';
-	echo '</div>';
-	/**/
-
-	/**
-	$formFieldsXml = $config->asXML();
-	echo '<div class="control-group">';
-	//echo '    <label class="control-label" for="templateDetails_xml">Email</label>';
-	//echo '    <div class="controls">';
-	echo '        <textarea  id="templateDetails_xml" class="span12" rows="20"  readonly>'. $formFieldsXml . '</textarea>';
-	//echo '    </div>';
-	echo '</div>';
-	/**/
-
-    // echo '<hr>';
-
-	//echo '<h4>Test form fields</h4>';
-
 	$form = new JForm ($xmlFileInfo->name);
 
 	//--- add parent form element ------------------------
@@ -90,6 +46,9 @@ function tabContent ($xmlFileInfo)
 
 	$form->load($xmlForm->asXML());
 	echo $form->renderFieldset('advanced');
+
+	// button to submit the changed data
+	slideshowSaveConfigButton ($xmlFileInfo->name);
 
 	echo '<hr>';
 
@@ -110,15 +69,13 @@ function tabContent ($xmlFileInfo)
 	echo 'templateDetails.xml';
 	echo '        </label>';
 	echo '    </div>';
-
-
 	echo '    <div class="controls">';
     echo '        <textarea id="params_ini" class="input-xxlarge" rows="20">'. $parameterLines . '</textarea>';
 	echo '    </div>';
     echo '</div>';
 
-    // button to submit the changed data
-    slideshowButton ($xmlFileInfo->name);
+	// button to submit the changed data
+	slideshowSaveConfigFileButton ($xmlFileInfo->name);
 
 	// echo json_encode($xmlFileInfo) ;
 	//echo $this->form->renderFieldset('regenerateGallerySelection');
@@ -131,16 +88,29 @@ function tabFooter ($sliderName)
 	//echo " //end tab " . $sliderName;
 }
 
-function slideshowButton ($sliderName)
+function slideshowSaveConfigButton ($sliderName)
 {
 
-    echo '<!-- Action button ' . $sliderName . ' -->';
-    echo '<div class="form-actions">';
-    echo '    <button type="button" class="btn btn-primary"';
-    echo '        onclick="Joomla.submitbutton(\'maintslideshows.save\')">';
-    echo          JText::_('COM_RSGALLERY2_MAINT_SLIDESHOW_SAVE');
-    echo '    </button>';
-    echo '</div>';
+	echo '<!-- Action button save config: ' . $sliderName . ' -->';
+	echo '<div class="form-actions">';
+	echo '    <button type="button" class="btn btn-primary"';
+	echo '        onclick="Joomla.submitbutton(\'maintslideshows.saveConfigParameter\')">';
+	echo          JText::_('COM_RSGALLERY2_MAINT_SLIDESHOW_SAVE_CONFIG');
+	echo '    </button>';
+	echo '</div>';
+
+}
+
+function slideshowSaveConfigFileButton ($sliderName)
+{
+
+	echo '<!-- Action button save config file: ' . $sliderName . ' -->';
+	echo '<div class="form-actions">';
+	echo '    <button type="button" class="btn btn-primary"';
+	echo '        onclick="Joomla.submitbutton(\'maintslideshows.saveConfigFile\')">';
+	echo          JText::_('COM_RSGALLERY2_MAINT_SLIDESHOW_SAVE_CONFIG_FILE');
+	echo '    </button>';
+	echo '</div>';
 
 }
 
@@ -258,7 +228,7 @@ function SimpleXMLElement_append($parent, $child)
                     $activeName = $xmlFileInfo->name;
 
                     /**/
-	                $xmlFileInfo = $this->slidesConfigFiles [1];
+	                $xmlFileInfo = $this->slidesConfigFiles [2];
 	                $sliderName = $xmlFileInfo->name;
 
 	                echo JHtml::_('bootstrap.startTabSet', 'slidersTab', array('active' => $sliderName));
