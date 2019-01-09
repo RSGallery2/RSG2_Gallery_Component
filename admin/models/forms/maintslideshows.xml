@@ -20,6 +20,7 @@
 				label="COM_RSGALLERY2_SELECT_SLIDESHOW"
 				description="COM_RSGALLERY2_SELECT_SLIDESHOW_MAINT_DESC"
 				class=""
+				addfieldpath="/administrator/components/com_rsgallery2/models/fields"
 				>
 		</field>
 	</fieldset>

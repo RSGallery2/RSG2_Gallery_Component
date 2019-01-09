@@ -8,22 +8,21 @@
 
 defined('_JEXEC') or die();
 
-// JHtml::_('behavior.tooltip');
+$doc = JFactory::getDocument();
+$doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/views/imagesproperties/css/maintslideshows.css');
+$doc->addscript(JUri::root() . '/administrator/components/com_rsgallery2/views/imagesproperties/js/maintslideshows.js');
 JHtml::_('bootstrap.tooltip');
 
 global $Rsg2DebugActive;
 
-JHtml::_('formbehavior.chosen', 'select');
+// JHtml::_('formbehavior.chosen', 'select');
 
 
 function tabHeader ($sliderName)
 {
     // ? Sanitize name ?
 
-
-    echo JHtml::_('bootstrap.addTab', 'slidersTab', $sliderName, $sliderName); //, true);
-	//echo JHtml::_('bootstrap.addTab', 'slidersTab', $sliderName, $sliderName);
-    //echo " // start tab " . $sliderName;
+    echo JHtml::_('bootstrap.addTab', 'slidersTab', 'tab_' . $sliderName, $sliderName); //, true);
 }
 
 function tabContent ($xmlFileInfo)
@@ -179,37 +178,6 @@ function SimpleXMLElement_append($parent, $child)
                 <div><?php echo JText::_('COM_RSGALLERY2_SLIDESHOWS_CONFIGURATION_INFO'); ?></div>
                 <br>
 
-				<?php
-                /**
-                echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'name'));
-                echo '//start tab set<br>';
-
-				echo JHtml::_('bootstrap.addTab', 'myTab', 'name', JText::_('COM_EXAMPLE_NAME'));
-                echo '//start tab pane 1';
-                echo '<h3>' . 'title' . '</h3>';
-                echo '<p>Author: ' . 'author' . '</p>';
-				echo JHtml::_('bootstrap.endTab');
-                echo '//end tab pane 1<br>';
-
-				echo JHtml::_('bootstrap.addTab', 'myTab', 'desc', JText::_('COM_EXAMPLE_DESCRIPTION'));
-                echo '//start tab pane 2';
-				echo '<h3>' . 'description' . '</h3>';
-				echo JHtml::_('bootstrap.endTab');
-                echo '//end tab pane 2<br>';
-
-				echo JHtml::_('bootstrap.addTab', 'myTab', 'price', JText::_('COM_EXAMPLE_PRICE'));
-                echo '//start tab pane 3';
-				echo '<h3>' . 'price' . '</h3>';
-				echo JHtml::_('bootstrap.endTab');
-                echo '//end tab pane 3<br>';
-
-				echo JHtml::_('bootstrap.endTabSet');
-                echo '//end tab set';
-
-                echo '<hr>';
-                /**/
-                ?>
-
                 <?php
 
                 /**/
@@ -218,6 +186,8 @@ function SimpleXMLElement_append($parent, $child)
 	                //$form = new JForm ($this->slidesConfigFiles->form);
 	                $form = $this->formX;
 	                echo $form->renderFieldset('maintslideshows');
+
+	                return;
 
 	                // activate first (?last ?) element
                     // toDo: Last used ....
@@ -231,7 +201,7 @@ function SimpleXMLElement_append($parent, $child)
 	                $xmlFileInfo = $this->slidesConfigFiles [2];
 	                $sliderName = $xmlFileInfo->name;
 
-	                echo JHtml::_('bootstrap.startTabSet', 'slidersTab', array('active' => $sliderName));
+	                echo JHtml::_('bootstrap.startTabSet', 'slidersTab', array('active' => 'tab_' . $sliderName));
 	                //echo '//start tab set<br>';
 
 	                foreach ($this->slidesConfigFiles as $xmlFileInfo)
