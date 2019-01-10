@@ -9,9 +9,10 @@
 defined('_JEXEC') or die();
 
 $doc = JFactory::getDocument();
-$doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/views/imagesproperties/css/maintslideshows.css');
-$doc->addscript(JUri::root() . '/administrator/components/com_rsgallery2/views/imagesproperties/js/maintslideshows.js');
+// $doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/views/maintslideshows/css/maintslideshows.css');
+$doc->addscript(JUri::root() . '/administrator/components/com_rsgallery2/views/maintslideshows/js/maintslideshows.js');
 JHtml::_('bootstrap.tooltip');
+//JHtml::_('jquery.framework', false);
 
 global $Rsg2DebugActive;
 
