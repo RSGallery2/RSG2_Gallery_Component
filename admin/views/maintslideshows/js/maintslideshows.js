@@ -19,26 +19,22 @@ jQuery(document).ready(function ($) {
 
     $('#maintain_slideshow').change(function() {
     
-        alert ("aaaa");
-    
         var form = document.getElementById('adminForm');
     
-        alert ("aaa1");
         form.task.value = 'maintslideshows.changeSlideshow';
-        alert ("aaa2");
         form.submit();
 						
-		});
+	});
 
-		/**
-		$('#').click(function() {
-			alert ("bbb")
-			$('#popupModal').css('display', 'none');
-			$('#popupModal').css('display', 'block');
-			$('#popupImage').attr("src", this.src);
-			$('#popupCaption').html(this.alt);
-		});
-		/**/
+    /**
+    $('#').click(function() {
+        alert ("bbb")
+        $('#popupModal').css('display', 'none');
+        $('#popupModal').css('display', 'block');
+        $('#popupImage').attr("src", this.src);
+        $('#popupCaption').html(this.alt);
+    });
+    /**/
 
 });
 /**/

@@ -34,7 +34,7 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 	public function changeSlideshow()
 	{
         // $msg     = '<strong>' . 'Save2Upload ' . ':</strong><br>';
-        $msg     = 'changeSlideshow ';
+        $msg     = 'changeSlideshow XXX ';
 		$msgType = 'notice';
         $IsSaved = false;
 
@@ -56,8 +56,8 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 			// Tell the maintenance which slidshow to use
 			$input = JFactory::getApplication()->input;
 
-			$slideshow = $input->get('maintain_slideshow', "", 'ACSII');
-			if (!empty ($Id))
+			$slideshow = $input->get('maintain_slideshow', "", 'STRING');
+			if (!empty ($slideshow))
 			{
 				$link .= '&maintain_slideshow=' . $slideshow;
 

@@ -186,9 +186,20 @@ function SimpleXMLElement_append($parent, $child)
                 {
 	                //$form = new JForm ($this->slidesConfigFiles->form);
 	                $form = $this->formX;
-	                echo $form->renderFieldset('maintslideshows');
 
-	                return;
+	                $input = JFactory::getApplication()->input;
+
+	                $maintain_slideshow = $input->get('maintain_slideshow', "", 'STRING');
+
+	                echo '$maintain_slideshow : ' . $maintain_slideshow . '<br>';
+
+	                if( ! empty($maintain_slideshow ))
+	                {
+
+		                $this->form->setValue('maintain_slideshow', "", $maintain_slideshow);
+	                }
+
+	                echo $form->renderFieldset('maintslideshows');
 
 	                // activate first (?last ?) element
                     // toDo: Last used ....

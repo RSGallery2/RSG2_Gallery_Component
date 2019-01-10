@@ -15,7 +15,7 @@
 		/ -->
 		<field
 				id="maintain_slideshow"
-				name="current_slideshow"
+				name="maintain_slideshow"
 				type="SlideshowSelectList"
 				label="COM_RSGALLERY2_SELECT_SLIDESHOW"
 				description="COM_RSGALLERY2_SELECT_SLIDESHOW_MAINT_DESC"
