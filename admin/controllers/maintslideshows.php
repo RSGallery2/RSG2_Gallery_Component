@@ -33,12 +33,19 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 	 */
 	public function changeSlideshow()
 	{
-        // $msg     = '<strong>' . 'Save2Upload ' . ':</strong><br>';
-        $msg     = 'changeSlideshow XXX ';
+        $msg     = 'changeSlideshow';
 		$msgType = 'notice';
         $IsSaved = false;
 
+		$input = JFactory::getApplication()->input;
 		$link = 'index.php?option=com_rsgallery2&view=maintslideshows';
+		// Tell the maintenance which slidshow to use
+		$slideshow = $input->get('maintain_slideshow', "", 'STRING');
+		/* ??? urlencode, rawurlencode() htmlentities() oder htmlspecialchars(). /**/
+		if (!empty ($slideshow))
+		{
+			$link .= '&maintain_slideshow=' . $slideshow;
+		}
 
 		// Access check
 		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
@@ -51,23 +58,137 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 		}
 		else
 		{
-			/* ??? urlencode, rawurlencode() htmlentities() oder htmlspecialchars(). /**/
-
-			// Tell the maintenance which slidshow to use
-			$input = JFactory::getApplication()->input;
-
-			$slideshow = $input->get('maintain_slideshow', "", 'STRING');
-			if (!empty ($slideshow))
-			{
-				$link .= '&maintain_slideshow=' . $slideshow;
-
-				$msg = "";
-				$msgType = "";
-			}
+			$msg = "";
+			$msgType = "";
 		}
 
 		$this->setRedirect($link, $msg, $msgType);
 	}
+
+
+
+
+	public function saveConfigParameter ()
+	{
+		$msg     = 'Save slideshow config parameter ';
+		$msgType = 'notice';
+		$IsSaved = false;
+
+		$input = JFactory::getApplication()->input;
+		$link = 'index.php?option=com_rsgallery2&view=maintslideshows';
+		// Tell the maintenance which slidshow to use
+		$slideshow = $input->get('maintain_slideshow', "", 'STRING');
+		/* ??? urlencode, rawurlencode() htmlentities() oder htmlspecialchars(). /**/
+		if (!empty ($slideshow))
+		{
+			$link .= '&maintain_slideshow=' . $slideshow;
+		}
+
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+		if (!$canAdmin)
+		{
+			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		}
+		else
+		{
+			//  tells if successful
+			//$IsSaved  = $this->save();
+			$IsSaved  = True;
+			$IsSaved  = false;
+		}
+
+		if ($IsSaved)
+		{
+			// ToDo:
+
+			$link = 'index.php?option=com_rsgallery2&view=upload';
+			// Tell the upload the id (not used there)
+			$input = JFactory::getApplication()->input;
+
+			$Id = $input->get('id', 0, 'INT');
+			if (!empty ($Id))
+			{
+				$link .= '&id=' . $Id;
+			}
+
+			$msg .= ' successful';
+			$this->setRedirect($link, $msg, $msgType);
+		}
+		else
+		{
+			$msg .= ' failed';
+			JFactory::getApplication()->enqueueMessage($msg, 'warning');
+		}
+
+		$this->setRedirect($link, $msg, $msgType);
+	}
+
+
+
+	public function saveConfigFile ()
+	{
+		// $msg     = '<strong>' . 'Save2Upload ' . ':</strong><br>';
+		$msg     = 'Save slideshow config file ';
+		$msgType = 'notice';
+		$IsSaved = false;
+
+		$input = JFactory::getApplication()->input;
+		$link = 'index.php?option=com_rsgallery2&view=maintslideshows';
+		// Tell the maintenance which slidshow to use
+		$slideshow = $input->get('maintain_slideshow', "", 'STRING');
+		/* ??? urlencode, rawurlencode() htmlentities() oder htmlspecialchars(). /**/
+		if (!empty ($slideshow))
+		{
+			$link .= '&maintain_slideshow=' . $slideshow;
+		}
+
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+		if (!$canAdmin)
+		{
+			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		}
+		else
+		{
+			//  tells if successful
+			//$IsSaved  = $this->save();
+			$IsSaved  = True;
+			$IsSaved  = false;
+		}
+
+		if ($IsSaved)
+		{
+			// ToDo:
+
+			$link = 'index.php?option=com_rsgallery2&view=upload';
+			// Tell the upload the id (not used there)
+			$input = JFactory::getApplication()->input;
+
+			$Id = $input->get('id', 0, 'INT');
+			if (!empty ($Id))
+			{
+				$link .= '&id=' . $Id;
+			}
+
+			$msg .= ' successful';
+			$this->setRedirect($link, $msg, $msgType);
+		}
+		else
+		{
+			$msg .= ' failed';
+			JFactory::getApplication()->enqueueMessage($msg, 'warning');
+		}
+
+		$this->setRedirect($link, $msg, $msgType);
+	}
+
 
 }
 

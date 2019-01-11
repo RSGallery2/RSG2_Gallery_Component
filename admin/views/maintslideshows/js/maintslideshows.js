@@ -25,17 +25,46 @@ jQuery(document).ready(function ($) {
         form.submit();
 						
 	});
-
+    
     /**
-    $('#').click(function() {
+     $('btnConfigFile').click(function() {
         alert ("bbb")
         $('#popupModal').css('display', 'none');
         $('#popupModal').css('display', 'block');
         $('#popupImage').attr("src", this.src);
         $('#popupCaption').html(this.alt);
     });
+     /**/
+    
     /**/
-
+    // $( "input[value='Hot Fuzz']" ).next().text( "Hot Fuzz" );
+        alert ("aaa")
+        var form = document.getElementById('adminForm');
+    
+        form.task.value = 'maintslideshows.saveConfigParameter';
+        form.submit();
+    });
+    /**/
+    
+    /**/
+        alert ("bbb")
+        var form = document.getElementById('adminForm');
+    
+        form.task.value = 'maintslideshows.saveConfigFile';
+        form.submit();
+    });
+    /**/
+    
+    /**
+     $('btnConfigFile').click(function() {
+        alert ("bbb")
+        $('#popupModal').css('display', 'none');
+        $('#popupModal').css('display', 'block');
+        $('#popupImage').attr("src", this.src);
+        $('#popupCaption').html(this.alt);
+    });
+     /**/
+    
 });
 /**/
 

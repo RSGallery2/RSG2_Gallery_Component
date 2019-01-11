@@ -226,6 +226,16 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 	}
 	/**/
 
+
+	/**
+	 * setting from text lines of "params.ini" file
+	 * @param $slidesParamsFile
+	 *
+	 * @return JRegistry
+	 *
+	 * @since version
+	 * @throws Exception
+	 */
 	private function SettingsFromParamsFile($slidesParamsFile)
 	{
 		$params = new JRegistry;
@@ -252,7 +262,6 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 				/**/
 
 				$params->loadFile($slidesParamsFile, 'INI');
-
 			}
 
 		}

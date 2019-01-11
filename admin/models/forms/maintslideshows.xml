@@ -2,17 +2,6 @@
 <form enctype="multipart/form-data">
 	<fieldset name="maintslideshows">
 		<!-- Existing slideshows selection -->
-		<!-- field
-				id="SelectGallery4MoveCopy"
-				name="SelectGallery4MoveCopy"
-				type="GallerySelectList"
-				label="COM_RSGALLERY2_SELECT_FOR_COPY_SLASH_MOVE"
-				description="COM_RSGALLERY2_SPECIFY_GALLERY_NAME_COPYMOVE_DESC"
-				required="false"
-				class="inputbox"
-				addfieldpath="/administrator/components/com_rsgallery2/models/fields"
-				size="4"
-		/ -->
 		<field
 				id="maintain_slideshow"
 				name="maintain_slideshow"

@@ -48,7 +48,7 @@ function tabContent ($xmlFileInfo)
 	echo $form->renderFieldset('advanced');
 
 	// button to submit the changed data
-	slideshowSaveConfigButton ($xmlFileInfo->name);
+	slideshowSaveConfigParaButton ($xmlFileInfo->name);
 
 	echo '<hr>';
 
@@ -88,13 +88,14 @@ function tabFooter ($sliderName)
 	//echo " //end tab " . $sliderName;
 }
 
-function slideshowSaveConfigButton ($sliderName)
+function slideshowSaveConfigParaButton ($sliderName)
 {
 
 	echo '<!-- Action button save config: ' . $sliderName . ' -->';
 	echo '<div class="form-actions">';
-	echo '    <button type="button" class="btn btn-primary"';
-	echo '        onclick="Joomla.submitbutton(\'maintslideshows.saveConfigParameter\')">';
+	echo '    <button id="btnConfigPara_' . $sliderName . '" name="btnConfigPara" type="button" class="btn btn-primary"';
+	//echo '        onclick="Joomla.submitbutton(\'maintslideshows.saveConfigParameter\')"';
+	echo '    >';
 	echo          JText::_('COM_RSGALLERY2_MAINT_SLIDESHOW_SAVE_CONFIG');
 	echo '    </button>';
 	echo '</div>';
@@ -106,8 +107,9 @@ function slideshowSaveConfigFileButton ($sliderName)
 
 	echo '<!-- Action button save config file: ' . $sliderName . ' -->';
 	echo '<div class="form-actions">';
-	echo '    <button type="button" class="btn btn-primary"';
-	echo '        onclick="Joomla.submitbutton(\'maintslideshows.saveConfigFile\')">';
+	echo '    <button id="btnConfigFile_' . $sliderName . '" name="btnConfigFile" type="button" class="btn btn-primary"';
+	//echo '        onclick="Joomla.submitbutton(\'maintslideshows.saveConfigFile\')"';
+	echo '    >';
 	echo          JText::_('COM_RSGALLERY2_MAINT_SLIDESHOW_SAVE_CONFIG_FILE');
 	echo '    </button>';
 	echo '</div>';
@@ -193,11 +195,12 @@ function SimpleXMLElement_append($parent, $child)
 
 	                echo '$maintain_slideshow : ' . $maintain_slideshow . '<br>';
 
+	                /**
 	                if( ! empty($maintain_slideshow ))
 	                {
-
 		                $this->form->setValue('maintain_slideshow', "", $maintain_slideshow);
 	                }
+                    /**/
 
 	                echo $form->renderFieldset('maintslideshows');
 
