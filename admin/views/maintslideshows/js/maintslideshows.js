@@ -38,6 +38,7 @@ jQuery(document).ready(function ($) {
     
     /**/
     // $( "input[value='Hot Fuzz']" ).next().text( "Hot Fuzz" );
+    $("button[name='btnConfigFile']").click(function() {
         alert ("aaa")
         var form = document.getElementById('adminForm');
     
@@ -47,6 +48,7 @@ jQuery(document).ready(function ($) {
     /**/
     
     /**/
+    $("button[name='btnConfigFile']").click(function() {
         alert ("bbb")
         var form = document.getElementById('adminForm');
     
