@@ -38,21 +38,67 @@ jQuery(document).ready(function ($) {
     
     /**/
     // $( "input[value='Hot Fuzz']" ).next().text( "Hot Fuzz" );
-    $("button[name='btnConfigFile']").click(function() {
-        alert ("aaa")
+    $("button[name='btnConfigPara']").click(function(event) {
+        var splitNameArray;
+        var slideshowId;
+
+        alert ("aaa");
+
+        //--- slideshow id ----------------------
+
+        var elementId = event.target.id;
+        //alert ('elementId: ' + elementId);
+
+        splitNameArray = elementId.split('_');
+        // Remove first part and join following
+        splitNameArray.shift();
+        slideshowId = splitNameArray.join ('_');
+        // alert ('slideshowId: ' + slideshowId);
+
+        //-- assign to control --------------
+
         var form = document.getElementById('adminForm');
     
         form.task.value = 'maintslideshows.saveConfigParameter';
+        form.usedSlideshow.value = slideshowId;
+
         form.submit();
     });
     /**/
-    
+
     /**/
-    $("button[name='btnConfigFile']").click(function() {
-        alert ("bbb")
+    $("button[name='btnConfigFile']").click(function(event) {
+        var splitNameArray;
+        var slideshowId;
+        var elementId;
+        var paramsIniText;
+
+        // alert ("bbb");
+
+        //--- slideshow id ----------------------
+
+        elementId = event.target.id;
+        //alert ('elementId: ' + elementId);
+
+        splitNameArray = elementId.split('_');
+        // Remove first part and join following
+        splitNameArray.shift();
+        slideshowId = splitNameArray.join ('_');
+        // alert ('slideshowId: ' + slideshowId);
+
+        //-- params.ini content --------------
+
+        paramsIniText = $("#params_ini_" + slideshowId).val();
+        alert ('paramsIniText: ' + paramsIniText);
+
+        //-- assign to control --------------
+
         var form = document.getElementById('adminForm');
-    
+
         form.task.value = 'maintslideshows.saveConfigFile';
+        form.usedSlideshow.value = slideshowId;
+        form.paramsIniText.value = paramsIniText;
+
         form.submit();
     });
     /**/

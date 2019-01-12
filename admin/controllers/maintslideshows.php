@@ -75,8 +75,11 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 		$IsSaved = false;
 
 		$input = JFactory::getApplication()->input;
+
+		//--- prepare link with slideshow name -----------------------------
+
 		$link = 'index.php?option=com_rsgallery2&view=maintslideshows';
-		// Tell the maintenance which slidshow to use
+		// Tell the maintenance which slideshow to use
 		$slideshow = $input->get('maintain_slideshow', "", 'STRING');
 		/* ??? urlencode, rawurlencode() htmlentities() oder htmlspecialchars(). /**/
 		if (!empty ($slideshow))
@@ -84,7 +87,8 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 			$link .= '&maintain_slideshow=' . $slideshow;
 		}
 
-		// Access check
+		//--- Access check ---------------------------------------
+
 		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
 		if (!$canAdmin)
 		{
@@ -104,7 +108,7 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 		if ($IsSaved)
 		{
 			// ToDo:
-
+			/**
 			$link = 'index.php?option=com_rsgallery2&view=upload';
 			// Tell the upload the id (not used there)
 			$input = JFactory::getApplication()->input;
@@ -117,6 +121,7 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 
 			$msg .= ' successful';
 			$this->setRedirect($link, $msg, $msgType);
+			/**/
 		}
 		else
 		{
@@ -135,18 +140,25 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 		$msg     = 'Save slideshow config file ';
 		$msgType = 'notice';
 		$IsSaved = false;
+		$configParam = "";
 
 		$input = JFactory::getApplication()->input;
+
+		//--- prepare link with slideshow name -----------------------------
+
 		$link = 'index.php?option=com_rsgallery2&view=maintslideshows';
-		// Tell the maintenance which slidshow to use
-		$slideshow = $input->get('maintain_slideshow', "", 'STRING');
+
+		// Tell the maintenance which slideshow to use
+		$linkSlideshow = $input->get('maintain_slideshow', "", 'STRING');
+
 		/* ??? urlencode, rawurlencode() htmlentities() oder htmlspecialchars(). /**/
-		if (!empty ($slideshow))
+		if (!empty ($linkSlideshow))
 		{
-			$link .= '&maintain_slideshow=' . $slideshow;
+			$link .= '&maintain_slideshow=' . $linkSlideshow;
 		}
 
-		// Access check
+		//--- Access check ---------------------------------------
+
 		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
 		if (!$canAdmin)
 		{
@@ -157,34 +169,74 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 		}
 		else
 		{
-			//  tells if successful
-			//$IsSaved  = $this->save();
-			$IsSaved  = True;
-			$IsSaved  = false;
+			//--- fetch file data -----------------------------
+
+			$targetSlideshow = $input->get('usedSlideshow', "", 'STRING');
+			$paramsIniText    = $input->get(paramsIniText, "", 'STRING');
+			// check input
+			$isErrFound = false;
+			// error ?
+			if (empty ($targetSlideshow))
+			{
+				$isErrFound = true;
+				$msg        = $msg . ': Empty slideshow name';
+				$msgType    = 'error';
+			}
+
+			//--- sanitize edited text -----------------------------
+
+			if (!$isErrFound)
+			{
+				// convert to registry
+				$params = new JRegistry;
+				$params->loadString($paramsIniText, 'INI');
+				$configParam = $params->toString('INI');
+			}
+
+			//--- write to file -----------------------------
+
+			$isSaved = false;
+
+			if (!$isErrFound)
+			{
+				//--- folder name -----------------------------
+
+				$pathFile = JPATH_COMPONENT_SITE . '/templates/' . $targetSlideshow;
+
+				// Does folder exist ?
+				if (!is_dir($pathFile))
+				{
+					$isErrFound = true;
+					$msg        = $msg . ": folder does not exist: " . $pathFile;
+					$msgType    = 'error';
+				}
+			}
+
+			if (!$isErrFound)
+			{
+				//--- file name -----------------------------
+				$parameterFileName = 'params.ini';
+
+				$pathFileName = $pathFile . '/' . $parameterFileName;
+				$fileBytes    = file_put_contents($pathFileName, $configParam . PHP_EOL, LOCK_EX);
+
+				//  tells if successful
+				// $IsSaved = $fileBytes != false;
+				$IsSaved = !empty ($fileBytes);
+			}
 		}
 
 		if ($IsSaved)
 		{
-			// ToDo:
-
-			$link = 'index.php?option=com_rsgallery2&view=upload';
-			// Tell the upload the id (not used there)
-			$input = JFactory::getApplication()->input;
-
-			$Id = $input->get('id', 0, 'INT');
-			if (!empty ($Id))
-			{
-				$link .= '&id=' . $Id;
-			}
-
 			$msg .= ' successful';
-			$this->setRedirect($link, $msg, $msgType);
 		}
+		/**
 		else
 		{
 			$msg .= ' failed';
 			JFactory::getApplication()->enqueueMessage($msg, 'warning');
 		}
+		/**/
 
 		$this->setRedirect($link, $msg, $msgType);
 	}

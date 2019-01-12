@@ -36,6 +36,7 @@ function tabContent ($xmlFileInfo)
     echo '<h4>Form Fields (XML Config part of templateDetails.xml -> J2.5++ style)</h4>';
 
 	$config = $xmlFileInfo->formFields->config->fields;
+	$sliderName = $xmlFileInfo->name;
 
 	$form = new JForm ($xmlFileInfo->name);
 
@@ -52,7 +53,7 @@ function tabContent ($xmlFileInfo)
 
 	echo '<hr>';
 
-	echo '<h4>file params.ini: parameter=values </h4>';
+	echo '<h4>file params.ini:</h4>';
 
 	$testRegistry = $xmlFileInfo->parameterValues;
     $parameterLines = $testRegistry->toString ('INI');
@@ -61,16 +62,16 @@ function tabContent ($xmlFileInfo)
     echo '<div class="control-group">';
 
 	echo '    <div class="control-label">';
-	echo '        <label  id="params_ini-lbl" for="params_ini"  class="hasPopover" ';
+	echo '        <label  id="params_ini_' . $sliderName . '-lbl" for="params_ini_' . $sliderName . '"  class="hasPopover" ';
 	echo '           title="" ';
-	echo '           data-original-title="templateDetails.xml" ';
-	echo '           data-content="Content of file templateDetails.xml in slideshow folder" ';
+	echo '           data-original-title="params.ini file" ';
+	echo '           data-content="Content of file params.ini in slideshow folder. Line structure parameter=\"values\"" ';
 	echo '        >';
-	echo 'templateDetails.xml';
+	echo 'params.ini content';
 	echo '        </label>';
 	echo '    </div>';
 	echo '    <div class="controls">';
-    echo '        <textarea id="params_ini" class="input-xxlarge" rows="20">'. $parameterLines . '</textarea>';
+    echo '        <textarea id="params_ini_' . $sliderName . '" class="input-xxlarge" rows="20">'. $parameterLines . '</textarea>';
 	echo '    </div>';
     echo '</div>';
 
@@ -238,6 +239,8 @@ function SimpleXMLElement_append($parent, $child)
 				?>
 
                 <input type="hidden" value="" name="task">
+                <input type="hidden" value="" name="usedSlideshow">
+                <input type="hidden" value="" name="paramsIniText">
 
 				<?php
 
