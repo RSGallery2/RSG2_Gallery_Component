@@ -27,8 +27,8 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 	protected $slidesConfigFiles;
 	protected $slidesConfig;
 
-	protected $forms;
-
+	protected $formsSlides;
+	protected $formMaintain;
 	/**
 	// core.admin is the permission used to control access to
 	// the global config
@@ -55,6 +55,8 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 
 		//--- get needed data ------------------------------------------
 
+		$input = JFactory::getApplication()->input;
+
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot();
 
@@ -63,17 +65,19 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		$this->slidesConfigFiles = $maintSlidesModel->collectSlideshowsConfigFiles();
 		//$this->slidesParameter = $maintSlidesModel->parameterFromConfigFiles($this->slidesConfigFiles);
 
-		$forms = [];
+		$formsSlides = [];
 
 		foreach ($this->slidesConfigFiles as $xmlFileInfo)
 		{
 			$xmlFile    = $xmlFileInfo->cfgFieldsFileName;
-			$forms [$xmlFileInfo->name] = JForm::getInstance($xmlFileInfo->name, $xmlFile);
+			$formsSlides [$xmlFileInfo->name] = JForm::getInstance($xmlFileInfo->name, $xmlFile);
 		}
-		$this->forms = $forms;
+		$this->formsSlides = $formsSlides;
 
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/maintslideshows.xml';
-		$this->formX = JForm::getInstance('maintslideshows', $xmlFile);
+		$this->formMaintain = JForm::getInstance('maintslideshows', $xmlFile);
+		$this->slideshowMaintain = $input->get('maintain_slideshow', "", 'STRING');
+
 
 		/**
 		// $this->rsgConfigData = $rsgConfig;

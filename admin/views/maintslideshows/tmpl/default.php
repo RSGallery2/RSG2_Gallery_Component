@@ -38,25 +38,34 @@ function tabContent ($xmlFileInfo)
 	$config = $xmlFileInfo->formFields->config->fields;
 	$sliderName = $xmlFileInfo->name;
 
-	$form = new JForm ($xmlFileInfo->name);
+	$formSlide = new JForm ($xmlFileInfo->name);
 
 	//--- add parent form element ------------------------
+
 	$xmlForm = new SimpleXMLElement('<form></form>');
 	SimpleXMLElement_append($xmlForm, $config);
 	//$xmlFormAsXml = $xmlForm->asXML();
+	$formSlide->load($xmlForm->asXML());
 
-	$form->load($xmlForm->asXML());
-	echo $form->renderFieldset('advanced');
+	//--- add parameter values from xml file ------------------------
+
+	$params = $xmlFileInfo->parameterValues; // Jregistry ?
+	$formSlide->bind($params);
+
+	//--- show controls ------------------------
+
+	echo $formSlide->renderFieldset('advanced');
 
 	// button to submit the changed data
 	slideshowSaveConfigParaButton ($xmlFileInfo->name);
 
 	echo '<hr>';
 
+	//--- show controls ------------------------
+
 	echo '<h4>file params.ini:</h4>';
 
-	$testRegistry = $xmlFileInfo->parameterValues;
-    $parameterLines = $testRegistry->toString ('INI');
+    $parameterLines = $params->toString ('INI');
 	// echo $parameterLines;
 
     echo '<div class="control-group">';
@@ -187,33 +196,27 @@ function SimpleXMLElement_append($parent, $child)
                 /**/
                 if ( ! empty ($this->slidesConfigFiles))
                 {
-	                //$form = new JForm ($this->slidesConfigFiles->form);
-	                $form = $this->formX;
+                    //---- show slideshow selection ---------------------------
 
-	                $input = JFactory::getApplication()->input;
+	                $formMaintain = $this->formMaintain;
 
-	                $maintain_slideshow = $input->get('maintain_slideshow', "", 'STRING');
+	                // assign previous user selection
+                    $params = new JRegistry;
+	                $params->loadString("maintain_slideshow=" . $this->slideshowMaintain);
+	                $formMaintain->bind($params);
 
-	                echo '$maintain_slideshow : ' . $maintain_slideshow . '<br>';
+	                echo $formMaintain->renderFieldset('maintslideshows');
 
-	                /**
-	                if( ! empty($maintain_slideshow ))
-	                {
-		                $this->form->setValue('maintain_slideshow', "", $maintain_slideshow);
-	                }
-                    /**/
+	                //---- show slideshow parameters ---------------------------
 
-	                echo $form->renderFieldset('maintslideshows');
-
-	                // activate first (?last ?) element
-                    // toDo: Last used ....
-                    $slidesCount = count ($this->slidesConfigFiles);
+	                $slidesCount = count ($this->slidesConfigFiles);
                     //$xmlFileInfo = $this->slidesConfigFiles [$slidesCount-1];
                     //$xmlFileInfo = $this->slidesConfigFiles [$slidesCount-2];
                     $xmlFileInfo = $this->slidesConfigFiles [0];
                     $activeName = $xmlFileInfo->name;
 
-                    /**/
+                    /*=====================================================*
+                    original: ToDo activate all at once -> ajax for fast setting
 	                $xmlFileInfo = $this->slidesConfigFiles [2];
 	                $sliderName = $xmlFileInfo->name;
 
@@ -235,8 +238,52 @@ function SimpleXMLElement_append($parent, $child)
 	                }
 	                echo JHtml::_('bootstrap.endTabSet');
 	                //echo '//end tab set';
-	                /**/
-				?>
+	                /*=====================================================*/
+
+
+	                //--- find user selected slideshow data -------------------
+
+	                // fallback (0: semantic)
+	                $xmlFileInfo = $this->slidesConfigFiles [1];
+
+	                $slideshowMaintain = $this->slideshowMaintain;
+
+                    // use previous user selection
+	                if (! empty ($slideshowMaintain))
+	                {
+		                foreach ($this->slidesConfigFiles as $xmlFileInfoProbe)
+		                {
+			                if (!empty ($xmlFileInfoProbe->formFields))
+			                {
+				                $sliderName = $xmlFileInfoProbe->name;
+
+                                if ($sliderName == $slideshowMaintain)
+                                {
+	                                $xmlFileInfo = $xmlFileInfoProbe;
+                                }
+			                }
+		                }
+	                }
+	                $sliderName = $xmlFileInfo->name;
+
+	                //--- display user selected slideshow data -------------------
+
+	                echo JHtml::_('bootstrap.startTabSet', 'slidersTab', array('active' => 'tab_' . $sliderName));
+
+	                if ( ! empty ($xmlFileInfo->formFields))
+	                {
+		                $sliderName = $xmlFileInfo->name;
+		                // extract parameter
+		                tabHeader($sliderName);
+
+		                tabContent($xmlFileInfo);
+
+		                tabFooter($sliderName);
+	                }
+
+                    echo JHtml::_('bootstrap.endTabSet');
+
+	                ?>
 
                 <input type="hidden" value="" name="task">
                 <input type="hidden" value="" name="usedSlideshow">
