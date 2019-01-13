@@ -62,7 +62,7 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 
 		$maintSlidesModel   = JModelLegacy::getInstance('MaintSlideshows', 'rsgallery2Model');
 		// ToDo: rename to slidesConfigData
-		$this->slidesConfigFiles = $maintSlidesModel->collectSlideshowsConfigFiles();
+		$this->slidesConfigFiles = $maintSlidesModel->collectSlideshowsConfigFilesAll();
 		//$this->slidesParameter = $maintSlidesModel->parameterFromConfigFiles($this->slidesConfigFiles);
 
 		$formsSlides = [];
