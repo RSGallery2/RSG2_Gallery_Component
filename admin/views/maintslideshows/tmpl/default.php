@@ -194,15 +194,15 @@ function SimpleXMLElement_append($parent, $child)
                 <?php
 
                 /**/
-                if ( ! empty ($this->slidesConfigFiles))
+                //if ( ! empty ($this->slidesConfigFiles))
                 {
                     //---- show slideshow selection ---------------------------
 
-	                $formMaintain = $this->formMaintain;
+	                $formUserSelectSlideshow = $this->formUserSelectSlideshow;
 
 	                // assign previous user selection
                     $params = new JRegistry;
-	                $params->loadString("maintain_slideshow=" . $this->slideshowMaintain);
+	                $params->loadString("maintain_slideshow=" . $formUserSelectSlideshow);
 	                $formMaintain->bind($params);
 
 	                echo $formMaintain->renderFieldset('maintslideshows');
@@ -212,7 +212,7 @@ function SimpleXMLElement_append($parent, $child)
 	                $slidesCount = count ($this->slidesConfigFiles);
                     //$xmlFileInfo = $this->slidesConfigFiles [$slidesCount-1];
                     //$xmlFileInfo = $this->slidesConfigFiles [$slidesCount-2];
-                    $xmlFileInfo = $this->slidesConfigFiles [0];
+                    $xmlFileInfo = $this->slidesConfigFile;
                     $activeName = $xmlFileInfo->name;
 
                     /*=====================================================*

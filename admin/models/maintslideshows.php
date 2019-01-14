@@ -80,16 +80,18 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 			$parameterFileName = 'params.ini';
 			$fileBasePath = JPATH_COMPONENT_SITE . '/templates/' . $slideshowName;
 
-			$templatePath = $fileBasePath . '/' . $fieldsFileName;
-			$paramsPath = $fileBasePath . '/' . $parameterFileName;
+			$templatePathFile = $fileBasePath . '/' . $fieldsFileName;
+			$paramsPathFile = $fileBasePath . '/' . $parameterFileName;
 
 			//--- templateDetails.xml -----------------------------------
 
 			// config file exist
-			if (!empty($templatePath))
+			if (!empty($templatePathFile))
 			{
+				$configData->cfgFieldsFileName = $templatePathFile;
+
 				// extract form fields
-				$formFields = $this->formFieldsFromTemplateFile($templatePath);
+				$formFields = $this->formFieldsFromTemplateFile($templatePathFile);
 
 				// ignore found name when templateDetails.xml does not contain xml->config->fields part
 				$configData->formFields = false;
@@ -97,14 +99,17 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 				{
 					$configData->formFields = $formFields;
 				}
+
 			}
 
 			//--- params.ini -----------------------------------
 
 			// config file exist
-			if (!empty($paramsPath))
+			if (!empty($paramsPathFile))
 			{
-				$params = $this->SettingsFromParamsFile($paramsPath);
+
+				$configData->cfgParameterFileName = $paramsPathFile . '/' . $parameterFileName;
+				$params = $this->SettingsFromParamsFile($paramsPathFile);
 
 				$configData->parameterValues = false;
 
@@ -126,6 +131,10 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 
 		return $configData;
 	}
+
+	//============================================================================
+	//============================================================================
+	//============================================================================
 
 	// may not be needed
 	public function collectSlideshowsConfigFiles()
