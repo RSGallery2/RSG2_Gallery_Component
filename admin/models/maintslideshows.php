@@ -26,6 +26,107 @@ jimport('joomla.application.component.modeladmin');
 class rsgallery2ModelMaintSlideshows extends JModelList
 {
 
+	// collect slideshow names from existing folder
+	public function collectSlideshowsNames()
+	{
+		$slideshowNames = [];
+
+		try
+		{
+			//--- search templateDetails.xml files ------------------
+
+			$fileBasePath      = JPATH_COMPONENT_SITE . '/templates';
+
+			// each folder may be a slideshow or a "semantic" image display
+
+			$folders = JFolder::folders($fileBasePath);
+
+			foreach ($folders as $folder)
+			{
+				// folder shall contain word slideshow
+				if (strpos($folder, 'slideshow') !== false)
+				{
+					$slideshowNames [] = $folder;
+				}
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing collectSlideshowsNames: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		$slideshowNames = [];
+	}
+	/**/
+
+
+	/***
+		templateDetails.xml and params.ini file
+	 */
+	public function collectSlideshowsConfigData($slideshowName)
+	{
+		$configData = new stdClass();
+
+		$configData->name = $slideshowName;
+
+		try
+		{
+			$fieldsFileName    = 'templateDetails.xml';
+			$parameterFileName = 'params.ini';
+			$fileBasePath = JPATH_COMPONENT_SITE . '/templates/' . $slideshowName;
+
+			$templatePath = $fileBasePath . '/' . $fieldsFileName;
+			$paramsPath = $fileBasePath . '/' . $parameterFileName;
+
+			//--- templateDetails.xml -----------------------------------
+
+			// config file exist
+			if (!empty($templatePath))
+			{
+				// extract form fields
+				$formFields = $this->formFieldsFromTemplateFile($templatePath);
+
+				// ignore found name when templateDetails.xml does not contain xml->config->fields part
+				$configData->formFields = false;
+				if (!empty ($formFields))
+				{
+					$configData->formFields = $formFields;
+				}
+			}
+
+			//--- params.ini -----------------------------------
+
+			// config file exist
+			if (!empty($paramsPath))
+			{
+				$params = $this->SettingsFromParamsFile($paramsPath);
+
+				$configData->parameterValues = false;
+
+				if (!empty ($params))
+				{
+					$configData->parameterValues = $params;
+				}
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing collectSlideshowsConfigData: "' . $slideshowName . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $configData;
+	}
+
 	// may not be needed
 	public function collectSlideshowsConfigFiles()
 	{
@@ -69,97 +170,6 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 	}
 	/**/
 
-	// may not be needed
-	public function collectSlideshowsNames()
-	{
-		$slideshowNames = [];
-
-		try
-		{
-			//--- search templateDetails.xml files ------------------
-
-			$fileBasePath      = JPATH_COMPONENT_SITE . '/templates';
-
-			// each folder may be a slideshow or a "semantic" image display
-
-			$folders = JFolder::folders($fileBasePath);
-
-			foreach ($folders as $folder)
-			{
-				$slideshowNames [] = $folder;
-			}
-		}
-		catch (RuntimeException $e)
-		{
-			$OutTxt = '';
-			$OutTxt .= 'Error executing collectSlideshowsNames: "' . '<br>';
-			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-			$app = JFactory::getApplication();
-			$app->enqueueMessage($OutTxt, 'error');
-		}
-
-		$slideshowNames = [];
-	}
-	/**/
-
-	public function collectSlideshowsConfigData($slideshowName)
-	{
-		$configFile = false;
-
-		try
-		{
-			$fieldsFileName    = 'templateDetails.xml';
-			$parameterFileName = 'params.ini';
-			$fileBasePath = JPATH_COMPONENT_SITE . '/templates';
-			$fileSlidePath = $fileBasePath . '/' . $slideshowName;
-
-			// check if joomla config file exist
-			$cfgFile = JFolder::files($fileSlidePath, $fieldsFileName);
-			if (!empty($cfgFile))
-			{
-				$foundSlideshow = new stdClass();
-
-				$foundSlideshow->name              = $slideshowName;
-				$foundSlideshow->cfgFieldsFileName = $fileSlidePath . '/' . $fieldsFileName; // $cfgFile [0];
-
-				// extract form fields
-				$formFields = $this->formFieldsFromTemplateFile($foundSlideshow->cfgFieldsFileName);
-
-				// ignore found name when templateDetails.xml does not contain xml->config->fields part
-				if (!empty ($formFields))
-				{
-					$foundSlideshow->formFields = $formFields;
-
-					/**
-					$formFieldsReg = new JRegistry;
-					$formFieldsReg->loadFile($foundSlideshow->cfgFieldsFileName, 'XML');
-					$foundSlideshow->formFieldsReg = $formFieldsReg;
-					/**/
-
-					// extract settings from params.ini file
-					$foundSlideshow->cfgParameterFileName = $fileSlidePath . '/' . $parameterFileName;
-					$foundSlideshow->parameterValues = $this->SettingsFromParamsFile($foundSlideshow->cfgParameterFileName);
-
-					// save found values
-					$configFiles = $foundSlideshow;
-				}
-			}
-		}
-		catch (RuntimeException $e)
-		{
-			$OutTxt = '';
-			$OutTxt .= 'Error executing collectSlideshowsConfigData: "' . $slideshowName . '<br>';
-			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-			$app = JFactory::getApplication();
-			$app->enqueueMessage($OutTxt, 'error');
-		}
-
-		//--- open templateDetails.xml file ------------------
-
-		return $configFiles;
-	}
 		/**
 	 * Searches for xml files which defines installed slideshows
 	 * Therefore checks for existing 'templateDetails.xml' file which will
@@ -346,23 +356,6 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 		{
 			if (JFile::exists($slidesParamsFile))
 			{
-				/**
-				$content = JFile::read($slidesParamsFile);
-
-				/*
-				if ( ! empty ($content))
-				{
-					// $xmlFileInfo->parameterValues = $content;
-					// toDo: ? make html save
-				}
-				/** /
-
-				if (empty ($content))
-				{
-					$content = '';
-				}
-				/**/
-
 				$params->loadFile($slidesParamsFile, 'INI');
 			}
 

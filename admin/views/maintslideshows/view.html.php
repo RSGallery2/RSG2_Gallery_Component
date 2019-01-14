@@ -24,11 +24,14 @@ JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 {
 
-	protected $slidesConfigFiles;
 	protected $slidesConfig;
 
-	protected $formsSlides;
-	protected $formMaintain;
+	//protected $formsSlides;
+	protected $form2Maintain;
+	protected $formUserSelectSlideshow;
+
+	protected $slideshow2Maintain;
+
 	/**
 	// core.admin is the permission used to control access to
 	// the global config
@@ -53,14 +56,29 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		global $Rsg2DevelopActive;
 		global $rsgConfig;
 
-		//--- get needed data ------------------------------------------
+		//--- get user data ------------------------------------------
 
 		$input = JFactory::getApplication()->input;
+		$userSlideshow = $input->get('maintain_slideshow', "", 'STRING');
 
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot();
 
+		// collect slideshow names from existing folder
 		$maintSlidesModel   = JModelLegacy::getInstance('MaintSlideshows', 'rsgallery2Model');
+		$slideshowNames = $maintSlidesModel->collectSlideshowsNames();
+
+		// use first or user selected shlideshow
+		$this->slideshow2Maintain = $slideshowNames[1]; // May be ...parth
+		if (in_array ($userSlideshow, $slideshowNames))
+		{
+			$this->slideshow2Maintain = $userSlideshow;
+		}
+
+		$this->slideConfigFile = $maintSlidesModel->collectSlideshowsConfigData(
+			$this->slideshow2Maintain);
+
+		/**
 		// ToDo: rename to slidesConfigData
 		$this->slidesConfigFiles = $maintSlidesModel->collectSlideshowsConfigFilesAll();
 		//$this->slidesParameter = $maintSlidesModel->parameterFromConfigFiles($this->slidesConfigFiles);
@@ -73,10 +91,13 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 			$formsSlides [$xmlFileInfo->name] = JForm::getInstance($xmlFileInfo->name, $xmlFile);
 		}
 		$this->formsSlides = $formsSlides;
+		/**/
 
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/maintslideshows.xml';
-		$this->formMaintain = JForm::getInstance('maintslideshows', $xmlFile);
-		$this->slideshowMaintain = $input->get('maintain_slideshow', "", 'STRING');
+		$this->formUserSelectSlideshow = JForm::getInstance('maintslideshows', $xmlFile);
+
+		$xmlFile    = $this->slideConfigFile->;
+		$this->formUserSelectSlideshow = JForm::getInstance('', $xmlFile);
 
 
 		/**
@@ -103,8 +124,13 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		// Assign the Data
 //		$this->form = $form;
 		/**/
+
+
+
 		$this->addToolbar($this->UserIsRoot); //$Layout);
 		$this->sidebar = JHtmlSidebar::render();
+
+
 		/**/
 		parent::display($tpl);
 
