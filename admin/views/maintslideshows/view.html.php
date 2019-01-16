@@ -80,7 +80,7 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 
 		/**
 		// ToDo: rename to slidesConfigData
-		$this->slidesConfigFiles = $maintSlidesModel->collectSlideshowsConfigFilesAll();
+		//$this->slidesConfigFiles = $maintSlidesModel->collectSlideshowsConfigFilesAll();
 		//$this->slidesParameter = $maintSlidesModel->parameterFromConfigFiles($this->slidesConfigFiles);
 
 		$formsSlides = [];
@@ -96,8 +96,8 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/maintslideshows.xml';
 		$this->formUserSelectSlideshow = JForm::getInstance('maintslideshows', $xmlFile);
 
-		$xmlFile    = $this->slideConfigFile->cfgFieldsFileName;
-		$this->formUserSelectSlideshow = JForm::getInstance('', $xmlFile);
+		//$xmlFile    = $this->slideConfigFile->cfgFieldsFileName;
+		//$this->formUserSelectSlideshow = JForm::getInstance('', $xmlFile);
 
 
 		/**

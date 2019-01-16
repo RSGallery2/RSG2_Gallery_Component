@@ -223,19 +223,17 @@ function SimpleXMLElement_append($parent, $child)
 	                echo JHtml::_('bootstrap.startTabSet', 'slidersTab', array('active' => 'tab_' . $sliderName));
 	                //echo '//start tab set<br>';
 
-	                foreach ($this->slidesConfigFiles as $xmlFileInfo)
+	                if ( ! empty ($xmlFileInfo->formFields))
 	                {
-	                    if ( ! empty ($xmlFileInfo->formFields))
-	                    {
-		                    $sliderName = $xmlFileInfo->name;
-		                    // extract parameter
-		                    tabHeader($sliderName);
+		                $sliderName = $xmlFileInfo->name;
+		                // extract parameter
+		                tabHeader($sliderName);
 
-		                    tabContent($xmlFileInfo);
+		                tabContent($xmlFileInfo);
 
-		                    tabFooter($sliderName);
-	                    }
+		                tabFooter($sliderName);
 	                }
+
 	                echo JHtml::_('bootstrap.endTabSet');
 	                //echo '//end tab set';
 	                /*=====================================================*/
