@@ -60,7 +60,7 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 			$app->enqueueMessage($OutTxt, 'error');
 		}
 
-		$slideshowNames = [];
+		return $slideshowNames;
 	}
 	/**/
 

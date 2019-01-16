@@ -56,7 +56,9 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		global $Rsg2DevelopActive;
 		global $rsgConfig;
 
-		//--- get user data ------------------------------------------
+		//---  ------------------------------------------
+		//--- get user slideshow name ------------------------------------------
+		//---  ------------------------------------------
 
 		$input = JFactory::getApplication()->input;
 		$userSlideshow = $input->get('maintain_slideshow', "", 'STRING');
@@ -69,68 +71,30 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		$slideshowNames = $maintSlidesModel->collectSlideshowsNames();
 
 		// use first or user selected shlideshow
-		$this->slideshow2Maintain = $slideshowNames[1]; // May be ...parth
+		$this->userSlideshowName = $slideshowNames[1]; // May be ...parth
 		if (in_array ($userSlideshow, $slideshowNames))
 		{
-			$this->slideshow2Maintain = $userSlideshow;
+			$this->userSlideshowName = $userSlideshow;
 		}
-
-		$this->slideConfigFile = $maintSlidesModel->collectSlideshowsConfigData(
-			$this->slideshow2Maintain);
-
-		/**
-		// ToDo: rename to slidesConfigData
-		//$this->slidesConfigFiles = $maintSlidesModel->collectSlideshowsConfigFilesAll();
-		//$this->slidesParameter = $maintSlidesModel->parameterFromConfigFiles($this->slidesConfigFiles);
-
-		$formsSlides = [];
-
-		foreach ($this->slidesConfigFiles as $xmlFileInfo)
-		{
-			$xmlFile    = $xmlFileInfo->cfgFieldsFileName;
-			$formsSlides [$xmlFileInfo->name] = JForm::getInstance($xmlFileInfo->name, $xmlFile);
-		}
-		$this->formsSlides = $formsSlides;
-		/**/
 
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/maintslideshows.xml';
-		$this->formUserSelectSlideshow = JForm::getInstance('maintslideshows', $xmlFile);
+		$this->slideshow2Maintain = JForm::getInstance('maintslideshows', $xmlFile);
 
-		//$xmlFile    = $this->slideConfigFile->cfgFieldsFileName;
-		//$this->formUserSelectSlideshow = JForm::getInstance('', $xmlFile);
+		//---  ------------------------------------------
+		//--- parameter form  ------------------------------------------
+		//---  ------------------------------------------
+
+		$this->slideConfigFile = $maintSlidesModel->collectSlideshowsConfigData(
+			$this->userSlideshowName);
+
+		$xmlFile   = $this->slideConfigFile->cfgFieldsFileName;
+		$this->formsSlide = JForm::getInstance($this->slideConfigFile->name, $xmlFile);
 
 
-		/**
-		// $this->rsgConfigData = $rsgConfig;
-		$this->imageWidth = $rsgConfig->get('image_width');
-		$this->thumbWidth = $rsgConfig->get('thumb_width');
 
-		//--- begin to display --------------------------------------------
-
-//		Rsg2Helper::addSubMenu('rsg2'); 
-
-        // Check for errors.
-        if (count($errors = $this->get('Errors')))
-        {
-            throw new RuntimeException(implode('<br />', $errors), 500);
-        }
-
-		// Assign the Data
-		// $this->form = $form;
-
-		// different toolbar on different layouts
-		// $Layout = JFactory::getApplication()->input->get('layout');
-
-		// Assign the Data
-//		$this->form = $form;
 		/**/
-
-
-
 		$this->addToolbar($this->UserIsRoot); //$Layout);
 		$this->sidebar = JHtmlSidebar::render();
-
-
 		/**/
 		parent::display($tpl);
 

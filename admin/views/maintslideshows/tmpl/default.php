@@ -198,49 +198,29 @@ function SimpleXMLElement_append($parent, $child)
                 {
                     //---- show slideshow selection ---------------------------
 
-	                $formUserSelectSlideshow = $this->formUserSelectSlideshow;
+	                $userSlideshowName = $this->userSlideshowName;
+
+	                $form2Maintain = $this->slideshow2Maintain;
 
 	                // assign previous user selection
                     $params = new JRegistry;
-	                $params->loadString("maintain_slideshow=" . $formUserSelectSlideshow);
-	                $formMaintain->bind($params);
+	                $params->loadString("maintain_slideshow=" . $userSlideshowName);
+	                $form2Maintain->bind($params);
 
-	                echo $formMaintain->renderFieldset('maintslideshows');
+	                echo $form2Maintain->renderFieldset('maintslideshows');
 
 	                //---- show slideshow parameters ---------------------------
 
-	                $slidesCount = count ($this->slidesConfigFiles);
+	                //$slidesCount = count ($this->slidesConfigFiles);
                     //$xmlFileInfo = $this->slidesConfigFiles [$slidesCount-1];
                     //$xmlFileInfo = $this->slidesConfigFiles [$slidesCount-2];
-                    $xmlFileInfo = $this->slidesConfigFile;
+                    $xmlFileInfo = $this->slideConfigFile;
                     $activeName = $xmlFileInfo->name;
-
-                    /*=====================================================*
-                    original: ToDo activate all at once -> ajax for fast setting
-	                $xmlFileInfo = $this->slidesConfigFiles [2];
-	                $sliderName = $xmlFileInfo->name;
-
-	                echo JHtml::_('bootstrap.startTabSet', 'slidersTab', array('active' => 'tab_' . $sliderName));
-	                //echo '//start tab set<br>';
-
-	                if ( ! empty ($xmlFileInfo->formFields))
-	                {
-		                $sliderName = $xmlFileInfo->name;
-		                // extract parameter
-		                tabHeader($sliderName);
-
-		                tabContent($xmlFileInfo);
-
-		                tabFooter($sliderName);
-	                }
-
-	                echo JHtml::_('bootstrap.endTabSet');
-	                //echo '//end tab set';
-	                /*=====================================================*/
 
 
 	                //--- find user selected slideshow data -------------------
 
+					/**
 	                // fallback (0: semantic)
 	                $xmlFileInfo = $this->slidesConfigFiles [1];
 
@@ -262,6 +242,8 @@ function SimpleXMLElement_append($parent, $child)
 			                }
 		                }
 	                }
+					/**/
+
 	                $sliderName = $xmlFileInfo->name;
 
 	                //--- display user selected slideshow data -------------------
