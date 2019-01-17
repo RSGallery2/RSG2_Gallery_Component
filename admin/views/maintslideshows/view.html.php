@@ -78,7 +78,7 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		}
 
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/maintslideshows.xml';
-		$this->formSlideshowSelection = JForm::getInstance('maintslideshows', $xmlFile);
+		$this->formSlideshowSelection = JForm::getInstance('slideshowSelection', $xmlFile);
 
 		// assign previous user selection
 		$params = new JRegistry;
@@ -98,20 +98,33 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		$this->formsSlide = JForm::getInstance($this->slideConfigFile->name, $xmlFile);
 		/**/
 
-		$formSlide = new JForm ($this->userSlideshowName);
 
 		//--- add parent form element ------------------------
 
 		$xmlForm = new SimpleXMLElement('<form></form>');
-		SimpleXMLElement_append($xmlForm, $this->slideConfigFile->formFields->config->fields);
+		$this->SimpleXMLElement_append($xmlForm, $this->slideConfigFile->formFields->config->fields);
 		//$xmlFormAsXml = $xmlForm->asXML();
-		$formSlide->load($xmlForm->asXML());
+
+		//$formSlide = new JForm ($this->userSlideshowName);
+		//$formSlide->load($xmlForm->asXML());
+		$this->formSlide = JForm::getInstance('slideParameter',
+			$xmlFile);
+
+		$formSlide = ;
+
+		
+		// https://www.joomlashack.com/blog/how-tos/development/getting-started-with-jform/
+		//
+		getInstance
 
 		//--- add parameter values from xml file ------------------------
 
 		//$params = $this->slideConfigFile->parameterValues; // Jregistry ?
+		/**
 		$params = new JRegistry;
 		$params->loadString($this->slideConfigFile->parameterValues);
+		/**/
+		$params = $this->slideConfigFile->parameterValues;
 		$formSlide->bind($params);
 
 		/**/
@@ -193,6 +206,54 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		}
 		*/
 	}
+
+	function SimpleXMLElement_append($parent, $child)
+	{
+		// get all namespaces for document
+		$namespaces = $child->getNamespaces(true);
+
+		// check if there is a default namespace for the current node
+		$currentNs = $child->getNamespaces();
+		$defaultNs = count($currentNs) > 0 ? current($currentNs) : null;
+		$prefix = (count($currentNs) > 0) ? current(array_keys($currentNs)) : '';
+		$childName = strlen($prefix) > 1
+			? $prefix . ':' . $child->getName() : $child->getName();
+
+		// check if the value is string value / data
+		if (trim((string) $child) == '') {
+			$element = $parent->addChild($childName, null, $defaultNs);
+		} else {
+			$element = $parent->addChild(
+				$childName, htmlspecialchars((string)$child), $defaultNs
+			);
+		}
+
+		foreach ($child->attributes() as $attKey => $attValue) {
+			$element->addAttribute($attKey, $attValue);
+		}
+		foreach ($namespaces as $nskey => $nsurl) {
+			foreach ($child->attributes($nsurl) as $attKey => $attValue) {
+				$element->addAttribute($nskey . ':' . $attKey, $attValue, $nsurl);
+			}
+		}
+
+		// add children -- try with namespaces first, but default to all children
+		// if no namespaced children are found.
+		$children = 0;
+		foreach ($namespaces as $nskey => $nsurl) {
+			foreach ($child->children($nsurl) as $currChild) {
+				$this->SimpleXMLElement_append($element, $currChild);
+				$children++;
+			}
+		}
+		if ($children == 0) {
+			foreach ($child->children() as $currChild) {
+				$this->SimpleXMLElement_append($element, $currChild);
+			}
+		}
+	}
+
+
 }
 
 
