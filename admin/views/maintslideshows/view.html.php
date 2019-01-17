@@ -57,7 +57,7 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		global $rsgConfig;
 
 		//---  ------------------------------------------
-		//--- get user slideshow name ------------------------------------------
+		//--- get user slide show name ------------------------------------------
 		//---  ------------------------------------------
 
 		$input = JFactory::getApplication()->input;
@@ -78,19 +78,41 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		}
 
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/maintslideshows.xml';
-		$this->slideshow2Maintain = JForm::getInstance('maintslideshows', $xmlFile);
+		$this->formSlideshowSelection = JForm::getInstance('maintslideshows', $xmlFile);
+
+		// assign previous user selection
+		$params = new JRegistry;
+		$params->loadString("maintain_slideshow=" . $this->userSlideshowName);
+		$this->formSlideshowSelection->bind($params);
 
 		//---  ------------------------------------------
 		//--- parameter form  ------------------------------------------
 		//---  ------------------------------------------
 
+		// $xmlFileInfo
 		$this->slideConfigFile = $maintSlidesModel->collectSlideshowsConfigData(
 			$this->userSlideshowName);
 
+		/**
 		$xmlFile   = $this->slideConfigFile->cfgFieldsFileName;
 		$this->formsSlide = JForm::getInstance($this->slideConfigFile->name, $xmlFile);
+		/**/
 
+		$formSlide = new JForm ($this->userSlideshowName);
 
+		//--- add parent form element ------------------------
+
+		$xmlForm = new SimpleXMLElement('<form></form>');
+		SimpleXMLElement_append($xmlForm, $this->slideConfigFile->formFields->config->fields);
+		//$xmlFormAsXml = $xmlForm->asXML();
+		$formSlide->load($xmlForm->asXML());
+
+		//--- add parameter values from xml file ------------------------
+
+		//$params = $this->slideConfigFile->parameterValues; // Jregistry ?
+		$params = new JRegistry;
+		$params->loadString($this->slideConfigFile->parameterValues);
+		$formSlide->bind($params);
 
 		/**/
 		$this->addToolbar($this->UserIsRoot); //$Layout);

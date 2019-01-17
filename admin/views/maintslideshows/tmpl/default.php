@@ -198,61 +198,24 @@ function SimpleXMLElement_append($parent, $child)
                 {
                     //---- show slideshow selection ---------------------------
 
-	                $userSlideshowName = $this->userSlideshowName;
+	                $formSlideshowSelection = $this->formSlideshowSelection;
 
-	                $form2Maintain = $this->slideshow2Maintain;
-
-	                // assign previous user selection
-                    $params = new JRegistry;
-	                $params->loadString("maintain_slideshow=" . $userSlideshowName);
-	                $form2Maintain->bind($params);
-
-	                echo $form2Maintain->renderFieldset('maintslideshows');
+	                echo $formSlideshowSelection->renderFieldset('maintslideshows');
 
 	                //---- show slideshow parameters ---------------------------
 
-	                //$slidesCount = count ($this->slidesConfigFiles);
-                    //$xmlFileInfo = $this->slidesConfigFiles [$slidesCount-1];
-                    //$xmlFileInfo = $this->slidesConfigFiles [$slidesCount-2];
                     $xmlFileInfo = $this->slideConfigFile;
-                    $activeName = $xmlFileInfo->name;
-
-
-	                //--- find user selected slideshow data -------------------
-
-					/**
-	                // fallback (0: semantic)
-	                $xmlFileInfo = $this->slidesConfigFiles [1];
-
-	                $slideshowMaintain = $this->slideshowMaintain;
-
-                    // use previous user selection
-	                if (! empty ($slideshowMaintain))
-	                {
-		                foreach ($this->slidesConfigFiles as $xmlFileInfoProbe)
-		                {
-			                if (!empty ($xmlFileInfoProbe->formFields))
-			                {
-				                $sliderName = $xmlFileInfoProbe->name;
-
-                                if ($sliderName == $slideshowMaintain)
-                                {
-	                                $xmlFileInfo = $xmlFileInfoProbe;
-                                }
-			                }
-		                }
-	                }
-					/**/
-
-	                $sliderName = $xmlFileInfo->name;
 
 	                //--- display user selected slideshow data -------------------
 
-	                echo JHtml::_('bootstrap.startTabSet', 'slidersTab', array('active' => 'tab_' . $sliderName));
+	                $activeName = $xmlFileInfo->name;
+	                echo JHtml::_('bootstrap.startTabSet', 'slidersTab', array('active' => 'tab_' . $activeName));
 
+                    // forms fields could be extracted from templateDetails.xml file
 	                if ( ! empty ($xmlFileInfo->formFields))
 	                {
 		                $sliderName = $xmlFileInfo->name;
+
 		                // extract parameter
 		                tabHeader($sliderName);
 
