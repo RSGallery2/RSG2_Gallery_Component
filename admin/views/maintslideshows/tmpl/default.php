@@ -26,7 +26,7 @@ function tabHeader ($sliderName)
     echo JHtml::_('bootstrap.addTab', 'slidersTab', 'tab_' . $sliderName, $sliderName); //, true);
 }
 
-function tabContent ($xmlFileInfo)
+function tabContent ($xmlFileInfo, $testForm)
 {
 	echo '<div class="well">';
 	// $xmlFileInfo->name;
@@ -54,7 +54,10 @@ function tabContent ($xmlFileInfo)
 
 	//--- show controls ------------------------
 
-	echo $formSlide->renderFieldset('advanced');
+	echo $testForm->renderFieldset('advanced');
+	//echo $formSlide->renderFieldset('advanced');
+
+
 
 	// button to submit the changed data
 	slideshowSaveConfigParaButton ($xmlFileInfo->name);
@@ -219,7 +222,7 @@ function SimpleXMLElement_append($parent, $child)
 		                // extract parameter
 		                tabHeader($sliderName);
 
-		                tabContent($xmlFileInfo);
+		                tabContent($xmlFileInfo, $this->formSlide);
 
 		                tabFooter($sliderName);
 	                }

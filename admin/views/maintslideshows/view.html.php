@@ -107,10 +107,28 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 
 		//$formSlide = new JForm ($this->userSlideshowName);
 		//$formSlide->load($xmlForm->asXML());
-		$this->formSlide = JForm::getInstance('slideParameter',
-			$xmlFile);
+		//$this->formSlide = JForm::getInstance('slideParameter', $xmlFile);
 
-		$formSlide = ;
+		$element = '
+            <field name="onfly"
+            type="text"
+            label="onfly"
+            description="onfly desc"
+            class="inputbox"
+            size="30"
+            required="true" />
+            ';
+
+		$formSlide = new JForm('slideParameter');
+		//$formSlide = JForm::getInstance('slideParameter');
+
+		$formSlide->load($xmlForm);
+// Define your fieldset here
+		$xpath = '//fieldset[@name="yourfieldset"]';
+/**
+		JForm->load($element, false, $xpath);
+
+		$formSlide = JForm::Load('slideParameter', ,;
 
 		
 		// https://www.joomlashack.com/blog/how-tos/development/getting-started-with-jform/
@@ -126,6 +144,7 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		/**/
 		$params = $this->slideConfigFile->parameterValues;
 		$formSlide->bind($params);
+		$this->formSlide = $formSlide;
 
 		/**/
 		$this->addToolbar($this->UserIsRoot); //$Layout);
