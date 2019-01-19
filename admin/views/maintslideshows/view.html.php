@@ -101,48 +101,24 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 
 		//--- add parent form element ------------------------
 
+		//--- add parameter values from xml file ------------------------
+
 		$xmlForm = new SimpleXMLElement('<form></form>');
 		$this->SimpleXMLElement_append($xmlForm, $this->slideConfigFile->formFields->config->fields);
 		//$xmlFormAsXml = $xmlForm->asXML();
 
-		//$formSlide = new JForm ($this->userSlideshowName);
-		//$formSlide->load($xmlForm->asXML());
-		//$this->formSlide = JForm::getInstance('slideParameter', $xmlFile);
-
-		$element = '
-            <field name="onfly"
-            type="text"
-            label="onfly"
-            description="onfly desc"
-            class="inputbox"
-            size="30"
-            required="true" />
-            ';
 
 		$formSlide = new JForm('slideParameter');
 		//$formSlide = JForm::getInstance('slideParameter');
 
 		$formSlide->load($xmlForm);
-// Define your fieldset here
-		$xpath = '//fieldset[@name="yourfieldset"]';
-/**
-		JForm->load($element, false, $xpath);
 
-		$formSlide = JForm::Load('slideParameter', ,;
+		$xmlFormText = $xmlForm->asXML();
 
-		
-		// https://www.joomlashack.com/blog/how-tos/development/getting-started-with-jform/
-		//
-		getInstance
-
-		//--- add parameter values from xml file ------------------------
-
+		// Define your fieldset here ==> $xpath = '//fieldset[@name="yourfieldset"]';
 		//$params = $this->slideConfigFile->parameterValues; // Jregistry ?
-		/**
-		$params = new JRegistry;
-		$params->loadString($this->slideConfigFile->parameterValues);
-		/**/
 		$params = $this->slideConfigFile->parameterValues;
+
 		$formSlide->bind($params);
 		$this->formSlide = $formSlide;
 

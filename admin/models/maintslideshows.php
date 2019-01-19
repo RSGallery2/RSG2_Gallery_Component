@@ -72,7 +72,9 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 	{
 		$configData = new stdClass();
 
+		// Init return result
 		$configData->name = $slideshowName;
+		$configData->parameterValues = new JRegistry;;
 
 		try
 		{
@@ -99,7 +101,6 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 				{
 					$configData->formFields = $formFields;
 				}
-
 			}
 
 			//--- params.ini -----------------------------------
@@ -107,16 +108,8 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 			// config file exist
 			if (!empty($paramsPathFile))
 			{
-
 				$configData->cfgParameterFileName = $paramsPathFile . '/' . $parameterFileName;
-				$params = $this->SettingsFromParamsFile($paramsPathFile);
-
-				$configData->parameterValues = false;
-
-				if (!empty ($params))
-				{
-					$configData->parameterValues = $params;
-				}
+				$configData->parameterValues = $this->SettingsFromParamsFile($paramsPathFile);
 			}
 		}
 		catch (RuntimeException $e)
@@ -361,13 +354,36 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 	{
 		$params = new JRegistry;
 
+		/**
+		if (!empty($formdata)){
+			// Add Group
+			$formdata[$fieldsname] = $formdata;
+			// Test if bind() gets static override and outputs it later in form
+			$formdata[$fieldsname]['auto_purge'] = 'Jetzt Überschrieben';
+			$form->bind($formdata);
+		}
+		/**/
 		try
 		{
 			if (JFile::exists($slidesParamsFile))
 			{
-				$params->loadFile($slidesParamsFile, 'INI');
-			}
+				// Extract valid data format from file
+				$paramsFile = new JRegistry;
+				$paramsFile->loadFile($slidesParamsFile, 'INI');
 
+				// needed structure	params\advanced
+				$paramsArray = $paramsFile->toArray();
+				//$paramsFields['params']['advanced'] = $paramsArray;
+				//$paramsFields['advanced'] = $paramsArray;
+				$paramsFields['params'] = $paramsArray;
+				$params->loadArray ($paramsFields);
+
+			}
+			else
+			{
+				// ToDo: throw file does not exist
+
+			}
 		}
 		catch (RuntimeException $e)
 		{

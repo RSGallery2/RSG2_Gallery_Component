@@ -40,11 +40,11 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 		$input = JFactory::getApplication()->input;
 		$link = 'index.php?option=com_rsgallery2&view=maintslideshows';
 		// Tell the maintenance which slidshow to use
-		$slideshow = $input->get('maintain_slideshow', "", 'STRING');
+		$slideshowName = $input->get('maintain_slideshow', "", 'STRING');
 		/* ??? urlencode, rawurlencode() htmlentities() oder htmlspecialchars(). /**/
-		if (!empty ($slideshow))
+		if (!empty ($slideshowName))
 		{
-			$link .= '&maintain_slideshow=' . $slideshow;
+			$link .= '&maintain_slideshow=' . $slideshowName;
 		}
 
 		// Access check
@@ -80,11 +80,11 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 
 		$link = 'index.php?option=com_rsgallery2&view=maintslideshows';
 		// Tell the maintenance which slideshow to use
-		$slideshow = $input->get('maintain_slideshow', "", 'STRING');
+		$slideshowName = $input->get('maintain_slideshow', "", 'STRING');
 		/* ??? urlencode, rawurlencode() htmlentities() oder htmlspecialchars(). /**/
-		if (!empty ($slideshow))
+		if (!empty ($slideshowName))
 		{
-			$link .= '&maintain_slideshow=' . $slideshow;
+			$link .= '&maintain_slideshow=' . $slideshowName;
 		}
 
 		//--- Access check ---------------------------------------
@@ -99,10 +99,43 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 		}
 		else
 		{
-			//  tells if successful
-			//$IsSaved  = $this->save();
-			$IsSaved  = True;
-			$IsSaved  = false;
+			//--- form parameter -----------------------------
+
+			$formParams = $input->get('params', [], 'ARRAY');
+
+			// Sanitize input
+			$params = new JRegistry;
+			$params->loadArray($formParams);
+
+			//--- write to file -----------------------------
+
+			// folder
+			$fileBasePath = JPATH_COMPONENT_SITE . '/templates/' . $slideshowName;
+
+			// Does folder exist ?
+			if (!is_dir($fileBasePath))
+			{
+				$isErrFound = true;
+				$msg        = $msg . ": folder does not exist: " . $fileBasePath;
+				$msgType    = 'error';
+			}
+
+
+			if (!$isErrFound)
+			{
+				$configParam = $params->toString('INI');
+				// $row->params = $registry->toString();
+
+				$parameterFileName = 'params.ini';
+
+				$pathFileName = $fileBasePath . '/' . $parameterFileName;
+				$fileBytes    = file_put_contents($pathFileName, $configParam . PHP_EOL, LOCK_EX);
+
+				//  tells if successful
+				// $IsSaved = $fileBytes != false;
+				$IsSaved = !empty ($fileBytes);
+			}
+
 		}
 
 		if ($IsSaved)
@@ -149,12 +182,12 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 		$link = 'index.php?option=com_rsgallery2&view=maintslideshows';
 
 		// Tell the maintenance which slideshow to use
-		$linkSlideshow = $input->get('maintain_slideshow', "", 'STRING');
+		$slideshowName = $input->get('maintain_slideshow', "", 'STRING');
 
 		/* ??? urlencode, rawurlencode() htmlentities() oder htmlspecialchars(). /**/
-		if (!empty ($linkSlideshow))
+		if (!empty ($slideshowName))
 		{
-			$link .= '&maintain_slideshow=' . $linkSlideshow;
+			$link .= '&maintain_slideshow=' . $slideshowName;
 		}
 
 		//--- Access check ---------------------------------------
@@ -201,13 +234,13 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 			{
 				//--- folder name -----------------------------
 
-				$pathFile = JPATH_COMPONENT_SITE . '/templates/' . $targetSlideshow;
+				$fileBasePath = JPATH_COMPONENT_SITE . '/templates/' . $targetSlideshow;
 
 				// Does folder exist ?
-				if (!is_dir($pathFile))
+				if (!is_dir($fileBasePath))
 				{
 					$isErrFound = true;
-					$msg        = $msg . ": folder does not exist: " . $pathFile;
+					$msg        = $msg . ": folder does not exist: " . $fileBasePath;
 					$msgType    = 'error';
 				}
 			}
@@ -217,7 +250,7 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 				//--- file name -----------------------------
 				$parameterFileName = 'params.ini';
 
-				$pathFileName = $pathFile . '/' . $parameterFileName;
+				$pathFileName = $fileBasePath . '/' . $parameterFileName;
 				$fileBytes    = file_put_contents($pathFileName, $configParam . PHP_EOL, LOCK_EX);
 
 				//  tells if successful
