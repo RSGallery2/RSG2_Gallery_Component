@@ -35,29 +35,15 @@ function tabContent ($xmlFileInfo, $testForm)
     echo '<h3>Content: ' . $xmlFileInfo->name . '<h3>';
     echo '<h4>Form Fields (XML Config part of templateDetails.xml -> J2.5++ style)</h4>';
 
-	$config = $xmlFileInfo->formFields->config->fields;
 	$sliderName = $xmlFileInfo->name;
-
-	$formSlide = new JForm ($xmlFileInfo->name);
-
-	//--- add parent form element ------------------------
-
-	$xmlForm = new SimpleXMLElement('<form></form>');
-	SimpleXMLElement_append($xmlForm, $config);
-	//$xmlFormAsXml = $xmlForm->asXML();
-	$formSlide->load($xmlForm->asXML());
 
 	//--- add parameter values from xml file ------------------------
 
 	$params = $xmlFileInfo->parameterValues; // Jregistry ?
-	$formSlide->bind($params);
 
 	//--- show controls ------------------------
 
 	echo $testForm->renderFieldset('advanced');
-	//echo $formSlide->renderFieldset('advanced');
-
-
 
 	// button to submit the changed data
 	slideshowSaveConfigParaButton ($xmlFileInfo->name);
@@ -68,7 +54,13 @@ function tabContent ($xmlFileInfo, $testForm)
 
 	echo '<h4>file params.ini:</h4>';
 
-    $parameterLines = $params->toString ('INI');
+	// field inside xml file
+	if ($params->exists('params'))
+	{
+		$params = $params->extract('params');
+	}
+
+	$parameterLines = $params->toString ('INI');
 	// echo $parameterLines;
 
     echo '<div class="control-group">';
@@ -196,40 +188,39 @@ function SimpleXMLElement_append($parent, $child)
 
                 <?php
 
-                /**/
-                //if ( ! empty ($this->slidesConfigFiles))
+                //---- show slideshow selection ---------------------------
+
+                $formSlideshowSelection = $this->formSlideshowSelection;
+
+                echo $formSlideshowSelection->renderFieldset('maintslideshows');
+
+                //---- show slideshow parameters ---------------------------
+
+                $xmlFileInfo = $this->slideConfigFile;
+
+                $activeName = $xmlFileInfo->name;
+                echo JHtml::_('bootstrap.startTabSet', 'slidersTab', array('active' => 'tab_' . $activeName));
+
+                // forms fields could be extracted from templateDetails.xml file
+                if ( ! empty ($xmlFileInfo->formFields))
                 {
-                    //---- show slideshow selection ---------------------------
+                    $sliderName = $xmlFileInfo->name;
 
-	                $formSlideshowSelection = $this->formSlideshowSelection;
+                    // extract parameter
+                    tabHeader($sliderName);
 
-	                echo $formSlideshowSelection->renderFieldset('maintslideshows');
+                    tabContent($xmlFileInfo, $this->formSlide);
 
-	                //---- show slideshow parameters ---------------------------
+                    tabFooter($sliderName);
+                }
+                else
+                {
+	                echo '<br><br><h4>Slideshow has no parameters</h4>';
+                }
 
-                    $xmlFileInfo = $this->slideConfigFile;
+                echo JHtml::_('bootstrap.endTabSet');
 
-	                //--- display user selected slideshow data -------------------
-
-	                $activeName = $xmlFileInfo->name;
-	                echo JHtml::_('bootstrap.startTabSet', 'slidersTab', array('active' => 'tab_' . $activeName));
-
-                    // forms fields could be extracted from templateDetails.xml file
-	                if ( ! empty ($xmlFileInfo->formFields))
-	                {
-		                $sliderName = $xmlFileInfo->name;
-
-		                // extract parameter
-		                tabHeader($sliderName);
-
-		                tabContent($xmlFileInfo, $this->formSlide);
-
-		                tabFooter($sliderName);
-	                }
-
-                    echo JHtml::_('bootstrap.endTabSet');
-
-	                ?>
+                ?>
 
                 <input type="hidden" value="" name="task">
                 <input type="hidden" value="" name="usedSlideshow">
@@ -237,9 +228,7 @@ function SimpleXMLElement_append($parent, $child)
 
 				<?php
 
-                    echo JHtml::_('form.token');
-
-				} //    empty ($this->slidesConfigFiles))
+                echo JHtml::_('form.token');
 
                 ?>
 

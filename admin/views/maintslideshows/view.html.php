@@ -104,10 +104,10 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		//--- add parameter values from xml file ------------------------
 
 		$xmlForm = new SimpleXMLElement('<form></form>');
-		$this->SimpleXMLElement_append($xmlForm, $this->slideConfigFile->formFields->config->fields);
-		//$xmlFormAsXml = $xmlForm->asXML();
-
-
+		if ( ! empty($this->slideConfigFile->formFields))
+		{
+			$this->SimpleXMLElement_append($xmlForm, $this->slideConfigFile->formFields->config->fields);
+		}
 		$formSlide = new JForm('slideParameter');
 		//$formSlide = JForm::getInstance('slideParameter');
 

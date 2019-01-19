@@ -42,8 +42,6 @@ jQuery(document).ready(function ($) {
         var splitNameArray;
         var slideshowId;
 
-        alert ("aaa");
-
         //--- slideshow id ----------------------
 
         var elementId = event.target.id;
@@ -73,8 +71,6 @@ jQuery(document).ready(function ($) {
         var elementId;
         var paramsIniText;
 
-        // alert ("bbb");
-
         //--- slideshow id ----------------------
 
         elementId = event.target.id;
@@ -89,7 +85,7 @@ jQuery(document).ready(function ($) {
         //-- params.ini content --------------
 
         paramsIniText = $("#params_ini_" + slideshowId).val();
-        alert ('paramsIniText: ' + paramsIniText);
+        //alert ('paramsIniText: ' + paramsIniText);
 
         //-- assign to control --------------
 
