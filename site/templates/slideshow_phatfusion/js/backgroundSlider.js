@@ -1,10 +1,10 @@
 /**************************************************************
 
- Script        : Background Slider
- Version        : 1.3
- Authors        : Samuel Birch
+ Script      : Background Slider
+ Version     : 1.3
+ Authors     : Samuel Birch
  Desc        : Slides a layer to a given elements position and dimensions.
- Licence        : Open Source MIT Licence
+ Licence     : Open Source MIT Licence
 
  **************************************************************/
 
@@ -16,7 +16,8 @@ var backgroundSlider = new Class({
 	 */
 	getOptions: function () {
 
-//		alert ('MooTools.version: ' + MooTools.version);
+		// 1.4.5
+		console.log ('MooTools.version: ' + MooTools.version);
 		console.log("Back:getOptions start/exit");
 
 		return {

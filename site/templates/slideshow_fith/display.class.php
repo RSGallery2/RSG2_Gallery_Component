@@ -87,7 +87,7 @@ class rsgDisplay_slideshow_fith extends rsgDisplay
 		
 		$html[] = '<div class="carousel_container_fith">';
 
-		$html[] = '    <div class="row-fluid center">';
+		//$html[] = '    <div class="row-fluid center">';
 
 		//--- button previous -------------------------
 
@@ -174,8 +174,9 @@ class rsgDisplay_slideshow_fith extends rsgDisplay
 		$html[] = '        </svg>';
 		$html[] = '    </button>';
 		/**/
-		$html[] = '    </div>'; // class=row
+		//$html[] = '    </div>'; // class=row
 
+		/**
 		$html[] = '    <br>';
 		$html[] = '    <br>';
 		$html[] = '    <br>';
@@ -184,7 +185,7 @@ class rsgDisplay_slideshow_fith extends rsgDisplay
 		$html[] = '    <br>';
 		$html[] = '    <br>';
 		$html[] = '    <hr>';
-
+		/**/
 		/**
 		$html[] = '    <img id="image" src="' . $imgLink . '" />';
 		$html[] = '    <br>';

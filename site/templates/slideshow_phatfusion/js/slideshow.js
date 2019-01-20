@@ -1,11 +1,15 @@
 /**************************************************************
 
- Script        : SlideShow
- Version        : 1.3
- Authors        : Samuel Birch
+ Script      : SlideShow
+ Version     : 1.3
+ Authors     : Samuel Birch
  Desc        :
- Licence        : Open Source MIT Licence
+ Licence     : Open Source MIT Licence
 
+ 2019.01.20: actually stuck in effect: function
+ Read for upgrads
+ https://github.com/mootools/mootools-core/wiki/Upgrade-from-1.2-to-1.3-or-1.4
+ ?? https://github.com/mootools/mootools-upgrade-helper
  **************************************************************/
 
 var SlideShow = new Class({
@@ -367,9 +371,10 @@ var SlideShow = new Class({
 		try {
 			console.log("Slide:effect");
 			this.animating = true;
-// ToDo: effects should be set in bnackgroundslide but it iss empty -> have an idea !
-			//this.effectObj = this.newImage.effects({
-			this.effectObj = this.newImage.effects.set({
+			// ToDo: effects should be set in backgroundslide but it is empty -> have an idea !
+			//original this.effectObj = this.newImage.effects({
+			// test: this.effectObj = this.newImage.effects.set({
+			this.effectObj = this.newImage.setEffects({
 				duration  : this.options.duration,
 				transition: this.options.transition
 			});

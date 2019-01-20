@@ -71,7 +71,7 @@ $firstImage = $firstImage->display();
 			<div id="myGallery<?php echo $this->gid; ?>" class="myGallery">
 				<?php echo $this->slides; ?>
 			</div><!-- end myGallery -->
-		</div><!-- End parth_content -->
+		</div><!-- End slideshow_fith_content -->
 
 	</form>
 
