@@ -140,6 +140,8 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 
 		if ($IsSaved)
 		{
+			$msg .= ' successful';
+
 			// ToDo:
 			/**
 			$link = 'index.php?option=com_rsgallery2&view=upload';
@@ -205,7 +207,7 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 			//--- fetch file data -----------------------------
 
 			$targetSlideshow = $input->get('usedSlideshow', "", 'STRING');
-			$paramsIniText    = $input->get(params_ini_slideshow_parth, "", 'STRING');
+			$paramsIniText    = $input->get('params_ini_' . $targetSlideshow, "", 'STRING');
 			// check input
 			$isErrFound = false;
 			// error ?

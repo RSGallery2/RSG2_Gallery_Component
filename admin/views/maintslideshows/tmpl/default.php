@@ -23,12 +23,12 @@ function tabHeader ($sliderName)
 {
     // ? Sanitize name ?
 
-    echo JHtml::_('bootstrap.addTab', 'slidersTab', 'tab_' . $sliderName, $sliderName); //, true);
+    //echo JHtml::_('bootstrap.addTab', 'slidersTab', 'tab_' . $sliderName, $sliderName); //, true);
 }
 
 function tabContent ($xmlFileInfo, $testForm)
 {
-	echo '<div class="well">';
+	//echo '<div class="well">';
 	// $xmlFileInfo->name;
     //<h3><?php echo $this->item->title;</h3>
 
@@ -43,15 +43,24 @@ function tabContent ($xmlFileInfo, $testForm)
 
 	//--- show controls ------------------------
 
+    echo JHtml::_('bootstrap.startAccordion', 'slide_slideshow_parameters',
+        array('active' => 'parameters_id_1'));
+
+    echo JHtml::_('bootstrap.addSlide', 'slide_slideshow_parameters',
+        JText::_('COM_RSGALLERY2_SLIDESHOW_PARAMETER'), 'parameters_id_1');
+
 	// parameter input
     echo $testForm->renderFieldset('advanced');
 	// button to submit the changed data
 	slideshowSaveConfigParaButton ($xmlFileInfo->name);
 
+    echo JHtml::_('bootstrap.endSlide');
+	echo JHtml::_('bootstrap.endAccordion');
+
 	//--- show controls ------------------------
 
-	echo '<hr>';
-	echo '<h4>file params.ini:</h4>';
+	//echo '<hr>';
+	//echo '<h4>file params.ini:</h4>';
 
 	// field inside xml file
 	if ($params->exists('params'))
@@ -62,13 +71,19 @@ function tabContent ($xmlFileInfo, $testForm)
 	$parameterLines = $params->toString ('INI');
 	// echo $parameterLines;
 
-    echo '<div class="control-group">';
+	echo JHtml::_('bootstrap.startAccordion', 'slide_slideshow_file',
+		array('active' => 'file_id_1'));
+
+	echo JHtml::_('bootstrap.addSlide', 'slide_slideshow_file',
+		JText::_('COM_RSGALLERY2_FILE') . ' params.ini', 'file_id_1');
+
+	echo '<div class="control-group">';
 
 	echo '    <div class="control-label">';
 	echo '        <label  id="params_ini_' . $sliderName . '-lbl" for="params_ini_' . $sliderName . '"  class="hasPopover" ';
 	echo '           title="" ';
-	echo '           data-original-title="params.ini file" ';
-	echo '           data-content="Content of file params.ini in slideshow folder. Line structure parameter=\"values\"" ';
+	echo '           data-original-title="' . JText::_('COM_RSGALLERY2_FILE') . ' params.ini' . '"';
+	echo '           data-content="' . JText::_('COM_RSGALLERY2_MAINT_SLIDESHOW_PARAMS_INI_CONTENT') . '"';
 	echo '        >';
 	echo 'params.ini content';
 	echo '        </label>';
@@ -81,14 +96,17 @@ function tabContent ($xmlFileInfo, $testForm)
 	// button to submit the changed data
 	slideshowSaveConfigFileButton ($xmlFileInfo->name);
 
-	// echo json_encode($xmlFileInfo) ;
+    echo JHtml::_('bootstrap.endSlide');
+    echo JHtml::_('bootstrap.endAccordion');
+
+    // echo json_encode($xmlFileInfo) ;
 	//echo $this->form->renderFieldset('regenerateGallerySelection');
-    echo '</div>'; // well
+    //echo '</div>'; // well
 }
 
 function tabFooter ($sliderName)
 {
-	echo JHtml::_('bootstrap.endTab');
+	//echo JHtml::_('bootstrap.endTab');
 	//echo " //end tab " . $sliderName;
 }
 
@@ -100,7 +118,7 @@ function slideshowSaveConfigParaButton ($sliderName)
 	echo '    <button id="btnConfigPara_' . $sliderName . '" name="btnConfigPara" type="button" class="btn btn-primary"';
 	//echo '        onclick="Joomla.submitbutton(\'maintslideshows.saveConfigParameter\')"';
 	echo '    >';
-	echo          JText::_('COM_RSGALLERY2_MAINT_SLIDESHOW_SAVE_CONFIG');
+	echo          JText::_('COM_RSGALLERY2_MAINT_SAVE_PARAMETER');
 	echo '    </button>';
 	echo '</div>';
 
@@ -114,7 +132,7 @@ function slideshowSaveConfigFileButton ($sliderName)
 	echo '    <button id="btnConfigFile_' . $sliderName . '" name="btnConfigFile" type="button" class="btn btn-primary"';
 	//echo '        onclick="Joomla.submitbutton(\'maintslideshows.saveConfigFile\')"';
 	echo '    >';
-	echo          JText::_('COM_RSGALLERY2_MAINT_SLIDESHOW_SAVE_CONFIG_FILE');
+	echo          JText::_('COM_RSGALLERY2_MAINT_SAVE_FILE');
 	echo '    </button>';
 	echo '</div>';
 
@@ -195,27 +213,27 @@ function SimpleXMLElement_append($parent, $child)
 
                 $xmlFileInfo = $this->slideConfigFile;
 
-                $activeName = $xmlFileInfo->name;
-                echo JHtml::_('bootstrap.startTabSet', 'slidersTab', array('active' => 'tab_' . $activeName));
+                //$activeName = $xmlFileInfo->name;
+                $sliderName = $xmlFileInfo->name;
+
+                //echo JHtml::_('bootstrap.startTabSet', 'slidersTab', array('active' => 'tab_' . $activeName));
 
                 // forms fields could be extracted from templateDetails.xml file
                 if ( ! empty ($xmlFileInfo->formFields))
                 {
-                    $sliderName = $xmlFileInfo->name;
-
                     // extract parameter
                     //tabHeader($sliderName);
 
                     tabContent($xmlFileInfo, $this->formSlide);
 
-                    tabFooter($sliderName);
+                    //tabFooter($sliderName);
                 }
                 else
                 {
 	                echo '<br><br><h4>Slideshow has no parameters</h4>';
                 }
 
-                echo JHtml::_('bootstrap.endTabSet');
+                //echo JHtml::_('bootstrap.endTabSet');
 
                 ?>
 

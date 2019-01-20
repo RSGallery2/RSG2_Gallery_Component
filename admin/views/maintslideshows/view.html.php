@@ -33,18 +33,6 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 
 	protected $slideshow2Maintain;
 
-	/**
-	// core.admin is the permission used to control access to
-	// the global config
-	protected $form;
-	protected $sidebar;
-
-	//protected $rsgConfigData;
-	protected $UserIsRoot;
-
-	protected $ImageWidth;
-	protected $thumbWidth;
-
 	//------------------------------------------------
 	/**
 	 * @param null $tpl
@@ -62,23 +50,33 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		//---  ------------------------------------------
 
 		$input = JFactory::getApplication()->input;
-		$userSlideshow = $input->get('maintain_slideshow', "", 'STRING');
 
-		// Check rights of user
+		// Slide show parameter saved -> name known
+		$userSlideshow = $input->get('maintain_slideshow', "", 'STRING');
+		$configSlideshow = $rsgConfig->get('current_slideshow');
+
+			// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot();
 
 		// collect slideshow names from existing folder
 		$maintSlidesModel   = JModelLegacy::getInstance('MaintSlideshows', 'rsgallery2Model');
 		$slideshowNames = $maintSlidesModel->collectSlideshowsNames();
 
-		// use first or user selected shlideshow
+		// use first, user selected or config slideshow name
 		$this->userSlideshowName = $slideshowNames[1]; // May be ...parth
 		if (in_array ($userSlideshow, $slideshowNames))
 		{
 			$this->userSlideshowName = $userSlideshow;
 		}
+		else
+		{
+			if (in_array ($configSlideshow, $slideshowNames))
+			{
+				$this->userSlideshowName = $configSlideshow;
+			}
+		}
 
-		$xmlFile    = JPATH_COMPONENT . '/models/forms/maintslideshows.xml';
+		$xmlFile = JPATH_COMPONENT . '/models/forms/maintslideshows.xml';
 		$this->formSlideshowSelection = JForm::getInstance('slideshowSelection', $xmlFile);
 
 		// assign previous user selection
@@ -94,11 +92,6 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		$this->slideConfigFile = $maintSlidesModel->collectSlideshowsConfigData(
 			$this->userSlideshowName);
 
-		/**
-		$xmlFile   = $this->slideConfigFile->cfgFieldsFileName;
-		$this->formsSlide = JForm::getInstance($this->slideConfigFile->name, $xmlFile);
-		/**/
-
 
 		//--- add parent form element ------------------------
 
@@ -110,14 +103,9 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 			$this->SimpleXMLElement_append($xmlForm, $this->slideConfigFile->formFields->config->fields);
 		}
 		$formSlide = new JForm('slideParameter');
-		//$formSlide = JForm::getInstance('slideParameter');
 
 		$formSlide->load($xmlForm);
 
-		$xmlFormText = $xmlForm->asXML();
-
-		// Define your fieldset here ==> $xpath = '//fieldset[@name="yourfieldset"]';
-		//$params = $this->slideConfigFile->parameterValues; // Jregistry ?
 		$params = $this->slideConfigFile->parameterValues;
 
 		$formSlide->bind($params);
@@ -174,42 +162,14 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 
 		if ($UserIsRoot)
 		{
-			JToolBarHelper::custom('maintslideshows.saveConfigParameter', 'equalizer', '', 'COM_RSGALLERY2_MAINT_SLIDESHOW_SAVE_CONFIG', false);
-			JToolBarHelper::custom('maintslideshows.saveConfigFile', 'file', 'file', 'COM_RSGALLERY2_MAINT_SLIDESHOW_SAVE_CONFIG_FILE', false);
+			JToolBarHelper::custom('maintslideshows.saveConfigParameter', 'equalizer', '', 'COM_RSGALLERY2_MAINT_SAVE_PARAMETER', false);
+			JToolBarHelper::custom('maintslideshows.saveConfigFile', 'file', 'file', 'COM_RSGALLERY2_MAINT_SAVE_FILE', false);
 			// JToolBarHelper::spacer();
 		}
 		/**/
 
 		// back to maintenance
 		JToolBarHelper::cancel('maintRegenerate.cancel');
-		/*JToolBarHelper::cancel('maintenance.cancel');
-//        JToolBarHelper::spacer();
-//        JToolBarHelper::help( 'screen.rsgallery2',true);
-
-		/*
-		switch ($Layout)
-		{
-			case 'RawView':
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
-					. ': ' . JText::_('COM_RSGALLERY2_MAINT_REGEN'), 'screwdriver');
-				JToolBarHelper::cancel('config.cancel_rawView');
-				break;
-			case 'RawEdit':
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE')
-					. ': ' . JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'), 'screwdriver');
-				JToolBarHelper::apply('\'config.apply_rawEdit');
-				JToolBarHelper::save('\'config.save_rawEdit');
-				JToolBarHelper::cancel('\'config.cancel_RawEdit');
-				break;
-			// case 'default':
-			default:
-				JToolBarHelper::title(JText::_('COM_RSGALLERY2_CONFIGURATION'), 'screwdriver');
-				JToolBarHelper::apply('\'config.apply');
-				JToolBarHelper::save('\'config.save');
-				JToolBarHelper::cancel('\'config.cancel');
-				break;
-		}
-		*/
 	}
 
 	function SimpleXMLElement_append($parent, $child)

@@ -164,6 +164,14 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 								</div>
 
 								<?php
+								$link = 'index.php?option=com_rsgallery2&amp;view=maintslideshows';
+								quickTwoIconMoonBar($link, 'icon-equalizer', 'icon-play',
+									JText::_('COM_RSGALLERY2_SLIDESHOW_CONFIGURATION'),
+									JText::_('COM_RSGALLERY2_SLIDESHOWS_CONFIGURATION_DESC') . '                        ',
+									'viewConfigSlideshow');
+								?>
+
+                                <?php
 								$link = 'index.php?option=com_rsgallery2&amp;view=comments';
 								quickTwoIconMoonBar($link, 'icon-comment', 'icon-list-2',
 									JText::_('COM_RSGALLERY2_COMMENTS_LIST'),
@@ -177,18 +185,10 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 
 								quickIconMoonBar($link, 'icon-scissors clsTemplate',
 									JText::_('COM_RSGALLERY2_TEMPLATE_MANAGER'),
-									JText::_('COM_RSGALLERY2_TEMPLATE_EXPLANATION'),
+									'<del>' . JText::_('COM_RSGALLERY2_MAINT_TEMPLATE_DESC') . '</del>',
 									'templateManager');
 								?>
 
-
-								<?php
-								$link = 'index.php?option=com_rsgallery2&amp;view=maintslideshows';
-								quickTwoIconMoonBar($link, 'icon-equalizer', 'icon-play',
-									JText::_('COM_RSGALLERY2_SLIDESHOWS_CONFIGURATION'),
-									JText::_('COM_RSGALLERY2_SLIDESHOWS_CONFIGURATION_DESC') . '                        ',
-									'viewConfigSlideshow');
-								?>
 
                             </div>
 						</div>

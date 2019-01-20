@@ -41,6 +41,16 @@ defined('_JEXEC') or die;
 
 <form enctype="multipart/form-data" action="index.php" method="post" name="adminForm">
 
+    <br>
+    <legend>Sorry, error in implementation. Functions below are not working any more  :-(</legend>
+    <strong>detected in Jan 2019</strong>
+    <br>
+    Sidebar links do not start, Buttons not checked
+    <br>
+    <br>
+    <br>
+
+
 	<?php
 	HTML_RSGALLERY::RSGallerySidebar();
 	?>

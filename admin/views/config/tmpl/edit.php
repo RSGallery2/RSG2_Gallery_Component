@@ -148,7 +148,8 @@ JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'
 
 				<?php echo JHtml::_('bootstrap.addTab', 'Config', 'Display', JText::_('COM_RSGALLERY2_DISPLAY', false)); ?>
 
-				<?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_display_group', array('active' => 'cfg_display_id_1')); ?>
+				<?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_display_group',
+                    array('active' => 'cfg_display_id_1')); ?>
 
 				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group',
 					JText::_('COM_RSGALLERY2_FRONT_PAGE'), 'cfg_display_id_1'); ?>
