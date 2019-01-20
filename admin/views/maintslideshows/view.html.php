@@ -14,6 +14,7 @@ jimport('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 jimport('joomla.application.component.model');
 
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
 JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 
 /**
@@ -122,8 +123,14 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		$formSlide->bind($params);
 		$this->formSlide = $formSlide;
 
-		/**/
+		//--- begin of display --------------------------------------------
+
+		$Layout = JFactory::getApplication()->input->get('layout');
 		$this->addToolbar($this->UserIsRoot); //$Layout);
+
+		$View = JFactory::getApplication()->input->get('view');
+		RSG2_SidebarLinks::addItems($View, $Layout);
+
 		$this->sidebar = JHtmlSidebar::render();
 		/**/
 		parent::display($tpl);
@@ -160,19 +167,22 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 			echo '<span style="color:red">Task: </span><br><br>';
 		}
 
-		/**
+		/**/
 		// Title
-		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE') . ': ' . JText::_('COM_RSGALLERY2_MAINT_REGEN'), 'screwdriver');
+		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE') . ': ' . JText::_('COM_RSGALLERY2_MAINT_SLIDESHOW_CONFIG'), 'screwdriver');
+		/**/
 
 		if ($UserIsRoot)
 		{
-			JToolBarHelper::custom('maintRegenerate.RegenerateImagesDisplay', 'forward.png', 'forward.png', 'COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY', false);
-			JToolBarHelper::custom('maintRegenerate.RegenerateImagesThumb', 'forward.png', 'forward.png', 'COM_RSGALLERY2_MAINT_REGEN_THUMBS', false);
+			JToolBarHelper::custom('maintslideshows.saveConfigParameter', 'equalizer', '', 'COM_RSGALLERY2_MAINT_SLIDESHOW_SAVE_CONFIG', false);
+			JToolBarHelper::custom('maintslideshows.saveConfigFile', 'file', 'file', 'COM_RSGALLERY2_MAINT_SLIDESHOW_SAVE_CONFIG_FILE', false);
 			// JToolBarHelper::spacer();
 		}
+		/**/
 
+		// back to maintenance
 		JToolBarHelper::cancel('maintRegenerate.cancel');
-		JToolBarHelper::cancel('maintenance.cancel');
+		/*JToolBarHelper::cancel('maintenance.cancel');
 //        JToolBarHelper::spacer();
 //        JToolBarHelper::help( 'screen.rsgallery2',true);
 

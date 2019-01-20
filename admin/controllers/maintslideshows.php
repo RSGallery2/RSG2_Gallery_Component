@@ -205,7 +205,7 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 			//--- fetch file data -----------------------------
 
 			$targetSlideshow = $input->get('usedSlideshow', "", 'STRING');
-			$paramsIniText    = $input->get(paramsIniText, "", 'STRING');
+			$paramsIniText    = $input->get(params_ini_slideshow_parth, "", 'STRING');
 			// check input
 			$isErrFound = false;
 			// error ?

@@ -26,103 +26,23 @@ jQuery(document).ready(function ($) {
 						
 	});
     
-    /**
-     $('btnConfigFile').click(function() {
-        alert ("bbb")
-        $('#popupModal').css('display', 'none');
-        $('#popupModal').css('display', 'block');
-        $('#popupImage').attr("src", this.src);
-        $('#popupCaption').html(this.alt);
-    });
-     /**/
-    
-    /**/
-    // $( "input[value='Hot Fuzz']" ).next().text( "Hot Fuzz" );
     $("button[name='btnConfigPara']").click(function(event) {
-        var splitNameArray;
-        var slideshowId;
-
-        //--- slideshow id ----------------------
-
-        var elementId = event.target.id;
-        //alert ('elementId: ' + elementId);
-
-        splitNameArray = elementId.split('_');
-        // Remove first part and join following
-        splitNameArray.shift();
-        slideshowId = splitNameArray.join ('_');
-        // alert ('slideshowId: ' + slideshowId);
-
-        //-- assign to control --------------
 
         var form = document.getElementById('adminForm');
-    
         form.task.value = 'maintslideshows.saveConfigParameter';
-        form.usedSlideshow.value = slideshowId;
 
         form.submit();
     });
-    /**/
 
-    /**/
     $("button[name='btnConfigFile']").click(function(event) {
-        var splitNameArray;
-        var slideshowId;
-        var elementId;
-        var paramsIniText;
-
-        //--- slideshow id ----------------------
-
-        elementId = event.target.id;
-        //alert ('elementId: ' + elementId);
-
-        splitNameArray = elementId.split('_');
-        // Remove first part and join following
-        splitNameArray.shift();
-        slideshowId = splitNameArray.join ('_');
-        // alert ('slideshowId: ' + slideshowId);
-
-        //-- params.ini content --------------
-
-        paramsIniText = $("#params_ini_" + slideshowId).val();
-        //alert ('paramsIniText: ' + paramsIniText);
 
         //-- assign to control --------------
 
         var form = document.getElementById('adminForm');
-
         form.task.value = 'maintslideshows.saveConfigFile';
-        form.usedSlideshow.value = slideshowId;
-        form.paramsIniText.value = paramsIniText;
 
         form.submit();
     });
     /**/
-    
-    /**
-     $('btnConfigFile').click(function() {
-        alert ("bbb")
-        $('#popupModal').css('display', 'none');
-        $('#popupModal').css('display', 'block');
-        $('#popupImage').attr("src", this.src);
-        $('#popupCaption').html(this.alt);
-    });
-     /**/
     
 });
-/**/
-
-/**
-    $(document).ready(function() {
-        alert ("aaaa")
-
-        function test ()
-        {
-            alert("aaaa")
-        }
-
-    }
-
-/**/
-
-

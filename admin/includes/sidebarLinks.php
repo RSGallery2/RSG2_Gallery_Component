@@ -116,15 +116,14 @@ class RSG2_SidebarLinks {
 
         // inside maintenance ....
         if (substr($view, 0, 5) == 'maint') {
-            if ($view == 'maintenance') {
-                $link = 'index.php?option=com_rsgallery2&view=config&task=config.edit';
-                // In maintenance add config
-                JHtmlSidebar::addEntry(
-                    '<span class="icon-equalizer" >  </span>' .
-                    JText::_('COM_RSGALLERY2_CONFIGURATION'),
-                    $link,
-                    false);
-            } else {
+	        $link = 'index.php?option=com_rsgallery2&view=config&task=config.edit';
+	        // In maintenance add config
+	        JHtmlSidebar::addEntry(
+		        '<span class="icon-equalizer" >  </span>' .
+		        JText::_('COM_RSGALLERY2_CONFIGURATION'),
+		        $link,
+		        false);
+            if ($view != 'maintenance') {
                 $link = 'index.php?option=com_rsgallery2&view=maintenance';
                 // In config add maintenance
                 JHtmlSidebar::addEntry(

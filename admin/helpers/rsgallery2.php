@@ -14,6 +14,10 @@ defined('_JEXEC') or die;
 /**
  * RSGallery2 component helper.
  *
+ * ToDo: Fix: Remove or (first) partly move as not needed any more
+ * new sidebar see:
+ * require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
+ *
  * @since        3.0
  */
 class RSGallery2Helper // extends JHelperContent

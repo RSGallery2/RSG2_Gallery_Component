@@ -32,8 +32,8 @@ function tabContent ($xmlFileInfo, $testForm)
 	// $xmlFileInfo->name;
     //<h3><?php echo $this->item->title;</h3>
 
-    echo '<h3>Content: ' . $xmlFileInfo->name . '<h3>';
-    echo '<h4>Form Fields (XML Config part of templateDetails.xml -> J2.5++ style)</h4>';
+    // echo '<h3>Content: ' . $xmlFileInfo->name . '<h3>';
+    //echo '<h4>Form Fields (XML Config part of templateDetails.xml -> J2.5++ style)</h4>';
 
 	$sliderName = $xmlFileInfo->name;
 
@@ -43,15 +43,14 @@ function tabContent ($xmlFileInfo, $testForm)
 
 	//--- show controls ------------------------
 
-	echo $testForm->renderFieldset('advanced');
-
+	// parameter input
+    echo $testForm->renderFieldset('advanced');
 	// button to submit the changed data
 	slideshowSaveConfigParaButton ($xmlFileInfo->name);
 
-	echo '<hr>';
-
 	//--- show controls ------------------------
 
+	echo '<hr>';
 	echo '<h4>file params.ini:</h4>';
 
 	// field inside xml file
@@ -75,7 +74,7 @@ function tabContent ($xmlFileInfo, $testForm)
 	echo '        </label>';
 	echo '    </div>';
 	echo '    <div class="controls">';
-    echo '        <textarea id="params_ini_' . $sliderName . '" class="input-xxlarge" rows="20">'. $parameterLines . '</textarea>';
+    echo '        <textarea id="params_ini_' . $sliderName . '" class="input-xxlarge" name="params_ini_' . $sliderName . '" rows="20">'. $parameterLines . '</textarea>';
 	echo '    </div>';
     echo '</div>';
 
@@ -182,9 +181,7 @@ function SimpleXMLElement_append($parent, $child)
 			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=maintSlideshows'); ?>"
 					method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">
 
-                <legend><?php echo JText::_('COM_RSGALLERY2_SLIDESHOWS_CONFIGURATION'); ?></legend>
-                <div><?php echo JText::_('COM_RSGALLERY2_SLIDESHOWS_CONFIGURATION_INFO'); ?></div>
-                <br>
+                <!--legend><?php echo JText::_('COM_RSGALLERY2_SLIDESHOWS_CONFIGURATION'); ?></legend-->
 
                 <?php
 
@@ -207,7 +204,7 @@ function SimpleXMLElement_append($parent, $child)
                     $sliderName = $xmlFileInfo->name;
 
                     // extract parameter
-                    tabHeader($sliderName);
+                    //tabHeader($sliderName);
 
                     tabContent($xmlFileInfo, $this->formSlide);
 
@@ -223,7 +220,7 @@ function SimpleXMLElement_append($parent, $child)
                 ?>
 
                 <input type="hidden" value="" name="task">
-                <input type="hidden" value="" name="usedSlideshow">
+                <input type="hidden" value="<?php echo $sliderName; ?>" name="usedSlideshow">
                 <input type="hidden" value="" name="paramsIniText">
 
 				<?php

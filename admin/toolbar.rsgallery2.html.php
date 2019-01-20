@@ -13,6 +13,8 @@ defined('_JEXEC') or die();
 
 /**
  * ToDo: Fix: Remove or (first) partly move as not needed any more
+ * new sidebar see:
+ * require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
  */
 
 /**
