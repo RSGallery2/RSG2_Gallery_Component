@@ -565,7 +565,7 @@ function DisplayImageDataTable($ImageReferences, $form)
 			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=maintConsolidateDB'); ?>"
 					method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">
 
-				<div>
+				<div style="max-width: 400px;">
 					<strong><?php echo JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT'); ?></strong>
 				</div>
 
