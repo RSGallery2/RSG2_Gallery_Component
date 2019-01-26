@@ -13,27 +13,27 @@ defined('_JEXEC') or die;
 JFormHelper::loadFieldClass('list');
 
 /**
- * Control for slidshownames detected by filenames in slideshow folders
+ * Control for slideshow names detected by filenames in slideshow folders
  *
- * @since 4.3.0
+ * @since 4.4.2
  */
 class JFormFieldSlideshowSelectByFile extends JFormFieldList
 {
-    /**
-     * The field type.
-     *
-     * @var string
-     *
-     * @since 4.3.0
-     */
+	/**
+	 * The field type.
+	 *
+	 * @var string
+	 *
+	 * @since 4.4.2
+	 */
 	protected $type = 'SlideshowSelectByFile';
 
 	/**
 	 * Method to get a list of options for a list input.
 	 *
 	 * @return  string array  An array of JHtml options.
-     *
-     * @since 4.3.0
+	 *
+	 * @since 4.4.2
 	 */
 	protected function getOptions()
 	{
@@ -50,40 +50,58 @@ class JFormFieldSlideshowSelectByFile extends JFormFieldList
 
 		$options = $slideshowNames;
 
-        // Put "Select an option" on the top of the list.
+		// Put "Select an option" on the top of the list.
 		array_unshift($options, JHtml::_('select.option', '0', JText::_('COM_RSGALLERY2_SELECT_SLIDESHOW')));
 
-        $options = array_merge(parent::getOptions(), $options);
+		$options = array_merge(parent::getOptions(), $options);
 
-        return $options;
+		return $options;
 	}
 
+	/**
+	 * collectSlideshowNamesByFiles
+	 * In folder ...\site\..\templates each sub folder is
+	 * checked for existence of file 'templateDetails.xml'.
+	 * This file imply a folder may be a slideshow
+	 * or a "semantic" image display
+	 * It does ignore folder like "semantic" which does not
+	 * contain "slideshow" in name
+	 * Attention slideshows not containing template file
+	 * are not collected
+	 *
+	 * @return array
+	 *
+	 * @since 4.4.2
+	 * @throws Exception
+	 */
 	public function collectSlideshowNamesByFiles()
 	{
 		$nameByFiles = [];
 
 		try
 		{
-			//--- search templateDetails.xml files ------------------
+			//--- base folder ---------------------------------------
 
-			$fieldsFileName    = 'templateDetails.xml';
-			$parameterFileName = 'params.ini';
-			$fileBasePath = JPATH_COMPONENT_SITE . '/templates';
+			$fieldsFileName = 'templateDetails.xml';
+			$fileBasePath   = JPATH_COMPONENT_SITE . '/templates';
 
-			// each folder may be a slideshow or a "semantic" image display
+			//--- all folders within ------------------
 
 			$folders = JFolder::folders($fileBasePath);
 
 			foreach ($folders as $folder)
 			{
-				$fileSlidePath = $fileBasePath . '/' . $folder;
-
-				// check if joomla config file exist
-				$cfgFile = JFolder::files($fileSlidePath, $fieldsFileName);
-				if (!empty($cfgFile))
+				// collect if name contains word slideshow
+				if (strpos($folder, 'slideshow') !== false)
 				{
-					$nameByFiles []     = $folder;
+					$fileSlidePath = $fileBasePath . '/' . $folder;
 
+					// Collect if joomla config file exist
+					$cfgFile = JFolder::files($fileSlidePath, $fieldsFileName);
+					if (!empty($cfgFile))
+					{
+						$nameByFiles [] = $folder;
+					}
 				}
 			}
 		}
@@ -92,16 +110,8 @@ class JFormFieldSlideshowSelectByFile extends JFormFieldList
 			JFactory::getApplication()->enqueueMessage($e->getMessage());
 		}
 
-
-		//echo json_encode($nameByFiles) ;
-		//echo '<br>';
-
 		return $nameByFiles;
 	}
 
-
-
-
-
-}
+} // class
 

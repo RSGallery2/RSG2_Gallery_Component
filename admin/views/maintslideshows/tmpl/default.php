@@ -9,39 +9,47 @@
 defined('_JEXEC') or die();
 
 $doc = JFactory::getDocument();
-// $doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/views/maintslideshows/css/maintslideshows.css');
 $doc->addscript(JUri::root() . '/administrator/components/com_rsgallery2/views/maintslideshows/js/maintslideshows.js');
+
 JHtml::_('bootstrap.tooltip');
 //JHtml::_('jquery.framework', false);
 
 global $Rsg2DebugActive;
 
-// JHtml::_('formbehavior.chosen', 'select');
-
-
-function tabHeader ($sliderName)
+/**
+ * tabHeader
+ * Prepared for view where all slideshows are displayed side by side
+ *
+ * @param string $sliderName
+ *
+ * @since 4.4.2
+ */
+function tabHeader ($sliderName='')
 {
-    // ? Sanitize name ?
-
     //echo JHtml::_('bootstrap.addTab', 'slidersTab', 'tab_' . $sliderName, $sliderName); //, true);
 }
 
-function tabContent ($xmlFileInfo, $testForm)
+/**
+ * tabContent
+ * Displays the form fields of the slideshow
+ * and in an text area the parameter
+ * definitions with values name="value"
+ *
+ * @param $formSlide
+ * @param $testForm
+ *
+ *
+ * @since 4.4.2
+ */
+function tabContent ($formSlide, $testForm)
 {
+	$sliderName = $formSlide->name;
+
+	// following Prepared for view where all slideshows are displayed side by side
 	//echo '<div class="well">';
-	// $xmlFileInfo->name;
-    //<h3><?php echo $this->item->title;</h3>
+    //echo '<h3>Slideshow: ' . $formSlide->name . '<h3>';
 
-    // echo '<h3>Content: ' . $xmlFileInfo->name . '<h3>';
-    //echo '<h4>Form Fields (XML Config part of templateDetails.xml -> J2.5++ style)</h4>';
-
-	$sliderName = $xmlFileInfo->name;
-
-	//--- add parameter values from xml file ------------------------
-
-	$params = $xmlFileInfo->parameterValues; // Jregistry ?
-
-	//--- show controls ------------------------
+	//--- show slideshow form fields ------------------------
 
     echo JHtml::_('bootstrap.startAccordion', 'slide_slideshow_parameters',
         array('active' => 'parameters_id_1'));
@@ -49,18 +57,18 @@ function tabContent ($xmlFileInfo, $testForm)
     echo JHtml::_('bootstrap.addSlide', 'slide_slideshow_parameters',
         JText::_('COM_RSGALLERY2_SLIDESHOW_PARAMETER'), 'parameters_id_1');
 
-	// parameter input
+	// display fields
     echo $testForm->renderFieldset('advanced');
-	// button to submit the changed data
-	slideshowSaveConfigParaButton ($xmlFileInfo->name);
+
+    // button to submit the changed data
+	createSaveParameterButton ($sliderName);
 
     echo JHtml::_('bootstrap.endSlide');
 	echo JHtml::_('bootstrap.endAccordion');
 
-	//--- show controls ------------------------
+	//--- show slideshow parameter as text ------------------------
 
-	//echo '<hr>';
-	//echo '<h4>file params.ini:</h4>';
+	$params = $formSlide->parameterValues; // Jregistry
 
 	// field inside xml file
 	if ($params->exists('params'))
@@ -68,8 +76,9 @@ function tabContent ($xmlFileInfo, $testForm)
 		$params = $params->extract('params');
 	}
 
+	// One line for each parameter: name="value"
 	$parameterLines = $params->toString ('INI');
-	// echo $parameterLines;
+
 
 	echo JHtml::_('bootstrap.startAccordion', 'slide_slideshow_file',
 		array('active' => 'file_id_1'));
@@ -94,29 +103,44 @@ function tabContent ($xmlFileInfo, $testForm)
     echo '</div>';
 
 	// button to submit the changed data
-	slideshowSaveConfigFileButton ($xmlFileInfo->name);
+	createSaveFileButton ($sliderName);
 
     echo JHtml::_('bootstrap.endSlide');
     echo JHtml::_('bootstrap.endAccordion');
 
-    // echo json_encode($xmlFileInfo) ;
-	//echo $this->form->renderFieldset('regenerateGallerySelection');
+	// following Prepared for view where all slideshows are displayed side by side
     //echo '</div>'; // well
 }
 
-function tabFooter ($sliderName)
+/**
+ * tabFooter
+ * Prepared for view where all slideshows are displayed side by side
+ *
+ * @param $sliderName
+ *
+ *
+ * @since 4.4.2
+ */
+function tabFooter ($sliderName='')
 {
 	//echo JHtml::_('bootstrap.endTab');
 	//echo " //end tab " . $sliderName;
 }
 
-function slideshowSaveConfigParaButton ($sliderName)
+/**
+ * createSaveParameterButton
+ * Displays button to save the slideshow parameters
+ *
+ * @param string $sliderName
+ *
+ * @since 4.4.2
+ */
+function createSaveParameterButton ($sliderName='')
 {
 
 	echo '<!-- Action button save config: ' . $sliderName . ' -->';
 	echo '<div class="form-actions">';
 	echo '    <button id="btnConfigPara_' . $sliderName . '" name="btnConfigPara" type="button" class="btn btn-primary"';
-	//echo '        onclick="Joomla.submitbutton(\'maintslideshows.saveConfigParameter\')"';
 	echo '    >';
 	echo          JText::_('COM_RSGALLERY2_MAINT_SAVE_PARAMETER');
 	echo '    </button>';
@@ -124,13 +148,21 @@ function slideshowSaveConfigParaButton ($sliderName)
 
 }
 
-function slideshowSaveConfigFileButton ($sliderName)
+/**
+ * createSaveFileButton
+ * Displays button to save the slideshow parameters
+ * from text area definition
+ *
+ * @param $sliderName
+ *
+ * @since 4.4.2
+ */
+function createSaveFileButton ($sliderName='')
 {
 
 	echo '<!-- Action button save config file: ' . $sliderName . ' -->';
 	echo '<div class="form-actions">';
 	echo '    <button id="btnConfigFile_' . $sliderName . '" name="btnConfigFile" type="button" class="btn btn-primary"';
-	//echo '        onclick="Joomla.submitbutton(\'maintslideshows.saveConfigFile\')"';
 	echo '    >';
 	echo          JText::_('COM_RSGALLERY2_MAINT_SAVE_FILE');
 	echo '    </button>';
@@ -138,52 +170,9 @@ function slideshowSaveConfigFileButton ($sliderName)
 
 }
 
-function SimpleXMLElement_append($parent, $child)
-{
-	// get all namespaces for document
-	$namespaces = $child->getNamespaces(true);
-
-	// check if there is a default namespace for the current node
-	$currentNs = $child->getNamespaces();
-	$defaultNs = count($currentNs) > 0 ? current($currentNs) : null;
-	$prefix = (count($currentNs) > 0) ? current(array_keys($currentNs)) : '';
-	$childName = strlen($prefix) > 1
-		? $prefix . ':' . $child->getName() : $child->getName();
-
-	// check if the value is string value / data
-	if (trim((string) $child) == '') {
-		$element = $parent->addChild($childName, null, $defaultNs);
-	} else {
-		$element = $parent->addChild(
-			$childName, htmlspecialchars((string)$child), $defaultNs
-		);
-	}
-
-	foreach ($child->attributes() as $attKey => $attValue) {
-		$element->addAttribute($attKey, $attValue);
-	}
-	foreach ($namespaces as $nskey => $nsurl) {
-		foreach ($child->attributes($nsurl) as $attKey => $attValue) {
-			$element->addAttribute($nskey . ':' . $attKey, $attValue, $nsurl);
-		}
-	}
-
-	// add children -- try with namespaces first, but default to all children
-	// if no namespaced children are found.
-	$children = 0;
-	foreach ($namespaces as $nskey => $nsurl) {
-		foreach ($child->children($nsurl) as $currChild) {
-			SimpleXMLElement_append($element, $currChild);
-			$children++;
-		}
-	}
-	if ($children == 0) {
-		foreach ($child->children() as $currChild) {
-			SimpleXMLElement_append($element, $currChild);
-		}
-	}
-}
-
+//============================================================
+// Form
+//============================================================
 ?>
 
 <div id="slidshow-edit" class="clearfix">
@@ -209,23 +198,25 @@ function SimpleXMLElement_append($parent, $child)
 
                 echo $formSlideshowSelection->renderFieldset('maintslideshows');
 
-                //---- show slideshow parameters ---------------------------
+                //---- show slideshow parameter fields and as name="value" ---------------------------
 
-                $xmlFileInfo = $this->slideConfigFile;
+                $slideshowData = $this->slideshowData;
 
-                //$activeName = $xmlFileInfo->name;
-                $sliderName = $xmlFileInfo->name;
+                //$activeName = $slideshowData->name;
+                $sliderName = $slideshowData->name;
 
+                // following Prepared for view where all slideshows are displayed side by side
                 //echo JHtml::_('bootstrap.startTabSet', 'slidersTab', array('active' => 'tab_' . $activeName));
 
                 // forms fields could be extracted from templateDetails.xml file
-                if ( ! empty ($xmlFileInfo->formFields))
+                if ( ! empty ($slideshowData->formFields))
                 {
-                    // extract parameter
+	                // following Prepared for view where all slideshows are displayed side by side
                     //tabHeader($sliderName);
 
-                    tabContent($xmlFileInfo, $this->formSlide);
+                    tabContent($slideshowData, $this->formSlide);
 
+	                // following Prepared for view where all slideshows are displayed side by side
                     //tabFooter($sliderName);
                 }
                 else
@@ -233,6 +224,7 @@ function SimpleXMLElement_append($parent, $child)
 	                echo '<br><br><h4>Slideshow has no parameters</h4>';
                 }
 
+                // following Prepared for view where all slideshows are displayed side by side
                 //echo JHtml::_('bootstrap.endTabSet');
 
                 ?>
@@ -251,7 +243,4 @@ function SimpleXMLElement_append($parent, $child)
 		</div>
 		<div id="loading"></div>
 	</div>
-
-
-
 </div>
