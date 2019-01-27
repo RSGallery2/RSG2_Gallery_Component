@@ -23,6 +23,11 @@ Legend:
 ^ -> Change, - -> Removed, ! -> Note
 
 
+* --- 4.4.2 beta --- 2019-01-26 --- whazzup ------------------------------
+
++ Added maintenance: Slideshow configuration
+  The parameter of uploaded slidshow can now be edited
+
 * --- 4.4.1 --- 2018-05-09 --- whazzup ------------------------------
 
 + Upload of images can now be done by drag and drop of images in upload 
