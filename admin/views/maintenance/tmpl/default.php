@@ -218,7 +218,16 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
 									'templateManager');
 								?>
 
-							</div>
+
+								<?php
+								$link = 'index.php?option=com_rsgallery2&amp;view=maintslideshows';
+								quickTwoIconMoonBar($link, 'icon-equalizer', 'icon-play',
+									JText::_('COM_RSGALLERY2_SLIDESHOWS_CONFIGURATION'),
+									JText::_('COM_RSGALLERY2_SLIDESHOWS_CONFIGURATION_DESC') . '                        ',
+									'viewConfigSlideshow');
+								?>
+
+                            </div>
 						</div>
 
 						<?php

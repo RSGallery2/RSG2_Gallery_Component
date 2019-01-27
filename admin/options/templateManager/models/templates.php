@@ -103,8 +103,8 @@ class InstallerModelTemplates extends InstallerModel
 				$row->baseDir   = $template->baseDir;
 
 				// ToDo: 2015.03.08 whazzup name was not defined but where should it be taken from ?
-				// $row->name	= $template->name;
-				$row->name = '';
+				$row->name	    = $template->name;
+				// $row->name = '';
 
 				if ($data)
 				{

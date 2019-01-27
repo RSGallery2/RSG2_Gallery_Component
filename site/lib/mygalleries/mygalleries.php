@@ -401,6 +401,7 @@ function saveUploadedItem()
 				if (move_uploaded_file($i_file['tmp_name'], JPATH_ROOT . '/media/' .  $file_name))
 				{
 					// Import into database and copy to the right places
+					//Import into database and copy to the right places
 					$imported = imgUtils::importImage(JPATH_ROOT . '/media/' .  $file_name, $file_name, $gallery_id, $title, $descr);
 					if ($imported == 1)
 					{
@@ -411,7 +412,7 @@ function saveUploadedItem()
 					}
 					else
 					{
-						$mainframe->redirect($redirect, 'Importing image failed! Notify RSGallery2. This should never happen!');
+						$mainframe->redirect($redirect, 'Importing image failed! Notify RSGallery2. This should never happen!')  ;
 					}
 					$mainframe->redirect($redirect, JText::_('COM_RSGALLERY2_ITEM_UPLOADED_SUCCESFULLY'));
 				}

@@ -15,7 +15,6 @@ use Joomla\Archive\Archive;
 
 \JLoader::import('joomla.filesystem.file');
 \JLoader::import('joomla.filesystem.folder');
-\JLoader::import('joomla.filesystem.folder');
 
 jimport('joomla.application.component.controllerform');
 
@@ -31,7 +30,6 @@ if ($Rsg2DebugActive)
 	// identify active file
 	JLog::add('==> ctrl.upload.php ');
 }
-
 
 /**
  * Functions supporting upload
@@ -437,8 +435,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
                     JLog::add($DebTxt); //, JLog::DEBUG);
                 }
 
-                //$app = JFactory::getApplication();
-                //$app->setUserState('com_rsgallery2.last_used_ftp_path', $ftpPath);
                 //$rsgConfig->setLastUsedFtpPath($ftpPath);
 	            configDb::write2Config ('last_used_ftp_path', $ftpPath, $rsgConfig);
                 //$rsgConfig->setLastUpdateType('upload_folder_server');

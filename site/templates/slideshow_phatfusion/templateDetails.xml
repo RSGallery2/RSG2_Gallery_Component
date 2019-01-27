@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<mosinstall type="rsgTemplate">
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="rsgTemplate">
 	<name>Slideshow Phatfusion</name>
+	<version>1.0</version>
 	<creationDate>2008</creationDate>
 	<author>rsdev.nl</author>
-	<copyright>Open Source, GPL</copyright>
-	<authorEmail>webmaster@rsdev.nl</authorEmail>
-	<authorUrl>rsdev.nl</authorUrl>
-	<version>1.0</version>
+	<authorEmail>team@rsgallery2.org</authorEmail>
+	<authorUrl>http://www.rsgallery2.org</authorUrl>
+	<copyright>(c) 2010-2018 RSGallery2 Team</copyright>
+	<license>This component is released under the GNU/GPL License</license>
 	<description>Slideshow implementation, based on the Phatfusion Slideshow.</description>
 	<files>
 		<filename>index.php</filename>
@@ -20,4 +21,4 @@
 	<css>
 		<filename>css/slideshow.css</filename>
 	</css>
-</mosinstall>
+</extension>

@@ -47,7 +47,9 @@ class InstallerViewDefault extends JViewLegacy
 		/*
 		 * Set toolbar items for the page
 		 */
-		JToolBarHelper::title(JText::_('COM_RSGALLERY2_RSGALLERY2_TEMPLATE_MANAGER'), 'install.png');
+		//JToolBarHelper::title(JText::_('COM_RSGALLERY2_RSGALLERY2_TEMPLATE_MANAGER'), 'install.png');
+		JToolBarHelper::title(JText::_('COM_RSGALLERY2_RSGALLERY2_TEMPLATE_MANAGER'), 'upload');
+
 
 		// Document
 		$document = JFactory::getDocument();
@@ -99,10 +101,16 @@ class InstallerViewDefault extends JViewLegacy
 		);
 
 		JHtmlSidebar::addEntry(JText::_('COM_RSGALLERY2_RSG2_CONTROL_PANEL'), 'index.php?option=com_rsgallery2', false);
-		JHtmlSidebar::addEntry(JText::_('COM_RSGALLERY2_INSTALL'), '#" onclick="javascript:document.adminForm.type.value=\'\';submitbutton(\'installer\');', !in_array($ext, $subMenus));
+		//$link = '#" onclick="javascript:document.adminForm.type.value=\'\';alert(\'installer\');submitbutton(\'installer\');';
+		$link = '#" onclick="javascript:document.adminForm.type.value=\'\';alert(\'installer\');joomla.submitform(\'installer\');';
+		$active = ! in_array($ext, $subMenus);
+		JHtmlSidebar::addEntry(JText::_('COM_RSGALLERY2_INSTALL'), $link, $active);
 		foreach ($subMenus as $name => $extension)
 		{
-			JHtmlSidebar::addEntry($name, '#" onclick="javascript:document.adminForm.type.value=\'' . $extension . '\';submitbutton(\'manage\');', ($extension == $ext));
+			//$link = '#" onclick="javascript:document.adminForm.type.value=\'' . $extension . '\';alert(\'manage\');submitbutton(\'manage\');';
+			$link = '#" onclick="javascript:document.adminForm.type.value=\'' . $extension . '\';alert(\'manage\');joomla.submitform(\'manage\');';
+			$active = ($extension == $ext);
+			JHtmlSidebar::addEntry($name, $link, $active);
 		}
 
 	}
@@ -129,7 +137,11 @@ class InstallerViewDefault extends JViewLegacy
 
 		foreach ($subMenus as $name => $extension)
 		{
-			JHtmlSidebar::addEntry($name, '#" onclick="javascript:document.adminForm.type.value=\'' . $extension . '\';submitbutton(\'template\');', ($extension == $ext));
+			//JHtmlSidebar::addEntry($name, '#" onclick="javascript:document.adminForm.type.value=\'' . $extension . '\';submitbutton(\'template\');', ($extension == $ext));
+			//$link = '#" onclick="javascript:document.adminForm.type.value=\'' . $extension . '\';alert(\'template\');joomla.submitbutton(\'template\');';
+			$link = '#" onclick="javascript:document.adminForm.type.value=\'' . $extension . '\';alert(\'template\');joomla.submitform(\'template\');';
+			$active = ($extension == $ext);
+			JHtmlSidebar::addEntry($name, $link, $active);
 		}
 
 	}

@@ -63,10 +63,11 @@ class rsgDisplay extends JObject
 			$ini_contents = '';
 			JFile::write($ini, $ini_contents);
 		}
-		$xmlPath      = JPATH_RSGALLERY2_SITE . '/templates' . '/' .  $template . '/templateDetails.xml';
+		$xmlPath      = JPATH_RSGALLERY2_SITE . '/templates/' .  $template . '/templateDetails.xml';
 		//$this->params = new TemplateParameter($content, $xmlPath);
-		//$this->params = new J Parameter($content, $xmlPath, 'template');
-		$this->params = new JRegistry($content, $xmlPath, 'template'); // Something is missing here ;-( fith 2018.03.02
+		//$this->params = new JParameter($content, $xmlPath, 'template');
+		//$this->params = new JRegistry($content, $xmlPath, 'template'); // Something is missing here ;-( fith 2018.03.02
+		$this->params = new JRegistry($content);
 	}
 
 	/**

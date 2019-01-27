@@ -114,7 +114,11 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 			{
 				//--- Resize and save -----------------------------------
 				$type = IMAGETYPE_JPEG;
+<<<<<<< HEAD
 				$memImage->toFile($imgDstPath, $type);
+=======
+				$memImage->toFile($imgDstPath, $type);;
+>>>>>>> b_Release_4_4_1
 			}
 
 			// Release memory if created locally
@@ -327,6 +331,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
             }
 
 	        $isMoved = JFile::move($uploadPathFileName, $dstFileName);
+<<<<<<< HEAD
             if ($isMoved)
             {
             	// int fileowner ( string $filename )
@@ -334,6 +339,8 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 	            //chown($dstFileName, $user);
 	            JPath::setPermissions($dstFileName, '0644');
             }
+=======
+>>>>>>> b_Release_4_4_1
         }
         catch (RuntimeException $e)
         {
@@ -386,6 +393,7 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
             }
 
             $isCopied = JFile::copy($srcFileName, $dstFileName);
+<<<<<<< HEAD
 	        if ($isCopied)
 	        {
 		        // int fileowner ( string $filename )
@@ -393,6 +401,8 @@ class rsgallery2ModelImageFile extends JModelList // JModelAdmin
 		        //chown($dstFileName, $user);
 		        JPath::setPermissions($dstFileName, '0644');
 	        }
+=======
+>>>>>>> b_Release_4_4_1
         }
         catch (RuntimeException $e)
         {
