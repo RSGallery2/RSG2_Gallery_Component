@@ -81,7 +81,7 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		//--- select name of active slideshow --------------
 
 		// use first, user selected or config slideshow name
-		$userSlideshowName = $slideshowNames[1]; // May be ...parth
+		$userSlideshowName = $slideshowNames[0]; // May be ...parth
 		if (in_array($userSlideshow, $slideshowNames))
 		{
 			$userSlideshowName = $userSlideshow;
