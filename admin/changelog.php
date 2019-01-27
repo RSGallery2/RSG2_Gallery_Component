@@ -3,7 +3,7 @@
  * Changelog for RSGallery2
  *
  * @package       RSGallery2
- * @copyright (C) 2003-2018 RSGallery2 Team
+ * @copyright (C) 2003-2019 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  **/
@@ -15,13 +15,37 @@ $ChangeLog = <<<"EOT"
 ------------
 This is a non-exhaustive but informative change log for
 RSGallery2, including alpha, beta and stable releases.
-Our thanks to all those people who've contributed bug reports and
-code fixes.
+Our thanks to all those people who have contributed bug 
+reports and code fixes.
 
 Legend:
 * -> Security Fix, # -> Bug Fix, + -> Addition
 ^ -> Change, - -> Removed, ! -> Note
 
+
+* --- 4.4.1 --- 2018-05-09 --- whazzup ------------------------------
+
++ Upload of images can now be done by drag and drop of images in upload 
+  form
++ The form for batch editing of title and description is new developed 
+  and supports standard editor
++ The form for batch editing can also be reached in image list view after 
+   selecting some images and using batch button
++ Added rotate and flip images functions to image properties view
+  (view of collected images after upload or from image list batch selection)
++ Added rotate and flip image functions to image edit view
+
+* --- 4.4.1 beta 2 --- 2018-05-09 --- whazzup ------------------------------
+
++ Added rotate and flip images functions to image properties view
+  (view of collected images after upload or from image list batch selection)
++ Added rotate and flip image functions to image edit view
+# New FTP / server uploads functions were not working
+
+* --- 4.4.1 beta 1 --- 2018-04-15 --- whazzup ------------------------------
+
++ Upload of images can now be done by drag and drop of images in upload form
++ Upload does use Joomla intern Jimage function
 
 * --- 4.3.102 --- 2018-05-05 --- whazzup ------------------------------
 
@@ -38,7 +62,7 @@ beta version
 ^ Upload does use Joomla intern Jimage function
 ! Zip upload may not run properlly
 
-* --- 4.3.1 --- 2018-01-28 --- whazzup ------------------------------
+* --- 4.4.1 alpha --- 2018-01-28 --- whazzup ------------------------------
 
 alpha version
 
