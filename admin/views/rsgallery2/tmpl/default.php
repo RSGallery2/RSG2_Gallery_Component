@@ -148,7 +148,8 @@ function DisplayInfoRsgallery2($Rsg2Version)
 	echo '<row>';
 	echo '<div class="rsg2logo-container">';
 	echo '<div class="rsg2logo">';
-	echo '  <img src="' . JUri::root(true) . '/administrator/components/com_rsgallery2/images/rsg2-logo.png" align="middle" alt="RSGallery2 logo" /> ';
+	//echo '  <img src="' . JUri::root(true) . '/administrator/components/com_rsgallery2/images/rsg2-logo.png" align="middle" alt="RSGallery2 logo" /> ';
+	echo '  <img src="' . JUri::root(true) . '/administrator/components/com_rsgallery2/images/RSG2_logoText.svg" align="middle" alt="RSGallery2 logo 2" /> ';
 	echo '</div>';
 	/**/
 //    echo '<table class="table table-striped">';
