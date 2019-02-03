@@ -16,9 +16,10 @@ defined('_JEXEC') or die();
 class rsgDisplay_slideshowone extends rsgDisplay
 {
 
-	/**
-	 *
-	 */
+	public $isAutoStart = True;
+	public $isDisplayButtons = False;
+	public $isButtonsAbove = True;
+	
 	function showSlideShow()
 	{
 		// global $rsgConfig;
@@ -32,7 +33,8 @@ class rsgDisplay_slideshowone extends rsgDisplay
 		}
 
 		$k    = 0;
-		$text = "";
+		$html = "";
+		
 		foreach ($gallery->items() as $item)
 		{
 			if ($item->type != 'image')
@@ -42,10 +44,10 @@ class rsgDisplay_slideshowone extends rsgDisplay
 
 			$display = $item->display();
 
-			$text .= "SLIDES[" . $k . "] = ['" . $display->url() . "', '{$item->title}'];\n";
+			$html .= "SLIDES[" . $k . "] = ['" . $display->url() . "', '{$item->title}'];\n";
 			$k++;
 		}
-		$this->slides = $text;
+		$this->slides = $html;
 		$this->display('slideshow.php');
 	}
 }

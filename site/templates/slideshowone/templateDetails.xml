@@ -23,12 +23,36 @@
 		<fields name="params">
 			<fieldset name="advanced">
 				<field 
-						id="autostart"
-						name="autostart"
+						id="isAutoStart"
+						name="isAutoStart"
 						type="radio"
 						default="1"
 						label="COM_RSGALLERY2_SLIDESHOW_AUTOSTART"
 						description="COM_RSGALLERY2_SLIDESHOW_AUTOSTART_DESC"
+						class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				
+				<field 
+						id="isDisplayButtons"
+						name="isDisplayButtons"
+						type="radio"
+						default="0"
+						label="COM_RSGALLERY2_SHOW_BUTTONS"
+						description="COM_RSGALLERY2_SHOW_BUTTONS_DESC"
+						class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				
+				<field 
+						id="isButtonsAbove"
+						name="isButtonsAbove"
+						type="radio"
+						default="0"
+						label="COM_RSGALLERY2_BUTTONS_ABOVE"
+						description="COM_RSGALLERY2_BUTTONS_ABOVE_SLIDESHOW_DESC"
 						class="btn-group btn-group-yesno">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>

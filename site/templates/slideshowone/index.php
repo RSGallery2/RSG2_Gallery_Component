@@ -14,10 +14,7 @@ defined('_JEXEC') or die();
 $templatePath = JPATH_RSGALLERY2_SITE . '/templates' . '/slideshowone';
 require_once($templatePath . '/display.class.php');
 
+//--- slideshow class --------------------------
+
 $rsgDisplay = new rsgDisplay_slideshowone();
-
-//$rsgDisplay->autostart = JRequest::getBool( 'autostart' );
-$input                  = JFactory::getApplication()->input;
-$rsgDisplay->autostart = $input->get('autostart', True, 'BOOL');
-
 $rsgDisplay->showSlideShow();

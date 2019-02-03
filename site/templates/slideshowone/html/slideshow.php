@@ -26,8 +26,46 @@ $Script = "
 ";
 $document->addScriptDeclaration($Script);
 
-$firstImage = $this->gallery->getItem();
-$firstImage = $firstImage->display();
+//--- slideshow parameter --------------------------
+
+// change if defined in params.ini file
+
+$this->isAutoStart = $this->params->get('isAutoStart', $this->isAutoStart);
+$this->isDisplayButtons = $this->params->get('isDisplayButtons', $this->isDisplayButtons);
+$this->isButtonsAbove = $this->params->get('isButtonsAbove', $this->isButtonsAbove);
+
+//--- first image to show --------------------------
+
+$firstItem = $this->gallery->getItem();
+$firstImage = $firstItem->display();
+
+//--- buttons below or above slideshow --------------------------
+
+function displayButtons ()
+{
+	$html[] = '<div class="clearfix"></div>';
+    $html[] = '<div class="PlayerIconArrayContainer">';
+    $html[] = '    <div class="PlayerIconArray">';
+    $html[] = '        <a class="PlayerIcon" href="javascript:;" onclick="startSS()">';
+    $html[] = '            <i class="fa fa-play"></i>';
+    $html[] = '        </a>';
+    $html[] = '        <a class="PlayerIcon" href="javascript:;" onclick="stopSS()">';
+    $html[] = '            <i class="fa fa-stop"></i>';
+    $html[] = '        </a>';
+    $html[] = '        <a class="PlayerIcon" href="javascript:;" onclick="prevSS()">';
+    $html[] = '            <i class="fa fa-backward"></i>';
+    $html[] = '        </a>';
+    $html[] = '        <a class="PlayerIcon" href="javascript:;" onclick="nextSS()">';
+    $html[] = '            <i class="fa fa-forward"></i>';
+    $html[] = '        </a>';
+    $html[] = '    </div>';
+    $html[] = '</div>';
+
+	$html = implode("\n", $html);;
+	return $html;
+}
+
+
 ?>
 
 <div class="rsg2-slideshowone">
@@ -38,24 +76,21 @@ $firstImage = $firstImage->display();
 		<input type="Hidden" name="delay">
 
 		<div class="PlayerContainer">
-			<?php if (!$this->cleanStart): ?>
-				<div class="clearfix"></div>
-				<div class="PlayerIconArray">
-					<a class="PlayerIcon" href="javascript:;" onclick="startSS()">
-						<i class="fa fa-play"></i>
-					</a>
-					<a class="PlayerIcon" href="javascript:;" onclick="stopSS()">
-						<i class="fa fa-stop"></i>
-					</a>
-					<a class="PlayerIcon" href="javascript:;" onclick="prevSS()">
-						<i class="fa fa-backward"></i>
-					</a>
-					<a class="PlayerIcon" href="javascript:;" onclick="nextSS()">
-						<i class="fa fa-forward"></i>
-					</a>
-				</div>
-			<?php endif; ?>
-			<img name="stage" class="PlayerImage" src="<?php echo $firstImage->url(); ?>" style="filter: revealtrans(); font-size:12px;">
+			<?php
+			if ($this->isDisplayButtons && $this->isButtonsAbove)
+			{
+				echo displayButtons();
+			}
+            echo '<img name="stage" class="PlayerImage" src="' . $firstImage->url() . '" style="filter: revealtrans(); font-size:12px;">';
+
+            if ($this->isDisplayButtons && ! $this->isButtonsAbove)
+			{
+				echo '<br>';
+				echo '<br>';
+
+				echo displayButtons ();
+			}
+			?>
 		</div>
 
 		<div style="visibility:hidden;">
@@ -75,7 +110,7 @@ $firstImage = $firstImage->display();
 
 		effect = 23;// transition effect. number between 0 and 23, 23 is random effect
 		duration = 1.5;// transition duration. number of seconds effect lasts
-		display = 4;// seconds to diaply each image?
+		display = 4;// seconds to display each image?
 		oW = 400;// width of stage (first image)
 		oH = 400;// height of stage
 		zW = 40;// zoom width by (add or subtracts this many pixels from image width)
@@ -219,7 +254,7 @@ $firstImage = $firstImage->display();
 		// -->
 	</script>
 
-	<?php if ($this->cleanStart): ?>
+	<?php if ($this->isAutoStart): ?>
 		<script type="text/javascript">
 			startSS();
 		</script>
