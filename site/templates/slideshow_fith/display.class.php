@@ -16,17 +16,14 @@ defined('_JEXEC') or die();
 class rsgDisplay_slideshow_fith extends rsgDisplay
 {
 
+
+
 	/**
 	 *
 	 */
 	function showSlideShow()
 	{
 		$doc = JFactory::getDocument();
-		$cssSliders = JURI::base(true).'/components/com_rsgallery2/templates/slideshow_fith/css/slideshow_fith.css';
-		$doc->addStyleSheet($cssSliders);
-
-		$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/slideshow_fith/js/slideshow_fith.js';
-		$doc->addScript($jsScript);
 
 		// global $rsgConfig;
 
@@ -37,6 +34,8 @@ class rsgDisplay_slideshow_fith extends rsgDisplay
 		{
 			return;
 		}
+
+
 
 		$imgIdx = 0;
 		$text = "";
@@ -83,14 +82,11 @@ class rsgDisplay_slideshow_fith extends rsgDisplay
 		</svg>
 		/**/
 
-		$html = [];
-		
-		$html[] = '<div class="carousel_container_fith">';
-
 		//$html[] = '    <div class="row-fluid center">';
 
 		//--- button previous -------------------------
 
+		/**
 		$html[] = '    <button class="carousel_button_fith back btn">'; // is-hidden
 		//$html[] = '        <svg width="20" height="32" viewBox="0 0 54 67.007">'; // xmlns="http://www.w3.org/2000/svg"';
 		$html[] = '        <svg width="16" height="24" viewBox="0 -2 44 67.007">'; // xmlns="http://www.w3.org/2000/svg"';
@@ -164,7 +160,7 @@ class rsgDisplay_slideshow_fith extends rsgDisplay
 
 		//--- button next -------------------------
 
-		/**/
+		/**
 		$html[] = '    <button class="carousel_button_fith next btn">'; //  is-hidden
 		//$html[] = '        <svg width="20" height="32" viewBox="0 0 54 67.007">'; // xmlns="http://www.w3.org/2000/svg"';
 		$html[] = '        <svg width="16" height="24" viewBox="0 -2 44 67.007">'; // xmlns="http://www.w3.org/2000/svg"';
@@ -173,7 +169,16 @@ class rsgDisplay_slideshow_fith extends rsgDisplay
 		$html[] = '            Sorry, your browser does not support inline SVG.';
 		$html[] = '        </svg>';
 		$html[] = '    </button>';
+
+		$html[] = '    <div class="glyph fs1">';
+		$html[] = '        <div class="clearfix pbs">';
+        $html[] = '            <svg class="icon icon-pause">';
+		$html[] = '                <use xlink:href="symbol-defs.svg#icon-pause"></use>';
+		$html[] = '            </svg><span class="name">icon-pause</span>';
+		$html[] = '        </div>';
+        $html[] = '    </div>';
 		/**/
+
 		//$html[] = '    </div>'; // class=row
 
 		/**
@@ -191,7 +196,7 @@ class rsgDisplay_slideshow_fith extends rsgDisplay
 		$html[] = '    <br>';
 		/**/
 
-		$html[] = '</div>';
+		//$html[] = '</div>';
 		
 		$text = implode("\n", $html);;
 		

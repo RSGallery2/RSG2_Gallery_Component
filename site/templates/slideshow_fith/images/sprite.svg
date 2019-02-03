@@ -1,5 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg">
-  <symbol id="left" width="54" height="69.007" viewBox="0 0 54 69.007"><path d="M47 0L3.44 34.502 47 69.007z"/></symbol>
+<svg 
+style="display:none;"
+	xmlns="http://www.w3.org/2000/svg" 
+	xmlns:xlink="http://www.w3.org/1999/xlink">
+>
+	<defs>
+		<symbol id="left" width="54" height="69.007" viewBox="0 0 54 69.007"><path d="M47 0L3.44 34.502 47 69.007z"/></symbol>
 
-  <symbol id="right" width="54" height="69.007" viewBox="0 0 54 69.007"><path d="M5-.121l43.56 34.502L5 68.886z"/></symbol>
+		<symbol id="right" width="54" height="69.007" viewBox="0 0 54 69.007"><path d="M5-.121l43.56 34.502L5 68.886z"/></symbol>
+	</defs>
+</svg>
+
+
+<svg class="defs-only" xmlns="http://www.w3.org/2000/svg" >
+	<symbol id="shape" width="50" height="50" viewbox="0 0 50 50">
+		<circle cx="25" cy="25" r="20" fill="currentColor" stroke="inherit" />
+	</symbol>
+</svg>
+
+<svg xmlns:xlink="http://www.w3.org/1999/xlink">
+	<use xlink:href="#shape" x="10" y="10" />
+	<use xlink:href="#shape" x="80" y="10" class="purple" />
+</svg>
 </svg>

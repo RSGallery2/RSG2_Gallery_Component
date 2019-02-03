@@ -26,14 +26,47 @@ $Script = "
     });
 ";
 $doc->addScriptDeclaration($Script);
-
 /**/
+
+$cssSliders = JURI::base(true).'/components/com_rsgallery2/templates/slideshow_fith/css/slideshow_fith.css';
+$doc->addStyleSheet($cssSliders);
+
+$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/slideshow_fith/js/slideshow_fith.js';
+$doc->addScript($jsScript);
+
+/*--- ico moon sprite ---*/
+$cssSliders = JURI::base(true).'/components/com_rsgallery2/templates/slideshow_fith/images/icoMoonSprite.css';
+$doc->addStyleSheet($cssSliders);
+
+$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/slideshow_fith/images/svgxuse.js';
+$doc->addScript($jsScript);
+
+
+function slideButton ($iconClassId, $subClass) // icon-pause
+{
+	$html[] = '<svg class="icon ' . $iconClassId . ' carousel_button_fith ' . $subClass . '"';
+	$html[] = 'xmlns:xlink="http://www.w3.org/1999/xlink"';
+	$html[] = 'xmlns="http://www.w3.org/2000/svg"';
+	$html[] = 'version="1.1"';
+	$html[] = '>';
+	$html[] = '    <use xlink:href="http://127.0.0.1/Joomla3xRelease/components/com_rsgallery2/templates/slideshow_fith/images/icoMoonSprite.svg#' . $iconClassId . '">';
+	$html[] = '    </use>';
+	$html[] = '</svg>';
+
+	$html = implode("\n", $html);;
+	return $html;
+}
+
+
+
+
+
 $firstImage = $this->gallery->getItem();
 $firstImage = $firstImage->display();
 /**/
 ?>
 
-<div class="rsg2-slideshowone">
+<div class="rsg2-slideshow_fith">
 
 	<form name="_slideShow">
         <?php
@@ -42,24 +75,24 @@ $firstImage = $firstImage->display();
         $view  = $input->get('view', '', 'CMD');
         if ($view !== 'slideshow')
         {
-        $menuId = $input->get('Itemid', null, 'INT');
-        $gid = $this->gid;
+            $menuId = $input->get('Itemid', null, 'INT');
+            $gid = $this->gid;
 
-        $html = [];
+            $html = [];
 
-        $html[] = '<div style="float: right;">' ."\n"
-            //. '<a href="' .  JRoute::_('index.php?option=com_rsgallery2&Itemid=' . $menuId . '&gid=' . $gid) . '">'
-                . '<a href="#XXX">'
-                    . JText::_('COM_RSGALLERY2_BACK_TO_GALLERY')
-                    . '</a>';
-                $html[] = '</div>';
+            $html[] = '<div style="float: right;">' ."\n"
+                //. '<a href="' .  JRoute::_('index.php?option=com_rsgallery2&Itemid=' . $menuId . '&gid=' . $gid) . '">'
+                    . '<a href="#XXX">'
+                        . JText::_('COM_RSGALLERY2_BACK_TO_GALLERY')
+                        . '</a>';
+                    $html[] = '</div>';
 
-        echo implode("\n", $html);
+            echo implode("\n", $html);
         }
         ?>
 
-        <input type="Hidden" name="currSlide" value="0">
-		<input type="Hidden" name="delay">
+        <input type="Hidden" name="currSlide" value="0" / >
+		<input type="Hidden" name="delay" />
 
 		<div class="slideshow_fith_content">
 			<h3>
@@ -73,7 +106,20 @@ $firstImage = $firstImage->display();
 			</div><!-- end myGallery -->
 		</div><!-- End slideshow_fith_content -->
 
-	</form>
+        <div class="rsg2-clr"></div>
+        <div class="clearfix"></div>
+        <div class="row">
+		<?php
+		echo slideButton('icon-play2', 'play');
+		echo slideButton('icon-stop', 'stop');
+		echo slideButton('icon-previous', 'back');
+		echo slideButton('icon-next', 'next');
+		echo slideButton('icon-backward', 'backward');
+		echo slideButton('icon-forward2', 'forward');
+        ?>
+        </div>
+
+    </form>
 
 
 </div>

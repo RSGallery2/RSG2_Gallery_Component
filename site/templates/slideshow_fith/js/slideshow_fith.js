@@ -21,7 +21,17 @@ jQuery(document).ready(function ($) {
     var nextButton =  document.querySelector('.carousel_button_fith.next');
     console.log('nextButton: ', nextButton);
     var prevButton =  document.querySelector('.carousel_button_fith.back');
-    console.log('prevButton: ', prevButton);
+    console.log('prevButton : ', prevButton );
+
+    var playButton =  document.querySelector('.carousel_button_fith.play');
+    console.log('playButton: ', playButton);
+    var stopButton =  document.querySelector('.carousel_button_fith.stop');
+    console.log('stopButton: ', stopButton);
+
+    var backwardButton =  document.querySelector('.carousel_button_fith.backward');
+    console.log('backwardButton: ', backwardButton);
+    var forwardButton =  document.querySelector('.carousel_button_fith.forward');
+    console.log('forwardButton: ', forwardButton);
 
     var actImgIdx = 0;
 
@@ -65,9 +75,6 @@ jQuery(document).ready(function ($) {
         console.log('prevLinkElem.classList', prevLinkElem.classList);
     }
 
-    // elem.addEventListener("click", func, false);
-    /**/
-
     nextButton.onclick = function(event) {
     // nextButton.addEventListener('click', e => {
         console.log('nextButton');
@@ -84,11 +91,12 @@ jQuery(document).ready(function ($) {
     };
     //});
 
-
     prevButton.onclick = function(event) {
-        //prevButton.addEventListener('click', e => {
-        console.log('event:', event);
         console.log('prevButton');
+
+        //prevButton.addEventListener('click', e => {
+        //console.log('event:', event);
+        //console.log('prevButton');
 
         activateImage(-1);
 
@@ -98,11 +106,84 @@ jQuery(document).ready(function ($) {
 
         return false;
         //return true;
-    }
+    };
+    //});
+
+    playButton.onclick = function(event) {
+        console.log('playButton');
+
+        //prevButton.addEventListener('click', e => {
+        //console.log('event:', event);
+        //console.log('prevButton');
+
+//        activateImage(-1);
+
+//        alert("prevButton");
+
+        event.stopPropagation();
+
+        return false;
+        //return true;
+    };
+    //});
+
+    stopButton.onclick = function(event) {
+        console.log('stopButton');
+
+        //prevButton.addEventListener('click', e => {
+        //console.log('event:', event);
+        //console.log('prevButton');
+
+//        activateImage(-1);
+
+//        alert("prevButton");
+
+        event.stopPropagation();
+
+        return false;
+        //return true;
+    };
+    //});
+
+    backwardButton.onclick = function(event) {
+        console.log('backwardButton');
+
+        //prevButton.addEventListener('click', e => {
+        //console.log('event:', event);
+        //console.log('prevButton');
+
+//        activateImage(-1);
+
+//        alert("prevButton");
+
+        event.stopPropagation();
+
+        return false;
+        //return true;
+    };
+    //});
+
+    forwardButton.onclick = function(event) {
+        console.log('forwardButton');
+
+        //prevButton.addEventListener('click', e => {
+        //console.log('event:', event);
+        //console.log('prevButton');
+
+//        activateImage(-1);
+
+//        alert("prevButton");
+
+        event.stopPropagation();
+
+        return false;
+        //return true;
+    };
     //});
 
 
-/**
+
+    /**
 
 
 
