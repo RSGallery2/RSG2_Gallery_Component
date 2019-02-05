@@ -99,6 +99,7 @@ function displayButtons ()
 
 	</form>
 
+
 	<script type="text/javascript">
 		<!--
 		/*
@@ -131,8 +132,11 @@ function displayButtons ()
 			S[a].src = SLIDES[a][0];
 		}
 
+		// form
 		f = document._slideShow;
+		// index
 		n = 0;
+		// time
 		t = 0;
 
 		//document.images["stage"].width  = oW;

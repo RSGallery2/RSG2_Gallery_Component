@@ -33,7 +33,7 @@ class rsgDisplay_slideshowone extends rsgDisplay
 		}
 
 		$k    = 0;
-		$html = "";
+		$slideArray = "";
 		
 		foreach ($gallery->items() as $item)
 		{
@@ -44,10 +44,18 @@ class rsgDisplay_slideshowone extends rsgDisplay
 
 			$display = $item->display();
 
-			$html .= "SLIDES[" . $k . "] = ['" . $display->url() . "', '{$item->title}'];\n";
+			$slideArray .= "SLIDES[" . $k . "] = ['" . $display->url() . "', '{$item->title}'];\n";
 			$k++;
 		}
-		$this->slides = $html;
+		$this->slides = $slideArray;
+
+		echo '<br>';
+		echo '<br>';
+		echo '<br>';
+		echo '$slideArray' . json_encode ($slideArray);
+		echo '<br>';
+		echo '<br>';
+
 		$this->display('slideshow.php');
 	}
 }
