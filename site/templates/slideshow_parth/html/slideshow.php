@@ -163,11 +163,8 @@ if ($view !== 'slideshow')
     echo implode("\n", $html);
 }
 // <!-- div class="rsg2-clr"></div -->
-?>
 
-<div class="parth_content">
-
-<?php
+    echo '<div class="parth_content">';
 
 //--- Gallery title --------------------------------------
 
@@ -187,5 +184,5 @@ echo '    <div id="myGallery<?php echo $this->gid; ?>" class="myGallery">';
 echo          $this->slides;
 echo '    </div><!-- end myGallery -->';
 
+	echo '</div><!-- End parth_content -->';
 ?>
-</div><!-- End parth_content -->

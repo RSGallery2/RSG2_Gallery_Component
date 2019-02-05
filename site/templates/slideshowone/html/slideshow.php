@@ -101,7 +101,7 @@ function displayButtons ()
 
 
 	<script type="text/javascript">
-		<!--
+		//<!--
 		/*
 		 SlideShow. Written by PerlScriptsJavaScripts.com
 		 Copyright http://www.perlscriptsjavascripts.com
@@ -124,6 +124,8 @@ function displayButtons ()
 
 		<?php echo $this->slides;?>
 
+        //alert (JSON.stringify(SLIDES) );
+        console.log(JSON.stringify(SLIDES))
 		// end required modifications
 
 		S = new Array();
