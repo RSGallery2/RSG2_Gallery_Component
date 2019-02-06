@@ -12,10 +12,14 @@ JHtml::_('behavior.framework', true);  // ToDo: Remove mootools
 
 global $mainframe;
 
-$document = JFactory::getDocument();
-$document->addStyleSheet("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
+$doc = JFactory::getDocument();
+$doc->addStyleSheet("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
 $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshowone/css/slideshowone.css';
-$document->addStyleSheet($css1);
+$doc->addStyleSheet($css1);
+
+$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/slideshowone/js/slideshowone.js';
+$doc->addScript($jsScript);
+
 
 $Script = "
     jQuery(document).ready(function($){
@@ -24,7 +28,7 @@ $Script = "
 		startSS();
     });
 ";
-$document->addScriptDeclaration($Script);
+$doc->addScriptDeclaration($Script);
 
 //--- slideshow parameter --------------------------
 
@@ -252,7 +256,6 @@ function displayButtons ()
 		}
 
 		// start slideshow right once dom is ready (uses mootools)
-
 		Window.onDomReady(function () {
 			runSS(f.currSlide.value);
 		});

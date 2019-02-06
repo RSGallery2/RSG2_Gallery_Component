@@ -46,9 +46,9 @@ class rsgDisplay_slideshowone extends rsgDisplay
 			$display = $item->display();
 
 			// org: $slideArray .= "SLIDES[" . $k . "] = ['" . $display->url() . "', '{$item->title}'];\n";
-			//$slideArray .= "SLIDES[" . $k . "] = ['" . $display->url() . "', '{$item->title}'];";
-			$slideArray .= "SLIDES[" . $k . "] = ['url', 'title'];";
-			$slideArray2 = [$display->url() , $item->title ];
+			$slideArray .= "SLIDES[" . $k . "] = ['" . $display->url() . "', '{$item->title}'];";
+			//$slideArray .= "SLIDES[" . $k . "] = ['url', 'title'];";
+			//$slideArray2 = [$display->url() , $item->title ];
 			$slideArray2 = ['url', 'title'];
 			//$SLIDES []  = [$k => $slideArray2];
 			//$SLIDES []  = [(string)$k => $slideArray2];
