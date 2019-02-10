@@ -12,7 +12,7 @@ Free and commercial Perl and JavaScripts
 --------------------------------------------
 */
 
-jQuery(document).ready(function () {
+// jQuery(document).ready(function () {
 
 
     /**
@@ -43,62 +43,68 @@ jQuery(document).ready(function () {
     //var display = 4;// seconds to display each image?
     var displayTime = slideOptions.displayTime;// seconds to display each image?
     //var oW = 400;// width of stage (first image)
-    var oW = slideOptions.imgWidth;// width of stage (first image)
+    var imgWidth = slideOptions.imgWidth;// width of stage (first image)
     //var oH = 400;// height of stage
-    var oH = slideOptions.imgHeigth;// height of stage
+    var imgHeigth = slideOptions.imgHeigth;// height of stage
     //var zW = 40;// zoom width by (add or subtracts this many pixels from image width)
-    var zW = slideOptions.zoomWidth;// zoom width by (add or subtracts this many pixels from image width)
+    var zoomWidth = slideOptions.zoomWidth;// zoom width by (add or subtracts this many pixels from image width)
     //var zH = 30;// zoom height by
-    var zH = slideOptions.zoomHeigth;// zoom height by
+    var zoomHeigth = slideOptions.zoomHeigth;// zoom height by
 
     var isAutoStart = slideOptions.isAutoStart;
 
     // path to image/name of image in slide show. this will also preload all images
     // each element in the array must be in sequential order starting with zero (0)
     var SLIDES = slideOptions.SLIDES;
+    var slidesLength = SLIDES.length;
     //console.log(JSON.stringify(SLIDES));
     var debugLevel = 2; // 3 -> show all run ...
 
     // end options
 
-    var S = new Array();
-    for (a = 0; a < SLIDES.length; a++) {
-        S[a] = new Image();
-        S[a].src = SLIDES[a][0];
+    var Slides = new Array();
+    for (var a = 0; a < SLIDES.length; a++) {
+        Slides[a] = new Image();
+        Slides[a].src = SLIDES[a][0];
     }
 
-    // form
-    var f = document._slideShow;
+    // this form
+    var f_slides;
     // index
-    var n = 0;
+    //var idxSlides = 0;
     // time
-    var t = 0;
+    var t_slides = 0;
 
-    //document.images["stage"].width  = oW;
-    //document.images["stage"].height = oH;
-    f.delay.value = displayTime;
+    //document.images["stage"].width  = imgWidth;
+    //document.images["stage"].height = imgHeigth;
+
+    function initialize() {
+        f_slides = document._slideShow;
+        f_slides.delay.value = displayTime;
+    }
 
     function startSS() {
         if (debugLevel > 1) {
             console.log('>startSS');
         }
-        //t = setTimeout({runSS(f.currSlide.value)();}, 1 * 1);
+        //t_slides = setTimeout({runSS(f_slides.currSlide.value)();}, 1 * 1);
         var action = function () {
-            runSS(f.currSlide.value);
+            runSS(f_slides.currSlide.value);
         };
-        t = setTimeout(action, f.delay.value * 1000);
+        t_slides = setTimeout(action, f_slides.delay.value * 1000);
     }
 
-    function runSS(n) {
+    function runSS(idxSlides) {
         if (debugLevel > 2) {
             console.log('>runSS');
         }
-        n++;
-        if (n >= SLIDES.length) {
-            n = 0;
-        }
 
-        document.images["stage"].src = S[n].src;
+        var idxSlides = (f_slides.currSlide.value + 1) % slidesLength;
+        console.log('idxSlides (runSS): ' + idxSlides);
+
+        document.images["stage"].src = Slides[idxSlides].src;
+        f_slides.currSlide.value = idxSlides;
+
         if (document.all && navigator.userAgent.indexOf("Opera") < 0 && navigator.userAgent.indexOf("Windows") >= 0) {
             document.images["stage"].style.visibility = "hidden";
             document.images["stage"].filters.item(0).apply();
@@ -106,20 +112,22 @@ jQuery(document).ready(function () {
             document.images["stage"].style.visibility = "visible";
             document.images["stage"].filters(0).play(transitionTime);
         }
-        f.currSlide.value = n;
-        //t = setTimeout("runSS(" + f.currSlide.value + ")", f.delay.value * 1000);
+        //t_slides = setTimeout("runSS(" + f_slides.currSlide.value + ")", f_slides.delay.value * 1000);
         var action = function () {
-            runSS(f.currSlide.value);
+            runSS(f_slides.currSlide.value);
         };
-        t = setTimeout(action, f.delay.value * 1000);
+        t_slides = setTimeout(action, f_slides.delay.value * 1000);
     }
 
     function stopSS() {
         if (debugLevel > 1) {
             console.log('>stopSS');
         }
-        if (t) {
-            t = clearTimeout(t);
+
+        console.log('idxSlides (stopSS): ' + f_slides.currSlide.value);
+
+        if (t_slides) {
+            t_slides = clearTimeout(t_slides);
         }
     }
 
@@ -127,17 +135,15 @@ jQuery(document).ready(function () {
         if (debugLevel > 1) {
             console.log('>nextSS');
         }
+
         stopSS();
-        n = f.currSlide.value;
-        n++;
-        if (n >= SLIDES.length) {
-            n = 0;
-        }
-        if (n < 0) {
-            n = SLIDES.length - 1;
-        }
-        document.images["stage"].src = S[n].src;
-        f.currSlide.value = n;
+
+        var idxSlides = (f_slides.currSlide.value + 1) % slidesLength;
+        console.log('idxSlides (next): ' + idxSlides);
+
+        document.images["stage"].src = Slides[idxSlides].src;
+        f_slides.currSlide.value = idxSlides;
+
         if (document.all && navigator.userAgent.indexOf("Opera") < 0 && navigator.userAgent.indexOf("Windows") >= 0) {
             document.images["stage"].style.visibility = "hidden";
             document.images["stage"].filters.item(0).apply();
@@ -151,17 +157,14 @@ jQuery(document).ready(function () {
         if (debugLevel > 1) {
             console.log('>prevSS');
         }
+
         stopSS();
-        n = f.currSlide.value;
-        n--;
-        if (n >= SLIDES.length) {
-            n = 0;
-        }
-        if (n < 0) {
-            n = SLIDES.length - 1;
-        }
-        document.images["stage"].src = S[n].src;
-        f.currSlide.value = n;
+
+        var idxSlides = (f_slides.currSlide.value - 1 + slidesLength) % slidesLength;
+        console.log('idxSlides (prev): ' + idxSlides);
+
+        document.images["stage"].src = Slides[idxSlides].src;
+        f_slides.currSlide.value = idxSlides;
 
         if (document.all && navigator.userAgent.indexOf("Opera") < 0 && navigator.userAgent.indexOf("Windows") >= 0) {
             document.images["stage"].style.visibility = "hidden";
@@ -172,13 +175,16 @@ jQuery(document).ready(function () {
         }
     }
 
-    function selected(n) {
+
+    function selected(idxSlides) {
         if (debugLevel > 1) {
             console.log('>selected');
         }
+
         stopSS();
-        document.images["stage"].src = S[n].src;
-        f.currSlide.value = n;
+
+        document.images["stage"].src = Slides[idxSlides].src;
+        f_slides.currSlide.value = idxSlides;
 
         if (document.all && navigator.userAgent.indexOf("Opera") < 0 && navigator.userAgent.indexOf("Windows") >= 0) {
             document.images["stage"].style.visibility = "hidden";
@@ -194,22 +200,22 @@ jQuery(document).ready(function () {
             console.log('>zoom');
         }
         if (dim1) {
-            if (document.images["stage"].width < oW) {
-                document.images["stage"].width = oW;
-                document.images["stage"].height = oH;
+            if (document.images["stage"].width < imgWidth) {
+                document.images["stage"].width = imgWidth;
+                document.images["stage"].height = imgHeigth;
             } else {
                 document.images["stage"].width += dim1;
                 document.images["stage"].height += dim2;
             }
             if (dim1 < 0) {
-                if (document.images["stage"].width < oW) {
-                    document.images["stage"].width = oW;
-                    document.images["stage"].height = oH;
+                if (document.images["stage"].width < imgWidth) {
+                    document.images["stage"].width = imgWidth;
+                    document.images["stage"].height = imgHeigth;
                 }
             }
         } else {
-            document.images["stage"].width = oW;
-            document.images["stage"].height = oH;
+            document.images["stage"].width = imgWidth;
+            document.images["stage"].height = imgHeigth;
         }
     }
 
@@ -219,12 +225,11 @@ jQuery(document).ready(function () {
         isAutoStart = true;
     }
 
-// jQuery(document).ready(function () {
+jQuery(document).ready(function () {
 
+    initialize();
 
     if (isAutoStart) {
-        //console.log('do runSS');
-        //runSS(f.currSlide.value);
         console.log('do startSS');
         startSS();
     }
