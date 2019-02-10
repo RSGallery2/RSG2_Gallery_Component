@@ -21,6 +21,13 @@ $jsScript = JURI::base(true).'/components/com_rsgallery2/templates/slideshowone/
 $doc->addScript($jsScript);
 
 
+
+/*
+$phpvars = array('alpha' => 1, 'beta' => 'test', 'gamma' => null);
+$doc->addScriptOptions('myvars', $phpvars);
+/**/
+
+/**
 $Script = "
     jQuery(document).ready(function($){
 		// alert('test');
@@ -28,7 +35,9 @@ $Script = "
 		startSS();
     });
 ";
+
 $doc->addScriptDeclaration($Script);
+ * /**/
 
 //--- slideshow parameter --------------------------
 
@@ -113,6 +122,7 @@ function displayButtons ()
 		 Free and commercial Perl and JavaScripts
 		 */
 
+		/**
 		effect = 23;// transition effect. number between 0 and 23, 23 is random effect
 		duration = 1.5;// transition duration. number of seconds effect lasts
 		display = 4;// seconds to display each image?
@@ -126,7 +136,7 @@ function displayButtons ()
 		SLIDES = new Array();
 		//Echo JS-array from DB-query here
 
-		<?php echo $this->slides;?>
+		< ?php echo $this->slides;? >
 
         //alert (JSON.stringify(SLIDES) );
         console.log(JSON.stringify(SLIDES))
@@ -256,16 +266,18 @@ function displayButtons ()
 		}
 
 		// start slideshow right once dom is ready (uses mootools)
+
 		Window.onDomReady(function () {
 			runSS(f.currSlide.value);
 		});
 
 		// -->
+        /**/
 	</script>
 
 	<?php if ($this->isAutoStart): ?>
 		<script type="text/javascript">
-			startSS();
+			// startSS();
 		</script>
 	<?php endif; ?>
 

@@ -48,18 +48,21 @@ class rsgDisplay_slideshowone extends rsgDisplay
 			// org: $slideArray .= "SLIDES[" . $k . "] = ['" . $display->url() . "', '{$item->title}'];\n";
 			$slideArray .= "SLIDES[" . $k . "] = ['" . $display->url() . "', '{$item->title}'];";
 			//$slideArray .= "SLIDES[" . $k . "] = ['url', 'title'];";
-			//$slideArray2 = [$display->url() , $item->title ];
+			$slideArray2 = [$display->url() , $item->title ];
 			$slideArray2 = ['url', 'title'];
 			//$SLIDES []  = [$k => $slideArray2];
 			//$SLIDES []  = [(string)$k => $slideArray2];
 			//$SLIDES []  = ['{$k}' => $slideArray2];
 			//$SLIDES []  = ["{$k}" => $slideArray2];
-			$SLIDES ['SLIDES[' . $k . ']'] = ['url', 'title'] ;
+			//$SLIDES ['SLIDES[' . $k . ']'] = ['url', 'title'] ;
+			$SLIDES [$k] = ['url' . $k, 'title' . $k] ;
+			$SLIDES [$k] = [$display->url(), $item->title] ;
 			$k++;
 		}
-		$this->slides = $slideArray;
+		//$this->slides = $slideArray;
+		$this->slides ['SLIDES'] =  $SLIDES;
 
-		/**/
+		/**
 		echo '<br>';
 		echo '<br>';
 		echo '<br>';
@@ -67,7 +70,7 @@ class rsgDisplay_slideshowone extends rsgDisplay
 		echo '<br>';
 		echo '<br>';
 		/**/
-		/**/
+		/**
 		echo '<br>';
 		echo '<br>';
 		echo '<br>';
@@ -75,6 +78,29 @@ class rsgDisplay_slideshowone extends rsgDisplay
 		echo '<br>';
 		echo '<br>';
 		/**/
+
+		/**
+		$phpVars1 = array('alpha' => 1, 'beta' => 'test', 'gamma' => null);
+		$phpVars2['alpha'] = 1;
+		$phpVars2['beta'] = 'test';
+		$phpVars2['gamma'] = null;
+
+		echo '<br>';
+		echo '<br>';
+		echo '<br>';
+		echo '$phpVars1: ' . json_encode ($phpVars1);
+		echo '<br>';
+		echo '$phpVars2: ' . json_encode ($phpVars2);
+		echo '<br>';
+		echo '<br>';
+		/**/
+
+		$doc = JFactory::getDocument();
+		// $doc->addScriptOptions('slideArray', $phpVars2);
+		$doc->addScriptOptions('slideArray', $this->slides);
+
+
+
 
 		/**
 		$moves = [
