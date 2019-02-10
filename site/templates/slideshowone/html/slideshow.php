@@ -21,31 +21,28 @@ $jsScript = JURI::base(true).'/components/com_rsgallery2/templates/slideshowone/
 $doc->addScript($jsScript);
 
 
-
-/*
-$phpvars = array('alpha' => 1, 'beta' => 'test', 'gamma' => null);
-$doc->addScriptOptions('myvars', $phpvars);
-/**/
-
-/**
-$Script = "
-    jQuery(document).ready(function($){
-		// alert('test');
-		prevSS();
-		startSS();
-    });
-";
-
-$doc->addScriptDeclaration($Script);
- * /**/
-
 //--- slideshow parameter --------------------------
 
 // change if defined in params.ini file
 
-$this->isAutoStart = $this->params->get('isAutoStart', $this->isAutoStart);
+$this->slideOptions ['isAutoStart'] = $this->params->get('isAutoStart', True);
+$this->slideOptions ['effectType'] = $this->params->get('effectType', 23);
+$this->slideOptions ['transitionTime'] = $this->params->get('transitionTime', '1.5');
+$this->slideOptions ['displayTime'] = $this->params->get('displayTime', '4.0');
+$this->slideOptions ['imgWidth'] = $this->params->get('imgWidth', 401);
+$this->slideOptions ['imgHeigth'] = $this->params->get('imgHeigth', 401);
+$this->slideOptions ['zoomWidth'] = $this->params->get('zoomWidth', 41);
+$this->slideOptions ['zoomHeigth'] = $this->params->get('zoomHeigth', 31);
+
+// $this->slideOptions [''] = ;
+
 $this->isDisplayButtons = $this->params->get('isDisplayButtons', $this->isDisplayButtons);
 $this->isButtonsAbove = $this->params->get('isButtonsAbove', $this->isButtonsAbove);
+
+
+$doc = JFactory::getDocument();
+$doc->addScriptOptions('slideArray', $this->slideOptions);
+
 
 //--- first image to show --------------------------
 
@@ -56,6 +53,8 @@ $firstImage = $firstItem->display();
 
 function displayButtons ()
 {
+	$html[] = '<br>'; // ToDo: remove , use CSS
+
 	$html[] = '<div class="clearfix"></div>';
     $html[] = '<div class="PlayerIconArrayContainer">';
     $html[] = '    <div class="PlayerIconArray">';
@@ -112,173 +111,5 @@ function displayButtons ()
 
 	</form>
 
-
-	<script type="text/javascript">
-		//<!--
-		/*
-		 SlideShow. Written by PerlScriptsJavaScripts.com
-		 Copyright http://www.perlscriptsjavascripts.com
-		 Code page http://www.perlscriptsjavascripts.com/js/slideshow.html
-		 Free and commercial Perl and JavaScripts
-		 */
-
-		/**
-		effect = 23;// transition effect. number between 0 and 23, 23 is random effect
-		duration = 1.5;// transition duration. number of seconds effect lasts
-		display = 4;// seconds to display each image?
-		oW = 400;// width of stage (first image)
-		oH = 400;// height of stage
-		zW = 40;// zoom width by (add or subtracts this many pixels from image width)
-		zH = 30;// zoom height by
-
-		// path to image/name of image in slide show. this will also preload all images
-		// each element in the array must be in sequential order starting with zero (0)
-		SLIDES = new Array();
-		//Echo JS-array from DB-query here
-
-		< ?php echo $this->slides;? >
-
-        //alert (JSON.stringify(SLIDES) );
-        console.log(JSON.stringify(SLIDES))
-		// end required modifications
-
-		S = new Array();
-		for (a = 0; a < SLIDES.length; a++) {
-			S[a] = new Image();
-			S[a].src = SLIDES[a][0];
-		}
-
-		// form
-		f = document._slideShow;
-		// index
-		n = 0;
-		// time
-		t = 0;
-
-		//document.images["stage"].width  = oW;
-		//document.images["stage"].height = oH;
-		f.delay.value = display;
-
-		function startSS() {
-			t = setTimeout("runSS(" + f.currSlide.value + ")", 1 * 1);
-		}
-
-		function runSS(n) {
-			n++;
-			if (n >= SLIDES.length) {
-				n = 0;
-			}
-
-			document.images["stage"].src = S[n].src;
-			if (document.all && navigator.userAgent.indexOf("Opera") < 0 && navigator.userAgent.indexOf("Windows") >= 0) {
-				document.images["stage"].style.visibility = "hidden";
-				document.images["stage"].filters.item(0).apply();
-				document.images["stage"].filters.item(0).transition = effect;
-				document.images["stage"].style.visibility = "visible";
-				document.images["stage"].filters(0).play(duration);
-			}
-			f.currSlide.value = n;
-			t = setTimeout("runSS(" + f.currSlide.value + ")", f.delay.value * 1000);
-		}
-
-		function stopSS() {
-			if (t) {
-				t = clearTimeout(t);
-			}
-		}
-
-		function nextSS() {
-			stopSS();
-			n = f.currSlide.value;
-			n++;
-			if (n >= SLIDES.length) {
-				n = 0;
-			}
-			if (n < 0) {
-				n = SLIDES.length - 1;
-			}
-			document.images["stage"].src = S[n].src;
-			f.currSlide.value = n;
-			if (document.all && navigator.userAgent.indexOf("Opera") < 0 && navigator.userAgent.indexOf("Windows") >= 0) {
-				document.images["stage"].style.visibility = "hidden";
-				document.images["stage"].filters.item(0).apply();
-				document.images["stage"].filters.item(0).transition = effect;
-				document.images["stage"].style.visibility = "visible";
-				document.images["stage"].filters(0).play(duration);
-			}
-		}
-
-		function prevSS() {
-			stopSS();
-			n = f.currSlide.value;
-			n--;
-			if (n >= SLIDES.length) {
-				n = 0;
-			}
-			if (n < 0) {
-				n = SLIDES.length - 1;
-			}
-			document.images["stage"].src = S[n].src;
-			f.currSlide.value = n;
-
-			if (document.all && navigator.userAgent.indexOf("Opera") < 0 && navigator.userAgent.indexOf("Windows") >= 0) {
-				document.images["stage"].style.visibility = "hidden";
-				document.images["stage"].filters.item(0).apply();
-				document.images["stage"].filters.item(0).transition = effect;
-				document.images["stage"].style.visibility = "visible";
-				document.images["stage"].filters(0).play(duration);
-			}
-		}
-
-		function selected(n) {
-			stopSS();
-			document.images["stage"].src = S[n].src;
-			f.currSlide.value = n;
-
-			if (document.all && navigator.userAgent.indexOf("Opera") < 0 && navigator.userAgent.indexOf("Windows") >= 0) {
-				document.images["stage"].style.visibility = "hidden";
-				document.images["stage"].filters.item(0).apply();
-				document.images["stage"].filters.item(0).transition = effect;
-				document.images["stage"].style.visibility = "visible";
-				document.images["stage"].filters(0).play(duration);
-			}
-		}
-
-		function zoom(dim1, dim2) {
-			if (dim1) {
-				if (document.images["stage"].width < oW) {
-					document.images["stage"].width = oW;
-					document.images["stage"].height = oH;
-				} else {
-					document.images["stage"].width += dim1;
-					document.images["stage"].height += dim2;
-				}
-				if (dim1 < 0) {
-					if (document.images["stage"].width < oW) {
-						document.images["stage"].width = oW;
-						document.images["stage"].height = oH;
-					}
-				}
-			} else {
-				document.images["stage"].width = oW;
-				document.images["stage"].height = oH;
-			}
-		}
-
-		// start slideshow right once dom is ready (uses mootools)
-
-		Window.onDomReady(function () {
-			runSS(f.currSlide.value);
-		});
-
-		// -->
-        /**/
-	</script>
-
-	<?php if ($this->isAutoStart): ?>
-		<script type="text/javascript">
-			// startSS();
-		</script>
-	<?php endif; ?>
 
 </div>

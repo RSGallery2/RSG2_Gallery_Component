@@ -57,6 +57,95 @@
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
+
+				<!-- effect = 23;// transition effect. number between 0 and 23, 23 is random effect -->
+				<field
+						id="effectType"
+						name="effectType"
+						type="integer"
+						default="23"
+						label="COM_RSGALLERY2_SLIDESONE_EFFECT_TYPE"
+						description="COM_RSGALLERY2_SLIDESONE_EFFECT_TYPE_DESC"
+						class=""
+						first="1"
+						last="23"
+						step="1">
+				</field>
+
+				<!-- duration = 1.5;// transition duration. number of seconds effect lasts -->
+				<field
+						id="transitionTime"
+						name="transitionTime"
+						type="number"
+						default="1.5"
+						label="COM_RSGALLERY2_SLIDESONE_TRANSITION_TIME"
+						description="COM_RSGALLERY2_SLIDESONE_TRANSITION_TIME_DESC"
+						class=""
+				>
+				</field>
+
+
+				<!-- display = 4;// seconds to display each image? -->
+				<field
+						id="displayTime"
+						name="displayTime"
+						type="number"
+						default="4"
+						label="COM_RSGALLERY2_SLIDESONE_DISPLAY_TIME"
+						description="COM_RSGALLERY2_SLIDESONE_DISPLAY_TIME_DESC"
+						class=""
+				>
+				</field>
+
+				<!-- oW = 400;// width of stage (first image) -->
+				<field
+						id="imgWidth"
+						name="imgWidth"
+						type="number"
+						default="400"
+						label="COM_RSGALLERY2_SLIDESONE_IMAGE_WIDTH"
+						description="COM_RSGALLERY2_SLIDESONE_IMAGE_WIDTH_DESC"
+						class=""
+						>
+				</field>
+
+				<!-- oH = 400;// height of stage -->
+				<field
+						id="imgHeigth"
+						name="imgHeigth"
+						type="number"
+						default="400"
+						label="COM_RSGALLERY2_SLIDESONE_IMAGE_HEIGHT"
+						description="COM_RSGALLERY2_SLIDESONE_IMAGE_HEIGHT_DESC"
+						class=""
+				>
+				</field>
+
+				<!-- zW = 40;// zoom width by (add or subtracts this many pixels from image width) -->
+				<field
+						id="zoomWidth"
+						name="zoomWidth"
+						type="number"
+						default="40"
+						label="COM_RSGALLERY2_SLIDESONE_ZOOM_WIDTH"
+						description="COM_RSGALLERY2_SLIDESONE_ZOOM_WIDTH_DESC"
+						class=""
+				>
+				</field>
+
+				<!-- zH = 30;// zoom height by -->
+				<field
+						id="zoomHeigth"
+						name="zoomHeigth"
+						type="number"
+						default="30"
+						label="COM_RSGALLERY2_SLIDESONE_ZOOM_HEIGHT"
+						description="COM_RSGALLERY2_SLIDESONE_ZOOM_HEIGHT_DESC"
+						class=""
+				>
+				</field>
+
+
 			</fieldset>
 		</fields>
 	</config>
