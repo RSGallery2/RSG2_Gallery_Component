@@ -86,15 +86,15 @@ Free and commercial Perl and JavaScripts
     function nextIdx (actIdx, arrayLength)
     {
         var _nextIdx = (parseInt(actIdx) + 1) % parseInt(arrayLength);
-        console.log('nextIdx in: ' + actIdx + ' next: ' +  _nextIdx + ' length:' +  arrayLength + ' current:' +  f_slides.currSlide.value);
+        //console.log('nextIdx in: ' + actIdx + ' next: ' +  _nextIdx + ' length:' +  arrayLength + ' current:' +  f_slides.currSlide.value);
         
         return _nextIdx;
     }
     
-    function previousIdx (actIdx, length)
+    function previousIdx (actIdx, arrayLength)
     {
         var _prevIdx = (parseInt(actIdx) - 1 + parseInt(arrayLength)) % parseInt(arrayLength);
-        console.log('prevIdx in: ' + actIdx + ' prev: ' +  _prevIdx + ' length:' +  arrayLength + ' current:' +  f_slides.currSlide.value);
+        //console.log('prevIdx in: ' + actIdx + ' prev: ' +  _prevIdx + ' length:' +  arrayLength + ' current:' +  f_slides.currSlide.value);
     
         return _prevIdx;
     }
@@ -130,7 +130,7 @@ Free and commercial Perl and JavaScripts
         }
     
         var idxSlide = nextIdx (idxPrevious, slidesLength)
-        console.log('idxSlide (runNextSlide): ' + idxSlide);
+        //console.log('idxSlide (runNextSlide): ' + idxSlide);
     
         initSlide(idxSlide);
     
@@ -146,7 +146,7 @@ Free and commercial Perl and JavaScripts
             console.log('>stopSS');
         }
 
-        console.log('idxSlide (stopSS): ' + f_slides.currSlide.value);
+        //console.log('idxSlide (stopSS): ' + f_slides.currSlide.value);
 
         if (t_slides) {
             t_slides = clearTimeout(t_slides);
@@ -161,7 +161,7 @@ Free and commercial Perl and JavaScripts
         stopSS();
     
         var idxSlide = nextIdx (f_slides.currSlide.value, slidesLength)
-        console.log('idxSlide (next): ' + idxSlide);
+        //console.log('idxSlide (next): ' + idxSlide);
     
         initSlide(idxSlide);
     }
@@ -174,7 +174,7 @@ Free and commercial Perl and JavaScripts
         stopSS();
     
         var idxSlide = previousIdx (f_slides.currSlide.value, slidesLength)
-        console.log('idxSlide (prev): ' + idxSlide);
+        //console.log('idxSlide (prev): ' + idxSlide);
     
         initSlide(idxSlide);
     }
