@@ -71,7 +71,7 @@ Free and commercial Perl and JavaScripts
     // this form
     var f_slides;
     // index
-    //var idxSlides = 0;
+    //var idxSlide = 0;
     // time
     var t_slides = 0;
 
@@ -83,38 +83,60 @@ Free and commercial Perl and JavaScripts
         f_slides.delay.value = displayTime;
     }
 
+    function nextIdx (actIdx, arrayLength)
+    {
+        var _nextIdx = (parseInt(actIdx) + 1) % parseInt(arrayLength);
+        console.log('nextIdx in: ' + actIdx + ' next: ' +  _nextIdx + ' length:' +  arrayLength + ' current:' +  f_slides.currSlide.value);
+        
+        return _nextIdx;
+    }
+    
+    function previousIdx (actIdx, length)
+    {
+        var _prevIdx = (parseInt(actIdx) - 1 + parseInt(arrayLength)) % parseInt(arrayLength);
+        console.log('prevIdx in: ' + actIdx + ' prev: ' +  _prevIdx + ' length:' +  arrayLength + ' current:' +  f_slides.currSlide.value);
+    
+        return _prevIdx;
+    }
+
+    function initSlide (idxSlide) {
+        
+        document.images['stage'].src = Slides[idxSlide].src
+        f_slides.currSlide.value = idxSlide
+        
+        if (document.all && navigator.userAgent.indexOf('Opera') < 0 && navigator.userAgent.indexOf('Windows') >= 0) {
+            document.images['stage'].style.visibility = 'hidden'
+            document.images['stage'].filters.item(0).apply()
+            document.images['stage'].filters.item(0).transition = effectType
+            document.images['stage'].style.visibility = 'visible'
+            document.images['stage'].filters(0).play(transitionTime)
+        }
+    }
+
     function startSS() {
         if (debugLevel > 1) {
             console.log('>startSS');
         }
-        //t_slides = setTimeout({runSS(f_slides.currSlide.value)();}, 1 * 1);
+        //t_slides = setTimeout({runNextSlide(f_slides.currSlide.value)();}, 1 * 1);
         var action = function () {
-            runSS(f_slides.currSlide.value);
+            runNextSlide(f_slides.currSlide.value);
         };
         t_slides = setTimeout(action, f_slides.delay.value * 1000);
     }
 
-    function runSS(idxSlides) {
+    function runNextSlide(idxPrevious) {
         if (debugLevel > 2) {
-            console.log('>runSS');
+            console.log('>runNextSlide');
         }
-
-        var idxSlides = (f_slides.currSlide.value + 1) % slidesLength;
-        console.log('idxSlides (runSS): ' + idxSlides);
-
-        document.images["stage"].src = Slides[idxSlides].src;
-        f_slides.currSlide.value = idxSlides;
-
-        if (document.all && navigator.userAgent.indexOf("Opera") < 0 && navigator.userAgent.indexOf("Windows") >= 0) {
-            document.images["stage"].style.visibility = "hidden";
-            document.images["stage"].filters.item(0).apply();
-            document.images["stage"].filters.item(0).transition = effectType;
-            document.images["stage"].style.visibility = "visible";
-            document.images["stage"].filters(0).play(transitionTime);
-        }
-        //t_slides = setTimeout("runSS(" + f_slides.currSlide.value + ")", f_slides.delay.value * 1000);
+    
+        var idxSlide = nextIdx (idxPrevious, slidesLength)
+        console.log('idxSlide (runNextSlide): ' + idxSlide);
+    
+        initSlide(idxSlide);
+    
+        //t_slides = setTimeout("runNextSlide(" + f_slides.currSlide.value + ")", f_slides.delay.value * 1000);
         var action = function () {
-            runSS(f_slides.currSlide.value);
+            runNextSlide(f_slides.currSlide.value);
         };
         t_slides = setTimeout(action, f_slides.delay.value * 1000);
     }
@@ -124,7 +146,7 @@ Free and commercial Perl and JavaScripts
             console.log('>stopSS');
         }
 
-        console.log('idxSlides (stopSS): ' + f_slides.currSlide.value);
+        console.log('idxSlide (stopSS): ' + f_slides.currSlide.value);
 
         if (t_slides) {
             t_slides = clearTimeout(t_slides);
@@ -137,20 +159,11 @@ Free and commercial Perl and JavaScripts
         }
 
         stopSS();
-
-        var idxSlides = (f_slides.currSlide.value + 1) % slidesLength;
-        console.log('idxSlides (next): ' + idxSlides);
-
-        document.images["stage"].src = Slides[idxSlides].src;
-        f_slides.currSlide.value = idxSlides;
-
-        if (document.all && navigator.userAgent.indexOf("Opera") < 0 && navigator.userAgent.indexOf("Windows") >= 0) {
-            document.images["stage"].style.visibility = "hidden";
-            document.images["stage"].filters.item(0).apply();
-            document.images["stage"].filters.item(0).transition = effectType;
-            document.images["stage"].style.visibility = "visible";
-            document.images["stage"].filters(0).play(transitionTime);
-        }
+    
+        var idxSlide = nextIdx (f_slides.currSlide.value, slidesLength)
+        console.log('idxSlide (next): ' + idxSlide);
+    
+        initSlide(idxSlide);
     }
 
     function prevSS() {
@@ -159,40 +172,22 @@ Free and commercial Perl and JavaScripts
         }
 
         stopSS();
-
-        var idxSlides = (f_slides.currSlide.value - 1 + slidesLength) % slidesLength;
-        console.log('idxSlides (prev): ' + idxSlides);
-
-        document.images["stage"].src = Slides[idxSlides].src;
-        f_slides.currSlide.value = idxSlides;
-
-        if (document.all && navigator.userAgent.indexOf("Opera") < 0 && navigator.userAgent.indexOf("Windows") >= 0) {
-            document.images["stage"].style.visibility = "hidden";
-            document.images["stage"].filters.item(0).apply();
-            document.images["stage"].filters.item(0).transition = effectType;
-            document.images["stage"].style.visibility = "visible";
-            document.images["stage"].filters(0).play(transitionTime);
-        }
+    
+        var idxSlide = previousIdx (f_slides.currSlide.value, slidesLength)
+        console.log('idxSlide (prev): ' + idxSlide);
+    
+        initSlide(idxSlide);
     }
 
 
-    function selected(idxSlides) {
+    function selected(idxSlide) {
         if (debugLevel > 1) {
             console.log('>selected');
         }
 
         stopSS();
-
-        document.images["stage"].src = Slides[idxSlides].src;
-        f_slides.currSlide.value = idxSlides;
-
-        if (document.all && navigator.userAgent.indexOf("Opera") < 0 && navigator.userAgent.indexOf("Windows") >= 0) {
-            document.images["stage"].style.visibility = "hidden";
-            document.images["stage"].filters.item(0).apply();
-            document.images["stage"].filters.item(0).transition = effectType;
-            document.images["stage"].style.visibility = "visible";
-            document.images["stage"].filters(0).play(transitionTime);
-        }
+    
+        initSlide(idxSlide);
     }
 
     function zoom(dim1, dim2) {
