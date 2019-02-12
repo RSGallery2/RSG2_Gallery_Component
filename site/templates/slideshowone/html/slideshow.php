@@ -53,8 +53,6 @@ $firstImage = $firstItem->display();
 
 function displayButtons ()
 {
-	$html[] = '<br>'; // ToDo: remove , use CSS
-
 	$html[] = '<div class="clearfix"></div>';
     $html[] = '<div class="PlayerIconArrayContainer">';
     $html[] = '    <div class="PlayerIconArray">';
@@ -77,7 +75,6 @@ function displayButtons ()
 	return $html;
 }
 
-
 ?>
 
 <div class="rsg2-slideshowone">
@@ -97,9 +94,6 @@ function displayButtons ()
 
             if ($this->isDisplayButtons && ! $this->isButtonsAbove)
 			{
-				echo '<br>';
-				echo '<br>';
-
 				echo displayButtons ();
 			}
 			?>
