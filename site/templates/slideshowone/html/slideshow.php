@@ -12,6 +12,15 @@ defined('_JEXEC') or die();
 
 global $mainframe;
 
+JHtml::_('jquery.ui');
+//JHtml::_('jquery.ui', array('core', 'sortable'));
+JHtml::_('jquery.framework'); // load jquery
+JHtml::_('jquery.ui'); // load jquery ui from Joomla
+//$this->document->addScript(JURI::root(true).'/components/com_mycomponent/assets/jquery.ui.slider.min.js'); // load *same version* widget code from jQuery UI archive
+// https://code.google.com/p/jquery-ui/downloads/detail?name=jquery-ui-1.8.23.zip&can=2&q=
+
+
+
 $doc = JFactory::getDocument();
 $doc->addStyleSheet("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
 $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshowone/css/slideshowone.css';
