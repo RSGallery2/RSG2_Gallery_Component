@@ -8,7 +8,7 @@
 
 defined('_JEXEC') or die();
 
-JHtml::_('behavior.framework', true);  // ToDo: Remove mootools
+// JHtml::_('behavior.framework', true);  // ToDo: Remove mootools
 
 global $mainframe;
 
@@ -29,10 +29,12 @@ $this->slideOptions ['isAutoStart'] = $this->params->get('isAutoStart', True);
 $this->slideOptions ['effectType'] = $this->params->get('effectType', 23);
 $this->slideOptions ['transitionTime'] = $this->params->get('transitionTime', '1.5');
 $this->slideOptions ['displayTime'] = $this->params->get('displayTime', '4.0');
+/* Not used
 $this->slideOptions ['imgWidth'] = $this->params->get('imgWidth', 401);
 $this->slideOptions ['imgHeigth'] = $this->params->get('imgHeigth', 401);
 $this->slideOptions ['zoomWidth'] = $this->params->get('zoomWidth', 41);
 $this->slideOptions ['zoomHeigth'] = $this->params->get('zoomHeigth', 31);
+/**/
 
 // $this->slideOptions [''] = ;
 
@@ -74,6 +76,42 @@ function displayButtons ()
 	$html = implode("\n", $html);;
 	return $html;
 }
+
+
+//--- back link to gallery view --------------------------------------
+
+//Show link only when menu-item is not a direct link to the slideshow
+$input = JFactory::getApplication()->input;
+$view  = $input->get('view', '', 'CMD');
+if ($view !== 'slideshow')
+{
+	$menuId = $input->get('Itemid', null, 'INT');
+	$gid = $this->gid;
+
+	$html = [];
+
+	$html[] = '<div style="float: right;">' ."\n"
+		//. '<a href="' .  JRoute::_('index.php?option=com_rsgallery2&Itemid=' . $menuId . '&gid=' . $gid) . '">'
+		. '<a href="#XXX">'
+		. JText::_('COM_RSGALLERY2_BACK_TO_GALLERY')
+		. '</a>';
+	$html[] = '</div>';
+
+	echo implode("\n", $html);
+}
+
+//--- Gallery title --------------------------------------
+
+if (True)
+{
+	echo '<h3>';
+	echo '    <div style="text-align:center;font-size:24px;">';
+	echo '        ' . $this->galleryname;
+	echo '    </div>';
+	echo '</h3>';
+}
+
+
 
 ?>
 

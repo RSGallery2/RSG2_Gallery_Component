@@ -54,7 +54,8 @@ class rsgDisplay_slideshowone extends rsgDisplay
 		}
 
 		$this->slideOptions ['SLIDES'] =  $SLIDES;
-
+		$this->galleryname = $gallery->name;
+		$this->gid         = $gallery->id;
 
 		$this->display('slideshow.php');
 	}

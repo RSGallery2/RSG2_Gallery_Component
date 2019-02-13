@@ -98,7 +98,7 @@
 				</field>
 
 				<!-- oW = 400;// width of stage (first image) -->
-				<field
+				<!--field
 						id="imgWidth"
 						name="imgWidth"
 						type="number"
@@ -107,10 +107,10 @@
 						description="COM_RSGALLERY2_SLIDESONE_IMAGE_WIDTH_DESC"
 						class=""
 						>
-				</field>
+				</field-->
 
 				<!-- oH = 400;// height of stage -->
-				<field
+				<!--field
 						id="imgHeigth"
 						name="imgHeigth"
 						type="number"
@@ -119,10 +119,10 @@
 						description="COM_RSGALLERY2_SLIDESONE_IMAGE_HEIGHT_DESC"
 						class=""
 				>
-				</field>
+				</field-->
 
 				<!-- zW = 40;// zoom width by (add or subtracts this many pixels from image width) -->
-				<field
+				<!--field
 						id="zoomWidth"
 						name="zoomWidth"
 						type="number"
@@ -131,10 +131,10 @@
 						description="COM_RSGALLERY2_SLIDESONE_ZOOM_WIDTH_DESC"
 						class=""
 				>
-				</field>
+				</field-->
 
 				<!-- zH = 30;// zoom height by -->
-				<field
+				<!--field
 						id="zoomHeigth"
 						name="zoomHeigth"
 						type="number"
@@ -143,7 +143,7 @@
 						description="COM_RSGALLERY2_SLIDESONE_ZOOM_HEIGHT_DESC"
 						class=""
 				>
-				</field>
+				</field-->
 
 
 			</fieldset>
