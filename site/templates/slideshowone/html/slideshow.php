@@ -64,7 +64,7 @@ $firstImage = $firstItem->display();
 
 function displayButtons ()
 {
-	$html[] = '<div class="clearfix"></div>';
+//	$html[] = '<div class="clearfix"></div>';
     $html[] = '<div class="PlayerIconArrayContainer">';
     $html[] = '    <div class="PlayerIconArray">';
     $html[] = '        <a class="PlayerIcon" href="javascript:;" onclick="startSS()">';

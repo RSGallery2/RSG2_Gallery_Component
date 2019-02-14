@@ -1,6 +1,6 @@
 
 .rsg2-slideshowone {
-	margin: 10px auto; /* 85px; /**/
+	/* margin: 10px auto; /* 85px; /**/
 	/* text-align: center; /**/
 
 
@@ -9,7 +9,9 @@
 
 .PlayerContainer {
 	text-align: center; /**/
-	
+
+	margin: 0px auto; /* 85px; /**/
+
 	display : table; /**/
 	/* border: 1px solid blue; /**/
 	width   : 80% /**/
