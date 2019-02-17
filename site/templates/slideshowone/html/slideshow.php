@@ -100,8 +100,8 @@ if ($view !== 'slideshow')
 	$html = [];
 
 	$html[] = '<div style="float: right;">' ."\n"
-		//. '<a href="' .  JRoute::_('index.php?option=com_rsgallery2&Itemid=' . $menuId . '&gid=' . $gid) . '">'
-		. '<a href="#XXX">'
+		. '<a href="' .  JRoute::_('index.php?option=com_rsgallery2&Itemid=' . $menuId . '&gid=' . $gid) . '">'
+		//. '<a href="#">'
 		. JText::_('COM_RSGALLERY2_BACK_TO_GALLERY')
 		. '</a>';
 	$html[] = '</div>';
