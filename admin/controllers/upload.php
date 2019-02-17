@@ -16,6 +16,8 @@ use Joomla\Archive\Archive;
 \JLoader::import('joomla.filesystem.file');
 \JLoader::import('joomla.filesystem.folder');
 
+jimport('joomla.application.component.controllerform');
+
 global $Rsg2DebugActive;
 
 if ($Rsg2DebugActive)
@@ -26,8 +28,6 @@ if ($Rsg2DebugActive)
 	// identify active file
 	JLog::add('==> ctrl.upload.php ');
 }
-
-jimport('joomla.application.component.controllerform');
 
 /**
  * Functions supporting upload
@@ -611,7 +611,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
         $app = JFactory::getApplication();
 
-
 	    try {
             if ($Rsg2DebugActive) {
                 // identify active file
@@ -704,7 +703,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	        if (!$isCreated)
 	        {
 		        // ToDo: remove $imgId fom image database
-
 		        if ($Rsg2DebugActive)
 		        {
 			        JLog::add('MoveImageAndCreateRSG2Images failed: ' . $uploadFileName . ', ' . $singleFileName);
@@ -782,6 +780,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
             $uploadFileName = $input->get('upload_file', '', 'string');
 			$fileName = JFile::makeSafe($uploadFileName);
+
+// ==>			joomla replace spaces in filenames
+// ==>			'file_name' => str_replace(" ", "", $file_name);
 			$baseName = basename($fileName);
 
 			if ($Rsg2DebugActive)
