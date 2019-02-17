@@ -29,7 +29,8 @@ class rsgInstance
 	 *
 	 * @static
 	 *
-	 * @param string $newInstance  What parameters to use for the new instance.  Your options are:
+	 * @param string $newInstance  What parameters to use for the new instance.
+	 *                             Your options are:
 	 *                             'request'    Use the request array (default).
 	 * @param bool   $showTemplate show a template or not.
 	 *

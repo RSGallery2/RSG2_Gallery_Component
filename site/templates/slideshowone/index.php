@@ -17,4 +17,8 @@ require_once($templatePath . '/display.class.php');
 //--- slideshow class --------------------------
 
 $rsgDisplay = new rsgDisplay_slideshowone();
+
+// set slideshow parameter from URL
+// $rsgDisplay->addUrlSlideshowParameter ();
+
 $rsgDisplay->showSlideShow();

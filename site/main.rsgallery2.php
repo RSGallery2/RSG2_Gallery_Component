@@ -34,7 +34,7 @@ function template()
 		JLog::add('template: "' . $templateLocation . '"');
 	}
 	
-		if (!file_exists($templateLocation))
+	if (!file_exists($templateLocation))
 	{
 		JFactory::getApplication()->enqueueMessage('RSGallery2 template:<pre>' . "Template $template does not exist.<br/>Please select an existing template in the Template Manager." . '</pre>', 'error');
 		return false;

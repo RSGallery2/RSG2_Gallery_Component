@@ -14,12 +14,13 @@ defined('_JEXEC') or die();
 // require_once (JPATH_COMPONENT_ADMINISTRATOR.'/helpers/parameter.php');
 //require_once(JPATH_ROOT . '/administrator/components/com_rsgallery2/helpers/parameter.php');
 //require_once (JPATH_ROOT.'/administrator/components/com_rsgallery2/helpers/TemplateParameter.php');
+require_once (JPATH_RSGALLERY2_SITE .'/templates/meta/templateParameter.php');
 jimport('joomla.filesystem.files');
 
 class rsgDisplay extends JObject
 {
 
-	var $params = null; // Type of J Parameter    ToDo: change type to Jregistry ...
+	var $params = null; // Type of Jregistry
 
 	var $currentItem = null;
 
@@ -27,12 +28,11 @@ class rsgDisplay extends JObject
 	{
 		global $rsgConfig;
 
-		//$this->gallery = rsgInstance::getGallery(); deprecated
 		$this->gallery = rsgGalleryManager::get();
 
-		//Pre 3.0.2: always got template 'semantic' even when showing a slideshow; $template is only used here to get templateparameters
+		//Pre 3.0.2: always got template 'semantic' even when showing a slideshow;
+        //           $template is only used here to get template parameters
 		//Does the page show the slideshow? Then get slideshow name, else get template name.
-		// if (JRequest::getCmd('page') == 'slideshow') {
 		$input = JFactory::getApplication()->input;
 		$page  = $input->get('page', '', 'CMD');
 		if ($page == 'slideshow')
@@ -44,13 +44,18 @@ class rsgDisplay extends JObject
 			$template = $rsgConfig->get('template');
 		}
 
+		// template given by plugin or URL
+		$template  = $input->get('rsgTemplate', $template, 'CMD');
+
+		//--- load template parameters -----------------------------------------
+
+        /**
 		// load template parameters
 		jimport('joomla.filesystem.file');
 		// Read the ini file
 		$ini = JPATH_RSGALLERY2_SITE . '/templates'  . '/' .  $template . '/params.ini';
 		if (JFile::exists($ini))
 		{
-			//$content = JFile::read($ini); J3
 			$content = file_get_contents($ini);
 		}
 		else
@@ -59,11 +64,15 @@ class rsgDisplay extends JObject
 			$ini_contents = '';
 			JFile::write($ini, $ini_contents);
 		}
-		$xmlPath      = JPATH_RSGALLERY2_SITE . '/templates/' .  $template . '/templateDetails.xml';
-		//$this->params = new TemplateParameter($content, $xmlPath);
-		//$this->params = new JParameter($content, $xmlPath, 'template');
-		//$this->params = new JRegistry($content, $xmlPath, 'template'); // Something is missing here ;-( fith 2018.03.02
 		$this->params = new JRegistry($content);
+        /**/
+
+		// Load parameter names
+		$xmlPath      = JPATH_RSGALLERY2_SITE . '/templates/' .  $template; // . '/templateDetails.xml';
+
+		$userParameter = new Rsg2TemplateParameter ($xmlPath);
+		$this->params = $userParameter->params;
+
 	}
 
 	/**

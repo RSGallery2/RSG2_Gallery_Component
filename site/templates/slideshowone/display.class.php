@@ -15,11 +15,12 @@ defined('_JEXEC') or die();
  */
 class rsgDisplay_slideshowone extends rsgDisplay
 {
-
-	public $isAutoStart = True;
-	public $isDisplayButtons = False;
-	public $isButtonsAbove = True;
-	
+	/**
+	 *
+	 *
+	 * @since version
+	 * @throws Exception
+	 */
 	function showSlideShow()
 	{
 		// global $rsgConfig;
