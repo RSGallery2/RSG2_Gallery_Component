@@ -15,7 +15,12 @@ defined('_JEXEC') or die();
  */
 class rsgDisplay_slideshowone extends rsgDisplay
 {
-	/**
+	protected $isDisplayButtons = False;
+	protected $isButtonsAbove = False;
+
+	protected $gallery;
+
+		/**
 	 *
 	 *
 	 * @since version
@@ -26,6 +31,10 @@ class rsgDisplay_slideshowone extends rsgDisplay
 		// global $rsgConfig;
 
 		$gallery = rsgGalleryManager::get();
+
+		// why
+		$this->gallery = $gallery;
+
 
 		// show nothing if there are no items
 		if (!$gallery->itemCount())

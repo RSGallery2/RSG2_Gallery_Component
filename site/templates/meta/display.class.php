@@ -72,7 +72,6 @@ class rsgDisplay extends JObject
 
 		$userParameter = new Rsg2TemplateParameter ($xmlPath);
 		$this->params = $userParameter->params;
-
 	}
 
 	/**

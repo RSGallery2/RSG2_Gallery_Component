@@ -58,7 +58,10 @@ $doc->addScriptOptions('slideArray', $this->slideOptions);
 //--- first image to show --------------------------
 
 $firstItem = $this->gallery->getItem();
-$firstImage = $firstItem->display();
+if ( ! empty($firstItem))
+{
+	$firstImage = $firstItem->display();
+}
 
 //--- buttons below or above slideshow --------------------------
 

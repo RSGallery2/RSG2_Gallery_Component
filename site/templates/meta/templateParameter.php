@@ -89,11 +89,12 @@ class Rsg2TemplateParameter
 			}
 			/**/
 
-			//--- overwrite frum URL -------------------
+			//--- overwrite from URL -------------------
 
 			$input = JFactory::getApplication()->input;
 			foreach ($this->paramNames as $paramName)
 			{
+				// ToDo: check ?
 				$value = $input->get($paramName, $this->params[$paramName], 'STRING');
 				$this->params[$paramName] = $value;
 			}
@@ -127,6 +128,7 @@ class Rsg2TemplateParameter
 	function extractFormFieldParameters ($formFields)
 	{
 		$parameter = [];
+		$paramsArray = [];
 
 		try
 		{
@@ -143,7 +145,7 @@ class Rsg2TemplateParameter
 				$key = (string) $formField ['name'];
 				$value = (string) $formField ['default'];
 
-				$parameter [$key] = $value;
+				$paramsArray [$key] = $value;
 			}
 		}
 		catch (RuntimeException $e)
@@ -157,10 +159,12 @@ class Rsg2TemplateParameter
 		}
 
 		$params = new JRegistry;
-		$params->loadArray($parameter);
+		//$paramsFields['params'] = $paramsArray;
+		//$params->loadArray($paramsFields);
+		$params->loadArray($paramsArray);
+
 		return $params;
 	}
-
 
 	/**
 	 * formFieldsFromTemplateFile
@@ -177,7 +181,7 @@ class Rsg2TemplateParameter
 	 */
 	public function formFieldsFromTemplateFile($xmlFile)
 	{
-		$formfields = [];
+		$formFields = [];
 		//$parameter = new stdClass();
 
 		try
@@ -191,7 +195,7 @@ class Rsg2TemplateParameter
 				$config = $xml->config->fields;
 				if (!empty($config))
 				{
-					$formfields = $xml;
+					$formFields = $xml;
 				}
 			}
 		}
@@ -205,7 +209,7 @@ class Rsg2TemplateParameter
 			$app->enqueueMessage($OutTxt, 'error');
 		}
 
-		return $formfields;
+		return $formFields;
 	}
 
 
@@ -239,9 +243,10 @@ class Rsg2TemplateParameter
 				$paramLines->loadFile($slidesParamsFile, 'INI');
 
 				// order data into section params
-				$paramsArray = $paramLines->toArray();
-				$paramsFields['params'] = $paramsArray;
-				$params->loadArray($paramsFields);
+				//$paramsArray = $paramLines->toArray();
+				//$paramsFields['params'] = $paramsArray;
+				//$params->loadArray($paramsFields);
+				$params = $paramLines;
 			}
 			else
 			{
