@@ -127,25 +127,28 @@ class Rsg2TemplateParameter
 	 */
 	function extractFormFieldParameters ($formFields)
 	{
-		$parameter = [];
+		$params = new JRegistry;
 		$paramsArray = [];
 
 		try
 		{
-			$domFields = dom_import_simplexml($formFields->config->fields->fieldset->field);
-			$fields = $formFields->config->fields->fieldset->field;
-			foreach ($fields as $formField)
+			if (!empty($formFields->config->fields->fieldset->field))
 			{
-				$this->RecurseXML ($formField, $recurseXML11);
-				$dom = dom_import_simplexml($formField);
+				$domFields = dom_import_simplexml($formFields->config->fields->fieldset->field);
+				$fields    = $formFields->config->fields->fieldset->field;
+				foreach ($fields as $formField)
+				{
+					$this->RecurseXML($formField, $recurseXML11);
+					$dom = dom_import_simplexml($formField);
 
-				$test = $formField['name'];
-				//echo $xml->book[0]['category'] . "<br>";
-				//echo $xml->book[1]->title['lang'];
-				$key = (string) $formField ['name'];
-				$value = (string) $formField ['default'];
+					$test = $formField['name'];
+					//echo $xml->book[0]['category'] . "<br>";
+					//echo $xml->book[1]->title['lang'];
+					$key   = (string) $formField ['name'];
+					$value = (string) $formField ['default'];
 
-				$paramsArray [$key] = $value;
+					$paramsArray [$key] = $value;
+				}
 			}
 		}
 		catch (RuntimeException $e)
@@ -158,9 +161,6 @@ class Rsg2TemplateParameter
 			$app->enqueueMessage($OutTxt, 'error');
 		}
 
-		$params = new JRegistry;
-		//$paramsFields['params'] = $paramsArray;
-		//$params->loadArray($paramsFields);
 		$params->loadArray($paramsArray);
 
 		return $params;
@@ -251,7 +251,7 @@ class Rsg2TemplateParameter
 			else
 			{
 				// throw file does not exist
-				throw new \RuntimeException('File not found or not readable');
+				// throw new \RuntimeException('File not found or not readable');
 			}
 		}
 		catch (RuntimeException $e)
