@@ -58,7 +58,11 @@ $document->addStyleDeclaration($style);
 	</div>
 	<!-- Set parameters for slideshow -->
 	<script type="text/javascript">
-		window.addEvent('domready', function () {
+        jQuery(document).ready(function () {
+
+            // window.addEvent('domready', function () {
+            console.log("domready");
+
 			var obj = {
 				wait            : 3000,
 				effect          : 'fade',
@@ -71,6 +75,7 @@ $document->addStyleDeclaration($style);
 				}
 			};
 			var show = new SlideShow('slideshowContainer', 'slideshowThumbnail', obj);
+
 			show.play();
 		})
 	</script>

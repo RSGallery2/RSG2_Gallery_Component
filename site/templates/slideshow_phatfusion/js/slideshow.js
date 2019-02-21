@@ -150,7 +150,8 @@ var SlideShow = new Class({
 			console.log("Slide:initialize exit");
 		}
 		catch (err) {
-			alert("phat015:" + err.message);
+			//alert("phat015:" + err.message);
+			console.log("phat015:" + err.message);
 		}
 	},
 
@@ -184,7 +185,8 @@ var SlideShow = new Class({
 			console.log("Slide:load exit");
 		}
 		catch (err) {
-			alert("phat020:" + err.message);
+			//alert("phat020:" + err.message);
+            console.log("phat020:" + err.message);
 		}
 	},
 
@@ -228,7 +230,8 @@ var SlideShow = new Class({
 			console.log("Slide:show exit");
 		}
 		catch (err) {
-			alert("phat025:" + err.message);
+			//alert("phat025:" + err.message);
+            console.log("phat025:" + err.message);
 		}
 	},
 
@@ -239,7 +242,8 @@ var SlideShow = new Class({
 			console.log("Slide:wait exit");
 		}
 		catch (err) {
-			alert("phat030:" + err.message);
+			//alert("phat030:" + err.message);
+            console.log("phat030:" + err.message);
 		}
 	},
 
@@ -263,7 +267,8 @@ var SlideShow = new Class({
 			console.log("Slide:play exit");
 		}
 		catch (err) {
-			alert("phat035:" + err.message);
+			//alert("phat035:" + err.message);
+            console.log("phat035:" + err.message);
 		}
 	},
 
@@ -278,7 +283,8 @@ var SlideShow = new Class({
 			console.log("Slide:stop exit");
 		}
 		catch (err) {
-			alert("phat040:" + err.message);
+			//alert("phat040:" + err.message);
+            console.log("phat040:" + err.message);
 		}
 	},
 
@@ -320,7 +326,8 @@ var SlideShow = new Class({
 			console.log("Slide:next exit");
 		}
 		catch (err) {
-			alert("phat045:" + err.message);
+			//alert("phat045:" + err.message);
+            console.log("phat045:" + err.message);
 		}
 	},
 
@@ -336,7 +343,8 @@ var SlideShow = new Class({
 			console.log("Slide:previous exit");
 		}
 		catch (err) {
-			alert("phat050:" + err.message);
+			//alert("phat050:" + err.message);
+            console.log("phat050:" + err.message);
 		}
 	},
 
@@ -362,11 +370,17 @@ var SlideShow = new Class({
 			console.log("Slide:cloneImage exit");
 		}
 		catch (err) {
-			alert("phat055:" + err.message);
+			//alert("phat055:" + err.message);
+            console.log("phat055:" + err.message);
 		}
 	},
 
-
+	/**
+	setEffects(fx) {
+		this.effects = fx;
+	},
+	/**/
+	
 	effect: function () {
 		try {
 			console.log("Slide:effect");
@@ -374,11 +388,21 @@ var SlideShow = new Class({
 			// ToDo: effects should be set in backgroundslide but it is empty -> have an idea !
 			//original this.effectObj = this.newImage.effects({
 			// test: this.effectObj = this.newImage.effects.set({
+			/** wrong
 			this.effectObj = this.newImage.setEffects({
 				duration  : this.options.duration,
 				transition: this.options.transition
 			});
-
+			/**/
+			/** try 01 */
+			this.newImage.effects = {
+				duration  : this.options.duration,
+				transition: this.options.transition
+			};
+			this.effectObj = this.newImage;						
+			/***/
+			
+			
 			var myFxTypes = ['fade', 'wipe', 'slide'];
 			var myFxDir = ['top', 'right', 'bottom', 'left'];
 
@@ -418,7 +442,8 @@ var SlideShow = new Class({
 			console.log("Slide:effect exit");
 		}
 		catch (err) {
-			alert("phat060:" + err.message);
+			//alert("phat060:" + err.message);
+            console.log("phat060:" + err.message);
 		}
 	},
 
@@ -458,7 +483,8 @@ var SlideShow = new Class({
 			console.log("Slide:setup exit");
 		}
 		catch (err) {
-			alert("phat065:" + err.message);
+			//alert("phat065:" + err.message);
+            console.log("phat065:" + err.message);
 		}
 	},
 
@@ -475,7 +501,8 @@ var SlideShow = new Class({
 			console.log("Slide:fade exit");
 		}
 		catch (err) {
-			alert("phat070:" + err.message);
+			//alert("phat070:" + err.message);
+            console.log("phat070:" + err.message);
 		}
 	},
 
@@ -501,7 +528,8 @@ var SlideShow = new Class({
 			console.log("Slide:wipe exit");
 		}
 		catch (err) {
-			alert("phat075:" + err.message);
+			//alert("phat075:" + err.message);
+            console.log("phat075:" + err.message);
 		}
 	},
 
@@ -520,7 +548,8 @@ var SlideShow = new Class({
 			console.log("Slide:slide exit");
 		}
 		catch (err) {
-			alert("phat080:" + err.message);
+			//alert("phat080:" + err.message);
+            console.log("phat080:" + err.message);
 		}
 	},
 
@@ -531,13 +560,24 @@ var SlideShow = new Class({
 			console.log("Slide:resetAnimation exit");
 		}
 		catch (err) {
-			alert("phat085:" + err.message);
+			//alert("phat085:" + err.message);
+            console.log("phat085:" + err.message);
 		}
 	}
 
 });
-SlideShow.implement(new Options);
-SlideShow.implement(new Events);
+
+
+// jQuery(document).ready(function () {
+    
+    console.log("SlideShow.implement");
+    
+    SlideShow.implement(new Options);
+    SlideShow.implement(new Events);
+    
+    /**/
+//});
+
 
 
 /*************************************************************/

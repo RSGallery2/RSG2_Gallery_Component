@@ -47,26 +47,6 @@ class rsgDisplay extends JObject
 		// template given by plugin or URL
 		$template  = $input->get('rsgTemplate', $template, 'CMD');
 
-		//--- load template parameters -----------------------------------------
-
-        /**
-		// load template parameters
-		jimport('joomla.filesystem.file');
-		// Read the ini file
-		$ini = JPATH_RSGALLERY2_SITE . '/templates'  . '/' .  $template . '/params.ini';
-		if (JFile::exists($ini))
-		{
-			$content = file_get_contents($ini);
-		}
-		else
-		{
-			$content      = null;
-			$ini_contents = '';
-			JFile::write($ini, $ini_contents);
-		}
-		$this->params = new JRegistry($content);
-        /**/
-
 		// Load parameter names
 		$xmlPath      = JPATH_RSGALLERY2_SITE . '/templates/' .  $template; // . '/templateDetails.xml';
 
