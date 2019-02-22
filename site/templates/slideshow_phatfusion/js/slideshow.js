@@ -72,14 +72,16 @@ var SlideShow = new Class({
 
 			console.log("Slide:initialize.02");
 			if (typeof(images) == 'string' && !this.options.thumbnails) {
-				var imageList = [];
-				$$('.' + images).each(function (el) {
-					imageList.push(el.src);
-					el.injectInside(this.imagesHolder);
-				}, this);
-				this.images = imageList;
-
-			} else if (typeof(images) == 'string' && this.options.thumbnails) {
+                console.log("\t'string' and not opt thumbs");
+                var imageList = [];
+                $$('.' + images).each(function (el) {
+                    imageList.push(el.src);
+                    el.injectInside(this.imagesHolder);
+                }, this);
+                this.images = imageList;
+            }
+			else if (typeof(images) == 'string' && this.options.thumbnails) {
+                console.log("\t'string' and opt thumbs");
 				var imageList = [];
 				var srcList = [];
 				this.thumbnails = $$('.' + images);
@@ -96,6 +98,7 @@ var SlideShow = new Class({
 				this.thumbnailImages = imageList;
 
 				if (this.options.backgroundSlider) {
+                    console.log("\tbgSlider");
 					this.bgSlider = new backgroundSlider(this.thumbnailImages, {
 						mouseOver: false,
 						duration : this.options.duration,
@@ -107,10 +110,17 @@ var SlideShow = new Class({
 							left  : 0
 						}
 					});
-					this.bgSlider.set(this.thumbnailImages[0]);
+                    // console.log("\tbgSlider: '" + this.thumbnailImages[0].name + "'");
+                    console.log("\tbgSlider: set (" + JSON.stringify(this.thumbnailImages[0]) + ")");
+
+                    //console.log("\tbgSlider: " + JSON.stringify(this.thumbnailImages));
+                    
+                    this.bgSlider.set(this.thumbnailImages[0]);
+                    console.log("\tafter bgSlider");
 				}
 
 			} else {
+                console.log("\t'not string'");
 				this.images = images;
 			}
 

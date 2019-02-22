@@ -52,7 +52,8 @@ var backgroundSlider = new Class({
 			if (this.options.id) {
 				this.bg = $(this.options.id);
 			} else {
-				this.bg = new Element('div').setProperty('id', 'BgSlider_' + new Date().getTime()).inject(document.body, 'bottom');
+				this.bg = new Element('div').setProperty('id',
+					'BgSlider_' + new Date().getTime()).inject(document.body, 'bottom');
 				if (this.options.className) {
 					this.bg.addClass(this.options.className);
 				}
@@ -96,7 +97,7 @@ var backgroundSlider = new Class({
 
 	setStart: function (el) {
 		try {
-			console.log("Back:setStart");
+			console.log("Back:setStart (element)");
 			if (el) {
 				this.startElement = el;
 			} else {
