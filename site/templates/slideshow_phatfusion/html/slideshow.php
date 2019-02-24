@@ -50,18 +50,19 @@ $document->addStyleDeclaration($style);
 	<div id="thumbnails">
 		<?php echo $this->slides; ?>
 		<p>
-			<a href="#" onclick="show.previous(); return false;">&lt;&lt; Previous</a> |
-			<a href="#" onclick="show.play(); return false;">Play</a> |
-			<a href="#" onclick="show.stop(); return false;">Stop</a> |
-			<a href="#" onclick="show.next(); return false;">Next &gt;&gt;</a>
+			<a href="#" onclick="showSS.previous(); return false;">&lt;&lt; Previous</a> |
+			<a href="#" onclick="showSS.play(); return false;">Play</a> |
+			<a href="#" onclick="showSS.stop(); return false;">Stop</a> |
+			<a href="#" onclick="showSS.next();return false;">Next &gt;&gt;</a>
 		</p>
 	</div>
 	<!-- Set parameters for slideshow -->
 	<script type="text/javascript">
+        var showSS;
         jQuery(document).ready(function () {
 
             // window.addEvent('domready', function () {
-            console.log("domready");
+            console.log("PHP: domready");
 
 			var obj = {
 				wait            : 3000,
@@ -71,12 +72,17 @@ $document->addStyleDeclaration($style);
 				thumbnails      : true,
 				backgroundSlider: true,
 				onClick         : function (i) {
+                    console.log("PHP: onClick");
 					alert(i)
 				}
 			};
-			var show = new SlideShow('slideshowContainer', 'slideshowThumbnail', obj);
 
-			show.play();
+            console.log("PHP: new slideshow");
+            showSS = new SlideShow('slideshowContainer', 'slideshowThumbnail', obj);
+
+            console.log("PHP: showSS.play 01.before");
+            showSS.play();
+            console.log("PHP: showSS.play 02.after");
 		})
 	</script>
 </div><!-- end container -->

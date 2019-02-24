@@ -7,16 +7,22 @@
  Licence     : Open Source MIT Licence
 
  2019.01.20: actually stuck in effect: function
- Read for upgrads
+ Read for upgrade
  https://github.com/mootools/mootools-core/wiki/Upgrade-from-1.2-to-1.3-or-1.4
  ?? https://github.com/mootools/mootools-upgrade-helper
  **************************************************************/
+
+// 1.4.5
+console.log ('MooTools.version: ' + MooTools.version);
 
 var SlideShow = new Class({
 
 	/**
 	 *
-	 * @returns {{effect: string, duration: number, transition: Fx.Transitions.linear, direction: string, color: boolean, wait: number, loop: boolean, thumbnails: boolean, thumbnailCls: string, backgroundSlider: boolean, loadingCls: string, onClick: boolean}}
+	 * @returns {{effect: string, duration: number, transition: Fx.Transitions.linear,
+	 *            direction: string, color: boolean, wait: number, loop: boolean,
+	 *            thumbnails: boolean, thumbnailCls: string, backgroundSlider: boolean,
+	 *            loadingCls: string, onClick: boolean}}
 	 */
 	getOptions: function () {
 		console.log("Slide:getOptions (start/exit)");
@@ -46,6 +52,14 @@ var SlideShow = new Class({
 		try {
 			console.log("Slide:initialize");
 			this.setOptions(this.getOptions(), options);
+
+			this.timer = 0;
+			this.imageIdx = 0;
+			this.imageLoaded = 0;
+			this.stopped = true;
+			this.started = false;
+			this.animating = false;
+
 
 			this.container = $(container);
 			this.container.setStyles({
@@ -98,7 +112,7 @@ var SlideShow = new Class({
 				this.thumbnailImages = imageList;
 
 				if (this.options.backgroundSlider) {
-                    console.log("\tbgSlider");
+                    console.log("\tnew backgroundSlider");
 					this.bgSlider = new backgroundSlider(this.thumbnailImages, {
 						mouseOver: false,
 						duration : this.options.duration,
@@ -111,12 +125,12 @@ var SlideShow = new Class({
 						}
 					});
                     // console.log("\tbgSlider: '" + this.thumbnailImages[0].name + "'");
-                    console.log("\tbgSlider: set (" + JSON.stringify(this.thumbnailImages[0]) + ")");
+                    console.log("\tnew backgroundSlider: set (" + JSON.stringify(this.thumbnailImages[0]) + ")");
 
                     //console.log("\tbgSlider: " + JSON.stringify(this.thumbnailImages));
                     
                     this.bgSlider.set(this.thumbnailImages[0]);
-                    console.log("\tafter bgSlider");
+                    console.log("\tnew backgroundSlider bgSlider");
 				}
 
 			} else {
@@ -124,7 +138,7 @@ var SlideShow = new Class({
 				this.images = images;
 			}
 
-			console.log("Slide:initialize.03");
+			console.log("Slide: loading element");
 			this.loading = new Element('div').addClass(this.options.loadingCls).setStyles({
 				position: 'absolute',
 				top     : 0,
@@ -135,7 +149,7 @@ var SlideShow = new Class({
 				height  : this.container.getStyle('height')
 			}).inject(this.container, 'bottom');
 
-			console.log("Slide:initialize.04");
+			console.log("Slide: prepare old imiage element");
 			this.oldImage = new Element('div').setStyles({
 				position: 'absolute',
 				overflow: 'hidden',
@@ -146,16 +160,18 @@ var SlideShow = new Class({
 				height  : this.container.getStyle('height')
 			}).inject(this.container, 'bottom');
 
-			console.log("Slide:initialize.05");
+			console.log("Slide: prepare new image element");
 			this.newImage = this.oldImage.clone();
 			this.newImage.inject(this.container, 'bottom');
 
+			/**
 			this.timer = 0;
-			this.image = -1;
+			this.imageIdx = -1;
 			this.imageLoaded = 0;
 			this.stopped = true;
 			this.started = false;
 			this.animating = false;
+			/**/
 
 			console.log("Slide:initialize exit");
 		}
@@ -165,6 +181,7 @@ var SlideShow = new Class({
 		}
 	},
 
+	// Loads image
 	load: function () {
 		try {
 			console.log("Slide:load");
@@ -173,13 +190,22 @@ var SlideShow = new Class({
 			//$clear(this.timer);
 			clearTimeout(this.timer);
 			this.loading.setStyle('display', 'block');
-			this.image++;
-			var img = this.images[this.image];
+
+			// this.imageIdx++;
+			// this.imageIdx = this.nextIdx (this.imageIdx, this.images.length);
+			console.log("Slide:load imageIdx: " + this.imageIdx);
+
+			var img = this.images[this.imageIdx];
 			delete this.imageObj;
+
+			var src = this.images[this.imageIdx];
+			// console.log("\t\tsrc image: " + JSON.stringify(src));
 
 			var doLoad = true;
 			this.imagesHolder.getElements('img').each(function (el) {
-				var src = this.images[this.image];
+				//var src = this.images[this.imageIdx];
+				console.log("\t\tsrc image   : " + JSON.stringify(src));
+				console.log("\t\tel.src image: " + JSON.stringify(el.src));
 				if (el.src == src) {
 					this.imageObj = el;
 					doLoad = false;
@@ -204,6 +230,7 @@ var SlideShow = new Class({
 		try {
 			console.log("Slide:show");
 			if (this.add) {
+				console.log("Slide:show add image");
 				this.imageObj.inject(this.imagesHolder, 'bottom');
 			}
 
@@ -211,6 +238,7 @@ var SlideShow = new Class({
 				zIndex : 1,
 				opacity: 0
 			});
+
 			var img = this.newImage.getElement('img');
 			if (img) {
 				img.replaceWith(this.imageObj.clone());
@@ -218,23 +246,24 @@ var SlideShow = new Class({
 				var obj = this.imageObj.clone();
 				obj.inject(this.newImage, 'bottom');
 			}
-			this.imageLoaded = this.image;
+			this.imageLoaded = this.imageIdx;
 			this.loading.setStyle('display', 'none');
 			if (this.options.thumbnails) {
 
 				if (this.options.backgroundSlider) {
-					var elT = this.thumbnailImages[this.image];
+					var elT = this.thumbnailImages[this.imageIdx];
 					this.bgSlider.move(elT);
 					this.bgSlider.setStart(elT);
 				} else {
 					this.thumbnails.each(function (el, i) {
 						el.removeClass(this.options.thumbnailCls);
-						if (i == this.image) {
+						if (i == this.imageIdx) {
 							el.addClass(this.options.thumbnailCls);
 						}
 					}, this);
 				}
 			}
+			console.log("Slide:show effect ()");
 			this.effect();
 
 			console.log("Slide:show exit");
@@ -257,22 +286,22 @@ var SlideShow = new Class({
 		}
 	},
 
-	play: function (num) {
+	// ToDo: use next idx
+	play: function (nextIdx) {
 		try {
 			console.log("Slide:play");
 			if (this.stopped) {
-				if (num > -1) {
-					this.image = num - 1;
+				this.stopped = false;
+				if (this.started) {
+					console.log("Slide:play this.started = true");
+					this.next();
+				} else {
+					console.log("Slide:play load first time");
+					this.load();
 				}
-				if (this.image < this.images.length) {
-					this.stopped = false;
-					if (this.started) {
-						this.next();
-					} else {
-						this.load();
-					}
-					this.started = true;
-				}
+				this.started = true;
+			} else {
+				console.log("Slide:play kept active");
 			}
 			console.log("Slide:play exit");
 		}
@@ -289,7 +318,10 @@ var SlideShow = new Class({
 			//this.clearTimeout(this.timer);
 			//$clear(this.timer);
 			clearTimeout(this.timer);
+
+			this.resetAnimation();
 			this.stopped = true;
+
 			console.log("Slide:stop exit");
 		}
 		catch (err) {
@@ -298,31 +330,38 @@ var SlideShow = new Class({
 		}
 	},
 
-	next: function (wait) {
+	next: function (doWait) {
 		try {
 			console.log("Slide:next");
 			var doNext = true;
-			if (wait && this.stopped) {
+			if (doWait && this.stopped) {
 				doNext = false;
 			}
 			if (this.animating) {
 				doNext = false;
+				console.log("Slide:play kept active");
 			}
 			if (doNext) {
 				this.cloneImage();
 				// $clear => use the native clearTimeout when using fn.delay, use clearInterval when using fn.periodical.
 				// this.clearTimeout(this.timer);
 				//$clear(this.timer);
-				clearTimeout(this.timer);
-				if (this.image < this.images.length - 1) {
-					if (wait) {
-						this.wait();
-					} else {
-						this.load();
-					}
+
+				// Todo: Check Mode loop (seee commented below)
+				this.imageIdx = this.nextIdx (this.imageIdx, this.images.length);
+
+				if (doWait) {
+					clearTimeout(this.timer);
+					this.wait();
+				} else {
+					this.load();
+				}
+
+				/**
+				if (this.imageIdx < this.images.length - 1) {
 				} else {
 					if (this.options.loop) {
-						this.image = -1;
+						this.imageIdx = -1;
 						if (wait) {
 							this.wait();
 						} else {
@@ -331,7 +370,7 @@ var SlideShow = new Class({
 					} else {
 						this.stopped = true;
 					}
-				}
+				}/**/
 			}
 			console.log("Slide:next exit");
 		}
@@ -344,12 +383,17 @@ var SlideShow = new Class({
 	previous: function () {
 		try {
 			console.log("Slide:previous");
+			/**
 			if (this.imageLoaded == 0) {
-				this.image = this.images.length - 2;
+				this.imageIdx = this.images.length - 2;
 			} else {
-				this.image = this.imageLoaded - 2;
+				this.imageIdx = this.imageLoaded - 2;
 			}
 			this.next();
+			 /**/
+			this.imageIdx = this.nextIdx (this.imageIdx, this.images.length);
+			this.load();
+
 			console.log("Slide:previous exit");
 		}
 		catch (err) {
@@ -396,7 +440,12 @@ var SlideShow = new Class({
 			console.log("Slide:effect");
 			this.animating = true;
 			// ToDo: effects should be set in backgroundslide but it is empty -> have an idea !
-			//original this.effectObj = this.newImage.effects({
+			//original 
+			//this.effectObj = this.newImage.effects({
+			//	duration: this.options.duration,
+			//	transition: this.options.transition
+			//});
+
 			// test: this.effectObj = this.newImage.effects.set({
 			/** wrong
 			this.effectObj = this.newImage.setEffects({
@@ -404,15 +453,26 @@ var SlideShow = new Class({
 				transition: this.options.transition
 			});
 			/**/
-			/** try 01 */
+			/** try 01 *
 			this.newImage.effects = {
 				duration  : this.options.duration,
 				transition: this.options.transition
 			};
 			this.effectObj = this.newImage;						
-			/***/
-			
-			
+			/**
+			this.newImage.effects = {
+				duration  : this.options.duration,
+				transition: this.options.transition
+			};
+			this.effectObj = this.newImage;
+			/**/
+
+			this.newImage.effects = new Fx.Morph(this.bg, {
+				duration  : this.options.duration,
+				transition: this.options.transition
+			});
+			this.effectObj = this.newImage.effects;
+
 			var myFxTypes = ['fade', 'wipe', 'slide'];
 			var myFxDir = ['top', 'right', 'bottom', 'left'];
 
@@ -573,6 +633,30 @@ var SlideShow = new Class({
 			//alert("phat085:" + err.message);
             console.log("phat085:" + err.message);
 		}
+	},
+
+	/*---------------------------------------------------
+       next / previous library
+    ---------------------------------------------------*/
+
+	/**
+	 *
+	 */
+	nextIdx: function (actIdx, arrayLength) {
+		var _nextIdx = (parseInt(actIdx) + 1) % parseInt(arrayLength);
+		//console.log('nextIdx in: ' + actIdx + ' next: ' +  _nextIdx + ' length:' +  arrayLength + ' current:' +  dom_form.currSlide.value);
+
+		return _nextIdx;
+	},
+
+	/**
+	 *
+	 */
+	previousIdx: function (actIdx, arrayLength) {
+		var _prevIdx = (parseInt(actIdx) - 1 + parseInt(arrayLength)) % parseInt(arrayLength);
+		//console.log('prevIdx in: ' + actIdx + ' prev: ' +  _prevIdx + ' length:' +  arrayLength + ' current:' +  dom_form.currSlide.value);
+
+		return _prevIdx;
 	}
 
 });
@@ -584,7 +668,7 @@ var SlideShow = new Class({
     
     SlideShow.implement(new Options);
     SlideShow.implement(new Events);
-    
+
     /**/
 //});
 
