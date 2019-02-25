@@ -100,10 +100,10 @@ class rsgGalleryManager
 		if ($id === null)
 		{
 			$input = JFactory::getApplication()->input;
-			$id    = $input->get('catid', 0, 'INT');
+			// cat ID ??
+			//$id    = $input->get('catid', 0, 'INT');
 
 			$id = $input->get('gid', $id, 'INT');
-
 			if (!$id)
 			{
 				// check if an item id is set and if so return the gallery for that item id
