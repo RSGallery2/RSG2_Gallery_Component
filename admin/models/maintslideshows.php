@@ -99,14 +99,17 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 
 		try
 		{
-			//--- folder and filenames preparation ------------------------
+			//--- folder and file names preparation ------------------------
 
 			$fieldsFileName    = 'templateDetails.xml';
 			$parameterFileName = 'params.ini';
+			$userCssFileName   = 'user.css';
+
 			$fileBasePath      = JPATH_COMPONENT_SITE . '/templates/' . $slideshowName;
 
 			$templatePathFile = $fileBasePath . '/' . $fieldsFileName;
 			$paramsPathFile   = $fileBasePath . '/' . $parameterFileName;
+			$userCssPathFile   = $fileBasePath . '/css/' . $userCssFileName;
 
 			//--- templateDetails.xml -----------------------------------
 
@@ -132,6 +135,14 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 			if (!empty($paramsPathFile))
 			{
 				$configData->parameterValues = $this->SettingsFromParamsFile($paramsPathFile);
+			}
+
+			//--- user css -----------------------------------
+
+			$configData->userCssText = '';
+			if (file_exists ($userCssPathFile))
+			{
+				$configData->userCssText = file_get_contents ($userCssPathFile);
 			}
 		}
 		catch (RuntimeException $e)
@@ -231,7 +242,12 @@ class rsgallery2ModelMaintSlideshows extends JModelList
 			else
 			{
 				// throw file does not exist
-				throw new \RuntimeException('File not found or not readable');
+				//throw new \RuntimeException('File not found or not readable');
+				$OutTxt = '';
+				$OutTxt .= 'Attention: Parameter file does not exist"' . '<br>';
+
+				$app = JFactory::getApplication();
+				$app->enqueueMessage($OutTxt, 'notice');
 			}
 		}
 		catch (RuntimeException $e)

@@ -57,55 +57,81 @@ function tabContent ($formSlide, $testForm)
     echo JHtml::_('bootstrap.addSlide', 'slide_slideshow_parameters',
         JText::_('COM_RSGALLERY2_SLIDESHOW_PARAMETER'), 'parameters_id_1');
 
-	// display fields
-    echo $testForm->renderFieldset('advanced');
+    if ( ! empty ($formSlide->formFields))
+    {
+	    // display fields
+	    echo $testForm->renderFieldset('advanced');
 
-    // button to submit the changed data
-	createSaveParameterButton ($sliderName);
+	    // button to submit the changed data
+	    createSaveParameterButton($sliderName);
 
-    echo JHtml::_('bootstrap.endSlide');
-	echo JHtml::_('bootstrap.endAccordion');
+	    echo JHtml::_('bootstrap.endSlide');
+	    echo JHtml::_('bootstrap.endAccordion');
 
-	//--- show slideshow parameter as text ------------------------
+	    //--- show slideshow parameter as text ------------------------
 
-	$params = $formSlide->parameterValues; // Jregistry
+	    $params = $formSlide->parameterValues; // Jregistry
 
-	// field inside xml file
-	if ($params->exists('params'))
-	{
-		$params = $params->extract('params');
-	}
+	    // field inside xml file
+	    if ($params->exists('params'))
+	    {
+		    $params = $params->extract('params');
+	    }
 
-	// One line for each parameter: name="value"
-	$parameterLines = $params->toString ('INI');
+	    // One line for each parameter: name="value"
+	    $parameterLines = $params->toString('INI');
 
 
-	echo JHtml::_('bootstrap.startAccordion', 'slide_slideshow_file',
-		array('active' => 'file_id_1'));
+	    echo JHtml::_('bootstrap.startAccordion', 'slide_slideshow_file',
+		    array('active' => 'file_id_1'));
 
-	echo JHtml::_('bootstrap.addSlide', 'slide_slideshow_file',
-		JText::_('COM_RSGALLERY2_FILE') . ' params.ini', 'file_id_1');
+	    echo JHtml::_('bootstrap.addSlide', 'slide_slideshow_file',
+		    JText::_('COM_RSGALLERY2_FILE') . ' params.ini', 'file_id_1');
+
+	    echo '<div class="control-group">';
+
+	    echo '    <div class="control-label">';
+	    echo '        <label  id="params_ini_' . $sliderName . '-lbl" for="params_ini_' . $sliderName . '"  class="hasPopover" ';
+	    echo '           title="" ';
+	    echo '           data-original-title="' . JText::_('COM_RSGALLERY2_FILE') . ' params.ini' . '"';
+	    echo '           data-content="' . JText::_('COM_RSGALLERY2_MAINT_SLIDESHOW_PARAMS_INI_CONTENT') . '"';
+	    echo '        >';
+	    echo          JText::_('COM_RSGALLERY2_CONTENT') . ' params.ini';
+	    echo '        </label>';
+	    echo '    </div>';
+	    echo '    <div class="controls">';
+	    echo '        <textarea id="params_ini_' . $sliderName . '" class="input-xxlarge" name="params_ini_' . $sliderName . '" rows="20">'
+                           . $parameterLines . '</textarea>';
+	    echo '    </div>';
+	    echo '</div>';
+
+	    // button to submit the changed data
+	    createSaveFileButton($sliderName);
+    }
+    else
+    {
+	    echo '<br><br><h4>Slideshow <strong>"' . $sliderName . '"</strong> has no parameters</h4><br><br>';
+    }
 
 	echo '<div class="control-group">';
 
 	echo '    <div class="control-label">';
-	echo '        <label  id="params_ini_' . $sliderName . '-lbl" for="params_ini_' . $sliderName . '"  class="hasPopover" ';
+	echo '        <label  id="user_css_' . $sliderName . '-lbl" for="user_css_' . $sliderName . '"  class="hasPopover" ';
 	echo '           title="" ';
-	echo '           data-original-title="' . JText::_('COM_RSGALLERY2_FILE') . ' params.ini' . '"';
-	echo '           data-content="' . JText::_('COM_RSGALLERY2_MAINT_SLIDESHOW_PARAMS_INI_CONTENT') . '"';
+	echo '           data-original-title="' . JText::_('COM_RSGALLERY2_FILE') . ' user.css' . '"';
+	echo '           data-content="' . JText::_('COM_RSGALLERY2_MAINT_SLIDESHOW_USER_CSS_CONTENT') . '"';
 	echo '        >';
-	echo 'params.ini content';
+	echo          JText::_('COM_RSGALLERY2_CONTENT') . ' user.ini';
 	echo '        </label>';
 	echo '    </div>';
 	echo '    <div class="controls">';
-    echo '        <textarea id="params_ini_' . $sliderName . '" class="input-xxlarge" name="params_ini_' . $sliderName . '" rows="20">'. $parameterLines . '</textarea>';
+	echo '        <textarea id="user_css_' . $sliderName . '" class="input-xxlarge" name="user_css_' . $sliderName . '" rows="20">'
+                        . $formSlide->userCssText. '</textarea>';
 	echo '    </div>';
-    echo '</div>';
+	echo '</div>';
 
-	// button to submit the changed data
-	createSaveFileButton ($sliderName);
 
-    echo JHtml::_('bootstrap.endSlide');
+	echo JHtml::_('bootstrap.endSlide');
     echo JHtml::_('bootstrap.endAccordion');
 
 	// following Prepared for view where all slideshows are displayed side by side
@@ -209,8 +235,8 @@ function createSaveFileButton ($sliderName='')
                 //echo JHtml::_('bootstrap.startTabSet', 'slidersTab', array('active' => 'tab_' . $activeName));
 
                 // forms fields could be extracted from templateDetails.xml file
-                if ( ! empty ($slideshowData->formFields))
-                {
+                //if ( ! empty ($slideshowData->formFields))
+                //{
 	                // following Prepared for view where all slideshows are displayed side by side
                     //tabHeader($sliderName);
 
@@ -218,11 +244,10 @@ function createSaveFileButton ($sliderName='')
 
 	                // following Prepared for view where all slideshows are displayed side by side
                     //tabFooter($sliderName);
-                }
-                else
-                {
-	                echo '<br><br><h4>Slideshow has no parameters</h4>';
-                }
+                //}
+                //
+
+                //tabContentUserCss ($slideshowData)
 
                 // following Prepared for view where all slideshows are displayed side by side
                 //echo JHtml::_('bootstrap.endTabSet');
