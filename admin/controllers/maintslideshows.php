@@ -149,7 +149,7 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 	}
 
 	/**
-	 * saveConfigFile
+	 * saveParamsFile
 	 * User input in textarea will be written to file.
 	 * To clean up and secure the input it is read into
 	 * the registry format
@@ -157,9 +157,120 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 	 * @since 4.4.2
 	 * @throws Exception
 	 */
-	public function saveConfigFile()
+	public function saveParamsFile()
 	{
 		$msg         = 'Save slideshow config file ';
+		$msgType     = 'notice';
+		$IsSaved     = false;
+		$isErrFound = false;
+		$configParam = "";
+
+		$input = JFactory::getApplication()->input;
+
+		//--- Tell the maintenance form the slideshow to use -----------------------------
+
+		// base link
+		$link = 'index.php?option=com_rsgallery2&view=maintslideshows';
+		// slideshow addition
+		$slideshowName = $input->get('maintain_slideshow', "", 'STRING');
+		if (!empty ($slideshowName))
+		{
+			$link .= '&maintain_slideshow=' . $slideshowName;
+		}
+
+		//--- Access check ---------------------------------------
+
+		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+		if (!$canAdmin)
+		{
+			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		}
+		else
+		{
+			//--- fetch user data -----------------------------
+
+			$targetSlideshow = $input->get('usedSlideshow', "", 'STRING');
+			$paramsIniText   = $input->get('params_ini_' . $targetSlideshow, "", 'STRING');
+
+			// check input
+			if (empty ($targetSlideshow))
+			{
+				$isErrFound = true;
+				$msg        = $msg . ': Empty slideshow name';
+				$msgType    = 'error';
+			}
+
+			//--- sanitize edited text -----------------------------
+
+			if (!$isErrFound)
+			{
+				// convert to registry
+				$params = new JRegistry;
+				$params->loadString($paramsIniText, 'INI');
+				$configParam = $params->toString('INI');
+			}
+
+			//--- Check folder of file -----------------------------
+
+			if (!$isErrFound)
+			{
+				//--- folder name -----------------------------
+
+				$fileBasePath = JPATH_COMPONENT_SITE . '/templates/' . $targetSlideshow;
+
+				// Does folder exist ?
+				if (!is_dir($fileBasePath))
+				{
+					$isErrFound = true;
+					$msg        = $msg . ": folder does not exist: " . $fileBasePath;
+					$msgType    = 'error';
+				}
+			}
+
+			//--- write to file -----------------------------
+
+			if (!$isErrFound)
+			{
+				//--- file name -----------------------------
+				$parameterFileName = 'params.ini';
+
+				$pathFileName = $fileBasePath . '/' . $parameterFileName;
+				$fileBytes    = file_put_contents($pathFileName, $configParam . PHP_EOL, LOCK_EX);
+
+				//  tells if successful
+				// $IsSaved = $fileBytes != false;
+				$IsSaved = !empty ($fileBytes);
+			}
+		}
+
+		if ($IsSaved)
+		{
+			$msg .= ' successful';
+		}
+		else
+		{
+			$msg .= ' failed';
+			JFactory::getApplication()->enqueueMessage($msg, 'warning');
+		}
+
+		$this->setRedirect($link, $msg, $msgType);
+	}
+
+	/**
+	 * saveUserCssFile
+	 * User input in textarea will be written to file.
+	 * To clean up and secure the input it is read into
+	 * the registry format
+	 *
+	 * @since 4.4.2
+	 * @throws Exception
+	 */
+	public function saveUserCssFile()
+	{
+		$msg         = 'Save slideshow user css file ';
 		$msgType     = 'notice';
 		$IsSaved     = false;
 		$isErrFound = false;

@@ -121,7 +121,7 @@ function tabContent ($formSlide, $testForm)
 	echo '           data-original-title="' . JText::_('COM_RSGALLERY2_FILE') . ' user.css' . '"';
 	echo '           data-content="' . JText::_('COM_RSGALLERY2_MAINT_SLIDESHOW_USER_CSS_CONTENT') . '"';
 	echo '        >';
-	echo          JText::_('COM_RSGALLERY2_CONTENT') . ' user.ini';
+	echo          JText::_('COM_RSGALLERY2_CONTENT') . ' user.css';
 	echo '        </label>';
 	echo '    </div>';
 	echo '    <div class="controls">';
@@ -240,7 +240,7 @@ function createSaveFileButton ($sliderName='')
 	                // following Prepared for view where all slideshows are displayed side by side
                     //tabHeader($sliderName);
 
-                    tabContent($slideshowData, $this->formSlide);
+                tabContent($slideshowData, $this->formSlide);
 
 	                // following Prepared for view where all slideshows are displayed side by side
                     //tabFooter($sliderName);
