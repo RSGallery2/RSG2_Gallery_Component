@@ -106,7 +106,7 @@ function tabContent ($formSlide, $testForm)
 	    echo '</div>';
 
 	    // button to submit the changed data
-	    createSaveFileButton($sliderName);
+	    createSaveParamsIniFileButton($sliderName);
     }
     else
     {
@@ -130,6 +130,8 @@ function tabContent ($formSlide, $testForm)
 	echo '    </div>';
 	echo '</div>';
 
+	// button to submit the changed data
+	createSaveUserCssFileButton($sliderName);
 
 	echo JHtml::_('bootstrap.endSlide');
     echo JHtml::_('bootstrap.endAccordion');
@@ -175,7 +177,7 @@ function createSaveParameterButton ($sliderName='')
 }
 
 /**
- * createSaveFileButton
+ * createSaveParamsIniFileButton
  * Displays button to save the slideshow parameters
  * from text area definition
  *
@@ -183,14 +185,36 @@ function createSaveParameterButton ($sliderName='')
  *
  * @since 4.4.2
  */
-function createSaveFileButton ($sliderName='')
+function createSaveParamsIniFileButton ($sliderName='')
 {
 
 	echo '<!-- Action button save config file: ' . $sliderName . ' -->';
 	echo '<div class="form-actions">';
 	echo '    <button id="btnConfigFile_' . $sliderName . '" name="btnConfigFile" type="button" class="btn btn-primary"';
 	echo '    >';
-	echo          JText::_('COM_RSGALLERY2_MAINT_SAVE_FILE');
+	echo          JText::_('COM_RSGALLERY2_MAINT_SAVE_PARAM_FILE');
+	echo '    </button>';
+	echo '</div>';
+
+}
+
+/**
+ * createSaveUserCssFileButton
+ * Displays button to save the slideshow parameters
+ * from text area definition
+ *
+ * @param $sliderName
+ *
+ * @since 4.4.2
+ */
+function createSaveUserCssFileButton ($sliderName='')
+{
+
+	echo '<!-- Action button save config file: ' . $sliderName . ' -->';
+	echo '<div class="form-actions">';
+	echo '    <button id="btnUserCssFile_' . $sliderName . '" name="btnUserCssFile" type="button" class="btn btn-primary"';
+	echo '    >';
+	echo          JText::_('COM_RSGALLERY2_MAINT_SAVE_USER_CSS_FILE');
 	echo '    </button>';
 	echo '</div>';
 

@@ -39,10 +39,21 @@ jQuery(document).ready(function ($) {
         //-- assign to control --------------
 
         var form = document.getElementById('adminForm');
-        form.task.value = 'maintslideshows.saveConfigFile';
+        form.task.value = 'maintslideshows.saveParamsFile';
 
         form.submit();
     });
     /**/
+    
+    
+    $("button[name='btnUserCssFile']").click(function (event) {
+        
+        //-- assign to control --------------
+        
+        var form = document.getElementById('adminForm');
+        form.task.value = 'maintslideshows.saveUserCssFile';
+        
+        form.submit();
+    });
 
 });

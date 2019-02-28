@@ -332,7 +332,7 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 			{
 				//--- folder name -----------------------------
 
-				$fileBasePath = JPATH_COMPONENT_SITE . '/templates/' . $targetSlideshow;
+				$fileBasePath = JPATH_COMPONENT_SITE . '/templates/' . $targetSlideshow . '/css';
 
 				// Does folder exist ?
 				if (!is_dir($fileBasePath))
