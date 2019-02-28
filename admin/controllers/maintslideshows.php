@@ -304,7 +304,7 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 			//--- fetch user data -----------------------------
 
 			$targetSlideshow = $input->get('usedSlideshow', "", 'STRING');
-			$paramsIniText   = $input->get('params_ini_' . $targetSlideshow, "", 'STRING');
+			$userCssText   = $input->get('user_css_' . $targetSlideshow, "", 'STRING');
 
 			// check input
 			if (empty ($targetSlideshow))
@@ -318,10 +318,12 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 
 			if (!$isErrFound)
 			{
+				/**
 				// convert to registry
 				$params = new JRegistry;
-				$params->loadString($paramsIniText, 'INI');
+				$params->loadString($userCssText, 'INI');
 				$configParam = $params->toString('INI');
+				/**/
 			}
 
 			//--- Check folder of file -----------------------------
@@ -346,10 +348,10 @@ class Rsgallery2ControllerMaintSlideshows extends JControllerForm
 			if (!$isErrFound)
 			{
 				//--- file name -----------------------------
-				$parameterFileName = 'params.ini';
+				$parameterFileName = 'user.css';
 
 				$pathFileName = $fileBasePath . '/' . $parameterFileName;
-				$fileBytes    = file_put_contents($pathFileName, $configParam . PHP_EOL, LOCK_EX);
+				$fileBytes    = file_put_contents($pathFileName, trim($userCssText) . PHP_EOL, LOCK_EX);
 
 				//  tells if successful
 				// $IsSaved = $fileBytes != false;
