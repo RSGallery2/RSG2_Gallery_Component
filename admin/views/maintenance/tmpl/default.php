@@ -171,6 +171,14 @@ function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = 
 									'viewConfigSlideshow');
 								?>
 
+								<?php
+								$link = 'index.php?option=com_rsgallery2&amp;view=maintTemplates';
+								quickTwoIconMoonBar($link, 'icon-equalizer', 'icon-out-3', //paragraph-justify
+									JText::_('COM_RSGALLERY2_TEMPLATE_CONFIGURATION'),
+									JText::_('COM_RSGALLERY2_TEMPLATES_CONFIGURATION_DESC') . '                        ',
+									'viewConfigTemplate');
+								?>
+
                                 <?php
 								$link = 'index.php?option=com_rsgallery2&amp;view=comments';
 								quickTwoIconMoonBar($link, 'icon-comment', 'icon-list-2',
