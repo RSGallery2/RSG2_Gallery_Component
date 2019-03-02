@@ -516,11 +516,11 @@ Replaced deprecated \$dg->getErrorNum, \$db->getErrorMsg() with try catch handli
 # Fixed meta description and page title
 
 2012-01-01 Mirjam - SVN 1057
-^ Created sliders for Configurationís tab Images
-^ Removed unused settings ìResize portrait images by height using Display Picture Widthî, ìCreate directories if they don't exist ì, ìResize Optionî and ìUser can only comment onceî (all commented).
+^ Created sliders for Configuration‚Äôs tab Images
+^ Removed unused settings ‚ÄúResize portrait images by height using Display Picture Width‚Äù, ‚ÄúCreate directories if they don't exist ‚Äú, ‚ÄúResize Option‚Äù and ‚ÄúUser can only comment once‚Äù (all commented).
 ^ The Allowed filetypes are hardcoded (images: "jpg",'jpeg',"gif","png"), no longer showing them in input box. 
 ^ Moved setting FTP Path tot Image Upload section and corrected base path information. 
-^ Hardcoded textstring ì(ex. C:\ffmpeg\ffmpeg.exe)î now translatable.
+^ Hardcoded textstring ‚Äú(ex. C:\ffmpeg\ffmpeg.exe)‚Äù now translatable.
 ^ Upon Save in Configuration now using Joomla messages instread of RSG2 printAdminMsg
 # Corrected missing language strings showing in pagination when you have a paginated list of galleries in the front-end
 - Removed directory preparedLanguages that held a number of language files that were automatically converted from RSGallery2 1.x to 2.x, they had to be changed since the way Joomla handled language strings changed. Reason: there were no volunteers to update those langages from Joomla 1.0.x & RSGallery2 1.x to Joomla 1.5.x & RSGallery2 2.x nor the conversion to Joomla 1.6/1.7/2.5 & RSGallery2 3.x.
@@ -698,9 +698,9 @@ BACKEND
 ^ addCustomHeadTag is deprecated in J!1.5, use JDocument->addCustomTag (only when document type is HTML)
 ^ Changed code to show published/reorder icons correcty in J!1.6
 ^ Changed help screen that is no longer in /help/en-gb/ but in /help/ 
-^ With some help of EasyCreator all language strings have been converted: no spaces in keys, keys start with COM_RSGALLERY2_, no punctuation marks in keys; values in double quotes. E.g. COM_RSGALLERY2_KEY=îValueî. Removed redundand keys, or when they have all translations, commented them. Comment sign is a semi-colon ;. Needs to be checked by translators.
+^ With some help of EasyCreator all language strings have been converted: no spaces in keys, keys start with COM_RSGALLERY2_, no punctuation marks in keys; values in double quotes. E.g. COM_RSGALLERY2_KEY=‚ÄùValue‚Äù. Removed redundand keys, or when they have all translations, commented them. Comment sign is a semi-colon ;. Needs to be checked by translators.
 + added jimport( 'joomla.html.parameter' ); in init.rsgallery2.php for JParameter
-+ Around pageLinks a div with class pagination is needed (or else youíll just see a bulleted list)
++ Around pageLinks a div with class pagination is needed (or else you‚Äôll just see a bulleted list)
 + For menutree the elements directory is removed and a models/fields/gallery.php is created for a dropdown list where the gallery can be chosen: this adds parameter gid to the URL, so one can choose e.g. the root, with gid 0, or any other gallery. This also involved changes in the views/gallery/tmpl/default.xml.
 + Added submenu: the submenu no longer appears automatically from the xml file admin submenu items: need  JHtmlSidebar::addEntry
 ^ Changed reference to #__components table, that no longer exists in J!1.6, to #__extensions table 
@@ -713,7 +713,7 @@ FRONTEND
 ^ Minor adjustments to CSS
 ^ Changed JHtml::_("date", \$kid->date,"d-m-Y" ) to JHtml::_("date", \$kid->date,JText::_('DATE_FORMAT_LC3')
 ^ Pathway now working (global \$option; replaced by \$option = JRequest::getCmd('option');) and adjusted for the fact that subgalleries now also may be menu items.
-^ With some help of EasyCreator all language strings have been converted: no spaces in keys, keys start with COM_RSGALLERY2_, no punctuation marks in keys; values in double quotes. E.g. COM_RSGALLERY2_KEY=îValueî. Removed redundand keys, or when they have all translations, commented them. Comment sign is a semi-colon ;. Needs to be checked by translators.
+^ With some help of EasyCreator all language strings have been converted: no spaces in keys, keys start with COM_RSGALLERY2_, no punctuation marks in keys; values in double quotes. E.g. COM_RSGALLERY2_KEY=‚ÄùValue‚Äù. Removed redundand keys, or when they have all translations, commented them. Comment sign is a semi-colon ;. Needs to be checked by translators.
 
 2010-10-20 Mirjam
 ! Domain rsgallery2.net was lost to the RSGallery2 Team in september 2010.
@@ -726,7 +726,7 @@ FRONTEND
 ^ Manifest rsgallery2.xml now used method="upgrade" so uninstalling RSG2 and revisiting its menu-items after installation is no longer neccessary. It writes over all existing files mentioned in the xml, so backing up of any file changes, e.g. to the existing template, is needed.
 
 2010-08-22 Mirjam - SVN 989
-^ Updated german and french language file (thanks to G¸nter Hoffman)
+^ Updated german and french language file (thanks to G√ºnter Hoffman)
 
 2010-05-20 Mirjam - SVN 986
 + Added setting useIPTCinformation (default off): choice of using image IPTC information for title and description when uploading images (single file/batch upload).
