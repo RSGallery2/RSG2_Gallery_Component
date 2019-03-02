@@ -11,6 +11,10 @@ defined('_JEXEC') or die;
 
 JFormHelper::loadFieldClass('list');
 
+if (!defined('JPATH_RSGALLERY2_ADMIN')) {    // might also be defined in router.php is SEF is used
+	define('JPATH_RSGALLERY2_ADMIN', JPATH_ROOT . '/administrator/components/com_rsgallery2');
+}
+
 /**
  * Collects names of all font file occurrences and creates contents of dropdown box
  * for font selection

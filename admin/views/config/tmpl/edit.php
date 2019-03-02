@@ -115,7 +115,7 @@ JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'
 				<?php echo JHtml::_('bootstrap.endSlide'); ?>
 
 				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group',
-                    JText::_('COM_RSGALLERY2_GRAPHICS_LIBRARY'), 'cfg_images_id_3'); ?>
+JText::_('COM_RSGALLERY2_IMAGES_GRAFICS_LIBRARIES'), 'cfg_images_id_3'); ?>
 
 				<?php
 				echo $this->form->renderFieldset('Images_graficsLibrary');
