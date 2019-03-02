@@ -148,9 +148,8 @@
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
-
-
 	</fieldset>
+
 	<fieldset name="Images_graficsLibrary">
 		<field
 				name="graphicsLib"
@@ -770,7 +769,6 @@
 				size="5"
 				multiple="true"
 		>
-			<option value="resolutionUnit">Resolution unit</option>
 			<option value="resolutionUnit">Resolution unit</option>
 			<option value="FileName">Filename</option>
 			<option value="FileSize">Filesize</option>
