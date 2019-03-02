@@ -552,8 +552,8 @@
 	<fieldset name="Display_galleryView">
 	
 		<field
-				id="current_template"
-				name="current_template"
+				id="template"
+				name="template"
 				type="TemplateSelectList"
 				label="COM_RSGALLERY2_SELECT_TEMPLATE"
 				description=""

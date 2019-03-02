@@ -37,9 +37,11 @@ JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'
 
 				<!--- general --->
 
-				<?php echo JHtml::_('bootstrap.addTab', 'Config', 'General', JText::_('COM_RSGALLERY2_GENERAL', true)); ?>
+				<?php echo JHtml::_('bootstrap.addTab', 'Config', 'General',
+                    JText::_('COM_RSGALLERY2_GENERAL', true)); ?>
 
-				<?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_general_group', array('active' => 'cfg_general_id_1')); ?>
+				<?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_general_group',
+                    array('active' => 'cfg_general_id_1')); ?>
 
 				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_general_group',
 					JText::_('COM_RSGALLERY2_GENERAL_SETTINGS'), 'cfg_general_id_1'); ?>
@@ -47,7 +49,8 @@ JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'
 					<fieldset class="adminform">
 
 						<div class="control-group">
-							<label class="control-label" for="VersionId"><?php echo JText::_('COM_RSGALLERY2_VERSION') . ':&nbsp;' . $this->rsgVersion; ?></label>
+							<label class="control-label" for="VersionId"><?php echo JText::_('COM_RSGALLERY2_VERSION')
+                                    . ':&nbsp;' . $this->rsgVersion; ?></label>
 							<div class="controls">
 								<label id="VersionId" class="span5 input_box" type="text"></label>
 							</div>
@@ -74,9 +77,11 @@ JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'
 
 				<!--- images --->
 
-				<?php echo JHtml::_('bootstrap.addTab', 'Config', 'Images', JText::_('COM_RSGALLERY2_IMAGES', false)); ?>
+				<?php echo JHtml::_('bootstrap.addTab', 'Config', 'Images',
+                    JText::_('COM_RSGALLERY2_IMAGES', false)); ?>
 
-				<?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_images_group', array('active' => 'cfg_images_id_1')); ?>
+				<?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_images_group',
+                    array('active' => 'cfg_images_id_1')); ?>
 
 				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group',
 					JText::_('COM_RSGALLERY2_IMAGE_MANIPULATION'), 'cfg_images_id_1'); ?>
@@ -87,7 +92,8 @@ JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'
 
 				<?php echo JHtml::_('bootstrap.endSlide'); ?>
 
-				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_IMAGE_UPLOAD'), 'cfg_images_id_2'); ?>
+				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group',
+                    JText::_('COM_RSGALLERY2_IMAGE_UPLOAD'), 'cfg_images_id_2'); ?>
 				<?php
 				/*
 				<td width="200">
@@ -108,7 +114,8 @@ JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'
 
 				<?php echo JHtml::_('bootstrap.endSlide'); ?>
 
-				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_GRAPHICS_LIBRARY'), 'cfg_images_id_3'); ?>
+				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group',
+                    JText::_('COM_RSGALLERY2_GRAPHICS_LIBRARY'), 'cfg_images_id_3'); ?>
 
 				<?php
 				echo $this->form->renderFieldset('Images_graficsLibrary');
@@ -116,7 +123,8 @@ JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'
 
 				<?php echo JHtml::_('bootstrap.endSlide'); ?>
 
-				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_IMAGE_STORAGE'), 'cfg_images_id_4'); ?>
+				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group',
+                    JText::_('COM_RSGALLERY2_IMAGE_STORAGE'), 'cfg_images_id_4'); ?>
 
 				<?php
 				echo $this->form->renderFieldset('Images_storage');
@@ -124,7 +132,8 @@ JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'
 
 				<?php echo JHtml::_('bootstrap.endSlide'); ?>
 
-				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_COMMENTS'), 'cfg_images_id_5'); ?>
+				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group',
+                    JText::_('COM_RSGALLERY2_COMMENTS'), 'cfg_images_id_5'); ?>
 
 				<?php
 				echo $this->form->renderFieldset('Images_comments');
@@ -132,7 +141,8 @@ JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'
 
 				<?php echo JHtml::_('bootstrap.endSlide'); ?>
 
-				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group', JText::_('COM_RSGALLERY2_VOTING'), 'cfg_images_id_6'); ?>
+				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_images_group',
+                    JText::_('COM_RSGALLERY2_VOTING'), 'cfg_images_id_6'); ?>
 
 				<?php
 				echo $this->form->renderFieldset('Images_voting');
@@ -146,12 +156,13 @@ JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'
 
 				<!--- display --->
 
-				<?php echo JHtml::_('bootstrap.addTab', 'Config', 'Display', JText::_('COM_RSGALLERY2_DISPLAY', false)); ?>
+				<?php echo JHtml::_('bootstrap.addTab', 'Config', 'Display',
+                    JText::_('COM_RSGALLERY2_DISPLAY', false)); ?>
 
 				<?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_display_group',
                     array('active' => 'cfg_display_id_1')); ?>
 
-				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group',
+                <?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group',
 					JText::_('COM_RSGALLERY2_FRONT_PAGE'), 'cfg_display_id_1'); ?>
 
 				<?php
@@ -160,31 +171,8 @@ JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'
 
 				<?php echo JHtml::_('bootstrap.endSlide'); ?>
 
-				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group', JText::_('COM_RSGALLERY2_IMAGE_DISPLAY'), 'cfg_display_id_2'); ?>
-
-				<?php
-				echo $this->form->renderFieldset('Display_imageDisplay');
-				?>
-
-				<?php echo JHtml::_('bootstrap.endSlide'); ?>
-
-				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group', JText::_('COM_RSGALLERY2_IMAGE_ORDER'), 'cfg_display_id_3'); ?>
-
-				<?php
-				echo $this->form->renderFieldset('Display_imageOrder');
-				?>
-
-				<?php echo JHtml::_('bootstrap.endSlide'); ?>
-
-				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group', JText::_('COM_RSGALLERY2_EXIF_SETTINGS'), 'cfg_display_id_4'); ?>
-
-				<?php
-				echo $this->form->renderFieldset('Display_exifSettings');
-				?>
-
-				<?php echo JHtml::_('bootstrap.endSlide'); ?>
-
-				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group', JText::_('COM_RSGALLERY2_GALLERY_VIEW'), 'cfg_display_id_5'); ?>
+				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group',
+					JText::_('COM_RSGALLERY2_GALLERY_VIEW'), 'cfg_display_id_5'); ?>
 
 				<?php
 				echo $this->form->renderFieldset('Display_galleryView');
@@ -192,7 +180,35 @@ JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'
 
 				<?php echo JHtml::_('bootstrap.endSlide'); ?>
 
-				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group', JText::_('COM_RSGALLERY2_IMAGE_WATERMARK'), 'cfg_display_id_6'); ?>
+                <?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group',
+                    JText::_('COM_RSGALLERY2_IMAGE_DISPLAY'), 'cfg_display_id_2'); ?>
+
+				<?php
+				echo $this->form->renderFieldset('Display_imageDisplay');
+				?>
+
+				<?php echo JHtml::_('bootstrap.endSlide'); ?>
+
+				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group',
+                    JText::_('COM_RSGALLERY2_IMAGE_ORDER'), 'cfg_display_id_3'); ?>
+
+				<?php
+				echo $this->form->renderFieldset('Display_imageOrder');
+				?>
+
+				<?php echo JHtml::_('bootstrap.endSlide'); ?>
+
+				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group',
+                    JText::_('COM_RSGALLERY2_EXIF_SETTINGS'), 'cfg_display_id_4'); ?>
+
+				<?php
+				echo $this->form->renderFieldset('Display_exifSettings');
+				?>
+
+				<?php echo JHtml::_('bootstrap.endSlide'); ?>
+
+				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_display_group',
+                    JText::_('COM_RSGALLERY2_IMAGE_WATERMARK'), 'cfg_display_id_6'); ?>
 
 				<?php
 				echo $this->form->renderFieldset('Display_imageWatermark');
@@ -206,9 +222,11 @@ JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'
 
 				<!--- My galleries --->
 
-				<?php echo JHtml::_('bootstrap.addTab', 'Config', 'Mygalleries', JText::_('COM_RSGALLERY2_MY_GALLERIES', false)); ?>
+				<?php echo JHtml::_('bootstrap.addTab', 'Config', 'Mygalleries',
+                    JText::_('COM_RSGALLERY2_MY_GALLERIES', false)); ?>
 
-				<?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_my_galleries_group_1', array('active' => 'cfg_my_galleries_id_1')); ?>
+				<?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_my_galleries_group_1',
+                    array('active' => 'cfg_my_galleries_id_1')); ?>
 
 				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_my_galleries_group_1',
 					JText::_('COM_RSGALLERY2_MY_GALLERIES_SETTINGS'), 'cfg_my_galleries_id_1'); ?>
@@ -221,9 +239,11 @@ JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold'
 
 				<?php echo JHtml::_('bootstrap.endAccordion'); ?>
 
-				<?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_my_galleries_group_2', array('active' => 'cfg_my_galleries_id_2')); ?>
+				<?php echo JHtml::_('bootstrap.startAccordion', 'slide_cfg_my_galleries_group_2',
+                    array('active' => 'cfg_my_galleries_id_2')); ?>
 
-				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_my_galleries_group_2', JText::_('COM_RSGALLERY2_IMAGE_UPLOAD'), 'cfg_my_galleries_id_2'); ?>
+				<?php echo JHtml::_('bootstrap.addSlide', 'slide_cfg_my_galleries_group_2',
+                    JText::_('COM_RSGALLERY2_IMAGE_UPLOAD'), 'cfg_my_galleries_id_2'); ?>
 
 				<?php
 				echo $this->form->renderFieldset('Mygalleries_upload');

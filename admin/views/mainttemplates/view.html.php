@@ -70,7 +70,7 @@ class Rsgallery2ViewMaintTemplates extends JViewLegacy
 		// selected in form
 		$userTemplate   = $input->get('maintain_template', "", 'STRING');
 		// selected in configuration
-		$configTemplate = $rsgConfig->get('current_template');
+		$configTemplate = $rsgConfig->get('template');
 
 		//--- Name list of existing slidehows --------------
 		
@@ -198,7 +198,7 @@ class Rsgallery2ViewMaintTemplates extends JViewLegacy
 		{
 			JToolBarHelper::custom('mainttemplates.saveConfigParameter', 'equalizer', '', 'COM_RSGALLERY2_MAINT_SAVE_PARAMETER', false);
 			JToolBarHelper::custom('mainttemplates.saveParamsFile', 'file', 'file', 'COM_RSGALLERY2_MAINT_SAVE_PARAM_FILE', false);
-			JToolBarHelper::custom('mainttemplates.saveUserCssFile', 'file', 'file', 'COM_RSGALLERY2_MAINT_SAVE_CSS_FILE', false);
+			JToolBarHelper::custom('mainttemplates.saveUserCssFile', 'file', 'file', 'COM_RSGALLERY2_MAINT_SAVE_USER_CSS_FILE', false);
 			// JToolBarHelper::spacer();
 		}
 

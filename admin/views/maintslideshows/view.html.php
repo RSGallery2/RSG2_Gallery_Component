@@ -198,7 +198,7 @@ class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 		{
 			JToolBarHelper::custom('maintslideshows.saveConfigParameter', 'equalizer', '', 'COM_RSGALLERY2_MAINT_SAVE_PARAMETER', false);
 			JToolBarHelper::custom('maintslideshows.saveParamsFile', 'file', 'file', 'COM_RSGALLERY2_MAINT_SAVE_PARAM_FILE', false);
-			JToolBarHelper::custom('maintslideshows.saveUserCssFile', 'file', 'file', 'COM_RSGALLERY2_MAINT_SAVE_CSS_FILE', false);
+			JToolBarHelper::custom('maintslideshows.saveUserCssFile', 'file', 'file', 'COM_RSGALLERY2_MAINT_SAVE_USER_CSS_FILE', false);
 			// JToolBarHelper::spacer();
 		}
 
