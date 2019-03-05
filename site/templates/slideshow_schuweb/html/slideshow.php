@@ -161,8 +161,8 @@ if (True)
             foreach ($this->images as $image)
             {
 	            echo '<li class="span<' . $this->image_grid_size . '">';
-	            echo '<a href="' . $image['image'] . '" class="thumbnail group_images">';
-                echo '                    <img src="' . $this->$image['thumb'] . '" alt="">';
+	            echo '<a href="' . $image['display'] . '" class="thumbnail group_images">';
+                echo '                    <img src="' . $image['thumb'] . '" alt="">';
                 echo '                </a>';
                 echo '            </li>';
 			}

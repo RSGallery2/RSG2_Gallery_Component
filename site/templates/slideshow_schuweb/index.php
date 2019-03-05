@@ -11,14 +11,15 @@
 defined('_JEXEC') or die();
 
 // bring in display code
-$templatePath = JPATH_RSGALLERY2_SITE . '/templates' . '/slideshowone';
+$templatePath = JPATH_RSGALLERY2_SITE . '/templates' . '/slideshow_schuweb';
 require_once($templatePath . '/display.class.php');
 
 //--- slideshow class --------------------------
 
-$rsgDisplay = new rsgDisplay_slideshowone();
+$rsgDisplay = new rsgDisplay_slideshow_schuweb();
 
 // set slideshow parameter from URL
 // $rsgDisplay->addUrlSlideshowParameter ();
 
 $rsgDisplay->showSlideShow();
+

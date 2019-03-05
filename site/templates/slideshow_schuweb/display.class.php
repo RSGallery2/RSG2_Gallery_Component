@@ -46,7 +46,7 @@ class rsgDisplay_slideshow_schuweb extends rsgDisplay
 
 		$k    = 0;
 
-		$SLIDES = [];
+		$images = [];
 		foreach ($gallery->items() as $item)
 		{
 			if ($item->type != 'image')
@@ -54,15 +54,18 @@ class rsgDisplay_slideshow_schuweb extends rsgDisplay
 				return;
 			}
 
-			// image display data. urls ...
-			$display = $item->display();
+			$image = [];
 
-			$SLIDES [$k] = [$display->url(), $item->title] ;
+			$image ['display'] = $item->display()->url();
+			$image ['thumb'] = $item->thumb()->url();
+			$image ['title'] = $item->title;
+
+			$images [] = $image;
 
 			$k++;
 		}
 
-		$this->slideOptions ['SLIDES'] =  $SLIDES;
+		$this->images =  $images;
 		$this->galleryname = $gallery->name;
 		$this->gid         = $gallery->id;
 
