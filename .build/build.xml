@@ -7,18 +7,19 @@ ToDo:
   * task: exchange copyright to \d - 2018 ==> \d - 2019 ....
   * task: add * @since  3.1 automatically
   * task: make project file with major plugins ... 
-
   
 -->
 <project name = "RSG2_component" default = "build">
 <!-- ============================================ -->
-<!-- RSGallery2 (future) build script with phing  -->
+<description>
+--- RSGallery2 component build script with phing ---
+</description>
 <!-- ============================================ -->
 
 <!-- Parameter                                    -->
 
     <!-- Version number of build -->
-    <property name="build.version" value="4.4.2" override="true" />
+    <property name="build.version" value="4.4.2.1" override="true" />
 	    <!-- additional naming postfix -->
     <property name="build.postfix" value="prepare." override="true" />
     <!--property name="build.postfix" value="" override="true" / -->
@@ -26,6 +27,12 @@ ToDo:
     <!-- Get the date for build -->
     <tstamp prefix="build.date" />
     <!-- Set the directory where the packages should be saved. Relative to the build dir -->
+	
+	
+	<tstamp>
+		<format property = "fith.date" pattern = ".%Y.%m.%d" />
+	</tstamp>
+	
     <property name="builddir" value="./../.packages/" override="true" />
     <!-- Declare Project src files -->
     <property name="src" value="./.." override="true" />
@@ -59,12 +66,14 @@ ToDo:
 
 
 	<target name="build" depends="prepareFolder, copy">
-		<zip destfile="${builddir}/RSGallery2_Component.${build.postfix}${build.version}_${build.date.DSTAMP}.zip">
+	
+		<!--zip destfile="${builddir}/RSGallery2_Component.${build.postfix}${build.version}_${build.date.DSTAMP}.zip"-->
+		<zip destfile="${builddir}/RSGallery2_Component.${build.postfix}${build.version}${fith.date}.zip">
 			<fileset dir="${builddir}/tmp">
 				<include name="**" />
 			</fileset>
 		</zip>
-		<!-- delete dir="${builddir}/tmp" / -->
+		<delete dir="${builddir}/tmp" />
 		<echo msg="Zip ALL OK!" />
 	</target>
 
@@ -95,16 +104,33 @@ ToDo:
         <echo msg="Copy was successful" />
         <!-- insert version, build number and date into the xml files -->
         <reflexive>
-            <fileset dir="${builddir}/tmp/">
-                <include name="**" />
+            <fileset id = "sourcefiles" dir="${builddir}/tmp/">
+                <include name="rsgallery2.xml" />
             </fileset>
             <filterchain>
                 <replaceregexp>
+				creationDate
+				version
+                    <regexp pattern="sw\.build\.version" replace="${build.version}" />
                     <regexp pattern="sw\.build\.version" replace="${build.version}" />
                     <regexp pattern="sw\.build\.date" replace="${build.date.DSTAMP}" />
                 </replaceregexp>
             </filterchain>
         </reflexive>
+		
+		
+		<!--reflexive>
+			<fileset dir = ".">
+				<include pattern = "*.html">
+			</fileset>
+			<filterchain>
+				<replaceregexp>
+					<regexp pattern = "\r(\n)" replace = "\1"/>
+				</replaceregexp>
+			</filterchain>
+		</reflexive-->
+		
+		
     </target>
 
 	
