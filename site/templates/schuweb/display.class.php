@@ -13,7 +13,7 @@ defined('_JEXEC') or die();
  * @package RSGallery2
  * @author
  */
-class rsgDisplay_slideshow_schuweb extends rsgDisplay
+class rsgDisplay_schuweb extends rsgDisplay
 {
 	protected $isDisplayButtons = False;
 	protected $isButtonsAbove = False;

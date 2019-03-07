@@ -22,25 +22,25 @@ JHtml::_('jquery.ui'); // load jquery ui from Joomla
 
 
 $doc = JFactory::getDocument();
-$cssFile = JURI::base() . 'components/com_rsgallery2/templates/slideshow_schuweb/css/bootstrap.min.css';
+$cssFile = JURI::base() . 'components/com_rsgallery2/templates/schuweb/css/bootstrap.min.css';
 $doc->addStyleSheet($cssFile);
-$cssFile = JURI::base() . 'components/com_rsgallery2/templates/slideshow_schuweb/css/bootstrap-theme.min.css';
+$cssFile = JURI::base() . 'components/com_rsgallery2/templates/schuweb/css/bootstrap-theme.min.css';
 $doc->addStyleSheet($cssFile);
-$cssFile = JURI::base() . 'components/com_rsgallery2/templates/slideshow_schuweb/css/colorbox.css';
+$cssFile = JURI::base() . 'components/com_rsgallery2/templates/schuweb/css/colorbox.css';
 $doc->addStyleSheet($cssFile);
-$cssFile = JURI::base() . 'components/com_rsgallery2/templates/slideshow_schuweb/css/slideshow_schuweb.css';
+$cssFile = JURI::base() . 'components/com_rsgallery2/templates/schuweb/css/schuweb.css';
 $doc->addStyleSheet($cssFile);
 
-$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/slideshow_schuweb/js/colorbox/jquery.colorbox.js';
+$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/schuweb/js/colorbox/jquery.colorbox.js';
 $doc->addScript($jsScript);
-//$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/slideshow_schuweb/js/colorbox/jquery.colorbox-min.js';
+//$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/schuweb/js/colorbox/jquery.colorbox-min.js';
 //$doc->addScript($jsScript);
 
-$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/slideshow_schuweb/js/bootstrap.min.js';
+$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/schuweb/js/bootstrap.min.js';
 $doc->addScript($jsScript);
-$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/slideshow_schuweb/js/modal.js';
+$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/schuweb/js/modal.js';
 $doc->addScript($jsScript);
-$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/slideshow_schuweb/js/schuweb_colorbox.js';
+$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/schuweb/js/schuweb_colorbox.js';
 $doc->addScript($jsScript);
 
 
@@ -141,7 +141,7 @@ if (True)
 
 ?>
 
-<div class="rsg2-slideshow_schuweb">
+<div class="rsg2-schuweb">
 
 	<form name="_slideShow">
 

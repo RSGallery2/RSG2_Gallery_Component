@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains the main template file for RSGallery2.
+ * Prep for slideshow
  *
  * @package       RSGallery2
  * @copyright (C) 2003 - 2018 RSGallery2
@@ -19,14 +19,13 @@ This is built to imitate the Joomla 1.5.* style of templating.  Hopefully that i
 defined('_JEXEC') or die();
 
 // bring in display code
-$templatePath = JPATH_RSGALLERY2_SITE . '/templates' . '/semantic';
+$templatePath = JPATH_RSGALLERY2_SITE . '/templates' . '/schuweb';
 require_once($templatePath . '/display.class.php');
 
 //--- template class --------------------------
 
-$rsgDisplay = new rsgDisplay_semantic();
+$rsgDisplay = new rsgDisplay_schuweb();
 
-global $mainframe;
 $template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $rsgConfig->get('template');
 
 $rsgDisplay->metadata();
@@ -46,3 +45,9 @@ $doc->addStyleSheet($template_dir . "/css/template.css", "text/css");
 <div class="rsg2">
 	<?php $rsgDisplay->mainPage(); ?>
 </div>
+
+// set slideshow parameter from URL
+// $rsgDisplay->addUrlSlideshowParameter ();
+
+$rsgDisplay->showSlideShow();
+

@@ -6,23 +6,15 @@
 	<author>RSGallery2 Team</author>
 	<authorEmail>team@rsgallery2.org</authorEmail>
 	<authorUrl>http://www.rsgallery2.org</authorUrl>
-	<copyright>(c) 2010-2018 RSGallery2 Team</copyright>
+	<copyright>(c) 2010-2019 RSGallery2 Team</copyright>
 	<license>This component is released under the GNU/GPL License</license>
 	<description>Default semantic template.</description>
 	<files>
+		<folder>html</folder>
 		<filename>index.php</filename>
 		<filename>display.class.php</filename>
 		<filename>templateDetails.xml</filename>
-		<filename>fields.ini</filename>
 		<filename>changelog.txt</filename>
-		<filename>html/exif.php</filename>
-		<filename>html/gallery.php</filename>
-		<filename>html/inline.php</filename>
-		<filename>html/item_audio.php</filename>
-		<filename>html/item_image.php</filename>
-		<filename>html/item_video.php</filename>
-		<filename>html/thumbs_float.php</filename>
-		<filename>html/thumbs_table.php</filename>
 	</files>
 	<css>
 		<filename>css/template.css</filename>
@@ -30,7 +22,8 @@
 	<config>
 		<fields name="params">
 			<fieldset name="advanced">
-				 <field name="testParameter"
+				 <field 
+                        name="testParameter"
 						type="list"
 						default="white"
 						label="Color Variation"
