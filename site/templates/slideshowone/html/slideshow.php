@@ -8,7 +8,7 @@
 
 defined('_JEXEC') or die();
 
-JHtml::_('behavior.framework', true);  // load mootools ToDo: Remove mootools
+//JHtml::_('behavior.framework', true);  // load mootools ToDo: Remove mootools
 JHtml::_('jquery.framework'); // load jquery
 //JHtml::_('jquery.ui'); // load jquery ui from Joomla
 //$this->document->addScript(JURI::root(true).'/components/com_mycomponent/assets/jquery.ui.slider.min.js'); // load *same version* widget code from jQuery UI archive
@@ -35,9 +35,9 @@ $this->slideOptions ['transitionTime'] = $this->params->get('transitionTime', '1
 $this->slideOptions ['displayTime'] = $this->params->get('displayTime', '4.0');
 /* Not used
 $this->slideOptions ['imgWidth'] = $this->params->get('imgWidth', 401);
-$this->slideOptions ['imgHeigth'] = $this->params->get('imgHeigth', 401);
+$this->slideOptions ['imgHeight'] = $this->params->get('imgHeight', 401);
 $this->slideOptions ['zoomWidth'] = $this->params->get('zoomWidth', 41);
-$this->slideOptions ['zoomHeigth'] = $this->params->get('zoomHeigth', 31);
+$this->slideOptions ['zoomHeight'] = $this->params->get('zoomHeight', 31);
 /**/
 
 // $this->slideOptions [''] = ;

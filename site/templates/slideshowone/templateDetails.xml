@@ -59,7 +59,7 @@
 				</field>
 
 				<!-- effect = 23;// transition effect. number between 0 and 23, 23 is random effect -->
-				<field
+				<!--field
 						id="effectType"
 						name="effectType"
 						type="integer"
@@ -70,10 +70,10 @@
 						first="1"
 						last="23"
 						step="1">
-				</field>
+				</field-->
 
 				<!-- duration = 1.5;// transition duration. number of seconds effect lasts -->
-				<field
+				<!--field
 						id="transitionTime"
 						name="transitionTime"
 						type="number"
@@ -82,7 +82,7 @@
 						description="COM_RSGALLERY2_SLIDESONE_TRANSITION_TIME_DESC"
 						class=""
 				>
-				</field>
+				</field-->
 
 
 				<!-- display = 4;// seconds to display each image? -->
@@ -111,8 +111,8 @@
 
 				<!-- oH = 400;// height of stage -->
 				<!--field
-						id="imgHeigth"
-						name="imgHeigth"
+						id="imgHeight"
+						name="imgHeight"
 						type="number"
 						default="400"
 						label="COM_RSGALLERY2_SLIDESONE_IMAGE_HEIGHT"
@@ -135,8 +135,8 @@
 
 				<!-- zH = 30;// zoom height by -->
 				<!--field
-						id="zoomHeigth"
-						name="zoomHeigth"
+						id="zoomHeight"
+						name="zoomHeight"
 						type="number"
 						default="30"
 						label="COM_RSGALLERY2_SLIDESONE_ZOOM_HEIGHT"
@@ -144,6 +144,17 @@
 						class=""
 				>
 				</field-->
+
+				<field
+						id="debugLevel"
+						name="debugLevel"
+						type="number"
+						default="0"
+						label="COM_RSGALLERY2_SLIDE_DEBUG_LEVEL"
+						description="COM_RSGALLERY2_SLIDE_DEBUG_LEVEL_DESC"
+						class=""
+						>
+				</field>
 
 
 			</fieldset>

@@ -20,7 +20,7 @@ class rsgDisplay_slideshowone extends rsgDisplay
 
 	protected $gallery;
 
-		/**
+	/**
 	 *
 	 *
 	 * @since version
