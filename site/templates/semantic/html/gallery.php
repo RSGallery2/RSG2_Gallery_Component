@@ -9,7 +9,7 @@
  */
 defined('_JEXEC') or die();
 
-JHtml::_('behavior.framework', true);  // ToDo: Remove mootools
+// JHtml::_('behavior.framework', true);   // load mootools ToDo: Remove mootools
 
 global $rsgConfig;
 
