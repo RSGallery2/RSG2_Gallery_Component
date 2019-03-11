@@ -249,15 +249,21 @@ function mouseUp (e) {
 /**
  *
  */
+var isStarted = false;
 function startSS() {
     if (debugLevel > 0) {
         console.log('>startSS');
     }
 
-    var action = function () {
-        runNextSlide(dom_form.currSlide.value);
-    };
-    t_slides = setTimeout(action, dom_form.delay.value * 1000);
+    // Not second call
+    if ( ! isStarted) {
+        var action = function () {
+            runNextSlide(dom_form.currSlide.value);
+        };
+        t_slides = setTimeout(action, dom_form.delay.value * 1000);
+
+        isStarted = true;
+    }
 }
 
 /**
@@ -334,6 +340,8 @@ function stopSS() {
     if (t_slides) {
         t_slides = clearTimeout(t_slides);
     }
+
+    isStarted = false;
 }
 
 /**
@@ -377,6 +385,10 @@ function selected(idxSlide) {
 
     displaySlide(idxSlide);
 }
+
+
+
+
 
 /* Not used
 function zoom(dim1, dim2) {
