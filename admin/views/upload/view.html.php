@@ -166,8 +166,8 @@ class Rsgallery2ViewUpload extends JViewLegacy
         {
 	        echo '<span style="color:red">'
                 . 'Tasks: <br>'
+				. '!!! Test filenames with blanks and other ... '
 				. '*  <br>??? enable/force selection of start gallery ???'
-//				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'
