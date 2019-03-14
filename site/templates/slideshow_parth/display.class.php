@@ -79,6 +79,7 @@ class rsgDisplay_slideshow_parth extends rsgDisplay
 				"<img src=\"" . $display->url() . "\" class=\"full\" />" .
 				"<img src=\"" . $thumb->url() . "\" class=\"thumbnail\" />" .
 				"</div>";
+
 			$k++;
 		}
 

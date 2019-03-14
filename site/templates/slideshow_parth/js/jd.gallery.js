@@ -175,13 +175,36 @@ var gallery = {
 			if (this.options.showInfopane) this.initInfoSlideshow();
 			if (this.options.showCarousel) this.initCarousel();
 
+			// >>> Addition 2019.03.14 RSG2 team
+
+			this.addEvent ('');
+
+			this.addEvent ("touchstart", this.touchStart.bind(this));
+			this.addEvent ("touchend",   this.touchEnd.bind(this));
+			this.addEvent ("mousedown",  this.mouseDown .bind(this));
+			this.addEvent ("mouseup",    this.mouseUp.bind(this));
+
+			// <<< ADDITION
+
             this.doSlideShow(1);
 		}
 		catch (err) {
 			alert("parth005:" + err.message);
 		}
 	},
-	populateData             : function () {
+	touchStart              : function (e) {
+		alert ("touchStart found");
+	},
+	touchEnd              : function (e) {
+		alert ("touchEnd found");
+	},
+	mouseDown              : function (e) {
+		alert ("mouseDown found");
+	},
+	mouseUp              : function (e) {
+		alert ("mouseUp found");
+	},
+	populateData             : function (e) {
 
 		try {
 			currentArrayPlace = this.galleryData.length;

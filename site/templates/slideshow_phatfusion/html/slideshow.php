@@ -21,13 +21,15 @@ $document = JFactory::getDocument();
 $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_phatfusion/css/slideshow.css';
 $document->addStyleSheet($css1);
 
-// $js1 = "<script src=\"components/com_rsgallery2/templates/slideshow_phatfusion/js/backgroundSlider.js\" type=\"text/javascript\"></script>";
 $js1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_phatfusion/js/backgroundSlider.js';
 $document->addScript($js1);
-
-// $js2 = "<script src=\"components/com_rsgallery2/templates/slideshow_phatfusion/js/slideshow.js\" type=\"text/javascript\"></script>";
 $js2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_phatfusion/js/slideshow.js';
 $document->addScript($js2);
+$css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_phatfusion/css/user.css';
+if(file_exists($css1))
+{
+	$doc->addStyleSheet($css1);
+}
 
 //--- Override default CSS styles ---
 // Add styles
@@ -62,7 +64,7 @@ $document->addStyleDeclaration($style);
         jQuery(document).ready(function () {
 
             // window.addEvent('domready', function () {
-            console.log("PHP: domready");
+            console.log("PHP: phatfusion: domready");
 
 			var obj = {
 				wait            : 3000,

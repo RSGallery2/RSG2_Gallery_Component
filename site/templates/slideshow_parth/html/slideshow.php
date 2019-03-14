@@ -30,6 +30,11 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
     $doc->addStyleSheet($css1);
     $css2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/template.css';
     $doc->addStyleSheet($css2);
+    $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/user.css';
+    if(file_exists($css1))
+    {
+        $doc->addStyleSheet($css1);
+    }
     $js2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/js/jd.gallery.js';
     $doc->addScript($js2);
     $js3 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/js/jd.gallery.transitions.js';
@@ -134,9 +139,6 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
     // Add Javascript
     $doc->addScriptDeclaration($javascript);
 } // End script not loaded
-?>
-
-<?php
 
 /*------------------------------------------------------------
   Show form
@@ -144,7 +146,7 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
 
 //--- back link to gallery view --------------------------------------
 
-//Show link only when menu-item is not a direct link to the slideshow
+// Show link only when menu-item is not a direct link to the slideshow
 $input = JFactory::getApplication()->input;
 $view  = $input->get('view', '', 'CMD');
 if ($view !== 'slideshow')
@@ -156,8 +158,8 @@ if ($view !== 'slideshow')
 
     $html[] = '<div style="float: right;">' ."\n"
               //. '<a href="' .  JRoute::_('index.php?option=com_rsgallery2&Itemid=' . $menuId . '&gid=' . $gid) . '">'
-              . '<a href="#XXX">'
-              . JText::_('COM_RSGALLERY2_BACK_TO_GALLERY')
+              . '<a href="#">'
+              .      JText::_('COM_RSGALLERY2_BACK_TO_GALLERY')
               . '</a>';
     $html[] = '</div>';
 
@@ -165,7 +167,7 @@ if ($view !== 'slideshow')
 }
 // <!-- div class="rsg2-clr"></div -->
 
-    echo '<div class="parth_content">';
+echo '<div class="parth_content">';
 
 //--- Gallery title --------------------------------------
 
@@ -180,10 +182,10 @@ if (True)
 
 //--- Gallery images --------------------------------------
 
-echo '<div class="rsg2-clr"></div>';
+echo '    <div class="rsg2-clr"></div>';
 echo '    <div id="myGallery<?php echo $this->gid; ?>" class="myGallery">';
 echo          $this->slides;
 echo '    </div><!-- end myGallery -->';
 
-	echo '</div><!-- End parth_content -->';
+echo '</div><!-- End parth_content -->';
 ?>

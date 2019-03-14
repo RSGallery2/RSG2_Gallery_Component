@@ -20,6 +20,11 @@ $doc = JFactory::getDocument();
 $doc->addStyleSheet("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
 $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshowone/css/slideshowone.css';
 $doc->addStyleSheet($css1);
+$css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshowone/css/user.css';
+if(file_exists($css1))
+{
+	$doc->addStyleSheet($css1);
+}
 
 $jsScript = JURI::base(true).'/components/com_rsgallery2/templates/slideshowone/js/slideshowone.js';
 $doc->addScript($jsScript);
@@ -107,30 +112,30 @@ if ($view !== 'slideshow')
 	echo implode("\n", $html);
 }
 
+
+echo '<div class="rsg2-slideshowone">';
+
+
 //--- Gallery title --------------------------------------
 
 if (True)
 {
 	echo '<h3>';
 	echo '    <div style="text-align:center;font-size:24px;">';
-	echo '        ' . $this->galleryname;
+	echo '        ' . $this->galleryName;
 	echo '    </div>';
 	echo '</h3>';
 }
 
+echo '<div class="rsg2-clr"></div>';
 
+echo '	<form name="_slideShow">';
 
-?>
+echo '		<input type="Hidden" name="currSlide" value="0">';
+echo '		<input type="Hidden" name="delay">';
 
-<div class="rsg2-slideshowone">
+echo '		<div id="myGallery<?php echo $this->gid; ?>" class="PlayerContainer">';
 
-	<form name="_slideShow">
-
-		<input type="Hidden" name="currSlide" value="0">
-		<input type="Hidden" name="delay">
-
-		<div class="PlayerContainer">
-			<?php
 			if ($this->isDisplayButtons && $this->isButtonsAbove)
 			{
 				echo displayButtons();
@@ -142,13 +147,12 @@ if (True)
 				echo displayButtons ();
 			}
 			?>
-		</div>
+echo '	</div>';
 
-		<div style="visibility:hidden;">
-			<select name="wichIm" onchange="selected(this.options[this.selectedIndex].value)"></select>
-		</div>
+echo '	<div style="visibility:hidden;">';
+echo '		<select name="wichIm" onchange="selected(this.options[this.selectedIndex].value)"></select>';
+echo '	</div>';
 
-	</form>
+echo '</form>';
 
-
-</div>
+echo '</div>'; // rsg2-slideshowone
