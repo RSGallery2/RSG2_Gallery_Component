@@ -1,0 +1,6 @@
+
+
+ [ ] Delete params.ini in site
+ [ ] Delete admin/install.rsgallery2.php admin/install
+ [ ] since ...
+ [ ] ...
