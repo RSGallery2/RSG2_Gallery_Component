@@ -125,7 +125,7 @@ class Rsgallery2ViewMaintRemoveInstallLeftOvers extends JViewLegacy
 		}
 		
 		// Title
-		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINT_DELETE_LEFT_OVER_IMAGES'), 'icon-database icon-checkbox-checked');
+		JToolBarHelper::title(JText::_('COM_RSGALLERY2_REMOVE_INSTALLATION_LEFT_OVERS'), 'icon-database icon-checkbox-checked');
 
 		JToolBarHelper::custom('MaintRemoveInstallLeftOvers.DeleteFromFolderList', 'database', '', 'COM_RSGALLERY2_DELETE_SUPERFLOUS_ITEMS', true);
 

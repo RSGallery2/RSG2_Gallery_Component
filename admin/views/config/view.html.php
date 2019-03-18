@@ -55,12 +55,6 @@ class Rsgallery2ViewConfig extends JViewLegacy
 	{
 		global $Rsg2DevelopActive;
 
-		// on develop show open tasks if existing
-		if (!empty ($Rsg2DevelopActive))
-		{
-			echo '<span style="color:red">Task: Save should not leave programm, rename save in controller as it is used by Raw ...</span><br><br>';
-		}
-
 		//--- get needed form data ------------------------------------------
 
 		// Check rights of user
@@ -131,6 +125,19 @@ class Rsgallery2ViewConfig extends JViewLegacy
 	*/
 	protected function addToolbar($Layout = 'default')
 	{
+		// on develop show open tasks if existing
+		if (!empty ($Rsg2DevelopActive))
+		{
+			echo '<span style="color:red">'
+				. '* rename save in controller as it is used by Raw <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+				. '</span><br><br>';
+		}
+
 		switch ($Layout)
 		{
 			case 'RawView':

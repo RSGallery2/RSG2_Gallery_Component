@@ -98,7 +98,17 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 		// on develop show open tasks if existing
 		if (!empty ($Rsg2DevelopActive))
 		{
-			echo '<span style="color:red">Task: repair -> box: Check for left over upload files <br>  ==> finish comments list, add consolidate gallery database -> orphans without parents</span><br><br>';
+			echo '<span style="color:red">'
+				. '* Repair: remove for left over upload files  <br>'
+				. '* finish comments list<br>'
+				. '* add consolidate gallery database -> -> orphans(is child)  without parents<br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+				. '</span><br><br>';
 		}
 
 		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE'), 'screwdriver'); // 'maintenance');
