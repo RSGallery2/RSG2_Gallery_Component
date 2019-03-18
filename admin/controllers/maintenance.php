@@ -254,6 +254,39 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 		return $IsDeleted;
 	}
 
+	/**
+	 *
+	 *
+	 * @since 4.4.2
+	 */
+	function repairImagePermissions()
+	{
+		//$msg     = "repairImagePermissions: ";
+		$msg = "Repaired image permissions: <br>";
+		$msgType = 'notice';
+
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
+		if (!$canAdmin)
+		{
+			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		}
+		else
+		{
+
+			//--- Delete all images -------------------------------
+
+			$imageModel = $this->getModel('MaintImageFiles');
+			$msg .= $imageModel->repairImagePermissions();
+		}
+
+		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
+	}
+
+
 } // class
 
 
