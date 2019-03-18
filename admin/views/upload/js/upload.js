@@ -135,13 +135,12 @@ jQuery(document).ready(function ($) {
     var buttonManualFile = $('#select_manual_file');
     var urlFileUploAd = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile';
     var urlReserveDbImageId = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxReserveDbImageId';
-    //alert ('urlReserveDbImageId: ' + urlReserveDbImageId);
     var returnUrl = $('#installer-return').val();
-    var token = $('#installer-token').val();
     var gallery_id = $('#SelectGalleries_03').val();
 
-    var dropQueue = []; // File list to be uploaded
-    var dropList = [];
+    var dbReserveQueue = []; // File list for database image id request (keeping order)
+    var uploadQueue = []; // File and data list waiting to be uploaded
+    var imagesDroppedList = [];
 
     /*----------------------------------------------------
     Red or green border for drag and drop images
@@ -187,7 +186,7 @@ jQuery(document).ready(function ($) {
             }
 
             var progressArea = $('#uploadProgressArea');
-            prepareFileUpload(files, progressArea);
+            prepareReserveDbImageId(files, progressArea);
         }
     });
 
@@ -249,7 +248,7 @@ jQuery(document).ready(function ($) {
             var progressArea = $('#uploadProgressArea');
 
             // files: start (prepare) sending
-            prepareFileUpload(files, progressArea);
+            prepareReserveDbImageId(files, progressArea);
 
         } // empty gallery
     });
@@ -298,8 +297,10 @@ jQuery(document).ready(function ($) {
         //this.order = $("<div class='tmp_order'>O:____</div>").appendTo(this.statusbar);
         this.abort = $("<div class='abort'>Abort</div>").appendTo(this.statusbar);
 
-        // set as first element: Latest file on top to compare if already shown in image area
-        progressArea.prepend(this.statusbar);
+        //// set as first element: Latest file on top to compare if already shown in image area
+        //progressArea.prepend(this.statusbar);
+        // set as last element: Latest file on top to compare if already shown in image area
+        progressArea.append(this.statusbar);
 
         //--- file size in KB/MB .... -------------------
 
@@ -350,12 +351,29 @@ jQuery(document).ready(function ($) {
                 sb.hide();
             });
         }
+
+
+        //========================================
+        // Remove item after successful file upload
+        // ToDo: Test for second ajax still working ?
+        this.remove = function () {
+
+            var sb = this.statusbar;
+            sb.hide();
+
+        /**
+            this.abort.click(function () {
+                jqxhr.abort();
+                sb.hide();
+            });
+         /**/
+        }
     }
 
     //=================================================================================
     // Add file data to a list which will be processed in order of appearance
     // Parameter: image file set, progressArea
-    function prepareFileUpload(files, progressArea) {
+    function prepareReserveDbImageId(files, progressArea) {
 
         // ToDo: On first file upload disable gallery change and isone .. change
 
@@ -369,16 +387,16 @@ jQuery(document).ready(function ($) {
             // ToDo: Check file size
 
             // Save for later send
-            dropList.push(files[idx]);
-            var dropListIdx = dropList.length -1;
+            imagesDroppedList.push(files[idx]);
+            var imagesDroppedListIdx = imagesDroppedList.length -1;
 
             // for function reserveDbImageId
             var data = new FormData();
             // data.append('upload_file', files[idx]);
             data.append('upload_file', files[idx].name);
-            data.append('dropListIdx', dropListIdx);
+            data.append('imagesDroppedListIdx', imagesDroppedListIdx);
 
-            data.append(token, "1");
+            data.append(Token, '1');
             data.append('gallery_id', gallery_id);
             //data.append('idx', idx);
 
@@ -391,7 +409,7 @@ jQuery(document).ready(function ($) {
             queueObj.statusBar = statusBar;
             queueObj.fileName = files[idx].name;
 
-            dropQueue.push(queueObj);
+            dbReserveQueue.push(queueObj);
         }
 
         // Send file from list
@@ -403,14 +421,14 @@ jQuery(document).ready(function ($) {
     // Call first step -> reserve DB item and return ID
 
     var sendState = 0; // 1 busy
-    var sendTimeout = 3000; // sec: continue sending next on no answer or error -> ToDo: alarm ?
+    // var sendTimeout = 3000; // sec: continue sending next on no answer or error -> ToDo: alarm ?
 
     function startReserveDbImageId() {
 
         // Not busy
         if (sendState == 0) {
-            if (dropQueue.length > 0) {
-                var queueObj = dropQueue.shift();
+            if (dbReserveQueue.length > 0) {
+                var queueObj = dbReserveQueue.shift();
                 var data = queueObj.data;
                 var statusBar = queueObj.statusBar;
                 var fileName = queueObj.fileName;
@@ -507,18 +525,21 @@ jQuery(document).ready(function ($) {
                 var data = new FormData();
 
                 // fetch saved file data
-                var dropListIdx = jData.data.dropListIdx;
-                if (dropListIdx < 0 || dropList.length < dropListIdx)
+                var imagesDroppedListIdx = jData.data.imagesDroppedListIdx;
+                if (imagesDroppedListIdx < 0 || imagesDroppedList.length < imagesDroppedListIdx)
                 {
-                    alert('reserveDbImageId: dropListIdx: ' + dropListIdx + ' out of range (' + dropList.length + ')');
+                    alert('reserveDbImageId: imagesDroppedListIdx: ' + imagesDroppedListIdx + ' out of range (' + imagesDroppedList.length + ')');
 
                     return;
                 }
 
                 // Upload file data
-                var UploadFile = dropList [dropListIdx];
+                var UploadFile = imagesDroppedList [imagesDroppedListIdx];
+                console.log('imagesDroppedListIdx: ' + imagesDroppedListIdx);
+                console.log('UploadFile1: ' + UploadFile);
                 data.append('upload_file', UploadFile);
-                data.append(token, "1");
+
+                data.append(Token, '1');
                 data.append('gallery_id', gallery_id);
                 data.append('cid', jData.data.cid);
                 data.append('fileName', jData.data.fileName);
@@ -532,7 +553,8 @@ jQuery(document).ready(function ($) {
                 // statusBar.AddOrderText (jData.data.order);
 
                 // start sending file
-                sendFileToServer(data, statusBar, fileName)
+//                sendFileToServer(data, statusBar, fileName);
+                startUploadFile(data, statusBar, fileName);
             }
             else {
                 alert('Result Error 05');
@@ -577,16 +599,73 @@ jQuery(document).ready(function ($) {
 
     }
 
+
+    //=================================================================================
+    // If uploading parallel is below limit (4) call upload. Otherwise queue request
+
+    var uploadCount = 0; // Number of actual parallel uploads
+    var uploadLimit = 4;
+
+    function startUploadFile(uploadData, statusBar, fileName) {
+
+        // Not too many upload parallel
+        if (uploadCount < uploadLimit) {
+
+            uploadCount++;
+
+            sendFileToServer(uploadData, statusBar, fileName);
+        }
+        else {
+            var queueObj = {};
+            queueObj.uploadData = uploadData;
+            queueObj.statusBar = statusBar;
+            queueObj.fileName = fileName;
+
+            uploadQueue.push(queueObj);
+        }
+    }
+
+    function uploadFinishedTryNext ()
+    {
+        // other files to be uploaded
+        if (uploadQueue.length > 0) {
+            var queueObj = uploadQueue.shift();
+            var uploadData = queueObj.uploadData;
+            var statusBar = queueObj.statusBar;
+            var fileName = queueObj.fileName;
+
+            sendFileToServer(uploadData, statusBar, fileName);
+        }
+        else {
+            uploadCount--;
+
+            // Safety net: If some events are missing try to upload the rest
+            while (uploadCount < 3 && (uploadQueue.length > 0)) {
+                var queueObj = uploadQueue.shift();
+                var uploadData = queueObj.uploadData;
+                var statusBar = queueObj.statusBar;
+                var fileName = queueObj.fileName;
+
+                sendFileToServer(uploadData, statusBar, fileName);
+
+                uploadCount++;
+            }
+
+        }
+    }
+
+
     //=================================================================================
     // 2. ajax request for image sending to server.
     // Afterwards handling progress bar and display of image on result
     // ajax returns ???
+    // ToDo: Replace fileName with data['fileName']
     function sendFileToServer(formData, statusBar, fileName) {
 
         console.log('sendFile: ' + fileName);
 
         /*=========================================================
-          ajax: Upload file to server and createdependend images
+          ajax: Upload original file to server and create dependend images
         =========================================================*/
 
         var jqXHR = jQuery.ajax({
@@ -637,6 +716,7 @@ jQuery(document).ready(function ($) {
                 jData = jQuery.parseJSON(eData);
             }
             else {
+				console.log('sendFile: Success with message');
                 // find error html text
                 var errorText = eData.substring(0, StartIdx - 1);
                 // append to be viewed
@@ -660,6 +740,7 @@ jQuery(document).ready(function ($) {
 
             // file successful transferred
             if (jData.success == true) {
+				// console.log('sendFile: Html image link ');
 
                 // Add HTML to show thumb of uploaded image
 
@@ -673,6 +754,9 @@ jQuery(document).ready(function ($) {
                 this.imageId = $("<small> (" + jData.data.cid + ":" + jData.data.order + ")</small>").appendTo(this.imageDisplay);
                 this.cid = $("<input name='cid[]' class='imageCid' type='hidden' value='" + jData.data.cid + "' />").appendTo(this.imageBox);
 
+                // Find statusbar and remove it
+
+                statusBar.remove ();
             }
             else {
                 alert('Result Error 05');
@@ -712,7 +796,7 @@ jQuery(document).ready(function ($) {
 
         .always(function (eData, textStatus, jqXHR) {
             //alert ('always: "' + textStatus + '"');
-
+            uploadFinishedTryNext ();
         });
 
         // create abort HTML

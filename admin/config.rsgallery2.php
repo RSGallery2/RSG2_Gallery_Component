@@ -28,6 +28,7 @@ class galleryUtils
 	 * @param integer $gallery_id     ID of selected gallery
 	 * @param string  $js             Additional select tag attributes
 	 * @param bool    $showTopGallery show Top Gallery to select, default no
+	 *
 	 * @since 4.3.0
 	 */
 	static function showUserGalSelectList($action = '', $select_name = 'catid', $gallery_id = null,
@@ -68,6 +69,7 @@ class galleryUtils
 	 * @param integer $gallery_id     ID of selected gallery
 	 * @param string  $js             Additional select tag attributes
 	 * @param bool    $showTopGallery show Top Gallery to select, default no
+	 *
 		 * @since 4.3.0
  */
 	static function showUserGalSelectListCreateAllowed($select_name = 'catid', $gallery_id = null, $js = '', $showTopGallery = false)
@@ -513,6 +515,7 @@ class galleryUtils
 	 * Creates new thumbnails with new settings
 	 *
 	 * @param int $catid Category ID
+	 *
 		 * @since 4.3.0
  */
 	static function regenerateThumbs($catid = null)
@@ -861,6 +864,7 @@ class galleryUtils
 	 * @param bool   $showtext Button or HTML link (button/link)
 	 * @param string $type
 	 *                         writes HTML for downloadlink
+	 *
 		 * @since 4.3.0
  */
 	static function writeDownloadLink($id, $showtext = true, $type = 'button')
@@ -870,7 +874,8 @@ class galleryUtils
 		{
 			?>
 			<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id=' . $id); ?>">
-				<img height="20" width="20" src="<?php echo JURI_SITE; ?>/administrator/images/download_f2.png" alt="<?php echo JText::_('COM_RSGALLERY2_DOWNLOAD') ?>">
+				<img height="20" width="20" src="<?php echo JURI_SITE; ?>/administrator/images/download_f2.png" 
+                     alt="<?php echo JText::_('COM_RSGALLERY2_DOWNLOAD') ?>">
 				<?php
 				if ($showtext == true)
 				{
@@ -922,10 +927,11 @@ class galleryUtils
 		$html = "";
 
 		$uid       = $gallery->uid;
+		$mid       = $my->id;
 		$published = $gallery->published;
 
-		//Check if user is owner of the gallery
-		if ($gallery->uid == $my->id)
+		// Check if user is owner of the gallery (user 0 is not logged in and does just view galleries)
+		if ($gallery->uid == $mid)
 		{
 			$html .= $owner;
 		}

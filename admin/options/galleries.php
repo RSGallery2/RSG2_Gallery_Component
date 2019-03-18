@@ -13,9 +13,9 @@ defined('_JEXEC') or die();
 
 use Joomla\Utilities\ArrayHelper;
 
-require_once($rsgOptions_path . 'galleries.html.php');
-require_once($rsgOptions_path . 'galleries.class.php');
-require_once($rsgOptions_path . 'images.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/options/galleries.html.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/options/galleries.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/options/images.class.php');
 
 $input = JFactory::getApplication()->input;
 $cid   = $input->get('cid', array(), 'ARRAY');

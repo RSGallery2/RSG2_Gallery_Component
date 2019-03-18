@@ -20,8 +20,9 @@ JText::script('COM_RSGALLERY2_ZIP_MINUS_UPLOAD_SELECTED_BUT_NO_FILE_CHOSEN');
 JText::script('COM_RSGALLERY2_PLEASE_CHOOSE_A_CATEGORY_FIRST');
 JText::script('COM_RSGALLERY2_FTP_UPLOAD_CHOSEN_BUT_NO_FTP_PATH_PROVIDED');
 
-// Drag and Drop installation scripts security after ajax. ToDo: Finish check
-$token  = JSession::getFormToken();
+// Drag and Drop security id on ajax call.
+$script[] = 'var Token = \'' . JSession::getFormToken() . '\';';
+JFactory::getDocument()->addScriptDeclaration(implode("\n", $script));
 
 $doc->addScript(JUri::root() . '/administrator/components/com_rsgallery2/views/upload/js/upload.js');
 
@@ -155,7 +156,6 @@ $doc->addScript(JUri::root() . '/administrator/components/com_rsgallery2/views/u
                                    class="control-label"><?php echo JText::_('COM_RSGALLERY2_ZIP_MINUS_FILE'); ?>
                             </label>
                             <div class="controls">
-                                <!--input type="text" id="zip_file" name="zip_file" class="span5 input_box" size="70" value="http://" /-->
                                 <input type="file" class="input_box  span5" id="zip_file" name="zip_file" size="57"/>
                                 <div>
                                     <small class="help-block" style="color:darkred;">
@@ -262,8 +262,6 @@ $doc->addScript(JUri::root() . '/administrator/components/com_rsgallery2/views/u
                     <input type="hidden" value="" name="xcat">
                     <input type="hidden" value="" name="selcat">
                     <input type="hidden" value="" name="rsgOption">
-
-                    <input id="installer-token" name="installer-token" type="hidden" value="<?php echo $token; ?>" />
 
 				<?php endif; ?>
 

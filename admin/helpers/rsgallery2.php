@@ -14,10 +14,6 @@ defined('_JEXEC') or die;
 /**
  * RSGallery2 component helper.
  *
- * ToDo: Fix: Remove or (first) partly move as not needed any more
- * new sidebar see:
- * require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
- *
  * @since        3.0
  */
 class RSGallery2Helper // extends JHelperContent
@@ -70,6 +66,7 @@ class RSGallery2Helper // extends JHelperContent
            'index.php?option=com_componentName&view=viewName',
            $vName == 'dashboard');
         /**/
+		global $Rsg2DevelopActive;
 
         $task = '';
         $layout = '';
@@ -88,7 +85,6 @@ class RSGallery2Helper // extends JHelperContent
             JText::_('COM_RSGALLERY2_SUBMENU_GALLERIES'),
             $link,
             True);
-
 
         //--- Add images view link ------------------------------------
 

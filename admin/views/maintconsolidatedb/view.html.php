@@ -55,6 +55,7 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 	 *
 	 * @return mixed bool or void
 	 * @since 4.3.0
+	 * @throws Exception
 	 */
 	public function display($tpl = null)
 	{

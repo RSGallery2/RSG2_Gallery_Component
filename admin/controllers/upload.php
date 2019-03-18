@@ -69,6 +69,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
         JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
+	    $app = JFactory::getApplication();
+
 	    // fallback link
 	    $link = 'index.php?option=com_rsgallery2&view=upload';
 
@@ -116,9 +118,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		            JLog::add($DebTxt); //, JLog::DEBUG);
 	            }
 
-	            $app = JFactory::getApplication();
 	            $app->setUserState('com_rsgallery2.last_used_uploaded_zip', $zip_file);
-	            // $rsgConfig->setLastUsedZipFile($zip_file);
 	            $rsgConfig->setLastUpdateType('upload_zip_pc');
 
 	            //--- Check zip file name -------------------
@@ -389,6 +389,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 	    JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
+	    $app = JFactory::getApplication();
+
 	    // fallback link
 	    $link = 'index.php?option=com_rsgallery2&view=upload';
 
@@ -429,7 +431,6 @@ class Rsgallery2ControllerUpload extends JControllerForm
                     JLog::add($DebTxt); //, JLog::DEBUG);
                 }
 
-                $app = JFactory::getApplication();
                 $app->setUserState('com_rsgallery2.last_used_ftp_path', $ftpPath);
                 $rsgConfig->setLastUsedFtpPath($ftpPath);
                 $rsgConfig->setLastUpdateType('upload_folder_server');
@@ -469,7 +470,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 							//--- Create Destination file name -----------------------
 
 							$filePathName = realpath ($filePathName);
-							$baseName = basename($filePathName);
+							$baseName = JFile::makeSafe(basename($filePathName));
 
 							// ToDo: use sub folder for each gallery and check within gallery
 							// Each filename is only allowed once so create a new one if file already exist
@@ -617,6 +618,13 @@ class Rsgallery2ControllerUpload extends JControllerForm
                 JLog::add('==> uploadAjaxSingleFile');
             }
 
+		    // do check token
+		    if ( ! JSession::checkToken()) {
+			    $errMsg = JText::_('JINVALID_TOKEN') . " (01)";
+			    $hasError = 1;
+			    echo new JResponseJson($msg, $errMsg, $hasError);
+			    $app->close();
+		    }
 
 	        $input = JFactory::getApplication()->input;
             $oFile = $input->files->get('upload_file', array(), 'raw');
@@ -628,7 +636,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
 		    // Changed name on existing file name
 		    $originalFileName = JFile::makeSafe($oFile['name']);
-		    $uploadFileName = $uploadFileName = $input->get('dstFileName', '', 'string');
+		    $uploadFileName = $input->get('dstFileName', '', 'string');
 
 		    // for next upload tell where to start
 	        $rsgConfig->setLastUpdateType('upload_drag_and_drop');
@@ -772,9 +780,15 @@ class Rsgallery2ControllerUpload extends JControllerForm
 				JLog::add('==> uploadAjaxInsertInDB');
 			}
 
+			// do check token
+			if ( ! JSession::checkToken()) {
+				$errMsg = JText::_('JINVALID_TOKEN') . " (02)";
+				$hasError = 1;
+				echo new JResponseJson($msg, $errMsg, $hasError);
+				$app->close();
+			}
+
 			$input = JFactory::getApplication()->input;
-			//$oFile = $input->files->get('upload_file', array(), 'raw');
-			//$uploadFileName    = JFile::makeSafe($oFile['name']);
 
             //--- file name  --------------------------------------------
 
@@ -825,8 +839,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
             //--- dropListIdx --------------------------------------------
 
             // Return index into files list
-            $dropListIdx = $input->get('dropListIdx', -1, 'INT');
-            $ajaxImgDbObject['dropListIdx']  = (string) $dropListIdx;
+            $dropListIdx = $input->get('imagesDroppedListIdx', -1, 'INT');
+            $ajaxImgDbObject['imagesDroppedListIdx']  = (string) $dropListIdx;
 
             //--- Check 4 allowed image type ---------------------------------
 

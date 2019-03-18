@@ -12,8 +12,8 @@
 // no direct access
 defined('_JEXEC') or die();
 
-require_once($rsgOptions_path . 'maintenance.html.php');
-require_once($rsgOptions_path . 'maintenance.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/options/maintenance.html.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/options/maintenance.class.php');
 
 // Only those with core.manage can get here via $rsgOption = maintenance
 // Check if core.admin is allowed

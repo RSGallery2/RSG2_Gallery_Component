@@ -171,6 +171,7 @@ class Rsgallery2ViewUpload extends JViewLegacy
 //				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'
+//				. '*  <br>'
 				. '* Config -> update gallery selection preselect last used gallery ? show combo opened for n entries <br>'
 				. '* Config -> update gallery selection preselect latest gallery  (User input ...) <br>'
 	            . '* Hide "Drage images here" ... on first successful upload<br>'

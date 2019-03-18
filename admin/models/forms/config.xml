@@ -155,7 +155,7 @@
 				name="graphicsLib"
 				type="GraficLibrarySelectList"
 				default="0"
-				label="COM_RSGALLERY2_GRAPHICS_LIBRARY"
+				label="COM_RSGALLERY2_IMAGES_GRAFICS_LIBRARIES"
 				description=""
 				class=""
 		>

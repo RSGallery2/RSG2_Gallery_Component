@@ -207,4 +207,57 @@ class Rsgallery2ModelMaintImageFiles extends JModelList
 		/**/
 	}
 
+	/**
+	 *
+	 *
+	 * @return string Success message per folder
+	 *
+	 * @since 4.4.2
+	 */
+	public function repairImagePermissions()
+	{
+		//$msg = "Repaired image permissions: \n";
+		$msg = "";
+
+		// assign class variables
+		$this->getImagePaths();
+
+		$msg .= 'thumb ' . $this->repairImagePermissionsInFolder($this->imagePath_thumb) . '<br>';
+		$msg .= 'display ' . $this->repairImagePermissionsInFolder($this->imagePath_display) . '<br>';
+		$msg .= 'original ' . $this->repairImagePermissionsInFolder($this->imagePath_original) . '<br>';
+		$msg .= 'watermarked ' . $this->repairImagePermissionsInFolder($this->imagePath_watermarked) . '<br>';
+
+		return $msg;
+	}
+
+	/**
+	 *
+	 *
+	 * @return string Success message per folder
+	 *
+	 * @since 4.4.2
+	 */
+	public function repairImagePermissionsInFolder($imgFolder)
+	{
+		$count = 0;
+		$msg = "";
+
+		// ? folder exists
+
+		// all files
+		$files = new DirectoryIterator($imgFolder);
+		foreach ($files as $file)
+		{
+			if ($file->isFile())
+			{
+				$pathFileName = $file->getPathname();
+				$filePermission = JPath::getPermissions($pathFileName);
+				$mode = @ decoct(@ fileperms($pathFileName) & 0777);
+
+				if ($mode != '644')
+				{
+					JPath::setPermissions($pathFileName, '0644');
+					//$msg .= $pathFileName . ":" . $filePermission . ":" . $mode . ", ";
+					$count += 1;
+				}
 }

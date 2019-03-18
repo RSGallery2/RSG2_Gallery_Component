@@ -19,6 +19,7 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . '/init.rsgallery2.php');
 /**/
 
 // ToDo remove ....
+// Define folder pathes and URI base definitions
 require_once(JPATH_COMPONENT_ADMINISTRATOR . '/includes/baseDefines.php');
 
 // Initialize the rsg config file
@@ -28,7 +29,9 @@ $rsgConfig = new rsgConfig();
 $Rsg2DevelopActive = $rsgConfig->get('develop');
 $Rsg2DebugActive = $rsgConfig->get('debug');
 
-if ($Rsg2DebugActive) {
+// Activate logging
+if ($Rsg2DebugActive) 
+{
     // Include the JLog class.
     jimport('joomla.log.log');
 
@@ -40,7 +43,6 @@ if ($Rsg2DebugActive) {
     // Pass an array of configuration options
         array(
             // Set the name of the log file
-            //'text_file' => substr($application->scope, 4) . ".log.php",
             'text_file' => 'rsgallery2.adm.log.' . $date . '.php',
 
             // (optional) you can change the directory
@@ -54,6 +56,15 @@ if ($Rsg2DebugActive) {
     JLog::add('Start rsgallery2.php in admin: debug active in RSGallery2'); //, JLog::DEBUG);
 }
 
+//--- Config tests -----------------------------------------------------------
+/**
+if ($Rsg2DevelopActive)
+{
+	$ConfigParameter = JComponentHelper::getParams('com_rsgallery2');
+
+	echo '<br>Config: '	. json_encode($ConfigParameter) . '<br>' . '<br>';
+}
+/**/
 
 global $opt, $catid, $uploadStep, $numberOfUploads, $e_id, $view;
 

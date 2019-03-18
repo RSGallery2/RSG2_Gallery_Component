@@ -62,7 +62,7 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 			$this->developActive = true; // false / true;
 		}
 
-		//--- begin of display --------------------------------------------
+		//--- begin to display --------------------------------------------
 
         $Layout = JFactory::getApplication()->input->get('layout');
 		$this->addToolbar();
