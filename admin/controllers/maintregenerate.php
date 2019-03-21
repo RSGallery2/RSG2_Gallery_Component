@@ -21,6 +21,8 @@ if ($Rsg2DebugActive)
 	JLog::add('==> ctrl.maintRegenerate.php ');
 }
 
+// ToDo: Remove following / Make own resize function
+// rewrite to not use old J1,5 code....
 require_once(JPATH_RSGALLERY2_ADMIN . '/includes/img.utils.php');
 
 jimport('joomla.application.component.controlleradmin');

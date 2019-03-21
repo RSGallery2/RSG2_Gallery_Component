@@ -112,6 +112,19 @@ class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
 	*/
 	protected function addToolbar($UserIsRoot) //$Layout='default')
 	{
+		// on develop show open tasks if existing
+		if (!empty ($Rsg2DevelopActive))
+		{
+			echo '<span style="color:red">'
+				. '*  !!! Fix to working <br>'
+				. '*  rewrite to not need old J1.5 code <br>'
+				. '*  Button to do both thumbs an images (remove switches .. <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+				. '</span><br><br>';
+		}
+
 		// Title
 		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE') . ': ' . JText::_('COM_RSGALLERY2_MAINT_REGEN'), 'screwdriver');
 
