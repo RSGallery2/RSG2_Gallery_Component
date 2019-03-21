@@ -561,6 +561,30 @@
 		</field>
 
 		<field
+				id="displayGalleryTitle"
+				name="displayGalleryTitle"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_TITLE"
+				description="COM_RSGALLERY2_DISPLAY_GALLERY_TITLE_DESC"
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field
+				id="displayGalleryDescription"
+				name="displayGalleryDescription"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_DESCRIPTION"
+				description="COM_RSGALLERY2_DISPLAY_GALLERY_DESCRIPTION_DESC"
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field
 				id="display_thumbs_style"
 				name="display_thumbs_style"
 				type="list"
@@ -674,7 +698,7 @@
 				type="radio"
 				default="0"
 				label="COM_RSGALLERY2_DISPLAY_DESCRIPTION"
-				description=""
+				description="COM_RSGALLERY2_DISPLAY_IMAGE_DESCRIPTION_DESC"
 				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
