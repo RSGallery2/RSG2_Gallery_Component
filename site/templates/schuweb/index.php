@@ -3,7 +3,7 @@
  * Prep for slideshow
  *
  * @package       RSGallery2
- * @copyright (C) 2003 - 2018 RSGallery2
+ * @copyright (C) 2019 - 2019 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  */
@@ -18,36 +18,38 @@ This is built to imitate the Joomla 1.5.* style of templating.  Hopefully that i
 
 defined('_JEXEC') or die();
 
-// bring in display code
-$templatePath = JPATH_RSGALLERY2_SITE . '/templates' . '/schuweb';
-require_once($templatePath . '/display.class.php');
-
-//--- template class --------------------------
-
-$rsgDisplay = new rsgDisplay_schuweb();
-
-$template_dir = JURI_SITE . "/components/com_rsgallery2/templates/" . $rsgConfig->get('template');
-
-$rsgDisplay->metadata();
-// append to Joomla's pathway
-$rsgDisplay->showRSPathWay();
-
 //Load Tooltips
 JHtml::_('behavior.tooltip');
 
 //include page navigation
 jimport('joomla.html.pagination');//J!1.5
 
+//--- template definitions  --------------------------
+
+$templateName = $rsgConfig->get('template');
+
+// bring in display code
+$templatePath = JPATH_RSGALLERY2_SITE . '/templates' . '/' . $templateName;
+require_once($templatePath . '/display.class.php');
+
+$templateUri = JURI_SITE . "/components/com_rsgallery2/templates/" . $templateName;
+
+//--- template class --------------------------
+
+//$rsgDisplay = new rsgDisplay_semantic();
+$templateClass = 'rsgDisplay_' . $templateName;
+$rsgDisplay = new $templateClass ();
+
+// base class: Insert meta data (gallery description) and page title into html document
+$rsgDisplay->metadata();
+
+// append bread crumps over sub galleries (and image) to Joomla's pathway
+$rsgDisplay->showRSPathWay();
+
 $doc = JFactory::getDocument();
-$doc->addStyleSheet($template_dir . "/css/template.css", "text/css");
+$doc->addStyleSheet($templateUri . "/css/template.css", "text/css");
 ?>
 
 <div class="rsg2">
 	<?php $rsgDisplay->mainPage(); ?>
 </div>
-
-// set slideshow parameter from URL
-// $rsgDisplay->addUrlSlideshowParameter ();
-
-$rsgDisplay->showSlideShow();
-

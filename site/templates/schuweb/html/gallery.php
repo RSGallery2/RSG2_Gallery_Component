@@ -2,11 +2,24 @@
 /**
  * @version       $Id $
  * @package       RSGallery2
- * @copyright (C) 2003 - 2018 RSGallery2
+ * @copyright (C) 2019 - 2019 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-
 defined('_JEXEC') or die();
+
+global $rsgConfig;
+
+//Show My Galleries link (if user is logged in (user id not 0))
+if ($rsgConfig->get('show_mygalleries') AND (JFactory::getUser()->id))
+{
+	echo $this->showRsgHeader();
+}
+
+//Show search box
+$this->showSearchBox();
+
+
+/**
 
 // JHtml::_('behavior.framework', true);  // ToDo: Remove mootools
 
@@ -57,7 +70,7 @@ $this->slideOptions ['imgWidth'] = $this->params->get('imgWidth', 401);
 $this->slideOptions ['imgHeigth'] = $this->params->get('imgHeigth', 401);
 $this->slideOptions ['zoomWidth'] = $this->params->get('zoomWidth', 41);
 $this->slideOptions ['zoomHeigth'] = $this->params->get('zoomHeigth', 31);
-/**/
+/** /
 
 // $this->slideOptions [''] = ;
 
@@ -183,3 +196,5 @@ if (True)
 
 
 </div>
+
+/**/
