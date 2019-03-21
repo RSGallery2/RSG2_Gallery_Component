@@ -23,6 +23,9 @@ defined('_JEXEC') or die();
  */
 class rsgConfig
 {
+	// ToDo: 2019 Use a array config[''] = ... with get and set and php auto "function __get( $key )",  "__set" _
+	//       see stackoveflow https://stackoverflow.com/questions/4713680/php-get-and-set-magic-methods
+
     //	General
     var $intro_text = '';
 //    var $version = 'depreciated';    // this is set and loaded from includes/version.rsgallery2.php
@@ -396,6 +399,18 @@ class rsgConfig
     {
         $this->$varName = $value;
     }
+
+    /* 2019 only on 'not' public variables
+	function __get($varName)
+	{
+		return $this->$varName;
+	}
+
+	function __set($varName, $value)
+	{
+		$this->$varName = $value;
+	}
+    /**/
 
     /**
      * @param string $varName name of variable
