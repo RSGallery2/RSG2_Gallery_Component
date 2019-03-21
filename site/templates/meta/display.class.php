@@ -207,8 +207,8 @@ class rsgDisplay extends JObject
 	 */
 	function showRSPathWay()
 	{
-		$mainframe = JFactory::getApplication();
-		$pathway   = $mainframe->getPathway();
+		$app = JFactory::getApplication();
+		$pathway   = $app->getPathway();
 
 		// Only show pathway if rsg2 is the component
 		//$option = JRequest::getCmd('option');
@@ -223,7 +223,6 @@ class rsgDisplay extends JObject
 		// menu-link, it is the root, e.g. gid=0, if there is a gid that's the 
 		// start for this pathway
 
-		$app               = JFactory::getApplication();
 		$theMenu           = $app->getMenu();
 		$theActiveMenuItem = $theMenu->getActive();
 		if (isset($theActiveMenuItem->query['gid']))

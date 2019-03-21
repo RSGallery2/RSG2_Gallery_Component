@@ -1,6 +1,5 @@
 <?php
 /**
- * @version       $Id: display.class.php 1089 2012-07-09 11:51:28Z mirjam $
  * @package       RSGallery2
  * @copyright (C) 2003 - 2018 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -15,33 +14,31 @@ defined('_JEXEC') or die();
  */
 class rsgDisplay_semantic extends rsgDisplay
 {
-
-	/**
-	 *
-	 */
-	function inline()
-	{
-		$this->display('inline.php');
-	}
+	protected $gallery;
+	protected $kids; // ToDo: galleryKids
 
 	/**
 	 * Show main gallery page
 	 *
+	 *
+	 * @since version
 	 * @throws Exception
 	 */
 	function showMainGalleries()
 	{
 		global $rsgConfig;
-		$app = JFactory::getApplication();
 
-		// $gallery =  rsgInstance::getGallery(); deprecated
+		$app = JFactory::getApplication();
+		$input      = JFactory::getApplication()->input;
+
 		$gallery       = rsgGalleryManager::get();
 		$this->gallery = $gallery;
+
+		//--- Navigation --------------------------------------------
 
 		//Get values for page navigation from URL
 		$limit = $app->getUserStateFromRequest("galleryviewlimit", 'limit', $rsgConfig->get('galcountNrs'), 'int');
 		//$limitstart = JRequest::getInt( 'limitstart', 0 );
-		$input      = JFactory::getApplication()->input;
 		$limitstart = $input->get('limitstart', 0, 'INT');
 		//Get number of galleries including main gallery
 		$this->kids    = $gallery->kids();
@@ -52,10 +49,9 @@ class rsgDisplay_semantic extends rsgDisplay
 		//Show page navigation if selected in backend
 		if (($rsgConfig->get('dispLimitbox') == 1 &&
 				$kidCountTotal > $limit) ||
-			$rsgConfig->get('dispLimitbox') == 2
+			$rsgConfig->dispLimitbox == 2
 		)
 		{
-//			require_once( JPATH_RSGALLERY2_ADMIN . '/includes' . '/gpagination.php' );
 			//When users wants "All" galleries to show, $limit = 0, no need to slice
 			if ($limit)
 			{
