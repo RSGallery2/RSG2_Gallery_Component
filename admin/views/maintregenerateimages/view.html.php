@@ -10,11 +10,19 @@
 
 defined('_JEXEC') or die;
 
+/**
 jimport('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 jimport('joomla.application.component.model');
+/**/
+
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
 
 JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
+
+global $Rsg2DebugActive;
+
+
 
 /**
  * View of list of image discrepancies (missing images, Missing DB entries on images ...)
@@ -83,7 +91,16 @@ class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
 		// Assign the Data
 //		$this->form = $form;
 
+		//--- tool  bar -------------------------
+
+		// different toolbar on different layouts
+		$Layout = JFactory::getApplication()->input->get('layout');
 		$this->addToolbar($this->UserIsRoot); //$Layout);
+
+		//--- side  bar -------------------------
+
+		$View = JFactory::getApplication()->input->get('view');
+		RSG2_SidebarLinks::addItems($View, $Layout);
 		$this->sidebar = JHtmlSidebar::render();
 
 		parent::display($tpl);
@@ -112,13 +129,19 @@ class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
 	*/
 	protected function addToolbar($UserIsRoot) //$Layout='default')
 	{
+		global $Rsg2DevelopActive;
+
 		// on develop show open tasks if existing
 		if (!empty ($Rsg2DevelopActive))
 		{
 			echo '<span style="color:red">'
-				. '*  !!! Fix to working <br>'
-				. '*  rewrite to not need old J1.5 code <br>'
+				. '*  !!! Fix as not working <br>'
+				. '*  rewrite for remove of old J1.5 code needs<br>'
 				. '*  Button to do both thumbs an images (remove switches .. <br>'
+				. '*  Show galleries as list to select<br>'
+				. '*  Button to select next five gallies<br>'
+				. '*  <br>'
+//				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'

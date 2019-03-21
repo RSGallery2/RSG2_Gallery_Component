@@ -67,11 +67,15 @@ class Rsgallery2ViewGallery extends JViewLegacy
 		// Assign the Data
 		// $this->form = $form;
 
+		//--- tool  bar -------------------------
+
 		// different toolbar on different layouts
 		$Layout = JFactory::getApplication()->input->get('layout');
 		$this->addToolbar($Layout);
 
-        $View = JFactory::getApplication()->input->get('view');
+		//--- side  bar -------------------------
+
+		$View = JFactory::getApplication()->input->get('view');
         RSG2_SidebarLinks::addItems($View, $Layout);
 //        RSGallery2Helper::addSubmenu('rsgallery2');
 		$this->sidebar = JHtmlSidebar::render();
