@@ -27,7 +27,6 @@ if ($Rsg2DebugActive) {
 // Base definitions
 require_once(JPATH_ROOT . '/administrator/components/com_rsgallery2/includes/baseDefines.php');
 
-
 /**
 // check if this file has been included yet.
 if (isset($rsgConfig)) {
