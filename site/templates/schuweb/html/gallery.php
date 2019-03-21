@@ -1,200 +1,118 @@
 <?php
 /**
- * @version       $Id $
+ * RSGallery2 root or single gallery view
+ *
  * @package       RSGallery2
  * @copyright (C) 2019 - 2019 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
 
-global $rsgConfig;
+global $rsgConfig , $Rsg2DevelopActive;
+
+// Access parameter from params.ini (example). defined in template.xml
+//echo('<!-- using template parameter: testParameter = ' . $this->params->get('testParameter') . ' -->');
+
+if($Rsg2DevelopActive)
+{
+	// ToDo: auto class name ...
+//	echo '<div style="float:left;"><strong>[' . 'schuweb' . ' gallery view]</strong></div>';
+//	echo '<div style="float:left;"><strong>[' . <template/class name> . ' gallery view]</strong></div>';
+	echo '<div style="float:left;"><strong>[' . $rsgConfig->get('template') . ' gallery view]</strong></div><br>';
+}
 
 //Show My Galleries link (if user is logged in (user id not 0))
 if ($rsgConfig->get('show_mygalleries') AND (JFactory::getUser()->id))
 {
-	echo $this->showRsgHeader();
+	// in meta
+	echo $this->showRsgMyGalleryHeader();
 }
 
-//Show search box
+// Max item count selector
+$this->showNavLimitBox ($this->pageNav);
+
+// Show search box
 $this->showSearchBox();
 
-
-/**
-
-// JHtml::_('behavior.framework', true);  // ToDo: Remove mootools
-
-global $mainframe;
-
-JHtml::_('jquery.ui');
-//JHtml::_('jquery.ui', array('core', 'sortable'));
-JHtml::_('jquery.framework'); // load jquery
-JHtml::_('jquery.ui'); // load jquery ui from Joomla
-//$this->document->addScript(JURI::root(true).'/components/com_mycomponent/assets/jquery.ui.slider.min.js'); // load *same version* widget code from jQuery UI archive
-// https://code.google.com/p/jquery-ui/downloads/detail?name=jquery-ui-1.8.23.zip&can=2&q=
-
-
-
-$doc = JFactory::getDocument();
-$cssFile = JURI::base() . 'components/com_rsgallery2/templates/schuweb/css/bootstrap.min.css';
-$doc->addStyleSheet($cssFile);
-$cssFile = JURI::base() . 'components/com_rsgallery2/templates/schuweb/css/bootstrap-theme.min.css';
-$doc->addStyleSheet($cssFile);
-$cssFile = JURI::base() . 'components/com_rsgallery2/templates/schuweb/css/colorbox.css';
-$doc->addStyleSheet($cssFile);
-$cssFile = JURI::base() . 'components/com_rsgallery2/templates/schuweb/css/schuweb.css';
-$doc->addStyleSheet($cssFile);
-
-$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/schuweb/js/colorbox/jquery.colorbox.js';
-$doc->addScript($jsScript);
-//$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/schuweb/js/colorbox/jquery.colorbox-min.js';
-//$doc->addScript($jsScript);
-
-$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/schuweb/js/bootstrap.min.js';
-$doc->addScript($jsScript);
-$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/schuweb/js/modal.js';
-$doc->addScript($jsScript);
-$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/schuweb/js/schuweb_colorbox.js';
-$doc->addScript($jsScript);
-
-
-//--- slideshow parameter --------------------------
-
-// change if defined in params.ini file
-
-$this->slideOptions ['isAutoStart'] = $this->params->get('isAutoStart', True);
-$this->slideOptions ['effectType'] = $this->params->get('effectType', 23);
-$this->slideOptions ['transitionTime'] = $this->params->get('transitionTime', '1.5');
-$this->slideOptions ['displayTime'] = $this->params->get('displayTime', '4.0');
-/* Not used
-$this->slideOptions ['imgWidth'] = $this->params->get('imgWidth', 401);
-$this->slideOptions ['imgHeigth'] = $this->params->get('imgHeigth', 401);
-$this->slideOptions ['zoomWidth'] = $this->params->get('zoomWidth', 41);
-$this->slideOptions ['zoomHeigth'] = $this->params->get('zoomHeigth', 31);
-/** /
-
-// $this->slideOptions [''] = ;
-
-$this->isDisplayButtons = $this->params->get('isDisplayButtons', $this->isDisplayButtons);
-$this->isButtonsAbove = $this->params->get('isButtonsAbove', $this->isButtonsAbove);
-
-
-$doc = JFactory::getDocument();
-$doc->addScriptOptions('slideArray', $this->slideOptions);
-
-
-//--- first image to show --------------------------
-
-$firstItem = $this->gallery->getItem();
-if ( ! empty($firstItem))
+// Show gallery title
+// Single gallery ? (not Root gallery ?)
+if ($this->gallery->id != 0)
 {
-	$firstImage = $firstItem->display();
+// ToDo: params.ini ...
+	if ($rsgConfig->get('displayGalleryName'))
+	{
+		$this->showGalleryName($this->gallery);
+	}
 }
 
-//--- buttons below or above slideshow --------------------------
-
-function displayButtons ()
+// Show gallery or root description
+if ($rsgConfig->get ('displayGalleryDescription') || $this->gallery->id == 0)
 {
-//	$html[] = '<div class="clearfix"></div>';
-    $html[] = '<div class="PlayerIconArrayContainer">';
-    $html[] = '    <div class="PlayerIconArray">';
-    $html[] = '        <a class="PlayerIcon" href="javascript:;" onclick="startSS()">';
-    $html[] = '            <i class="fa fa-play"></i>';
-    $html[] = '        </a>';
-    $html[] = '        <a class="PlayerIcon" href="javascript:;" onclick="stopSS()">';
-    $html[] = '            <i class="fa fa-stop"></i>';
-    $html[] = '        </a>';
-    $html[] = '        <a class="PlayerIcon" href="javascript:;" onclick="prevSS()">';
-    $html[] = '            <i class="fa fa-backward"></i>';
-    $html[] = '        </a>';
-    $html[] = '        <a class="PlayerIcon" href="javascript:;" onclick="nextSS()">';
-    $html[] = '            <i class="fa fa-forward"></i>';
-    $html[] = '        </a>';
-    $html[] = '    </div>';
-    $html[] = '</div>';
-
-	$html = implode("\n", $html);;
-	return $html;
+	$this->showGalleryDescription($this->gallery);
 }
 
+echo '<div ><strong>[' . "gallery thumbs .... " . ']</strong></div><br>';
 
-//--- back link to gallery view --------------------------------------
+//--- root gallery boxes with thumbs ----------------------------------
 
-//Show link only when menu-item is not a direct link to the slideshow
-$input = JFactory::getApplication()->input;
-$view  = $input->get('view', '', 'CMD');
-if ($view !== 'slideshow')
+foreach ($this->kids as $kid)
 {
-	$menuId = $input->get('Itemid', null, 'INT');
-	$gid = $this->gid;
+	$published = "";
+	if ($kid->published)
+	{
+		$published = " system-unpublished";
+	}
 
-	$html = [];
-
-	$html[] = '<div style="float: right;">' ."\n"
-		. '<a href="' .  JRoute::_('index.php?option=com_rsgallery2&Itemid=' . $menuId . '&gid=' . $gid) . '">'
-		//. '<a href="#">'
-		. JText::_('COM_RSGALLERY2_BACK_TO_GALLERY')
-		. '</a>';
-	$html[] = '</div>';
-
-	echo implode("\n", $html);
-}
-
-//--- Gallery title --------------------------------------
-
-if (True)
-{
-	echo '<h3>';
-	echo '    <div style="text-align:center;font-size:24px;">';
-	echo '        ' . $this->galleryname;
+	echo '<div class="rsg_galleryblock' . $published . '">';
+	echo '    <div class="rsg2-galleryList-status">' . $kid->status . '</div>';
+	echo '    <div class="rsg2-galleryList-thumb">';
+	echo          $kid->thumbHTML;
 	echo '    </div>';
-	echo '</h3>';
+	echo '    <div class="rsg2-galleryList-text">';
+	echo          $kid->galleryName;
+	echo '	      <span class="rsg2-galleryList-newImages">';
+	if ($this->gallery->hasNewImages())
+	{
+		echo '        <sup>';
+		echo              JText::_('COM_RSGALLERY2_NEW');
+		echo '        </sup>';
+	}
+	echo '		  </span>';
+	echo          $this->_showGalleryDetails($kid);
+	echo '		  <div class="rsg2-galleryList-description">' . stripslashes($kid->description) . '</div>';
+	echo '    </div>';
+	echo '    <div class="rsg_sub_url_single">';
+	$this->_subGalleryList($kid);
+	echo '    </div>';
+	echo '</div>';
 }
 
 
+echo '<div class="rsg2-clr"></div>';
 
-?>
+//--- Root gallery navigation ----------------------------------
 
-<div class="rsg2-schuweb">
+if ($this->pageNav->total)
+{
+	echo '<div class="pagination">';
+	echo       $this->pageNav->getPagesLinks();
+	//echo '	   <br />';
+	//echo       $this->pageNav->getResultsCounter();
 
-	<form name="_slideShow">
+	echo '</div>';
+	echo '<div class="rsg2-clr"></div>';
+}
 
-		<input type="Hidden" name="currSlide" value="0">
-		<input type="Hidden" name="delay">
+//--- Random and latest images ----------------------------------
 
-		<div class="PlayerContainer">
-			<?php
-			if ($this->isDisplayButtons && $this->isButtonsAbove)
-			{
-				echo displayButtons();
-			}
-
-//            echo '<img name="stage" class="PlayerImage" src="' . $firstImage->url() . '" style="filter: revealtrans(); font-size:12px;">';
-
-            echo '<ul class="thumbnails">';
-            foreach ($this->images as $image)
-            {
-	            echo '<li class="span<' . $this->image_grid_size . '">';
-	            echo '<a href="' . $image['display'] . '" class="thumbnail group_images">';
-                echo '                    <img src="' . $image['thumb'] . '" alt="">';
-                echo '                </a>';
-                echo '            </li>';
-			}
-            echo '</ul>';
-
-            if ($this->isDisplayButtons && ! $this->isButtonsAbove)
-			{
-				echo displayButtons ();
-			}
-			?>
-		</div>
-
-		<div style="visibility:hidden;">
-			<select name="wichIm" onchange="selected(this.options[this.selectedIndex].value)"></select>
-		</div>
-
-	</form>
+// Show random and latest only in the top gallery
+// Root gallery ?
+if ($this->gallery->id == 0)
+{
+	// Show block with random images 
+	$this->showImages("random", 3);
+	// Show block with latest images
+	$this->showImages("latest", 3);
+}
 
 
-</div>
-
-/**/

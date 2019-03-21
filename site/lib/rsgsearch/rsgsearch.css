@@ -2,5 +2,10 @@
 	background-image    : url(../../images/search.png);
 	background-repeat   : no-repeat;
 	background-position : center left;
-	padding-left        : 18px;
+	/* padding-left        : 18px; /**/
+    padding-right        : 18px;
+}
+
+.j25search_box {
+	padding-right        : 18px;
 }

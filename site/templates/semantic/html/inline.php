@@ -2,13 +2,18 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2017-2018 RSGallery2 Team
+ * @copyright   (C) 2017-2019 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
  */
 ?>
 <?php defined('_JEXEC') or die();
+
+
+// ToDo: include used parts from display.class and restructure
+
+
 
 // Show slideshow link when viewing individual display items
 $slideshow = $rsgConfig->get('displaySlideshowImageDisplay', 0);
@@ -73,3 +78,5 @@ $display_navigation_bar_mode = $rsgConfig->get('display_navigation_bar_mode', 1)
 		?>
 	</div>
 </div>
+
+<?php

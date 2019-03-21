@@ -6,6 +6,8 @@
  */
 defined('_JEXEC') or die();
 
+jimport('joomla.html.pagination');
+
 /**
  * Template class for RSGallery2
  *
@@ -36,12 +38,11 @@ class rsgDisplay_schuweb extends rsgDisplay
 		$this->kids    = $gallery->kids();
 
 		// navigation
-		$this->pageNav = $this->navigation ($gallery);
+		$this->pageNav = $this->navigationGallery ($gallery);
 
 		// html outputs
 		$this->display('gallery.php');
 	}
-
 
 	/**
      * return pagination, may also chenge number of kids
@@ -52,7 +53,7 @@ class rsgDisplay_schuweb extends rsgDisplay
 	 * @since version
 	 * @throws Exception
 	 */
-	public function navigation ($gallery)
+	public function navigationGallery ($gallery)
     {
 		global $rsgConfig;
 
@@ -92,19 +93,19 @@ class rsgDisplay_schuweb extends rsgDisplay
 	public function showThumbs()
 	{
 		global $rsgConfig;
-		$my = JFactory::getUser();
+
+		$my    = JFactory::getUser();
+		$input = JFactory::getApplication()->input;
 
 		// For superadministrators (they have core.admin) this includes the unpublished items
 		$itemCount = $this->gallery->itemCount();
 
 		$limit = $rsgConfig->get("display_thumbs_maxPerPage");
 		//$limitstart = JRequest::getInt( 'limitstart' );
-		$input      = JFactory::getApplication()->input;
 		$limitstart = $input->get('limitstart', 0, 'INT');
 
 		//instantiate page navigation
-		jimport('joomla.html.pagination');
-		$pagenav = new JPagination($itemCount, $limitstart, $limit);//MK gaat goed: thumbs in gallery
+		$pageNav = new JPagination($itemCount, $limitstart, $limit);//MK gaat goed: thumbs in gallery
 
 		// increase the gallery hit counter
 		$this->gallery->hit();
@@ -124,11 +125,13 @@ class rsgDisplay_schuweb extends rsgDisplay
 		?>
 		<div class="pagination">
 			<?php
+            /**/
 			if ($itemCount > $limit)
 			{
-				echo $pagenav->getPagesLinks();
-				echo "<br /><br />" . $pagenav->getPagesCounter();
+				echo $pageNav->getPagesLinks();
+				//echo "<br /><br />" . $pageNav->getPagesCounter();
 			}
+            /**/
 			?>
 		</div>
 		<?php

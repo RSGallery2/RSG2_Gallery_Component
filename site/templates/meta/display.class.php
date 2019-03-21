@@ -9,17 +9,11 @@
  */
 defined('_JEXEC') or die();
 
-//require_once( 'joomla.filesystem.files' );
-// ToDo: Remove call of file helpers/parameter.php. actual needed for compatibility with 2.5
-// require_once (JPATH_COMPONENT_ADMINISTRATOR.'/helpers/parameter.php');
-//require_once(JPATH_ROOT . '/administrator/components/com_rsgallery2/helpers/parameter.php');
-//require_once (JPATH_ROOT.'/administrator/components/com_rsgallery2/helpers/TemplateParameter.php');
 require_once (JPATH_RSGALLERY2_SITE .'/templates/meta/templateParameter.php');
 jimport('joomla.filesystem.files');
 
 class rsgDisplay extends JObject
 {
-
 	var $params = null; // Type of Jregistry
 
 	var $currentItem = null;
@@ -161,7 +155,7 @@ class rsgDisplay extends JObject
 	 *
 	 * @throws Exception
 	 */
-	function showRsgHeader()
+	function showRsgMyGalleryHeader()
 	{
 		// $rsgOption 	= JRequest::getCmd( 'rsgOption'  , '');
 		$input     = JFactory::getApplication()->input;
@@ -697,9 +691,74 @@ class rsgDisplay extends JObject
 
 		if ($rsgConfig->get('displaySearch') != 0)
 		{
-			require_once(JPATH_ROOT . '/components/com_rsgallery2/lib/rsgsearch/search.html.php');
-			html_rsg2_search::showSearchBox();
+//			require_once(JPATH_ROOT . '/components/com_rsgallery2/lib/rsgsearch/search.html.php');
+//			html_rsg2_search::showSearchBox();
+
+            //--- search box ----------------------------------------
+
+            //echo '<div align="right" class="j25search_box">';
+			echo '<div class="j25search_box pull-right">';
+			echo '	<form name="rsg2_search" class="form-search form-inline warning" method="post" action="' . JRoute::_('index.php') . '" >';
+			echo '   <div class="input-prepend">';
+			echo '            <button type="submit" class="btn">Search</button>';
+			echo '            <input type="search" name="searchtextX"  maxlength="200"';
+			echo '                   class="inputbox search-query input-medium"';
+			echo '                   placeholder="'. JText::_('COM_RSGALLERY2_KEYWORDS') . '">';
+			echo '        </div>';
+			echo '        <input type="hidden" name="option" value="com_rsgallery2" />';
+			echo '        <input type="hidden" name="rsgOption" value="search" />';
+			echo '        <input type="hidden" name="task" value="showResults" />';
+			echo '	</form>';
+			echo '</div>';
+
 		}
 	}
+
+
+	/**
+	 * @param $pagination
+	 *
+	 *
+	 * @since version
+	 */
+	function showNavLimitBox($pagination)
+	{
+	    // ? more than one page ?
+		// if ($pagination->total)
+		if ($pagination->total > $pagination->limit)
+		{
+			echo '<div class="btn-group pull-right hidden-phone">';
+			echo '   <label for "limit" class="element-invisible">';
+			echo '      ' . JText::_('JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC');
+			echo '   </label>';
+			echo '   ' . $pagination->getlimitBox();
+			echo '</div>';
+		}
+	}
+
+
+
+    // Show gallery title (name)
+	function showGalleryName($gallery)
+    {
+	    echo '<h2>';
+        echo '    <div class="rsg_gallery_title">';
+	    echo          $gallery->name;
+	    echo '    </div>';
+	    echo '</h2>';
+    }
+
+        // Show gallery description
+    function showGalleryDescription($gallery)
+    {
+	    global $rsgConfig;
+
+	    echo '<div class="intro_text">';
+        echo      $gallery->description;
+        echo '</div>';
+    }
+
+
+
 }
 

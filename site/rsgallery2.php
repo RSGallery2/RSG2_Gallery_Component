@@ -10,12 +10,14 @@
  */
 defined('_JEXEC') or die();
 
-global $rsgConfig;
+global $rsgConfig, $Rsg2DebugActive, $Rsg2DevelopActive;
 
 // Initialize RSG2 core functionality
 require_once(JPATH_SITE . "/administrator/components/com_rsgallery2/init.rsgallery2.php");
 
+$Rsg2DevelopActive = $rsgConfig->get('develop');
 $Rsg2DebugActive = $rsgConfig->get('debug');
+
 if ($Rsg2DebugActive)
 {
 	// Include the JLog class.

@@ -12,7 +12,7 @@
 defined('_JEXEC') or die();
 
 global $rsgOptions_path, $input;
-require_once($rsgOptions_path . 'search.html.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/options/search.html.php');
 
 $input = JFactory::getApplication()->input;
 //$cid = JRequest::getVar( 'cid' , array(), 'default', 'array' );

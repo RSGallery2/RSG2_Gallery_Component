@@ -561,12 +561,12 @@
 		</field>
 
 		<field
-				id="displayGalleryTitle"
-				name="displayGalleryTitle"
+				id="displayGalleryName"
+				name="displayGalleryName"
 				type="radio"
 				default="0"
-				label="COM_RSGALLERY2_DISPLAY_GALLERY_TITLE"
-				description="COM_RSGALLERY2_DISPLAY_GALLERY_TITLE_DESC"
+				label="COM_RSGALLERY2_DISPLAY_GALLERY_NAME"
+				description="COM_RSGALLERY2_DISPLAY_GALLERY_NAME_DESC"
 				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>

@@ -6,6 +6,8 @@
  */
 defined('_JEXEC') or die();
 
+jimport('joomla.html.pagination');
+
 /**
  * Template class for RSGallery2
  *
@@ -16,6 +18,7 @@ class rsgDisplay_semantic extends rsgDisplay
 {
 	protected $gallery;
 	protected $kids; // ToDo: galleryKids
+    protected $pageNav;
 
 	/**
 	 * Show main gallery page
@@ -24,49 +27,80 @@ class rsgDisplay_semantic extends rsgDisplay
 	 * @since version
 	 * @throws Exception
 	 */
-	function showMainGalleries()
+	public function showMainGalleries()
+	{
+		$gallery = rsgGalleryManager::get();
+
+		// main gallery
+		$this->gallery = $gallery;
+
+		//Get number of galleries including main gallery
+		$this->kids    = $gallery->kids();
+
+		// navigation
+		$this->pageNav = $this->navigationRootGalleries ($gallery);
+
+		// html outputs
+		$this->display('gallery.php');
+	}
+
+	/**
+	 * return pagination, may also chenge number of kids
+	 * @param $gallery
+	 *
+	 * @return bool|JPagination
+	 *
+	 * @since version
+	 * @throws Exception
+	 */
+	public function navigationRootGalleries ($gallery)
 	{
 		global $rsgConfig;
+
+		$pageNav = false;
 
 		$app = JFactory::getApplication();
 		$input      = JFactory::getApplication()->input;
 
-		$gallery       = rsgGalleryManager::get();
-		$this->gallery = $gallery;
-
-		//--- Navigation --------------------------------------------
-
 		//Get values for page navigation from URL
-		$limit = $app->getUserStateFromRequest("galleryviewlimit", 'limit', $rsgConfig->get('galcountNrs'), 'int');
-		//$limitstart = JRequest::getInt( 'limitstart', 0 );
+		//$limit = $app->getUserStateFromRequest("galleryviewlimit", 'limit', $rsgConfig->get('galcountNrs'), 'int');
+		$limit = $app->getUserStateFromRequest("galleryviewlimit", 'limit', $rsgConfig->galcountNrs, 'int');
 		$limitstart = $input->get('limitstart', 0, 'INT');
-		//Get number of galleries including main gallery
-		$this->kids    = $gallery->kids();
-		$kidCountTotal = count($gallery->kids());
-
-		$this->pageNav = false;
+		$kidCountTotal = count($this->kids);
 
 		//Show page navigation if selected in backend
-		if (($rsgConfig->get('dispLimitbox') == 1 &&
-				$kidCountTotal > $limit) ||
-			$rsgConfig->dispLimitbox == 2
+		if (($rsgConfig->dispLimitbox == 1 && $kidCountTotal > $limit)
+			|| $rsgConfig->dispLimitbox == 2
 		)
 		{
-			//When users wants "All" galleries to show, $limit = 0, no need to slice
+			// When users wants "All" galleries to show, $limit = 0, no need to slice
 			if ($limit)
 			{
 				$this->kids = array_slice($this->kids, $limitstart, $limit);
 			}
 		}
-		$this->pageNav = new JPagination($kidCountTotal, $limitstart, $limit);
-		$this->display('gallery.php');
 
+		$pageNav = new JPagination($kidCountTotal, $limitstart, $limit);
+
+		return $pageNav;
+	}
+
+	/**
+	 * gallery view with one big image and pagination
+     * "asinline"
+	 */
+
+	// ToDo: inlude used parts inti inline....php  and restructure
+
+	function inline(){
+		$this->display( 'inline.php' );
 	}
 
 
 	/***************************
-	 * non page public functions
-	 ***************************/
+    use by root and single gallery image overview
+	***************************/
+
 	/**
 	 * Shows the gallery details block when set in the backend
 	 *
@@ -85,15 +119,15 @@ class rsgDisplay_semantic extends rsgDisplay
 		if (($slideshow + $owner + $size + $date) > 0)
 		{
 			?>
-			<div class="rsg_gallery_details">
-				<div class="rsg2_details">
+            <div class="rsg_gallery_details">
+                <div class="rsg2_details">
 					<?php
 					if ($slideshow)
 					{
 						?>
-						<a href='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=slideshow&gid=" . $kid->get('id')); ?>'>
+                        <a href='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=slideshow&gid=" . $kid->get('id')); ?>'>
 							<?php echo JText::_('COM_RSGALLERY2_SLIDESHOW'); ?></a>
-						<br />
+                        <br />
 						<?php
 					}
 
@@ -101,7 +135,7 @@ class rsgDisplay_semantic extends rsgDisplay
 					{
 						echo JText::_('COM_RSGALLERY2_OWNER_DBLPT');
 						echo $kid->owner; ?>
-						<br />
+                        <br />
 						<?php
 					}
 
@@ -109,7 +143,7 @@ class rsgDisplay_semantic extends rsgDisplay
 					{
 						echo JText::_('COM_RSGALLERY2_SIZE_DBLPT');
 						echo galleryUtils::getFileCount($kid->get('id'), $includeKids) . ' ' . JText::_('COM_RSGALLERY2_IMAGES'); ?>
-						<br />
+                        <br />
 						<?php
 					}
 
@@ -118,12 +152,12 @@ class rsgDisplay_semantic extends rsgDisplay
 						echo JText::_('COM_RSGALLERY2_CREATED') . "";
 						echo JHTML::_("date", $kid->date, JText::_('COM_RSGALLERY2_DATE_FORMAT_LC3'));
 						?>
-						<br />
+                        <br />
 						<?php
 					}
 					?>
-				</div>
-			</div>
+                </div>
+            </div>
 			<?php
 		}
 	}
@@ -215,44 +249,42 @@ class rsgDisplay_semantic extends rsgDisplay
 		}/**/
 
 	/**
-	 * Shows thumbnails for gallery
+	 * Shows thumbnails for one gallery
 	 *
 	 * @throws Exception
 	 */
-	function showThumbs()
+	public function showThumbs()
 	{
 		global $rsgConfig;
+
 		$my = JFactory::getUser();
+		$input = JFactory::getApplication()->input;
 
-		// For superadministrators (they have core.admin) this includes the unpublished items
-		$itemCount = $this->gallery->itemCount();
-
-		$limit = $rsgConfig->get("display_thumbs_maxPerPage");
-		//$limitstart = JRequest::getInt( 'limitstart' );
-		$input      = JFactory::getApplication()->input;
-		$limitstart = $input->get('limitstart', 0, 'INT');
-
-		//instantiate page navigation
-		jimport('joomla.html.pagination');
-		$pagenav = new JPagination($itemCount, $limitstart, $limit);//MK gaat goed: thumbs in gallery
+		$gallery = $this->gallery;
 
 		// increase the gallery hit counter
-		$this->gallery->hit();
+		$gallery->hit();
 
-		if (!$this->gallery->itemCount())
+		// For super administrators (they have core.admin) this includes the unpublished items
+		$itemCount = $gallery->itemCount();
+
+		// No images in gallery ? -> return
+		if (!$itemCount)
 		{
-			if ($this->gallery->id)
+			if ($gallery->id)
 			{
 				// if gallery is not the root gallery display the message
 				echo JText::_('COM_RSGALLERY2_NO_IMAGES_IN_GALLERY');
+				echo $gallery->thumbHTML;
 			}
 
 			// no items to display, so we can return;
 			return;
 		}
+
 		// Rights management. If user is owner or user is Super Administrator, you can edit this gallery
 		// ToDo: Check authorise below. Looks like reference to gallery is needed for core.edit.own
-		if ((($my->id <> 0) && ($this->gallery->uid == $my->id) && ($my->authorise('core.edit.own', 'com_rsgallery2')))
+		if ((($my->id <> 0) && ($gallery->uid == $my->id) && ($my->authorise('core.edit.own', 'com_rsgallery2')))
 			// OR ( $my->usertype == 'Super Administrator' )))
 			|| $my->authorise('core.admin', 'com_rsgallery2')
 			|| $my->authorise('core.edit', 'com_rsgallery2')
@@ -277,18 +309,25 @@ class rsgDisplay_semantic extends rsgDisplay
 		?>
 		<div class="pagination">
 			<?php
+            /**/
+			$limit = $rsgConfig->get("display_thumbs_maxPerPage");
 			if ($itemCount > $limit)
 			{
-				echo $pagenav->getPagesLinks();
-				echo "<br /><br />" . $pagenav->getPagesCounter();
+				$limitstart = $input->get('limitstart', 0, 'INT');
+				//instantiate page navigation
+				$pageNav = new JPagination($itemCount, $limitstart, $limit);//MK gaat goed: thumbs in gallery
+
+				echo $pageNav->getPagesLinks();
+				//echo "<br /><br />" . $pageNav->getPagesCounter();
 			}
+            /**/
 			?>
 		</div>
 		<?php
 	}
 
 	/**
-	 * Shows main item
+	 * Shows main item (from semantic /html/inline.php)
 	 */
 	function showItem()
 	{
@@ -329,7 +368,7 @@ class rsgDisplay_semantic extends rsgDisplay
 	}
 
 	/**
-	 * Show page navigation for Display image
+	 * Show page navigation for Display image (from semantic /html/inline.php)
 	 *
 	 * @throws Exception
 	 */
@@ -374,7 +413,7 @@ class rsgDisplay_semantic extends rsgDisplay
 	}
 
 	/**
-	 * Shows details of image
+	 * Shows details of image (from semantic /html/inline.php)
 	 */
 	function showDisplayImageDetails()
 	{
@@ -432,7 +471,7 @@ class rsgDisplay_semantic extends rsgDisplay
 	}
 
 	/**
-	 * Show description
+	 * Show description (from semantic /html/inline.php)
 	 */
 	function _showDescription()
 	{

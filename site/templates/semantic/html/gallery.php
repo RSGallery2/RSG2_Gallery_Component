@@ -1,92 +1,116 @@
 <?php
 /**
- * RSGallery2
+ * RSGallery2 root or single gallery view
  *
- * @version       $Id: gallery.php 1084 2012-06-17 15:25:18Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003 - 2018 RSGallery2
+ * @copyright (C) 2003 - 2019 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
 
-// JHtml::_('behavior.framework', true);   // load mootools ToDo: Remove mootools
+global $rsgConfig , $Rsg2DevelopActive;
 
-global $rsgConfig;
+// Access parameter from params.ini (example). defined in template.xml
+//echo('<!-- using template parameter: testParameter = ' . $this->params->get('testParameter') . ' -->');
 
-//Testing
-echo('<!-- using template parameter: testParameter = ' . $this->params->get('testParameter') . ' -->');
+if($Rsg2DevelopActive)
+{
+	// ToDo: auto class name ...
+//	echo '<div style="float:left;"><strong>[' . 'schuweb' . ' gallery view]</strong></div>';
+//	echo '<div style="float:left;"><strong>[' . <template/class name> . ' gallery view]</strong></div>';
+	echo '<div style="float:left;"><strong>[' . $rsgConfig->get('template') . ' gallery view]</strong></div><br>';
+}
 
 //Show My Galleries link (if user is logged in (user id not 0))
 if ($rsgConfig->get('show_mygalleries') AND (JFactory::getUser()->id))
 {
-	echo $this->showRsgHeader();
+	// in meta
+	echo $this->showRsgMyGalleryHeader();
 }
 
-//Show search box
+// Max item count selector
+$this->showNavLimitBox ($this->pageNav);
+
+// Show search box
 $this->showSearchBox();
 
-//Show introduction text
-?>
-	<div class="intro_text">
-		<?php echo $this->gallery->description; ?>
-	</div>
+// Show gallery title
+// Single gallery ? (not Root gallery ?)
+if ($this->gallery->id != 0)
+{
+// ToDo: params.ini ...
+	if ($rsgConfig->get('displayGalleryName'))
+	{
+		$this->showGalleryName($this->gallery);
+	}
+}
 
-<?php
-//Show limitbox
-if ($this->pageNav->total):
-	?>
-	<div class="rsg2-pagenav-limitbox">
-		<form action="<?php echo JRoute::_("index.php?option=com_rsgallery2"); ?>" method="post">
-			<?php echo $this->pageNav->getLimitBox(); ?>
-		</form>
-	</div>
-	<?php
-endif;
+// Show gallery or root description
+if ($rsgConfig->get ('displayGalleryDescription') || $this->gallery->id == 0)
+{
+	$this->showGalleryDescription($this->gallery);
+}
 
-foreach ($this->kids as $kid):
-	?>
-	<div class="rsg_galleryblock<?php echo ($kid->published) ? "" : " system-unpublished"; ?>">
-		<div class="rsg2-galleryList-status"><?php echo $kid->status; ?></div>
-		<div class="rsg2-galleryList-thumb">
-			<?php echo $kid->thumbHTML; ?>
-		</div>
-		<div class="rsg2-galleryList-text">
-			<?php echo $kid->galleryName; ?>
-			<span class='rsg2-galleryList-newImages'>
-			<sup><?php if ($this->gallery->hasNewImages())
-				{
-					echo JText::_('COM_RSGALLERY2_NEW');
-				} ?></sup>
-		</span>
-			<?php echo $this->_showGalleryDetails($kid); ?>
-			<div class="rsg2-galleryList-description"><?php echo stripslashes($kid->description); ?>
-			</div>
-		</div>
-		<div class="rsg_sub_url_single">
-			<?php $this->_subGalleryList($kid); ?>
-		</div>
-	</div>
-	<?php
-endforeach;
-?>
+//--- root gallery boxes with thumbs ----------------------------------
 
-	<div class="rsg2-clr"></div>
+foreach ($this->kids as $kid)
+{
+	$published = "";
+	if ($kid->published)
+	{
+		$published = " system-unpublished";
+	}
 
-<?php if ($this->pageNav->total): ?>
-	<div class="pagination">
-		<?php echo $this->pageNav->getPagesLinks(); ?>
-		<br />
-		<?php echo $this->pageNav->getResultsCounter(); ?>
-	</div>
-	<div class='rsg2-clr'></div>
-<?php endif; ?>
+	echo '<div class="rsg_galleryblock' . $published . '">';
+	echo '    <div class="rsg2-galleryList-status">' . $kid->status . '</div>';
+	echo '    <div class="rsg2-galleryList-thumb">';
+	echo          $kid->thumbHTML;
+	echo '    </div>';
+	echo '    <div class="rsg2-galleryList-text">';
+	echo          $kid->galleryName;
+	echo '	      <span class="rsg2-galleryList-newImages">';
+	if ($this->gallery->hasNewImages())
+	{
+		echo '        <sup>';
+		echo              JText::_('COM_RSGALLERY2_NEW');
+		echo '        </sup>';
+	}
+	echo '		  </span>';
+	echo          $this->_showGalleryDetails($kid);
+	echo '		  <div class="rsg2-galleryList-description">' . stripslashes($kid->description) . '</div>';
+	echo '    </div>';
+	echo '    <div class="rsg_sub_url_single">';
+	              $this->_subGalleryList($kid);
+	echo '    </div>';
+	echo '</div>';
+}
 
-<?php
+
+echo '<div class="rsg2-clr"></div>';
+
+//--- Root gallery navigation ----------------------------------
+
+if ($this->pageNav->total)
+{
+	echo '<div class="pagination">';
+	echo       $this->pageNav->getPagesLinks();
+	//echo '	   <br />';
+	//echo       $this->pageNav->getResultsCounter();
+
+	echo '</div>';
+	echo '<div class="rsg2-clr"></div>';
+}
+
+//--- Random and latest images ----------------------------------
+
+// Show random and latest only in the top gallery
+// Root gallery ?
 if ($this->gallery->id == 0)
 {
-	// Show random and latest only in the top gallery 
-	// Show block with random images 
+	// Show block with random images
 	$this->showImages("random", 3);
 	// Show block with latest images
 	$this->showImages("latest", 3);
 }
+
+

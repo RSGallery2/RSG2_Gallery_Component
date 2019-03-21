@@ -166,6 +166,9 @@ class rsgConfig
     var $isUseOneGalleryNameForAllImages = 1;
     var $isPreSelectLatestGallery = 0;
 
+    var $displayGalleryName = 0;
+    var $displayGalleryDescription = 0;
+
     var $last_update_type = 'upload_drag_and_drop';
 
     /**
