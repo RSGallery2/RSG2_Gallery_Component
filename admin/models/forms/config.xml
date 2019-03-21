@@ -565,7 +565,7 @@
 				name="displayGalleryTitle"
 				type="radio"
 				default="0"
-				label="COM_RSGALLERY2_DISPLAY_TITLE"
+				label="COM_RSGALLERY2_DISPLAY_GALLERY_TITLE"
 				description="COM_RSGALLERY2_DISPLAY_GALLERY_TITLE_DESC"
 				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
