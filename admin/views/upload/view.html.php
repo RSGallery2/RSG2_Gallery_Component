@@ -166,17 +166,16 @@ class Rsgallery2ViewUpload extends JViewLegacy
         {
 	        echo '<span style="color:red">'
                 . 'Tasks: <br>'
-				. '!!! Test filenames with blanks and other ... '
-				. '*  <br>??? enable/force selection of start gallery ???'
-//				. '*  <br>'
-//				. '*  <br>'
-//				. '*  <br>'
-//				. '*  <br>'
-				. '* Config -> update gallery selection preselect last used gallery ? show combo opened for n entries <br>'
-				. '* Config -> update gallery selection preselect latest gallery  (User input ...) <br>'
+				. '*  ??? enable/force selection of start gallery ??? <br>'
 	            . '* Hide "Drage images here" ... on first successful upload<br>'
 	            . '* Hide progressBar when image appears '
                 . '* Do documentation of model calling order and improve calling as is slow<br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
                 . '</span><br><br>';
         }
 

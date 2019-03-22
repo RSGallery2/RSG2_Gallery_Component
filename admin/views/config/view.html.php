@@ -129,11 +129,16 @@ class Rsgallery2ViewConfig extends JViewLegacy
 	*/
 	protected function addToolbar($Layout = 'default')
 	{
+		global $Rsg2DevelopActive;
+
 		// on develop show open tasks if existing
 		if (!empty ($Rsg2DevelopActive))
 		{
 			echo '<span style="color:red">'
 				. '* rename save in controller as it is used by Raw <br>'
+				. '*  Add root gallery section<br>'
+				. '* Config -> update gallery selection preselect last used gallery ? show combo opened for n entries <br>'
+				. '* Config -> update gallery selection preselect latest gallery  (User input ...) <br>'
 //				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'

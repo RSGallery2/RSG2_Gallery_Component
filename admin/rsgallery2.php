@@ -26,8 +26,8 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . '/includes/baseDefines.php');
 require_once(JPATH_COMPONENT_ADMINISTRATOR . '/includes/config.class.php');
 $rsgConfig = new rsgConfig();
 
-$Rsg2DevelopActive = $rsgConfig->get('develop');
 $Rsg2DebugActive = $rsgConfig->get('debug');
+$Rsg2DevelopActive = $rsgConfig->get('develop');
 
 // Activate logging
 if ($Rsg2DebugActive) 
@@ -53,7 +53,12 @@ if ($Rsg2DebugActive)
 
     // start logging...
     JLog::add('--------------------------------------------------------'); //, JLog::DEBUG);
-    JLog::add('Start rsgallery2.php in admin: debug active in RSGallery2'); //, JLog::DEBUG);
+    JLog::add('Start rsgallery2.php in admin'); //, JLog::DEBUG);
+	JLog::add('    : debug active'); //, JLog::DEBUG);
+	if ( ! empty ($Rsg2DevelopActive))
+	{
+		JLog::add('    : develop active '); //, JLog::DEBUG);
+	}
 }
 
 //--- Config tests -----------------------------------------------------------
