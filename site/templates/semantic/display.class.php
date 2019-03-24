@@ -420,15 +420,187 @@ class rsgDisplay_semantic extends rsgDisplay
 		global $rsgConfig;
 
 		$gallery = rsgGalleryManager::get();
+		$image    = $gallery->getItem();
 
 		// if no details need to be displayed then exit
+		$isDisplayDesc = $rsgConfig->get('displayDesc');
+		$isDisplayVoting = $rsgConfig->get('displayVoting');
+		$isDisplayComments = $rsgConfig->get('displayComments');
+		$isDisplayEXIF = $rsgConfig->get('displayEXIF');
 
-		if (!($rsgConfig->get("displayDesc") || $rsgConfig->get("displayVoting") || $rsgConfig->get("displayComments") || $rsgConfig->get("displayEXIF")))
+		$isDisplayImgHits = $rsgConfig->get('displayHits');
+		$isVotingEnabled = JFactory::getUser()->authorise('rsgallery2.vote', 'com_rsgallery2.gallery.' . $gallery->id);
+		// ToDo: $isVotingEnabled = $isVotingEnabled  & $rsgConfig->get('isVotingEnabled');
+		$isVotingEnabled = True;
+
+		$this->AssignImageRatingData(array($image));
+
+
+		// any data to be displayed ?
+		$isDisplayImgDetails = false;
+		if ($isDisplayDesc || $isDisplayVoting || $isDisplayComments || $isDisplayEXIF)
 		{
-			return;
+			$isDisplayImgDetails = true;
 		}
 
-		// JHtmlTabs
+        // Display image details
+		if ($isDisplayImgDetails)
+		{
+			//--- active tab --------------------------------
+
+			$isDisplayDescActive = '';
+			$isDisplayVotingActive = '';
+			$isDisplayCommentsActive = '';
+			$isDisplayEXIFActive = '';
+
+			/**/
+			if ($isDisplayDesc)
+			{
+			$isDisplayDescActive = 'active';
+			}
+			else
+			{
+				if ($isDisplayVoting)
+				{
+					$isDisplayVotingActive = 'active';
+				}
+				else
+				{
+					if ($isDisplayComments)
+					{
+						$isDisplayCommentsActive = 'active';
+					}
+					else
+					{
+						if ($isDisplayEXIF)
+						{
+							$isDisplayEXIFActive = 'active';
+						}
+					}
+				}
+			}
+			/**
+			$isDisplayCommentsActive = 'active';
+            /**/
+			echo '<div class="well">';
+
+			echo '    <div class="tabbable">'; // <!-- Only required for left/right tabs -->
+			echo '        <ul class="nav nav-tabs">';
+
+			/*---------------------------------------------------------------
+			   tab headers
+			---------------------------------------------------------------*/
+
+			//--- tab headers --------------------------------
+
+			if ($isDisplayDesc)
+			{
+				echo '        <li class="' . $isDisplayDescActive . '"><a href="#tabDesc" data-toggle="tab">' . JText::_('COM_RSGALLERY2_DESCRIPTION') . '</a></li>';
+			}
+			if ($isDisplayVoting)
+			{
+				echo '        <li class="' . $isDisplayVotingActive . '"><a href="#tabVote" data-toggle="tab">' . JText::_('COM_RSGALLERY2_VOTING') . '</a></li>';
+			}
+			if ($isDisplayComments)
+			{
+				echo '        <li class="' . $isDisplayCommentsActive . '"><a href="#tabComments" data-toggle="tab">' . JText::_('COM_RSGALLERY2_COMMENTS') . '</a></li>';
+			}
+			if ($isDisplayEXIF)
+			{
+				echo '        <li class="' . $isDisplayEXIFActive . '"><a href="#tabExif" data-toggle="tab">' . JText::_('COM_RSGALLERY2_EXIF') . '</a></li>';
+			}
+			echo '        </ul>';
+
+
+			/*---------------------------------------------------------------
+			   tab content
+			---------------------------------------------------------------*/
+
+			echo '        <div class="tab-content">';
+
+			//--- image description --------------------------------
+
+			if ($isDisplayDesc)
+			{
+				echo '        <div class="tab-pane ' . $isDisplayDescActive . '" id="tabDesc">';
+				echo '            <div  class="page_inline_tabs_description" >';
+
+				echo $this->htmlDescription ($image, $isDisplayImgHits);
+
+				//echo '                <p>Howdy, I\'m in Section 1.</p>';
+				echo '            </div>';
+				echo '        </div>';
+			}
+
+			//--- voting --------------------------------
+
+			if ($isDisplayVoting)
+			{
+				echo '        <div class="tab-pane ' . $isDisplayVotingActive . '" id="tabVote">';
+				echo '            <div  class="page_inline_tabs_voting" >';
+				if ( ! empty ($image->ratingData))
+				{
+					echo $this->htmlRatingData ($image->ratingData, $isVotingEnabled, $image->gallery_id, $image->id);
+				}
+				else
+				{
+					echo '                <p>' . JText::_('COM_RSGALLERY2_VOTING_IS_DISABLED') . '</p>';
+				}
+				//echo '                <p>Howdy, I\'m in Section 2.</p>';
+				echo '            </div>';
+				echo '        </div>';
+			}
+
+			//--- comments --------------------------------
+
+			if ($isDisplayComments)
+			{
+				echo '        <div class="tab-pane ' . $isDisplayCommentsActive . '" id="tabComments">';
+				echo '            <div  class="page_inline_tabs_comments" >';
+				if (! empty ($image->comments))
+				{
+					echo $this->htmlComments ($image->comments, $image->gallery_id, $image->id);
+				}
+				else
+				{
+					echo '                <p>' . JText::_('COM_RSGALLERY2_COMMENTING_IS_DISABLED') . '</p>';
+				}
+				// echo '                <p>Howdy, I\'m in Section 3.</p>';
+				echo '            </div>';
+				echo '        </div>';
+			}
+
+			//--- EXIF data --------------------------------
+
+			if ($isDisplayEXIF)
+			{
+				echo '        <div class="tab-pane ' . $isDisplayEXIFActive . '" id="tabExif">';
+				echo '            <div  class="page_inline_tabs_exif" >';
+				if ( ! empty ($image->exifData))
+				{
+					echo $this->htmlExifData ($image->exifData);
+				}
+				else
+				{
+					// echo '                <p>' . JText::_('COM_RSGALLERY2_NO_EXIF_ITEM_SELECTED_') . '</p>';
+				}
+				echo '                <p>Howdy, I\'m in Section 4.</p>';
+				echo '            </div>';
+				echo '        </div>';
+			}
+
+			echo '        </div>'; // tab-content
+			echo '    </div>'; // tabbable
+
+			echo '</div>'; // well
+
+		}
+
+		echo '</div>'; // <div class="rsg2">
+
+
+        /**
+			// JHtmlTabs
 		$options = array(
 			'onActive'     => 'function(title, description){
 				description.setStyle("display", "block");
@@ -468,7 +640,358 @@ class rsgDisplay_semantic extends rsgDisplay
 		}
 
 		echo JHtml::_('tabs.end');
+        /**/
 	}
+
+	function htmlStars ($idx, $average, $lastRating)
+	{
+		$html = [];
+
+		$intAvg = (int) floor($average);
+		$avgRem = ((double) $average) - $intAvg; // reminder
+
+		$isSelected = "";
+		if ($lastRating > 0 && ($lastRating -1) == $idx)
+		{
+			$isSelected = "checked";
+		}
+
+		$isButtonActive = false;
+		$isHalfStar = false;
+		if ($idx < $intAvg)
+		{
+			$isButtonActive = true;
+		}
+
+		if ($idx == $intAvg)
+		{
+			if ($avgRem > 0.49)
+			{
+				$isHalfStar = true;
+				$isButtonActive = true;
+			}
+		}
+
+		if ($isHalfStar) {
+			$iconClass = "icon-star-2";
+		}
+		else
+		{
+			$iconClass = "icon-star";
+		}
+
+		$buttonClassAdd = 'btn-warning ';
+		if ( ! $isButtonActive)
+		{
+			$buttonClassAdd = 'btn-default btn-grey ';
+		}
+
+		$html[] = '<button id="star_' . ($idx+1) . '" type="button" class="btn ' .  $buttonClassAdd . ' btn-mini btn_star ' .  $isSelected . '" aria-label="Left Align">';
+		$html[] = '    <span class="' . $iconClass . '" aria-hidden="true"></span>';
+		$html[] = '</button>';
+
+		return implode("\n", $html);
+	}
+
+	function htmlRatingData($ratingData, $isVotingEnabled, $gid, $imageId)
+	{
+		$html = [];
+
+		$html[] = '<div class="container span12">';
+
+		$html[] =  '        <div class="rsg2_rating_container">';
+
+		//--- result of rating ------------------------------------
+
+		// ToDo: add limit here and remove from *js
+		$html[] = '                <form name="rsgvoteform" method="post" action="' . JRoute::_('index.php?option=com_rsgallery2&view=gallery&gid=' . $gid) .'&startShowSingleImage=1" id="rsgVoteForm">';
+
+		$html[] = '                <div class="rating-block row-fluid text-center" >';
+
+		$html[] = '                    <h4>' . JText::_('COM_RSGALLERY2_AVERAGE_USER_RATING') . '</h4>';
+		$html[] = '                    <h2 class="bold padding-bottom-7">' . $ratingData->average . '&nbsp<small>/&nbsp' . $ratingData->count . '</small></h2>';
+
+		for ($idx = 0; $idx < 5; $idx++)
+		{
+			$html[] =  '                    ' . htmlStars ($idx, $ratingData->average, $ratingData->lastRating);
+		}
+
+		if ($isVotingEnabled)
+		{
+			$html[] = '                <label id="DoVote" title="' . JText::_('COM_RSGALLERY2_AVERAGE_RATE_IMAGE_DESC') . '">' . JText::_('COM_RSGALLERY2_AVERAGE_RATE_IMAGE') . '&nbsp;&nbsp;</label>';
+
+			JHtml::script (JURI_SITE . '/components/com_rsgallery2/layouts/ClassicJ25/OneImageVote.js');
+		}
+
+		$html[] = '                </div>'; //
+
+		$html[] = '                <input type="hidden" name="task" value="rating.rateSingleImage" />';
+		$html[] = '                <input type="hidden" name="rating" value="" />';
+		$html[] = '                <input type="hidden" name="paginationImgIdx" value="" />';
+		$html[] = '                <input type="hidden" name="id" value="' . $imageId . '" />';
+		$html[] = '                <input id="token" type="hidden" name="' . JSession::getFormToken() . '" value="1" />';
+
+		$html[] = '                </form>';
+
+		$html[] =  '		</div>'; // rsg2_exif_container
+
+		$html[] = '</div>'; // class="container span12">';
+
+		return implode("\n", $html);
+	}
+
+	function htmlDescription ($image, $isDisplayImgHits)
+	{
+		$html = [];
+
+
+		/**
+		$html[] = '<div class ="alert alert-info">';
+		$html[] = '</div>';
+		$html[] = '';
+		$html[] = '';
+		$html[] = '';
+		$html[] = '';
+		$html[] = '';
+		/**/
+		/**
+		$html[] = '<div class ="info">';
+		$html[] = '<caption>';
+		/**/
+
+		$html[] = '<div class="container span12">';
+
+		//--- Hits --------------------------------
+
+		if ($isDisplayImgHits)
+		{
+			//$html[] = '<div class="well well-small">';
+			//$html[] = '    <span class="' . $iconClass . '" aria-hidden="true"></span>';
+			//echo '            <p class="rsg2_hits"> ' . JText::_('COM_RSGALLERY2_HITS') . '&nbsp;<span>' . $image->hits . '</span>';
+			//$html[] = '<div class ="rsg2_hits">';
+			$html[] = '            <dl class="dl-horizontal ">'; // dl-horizontal rsg2_hits
+			//$html[] = '                <dt>' . JText::_('COM_RSGALLERY2_HITS') . ' <i class="icon-flag"></i> </dt><dd>' . $image->hits . '</dd>';
+			$html[] = '                <dt> <i class="icon-flag"></i> ' . JText::_('COM_RSGALLERY2_HITS') . '</dt><dd><strong>' . $image->hits . '</strong></dd>';
+			$html[] = '            </dl>';
+			//$html[] = '</div>';
+		}
+
+		//--- Description --------------------------
+
+		//$html[] = '<div class ="alert alert-info">';
+		$html[] = '<div class ="well">';
+
+		$html[] = '                <p class="rsg2_description">' . nl2br(stripslashes($image->descr)) . '</p>';
+		//$html[] = '                <p class="rsg2_description">' . $image->descr . '</p>';
+
+		$html[] = '</div>';
+
+		/**
+		 * $html[] = '</caption>';
+		/**/
+		/**/
+		$html[] = '</div>'; // class="container span12">';
+
+		return implode("\n", $html);
+	}
+
+	function htmlComments ($comments, $gid, $imageId)
+	{
+		// toDO improve ....
+		// https://bootsnipp.com/snippets/Vp4P
+		// https://bootsnipp.com/snippets/featured/comment-posts-layout
+		// https://bootsnipp.com/snippets/featured/blog-post-footer
+		// sophisticated
+		// https://bootsnipp.com/snippets/featured/collapsible-tree-menu-with-accordion
+
+		$formFields = $comments->formFields;
+		$imgComments = $comments->comments;
+
+		$html = [];
+
+		$html[] = '<div class="container span12">';
+
+		$html[] =  '        <div class="rsg2_comments_container">';
+
+		if (empty($imgComments))
+		{
+			$html[] = '<div id="comment">';
+			$html[] = '    <table width="100%" class="comment_table">';
+			$html[] = '        <tr>';
+			$html[] = '            <td class="title">';
+			$html[] = '                <span class="posttitle">' . JText::_('COM_RSGALLERY2_NO_COMMENTS_YET') . ' <br></span>';
+			$html[] = '                 ';
+			$html[] = '                 <br>';
+			$html[] = '            </td>';
+			$html[] = '        </tr>';
+			$html[] = '    </table>';
+			$html[] = '</div>';
+		}
+		else
+		{
+			// Comments existing
+
+			//--- add comment link bar -------------------------------------------------
+
+			/**
+			$html[] = '<div id="comment">';
+			$html[] = '    <table width="100%" class="comment_table">';
+			$html[] = '        <tr>';
+			//$html[] = '	           <td class="title" width="25%"' .  JText::_('COM_RSGALLERY2_COMMENTS') . '</td>';
+			//$html[] = '	           <td class="title" width="50%">' . JText::_('COM_RSGALLERY2_COMMENTS_ADDED') . '</td>';
+			$html[] = '	           <td class="title pull-right">';
+			//$html[] = '	               <div class="addcomment">';
+			$html[] = '    <i class="icon-comment"></i>';
+			$html[] = '	                   <a class="special" href="#lblAddCcomment">' . JText::_('COM_RSGALLERY2_ADD_COMMENT') . '</a>';
+			//$html[] = '	               </div>';
+			$html[] = '	           </td>';
+			$html[] = '	       </tr>';
+			$html[] = '    </table>';
+			$html[] = '    <br />';
+			$html[] = '</div>';
+			$html[] = '';
+			/**/
+
+			$html[] = '<div id="comment" class="title pull-right">';
+
+			$html[] = '<button class="btn btn-success" type="button">';
+			$html[] = '    <i class="icon-comment"></i>';
+			$html[] = '	   <a class="special" href="#lblAddCcomment">' . JText::_('COM_RSGALLERY2_ADD_COMMENT') . '</a>';
+			$html[] = '</button>';
+			$html[] = '';
+
+			$html[] = '</div>';
+
+
+
+			// https://bootsnipp.com/snippets/a35Pl
+
+			//--- existing comments -----------------------------------------------------
+
+			// each comment
+			foreach ($imgComments as $comment)
+			{
+
+				// $html[] = '<div class="row">';
+
+				// $html[] = '<div class="media">';
+				/**/
+				$html[] = '    <a class="pull-left span2" href="#">';
+				//$html[] = '<div class="thumbnail">';
+
+				// $html[] = '<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">';
+				$html[] = '        <div>';
+				$html[] = '            <i class="icon-user"></i>';
+				$html[] = '            <strong>' . $comment->user_name . '</strong>';
+				//$html[] = '            <br> <span class="text-muted">commented 5 days ago</span>';
+				$html[] = '        </div>';
+
+				//$html[] = '</div>'; //<!-- /thumbnail -->
+				$html[] = '    </a>';
+				/**/
+
+				/**/
+				$html[] = '<div class="media-body  span10">';
+				$html[] = '    <i class="icon-comment"></i>';
+				$html[] = '    <strong class="media-heading title">' . $comment->subject . '</strong>';
+				//$html[] = '    <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>';
+
+				$html[] = '    <p><div>' . $comment->comment . '</div></p>';
+				$html[] = '<hr>';
+
+				$html[] = '</div>';
+				$html[] = '';
+				/**/
+
+				/**
+				$html[] = '</div>'; // class="media">';
+				$html[] = '';
+				// $html[] = '</div>'; // row
+				$html[] = '';
+				/**/
+
+
+				$html[] = '<hr>';
+				/**/
+			}
+
+			/**/
+		}
+
+		//--- add comment -----------------------------------------------------
+
+		$html[] = '';
+
+		$html[] = '<a name="lblAddCcomment"></a>';
+
+		/**/
+		//$html[] = '<hr>';
+		$html[] = '';
+
+		$html[] = '                <form name="rsgCommentForm" class="form-horizontal" method="post"';
+		$html[] = '                    action="' . JRoute::_('index.php?option=com_rsgallery2&view=gallery&gid=' . $gid) .'&startShowSingleImage=1" id="rsgCommentForm">';
+
+		$html[] = '                    <div class ="well">';
+		$html[] = '                        <h4>'. JText::_('COM_RSGALLERY2_CREATE_COMMENT') . '</h4>';
+
+		// ToDo: text-align="center
+		$html[] = '                        <button id="commitSend" class="btn btn-primary pull-right" ';
+		$html[] = '                            type="submit" ';
+//    $html[] = '						       onclick="Joomla.submitbutton(\'comment.saveComment\')"';
+		$html[] = '						       onclick="Joomla.submitbutton(this.form);return false" ';
+		$html[] = '							   title="' . JText::_('COM_RSGALLERY2_SEND_COMMENT_DESC') . '">';
+		$html[] = '						       <i class="icon-save"></i> ' . JText::_('COM_RSGALLERY2_ADD_COMMENT') . '';
+		$html[] = '						   </button>';
+
+		$html[] = '                        ' . $formFields->renderFieldset ('comment');
+
+		$html[] = '                    	   <input type="hidden" name="task" value="comment.addComment" />';
+		$html[] = '                    	   <input type="hidden" name="rating" value="" />';
+		$html[] = '                    	   <input type="hidden" name="paginationImgIdx" value="" />';
+		$html[] = '                    	   <input type="hidden" name="id" value="' . $imageId . '" />';
+		$html[] = '                    	   <input id="token" type="hidden" name="' . JSession::getFormToken() . '" value="1" />';
+
+		$html[] = '                    </div>';
+		$html[] = '                </form>';
+		/**/
+
+		$html[] = '            </div>'; // container
+
+		$html[] = '</div>'; // class="container">';
+
+		$html[] = '';
+
+		return implode("\n", $html);
+	}
+
+	function htmlExifData ($exifData)
+	{
+		$html = [];
+
+		$html[] = '<div class="container span12">';
+
+		$html[] =  '        <div class="rsg2_exif_container">';
+		$html[] =  '            <dl class="dl-horizontal">';
+
+		// user requested EXIF tags
+		foreach ($exifData as $exifKey => $exifValue)
+		{
+			$html[] =  '            <dt>' . $exifKey . '</dt><dd>' . $exifValue . '</dd>';
+		}
+
+		$html[] =  '            </dl>';
+		$html[] =  '		</div>'; // rsg2_exif_container
+
+		$html[] = '</div>'; // class="container span12">';
+
+		return implode("\n", $html);
+	}
+
+
+
+//==========================================================================================================
+
+//==========================================================================================================
 
 	/**
 	 * Show description (from semantic /html/inline.php)
@@ -548,4 +1071,66 @@ class rsgDisplay_semantic extends rsgDisplay
 			}
 		}
 	}
+
+
+	/**
+	 * @param $images
+	 *
+	 *
+	 * @since version
+	 */
+	public function AssignImageRatingData($images)
+	{
+		global $rsgConfig;
+		// path to image
+
+		//$ratingModel = $this->getModel('rating');
+		$ratingModel = JModelLegacy::getInstance('rating', 'RSGallery2Model');
+
+		foreach ($images as $image)
+		{
+			/**/
+			$ratingData = new stdClass();
+
+			$SumAndVotes = $ratingModel->getRatingSumAndVotes ($image->id);
+
+			$average = $ratingModel->calculateAverage($SumAndVotes->rating, $SumAndVotes->votes);
+			$ratingData->average = $average;
+			$ratingData->count = $SumAndVotes->votes;
+
+			// Only if voting is only once
+			$ratingData->lastRating = $ratingModel->isUserHasRated($image->id);
+
+			//$ratingData->average = 0.4;
+			//$ratingData->average = 0.5;
+			//$ratingData->average = 0.9;
+			//$ratingData->average = 1.0;
+			//$ratingData->average = 1.1;
+			//$ratingData->average = 2.4;
+			//$ratingData->average = 2.5;
+			//$ratingData->average = 2.9;
+			//$ratingData->average = 3.0;
+			//$ratingData->average = 3.1;
+
+			//$ratingData->average = 4.4;
+			//$ratingData->average = 4.5;
+			//$ratingData->average = 4.6;
+			//$ratingData->average = 4.9;
+			//$ratingData->average = 5.0;
+
+			// catch
+			$image->ratingData = $ratingData;
+			/**/
+
+
+
+
+		}
+	}
+
+
+
+
+
+
 }
