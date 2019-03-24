@@ -639,28 +639,22 @@ class rsgDisplay extends JObject
 		if ($rsgConfig->get('displayDownload'))
 		{
 			echo "<div class=\"rsg2-toolbar\">";
-			if ($type == 'button')
+
+            echo '<a href="' . JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id=' . $id) . '"';
+			echo '   title="' . JText::_("COM_RSGALLERY2_DOWNLOAD") . '"';
+			if ($type == 'button') // or link
 			{
-				?>
-				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id=' . $id); ?>">
-					<img height="20" width="20" src="<?php echo JURI::base(); ?>/components/com_rsgallery2/images/download_f2.png" alt="<?php echo JText::_('COM_RSGALLERY2_DOWNLOAD') ?>">
-					<?php
-					if ($showtext == true)
-					{
-						?>
-						<br /><span style="font-size:smaller;"><?php echo JText::_('COM_RSGALLERY2_DOWNLOAD') ?></span>
-						<?php
-					}
-					?>
-				</a>
-				<?php
+                echo ' class="btn btn-mini"';
 			}
 			else
 			{
-				?>
-				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id=' . $id); ?>"><?php echo JText::_('COM_RSGALLERY2_DOWNLOAD'); ?></a>
-				<?php
+				echo ' class="btn btn-link btn-mini"';
 			}
+			echo '>';
+			echo '<i class="icon-download icon-white"> </i>';
+//            echo  JText::_('COM_RSGALLERY2_DOWNLOAD');
+			echo '</a>';
+
 			echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";
 		}
 	}
