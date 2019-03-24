@@ -82,7 +82,6 @@ function xmlFile()
  * Thanks to Rich Malak <rmalak@fuseideas.com> for his invaluable contribution
  * to this very important feature!
  */
-//function downloadFile($id) {
 function downloadFile()
 {
 	global $rsgConfig;
@@ -94,7 +93,7 @@ function downloadFile()
 	$original = $item->original();
 	$file     = $original->filePath();
 
-	//Open up the file
+	// Open up the file
 	if ($fd = fopen($file, "r"))
 	{
 		$fsize      = filesize($file);
@@ -124,8 +123,12 @@ function downloadFile()
 				header("Content-type: application/octet-stream");
 				header("Content-Disposition: attachment; filename=\"" . $path_parts["basename"] . "\"");
 		}
+
+		//header("Content-Transfer-Encoding: binary");
+		//header('Accept-Ranges: bytes');
 		header("Content-length: $fsize");
 		header("Cache-control: private");
+
 		//Read the contents of the file
 		while (!feof($fd))
 		{
@@ -135,4 +138,6 @@ function downloadFile()
 	}
 	//Close file after use!
 	fclose($fd);
+	ob_flush();
+
 }

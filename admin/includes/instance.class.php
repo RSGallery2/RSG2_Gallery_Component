@@ -125,7 +125,7 @@ class rsgInstance
 						xmlFile();
 						break;
 					case "downloadfile":
-						// Todo Fix: downloadFile (id) Id is missing
+
 						downloadFile();
 						break;
 					default:
