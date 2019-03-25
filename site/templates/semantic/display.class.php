@@ -8,6 +8,8 @@ defined('_JEXEC') or die();
 
 jimport('joomla.html.pagination');
 
+JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
+
 /**
  * Template class for RSGallery2
  *
@@ -434,8 +436,9 @@ class rsgDisplay_semantic extends rsgDisplay
 		$isVotingEnabled = True;
 
 		$this->AssignImageRatingData(array($image));
-
-
+		$this->AssignImageComments(array($image));
+		$this->AssignImageExifData(array($image));
+		
 		// any data to be displayed ?
 		$isDisplayImgDetails = false;
 		if ($isDisplayDesc || $isDisplayVoting || $isDisplayComments || $isDisplayEXIF)
@@ -713,7 +716,7 @@ class rsgDisplay_semantic extends rsgDisplay
 
 		for ($idx = 0; $idx < 5; $idx++)
 		{
-			$html[] =  '                    ' . htmlStars ($idx, $ratingData->average, $ratingData->lastRating);
+			$html[] =  '                    ' . $this->htmlStars ($idx, $ratingData->average, $ratingData->lastRating);
 		}
 
 		if ($isVotingEnabled)
@@ -1128,6 +1131,157 @@ class rsgDisplay_semantic extends rsgDisplay
 		}
 	}
 
+
+	/**
+	 * @param $images
+	 *
+	 *
+	 * @since version
+	 */
+	public function AssignImageComments($images)
+	{
+		global $rsgConfig;
+
+		// d:\xampp\htdocs\Joomla3x\components\com_rsgallery2\models\forms\comment.xml
+		// D:\xampp\htdocs\joomla3x/components/rsgallery2/models/forms/comment.xml
+		$xmlFile    = JPATH_SITE . '/components/com_rsgallery2/models/forms/comment.xml';
+		$formFields = JForm::getInstance('comment', $xmlFile);
+
+		/**
+		$params = YireoHelper::toRegistry($this->item->params)->toArray();
+		$params_form = JForm::getInstance('params', $file);
+		$params_form->bind(array('params' => $params));
+		$this->params_form = $params_form;
+		/**/
+
+		foreach ($images as $image)
+		{
+			$image->comments = new stdClass();
+
+			$image->comments->formFields = $formFields;
+			//$image->comments->;
+		}
+	}
+
+
+	/**
+	 * @param $images
+	 *
+	 *
+	 * @since version
+	 */
+	public function AssignImageExifData($images)
+	{
+		global $rsgConfig;
+
+		// preset result
+		$ImgExifData = [];
+
+		try
+		{
+			// user requested EXIF tags
+			// $strExifTags = $rsgConfig->get('exifTags');
+			// $useExifTags = explode("|", $strExifTags);
+			$useExifTags = $rsgConfig->get('exifTags');
+			$useExifTags = array_map('strtolower', $useExifTags);
+
+			// all images (Normally one)
+			foreach ($images as $image)
+			{
+				$fileName = $image->name;
+
+				try {
+					$pathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $fileName;
+					if (!file_exists($pathFileName))
+					{
+						$pathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $fileName;
+					}
+
+					if (!file_exists($pathFileName))
+					{
+						continue;
+					}
+
+					// ToDo: Cache exif Data
+					// $exifData = exif_read_data($pathFileName, 'IFD0');
+					$exifData = exif_read_data($pathFileName);
+
+					foreach ($exifData as $exifKey => $exifValue)
+					{
+						// single value pair
+						if ( ! is_array ($exifValue)) {
+
+							if (in_array(strtolower($exifKey), $useExifTags))
+							{
+								$exifValue = $this->ExifValue2String ($exifKey, $exifValue);
+								$ImgExifData [$exifKey] = $exifValue;
+							}
+						}
+						else
+						{
+							foreach ($exifValue as $exifSubKey => $exifSubValue)
+							{
+								if (in_array(strtolower($exifSubKey), $useExifTags))
+								{
+									$exifSubValue = $this->ExifValue2String ($exifSubKey, $exifSubValue);
+									$ImgExifData [$exifSubKey] = $exifSubValue;
+								}
+							}
+						}
+					}
+				}
+				catch (RuntimeException $e)
+				{
+					$OutTxt = '';
+					$OutTxt .= ': Error executing AssignImageExifData (inner): "' . $fileName . '"<br>';
+					$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+					$app = JFactory::getApplication();
+					$app->enqueueMessage($OutTxt, 'error');
+				}
+
+
+				/**
+				 * $exif = exif_read_data('tests/test1.jpg', 'IFD0');
+				 * echo $exif===false ? "No header data found.<br />\n" : "Image contains headers<br />\n";
+				 *
+				 * $exif = exif_read_data('tests/test2.jpg', 0, true);
+				 * echo "test2.jpg:<br />\n";
+				 * foreach ($exif as $key => $section) {
+				 * foreach ($section as $name => $val) {
+				 * echo "$key.$name: $val<br />\n";
+				 * }
+				 * }
+				 * /**/
+
+				/**
+				 * $filedata = exif_read_data($images[$i]);
+				 * if(is_array($filedata) && isset($filedata['ImageDescription'])){
+				 * $filename = $filedata['ImageDescription'];
+				 * } else{
+				 * $filename = explode('.', basename($images[$i]));
+				 * $filename = $filename[0];
+				 * }
+				 * /**/
+
+				// $ImgExifData =
+			} // all images
+
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= ': Error executing AssignImageExifData (outer)' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+
+		$image->exifData = $ImgExifData;
+
+	}
 
 
 
