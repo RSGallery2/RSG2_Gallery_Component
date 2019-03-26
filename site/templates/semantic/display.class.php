@@ -438,7 +438,7 @@ class rsgDisplay_semantic extends rsgDisplay
 		$this->AssignImageRatingData(array($image));
 		$this->AssignImageComments(array($image));
 		$this->AssignImageExifData(array($image));
-		
+
 		// any data to be displayed ?
 		$isDisplayImgDetails = false;
 		if ($isDisplayDesc || $isDisplayVoting || $isDisplayComments || $isDisplayEXIF)
@@ -1183,90 +1183,94 @@ class rsgDisplay_semantic extends rsgDisplay
 			// $strExifTags = $rsgConfig->get('exifTags');
 			// $useExifTags = explode("|", $strExifTags);
 			$useExifTags = $rsgConfig->get('exifTags');
-			$useExifTags = array_map('strtolower', $useExifTags);
-
-			// all images (Normally one)
-			foreach ($images as $image)
+			if (is_array ($useExifTags))
 			{
-				$fileName = $image->name;
+				$useExifTags = array_map('strtolower', $useExifTags);
 
-				try {
-					$pathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $fileName;
-					if (!file_exists($pathFileName))
+				// all images (Normally one)
+				foreach ($images as $image)
+				{
+					$fileName = $image->name;
+
+					try
 					{
-						$pathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $fileName;
-					}
-
-					if (!file_exists($pathFileName))
-					{
-						continue;
-					}
-
-					// ToDo: Cache exif Data
-					// $exifData = exif_read_data($pathFileName, 'IFD0');
-					$exifData = exif_read_data($pathFileName);
-
-					foreach ($exifData as $exifKey => $exifValue)
-					{
-						// single value pair
-						if ( ! is_array ($exifValue)) {
-
-							if (in_array(strtolower($exifKey), $useExifTags))
-							{
-								$exifValue = $this->ExifValue2String ($exifKey, $exifValue);
-								$ImgExifData [$exifKey] = $exifValue;
-							}
-						}
-						else
+						$pathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_original') . '/' . $fileName;
+						if (!file_exists($pathFileName))
 						{
-							foreach ($exifValue as $exifSubKey => $exifSubValue)
+							$pathFileName = JPATH_ROOT . $rsgConfig->get('imgPath_display') . '/' . $fileName;
+						}
+
+						if (!file_exists($pathFileName))
+						{
+							continue;
+						}
+
+						// ToDo: Cache exif Data
+						// $exifData = exif_read_data($pathFileName, 'IFD0');
+						$exifData = exif_read_data($pathFileName);
+
+						foreach ($exifData as $exifKey => $exifValue)
+						{
+							// single value pair
+							if (!is_array($exifValue))
 							{
-								if (in_array(strtolower($exifSubKey), $useExifTags))
+
+								if (in_array(strtolower($exifKey), $useExifTags))
 								{
-									$exifSubValue = $this->ExifValue2String ($exifSubKey, $exifSubValue);
-									$ImgExifData [$exifSubKey] = $exifSubValue;
+									$exifValue              = $this->ExifValue2String($exifKey, $exifValue);
+									$ImgExifData [$exifKey] = $exifValue;
+								}
+							}
+							else
+							{
+								foreach ($exifValue as $exifSubKey => $exifSubValue)
+								{
+									if (in_array(strtolower($exifSubKey), $useExifTags))
+									{
+										$exifSubValue              = $this->ExifValue2String($exifSubKey, $exifSubValue);
+										$ImgExifData [$exifSubKey] = $exifSubValue;
+									}
 								}
 							}
 						}
 					}
-				}
-				catch (RuntimeException $e)
-				{
-					$OutTxt = '';
-					$OutTxt .= ': Error executing AssignImageExifData (inner): "' . $fileName . '"<br>';
-					$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+					catch (RuntimeException $e)
+					{
+						$OutTxt = '';
+						$OutTxt .= ': Error executing AssignImageExifData (inner): "' . $fileName . '"<br>';
+						$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-					$app = JFactory::getApplication();
-					$app->enqueueMessage($OutTxt, 'error');
-				}
+						$app = JFactory::getApplication();
+						$app->enqueueMessage($OutTxt, 'error');
+					}
 
 
-				/**
-				 * $exif = exif_read_data('tests/test1.jpg', 'IFD0');
-				 * echo $exif===false ? "No header data found.<br />\n" : "Image contains headers<br />\n";
-				 *
-				 * $exif = exif_read_data('tests/test2.jpg', 0, true);
-				 * echo "test2.jpg:<br />\n";
-				 * foreach ($exif as $key => $section) {
-				 * foreach ($section as $name => $val) {
-				 * echo "$key.$name: $val<br />\n";
-				 * }
-				 * }
-				 * /**/
+					/**
+					 * $exif = exif_read_data('tests/test1.jpg', 'IFD0');
+					 * echo $exif===false ? "No header data found.<br />\n" : "Image contains headers<br />\n";
+					 *
+					 * $exif = exif_read_data('tests/test2.jpg', 0, true);
+					 * echo "test2.jpg:<br />\n";
+					 * foreach ($exif as $key => $section) {
+					 * foreach ($section as $name => $val) {
+					 * echo "$key.$name: $val<br />\n";
+					 * }
+					 * }
+					 * /**/
 
-				/**
-				 * $filedata = exif_read_data($images[$i]);
-				 * if(is_array($filedata) && isset($filedata['ImageDescription'])){
-				 * $filename = $filedata['ImageDescription'];
-				 * } else{
-				 * $filename = explode('.', basename($images[$i]));
-				 * $filename = $filename[0];
-				 * }
-				 * /**/
+					/**
+					 * $filedata = exif_read_data($images[$i]);
+					 * if(is_array($filedata) && isset($filedata['ImageDescription'])){
+					 * $filename = $filedata['ImageDescription'];
+					 * } else{
+					 * $filename = explode('.', basename($images[$i]));
+					 * $filename = $filename[0];
+					 * }
+					 * /**/
 
-				// $ImgExifData =
-			} // all images
-
+					// $ImgExifData =
+				} // all images
+			} // is array
 		}
 		catch (RuntimeException $e)
 		{
