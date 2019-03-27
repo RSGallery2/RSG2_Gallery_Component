@@ -1175,16 +1175,15 @@ class rsgDisplay_semantic extends rsgDisplay
 	{
 		global $rsgConfig;
 
-		// preset result
-		$ImgExifData = [];
-
 		try
 		{
 		    /**/
 			// user requested EXIF tags
 			// $strExifTags = $rsgConfig->get('exifTags');
 			// $useExifTags = explode("|", $strExifTags);
-			$useExifTags = $rsgConfig->get('exifTags');
+			//$useExifTags = $rsgConfig->get('exifTags');
+			$useExifTags = explode("|", $rsgConfig->get('exifTags'));
+
 			if (is_array ($useExifTags))
 			{
 				$useExifTags = array_map('strtolower', $useExifTags);
@@ -1292,6 +1291,32 @@ class rsgDisplay_semantic extends rsgDisplay
 
 	}
 
+
+	private function  ExifValue2String ($exifKey, $exifValue)
+	{
+
+		try
+		{
+			switch ($exifKey)
+			{
+				case 'FileDateTime':  $exifValue = date("d-M-Y H:i:s", $exifValue); break;
+
+
+			}
+
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= ': Error executing ExifValue2String exifKey: ' . $exifKey . ' exifValue: ' . $exifValue . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return  $exifValue;
+	}
 
 
 
