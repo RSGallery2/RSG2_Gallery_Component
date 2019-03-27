@@ -1104,6 +1104,7 @@ class rsgDisplay_semantic extends rsgDisplay
 			// Only if voting is only once
 			$ratingData->lastRating = $ratingModel->isUserHasRated($image->id);
 
+			// for test of view
 			//$ratingData->average = 0.4;
 			//$ratingData->average = 0.5;
 			//$ratingData->average = 0.9;
@@ -1159,7 +1160,7 @@ class rsgDisplay_semantic extends rsgDisplay
 			$image->comments = new stdClass();
 
 			$image->comments->formFields = $formFields;
-			//$image->comments->;
+			$image->comments->comments = [];
 		}
 	}
 
@@ -1179,6 +1180,7 @@ class rsgDisplay_semantic extends rsgDisplay
 
 		try
 		{
+		    /**/
 			// user requested EXIF tags
 			// $strExifTags = $rsgConfig->get('exifTags');
 			// $useExifTags = explode("|", $strExifTags);
@@ -1190,6 +1192,9 @@ class rsgDisplay_semantic extends rsgDisplay
 				// all images (Normally one)
 				foreach ($images as $image)
 				{
+					// preset result
+					$ImgExifData = [];
+
 					$fileName = $image->name;
 
 					try
@@ -1268,9 +1273,11 @@ class rsgDisplay_semantic extends rsgDisplay
 					 * }
 					 * /**/
 
-					// $ImgExifData =
+					$image->exifData = $ImgExifData;
+
 				} // all images
 			} // is array
+            /**/
 		}
 		catch (RuntimeException $e)
 		{
@@ -1282,8 +1289,6 @@ class rsgDisplay_semantic extends rsgDisplay
 			$app->enqueueMessage($OutTxt, 'error');
 		}
 
-
-		$image->exifData = $ImgExifData;
 
 	}
 
