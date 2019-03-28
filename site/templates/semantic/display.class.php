@@ -698,6 +698,8 @@ class rsgDisplay_semantic extends rsgDisplay
 
 	function htmlRatingData($ratingData, $isVotingEnabled, $gid, $imageId)
 	{
+	    global $rsgConfig;
+
 		$html = [];
 
 		$html[] = '<div class="container span12">';
@@ -723,7 +725,12 @@ class rsgDisplay_semantic extends rsgDisplay
 		{
 			$html[] = '                <label id="DoVote" title="' . JText::_('COM_RSGALLERY2_AVERAGE_RATE_IMAGE_DESC') . '">' . JText::_('COM_RSGALLERY2_AVERAGE_RATE_IMAGE') . '&nbsp;&nbsp;</label>';
 
-			JHtml::script (JURI_SITE . '/components/com_rsgallery2/layouts/ClassicJ25/OneImageVote.js');
+			$templateName = $rsgConfig->get('template');
+			$templateUri = JURI_SITE . "/components/com_rsgallery2/templates/" . $templateName;
+
+			$doc = JFactory::getDocument();
+			$vote_js = $templateUri . "/js/OneImageVote.js";
+			$doc->addScript($vote_js);
 		}
 
 		$html[] = '                </div>'; //
@@ -1111,7 +1118,7 @@ class rsgDisplay_semantic extends rsgDisplay
 			//$ratingData->average = 1.0;
 			//$ratingData->average = 1.1;
 			//$ratingData->average = 2.4;
-			//$ratingData->average = 2.5;
+			$ratingData->average = 2.5;
 			//$ratingData->average = 2.9;
 			//$ratingData->average = 3.0;
 			//$ratingData->average = 3.1;

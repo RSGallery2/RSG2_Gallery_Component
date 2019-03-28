@@ -49,15 +49,14 @@ $rsgDisplay->showRSPathWay();
 $doc = JFactory::getDocument();
 $doc->addStyleSheet($templateUri . "/css/template.css", "text/css");
 
-$use_css = $templateUri . "/css/user.css";
-if (file_exists ($use_css))
+$user_css = $templateUri . "/css/user.css";
+if (file_exists ($user_css))
 {
-	$doc->addStyleSheet($templateUri . "/css/template.css", "text/css");
+	$doc->addStyleSheet($user_css, "text/css");
 }
 
 // ToDo: only when search is active
 $doc->addStyleSheet(JURI_SITE . "/components/com_rsgallery2/lib/rsgsearch/rsgsearch.css");
-
 
 ?>
 
