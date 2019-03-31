@@ -712,7 +712,9 @@ class rsgDisplay_semantic extends rsgDisplay
 		//$html[] = '                <form name="rsgvoteform" method="post" action="' . JRoute::_('index.php?option=com_rsgallery2&view=gallery&gid=' . $gid) .'&startShowSingleImage=1" id="rsgVoteForm">';
 		//                                                                                         index.php/single-gallery/item/1/asInline
 		//                                                                                         index.php?option=com_rsgallery2&page=inline&id=" . $item->id
-		$html[] = '                <form name="rsgvoteform" method="post" action="' . JRoute::_('index.php?option=com_rsgallery2&&page=inline&id="&id=' . $imageId) .'" id="rsgVoteForm">';
+//		$html[] = '                <form name="rsgvoteform" method="post" action="' . JRoute::_('index.php?option=com_rsgallery2&&page=inline&id="&id=' . $imageId) .'" id="rsgVoteForm">';
+		$html[] = '                <form name="rsgvoteform" method="post" action="'
+            . JRoute::_('index.php?option=com_rsgallery2&page=inline&id=' . $imageId) .'" id="rsgVoteForm">';
 
 		$html[] = '                <div class="rating-block row-fluid text-center" >';
 

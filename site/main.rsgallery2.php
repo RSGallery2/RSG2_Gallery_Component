@@ -56,9 +56,10 @@ function xmlFile()
 	$template = strtolower($template);
 
 	// require generic template which all other templates should extend
-	require_once(JPATH_RSGALLERY2_SITE . '/templates' . '/meta' . '/xml.php');
+	require_once(JPATH_RSGALLERY2_SITE . '/templates/meta/xml.php');
+	
 	// require the template specified to be used
-	require_once(JPATH_RSGALLERY2_SITE . '/templates' . '/' . $template . '/xml.php');
+	require_once(JPATH_RSGALLERY2_SITE . '/templates/' . $template . '/xml.php');
 
 	// prepare and output xml
 	$xmlTemplate = "rsgXmlGalleryTemplate_$template";

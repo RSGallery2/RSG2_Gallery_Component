@@ -39,6 +39,7 @@ Or you can use a form where there is a hidden task field.
 
 		// http://127.0.0.1/Joomla3x/index.php?option=com_rsgallery2&view=gallery&gid=42&advancedSef=1&startShowSingleImage=1&Itemid=218
 		$link = 'index.php?option=com_rsgallery2'; // &startShowSingleImage=1&Itemid=218
+		$link = 'index.php?option=com_rsgallery2&page=inline'; // &id=' . $imageId) .'" id="rsgVoteForm">';
 
 		// Access check
 		$canVote = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
@@ -57,7 +58,12 @@ Or you can use a form where there is a hidden task field.
 			{
 				echo "<br><br><br>*RateSingleImage<br><br><br>";
 
-				$input = JFactory::getApplication()->input;
+				//if ($vote->alreadyVoted((int) $id))
+				{
+
+				}
+
+					$input = JFactory::getApplication()->input;
 				$galleryId = $input->get('gid', 0, 'INT');
 				$imageId = $input->get('id', 0, 'INT');
 				$userRating = $input->get('rating', 0, 'INT');
@@ -70,15 +76,18 @@ Or you can use a form where there is a hidden task field.
                 // $limitStart = 4;
 
 				// Set cookie
-				if ($isRated)
+				if ( ! $isRated)
 				{
 					$ratingModel->SetUserHasRated($imageId, $userRating);
 				}
 
                 //	limitstart=3 ....
                 // http://127.0.0.1/joomla3x/index.php?option=com_rsgallery2&view=gallery&gid=2&advancedSef=1&startShowSingleImage=1&Itemid=145&XDEBUG_SESSION_START=12302&limitstart=3
-				$link = 'index.php?option=com_rsgallery2&view=gallery&gid=' . $galleryId . '&id=' . $imageId
-					. '&startShowSingleImage=1' . '&rating=' . $userRating . '&limitstart=' . $limitStart;
+				// $link = 'index.php?option=com_rsgallery2&view=gallery&gid=' . $galleryId . '&id=' . $imageId
+				//	. '&startShowSingleImage=1' . '&rating=' . $userRating . '&limitstart=' . $limitStart;
+				// $link = 'index.php?option=com_rsgallery2&page=inline'; // &id=' . $imageId) .'" id="rsgVoteForm">';
+				$link = $link . '&id=' . $imageId;
+				//	. '&startShowSingleImage=1' . '&rating=' . $userRating . '&limitstart=' . $limitStart;
 			}
 			catch (RuntimeException $e)
 			{
