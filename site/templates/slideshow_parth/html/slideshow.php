@@ -7,13 +7,18 @@
  */
 defined('_JEXEC') or die();
 
-JHtml::_('behavior.framework', true);  // ToDo: Remove mootools
+JHtml::_('behavior.framework', true);  // load mootools ToDo: Remove mootools
+JHtml::_('jquery.framework'); // load jquery
+
+/* ToDo: checkout
+https://www.script-tutorials.com/creating-photo-albums-using-smoothgallery/
+*/
 
 global $rsgConfig;
-$document = JFactory::getDocument();
+$doc = JFactory::getDocument();
 
 //get the array containing all the script declarations
-$headData = $document->getHeadData();
+$headData = $doc->getHeadData();
 // Scripts like below
 $script = $headData['script'];
 
@@ -22,13 +27,18 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
 
     //Add stylesheets and scripts to header
     $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/jd.gallery.css';
-    $document->addStyleSheet($css1);
+    $doc->addStyleSheet($css1);
     $css2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/template.css';
-    $document->addStyleSheet($css2);
+    $doc->addStyleSheet($css2);
+    $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/user.css';
+    if(file_exists($css1))
+    {
+        $doc->addStyleSheet($css1);
+    }
     $js2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/js/jd.gallery.js';
-    $document->addScript($js2);
+    $doc->addScript($js2);
     $js3 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/js/jd.gallery.transitions.js';
-    $document->addScript($js3);
+    $doc->addScript($js3);
 
     //--- Override default CSS styles ---
     // Add styles
@@ -75,7 +85,7 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
         . '   		height:  ' . $this->params->get('slideInfoZoneHeight', '60') . 'px' . ";\n"
         . '   	}' . "\n";
 
-    $document->addStyleDeclaration($style);
+    $doc->addStyleDeclaration($style);
 
     $javascript = '';
     {
@@ -127,46 +137,55 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
     }
 
     // Add Javascript
-    $document->addScriptDeclaration($javascript);
+    $doc->addScriptDeclaration($javascript);
 } // End script not loaded
+
+/*------------------------------------------------------------
+  Show form
+------------------------------------------------------------*/
+
+//--- back link to gallery view --------------------------------------
+
+// Show link only when menu-item is not a direct link to the slideshow
+$input = JFactory::getApplication()->input;
+$view  = $input->get('view', '', 'CMD');
+if ($view !== 'slideshow')
+{
+    $menuId = $input->get('Itemid', null, 'INT');
+    $gid = $this->gid;
+
+    $html = [];
+
+    $html[] = '<div style="float: right;">' ."\n"
+              //. '<a href="' .  JRoute::_('index.php?option=com_rsgallery2&Itemid=' . $menuId . '&gid=' . $gid) . '">'
+              . '<a href="#">'
+              .      JText::_('COM_RSGALLERY2_BACK_TO_GALLERY')
+              . '</a>';
+    $html[] = '</div>';
+
+    echo implode("\n", $html);
+}
+// <!-- div class="rsg2-clr"></div -->
+
+echo '<div class="parth_content">';
+
+//--- Gallery title --------------------------------------
+
+if (True)
+{
+	echo '<h3>';
+	echo '    <div style="text-align:center;font-size:24px;">';
+	echo '        ' . $this->galleryname;
+	echo '    </div>';
+	echo '</h3>';
+}
+
+//--- Gallery images --------------------------------------
+
+echo '    <div class="rsg2-clr"></div>';
+echo '    <div id="myGallery<?php echo $this->gid; ?>" class="myGallery">';
+echo          $this->slides;
+echo '    </div><!-- end myGallery -->';
+
+echo '</div><!-- End parth_content -->';
 ?>
-
-
-	<?php
-	//Show link only when menu-item is not a direct link to the slideshow
-	$input = JFactory::getApplication()->input;
-	$view  = $input->get('view', '', 'CMD');
-	if ($view !== 'slideshow')
-	{
-    	$menuId = $input->get('Itemid', null, 'INT');
-    	$gid = $this->gid;
-
-        $html = [];
-
-		$html[] = '<div style="float: right;">' ."\n"
-		          //. '<a href="' .  JRoute::_('index.php?option=com_rsgallery2&Itemid=' . $menuId . '&gid=' . $gid) . '">'
-		          . '<a href="#XXX">'
-		          . JText::_('COM_RSGALLERY2_BACK_TO_GALLERY')
-		          . '</a>';
-		$html[] = '</div>';
-
-        echo implode("\n", $html);
-	}
-    // <!-- div class="rsg2-clr"></div -->
-
-    /**
-
-    /**/
-	?>
-
-<div class="parth_content">
-<h3>
-    <div style="text-align:center;font-size:24px;">
-		<?php echo $this->galleryname; ?>
-	</div>
-</h3>
-	<div class="rsg2-clr"></div>
-	<div id="myGallery<?php echo $this->gid; ?>" class="myGallery">
-		<?php echo $this->slides; ?>
-	</div><!-- end myGallery -->
-</div><!-- End parth_content -->

@@ -8,221 +8,151 @@
 
 defined('_JEXEC') or die();
 
-JHtml::_('behavior.framework', true);  // ToDo: Remove mootools
+//JHtml::_('behavior.framework', true);  // load mootools ToDo: Remove mootools
+JHtml::_('jquery.framework'); // load jquery
+//JHtml::_('jquery.ui'); // load jquery ui from Joomla
+//$this->document->addScript(JURI::root(true).'/components/com_mycomponent/assets/jquery.ui.slider.min.js'); // load *same version* widget code from jQuery UI archive
+// https://code.google.com/p/jquery-ui/downloads/detail?name=jquery-ui-1.8.23.zip&can=2&q=
 
 global $mainframe;
 
-$document = JFactory::getDocument();
-$document->addStyleSheet("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
+$doc = JFactory::getDocument();
+$doc->addStyleSheet("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
 $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshowone/css/slideshowone.css';
-$document->addStyleSheet($css1);
+$doc->addStyleSheet($css1);
+$css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshowone/css/user.css';
+if(file_exists($css1))
+{
+	$doc->addStyleSheet($css1);
+}
 
-$Script = "
-    jQuery(document).ready(function($){
-		// alert('test');
-		prevSS();
-		startSS();
-    });
-";
-$document->addScriptDeclaration($Script);
+$jsScript = JURI::base(true).'/components/com_rsgallery2/templates/slideshowone/js/slideshowone.js';
+$doc->addScript($jsScript);
 
-$firstImage = $this->gallery->getItem();
-$firstImage = $firstImage->display();
-?>
 
-<div class="rsg2-slideshowone">
+//--- slideshow parameter --------------------------
 
-	<form name="_slideShow">
+// change if defined in params.ini file
 
-		<input type="Hidden" name="currSlide" value="0">
-		<input type="Hidden" name="delay">
+$this->slideOptions ['isAutoStart'] = $this->params->get('isAutoStart', True);
+$this->slideOptions ['effectType'] = $this->params->get('effectType', 23);
+$this->slideOptions ['transitionTime'] = $this->params->get('transitionTime', '1.5');
+$this->slideOptions ['displayTime'] = $this->params->get('displayTime', '4.0');
+/* Not used
+$this->slideOptions ['imgWidth'] = $this->params->get('imgWidth', 401);
+$this->slideOptions ['imgHeight'] = $this->params->get('imgHeight', 401);
+$this->slideOptions ['zoomWidth'] = $this->params->get('zoomWidth', 41);
+$this->slideOptions ['zoomHeight'] = $this->params->get('zoomHeight', 31);
+/**/
 
-		<div class="PlayerContainer">
-			<?php if (!$this->cleanStart): ?>
-				<div class="clearfix"></div>
-				<div class="PlayerIconArray">
-					<a class="PlayerIcon" href="javascript:;" onclick="startSS()">
-						<i class="fa fa-play"></i>
-					</a>
-					<a class="PlayerIcon" href="javascript:;" onclick="stopSS()">
-						<i class="fa fa-stop"></i>
-					</a>
-					<a class="PlayerIcon" href="javascript:;" onclick="prevSS()">
-						<i class="fa fa-backward"></i>
-					</a>
-					<a class="PlayerIcon" href="javascript:;" onclick="nextSS()">
-						<i class="fa fa-forward"></i>
-					</a>
-				</div>
-			<?php endif; ?>
-			<img name="stage" class="PlayerImage" src="<?php echo $firstImage->url(); ?>" style="filter: revealtrans(); font-size:12px;">
-		</div>
+// $this->slideOptions [''] = ;
 
-		<div style="visibility:hidden;">
-			<select name="wichIm" onchange="selected(this.options[this.selectedIndex].value)"></select>
-		</div>
+$this->isDisplayButtons = $this->params->get('isDisplayButtons', $this->isDisplayButtons);
+$this->isButtonsAbove = $this->params->get('isButtonsAbove', $this->isButtonsAbove);
 
-	</form>
 
-	<script type="text/javascript">
-		<!--
-		/*
-		 SlideShow. Written by PerlScriptsJavaScripts.com
-		 Copyright http://www.perlscriptsjavascripts.com
-		 Code page http://www.perlscriptsjavascripts.com/js/slideshow.html
-		 Free and commercial Perl and JavaScripts
-		 */
+$doc = JFactory::getDocument();
+$doc->addScriptOptions('slideArray', $this->slideOptions);
 
-		effect = 23;// transition effect. number between 0 and 23, 23 is random effect
-		duration = 1.5;// transition duration. number of seconds effect lasts
-		display = 4;// seconds to diaply each image?
-		oW = 400;// width of stage (first image)
-		oH = 400;// height of stage
-		zW = 40;// zoom width by (add or subtracts this many pixels from image width)
-		zH = 30;// zoom height by
 
-		// path to image/name of image in slide show. this will also preload all images
-		// each element in the array must be in sequential order starting with zero (0)
-		SLIDES = new Array();
-		//Echo JS-array from DB-query here
+//--- first image to show --------------------------
 
-		<?php echo $this->slides;?>
+$firstItem = $this->gallery->getItem();
+if ( ! empty($firstItem))
+{
+	$firstImage = $firstItem->display();
+}
 
-		// end required modifications
+//--- buttons below or above slideshow --------------------------
 
-		S = new Array();
-		for (a = 0; a < SLIDES.length; a++) {
-			S[a] = new Image();
-			S[a].src = SLIDES[a][0];
-		}
+function displayButtons ()
+{
+//	$html[] = '<div class="clearfix"></div>';
+    $html[] = '<div class="PlayerIconArrayContainer">';
+    $html[] = '    <div class="PlayerIconArray">';
+    $html[] = '        <a name="btnStartSlide" class="PlayerIcon" href="javascript:;" onclick="startSS()" ontouchstart="startSS()">';
+    $html[] = '            <i class="fa fa-play"></i>';
+    $html[] = '        </a>';
+    $html[] = '        <a name="btnStopSlide" class="PlayerIcon" href="javascript:;" onclick="stopSS()" ontouchstart="stopSS()">';
+    $html[] = '            <i class="fa fa-stop"></i>';
+    $html[] = '        </a>';
+    $html[] = '        <a name="btnPrevSlide" class="PlayerIcon" href="javascript:;" onclick="prevSS()" ontouchstart="prevSS()">';
+    $html[] = '            <i class="fa fa-backward"></i>';
+    $html[] = '        </a>';
+    $html[] = '        <a name="btnNextSlide" class="PlayerIcon" href="javascript:;" onclick="nextSS()" ontouchstart="nextSS()">';
+    $html[] = '            <i class="fa fa-forward"></i>';
+    $html[] = '        </a>';
+    $html[] = '    </div>';
+    $html[] = '</div>';
 
-		f = document._slideShow;
-		n = 0;
-		t = 0;
+	$html = implode("\n", $html);;
+	return $html;
+}
 
-		//document.images["stage"].width  = oW;
-		//document.images["stage"].height = oH;
-		f.delay.value = display;
 
-		function startSS() {
-			t = setTimeout("runSS(" + f.currSlide.value + ")", 1 * 1);
-		}
+//--- back link to gallery view --------------------------------------
 
-		function runSS(n) {
-			n++;
-			if (n >= SLIDES.length) {
-				n = 0;
+//Show link only when menu-item is not a direct link to the slideshow
+$input = JFactory::getApplication()->input;
+$view  = $input->get('view', '', 'CMD');
+if ($view !== 'slideshow')
+{
+	$menuId = $input->get('Itemid', null, 'INT');
+	$gid = $this->gid;
+
+	$html = [];
+
+	$html[] = '<div style="float: right;">' ."\n"
+		. '<a href="' .  JRoute::_('index.php?option=com_rsgallery2&Itemid=' . $menuId . '&gid=' . $gid) . '">'
+		//. '<a href="#">'
+		. JText::_('COM_RSGALLERY2_BACK_TO_GALLERY')
+		. '</a>';
+	$html[] = '</div>';
+
+	echo implode("\n", $html);
+}
+
+
+echo '<div class="rsg2-slideshowone">';
+
+
+//--- Gallery title --------------------------------------
+
+if (True)
+{
+	echo '<h3>';
+	echo '    <div style="text-align:center;font-size:24px;">';
+	echo '        ' . $this->galleryName;
+	echo '    </div>';
+	echo '</h3>';
+}
+
+echo '<div class="rsg2-clr"></div>';
+
+echo '	<form name="_slideShow">';
+
+echo '		<input type="Hidden" name="currSlide" value="0">';
+echo '		<input type="Hidden" name="delay">';
+
+echo '		<div id="myGallery<?php echo $this->gid; ?>" class="PlayerContainer">';
+
+			if ($this->isDisplayButtons && $this->isButtonsAbove)
+			{
+				echo displayButtons();
 			}
+            echo '<img name="stage" class="PlayerImage" src="' . $firstImage->url() . '" style="filter: revealtrans(); font-size:12px;">';
 
-			document.images["stage"].src = S[n].src;
-			if (document.all && navigator.userAgent.indexOf("Opera") < 0 && navigator.userAgent.indexOf("Windows") >= 0) {
-				document.images["stage"].style.visibility = "hidden";
-				document.images["stage"].filters.item(0).apply();
-				document.images["stage"].filters.item(0).transition = effect;
-				document.images["stage"].style.visibility = "visible";
-				document.images["stage"].filters(0).play(duration);
+            if ($this->isDisplayButtons && ! $this->isButtonsAbove)
+			{
+				echo displayButtons ();
 			}
-			f.currSlide.value = n;
-			t = setTimeout("runSS(" + f.currSlide.value + ")", f.delay.value * 1000);
-		}
+			?>
+echo '	</div>';
 
-		function stopSS() {
-			if (t) {
-				t = clearTimeout(t);
-			}
-		}
+echo '	<div style="visibility:hidden;">';
+echo '		<select name="wichIm" onchange="selected(this.options[this.selectedIndex].value)"></select>';
+echo '	</div>';
 
-		function nextSS() {
-			stopSS();
-			n = f.currSlide.value;
-			n++;
-			if (n >= SLIDES.length) {
-				n = 0;
-			}
-			if (n < 0) {
-				n = SLIDES.length - 1;
-			}
-			document.images["stage"].src = S[n].src;
-			f.currSlide.value = n;
-			if (document.all && navigator.userAgent.indexOf("Opera") < 0 && navigator.userAgent.indexOf("Windows") >= 0) {
-				document.images["stage"].style.visibility = "hidden";
-				document.images["stage"].filters.item(0).apply();
-				document.images["stage"].filters.item(0).transition = effect;
-				document.images["stage"].style.visibility = "visible";
-				document.images["stage"].filters(0).play(duration);
-			}
-		}
+echo '</form>';
 
-		function prevSS() {
-			stopSS();
-			n = f.currSlide.value;
-			n--;
-			if (n >= SLIDES.length) {
-				n = 0;
-			}
-			if (n < 0) {
-				n = SLIDES.length - 1;
-			}
-			document.images["stage"].src = S[n].src;
-			f.currSlide.value = n;
-
-			if (document.all && navigator.userAgent.indexOf("Opera") < 0 && navigator.userAgent.indexOf("Windows") >= 0) {
-				document.images["stage"].style.visibility = "hidden";
-				document.images["stage"].filters.item(0).apply();
-				document.images["stage"].filters.item(0).transition = effect;
-				document.images["stage"].style.visibility = "visible";
-				document.images["stage"].filters(0).play(duration);
-			}
-		}
-
-		function selected(n) {
-			stopSS();
-			document.images["stage"].src = S[n].src;
-			f.currSlide.value = n;
-
-			if (document.all && navigator.userAgent.indexOf("Opera") < 0 && navigator.userAgent.indexOf("Windows") >= 0) {
-				document.images["stage"].style.visibility = "hidden";
-				document.images["stage"].filters.item(0).apply();
-				document.images["stage"].filters.item(0).transition = effect;
-				document.images["stage"].style.visibility = "visible";
-				document.images["stage"].filters(0).play(duration);
-			}
-		}
-
-		function zoom(dim1, dim2) {
-			if (dim1) {
-				if (document.images["stage"].width < oW) {
-					document.images["stage"].width = oW;
-					document.images["stage"].height = oH;
-				} else {
-					document.images["stage"].width += dim1;
-					document.images["stage"].height += dim2;
-				}
-				if (dim1 < 0) {
-					if (document.images["stage"].width < oW) {
-						document.images["stage"].width = oW;
-						document.images["stage"].height = oH;
-					}
-				}
-			} else {
-				document.images["stage"].width = oW;
-				document.images["stage"].height = oH;
-			}
-		}
-
-		// start slideshow right once dom is ready (uses mootools)
-
-		Window.onDomReady(function () {
-			runSS(f.currSlide.value);
-		});
-
-		// -->
-	</script>
-
-	<?php if ($this->cleanStart): ?>
-		<script type="text/javascript">
-			startSS();
-		</script>
-	<?php endif; ?>
-
-</div>
+echo '</div>'; // rsg2-slideshowone

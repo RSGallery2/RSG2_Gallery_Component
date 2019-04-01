@@ -1,0 +1,155 @@
+
+
+carousel_container_fith {
+
+	display:grid;
+/*	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; /* 9 columns */
+/*	grid-template-rows: 3em 3em 3em; /* three rows */
+	grid-template-columns: 1fr 1fr 1fr ; /* 3 columns*/
+	grid-template-rows: 30em 3em; /* three rows */
+}
+
+
+a.carousel_image_link_fith {
+
+	float:right; /**/
+
+/*	width: 160px; /**/
+	height: 100px; /**/
+
+	grid-column: 2 / 2;
+
+}
+
+
+button.carousel_button_fith.next {
+
+	float:left; /**/
+
+	grid-column: 1 / 1;
+
+}
+
+button.carousel_button_fith.back {
+
+	float:left; /**/
+
+	grid-column: 3 / 3;
+}
+
+/**
+.carousel_container_fith .center {
+	float: none !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+/**/
+
+/**
+.carousel_container_fith .row-fluid {
+	text-align: center;
+}
+/**/
+
+/**
+.carousel_container_fith .row-fluid .center {
+	display: inline-block; !important;
+	vertical-align: top;
+	text-align: left
+}
+/**/
+
+/**
+li {
+	background-color: blue;
+}
+/**/
+
+/**
+ul {
+	background-color: green;
+}
+/**/
+
+/**/
+.is-hidden {
+	display: none;
+}
+/**/
+
+/**
+.carousel_image_fith a {
+
+	background-size: 300px; /** /
+/*	background-size: auto; /** /
+	background-repeat: no-repeat; /** /
+	background-position: center; /** /
+	border-radius: 20%; /** /
+	background-clip: border-box; /** /
+	transition: background-size 0.2s; /** /
+	transition-timing-function: cubic-bezier(.07, 1.41, .82, 1.41); /** /
+
+	display: block; /** /
+	width: 190px; /** /
+/*	width:auto; /** /
+	height: 190px; /** /
+/*	height: auto; /** /
+/*	text-decoration: none; /** /
+	cursor: pointer; /** /
+	overflow: hidden; /** /
+	text-indent: 100%; /** /
+	white-space: nowrap; /** /
+
+
+}
+/**/
+
+/**
+.carousel_image_fith a {
+    display: block;
+    border-radius: 20%;
+    background-size: 300px;
+/*    height: 16px; /** /
+/*    width: 16px; /** /
+
+}
+/**/
+
+/**
+ul.carousel_images_fith {
+	list-style-type:none;
+	list-style-type:square;
+}
+/**/
+
+/**
+li.carousel_image_fith {
+	list-style-type:none;
+/*	list-style-type:circle; /** /
+	float:left; /** /
+}
+/**/
+
+/**
+.carousel_images_fith {
+/**
+	transform: translateX(0);
+	transition: transform 0.3s ease-out;
+/**
+}
+
+/**
+.carousel_image_fith a {
+	width:400px;
+	border: 1px solid black;
+}
+/**/
+
+/**
+.carousel_image a:link {
+	width:400px; /**
+	/* width:100%; /**
+	background-color: red;
+}
+
+/**/

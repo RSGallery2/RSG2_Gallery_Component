@@ -1,10 +1,10 @@
 /**************************************************************
 
- Script        : Background Slider
- Version        : 1.3
- Authors        : Samuel Birch
+ Script      : Background Slider
+ Version     : 1.3
+ Authors     : Samuel Birch
  Desc        : Slides a layer to a given elements position and dimensions.
- Licence        : Open Source MIT Licence
+ Licence     : Open Source MIT Licence
 
  **************************************************************/
 
@@ -12,12 +12,16 @@ var backgroundSlider = new Class({
 
 	/**
 	 *
-	 * @returns {{duration: number, wait: number, transition: easeInOut, className: null, fixHeight: null, fixWidth: null, start: number, id: null, padding: {top: number, right: number, bottom: number, left: number}, _onClick: Function, mouseOver: boolean}}
+	 * @returns {{duration: number, wait: number, transition: easeInOut,
+	 *            className: null, fixHeight: null, fixWidth: null,
+	 *            start: number, id: null,
+	 *            padding: {top: number, right: number,
+	 *                      bottom: number, left: number},
+	 *            _onClick: Function, mouseOver: boolean}}
 	 */
 	getOptions: function () {
 
-//		alert ('MooTools.version: ' + MooTools.version);
-		console.log("Back:getOptions start/exit");
+		console.log("\tBack:getOptions start/exit");
 
 		return {
 			duration: 300,
@@ -29,7 +33,19 @@ var backgroundSlider = new Class({
 			start: 1,
 			id: null,
 			padding: {top: 0, right: 0, bottom: 0, left: 0},
-			_onClick: function () {
+			// Intention ???
+			//_onClick: function () {
+			//	console.log('\t\tBack:_onClick');
+			//},
+			_onClick: function (el) {
+				console.log('\t\tBack:_onClick start');
+				try {
+					// el.click();
+				}
+				catch (err) {
+					console.log("_onClick:" + err.message);
+				}
+				console.log('\t\tBack:_onClick exit');
 			},
 			mouseOver: true
 		};
@@ -42,7 +58,7 @@ var backgroundSlider = new Class({
 	 */
 	initialize: function (elements, options) {
 		try {
-			console.log("Back:initialize");
+			console.log("\tBack:initialize");
 			this.setOptions(this.getOptions(), options);
 
 			this.elements = $$(elements);
@@ -51,7 +67,8 @@ var backgroundSlider = new Class({
 			if (this.options.id) {
 				this.bg = $(this.options.id);
 			} else {
-				this.bg = new Element('div').setProperty('id', 'BgSlider_' + new Date().getTime()).inject(document.body, 'bottom');
+				this.bg = new Element('div').setProperty('id',
+					'BgSlider_' + new Date().getTime()).inject(document.body, 'bottom');
 				if (this.options.className) {
 					this.bg.addClass(this.options.className);
 				}
@@ -86,7 +103,7 @@ var backgroundSlider = new Class({
 				this.move(this.startElement);
 			}.bind(this));
 
-			console.log("Back:initialize exit");
+			console.log("\tBack:initialize exit");
 		}
 		catch (err) {
 			alert("phat115:" + err.message);
@@ -95,7 +112,7 @@ var backgroundSlider = new Class({
 
 	setStart: function (el) {
 		try {
-			console.log("Back:setStart");
+			console.log("\tBack:setStart (element)");
 			if (el) {
 				this.startElement = el;
 			} else {
@@ -103,7 +120,7 @@ var backgroundSlider = new Class({
 			}
 			this.options._onClick(this.startElement);
 
-			console.log("Back:setStart exit");
+			console.log("\tBack:setStart exit");
 		}
 		catch (err) {
 			alert("phat125:" + err.message);
@@ -112,7 +129,7 @@ var backgroundSlider = new Class({
 
 	set: function (el) {
 		try {
-			console.log("Back:set");
+			console.log("\tBack:set");
 			this.setStart(el);
 			var pos = el.getCoordinates();
 
@@ -137,7 +154,7 @@ var backgroundSlider = new Class({
 
 			this.bg.setStyles(obj);
 
-			console.log("Back:set");
+			console.log("\tBack:set");
 		}
 		catch (err) {
 			alert("phat130:" + err.message);
@@ -146,9 +163,9 @@ var backgroundSlider = new Class({
 
 	delayReset: function () {
 		try {
-			console.log("Back:delayReset");
+			console.log("\tBack:delayReset");
 			this.reset.delay(500, this);
-			console.log("Back:delayReset exit");
+			console.log("\tBack:delayReset exit");
 		}
 		catch (err) {
 			alert("phat133:" + err.message);
@@ -157,7 +174,7 @@ var backgroundSlider = new Class({
 
 	reset: function () {
 		try {
-			console.log("Back:reset");
+			console.log("\tBack:reset");
 			// $clear => use the native clearTimeout when using fn.delay, use clearInterval when using fn.periodical.
 			//$clear(this.timer);
 			clearTimeout(this.timer);
@@ -166,7 +183,7 @@ var backgroundSlider = new Class({
 					this.timer = this.move.delay(this.options.wait, this, this.startElement);
 				}
 			}
-			console.log("Back:reset exit");
+			console.log("\tBack:reset exit");
 		}
 		catch (err) {
 			alert("phat135:" + err.message);
@@ -175,7 +192,7 @@ var backgroundSlider = new Class({
 
 	move: function (el) {
 		try {
-			console.log("Back:move");
+			console.log("\tBack:move");
 			// $clear => use the native clearTimeout when using fn.delay, use clearInterval when using fn.periodical.
 			// this.clearTimeout(this.timer);
 			//$clear(this.timer);
@@ -195,7 +212,7 @@ var backgroundSlider = new Class({
 			}
 
 			this.effects.start(obj);
-			console.log("Back:move exit");
+			console.log("\tBack:move exit");
 		}
 		catch (err) {
 			alert("phat140:" + err.message);

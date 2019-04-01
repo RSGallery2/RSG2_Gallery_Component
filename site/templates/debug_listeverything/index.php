@@ -17,7 +17,7 @@ require_once($templatePath . '/display.class.php');
 global $mainframe;
 $template_dir = "JURI_SITE/components/com_rsgallery2/templates/debug_listeverything";
 ?>
-<link href="<?php echo $template_dir ?>/css/template.css" rel="stylesheet" />
+<link href="<?php echo $template_dir ?>/css/template.css" rel="stylesheet" type="text/css" />
 <?php
 
 $input = JFactory::getApplication()->input;

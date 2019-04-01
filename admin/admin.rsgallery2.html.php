@@ -259,18 +259,18 @@ static function RSGalleryFooter()
  */
 static function RSGallerySidebar()
 {
-    if (count(JHtmlSidebar::getEntries()) > 0) : ?>
-        <div id="j-sidebar-container" class="span2">
-	        <?php echo JHtmlSidebar::render(); ?>
-        </div>
-        <div id="j-main-container" class="span10">
+if (count(JHtmlSidebar::getEntries()) > 0) : ?>
+<div id="j-sidebar-container" class="span2">
+	<?php echo JHtmlSidebar::render(); ?>
+</div>
+<div id="j-main-container" class="span10">
 	<?php else : ?>
-        <div id="j-main-container">
+	<div id="j-main-container">
 		<?php endif;
 		?>
-    <div class="clearfix"></div>
-<?php
-}
+		<div class="clearfix"></div>
+		<?php
+		}
 
 		/**
 		 *

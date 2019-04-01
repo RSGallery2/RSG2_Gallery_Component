@@ -14,10 +14,11 @@ defined('_JEXEC') or die();
 $templatePath = JPATH_RSGALLERY2_SITE . '/templates' . '/slideshowone';
 require_once($templatePath . '/display.class.php');
 
+//--- slideshow class --------------------------
+
 $rsgDisplay = new rsgDisplay_slideshowone();
 
-//$rsgDisplay->cleanStart = JRequest::getBool( 'cleanStart' );
-$input                  = JFactory::getApplication()->input;
-$rsgDisplay->cleanStart = $input->get('cleanStart', null, 'BOOL');
+// set slideshow parameter from URL
+// $rsgDisplay->addUrlSlideshowParameter ();
 
 $rsgDisplay->showSlideShow();

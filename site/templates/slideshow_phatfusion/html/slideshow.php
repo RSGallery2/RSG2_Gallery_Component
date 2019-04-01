@@ -7,10 +7,10 @@
  * @author      finnern
  * RSGallery is Free Software
  */
-?>
-<?php
+
 defined('_JEXEC') or die();
-JHtml::_('behavior.framework', true);   // ToDo: Remove mootools
+JHtml::_('behavior.framework', true);  // load mootools ToDo: Remove mootools
+JHtml::_('jquery.framework'); // load jquery
 
 global $rsgConfig;
 
@@ -21,13 +21,15 @@ $document = JFactory::getDocument();
 $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_phatfusion/css/slideshow.css';
 $document->addStyleSheet($css1);
 
-// $js1 = "<script src=\"components/com_rsgallery2/templates/slideshow_phatfusion/js/backgroundSlider.js\" type=\"text/javascript\"></script>";
 $js1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_phatfusion/js/backgroundSlider.js';
 $document->addScript($js1);
-
-// $js2 = "<script src=\"components/com_rsgallery2/templates/slideshow_phatfusion/js/slideshow.js\" type=\"text/javascript\"></script>";
 $js2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_phatfusion/js/slideshow.js';
 $document->addScript($js2);
+$css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_phatfusion/css/user.css';
+if(file_exists($css1))
+{
+	$doc->addStyleSheet($css1);
+}
 
 //--- Override default CSS styles ---
 // Add styles
@@ -50,15 +52,20 @@ $document->addStyleDeclaration($style);
 	<div id="thumbnails">
 		<?php echo $this->slides; ?>
 		<p>
-			<a href="#" onclick="show.previous(); return false;">&lt;&lt; Previous</a> |
-			<a href="#" onclick="show.play(); return false;">Play</a> |
-			<a href="#" onclick="show.stop(); return false;">Stop</a> |
-			<a href="#" onclick="show.next(); return false;">Next &gt;&gt;</a>
+			<a href="#" onclick="showSS.previous(); return false;">&lt;&lt; Previous</a> |
+			<a href="#" onclick="showSS.play(); return false;">Play</a> |
+			<a href="#" onclick="showSS.stop(); return false;">Stop</a> |
+			<a href="#" onclick="showSS.next();return false;">Next &gt;&gt;</a>
 		</p>
 	</div>
 	<!-- Set parameters for slideshow -->
 	<script type="text/javascript">
-		window.addEvent('domready', function () {
+        var showSS;
+        jQuery(document).ready(function () {
+
+            // window.addEvent('domready', function () {
+            console.log("PHP: phatfusion: domready");
+
 			var obj = {
 				wait            : 3000,
 				effect          : 'fade',
@@ -67,11 +74,17 @@ $document->addStyleDeclaration($style);
 				thumbnails      : true,
 				backgroundSlider: true,
 				onClick         : function (i) {
+                    console.log("PHP: onClick");
 					alert(i)
 				}
 			};
-			var show = new SlideShow('slideshowContainer', 'slideshowThumbnail', obj);
-			show.play();
+
+            console.log("PHP: new slideshow");
+            showSS = new SlideShow('slideshowContainer', 'slideshowThumbnail', obj);
+
+            console.log("PHP: showSS.play 01.before");
+            showSS.play();
+            console.log("PHP: showSS.play 02.after");
 		})
 	</script>
 </div><!-- end container -->

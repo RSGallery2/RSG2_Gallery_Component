@@ -1,0 +1,6 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1">
+	<defs>
+		<path d="M10,10L20,10L20,20L10,20" id="path-1"/>
+		<path d="M30,30L50,30L50,50L30,50" id="path-2"/>
+	</defs>
+</svg>

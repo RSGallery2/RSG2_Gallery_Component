@@ -90,7 +90,7 @@ class InstallerModelTemplate extends InstallerModel
 			$content = null;
 		}
 
-		// $params = new JParameter($content, $xml, 'template');
+		// $params = new J Parameter($content, $xml, 'template');
 		$jparams = new JRegistry();
 		$params  = $jparams->get($content, $xml);  // Ignore parameter 'template' ?		
 

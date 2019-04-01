@@ -10,34 +10,14 @@
 	<license>This component is released under the GNU/GPL License</license>
 	<description>COM_RSGALLERY2_SLIDESHOW_PARTH_DESC</description>
 	<files>
+		<folder>css</folder>
+		<folder>html</folder>
+		<folder>images</folder>
+		<folder>js</folder>
 		<filename>display.class.php</filename>
 		<filename>index.php</filename>
 		<filename>resizer.php</filename>
 		<filename>templateDetails.xml</filename>
-		<filename>html/slideshow.php</filename>
-		<filename>images/carrow1.gif</filename>
-		<filename>images/carrow2.gif</filename>
-		<filename>images/fleche1.gif</filename>
-		<filename>images/fleche1.png</filename>
-		<filename>images/fleche2.gif</filename>
-		<filename>images/fleche2.png</filename>
-		<filename>images/loading-bar-black.gif</filename>
-		<filename>images/open.gif</filename>
-		<filename>images/open.png</filename>
-		<filename>images/bg/biglink_off.gif</filename>
-		<filename>images/bg/biglink_on.gif</filename>
-		<filename>images/bg/bullet.gif</filename>
-		<filename>images/bg/footer.jpg</filename>
-		<filename>images/bg/gradient.jpg</filename>
-		<filename>images/bg/gradient1.jpg</filename>
-		<filename>images/bg/header.jpg</filename>
-		<filename>js/HistoryManager.js</filename>
-		<filename>js/jd.gallery.js</filename>
-		<filename>js/jd.gallery.set.js</filename>
-		<filename>js/jd.gallery.transitions.js</filename>
-		<filename>js/mootools.v1.11.js</filename>
-		<filename>js/mootools.v1.11.ext.js</filename>
-		<filename>js/mootools.v1.11.uncompressed.js</filename>
 	</files>
 	<css>
 		<filename>css/template.css</filename>
@@ -47,178 +27,178 @@
 		<fields name="params">
 			<fieldset name="advanced">
 		    <!-- Overrides: function startGallery() -->
-		        <!--  Automatically go to next image (after delay time): timed (true/false) -->
-		        <field name="automated_slideshow"
-		               type="list"
-		               default="1"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_AUTOMATED_SLIDESHOW"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_AUTOMATED_SLIDESHOW_DESC">
-			        <option value="1">JYES</option>
-			        <option value="0">JNO</option>
-		        </field>
-		        <!--  Delay in milliseconds (6000 equals 6 seconds): delay -->
-		        <field name="delay"
-		               type="text"
-		               default="6000"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_DELAY"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_DELAY_DESC"
-		               size="20"/>
-		        <field name="defaultTransition"
-		               type="list"
-		               default="fade"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_DEFAULTTRANSITION"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_DEFAULTTRANSITION_DESC">
-			        <option value="fade">COM_RSGALLERY2_SLIDESHOW_PARTH_FADE</option>
-			        <option value="crossfade">COM_RSGALLERY2_SLIDESHOW_PARTH_CROSSFADE
-			        </option><!-- Real Cross-Fading for transparent PNG-->
-			        <option value="fadebg">COM_RSGALLERY2_SLIDESHOW_PARTH_FADEBG</option><!-- Fading to background -->
-			        <option value="fadeslideleft">COM_RSGALLERY2_SLIDESHOW_PARTH_FADESLIDELEFT
-			        </option><!-- Neat fade&slide effect -->
-			        <option value="continuoushorizontal">COM_RSGALLERY2_SLIDESHOW_PARTH_CONTINUOUSHORIZONTAL
-			        </option><!-- Continuous scrolling -->
-			        <option value="continuousvertical">COM_RSGALLERY2_SLIDESHOW_PARTH_CONTINUOUSVERTICAL
-			        </option><!-- Continuous scrolling -->
-		        </field>
-		        <!--  Show the thumbs carousel (at the top): showCarousel (true/false) -->
-		        <field name="showCarousel"
-		               type="list"
-		               default="1"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_SHOWCAROUSEL"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_SHOWCAROUSEL_DESC">
-			        <option value="1">JYES</option>
-			        <option value="0">JNO</option>
-		        </field>
-		        <!--  Show the image information panel (at the bottom): showInfopane (true/false) -->
-		        <field name="showInfopane"
-		               type="list"
-		               default="1"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_SHOWINFOPANE"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_SHOWINFOPANE_DESC">
-			        <option value="1">JYES</option>
-			        <option value="0">JNO</option>
-		        </field>
-		        <!--  Slide the image information panel (at the bottom): slideInfoZoneSlide (true/false) -->
-		        <field name="slideInfoZoneSlide"
-		               type="list"
-		               default="1"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDEINFOZONESLIDE"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDEINFOZONESLIDE_DESC">
-			        <option value="true">JYES</option>
-			        <option value="0">JNO</option>
-		        </field>
-		        <!--  Show the arrows, left and right: showArrows (true/false) -->
-		        <field name="showArrows"
-		               type="list"
-		               default="1"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_SHOWARROWS"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_SHOWARROWS_DESC">
-			        <option value="1">JYES</option>
-			        <option value="0">JNO</option>
-		        </field>
-		        <!--  Disable the 'open image' link for the images: embedLinks: false  -->
-		        <field name="embedLinks"
-		               type="list"
-		               default="1"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_EMBEDLINKS"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_EMBEDLINKS_DESC">
-			        <option value="1">JYES</option>
-			        <option value="0">JNO</option>
-		        </field>
-		        <!--  Thumbnail height: thumbHeight  -->
-		        <field name="thumbHeight"
-		               type="text"
-		               default="50"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_THUMBHEIGHT"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_THUMBHEIGHT_DESC"
-		               size="20"/>
-		        <!--  Thumbnail width: thumbWidth -->
-		        <field name="thumbWidth"
-		               type="text"
-		               default="50"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_THUMBWIDTH"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_THUMBWIDTH_DESC"
-		               size="20"/>
-		        <!--  Fade duration in milliseconds (500 equals 0.5 seconds): fadeDuration -->
-		        <field name="fadeDuration"
-		               type="text"
-		               default="500"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_FADEDURATION"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_FADEDURATION_DESC"
-		               size="20"/>
-		        <!--  Text on the carousel tab: textShowCarousel-->
-		        <field name="textShowCarousel"
-		               type="textarea"
-		               default=""
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_TEXTSHOWCAROUSEL"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_TEXTSHOWCAROUSEL_DESC"/>
-		        <!-- Override default CSS styles -->
-		        <!-- Slideshow full width (when 0: then largest width of display image -->
-		        <field name="slideshowWidth"
-		               type="text"
-		               default="0"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDESHOWWIDTH"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDESHOWWIDTH_DESC"
-		               size="20"/>
-		        <!-- Slideshow full height (when 0: then largest height of display image -->
-		        <field name="slideshowHeight"
-		               type="text"
-		               default="0"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDESHOWHEIGHT"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDESHOWHEIGHT_DESC"
-		               size="20"/>
-		        <!-- Background color for the slideshow element (CSS background-color Property)-->
-		        <field name="slideshowBackgroundcolor"
-		               type="text"
-		               default="#000000"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDESHOWBACKGROUNDCOLOR"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDESHOWBACKGROUNDCOLOR_DESC"
-		               size="20"/>
-		        <!-- Carousel backgroundcolor (CSS background-color Property), color item title, height (px) -->
-		        <field name="carouselHeight"
-		               type="text"
-		               default="135"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_CAROUSELHEIGHT"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_CAROUSELHEIGHT_DESC"
-		               size="20"/>
-		        <field name="carouselBackgroundcolor"
-		               type="text"
-		               default="#333333"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_CAROUSELBACKGROUNDCOLOR"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_CAROUSELBACKGROUNDCOLOR_DESC"
-		               size="20"/>
-		        <field name="carouselTextcolor"
-		               type="text"
-		               default="#FFFFFF"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_CAROUSELTEXTCOLOR"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_CAROUSELTEXTCOLOR_DESC"
-		               size="20"/>
-		        <!-- Carousel color numberlabel -->
-		        <field name="carouselNumberlabelColor"
-		               type="text"
-		               default="#B5B5B5"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_CAROUSELNUMBERLABELCOLOR"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_CAROUSELNUMBERLABELCOLOR_DESC"
-		               size="20"/>
-		        <!-- slideInfoZone background color (CSS background-color Property), height (px) -->
-		        <field name="slideInfoZoneHeight"
-		               type="text"
-		               default="60"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDEINFOZONEHEIGHT"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDEINFOZONEHEIGHT_DESC"
-		               size="20"/>
-		        <field name="slideInfoZoneBackgroundcolor"
-		               type="text"
-		               default="#333333"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDEINFOZONEBACKGROUNDCOLOR"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDEINFOZONEBACKGROUNDCOLOR_DESC"
-		               size="20"/>
-		        <!-- slideInfoZone text color -->
-		        <field name="slideInfoZoneTextcolor"
-		               type="text"
-		               default="#EEEEEE"
-		               label="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDEINFOZONETEXTCOLOR"
-		               description="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDEINFOZONETEXTCOLOR_DESC"
-		               size="20"/>
+				<!--  Automatically go to next image (after delay time): timed (true/false) -->
+				<field name="automated_slideshow"
+				       type="list"
+				       default="1"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_AUTOMATED_SLIDESHOW"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_AUTOMATED_SLIDESHOW_DESC">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<!--  Delay in milliseconds (6000 equals 6 seconds): delay -->
+				<field name="delay"
+				       type="text"
+				       default="6000"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_DELAY"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_DELAY_DESC"
+				       size="20"/>
+				<field name="defaultTransition"
+				       type="list"
+				       default="fade"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_DEFAULTTRANSITION"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_DEFAULTTRANSITION_DESC">
+					<option value="fade">COM_RSGALLERY2_SLIDESHOW_PARTH_FADE</option>
+					<option value="crossfade">COM_RSGALLERY2_SLIDESHOW_PARTH_CROSSFADE
+					</option><!-- Real Cross-Fading for transparent PNG-->
+					<option value="fadebg">COM_RSGALLERY2_SLIDESHOW_PARTH_FADEBG</option><!-- Fading to background -->
+					<option value="fadeslideleft">COM_RSGALLERY2_SLIDESHOW_PARTH_FADESLIDELEFT
+					</option><!-- Neat fade&slide effect -->
+					<option value="continuoushorizontal">COM_RSGALLERY2_SLIDESHOW_PARTH_CONTINUOUSHORIZONTAL
+					</option><!-- Continuous scrolling -->
+					<option value="continuousvertical">COM_RSGALLERY2_SLIDESHOW_PARTH_CONTINUOUSVERTICAL
+					</option><!-- Continuous scrolling -->
+				</field>
+				<!--  Show the thumbs carousel (at the top): showCarousel (true/false) -->
+				<field name="showCarousel"
+				       type="list"
+				       default="1"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_SHOWCAROUSEL"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_SHOWCAROUSEL_DESC">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<!--  Show the image information panel (at the bottom): showInfopane (true/false) -->
+				<field name="showInfopane"
+				       type="list"
+				       default="1"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_SHOWINFOPANE"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_SHOWINFOPANE_DESC">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<!--  Slide the image information panel (at the bottom): slideInfoZoneSlide (true/false) -->
+				<field name="slideInfoZoneSlide"
+				       type="list"
+				       default="1"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDEINFOZONESLIDE"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDEINFOZONESLIDE_DESC">
+					<option value="true">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<!--  Show the arrows, left and right: showArrows (true/false) -->
+				<field name="showArrows"
+				       type="list"
+				       default="1"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_SHOWARROWS"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_SHOWARROWS_DESC">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<!--  Disable the 'open image' link for the images: embedLinks: false  -->
+				<field name="embedLinks"
+				       type="list"
+				       default="1"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_EMBEDLINKS"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_EMBEDLINKS_DESC">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<!--  Thumbnail height: thumbHeight  -->
+				<field name="thumbHeight"
+				       type="text"
+				       default="50"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_THUMBHEIGHT"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_THUMBHEIGHT_DESC"
+				       size="20"/>
+				<!--  Thumbnail width: thumbWidth -->
+				<field name="thumbWidth"
+				       type="text"
+				       default="50"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_THUMBWIDTH"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_THUMBWIDTH_DESC"
+				       size="20"/>
+				<!--  Fade duration in milliseconds (500 equals 0.5 seconds): fadeDuration -->
+				<field name="fadeDuration"
+				       type="text"
+				       default="500"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_FADEDURATION"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_FADEDURATION_DESC"
+				       size="20"/>
+				<!--  Text on the carousel tab: textShowCarousel-->
+				<field name="textShowCarousel"
+				       type="textarea"
+				       default=""
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_TEXTSHOWCAROUSEL"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_TEXTSHOWCAROUSEL_DESC"/>
+				<!-- Override default CSS styles -->
+				<!-- Slideshow full width (when 0: then largest width of display image -->
+				<field name="slideshowWidth"
+				       type="text"
+				       default="0"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDESHOWWIDTH"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDESHOWWIDTH_DESC"
+				       size="20"/>
+				<!-- Slideshow full height (when 0: then largest height of display image -->
+				<field name="slideshowHeight"
+				       type="text"
+				       default="0"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDESHOWHEIGHT"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDESHOWHEIGHT_DESC"
+				       size="20"/>
+				<!-- Background color for the slideshow element (CSS background-color Property)-->
+				<field name="slideshowBackgroundcolor"
+				       type="text"
+				       default="#000000"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDESHOWBACKGROUNDCOLOR"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDESHOWBACKGROUNDCOLOR_DESC"
+				       size="20"/>
+				<!-- Carousel backgroundcolor (CSS background-color Property), color item title, height (px) -->
+				<field name="carouselHeight"
+				       type="text"
+				       default="135"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_CAROUSELHEIGHT"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_CAROUSELHEIGHT_DESC"
+				       size="20"/>
+				<field name="carouselBackgroundcolor"
+				       type="text"
+				       default="#333333"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_CAROUSELBACKGROUNDCOLOR"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_CAROUSELBACKGROUNDCOLOR_DESC"
+				       size="20"/>
+				<field name="carouselTextcolor"
+				       type="text"
+				       default="#FFFFFF"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_CAROUSELTEXTCOLOR"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_CAROUSELTEXTCOLOR_DESC"
+				       size="20"/>
+				<!-- Carousel color numberlabel -->
+				<field name="carouselNumberlabelColor"
+				       type="text"
+				       default="#B5B5B5"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_CAROUSELNUMBERLABELCOLOR"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_CAROUSELNUMBERLABELCOLOR_DESC"
+				       size="20"/>
+				<!-- slideInfoZone background color (CSS background-color Property), height (px) -->
+				<field name="slideInfoZoneHeight"
+				       type="text"
+				       default="60"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDEINFOZONEHEIGHT"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDEINFOZONEHEIGHT_DESC"
+				       size="20"/>
+				<field name="slideInfoZoneBackgroundcolor"
+				       type="text"
+				       default="#333333"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDEINFOZONEBACKGROUNDCOLOR"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDEINFOZONEBACKGROUNDCOLOR_DESC"
+				       size="20"/>
+				<!-- slideInfoZone text color -->
+				<field name="slideInfoZoneTextcolor"
+				       type="text"
+				       default="#EEEEEE"
+				       label="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDEINFOZONETEXTCOLOR"
+				       description="COM_RSGALLERY2_SLIDESHOW_PARTH_SLIDEINFOZONETEXTCOLOR_DESC"
+				       size="20"/>
 			</fieldset>
 		</fields>
 	</config>

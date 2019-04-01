@@ -10,6 +10,8 @@
 	<license>This component is released under the GNU/GPL License</license>
 	<description>Default slideshow that we have been shipping with for a while.</description>
 	<files>
+		<folder>html</folder>
+		<folder>css</folder>
 		<filename>index.php</filename>
 		<filename>display.class.php</filename>
 		<filename>templateDetails.xml</filename>
@@ -20,7 +22,141 @@
 	<config>
 		<fields name="params">
 			<fieldset name="advanced">
-		<!-- No parameters-->
+				<field 
+						id="isAutoStart"
+						name="isAutoStart"
+						type="radio"
+						default="1"
+						label="COM_RSGALLERY2_SLIDESHOW_AUTOSTART"
+						description="COM_RSGALLERY2_SLIDESHOW_AUTOSTART_DESC"
+						class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				
+				<field 
+						id="isDisplayButtons"
+						name="isDisplayButtons"
+						type="radio"
+						default="0"
+						label="COM_RSGALLERY2_SHOW_BUTTONS"
+						description="COM_RSGALLERY2_SHOW_BUTTONS_DESC"
+						class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				
+				<field 
+						id="isButtonsAbove"
+						name="isButtonsAbove"
+						type="radio"
+						default="0"
+						label="COM_RSGALLERY2_BUTTONS_ABOVE"
+						description="COM_RSGALLERY2_BUTTONS_ABOVE_SLIDESHOW_DESC"
+						class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<!-- effect = 23;// transition effect. number between 0 and 23, 23 is random effect -->
+				<!--field
+						id="effectType"
+						name="effectType"
+						type="integer"
+						default="23"
+						label="COM_RSGALLERY2_SLIDESONE_EFFECT_TYPE"
+						description="COM_RSGALLERY2_SLIDESONE_EFFECT_TYPE_DESC"
+						class=""
+						first="1"
+						last="23"
+						step="1">
+				</field-->
+
+				<!-- duration = 1.5;// transition duration. number of seconds effect lasts -->
+				<!--field
+						id="transitionTime"
+						name="transitionTime"
+						type="number"
+						default="1.5"
+						label="COM_RSGALLERY2_SLIDESONE_TRANSITION_TIME"
+						description="COM_RSGALLERY2_SLIDESONE_TRANSITION_TIME_DESC"
+						class=""
+				>
+				</field-->
+
+
+				<!-- display = 4;// seconds to display each image? -->
+				<field
+						id="displayTime"
+						name="displayTime"
+						type="number"
+						default="4"
+						label="COM_RSGALLERY2_SLIDESONE_DISPLAY_TIME"
+						description="COM_RSGALLERY2_SLIDESONE_DISPLAY_TIME_DESC"
+						class=""
+				>
+				</field>
+
+				<!-- oW = 400;// width of stage (first image) -->
+				<!--field
+						id="imgWidth"
+						name="imgWidth"
+						type="number"
+						default="400"
+						label="COM_RSGALLERY2_SLIDESONE_IMAGE_WIDTH"
+						description="COM_RSGALLERY2_SLIDESONE_IMAGE_WIDTH_DESC"
+						class=""
+						>
+				</field-->
+
+				<!-- oH = 400;// height of stage -->
+				<!--field
+						id="imgHeight"
+						name="imgHeight"
+						type="number"
+						default="400"
+						label="COM_RSGALLERY2_SLIDESONE_IMAGE_HEIGHT"
+						description="COM_RSGALLERY2_SLIDESONE_IMAGE_HEIGHT_DESC"
+						class=""
+				>
+				</field-->
+
+				<!-- zW = 40;// zoom width by (add or subtracts this many pixels from image width) -->
+				<!--field
+						id="zoomWidth"
+						name="zoomWidth"
+						type="number"
+						default="40"
+						label="COM_RSGALLERY2_SLIDESONE_ZOOM_WIDTH"
+						description="COM_RSGALLERY2_SLIDESONE_ZOOM_WIDTH_DESC"
+						class=""
+				>
+				</field-->
+
+				<!-- zH = 30;// zoom height by -->
+				<!--field
+						id="zoomHeight"
+						name="zoomHeight"
+						type="number"
+						default="30"
+						label="COM_RSGALLERY2_SLIDESONE_ZOOM_HEIGHT"
+						description="COM_RSGALLERY2_SLIDESONE_ZOOM_HEIGHT_DESC"
+						class=""
+				>
+				</field-->
+
+				<field
+						id="debugLevel"
+						name="debugLevel"
+						type="number"
+						default="0"
+						label="COM_RSGALLERY2_SLIDE_DEBUG_LEVEL"
+						description="COM_RSGALLERY2_SLIDE_DEBUG_LEVEL_DESC"
+						class=""
+						>
+				</field>
+
+
 			</fieldset>
 		</fields>
 	</config>

@@ -15,9 +15,16 @@ defined('_JEXEC') or die();
  */
 class rsgDisplay_slideshowone extends rsgDisplay
 {
+	protected $isDisplayButtons = False;
+	protected $isButtonsAbove = False;
+
+	protected $gallery;
 
 	/**
 	 *
+	 *
+	 * @since version
+	 * @throws Exception
 	 */
 	function showSlideShow()
 	{
@@ -25,14 +32,22 @@ class rsgDisplay_slideshowone extends rsgDisplay
 
 		$gallery = rsgGalleryManager::get();
 
+		// why
+		$this->gallery = $gallery;
+
+
 		// show nothing if there are no items
 		if (!$gallery->itemCount())
 		{
 			return;
 		}
 
+
+		//--- collect image information ---------------------------------------
+
 		$k    = 0;
-		$text = "";
+
+		$SLIDES = [];
 		foreach ($gallery->items() as $item)
 		{
 			if ($item->type != 'image')
@@ -40,12 +55,19 @@ class rsgDisplay_slideshowone extends rsgDisplay
 				return;
 			}
 
+			// image display data. urls ...
 			$display = $item->display();
 
-			$text .= "SLIDES[" . $k . "] = ['" . $display->url() . "', '{$item->title}'];\n";
+			$SLIDES [$k] = [$display->url(), $item->title] ;
+
 			$k++;
 		}
-		$this->slides = $text;
+
+		$this->slideOptions ['SLIDES'] =  $SLIDES;
+		$this->galleryName = $gallery->name;
+		$this->gid         = $gallery->id;
+
 		$this->display('slideshow.php');
 	}
 }
+

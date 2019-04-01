@@ -19,7 +19,7 @@ defined('_JEXEC') or die();
  */
 function template()
 {
-	global $rsgConfig, $isDebugSiteActive;
+	global $rsgConfig, $Rsg2DebugActive;
 
 	//Set template selection
 	//$template = preg_replace( '#\W#', '', JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template') ));
@@ -29,12 +29,12 @@ function template()
 
 	$templateLocation = JPATH_RSGALLERY2_SITE . '/templates'  . '/' .  $template . '/index.php';
 
-	if ($isDebugSiteActive)
+	if ($Rsg2DebugActive)
 	{
 		JLog::add('template: "' . $templateLocation . '"');
 	}
 	
-		if (!file_exists($templateLocation))
+	if (!file_exists($templateLocation))
 	{
 		JFactory::getApplication()->enqueueMessage('RSGallery2 template:<pre>' . "Template $template does not exist.<br/>Please select an existing template in the Template Manager." . '</pre>', 'error');
 		return false;
@@ -82,7 +82,6 @@ function xmlFile()
  * Thanks to Rich Malak <rmalak@fuseideas.com> for his invaluable contribution
  * to this very important feature!
  */
-//function downloadFile($id) {
 function downloadFile()
 {
 	global $rsgConfig;
@@ -94,7 +93,7 @@ function downloadFile()
 	$original = $item->original();
 	$file     = $original->filePath();
 
-	//Open up the file
+	// Open up the file
 	if ($fd = fopen($file, "r"))
 	{
 		$fsize      = filesize($file);
@@ -124,8 +123,12 @@ function downloadFile()
 				header("Content-type: application/octet-stream");
 				header("Content-Disposition: attachment; filename=\"" . $path_parts["basename"] . "\"");
 		}
+
+		//header("Content-Transfer-Encoding: binary");
+		//header('Accept-Ranges: bytes');
 		header("Content-length: $fsize");
 		header("Cache-control: private");
+
 		//Read the contents of the file
 		while (!feof($fd))
 		{
@@ -135,4 +138,6 @@ function downloadFile()
 	}
 	//Close file after use!
 	fclose($fd);
+	ob_flush();
+
 }

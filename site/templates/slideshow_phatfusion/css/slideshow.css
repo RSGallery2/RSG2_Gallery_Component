@@ -13,7 +13,7 @@
 }
 
 .loading {
-	background : url(images/loading.gif) center no-repeat;
+	background : url(../images/loading.gif) center no-repeat;
 }
 
 .slideshowThumbnail {
