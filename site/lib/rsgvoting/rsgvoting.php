@@ -64,7 +64,7 @@ function saveVote($option)
 		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", false), JText::_('COM_RSGALLERY2_YOU_ARE_NOT_AUTHORIZED_TO_VOTE'));
 	}
 
-	//Check if user has already voted for this image
+	// Check if user has already voted for this image
 	if ($vote->alreadyVoted((int) $id))
 	{
 		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", false), JText::_('COM_RSGALLERY2_YOU_ALREADY_VOTED_FOR_THIS_ITEM'));
