@@ -403,9 +403,6 @@ class RSGallery2ModelImages extends JModelList
     {
         global $rsgConfig;
 
-        // preset result
-        $ImgExifData = [];
-
         try
         {
             // user requested EXIF tags
@@ -417,6 +414,9 @@ class RSGallery2ModelImages extends JModelList
             // all images (Normally one)
             foreach ($images as $image)
             {
+	            // preset result
+	            $ImgExifData = [];
+
                 $fileName = $image->name;
 
                 try {
@@ -458,6 +458,8 @@ class RSGallery2ModelImages extends JModelList
                             }
                         }
                     }
+
+	                $image->exifData = $ImgExifData;
                 }
                 catch (RuntimeException $e)
                 {

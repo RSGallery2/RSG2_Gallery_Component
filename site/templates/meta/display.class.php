@@ -12,6 +12,8 @@ defined('_JEXEC') or die();
 // ToDo: Remove call of file helpers/parameter.php. actual needed for compatibility with 2.5
 jimport('joomla.filesystem.files');
 
+// require_once (JPATH_RSGALLERY2_SITE .'/templates/meta/templateParameter.php');
+
 require_once(JPATH_RSGALLERY2_ADMIN . '/includes/gallery.manager.php');
 require_once(JPATH_RSGALLERY2_ADMIN . '/includes/gallery.class.php');
 require_once(JPATH_RSGALLERY2_ADMIN . '/config.rsgallery2.php');
@@ -22,8 +24,7 @@ require_once(JPATH_RSGALLERY2_ADMIN . '/includes/items/item.php');
 
 class rsgDisplay extends JObject
 {
-
-	var $params = null; // Type of J Parameter    ToDo: change type to Jregistry ...
+	var $params = null; // Type of Jregistry
 
 	var $currentItem = null;
 
@@ -31,12 +32,11 @@ class rsgDisplay extends JObject
 	{
 		global $rsgConfig;
 
-		//$this->gallery = rsgInstance::getGallery(); deprecated
 		$this->gallery = rsgGalleryManager::get();
 
-		//Pre 3.0.2: always got template 'semantic' even when showing a slideshow; $template is only used here to get templateparameters
+		//Pre 3.0.2: always got template 'semantic' even when showing a slideshow;
+        //           $template is only used here to get template parameters
 		//Does the page show the slideshow? Then get slideshow name, else get template name.
-		// if (JRequest::getCmd('page') == 'slideshow') {
 		$input = JFactory::getApplication()->input;
 		$page  = $input->get('page', '', 'CMD');
 		if ($page == 'slideshow')
@@ -47,6 +47,8 @@ class rsgDisplay extends JObject
 		{
 			$template = $rsgConfig->get('template');
 		}
+
+		// toDo: params.ini JRegistry from (existing) file
 
 		// load template parameters
 		jimport('joomla.filesystem.file');
@@ -180,7 +182,7 @@ class rsgDisplay extends JObject
 	 *
 	 * @throws Exception
 	 */
-	function showRsgHeader()
+	function showRsgMyGalleryHeader()
 	{
 		// $rsgOption 	= JRequest::getCmd( 'rsgOption'  , '');
 		$input     = JFactory::getApplication()->input;
@@ -226,9 +228,6 @@ class rsgDisplay extends JObject
 	 */
 	function showRSPathWay()
 	{
-		$mainframe = JFactory::getApplication();
-		$pathway   = $mainframe->getPathway();
-
 		// Only show pathway if rsg2 is the component
 		//$option = JRequest::getCmd('option');
 		$input  = JFactory::getApplication()->input;
@@ -243,6 +242,8 @@ class rsgDisplay extends JObject
 		// start for this pathway
 
 		$app               = JFactory::getApplication();
+		$pathway   = $app->getPathway();
+
 		$theMenu           = $app->getMenu();
 		$theActiveMenuItem = $theMenu->getActive();
 		if (isset($theActiveMenuItem->query['gid']))
@@ -665,28 +666,22 @@ class rsgDisplay extends JObject
 		if ($rsgConfig->get('displayDownload'))
 		{
 			echo "<div class=\"rsg2-toolbar\">";
-			if ($type == 'button')
+
+            echo '<a href="' . JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id=' . $id) . '"';
+			echo '   title="' . JText::_("COM_RSGALLERY2_DOWNLOAD") . '"';
+			if ($type == 'button') // or link
 			{
-				?>
-				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id=' . $id); ?>">
-					<img height="20" width="20" src="<?php echo JURI::base(); ?>/components/com_rsgallery2/images/download_f2.png" alt="<?php echo JText::_('COM_RSGALLERY2_DOWNLOAD') ?>">
-					<?php
-					if ($showtext == true)
-					{
-						?>
-						<br /><span style="font-size:smaller;"><?php echo JText::_('COM_RSGALLERY2_DOWNLOAD') ?></span>
-						<?php
-					}
-					?>
-				</a>
-				<?php
+                echo ' class="btn btn-mini"';
 			}
 			else
 			{
-				?>
-				<a href="<?php echo JRoute::_('index.php?option=com_rsgallery2&task=downloadfile&id=' . $id); ?>"><?php echo JText::_('COM_RSGALLERY2_DOWNLOAD'); ?></a>
-				<?php
+				echo ' class="btn btn-link btn-mini"';
 			}
+			echo '>';
+			echo '<i class="icon-download icon-white"> </i>';
+//            echo  JText::_('COM_RSGALLERY2_DOWNLOAD');
+			echo '</a>';
+
 			echo "</div><div class=\"rsg2-clr\">&nbsp;</div>";
 		}
 	}
@@ -717,9 +712,73 @@ class rsgDisplay extends JObject
 
 		if ($rsgConfig->get('displaySearch') != 0)
 		{
-			require_once(JPATH_ROOT . '/components/com_rsgallery2/lib/rsgsearch/search.html.php');
-			html_rsg2_search::showSearchBox();
+//			require_once(JPATH_ROOT . '/components/com_rsgallery2/lib/rsgsearch/search.html.php');
+//			html_rsg2_search::showSearchBox();
+
+            //--- search box ----------------------------------------
+
+            //echo '<div align="right" class="j25search_box">';
+			echo '<div class="j25search_box pull-right">';
+			echo '	<form name="rsg2_search" class="form-search form-inline warning" method="post" action="' . JRoute::_('index.php') . '" >';
+			echo '   <div class="input-prepend">';
+			echo '            <button type="submit" class="btn">Search</button>';
+			echo '            <input type="search" name="searchtextX"  maxlength="200"';
+			echo '                   class="inputbox search-query input-medium"';
+			echo '                   placeholder="'. JText::_('COM_RSGALLERY2_KEYWORDS') . '">';
+			echo '        </div>';
+			echo '        <input type="hidden" name="option" value="com_rsgallery2" />';
+			echo '        <input type="hidden" name="rsgOption" value="search" />';
+			echo '        <input type="hidden" name="task" value="showResults" />';
+			echo '	</form>';
+			echo '</div>';
 		}
 	}
+
+
+	/**
+	 * @param $pagination
+	 *
+	 *
+	 * @since version
+	 */
+	function showNavLimitBox($pagination)
+	{
+	    // ? more than one page ?
+		// if ($pagination->total)
+		if ($pagination->total > $pagination->limit)
+		{
+			echo '<div class="btn-group pull-right hidden-phone">';
+			echo '   <label for "limit" class="element-invisible">';
+			echo '      ' . JText::_('JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC');
+			echo '   </label>';
+			echo '   ' . $pagination->getlimitBox();
+			echo '</div>';
+		}
+	}
+
+
+
+    // Show gallery title (name)
+	function showGalleryName($gallery)
+    {
+	    echo '<h2>';
+        echo '    <div class="rsg_gallery_title">';
+	    echo          $gallery->name;
+	    echo '    </div>';
+	    echo '</h2>';
+    }
+
+        // Show gallery description
+    function showGalleryDescription($gallery)
+    {
+	    global $rsgConfig;
+
+	    echo '<div class="intro_text">';
+        echo      $gallery->description;
+        echo '</div>';
+    }
+
+
+
 }
 
