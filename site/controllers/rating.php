@@ -37,13 +37,18 @@ Or you can use a form where there is a hidden task field.
 
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
+		$input = JFactory::getApplication()->input;
+
 		// http://127.0.0.1/Joomla3x/index.php?option=com_rsgallery2&view=gallery&gid=42&advancedSef=1&startShowSingleImage=1&Itemid=218
 		$link = 'index.php?option=com_rsgallery2'; // &startShowSingleImage=1&Itemid=218
 		$link = 'index.php?option=com_rsgallery2&page=inline'; // &id=' . $imageId) .'" id="rsgVoteForm">';
 
+		$imageId = $input->get('id', 0, 'INT');
+		$link = $link . '&id=' . $imageId;
+
 		// Access check
 		$canVote = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
-		//$canVote = true;
+		$canVote = true;
 
 		if ( ! $canVote)
 		{
@@ -63,9 +68,7 @@ Or you can use a form where there is a hidden task field.
 
 				}
 
-					$input = JFactory::getApplication()->input;
 				$galleryId = $input->get('gid', 0, 'INT');
-				$imageId = $input->get('id', 0, 'INT');
 				$userRating = $input->get('rating', 0, 'INT');
 				// Show same image -> pagination limitstart
 				$limitStart = $input->get('paginationImgIdx', 0, 'INT');

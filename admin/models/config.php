@@ -28,29 +28,6 @@ class Rsgallery2ModelConfig extends JModelAdmin
 	protected $IsDebugActive;
 
 	/**
-	 * retrieves state if debug is activated on user config
-	 *
-	 * @return bool true when set in config data
-	 * @since 4.3.0
-     */
-	/*
-    public static function getIsDebugActive()
-    {
-		if (!isset($this->IsDebugActive)) {
-			$db =  JFactory::getDbo();
-			$query = $db->getQuery (true)
-				->select ($db->quoteName('value'))
-				->from($db->quoteName('#__rsgallery2_config'))
-				->where($db->quoteName('name')." = ".$db->quote('debug'));
-			$db->setQuery($query);
-			$this->IsDebugActive  = $db->loadResult();
-		}
-
-		return $this->IsDebugActive;
-    }
-	*/
-
-	/**
 	 * Returns a reference to the a Table object, always creating it.
 	 *
 	 * @param       string $type   The table type to instantiate
@@ -60,6 +37,7 @@ class Rsgallery2ModelConfig extends JModelAdmin
 	 * @return      JTable  A database object
 	 * @since       4.3.0
 	 */
+	/** ToDo: function getTable handles old config: remove later */
 	public function getTable($type = 'Config', $prefix = 'Rsgallery2Table', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
@@ -74,6 +52,7 @@ class Rsgallery2ModelConfig extends JModelAdmin
 	 * @return      mixed   A JForm object on success, false on failure
 	 * @since       4.3.0
 	 */
+	/** ToDo: function getForm handles old config: remove later */
 	public function getForm($data = array(), $loadData = true)
 	{
 		$options = array('control' => 'jform', 'load_data' => $loadData);
@@ -86,6 +65,7 @@ class Rsgallery2ModelConfig extends JModelAdmin
 
 		return $form;
 	}
+	/**/
 
 	/**
 	 * Method to get the data that should be injected in the form.
@@ -94,6 +74,7 @@ class Rsgallery2ModelConfig extends JModelAdmin
      *
 	 * @since        4.3.0
 	 */
+	/** ToDo: function loadFormData handles old config: Assign to new config *
 	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
@@ -119,6 +100,7 @@ class Rsgallery2ModelConfig extends JModelAdmin
      *
      * @since  4.3.0
      */
+	/** ToDo: function loadConfig handles old config: Assign to new config */
 	public function loadConfig()
 	{
 		$data = array();
@@ -170,6 +152,7 @@ class Rsgallery2ModelConfig extends JModelAdmin
 
 		return $data;
 	}
+	/**/
 
     /**
      * Transform some data before it is displayed ? Saved ?
@@ -187,10 +170,12 @@ class Rsgallery2ModelConfig extends JModelAdmin
      *
 	 * @since 4.3.0
     */
+	/** ToDo: function prepareTable hanldes old config: Assign to new config *
 	protected function prepareTable($table)
 	{
 		// $table->title		= htmlspecialchars_decode($table->title, ENT_QUOTES);
 	}
+	/**/
 
 	/**
 	 * Method to get a single record.
@@ -249,9 +234,9 @@ class Rsgallery2ModelConfig extends JModelAdmin
 	 *
 	 * @since   4.3.0
 	 */
-	public function save($data)
+	/** ToDo: function save does handle old config: Assign to new config */
+	public function save($data) // !!! OLD configuration data !!!
 	{
-
 		$isSaved = false;
 
 		if (empty($data))
@@ -287,7 +272,7 @@ class Rsgallery2ModelConfig extends JModelAdmin
 		catch (RuntimeException $e)
 		{
 			$OutTxt = '';
-			$OutTxt .= 'Error executing saveOrdering: "' . '<br>';
+			$OutTxt .= 'Error executing save configuration old: "' . '<br>';
 			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
 			$app = JFactory::getApplication();
@@ -296,4 +281,5 @@ class Rsgallery2ModelConfig extends JModelAdmin
 
 		return $isSaved;
 	}
+	/**/
 }

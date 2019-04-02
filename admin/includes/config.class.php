@@ -31,6 +31,7 @@ class rsgConfig
 //    var $version = 'depreciated';    // this is set and loaded from includes/version.rsgallery2.php
     var $debug = false;
     var $develop = false;
+	var $debugSite = false;
     var $allowedFileTypes = "jpg,jpeg,gif,png, bmp"; // bmp ?
     var $hideRoot = false;    //Deprecated in v3, is not used anywhere; hide the root gallery and it's listing.  this is to publish multiple independant galleries.
     var $advancedSef = false;    // use category and image name instead of numeric identifiers in url.
@@ -535,6 +536,7 @@ class rsgConfig
 
         $this->LastUpdateType = $NewLastUpdateType;
     }
+	/**/
 
     /**
      * return last used ftp_path

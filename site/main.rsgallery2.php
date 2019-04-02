@@ -19,7 +19,7 @@ defined('_JEXEC') or die();
  */
 function template()
 {
-	global $rsgConfig, $Rsg2DebugActive;
+	global $rsgConfig, $isDebugSiteActive;
 
 	//Set template selection
 	//$template = preg_replace( '#\W#', '', JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template') ));
@@ -29,7 +29,7 @@ function template()
 
 	$templateLocation = JPATH_RSGALLERY2_SITE . '/templates'  . '/' .  $template . '/index.php';
 
-	if ($Rsg2DebugActive)
+	if ($isDebugSiteActive)
 	{
 		JLog::add('template: "' . $templateLocation . '"');
 	}

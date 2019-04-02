@@ -18,13 +18,13 @@ defined('_JEXEC') or die;
 
 // global $isDebugSiteActive, $isDevelopSiteActive, $rsgConfig;
 
-global $rsgConfig, $Rsg2DebugActive, $Rsg2DevelopActive;
+global $rsgConfig, $isDebugSiteActive, $Rsg2DevelopActive;
 
 // Initialize RSG2 core functionality
 require_once(JPATH_SITE . "/administrator/components/com_rsgallery2/init.rsgallery2.php");
 
 $Rsg2DevelopActive = $rsgConfig->get('develop');
-$Rsg2DebugActive = $rsgConfig->get('debug');
+//$isDebugSiteActive = $rsgConfig->get('debug');
 
 // Enable settings from URL
 $input = JFactory::getApplication()->input;
@@ -36,6 +36,8 @@ $isUseJ25View = $rsgConfig->get('useJ25Views');;
 $bValue = $input->get('useJ25Views', 0, 'INT');
 $isUseJ25View |= ! empty($bValue);
 /**/
+
+/* debugSite from config or URL */
 $isDebugSiteActive = $rsgConfig->get('debugSite');
 $bValue = $input->get('debugSite', 0, 'INT');
 $isDebugSiteActive |= ! empty($bValue);
@@ -47,7 +49,7 @@ $isDevelopSiteActive |= ! empty($bValue);
 
 // Activate logging
 //if ($isDebugSiteActive)
-if ($Rsg2DebugActive)
+if ($isDebugSiteActive)
 {
 	// Include the JLog class.
 	jimport('joomla.log.log');
@@ -78,6 +80,7 @@ $task = $input->get('task', '', 'CMD');
 
 $view = $input->get('view', null, 'CMD');
 $layout = $input->get('layout', '', 'CMD');
+$rsgOption = $input->get('rsgOption', '', 'CMD');
 
 // List of id's (image, gallery ...
 // $cids = $input->get('cid', array(), 'ARRAY');
@@ -104,7 +107,19 @@ if ($isDebugSiteActive) {
 
 
 // ToDO: Task and other vars
+$isUseJ25View = True;
 
+// Task may be  J3.5 part
+if ( ! empty ($task))
+{
+	$isUseJ25View = False;
+}
+
+// Task may be  J2.5 part
+if ( ! empty ($rsgOption))
+{
+	$isUseJ25View = True;
+}
 
 // Use the old J25 files and tasks
 if ($isUseJ25View) {

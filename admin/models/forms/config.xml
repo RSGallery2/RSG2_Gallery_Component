@@ -128,7 +128,7 @@
 			<option value="-2">JTRASHED</option>
 		</field>
 		<field
-				name="IsUseOneGalleryNameForAllImages"
+				name="isUseOneGalleryNameForAllImages"
 				type="radio"
 				default="0"
 				label="COM_RSGALLERY2_PRESELECT_ONE_GALLERY_FOR_ALL_IMAGES_LABEL"
@@ -139,7 +139,7 @@
 			<option value="0">JNO</option>
 		</field>
 		<field
-				name="IsPreSelectLatestGallery"
+				name="isPreSelectLatestGallery"
 				type="radio"
 				default="0"
 				label="COM_RSGALLERY2_PRESELECT_LATEST_GALLERY_LABEL"
