@@ -1,3 +1,5 @@
+//.build/
+.packages/
 
 admin/install.rsgallery2.php
 admin/rsgallery2.xml
