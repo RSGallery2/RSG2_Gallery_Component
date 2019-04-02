@@ -288,7 +288,7 @@ if ($isDisplayPaginationBottom)
 
 $isDisplayImgDetails = false;
 
-if ($isDisplayDesc || $isDisplayVoting = $config->displayVoting || $isDisplayComments || $isDisplayEXIF)
+if ($isDisplayDesc || $isDisplayVoting || $isDisplayComments || $isDisplayEXIF)
 {
 	$isDisplayImgDetails = true;
 }
@@ -602,6 +602,13 @@ function htmlDescription ($image, $isDisplayImgHits)
 
 function htmlComments ($comments, $gid, $imageId)
 {
+	// toDO improve ....
+	// https://bootsnipp.com/snippets/Vp4P
+	// https://bootsnipp.com/snippets/featured/comment-posts-layout
+	// https://bootsnipp.com/snippets/featured/blog-post-footer
+	// sophisticated
+	// https://bootsnipp.com/snippets/featured/collapsible-tree-menu-with-accordion
+	
     $formFields = $comments->formFields;
 	$imgComments = $comments->comments;
 
@@ -609,9 +616,7 @@ function htmlComments ($comments, $gid, $imageId)
 
 	$html[] = '<div class="container span12">';
 
-	$html[] =  '        <div class="rsg2_rating_container">';
-
-
+	$html[] =  '        <div class="rsg2_comments_container">';
 
 	if (empty($imgComments))
     {
@@ -631,42 +636,51 @@ function htmlComments ($comments, $gid, $imageId)
     {
         // Comments existing
 
-	    // $html[] = '<div class="container span12">';
+        //--- add comment link bar -------------------------------------------------
 
 	    /**
 	    $html[] = '<div id="comment">';
 	    $html[] = '    <table width="100%" class="comment_table">';
 	    $html[] = '        <tr>';
-//	    $html[] = '            <td class="title">';
-
-	    $html[] = '	           <td class="title" width="25%"><?php echo JText::_(\'COM_RSGALLERY2_COMMENTS\') ?></td>';
-	    $html[] = '	           <td class="title" width="50%"><?php echo JText::_(\'COM_RSGALLERY2_COMMENTS_ADDED\') ?></td>';
-	    $html[] = '	           <td class="title">';
-	    $html[] = '	               <div class="addcomment">';
-	    $html[] = '	                   <a class="special" href="#comment2">' . JText::_('COM_RSGALLERY2_ADD_COMMENT') . '</a>';
-	    $html[] = '	               </div>';
+	    //$html[] = '	           <td class="title" width="25%"' .  JText::_('COM_RSGALLERY2_COMMENTS') . '</td>';
+	    //$html[] = '	           <td class="title" width="50%">' . JText::_('COM_RSGALLERY2_COMMENTS_ADDED') . '</td>';
+	    $html[] = '	           <td class="title pull-right">';
+	    //$html[] = '	               <div class="addcomment">';
+	    $html[] = '    <i class="icon-comment"></i>';
+	    $html[] = '	                   <a class="special" href="#lblAddCcomment">' . JText::_('COM_RSGALLERY2_ADD_COMMENT') . '</a>';
+	    //$html[] = '	               </div>';
 	    $html[] = '	           </td>';
 	    $html[] = '	       </tr>';
 	    $html[] = '    </table>';
 	    $html[] = '    <br />';
 	    $html[] = '</div>';
 	    $html[] = '';
-	    $html[] = '';
         /**/
+
+	    $html[] = '<div id="comment" class="title pull-right">';
+
+	    $html[] = '<button class="btn btn-success" type="button">';
+	    $html[] = '    <i class="icon-comment"></i>';
+	    $html[] = '	   <a class="special" href="#lblAddCcomment">' . JText::_('COM_RSGALLERY2_ADD_COMMENT') . '</a>';
+	    $html[] = '</button>';
+	    $html[] = '';
+
+	    $html[] = '</div>';
+
+
 
 	    // https://bootsnipp.com/snippets/a35Pl
 
+        //--- existing comments -----------------------------------------------------
 
-        /**/
         // each comment
 	    foreach ($imgComments as $comment)
 	    {
-		    $html[] = 'test ';
 
 		    // $html[] = '<div class="row">';
 
 		    // $html[] = '<div class="media">';
-		    /**
+		    /**/
 		    $html[] = '    <a class="pull-left span2" href="#">';
 		    //$html[] = '<div class="thumbnail">';
 
@@ -679,8 +693,9 @@ function htmlComments ($comments, $gid, $imageId)
 
 		    //$html[] = '</div>'; //<!-- /thumbnail -->
 		    $html[] = '    </a>';
-            /**
+		    /**/
 
+            /**/
 		    $html[] = '<div class="media-body  span10">';
 		    $html[] = '    <i class="icon-comment"></i>';
 		    $html[] = '    <strong class="media-heading title">' . $comment->subject . '</strong>';
@@ -691,31 +706,32 @@ function htmlComments ($comments, $gid, $imageId)
 
 		    $html[] = '</div>';
 		    $html[] = '';
+            /**/
 
+            /**
 		    $html[] = '</div>'; // class="media">';
 		    $html[] = '';
 		    // $html[] = '</div>'; // row
 		    $html[] = '';
+            /**/
 
-//		    $html[] = '<hr>';
+
+		    $html[] = '<hr>';
             /**/
 	    }
-	    /**
-	    $html[] = '                 <br>';
-	    $html[] = '            </td>';
-	    $html[] = '        </tr>';
-	    $html[] = '    </table>';
-	    $html[] = '</div>';
-        /**/
+
         /**/
     }
 
-	$html[] = '';
-    /**
-	$html[] = '<hr>';
+	//--- add comment -----------------------------------------------------
+
 	$html[] = '';
 
-    $html[] =  '           <div class="rsg2_comments_container">';
+	$html[] = '<a name="lblAddCcomment"></a>';
+
+    /**/
+	//$html[] = '<hr>';
+	$html[] = '';
 
     $html[] = '                <form name="rsgCommentForm" class="form-horizontal" method="post"';
 	$html[] = '                    action="' . JRoute::_('index.php?option=com_rsgallery2&view=gallery&gid=' . $gid) .'&startShowSingleImage=1" id="rsgCommentForm">';
@@ -744,7 +760,7 @@ function htmlComments ($comments, $gid, $imageId)
     $html[] = '                </form>';
     /**/
 
-    $html[] = '            </div>'; // rsg2_rating_container
+    $html[] = '            </div>'; // container
 
 	$html[] = '</div>'; // class="container">';
 

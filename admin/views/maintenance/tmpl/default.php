@@ -284,7 +284,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
 									<?php
 									/**
 					            $link = 'index.php?option=com_rsgallery2&amp;view=acl_items&amp;layout=acls_raw';
-					            quickIconsBar ($link, array('icon-eye-close', 'icon-list-2',
+					            quickIconsBar ($link, array('icon-eye-close', 'icon-list-2'),
 						            JText::_('COM_RSGALLERY2_ACLS_LIST'),
 						            JText::_('COM_RSGALLERY2_RAW_ACLS_TXT'),
 						            'consolidateDB');

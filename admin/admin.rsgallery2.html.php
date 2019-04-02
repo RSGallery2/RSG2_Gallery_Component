@@ -266,8 +266,7 @@ if (count(JHtmlSidebar::getEntries()) > 0) : ?>
 <div id="j-main-container" class="span10">
 	<?php else : ?>
 	<div id="j-main-container">
-		<?php endif;
-		?>
+    <?php endif;?>
 		<div class="clearfix"></div>
 		<?php
 		}

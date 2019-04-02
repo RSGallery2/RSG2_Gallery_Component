@@ -598,6 +598,7 @@
 				type="SlideshowSelectList"
 				label="COM_RSGALLERY2_SELECT_SLIDESHOW"
 				description=""
+				default="slideshow_parth"
 				class="">
 		</field>
 
@@ -643,6 +644,108 @@
 				type="radio"
 				default="0"
 				label="COM_RSGALLERY2_DISPLAY_CREATION_DATE"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field
+			name="spacerDisplayGalleryView1"
+			type="spacer"
+			hr="true"
+		/>
+		<field 
+			type="spacer" 
+			name="spacerDisplayGalleryView" 
+			class="text-info"
+			label="COM_RSGALLERY2_DISPLAY_GALLERY_VIEW"
+		/>
+
+		<field
+				id="template"
+				name="template"
+				type="TemplateSelectList"
+				label="COM_RSGALLERY2_SELECT_TEMPLATE"
+				description=""
+				default="semantic"
+				class="">
+		</field>
+
+		<field
+				id="display_thumbs_style"
+				name="display_thumbs_style"
+				type="list"
+				default="table"
+				label="COM_RSGALLERY2_THUMBNAIL_STYLE_USE_FLOAT_FOR_VARIABLE_WIDTH_TEMPLATES"
+				description=""
+				class="">
+			<option value="table">COM_RSGALLERY2_TABLE</option>
+			<option value="float">COM_RSGALLERY2_FLOAT</option>
+			<option value="magic">COM_RSGALLERY2_MAGIC_NOT_SUPPORTED_YET</option>
+		</field>
+		<field
+				id="display_thumbs_floatDirection"
+				name="display_thumbs_floatDirection"
+				type="list"
+				default="left"
+				label="COM_RSGALLERY2_DIRECTION_ONLY_WORKS_FOR_FLOAT"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="left">COM_RSGALLERY2_LEFT_TO_RIGHT</option>
+			<option value="right">COM_RSGALLERY2_RIGHT_TO_LEFT</option>
+		</field>
+		<field
+				id="display_thumbs_colsPerPage"
+				name="display_thumbs_colsPerPage"
+				type="integer"
+				default="9"
+				label="COM_RSGALLERY2_NUMBER_OF_THUMBNAIL_COLUMNS_ONLY_FOR_TABLE"
+				description=""
+				class=""
+				first="1"
+				last="19"
+				step="1">
+		</field>
+		<field
+				id="display_thumbs_maxPerPage"
+				name="display_thumbs_maxPerPage"
+				type="text"
+				default="0"
+				label="COM_RSGALLERY2_THUMBNAILS_PER_PAGE"
+				description=""
+				class="">
+		</field>
+		<field
+				id="display_thumbs_showImgName"
+				name="display_thumbs_showImgName"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_SHOW_IMAGE_NAME_BELOW_THUMBNAIL"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+				id="display_navigation_bar_mode"
+				name="display_navigation_bar_mode"
+				type="list"
+				default="1"
+				label="COM_RSGALLERY2_NAVIGATION_BAR_DISPLAY"
+				description=""
+				class="btn-group btn-group-yesno">
+			<option value="1">COM_RSGALLERY2_BOTH</option>
+			<option value="2">COM_RSGALLERY2_TOP</option>
+			<option value="3">COM_RSGALLERY2_BOTTOM</option>
+			<option value="0">COM_RSGALLERY2_NONE</option>
+		</field>
+		<field
+				id="displaySlideshowGalleryView"
+				name="displaySlideshowGalleryView"
+				type="radio"
+				default="0"
+				label="COM_RSGALLERY2_DISPLAY_SLIDESHOW_GALLERY_VIEW"
 				description=""
 				class="btn-group btn-group-yesno">
 			<option value="1">JYES</option>
@@ -846,7 +949,6 @@
 				multiple="true"
 		>
 			<option value="resolutionUnit">Resolution unit</option>
-			<option value="resolutionUnit">Resolution unit</option>
 			<option value="FileName">Filename</option>
 			<option value="FileSize">Filesize</option>
 			<option value="FileDateTime">File Date</option>
@@ -891,98 +993,6 @@
 			<option value="resolution">Resolution</option>
 			<option value="color">Color</option>
 			<option value="jpegProcess">Jpeg process</option>
-		</field>
-
-		<field
-			name="spacerDisplayGalleryView1"
-			type="spacer"
-			hr="true"
-		/>
-		<field 
-			type="spacer" 
-			name="spacerDisplayGalleryView" 
-			class="text-info"
-			label="COM_RSGALLERY2_DISPLAY_GALLERY_VIEW"
-		/>
-
-		<field
-				id="display_thumbs_style"
-				name="display_thumbs_style"
-				type="list"
-				default="table"
-				label="COM_RSGALLERY2_THUMBNAIL_STYLE_USE_FLOAT_FOR_VARIABLE_WIDTH_TEMPLATES"
-				description=""
-				class="">
-			<option value="table">COM_RSGALLERY2_TABLE</option>
-			<option value="float">COM_RSGALLERY2_FLOAT</option>
-			<option value="magic">COM_RSGALLERY2_MAGIC_NOT_SUPPORTED_YET</option>
-		</field>
-		<field
-				id="display_thumbs_floatDirection"
-				name="display_thumbs_floatDirection"
-				type="list"
-				default="left"
-				label="COM_RSGALLERY2_DIRECTION_ONLY_WORKS_FOR_FLOAT"
-				description=""
-				class="btn-group btn-group-yesno">
-			<option value="left">COM_RSGALLERY2_LEFT_TO_RIGHT</option>
-			<option value="right">COM_RSGALLERY2_RIGHT_TO_LEFT</option>
-		</field>
-		<field
-				id="display_thumbs_colsPerPage"
-				name="display_thumbs_colsPerPage"
-				type="integer"
-				default="9"
-				label="COM_RSGALLERY2_NUMBER_OF_THUMBNAIL_COLUMNS_ONLY_FOR_TABLE"
-				description=""
-				class=""
-				first="1"
-				last="19"
-				step="1">
-		</field>
-		<field
-				id="display_thumbs_maxPerPage"
-				name="display_thumbs_maxPerPage"
-				type="text"
-				default="0"
-				label="COM_RSGALLERY2_THUMBNAILS_PER_PAGE"
-				description=""
-				class="">
-		</field>
-		<field
-				id="display_thumbs_showImgName"
-				name="display_thumbs_showImgName"
-				type="radio"
-				default="0"
-				label="COM_RSGALLERY2_SHOW_IMAGE_NAME_BELOW_THUMBNAIL"
-				description=""
-				class="btn-group btn-group-yesno">
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
-		</field>
-		<field
-				id="display_navigation_bar_mode"
-				name="display_navigation_bar_mode"
-				type="list"
-				default="1"
-				label="COM_RSGALLERY2_NAVIGATION_BAR_DISPLAY"
-				description=""
-				class="btn-group btn-group-yesno">
-			<option value="1">COM_RSGALLERY2_BOTH</option>
-			<option value="2">COM_RSGALLERY2_TOP</option>
-			<option value="3">COM_RSGALLERY2_BOTTOM</option>
-			<option value="0">COM_RSGALLERY2_NONE</option>
-		</field>
-		<field
-				id="displaySlideshowGalleryView"
-				name="displaySlideshowGalleryView"
-				type="radio"
-				default="0"
-				label="COM_RSGALLERY2_DISPLAY_SLIDESHOW_GALLERY_VIEW"
-				description=""
-				class="btn-group btn-group-yesno">
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
 		</field>
 
 		<field

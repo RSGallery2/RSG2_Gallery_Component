@@ -173,7 +173,7 @@ function DisplayInfoRsgallery2($Rsg2Version)
 	echo '        <tr>';
 	echo '            <td>' . JText::_('COM_RSGALLERY2_LICENSE') . ': ' . '</td>';
 	echo '            <td>';
-	echo '               <a href="//www.gnu.org/copyleft/gpl.html" target="_blank" title="';
+	echo '               <a href="http://www.gnu.org/copyleft/gpl.html" target="_blank" title="';
 	echo JText::_('COM_RSGALLERY2_JUMP_TO_GNU_ORG') . '" >GNU GPL</a>';
 	echo '            </td>';
 	echo '        </tr>';
@@ -182,7 +182,7 @@ function DisplayInfoRsgallery2($Rsg2Version)
 	echo '        <tr>';
 	echo '            <td>' . JText::_('COM_RSGALLERY2_HOME_PAGE') . '</td>';
 	echo '            <td>';
-	echo '                <a href="//www.rsgallery2.org/" target="_blank" ' . ' title="' . JText::_('COM_RSGALLERY2_JUMP_TO_FORUM') . '" >www.rsgallery2.org</a>';
+	echo '                <a href="http://www.rsgallery2.org/" target="_blank" ' . ' title="' . JText::_('COM_RSGALLERY2_JUMP_TO_FORUM') . '" >www.rsgallery2.org</a>';
 	echo '            </td>';
 	echo '        </tr>';
 	/**/
@@ -190,7 +190,7 @@ function DisplayInfoRsgallery2($Rsg2Version)
 	echo '        <tr>';
 	echo '            <td>' . JText::_('COM_RSGALLERY2_FORUM') . '</td>';
 	echo '            <td>';
-	echo '                <a href="//www.forum.rsgallery2.org/" target="_blank" ' . ' title="' . JText::_('COM_RSGALLERY2_JUMP_TO_FORUM') . '" >www.forum.rsgallery2.org</a>';
+	echo '                <a href="http://www.forum.rsgallery2.org/" target="_blank" ' . ' title="' . JText::_('COM_RSGALLERY2_JUMP_TO_FORUM') . '" >www.forum.rsgallery2.org</a>';
 	echo '            </td>';
 	echo '        </tr>';
 	/**/
@@ -199,7 +199,7 @@ function DisplayInfoRsgallery2($Rsg2Version)
 	echo '            <td>' . JText::_('COM_RSGALLERY2_DOCUMENTATION') . '</td>';
 	echo '            <td>';
 //	echo '                <a href="http://joomlacode.org/gf/project/rsgallery2/frs/?action=FrsReleaseBrowse&frs_package_id=6273" target="_blank" ';
-    echo '                <a href="//www.rsgallery2.org/documentation/" target="_blank" ';
+    echo '                <a href="http://www.rsgallery2.org/documentation/" target="_blank" ';
 	echo '                    title="' . JText::_('COM_RSGALLERY2_JUMP_TO_DOCUMENTATION') . '" >www.rsgallery2.org/documentation</a>';
 	echo '            </td>';
 	echo '        </tr>';
@@ -220,33 +220,6 @@ function DisplayInfoRsgallery2($Rsg2Version)
 /**/
 $doc = JFactory::getDocument();
 $doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/css/ControlPanel.css');
-
-// $script ="$('#toolbar').parent().parent().parent().parent().remove();";
-// .css('background-color', '#000').css('color', '#fff');
-/**
-//$('#toolbar').parent().parent().parent().parent().css('background-color', '#000');
-//OK    $('#toolbar').parent().parent().parent().parent().parent().css('background-color', 'red');
-//      $('#toolbar').parent().parent().parent().parent().parent().hide();
-//        $('#toolbar').parent().parent().parent().parent().css('background-color', 'red');
-//        $('#toolbar').parent().parent().parent().parent().parent().css('height', '10px');
-//        $('#toolbar').parent().parent().parent().parent().parent().hide();
- **/
-
-/**
-$script ="
-    jQuery(document).ready(function($){
-        //$('#toolbar').parent().parent().parent().parent().parent().css('background-color', 'red');
-        $('#toolbar').parent().parent().parent().parent().parent().css('height', '10px');
-        $('#toolbar').parent().parent().parent().parent().css('height', '10px');
-        $('#toolbar').parent().parent().parent().parent().parent().css('background-color', 'red');
-//        $('#toolbar').parent().parent().parent().parent().parent().css('color', 'red');
-        $('#toolbar').parent().parent().parent().parent().css('background-color', 'red');
-        //$('#toolbar').parent().parent().parent().css('background-color', 'red');
-        //$('#toolbar').parent().parent().css('background-color', 'red');
-    });
-";
-$doc->addScriptDeclaration($script);
-/**/
 
 ?>
 

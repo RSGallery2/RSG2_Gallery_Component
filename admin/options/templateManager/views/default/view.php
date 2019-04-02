@@ -87,6 +87,7 @@ class InstallerViewDefault extends JViewLegacy
 	}
 
 	/**
+	 * Sidebar for templates
 	 * @throws Exception
 	 * @since 4.3.0
 	 */
@@ -101,13 +102,19 @@ class InstallerViewDefault extends JViewLegacy
 		);
 
 		JHtmlSidebar::addEntry(JText::_('COM_RSGALLERY2_RSG2_CONTROL_PANEL'), 'index.php?option=com_rsgallery2', false);
-		//$link = '#" onclick="javascript:document.adminForm.type.value=\'\';alert(\'installer\');submitbutton(\'installer\');';
+		// original: $link = '#" onclick="javascript:document.adminForm.type.value=\'\';alert(\'installer\');submitbutton(\'installer\');';
+		$link = '#" onclick="javascript:document.adminForm.type.value=\'\';alert(\'installer\');submitbutton(\'installer\');';
+		// tested: $link = '#" onclick="javascript:document.adminForm.type.value=\'\';alert(\'installer\');joomla.submitform(\'installer\');';
 		$link = '#" onclick="javascript:document.adminForm.type.value=\'\';alert(\'installer\');joomla.submitform(\'installer\');';
 		$active = ! in_array($ext, $subMenus);
 		JHtmlSidebar::addEntry(JText::_('COM_RSGALLERY2_INSTALL'), $link, $active);
 		foreach ($subMenus as $name => $extension)
 		{
-			//$link = '#" onclick="javascript:document.adminForm.type.value=\'' . $extension . '\';alert(\'manage\');submitbutton(\'manage\');';
+			// original $link = '#" onclick="javascript:document.adminForm.type.value=\'' . $extension . '\';alert(\'manage\');submitbutton(\'manage\');';
+			$link = '#" onclick="javascript:document.adminForm.type.value=\'' . $extension . '\';alert(\'manage\');submitbutton(\'manage\');';
+			$active = ($extension == $ext);
+			JHtmlSidebar::addEntry($name, $link, $active);
+			// tested: $link = '#" onclick="javascript:document.adminForm.type.value=\'' . $extension . '\';alert(\'manage\');joomla.submitform(\'manage\');';
 			$link = '#" onclick="javascript:document.adminForm.type.value=\'' . $extension . '\';alert(\'manage\');joomla.submitform(\'manage\');';
 			$active = ($extension == $ext);
 			JHtmlSidebar::addEntry($name, $link, $active);

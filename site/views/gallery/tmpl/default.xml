@@ -10,6 +10,9 @@
 		<fieldset name="request"
 				  addfieldpath="/administrator/components/com_rsgallery2/models/fields"
 		>
+
+			<strong>*You may </strong>
+
 			<field
 					id="gid"
 					name="gid"
@@ -19,6 +22,88 @@
 					default="0"
 					required="true"
 			>
+			</field>
+			<field
+					id="useJ25Display"
+					name="advancedSef"
+					type="radio"
+					default="1"
+					label="*Use J25 views applied to J3.x structure"
+					description="*The code to display J25 views (until 2018) was adapted to the structure of J!3.x. So layouts can now be overwritten in J!3.x method by any template overwriting. Attention: You may use the new menu selections for root gallery, gallery and slideshow instead"
+					class="btn-group btn-group-yesno"
+				>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			>
+			</field>
+			<field
+					id="startShowSingleImage"
+					name="startShowSingleImage"
+					type="radio"
+					default="0"
+					label="COM_RSGALLERY2_GALLERY_START_SINGLE_IMAGE"
+					description="COM_RSGALLERY2_GALLERY_START_SINGLE_IMAGE_DESC"
+					class="btn-group btn-group-yesno"
+					showon="gid!:0"
+					>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+		</fieldset>
+	</fields>
+	<fields name="paramsX">
+		<fieldset name="basic" label="*Config root 2">
+			<field 
+				name="show_base_description" 
+				type="list"
+				label="JGLOBAL_FIELD_SHOW_BASE_DESCRIPTION_LABEL"
+				description="JGLOBAL_FIELD_SHOW_BASE_DESCRIPTION_DESC"
+				useglobal="true"
+				class="chzn-color"
+				>
+				<option value="0">JHIDE</option>
+				<option value="1">JSHOW</option>
+			</field>
+		</fieldset>
+		<fieldset name="basic" label="*Config single gallery 2">
+			<field 
+				name="show_base_description2" 
+				type="list"
+				label="JGLOBAL_FIELD_SHOW_BASE_DESCRIPTION_LABEL2"
+				description="JGLOBAL_FIELD_SHOW_BASE_DESCRIPTION_DESC2"
+				useglobal="true"
+				class="chzn-color"
+				>
+				<option value="0">JHIDE</option>
+				<option value="1">JSHOW</option>
+			</field>
+		</fieldset>
+	</fields>
+	<fields name="params2">
+		<fieldset name="basic" label="*Config root 2">
+			<field 
+				name="show_base_description3" 
+				type="list"
+				label="JGLOBAL_FIELD_SHOW_BASE_DESCRIPTION_LABEL3"
+				description="JGLOBAL_FIELD_SHOW_BASE_DESCRIPTION_DESC3"
+				useglobal="true"
+				class="chzn-color"
+				>
+				<option value="0">JHIDE</option>
+				<option value="1">JSHOW</option>
+			</field>
+		</fieldset>
+		<fieldset name="basic" label="*Config single gallery 4">
+			<field 
+				name="show_base_description4" 
+				type="list"
+				label="JGLOBAL_FIELD_SHOW_BASE_DESCRIPTION_LABEL4"
+				description="JGLOBAL_FIELD_SHOW_BASE_DESCRIPTION_DESC4"
+				useglobal="true"
+				class="chzn-color"
+				>
+				<option value="0">JHIDE</option>
+				<option value="1">JSHOW</option>
 			</field>
 		</fieldset>
 	</fields>

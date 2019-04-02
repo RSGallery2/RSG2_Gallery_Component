@@ -67,7 +67,6 @@ if ($isDebugSiteActive)
 	JLog::add('Start rsgallery2.php in site: debug active in RSGallery2'); //, JLog::DEBUG);
 }
 
-$input = JFactory::getApplication()->input;
 $task = $input->get('task', '', 'CMD');
 //$option = strtolower($input->get('option', '', 'CMD'));
 //$catid = $input->get('catid', null, 'INT');

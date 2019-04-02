@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form enctype="multipart/form-data">
+	<fieldset name="mainttemplates">
+		<!-- Existing templates selection -->
+		<field
+				id="maintain_template"
+				name="maintain_template"
+				type="TemplateSelectList"
+				label="COM_RSGALLERY2_SELECT_TEMPLATE"
+				description="COM_RSGALLERY2_SELECT_TEMPLATE_MAINT_DESC"
+				class=""
+				addfieldpath="/administrator/components/com_rsgallery2/models/fields"
+				>
+		</field>
+	</fieldset>
+</form>
