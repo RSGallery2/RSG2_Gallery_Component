@@ -1123,7 +1123,7 @@ class rsgDisplay_semantic extends rsgDisplay
 			//$ratingData->average = 1.0;
 			//$ratingData->average = 1.1;
 			//$ratingData->average = 2.4;
-			$ratingData->average = 2.5;
+			//$ratingData->average = 2.5;
 			//$ratingData->average = 2.9;
 			//$ratingData->average = 3.0;
 			//$ratingData->average = 3.1;
