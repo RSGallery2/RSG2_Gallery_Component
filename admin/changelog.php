@@ -23,6 +23,10 @@ Legend:
 ^ -> Change, - -> Removed, ! -> Note
 
 
+* --- abandoned branch --- 2019-04-07 --- whazzup ------------------------------
+
+ too long ago ?
+
 * --- 4.3.102 --- 2018-05-05 --- whazzup ------------------------------
 
 beta version
