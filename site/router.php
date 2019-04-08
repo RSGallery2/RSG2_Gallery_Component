@@ -19,31 +19,31 @@
 	   If page then add ‘as’ concatenated with page value
  */
 
+// ToDO: class and support of SEF for J3! https://docs.joomla.org/J3.x:Supporting_SEF_URLs_in_your_component
+
+defined('_JEXEC') or die;
+
 /**
  * @param $query
  *
  * @return array
  * @throws Exception
  */
-
-defined('_JEXEC') or die;
-
-
 function Rsgallery2BuildRoute(&$query)
 {
 	//Get config values
-	global $config;
-
-	Rsgallery2InitConfig();
+	global $rsgConfig;
 
 // ToDo: As this is an entry point --> activate debug Log
 
 	$segments = array();
 
+	$rsgConfig = JComponentHelper::getParams('com_rsgallery2');
+	$advancedSef = $rsgConfig->get("advancedSef", false);
 	//Now define non-advanced SEF as v2 way and advanced SEF as v3 way
-	if ($config->get("advancedSef") == true)
+	if ($advancedSef == true)
 	{
-		//Find gid from menu --> $menuGid (can be an independant function)
+		//Find gid from menu --> $menuGid (can be an independent function)
 		$app  = JFactory::getApplication();
 		$menu = $app->getMenu();
 		if (empty($query['Itemid']))
@@ -119,7 +119,7 @@ function Rsgallery2BuildRoute(&$query)
 					{
 						//find item id based on gid combined with limitstart
 						$start = (isset($query['start'])) ? $query['start'] : 0;
-						$id    = Rsgallery2GetItemIdFromGalleryIdAndLimitstart($query['gid'], $start);
+						$id    = Rsgallery2GetItemIdFromGalleryIdAndLimitStart($query['gid'], $start);
 						//add id-itemname
 						$segments[] = $id . '-' . Rsgallery2GetItemName($id);
 						//remove gid and limitstart from URL
@@ -211,14 +211,14 @@ function Rsgallery2ParseRoute($segments)
 {
 	//Note: segments show up like: '6:testimage' instead of expected '5-testimage' (don't know why)
 	//Get config values
-	global $config;
+	global $rsgConfig;
 
 	$vars = array();
 
-	Rsgallery2InitConfig();
+	//Rsgallery2InitConfig();
 
 	//Now define non-advanced SEF as v2 way and advanced SEF as v3 way
-	if ($config->get("advancedSef") == true)
+	if ($rsgConfig->get("advancedSef") == true)
 	{
 		//View doesn't need to be added (there is only one view).
 		//Check number of parts:
@@ -269,8 +269,8 @@ function Rsgallery2ParseRoute($segments)
 		}
 	}
 	else
-	{//not advancedSEF
-
+	{
+	    // not advancedSEF
 		// Get the active menu item.
 		//$menu	= JSite::getMenu();
 		$app  = JFactory::getApplication();
@@ -327,7 +327,7 @@ function Rsgallery2ParseRoute($segments)
 		{
 			$vars['page'] = "inline";
 		}
-	}//END of if ($config->get("advancedSef") == true)
+	}//END of if ($rsgConfig->get("advancedSef") == true)
 
 	return $vars;
 }
@@ -343,13 +343,13 @@ function Rsgallery2ParseRoute($segments)
 function Rsgallery2GetGalleryName($gid)
 {
 	//Get config values
-	global $config;
+	global $rsgConfig;
 
-	Rsgallery2InitConfig();
+	//Rsgallery2InitConfig();
 
 	// Fetch the gallery alias from the database if advanced sef is active,
 	// else return the numerical value	
-	if ($config->get("advancedSef") == true)
+	if ($rsgConfig->get("advancedSef") == true)
 	{
 		$dbo   = JFactory::getDBO();
 		$query = 'SELECT `alias` FROM `#__rsgallery2_galleries` WHERE `id`=' . (int) $gid;
@@ -367,7 +367,8 @@ function Rsgallery2GetGalleryName($gid)
 		}
 	}
 	else
-	{// No advanced SEF
+	{
+	    // No advanced SEF
 		$segment = $gid;
 	}
 
@@ -385,20 +386,18 @@ function Rsgallery2GetGalleryName($gid)
 function Rsgallery2GetCategoryId($categoryName)
 {
 	//Get config values
-	global $config;
-
-	Rsgallery2InitConfig();
+	global $rsgConfig;
 
 	// fetch the gallery id from the database if advanced sef is active
 	/* old
-	if($config->get("advancedSef") == true) {
+	if($rsgConfig->get("advancedSef") == true) {
 		//not used
 	} else {
 		$id = $categoryName;
 	}
 	*/
 
-	if ($config->get("advancedSef") != true)
+	if ($rsgConfig->get("advancedSef") != true)
 	{
 		$id = $categoryName;
 	}
@@ -421,20 +420,20 @@ function Rsgallery2GetCategoryId($categoryName)
 function Rsgallery2GetItemId($itemName)
 {
 	// Get config values
-	global $config;
+	global $rsgConfig;
 
-	Rsgallery2InitConfig();
+	//Rsgallery2InitConfig();
 
 	// fetch the gallery id from the database if advanced sef is active
 	/* old
-	if($config->get("advancedSef") == true) {
+	if($rsgConfig->get("advancedSef") == true) {
 		//not used
 	} else {
 		$id = $categoryName;
 	}
 	*/
 
-	if ($config->get("advancedSef") != true)
+	if ($rsgConfig->get("advancedSef") != true)
 	{
 		$id = $itemName;
 	}
@@ -457,13 +456,13 @@ function Rsgallery2GetItemId($itemName)
 function Rsgallery2GetItemName($id)
 {
 	// Get config values
-	global $config;
+	global $rsgConfig;
 
-	Rsgallery2InitConfig();
+	//Rsgallery2InitConfig();
 
 	// Getch the item alias from the database if advanced sef is active,
 	// else return the numerical value	
-	if ($config->get("advancedSef") == true)
+	if ($rsgConfig->get("advancedSef") == true)
 	{
 		$dbo    = JFactory::getDBO();
 		$query  = 'SELECT `alias` FROM `#__rsgallery2_files` WHERE `id`=' . (int) $id;
@@ -500,9 +499,9 @@ function Rsgallery2GetItemName($id)
 function Rsgallery2GetGalleryIdFromItemId($id)
 {
 	//Get config values
-	global $config;
+	global $rsgConfig;
 
-	Rsgallery2InitConfig();
+	//Rsgallery2InitConfig();
 
 	// Set standard return value
 	$gid = 0;
@@ -550,15 +549,16 @@ function Rsgallery2GetGalleryIdFromItemId($id)
  * @return int Id of the item (id)
  * @throws Exception
  */
-function Rsgallery2GetItemIdFromGalleryIdAndLimitstart($gid, $limitstart)
+function Rsgallery2GetItemIdFromGalleryIdAndLimitStart($gid, $limitstart)
 {
 	//Get config values
-	global $config;
-	Rsgallery2InitConfig();
+	global $rsgConfig;
+
+	//Rsgallery2InitConfig();
 
 	$id = 0;
 
-	// Getch the gallery id (gid) from the database based on the id of an item
+	// Get the gallery id (gid) from the database based on the id of an item
 	$dbo   = JFactory::getDBO();
 	$query = $dbo->getQuery(true);
 	$query->select('id');
@@ -595,11 +595,13 @@ function Rsgallery2GetItemIdFromGalleryIdAndLimitstart($gid, $limitstart)
 /**
  * Gets the configuration settings for RSGallery
  */
+/**
 function Rsgallery2InitConfig()
 {
-	global $config, $rsgVersion;
+	/** 2018.09.02 
+	global $rsgConfig, $rsgVersion;
 
-	if ($config == null)
+	if ($rsgConfig == null)
 	{
 		if (!defined('JPATH_RSGALLERY2_ADMIN'))
 		{
@@ -612,11 +614,12 @@ function Rsgallery2InitConfig()
 
 		// Initialize the rsg config file
 		require_once(JPATH_RSGALLERY2_ADMIN . '/' . 'includes' . '/' . 'config.class.php');
-		$config = new rsgConfig();
+		$rsgConfig = new rsgConfig();
 	}
 }
+/**/
 
-/*	SEF logic and info
+/*	SEF logic and info (before RSG2 4.5
 ==> All links have option and Itemid for the menu-item
 ==> Then we have 
 	view	only in menulink: discard for now with only 1 view --> remove view from URL
@@ -694,3 +697,4 @@ function Rsgallery2InitConfig()
 		}
 	}
 */
+

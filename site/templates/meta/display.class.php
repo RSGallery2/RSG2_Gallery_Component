@@ -147,7 +147,11 @@ class rsgDisplay extends JObject
 
 		$file = preg_replace('/[^A-Z0-9_\.-]/i', '', $file);
 
-		include $templateDir . '/' .  $file;
+		$includeName = $templateDir . '/' .  $file;
+		if (JFile::exists($includeName))
+		{
+			include $includeName;
+		}
 	}
 
 	/**

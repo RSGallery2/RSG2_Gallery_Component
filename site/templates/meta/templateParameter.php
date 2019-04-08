@@ -188,14 +188,17 @@ class Rsg2TemplateParameter
 		{
 			//--- read XML of file ---------------------------------------
 
-			$xml = simplexml_load_file($xmlFile);
-			if (!empty($xml))
+			if (JFile::exists($xmlFile))
 			{
-				// return if section .../config/fields exist
-				$config = $xml->config->fields;
-				if (!empty($config))
+				$xml = simplexml_load_file($xmlFile);
+				if (!empty($xml))
 				{
-					$formFields = $xml;
+					// return if section .../config/fields exist
+					$config = $xml->config->fields;
+					if (!empty($config))
+					{
+						$formFields = $xml;
+					}
 				}
 			}
 		}

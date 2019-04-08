@@ -66,13 +66,13 @@ class rsgDisplay_semantic extends rsgDisplay
 
 		//Get values for page navigation from URL
 		//$limit = $app->getUserStateFromRequest("galleryviewlimit", 'limit', $rsgConfig->get('galcountNrs'), 'int');
-		$limit = $app->getUserStateFromRequest("galleryviewlimit", 'limit', $rsgConfig->galcountNrs, 'int');
+		$limit = $app->getUserStateFromRequest("galleryviewlimit", 'limit', $rsgConfig->get('galcountNrs'), 'INT');
 		$limitstart = $input->get('limitstart', 0, 'INT');
 		$kidCountTotal = count($this->kids);
 
 		//Show page navigation if selected in backend
-		if (($rsgConfig->dispLimitbox == 1 && $kidCountTotal > $limit)
-			|| $rsgConfig->dispLimitbox == 2
+		if (($rsgConfig->get('dispLimitbox') == 1 && $kidCountTotal > $limit)
+			|| $rsgConfig->get('dispLimitbox') == 2
 		)
 		{
 			// When users wants "All" galleries to show, $limit = 0, no need to slice
