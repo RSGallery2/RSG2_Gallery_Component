@@ -21,7 +21,6 @@
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
-	<fieldset name="General">
 		<field
 				id="debugSite"
 				name="debugSite"
