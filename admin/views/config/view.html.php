@@ -53,7 +53,7 @@ class Rsgallery2ViewConfig extends JViewLegacy
 	*/
 	public function display($tpl = null)
 	{
-		global $Rsg2DevelopActive;
+		global $Rsg2DevelopActive, $rsgConfig;
 
 		//--- get needed form data ------------------------------------------
 
@@ -76,7 +76,8 @@ class Rsgallery2ViewConfig extends JViewLegacy
 //		$this->allowedFileTypes = imgUtils::allowedFileTypes ();
 
 //		$this->configVars = get_object_vars($this->rsgConfigData);
-//		$this->form->bind ($this->configVars);
+		$this->configVars = get_object_vars($rsgConfig);
+		$this->form->bind ($this->configVars);
 
 		//--- begin to display --------------------------------------------
 
