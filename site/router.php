@@ -19,6 +19,9 @@
 	   If page then add ‘as’ concatenated with page value
  */
 
+
+// ToDo: init rsgConfig once and for all ? or use 
+
 // ToDO: class and support of SEF for J3! https://docs.joomla.org/J3.x:Supporting_SEF_URLs_in_your_component
 
 defined('_JEXEC') or die;
@@ -34,11 +37,15 @@ function Rsgallery2BuildRoute(&$query)
 	//Get config values
 	global $rsgConfig;
 
+	// standard joomla behaviour
+	//$rsgConfig = JComponentHelper::getParams('com_rsgallery2');
+	Rsgallery2InitConfig();
+
 // ToDo: As this is an entry point --> activate debug Log
 
 	$segments = array();
 
-	$rsgConfig = JComponentHelper::getParams('com_rsgallery2');
+
 	$advancedSef = $rsgConfig->get("advancedSef", false);
 	//Now define non-advanced SEF as v2 way and advanced SEF as v3 way
 	if ($advancedSef == true)
@@ -215,7 +222,9 @@ function Rsgallery2ParseRoute($segments)
 
 	$vars = array();
 
-	//Rsgallery2InitConfig();
+	// standard joomla behaviour
+	//$rsgConfig = JComponentHelper::getParams('com_rsgallery2');
+	Rsgallery2InitConfig();
 
 	//Now define non-advanced SEF as v2 way and advanced SEF as v3 way
 	if ($rsgConfig->get("advancedSef") == true)
@@ -345,7 +354,9 @@ function Rsgallery2GetGalleryName($gid)
 	//Get config values
 	global $rsgConfig;
 
-	//Rsgallery2InitConfig();
+	// standard joomla behaviour
+	//$rsgConfig = JComponentHelper::getParams('com_rsgallery2');
+	Rsgallery2InitConfig();
 
 	// Fetch the gallery alias from the database if advanced sef is active,
 	// else return the numerical value	
@@ -422,7 +433,9 @@ function Rsgallery2GetItemId($itemName)
 	// Get config values
 	global $rsgConfig;
 
-	//Rsgallery2InitConfig();
+	// standard joomla behaviour
+	//$rsgConfig = JComponentHelper::getParams('com_rsgallery2');
+	Rsgallery2InitConfig();
 
 	// fetch the gallery id from the database if advanced sef is active
 	/* old
@@ -458,7 +471,9 @@ function Rsgallery2GetItemName($id)
 	// Get config values
 	global $rsgConfig;
 
-	//Rsgallery2InitConfig();
+	// standard joomla behaviour
+	//$rsgConfig = JComponentHelper::getParams('com_rsgallery2');
+	Rsgallery2InitConfig();
 
 	// Getch the item alias from the database if advanced sef is active,
 	// else return the numerical value	
@@ -501,7 +516,9 @@ function Rsgallery2GetGalleryIdFromItemId($id)
 	//Get config values
 	global $rsgConfig;
 
-	//Rsgallery2InitConfig();
+	// standard joomla behaviour
+	//$rsgConfig = JComponentHelper::getParams('com_rsgallery2');
+	Rsgallery2InitConfig();
 
 	// Set standard return value
 	$gid = 0;
@@ -554,7 +571,9 @@ function Rsgallery2GetItemIdFromGalleryIdAndLimitStart($gid, $limitstart)
 	//Get config values
 	global $rsgConfig;
 
-	//Rsgallery2InitConfig();
+	// standard joomla behaviour
+	//$rsgConfig = JComponentHelper::getParams('com_rsgallery2');
+	Rsgallery2InitConfig();
 
 	$id = 0;
 
@@ -595,10 +614,10 @@ function Rsgallery2GetItemIdFromGalleryIdAndLimitStart($gid, $limitstart)
 /**
  * Gets the configuration settings for RSGallery
  */
-/**
+/**/
 function Rsgallery2InitConfig()
 {
-	/** 2018.09.02 
+	/** 2018.09.02 */
 	global $rsgConfig, $rsgVersion;
 
 	if ($rsgConfig == null)
