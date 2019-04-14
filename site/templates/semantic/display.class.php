@@ -898,13 +898,17 @@ class rsgDisplay_semantic extends rsgDisplay
 
 			$html[] = '<div id="comment" class="title pull-right">';
 
-			$html[] = '<button class="btn btn-success" type="button">';
-			$html[] = '    <i class="icon-comment"></i>';
-			$html[] = '	   <a class="special" href="#lblAddCcomment">' . JText::_('COM_RSGALLERY2_ADD_COMMENT') . '</a>';
-			$html[] = '</button>';
+			$html[] = '    <button class="btn btn-success" type="button">';
+			$html[] = '        <i class="icon-comment"></i>';
+			$html[] = '	       <a class="special" href="#lblAddComment">' . JText::_('COM_RSGALLERY2_ADD_COMMENT') . '</a>';
+			//$html[] = '	       <a class="special" href="#bottom">' . JText::_('COM_RSGALLERY2_ADD_COMMENT') . '</a>';
+			//$html[] = '	       <a class="special" href="#commentUserName">' . JText::_('COM_RSGALLERY2_ADD_COMMENT') . '</a>';
+			$html[] = '    </button>';
 			$html[] = '';
 
 			$html[] = '</div>';
+
+			$html[] = '<div class="clearfix" >';
 
 
 
@@ -918,7 +922,7 @@ class rsgDisplay_semantic extends rsgDisplay
 
 				// $html[] = '<div class="row">';
 
-				// $html[] = '<div class="media">';
+				$html[] = '<div class="media">';
 				/**/
 				$html[] = '    <a class="pull-left span2" href="#">';
 				//$html[] = '<div class="thumbnail">';
@@ -934,29 +938,29 @@ class rsgDisplay_semantic extends rsgDisplay
 				$html[] = '    </a>';
 				/**/
 
+				$html[] = '<div class="clearfix" >';
+
 				/**/
-				$html[] = '<div class="media-body  span10">';
-				$html[] = '    <i class="icon-comment"></i>';
-				$html[] = '    <strong class="media-heading title">' . $comment->subject . '</strong>';
-				//$html[] = '    <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>';
+				$html[] = '    <div class="media-body  span10">';
+				$html[] = '        <i class="icon-comment"></i>';
+				$html[] = '        <strong class="media-heading title">' . $comment->subject . '</strong>';
+				//$html[] = '        <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>';
 
-				$html[] = '    <p><div>' . $comment->comment . '</div></p>';
-				$html[] = '<hr>';
+				$html[] = '        <p><div>' . $comment->comment . '</div></p>';
 
-				$html[] = '</div>';
+				$html[] = '    </div>';
 				$html[] = '';
 				/**/
 
-				/**
 				$html[] = '</div>'; // class="media">';
+
+				$html[] = '<hr>';
+				/**
 				$html[] = '';
 				// $html[] = '</div>'; // row
 				$html[] = '';
 				/**/
 
-
-				$html[] = '<hr>';
-				/**/
 			}
 
 			/**/
@@ -964,13 +968,33 @@ class rsgDisplay_semantic extends rsgDisplay
 
 		//--- add comment -----------------------------------------------------
 
+
+        // Manipulate form fieldset "name" depending on user
+		$user = JFactory::getUser();
+		// User is logged in
+		if ( ! empty($user->id))
+		{
+			$user4Form ['commentUserName'] = $user->name;
+			//$this->bind ($user4Form);
+			//JForm::bind($user4Form);
+            // $this->params_form = $params_form; see alsi where comments are collected
+			/**
+			$params = YireoHelper::toRegistry($this->item->params)->toArray();
+			$params_form = JForm::getInstance('params', $file);
+			$params_form->bind(array('params' => $params));
+			$this->params_form = $params_form;
+			/**/
+		}
+
 		$html[] = '';
 
-		$html[] = '<a name="lblAddCcomment"></a>';
+		//$html[] = '<a name="lblAddComment"></a>';
+		$html[] = '<a id="lblAddComment"></a>';
 
 		/**/
 		//$html[] = '<hr>';
 		$html[] = '';
+		$html[] = '<div class="clearfix" >';
 
 		$html[] = '                <form name="rsgCommentForm" class="form-horizontal" method="post"';
 		$html[] = '                    action="' . JRoute::_('index.php?option=com_rsgallery2&view=gallery&gid=' . $gid) .'&startShowSingleImage=1" id="rsgCommentForm">';
@@ -998,6 +1022,7 @@ class rsgDisplay_semantic extends rsgDisplay
 		$html[] = '                    </div>';
 		$html[] = '                </form>';
 		/**/
+		$html[] = '</div>';
 
 		$html[] = '            </div>'; // container
 
@@ -1189,6 +1214,7 @@ class rsgDisplay_semantic extends rsgDisplay
 		$xmlFile    = JPATH_SITE . '/components/com_rsgallery2/models/forms/comment.xml';
 		$formFields = JForm::getInstance('comment', $xmlFile);
 
+		// toDO:add user name to "form" commentUserName
 		/**
 		$params = YireoHelper::toRegistry($this->item->params)->toArray();
 		$params_form = JForm::getInstance('params', $file);
@@ -1196,12 +1222,17 @@ class rsgDisplay_semantic extends rsgDisplay
 		$this->params_form = $params_form;
 		/**/
 
+		$commentModel = JModelLegacy::getInstance('comments', 'RSGallery2Model');
 		foreach ($images as $image)
 		{
 			$image->comments = new stdClass();
 
 			$image->comments->formFields = $formFields;
-			$image->comments->comments = [];
+
+			$commentTexts = $commentModel->getImageComments ($image->id);
+
+			// $image->comments->comments = [];
+			$image->comments->comments = $commentTexts;
 		}
 	}
 

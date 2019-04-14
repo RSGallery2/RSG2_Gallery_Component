@@ -9,7 +9,7 @@
 				description="COM_RSGALLERY2_YOUR_NAME_DESC"
 				size="10"
 				default=""
-				readonly="true"
+				readonly="false"
 		/>
 
 		<field

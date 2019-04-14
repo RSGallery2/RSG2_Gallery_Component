@@ -39,8 +39,9 @@ $isUseJ25View |= ! empty($bValue);
 
 /* debugSite from config or URL */
 $isDebugSiteActive = $rsgConfig->get('debugSite');
-$bValue = $input->get('debugSite', 0, 'INT');
-$isDebugSiteActive |= ! empty($bValue);
+$bUrlValue = $input->get('
+debugSite', 0, 'INT');
+$isDebugSiteActive |= ! empty($bUrlValue);
 /**
 $isDevelopSiteActive = $rsgConfig->get('developSite');
 $bValue = $input->get('developSite', 0, 'INT');
@@ -136,4 +137,3 @@ else
     $controller->execute(Factory::getApplication()->input->get('task'));
     $controller->redirect();
 }
-	
