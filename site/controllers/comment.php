@@ -31,20 +31,19 @@ class RSGallery2ControllerComment extends BaseController
 
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-		// http://127.0.0.1/Joomla3x/index.php?option=com_rsgallery2&view=gallery&gid=42&advancedSef=1&startShowSingleImage=1&Itemid=218
-		$link = 'index.php?option=com_rsgallery2'; // &startShowSingleImage=1&Itemid=218
-
 		$input = JFactory::getApplication()->input;
+		$imageId = $input->get('id', 0, 'INT');
 
-		$galleryId = $input->get('gid', 0, 'INT');
-		// ToDo: check for appearance
-		$limitStart = $input->get('paginationImgIdx', 0, 'INT');
-		$userRating = $input->get('rating', 0, 'INT');
-
+		// http://127.0.0.1/Joomla3x/index.php?option=com_rsgallery2&view=gallery&gid=42&advancedSef=1&startShowSingleImage=1&Itemid=218
+		//$link = 'index.php?option=com_rsgallery2'; // &startShowSingleImage=1&Itemid=218
+		$link = 'index.php?option=com_rsgallery2&page=inline&id=' . $imageId.'&tab=comment';
+		
 
 		// Access check
+		$galleryId = $input->get('gid', 0, 'INT');
 		//$canComment = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
 		$canComment = JFactory::getUser()->authorise('rsgallery2.comment', 'com_rsgallery2.gallery.' . $galleryId);
+		// ToDO: remove
 		$canComment = true;
 
 		if ( ! $canComment)
@@ -56,13 +55,16 @@ class RSGallery2ControllerComment extends BaseController
 		}
 		else
 		{
+
 			// Check user ID
 			$user    = JFactory::getUser();
 			$user_id = (int) $user->id;
 
+//			??? if not / if needed ??
 			if (empty($user_id))
 			{
-				$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR') . " " . JText::_('COM_RSGALLERY2_COMMENTING_IS_DISABLED');
+				// ToDo: Message Login to comment
+				$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR') . " " . JText::_('COM_RSGALLERY2_YOU_MUST_LOGIN_TO_COMMENT' . ' (B)');
 				$msgType = 'Warning: ';
 				// replace newlines with html line breaks.
 				str_replace('\n', '<br>', $msg);
@@ -72,6 +74,9 @@ class RSGallery2ControllerComment extends BaseController
 				try
 				{
 					echo "<br><br><br>*CommentSingleImage<br><br><br>";
+
+					// ToDo: check for appearance
+					$limitStart = $input->get('paginationImgIdx', 0, 'INT');
 
 					$imageId = $input->get('id', 0, 'INT');
 					$item_id = $input->get('item_id', 0, 'INT');
@@ -108,7 +113,7 @@ class RSGallery2ControllerComment extends BaseController
 
 // ToDo: captcha ? ...
 
-// check cooky comment once
+// check cookie comment once
 
 					$commentModel = $this->getModel('comments');
 					$isSaved      = $commentModel->addComment($imageId, $comment);
@@ -121,8 +126,8 @@ class RSGallery2ControllerComment extends BaseController
 
 					// limitstart=3 ....
 					// http://127.0.0.1/joomla3x/index.php?option=com_rsgallery2&view=gallery&gid=2&advancedSef=1&startShowSingleImage=1&Itemid=145&XDEBUG_SESSION_START=12302&limitstart=3
-					$link = 'index.php?option=com_rsgallery2&view=gallery&gid=' . $galleryId . '&id=' . $imageId
-						. '&startShowSingleImage=1' . '&rating=' . $userRating . '&limitstart=' . $limitStart;
+					//$link = 'index.php?option=com_rsgallery2&view=gallery&gid=' . $galleryId . '&id=' . $imageId
+					//	. '&startShowSingleImage=1' . '&rating=' . $userRating . '&limitstart=' . $limitStart;
 				}
 				catch
 					(RuntimeException $e)

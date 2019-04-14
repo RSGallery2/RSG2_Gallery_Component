@@ -38,21 +38,21 @@ Or you can use a form where there is a hidden task field.
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		$input = JFactory::getApplication()->input;
+		$imageId = $input->get('id', 0, 'INT');
 
 		// http://127.0.0.1/Joomla3x/index.php?option=com_rsgallery2&view=gallery&gid=42&advancedSef=1&startShowSingleImage=1&Itemid=218
-		$link = 'index.php?option=com_rsgallery2'; // &startShowSingleImage=1&Itemid=218
-		$link = 'index.php?option=com_rsgallery2&page=inline'; // &id=' . $imageId) .'" id="rsgVoteForm">';
-
-		$imageId = $input->get('id', 0, 'INT');
-		$link = $link . '&id=' . $imageId;
+		//$link = 'index.php?option=com_rsgallery2'; // &startShowSingleImage=1&Itemid=218
+		$link = 'index.php?option=com_rsgallery2&page=inline&id=' . $imageId.'&tab=vote';
 
 		// Access check
 		$canVote = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
+		// ToDO: remove
 		$canVote = true;
 
 		if ( ! $canVote)
 		{
-			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR') . " " . JText::_('COM_RSGALLERY2_VOTING_IS_DISABLED');
+			
 			$msgType = 'warning';
 			// replace newlines with html line breaks.
 			str_replace('\n', '<br>', $msg);

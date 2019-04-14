@@ -421,6 +421,9 @@ class rsgDisplay_semantic extends rsgDisplay
 	{
 		global $rsgConfig;
 
+		$input = JFactory::getApplication()->input;
+		$selectTab = $input->get('tab', '', 'STRING');
+
 		$gallery = rsgGalleryManager::get();
 		$image    = $gallery->getItem();
 
@@ -456,32 +459,58 @@ class rsgDisplay_semantic extends rsgDisplay
 			$isDisplayCommentsActive = '';
 			$isDisplayEXIFActive = '';
 
-			/**/
-			if ($isDisplayDesc)
+            // return after action (voting/commenting)
+            if (!empty ($selectTab))
+            {
+	            //--- redraw -----------------------------------------------------
+
+	            if ($selectTab == "vote")
+	            {
+		            // if ($isDisplayVoting) not needed
+		            $isDisplayVotingActive = 'active';
+	            }
+	            else
+	            {
+		            if ($selectTab == "comment")
+		            {
+			            $isDisplayCommentsActive = 'active';
+		            }
+	            }
+            }
+
+
+            // Not activated
+            if ( empty ($isDisplayVotingActive) && empty ($isDisplayCommentsActive))
 			{
-			$isDisplayDescActive = 'active';
-			}
-			else
-			{
-				if ($isDisplayVoting)
+				//--- first displayed tab is active -----------------------------------------
+
+				if ($isDisplayDesc)
 				{
-					$isDisplayVotingActive = 'active';
+					$isDisplayDescActive = 'active';
 				}
 				else
 				{
-					if ($isDisplayComments)
+					if ($isDisplayVoting)
 					{
-						$isDisplayCommentsActive = 'active';
+						$isDisplayVotingActive = 'active';
 					}
 					else
 					{
-						if ($isDisplayEXIF)
+						if ($isDisplayComments)
 						{
-							$isDisplayEXIFActive = 'active';
+							$isDisplayCommentsActive = 'active';
+						}
+						else
+						{
+							if ($isDisplayEXIF)
+							{
+								$isDisplayEXIFActive = 'active';
+							}
 						}
 					}
 				}
 			}
+
 			/**
 			$isDisplayCommentsActive = 'active';
             /**/
