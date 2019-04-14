@@ -14,6 +14,9 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.modeladmin');
 jimport('joomla.application.component.helper');
 
+
+// ToDo: don't return message, return successful/error
+
 /**
  * Handle RAW display of configuration
  *
@@ -44,10 +47,10 @@ class Rsgallery2ModelConfigRaw extends JModelList
 	 * @return string
 	 *
 	 * @since 4.3.0
-    */
+	 */
 	public function save()
 	{
-	    // ToDO: Move message to controller, return true or false
+		// ToDO: Move message to controller, return true or false
 
 		$msg = "Rsgallery2ModelConfigRaw: ";
 
@@ -55,12 +58,12 @@ class Rsgallery2ModelConfigRaw extends JModelList
 		//$jform = $input->get( 'jform', array(), 'ARRAY');
 		$data = $input->post->get('jform', array(), 'array');
 
-        // ToDo: Remove bad injected code
+		// ToDo: Remove bad injected code
 
 		$row = $this->getTable();
 		foreach ($data as $key => $value)
 		{
-            // fill an array, bind and check and store ?
+			// fill an array, bind and check and store ?
 			$row->id    = null;
 			$row->name  = $key;
 			$row->value = $value;
@@ -72,4 +75,28 @@ class Rsgallery2ModelConfigRaw extends JModelList
 
 		return $msg;
 	}
+	/**
+	 * save raw ...
+	 *
+	 * @return string
+	 *
+	 * @since 4.3.0
+	 */
+	public function reset2default()
+	{
+		// ToDO: Move message to controller, return true or false
+
+		$msg = "Rsgallery2ModelReset2Default: ";
+
+		$defaultConfig = new rsgConfig(false);
+		$isSaved = $defaultConfig->saveConfig();
+
+		return $isSaved;
+	}
+
+
+
+
+
+
 }

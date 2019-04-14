@@ -105,6 +105,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
         $link = 'index.php?option=com_rsgallery2&view=config&layout=RawEdit';
         $this->setRedirect($link, $msg, $msgType);
     }
+
     /**
      * Save changes in raw edit view value by value
      *
@@ -150,6 +151,47 @@ class Rsgallery2ControllerConfig extends JControllerForm
 
 		return true;
 	}
+
+
+	/**
+	 * Save changes in raw edit view value by value
+	 *
+	 * @since version 4.3
+	 */
+	public function reset2default()
+	{
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		$msg     = "reset2default: " . '<br>';
+		$msgType = 'notice';
+
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
+		if (!$canAdmin) {
+			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		} else {
+			$model = $this->getModel('ConfigRaw');
+
+			$isSaved = $model->reset2default();
+
+			$msg  = "Reset configuration to default values ";
+			if ($isSaved)
+			{
+				$msg .= "successful";
+			}
+			else
+			{
+				$msg .= "failed !!!";
+			}
+		}
+
+		$link = 'index.php?option=com_rsgallery2&view=maintenance';
+		$this->setRedirect($link, $msg, $msgType);
+	}
+
 
 	/**
 	 * Standard cancel (may not be used)

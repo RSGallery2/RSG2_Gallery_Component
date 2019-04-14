@@ -105,20 +105,23 @@ class Rsgallery2ModelConfig extends JModelAdmin
 	{
 		$data = array();
 
-		$database = JFactory::getDBO();
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(true)
+			->select('*')
+			->from('#__rsgallery2_config');
+		$db->setQuery($query);
 
-		$query = "SELECT * FROM #__rsgallery2_config";
-		$database->setQuery($query);
-
-		if (!$database->execute())
+		/**
+		if (!$db->execute())
 		{
 			// database doesn't exist, use defaults
 			// for this->name = value association (see below)
 			// ToDo: ? May create database table write values and call itself
 			return;
 		}
+		/**/
 
-		$vars = $database->loadAssocList();
+		$vars = $db->loadAssocList();
 		if (!$vars)
 		{
 			// database doesn't exist, use defaults
