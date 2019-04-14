@@ -293,12 +293,12 @@ class rsgConfig
     function _loadConfig()
     {
         $db = JFactory::getDBO();
-        $query = $db->getQuery(true);
+	    $query = $db->getQuery(true)
+		    ->select('*')
+		    ->from('#__rsgallery2_config');
+	    $db->setQuery($query);
 
-        $query = "SELECT * FROM #__rsgallery2_config";
-        $db->setQuery($query);
-        // ToDO: FIX: Use standard query ...
-        //$query->select('*')
+	    /**
         //    ->from($db->quoteName('#__rsgallery2_config'));
         if (!$db->execute()) {
             // database doesn't exist, use defaults
@@ -306,6 +306,7 @@ class rsgConfig
             // ToDo: ? May create database table write values and call itself
             return;
         }
+		/**/
 
         $vars = $db->loadAssocList();
         if (!$vars) {
