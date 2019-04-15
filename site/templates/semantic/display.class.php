@@ -616,7 +616,7 @@ class rsgDisplay_semantic extends rsgDisplay
 				{
 					// echo '                <p>' . JText::_('COM_RSGALLERY2_NO_EXIF_ITEM_SELECTED_') . '</p>';
 				}
-				echo '                <p>Howdy, I\'m in Section 4.</p>';
+				//echo '                <p>Howdy, I\'m in Section 4.</p>';
 				echo '            </div>';
 				echo '        </div>';
 			}
@@ -789,20 +789,6 @@ class rsgDisplay_semantic extends rsgDisplay
 		$html = [];
 
 
-		/**
-		$html[] = '<div class ="alert alert-info">';
-		$html[] = '</div>';
-		$html[] = '';
-		$html[] = '';
-		$html[] = '';
-		$html[] = '';
-		$html[] = '';
-		/**/
-		/**
-		$html[] = '<div class ="info">';
-		$html[] = '<caption>';
-		/**/
-
 		$html[] = '<div class="container span12">';
 
 		//--- Hits --------------------------------
@@ -838,15 +824,19 @@ class rsgDisplay_semantic extends rsgDisplay
 
 		return implode("\n", $html);
 	}
+//================================================================================================
+// htmlComments
+//================================================================================================
 
 	function htmlComments ($comments, $gid, $imageId)
 	{
-		// toDO improve ....
+		// toDo improve ....
 		// https://bootsnipp.com/snippets/Vp4P
 		// https://bootsnipp.com/snippets/featured/comment-posts-layout
 		// https://bootsnipp.com/snippets/featured/blog-post-footer
 		// sophisticated
 		// https://bootsnipp.com/snippets/featured/collapsible-tree-menu-with-accordion
+		// https://bootsnipp.com/snippets/a35Pl
 
 		$formFields = $comments->formFields;
 		$imgComments = $comments->comments;
@@ -877,25 +867,6 @@ class rsgDisplay_semantic extends rsgDisplay
 
 			//--- add comment link bar -------------------------------------------------
 
-			/**
-			$html[] = '<div id="comment">';
-			$html[] = '    <table width="100%" class="comment_table">';
-			$html[] = '        <tr>';
-			//$html[] = '	           <td class="title" width="25%"' .  JText::_('COM_RSGALLERY2_COMMENTS') . '</td>';
-			//$html[] = '	           <td class="title" width="50%">' . JText::_('COM_RSGALLERY2_COMMENTS_ADDED') . '</td>';
-			$html[] = '	           <td class="title pull-right">';
-			//$html[] = '	               <div class="addcomment">';
-			$html[] = '    <i class="icon-comment"></i>';
-			$html[] = '	                   <a class="special" href="#lblAddCcomment">' . JText::_('COM_RSGALLERY2_ADD_COMMENT') . '</a>';
-			//$html[] = '	               </div>';
-			$html[] = '	           </td>';
-			$html[] = '	       </tr>';
-			$html[] = '    </table>';
-			$html[] = '    <br />';
-			$html[] = '</div>';
-			$html[] = '';
-			/**/
-
 			$html[] = '<div id="comment" class="title pull-right">';
 
 			$html[] = '    <button class="btn btn-success" type="button">';
@@ -908,14 +879,11 @@ class rsgDisplay_semantic extends rsgDisplay
 
 			$html[] = '</div>';
 
-			$html[] = '<div class="clearfix" >';
-
-
-
-			// https://bootsnipp.com/snippets/a35Pl
+			// $html[] = '<div class="clearfix" />';
 
 			//--- existing comments -----------------------------------------------------
 
+            /**/
 			// each comment
 			foreach ($imgComments as $comment)
 			{
@@ -923,26 +891,28 @@ class rsgDisplay_semantic extends rsgDisplay
 				// $html[] = '<div class="row">';
 
 				$html[] = '<div class="media">';
-				/**/
+
 				$html[] = '    <a class="pull-left span2" href="#">';
 				//$html[] = '<div class="thumbnail">';
 
 				// $html[] = '<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">';
 				$html[] = '        <div>';
-				$html[] = '            <i class="icon-user"></i>';
+				//$html[] = '            <i class="icon-user large-icon" style="font-size:24px;"></i>';
+				$html[] = '            <i class="icon-user large-icon"></i>';
 				$html[] = '            <strong>' . $comment->user_name . '</strong>';
 				//$html[] = '            <br> <span class="text-muted">commented 5 days ago</span>';
 				$html[] = '        </div>';
 
 				//$html[] = '</div>'; //<!-- /thumbnail -->
 				$html[] = '    </a>';
-				/**/
+
 
 				$html[] = '<div class="clearfix" >';
 
-				/**/
+
 				$html[] = '    <div class="media-body  span10">';
-				$html[] = '        <i class="icon-comment"></i>';
+				//$html[] = '        <i class="icon-comment large-icon" style="font-size:24px;"></i>';
+				$html[] = '        <i class="icon-comment large-icon"></i>';
 				$html[] = '        <strong class="media-heading title">' . $comment->subject . '</strong>';
 				//$html[] = '        <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>';
 
@@ -950,17 +920,12 @@ class rsgDisplay_semantic extends rsgDisplay
 
 				$html[] = '    </div>';
 				$html[] = '';
-				/**/
+
+				$html[] = '</div>';
 
 				$html[] = '</div>'; // class="media">';
 
 				$html[] = '<hr>';
-				/**
-				$html[] = '';
-				// $html[] = '</div>'; // row
-				$html[] = '';
-				/**/
-
 			}
 
 			/**/
