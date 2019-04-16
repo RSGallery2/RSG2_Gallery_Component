@@ -191,15 +191,11 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                     <div class="icons-panel rsg2">
                         <div class="row-fluid">
                             <div class="icons-panel-title rsg2Zone">
-                                <h3>
-                                    <?php echo JText::_('COM_RSGALLERY2_RSGALLERY2_ZONE'); ?>
-                                </h3>
+                                <h3><?php echo JText::_('COM_RSGALLERY2_RSGALLERY2_ZONE'); ?></h3>
                             </div>
 
                             <div class='icons-panel-info'>
-                                <strong>
-                                    <?php echo JText::_('COM_RSGALLERY2_RSGALLERY2_ZONE_DESC'); ?>
-                                </strong>
+                                <strong><?php echo JText::_('COM_RSGALLERY2_RSGALLERY2_ZONE_DESC'); ?></strong>
                             </div>
 
                             <?php
@@ -246,15 +242,11 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                         <div class="icons-panel rawDb">
                             <div class="row-fluid">
                                 <div class="icons-panel-title rawDbZone">
-                                    <h3>
-                                        <?php echo JText::_('COM_RSGALLERY2_RAW_DB_ZONE'); ?>
-                                    </h3>
+                                    <h3><?php echo JText::_('COM_RSGALLERY2_RAW_DB_ZONE'); ?></h3>
                                 </div>
 
                                 <div class='icons-panel-info'>
-                                    <strong>
-                                        <?php echo JText::_('COM_RSGALLERY2_RAW_DB_ZONE_DESCRIPTION'); ?>
-                                    </strong>
+                                    <strong><?php echo JText::_('COM_RSGALLERY2_RAW_DB_ZONE_DESCRIPTION'); ?></strong>
                                 </div>
 
                                 <?php
@@ -309,15 +301,11 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                     <div class="icons-panel Outdated">
                         <div class="row-fluid">
                             <div class="icons-panel-title OutdatedZone">
-                                <h3>
-                                    <?php echo JText::_('COM_RSGALLERY2_OUTDATED_ZONE'); ?>
-                                </h3>
+                                <h3><?php echo JText::_('COM_RSGALLERY2_OUTDATED_ZONE'); ?></h3>
                             </div>
 
                             <div class='icons-panel-info'>
-                                <strong>
-                                    <?php echo JText::_('COM_RSGALLERY2_OUTDATED_ZONE_DESC'); ?>
-                                </strong>
+                                <strong><?php echo JText::_('COM_RSGALLERY2_OUTDATED_ZONE_DESC'); ?></strong>
                             </div>
 
                             <?php
@@ -385,18 +373,14 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                     </div>
                 </div>
 
-                <div class="row span4 rsg2-container-icon-set">
+                <div class="row span4 rsg2_container_icon_set">
                     <div class="icons-panel repair">
                         <div class="row-fluid">
                             <div class="icons-panel-title repairZone">
-                                <h3>
-                                    <?php echo JText::_('COM_RSGALLERY2_REPAIR_ZONE'); ?>
-                                </h3>
+                                <h3><?php echo JText::_('COM_RSGALLERY2_REPAIR_ZONE'); ?></h3>
                             </div>
                             <div class='icons-panel-info'>
-                                <strong>
-                                    <?php echo JText::_('COM_RSGALLERY2_FUNCTIONS_MAY_CHANGE_DATA'); ?>
-                                </strong>
+                                <strong><?php echo JText::_('COM_RSGALLERY2_FUNCTIONS_MAY_CHANGE_DATA'); ?></strong>
                             </div>
 
                             <?php
@@ -466,9 +450,9 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 <?php
                                 $link = 'index.php?option=com_rsgallery2&amp;task=MaintRemoveLogFiles.DeleteLogFiles';
                                 quickIconsBar($link, array('icon-file-check', 'icon-file-remove'),
-                                JText::_('COM_RSGALLERY2_REMOVE_LOG_FILES'),
-                                JText::_('COM_RSGALLERY2_REMOVE_LOG_FILES_TXT'),
-                                'consolidateDB');
+                                    JText::_('COM_RSGALLERY2_REMOVE_LOG_FILES'),
+                                    JText::_('COM_RSGALLERY2_REMOVE_LOG_FILES_TXT'),
+                                    'consolidateDB');
                                 ?>
 
                                 <?php
@@ -483,18 +467,14 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                     <div class="icons-panel danger">
                         <div class="row-fluid">
                             <div class="icons-panel-title dangerZone">
-                                <h3>
-                                    <?php echo JText::_('COM_RSGALLERY2_DANGER_ZONE'); ?>
-                                </h3>
+                                <h3><?php echo JText::_('COM_RSGALLERY2_DANGER_ZONE'); ?></h3>
                             </div>
                             <?php
                             if ($this->dangerActive)
                             {
                                 ?>
                                 <div class='icons-panel-info'>
-                                    <strong>
-                                        <?php echo JText::_('COM_RSGALLERY2_ONLY_WHEN_YOU_KNOW_WHAT_YOU_ARE_DOING'); ?>
-                                    </strong>
+                                    <strong><?php echo JText::_('COM_RSGALLERY2_ONLY_WHEN_YOU_KNOW_WHAT_YOU_ARE_DOING'); ?></strong>
                                 </div>
 
                                 <?php
@@ -541,15 +521,11 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                         <div class="icons-panel upgrade">
                             <div class="row-fluid">
                                 <div class="icons-panel-title upgradeZone">
-                                    <h3>
-                                        <?php echo JText::_('COM_RSGALLERY2_UPGRADE_ZONE'); ?>
-                                    </h3>
+                                    <h3><?php echo JText::_('COM_RSGALLERY2_UPGRADE_ZONE'); ?></h3>
                                 </div>
 
                                 <div class='icons-panel-info'>
-                                    <strong>
-                                        <?php echo JText::_('COM_RSGALLERY2_UPGRADE_ZONE_DESCRIPTION'); ?>
-                                    </strong>
+                                    <strong><?php echo JText::_('COM_RSGALLERY2_UPGRADE_ZONE_DESCRIPTION'); ?></strong>
                                 </div>
 
                                 <?php
@@ -592,15 +568,11 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                         <div class="icons-panel test">
                             <div class="row-fluid">
                                 <div class="icons-panel-title testZone">
-                                    <h3>
-                                        <?php echo JText::_('COM_RSGALLERY2_TEST_ZONE'); ?>
-                                    </h3>
+                                    <h3><?php echo JText::_('COM_RSGALLERY2_TEST_ZONE'); ?></h3>
                                 </div>
 
                                 <div class='icons-panel-info'>
-                                    <strong>
-                                        <?php echo JText::_('COM_RSGALLERY2_TEST_ZONE_DESCRIPTION'); ?>
-                                    </strong>
+                                    <strong><?php echo JText::_('COM_RSGALLERY2_TEST_ZONE_DESCRIPTION'); ?></strong>
                                 </div>
 
                                 <?php
@@ -641,14 +613,10 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                         <div class="icons-panel developer">
                             <div class="row-fluid">
                                 <div class="icons-panel-title developerZone">
-                                    <h3>
-                                        <?php echo JText::_('COM_RSGALLERY2_DEVELOPER_ZONE'); ?>
-                                    </h3>
+                                    <h3><?php echo JText::_('COM_RSGALLERY2_DEVELOPER_ZONE'); ?></h3>
                                 </div>
                                 <div class='icons-panel-info'>
-                                    <strong>
-                                        <?php echo JText::_('COM_RSGALLERY2_ONLY_WHEN_YOU_KNOW_WHAT_YOU_ARE_DOING'); ?>
-                                    </strong>
+                                    <strong><?php echo JText::_('COM_RSGALLERY2_ONLY_WHEN_YOU_KNOW_WHAT_YOU_ARE_DOING'); ?></strong>
                                 </div>
 
                                 <?php
