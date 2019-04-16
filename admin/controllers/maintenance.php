@@ -46,7 +46,8 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 	}
 
     /**
-     *
+     * Move to maintenance main page on canlel
+     * May be issued from other sub forms like maintconsolidatedb
      *
      * @since 4.3
      */
@@ -70,108 +71,6 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
-	/**
-	 * Checks if user has root status (is re.admin')
-	 *
-	 * @return    bool
-     *
-     * @since 4.3
-	 *
-	function IsUserRoot()
-	{
-		$user     = JFactory::getUser();
-		$canAdmin = $user->authorise('core.manage');
-
-		return $canAdmin;
-	}
-
-	/**
-	
-	
-	 * @since 4.3.0
-     * 
-	function ConsolidateDatabase()
-	{
-		global $Rsg2DebugActive;
-
-		if ($Rsg2DebugActive)
-		{
-			JLog::add('==> ctrl.maintenance.php/function ConsolidateDatabase');
-		}
-
-		$msg     = 'RSG2 database is consolidated. ';
-		$msgType = 'notice';
-
-		$msg .= '!!! Not implemented yet !!!';
-
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
-	}
-    /**/
-
-    /**
-     *
-     *
-     * @since 4.3
-     *
-	function consolidateDB()
-	{
-		$msg     = "consolidateDB: ";
-		$msgType = 'notice';
-
-		$msg .= '!!! Not implemented yet !!!';
-
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
-	}
-    /**/
-
-    /**
-     *
-     *
-     * @since 4.3
-     *
-	function regenerateThumbs()
-	{
-		$msg     = "regenerateThumbs: ";
-		$msgType = 'notice';
-
-		$msg .= '!!! Not implemented yet !!!';
-
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
-	}
-    /**/
-
-    /**
-     *
-     *
-     * @since 4.3
-     *
-	function viewConfigPlain()
-	{
-		$msg     = "viewConfigPlain: ";
-		$msgType = 'notice';
-
-		$msg .= '!!! Not implemented yet !!!';
-
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
-	}
-    /**/
-
-
-    /**
-     *
-     *
-     * @since 4.3
-     *
-	function editConfigRaw()
-	{
-		$msg     = "editConfigRaw: ";
-		$msgType = 'notice';
-
-		$msg .= '!!! Not implemented yet !!!';
-
-		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
-	}
-    /**/
 
     /**
      * Delete RSGallery language files in joomla 1.5 version or older style for backend
@@ -179,19 +78,53 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
      *
      * @since 4.3
      */
-	function delete_1_5_LangFiles()
+	function delete_base_LangFiles()
 	{
-		$msg     = "Delete_1_5_LangFiles: ";
+		$msg     = "Delete base language files: ";
 		$msgType = 'notice';
 
-		// .../administrator/language/
-		$startDir  = JPATH_ADMINISTRATOR . '/language';
-		$IsDeleted = $this->findAndDelete_1_5_LangFiles($startDir);
-		if ($IsDeleted)
-		{
-			$msg .= " is successful";
-		}
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
+		// Access check
+		$canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
+		if (!$canAdmin)
+		{
+			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
+			$msgType = 'warning';
+			// replace newlines with html line breaks.
+			str_replace('\n', '<br>', $msg);
+		}
+		else
+		{
+			try
+			{
+				// .../administrator/language/
+				$startDir  = JPATH_ADMINISTRATOR . '/language';
+				$IsDeleted = $this->findAndDelete_RSG2_LangFiles($startDir);
+				if ($IsDeleted)
+				{
+					$msg .= " path Admin successful";
+				}
+
+				// .../administrator/language/
+				$startDir  = JPATH_SITE . '/language';
+				$IsDeleted = $this->findAndDelete_RSG2_LangFiles($startDir);
+				if ($IsDeleted)
+				{
+					$msg .= " path Admin successful";
+				}
+
+			}
+			catch (RuntimeException $e)
+			{
+				$OutTxt = '';
+				$OutTxt .= 'Error executing delete_base_LangFiles: "' . '<br>';
+				$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+				$app = JFactory::getApplication();
+				$app->enqueueMessage($OutTxt, 'error');
+			}
+		}
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
 
@@ -204,7 +137,7 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 	 *
 	 * @since 4.3
 	 */
-	function findAndDelete_1_5_LangFiles($startDir)
+	function findAndDelete_RSG2_LangFiles($startDir)
 	{
 		$IsDeleted = false;
 
@@ -245,7 +178,7 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 			}
 			else
 			{
-				$msg .= 'Good: No files needed to be deleted: ';
+				$msg .= 'OK: No files needed to be deleted: ';
 			}
 
 			JFactory::getApplication()->enqueueMessage($msg, 'notice');
@@ -265,6 +198,8 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 		$msg = "Repaired image permissions: <br>";
 		$msgType = 'notice';
 
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 		// Access check
 		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
 		if (!$canAdmin)
@@ -276,11 +211,22 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 		}
 		else
 		{
-
 			//--- Delete all images -------------------------------
 
-			$imageModel = $this->getModel('MaintImageFiles');
-			$msg .= $imageModel->repairImagePermissions();
+			try
+			{
+				$imageModel = $this->getModel('MaintImageFiles');
+				$msg        .= $imageModel->repairImagePermissions();
+			}
+			catch (RuntimeException $e)
+			{
+				$OutTxt = '';
+				$OutTxt .= 'Error executing repairImagePermissions: "' . '<br>';
+				$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+				$app = JFactory::getApplication();
+				$app->enqueueMessage($OutTxt, 'error');
+			}
 		}
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);

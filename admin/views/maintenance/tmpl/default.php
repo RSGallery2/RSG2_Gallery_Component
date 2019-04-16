@@ -569,7 +569,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 ?>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.delete_1_5_LangFiles';
+                                $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.delete_base_LangFiles';
                                 quickIconsBar($link, array('icon-delete', 'icon-flag'),
                                     JText::_('COM_RSGALLERY2_DELETE_1_5_LANG_FILES'),
                                     JText::_('COM_RSGALLERY2_DELETE_1_5_LANG_FILES_DESC'),
