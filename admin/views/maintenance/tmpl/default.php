@@ -199,7 +199,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                             </div>
 
                             <?php
-                            $link = 'index.php?option=com_rsgallery2&amp;view=maintslideshows';
+                            $link = JRoute::_('index.php?option=com_rsgallery2&amp;view=maintslideshows');
                             quickIconsBar($link, array ('icon-equalizer', 'icon-play'),
                                 JText::_('COM_RSGALLERY2_SLIDESHOW_CONFIGURATION'),
                                 JText::_('COM_RSGALLERY2_SLIDESHOWS_CONFIGURATION_DESC') . '                        ',
@@ -207,7 +207,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                             ?>
 
                             <?php
-                            $link = 'index.php?option=com_rsgallery2&amp;view=maintTemplates';
+                            $link = JRoute::_('index.php?option=com_rsgallery2&amp;view=maintTemplates');
                             quickIconsBar($link, array ('icon-equalizer', 'icon-out-3'), //paragraph-justify
                                 JText::_('COM_RSGALLERY2_TEMPLATE_CONFIGURATION'),
                                 JText::_('COM_RSGALLERY2_TEMPLATES_CONFIGURATION_DESC') . '                        ',
@@ -215,7 +215,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                             ?>
 
                             <?php
-                            $link = 'index.php?option=com_rsgallery2&amp;view=comments';
+                            $link = JRoute::_('index.php?option=com_rsgallery2&amp;view=comments');
                             quickIconsBar($link, array('icon-comment', 'icon-list-2'),
                                 JText::_('COM_RSGALLERY2_COMMENTS_LIST'),
                                 JText::_('COM_RSGALLERY2_COMMENTS_TXT'),
@@ -224,8 +224,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
 
 
                             <?php
-                            $link = 'index.php?option=com_rsgallery2&rsgOption=installer';
-
+                            $link = JRoute::_('index.php?option=com_rsgallery2&rsgOption=installer');
                             quickIconsBar($link, array('icon-scissors clsTemplate'),
                                 JText::_('COM_RSGALLERY2_TEMPLATE_MANAGER'),
                                 '<del>' . JText::_('COM_RSGALLERY2_MAINT_TEMPLATE_DESC') . '</del>',
@@ -250,7 +249,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 </div>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawView';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawView');
                                 quickIconsBar($link, array('icon-equalizer', 'icon-eye'),
                                     JText::_('COM_RSGALLERY2_CONFIGURATION_VARIABLES'),
                                     JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT') . '                        ',
@@ -258,7 +257,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 ?>
 
                                 <?php
-                                //$link = 'index.php?option=com_rsgallery2&amp;view=images';
+                                //$link = JRoute::_('index.php?option=com_rsgallery2&amp;view=images');
                                 $link = 'index.php?option=com_rsgallery2&amp;view=images&amp;layout=images_raw';
                                 quickIconsBar($link, array('icon-image', 'icon-list-2'),
                                     JText::_('COM_RSGALLERY2_IMAGES_LIST'),
@@ -267,7 +266,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 ?>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;view=galleries&amp;layout=galleries_raw';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;view=galleries&amp;layout=galleries_raw');
                                 quickIconsBar($link, array('icon-images', 'icon-list-2'),
                                     JText::_('COM_RSGALLERY2_GALLERIES_LIST'),
                                     JText::_('COM_RSGALLERY2_RAW_GALLERIES_TXT'),
@@ -275,7 +274,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 ?>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;view=comments&amp;layout=comments_raw';
+                                $link = ('index.php?option=com_rsgallery2&amp;view=comments&amp;layout=comments_raw');
                                 quickIconsBar($link, array('icon-comment', 'icon-list-2'),
                                     JText::_('COM_RSGALLERY2_COMMENTS_LIST'),
                                     JText::_('COM_RSGALLERY2_RAW_COMMENTS_TXT'),
@@ -284,7 +283,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
 
                                 <?php
                                 /**
-                            $link = 'index.php?option=com_rsgallery2&amp;view=acl_items&amp;layout=acls_raw';
+                            $link = JRoute::_('index.php?option=com_rsgallery2&amp;view=acl_items&amp;layout=acls_raw');
                             quickIconsBar ($link, array('icon-eye-close', 'icon-list-2'),
                                 JText::_('COM_RSGALLERY2_ACLS_LIST'),
                                 JText::_('COM_RSGALLERY2_RAW_ACLS_TXT'),
@@ -309,7 +308,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                             </div>
 
                             <?php
-                            $link = 'index.php?option=com_rsgallery2&amp;rsgOption=config&amp;task=showConfig';
+                            $link = JRoute::_('index.php?option=com_rsgallery2&amp;rsgOption=config&amp;task=showConfig');
                             quickiconBar($link, 'config.png',
                                 JText::_('COM_RSGALLERY2_CONFIGURATION'),
                                 JText::_('        '), // COM_RSGALLERY2_CONFIG_MINUS_VIEW
@@ -317,7 +316,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                             ?>
 
                             <?php
-                            $link = 'index.php?option=com_rsgallery2&amp;rsgOption=galleries';
+                            $link = JRoute::_('index.php?option=com_rsgallery2&amp;rsgOption=galleries');
                             quickiconBar($link, 'categories.png',
                                 JText::_('COM_RSGALLERY2_MANAGE_GALLERIES'),
                                 JText::_('        '),
@@ -326,7 +325,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
 
 
                             <?php
-                            $link = 'index.php?option=com_rsgallery2&amp;rsgOption=images&task=view_images';
+                            $link = JRoute::_('index.php?option=com_rsgallery2&amp;rsgOption=images&task=view_images');
                             quickiconBar($link, 'mediamanager.png',
                                 JText::_('COM_RSGALLERY2_MANAGE_IMAGES'),
                                 JText::_('        '),
@@ -335,7 +334,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
 
 
                             <?php
-                            $link = 'index.php?option=com_rsgallery2&rsgOption=images&task=upload';
+                            $link = JRoute::_('index.php?option=com_rsgallery2&rsgOption=images&task=upload');
                             quickiconBar($link, 'upload.png',
                                 JText::_('COM_RSGALLERY2_UPLOAD_SINGLE_IMAGES'),
                                 JText::_('        '),
@@ -345,7 +344,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
 
                             <?php
                             /**
-                        $link = 'index.php?option=com_rsgallery2&task=config_rawEdit';
+                        $link = JRoute::_('index.php?option=com_rsgallery2&task=config_rawEdit');
                         quickiconBar($link, 'menu.png',
                         JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT'),
                         JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'),
@@ -358,8 +357,8 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                             {
                                 ?>
                                 <?php
-                                //$link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
-                                $link = 'index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB';
+                                //$link = JRoute::_('index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB');
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;rsgOption=maintenance&amp;task=consolidateDB');
                                 quickiconBar($link, 'blockdevice.png',
                                     JText::_('COM_RSGALLERY2_MAINT_CONSOLDB'),
                                     JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT'),
@@ -389,8 +388,8 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 ?>
 
                                 <?php
-                                // $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB';
-                                $link = 'index.php?option=com_rsgallery2&amp;view=maintConsolidateDB';
+                                // $link = JRoute::_('index.php?option=com_rsgallery2&amp;task=maintenance.consolidateDB');
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;view=maintConsolidateDB');
                                 quickIconsBar($link, array('icon-database', 'icon-checkbox-checked'),
                                     JText::_('COM_RSGALLERY2_MAINT_CONSOLIDATE_IMAGE_DATABASE'),
                                     JText::_('COM_RSGALLERY2_MAINT_CONSOLDB_TXT'),
@@ -398,7 +397,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 ?>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawEdit';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;view=config&amp;layout=RawEdit');
                                 quickIconsBar($link, array('icon-equalizer', 'icon-edit'),
                                     JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_EDIT'),
                                     JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'),
@@ -406,7 +405,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 ?>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;task=config.reset2default';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;task=config.reset2default');
                                 quickIconsBar($link, array('icon-equalizer', 'icon-redo'),
                                     JText::_('COM_RSGALLERY2_CONFIG_RESET_TO_DEFAULT'),
                                     JText::_('COM_RSGALLERY2_CONFIG_RESET_TO_DEFAULT_DESC'),
@@ -415,7 +414,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
 
                                 <?php
                                 /**
-                                $link = 'index.php?option=com_rsgallery2&amp;view=maintUploadLeftOverImages';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;view=maintUploadLeftOverImages');
                                 quickIconsBar($link, array('icon-image', 'icon-upload'),
                                     JText::_('COM_RSGALLERY2_MAINT_UPLOAD_LEFT_OVER_IMAGES'),
                                     JText::_('COM_RSGALLERY2_MAINT_UPLOAD_LEFT_OVER_IMAGES_DESC') . '                        ',
@@ -424,7 +423,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 ?>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;view=maintRegenerateImages';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;view=maintRegenerateImages');
                                 quickIconsBar($link, array('icon-image', 'icon-wand'),
                                     JText::_('COM_RSGALLERY2_MAINT_REGEN_BUTTON_DISPLAY'),
                                     JText::_('COM_RSGALLERY2_MAINT_REGEN_TXT') . '                        ',
@@ -432,7 +431,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 ?>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;task=maintSql.optimizeDB';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;task=maintSql.optimizeDB');
                                 quickIconsBar($link, array('icon-database', 'icon-clock'), // 'icon-checkbox-checked'
                                     JText::_('COM_RSGALLERY2_MAINT_OPTDB'),
                                     JText::_('COM_RSGALLERY2_MAINT_OPTDB_TXT'),
@@ -440,7 +439,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 ?>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.repairImagePermissions';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;task=maintenance.repairImagePermissions');
                                 quickIconsBar($link, array('icon-image', 'icon-unlock'), // 'icon-'
                                     JText::_('COM_RSGALLERY2_MAINT_REPAIR_IMAGE_PERMISSION'),
                                     JText::_('COM_RSGALLERY2_MAINT_REPAIR_IMAGE_PERMISSION_DESC'),
@@ -448,7 +447,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 ?>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;task=MaintRemoveLogFiles.DeleteLogFiles';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;task=MaintRemoveLogFiles.DeleteLogFiles');
                                 quickIconsBar($link, array('icon-file-check', 'icon-file-remove'),
                                     JText::_('COM_RSGALLERY2_REMOVE_LOG_FILES'),
                                     JText::_('COM_RSGALLERY2_REMOVE_LOG_FILES_TXT'),
@@ -478,16 +477,16 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 </div>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;task=MaintCleanUp.purgeImagesAndData';
-                                //$link = 'index.php?option=com_rsgallery2&task=purgeEverything';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;task=MaintCleanUp.purgeImagesAndData');
+                                //$link = JRoute::_('index.php?option=com_rsgallery2&task=purgeEverything');
                                 quickIconsBar($link, array('icon-database ', 'icon-purge'),
                                     JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING'),
                                     JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING_TXT'),
                                     'purgeImagesAndData');
                                 ?>
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;task=MaintCleanUp.removeImagesAndData';
-                                //$link = 'index.php?option=com_rsgallery2&task=reallyUninstall';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;task=MaintCleanUp.removeImagesAndData');
+                                //$link = JRoute::_('index.php?option=com_rsgallery2&task=reallyUninstall');
                                 quickIconsBar($link, array('icon-database ', 'icon-delete'),
                                     JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL'),
                                     '<del>' . JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL_TXT') . '</del><br>'
@@ -529,7 +528,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 </div>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;view=maintDatabase';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;view=maintDatabase');
                                 quickIconsBar($link, array('icon-database', 'icon-book'),
                                     JText::_('JLIB_FORM_VALUE_SESSION_DATABASE'),
                                     JText::_('COM_RSGALLERY2_DATABASE_REPAIR_DESC'),
@@ -537,7 +536,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 ?>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;task=maintSql.createGalleryAccessField';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;task=maintSql.createGalleryAccessField');
                                 quickIconsBar($link, array('icon-database', 'icon-wrench'),
                                     JText::_('COM_RSGALLERY2_CREATE_GALLERY_ACCESS_FIELD'),
                                     JText::_('COM_RSGALLERY2_CREATE_GALLERY_ACCESS_FIELD_DESCRIPTION'),
@@ -545,7 +544,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 ?>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;task=maintenance.delete_base_LangFiles';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;task=maintenance.delete_base_LangFiles');
                                 quickIconsBar($link, array('icon-delete', 'icon-flag'),
                                     JText::_('COM_RSGALLERY2_DELETE_1_5_LANG_FILES'),
                                     JText::_('COM_RSGALLERY2_DELETE_1_5_LANG_FILES_DESC'),
@@ -576,7 +575,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 </div>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;view=comments';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;view=comments');
                                 quickIconsBar($link, array('icon-comment', 'icon-list-2'),
                                     JText::_('COM_RSGALLERY2_COMMENTS_LIST'),
                                     JText::_('COM_RSGALLERY2_COMMENTS_TXT'),
@@ -584,7 +583,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 ?>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;view=acl_items';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;view=acl_items');
                                 quickIconsBar($link, array('icon-eye-close', 'icon-list-2'),
                                     JText::_('COM_RSGALLERY2_ACLS_LIST'),
                                     JText::_('List of ACL: niot ready'),
@@ -620,7 +619,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 </div>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;view=maintRemoveInstallLeftOvers';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;view=maintRemoveInstallLeftOvers');
                                 quickIconsBar($link, array('icon-upload', 'icon-file-remove'),
                                     JText::_('COM_RSGALLERY2_REMOVE_INSTALLATION_LEFT_OVERS'),
                                     JText::_('COM_RSGALLERY2_REMOVE_INSTALLATION_LEFT_OVERS_DESC'),
@@ -629,7 +628,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
 
                                 <?php
                                 // ToDo: ? Move to comments ?
-                                $link = 'index.php?option=com_rsgallery2&amp;task=maintSql.updateCommentsVoting';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;task=maintSql.updateCommentsVoting');
                                 quickIconsBar($link, array('icon-comment', 'icon-wand'),
                                     JText::_('COM_RSGALLERY2_UPDATE_COMMENTS_AND_VOTING'),
                                     JText::_('COM_RSGALLERY2_UPDATE_COMMENTS_AND_VOTING_TXT'),
@@ -637,7 +636,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 ?>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;view=develop&amp;layout=InitUpgradeMessage';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;view=develop&amp;layout=InitUpgradeMessage');
                                 quickIconsBar($link, array('icon-eye-open', 'icon-expand'),
                                     JText::_('Test Install/Update message'),
                                     JText::_('Check the output result of the install finish and upgrade finish result view part'),
@@ -645,7 +644,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 ?>
 
                                 <?php
-                                $link = 'index.php?option=com_rsgallery2&amp;view=develop&amp;layout=DebugGalleryOrder';
+                                $link = JRoute::_('index.php?option=com_rsgallery2&amp;view=develop&amp;layout=DebugGalleryOrder');
                                 quickIconsBar($link, array('icon-expand-2', 'icon-contract-2'),
                                     JText::_('COM_RSGALLERY2_DEBUG_GALLERY_ORDER'),
                                     JText::_('COM_RSGALLERY2_DEBUG_GALLERY_ORDER_DESC'),
