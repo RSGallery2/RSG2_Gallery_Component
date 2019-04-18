@@ -62,6 +62,7 @@ function quickiconBar($link, $image, $title, $text = "", $addClass = '')
 		<a href="<?php echo $link; ?>" class="<?php echo $addClass; ?>">
 			<figure class="rsg2-old-icon">
 				<?php echo JHtml::image('administrator/components/com_rsgallery2/images/' . $image, $text); ?>
+
 				<figcaption class="rsg2-text">
 					<span class="maint-title"><?php echo $title; ?></span>
 					<!--br-->
@@ -479,7 +480,7 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 <?php
                                 $link = JRoute::_('index.php?option=com_rsgallery2&amp;task=MaintCleanUp.purgeImagesAndData');
                                 //$link = JRoute::_('index.php?option=com_rsgallery2&task=purgeEverything');
-                                quickIconsBar($link, array('icon-database ', 'icon-purge'),
+                                quickIconsBar($link, array('icon-database', 'icon-purge'),
                                     JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING'),
                                     JText::_('COM_RSGALLERY2_PURGEDELETE_EVERYTHING_TXT'),
                                     'purgeImagesAndData');
@@ -487,9 +488,9 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
                                 <?php
                                 $link = JRoute::_('index.php?option=com_rsgallery2&amp;task=MaintCleanUp.removeImagesAndData');
                                 //$link = JRoute::_('index.php?option=com_rsgallery2&task=reallyUninstall');
-                                quickIconsBar($link, array('icon-database ', 'icon-delete'),
+                                quickIconsBar($link, array('icon-database', 'icon-delete'),
                                     JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL'),
-                                    '<del>' . JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL_TXT') . '</del><br>'
+                                    '<del>' . JText::_('COM_RSGALLERY2_C_REALLY_UNINSTALL_TXT') . '</del><br />'
                                     . JText::_('COM_RSGALLERY2_C_TODO_UNINSTALL_TXT'),
                                     'uninstallDataTables');
                                 ?>
@@ -660,13 +661,13 @@ function quickIconsBar($link, $imageClasses=array(), $title, $text = "", $addCla
             </div>
         </div>
 
-        <div>
-            <input type="hidden" name="option" value="com_rsgallery2" />
-            <input type="hidden" name="rsgOption" value="maintenance" />
+    </div>
+    <div>
+        <input type="hidden" name="option" value="com_rsgallery2" />
+        <input type="hidden" name="rsgOption" value="maintenance" />
 
-            <input type="hidden" name="task" value="" />
-            <?php echo JHtml::_('form.token'); ?>
-        </div>
+        <input type="hidden" name="task" value="" />
+        <?php echo JHtml::_('form.token'); ?>
     </div>
 </form>
 
