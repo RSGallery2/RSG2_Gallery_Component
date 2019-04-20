@@ -93,6 +93,8 @@ class Rsgallery2ControllerImage extends JControllerForm
 
 		try
 		{
+			JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 			// Access check
 			$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
 			if (!$canAdmin)
@@ -208,6 +210,8 @@ class Rsgallery2ControllerImage extends JControllerForm
 
 		try
 		{
+			JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 			// Access check
 			$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
 			if (!$canAdmin)

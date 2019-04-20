@@ -49,21 +49,6 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 	}
 
     /**
-     * Checks if user has root status (is re.admin')
-     *
-     * @return    bool
-     *
-     * @since 4.3
-     */
-    function IsUserRoot()
-    {
-        $user     = JFactory::getUser();
-        $canAdmin = $user->authorise('core.manage');
-
-        return $canAdmin;
-    }
-
-    /**
 	 * Samples a random display image from the specified gallery and compares dimensions against Config settings
 	 *
 	 * @param int $gid Gallery ID
@@ -138,8 +123,13 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 			JLog::add('==> ctrl.maintenance.php/function RegenerateImagesDisplay');
 		}
 
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		$user     = JFactory::getUser();
+		$canAdmin = $user->authorise('core.manage');
+
 		//--- Check credits ----------------------------------------------
-		if (!$this->IsUserRoot())
+		if ( ! $canAdmin)
 		{
 			// send back to maintenance
 			$msg = 'Access denied';
@@ -275,8 +265,13 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 			JLog::add('==> ctrl.maintenance.php/RegenerateImagesThumb');
 		}
 
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		$user     = JFactory::getUser();
+		$canAdmin = $user->authorise('core.manage');
+
 		//--- Check credits ----------------------------------------------
-		if (!$this->IsUserRoot())
+		if ( ! $canAdmin)
 		{
 			// send back to maintenance
 			$msg = 'Access denied';

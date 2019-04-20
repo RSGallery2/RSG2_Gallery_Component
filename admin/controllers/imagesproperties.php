@@ -58,6 +58,8 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 
 	    try
 	    {
+		    JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 		    // Access check
 		    $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
 		    if (!$canAdmin)
@@ -105,6 +107,8 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 
         try
         {
+	        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 	        // Access check
 	        $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
 	        if (!$canAdmin)
@@ -172,6 +176,8 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 	        $cids = $this->input->get('cid', 0, 'int');
 
 	        // unset($ids[$i]);
+
+	        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 	        // Access check
 	        $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
@@ -285,6 +291,8 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 
 		try
 		{
+			JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 			// Access check
 			$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
 			if (!$canAdmin)
@@ -394,6 +402,8 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 
 		try
 		{
+			JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 			// Access check
 			$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
 			if (!$canAdmin)

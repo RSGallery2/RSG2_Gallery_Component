@@ -87,6 +87,8 @@ class Rsgallery2ControllerMaintTemplates extends JControllerForm
 			$link .= '&maintain_template=' . $templateName;
 		}
 
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 		//--- Access check ---------------------------------------
 
 		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
@@ -177,6 +179,8 @@ class Rsgallery2ControllerMaintTemplates extends JControllerForm
 		{
 			$link .= '&maintain_template=' . $templateName;
 		}
+
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		//--- Access check ---------------------------------------
 
@@ -288,6 +292,8 @@ class Rsgallery2ControllerMaintTemplates extends JControllerForm
 		{
 			$link .= '&maintain_template=' . $templateName;
 		}
+
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		//--- Access check ---------------------------------------
 

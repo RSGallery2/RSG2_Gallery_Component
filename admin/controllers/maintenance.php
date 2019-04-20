@@ -73,7 +73,7 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 
 
     /**
-     * Delete RSGallery language files in joomla 1.5 version or older style for backend
+     * Delete RSGallery language files not inside RSG2 component
      * recursive files search in backend folder
      *
      * @since 4.3
@@ -100,19 +100,30 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 			{
 				// .../administrator/language/
 				$startDir  = JPATH_ADMINISTRATOR . '/language';
-				$IsDeleted = $this->findAndDelete_RSG2_LangFiles($startDir);
+				$IsDeleted = $this->findAndDelete_RSG2_LangFiles($startDir, 'Backend: ');
 				if ($IsDeleted)
 				{
-					$msg .= " path Admin successful";
+					$msg .= ' Backend successful';
+				}
+				else
+				{
+					$msg .= ' Backend with error';
+					$msgType = 'error';
 				}
 
 				// .../administrator/language/
 				$startDir  = JPATH_SITE . '/language';
-				$IsDeleted = $this->findAndDelete_RSG2_LangFiles($startDir);
+				$IsDeleted = $this->findAndDelete_RSG2_LangFiles($startDir, 'Site: ');
 				if ($IsDeleted)
 				{
-					$msg .= " path Admin successful";
+					$msg .= ', Site  successful';
 				}
+				else
+				{
+					$msg .= ' Site with error';
+					$msgType = 'error';
+				}
+
 
 			}
 			catch (RuntimeException $e)
@@ -129,7 +140,7 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 	}
 
 	/**
-     * Delete RSGallery language files in joomla 1.5 version style or older style starting on given folder
+     * Delete RSGallery language files not inside RSG2 comüponent
      * recursive files search in starting folder
      *
      * @param $startDir Example: \administrator\language\
@@ -137,13 +148,13 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 	 *
 	 * @since 4.3
 	 */
-	function findAndDelete_RSG2_LangFiles($startDir)
+	function findAndDelete_RSG2_LangFiles($startDir, $title)
 	{
 		$IsDeleted = false;
 
 		if ($startDir != '')
 		{
-			// ...original function code...
+			//  code...
 			// ...\en-GB\en-GB.com_rsgallery2.ini
 			// ...\en-GB\en-GB.com_rsgallery2.sys.ini
 
@@ -151,7 +162,8 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 			$Files       = new RecursiveIteratorIterator($Directories);
 			$LangFiles   = new RegexIterator($Files, '/^.+\.com_rsgallery2\..*ini$/i', RecursiveRegexIterator::GET_MATCH);
 
-			$msg         = '';
+			//$msg         = $title . '<br>';
+			$msg= '';
 			$IsFileFound = false;
 			foreach ($LangFiles as $LangFile)
 			{
@@ -174,11 +186,13 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 			if ($IsFileFound)
 			{
 				// $IsDeleted = true;
-				$msg = 'Found files: ' . $msg;
+				$msg = $title . '<br>';
+				'Found files: ' . $msg;
 			}
 			else
 			{
-				$msg .= 'OK: No files needed to be deleted: ';
+				$msg = $title . '<br>' . 'OK: No files needed to be deleted: ';
+				$IsDeleted = True;
 			}
 
 			JFactory::getApplication()->enqueueMessage($msg, 'notice');

@@ -53,6 +53,8 @@ class Rsgallery2ControllerMaintRemoveInstallLeftOvers extends JControllerAdmin
 		$msg     = "DeleteFromFolderList: ";
 		$msgType = 'notice';
 
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 		// Access check
 		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
 		if (!$canAdmin)

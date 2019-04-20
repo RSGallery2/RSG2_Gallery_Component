@@ -311,7 +311,7 @@ class html_rsg2_galleries
 	{
 		global $rsgOption, $rsgConfig;
 
-		JHtml::_('behavior.formvalidation');
+		JHtml::_('behavior.formvalidator');
 		jimport("joomla.filter.output");
 		$user = JFactory::getUser();
 		// $editor = JFactory::getEditor();

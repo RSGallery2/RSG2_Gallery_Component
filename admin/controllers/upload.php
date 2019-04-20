@@ -82,6 +82,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	    $zipPathFileName = '';
 	    //$extractDir = '';
 
+	    JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 	    // Access check
         $canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
         if (!$canAdmin)
@@ -400,7 +402,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	    // Prepare variables needed /created inside brackets {} for phpstorm code check
 	    $isHasError = false;
 
-        // Access check
+	    JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+	    // Access check
         $canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
         if (!$canAdmin) {
             $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');

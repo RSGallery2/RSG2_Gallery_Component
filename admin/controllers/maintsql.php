@@ -53,6 +53,8 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 		$msg     = '<strong>' . JText::_('COM_RSGALLERY2_MAINT_OPTDB') . ':</strong><br>';
 		$msgType = 'notice';
 
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 		// Access check
 		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
 		if (!$canAdmin)
@@ -128,6 +130,8 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 		$msg     = '<strong>' . JText::_('COM_RSGALLERY2_CREATE_GALLERY_ACCESS_FIELD') . ':</strong><br>';
 		$msgType = 'notice';
 
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 		// Access check
 		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
 		if (!$canAdmin)
@@ -165,6 +169,8 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 		$msg     = '<strong>' . JText::_('COM_RSGALLERY2_DATABASE_REPAIR_DESC') . ':</strong><br>';
 		$msgType = 'notice';
 
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 		// Access check
 		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
 		if (!$canAdmin)
@@ -196,6 +202,8 @@ class Rsgallery2ControllerMaintSql extends JControllerAdmin
 	{
 		$msg     = '<strong>Ctrl:' . JText::_('updateCommentsVoting') . ':</strong><br>';
 		$msgType = 'notice';
+
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Access check
 		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');

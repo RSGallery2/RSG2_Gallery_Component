@@ -90,7 +90,9 @@ class Rsgallery2ControllerConfig extends JControllerForm
         $msg = "apply_rawEdit: " . '<br>';
         $msgType = 'notice';
 
-        // Access check
+	    JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+	    // Access check
         $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
         if (!$canAdmin) {
             $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
@@ -118,7 +120,9 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		$msg     = "save_rawEdit: " . '<br>';
 		$msgType = 'notice';
 
-        // Access check
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		// Access check
         $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
         if (!$canAdmin) {
             $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
@@ -164,6 +168,8 @@ class Rsgallery2ControllerConfig extends JControllerForm
 
 		$msg     = "reset2default: " . '<br>';
 		$msgType = 'notice';
+
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Access check
 		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');

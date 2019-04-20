@@ -239,7 +239,7 @@ class html_rsg2_images
         global $display;
 
         jimport("joomla.filter.output");
-        JHtml::_('behavior.formvalidation');
+        JHtml::_('behavior.formvalidator');
         JFilterOutput::objectHTMLSafe($row, ENT_QUOTES);
         //$editor = JFactory::getEditor();
         $editor = JFactory::getConfig()->get('editor'); // name of editor ?
@@ -558,7 +558,7 @@ class html_rsg2_images
     static function uploadImage($lists, $option)
     {
         global $rsgOption;
-        JHtml::_('behavior.formvalidation');
+        JHtml::_('behavior.formvalidator');
         //$editor = JFactory::getEditor();
         $editor = JFactory::getConfig()->get('editor'); // name of editor ?
         $editor = JEditor::getInstance($editor);
@@ -702,7 +702,7 @@ class html_rsg2_images
         */
 
         global $rsgConfig, $task, $rsgOption;
-        JHtml::_('behavior.formvalidation');
+        JHtml::_('behavior.formvalidator');
         $FTP_path = $rsgConfig->get('ftp_path');
 
         // Instantiate the media helper
@@ -897,7 +897,7 @@ class html_rsg2_images
         Description area name:	descr[]
         */
         global $rsgOption;
-        JHtml::_('behavior.formvalidation');
+        JHtml::_('behavior.formvalidator');
         JHtml::_('behavior.framework');   // ToDo: Remove mootools
 
         $input = JFactory::getApplication()->input;

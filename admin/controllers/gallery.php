@@ -37,6 +37,8 @@ class Rsgallery2ControllerGallery extends JControllerForm
 		$msgType = 'notice';
         $IsSaved = false;
 
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 		// Access check
 		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
 		if (!$canAdmin)
