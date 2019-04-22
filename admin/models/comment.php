@@ -10,6 +10,9 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\Utilities\ArrayHelper;
+use Joomla\String\StringHelper;
+
 /**
  * Class Rsgallery2ModelComment
  *
@@ -59,9 +62,9 @@ class Rsgallery2ModelComment extends JModelAdmin
 	/**
 	 * Method to get the data that should be injected in the form.
 	 *
-	 * @return      mixed   The data for the form.
-     *
+	 * @return array|bool|JObject|mixed
 	 * @since       4.3.0
+	 * @throws Exception
 	 */
 	protected function loadFormData()
 	{

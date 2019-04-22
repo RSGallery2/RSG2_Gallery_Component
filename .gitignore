@@ -1,5 +1,6 @@
 //.build/
 .packages/
 
+*.pyc
 admin/install.rsgallery2.php
 admin/rsgallery2.xml

@@ -14,6 +14,7 @@ use Joomla\Utilities\ArrayHelper;
 use Joomla\String\StringHelper;
 
 /**
+ * Class Rsgallery2ModelImage
  * Single image model
  * Db functions
  *
