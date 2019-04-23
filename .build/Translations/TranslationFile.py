@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 """
-Collection of joomla TranslationFile from one file 
+Collection of joomla TranslationFile from one file
 """
 
 
@@ -18,30 +18,30 @@ TranslationFile supports ...
 
 usage: TranslationFile.py -? nnn -? xxxx -? yyyy  [-h]
 	-? nnn
-	-? 
+	-?
 
-	
+
 	-h shows this message
-	
-	-1 
-	-2 
-	-3 
-	-4 
-	-5 
-	
-	
+
+	-1
+	-2
+	-3
+	-4
+	-5
+
+
 	example:
-	
-	
+
+
 ------------------------------------
 ToDo:
 ToDo:
-  * 
-  * 
-  * 
-  * 
-  * 
-  
+  *
+  *
+  *
+  *
+  *
+
 """
 
 #-------------------------------------------------------------------------------
@@ -67,9 +67,11 @@ class TranslationFile:
 		print ("translationFile: " + translationFile)
 		self.translationFile = translationFile
 #		self.LocalPath = LocalPath
+		self.translations = {}
+		self.doubles = {}
+
 		if (os.path.isfile(translationFile)):
 			self.load ()
-
 
 
 	def load (self, fileName=''):
@@ -77,174 +79,119 @@ class TranslationFile:
 			print ('*********************************************************')
 			print ('load')
 			print ('fileName: ' + fileName)
-			
+
 			print ('---------------------------------------------------------')
-			
+
+			self.translations = {}
+			self.doubles = {}
+
 			#---------------------------------------------
-			#
+			# Read file
 			#---------------------------------------------
-			
+
 			if fileName == '' :
 				fileName = self.translationFile
-				
+
 				if (os.path.isfile(fileName)):
 					print ('Found fileName: ' + fileName)
 					#print ('fileName: ' + fileName)
-					
+
 					with open(fileName, encoding="utf8") as fp:
 						for cnt, line in enumerate(fp):
 							#if LookupString not in line:
 							#	continue
-							if '=' not in line:
+							line = line.strip()
+
+							idx = line.find ('=')
+
+							#if '=' not in line:
+							if (idx < 0):
 								continue
 							
-							foundLines.append(line)
-					
-					return
-				
-			if LeftPath == '' :
-				print ('***************************************************')
-				print ('!!! Source folder (LeftPath) name is mandatory !!!')
-				print ('***************************************************')
-				print (HELP_MSG)
-				Wait4Key ()
-				sys.exit(1)
-				
-				
-			if not testDir(LeftPath):
-				print ('***************************************************')
-				print ('!!! Source folder (LeftPath) path not found !!! ? -l ' + LeftPath + ' ?')
-				print ('***************************************************')
-				print (HELP_MSG)
-				Wait4Key ()
-				sys.exit(2)
-				
-				
-			#--------------------------------------------------------------------
-			
-			if RightPath == '' :
-				print ('***************************************************')
-				print ('!!! Destination folder (RightPath) name is mandatory !!!')
-				print ('***************************************************')
-				print (HELP_MSG)
-				Wait4Key ()
-				sys.exit(1)
-				
-				
-			if not testDir(RightPath):
-				print ('***************************************************')
-				print ('!!! Destination folder (RightPath) path not found !!! ? -r ' + RightPath + ' ?')
-				print ('***************************************************')
-				print (HELP_MSG)
-				Wait4Key ()
-				sys.exit(2)
-				
-			#--------------------------------------------------------------------
-			# ToDo: exchange left <-> right if left is not on N:
-			#--------------------------------------------------------------------
-			
-	
-			#print ('LeftPath: ' + LeftPath)
-			#print ('RightPath: ' + RightPath)
-			#print ('---------------------------------------------------------')
-			
-			#--------------------------------------------------------------------
-			# determine build ID
-			#--------------------------------------------------------------------
-			
-			ZZZ = determineZZZ (LeftPath)
-			print ('ZZZ: ' + ZZZ)
-			
-			
-			#--------------------------------------------------------------------
-			# create base folder
-			#--------------------------------------------------------------------
-			
-			installPath = os.path.join (RightPath, ZZZ)
-			print ('installPath: ' + installPath)
-			if not os.path.exists(installPath):
-				os.makedirs(installPath)
-			
-			#--------------------------------------------------------------------
-			# copy cexecuter folder
-			#--------------------------------------------------------------------
-			
-			copyCexecuterFolder (LeftPath, installPath)
-			
-			#--------------------------------------------------------------------
-			# copy Macro folder
-			#--------------------------------------------------------------------
-			
-			copyMacroFolder (LeftPath, installPath)
-			
-			#--------------------------------------------------------------------
-			# Create 02 export install folder
-			#--------------------------------------------------------------------
-			
-			dstPath = os.path.join(installPath, '02.' + ZZZ + '_export')
-			if not os.path.exists(dstPath):
-				os.makedirs(dstPath)
-			
-			#--------------------------------------------------------------------
-			# Create 01 install folder
-			#--------------------------------------------------------------------
-			
-			dstPath = os.path.join(installPath, '01.' + ZZZ)
-			if not os.path.exists(dstPath):
-				os.makedirs(dstPath)
-			
-			#--------------------------------------------------------------------
-			# copy 7z Files
-			#--------------------------------------------------------------------
-			
-			copy7zFiles (LeftPath, installPath)
-			
+							# comment
+							if (line[0] == ';'):
+								continue
+
+							transId = line[:idx].strip ()
+
+							transText = line[idx+1:].strip ()
+							#print ('transText (1): ' + transText)
+							# Remove ""
+							transText = transText [1:-1]
+							#print ('transText (2): ' + transText)
+							
+							# prepared lines in file : com... = ""
+							if (len(transText) < 1):
+								continue
+
+
+							# Key does already exist
+							if (transId in self.translations):
+								# Save last info
+								self.doubles [transId] = self.translations [transId]
+
+							self.translations [transId] = transText
+
+
+
+			return
+
+
 			#--------------------------------------------------------------------
 			#
 			#--------------------------------------------------------------------
-			
-			
-			
+
+
+
 			#--------------------------------------------------------------------
 			#
 			#--------------------------------------------------------------------
-			
-			
+
+
 			#--------------------------------------------------------------------
 			#
 			#--------------------------------------------------------------------
-			
-			
-			
-			
+
+
+
+
 		finally:
 			print ('exit TranslationFile')
 
-#-------------------------------------------------------------------------------
-#
-def yyy (XXX):
-	print ('    >>> Enter yyy: ')
-	print ('       XXX: "' + XXX + '"')
-	
-	ZZZ = ""
-	
-	try:
-		pass
+	#-------------------------------------------------------------------------------
+	# ToDo: Return string instead of print
+	def Text (self):
+		#print ('    >>> Enter yyy: ')
+		#print ('       XXX: "' + XXX + '"')
 
-	except Exception as ex:
-		print(ex)
+		ZZZ = ""
 
-	print ('    <<< Exit yyy: ' + ZZZ)
-	return ZZZ
+		try:
+			print ("Translations: " + str(len (self.translations)))
+			for key, value in self.translations.items():
+				print ("   " + key + " = " + value)
+
+			print ("Doubles: " + str(len (self.doubles)))
+			for key, value in self.doubles.items():
+				print ("   " + key + " = " + value)
+
+		except Exception as ex:
+			print(ex)
+
+#	print ('    <<< Exit yyy: ' + ZZZ)
+#	return ZZZ
+
+toDo: further checks ?
+
 
 ##-------------------------------------------------------------------------------
 ##
 #def yyy (XXX):
 #	print ('    >>> Enter yyy: ')
 #	print ('       XXX: "' + XXX + '"')
-#	
+#
 #	ZZZ = ""
-#	
+#
 #	try:
 #
 #
@@ -260,9 +207,9 @@ def yyy (XXX):
 #def yyy (XXX):
 #	print ('    >>> Enter yyy: ')
 #	print ('       XXX: "' + XXX + '"')
-#	
+#
 #	ZZZ = ""
-#	
+#
 #	try:
 #
 #
@@ -277,9 +224,9 @@ def yyy (XXX):
 #def yyy (XXX):
 #	print ('    >>> Enter yyy: ')
 #	print ('       XXX: "' + XXX + '"')
-#	
+#
 #	ZZZ = ""
-#	
+#
 #	try:
 #
 #
@@ -291,20 +238,20 @@ def yyy (XXX):
 
 
 ##-------------------------------------------------------------------------------
-	
+
 def dummyFunction():
 	print ('    >>> Enter dummyFunction: ')
 	#print ('       XXX: "' + XXX + '"')
-		
+
 
 ##-------------------------------------------------------------------------------
 
-def Wait4Key():		
+def Wait4Key():
 	try:
 		input("Press enter to continue")
 	except SyntaxError:
-		pass		
-			
+		pass
+
 
 def testFile(file):
 	exists = os.path.isfile(file)
@@ -324,7 +271,7 @@ def print_header(start):
 	print ('Command line:', end='')
 	for s in sys.argv:
 		print (s, end='')
-	
+
 	print ('')
 	print ('Start time:   ' + start.ctime())
 	print ('------------------------------------------')
@@ -340,19 +287,19 @@ def print_end(start):
 # ================================================================================
 #   main (used from command line)
 # ================================================================================
-   
+
 if __name__ == '__main__':
 	optlist, args = getopt.getopt(sys.argv[1:], 'l:r:12345h')
-	
+
 	langFile = '..\\..\\admin\language\en-GB\en-GB.com_rsgallery2.ini'
-	
-	
+
+
 	for i, j in optlist:
 		if i == "-l":
 			LeftPath = j
 		if i == "-r":
 			RightPath = j
-			
+
 		if i == "-h":
 			print (HELP_MSG)
 			sys.exit(0)
@@ -372,11 +319,12 @@ if __name__ == '__main__':
 		if i == "-5":
 			LeaveOut_05 = True
 			print ("LeaveOut__05")
-	
-	
+
+
 	#print_header(start)
-	
+
 	TransFile = TranslationFile (langFile)
-	
+
+	TransFile.Text ()
 	#print_end(start)
-	
+
