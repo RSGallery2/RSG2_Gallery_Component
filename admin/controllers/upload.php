@@ -1,3 +1,12 @@
+joomla sanitize file name
+php string sanitizer for filename
+php url sanitized file names
+php not allowed url characters
+
+https://perishablepress.com/stop-using-unsafe-characters-in-urls/
+https://stackoverflow.com/questions/2668854/sanitizing-strings-to-make-them-url-and-filename-safe
+https://docs.joomla.org/Secure_coding_guidelines#File_uploads
+
 <?php
 /**
  * @package     RSGallery2
@@ -233,9 +242,12 @@ class Rsgallery2ControllerUpload extends JControllerForm
 				            //--- Create Destination file name -----------------------
 
 				            $filePathName = realpath ($filePathName);
-				            $baseName = basename($filePathName);
+
+				            // Make save for URL
+							$baseName = $modelDb->makeSafeUrlNameRSG2 (basename($filePathName));
 
 				            // ToDo: use sub folder for each gallery and check within gallery
+							// Avoid double names
 				            // Each filename is only allowed once so create a new one if file already exist
 				            $useFileName = $modelDb->generateNewImageName($baseName, $galleryId);
 
@@ -474,7 +486,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
 							//--- Create Destination file name -----------------------
 
 							$filePathName = realpath ($filePathName);
-							$baseName = JFile::makeSafe(basename($filePathName));
+
+							// Make save for URL
+							$baseName = $modelDb->makeSafeUrlNameRSG2 (basename($filePathName));
 
 							// ToDo: use sub folder for each gallery and check within gallery
 							// Each filename is only allowed once so create a new one if file already exist
@@ -857,6 +871,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
 			$modelDb = $this->getModel('image');
 
 			//--- Create Destination file name -----------------------
+
+			// Make save for URL
+			$baseName = $modelDb->makeSafeUrlNameRSG2 (basename($filePathName));
 
 			// ToDo: use sub folder for each gallery and check within gallery
 			// Each filename is only allowed once so create a new one if file already exist

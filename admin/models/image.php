@@ -250,7 +250,39 @@ class Rsgallery2ModelImage extends JModelAdmin
 	}
 
 	/**
-	 * Method to retrive unused image name from database
+	 * @param string $inFilename
+	 *
+	 * @return string
+	 *
+	 * @since version
+	 * @throws Exception
+	 */
+	public function makeSafeUrlNameRSG2 ($inFilename='')
+	{
+		// fall back with clear ID
+		$fixedFileName = 'SafeUrlNameRSG2';
+
+		try
+		{
+			// strval: a little bit of paranoia
+			$fixedFileName = \JFile::makeSafe(strval($inFilename));
+
+			;
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing makeSafeUrlName: "' . strval($inFilename) . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $fixedFileName;
+	}
+
+	/**
+	 * Method to retrieve unused image name from database
 	 *
 	 * @param string $name image name.
 	 * @param int $galleryId
