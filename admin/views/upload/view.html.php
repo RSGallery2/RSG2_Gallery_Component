@@ -166,7 +166,7 @@ class Rsgallery2ViewUpload extends JViewLegacy
         {
 	        echo '<span style="color:red">'
                 . 'Tasks: <br>'
-				. '*  !!! Filenames niot allowed like spaces ... -> can't be downloaded when  ... is in it<br>'
+				. '*  !!! Filenames niot allowed like spaces ... -> can\'t be downloaded when  ... is in it<br>'
 				. '*  ??? enable/force selection of start gallery ??? <br>'
 	            . '* Hide "Drag images here" ... on first successful upload<br>'
 	            . '* Hide progressBar when image appears '

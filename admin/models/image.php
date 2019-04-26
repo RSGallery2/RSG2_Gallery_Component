@@ -259,15 +259,59 @@ class Rsgallery2ModelImage extends JModelAdmin
 	 */
 	public function makeSafeUrlNameRSG2 ($inFilename='')
 	{
-		// fall back with clear ID
+		global $rsgConfig;
+		// dummy fall back with clear ID
 		$fixedFileName = 'SafeUrlNameRSG2';
+
+		// collect all variations of the filename
+		$IsDebugFileNames = $rsgConfig->get('develop');
+		if ($IsDebugFileNames)
+		{
+			$FileNames [] = 'in:       ' + $inFilename;
+		}
 
 		try
 		{
 			// strval: a little bit of paranoia
 			$fixedFileName = \JFile::makeSafe(strval($inFilename));
+			if ($IsDebugFileNames)
+			{
+				$FileNames [] = 'makeSafe: ' + $fixedFileName;
+			}
 
-			;
+			$fixedFileName = \JStringPunycode::toPunycode($fixedFileName);
+			if ($IsDebugFileNames)
+			{
+				$FileNames += 'Punycode: ' + $fixedFileName;
+			}
+
+			// Neglect other than non-alphanumeric characters, hyphens & underscores.
+			$fixedFileName = preg_replace(array("/[\\s]/", '/[^a-zA-Z0-9_\-]/'), array('_', ''), $fixedFileName);
+			if ($IsDebugFileNames)
+			{
+				$FileNames += 'replace : ' + $fixedFileName;
+			}
+
+			if ($IsDebugFileNames)
+			{
+				// message to user ion develop
+				if ($rsgConfig->get('develop'))
+				{
+					$OuTxt = 'makeSafeUrlNameRSG2' . '<br>';
+					$OuTxt .= join ('<br>', $FileNames);
+
+					$app = JFactory::getApplication();
+					$app->enqueueMessage($OuTxt, 'warning');
+				}
+				else
+				{
+					// message to log on debug
+					$OuTxt = 'makeSafeUrlNameRSG2' . '\n';
+					$OuTxt .= join ('\n                ', $FileNames);
+
+					JLog::add($OuTxt); //, JLog::DEBUG);
+				}
+			}
 		}
 		catch (RuntimeException $e)
 		{
