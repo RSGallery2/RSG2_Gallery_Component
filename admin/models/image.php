@@ -13,6 +13,15 @@ defined('_JEXEC') or die;
 use Joomla\Utilities\ArrayHelper;
 use Joomla\String\StringHelper;
 
+global $Rsg2DebugActive;
+
+if ($Rsg2DebugActive)
+{
+	// Include the JLog class.
+	jimport('joomla.log.log');
+
+}
+
 /**
  * Class Rsgallery2ModelImage
  * Single image model
@@ -261,56 +270,45 @@ class Rsgallery2ModelImage extends JModelAdmin
 	{
 		global $rsgConfig;
 		// dummy fall back with clear ID
-		$fixedFileName = 'SafeUrlNameRSG2';
+		$fixedFileName = 'Error on SafeUrlNameRSG2';
+		$fixedFileName = '';
 
-		// collect all variations of the filename
-		$IsDebugFileNames = $rsgConfig->get('develop');
-		if ($IsDebugFileNames)
-		{
-			$FileNames [] = 'in:       ' + $inFilename;
-		}
+		$FileNames = []; // for $IsDebugFileNames
 
 		try
 		{
 			// strval: a little bit of paranoia
-			$fixedFileName = \JFile::makeSafe(strval($inFilename));
-			if ($IsDebugFileNames)
-			{
-				$FileNames [] = 'makeSafe: ' + $fixedFileName;
-			}
+			$saveFileName = \JFile::makeSafe(strval($inFilename));
 
-			$fixedFileName = \JStringPunycode::toPunycode($fixedFileName);
-			if ($IsDebugFileNames)
-			{
-				$FileNames += 'Punycode: ' + $fixedFileName;
-			}
+			//  url safe name
+			$punycodeFileName = \JStringPunycode::toPunycode($saveFileName);
+
+
+			$fileName = pathinfo($punycodeFileName, PATHINFO_FILENAME);
+			$ext      = strtolower(pathinfo($punycodeFileName, PATHINFO_EXTENSION));
 
 			// Neglect other than non-alphanumeric characters, hyphens & underscores.
-			$fixedFileName = preg_replace(array("/[\\s]/", '/[^a-zA-Z0-9_\-]/'), array('_', ''), $fixedFileName);
+			// Joomla: $fixedFileName = preg_replace(array("/[\\s]/", '/[^a-zA-Z0-9_\-]/'), array('_', ''), $punycodeFileName);
+			$fixedFileName = preg_replace(array("/[\\s]/", '/[^a-zA-Z0-9_\-\.]/'), array('_', ''), $fileName);
+			$fixedFileName .= '.' . $ext;
+
+			//--- debug results --------------------------
+
+			// collect all variations of the filename
+			$IsDebugFileNames = $rsgConfig->get('debug');
+			//$IsDebugFileNames = $rsgConfig->get('develop');
 			if ($IsDebugFileNames)
 			{
-				$FileNames += 'replace : ' + $fixedFileName;
-			}
+				$FileNames = 'in:        ' . $inFilename . '\n';
+				$FileNames .= 'makeSafe: ' . $saveFileName . '\n';
+				$FileNames .= 'Punycode: ' . $punycodeFileName . '\n';
+				$FileNames .= 'replace : ' . $fixedFileName . '\n';
 
-			if ($IsDebugFileNames)
-			{
-				// message to user ion develop
-				if ($rsgConfig->get('develop'))
-				{
-					$OuTxt = 'makeSafeUrlNameRSG2' . '<br>';
-					$OuTxt .= join ('<br>', $FileNames);
+				// message to log on debug
+				$OuTxt = 'makeSafeUrlNameRSG2' . '\n';
+				$OuTxt .= $FileNames;
 
-					$app = JFactory::getApplication();
-					$app->enqueueMessage($OuTxt, 'warning');
-				}
-				else
-				{
-					// message to log on debug
-					$OuTxt = 'makeSafeUrlNameRSG2' . '\n';
-					$OuTxt .= join ('\n                ', $FileNames);
-
-					JLog::add($OuTxt); //, JLog::DEBUG);
-				}
+				JLog::add($OuTxt); //, JLog::DEBUG);
 			}
 		}
 		catch (RuntimeException $e)
@@ -390,7 +388,6 @@ class Rsgallery2ModelImage extends JModelAdmin
 
 		// Create unique alias and title
 		list($title, $alias) = $this->generateNewTitle(null, $item->alias, $item->title);
-		$item->title = $title;
 		$item->title = $title;
 		$item->alias = $alias;
 
@@ -475,6 +472,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 		}
 		else
 		{
+			// ToDo: check: generateNewImageName may be already done
 			$item->title = $this->generateNewImageName($fileName);
 		}
 		$item->alias = $item->title;
