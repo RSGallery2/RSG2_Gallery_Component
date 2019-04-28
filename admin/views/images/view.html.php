@@ -125,7 +125,10 @@ class Rsgallery2ViewImages extends JViewLegacy
                     echo '<span style="color:red">'
                         . 'Tasks: <br>'
                         . '* Add pagination<br>'
-                        . '* Add delete function<br>'
+	                    . '* Add delete function<br>'
+	                    . '* <br>'
+	                    . '* <br>'
+	                    . '* <br>'
                         . '</span><br><br>';
                 }
 

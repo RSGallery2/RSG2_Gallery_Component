@@ -103,7 +103,7 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 				. '* finish comments list<br>'
 				. '* add consolidate gallery database -> orphans(is child)  without parents<br>'
 				. '* JSession::checkToken not working. Test with reset config to default <br>'
-//				. '*  <br>'
+				. '* Repair wrong filenames -> view <br>'
 //				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'

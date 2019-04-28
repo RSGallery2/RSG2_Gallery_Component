@@ -42,22 +42,15 @@ class Rsgallery2ViewComments extends JViewLegacy
 	*/
 	public function display($tpl = null)
 	{
-		global $Rsg2DevelopActive;
+		global $rsgConfig;
 
-		// on develop show open tasks if existing
-		if (!empty ($Rsg2DevelopActive))
-		{
-			echo '<span style="color:red">Task: $canChange, $canEdit, and  ...</span><br><br>';
-		}
-
-		echo '<span style="color:green">This is only a demo to show what can     be in the future</span><br><br>';
+		echo '<span style="color:green">This is only a demo to show what can be in the future</span><br><br>';
 
 		//--- get needed form data ------------------------------------------
 
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot();
 
-//		global $rsgConfig;
 //		$this->rsgConfigData = $rsgConfig;
 
 		$this->items = $this->get('Items');
@@ -109,6 +102,22 @@ class Rsgallery2ViewComments extends JViewLegacy
 	*/
 	protected function addToolbar($Layout = 'default')
 	{
+		global $Rsg2DevelopActive;
+
+		// on develop show open tasks if existing
+		if (!empty ($Rsg2DevelopActive))
+		{
+			echo '<span style="color:red">'
+				. 'Tasks: <br>'
+				. '* $canChange, $canEdit, and  ...<br>'
+				. '* <br>'
+				. '* <br>'
+				. '* <br>'
+				. '</span><br><br>';
+		}
+		echo '<span style="color:red">Task: </span><br><br>';
+
+
 		switch ($Layout)
 		{
 			case 'comments_raw':
