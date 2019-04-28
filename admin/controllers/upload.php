@@ -11,17 +11,6 @@
 /*=======================================================================================*/
 defined('_JEXEC') or die;
 
-/**
-joomla sanitize file name
-php string sanitizer for filename
-php url sanitized file names
-php not allowed url characters
-
-https://perishablepress.com/stop-using-unsafe-characters-in-urls/
-https://stackoverflow.com/questions/2668854/sanitizing-strings-to-make-them-url-and-filename-safe
-https://docs.joomla.org/Secure_coding_guidelines#File_uploads
-/**/
-
 use Joomla\Archive\Archive;
 
 \JLoader::import('joomla.filesystem.file');

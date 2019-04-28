@@ -259,12 +259,16 @@ class Rsgallery2ModelImage extends JModelAdmin
 	}
 
 	/**
+	 * Removes "unknown" URL characters from name to be URL save
+	 * and replaces them with blanks
+	 * This includes UTF characters
+	 *
 	 * @param string $inFilename
 	 *
 	 * @return string
 	 *
-	 * @since version
 	 * @throws Exception
+	 * @since version
 	 */
 	public function makeSafeUrlNameRSG2 ($inFilename='')
 	{
