@@ -1,12 +1,3 @@
-joomla sanitize file name
-php string sanitizer for filename
-php url sanitized file names
-php not allowed url characters
-
-https://perishablepress.com/stop-using-unsafe-characters-in-urls/
-https://stackoverflow.com/questions/2668854/sanitizing-strings-to-make-them-url-and-filename-safe
-https://docs.joomla.org/Secure_coding_guidelines#File_uploads
-
 <?php
 /**
  * @package     RSGallery2
@@ -19,6 +10,17 @@ https://docs.joomla.org/Secure_coding_guidelines#File_uploads
 
 /*=======================================================================================*/
 defined('_JEXEC') or die;
+
+/**
+joomla sanitize file name
+php string sanitizer for filename
+php url sanitized file names
+php not allowed url characters
+
+https://perishablepress.com/stop-using-unsafe-characters-in-urls/
+https://stackoverflow.com/questions/2668854/sanitizing-strings-to-make-them-url-and-filename-safe
+https://docs.joomla.org/Secure_coding_guidelines#File_uploads
+/**/
 
 use Joomla\Archive\Archive;
 
@@ -645,16 +647,16 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		    }
 
 	        $input = JFactory::getApplication()->input;
-            $oFile = $input->files->get('upload_file', array(), 'raw');
+            $oHtmlUploadFile = $input->files->get('upload_file', array(), 'raw');
 
-            $uploadPathFileName = $oFile['tmp_name'];
-            $fileType    = $oFile['type'];
-            $fileError   = $oFile['error'];
-            $fileSize    = $oFile['size'];
+            $uploadPathFileName = $oHtmlUploadFile['tmp_name'];
+            $fileType    = $oHtmlUploadFile['type'];
+            $fileError   = $oHtmlUploadFile['error'];
+            $fileSize    = $oHtmlUploadFile['size'];
 
 		    // Changed name on existing file name
-		    $originalFileName = JFile::makeSafe($oFile['name']);
-		    $uploadFileName = $input->get('dstFileName', '', 'string');
+		    $uploadFileName = JFile::makeSafe($oHtmlUploadFile['name']);
+		    $rsgImageFileName = $input->get('targetFileName', '', 'string');
 
 		    // for next upload tell where to start
 	        $rsgConfig->setLastUpdateType('upload_drag_and_drop');
@@ -663,8 +665,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
             {
                 // identify active file
                 JLog::add('$uploadPathFileName: "' . $uploadPathFileName . '"');
-                JLog::add('$originalFileName: "' . $originalFileName . '"');
                 JLog::add('$uploadFileName: "' . $uploadFileName . '"');
+                JLog::add('$rsgImageFileName: "' . $rsgImageFileName . '"');
                 JLog::add('$fileType: "' . $fileType . '"');
                 JLog::add('$fileError: "' . $fileError . '"');
                 JLog::add('$fileSize: "' . $fileSize . '"');
@@ -675,11 +677,11 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
             //--- check user ID --------------------------------------------
 
-            $ajaxImgObject['file'] = $uploadFileName; // $dstFile;
+            $ajaxImgObject['file'] = $rsgImageFileName; // $dstFile;
 	        // some dummy data for error messages
 	        $ajaxImgObject['cid']  = -1;
 	        $ajaxImgObject['dstFile']  = '';
-	        $ajaxImgObject['originalFileName'] = $originalFileName;
+	        $ajaxImgObject['uploadFileName'] = $uploadFileName;
 
 		    //--- gallery ID --------------------------------------------
 
@@ -711,7 +713,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 
             $ajaxImgObject['cid']  = $imgId;
 
-            $singleFileName = $uploadFileName;
+            $singleFileName = $rsgImageFileName;
 
 		    //----------------------------------------------------
 	        // for debug purposes fetch image order
@@ -731,7 +733,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		        // ToDo: remove $imgId fom image database
 		        if ($Rsg2DebugActive)
 		        {
-			        JLog::add('MoveImageAndCreateRSG2Images failed: ' . $uploadFileName . ', ' . $singleFileName);
+			        JLog::add('MoveImageAndCreateRSG2Images failed: ' . $rsgImageFileName . ', ' . $singleFileName);
 		        }
 
 		        echo new JResponseJson($ajaxImgObject, $msg, true);
@@ -806,32 +808,32 @@ class Rsgallery2ControllerUpload extends JControllerForm
 				$app->close();
 			}
 
+			/* ToDo:
+			// Authorize the user
+			if (!$this->authoriseUser('create'))
+			{
+				return false;
+			}
+			/**/
+
 			$input = JFactory::getApplication()->input;
 
             //--- file name  --------------------------------------------
 
             $uploadFileName = $input->get('upload_file', '', 'string');
-			$fileName = JFile::makeSafe($uploadFileName);
-
-// ==>			joomla replace spaces in filenames
-// ==>			'file_name' => str_replace(" ", "", $file_name);
-			$baseName = basename($fileName);
+			$saveUploadFileName = JFile::makeSafe($uploadFileName);
 
 			if ($Rsg2DebugActive)
 			{
 				// identify active file
 				JLog::add('$uploadFileName: "' . $uploadFileName . '"');
-				JLog::add('$fileName: "' . $fileName . '"');
-				JLog::add('$baseName: "' . $baseName . '"');
+				JLog::add('$saveUploadFileName: "' . $saveUploadFileName . '"');
 			}
 
-			// ToDo: Check session id
-			// $session_id      = JFactory::getSession();
-
-			$ajaxImgDbObject['fileName'] = $uploadFileName; // $dstFile;
+			$ajaxImgDbObject['$uploadFileName'] = $uploadFileName;
 			// some dummy data for error messages
 			$ajaxImgDbObject['cid']  = -1;
-			$ajaxImgDbObject['dstFile'] = '$fileName';
+			$ajaxImgDbObject['dstFile'] = '';
 
 			//--- gallery ID --------------------------------------------
 
@@ -873,24 +875,29 @@ class Rsgallery2ControllerUpload extends JControllerForm
 			//--- Create Destination file name -----------------------
 
 			// Make save for URL
-			$baseName = $modelDb->makeSafeUrlNameRSG2 (basename($filePathName));
+			$saveImageName = $modelDb->makeSafeUrlNameRSG2 (basename($saveUploadFileName));
+
+			if ($Rsg2DebugActive)
+			{
+				JLog::add('$saveImageName: "' . $saveImageName . '"');
+			}
 
 			// ToDo: use sub folder for each gallery and check within gallery
 			// Each filename is only allowed once so create a new one if file already exist
-			$useFileName = $modelDb->generateNewImageName($baseName, $galleryId);
-			$ajaxImgDbObject['dstFileName'] = $useFileName;
+			$rsgImageName = $modelDb->generateNewImageName($saveImageName, $galleryId);
+		 	$ajaxImgDbObject['targetFileName'] = $rsgImageName;
 
 			//--- create image data in DB --------------------------------
 
-			$title = $baseName;
+			$title = pathinfo($saveUploadFileName, PATHINFO_FILENAME);
 			$description = '';
 
-			$imgId = $modelDb->createImageDbItem($useFileName, '', $galleryId, $description);
+			$imgId = $modelDb->createImageDbItem($rsgImageName, $title, $galleryId, $description);
 			if (empty($imgId))
 			{
 				// actual give an error
 				//$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
-				$msg     .= 'uploadAjaxReserveImageInDB: Create DB item for "' . $baseName . '"->"' . $useFileName . '" failed. Use maintenance -> Consolidate image database to check it ';
+				$msg     .= 'uploadAjaxReserveImageInDB: Create DB item for "' . $uploadFileName . '"->"' . $rsgImageName . '" failed. Use maintenance -> Consolidate image database to check it ';
 
 				if ($Rsg2DebugActive)
 				{

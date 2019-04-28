@@ -133,7 +133,7 @@ jQuery(document).ready(function ($) {
     var dragZone = $('#dragarea');
     var fileInput = $('#hidden_file_input');
     var buttonManualFile = $('#select_manual_file');
-    var urlFileUploAd = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile';
+    var urlFileUpload = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxSingleFile';
     var urlReserveDbImageId = 'index.php?option=com_rsgallery2&task=upload.uploadAjaxReserveDbImageId';
     var returnUrl = $('#installer-return').val();
     var gallery_id = $('#SelectGalleries_03').val();
@@ -542,19 +542,19 @@ jQuery(document).ready(function ($) {
                 data.append(Token, '1');
                 data.append('gallery_id', gallery_id);
                 data.append('cid', jData.data.cid);
-                data.append('fileName', jData.data.fileName);
-                console.log ('   >fileName: ' + jData.data.fileName);
-                data.append('dstFileName', jData.data.dstFileName);
-                console.log ('   >dstFileName: ' + jData.data.dstFileName);
+                data.append('fileName', jData.data.uploadFileName);
+                console.log ('   >fileName: ' + jData.data.uploadFileName);
+                data.append('targetFileName', jData.data.targetFileName);
+                console.log ('   >targetFileName: ' + jData.data.targetFileName);
 
-                fileName = jData.data.fileName;
+                uploadFileName = jData.data.uploadFileName;
 
                 //// Add order text
                 // statusBar.AddOrderText (jData.data.order);
 
                 // start sending file
-//                sendFileToServer(data, statusBar, fileName);
-                startUploadFile(data, statusBar, fileName);
+//                sendFileToServer(data, statusBar, uploadFileName);
+                startUploadFile(data, statusBar, uploadFileName);
             }
             else {
                 alert('Result Error 05');
@@ -606,20 +606,20 @@ jQuery(document).ready(function ($) {
     var uploadCount = 0; // Number of actual parallel uploads
     var uploadLimit = 4;
 
-    function startUploadFile(uploadData, statusBar, fileName) {
+    function startUploadFile(uploadData, statusBar, uploadFileName) {
 
         // Not too many upload parallel
         if (uploadCount < uploadLimit) {
 
             uploadCount++;
 
-            sendFileToServer(uploadData, statusBar, fileName);
+            sendFileToServer(uploadData, statusBar, uploadFileName);
         }
         else {
             var queueObj = {};
             queueObj.uploadData = uploadData;
             queueObj.statusBar = statusBar;
-            queueObj.fileName = fileName;
+            queueObj.uploadFileName = uploadFileName;
 
             uploadQueue.push(queueObj);
         }
@@ -632,9 +632,9 @@ jQuery(document).ready(function ($) {
             var queueObj = uploadQueue.shift();
             var uploadData = queueObj.uploadData;
             var statusBar = queueObj.statusBar;
-            var fileName = queueObj.fileName;
+            var uploadFileName = queueObj.uploadFileName;
 
-            sendFileToServer(uploadData, statusBar, fileName);
+            sendFileToServer(uploadData, statusBar, uploadFileName);
         }
         else {
             uploadCount--;
@@ -644,9 +644,9 @@ jQuery(document).ready(function ($) {
                 var queueObj = uploadQueue.shift();
                 var uploadData = queueObj.uploadData;
                 var statusBar = queueObj.statusBar;
-                var fileName = queueObj.fileName;
+                var uploadFileName = queueObj.uploadFileName;
 
-                sendFileToServer(uploadData, statusBar, fileName);
+                sendFileToServer(uploadData, statusBar, uploadFileName);
 
                 uploadCount++;
             }
@@ -660,9 +660,9 @@ jQuery(document).ready(function ($) {
     // Afterwards handling progress bar and display of image on result
     // ajax returns ???
     // ToDo: Replace fileName with data['fileName']
-    function sendFileToServer(formData, statusBar, fileName) {
+    function sendFileToServer(formData, statusBar, uploadFileName) {
 
-        console.log('sendFile: ' + fileName);
+        console.log('sendFile: ' + uploadFileName);
 
         /*=========================================================
           ajax: Upload original file to server and create dependend images
@@ -686,7 +686,7 @@ jQuery(document).ready(function ($) {
                 }
                 return xhrobj;
             },
-            url: urlFileUploAd,
+            url: urlFileUpload,
             type: "POST",
             contentType: false,
             processData: false,
