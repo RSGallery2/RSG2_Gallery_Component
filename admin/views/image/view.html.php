@@ -47,7 +47,6 @@ class Rsgallery2ViewImage extends JViewLegacy
 	*/
 	public function display($tpl = null)
 	{
-		global $Rsg2DevelopActive;
 		global $rsgConfig;
 
 		//--- get needed data ------------------------------------------
@@ -108,6 +107,8 @@ class Rsgallery2ViewImage extends JViewLegacy
 	*/
 	protected function addToolbar($Layout = 'default')
 	{
+		global $Rsg2DevelopActive;
+
 		// on develop show open tasks if existing
 		if (!empty ($Rsg2DevelopActive))
 		{

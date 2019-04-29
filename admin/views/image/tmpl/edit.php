@@ -123,7 +123,6 @@ JFactory::getDocument()->addScriptDeclaration('
 
     <div>
     	<input type="hidden" name="task" value="" />
-
         <?php echo JHtml::_('form.token'); ?>
     </div>
 

@@ -63,8 +63,8 @@ class Rsgallery2ViewComments extends JViewLegacy
 		$this->filterForm    = $this->get('FilterForm');
 		$this->activeFilters = $this->get('ActiveFilters');
 
-		$xmlFile    = JPATH_COMPONENT . '/models/forms/comments.xml';
-		$this->form = JForm::getInstance('images', $xmlFile);
+//		$xmlFile    = JPATH_COMPONENT . '/models/forms/comments.xml';
+//		$this->form = JForm::getInstance('comments', $xmlFile);
 
 		// Check for errors.
         if (count($errors = $this->get('Errors')))

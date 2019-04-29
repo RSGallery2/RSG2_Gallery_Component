@@ -3,17 +3,6 @@
 	<fieldset name="comment"
 	          class="form-horizontal">
 		<field
-				name="id"
-				type="text"
-				class="readonly"
-				label="JGLOBAL_FIELD_ID_LABEL"
-				description="JGLOBAL_FIELD_ID_DESC"
-				size="10"
-				default="0"
-				readonly="true"
-		/>
-
-		<field
 				name="subject"
 				type="text"
 				label="JGLOBAL_TITLE"
@@ -38,7 +27,6 @@
 				maxlength="250"
 				filter=""
 				size="60"
-				readonly="true"
 		/>
 
 		<field
@@ -103,7 +91,7 @@
 		/>
 	</fieldset>
 
-	<fieldset name="image_2nd_col"
+	<fieldset name="comment_2nd_col"
 	          class="form-vertical">
 		<field name="published"
 		       type="list"

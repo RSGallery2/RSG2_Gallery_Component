@@ -10,14 +10,14 @@
 
 defined('_JEXEC') or die();
 
-// JHtml::_('behavior.tooltip');
-JHtml::_('bootstrap.tooltip');
-
 global $Rsg2DebugActive;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+
+// JHtml::_('behavior.tooltip');
+JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.formvalidator');
-//JHtml::_('behavior.keepalive'); 
+JHtml::_('behavior.keepalive');
 //JHtml::_('formbehavior.chosen', 'select');
 JHtml::_('formbehavior.chosen', 'select', null, array('disable_search_threshold' => 3));
 
@@ -44,9 +44,17 @@ JFactory::getDocument()->addScriptDeclaration('
 		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general',
 			empty($this->item->id) ? JText::_('COM_RSGALLERY2_NEW_COMMENT') : JText::_('COM_RSGALLERY2_EDIT')); ?>
 		<div class="row-fluid">
-			<div class="span9">
+            <div class="span6 form-horizontal">
+                <fieldset class="adminform">
+					<?php
+					echo $this->form->getControlGroups('comment');
+					?>
+                </fieldset>
+            </div>
+
+            <div class="span3">
 				<?php
-				echo $this->form->getControlGroups('comment');
+				echo $this->form->getControlGroups('comment_2nd_col');
 				?>
 			</div>
 			<!--div class="span3">
@@ -58,7 +66,10 @@ JFactory::getDocument()->addScriptDeclaration('
 		<?php echo JHtml::_('bootstrap.endTabSet'); ?>
 	</div>
 
-	<input type="hidden" name="task" value="" />
-	<?php echo JHtml::_('form.token'); ?>
+    <div>
+        <input type="hidden" name="task" value="" />
+        <?php echo JHtml::_('form.token'); ?>
+    </div>
+
 </form>
 
