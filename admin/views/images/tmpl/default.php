@@ -8,12 +8,12 @@
 
 defined('_JEXEC') or die;
 
-global $Rsg2DebugActive;
-// global $rsgConfig;
-
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.multiselect');
 JHtml::_('formbehavior.chosen', 'select');
+
+global $Rsg2DebugActive;
+// global $rsgConfig;
 
 $sortColumn    = $this->escape($this->state->get('list.ordering')); //Column
 $sortDirection = $this->escape($this->state->get('list.direction'));
@@ -168,10 +168,7 @@ $userId = $user->id;
 					method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">
 				<?php
 				// Search tools bar
-				// OK: echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
 				echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
-
-				//echo JLayoutHelper::render('joomla.searchtools.default', $data, null, array('component' => 'none'));
 				// I managed to add options as always open
 				//echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this, 'options' => array('filtersHidden' => false ($hidden) (true/false) )));
 				?>

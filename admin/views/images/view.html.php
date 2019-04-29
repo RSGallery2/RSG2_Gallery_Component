@@ -126,9 +126,9 @@ class Rsgallery2ViewImages extends JViewLegacy
                         . 'Tasks: <br>'
                         . '* Add pagination<br>'
 	                    . '* Add delete function<br>'
-	                    . '* <br>'
-	                    . '* <br>'
-	                    . '* <br>'
+	                    //. '* <br>'
+	                    //. '* <br>'
+	                    //. '* <br>'
                         . '</span><br><br>';
                 }
 
@@ -148,6 +148,8 @@ class Rsgallery2ViewImages extends JViewLegacy
 	                    . '* Search controls ...<br>'
                         . '* Sort by image count is wrong<br>'
 	                    . '* Image not shown above title (data-original-title?)<br>'
+	                    //. '* <br>'
+	                    //. '* <br>'
                         . '</span><br><br>';
 				}
 

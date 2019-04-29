@@ -32,6 +32,8 @@ class Rsgallery2ViewComments extends JViewLegacy
 	protected $pagination;
 	protected $state;
 
+	protected $form;
+
 //	protected $rsgConfigData;
 
 	//------------------------------------------------
@@ -61,7 +63,10 @@ class Rsgallery2ViewComments extends JViewLegacy
 		$this->filterForm    = $this->get('FilterForm');
 		$this->activeFilters = $this->get('ActiveFilters');
 
-        // Check for errors.
+		$xmlFile    = JPATH_COMPONENT . '/models/forms/comments.xml';
+		$this->form = JForm::getInstance('images', $xmlFile);
+
+		// Check for errors.
         if (count($errors = $this->get('Errors')))
         {
             throw new RuntimeException(implode('<br />', $errors), 500);
@@ -74,6 +79,7 @@ class Rsgallery2ViewComments extends JViewLegacy
         $View = JFactory::getApplication()->input->get('view');
         RSG2_SidebarLinks::addItems($View, $Layout);
 //        RSGallery2Helper::addSubmenu('rsgallery2');
+
 		$this->sidebar = JHtmlSidebar::render();
 
 		parent::display($tpl);
@@ -110,9 +116,9 @@ class Rsgallery2ViewComments extends JViewLegacy
 			echo '<span style="color:red">'
 				. 'Tasks: <br>'
 				. '* $canChange, $canEdit, and  ...<br>'
-				. '* <br>'
-				. '* <br>'
-				. '* <br>'
+				//. '* <br>'
+				//. '* <br>'
+				//. '* <br>'
 				. '</span><br><br>';
 		}
 		echo '<span style="color:red">Task: </span><br><br>';

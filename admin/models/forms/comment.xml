@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fieldset name="comment">
+	<fieldset name="comment"
+	          class="form-horizontal">
 		<field
 				name="id"
 				type="text"
@@ -100,7 +101,10 @@
 				default=""
 				filter="safehtml"
 		/>
+	</fieldset>
 
+	<fieldset name="image_2nd_col"
+	          class="form-vertical">
 		<field name="published"
 		       type="list"
 		       label="JSTATUS"
@@ -123,25 +127,6 @@
 				JTRASHED
 			</option>
 		</field>
-
-		<field
-				name="checked_out"
-				type="hidden"
-				filter="unset"
-		/>
-		<field
-				name="checked_out_time"
-				type="hidden"
-				filter="unset"
-		/>
-
-		<field name="ordering"
-		       type="text"
-		       label="JFIELD_ORDERING_LABEL"
-		       description="JFIELD_ORDERING_DESC"
-		       size="6"
-		       default="0"
-		/>
 
 		<field name="ordering"
 		       type="text"
