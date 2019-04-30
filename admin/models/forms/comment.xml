@@ -3,6 +3,28 @@
 	<fieldset name="comment"
 	          class="form-horizontal">
 		<field
+				name="id"
+				type="hidden"
+				class="hidden"
+				label="JGLOBAL_FIELD_ID_LABEL"
+				description="JGLOBAL_FIELD_ID_DESC"
+				size="10"
+				default="0"
+				readonly="true"
+		/>
+
+		<field
+				name="item_table"
+				type="hidden"
+				label="COM_RSGALLERY2_COMMENT_COMPONENT"
+				description="COM_RSGALLERY2_COMMENT_COMPONENT_DESC"
+				class="inputbox"
+				size="50"
+				maxlength="50"
+		>
+		</field>
+
+		<field
 				name="subject"
 				type="text"
 				label="JGLOBAL_TITLE"
@@ -13,13 +35,6 @@
 		/>
 
 		<field
-				name="user_id"
-				type="user"
-				label="JGRID_HEADING_CREATED_BY"
-				description="JGLOBAL_FIELD_CREATED_BY_DESC"
-		/>
-
-		<field
 				name="user_name"
 				type="text"
 				label="JGLOBAL_FIELD_CREATED_BY_ALIAS_LABEL"
@@ -27,17 +42,6 @@
 				maxlength="250"
 				filter=""
 				size="60"
-		/>
-
-		<field
-				name="user_ip"
-				type="text"
-				label="COM_RSGALLERY2_USER_IP"
-				description="COM_RSGALLERY2_COMMENT_USER_IP_DESC"
-				maxlength="50"
-				filter=""
-				size="60"
-				readonly="true"
 		/>
 
 		<field
@@ -53,17 +57,6 @@
 				label="COM_RSGALLERY2_IMAGE_ID"
 				description="COM_RSGALLERY2_COMMENT_IMAGE_ID_DESC"
 		/>
-
-		<field
-				name="item_table"
-				type="text"
-				label="COM_RSGALLERY2_COMMENT_COMPONENT"
-				description="COM_RSGALLERY2_COMMENT_COMPONENT_DESC"
-				class="inputbox"
-				size="50"
-				maxlength="50"
-		>
-		</field>
 
 		<field
 				name="datetime"
@@ -133,5 +126,24 @@
 		       readonly="true"
 		       filter="unset"
 		/>
+
+		<field
+				name="user_id"
+				type="user"
+				label="JGRID_HEADING_CREATED_BY"
+				description="JGLOBAL_FIELD_CREATED_BY_DESC"
+		/>
+
+		<field
+				name="user_ip"
+				type="text"
+				label="COM_RSGALLERY2_USER_IP"
+				description="COM_RSGALLERY2_COMMENT_USER_IP_DESC"
+				maxlength="50"
+				filter=""
+				size="60"
+				readonly="true"
+		/>
+
 	</fieldset>
 </form>
