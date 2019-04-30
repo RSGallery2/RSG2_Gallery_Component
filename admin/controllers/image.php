@@ -25,11 +25,8 @@ if ($Rsg2DebugActive)
 /**
  * @since 4.3.0
  */
-
 class Rsgallery2ControllerImage extends JControllerForm
 {
-
-
 	/**
 	 * rotate_image_left directs the master image and all dependent images to be turned left against the clock
 	 *

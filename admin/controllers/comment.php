@@ -10,7 +10,7 @@
 
 defined('_JEXEC') or die;
 
-/*
+/**/
 global $Rsg2DebugActive;
 
 if ($Rsg2DebugActive)
@@ -21,11 +21,30 @@ if ($Rsg2DebugActive)
 	// identify active file
 	JLog::add('==> ctrl.comment.php ');
 }
-/**/
 
-// ToDo: // Sanitize the input
-
+/**
+ * @since 4.3.0
+ */
 class Rsgallery2ControllerComment extends JControllerForm
 {
+	/**
+	 * Proxy for getModel.
+	 *
+	 * @param   string  $name    The model name. Optional.
+	 * @param   string  $prefix  The class prefix. Optional.
+	 * @param   array   $config  Configuration array for model. Optional.
+	 *
+	 * @return  object  The model.
+	 *
+	 * @since   1.6
+	 */
+	public function getModel($name = 'Comment',
+	                         $prefix = 'Rsgallery2Model',
+	                         $config = array('ignore_request' => true))
+	{
+		$model = parent::getModel($name, $prefix, $config);
+
+		return $model;
+	}
 
 }
