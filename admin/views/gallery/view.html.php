@@ -43,12 +43,6 @@ class Rsgallery2ViewGallery extends JViewLegacy
 	{
 		global $Rsg2DevelopActive;
 
-		// on develop show open tasks if existing
-		if (!empty ($Rsg2DevelopActive))
-		{
-			// echo '<span style="color:red">Task: </span><br><br>';
-		}
-
 		//--- get needed form data ------------------------------------------
 
 		// Check rights of user
@@ -106,6 +100,25 @@ class Rsgallery2ViewGallery extends JViewLegacy
 	*/
 	protected function addToolbar($Layout = 'default')
 	{
+		global $Rsg2DevelopActive;
+
+		// on develop show open tasks if existing
+		if (!empty ($Rsg2DevelopActive))
+		{
+			echo '<span style="color:red">'
+				. 'Tasks: <br>'
+				. '* Activate field parameters again -> Merge Jregistry in site ...<br>'
+				. '* Enable modal selection of thumbs ... <br>'
+				. '* Show selected gallery thumbnail (different separate control)'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+				. '</span><br><br>';
+		}
+
 		switch ($Layout)
 		{
 			case 'edit':

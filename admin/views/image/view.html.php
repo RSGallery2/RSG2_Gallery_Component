@@ -114,10 +114,9 @@ class Rsgallery2ViewImage extends JViewLegacy
 		{
 			echo '<span style="color:red">'
 				. 'Tasks: <br>'
-//				. '* show image big as modal on  click<br>'
-//				. '*  <br>'
-//				. '*  <br>'
-				. '* Rotate left, right, flip<br>'
+				. '* Fix: show image big as modal on click or create modal thumbs selection view<br>'
+				. '* Activate field parameters again -> Merge Jregistry in site ...<br>'
+				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'
