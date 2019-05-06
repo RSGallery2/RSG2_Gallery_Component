@@ -39,7 +39,7 @@ class Rsgallery2ModelImages extends JModelList
 				'date', 'a.date',
 				'rating', 'a.rating',
 				'votes', 'a.votes',
-				'comments', 'a.comments',
+//				'comments', 'a.comments',
 				'published', 'a.published',
 				'checked_out', 'a.checked_out',
 				'checked_out_time', 'a.checked_out_time',
@@ -134,6 +134,11 @@ class Rsgallery2ModelImages extends JModelList
 		/* parent gallery name */
 		$query->select('gal.name as gallery_name')
 			->join('LEFT', '#__rsgallery2_galleries AS gal ON gal.id = a.gallery_id'
+			);
+
+		/* Count child images */
+		$query->select('COUNT(cmt.item_id) as comment')
+			->join('LEFT', '#__rsgallery2_comments AS cmt ON cmt.item_id = a.id'
 			);
 
 		// Join over the users for the checked out user.
