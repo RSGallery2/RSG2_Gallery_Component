@@ -116,6 +116,8 @@ class Rsgallery2ViewComments extends JViewLegacy
 			echo '<span style="color:red">'
 				. 'Tasks: <br>'
 				. '* $canChange, $canEdit, and  ...<br>'
+				. '* Search tools add image selection<br>'
+				. '* ??? Search tools add gallery selection<br>'
 				//. '* <br>'
 				//. '* <br>'
 				//. '* <br>'

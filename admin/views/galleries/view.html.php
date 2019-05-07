@@ -123,7 +123,14 @@ class Rsgallery2ViewGalleries extends JViewLegacy
 				// on develop show open tasks if existing
 				if (!empty ($Rsg2DevelopActive))
 				{
-                    echo '<span style="color:red">Task: Add delete function, Test add double name</span><br><br>';
+					echo '<span style="color:red">'
+						. 'Tasks: <br>'
+						. '* Add delete function, Test add double name<br>'
+						. '* Add trash state of gallery, delete only if trashed<br>'
+						//. '* <br>'
+						//. '* <br>'
+						//. '* <br>'
+						. '</span><br><br>';
 				}
 				break;
 
@@ -141,7 +148,15 @@ class Rsgallery2ViewGalleries extends JViewLegacy
                 // on develop show open tasks if existing
                 if (!empty ($Rsg2DevelopActive))
                 {
-                    echo '<span style="color:red">Task:  c) Search tools -> group by parent/ parent child tree ? </span><br><br>';
+                    echo '<span style="color:red">'
+	                    . 'Tasks: <br>'
+	                    . '* c) Search tools -> group by parent/ parent child tree<br>'
+	                    . '* Add trash state of gallery, delete only if trashed<br>'
+	                    //. '* <br>'
+	                    //. '* <br>'
+	                    //. '* <br>'
+	                    //. '* <br>'
+	                    . '</span><br><br>';
                 }
 
                 break;
