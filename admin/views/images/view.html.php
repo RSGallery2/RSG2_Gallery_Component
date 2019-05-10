@@ -148,11 +148,14 @@ class Rsgallery2ViewImages extends JViewLegacy
 				{
                     echo '<span style="color:red">'
                         . 'Tasks: <br>'
+	                    . '* Add trash state of image, delete only if trashed<br>'
                         . '* Delete function needs to delete watermarked too !<br>'
 	                    . '* Search selection has on option too many<br>'
 	                    . '* Search controls ...<br>'
-                        . '* Sort by image count is wrong<br>'
+                        . '* Sort by ???image count is wrong<br>'
 	                    . '* Image not shown above title (data-original-title?)<br>'
+	                    . '* Add click on comments to go to comments view with image preselected<br>'
+	                    //. '* <br>'
 	                    //. '* <br>'
 	                    //. '* <br>'
                         . '</span><br><br>';
