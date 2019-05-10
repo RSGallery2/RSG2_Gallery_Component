@@ -64,6 +64,7 @@ JFactory::getDocument()->addScriptDeclaration('
 					echo $this->form->renderField('uid');
 					echo $this->form->renderField('access');
 					echo $this->form->renderField('parent');
+					echo $this->form->renderField('display_parameter');
 					?>
 				</fieldset>
 			</div>

@@ -100,6 +100,17 @@
 				label="COM_RSGALLERY2_OWNER"
 				description=""
 		/>
+		<field
+				name         = "display_parameter"
+				type         = "textarea"
+				label        = "COM_RSGALLERY2_DISPLAY_PARAMETERS"
+				description  = "COM_RSGALLERY2_DISPLAY_PARAMETERS_DESC"
+				class        = "input-large-text"
+				rows         = "4"
+				size         = "120"
+		>
+		</field>
+
 	</fieldset>
 
     <fields name="params">

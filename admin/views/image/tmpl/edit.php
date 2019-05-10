@@ -85,7 +85,14 @@ JFactory::getDocument()->addScriptDeclaration('
 				//				echo '</div>';
 				?>
 
-				<BR>
+                <fieldset class="adminform">
+					<?php
+					echo $this->form->renderField('display_parameter');
+					?>
+                </fieldset>
+
+
+               
 				<strong>
 					<?php echo JText::_('COM_RSGALLERY2_LINKS_TO_IMAGE') ?>
 				</strong>

@@ -230,7 +230,10 @@ $userId = $user->id;
 							</th>
 
 							<th width="1%" class="center nowrap hidden-phone">
-								<?php echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_COMMENTS', 'a.comments', $sortDirection, $sortColumn); ?>
+								<?php
+                                // echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_COMMENTS', 'a.comments', $sortDirection, $sortColumn);
+                                echo JHtml::_('searchtools.sort', 'COM_RSGALLERY2_COMMENTS', 'comment_count', $sortDirection, $sortColumn);
+                                ?>
 							</th>
 
 							<th width="1%" class="center nowrap hidden-phone">
@@ -259,7 +262,7 @@ $userId = $user->id;
 							/**/
 							// Get permissions
 							$canEditOwnImage = $user->authorise('core.edit.own', 'com_rsgallery2.image.' . $item->id) AND ($item->userid == $userId);
-							$canEditImage = $user->authorise('core.edit', 'com_rsgallery2.image.' . $item->id) || $canEditImage;
+							$canEditImage = $user->authorise('core.edit', 'com_rsgallery2.image.' . $item->id) || $canEditOwnImage;
 
 							$canCheckin = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
 
@@ -381,7 +384,10 @@ $userId = $user->id;
 								</td>
 
 								<td class="hidden-phone center">
-									<?php echo (int) $item->comments; ?>
+									<?php
+                                    //echo (int) $item->comments;
+                                    ?>
+									<?php echo (int) $item->comment_count; ?>
 								</td>
 
 								<td class="hidden-phone center">

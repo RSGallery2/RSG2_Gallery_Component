@@ -119,12 +119,13 @@ class Rsgallery2ModelImages extends JModelList
 		$db    = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
+		// . 'a.date, a.rating, a.votes, a.comments, a.published, '
 		// Query for all images data.
 		$actState =
 			$this->getState(
 				'list.select',
 				'a.id, a.name, a.alias, a.descr, a.gallery_id, a.title, a.hits, '
-				. 'a.date, a.rating, a.votes, a.comments, a.published, '
+				. 'a.date, a.rating, a.votes, a.published, '
 				. 'a.checked_out, a.checked_out_time, a.ordering, '
 				. 'a.approved, a.userid, a.params, a.asset_id'
 			);
@@ -136,8 +137,8 @@ class Rsgallery2ModelImages extends JModelList
 			->join('LEFT', '#__rsgallery2_galleries AS gal ON gal.id = a.gallery_id'
 			);
 
-		/* Count child images */
-		$query->select('COUNT(cmt.item_id) as comment')
+		/* Count  */
+		$query->select('COUNT(cmt.item_id) as comment_count')
 			->join('LEFT', '#__rsgallery2_comments AS cmt ON cmt.item_id = a.id'
 			);
 
