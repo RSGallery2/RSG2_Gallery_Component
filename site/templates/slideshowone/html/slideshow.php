@@ -134,19 +134,23 @@ echo '	<form name="_slideShow">';
 echo '		<input type="Hidden" name="currSlide" value="0">';
 echo '		<input type="Hidden" name="delay">';
 
-echo '		<div id="myGallery<?php echo $this->gid; ?>" class="PlayerContainer">';
+echo '		<div id="myGallery' . $this->gid . '" class="PlayerContainer">';
 
 			if ($this->isDisplayButtons && $this->isButtonsAbove)
 			{
+				echo '		test 01';
 				echo displayButtons();
 			}
+echo '		test 02';
             echo '<img name="stage" class="PlayerImage" src="' . $firstImage->url() . '" style="filter: revealtrans(); font-size:12px;">';
+echo '		test 03';
 
             if ($this->isDisplayButtons && ! $this->isButtonsAbove)
 			{
+				echo '		test 04';
 				echo displayButtons ();
 			}
-			?>
+
 echo '	</div>';
 
 echo '	<div style="visibility:hidden;">';
