@@ -19,6 +19,20 @@
 	   If page then add ‘as’ concatenated with page value
  */
 
+/**
+ * @param bool
+ */
+global $isDebugSiteActive;
+
+// $Rsg2DebugActive = true; // ToDo: $rsgConfig->get('debug');
+if ($isDebugSiteActive) {
+	// Include the JLog class.
+	jimport('joomla.log.log');
+
+	// identify active file
+	JLog::add('==> base.controller.php');
+}
+
 
 // ToDo: init rsgConfig once and for all ? or use 
 
@@ -35,13 +49,18 @@ defined('_JEXEC') or die;
 function Rsgallery2BuildRoute(&$query)
 {
 	//Get config values
-	global $rsgConfig;
+	global $rsgConfig, $isDebugSiteActive;
 
 	// standard joomla behaviour
 	//$rsgConfig = JComponentHelper::getParams('com_rsgallery2');
 	Rsgallery2InitConfig();
 
-// ToDo: As this is an entry point --> activate debug Log
+	// ToDo: As this is an entry point --> activate debug Log
+	// $Rsg2DebugActive = true; // ToDo: $rsgConfig->get('debug');
+	if ($isDebugSiteActive) {
+		// identify active file
+		JLog::add('==> Rsgallery2BuildRoute');
+	}
 
 	$segments = array();
 
@@ -50,6 +69,10 @@ function Rsgallery2BuildRoute(&$query)
 	//Now define non-advanced SEF as v2 way and advanced SEF as v3 way
 	if ($advancedSef == true)
 	{
+		if ($isDebugSiteActive) {
+			JLog::add('     $advancedSef == true');
+		}
+
 		//Find gid from menu --> $menuGid (can be an independent function)
 		$app  = JFactory::getApplication();
 		$menu = $app->getMenu();
@@ -144,6 +167,10 @@ function Rsgallery2BuildRoute(&$query)
 	{//not advancedSEF
 		// static $items;
 
+		if ($isDebugSiteActive) {
+			JLog::add('     $advancedSef == false');
+		}
+
 		//Find gid from menu --> $menuGid (can be an independent function)
 		$app  = JFactory::getApplication();
 		$menu = $app->getMenu();
@@ -218,17 +245,28 @@ function Rsgallery2ParseRoute($segments)
 {
 	//Note: segments show up like: '6:testimage' instead of expected '5-testimage' (don't know why)
 	//Get config values
-	global $rsgConfig;
-
-	$vars = array();
+	global $rsgConfig, $isDebugSiteActive;
 
 	// standard joomla behaviour
 	//$rsgConfig = JComponentHelper::getParams('com_rsgallery2');
 	Rsgallery2InitConfig();
 
+	// ToDo: As this is an entry point --> activate debug Log
+	// $Rsg2DebugActive = true; // ToDo: $rsgConfig->get('debug');
+	if ($isDebugSiteActive) {
+		// identify active file
+		JLog::add('==> Rsgallery2BuildRoute');
+	}
+
+	$vars = array();
+
 	//Now define non-advanced SEF as v2 way and advanced SEF as v3 way
 	if ($rsgConfig->get("advancedSef") == true)
 	{
+		if ($isDebugSiteActive) {
+			JLog::add('     $advancedSef == true');
+		}
+
 		//View doesn't need to be added (there is only one view).
 		//Check number of parts:
 		switch (count($segments))
@@ -280,6 +318,12 @@ function Rsgallery2ParseRoute($segments)
 	else
 	{
 	    // not advancedSEF
+
+		if ($isDebugSiteActive) {
+			JLog::add('     $advancedSef == false');
+		}
+
+
 		// Get the active menu item.
 		//$menu	= JSite::getMenu();
 		$app  = JFactory::getApplication();
