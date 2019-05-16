@@ -8,7 +8,6 @@
 
 defined('_JEXEC') or die();
 
-//JHtml::_('behavior.framework', true);  // load mootools ToDo: Remove mootools
 JHtml::_('jquery.framework'); // load jquery
 //JHtml::_('jquery.ui'); // load jquery ui from Joomla
 //$this->document->addScript(JURI::root(true).'/components/com_mycomponent/assets/jquery.ui.slider.min.js'); // load *same version* widget code from jQuery UI archive

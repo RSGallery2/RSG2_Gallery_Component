@@ -21,9 +21,6 @@ $this->showSearchBox();
 
 /**
 
-// JHtml::_('behavior.framework', true);  // ToDo: Remove mootools
-
-global $mainframe;
 
 JHtml::_('jquery.ui');
 //JHtml::_('jquery.ui', array('core', 'sortable'));
