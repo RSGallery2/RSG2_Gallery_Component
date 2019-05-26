@@ -8,20 +8,26 @@
  */
 defined('_JEXEC') or die();
 
-global $rsgConfig , $Rsg2DevelopActive;
+global $rsgConfig, $Rsg2DevelopActive;
 
 // Access parameter from params.ini (example). defined in template.xml
 //echo('<!-- using template parameter: testParameter = ' . $this->params->get('testParameter') . ' -->');
+
+if ($isDebugSiteActive)
+{
+	JLog::add('semantic:::gallery.php -> template: ' . $rsgConfig->get('template') . ' gallery view ');
+}
+
 
 if($Rsg2DevelopActive)
 {
 	// ToDo: auto class name ...
 //	echo '<div style="float:left;"><strong>[' . 'schuweb' . ' gallery view]</strong></div>';
 //	echo '<div style="float:left;"><strong>[' . <template/class name> . ' gallery view]</strong></div>';
-	echo '<div style="float:left;"><strong>[' . $rsgConfig->get('template') . ' gallery view]</strong></div><br>';
+//	echo '<div style="float:left;"><strong>[' . $rsgConfig->get('template') . ' gallery view]</strong></div><br>';
 }
 
-//Show My Galleries link (if user is logged in (user id not 0))
+// Show My Galleries link (if user is logged in (user id not 0))
 if ($rsgConfig->get('show_mygalleries') AND (JFactory::getUser()->id))
 {
 	// in meta

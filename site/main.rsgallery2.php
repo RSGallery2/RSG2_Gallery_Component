@@ -21,6 +21,11 @@ function template()
 {
 	global $rsgConfig, $isDebugSiteActive;
 
+	if ($isDebugSiteActive)
+	{
+		JLog::add('main.rsgallery2::template()');
+	}
+
 	//Set template selection
 	//$template = preg_replace( '#\W#', '', JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template') ));
 	$input    = JFactory::getApplication()->input;
@@ -36,12 +41,14 @@ function template()
 	
 	if (!file_exists($templateLocation))
 	{
-		JFactory::getApplication()->enqueueMessage('RSGallery2 template:<pre>' . "Template $template does not exist.<br/>Please select an existing template in the Template Manager." . '</pre>', 'error');
+		JFactory::getApplication()->enqueueMessage('RSGallery2 template:<pre>'
+			. "Template $template does not exist.<br/>Please select an existing template in the Template Manager."
+			. '</pre>', 'error');
 		return false;
 	}
 	else
 	{
-		require($templateLocation);
+		require ($templateLocation);
 	}
 }
 
@@ -50,6 +57,13 @@ function template()
  */
 function xmlFile()
 {
+	global $isDebugSiteActive;
+
+	if ($isDebugSiteActive)
+	{
+		JLog::add('xmlFile: ');
+	}
+
 	// $template = preg_replace( '#\W#', '', JRequest::getCmd( 'xmlTemplate', 'meta' ) );
 	$input    = JFactory::getApplication()->input;
 	$template = preg_replace('#\W#', '', $input->get('xmlTemplate', 'meta', 'CMD'));
@@ -85,8 +99,14 @@ function xmlFile()
  */
 function downloadFile()
 {
-	global $rsgConfig;
-	//Clean and delete current output buffer 
+	global $isDebugSiteActive;
+
+	if ($isDebugSiteActive)
+	{
+		JLog::add('xmlFile: ');
+	}
+
+	//Clean and delete current output buffer
 	ob_end_clean();
 
 	$gallery  = rsgGalleryManager::getGalleryByItemID();

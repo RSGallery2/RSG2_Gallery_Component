@@ -24,6 +24,11 @@ JHtml::_('behavior.tooltip');
 //include page navigation
 jimport('joomla.html.pagination');//J!1.5
 
+if ($isDebugSiteActive)
+{
+	JLog::add('semantic:::index.php');
+}
+
 //--- template definitions --------------------------
 
 $templateName = $rsgConfig->get('template');

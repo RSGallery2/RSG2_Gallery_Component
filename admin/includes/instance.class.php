@@ -41,14 +41,14 @@ class rsgInstance
 
 	static function instance($newInstance = 'request', $showTemplate = true)
 	{
-		global $Rsg2DebugActive;
+		global $isDebugSiteActive;
 		
 		static $instanceStack = array();
 		$stacked = false;
 
-		if ($Rsg2DebugActive)
+		if ($isDebugSiteActive)
 		{
-			JLog::add('New instance (?site): ');
+			JLog::add('New instance (site): count=' . (count($instanceStack) +1) );
 		}
 		
 		// if rsg2 is already instanced then push the current instance to be pop'd later
@@ -64,6 +64,8 @@ class rsgInstance
 
 			// push current instance on stack
 			array_push($instanceStack, $GLOBALS['_RSGINSTANCE']);
+
+
 		}
 
 		$GLOBALS['_RSGINSTANCE'] = $newInstance;
@@ -89,12 +91,12 @@ class rsgInstance
      */
 	static function mainSwitch()
 	{
-		global $Rsg2DebugActive;
+		global $isDebugSiteActive;
 		
 		$input = JFactory::getApplication()->input;
 		$cmd   = $input->get('rsgOption', '', 'CMD');
 		
-		if ($Rsg2DebugActive)
+		if ($isDebugSiteActive)
 		{
 			JLog::add('instance mainSwitch cmd: "' . $cmd . '"');
 		}
@@ -115,7 +117,7 @@ class rsgInstance
 				break;
 			default:
 				$task = $input->get('task', '', 'CMD');
-				if ($Rsg2DebugActive)
+				if ($isDebugSiteActive)
 				{
 					JLog::add('instance mainSwitch task: "' . $task . '"');
 				}
@@ -136,5 +138,4 @@ class rsgInstance
 				}
 		}
 	}
-
 }
