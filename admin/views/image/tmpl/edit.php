@@ -14,7 +14,7 @@ global $Rsg2DebugActive;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
-// JHtml::_('behavior.tooltip');
+
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.keepalive');

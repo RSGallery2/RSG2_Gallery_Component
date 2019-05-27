@@ -8,7 +8,7 @@
 
 defined('_JEXEC') or die();
 
-// JHtml::_('behavior.tooltip');
+
 JHtml::_('bootstrap.tooltip');
 
 global $Rsg2DebugActive;

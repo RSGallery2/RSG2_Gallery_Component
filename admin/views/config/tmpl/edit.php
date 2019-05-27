@@ -10,7 +10,7 @@ defined('_JEXEC') or die();
 
 global $Rsg2DebugActive;
 
-// JHtml::_('behavior.tooltip');
+
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.multiselect');
 JHtml::_('behavior.formvalidator');

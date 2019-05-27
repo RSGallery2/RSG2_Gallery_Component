@@ -72,7 +72,7 @@ class InstallerViewDefault extends JViewLegacy
 		$this->showMessage = $showMessage;
 		$this->state       = $state;
 
-		JHtml::_('behavior.tooltip');
+		JHtml::_('bootstrap.tooltip');
 		parent::display($tpl);
 	}
 

@@ -19,7 +19,8 @@ This is built to imitate the Joomla 1.5.* style of templating.  Hopeful that inf
 defined('_JEXEC') or die();
 
 //Load Tooltips
-JHtml::_('behavior.tooltip');
+//JHtml::_('behavior.tooltip');
+JHtml::_('bootstrap.tooltip');
 
 //include page navigation
 jimport('joomla.html.pagination');//J!1.5

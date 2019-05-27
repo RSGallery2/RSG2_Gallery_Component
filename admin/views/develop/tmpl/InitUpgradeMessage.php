@@ -10,7 +10,7 @@ defined('_JEXEC') or die();
 
 require_once(JPATH_SITE . '/administrator/components/com_rsgallery2/includes/install.class.php');
 
-// JHtml::_('behavior.tooltip');
+
 JHtml::_('bootstrap.tooltip');
 
 global $Rsg2DebugActive;
