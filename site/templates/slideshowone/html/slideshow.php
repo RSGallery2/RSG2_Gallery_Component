@@ -137,16 +137,16 @@ echo '		<div id="myGallery' . $this->gid . '" class="PlayerContainer">';
 
 			if ($this->isDisplayButtons && $this->isButtonsAbove)
 			{
-				echo '		test 01';
+				// echo '		test 01';
 				echo displayButtons();
 			}
-echo '		test 02';
+//echo '		test 02';
             echo '<img name="stage" class="PlayerImage" src="' . $firstImage->url() . '" style="filter: revealtrans(); font-size:12px;">';
-echo '		test 03';
+//echo '		test 03';
 
             if ($this->isDisplayButtons && ! $this->isButtonsAbove)
 			{
-				echo '		test 04';
+				// echo '		test 04';
 				echo displayButtons ();
 			}
 
