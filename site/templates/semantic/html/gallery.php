@@ -8,7 +8,7 @@
  */
 defined('_JEXEC') or die();
 
-global $rsgConfig, $Rsg2DevelopActive;
+global $rsgConfig, $Rsg2DevelopActive, $isDebugSiteActive;
 
 // Access parameter from params.ini (example). defined in template.xml
 //echo('<!-- using template parameter: testParameter = ' . $this->params->get('testParameter') . ' -->');
