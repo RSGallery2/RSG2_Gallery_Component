@@ -135,7 +135,7 @@ class Rsgallery2ViewMaintRegenerateImages extends JViewLegacy
 		if (!empty ($Rsg2DevelopActive))
 		{
 			echo '<span style="color:red">'
-				. '*  !!! Fix as not working <br>'
+				. '*  !!! Fix as not working !!! <br>'
 				. '*  rewrite for remove of old J1.5 code needs<br>'
 				. '*  Button to do both thumbs an images (remove switches .. <br>'
 				. '*  Show galleries as list to select<br>'
