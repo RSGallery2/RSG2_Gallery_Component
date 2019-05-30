@@ -518,7 +518,7 @@ function DisplayImageDataTable($ImageReferences, $form)
 			$html[] = '       <div class="img_border">';
 			//$html[] =         '11';
 			$html[] = '       <img  class="img_thumb" alt="' . $ImageData->imageName . '" '
-				. 'name="image" src="' . JUri::root(true) . $ImageData->imagePath . '">';
+				. 'name="image" src="' . JUri::root(false) . $ImageData->imagePath . '">';
 			$html[] = '       </div>';
 			$html[] = '   </td>';
 		}

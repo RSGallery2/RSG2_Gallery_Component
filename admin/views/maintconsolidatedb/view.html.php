@@ -144,7 +144,6 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 		{
 			echo '<span style="color:red">'
 				. 'Tasks: <br>'
-				. '* !!! Url on images (right side miss the html ... url  ? Jroute ? !!! <br>'
 				. '* Delete also watermarked images <br>'
 				. '* Image square a) use thumb if possible b) check for gd2:... <br>'
 				. '* Select for parent galleries -> only when errors exist <br>'
