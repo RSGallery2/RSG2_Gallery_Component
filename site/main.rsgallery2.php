@@ -97,6 +97,7 @@ function xmlFile()
  * Thanks to Rich Malak <rmalak@fuseideas.com> for his invaluable contribution
  * to this very important feature!
  */
+//function downloadFile($id) {
 function downloadFile()
 {
 	global $isDebugSiteActive;
@@ -159,6 +160,8 @@ function downloadFile()
 	}
 	//Close file after use!
 	fclose($fd);
+
+	// Why that ? restart
 	ob_flush();
 
 }
