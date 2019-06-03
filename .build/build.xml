@@ -9,7 +9,7 @@ ToDo:
   * task: make project file with major plugins ... 
   
 -->
-<project name = "RSG2_component" default = "build">
+<project name="RSG2_component" default="build">
 <!-- ============================================ -->
 <description>
 --- RSGallery2 component build script with phing ---
@@ -30,7 +30,7 @@ ToDo:
 	
 	
 	<tstamp>
-		<format property = "fith.date" pattern = ".%Y.%m.%d" />
+		<format property="fith.date" pattern=".%Y.%m.%d" />
 	</tstamp>
 	
     <property name="builddir" value="./../.packages/" override="true" />
@@ -104,7 +104,7 @@ ToDo:
         <echo msg="Copy was successful" />
         <!-- insert version, build number and date into the xml files -->
         <reflexive>
-            <fileset id = "sourcefiles" dir="${builddir}/tmp/">
+            <fileset id="sourcefiles" dir="${builddir}/tmp/">
                 <include name="rsgallery2.xml" />
             </fileset>
             <filterchain>
@@ -120,12 +120,12 @@ ToDo:
 		
 		
 		<!--reflexive>
-			<fileset dir = ".">
-				<include pattern = "*.html">
+			<fileset dir=".">
+				<include pattern="*.html">
 			</fileset>
 			<filterchain>
 				<replaceregexp>
-					<regexp pattern = "\r(\n)" replace = "\1"/>
+					<regexp pattern="\r(\n)" replace="\1"/>
 				</replaceregexp>
 			</filterchain>
 		</reflexive-->
