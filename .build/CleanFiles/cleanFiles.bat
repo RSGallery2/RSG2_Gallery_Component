@@ -1,6 +1,9 @@
 @ECHO OFF
 REM <What it does>
 
+Echo "Prepared but not ready at all"
+
+
 CLS
 
 Set CmdArgs=
