@@ -1,9 +1,8 @@
 #!/usr/bin/python
 
 """
-Collection of joomla TranslationFile from one file
+Collection of joomla translkation strings  from one TranslationFile
 """
-
 
 import os
 #import re
@@ -35,12 +34,13 @@ usage: TranslationFile.py -? nnn -? xxxx -? yyyy  [-h]
 
 ------------------------------------
 ToDo:
-ToDo:
-  *
-  *
-  *
-  *
-  *
+  * Read version and keep lang info
+  * ? list of en-GB to english-United Kingdom assoc. for save
+  * ? keep orig filename so it can be used on empty filename on save
+  * 
+  * 
+  * 
+  * 
 
 """
 
@@ -158,6 +158,103 @@ class TranslationFile:
 		finally:
 			print ('exit TranslationFile')
 
+	def save (self, fileName='', isTest=True):
+		try:
+			print ('*********************************************************')
+			print ('save')
+			print ('fileName: ' + fileName)
+
+			print ('---------------------------------------------------------')
+
+
+			#--------------------------------------------------------------------
+			# open file
+			#--------------------------------------------------------------------
+
+			# Do test output only
+			if (isTest):
+				useFileName = fileName + ".new"
+			else:
+				useFileName = fileName
+
+			# todo: check for no bom 
+			fh = open(fname, encoding="utf-8")
+
+			#--------------------------------------------------------------------
+			# write header
+			#--------------------------------------------------------------------
+
+			"""
+			; en-GB (english-United Kingdom) language file for RSGallery2
+			; @version $Id: en-GB.com_rsgallery2.ini 1090 2012-07-09 18:52:20Z mirjam $
+			; @package RSGallery2
+			; @copyright (C) 2003-2018 RSGallery2 Team
+			; @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+			; @author RSGallery2 Team
+			;
+			; Last updated: used en-GB.com_rsgallery2.ini from SVN 1078, translated till SVN 1079
+			; Save in UTF-8 without BOM (with e.g. Notepad ++)
+
+			; If the language file only shows the keys in Joomla, turn on Joomla's debug system and
+			; debug language (global configuration) and check for 'Parsing errors in language files'. 
+			; This will also show a list of 'Untranslated Strings'.
+
+			; ToDo: Prevent on install writing *.ini file into \administrator\language\ and delete existing translations there
+			"""
+			# u'\n' 
+			
+			HeaderTxt = ''
+			HeaderTxt += "; " + fileName[:5] + ' (' + ')  language file for RSGallery2 ' + u'\n'
+			HeaderTxt += "; " + ' @version  2012-07-09 18:52:20Z ' + u'\n'
+			HeaderTxt += "; " + ' package RSGallery2 ' + u'\n'
+			HeaderTxt += "; " + ' @copyright (C) 2003-2018 RSGallery2 Team ' + u'\n'
+			HeaderTxt += "; " + ' @license http://www.gnu.org/copyleft/gpl.html GNU/GPL ' + u'\n'
+			HeaderTxt += "; " + ' @author RSGallery2 Team ' + u'\n'
+
+			fh.write (HeaderTxt)
+
+			#--------------------------------------------------------------------
+			# write all lines 
+			#--------------------------------------------------------------------
+
+			idx = 0
+			
+			print ("Translations: " + str(len (self.translations)))
+			for key, value in self.translations.items():
+			
+				# mark each 50 lines 
+				
+				# seperate each 5 lines 
+				
+				idx ++
+			
+				print ("   " + key + " = " + value)
+
+			
+			
+
+			#--------------------------------------------------------------------
+			#
+			#--------------------------------------------------------------------
+
+
+
+			#--------------------------------------------------------------------
+			#
+			#--------------------------------------------------------------------
+
+
+
+			#--------------------------------------------------------------------
+			#
+			#--------------------------------------------------------------------
+
+
+
+
+		finally:
+			print ('exit save')
+
 	#-------------------------------------------------------------------------------
 	# ToDo: Return string instead of print
 	def Text (self):
@@ -180,8 +277,6 @@ class TranslationFile:
 
 #	print ('    <<< Exit yyy: ' + ZZZ)
 #	return ZZZ
-
-toDo: further checks ?
 
 
 ##-------------------------------------------------------------------------------
