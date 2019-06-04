@@ -92,45 +92,45 @@ class TranslationFile:
 			if fileName == '' :
 				fileName = self.translationFile
 
-				if (os.path.isfile(fileName)):
-					print ('Found fileName: ' + fileName)
-					#print ('fileName: ' + fileName)
+			if (os.path.isfile(fileName)):
+				print ('Found fileName: ' + fileName)
+				#print ('fileName: ' + fileName)
 
-					with open(fileName, encoding="utf8") as fp:
-						for cnt, line in enumerate(fp):
-							#if LookupString not in line:
-							#	continue
-							line = line.strip()
+				with open(fileName, encoding="utf8") as fp:
+					for cnt, line in enumerate(fp):
+						#if LookupString not in line:
+						#	continue
+						line = line.strip()
 
-							idx = line.find ('=')
+						idx = line.find ('=')
 
-							#if '=' not in line:
-							if (idx < 0):
-								continue
-							
-							# comment
-							if (line[0] == ';'):
-								continue
+						#if '=' not in line:
+						if (idx < 0):
+							continue
+						
+						# comment
+						if (line[0] == ';'):
+							continue
 
-							transId = line[:idx].strip ()
+						transId = line[:idx].strip ()
 
-							transText = line[idx+1:].strip ()
-							#print ('transText (1): ' + transText)
-							# Remove ""
-							transText = transText [1:-1]
-							#print ('transText (2): ' + transText)
-							
-							# prepared lines in file : com... = ""
-							if (len(transText) < 1):
-								continue
+						transText = line[idx+1:].strip ()
+						#print ('transText (1): ' + transText)
+						# Remove ""
+						transText = transText [1:-1]
+						#print ('transText (2): ' + transText)
+						
+						# prepared lines in file : com... = ""
+						if (len(transText) < 1):
+							continue
 
 
-							# Key does already exist
-							if (transId in self.translations):
-								# Save last info
-								self.doubles [transId] = self.translations [transId]
+						# Key does already exist
+						if (transId in self.translations):
+							# Save last info
+							self.doubles [transId] = self.translations [transId]
 
-							self.translations [transId] = transText
+						self.translations [transId] = transText
 
 
 
@@ -164,7 +164,7 @@ class TranslationFile:
 			print ('save')
 			
 			# use class filename
-			if (fileName==''):
+			if (fileName == ''):
 				fileName = self.translationFile
 				
 			print ('fileName: ' + fileName)
@@ -242,6 +242,7 @@ class TranslationFile:
 						TranslLines += "; ------------------------------------------" + u'\n'
 					
 					idx += 1
+					print (idx, end=', ')
 				
 					#print ("   " + key + " = " + value)
 					TranslLines += key + ' = '  + value + u'\n'
