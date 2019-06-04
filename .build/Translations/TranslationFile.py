@@ -158,11 +158,19 @@ class TranslationFile:
 		finally:
 			print ('exit TranslationFile')
 
-	def save (self, fileName='', isTest=True):
+	def save (self, fileName='', isTest=False):
 		try:
 			print ('*********************************************************')
 			print ('save')
+			
+			# use class filename
+			if (fileName==''):
+				fileName = self.translationFile
+				
 			print ('fileName: ' + fileName)
+			
+			isTest = True # ToDo: remove later
+			print ('isTest: ' + str(isTest))
 
 			print ('---------------------------------------------------------')
 
@@ -178,73 +186,82 @@ class TranslationFile:
 				useFileName = fileName
 
 			# todo: check for no bom 
-			fh = open(fname, encoding="utf-8")
+			with open(fileName, mode="w", encoding="utf8") as fh:
 
-			#--------------------------------------------------------------------
-			# write header
-			#--------------------------------------------------------------------
-
-			"""
-			; en-GB (english-United Kingdom) language file for RSGallery2
-			; @version $Id: en-GB.com_rsgallery2.ini 1090 2012-07-09 18:52:20Z mirjam $
-			; @package RSGallery2
-			; @copyright (C) 2003-2018 RSGallery2 Team
-			; @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-			; @author RSGallery2 Team
-			;
-			; Last updated: used en-GB.com_rsgallery2.ini from SVN 1078, translated till SVN 1079
-			; Save in UTF-8 without BOM (with e.g. Notepad ++)
-
-			; If the language file only shows the keys in Joomla, turn on Joomla's debug system and
-			; debug language (global configuration) and check for 'Parsing errors in language files'. 
-			; This will also show a list of 'Untranslated Strings'.
-
-			; ToDo: Prevent on install writing *.ini file into \administrator\language\ and delete existing translations there
-			"""
-			# u'\n' 
-			
-			HeaderTxt = ''
-			HeaderTxt += "; " + fileName[:5] + ' (' + ')  language file for RSGallery2 ' + u'\n'
-			HeaderTxt += "; " + ' @version  2012-07-09 18:52:20Z ' + u'\n'
-			HeaderTxt += "; " + ' package RSGallery2 ' + u'\n'
-			HeaderTxt += "; " + ' @copyright (C) 2003-2018 RSGallery2 Team ' + u'\n'
-			HeaderTxt += "; " + ' @license http://www.gnu.org/copyleft/gpl.html GNU/GPL ' + u'\n'
-			HeaderTxt += "; " + ' @author RSGallery2 Team ' + u'\n'
-
-			fh.write (HeaderTxt)
-
-			#--------------------------------------------------------------------
-			# write all lines 
-			#--------------------------------------------------------------------
-
-			idx = 0
-			
-			print ("Translations: " + str(len (self.translations)))
-			for key, value in self.translations.items():
-			
-				# mark each 50 lines 
+				#--------------------------------------------------------------------
+				# write header
+				#--------------------------------------------------------------------
+	
+				"""
+				; en-GB (english-United Kingdom) language file for RSGallery2
+				; @version $Id: en-GB.com_rsgallery2.ini 1090 2012-07-09 18:52:20Z mirjam $
+				; @package RSGallery2
+				; @copyright (C) 2003-2018 RSGallery2 Team
+				; @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+				; @author RSGallery2 Team
+				;
+				; Last updated: used en-GB.com_rsgallery2.ini from SVN 1078, translated till SVN 1079
+				; Save in UTF-8 without BOM (with e.g. Notepad ++)
+	
+				; If the language file only shows the keys in Joomla, turn on Joomla's debug system and
+				; debug language (global configuration) and check for 'Parsing errors in language files'.
+				; This will also show a list of 'Untranslated Strings'.
+	
+				; ToDo: Prevent on install writing *.ini file into \administrator\language\ and delete existing translations there
+				"""
+				# u'\n'
 				
-				# seperate each 5 lines 
+				HeaderTxt = ''
+				HeaderTxt += "; " + fileName[:5] + ' (' + ')  language file for RSGallery2 ' + u'\n'
+				HeaderTxt += "; " + ' @version  2012-07-09 18:52:20Z ' + u'\n'
+				HeaderTxt += "; " + ' package RSGallery2 ' + u'\n'
+				HeaderTxt += "; " + ' @copyright (C) 2003-2018 RSGallery2 Team ' + u'\n'
+				HeaderTxt += "; " + ' @license http://www.gnu.org/copyleft/gpl.html GNU/GPL ' + u'\n'
+				HeaderTxt += "; " + ' @author RSGallery2 Team ' + u'\n'
 				
-				idx ++
-			
-				print ("   " + key + " = " + value)
+	
+				fh.write (HeaderTxt)
+	
+				#--------------------------------------------------------------------
+				# write all lines
+				#--------------------------------------------------------------------
+	
+				idx = 0
+				
+				TranslLines = ''
+				
+				print ("Translations: " + str(len (self.translations)))
+				for key, value in self.translations.items():
+					
+					# separator each 5 lines
+					if (idx % 5):
+						TranslLines += "" + ' ' + u'\n'
 
-			
-			
-
-			#--------------------------------------------------------------------
-			#
-			#--------------------------------------------------------------------
-
-
-
-			#--------------------------------------------------------------------
-			#
-			#--------------------------------------------------------------------
-
-
-
+					# mark each 50 lines
+					if (idx % 50):
+						TranslLines += "; ------------------------------------------" + u'\n'
+					
+					idx += 1
+				
+					#print ("   " + key + " = " + value)
+					TranslLines += key + ' = '  + value + u'\n'
+				
+				TranslLines += "" + ' ' + u'\n'
+				TranslLines += "" + ' ' + u'\n'
+				TranslLines += "" + ' ' + u'\n'
+	
+				#--------------------------------------------------------------------
+				#
+				#--------------------------------------------------------------------
+	
+	
+	
+				#--------------------------------------------------------------------
+				#
+				#--------------------------------------------------------------------
+	
+	
+	
 			#--------------------------------------------------------------------
 			#
 			#--------------------------------------------------------------------
