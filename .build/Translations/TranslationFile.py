@@ -186,7 +186,7 @@ class TranslationFile:
 				useFileName = fileName
 
 			# todo: check for no bom 
-			with open(fileName, mode="w", encoding="utf8") as fh:
+			with open(useFileName, mode="w", encoding="utf8") as fh:
 
 				#--------------------------------------------------------------------
 				# write header
@@ -209,16 +209,21 @@ class TranslationFile:
 	
 				; ToDo: Prevent on install writing *.ini file into \administrator\language\ and delete existing translations there
 				"""
-				# u'\n'
+				
+#				datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+				
+				baseName = os.path.basename(fileName)
+				dateFormat = datetime.now().strftime("%Y-%m-%d")
+				dateYear = datetime.now().strftime("%Y")
 				
 				HeaderTxt = ''
-				HeaderTxt += "; " + fileName[:5] + ' (' + ')  language file for RSGallery2 ' + u'\n'
-				HeaderTxt += "; " + ' @version  2012-07-09 18:52:20Z ' + u'\n'
-				HeaderTxt += "; " + ' package RSGallery2 ' + u'\n'
-				HeaderTxt += "; " + ' @copyright (C) 2003-2018 RSGallery2 Team ' + u'\n'
-				HeaderTxt += "; " + ' @license http://www.gnu.org/copyleft/gpl.html GNU/GPL ' + u'\n'
-				HeaderTxt += "; " + ' @author RSGallery2 Team ' + u'\n'
-				
+				#HeaderTxt += "; " + baseName[:5] + ' (' + baseName + ')  language file for RSGallery2 ' + u'\n'
+				HeaderTxt += "; " + baseName + '  language file for RSGallery2 ' + u'\n'
+				HeaderTxt += "; " + '@version ' + dateFormat + u'\n'
+				HeaderTxt += "; " + '@package RSGallery2 ' + u'\n'
+				HeaderTxt += "; " + '@copyright (C) 2003-' + dateYear + ' RSGallery2 Team ' + u'\n'
+				HeaderTxt += "; " + '@license http://www.gnu.org/copyleft/gpl.html GNU/GPL ' + u'\n'
+				HeaderTxt += "; " + '@author RSGallery2 Team ' + u'\n'
 	
 				fh.write (HeaderTxt)
 	
@@ -231,14 +236,18 @@ class TranslationFile:
 				TranslLines = ''
 				
 				print ("Translations: " + str(len (self.translations)))
-				for key, value in self.translations.items():
+				
+				#for key, value in self.translations.items():
+				for key in sorted(self.translations.keys()):
+					
+					value = self.translations [key]
 					
 					# separator each 5 lines
-					if (idx % 5):
+					if (idx % 5 == 0):
 						TranslLines += "" + ' ' + u'\n'
 
 					# mark each 50 lines
-					if (idx % 50):
+					if (idx % 50 == 0):
 						TranslLines += "; ------------------------------------------" + u'\n'
 					
 					idx += 1
@@ -250,7 +259,9 @@ class TranslationFile:
 				TranslLines += "" + ' ' + u'\n'
 				TranslLines += "" + ' ' + u'\n'
 				TranslLines += "" + ' ' + u'\n'
-	
+				
+				fh.write(TranslLines)
+		
 				#--------------------------------------------------------------------
 				#
 				#--------------------------------------------------------------------
@@ -440,4 +451,7 @@ if __name__ == '__main__':
 
 	TransFile.Text ()
 	#print_end(start)
+	
+	TransFile.save ('', True) # save on new name
+
 
