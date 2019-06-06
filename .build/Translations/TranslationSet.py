@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 """
-Collection of joomla translation strings  from one "Translation File"
+Collection of joomla translation files (translation lines) from one translation type
 """
 
 import os
@@ -11,11 +11,15 @@ import sys
 
 from datetime import datetime
 
+from TransFile import TransFile
 
 HELP_MSG = """
-TranslationFile supports ...
+TranslationSet supports ...
+Collection of files with translation types. 
+The files will be loadesd in given directory
+The set
 
-usage: TranslationFile.py -? nnn -? xxxx -? yyyy  [-h]
+usage: TranslationSet.py -? nnn -? xxxx -? yyyy  [-h]
 	-? nnn
 	-?
 
@@ -34,9 +38,6 @@ usage: TranslationFile.py -? nnn -? xxxx -? yyyy  [-h]
 
 ------------------------------------
 ToDo:
-  * Read version and keep lang info
-  * ? list of en-GB to english-United Kingdom assoc. for save
-  * ? keep orig filename so it can be used on empty filename on save
   * 
   * 
   * 
@@ -54,43 +55,68 @@ LeaveOut_05 = False
 #-------------------------------------------------------------------------------
 
 # ================================================================================
-# TranslationFile
+# TranslationSet
 # ================================================================================
 
-class TranslationFile:
+class TranslationSet:
 
 	""
 
 	#---------------------------------------------
-	def __init__ (self, translationFile=''):
-		print( "Init TranslationFile: ")
-		print ("translationFile: " + translationFile)
-		self.translationFile = translationFile
-#		self.LocalPath = LocalPath
-		self.translations = {}
-		self.doubles = {}
+	def __init__ (self, langDirectory='', langType=''):
+		print( "Init TranslationSet: ")
+		print ("langDirectory: " + langDirectory)
+		print ("langType: " + langType)
 
-		if (os.path.isfile(translationFile)):
-			self.load ()
+		# ToDo: same init in translation file
+		# parameter given, init inn load
+		if (langDirectory != '' and langType != ''):
+
+			self.load (langDirectory, langType)
+
+		else:
+			self.translations = {}
+			self.doubles = {}
+
+			if (langDirectory != ''):
+				self.langDirectory = langDirectory
+	
+			if (langType != ''):
+				self.langType = langType
+	
 
 
-	def load (self, fileName=''):
+	# find all type matching files in directory
+	def load (self, langDirectory='', langType=''):
+		
+		#return
+		
 		try:
 			print ('*********************************************************')
 			print ('load')
-			print ('fileName: ' + fileName)
-
+			print("langDirectory: " + langDirectory)
+			print("langType: " + langType)
+			
 			print ('---------------------------------------------------------')
 
 			self.translations = {}
 			self.doubles = {}
+			
+			if (langDirectory == '' or langType == ''):
+				print ('!!! Missing information. Can not search for language files !!!')
+				return
+			
+			#---------------------------------------------
+			# Find files of type
+			#---------------------------------------------
 
-			#---------------------------------------------
-			# Read file
-			#---------------------------------------------
+			fileQuery = '*.' + langType
+
+
+
 
 			if fileName == '' :
-				fileName = self.translationFile
+				fileName = self.TranslationSet
 
 			if (os.path.isfile(fileName)):
 				print ('Found fileName: ' + fileName)
@@ -156,16 +182,19 @@ class TranslationFile:
 
 
 		finally:
-			print ('exit TranslationFile')
+			print ('exit TranslationSet')
 
 	def save (self, fileName='', isTest=False):
+		
+		return
+		
 		try:
 			print ('*********************************************************')
 			print ('save')
 			
 			# use class filename
 			if (fileName == ''):
-				fileName = self.translationFile
+				fileName = self.TranslationSet
 				
 			print ('fileName: ' + fileName)
 			
@@ -173,8 +202,15 @@ class TranslationFile:
 			print ('isTest: ' + str(isTest))
 
 			print ('---------------------------------------------------------')
-
-
+			
+			# --------------------------------------------------------------------
+			# find files
+			# --------------------------------------------------------------------
+			
+			Files = []
+			
+			
+			
 			#--------------------------------------------------------------------
 			# open file
 			#--------------------------------------------------------------------
@@ -291,7 +327,9 @@ class TranslationFile:
 		#print ('       XXX: "' + XXX + '"')
 
 		ZZZ = ""
-
+		
+		return
+		
 		try:
 			print ("Translations: " + str(len (self.translations)))
 			for key, value in self.translations.items():
@@ -413,16 +451,18 @@ def print_end(start):
 # ================================================================================
 
 if __name__ == '__main__':
-	optlist, args = getopt.getopt(sys.argv[1:], 'l:r:12345h')
+	optlist, args = getopt.getopt(sys.argv[1:], 'd:t:12345h')
 
-	langFile = '..\\..\\admin\language\en-GB\en-GB.com_rsgallery2.ini'
+	langDirectory= '..\\..\\admin\language'
+	langType= 'ini'
+	#langType= 'sys.ini'
 
 
 	for i, j in optlist:
-		if i == "-l":
-			LeftPath = j
-		if i == "-r":
-			RightPath = j
+		if i == "-d":
+			langDirectory = j
+		if i == "-t":
+			langType = j
 
 		if i == "-h":
 			print (HELP_MSG)
@@ -447,11 +487,11 @@ if __name__ == '__main__':
 
 	#print_header(start)
 
-	TransFile = TranslationFile (langFile)
-
-	TransFile.Text ()
+	TransSet01 = TranslationSet (langDirectory, langType)
+	
+	TransSet01.Text ()
 	#print_end(start)
 	
-	TransFile.save ('', True) # save on new name
+	TransSet01.save ('', True) # save on new name
 
 
