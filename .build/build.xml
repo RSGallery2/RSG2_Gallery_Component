@@ -19,7 +19,7 @@ ToDo:
 <!-- Parameter                                    -->
 
     <!-- Version number of build -->
-    <property name="build.version" value="4.4.2.1" override="true" />
+    <property name="build.version" value="4.5.1" override="true" />
 	    <!-- additional naming postfix -->
     <property name="build.postfix" value="prepare." override="true" />
     <!--property name="build.postfix" value="" override="true" / -->
@@ -27,7 +27,6 @@ ToDo:
     <!-- Get the date for build -->
     <tstamp prefix="build.date" />
     <!-- Set the directory where the packages should be saved. Relative to the build dir -->
-	
 	
 	<tstamp>
 		<format property="fith.date" pattern=".%Y.%m.%d" />
@@ -65,8 +64,7 @@ ToDo:
     </target>
 
 
-	<target name="build" depends="prepareFolder, copy">
-	
+	<target name="build" depends="prepareFolder, copy">	
 		<!--zip destfile="${builddir}/RSGallery2_Component.${build.postfix}${build.version}_${build.date.DSTAMP}.zip"-->
 		<zip destfile="${builddir}/RSGallery2_Component.${build.postfix}${build.version}${fith.date}.zip">
 			<fileset dir="${builddir}/tmp">
@@ -103,22 +101,23 @@ ToDo:
         <!--copy file="${admin}/install.php" tofile="${builddir}/tmp/install.php" /-->
         <echo msg="Copy was successful" />
         <!-- insert version, build number and date into the xml files -->
+
         <reflexive>
             <fileset id="sourcefiles" dir="${builddir}/tmp/">
                 <include name="rsgallery2.xml" />
             </fileset>
             <filterchain>
                 <replaceregexp>
-				creationDate
-				version
-                    <regexp pattern="sw\.build\.version" replace="${build.version}" />
-                    <regexp pattern="sw\.build\.version" replace="${build.version}" />
-                    <regexp pattern="sw\.build\.date" replace="${build.date.DSTAMP}" />
+			        <!--
+				        creationDate
+				        version
+			        -->
+                    <regexp pattern="what to replace.." replace="${build.version}" />
+                    <regexp pattern="what to replace.." replace="${build.date.DSTAMP}" />
                 </replaceregexp>
             </filterchain>
         </reflexive>
-		
-		
+
 		<!--reflexive>
 			<fileset dir=".">
 				<include pattern="*.html">
@@ -129,8 +128,7 @@ ToDo:
 				</replaceregexp>
 			</filterchain>
 		</reflexive-->
-		
-		
+				
     </target>
 
 	
