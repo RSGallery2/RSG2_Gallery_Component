@@ -11,7 +11,7 @@ import sys
 
 from datetime import datetime
 
-from TransFile import TransFile
+from TranslationFile import TranslationFile
 
 HELP_MSG = """
 TranslationSet supports ...
@@ -75,8 +75,7 @@ class TranslationSet:
 			self.load (langDirectory, langType)
 
 		else:
-			self.translations = {}
-			self.doubles = {}
+			self.transFiles = []
 
 			if (langDirectory != ''):
 				self.langDirectory = langDirectory
@@ -99,8 +98,7 @@ class TranslationSet:
 			
 			print ('---------------------------------------------------------')
 
-			self.translations = {}
-			self.doubles = {}
+			self.transFiles = []
 			
 			if (langDirectory == '' or langType == ''):
 				print ('!!! Missing information. Can not search for language files !!!')
@@ -111,234 +109,129 @@ class TranslationSet:
 			#---------------------------------------------
 
 			fileQuery = '*.' + langType
-
-
-
-
-			if fileName == '' :
-				fileName = self.TranslationSet
-
-			if (os.path.isfile(fileName)):
-				print ('Found fileName: ' + fileName)
-				#print ('fileName: ' + fileName)
-
-				with open(fileName, encoding="utf8") as fp:
-					for cnt, line in enumerate(fp):
-						#if LookupString not in line:
-						#	continue
-						line = line.strip()
-
-						idx = line.find ('=')
-
-						#if '=' not in line:
-						if (idx < 0):
-							continue
-						
-						# comment
-						if (line[0] == ';'):
-							continue
-
-						transId = line[:idx].strip ()
-
-						transText = line[idx+1:].strip ()
-						#print ('transText (1): ' + transText)
-						# Remove ""
-						transText = transText [1:-1]
-						#print ('transText (2): ' + transText)
-						
-						# prepared lines in file : com... = ""
-						if (len(transText) < 1):
-							continue
-
-
-						# Key does already exist
-						if (transId in self.translations):
-							# Save last info
-							self.doubles [transId] = self.translations [transId]
-
-						self.translations [transId] = transText
-
-
-
-			return
-
-
-			#--------------------------------------------------------------------
-			#
-			#--------------------------------------------------------------------
-
-
-
-			#--------------------------------------------------------------------
-			#
-			#--------------------------------------------------------------------
-
-
-			#--------------------------------------------------------------------
-			#
-			#--------------------------------------------------------------------
-
-
+			
+			startDir = langDirectory
+			transFileNames = self.findFilesOfType (startDir, langType)
+			
+			print ()
+			print ('translation files found: ' + len (transFileNames))
+			
+			# --------------------------------------------------------------------
+			# create TransFile objects
+			# --------------------------------------------------------------------
+			
+			# self.transFiles = []
+			for transFileName in transFileNames:
+				transFile = TranslationFile(transFileName)
+				self.transFiles.append(transFile)
 
 
 		finally:
 			print ('exit TranslationSet')
-
-	def save (self, fileName='', isTest=False):
+	
+	def findFilesOfType(self, actDir, langType):
 		
-		return
+		foundFiles = []
+		
+		try:
+			print('---------------------------------------------------------')
+			print('findFilesOfType')
+			print("actDir: " + actDir)
+			print("actDir: " + os.path.abspath(actDir))
+			print("langType: " + langType)
+			
+			print('---------------------------------------------------------')
+		
+			print ('*', end='')
+			
+			
+			# if directory exist
+			if os.path.isdir(actDir):
+			
+				# --------------------------------------------------------------------
+				# All files or dir in actual directory
+				# --------------------------------------------------------------------
+				
+				for name in os.listdir(actDir):
+					
+					filePathName = os.path.join(actDir, name)
+					
+					# file found ?
+					if os.path.isfile(filePathName):
+						# --------------------------------------------------------------------
+						#  found type at end of name ?
+						# --------------------------------------------------------------------
+						
+						if name.endswith(langType):
+							foundFiles.append(filePathName)
+				
+					else:
+						# --------------------------------------------------------------------
+						# check files in sub directory
+						# --------------------------------------------------------------------
+						
+						if os.path.isdir(filePathName):
+							
+							subFileNames = self.findFilesOfType(filePathName, langType)
+							foundFiles.extend(subFileNames)
+			
+		finally:
+			print('exit findFilesOfType')
+			pass
+		
+		# --------------------------------------------------------------------
+		# return found files
+		# --------------------------------------------------------------------
+		
+		return foundFiles
+
+	def save (self, isTest=False):
 		
 		try:
 			print ('*********************************************************')
 			print ('save')
 			
 			# use class filename
-			if (fileName == ''):
-				fileName = self.TranslationSet
-				
-			print ('fileName: ' + fileName)
-			
 			isTest = True # ToDo: remove later
 			print ('isTest: ' + str(isTest))
 
 			print ('---------------------------------------------------------')
 			
 			# --------------------------------------------------------------------
-			# find files
+			# Save all translations to files
 			# --------------------------------------------------------------------
 			
-			Files = []
-			
-			
-			
-			#--------------------------------------------------------------------
-			# open file
-			#--------------------------------------------------------------------
+			for transFile in self.transFiles:
+				transFile.save ('', isTest)
 
-			# Do test output only
-			if (isTest):
-				useFileName = fileName + ".new"
-			else:
-				useFileName = fileName
-
-			# todo: check for no bom 
-			with open(useFileName, mode="w", encoding="utf8") as fh:
-
-				#--------------------------------------------------------------------
-				# write header
-				#--------------------------------------------------------------------
-	
-				"""
-				; en-GB (english-United Kingdom) language file for RSGallery2
-				; @version $Id: en-GB.com_rsgallery2.ini 1090 2012-07-09 18:52:20Z mirjam $
-				; @package RSGallery2
-				; @copyright (C) 2003-2018 RSGallery2 Team
-				; @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-				; @author RSGallery2 Team
-				;
-				; Last updated: used en-GB.com_rsgallery2.ini from SVN 1078, translated till SVN 1079
-				; Save in UTF-8 without BOM (with e.g. Notepad ++)
-	
-				; If the language file only shows the keys in Joomla, turn on Joomla's debug system and
-				; debug language (global configuration) and check for 'Parsing errors in language files'.
-				; This will also show a list of 'Untranslated Strings'.
-	
-				; ToDo: Prevent on install writing *.ini file into \administrator\language\ and delete existing translations there
-				"""
-				
-#				datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-				
-				baseName = os.path.basename(fileName)
-				dateFormat = datetime.now().strftime("%Y-%m-%d")
-				dateYear = datetime.now().strftime("%Y")
-				
-				HeaderTxt = ''
-				#HeaderTxt += "; " + baseName[:5] + ' (' + baseName + ')  language file for RSGallery2 ' + u'\n'
-				HeaderTxt += "; " + baseName + '  language file for RSGallery2 ' + u'\n'
-				HeaderTxt += "; " + '@version ' + dateFormat + u'\n'
-				HeaderTxt += "; " + '@package RSGallery2 ' + u'\n'
-				HeaderTxt += "; " + '@copyright (C) 2003-' + dateYear + ' RSGallery2 Team ' + u'\n'
-				HeaderTxt += "; " + '@license http://www.gnu.org/copyleft/gpl.html GNU/GPL ' + u'\n'
-				HeaderTxt += "; " + '@author RSGallery2 Team ' + u'\n'
-	
-				fh.write (HeaderTxt)
-	
-				#--------------------------------------------------------------------
-				# write all lines
-				#--------------------------------------------------------------------
-	
-				idx = 0
-				
-				TranslLines = ''
-				
-				print ("Translations: " + str(len (self.translations)))
-				
-				#for key, value in self.translations.items():
-				for key in sorted(self.translations.keys()):
-					
-					value = self.translations [key]
-					
-					# separator each 5 lines
-					if (idx % 5 == 0):
-						TranslLines += "" + ' ' + u'\n'
-
-					# mark each 50 lines
-					if (idx % 50 == 0):
-						TranslLines += "; ------------------------------------------" + u'\n'
-					
-					idx += 1
-					print (idx, end=', ')
-				
-					#print ("   " + key + " = " + value)
-					TranslLines += key + ' = '  + value + u'\n'
-				
-				TranslLines += "" + ' ' + u'\n'
-				TranslLines += "" + ' ' + u'\n'
-				TranslLines += "" + ' ' + u'\n'
-				
-				fh.write(TranslLines)
-		
-				#--------------------------------------------------------------------
-				#
-				#--------------------------------------------------------------------
-	
-	
-	
-				#--------------------------------------------------------------------
-				#
-				#--------------------------------------------------------------------
-	
-	
-	
 			#--------------------------------------------------------------------
 			#
 			#--------------------------------------------------------------------
-
-
-
 
 		finally:
 			print ('exit save')
 
 	#-------------------------------------------------------------------------------
 	# ToDo: Return string instead of print
-	def Text (self):
+	def Text (self, verbose=False):
+
 		#print ('    >>> Enter yyy: ')
 		#print ('       XXX: "' + XXX + '"')
 
 		ZZZ = ""
-		
-		return
-		
 		try:
-			print ("Translations: " + str(len (self.translations)))
-			for key, value in self.translations.items():
-				print ("   " + key + " = " + value)
+			print ("Translation sets: " + str(len (self.translations)))
+			for transFile in self.transFiles:
+				print ("   >>> " + transFile.translationFile)
+			
+				# --------------------------------------------------------------------
+				# extended information
+				# --------------------------------------------------------------------
 
-			print ("Doubles: " + str(len (self.doubles)))
-			for key, value in self.doubles.items():
-				print ("   " + key + " = " + value)
-
+				if (verbose):
+					for transFile in self.transFiles:
+						transFile.print ()
+				
 		except Exception as ex:
 			print(ex)
 
@@ -453,7 +346,7 @@ def print_end(start):
 if __name__ == '__main__':
 	optlist, args = getopt.getopt(sys.argv[1:], 'd:t:12345h')
 
-	langDirectory= '..\\..\\admin\language'
+	langDirectory= '..\\admin\language'
 	langType= 'ini'
 	#langType= 'sys.ini'
 
@@ -490,6 +383,7 @@ if __name__ == '__main__':
 	TransSet01 = TranslationSet (langDirectory, langType)
 	
 	TransSet01.Text ()
+	# TransSet01.Text (True)
 	#print_end(start)
 	
 	TransSet01.save ('', True) # save on new name

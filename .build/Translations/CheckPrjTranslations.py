@@ -36,6 +36,7 @@ usage: CheckPrjTranslations.py -? nnn -? xxxx -? yyyy  [-h]
 ------------------------------------
 ToDo:
 ToDo:
+# toDo: further checks ?
   *
   *
   *
@@ -187,7 +188,6 @@ class CheckPrjTranslations:
 #	print ('    <<< Exit yyy: ' + ZZZ)
 #	return ZZZ
 
-toDo: further checks ?
 
 
 ##-------------------------------------------------------------------------------
