@@ -4,12 +4,12 @@
            method="upgrade">
 	<name>com_rsgallery2</name>
 	<author>RSGallery2 Team</author>
-	<creationDate>15. Feb. 2019</creationDate>
+	<creationDate>09. Jun. 2019</creationDate>
 	<copyright>(c) 2003-2019 RSGallery2 Team</copyright>
 	<license>This component is released under the GNU/GPL License</license>
 	<authorEmail>team@rsgallery2.org</authorEmail>
 	<authorUrl>http://www.rsgallery2.org</authorUrl>
-	<version>4.4.2.0</version>
+	<version>4.5.0.0</version>
 	<description>COM_RSGALLERY2_XML_DESCRIPTION</description>
 
 	<scriptfile>install.rsgallery2.php</scriptfile>
@@ -28,7 +28,7 @@
 			</file>
 		</sql>
 	</uninstall>
-	<update> <!-- Runs on update; New in 2.5 -->
+	<update>
 		<schemas>
 			<schemapath type="mysql">sql/updates/mysql</schemapath>
 		</schemas>
