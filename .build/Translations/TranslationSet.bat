@@ -1,19 +1,20 @@
 @ECHO OFF
 REM <What it does>
 
-Echo "Prepared but not ready at all"
-
-
 CLS
 
 Set CmdArgs=
-ECHO python cleanFiles.py 
+ECHO python TranslationSet.py 
+
+REM directory
+Call :AddNextArg -d "..\\..\\admin\language\"
+
+REM type "ini"or "sys.ini" (File ending for filenames *.type
+Call :AddNextArg -t "ini"
+REM Call :AddNextArg -t "sys.ini"
 
 REM 
-Call :AddNextArg -p "\pr004\entwickl\Schleif.nt"
-                     
-REM 
-Call :AddNextArg -n "modules"
+REM Call :AddNextArg -n "modules"
  
 REM add command line 
 REM Call :AddNextArg %*
@@ -22,8 +23,8 @@ ECHO.
 ECHO ------------------------------------------------------------------------------
 ECHO Start cmd:
 ECHO.
-ECHO python cleanFiles.py %CmdArgs% %* 
-     python cleanFiles.py %CmdArgs% %* 
+ECHO python TranslationSet.py %CmdArgs% %* 
+     python TranslationSet.py %CmdArgs% %* 
 
 GOTO :EOF
 

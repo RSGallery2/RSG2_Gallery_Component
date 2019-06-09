@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="RSG2_component" default="build">
+	<description>
+	--- RSGallery2 component update project script with phing ---
+		It applies following tasks on the files which are 
+		contained in the root folder and above from below from this script 
+		It will change the actual files inside the project
+		
+		Changes in files
+		* Version and date in rsgallery2.xml
+		* .
+		* .
+		* .
+		* .
+		
+		command line:
+		phing -f updateProject.xml
+		phing -logfile .\updateProject.log -f updateProject.xml
+		phing -debug -logfile .\updateProject.log -f updateProject.xml
+		phing -verbose -debug -logfile .\updateProject.log -f updateProject.xml
+
+	</description>
+
+	<!-- 
+	.........................................................................
+	ToDo:
+	.........................................................................
+	* task: @version       $Id$ 
+	* task: add * @since  3.1 automatically improve "since" doc parts and ...
+	* task: make project file with major plugins ... 
+	* .
+	* .
+	* .
+	* .
+	* .
+	-->
+
+	<!--
+	=========================================================================
+	 Parameter
+	=========================================================================
+	-->
+
+	<!-- 
+	.........................................................................
+	Version number of build
+	.........................................................................	
+	-->
+	
+    <!-- Version number of build -->
+    <property name="build.version" value="4.5.0.0" override="true" />
+    <!-- additional naming postfix -->
+    <property name="build.postfix" value="prepare." override="true" />
+    <!--property name="build.postfix" value="" override="true" / -->
+
+	<!-- 
+	.........................................................................
+	date stamps
+	.........................................................................	
+	-->
+	
+    <!-- Get the standard date for build -->
+    <!-- tstamp prefix="build.date" /-->
+
+	<tstamp>
+		<format property="date.year.month.day" pattern="%Y.%m.%d" />
+	</tstamp>
+	
+	<tstamp>
+		<format property="date.day.month.year" pattern="%d. %b. %Y" />
+	</tstamp>
+	
+	<tstamp>
+		<format property="date.year" pattern="%Y" />
+	</tstamp>
+	
+	<!-- 
+	.........................................................................
+	folders
+	.........................................................................
+	-->
+	
+    <!-- Declare Project src files -->
+    <property name="root" value="./.." override="true" />
+    <property name="admin" value="${root}/admin" />
+    <property name="site" value="${root}/site" />
+    <!--property name="plugins" value="${root}/plugins" / -->
+    <!--property name="media" value="${root}/media" / -->
+
+	<!--
+	=========================================================================
+	   Targets
+	=========================================================================
+	-->
+	
+	<target name="build" depends="rsgallery2.xml">	
+
+
+		<echo msg="build done" />
+	</target>
+	
+	<!-- 
+	.........................................................................
+	rsgallery2.xml
+	.........................................................................
+	Updates version, creationDate, and copyright date
+	-->
+	
+    <target name="rsgallery2.xml">
+		<echo msg="rsgallery2.xml start" />
+		<echo msg="build.version: ${build.version}" />
+		<echo msg="date.day.month.year: ${date.day.month.year}" />
+		
+		<reflexive>
+			<fileset dir="..">
+				<include pattern="rsgallery2.xml" />
+			</fileset>
+			<filterchain>
+				<replaceregexp>
+					<regexp pattern="(?&lt;=&lt;version&gt;).*(?=&lt;)" replace="${build.version}"/>
+					<regexp pattern="(?&lt;=&lt;creationDate&gt;).*(?=&lt;)" replace="${date.day.month.year}"/>
+					<regexp pattern="(?&lt;=&lt;copyright&gt;\(c\) 2003\-).*(?= RSGallery2 Team)" replace="${date.year}"/>
+				</replaceregexp>
+			</filterchain>
+		</reflexive>
+		
+		<echo msg="rsgallery2.xml end" />
+    </target>
+
+
+</project>
