@@ -1,6 +1,14 @@
 //.build/
 .packages/
+.build/Translations/.idea/
+
+rsgallery2.org.xml
 
 *.pyc
 admin/install.rsgallery2.php
 admin/rsgallery2.xml
+
+.build/build.log
+.build/update.log
+
+
