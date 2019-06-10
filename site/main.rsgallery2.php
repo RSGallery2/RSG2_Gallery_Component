@@ -97,6 +97,7 @@ function xmlFile()
  * Thanks to Rich Malak <rmalak@fuseideas.com> for his invaluable contribution
  * to this very important feature!
  */
+//function downloadFile($id) {
 function downloadFile()
 {
 	global $isDebugSiteActive;
@@ -159,6 +160,9 @@ function downloadFile()
 	}
 	//Close file after use!
 	fclose($fd);
+
+	// Why that ? may be used for restart after including 
+	// template sematic to include only slideshow templares
 	ob_flush();
 
 }
