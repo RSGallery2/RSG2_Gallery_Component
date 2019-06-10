@@ -39,8 +39,7 @@ $isUseJ25View |= ! empty($bValue);
 
 /* debugSite from config or URL */
 $isDebugSiteActive = $rsgConfig->get('debugSite');
-$bUrlValue = $input->get('
-debugSite', 0, 'INT');
+$bUrlValue = $input->get('debugSite', 0, 'INT');
 $isDebugSiteActive |= ! empty($bUrlValue);
 /**
 $isDevelopSiteActive = $rsgConfig->get('developSite');
@@ -49,7 +48,6 @@ $isDevelopSiteActive |= ! empty($bValue);
 /**/
 
 // Activate logging
-//if ($isDebugSiteActive)
 if ($isDebugSiteActive)
 {
 	// Include the JLog class.
@@ -116,6 +114,16 @@ if ( ! empty ($task))
 	$isUseJ25View = False;
 }
 
+// new view required
+if ( ! empty ($view))
+{
+	if ($view != 'gallery' && $view != 'slideshow')
+    {
+		$isUseJ25View = False;
+    }
+}
+
+
 // Task may be  J2.5 part
 if ( ! empty ($rsgOption))
 {
@@ -137,3 +145,4 @@ else
     $controller->execute(Factory::getApplication()->input->get('task'));
     $controller->redirect();
 }
+
