@@ -10,10 +10,6 @@ defined('_JEXEC') or die();
 JHtml::_('behavior.framework', true);  // load mootools ToDo: Remove mootools
 JHtml::_('jquery.framework'); // load jquery
 
-/* ToDo: checkout
-https://www.script-tutorials.com/creating-photo-albums-using-smoothgallery/
-*/
-
 global $rsgConfig;
 $doc = JFactory::getDocument();
 

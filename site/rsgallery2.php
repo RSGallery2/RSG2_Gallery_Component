@@ -105,7 +105,7 @@ if ($isDebugSiteActive) {
 }
 
 
-// ToDO: Task and other vars
+// ToDo: Task and other vars
 $isUseJ25View = True;
 
 // Task may be  J3.5 part
@@ -132,7 +132,6 @@ if ( ! empty ($rsgOption))
 
 // Use the old J25 files and tasks
 if ($isUseJ25View) {
-    // ToDo: Remove following
     // include rsgInstance
     require_once(JPATH_RSGALLERY2_ADMIN . '/includes/instance.class.php');
     

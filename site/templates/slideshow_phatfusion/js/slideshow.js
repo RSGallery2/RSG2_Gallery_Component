@@ -286,7 +286,6 @@ var SlideShow = new Class({
 		}
 	},
 
-	// ToDo: use next idx
 	play: function (nextIdx) {
 		try {
 			console.log("Slide:play");
@@ -347,7 +346,7 @@ var SlideShow = new Class({
 				// this.clearTimeout(this.timer);
 				//$clear(this.timer);
 
-				// Todo: Check Mode loop (seee commented below)
+				// Todo: Check mode loop (see comment below)
 				this.imageIdx = this.nextIdx (this.imageIdx, this.images.length);
 
 				if (doWait) {
@@ -439,7 +438,7 @@ var SlideShow = new Class({
 		try {
 			console.log("Slide:effect");
 			this.animating = true;
-			// ToDo: effects should be set in backgroundslide but it is empty -> have an idea !
+			// ToDo: effects should be set in background slide but it is empty -> have an idea !
 			//original 
 			//this.effectObj = this.newImage.effects({
 			//	duration: this.options.duration,

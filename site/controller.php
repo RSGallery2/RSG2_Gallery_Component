@@ -17,7 +17,6 @@ use Joomla\CMS\MVC\Controller\BaseController;
  */
 global $isDebugSiteActive;
 
-// $Rsg2DebugActive = true; // ToDo: $rsgConfig->get('debug');
 if ($isDebugSiteActive) {
 	// Include the JLog class.
 	jimport('joomla.log.log');

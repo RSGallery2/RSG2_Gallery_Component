@@ -9,8 +9,12 @@
  *                RSGallery is Free Software
  **/
 
+
+// ToDo: Is this file an example or is it not needed (Looks like it is not included anywhere)
+
 defined('_JEXEC') or die();
-global $rsgConfig, $name, $imagepath;
+global $rsgConfig, $name, $imagepath, $rows;
+
 $imagepath = $rsgConfig->get('imgPath_display');
 $k         = 0;
 $text      = "";

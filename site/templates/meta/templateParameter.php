@@ -94,7 +94,6 @@ class Rsg2TemplateParameter
 			$input = JFactory::getApplication()->input;
 			foreach ($this->paramNames as $paramName)
 			{
-				// ToDo: check ?
 				$value = $input->get($paramName, $this->params[$paramName], 'STRING');
 				$this->params[$paramName] = $value;
 			}

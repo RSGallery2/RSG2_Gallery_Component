@@ -44,7 +44,7 @@ class RSGallery2ControllerComment extends BaseController
 		//$canComment = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
 		$canComment = JFactory::getUser()->authorise('rsgallery2.comment', 'com_rsgallery2.gallery.' . $galleryId);
 		// ToDO: remove
-		$canComment = true;
+		//$canComment = true;
 
 		if ( ! $canComment)
 		{
