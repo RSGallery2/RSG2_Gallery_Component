@@ -13,6 +13,8 @@ jimport('joomla.html.pagination');
  *
  * @package RSGallery2
  * @author rsgallery2 team. Main parts extracted from SchuWeb gallery author Sven Schultschik (https://github.com/svanschu/SchuWeb-Gallery) 
+ *
+ * @since       version
  */
 class rsgDisplay_schuweb extends rsgDisplay
 {
@@ -89,6 +91,7 @@ class rsgDisplay_schuweb extends rsgDisplay
 	 * Shows thumbnails for gallery
 	 *
 	 * @throws Exception
+	 * @since version
 	 */
 	public function showThumbs()
 	{

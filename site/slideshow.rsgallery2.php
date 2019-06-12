@@ -29,6 +29,16 @@ foreach ($rows as $row)
 	$text .= "SLIDES[" . $k . "] = [\"JURI_SITE$imagepath/$name\", \"$row->title\"];\n";
 	$k++;
 }
+
+/**
+ToDo: Form in table below is not allowed
+>>>
+A form is not allowed to be a child element of a table, tbody or tr.
+Attempting to put one there will tend to cause the browser to move
+the form to it appears after the table
+(while leaving its contents — table rows, table cells, inputs, etc — behind).
+/**/
+
 ?>
 <table class="rsg2_slideshow" border="0" cellpadding="3" cellspacing="0">
 	<form name="_slideShow">

@@ -59,7 +59,7 @@ class html_rsg2_search
 				<td>
 				<span style="font-style:italic;">
 				<?php echo JText::_('COM_RSGALLERY2_THERE_ARE') . ' ' . $count . JText::_('COM_RSGALLERY2_RESULTS_FOR'); ?>
-					<span style="font-weight:bold;" ;><?php echo $searchtext; ?></span>
+					<span style="font-weight:bold;" ><?php echo $searchtext; ?></span>
 				<span>
 				</td>
 			</tr>

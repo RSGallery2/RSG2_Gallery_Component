@@ -1,4 +1,5 @@
-<svg 
+<body>
+<svg
 style="display:none;"
 	xmlns="http://www.w3.org/2000/svg" 
 	xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -21,4 +22,5 @@ style="display:none;"
 	<use xlink:href="#shape" x="10" y="10" />
 	<use xlink:href="#shape" x="80" y="10" class="purple" />
 </svg>
-</svg>
+
+		</body>

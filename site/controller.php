@@ -28,8 +28,8 @@ if ($isDebugSiteActive) {
 /**
  * RSGgallery2 Controller
  *
+ * @since version
  */
-
 class Rsgallery2Controller extends BaseController 
 {
 
@@ -42,3 +42,4 @@ class Rsgallery2Controller extends BaseController
 	//protected $default_view = 'helloworlds';
 
 }
+
