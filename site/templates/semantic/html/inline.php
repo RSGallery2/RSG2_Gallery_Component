@@ -36,7 +36,6 @@ $display_navigation_bar_mode = $rsgConfig->get('display_navigation_bar_mode', 1)
 ?>
 
 <div class="rsg_sem_inl">
-	<?php //if (nav_both_top_and_bottom or nav_only_top){ //MK// [todo] [make config var for location navigation]?>
 	<div class="rsg_sem_inl_Nav">
 		<?php
 		if($display_navigation_bar_mode == BAR_MODE_BOTH && $display_navigation_bar_mode == BAR_MODE_TOP)
@@ -53,7 +52,6 @@ $display_navigation_bar_mode = $rsgConfig->get('display_navigation_bar_mode', 1)
 
 		?>
 	</div>
-	<?php //if (nav_both_top_and_bottom or nav_only_bottom){ //MK// [todo] [make config var for location navigation] ?>
 	<div class="rsg_sem_inl_Nav">
 		<?php
 		if($display_navigation_bar_mode == BAR_MODE_BOTH || $display_navigation_bar_mode == BAR_MODE_BOTTOM)

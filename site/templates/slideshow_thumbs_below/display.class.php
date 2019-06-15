@@ -67,7 +67,7 @@ class rsgDisplay_slideshow_thumbs_below extends rsgDisplay
 
 			$htmlPanel[] = '<div class="panel" title="Panel ' . $k . '">';
 			$htmlPanel[] = '    <div class="wrapper">';
-			$htmlPanel[] = '        <img src="' . $display->url() . '" alt="' . $display->url() . '"></img>';
+			$htmlPanel[] = '        <img src="' . $display->url() . '" alt="' . $display->url() . '">';
 			$htmlPanel[] = '        <div  class="photo-meta-data">';
 			// $htmlPanel[] = '            <p>' . $item->descr . '</p>';
 			$htmlPanel[] = '            ' . $item->descr . '';

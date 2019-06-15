@@ -17,7 +17,6 @@ use Joomla\CMS\MVC\Controller\BaseController;
  */
 global $isDebugSiteActive;
 
-// $Rsg2DebugActive = true; // ToDo: $rsgConfig->get('debug');
 if ($isDebugSiteActive) {
 	// Include the JLog class.
 	jimport('joomla.log.log');
@@ -29,8 +28,8 @@ if ($isDebugSiteActive) {
 /**
  * RSGgallery2 Controller
  *
+ * @since version
  */
-
 class Rsgallery2Controller extends BaseController 
 {
 
@@ -43,3 +42,4 @@ class Rsgallery2Controller extends BaseController
 	//protected $default_view = 'helloworlds';
 
 }
+

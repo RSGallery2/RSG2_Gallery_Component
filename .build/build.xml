@@ -13,7 +13,7 @@
 		
 		Changes in files
 		* Version and date in rsgallery2.xml
-		* .
+		* Leaves out site params.ini files
 		* .
 		* .
 		* .
@@ -30,10 +30,10 @@
 	.........................................................................
 	ToDo:
 	.........................................................................
-	* task: exchange copyright to \d - 2018 ==> \d - 2019 ....
-	* task: add * @since  3.1 automatically
-	* task: make project file with major plugins ... 
-	* .
+	* Use phingcall to order targets
+	* @version       $Id$ 
+	* Improve "since" doc parts: add version * @since  x.y.z 
+	* Make project file with major plugins ...  *.pkg 
 	* .
 	* .
 	* .
@@ -99,7 +99,12 @@
     <!--property name="plugins" value="${root}/plugins" / -->
     <!--property name="media" value="${root}/media" / -->
 
-
+	<!-- 
+	.........................................................................
+	file sets
+	.........................................................................
+	-->
+	
     <!-- File set admin folder -->
     <fileset dir="${admin}" id="adminSet">
         <include name="**" />
@@ -111,6 +116,7 @@
     <!-- File set site folder -->
     <fileset dir="${site}" id="siteSet">
         <include name="**" />
+        <exclude name="**/params.ini" />
     </fileset>
 
 <!--
@@ -131,6 +137,12 @@
 		* deleteTemp
 		* .
 		-->
+		
+		<!--phingcall target="bar">
+			<property name="property1" value="aaaaa" />
+			<property name="foo" value="baz" />
+		</phingcall-->
+
 		<echo msg="build done" />
 	</target>
 
@@ -160,12 +172,7 @@
 
     <target name="deleteTemp">
 		<echo msg="deleteTemp start" />
-		<!--zip destfile="${buildDir}/RSGallery2_Component.${build.postfix}${build.version}_${build.date.DSTAMP}.zip"-->
-		<zip destfile="${buildDir}/RSGallery2_Component.${build.postfix}${build.version}${dateYearMonthDay}.zip">
-			<fileset dir="${buildDir}/tmp">
-				<include name="**" />
-			</fileset>
-		</zip>
+
 		<delete dir="${buildDir}/tmp" />
 		
 		<echo msg="deleteTemp end" />

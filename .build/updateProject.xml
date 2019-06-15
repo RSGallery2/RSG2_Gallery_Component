@@ -8,7 +8,7 @@
 		
 		Changes in files
 		* Version and date in rsgallery2.xml
-		* .
+		* Remove site params.ini files
 		* .
 		* .
 		* .
@@ -25,9 +25,10 @@
 	.........................................................................
 	ToDo:
 	.........................................................................
-	* task: @version       $Id$ 
-	* task: add * @since  3.1 automatically improve "since" doc parts and ...
-	* task: make project file with major plugins ... 
+	* Use phingcall to order targets
+	* @version       $Id$ 
+	* Improve "since" doc parts: add version * @since  x.y.z 
+	* Make project file with major plugins ...  *.pkg 
 	* .
 	* .
 	* .
@@ -87,6 +88,34 @@
     <!--property name="plugins" value="${root}/plugins" / -->
     <!--property name="media" value="${root}/media" / -->
 
+	<!-- 
+	.........................................................................
+	file sets
+	.........................................................................
+	-->
+	
+    <!-- File set admin folder -->
+    <fileset dir="${admin}" id="adminSet">
+        <include name="**" />
+		<!-- may be accidentally copied from installation server -->
+        <exclude name="rsgallery2.xml" />
+        <exclude name="install.rsgallery2.php" />
+    </fileset>
+
+    <!-- File set site folder -->
+    <fileset dir="${site}" id="siteSet">
+        <include name="**" />
+        <!--exclude name="**/params.ini" /-->
+    </fileset>
+
+    <fileset dir="${site}" id="siteParamsIniSet">
+        <include name="**/params.ini" />
+    </fileset>
+
+
+	
+
+
 	<!--
 	=========================================================================
 	   Targets
@@ -95,7 +124,15 @@
 	
 	<target name="build" depends="rsgallery2.xml">	
 
+		<!--phingcall target="bar">
+			<property name="property1" value="aaaaa" />
+			<property name="foo" value="baz" />
+		</phingcall-->
 
+		<phingcall 
+			target="RemoveSite_ParamsIniFiles">
+		</phingcall>
+		
 		<echo msg="build done" />
 	</target>
 	
@@ -125,6 +162,29 @@
 		</reflexive>
 		
 		<echo msg="rsgallery2.xml end" />
+    </target>
+
+
+	<!-- 
+	.........................................................................
+	RemoveSite_ParamsIniFiles
+	.........................................................................
+	remove site params.ini files
+	-->
+	
+    <target name="RemoveSite_ParamsIniFiles">
+
+		<echo msg="RemoveSite_ParamsIniFiles start" />
+		
+		<delete>
+			<!--fileset dir=""${site}"">
+				<include name="**/params.ini" />
+			</fileset-->
+			<fileset refid="siteParamsIniSet" />
+		</delete>
+		
+
+		<echo msg="RemoveSite_ParamsIniFiles end" />
     </target>
 
 

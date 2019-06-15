@@ -46,9 +46,6 @@ Or you can use a form where there is a hidden task field.
 
 		// Access check
 		$canVote = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
-		// ToDO: remove
-		$canVote = true;
-
 		if ( ! $canVote)
 		{
 			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR') . " " . JText::_('COM_RSGALLERY2_VOTING_IS_DISABLED');

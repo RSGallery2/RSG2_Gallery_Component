@@ -53,7 +53,7 @@ class rsgDisplay_slideshow_description extends rsgDisplay
 			$html[] = '    <h3>' . $item->title . '</h3>';
 			$html[] = '    <p>' . $item->descr . '</p>';
 			$html[] = '    <a href="#">';
-			$html[] = '    <img src="' . $display->url() . '" alt="' . $display->url() . '"></img>';
+			$html[] = '    <img src="' . $display->url() . '" alt="' . $display->url() . '">';
 			$html[] = '    </a>';
 			$html[] = '';
 			$html[] = '</div>';

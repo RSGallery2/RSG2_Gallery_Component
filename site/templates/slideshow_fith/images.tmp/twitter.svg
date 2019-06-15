@@ -1,3 +1,5 @@
+
+<body>
 <!-- twitter.svg -->
 <svg style="display:none;">
   <symbol id="twitter-icon" viewBox="0 0 32 32">
@@ -11,4 +13,6 @@
 
 <svg class="twitter-icon">
   <use xlink:href="#twitter-icon"></use>
-<svg>
+</svg>
+
+</body>
