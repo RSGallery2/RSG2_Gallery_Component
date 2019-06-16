@@ -73,4 +73,21 @@
 #rsgvoteform ul.star-rating a.five-stars:hover {
 	width : 100px;
 }
-		
+
+/* icon-star checked, icon-star-2 checked *
+.rate-container .checked {
+	color: orange;
+}
+/***/
+
+/* icon-star-empty */
+.btn_star.checked /* span.icon-str */
+{
+	border-color: DodgerBlue;
+	border-width : 4px;
+	border-style : solid;
+}
+
+
+
+

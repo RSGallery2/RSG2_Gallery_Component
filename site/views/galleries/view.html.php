@@ -31,9 +31,9 @@ class RSGallery2ViewGalleries extends HtmlView
 	{
 		echo "RSGallery2ViewGalleries (Overview)<br />";
 
-		/**
+		/**/
 		// Get gallery data for the view
-		$this->item = $this->get('Item');
+		$this->items = $this->get('Items');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))

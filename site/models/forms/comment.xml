@@ -9,6 +9,7 @@
 				description="COM_RSGALLERY2_YOUR_NAME_DESC"
 				size="10"
 				default=""
+				filter="username"
 				readonly="false"
 		/>
 
@@ -20,6 +21,7 @@
 				class="input-xxlarge input-large-text"
 				size="120"
 				required="true"
+				filter="string"
 		/>
 
 

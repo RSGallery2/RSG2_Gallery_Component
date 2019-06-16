@@ -14,16 +14,12 @@
 defined('_JEXEC') or die;
 
 //$layoutGallery = JLayoutHelper::render('.', $myLayoutData);
-echo "--- Before render gallery overview  (json Form) ---------------<br>";
+echo "--- Before render slides single  (json Form) ---------------<br>";
 //$layout = new JLayoutFile('ClassicJ25.gallery', null, array('debug' => true, 'client' => 1)); // , null, array('debug' => true, 'client' => 1, 'component' => 'com_tags')
 //$layout = new JLayoutFile('ClassicJ25.gallery');
 //echo $layout->render($galleryData);
 
-
-//echo json_encode($this);
-echo "--- items ---------------<br>";
-echo json_encode($this->items) . '<br>';
-echo '<br>';
+echo json_encode($this);
 
 
 echo "--- After Render (json Form) ---------------<br>";

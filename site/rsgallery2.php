@@ -20,11 +20,16 @@ defined('_JEXEC') or die;
 
 global $rsgConfig, $isDebugSiteActive, $Rsg2DevelopActive;
 
-// Initialize RSG2 core functionality
-require_once(JPATH_SITE . "/administrator/components/com_rsgallery2/init.rsgallery2.php");
+
+//--- retrieve rsConfig :: J3x++ may use it from ... instead */
+
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/config.class.php';
+$rsgConfig = new rsgConfig();
 
 $Rsg2DevelopActive = $rsgConfig->get('develop');
 //$isDebugSiteActive = $rsgConfig->get('debug');
+
+//--- debug settings ---------------------------------------------------
 
 // Enable settings from URL
 $input = JFactory::getApplication()->input;
@@ -73,6 +78,8 @@ if ($isDebugSiteActive)
 	JLog::add('Start rsgallery2.php in site: debug active in RSGallery2'); //, JLog::DEBUG);
 }
 
+//--- input settings ------------------------------------------------
+
 $task = $input->get('task', '', 'CMD');
 //$option = strtolower($input->get('option', '', 'CMD'));
 //$catid = $input->get('catid', null, 'INT');
@@ -104,6 +111,7 @@ if ($isDebugSiteActive) {
     JLog::add($DebTxt); //, JLog::DEBUG);
 }
 
+//--- determine if J.5 old or new 3.x++ (2019) style -------------------------------------
 
 // ToDo: Task and other vars
 $isUseJ25View = True;
@@ -132,6 +140,13 @@ if ( ! empty ($rsgOption))
 
 // Use the old J25 files and tasks
 if ($isUseJ25View) {
+	if ($isDebugSiteActive) {
+			JLog::add('old J25 files and tasks'); //, JLog::DEBUG);
+	}
+
+	// Initialize RSG2 core functionality
+	require_once(JPATH_SITE . "/administrator/components/com_rsgallery2/init.rsgallery2.php");
+
     // include rsgInstance
     require_once(JPATH_RSGALLERY2_ADMIN . '/includes/instance.class.php');
     
@@ -140,6 +155,11 @@ if ($isUseJ25View) {
 }
 else
 {
+	// Use the J3.x ++ files and tasks
+	if ($isDebugSiteActive) {
+			JLog::add('Use the J3.x ++ files and tasks'); //, JLog::DEBUG);
+	}
+
     $controller = BaseController::getInstance('rsgallery2');
     $controller->execute(Factory::getApplication()->input->get('task'));
     $controller->redirect();

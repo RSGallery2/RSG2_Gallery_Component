@@ -10,6 +10,9 @@
 defined('_JEXEC') or die(); ?>
 
 <?php
+
+// ToDo: collect all variables and use short name later
+
 $floatDirection = $rsgConfig->get('display_thumbs_floatDirection');
 
 // Show slideshow link when viewing thumbs in table?
@@ -38,7 +41,7 @@ if ($slideshow)
 		echo ($item->published) ? "" : "class='system-unpublished'"; ?> >
 			<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&page=inline&id=" . $item->id); ?>">
 				<!--<div class="img-shadow">-->
-				<img alt="<?php echo htmlspecialchars(stripslashes($item->descr), ENT_QUOTES); ?>" src="<?php echo $thumb->url(); ?>" />
+				<img src="<?php echo $thumb->url(); ?>" alt="<?php echo htmlspecialchars(stripslashes($item->descr), ENT_QUOTES); ?>" />
 				<!--</div>-->
 				<span class="rsg2-clr"></span>
 				<?php if ($rsgConfig->get("display_thumbs_showImgName")): ?>
@@ -47,10 +50,15 @@ if ($slideshow)
 				<?php endif; ?>
 			</a>
 			<?php if ($this->allowEdit): ?>
-				<!--	<div id="rsg2-adminButtons">
-			<a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&page=edit_image&id=" . $item->id); ?>"><img src="<?php echo JURI::base(); ?>/administrator/images/edit_f2.png" alt="" height="15" /></a>
-			<a href="#" onClick="if(window.confirm('<?php echo JText::_('COM_RSGALLERY2_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_IMAGE'); ?>')) location='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=delete_image&id=" . $item->id); ?>'"><img src="<?php echo JURI::base(); ?>/administrator/images/delete_f2.png" alt=""  height="15" /></a>
-		</div>-->
+			<!--	<div id="rsg2-adminButtons">
+                <a href="<?php echo JRoute::_("index.php?option=com_rsgallery2&page=edit_image&id=" . $item->id); ?>">
+                    <img src="<?php echo JURI::base(); ?>/administrator/images/edit_f2.png" alt="" height="15" />
+                </a>
+                <a href="#" onClick="if(window.confirm('<?php echo JText::_('COM_RSGALLERY2_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_IMAGE'); ?>'))
+                    location='<?php echo JRoute::_("index.php?option=com_rsgallery2&page=delete_image&id=" . $item->id); ?>'">
+                    <img src="<?php echo JURI::base(); ?>/administrator/images/delete_f2.png" alt=""  height="15" />
+                </a>
+			</div>-->
 			<?php endif; ?>
 		</li>
 	<?php endforeach; ?>
