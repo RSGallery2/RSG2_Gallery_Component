@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains the class used for voging.
+ * This file contains the class used for voting.
  *
  * @version       $Id: rsgvoting.class.php 1085 2012-06-24 13:44:29Z mirjam $
  * @package       RSGallery2

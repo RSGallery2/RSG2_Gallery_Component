@@ -10,6 +10,9 @@
 defined('_JEXEC') or die(); ?>
 
 <?php
+
+// ToDo: collect all variables and use short name later
+
 $cols = $rsgConfig->get('display_thumbs_colsPerPage');
 $i    = 0;
 

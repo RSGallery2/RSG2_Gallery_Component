@@ -76,5 +76,3 @@ $display_navigation_bar_mode = $rsgConfig->get('display_navigation_bar_mode', 1)
 		?>
 	</div>
 </div>
-
-<?php

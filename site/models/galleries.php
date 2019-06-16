@@ -114,48 +114,6 @@ class RSGallery2ModelGalleries extends JModelList
 
 
     /**
-     * Method to get a list of galleries.
-     *
-     * @return  mixed  An array of objects on success, false on failure.
-     *
-     * @since   1.6
-     */
-    public function getItems()
-    {
-        /**/
-        // Get the items.
-        $this->_items = parent::getItems();
-
-        /**
-         * // Convert them to a simple array.
-         * foreach ($items as $k => $v)
-         * {
-         * $items[$k] = $v->term;
-         * }
-         * /**/
-
-        /**/
-        // Process pagination.
-        //$limit = (int)$this->getState('list.limit', 5); // ToDo: origin of list limit ?
-
-        // Sets the total for pagination.
-        $this->_total = count($this->_items);
-
-        $items = $this->_items;
-
-        /**
-        if ($limit !== 0) {
-            $start = (int)$this->getState('list.start', 0);
-
-	        $items = array_slice($this->_items, $start, $start + $limit);
-        }
-        /**/
-
-        return $items;
-        /**/
-    }
-
-    /**
      * collects all data needed for displaying the root gallery on front page
      * 2018.01.01 Actually it supports the old 'legacy' view data
 	 

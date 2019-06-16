@@ -231,6 +231,12 @@ function Rsgallery2BuildRoute(&$query)
 			unset($query['page']);
 		}
 	}
+	
+	if ($isDebugSiteActive) {
+		// identify active file
+		JLog::add('<== Rsgallery2BuildRoute');
+	}
+
 
 	return $segments;
 }
@@ -255,7 +261,7 @@ function Rsgallery2ParseRoute($segments)
 	// $Rsg2DebugActive = true; // ToDo: $rsgConfig->get('debug');
 	if ($isDebugSiteActive) {
 		// identify active file
-		JLog::add('==> Rsgallery2BuildRoute');
+		JLog::add('==> Rsgallery2ParseRoute');
 	}
 
 	$vars = array();
@@ -381,6 +387,11 @@ function Rsgallery2ParseRoute($segments)
 			$vars['page'] = "inline";
 		}
 	}//END of if ($rsgConfig->get("advancedSef") == true)
+
+	if ($isDebugSiteActive) {
+		// identify active file
+		JLog::add('<== Rsgallery2ParseRoute');
+	}
 
 	return $vars;
 }
@@ -664,7 +675,7 @@ function Rsgallery2InitConfig()
 	/** 2018.09.02 */
 	global $rsgConfig, $rsgVersion;
 
-	if ($rsgConfig == null)
+	if (empty ($rsgConfig))
 	{
 		if (!defined('JPATH_RSGALLERY2_ADMIN'))
 		{

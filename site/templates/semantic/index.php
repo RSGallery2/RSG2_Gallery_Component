@@ -12,7 +12,7 @@
 
 ATTENTION!
 
-This is built to imitate the Joomla 1.5.* style of templating.  Hopeful that info is enlightening.
+This is built to imitate the Joomla 1.5.* style of templating.  
 
  **/
 

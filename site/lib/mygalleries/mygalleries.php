@@ -25,8 +25,8 @@ if ($document->getType() == 'html')
 require_once(JPATH_RSGALLERY2_SITE . '/lib/mygalleries/mygalleries.class.php');
 //Need galleries.class.php for rsgGalleriesItem that extends JTable
 $rsgOptions_path = JPATH_RSGALLERY2_ADMIN . '/options' . '/';
-require_once($rsgOptions_path . 'galleries.class.php');
-require_once($rsgOptions_path . 'images.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/options/galleries.class.php');
+require_once(JPATH_RSGALLERY2_ADMIN . '/options/images.class.php');
 
 //Get parameters from URL and/or form
 $input = JFactory::getApplication()->input;
@@ -400,7 +400,7 @@ function saveUploadedItem()
 				$file_name = $i_file['name'];
 				if (move_uploaded_file($i_file['tmp_name'], JPATH_ROOT . '/media/' .  $file_name))
 				{
-					//Import into database and copy to the right places
+					// Import into database and copy to the right places
 					$imported = imgUtils::importImage(JPATH_ROOT . '/media/' .  $file_name, $file_name, $gallery_id, $title, $descr);
 					if ($imported == 1)
 					{
