@@ -10,17 +10,16 @@
 		<fieldset name="request"
 		          addfieldpath="/administrator/components/com_rsgallery2/models/fields"
 		>
-			<!--field
+			<field
 					id="gid"
 					name="gid"
-					type="galleryrootlist"
+					type="GallerySelectList"
 					label="COM_RSGALLERY2_CHOOSE_GALLERY"
 					description="COM_RSGALLERY2_CHOOSE_GALLERY_DESC"
-					default="0"
 					required="true"
 			>
 			</field>
-			<field
+			<!--field
 					id="dummy"
 					name="dummy"
 					type="text"

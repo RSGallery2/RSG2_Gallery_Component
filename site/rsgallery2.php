@@ -129,6 +129,13 @@ if ( ! empty ($view))
     {
 		$isUseJ25View = False;
     }
+	else
+	{
+		if ( ! empty ($layout))
+		{
+			$isUseJ25View = False;
+		}
+	}
 }
 
 
