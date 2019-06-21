@@ -199,7 +199,7 @@ class RSGallery2ModelImages extends JModelList
      * @param $images
      *
      *
-     * @since version
+     * @since 4.5.0.0
      */
     public function AssignImageUrls($images)
     {
@@ -304,7 +304,7 @@ class RSGallery2ModelImages extends JModelList
      * @param $images
      *
      *
-     * @since version
+     * @since 4.5.0.0
      */
     public function AssignImageRatingData($images)
     {
@@ -360,7 +360,7 @@ class RSGallery2ModelImages extends JModelList
      * @param $images
      *
      *
-     * @since version
+     * @since 4.5.0.0
      */
     public function AssignImageComments($images)
     {
@@ -397,7 +397,7 @@ class RSGallery2ModelImages extends JModelList
      * @param $images
      *
      *
-     * @since version
+     * @since 4.5.0.0
      */
     public function AssignImageExifData($images)
     {

@@ -720,7 +720,7 @@ class rsgDisplay extends JObject
 	 * @param $pagination
 	 *
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 */
 	function showNavLimitBox($pagination)
 	{

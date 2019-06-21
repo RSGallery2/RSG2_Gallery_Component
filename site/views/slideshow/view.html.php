@@ -30,7 +30,7 @@ class RSGallery2ViewSlideshow extends HtmlView
      * Collect all rsgConfig variables which are used
      * on the 'front' page like root galleries and
      *
-     * @since version
+     * @since 4.5.0.0
      */
     public function rootConfig()
     {

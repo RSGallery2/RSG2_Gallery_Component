@@ -30,7 +30,7 @@ class Rsgallery2ControllerDevelop extends JControllerForm
      * 
      *
      *
-     * @since version 4.3
+     * @since 4.5.0.0 4.3
      */
 	public function orderRsg2Old()
 	{
@@ -73,7 +73,7 @@ class Rsgallery2ControllerDevelop extends JControllerForm
      * 
      *
      *
-     * @since version 4.3.1
+     * @since 4.5.0.0 4.3.1
      */
 	public function orderRsg2New()
 	{
@@ -116,7 +116,7 @@ class Rsgallery2ControllerDevelop extends JControllerForm
      * 
      *
      *
-     * @since version 4.3
+     * @since 4.5.0.0 4.3
      */
 	public function unorder()
 	{
@@ -160,7 +160,7 @@ class Rsgallery2ControllerDevelop extends JControllerForm
      *
      *
      *
-     * @since version 4.3
+     * @since 4.5.0.0 4.3
      */
     public function updateOrder()
     {

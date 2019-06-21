@@ -50,7 +50,7 @@ class Rsgallery2ControllerGalleries extends JControllerAdmin
      *
 	 * @throws Exception
      *
-     * @since version 4.3
+     * @since 4.5.0.0 4.3
 	 */
 	public function saveOrdering()
 	{

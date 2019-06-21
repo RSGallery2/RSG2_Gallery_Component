@@ -30,7 +30,7 @@ class Rsgallery2ControllerImage extends JControllerForm
 	/**
 	 * rotate_image_left directs the master image and all dependent images to be turned left against the clock
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	public function rotate_image_left()
 	{
@@ -46,7 +46,7 @@ class Rsgallery2ControllerImage extends JControllerForm
 	 * rotate_image_right directs master image and all dependent images to be turned right with the clock
 	 *
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	public function rotate_image_right()
 	{
@@ -61,7 +61,7 @@ class Rsgallery2ControllerImage extends JControllerForm
 	/**
 	 * rotate_image_180 directs the master image and all dependent images to be turned 180 degrees (upside down)
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	public function rotate_image_180()
 	{
@@ -79,7 +79,7 @@ class Rsgallery2ControllerImage extends JControllerForm
 	 * @param double $direction degree in DEG (-360 -.. 360)
 	 * @param string $msg       start of message to be given to the user on setRedirect
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 * @throws Exception
 	 */
 	public function rotate_image($direction = -90.000, $msg ='')
@@ -148,7 +148,7 @@ class Rsgallery2ControllerImage extends JControllerForm
 	/**
 	 * flip_image_horizontal directs the master image and all dependent images to be flipped horizontal (left <-> right)
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	public function flip_image_horizontal()
 	{
@@ -163,7 +163,7 @@ class Rsgallery2ControllerImage extends JControllerForm
 	/**
 	 * flip_image_vertical directs the master image and all dependent images to be flipped horizontal (top <-> bottom)
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	public function flip_image_vertical()
 	{
@@ -179,7 +179,7 @@ class Rsgallery2ControllerImage extends JControllerForm
 	 * flip_image_both directs the master image and all dependent images to be flipped horizontal and vertical
 	 *
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	public function flip_image_both()
 	{
@@ -198,7 +198,7 @@ class Rsgallery2ControllerImage extends JControllerForm
 	 * @param int    $flipMode mode horizontal, vertical or both
 	 * @param string $msg       start of message to be given to the user on setRedirect
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 * @throws Exception
 	 */
 	public function flip_image($flipMode=0, $msg='')

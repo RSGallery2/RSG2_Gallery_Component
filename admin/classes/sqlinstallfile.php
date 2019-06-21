@@ -76,7 +76,7 @@ class SqlInstallFile
 	 *
 	 * @return bool|string[] list of create table queries
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	private function extractQueries()
 	{
@@ -115,7 +115,7 @@ class SqlInstallFile
 	 *
 	 * @return string
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	private function ExtractTableNameFromQuery($query)
 	{
@@ -148,7 +148,7 @@ class SqlInstallFile
 	 *
 	 * @return array
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	private function ExtractTablePropertiesFromQuery($query)
 	{
@@ -184,7 +184,7 @@ class SqlInstallFile
 	 *
 	 * @return stdClass|string
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	private function ExtractColumnPropertiesFromLine($queryLine)
 	{
@@ -211,7 +211,7 @@ class SqlInstallFile
 	 *
 	 * @return string
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	private function ExtractColumnNameFromQueryLine($queryLine, &$EndPos)
 	{
@@ -246,7 +246,7 @@ class SqlInstallFile
 	 *
 	 * @return string parameter type and unsigned if is unsigned
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	private function ExtractColumnPropertiesFromQueryLine($queryLine, $StartPos)
 	{
@@ -299,7 +299,7 @@ class SqlInstallFile
 	 *
 	 * @return bool|string[] list of 'create table queries'
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	private function getSqlQueries()
 	{
@@ -317,7 +317,7 @@ class SqlInstallFile
 	 *
 	 * @return string[] list of table names with queries from sql queries file
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	public function getTableQueries()
 	{
@@ -346,7 +346,7 @@ class SqlInstallFile
      *
 	 * @return string[] list of table names from sql queries file
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	public function getTableNames()
 	{
@@ -375,7 +375,7 @@ class SqlInstallFile
 	 *
 	 * @return array [string][string]
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	public function getTableColumns($tableName)
 	{
@@ -405,7 +405,7 @@ class SqlInstallFile
 	 *
 	 * @return string []
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	public function getTableColumnNames($tableName)
 	{
@@ -435,7 +435,7 @@ class SqlInstallFile
 	 *
 	 * @return string [] list of table names with queries from sql queries file
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	public function getTableQuery($TableName)
 	{
@@ -456,7 +456,7 @@ class SqlInstallFile
      *
 	 * @return string[] [] array with strings as keys and property names to property values as data
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	public function getTablePropertiesList()
 	{
@@ -483,7 +483,7 @@ class SqlInstallFile
 	 *
 	 * @return array|string
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 *
 	public function getColumnsPropertiesOfTable($tableName)
 	{

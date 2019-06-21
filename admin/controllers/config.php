@@ -66,7 +66,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
      *
      * @return bool
      *
-     * @since version 4.3
+     * @since 4.5.0.0 4.3
      */
 	public function cancel_rawView($key = null)
 	{
@@ -81,7 +81,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
     /**
      * Save changes in raw edit view value by value
      *
-     * @since version 4.3
+     * @since 4.5.0.0 4.3
      */
 	public function apply_rawEdit()
     {
@@ -111,7 +111,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
     /**
      * Save changes in raw edit view value by value
      *
-     * @since version 4.3
+     * @since 4.5.0.0 4.3
      */
 	public function save_rawEdit()
 	{
@@ -144,7 +144,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
      *
      * @return bool
      *
-     * @since version 4.3
+     * @since 4.5.0.0 4.3
      */
 	public function cancel_rawEdit($key = null)
 	{
@@ -160,7 +160,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
 	/**
 	 * Save changes in raw edit view value by value
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	public function reset2default()
 	{
@@ -206,7 +206,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
 	 *
 	 * @return bool
      *
-     * @since version 4.3
+     * @since 4.5.0.0 4.3
 	 */
 	public function cancel($key = null)
 	{
@@ -225,7 +225,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
      * @param null $key
      * @param null $urlVar
      *
-     * @since version 4.3
+     * @since 4.5.0.0 4.3
      */
 	function save($key = null, $urlVar = null)
 	{

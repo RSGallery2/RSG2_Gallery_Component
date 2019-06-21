@@ -93,7 +93,7 @@ class ImageReferences
      *
      * @return ImageReference[]
      *
-     * @since version 4.3
+     * @since 4.5.0.0 4.3
      */
 	public function getImageReferenceList()
 	{
@@ -112,7 +112,7 @@ class ImageReferences
      *
      * @return mixed (mostly bool)
      *
-     * @since version 4.3
+     * @since 4.5.0.0 4.3
      */
 	public function __get($property)
 	{
@@ -128,7 +128,7 @@ class ImageReferences
      *
      * @return string Message of creating the data if any
      *
-     * @since version 4.3
+     * @since 4.5.0.0 4.3
      */
 	public function CollectImageReferences()
 	{
@@ -174,7 +174,7 @@ class ImageReferences
      *
      * @return array of object (name and gallery_id)
      *
-     * @since version 4.3
+     * @since 4.5.0.0 4.3
      */
 	private function getDbImageGalleryList()
 	{
@@ -212,7 +212,7 @@ class ImageReferences
      *
      * @return string [] image file names
      *
-     * @since version 4.3
+     * @since 4.5.0.0 4.3
      */
 	private function getDbImageNames()
 	{
@@ -235,7 +235,7 @@ class ImageReferences
 	 *
 	 * @return string [] file name array
      *
-     * @since version 4.3
+     * @since 4.5.0.0 4.3
      */
 	static function getFilenameArray($dir)
 	{
@@ -285,7 +285,7 @@ class ImageReferences
 	 *
 	 * @return array lower case values
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	static function arrayToLower($array)
 	{
@@ -310,7 +310,7 @@ class ImageReferences
 	 *
 	 * @throws Exception
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	private function CreateImagesData($AllFiles, $DbImageNames, $DbImageGalleryList,
 		$files_display, $files_original, $files_thumb, $files_watermarked)
@@ -514,7 +514,7 @@ class ImageReferences
 	 *
 	 * @return string
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	private function getParentGalleryName($ParentGalleryId)
 	{

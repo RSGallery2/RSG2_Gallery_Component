@@ -23,7 +23,7 @@ class rsgDisplay_slideshowone extends rsgDisplay
 	/**
 	 *
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 * @throws Exception
 	 */
 	function showSlideShow()

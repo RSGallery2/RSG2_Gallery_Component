@@ -121,7 +121,7 @@ class Rsg2TemplateParameter
 	 *
 	 * @return mixed
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 * @throws Exception
 	 */
 	function extractFormFieldParameters ($formFields)

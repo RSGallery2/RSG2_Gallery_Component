@@ -26,7 +26,7 @@ class rsgDisplay_schuweb extends rsgDisplay
 	 * Show main gallery page
 	 *
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 * @throws Exception
 	 */
 	public function showMainGalleries()
@@ -52,7 +52,7 @@ class rsgDisplay_schuweb extends rsgDisplay
 	 *
 	 * @return bool|JPagination
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 * @throws Exception
 	 */
 	public function navigationGallery ($gallery)
@@ -91,7 +91,7 @@ class rsgDisplay_schuweb extends rsgDisplay
 	 * Shows thumbnails for gallery
 	 *
 	 * @throws Exception
-	 * @since version
+	 * @since 4.5.0.0
 	 */
 	public function showThumbs()
 	{

@@ -442,7 +442,7 @@ class com_rsgallery2InstallerScript
     /**
      * @param $startDir Example: \administrator\language\
      * recursive delete joomla 1.5 version or older style component language files
-     * @since version 4.3
+     * @since 4.5.0.0 4.3
      */
     function findAndDelete_1_5_LangFiles($startDir, &$msg) {
 

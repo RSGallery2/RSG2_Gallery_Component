@@ -28,7 +28,7 @@ class Rsgallery2ControllerGallery extends JControllerForm
 	/**
 	 * Save edited gallery parameters and goto upload form
      *
-     * @since version 4.3
+     * @since 4.5.0.0 4.3
 	 */
 	public function save2upload()
 	{

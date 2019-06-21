@@ -73,7 +73,7 @@ class ImageReference
 	/**
 	 * ImageReference constructor. init all variables
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	public function __construct()
 	{
@@ -96,7 +96,7 @@ class ImageReference
 	 *
 	 * @param bool $watermarked
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	public function __construct1($watermarked)
 	{
@@ -111,7 +111,7 @@ class ImageReference
 	 *
 	 * @return bool
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	public function IsAnyImageExisting($careForWatermarked = ImageReference::dontCareForWatermarked)
 	{
@@ -142,7 +142,7 @@ class ImageReference
 	 * @param bool $careForWatermarked
 	 * @return bool
 	 *
-	 * @since version 4.3
+	 * @since 4.5.0.0 4.3
 	 */
 	public function IsMainImageMissing($careForWatermarked = ImageReference::dontCareForWatermarked)
 	{

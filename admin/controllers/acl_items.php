@@ -32,7 +32,7 @@ jimport('joomla.application.component.controlleradmin');
  *
  * @package     ${NAMESPACE}
  *
- * @since version#
+ * @since 4.5.0.0#
  */
 class Rsgallery2ControllerComments extends JControllerAdmin
 {
