@@ -269,11 +269,8 @@
 			<filterchain>
 				<replaceregexp>
 
-					<!-- echo msg="replace pattern='(c) 200x - xxxx' replace='$1{date.year}'" /-->
 					<regexp pattern="(?&lt;=\([cC]\)\s)(\d+\s*-\s*)\d+" replace="${1}${date.year}" />
-					<!--echo msg="replace pattern='@since(?=\s*$)' replace='@since ${build.version}'" /-->
-					<regexp pattern="(?&lt;=\([cC]\)\s)(\s*\d+\s*-\s*)\d+" replace="${1}${date.year}" />
-
+					<!--regexp pattern="(?&lt;=\([cC]\)\s)(\s*\d+\s*-\s*)\d+" replace="${1}${date.year}" /-->
 					 
 				</replaceregexp>
 			</filterchain>
