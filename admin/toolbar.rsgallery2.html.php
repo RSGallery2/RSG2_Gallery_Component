@@ -4,7 +4,7 @@
  *
  * @version       $Id: toolbar.rsgallery2.html.php 1085 2012-06-24 13:44:29Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003-2018 RSGallery2 Team
+ * @copyright (C) 2003-2019 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  **/
 

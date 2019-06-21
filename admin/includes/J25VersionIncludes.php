@@ -4,7 +4,7 @@
  * These are only needed for using the old behavior called from 
  * maintenance and may be deleted later
  * @package       RSGallery2
- * @copyright (C) 2017-2018 RSGallery2 Team
+ * @copyright (C) 2017-2019 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery2 is Free Software
  */
