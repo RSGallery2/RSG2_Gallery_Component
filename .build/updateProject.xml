@@ -118,9 +118,6 @@
     </fileset>
 
 
-	
-
-
 	<!--
 	=========================================================================
 	   Targets
@@ -214,9 +211,6 @@
 			<!-- File set admin folder -->
 			<fileset dir="${admin}" id="adminSet">
 				<include name="**/*.php" />
-				<!-- may be accidentally copied from installation server -->
-				<exclude name="rsgallery2.xml" />
-				<exclude name="install.rsgallery2.php" />
 			</fileset>
 
 			<!-- File set site folder -->
@@ -227,16 +221,65 @@
 
 			<filterchain>
 				<replaceregexp>
-					<!--regexp pattern="(?&lt;=&lt;version&gt;).*(?=&lt;)" replace="${build.version}"/>
-					<regexp pattern="(?&lt;=&lt;creationDate&gt;).*(?=&lt;)" replace="${date.day.month.year}"/>
-					<regexp pattern="(?&lt;=&lt;copyright&gt;\(c\) 2003\-).*(?= RSGallery2 Team)" replace="${date.year}"/-->
+
 					<echo msg="replace pattern='@since version' replace='@since ${build.version}'" />
 					<regexp pattern="@since version" replace="@since ${build.version}" />
+					<echo msg="replace pattern='@since(?=\s*$)' replace='@since ${build.version}'" />
+					<regexp pattern="@since(?=\s*$)" replace="@since ${build.version}" />
+					
+					 
 				</replaceregexp>
 			</filterchain>
 		</reflexive>
 		
 		<echo msg="AddVersion2PhpSinceDoc end" />
+    </target>
+
+	<!-- 
+	.........................................................................
+	UpdateCopyrightYear
+	.........................................................................
+	Improve php file "since" doc parts: add version * @since  x.y.z 
+	-->
+	
+    <target name="UpdateCopyrightYear">
+
+		<echo msg="UpdateCopyrightYear start" />
+		
+		<echo msg="build.version: ${build.version}" />
+		
+		<reflexive>
+			<!-- File set root folder -->
+			<fileset dir="${root}" id="rootSet">
+				<include name="*.php" />
+			</fileset>
+
+			<!-- File set admin folder -->
+			<fileset dir="${admin}" id="adminSet">
+				<include name="**/*.php" />
+				<!-- may be accidentally copied from installation server -->
+			</fileset>
+
+			<!-- File set site folder -->
+			<fileset dir="${site}" id="siteSet">
+				<include name="**/*.php" />
+				<!--exclude name="**/params.ini" /-->
+			</fileset>
+
+			<filterchain>
+				<replaceregexp>
+
+					<!-- echo msg="replace pattern='(c) 200x - xxxx' replace='$1{date.year}'" /-->
+					<regexp pattern="(?&lt;=\([cC]\)\s)(\d+\s*-\s*)\d+" replace="$1.${date.year}" />
+					<!--echo msg="replace pattern='@since(?=\s*$)' replace='@since ${build.version}'" />
+					<regexp pattern="@since(?=\s*$)" replace="@since ${build.version}" /-->
+					
+					 
+				</replaceregexp>
+			</filterchain>
+		</reflexive>
+		
+		<echo msg="UpdateCopyrightYear end" />
     </target>
 
 
