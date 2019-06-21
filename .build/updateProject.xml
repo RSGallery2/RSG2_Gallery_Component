@@ -204,7 +204,6 @@
 		<echo msg="AddVersion2PhpSinceDoc start" />
 		
 		<echo msg="build.version: ${build.version}" />
-		<echo msg="date.day.month.year: ${date.day.month.year}" />
 		
 		<reflexive>
 			<!-- File set root folder -->
@@ -231,6 +230,8 @@
 					<!--regexp pattern="(?&lt;=&lt;version&gt;).*(?=&lt;)" replace="${build.version}"/>
 					<regexp pattern="(?&lt;=&lt;creationDate&gt;).*(?=&lt;)" replace="${date.day.month.year}"/>
 					<regexp pattern="(?&lt;=&lt;copyright&gt;\(c\) 2003\-).*(?= RSGallery2 Team)" replace="${date.year}"/-->
+					<echo msg="replace pattern='@since version' replace='@since ${build.version}'" />
+					<regexp pattern="@since version" replace="@since ${build.version}" />
 				</replaceregexp>
 			</filterchain>
 		</reflexive>

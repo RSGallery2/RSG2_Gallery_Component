@@ -7,7 +7,7 @@ REM phing -logfile .\build.log .\build.xml
 
 REM -longtargets
 REM -
-phing -logfile .\build.log -f .\updateProject.xml AddVersion2PhpSinceDoc
+phing -logfile .\since.target.log -f .\updateProject.xml AddVersion2PhpSinceDoc
 
 
 
