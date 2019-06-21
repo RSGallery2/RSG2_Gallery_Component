@@ -2,7 +2,7 @@
 /**
  * @package        RSGallery2
  * @subpackage     TemplateManager
- * @copyright      Copyright (C) 2005-2018 RSGallery2 Team
+ * @copyright      Copyright (C) 2005-2019 RSGallery2 Team
  * @license        GNU/GPL, see LICENSE.php
  */
 

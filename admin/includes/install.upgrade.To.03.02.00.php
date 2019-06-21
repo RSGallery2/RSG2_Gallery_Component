@@ -4,7 +4,7 @@
  *
  * @version       $Id: install.upgrade.php
  * @package       RSGallery2
- * @copyright (C) 2008-2018 RSGallery2 Team
+ * @copyright (C) 2008-2019 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  */

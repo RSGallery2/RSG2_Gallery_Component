@@ -2,7 +2,7 @@
 /**
  * @version        $Id: gpagination.php 1057 2012-01-09 17:00:55Z mirjam $
  * @package        RSgallery2 Component
- * @copyright      Copyright (C) 2005-2018 RSGallery2 Team rights reserved.
+ * @copyright      Copyright (C) 2005-2019 RSGallery2 Team rights reserved.
  * @license        GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
