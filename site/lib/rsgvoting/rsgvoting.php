@@ -14,11 +14,8 @@ require_once(JPATH_RSGALLERY2_SITE . '/lib' . '/rsgvoting' . '/rsgvoting.class.p
 
 $input = JFactory::getApplication()->input;
 // 140503 $cid not used ?
-//$cid   = JRequest::getInt('cid', array(0) );
 $cid = $input->get('cid', 0, 'INT');
-//$task  = JRequest::getCmd('task', '' );
 $task = $input->get('task', '', 'CMD');
-//$id    = JRequest::getInt('id','' );
 $id = $input->get('id', 0, 'INT');
 
 switch ($task)
@@ -50,11 +47,8 @@ function saveVote($option)
 	$database  = JFactory::getDBO();
 	$my        = JFactory::getUser();
 	$input     = JFactory::getApplication()->input;
-	//$Itemid 	= JRequest::getInt('Itemid', '');	
 	$Itemid = $input->get('Itemid', 0, 'INT');
-	//$rating 	= JRequest::getInt('rating', '');
 	$rating = $input->get('rating', 0, 'INT');
-	//$id 		= JRequest::getInt('id', '');
 	$id   = $input->get('id', 0, 'INT');
 	$vote = new rsgVoting();
 

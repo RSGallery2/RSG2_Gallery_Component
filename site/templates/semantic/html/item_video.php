@@ -16,7 +16,6 @@ global $rsgConfig;
 $item = $this->currentItem;
 
 //$templatePath = JURI_SITE . "components/com_rsgallery2/templates/". 
-//	JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template'));
 $input       = JFactory::getApplication()->input;
 $PreTemplate = $input->get('rsgTemplate', $rsgConfig->get('template'), 'CMD');
 

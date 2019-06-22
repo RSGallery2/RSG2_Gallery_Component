@@ -57,7 +57,6 @@ class rsgDisplay extends JObject
 	{
 		global $rsgConfig;
 
-		//$page = JRequest::getCmd( 'page', '' );
 		$input = JFactory::getApplication()->input;
 		$page  = $input->get('page', '', 'CMD');
 		switch ($page)
@@ -66,7 +65,6 @@ class rsgDisplay extends JObject
 				$gallery = rsgGalleryManager::get();
 				if (!empty ($gallery))
 				{
-				//JRequest::setVar( 'rsgTemplate', $rsgConfig->get('current_slideshow'));
 				$input->set('rsgTemplate', $rsgConfig->get('current_slideshow'));
 
 				//@todo This bit is leftover from J!1.5: look into whether or not this can be removed and how. remove first or second call to ::instance
@@ -140,8 +138,6 @@ class rsgDisplay extends JObject
 	{
 		global $rsgConfig;
 
-		// $template = preg_replace( '#\W#', '', JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template') ));
-		// --> JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template') )
 		$input       = JFactory::getApplication()->input;
 		$PreTemplate = $input->get('rsgTemplate', $rsgConfig->get('template'), 'CMD');
 
@@ -164,11 +160,9 @@ class rsgDisplay extends JObject
 	 */
 	function showRsgMyGalleryHeader()
 	{
-		// $rsgOption 	= JRequest::getCmd( 'rsgOption'  , '');
 		$input     = JFactory::getApplication()->input;
 		$rsgOption = $input->get('rsgOption', '', 'CMD');
 
-		//$gid 		= JRequest::getInt( 'gid', null);
 		$gid = $input->get('gid', null, 'INT');
 
 		if (!$rsgOption == 'mygalleries' AND !$gid)
@@ -212,7 +206,6 @@ class rsgDisplay extends JObject
 		$pathway   = $app->getPathway();
 
 		// Only show pathway if rsg2 is the component
-		//$option = JRequest::getCmd('option');
 		$input  = JFactory::getApplication()->input;
 		$option = $input->get('Option', '', 'CMD');
 		if ($option != 'com_rsgallery2')
@@ -279,7 +272,6 @@ class rsgDisplay extends JObject
 		}
 
 		//Add image name to pathway if an image is displayed (page in URL is the string 'inline')
-		//$page = JRequest::getCmd( 'page', '' );
 		$page = $input->get('page', '', 'CMD');
 		if ($page == 'inline')
 		{
@@ -300,17 +292,11 @@ class rsgDisplay extends JObject
 
 		$input = JFactory::getApplication()->input;
 
-		//$option 	= JRequest::getCmd('option');
 		$option = $input->get('Option', '', 'CMD');
-		//$Itemid 	= JRequest::getInt('Itemid',Null);
 		$Itemid = $input->get('Itemid', null, 'INT');
-		//$gid 		= JRequest::getInt('gid',Null);
 		$gid = $input->get('gid', null, 'INT');
-		//$id 		= JRequest::getInt('id',Null);
 		$id = $input->get('id', null, 'INT');
-		//$limitstart = JRequest::getInt('limitstart',Null);
 		$limitstart = $input->get('limitstart', null, 'INT');
-		//$page		= JRequest::getCmd('page',Null);
 		$page = $input->get('page', '', 'CMD');
 
 		// Get the gid in the URL of the active menu item

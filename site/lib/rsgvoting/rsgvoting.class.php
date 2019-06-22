@@ -112,7 +112,6 @@ class rsgVoting
 	 */
 	static function voteAllowed()
 	{
-		//$item_id	= JRequest::getInt('id');
 		$input   = JFactory::getApplication()->input;
 		$item_id = $input->get('id', 0, 'INT');
 		$gid     = galleryUtils::getCatIdFromFileId($item_id);

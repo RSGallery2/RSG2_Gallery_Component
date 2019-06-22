@@ -96,7 +96,6 @@ class rsgDisplay_schuweb extends rsgDisplay
 		$itemCount = $this->gallery->itemCount();
 
 		$limit = $rsgConfig->get("display_thumbs_maxPerPage");
-		//$limitstart = JRequest::getInt( 'limitstart' );
 		$input      = JFactory::getApplication()->input;
 		$limitstart = $input->get('limitstart', 0, 'INT');
 
