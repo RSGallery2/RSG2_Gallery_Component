@@ -377,7 +377,6 @@ class rsgDisplay_semantic extends rsgDisplay
 	function showDisplayPageNav()
 	{//MK this is where the images are shown with limit=1
 		$gallery = rsgGalleryManager::get();
-		//$itemId = JRequest::getInt( 'id', 0 );
 		$input  = JFactory::getApplication()->input;
 		$itemId = $input->get('id', 0, 'INT');
 		if ($itemId != 0)
@@ -397,8 +396,6 @@ class rsgDisplay_semantic extends rsgDisplay
 			// set the limitstart so the pagination knows what page to start from
 			$itemIndex = $gallery->indexOfItem($itemId);
 			$router->setVar("limitstart", $itemIndex);
-			// Todo: 150130
-			// JRequest::setVar('limitstart', $itemIndex);
 			$input->set('limitstart', $itemIndex);
 		}
 

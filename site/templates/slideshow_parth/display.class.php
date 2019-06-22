@@ -72,7 +72,6 @@ class rsgDisplay_slideshow_parth extends rsgDisplay
 			$search[]    = '</p>';
 			$replace     = ' ';
 			$item->descr = str_replace($search, $replace, $item->descr);
-			//$openImageLink = 'index.php?option=com_rsgallery2&page=inline&Itemid='.JRequest::getInt('Itemid').'&id='.$item->id;
 			$input         = JFactory::getApplication()->input;
 			$itemId        = $input->get('Itemid', null, 'INT');
 			$openImageLink = 'index.php?option=com_rsgallery2&page=inline&Itemid=' . $itemId . '&id=' . $item->id;

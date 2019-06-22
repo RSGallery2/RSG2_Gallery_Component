@@ -27,7 +27,6 @@ function template()
 	}
 
 	//Set template selection
-	//$template = preg_replace( '#\W#', '', JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template') ));
 	$input    = JFactory::getApplication()->input;
 	$template = preg_replace('#\W#', '', $input->get('rsgTemplate', $rsgConfig->get('template'), 'CMD'));
 	$template = strtolower($template);
@@ -64,7 +63,6 @@ function xmlFile()
 		JLog::add('xmlFile: ');
 	}
 
-	// $template = preg_replace( '#\W#', '', JRequest::getCmd( 'xmlTemplate', 'meta' ) );
 	$input    = JFactory::getApplication()->input;
 	$template = preg_replace('#\W#', '', $input->get('xmlTemplate', 'meta', 'CMD'));
 	$template = strtolower($template);
