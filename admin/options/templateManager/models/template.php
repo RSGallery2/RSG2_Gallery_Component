@@ -120,7 +120,7 @@ class InstallerModelTemplate extends InstallerModel
 
 		global $rsgConfig;
 
-		$app = &JFactory::getApplication();
+		$app = JFactory::getApplication();
 
 		if (!$this->template)
 		{

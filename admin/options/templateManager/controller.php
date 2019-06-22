@@ -67,7 +67,7 @@ class InstallerController extends JControllerLegacy
 
 		if ($model->install())
 		{
-			$cache = &JFactory::getCache('mod_menu');
+			$cache = JFactory::getCache('mod_menu');
 			$cache->clean();
 		}
 

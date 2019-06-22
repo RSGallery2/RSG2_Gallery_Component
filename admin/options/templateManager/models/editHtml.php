@@ -88,7 +88,7 @@ class InstallerModelEditHtml extends InstallerModel
 	function save()
 	{
 
-		$app = &JFactory::getApplication();
+		$app = JFactory::getApplication();
 
 		// Set FTP credentials, if given
 		jimport('joomla.client.helper');
