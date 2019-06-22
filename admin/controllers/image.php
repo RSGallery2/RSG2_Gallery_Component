@@ -99,7 +99,7 @@ class Rsgallery2ControllerImage extends JControllerForm
 				$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 				$msgType = 'warning';
 				// replace newlines with html line breaks.
-				str_replace('\n', '<br>', $msg);
+				$msg = nl2br ($msg);
 			}
 			else
 			{
@@ -216,7 +216,7 @@ class Rsgallery2ControllerImage extends JControllerForm
 				$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 				$msgType = 'warning';
 				// replace newlines with html line breaks.
-				str_replace('\n', '<br>', $msg);
+				$msg = nl2br ($msg);
 			}
 			else
 			{
