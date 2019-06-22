@@ -52,7 +52,7 @@ Or you can use a form where there is a hidden task field.
 			
 			$msgType = 'warning';
 			// replace newlines with html line breaks.
-			str_replace('\n', '<br>', $msg);
+			$msg = nl2br ($msg);
 		}
 		else
 		{

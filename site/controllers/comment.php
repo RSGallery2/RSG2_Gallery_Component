@@ -51,7 +51,7 @@ class RSGallery2ControllerComment extends BaseController
 			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR') . " " . JText::_('COM_RSGALLERY2_COMMENTING_IS_DISABLED');
 			$msgType = 'Warning: ';
 			// replace newlines with html line breaks.
-			str_replace('\n', '<br>', $msg);
+			$msg = nl2br ($msg);
 		}
 		else
 		{
@@ -67,7 +67,7 @@ class RSGallery2ControllerComment extends BaseController
 				$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR') . " " . JText::_('COM_RSGALLERY2_YOU_MUST_LOGIN_TO_COMMENT' . ' (B)');
 				$msgType = 'Warning: ';
 				// replace newlines with html line breaks.
-				str_replace('\n', '<br>', $msg);
+				$msg = nl2br ($msg);
 			}
 			else
 			{
@@ -175,7 +175,7 @@ class RSGallery2ControllerComment extends BaseController
 			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 			$msgType = 'warning';
 			// replace newlines with html line breaks.
-			str_replace('\n', '<br>', $msg);
+			$msg = nl2br ($msg);
 		}
 		else
 		{
