@@ -88,7 +88,7 @@ switch ($task)
      */
 function show()
 {
-	global $mosConfig_list_limit;    //Todo: $app = &JFactory::getApplication();$limit = $app->getCfg('list_limit'); replaces $mosConfig_list_limit
+	global $mosConfig_list_limit;    //Todo: $app = JFactory::getApplication();$limit = $app->getCfg('list_limit'); replaces $mosConfig_list_limit
 	global $Rsg2DebugActive;
 
 	if ($Rsg2DebugActive)
