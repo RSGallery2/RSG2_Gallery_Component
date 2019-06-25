@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<install type="component" version="1.0.0">
+<extension type="component"
+           version="3.0"
+           method="upgrade">
 	<name>Installation Manager</name>
-	<author>Joomla! Project</author>
+	<author>RSGallery2 Team</author>
 	<creationDate>2006</creationDate>
-	<copyright>Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.</copyright>
+	<copyright>(c) 2006-2019 RSGallery2 Team</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-	<authorEmail>admin@joomla.org</authorEmail>
-	<authorUrl>www.joomla.org</authorUrl>
+	<authorEmail>team@rsgallery2.org</authorEmail>
+	<authorUrl>http://www.rsgallery2.org</authorUrl>
 	<version>1.5.0</version>
-	<description>Installation Manager</description>
-</install>
+	<description>Installation Manager for templates in RSG2</description>
+	<updateservers>
+		<server type="extension"
+		        priority="1"
+		        name="Github RSGallery2 template managaer install">https://raw.githubusercontent.com/RSGallery2/RSGallery2_Project/master/UpdateServer/RSG2_template_install.xml
+		</server>
+	</updateservers>
+</extension>
+
