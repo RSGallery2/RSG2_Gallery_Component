@@ -27,23 +27,6 @@ if ($Rsg2DebugActive) {
 // Base definitions
 require_once(JPATH_ROOT . '/administrator/components/com_rsgallery2/includes/baseDefines.php');
 
-/**
-// check if this file has been included yet.
-if (isset($rsgConfig)) {
-    return;
-}
-/**/
-
-/** Is already loaded
-// Needed by rsgConfig
-require_once(JPATH_RSGALLERY2_ADMIN . '/includes/version.rsgallery2.php');
-$rsgVersion = new rsgalleryVersion();
-
-// Initialize the rsg config file
-require_once(JPATH_RSGALLERY2_ADMIN . '/includes/config.class.php');
-$rsgConfig = new rsgConfig();
-/**/
-
 // ToDo: >> remove or rearrange: rsgallery2_gallerydisplay plugin (others) calls this for display
 // Needed by rsgConfig
 if(empty($rsgVersion))
