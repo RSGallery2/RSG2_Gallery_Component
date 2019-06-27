@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="rsgTemplate">
+<extension type="template" 
+		   version="3.0" 
+           method="upgrade"
+		   client="site"
+>
 	<name>Slideshow Phatfusion</name>
 	<version>1.0</version>
 	<creationDate>2008</creationDate>
 	<author>rsdev.nl</author>
+	<copyright>(c) 2008-2019 RSGallery2 Team</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>team@rsgallery2.org</authorEmail>
 	<authorUrl>http://www.rsgallery2.org</authorUrl>
-	<copyright>(c) 2010-2018 RSGallery2 Team</copyright>
-	<license>This component is released under the GNU/GPL License</license>
 	<description>Slideshow implementation, based on the Phatfusion Slideshow.</description>
 	<files>
 		<filename>index.php</filename>

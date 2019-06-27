@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="1.5" type="rsgTemplate">
+<extension type="template" 
+		   version="3.0" 
+           method="upgrade"
+		   client="site"
+>
 	<name>Meta Template - Not for use.</name>
 	<version>3.0</version>
 	<creationDate>2007</creationDate>
 	<author>RSGallery2</author>
 	<authorEmail>team@rsgallery2.org</authorEmail>
 	<authorUrl>http://www.rsgallery2.org</authorUrl>
-	<copyright>(c) 2005-2018 RSGallery2 Team</copyright>
-	<license>This component is released under the GNU/GPL License</license>
+	<copyright>(c) 2005-2019 RSGallery2 Team</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<description>Meta template for all child templates.</description>
 	<files>
 		<filename>index.php</filename>
