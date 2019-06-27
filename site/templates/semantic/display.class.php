@@ -26,7 +26,7 @@ class rsgDisplay_semantic extends rsgDisplay
 	 * Show main gallery page
 	 *
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 * @throws Exception
 	 */
 	public function showMainGalleries()
@@ -52,7 +52,7 @@ class rsgDisplay_semantic extends rsgDisplay
 	 *
 	 * @return bool|JPagination
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 * @throws Exception
 	 */
 	public function navigationRootGalleries ($gallery)
@@ -396,6 +396,7 @@ class rsgDisplay_semantic extends rsgDisplay
 			// set the limitstart so the pagination knows what page to start from
 			$itemIndex = $gallery->indexOfItem($itemId);
 			$router->setVar("limitstart", $itemIndex);
+			// Todo: 150130
 			$input->set('limitstart', $itemIndex);
 		}
 
@@ -1108,7 +1109,7 @@ class rsgDisplay_semantic extends rsgDisplay
 	 * @param $images
 	 *
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 */
 	public function AssignImageRatingData($images)
 	{
@@ -1165,7 +1166,7 @@ class rsgDisplay_semantic extends rsgDisplay
 	 * @param $images
 	 *
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 */
 	public function AssignImageComments($images)
 	{
@@ -1203,7 +1204,7 @@ class rsgDisplay_semantic extends rsgDisplay
 	 * @param $images
 	 *
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 */
 	public function AssignImageExifData($images)
 	{

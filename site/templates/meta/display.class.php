@@ -65,10 +65,10 @@ class rsgDisplay extends JObject
 				$gallery = rsgGalleryManager::get();
 				if (!empty ($gallery))
 				{
-					$input->set('rsgTemplate', $rsgConfig->get('current_slideshow'));
+				$input->set('rsgTemplate', $rsgConfig->get('current_slideshow'));
 
-					//@todo This bit is leftover from J!1.5: look into whether or not this can be removed and how. remove first or second call to ::instance
-					rsgInstance::instance(array('rsgTemplate' => $rsgConfig->get('current_slideshow'), 'gid' => $gallery->id));
+				//@todo This bit is leftover from J!1.5: look into whether or not this can be removed and how. remove first or second call to ::instance
+				rsgInstance::instance(array('rsgTemplate' => $rsgConfig->get('current_slideshow'), 'gid' => $gallery->id));
 				}
 				break;
 			case 'inline':
@@ -706,7 +706,7 @@ class rsgDisplay extends JObject
 	 * @param $pagination
 	 *
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 */
 	function showNavLimitBox($pagination)
 	{
