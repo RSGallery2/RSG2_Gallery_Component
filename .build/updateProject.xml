@@ -242,10 +242,13 @@
 	
     <target name="UpdateCopyrightYear">
 
-		<echo msg="UpdateCopyrightYear start" />
+		<echo msg="UpdateCopyrightYear start *.php" />
 		
 		<echo msg="build.version: ${build.version}" />
 		
+		<!-- 
+		*.xml
+		-->
 		<reflexive>
 			<!-- File set root folder -->
 			<fileset dir="${root}" id="rootSet">
@@ -267,18 +270,46 @@
 			<filterchain>
 				<replaceregexp>
 
-					<!-- echo msg="replace pattern='(c) 200x - xxxx' replace='$1{date.year}'" /-->
+					<!--regexp pattern="@since(?=\s*$)" replace="@since ${build.version}" /-->
 					<regexp pattern="(?&lt;=\([cC]\)\s)(\d+\s*-\s*)\d+" replace="${1}${date.year}" />
-					<!--echo msg="replace pattern='@since(?=\s*$)' replace='@since ${build.version}'" />
-					<regexp pattern="@since(?=\s*$)" replace="@since ${build.version}" /-->
-					
-					 
+
 				</replaceregexp>
 			</filterchain>
 		</reflexive>
 		
+		<!-- 
+		*.xml
+		-->
+		<echo msg="UpdateCopyrightYear start *.xml" />
+		
+		<reflexive>
+			<!-- File set admin folder -->
+			<fileset dir="${admin}" id="adminSet">
+				<include name="**/*.xml" />
+				<!-- may be accidentally copied from installation server -->
+			</fileset>
+
+			<!-- File set site folder -->
+			<fileset dir="${site}" id="siteSet">
+				<include name="**/*.xml" />
+				<!--exclude name="**/params.ini" /-->
+			</fileset>
+
+			<filterchain>
+				<replaceregexp>
+					<!--regexp pattern="(?&lt;=&lt;copyright&gt;\(c\) 2003\-).*(?= RSGallery2 Team)" replace="${date.year}"/-->
+					<!--regexp pattern="(?&lt;=&lt;copyright&gt;\([cC]\)\s) yyyy 2003\-).*(?= RSGallery2 Team)" replace="${date.year}"/-->
+					<regexp pattern="(?&lt;=\([cC]\)\s)(\d+\s*-\s*)\d+" replace="${1}${date.year}" />
+				</replaceregexp>
+			</filterchain>
+		</reflexive>
+		
+		
+		
 		<echo msg="UpdateCopyrightYear end" />
     </target>
 
+	
+		
 
 </project>
