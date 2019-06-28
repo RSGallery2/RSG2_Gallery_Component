@@ -7,7 +7,7 @@ REM phing -logfile .\build.log .\build.xml
 
 REM -longtargets
 REM -
-phing -logfile .\since.UpdateCopyrightYear.log -f .\updateProject.xml UpdateCopyrightYear
+phing -logfile .\UpdateCopyrightYear.log -f .\updateProject.xml UpdateCopyrightYear
 
 
 
