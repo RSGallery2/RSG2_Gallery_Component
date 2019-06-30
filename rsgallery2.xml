@@ -6,11 +6,11 @@
 	<name>com_rsgallery2</name>
 	<version>4.5.0.0</version>
 	<author>RSGallery2 Team</author>
-	<creationDate>09. Jun. 2019</creationDate>
+	<creationDate>13. Jun. 2019</creationDate>
 	<copyright>(c) 2003-2019 RSGallery2 Team</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>team2@rsgallery2.org</authorEmail>
-	<authorUrl>http://www.rsgallery2.org</authorUrl>
+	<authorUrl>https://www.rsgallery2.org</authorUrl>
 	<description>COM_RSGALLERY2_XML_DESCRIPTION</description>
 
 	<scriptfile>install.rsgallery2.php</scriptfile>
@@ -44,7 +44,6 @@
 		<folder>language</folder>
 		<filename>index.html</filename>
 		<filename>main.rsgallery2.php</filename>
-		<!--filename>picklist.js</filename-->
 		<filename>controller.php</filename>
 		<filename>router.php</filename>
 		<filename>rsgallery.css</filename>
@@ -74,7 +73,7 @@
 	<administration>
 		<menu view="com_rsgallery2"
 		      img="administrator/components/com_rsgallery2/images/rsg2_menu.png"
-			  link="option=com_rsgallery22&amp;view=rsgallery2">
+			  link="option=com_rsgallery2&amp;view=rsgallery2">
 		>
 				COM_RSGALLERY2_MENU
 		</menu>
