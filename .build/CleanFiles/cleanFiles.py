@@ -7,7 +7,7 @@ import sys
 
 from datetime import datetime
 
-print (Echo "Prepared but not ready at all")
+print (Echo "Prepared but not ready at all, (not even started)")
 
 HELP_MSG = """
 cleanFiles supports several tasks to clean up files

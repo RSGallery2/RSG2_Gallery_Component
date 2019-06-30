@@ -5,16 +5,17 @@
 		The script collects release files in folder 
 		..\.packages\tmp. Then it replaces or changes 
 		text in files. Then these files are zipped and the 
-		tmp folder is removed
-		RSGallery2_Component.prepare.4.5.0.0_20190609.zip\.. 
+		tmp folder is removed. Resulting file is named like 
+		RSGallery2_Component.4.4.1.zip
+		(RSGallery2_Component.prepare.4.5.0.0_20190609.zip) 
+
 		Changes are done in the copied files. 
 		Use phing -f updateProject.xml before to standardize 
 		all files of the project
 		
 		Changes in files
-		* Version and date in rsgallery2.xml
-		* Leaves out site params.ini files
-		* .
+		* Version and date in manifest file (rsgallery2.xml)
+		* Remove site params.ini files
 		* .
 		* .
 		
@@ -31,8 +32,6 @@
 	ToDo:
 	.........................................................................
 	* Use phingcall to order targets
-	* @version       $Id$ 
-	* Improve "since" doc parts: add version * @since  x.y.z 
 	* Make project file with major plugins ...  *.pkg 
 	* .
 	* .
@@ -55,8 +54,8 @@
     <!-- Version number of build -->
     <property name="build.version" value="4.5.0.0" override="true" />
 	    <!-- additional naming postfix -->
-    <property name="build.postfix" value="prepare." override="true" />
-    <!--property name="build.postfix" value="" override="true" / -->
+    <!--property name="build.postfix" value="prepare." override="true" /-->
+    <property name="build.postfix" value="" override="true" />
 
 	<!-- 
 	.........................................................................
@@ -126,13 +125,13 @@
 -->
 
 	<target name="build" depends="prepareFolder, copy2Temp, 
-	                              rsgallery2.xml, zipFiles,
+	                              manifestFile, zipFiles,
 								  deleteTemp">
 	
 		<!-- 
 		* prepareFolder
 		* copy2Temp
-		* rsgallery2.xml
+		* manifestFile
 		* zipFiles
 		* deleteTemp
 		* .
@@ -144,6 +143,15 @@
 		</phingcall-->
 
 		<echo msg="build done" />
+
+		<echo msg="------------------------------------------" />
+		<echo msg="Don't forget to change RSG2_...update.xml file when releasing" />
+		<echo msg="------------------------------------------" />
+		<propertyprompt
+			propertyName="reminder"
+			promptText="exit:"
+		/>		
+		
 	</target>
 
     <target name="prepareFolder">
@@ -206,23 +214,23 @@
         <echo msg="Copy was successful" />
         <!-- insert version, build number and date into the xml files -->
 
-        <reflexive>
+        <!--reflexive>
             <fileset id="sourcefiles" dir="${buildDir}/tmp/">
                 <include name="rsgallery2.xml" />
             </fileset>
             <filterchain>
                 <replaceregexp>
-			        <!--
+			        <! - -
 				        
 				        
-			        -->
-			        <!--
+			        - - >
+			        < ! - -
                     <regexp pattern="<creationDate>.*</creationDate>" replace="<creationDate>${build.date.DSTAMP}<creationDate>" />
                     <regexp pattern="<copyright>\(c\) (\d)\-.*RSGallery2 Team</copyright>" replace="<copyright>\(c\) \1-${dateYearMonthDay}RSGallery2 Team</copyright>" />
-			        -->
+			        - - >
                 </replaceregexp>
             </filterchain>
-        </reflexive>
+        </reflexive-->
 
 		<!--reflexive>
 			<fileset dir=".">
@@ -240,13 +248,13 @@
 
 	<!-- 
 	.........................................................................
-	rsgallery2.xml
+	manifestFile
 	.........................................................................
 	Updates version, creationDate, and copyright date
 	-->
 	
-    <target name="rsgallery2.xml">
-		<echo msg="rsgallery2.xml start" />
+    <target name="manifestFile">
+		<echo msg="manifestFile start" />
 		<echo msg="build.version: ${build.version}" />
 		<echo msg="date.day.month.year: ${date.day.month.year}" />
 		<reflexive>
@@ -261,7 +269,7 @@
 				</replaceregexp>
 			</filterchain>
 		</reflexive>
-		<echo msg="rsgallery2.xml end" />
+		<echo msg="manifestFile end" />
     </target>
 
 
