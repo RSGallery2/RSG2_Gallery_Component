@@ -59,6 +59,16 @@
 
 	<!-- 
 	.........................................................................
+	
+	.........................................................................	
+	-->
+	
+	<property name="type" value="Component" override="true" />
+    <property name="name" value="RSGallery2" override="true" />
+	<property name="extension" value="rsgallery2" />
+
+	<!-- 
+	.........................................................................
 	date stamps
 	.........................................................................
 	-->
@@ -169,7 +179,7 @@
 		<echo msg="zipFiles start" />
 		
 		<!--zip destfile="${buildDir}/RSGallery2_Component.${build.postfix}${build.version}_${build.date.DSTAMP}.zip"-->
-		<zip destfile="${buildDir}/RSGallery2_Component.${build.postfix}${build.version}_${dateYearMonthDay}.zip">
+		<zip destfile="${buildDir}/${name}_${type}.${build.postfix}${build.version}_${dateYearMonthDay}.zip">
 			<fileset dir="${buildDir}/tmp">
 				<include name="**" />
 			</fileset>
@@ -205,10 +215,10 @@
             <fileset refid="pluginsSet" />
         </copy-->
          <!-- Copy the manifest.xml -->
-        <copy file="${root}/rsgallery2.xml" tofile="${buildDir}/tmp/rsgallery2.xml" />
+        <copy file="${root}/${extension}.xml" tofile="${buildDir}/tmp/${extension}.xml" />
         <copy file="${root}/install.rsgallery2.php" tofile="${buildDir}/tmp/install.rsgallery2.php" />
-        <copy file="${root}/LICENSE.txt" tofile="${buildDir}/tmp/LICENSE.txt" />
         <copy file="${root}/index.html" tofile="${buildDir}/tmp/index.html" />
+        <copy file="${root}/LICENSE.txt" tofile="${buildDir}/tmp/LICENSE.txt" />
 
         <!--copy file="${admin}/install.php" tofile="${buildDir}/tmp/install.php" /-->
         <echo msg="Copy was successful" />
