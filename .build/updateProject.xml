@@ -55,6 +55,17 @@
     <property name="build.postfix" value="prepare." override="true" />
     <!--property name="build.postfix" value="" override="true" / -->
 
+
+	<!-- 
+	.........................................................................
+	
+	.........................................................................	
+	-->
+	
+    <property name="type" value="Component" override="true" />
+    <property name="name" value="RSGallery2" override="true" />
+	<property name="extension" value="RSGallery2" />
+
 	<!-- 
 	.........................................................................
 	date stamps
@@ -64,6 +75,10 @@
     <!-- Get the standard date for build -->
     <!-- tstamp prefix="build.date" /-->
 
+	<tstamp>
+		<format property="dateYearMonthDay" pattern="%Y%m%d" />
+	</tstamp>
+	
 	<tstamp>
 		<format property="date.year.month.day" pattern="%Y.%m.%d" />
 	</tstamp>
@@ -154,7 +169,7 @@
 		
 		<reflexive>
 			<fileset dir="..">
-				<include pattern="rsgallery2.xml" />
+				<include pattern="${extension}.xml" />
 			</fileset>
 			<filterchain>
 				<replaceregexp>

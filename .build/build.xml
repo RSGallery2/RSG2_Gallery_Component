@@ -14,7 +14,8 @@
 		all files of the project
 		
 		Changes in files
-		* Version and date in manifest file (rsgallery2.xml)
+		* Version and date for copyright in *.php files
+		* Set lines with @since to actual date in *.php
 		* Remove site params.ini files
 		* .
 		* .
@@ -65,7 +66,7 @@
 	
 	<property name="type" value="Component" override="true" />
     <property name="name" value="RSGallery2" override="true" />
-	<property name="extension" value="rsgallery2" />
+	<property name="extension" value="RSGallery2" />
 
 	<!-- 
 	.........................................................................
@@ -105,6 +106,7 @@
     <property name="root" value="./.." override="true" />
     <property name="admin" value="${root}/admin" />
     <property name="site" value="${root}/site" />
+    <!--property name="modules" value="${root}/plugins" / -->
     <!--property name="plugins" value="${root}/plugins" / -->
     <!--property name="media" value="${root}/media" / -->
 
@@ -269,19 +271,18 @@
 		<echo msg="date.day.month.year: ${date.day.month.year}" />
 		<reflexive>
 			<fileset dir="${buildDir}/tmp/">
-				<include pattern="rsgallery2.xml" />
+				<include pattern="${extension}.xml" />
 			</fileset>
 			<filterchain>
 				<replaceregexp>
 					<regexp pattern="(?&lt;=&lt;version&gt;).*(?=&lt;)" replace="${build.version}"/>
 					<regexp pattern="(?&lt;=&lt;creationDate&gt;).*(?=&lt;)" replace="${date.day.month.year}"/>
-					<regexp pattern="(?&lt;=&lt;copyright&gt;\(c\) 2003\-).*(?= RSGallery2 Team)" replace="${date.year}"/>
+					<regexp pattern="(?&lt;=&lt;copyright&gt;\([cC]\) 2003\-).*(?= RSGallery2 Team)" replace="${date.year}"/>
 				</replaceregexp>
 			</filterchain>
 		</reflexive>
 		<echo msg="manifestFile end" />
     </target>
-
 
 
 </project>
