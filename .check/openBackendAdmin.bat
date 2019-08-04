@@ -1,5 +1,5 @@
 @ECHO OFF
-REM Opensd backend administration on given local web site to enter credentials
+REM Opens backend administration on given local web site to enter credentials
 
 CLS
 
@@ -13,6 +13,7 @@ REM SET J_URL_PART=Joomla3x
 REM SET J_URL_PART=Joomla3xMyGalleries
 REM SET J_URL_PART=Joomla3xRelease
 SET J_URL_PART=Joomla3xNextRelease
+REM SET J_URL_PART=Joomla3xNext
 
 if %1A NEQ A (
     SET J_URL_PART=%1
