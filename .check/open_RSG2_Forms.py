@@ -75,11 +75,11 @@ def openForms(j_base_url, browserName, urlListName, bIsWait4Admin):
 	
 	#--- select browser -------------------------
 	
-	print ("01: Browser found")
-	# print(str(webbrowser._browsers))
-	for browserFound in webbrowser._browsers:
-		print ('\tbrowserFound: ' + browserFound)
-	print ("02")
+#	print ("01: Browser found")
+#	# print(str(webbrowser._browsers))
+#	for browserFound in webbrowser._browsers:
+#		print ('\tbrowserFound: ' + browserFound)
+#	print ("02")
 	
 	browser = getBrowserDriver(browserName)
 
@@ -91,9 +91,9 @@ def openForms(j_base_url, browserName, urlListName, bIsWait4Admin):
 
 	#--- open urls -------------------------
 
-	print ("11")
-	print ("urlList: " + str(urlList))
-	print ("12")
+#	print ("11")
+#	print ("urlList: " + str(urlList))
+#	print ("12")
 	
 	for url in urlList:
 		if (len(url) > 0):
@@ -109,10 +109,14 @@ def openForms(j_base_url, browserName, urlListName, bIsWait4Admin):
 
 
 def getBrowserDriver (browserName):
+	
+	basePath = 'C:/Program Files (x86)'
+	if not  os.path.isdir (basePath):
+		basePath = 'C:/Program Files'
 
 	if (browserName == 'chrome'):
 		try:
-			browser = webbrowser.get("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s")
+			browser = webbrowser.get(basePath + "/Google/Chrome/Application/chrome.exe %s")
 		except Exception as ex:
 			print ('open browser ' + browserName + ' failed')
 			print(ex)
@@ -120,7 +124,7 @@ def getBrowserDriver (browserName):
 
 	if (browserName == 'firefox'):
 		try:
-			browser = webbrowser.get("c:/Program Files (x86)/Mozilla Firefox/firefox.exe %s")
+			browser = webbrowser.get(basePath + "/Mozilla Firefox/firefox.exe %s")
 		except Exception as ex:
 			print ('open browser ' + browserName + ' failed')
 			print(ex)
