@@ -103,8 +103,8 @@ def openForms(j_base_url, browserName, urlListName, bIsWait4Admin, restTime):
 			
 			browser.open_new_tab(page)
 		
-		if restTime > 0:
-			time.sleep(restTime)
+		if int(restTime) > 0:
+			time.sleep(int(restTime))
 
 	return
 
