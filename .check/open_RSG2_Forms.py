@@ -48,7 +48,7 @@ leaveOut7 = False
 leaveOut8 = False
 leaveOut9 = False
 
-def openForms(j_base_url, browserName, urlListName, bIsWait4Admin):
+def openForms(j_base_url, browserName, urlListName, bIsWait4Admin, restTime):
 
 	print ('*********************************************************')
 	print ('openForms')
@@ -56,6 +56,7 @@ def openForms(j_base_url, browserName, urlListName, bIsWait4Admin):
 	print ('\tbrowserName: ' + browserName)
 	print ('\turlListName: ' + urlListName)
 	print ('\tbIsWait4Admin: ' + str(bIsWait4Admin))
+	print ('\trestTime: ' + str(restTime))
 
 	#--- get url lists ------------------
 	
@@ -102,8 +103,8 @@ def openForms(j_base_url, browserName, urlListName, bIsWait4Admin):
 			
 			browser.open_new_tab(page)
 		
-#		time.sleep(3)
-#		time.sleep(1)
+		if restTime > 0:
+			time.sleep(restTime)
 
 	return
 
@@ -111,7 +112,7 @@ def openForms(j_base_url, browserName, urlListName, bIsWait4Admin):
 def getBrowserDriver (browserName):
 	
 	basePath = 'C:/Program Files (x86)'
-	if not  os.path.isdir (basePath):
+	if not os.path.isdir (basePath):
 		basePath = 'C:/Program Files'
 
 	if (browserName == 'chrome'):
@@ -157,6 +158,14 @@ def getBrowserDriver (browserName):
 
 	return browser
 
+def autoRestTime ():
+	
+	restTime = 0
+
+	if os.path.isdir ("c:/xampp/htdocs/Joomla3xNextRelease"):
+		restTime = 3
+		
+	return restTime
 
 #-------------------------------------------------------------------------------
 def print_header(start):
@@ -179,7 +188,7 @@ def print_tail_end(start):
 
 #-------------------------------------------------------------------------------
 if __name__ == '__main__':
-	optlist, args = getopt.getopt(sys.argv[1:], 'j:b:u:ah')
+	optlist, args = getopt.getopt(sys.argv[1:], 'j:b:u:r:ah')
 
 	j_base_url = 'Joomla3xNextRelease'
 	
@@ -193,6 +202,8 @@ if __name__ == '__main__':
 	#browserName =  ''
 	#browserName =  ''
 	
+	restTime = autoRestTime ()
+	
 	urlListName  = 'backend_all'
 	bIsWait4Admin = False
 
@@ -205,6 +216,8 @@ if __name__ == '__main__':
 			urlListName = j
 		if i == "-a":
 			bIsWait4Admin = True
+		if i == "-r":
+			restTime = j
 #		if i == "-t":
 #			versionHeaderText = j
 
@@ -241,7 +254,7 @@ if __name__ == '__main__':
 	try:
 		print_header(start)
 
-		openForms(j_base_url, browserName, urlListName, bIsWait4Admin)
+		openForms(j_base_url, browserName, urlListName, bIsWait4Admin, restTime)
 
 		print_tail_end(start)
 
