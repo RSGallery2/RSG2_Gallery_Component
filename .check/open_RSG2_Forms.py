@@ -87,14 +87,19 @@ def openForms(j_base_url, browserName, urlListName, bIsWait4Admin, restTime):
 	#--- open admin form on request -------------------------
 	
 	if (bIsWait4Admin):
-		pass
-
+		# ToDo: wait for admin
+		adminUrl = urlLists.urlList ('admin') [0]
+		page = 'http://127.0.0.1/' + j_base_url + adminUrl
+		print ('\tadminUrl: ' + page) # str(adminUrl))
+		browser.open (page)
+		
+		time.sleep(int(15))
+		
 
 	#--- open urls -------------------------
 
-#	print ("11")
-#	print ("urlList: " + str(urlList))
-#	print ("12")
+	if (len(urlList) > 0):
+		print ('--- open urls -------------------------')
 	
 	for url in urlList:
 		if (len(url) > 0):
@@ -102,10 +107,10 @@ def openForms(j_base_url, browserName, urlListName, bIsWait4Admin, restTime):
 			print ('\t>>page: ' + page)
 			
 			browser.open_new_tab(page)
-		
-		if int(restTime) > 0:
-			time.sleep(int(restTime))
 
+			# Wait between calls
+			if int(restTime) > 0:
+				time.sleep(int(restTime))
 	return
 
 
@@ -188,7 +193,7 @@ def print_tail_end(start):
 
 #-------------------------------------------------------------------------------
 if __name__ == '__main__':
-	optlist, args = getopt.getopt(sys.argv[1:], 'j:b:u:r:ah')
+	optlist, args = getopt.getopt(sys.argv[1:], 'j:b:u:r:aeh')
 
 	j_base_url = 'Joomla3xNextRelease'
 	
@@ -212,6 +217,8 @@ if __name__ == '__main__':
 			browserName = j
 		if i == "-j":
 			j_base_url = j
+		if i == "-e":
+			urlListName = 'error'
 		if i == "-u":
 			urlListName = j
 		if i == "-a":

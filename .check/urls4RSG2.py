@@ -69,6 +69,27 @@ class urls4RSG2:
 			''
 		]
 		
+		# Last found errors to be fixed, URL should be removed if working again
+		self.error = [
+			'/administrator/index.php?option=com_rsgallery2&view=maintTemplates',
+			'/administrator/index.php?option=com_rsgallery2&rsgOption=config&task=showConfig',
+			'/administrator/index.php?option=com_rsgallery2&view=images&layout=images_raw',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			
+			''
+		]
+		
+		self.admin = [
+			'/administrator/index.php',
+		]
+		
 		self.siteAll = [
 			'/',
 			'/index.php/root-galleries',
@@ -106,26 +127,34 @@ class urls4RSG2:
 	
 	def urlList(self, urlListName):
 		
-		urls = ['Temp2']
+		urls = []
 		
-#		if (urlListName == backend_all):
-#			urls = self.backend_all
-		urls = self.backend_all
-#		
-#		if (urlListName == siteAll):
-#			urls = self.siteAll
+		if (urlListName == 'backend_all'):
+			urls = self.backend_all
+
+		if (urlListName == 'error'):
+			urls = self.error
+			
+		if (urlListName == 'siteAll'):
+			urls = self.siteAll
 		
-		#		if (urlListName == ):
-		#			urls = self.
+		if (urlListName == 'admin'):
+			urls = self.admin
+		
+		#if (urlListName == ''):
+		#	urls = self.
 		#
-		#		if (urlListName == ):
-		#			urls = self.
+		#if (urlListName == ''):
+		#	urls = self.
 		#
-		#		if (urlListName == ):
-		#			urls = self.
+		#if (urlListName == ''):
+		#	urls = self.
 		#
-		#		if (urlListName == ):
-		#			urls = self.
+		#if (urlListName == ''):
+		#	urls = self.
+		#
+		#if (urlListName == ''):
+		#	urls = self.
 		#
 		
 		return urls
