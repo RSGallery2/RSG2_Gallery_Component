@@ -876,7 +876,7 @@ class Rsgallery2ModelImage extends JModelAdmin
      *
      * @return int image id
      *
-     * @since 4.5.0.0 4.3.2
+     * @since version 4.3.2
      * @throws Exception
      */
 	public function ImageIdFromName($imageName)

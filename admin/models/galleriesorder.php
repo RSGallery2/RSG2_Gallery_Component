@@ -506,7 +506,7 @@ class rsgallery2ModelGalleriesOrder extends JModelList
      *
      * @return bool
      *
-     * @since 4.5.0.0 4.3.1
+     * @since version 4.3.1
      */
     public function AssignNewOrdering ($dbOrdering)
     {

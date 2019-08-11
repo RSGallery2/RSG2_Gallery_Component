@@ -302,6 +302,7 @@ $userId = $user->id;
 											//$style .= 'width:' . '100' . 'px;';
 											//$style .= ' height:' . '100' . 'px;';
 											$img = '<img src="' . $src . '" alt="' . $this->escape($item->name) . '" style="' . $style . '" />';
+											//$img = '<img src=\'' . $src . '\' alt=\'' . $this->escape($item->name) . '\' style=\'' . $style . '\' />';
 
 											/**/
 											echo JHtml::tooltip($img,
