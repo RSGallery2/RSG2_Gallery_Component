@@ -11,12 +11,37 @@
  * See COPYRIGHT.php for copyright notices and details.
  */
 
-/*	- 	Advanced SEF logic at the bottom of this file
-   -	Not advanced SEF logic:
-	   If gid, and it’s not part of a menulink: add ‘gallery’ (category was used <= v2.1.1) and add gid number
-	   If id then add ‘item’ and id number
-	   If start then add ‘itemPage’ and limitstart value - 1
-	   If page then add ‘as’ concatenated with page value
+/*
+- 	Advanced SEF logic at the bottom of this file
+
+-	Not advanced SEF logic:
+	* gid => gallery = gid value
+	* id =>  item = id value
+	* page -> as . upperCaseFirst (page)
+	* limitstartg => categoryPage = limitstartg value  (gallery paging)
+	* start => itemPage  = start value (image paging)
+	* catid (old) -> transforms to gid (see above), deprecated
+
+-	Advanced SEF logic:
+
+  * rsgOption -> no further changes to URL
+  * task == downloadfile -> no further changes to URL
+  * gid -> gid value "-" gallery alias
+    - page != inline -> remove gid
+  * page ->
+    - slideshow -> no further changes to URL
+      (gid-galleryname was already added) leave page in URL
+    - inline + (image) id
+      ->  gid value "-" gallery alias
+      ->  id value "-" image alias
+    - inline + gid ->
+      ->  (Start image) id value "-" image alias
+
+
+	ToDo: ? use language translation for gallery image ... ?
+    ToDo: New Joomla Router (allowing to register views into your system.)
+
+
  */
 
 /**
@@ -34,17 +59,23 @@ if ($isDebugSiteActive) {
 }
 
 
-// ToDo: init rsgConfig once and for all ? or use 
-
-// ToDO: class and support of SEF for J3! https://docs.joomla.org/J3.x:Supporting_SEF_URLs_in_your_component
+// ToDo: init rsgConfig once and for all ? or use
+// ToDo: class and support of SEF for J3! https://docs.joomla.org/J3.x:Supporting_SEF_URLs_in_your_component
 
 defined('_JEXEC') or die;
 
 /**
- * @param $query
+ * Rsgallery2BuildRoute
  *
+ * Transform an array of URL parameters into an array of segments that will form the SEF URL
+ * Changes are applied for SEF and not SEF configuration
+ *
+ * @param $query array('view' => 'article', 'id' => 1, 'catid' => 20)
+ * 
  * @return array
  * @throws Exception
+ *
+ * @since 2.1.1 or earlier
  */
 function Rsgallery2BuildRoute(&$query)
 {
@@ -64,27 +95,21 @@ function Rsgallery2BuildRoute(&$query)
 
 	$segments = array();
 
-
 	$advancedSef = $rsgConfig->get("advancedSef", false);
-	//Now define non-advanced SEF as v2 way and advanced SEF as v3 way
+
+	// Now define non-advanced SEF as *v2* way and advanced SEF as **v3** way
 	if ($advancedSef == true)
 	{
+		//-------------------------------------------------------------------------------
+		//  advanced SEF
+		//-------------------------------------------------------------------------------
+
 		if ($isDebugSiteActive) {
 			JLog::add('     $advancedSef == true');
 		}
 
-		//Find gid from menu --> $menuGid (can be an independent function)
-		$app  = JFactory::getApplication();
-		$menu = $app->getMenu();
-		if (empty($query['Itemid']))
-		{
-			$menuItem = $menu->getActive();    //Menu item from current active one
-		}
-		else
-		{
-			$menuItem = $menu->getItem($query['Itemid']); //Menu item from query
-		}
-		$menuGid = (empty($menuItem->execute['gid'])) ? null : $menuItem->execute['gid'];
+		// Find gid from menu
+		$menuGid = getMenuGid($query);
 
 		//if $rsgOption exists (e.g. myGalleries or rsgComments)
 		if (isset($query['rsgOption']))
@@ -92,6 +117,7 @@ function Rsgallery2BuildRoute(&$query)
 			//do not SEFify (return now)
 			return $segments;
 		}
+
 		//if $task = downloadfile
 		if (isset($query['task']) AND ($query['task'] == 'downloadfile'))
 		{
@@ -121,6 +147,7 @@ function Rsgallery2BuildRoute(&$query)
 				}
 			} //else nothing to do
 		}
+
 		if (isset($query['page']))
 		{
 			switch ($query['page'])
@@ -131,16 +158,18 @@ function Rsgallery2BuildRoute(&$query)
 				case 'inline':
 					//remove page from URL
 					unset($query['page']);
+
 					if (isset($query['id']))
 					{
-						//find gid-galleryname based on id
+						// find gallery id based on image id
 						$gid = Rsgallery2GetGalleryIdFromItemId($query['id']);
 						if ($gid != $menuGid)
 						{
 							//add gid-galleryname based on found $gid (not query gid)
 							$segments[] = $gid . '-' . Rsgallery2GetGalleryName($gid);
 						}
-						//add id-itemname based on id
+
+						//add id-item name based on id
 						$segments[] = ($query['id']) . '-' . Rsgallery2GetItemName($query['id']);
 						//remove id from URL
 						unset($query['id']);
@@ -150,7 +179,7 @@ function Rsgallery2BuildRoute(&$query)
 						//find item id based on gid combined with limitstart
 						$start = (isset($query['start'])) ? $query['start'] : 0;
 						$id    = Rsgallery2GetItemIdFromGalleryIdAndLimitStart($query['gid'], $start);
-						//add id-itemname
+						//add id-item name
 						$segments[] = $id . '-' . Rsgallery2GetItemName($id);
 						//remove gid and limitstart from URL
 						unset($query['gid']);
@@ -164,7 +193,11 @@ function Rsgallery2BuildRoute(&$query)
 		}
 	}
 	else
-	{//not advancedSEF
+	{
+		//-------------------------------------------------------------------------------
+		//  not advancedSEF
+		//-------------------------------------------------------------------------------
+
 		// static $items;
 
 		if ($isDebugSiteActive) {
@@ -172,26 +205,16 @@ function Rsgallery2BuildRoute(&$query)
 		}
 
 		//Find gid from menu --> $menuGid (can be an independent function)
-		$app  = JFactory::getApplication();
-		$menu = $app->getMenu();
-		if (empty($query['Itemid']))
-		{
-			$menuItem = $menu->getActive();    //Menu item from current active one
-		}
-		else
-		{
-			$menuItem = $menu->getItem($query['Itemid']); //Menu item from query
-		}
-		$menuGid = (empty($menuItem->execute['gid'])) ? null : $menuItem->execute['gid'];
+		$menuGid = getMenuGid($query);
 
-		//$itemid		= isset($query['Itemid']) ? $query['Itemid'] : null;
-
-		// rename catId to gId	//catId could be leftover from versions before 1.14.x
+		// rename catId to gId	// catId could be leftover from versions before 1.14.x
+		// ToDo: remove catId here when not used in url links -> rsgcomments / rsgvoting ? mygalleries
 		if (isset($query['catid']))
 		{
 			$query['gid'] = $query['catid'];
 			unset($query['catid']);
 		}
+
 		// direct gallery link
 		if (isset($query['gid']))
 		{
@@ -199,37 +222,48 @@ function Rsgallery2BuildRoute(&$query)
 			if ($query['gid'] != $menuGid)
 			{
 				$segments[] = 'gallery';
-				$segments[] = Rsgallery2GetGalleryName($query['gid']);
+				// original: $segments[] = Rsgallery2GetGalleryName($query['gid']);
+				// does nothing so
+				$segments[] = $query['gid'];
 			}
 			unset($query['gid']);
 		}
-		// gallery paging	
+
+		// direct item link
+		if (isset($query['id']))
+		{
+			$segments[] = 'item';
+			// original: $segments[] = Rsgallery2GetItemName($query['id']);
+			// does nothing so
+			$segments[] = $query['id'];
+			unset($query['id']);
+		}
+
+		// gallery paging
+		// @deprecated
 		if (isset($query['limitstartg']))
 		{
 			$segments[] = 'categoryPage';
 			$segments[] = $query['limitstartg'];
 			unset($query['limitstartg']);
 		}
-		// direct item link
-		if (isset($query['id']))
-		{
-			$segments[] = 'item';
-			$segments[] = Rsgallery2GetItemName($query['id']);
-			unset($query['id']);
-		}
+
 		// item paging
+		// @deprecated
 		if (isset($query['start']))
 		{
 			$segments[] = 'itemPage';
 			$segments[] = $query['start'];
 			unset($query['start']);
 		}
+
 		// how to show the item
 		if (isset($query['page']))
 		{
 			$segments[] = 'as' . ucfirst($query['page']);
 			unset($query['page']);
 		}
+
 	}
 	
 	if ($isDebugSiteActive) {
@@ -241,7 +275,44 @@ function Rsgallery2BuildRoute(&$query)
 	return $segments;
 }
 
+
 /**
+ * Find gid from menu
+ * returns null if gid is not set
+ * @param $query
+ *
+ * @return array
+ *
+ * @throws Exception
+ * @since version
+ */
+function getMenuGid($query)
+{
+	$app  = JFactory::getApplication();
+	$menu = $app->getMenu();
+
+	// Menu item from current active one (ItemId is not set)
+	if (empty($query['Itemid']))
+	{
+		$menuItem = $menu->getActive();
+	}
+	else
+	{
+		// Menu item is given from query
+		$menuItem = $menu->getItem($query['Itemid']);
+	}
+
+	// old:$menuGid = (empty($menuItem->execute['gid'])) ? null : $menuItem->execute['gid'];
+	$menuGid = $menuItem->execute['gid'];
+
+	return $menuGid;
+}
+
+/**
+ * Rsgallery2ParseRoute
+ * Transforms an array of segments back into an array of URL parameters.
+ * It converts SEF URLs to system URLs.
+ *
  * @param $segments
  *
  * @return array
@@ -417,19 +488,25 @@ function Rsgallery2GetGalleryName($gid)
 	// else return the numerical value	
 	if ($rsgConfig->get("advancedSef") == true)
 	{
-		$dbo   = JFactory::getDBO();
-		$query = 'SELECT `alias` FROM `#__rsgallery2_galleries` WHERE `id`=' . (int) $gid;
-		$dbo->setQuery($query);
-		$result = $dbo->execute();
+		$db   = JFactory::getDBO();
+		$query = $db->getQuery(true);
 
-		if ($dbo->getNumRows($result) != 1)
+		$query
+			->select('alias')
+			->from($db->quoteName('#__rsgallery2_galleries'))
+			->where($db->quoteName('id') . ' = ' . (int) $gid);
+		$db->setQuery($query);
+
+		$result = $db->execute();
+
+		if ($db->getNumRows($result) != 1)
 		{
 			// Gallery alias was not unique or is unknown, use the numeric value instead.
 			$segment = $gid;
 		}
 		else
 		{
-			$segment = $dbo->loadResult();
+			$segment = $db->loadResult();
 		}
 	}
 	else
@@ -514,7 +591,7 @@ function Rsgallery2GetItemId($itemName)
 }
 
 /**
- * Get an item alias based on its id
+ * Get an item (image) alias based on its id
  *
  * @param int $id Numeral id of the item
  *
@@ -530,24 +607,29 @@ function Rsgallery2GetItemName($id)
 	//$rsgConfig = JComponentHelper::getParams('com_rsgallery2');
 	Rsgallery2InitConfig();
 
-	// Getch the item alias from the database if advanced sef is active,
+	// Get the item alias from the database if advanced sef is active,
 	// else return the numerical value	
 	if ($rsgConfig->get("advancedSef") == true)
 	{
-		$dbo    = JFactory::getDBO();
-		$query  = 'SELECT `alias` FROM `#__rsgallery2_files` WHERE `id`=' . (int) $id;
-		$result = $dbo->execute($query);
+		$db   = JFactory::getDBO();
+		$query = $db->getQuery(true);
 
-		$dbo->setQuery($query);
-		$result = $dbo->execute();
-		if ($dbo->getNumRows($result) != 1)
+		$query
+			->select('alias')
+			->from($db->quoteName('#__rsgallery2_files'))
+			->where($db->quoteName('id') . ' = ' . (int) $id);
+		$db->setQuery($query);
+
+		$result = $db->execute();
+
+		if ($db->getNumRows($result) != 1)
 		{
 			// Item id not found (or found multiple times?!)
 			$segment = $id;
 		}
 		else
 		{
-			$segment = $dbo->loadResult();
+			$segment = $db->loadResult();
 		}
 	}
 	else
@@ -559,7 +641,7 @@ function Rsgallery2GetItemName($id)
 }
 
 /**
- * Get the gallery id (gid) based on the id of an item
+ * Get the gallery id (gid) based on the id of an item (image)
  *
  * @param int $id Numeral id of the item
  *
@@ -579,17 +661,22 @@ function Rsgallery2GetGalleryIdFromItemId($id)
 	$gid = 0;
 
 	// fetch the gallery id (gid) from the database based on the id of an item
-	$dbo    = JFactory::getDBO();
-	$query  = 'SELECT `gallery_id` FROM `#__rsgallery2_files` WHERE `id`=' . (int) $id;
-	$result = $dbo->execute($query);
+	$db   = JFactory::getDBO();
+	$query = $db->getQuery(true);
 
-	$dbo->setQuery($query);
-	$result    = $dbo->execute();
-	$countRows = $dbo->getNumRows($result);
+	$query
+		->select('gallery_id')
+		->from($db->quoteName('#__rsgallery2_files'))
+		->where($db->quoteName('id') . ' = ' . (int) $id);
+	$db->setQuery($query);
+
+	$result = $db->execute();
+
+	$countRows = $db->getNumRows($result);
 	if ($countRows == 1)
 	{
 		// Item id found (or found multiple times?!)
-		$gid = $dbo->loadResult();
+		$gid = $db->loadResult();
 	}
 	else
 	{
@@ -604,6 +691,7 @@ function Rsgallery2GetGalleryIdFromItemId($id)
 			//...non unique id in table, should never happen
 			$msg = JText::_('COM_RSGALLERY2_SHOULD_NEVER_HAPPEN');
 		}
+
 		$app = JFactory::getApplication();
 		JFactory::getLanguage()->load("com_rsgallery2");
 		$app->redirect("index.php", $msg);
@@ -633,25 +721,40 @@ function Rsgallery2GetItemIdFromGalleryIdAndLimitStart($gid, $limitstart)
 	$id = 0;
 
 	// Get the gallery id (gid) from the database based on the id of an item
-	$dbo   = JFactory::getDBO();
-	$query = $dbo->getQuery(true);
-	$query->select('id');
-	$query->from('#__rsgallery2_files');
-	$query->where('`gallery_id`=' . (int) $gid);
 
-	// Only for superadministrators this includes the unpublished items
+	$db   = JFactory::getDBO();
+	$query = $db->getQuery(true);
+
+	$query
+		->select('alias')
+		->from($db->quoteName('#__rsgallery2_galleries'))
+		->where($db->quoteName('id') . ' = ' . (int) $gid);
+	$db->setQuery($query);
+
+	$result = $db->execute();
+
+	$db   = JFactory::getDBO();
+	$query = $db->getQuery(true);
+
+	$query
+		->select('id')
+	    ->from('#__rsgallery2_files')
+	    ->where('`gallery_id`=' . (int) $gid)
+		->order('ordering');
+
+	// Only for super administrators this includes the unpublished items
 	if (!JFactory::getUser()->authorise('core.admin', 'com_rsgallery2'))
 	{
 		$query->where('`published` = 1');
 	}
-	$query->order('ordering');
-	$result = $dbo->execute($query);
-	$dbo->setQuery($query);
-	$result    = $dbo->execute();
-	$countRows = $dbo->getNumRows($result);
+	$db->setQuery($query);
+
+	$result = $db->execute();
+
+	$countRows = $db->getNumRows($result);
 	if ($countRows > 0)
 	{
-		$column = $dbo->loadColumn();
+		$column = $db->loadColumn();
 		$id     = $column[$limitstart];
 	}
 	else
@@ -693,7 +796,7 @@ function Rsgallery2InitConfig()
 }
 /**/
 
-/*	SEF logic and info (before RSG2 4.5
+/*	SEF logic and info (before RSG2 4.5)
 ==> All links have option and Itemid for the menu-item
 ==> Then we have 
 	view	only in menulink: discard for now with only 1 view --> remove view from URL
@@ -706,6 +809,7 @@ function Rsgallery2InitConfig()
 			page=inline, needed to show item --> remove page from URL 
 	limitstart	only in combination with gid --> see gid on what to do
 	task	task=downloadfile --> do not SEFify
+
 ==> Logic to SEFify link:
 	//Find task, view, gid, page, id from query
 	//Find gid from menu
@@ -741,7 +845,7 @@ function Rsgallery2InitConfig()
 				//add id-itemname based on id
 				//remove id from URL
 			} elseif 
-				//add id-itemname based on gid combined with limitstart (where limitstart=0 if it isn't there)
+				// add id-itemname based on gid combined with limitstart (where limitstart=0 if it isn't there)
 				//remove gid and limitstart from URL			
 			}
 	}
