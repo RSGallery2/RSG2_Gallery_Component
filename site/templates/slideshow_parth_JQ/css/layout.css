@@ -1,3 +1,4 @@
+/*
 body {
     color: #ccc;
     font-family: "Trebuchet MS", "Lucida Grande", Arial, Helvetica, sans-serif;
@@ -6,9 +7,9 @@ body {
     font-size: 0.6em;
     background: #111 url('../images/bg/gradient1.gif') top left repeat-x;
 }
+*/
 
-h1
-{
+h1 {
     color: #fff;
     font-size: 47px;
     font-weight: bolder;
@@ -16,76 +17,67 @@ h1
     padding: 0.08em 0;
 }
 
-h1 sup
-{
+h1 sup {
     color: #ddd;
 }
 
-h1 a
-{
+h1 a {
     color: #fff;
     text-decoration: none;
 }
 
-h1 .company, h1 a .company
-{
+h1 .company, h1 a .company {
     color: #d01a71;
 }
 
-h2
-{
+h2 {
     color: #ddd;
     font-size: 2.5em;
 }
 
-h3
-{
+h3 {
     color: #fff;
     font-size: 1.5em;
 }
 
-h4
-{
+h4 {
     font-size: 1.3em;
 }
 
-.content
-{
+.parth_content {
     margin: 0 20px;
 }
 
-.content a
-{
+.parth_content a {
     color: #fff;
 }
 
-
-.content p.linkage
-{
+.parth_content p.linkage {
     margin-top: 2em;
     text-align: right;
     font-size: 1.7em;
     color: #ddd;
 }
 
-.content p.linkage a { color: #fff; }
+.parth_content p.linkage a {
+    color: #fff; 
+}
 
-/*.content p.linkage a
-{
+/*
+.parth_content p.linkage a {
     color: #fff;
     background: url('../images/bg/biglink_off.gif') center right no-repeat;
     padding: 10px 20px;
     text-decoration: none;
 }
 
-.content p.linkage a:hover
-{
+.parth_content p.linkage a:hover {
     background: url('../images/bg/biglink_on.gif') center right no-repeat;
     font-style: italic;
-}*/
+}
+*/
 
-#sleekGallery
-{
+.myGallery {
     text-align: left;
     margin: 0 auto;
 }

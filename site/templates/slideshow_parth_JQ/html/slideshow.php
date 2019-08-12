@@ -7,7 +7,7 @@
  */
 defined('_JEXEC') or die();
 
-JHtml::_('behavior.framework', true);  // load mootools ToDo: Remove mootools
+//JHtml::_('behavior.framework', true);  // load mootools ToDo: Remove mootools
 JHtml::_('jquery.framework'); // load jquery
 
 global $rsgConfig;
@@ -22,18 +22,18 @@ $script = $headData['script'];
 if (strpos(json_encode($script), 'startGalleries') === false) {
 
     //Add stylesheets and scripts to header
-    $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/jd.gallery.css';
+    $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/jquery.sleekgallery.css';
     $doc->addStyleSheet($css1);
-    $css2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/template.css';
+    $css2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/layout.css';
     $doc->addStyleSheet($css2);
     $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/user.css';
     if(file_exists($css1))
     {
         $doc->addStyleSheet($css1);
     }
-    $js2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/js/jd.gallery.js';
+    $js2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/js/jquery.sleekgallery.js';
     $doc->addScript($js2);
-    $js3 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/js/jd.gallery.transitions.js';
+    $js3 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/js/jquery.sleekgallery.transitions.js';
     $doc->addScript($js3);
 
     //--- Override default CSS styles ---
@@ -163,6 +163,7 @@ if ($view !== 'slideshow')
 }
 // <!-- div class="rsg2-clr"></div -->
 
+echo '<div class="parth_content">';
 echo '<div class="parth_content">';
 
 //--- Gallery title --------------------------------------
