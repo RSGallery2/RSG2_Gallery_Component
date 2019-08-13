@@ -109,10 +109,11 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
         $slideInfoZoneSlide = $this->params->get('slideInfoZoneSlide', 1);
         $showArrows = $this->params->get('showArrows', 1);
 
+        /**
         $javascript .= ''
-            . "function startGalleries()"
+            . "function startGallery()"
             . "{" . "\n"
-            . "    $('.myGallery').each(function(item){" . "\n"
+            . "    var jQuery('.myGallery').each(function(item){" . "\n"
             . "        var myGallery = new gallery(item, {" . "\n"
             . "            timed: $timed," . "\n"
             . "            showCarousel: $showCarousel," . "\n"
@@ -129,8 +130,33 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
             . "        });" . "\n"
             . '		});' . "\n"
             . '	}' . "\n"
-            . "	window.addEvent('domready',startGalleries);" . "\n";
+            . "	window.addEvent('domready',startGallery);" . "\n";
+        /**/
     }
+
+$javascript = <<<SQL
+
+            function startGallery() {
+                var sleekGallery = jQuery('.myGallery').sleekGallery({
+                    timed: $timed,
+                    defaultTransition: '$defaultTransition',
+                    showCarousel: $showCarousel,
+                    thumbHeight: $thumbHeight,
+                    thumbWidth: $thumbWidth,
+                    fadeDuration: $fadeDuration,
+                    delay: $delay,
+                    embedLinks: $embedLinks,
+                    defaultTransition: '$defaultTransition',
+                    showInfopane: $showInfopane,
+                    slideInfoZoneSlide: $slideInfoZoneSlide,
+                    showArrows: $showArrows
+                });
+            }
+            jQuery(document).ready(function() {
+                startGallery();
+            });
+SQL;
+
 
     // Add Javascript
     $doc->addScriptDeclaration($javascript);
