@@ -14,7 +14,7 @@ defined('_JEXEC') or die();
  * @package RSGallery2
  * @author  Ronald Smit <ronald.smit@rsdev.nl>, based on contribution by Parth <parth.lawate@tekdi.net>
  */
-class rsgDisplay_slideshow_parth extends rsgDisplay
+class rsgDisplay_slideshow_parth_JQ extends rsgDisplay
 {
 	var $maxSlideshowHeight;
 	var $maxSlideshowWidth;

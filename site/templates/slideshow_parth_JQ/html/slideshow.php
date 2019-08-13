@@ -112,7 +112,7 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
         $javascript .= ''
             . "function startGalleries()"
             . "{" . "\n"
-            . "    $$('.myGallery').each(function(item){" . "\n"
+            . "    $('.myGallery').each(function(item){" . "\n"
             . "        var myGallery = new gallery(item, {" . "\n"
             . "            timed: $timed," . "\n"
             . "            showCarousel: $showCarousel," . "\n"
