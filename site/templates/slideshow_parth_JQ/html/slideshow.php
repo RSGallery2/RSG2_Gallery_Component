@@ -104,7 +104,8 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
         $delay = $this->params->get('delay', 6000);
         /* Disable the 'open image' link for the images */
         $embedLinks = $this->params->get('embedLinks', 1);
-        $defaultTransition = $this->params->get('defaultTransition', 'fade');
+	    $defaultTransition = $this->params->get('defaultTransition', 'fade');
+	    //$defaultTransition = $this->params->get('defaultTransition', 'fadeslideleft');
         $showInfopane = $this->params->get('showInfopane', 1);
         $slideInfoZoneSlide = $this->params->get('slideInfoZoneSlide', 1);
         $showArrows = $this->params->get('showArrows', 1);
@@ -146,7 +147,6 @@ $javascript = <<<SQL
                     fadeDuration: $fadeDuration,
                     delay: $delay,
                     embedLinks: $embedLinks,
-                    defaultTransition: '$defaultTransition',
                     showInfopane: $showInfopane,
                     slideInfoZoneSlide: $slideInfoZoneSlide,
                     showArrows: $showArrows
