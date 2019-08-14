@@ -243,6 +243,7 @@
                 showFancyBoxArrows: false
             },
             initialize: function(element, options) {
+                console.log("sleek 01.init: ")
                 this.options = jQuery.extend({}, this.options, options);
                 jQuery(this).trigger('onInit');
                 this.timerID = null;
@@ -269,7 +270,8 @@
                 if (this.options.useFancyBox&&(this.options.defaultTransition=="fade")) {
                     this.options.defaultTransition="crossfade";
                 }
-
+    
+                console.log("sleek 03.populate: ")
                 this.populateFrom = jQuery(element);
 
                 if (this.options.populateFrom) {
@@ -280,13 +282,15 @@
                 }
 
                 jQuery(element).css({'display' : 'block'});
-
+    
+                console.log("sleek 04.history: ")
                 if (this.options.useHistoryManager) {
                     this.initHistory();
                 }
 
                 if ((this.options.embedLinks)||(this.options.useFancyBox))
                 {
+                    console.log("sleek 04.fancy box: ")
                     this.currentLink = jQuery('<a>').addClass('open').attr({
                         'href' : '#',
                         'title': ''
@@ -297,24 +301,32 @@
                         this.currentLink.css({'display' : 'none'});
                     }
                 }
+                console.log("sleek 05.construct gallery: ")
                 this.constructElements(this.galleryElement);
 
                 if ((this.galleryData.length>1)&&(this.options.showArrows))
                 {
+                    console.log("sleek 06.show arrow: ")
                     var leftArrow  = jQuery('<a>').addClass('left').click(this.prevItem.pass(this)).appendTo(element);
                     var rightArrow = jQuery('<a>').addClass('right').click(this.nextItem.pass(this)).appendTo(element);
                     this.galleryElement.addClass(this.options.withArrowsClass);
                 }
-
+    
+                console.log("sleek 07.append: ")
                 jQuery(element).append(this.loadingElement);
 
                 if (this.options.showInfopane) {
+                    console.log("sleek 08.initInfoSlideshow: ")
                     this.initInfoSlideshow();
                 }
                 if (this.options.showCarousel) {
+                    console.log("sleek 09.initCarousel: ")
                     this.initCarousel();
                 }
+    
+                console.log("sleek 10.doSlideShow: ")
                 this.doSlideShow(1);
+                console.log("sleek 11.exit init: ")
             },
             populateData: function() {
                 currentArrayPlace = this.galleryData.length;
