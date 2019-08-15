@@ -245,6 +245,9 @@
             initialize: function(element, options) {
                 console.log("sleek 01.init: ")
                 this.options = jQuery.extend({}, this.options, options);
+    
+                console.log("\n\r------------------\n\r" + JSON.stringify (this.options) + "\n\r------------------\n\r")
+    
                 jQuery(this).trigger('onInit');
                 this.timerID = null;
                 this.currentIter = 0;
@@ -259,38 +262,44 @@
                 this.loadingElement = jQuery('<div class="loadingElement" />');
 
                 if(!jQuery.isFunction(jQuery.fancybox)) {
+                    console.log("sleek 02.fancybox: ")
                     this.options.useFancyBox = false;
                 }
 
                 if((this.options.activateCarouselScroller || this.options.showCarousel) && !jQuery.isFunction(jQuery.scrollTo)) {
+                    console.log("sleek 03.activateCarouselScroller = false: ")
                     this.options.activateCarouselScroller = false;
                     this.options.showCarousel = false;
                 }
 
                 if (this.options.useFancyBox&&(this.options.defaultTransition=="fade")) {
+                    console.log("sleek 04.defaultTransition=\"crossfade\": ")
                     this.options.defaultTransition="crossfade";
                 }
     
-                console.log("sleek 03.populate: ")
+                console.log("sleek 05.populate: ")
                 this.populateFrom = jQuery(element);
 
                 if (this.options.populateFrom) {
+                    console.log("sleek 06.populate: ")
                     this.populateFrom = this.options.populateFrom;
                 }
                 if (this.options.populateData) {
+                    console.log("sleek 07.populate: ")
                     this.populateData();
                 }
 
                 jQuery(element).css({'display' : 'block'});
     
-                console.log("sleek 04.history: ")
+                console.log("sleek 08.history: ")
                 if (this.options.useHistoryManager) {
+                    console.log("sleek 09.populate: ")
                     this.initHistory();
                 }
 
                 if ((this.options.embedLinks)||(this.options.useFancyBox))
                 {
-                    console.log("sleek 04.fancy box: ")
+                    console.log("sleek 10.fancy box: ")
                     this.currentLink = jQuery('<a>').addClass('open').attr({
                         'href' : '#',
                         'title': ''
@@ -301,32 +310,32 @@
                         this.currentLink.css({'display' : 'none'});
                     }
                 }
-                console.log("sleek 05.construct gallery: ")
+                console.log("sleek 11.construct gallery: ")
                 this.constructElements(this.galleryElement);
 
                 if ((this.galleryData.length>1)&&(this.options.showArrows))
                 {
-                    console.log("sleek 06.show arrow: ")
+                    console.log("sleek 12.show arrow: ")
                     var leftArrow  = jQuery('<a>').addClass('left').click(this.prevItem.pass(this)).appendTo(element);
                     var rightArrow = jQuery('<a>').addClass('right').click(this.nextItem.pass(this)).appendTo(element);
                     this.galleryElement.addClass(this.options.withArrowsClass);
                 }
     
-                console.log("sleek 07.append: ")
+                console.log("sleek 13.append: ")
                 jQuery(element).append(this.loadingElement);
 
                 if (this.options.showInfopane) {
-                    console.log("sleek 08.initInfoSlideshow: ")
+                    console.log("sleek 14.initInfoSlideshow: ")
                     this.initInfoSlideshow();
                 }
                 if (this.options.showCarousel) {
-                    console.log("sleek 09.initCarousel: ")
+                    console.log("sleek 15.initCarousel: ")
                     this.initCarousel();
                 }
     
-                console.log("sleek 10.doSlideShow: ")
+                console.log("sleek 16.doSlideShow: ")
                 this.doSlideShow(1);
-                console.log("sleek 11.exit init: ")
+                console.log("sleek 17.exit init: ")
             },
             populateData: function() {
                 currentArrayPlace = this.galleryData.length;
@@ -423,29 +432,43 @@
                 jQuery(element).replaceWith(newElement);
             },
             startSlideShow: function () {
+    
+                console.log("sleek 20.startSlideShow: ")
+                
                 jQuery(this).trigger('onStart');
                 this.loadingElement.css({'display':'none'});
                 this.lastIter = this.maxIter - 1;
                 this.currentIter = 0;
                 this.galleryInit = 0;
                 this.galleryElements[parseInt(this.currentIter)].css({'opacity' : 1});
-
+    
+                console.log("\n\r------------------\n\r" + JSON.stringify (this.galleryElements) + "\n\r------------------\n\r")
+    
                 if (this.options.showInfopane) {
+                    console.log("sleek 21.showInfopane: ")
                     window.setTimeout(this.showInfoSlideShow.pass(this), 1000);
                 }
                 if (this.options.useFancyBox) {
+                    console.log("sleek 22.useFancyBox: ")
                     window.setTimeout(this.makeFancyBox.pass(this), 10);
                 }
+                console.log("sleek 23.ShowCarouselText: ")
                 var textShowCarousel = this.printf(this.options.textShowCarousel, this.currentIter+1, this.maxIter);
-
+    
+                console.log("sleek 24.test ShowCarousel: ")
                 if (this.options.showCarousel&&(!this.options.carouselPreloader)&&(!this.options.useExternalCarousel)) {
+                    console.log("sleek 25.ShowCarouselText: ")
                     this.carouselBtn.html(textShowCarousel).attr('title', textShowCarousel);
                 }
+                console.log("sleek 26.prepare timer: ")
                 this.prepareTimer();
-
+    
+                console.log("sleek 27.test embedLinks: ")
                 if (this.options.embedLinks) {
+                    console.log("sleek 28.ShowCarouselText: ")
                     this.makeLink(this.currentIter);
                 }
+                console.log("sleek 29.exit startSlideShow: ")
             },
             nextItem: function () {
                 jQuery(this).trigger('onNextCalled');
