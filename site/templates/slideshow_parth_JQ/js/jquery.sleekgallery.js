@@ -26,13 +26,18 @@
  * - Buttgereit und Heidenreich GmbH for the initial port of SmoothGallery to jQuery
  */
 (function($) {
+    //  "partial application"
     Function.prototype.pass = function () {
         var instance = this, length = arguments.length, args = new Array(), object;
+        // Take each argument
+        // ???  var args = toArray(arguments);
         while(length--) {
             args[length] = arguments[length];
         }
+        // first element of args .//. others
         object = args.shift();
         return function() {
+            // function call with two parameter
             return instance.apply(object, args);
         };
     };
@@ -53,6 +58,7 @@
          * @see http://flesler.blogspot.com/2008/01/jquerypreload.html
          */
         sleekpreload: function( sources, settings ) {
+            console.log("sleekpreload: ");
             /*
              * Preloader defaults
              */
@@ -93,6 +99,7 @@
              * Handle the preloading process
              */
             function handler( e ){
+                console.log("handler: ");
                 data.element = this;
                 data.found = e.type == 'load';
                 data.image = this.src;
@@ -118,6 +125,7 @@
              * Handle the fetching of the images
              */
             function fetch( i, img, retry ) {
+                console.log("fetch: ");
                 // IE problem, can't preload more than 15
                 if( img.attachEvent /* msie */ && data.next && data.next % settings.gap == 0 && !retry ){
                     window.setTimeout(
@@ -144,6 +152,7 @@
              * Handler for the onFinish callback
              */
             function finish(){
+                console.log("finish: ");
                 if( settings.onFinish ) {
                     settings.onFinish( data );
                 }
@@ -162,6 +171,7 @@
         sleekgallery: {
             Transitions: {
                fade: function(oldImage, newImage, oldPos, newPos){
+                    console.log("fade: ");
                     if (newPos > oldPos) {
                         newImage.animate({'opacity' : 1}, this.options.fadeDuration, 'linear');
                     } else {
@@ -170,10 +180,12 @@
                     }
                 },
                 crossfade: function(oldImage, newImage, oldPos, newPos){
+                    console.log("cropsfade: ");
                     newImage.animate({'opacity': 1}, { duration : this.options.fadeDuration, queue : false });
                     oldImage.animate({'opacity': 0}, { duration : this.options.fadeDuration, queue : false });
                 },
                 fadebg: function(oldImage, newImage, oldPos, newPos){
+                    console.log("fadebg: ");
                     oldImage.animate(
                         {'opacity': 0},
                         {
@@ -243,11 +255,12 @@
                 showFancyBoxArrows: false
             },
             initialize: function(element, options) {
-                console.log("sleek 01.init: ")
+                console.log("initialize: ")
                 this.options = jQuery.extend({}, this.options, options);
-    
+
                 console.log("\n\r------------------\n\r" + JSON.stringify (this.options) + "\n\r------------------\n\r")
-    
+                console.log("\n\r------------------ (element)\n\r" + JSON.stringify (element) + "\n\r------------------\n\r")
+
                 jQuery(this).trigger('onInit');
                 this.timerID = null;
                 this.currentIter = 0;
@@ -337,20 +350,27 @@
                 this.doSlideShow(1);
                 console.log("sleek 17.exit init: ")
             },
+
             populateData: function() {
-                currentArrayPlace = this.galleryData.length;
+                console.log("populateData: ");
+                currentArrayIndex = this.galleryData.length;
                 options = this.options;
-                jQuery.merge(this.galleryData, this.populateGallery(this.populateFrom, currentArrayPlace));
+                jQuery.merge(this.galleryData, this.populateGallery(this.populateFrom, currentArrayIndex));
                 jQuery(this).trigger('onPopulated');
             },
             populateGallery: function (element, startNumber) {
+                console.log("populateGallery: ");
                 var data = [];
-                currentArrayPlace = startNumber;
+                currentArrayIndex = startNumber;
                 options = this.options;
+
+                console.log("\n\r------------------\n\r" + JSON.stringify (element) + "\n\r------------------\n\r")
+
+
                 jQuery(this.options.elementSelector, element).each(function() {
                     elementDict = {
                         image: jQuery(options.imageSelector, this).attr('src'),
-                        number: currentArrayPlace,
+                        number: currentArrayIndex,
                         transition: options.defaultTransition
                     };
                     if ((options.showInfopane) | (options.showCarousel)) {
@@ -378,7 +398,7 @@
                         }
                     }
                     jQuery.merge(data, [elementDict]);
-                    currentArrayPlace++;
+                    currentArrayIndex++;
                     if (options.destroyAfterPopulate) {
                        jQuery(this).remove();
                     }
@@ -386,6 +406,7 @@
                 return data;
             },
             constructElements: function () {
+                console.log("constructElements: ");
                 el = this.galleryElement;
                 if (this.options.embedLinks && (!this.options.showArrows)) {
                     el = this.currentLink;
@@ -427,12 +448,13 @@
                 }
             },
             destroySlideShow: function (element) {
+                console.log("destroySlideShow: ");
                 var myClassName = element.attr('class');
                 var newElement = jQuery('div').addClass(myClassName);
                 jQuery(element).replaceWith(newElement);
             },
             startSlideShow: function () {
-    
+                console.log("startSlideShow: ");
                 console.log("sleek 20.startSlideShow: ")
                 
                 jQuery(this).trigger('onStart');
@@ -471,6 +493,8 @@
                 console.log("sleek 29.exit startSlideShow: ")
             },
             nextItem: function () {
+                console.log("-----------------------");
+                console.log("nextItem: ");
                 jQuery(this).trigger('onNextCalled');
                 this.nextIter = this.currentIter+1;
                 if (this.nextIter >= this.maxIter) {
@@ -480,6 +504,7 @@
                 this.goTo(this.nextIter);
             },
             prevItem: function() {
+                console.log("prevItem: ");
                 jQuery(this).trigger('onPreviousCalled');
                 this.nextIter = this.currentIter-1;
                 if (this.nextIter <= -1) {
@@ -489,6 +514,7 @@
                 this.goTo(this.nextIter);
             },
             goTo: function(num) {
+                console.log("goTo: ");
                 this.clearTimer();
                 if(this.options.preloader) {
                     this.galleryElements[num].preload();
@@ -518,6 +544,7 @@
                 this.prepareTimer();
             },
             changeItem: function(num) {
+                console.log("changeItem: ");
                 jQuery(this).trigger('onStartChanging');
                 this.galleryInit = 0;
                 if (this.currentIter != num) {
@@ -542,16 +569,19 @@
                 jQuery(this).trigger('onChanged');
             },
             clearTimer: function() {
+                console.log("clearTimer: ");
                 if (this.options.timed) {
                     window.clearTimeout(this.timerID);
                 }
             },
             prepareTimer: function() {
+                console.log("prepareTimer: ");
                 if (this.options.timed) {
                     this.timerID = window.setTimeout(this.nextItem.pass(this), this.options.delay);
                 }
             },
             doSlideShow: function(position) {
+                console.log("doSlideShow: ");
                 if (this.galleryInit == 1) {
                     imgPreloader = jQuery('<img/>').bind('load', function(event) {
                         this.startSlideShow();
@@ -576,6 +606,7 @@
                 }
             },
             createCarousel: function() {
+                console.log("createCarousel: ");
                 if (!this.options.useExternalCarousel)
                 {
                     this.carouselContainer = jQuery('<div>').addClass('carouselContainer').appendTo(this.galleryElement);
@@ -607,6 +638,7 @@
                 this.carouselInner = jQuery('<div>').addClass('carouselInner').appendTo(this.carouselWrapper);
             },
             fillCarousel: function() {
+                console.log("fillCarousel: ");
                 this.constructThumbnails();
                 this.carouselInner.normalWidth = ((this.maxIter * (this.options.thumbWidth + this.options.thumbSpacing + 2))+this.options.thumbSpacing) + "px";
                 if (this.options.carouselHorizontal) {
@@ -614,6 +646,7 @@
                 }
             },
             initCarousel: function () {
+                console.log("initCarousel: ");
                 this.createCarousel();
                 this.fillCarousel();
                 if (this.options.carouselPreloader) {
@@ -621,6 +654,7 @@
                 }
             },
             flushCarousel: function() {
+                console.log("flushCarousel: ");
                 jQuery.each(this.thumbnailElements, function(index, element) {
                     element.remove();
                     element = null;
@@ -628,6 +662,7 @@
                 this.thumbnailElements = [];
             },
             toggleCarousel: function() {
+                console.log("toggleCarousel: ");
                 if (this.carouselActive) {
                     this.hideCarousel();
                 } else {
@@ -635,6 +670,7 @@
                 }
             },
             showCarousel: function () {
+                console.log("showCarousel: ");
                 jQuery(this).trigger('onShowCarousel');
                 this.carouselContainer.animate({
                     'opacity': this.options.carouselMaximizedOpacity,
@@ -652,6 +688,7 @@
                 });
             },
             hideCarousel: function () {
+                console.log("hideCarousel: ");
                 jQuery(this).trigger('onHideCarousel');
                 var targetTop = this.options.carouselMinimizedHeight - this.carouselContainer.normalHeight;
                 this.carouselContainer.animate({
@@ -667,6 +704,7 @@
                 });
             },
             constructThumbnails: function () {
+                console.log("constructThumbnails: ");
                 element = this.carouselInner;
                 for(i=0;i<this.galleryData.length;i++)
                 {
@@ -704,11 +742,13 @@
                 }
             },
             log: function(value) {
+                //console.log(": ");
                 if(console.log) {
                     console.log(value);
                 }
             },
             preloadThumbnails: function() {
+                console.log("preloadThumbnails: ");
                 var thumbnails = [];
                 for(i=0;i<this.galleryData.length;i++)
                 {
@@ -726,6 +766,7 @@
             },
             clearThumbnailsHighlights: function()
             {
+                console.log("clearThumbnailsHighlights: ");
                 for(i=0;i<this.galleryData.length;i++)
                 {
                     this.thumbnailElements[i].stop();
@@ -734,6 +775,7 @@
             },
             changeThumbnailsSize: function(width, height)
             {
+                console.log("changeThumbnailsSize: ");
                 for(i=0;i<this.galleryData.length;i++)
                 {
                     this.thumbnailElements[i].stop();
@@ -744,9 +786,11 @@
                 }
             },
             centerCarouselOn: function(num) {
+                console.log("centerCarouselOn: ");
                 this.carouselWrapper.scrollTo(this.thumbnailElements[num],(this.options.thumbWidth * this.options.carouselVelocity * 5));
             },
             initInfoSlideshow: function() {
+                console.log("initInfoSlideshow: ");
                 this.slideInfoZone = jQuery('<div>').addClass('slideInfoZone').css({'opacity':0}).appendTo(this.galleryElement);
                 var slideInfoZoneTitle = jQuery('<h2>').appendTo(this.slideInfoZone);
                 var slideInfoZoneDescription = jQuery('<p>').appendTo(this.slideInfoZone);
@@ -754,10 +798,12 @@
             },
             changeInfoSlideShow: function()
             {
+                console.log("changeInfoSlideShow: ");
                 window.setTimeout(this.hideInfoSlideShow.pass(this), 10);
                 window.setTimeout(this.showInfoSlideShow.pass(this), 500);
             },
             showInfoSlideShow: function() {
+                console.log("showInfoSlideShow: ");
                 jQuery(this).trigger('onShowInfopane');
                 if(this.slideInfoZone.css('opacity') == 0) {
                     this.slideInfoZone.stop();
@@ -773,8 +819,10 @@
                         this.centerCarouselOn(this.currentIter);
                     }
                 }
+                //console.log("showInfoSlideShow: EXIT");
             },
             hideInfoSlideShow: function(num) {
+                console.log("hideInfoSlideShow: ");
                 jQuery(this).trigger('onHideInfopane');
                 if(!num) {
                     num = 0;
@@ -787,6 +835,7 @@
                 }
             },
             makeLink: function(num) {
+                console.log("makeLink: ");
                 this.currentLink.attr({
                     'href': this.galleryData[num].link,
                     'title': this.galleryData[num].linkTitle
@@ -796,12 +845,14 @@
                 }
             },
             clearLink: function() {
+                console.log("clearLink: ");
                 this.currentLink.attr({href: '', title: ''});
                 if (!((this.options.embedLinks) && (!this.options.showArrows) && (!this.options.showCarousel))) {
                     this.currentLink.css('display', 'none');
                 }
             },
             carouselScroll: function(e) {
+                console.log("carouselScroll: ");
                 var x = e.pageX - e.data.carouselElement.offset().left;
                 if(x <= (e.data.options.thumbWidth*.75)) {
                     if(e.data.carouselElement.scroll != 'left') {
@@ -823,6 +874,7 @@
                 }
             },
             makeFancyBox: function() {
+                console.log("makeFancyBox: ");
                 this.currentLink.attr({
                     'href': '#'
                 }).css({
@@ -852,6 +904,7 @@
                 }.pass(this));
             },
             flushGallery: function() {
+                console.log("flushGallery: ");
                 jQuery.each(this.galleryElements, function(index, element) {
                     element.remove();
                     element = null;
@@ -859,6 +912,7 @@
                 this.galleryElements = [];
             },
             changeData: function(data) {
+                console.log("changeData: ");
                 this.galleryData = data;
                 this.clearTimer();
                 this.flushGallery();
@@ -878,6 +932,7 @@
                 this.doSlideShow(1);
             },
             initHistory: function() {
+                console.log("initHistory: ");
                 jQuery(this).trigger('onHistoryInit');
                 // TODO: Find a jQuery history plugin
                 jQuery(this).trigger('onHistoryInited');
@@ -888,6 +943,7 @@
              * @see http://github.com/davglass/yui-tools/blob/master/tools.js
              */
             printf: function() {
+                console.log("printf: ");
                 var num = arguments.length;
                 var oStr = arguments[0];
                 for (var i = 1; i < num; i++) {

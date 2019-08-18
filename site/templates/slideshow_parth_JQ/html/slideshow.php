@@ -22,11 +22,11 @@ $script = $headData['script'];
 if (strpos(json_encode($script), 'startGalleries') === false) {
 
     //Add stylesheets and scripts to header
-    $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/jquery.sleekgallery.css';
+    $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/css/jquery.sleekgallery.css';
     $doc->addStyleSheet($css1);
-    $css2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/layout.css';
+    $css2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/css/layout.css';
     $doc->addStyleSheet($css2);
-    $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/user.css';
+    $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/css/user.css';
     if(file_exists($css1))
     {
         $doc->addStyleSheet($css1);
@@ -88,6 +88,7 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
         // Variable declaration
         /* Automated slideshow */
         $timed = $this->params->get('automated_slideshow', 1);
+        $timed = true;
         /* Show the thumbs carousel */
         $showCarousel = $this->params->get('showCarousel', 1);
         /* Text on carousel tab */
@@ -104,8 +105,7 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
         $delay = $this->params->get('delay', 6000);
         /* Disable the 'open image' link for the images */
         $embedLinks = $this->params->get('embedLinks', 1);
-	    $defaultTransition = $this->params->get('defaultTransition', 'fade');
-	    //$defaultTransition = $this->params->get('defaultTransition', 'fadeslideleft');
+        $defaultTransition = $this->params->get('defaultTransition', 'fade');
         $showInfopane = $this->params->get('showInfopane', 1);
         $slideInfoZoneSlide = $this->params->get('slideInfoZoneSlide', 1);
         $showArrows = $this->params->get('showArrows', 1);
@@ -135,10 +135,9 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
         /**/
     }
 
-$javascript = <<<SQL
-
-            function startGallery() {
-                var sleekGallery = jQuery('.myGallery').sleekGallery({
+    /**
+    function startGallery() {
+        var sleekGallery = jQuery('.myGallery').sleekGallery({
                     timed: $timed,
                     defaultTransition: '$defaultTransition',
                     showCarousel: $showCarousel,
@@ -147,14 +146,29 @@ $javascript = <<<SQL
                     fadeDuration: $fadeDuration,
                     delay: $delay,
                     embedLinks: $embedLinks,
+                    defaultTransition: '$defaultTransition',
                     showInfopane: $showInfopane,
                     slideInfoZoneSlide: $slideInfoZoneSlide,
                     showArrows: $showArrows
+                    //,
+                    //elementSelector: 'slideElement'
+                    //,selector=""
+                });
+            }
+    /**/
+$javascript = <<<SQL
+            /* <![CDATA[ */
+            function startGallery() {
+                var sleekGallery = jQuery('.myGallery').sleekGallery({
+                    timed: true,
+                    defaultTransition: 'continuoushorizontal'
                 });
             }
             jQuery(document).ready(function() {
+                alert( jQuery.fn.jquery );
                 startGallery();
             });
+            /* ]]> */
 SQL;
 
 

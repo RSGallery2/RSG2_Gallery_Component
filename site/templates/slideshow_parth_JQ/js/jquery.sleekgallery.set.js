@@ -19,18 +19,23 @@
  * Main Developer: Morton Jonuschat <mjonuschat@gmail.com> - http://github.com/yabawock
  */
 (function($) {
+    //  "partial application"
     Function.prototype.pass = function () {
         var instance = this, length = arguments.length, args = new Array(), object;
+        // Take each argument
+        // ???  var args = toArray(arguments);
         while(length--) {
             args[length] = arguments[length];
         }
+        // first element of args .//. others
         object = args.shift();
         return function() {
+            // function call with two parameter
             return instance.apply(object, args);
         };
     };
 
-    // Plugin definition
+    // Plugin definition (Merge the contents of an object onto the jQuery prototype to provide new jQuery instance methods.)
     $.fn.extend({
         sleekGallerySet: function(options) {
             return this.each(function() {
@@ -39,6 +44,7 @@
         }
     });
 
+    // Deep copy, Merge the contents of two or more objects together into the first object.
     $.extend(true, {
         sleekgallerySet: jQuery.sleekgallery
     });
