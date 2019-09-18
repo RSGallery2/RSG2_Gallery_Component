@@ -10,7 +10,7 @@ body
 }
 /**/
 
-h1 
+h1
 {
     color: #fff;
     font-size: 47px;
@@ -19,35 +19,35 @@ h1
     padding: 0.08em 0;
 }
 
-h1 sup 
+h1 sup
 {
     color: #ddd;
 }
 
-h1 a 
+h1 a
 {
     color: #fff;
     text-decoration: none;
 }
 
-h1 .company, h1 a .company 
+h1 .company, h1 a .company
 {
     color: #d01a71;
 }
 
-h2 
+h2
 {
     color: #ddd;
     font-size: 2.5em;
 }
 
-h3 
+h3
 {
     color: #fff;
     font-size: 1.5em;
 }
 
-h4 
+h4
 {
     font-size: 1.3em;
 }
@@ -71,12 +71,12 @@ h4
 }
 
 .parth_content p.linkage a 
-{
-    color: #fff; 
+{ 
+	color: #fff; 
 }
 
 /*
-.parth_content p.linkage a 
+.parth_content p.linkage a
 {
     color: #fff;
     background: url('../images/bg/biglink_off.gif') center right no-repeat;
@@ -84,7 +84,7 @@ h4
     text-decoration: none;
 }
 
-.parth_content p.linkage a:hover 
+.parth_content p.linkage a:hover
 {
     background: url('../images/bg/biglink_on.gif') center right no-repeat;
     font-style: italic;
