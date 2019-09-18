@@ -26,11 +26,11 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
     $doc->addStyleSheet($css1);
     $css2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/css/layout.css';
     $doc->addStyleSheet($css2);
-    $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/css/user.css';
-    if(file_exists($css1))
-    {
-        $doc->addStyleSheet($css1);
-    }
+
+    $js1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/js/jquery.scrollTo.min.js';
+    $doc->addScript($js1);
+    $js2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/js/jquery.sleekgallery.js';
+    $doc->addScript($js2);
     $js2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/js/jquery.sleekgallery.js';
     $doc->addScript($js2);
     $js3 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/js/jquery.sleekgallery.transitions.js';
@@ -83,6 +83,12 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
 
     $doc->addStyleDeclaration($style);
 
+	/* user has the last word ... */
+    $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/css/user.css';
+    if(file_exists($css1))
+    {
+        $doc->addStyleSheet($css1);
+    }
     $javascript = '';
     {
         // Variable declaration
@@ -161,11 +167,13 @@ $javascript = <<<SQL
             function startGallery() {
                 var sleekGallery = jQuery('.myGallery').sleekGallery({
                     timed: true,
+					showCarousel: true,
+					activateCarouselScroller: true,
                     defaultTransition: 'continuoushorizontal'
                 });
             }
             jQuery(document).ready(function() {
-                alert( jQuery.fn.jquery );
+                // alert("jQury Version: " + jQuery.fn.jquery );
                 startGallery();
             });
             /* ]]> */
@@ -204,7 +212,6 @@ if ($view !== 'slideshow')
 // <!-- div class="rsg2-clr"></div -->
 
 echo '<div class="parth_content">';
-echo '<div class="parth_content">';
 
 //--- Gallery title --------------------------------------
 
@@ -220,7 +227,7 @@ if (True)
 //--- Gallery images --------------------------------------
 
 echo '    <div class="rsg2-clr"></div>';
-echo '    <div id="myGallery<?php echo $this->gid; ?>" class="myGallery">';
+echo '    <div id="myGallery' . $this->gid . '" class="myGallery">';
 echo          $this->slides;
 echo '    </div><!-- end myGallery -->';
 
