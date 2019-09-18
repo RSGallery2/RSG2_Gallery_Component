@@ -26,11 +26,7 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
     $doc->addStyleSheet($css1);
     $css2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/template.css';
     $doc->addStyleSheet($css2);
-    $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/user.css';
-    if(file_exists($css1))
-    {
-        $doc->addStyleSheet($css1);
-    }
+
     $js2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/js/jd.gallery.js';
     $doc->addScript($js2);
     $js3 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/js/jd.gallery.transitions.js';
@@ -83,6 +79,12 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
 
     $doc->addStyleDeclaration($style);
 
+	/* user has the last word ... */
+    $css3 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/user.css';
+    if(file_exists($css3))
+    {
+        $doc->addStyleSheet($css3);
+    }
     $javascript = '';
     {
         // Variable declaration
@@ -179,7 +181,7 @@ if (True)
 //--- Gallery images --------------------------------------
 
 echo '    <div class="rsg2-clr"></div>';
-echo '    <div id="myGallery<?php echo $this->gid; ?>" class="myGallery">';
+echo '    <div id="myGallery' . $this->gid . '" class="myGallery">';
 echo          $this->slides;
 echo '    </div><!-- end myGallery -->';
 
