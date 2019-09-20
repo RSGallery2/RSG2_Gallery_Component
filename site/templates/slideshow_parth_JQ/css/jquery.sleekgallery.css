@@ -280,12 +280,12 @@
 
 .withArrows a.open:hover
 {
-    background: url('img/open.png') no-repeat center center;
+    background: url('../images/open.png') no-repeat center center;
 }
 
 * html .withArrows a.open:hover
 {
-    background: url('img/open.gif') no-repeat center center;
+    background: url('../images/open.gif') no-repeat center center;
     filter:alpha(opacity=80);
 }
 
