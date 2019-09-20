@@ -27,7 +27,7 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
     $css2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/css/layout.css';
     $doc->addStyleSheet($css2);
 
-    $js1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/js/jquery.scrollTo.min.js';
+    $js1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/js/jqScrollTo/jquery.scrollTo.min.js';
     $doc->addScript($js1);
     $js2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/js/jquery.sleekgallery.js';
     $doc->addScript($js2);
@@ -94,7 +94,7 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
         // Variable declaration
         /* Automated slideshow */
         $timed = $this->params->get('automated_slideshow', 1);
-        $timed = true;
+        //$timed = true;
         /* Show the thumbs carousel */
         $showCarousel = $this->params->get('showCarousel', 1);
         /* Text on carousel tab */
@@ -145,7 +145,6 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
     function startGallery() {
         var sleekGallery = jQuery('.myGallery').sleekGallery({
                     timed: $timed,
-                    defaultTransition: '$defaultTransition',
                     showCarousel: $showCarousel,
                     thumbHeight: $thumbHeight,
                     thumbWidth: $thumbWidth,
@@ -162,14 +161,23 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
                 });
             }
     /**/
+	
 $javascript = <<<SQL
             /* <![CDATA[ */
             function startGallery() {
                 var sleekGallery = jQuery('.myGallery').sleekGallery({
-                    timed: true,
-					showCarousel: true,
-					activateCarouselScroller: true,
-                    defaultTransition: 'continuoushorizontal'
+                    timed: {$timed},
+                    showCarousel: {$showCarousel},
+                    thumbHeight: {$thumbHeight},
+                    thumbWidth: {$thumbWidth},
+                    fadeDuration: {$fadeDuration},
+                    delay: {$delay},
+                    embedLinks: {$embedLinks},
+                    defaultTransition: '{$defaultTransition}', // defaultTransition: 'continuoushorizontal'
+                    showInfopane: {$showInfopane},
+                    slideInfoZoneSlide: {$slideInfoZoneSlide},
+                    showArrows: {$showArrows},
+					textShowCarousel: '{$textShowCarousel}',
                 });
             }
             jQuery(document).ready(function() {
