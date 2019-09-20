@@ -31,8 +31,6 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
     $doc->addScript($js1);
     $js2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/js/jquery.sleekgallery.js';
     $doc->addScript($js2);
-    $js2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/js/jquery.sleekgallery.js';
-    $doc->addScript($js2);
     $js3 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/js/jquery.sleekgallery.transitions.js';
     $doc->addScript($js3);
 
