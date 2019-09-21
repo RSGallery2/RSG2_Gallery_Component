@@ -88,55 +88,55 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
         $doc->addStyleSheet($css3);
     }
     $javascript = '';
-    {
-        // Variable declaration
-        /* Automated slideshow */
-        $timed = $this->params->get('automated_slideshow', 1);
-        /* Show the thumbs carousel */
-        $showCarousel = $this->params->get('showCarousel', 1);
-        /* Text on carousel tab */
-        $textShowCarousel = ($this->params->get('textShowCarousel') == '')
-            ? JText::_('COM_RSGALLERY2_SLIDESHOW_PARTH_THUMBS')
-            : $this->params->get('textShowCarousel');
-        /* Thumbnail height */
-        $thumbHeight = $this->params->get('thumbHeight', 50);
-        /* Thumbnail width*/
-        $thumbWidth = $this->params->get('thumbWidth', 50);
-        /* Fade duration in milliseconds (500 equals 0.5 seconds)*/
-        $fadeDuration = $this->params->get('fadeDuration', 500);
-        /* Delay in milliseconds (6000 equals 6 seconds)*/
-        $delay = $this->params->get('delay', 6000);
-        /* Disable the 'open image' link for the images */
-        $embedLinks = $this->params->get('embedLinks', 1);
-        $defaultTransition = $this->params->get('defaultTransition', 'fade');
-        $showInfopane = $this->params->get('showInfopane', 1);
-        $slideInfoZoneSlide = $this->params->get('slideInfoZoneSlide', 1);
-        $showArrows = $this->params->get('showArrows', 1);
+
+    // Variable declaration
+    /* Automated slideshow */
+    $timed = $this->params->get('automated_slideshow', 1);
+    /* Show the thumbs carousel */
+    $showCarousel = $this->params->get('showCarousel', 1);
+    /* Text on carousel tab */
+    $textShowCarousel = ($this->params->get('textShowCarousel') == '')
+        ? JText::_('COM_RSGALLERY2_SLIDESHOW_PARTH_THUMBS')
+        : $this->params->get('textShowCarousel');
+    /* Thumbnail height */
+    $thumbHeight = $this->params->get('thumbHeight', 50);
+    /* Thumbnail width*/
+    $thumbWidth = $this->params->get('thumbWidth', 50);
+    /* Fade duration in milliseconds (500 equals 0.5 seconds)*/
+    $fadeDuration = $this->params->get('fadeDuration', 500);
+    /* Delay in milliseconds (6000 equals 6 seconds)*/
+    $delay = $this->params->get('delay', 6000);
+    /* Disable the 'open image' link for the images */
+    $embedLinks = $this->params->get('embedLinks', 1);
+    $defaultTransition = $this->params->get('defaultTransition', 'fade');
+    $showInfopane = $this->params->get('showInfopane', 1);
+    $slideInfoZoneSlide = $this->params->get('slideInfoZoneSlide', 1);
+    $showArrows = $this->params->get('showArrows', 1);
 
 
-		$javascript = <<<SQL
-            /* <![CDATA[ */
-            function startGallery() {
-                var sleekGallery = jQuery('.myGallery').sleekGallery({
-                    timed: {$timed},
-                    showCarousel: {$showCarousel},
-                    thumbHeight: {$thumbHeight},
-                    thumbWidth: {$thumbWidth},
-                    fadeDuration: {$fadeDuration},
-                    delay: {$delay},
-                    embedLinks: {$embedLinks},
-                    defaultTransition: '{$defaultTransition}', // defaultTransition: 'continuoushorizontal'
-                    showInfopane: {$showInfopane},
-                    slideInfoZoneSlide: {$slideInfoZoneSlide},
-                    showArrows: {$showArrows},
-					textShowCarousel: '{$textShowCarousel}',
-                });
-            }
-            jQuery(document).ready(function() {
-                // alert("jQury Version: " + jQuery.fn.jquery );
-                startGallery();
+    $javascript = <<<SQL
+        /* <![CDATA[ */
+        function startGallery() {
+            var sleekGallery = jQuery('.myGallery').sleekGallery({
+                timed: {$timed},
+                showCarousel: {$showCarousel},
+                thumbHeight: {$thumbHeight},
+                thumbWidth: {$thumbWidth},
+                fadeDuration: {$fadeDuration},
+                delay: {$delay},
+                embedLinks: {$embedLinks},
+                defaultTransition: '{$defaultTransition}', // defaultTransition: 'continuoushorizontal'
+                showInfopane: {$showInfopane},
+                slideInfoZoneSlide: {$slideInfoZoneSlide},
+                showArrows: {$showArrows},
+                textShowCarousel: '{$textShowCarousel}',
             });
-            /* ]]> */
+        }
+        jQuery(document).ready(function() {
+            // alert("jQury Version: " + jQuery.fn.jquery );
+            startGallery();
+        });
+        /* ]]> */
 SQL;
 
 
