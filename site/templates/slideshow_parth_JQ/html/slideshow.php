@@ -82,17 +82,16 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
     $doc->addStyleDeclaration($style);
 
 	/* user has the last word ... */
-    $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth_JQ/css/user.css';
-    if(file_exists($css1))
+    $css3 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/user.css';
+    if(file_exists($css3))
     {
-        $doc->addStyleSheet($css1);
+        $doc->addStyleSheet($css3);
     }
     $javascript = '';
     {
         // Variable declaration
         /* Automated slideshow */
         $timed = $this->params->get('automated_slideshow', 1);
-        //$timed = true;
         /* Show the thumbs carousel */
         $showCarousel = $this->params->get('showCarousel', 1);
         /* Text on carousel tab */
@@ -114,53 +113,8 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
         $slideInfoZoneSlide = $this->params->get('slideInfoZoneSlide', 1);
         $showArrows = $this->params->get('showArrows', 1);
 
-        /**
-        $javascript .= ''
-            . "function startGallery()"
-            . "{" . "\n"
-            . "    var jQuery('.myGallery').each(function(item){" . "\n"
-            . "        var myGallery = new gallery(item, {" . "\n"
-            . "            timed: $timed," . "\n"
-            . "            showCarousel: $showCarousel," . "\n"
-            . "            textShowCarousel: '$textShowCarousel'," . "\n"
-            . "            thumbHeight: $thumbHeight," . "\n"
-            . "            thumbWidth: $thumbWidth," . "\n"
-            . "            fadeDuration: $fadeDuration," . "\n"
-            . "            delay: $delay," . "\n"
-            . "            embedLinks: $embedLinks," . "\n"
-            . "            defaultTransition: '$defaultTransition'," . "\n"
-            . "            showInfopane: $showInfopane," . "\n"
-            . "            slideInfoZoneSlide: $slideInfoZoneSlide," . "\n"
-            . "            showArrows: $showArrows" . "\n"
-            . "        });" . "\n"
-            . '		});' . "\n"
-            . '	}' . "\n"
-            . "	window.addEvent('domready',startGallery);" . "\n";
-        /**/
-    }
 
-    /**
-    function startGallery() {
-        var sleekGallery = jQuery('.myGallery').sleekGallery({
-                    timed: $timed,
-                    showCarousel: $showCarousel,
-                    thumbHeight: $thumbHeight,
-                    thumbWidth: $thumbWidth,
-                    fadeDuration: $fadeDuration,
-                    delay: $delay,
-                    embedLinks: $embedLinks,
-                    defaultTransition: '$defaultTransition',
-                    showInfopane: $showInfopane,
-                    slideInfoZoneSlide: $slideInfoZoneSlide,
-                    showArrows: $showArrows
-                    //,
-                    //elementSelector: 'slideElement'
-                    //,selector=""
-                });
-            }
-    /**/
-	
-$javascript = <<<SQL
+		$javascript = <<<SQL
             /* <![CDATA[ */
             function startGallery() {
                 var sleekGallery = jQuery('.myGallery').sleekGallery({
