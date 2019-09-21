@@ -96,3 +96,21 @@ h4
     text-align: left;
     margin: 0 auto;
 }
+/* Override personal.css */
+#main .slideInfoZone h2 
+{
+	font-family : arial, helvetica, sans-serif;
+	color       : #EEEEEE;
+	font-size   : 100%;
+	padding     : 0;
+}
+
+#main .sgGallery a.right 
+{
+	background : url('../images/fleche2.png') no-repeat center right;
+}
+
+#main .sgGallery a.left 
+{
+	background : url('../images/fleche1.png') no-repeat center left;
+}
