@@ -43,7 +43,7 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
         . '   height:  ' . ($this->params->get('slideshowHeight') ? $this->params->get('slideshowHeight') : $this->maxSlideshowHeight) . 'px;' . "\n"
         . '   	}' . "\n"
         /* Background color for the slideshow element */
-        . '   	.jdGallery .slideElement {' . "\n"
+        . '   	.sgGallery .slideElement {' . "\n"
         . '   		background-color:  ' . $this->params->get('slideshowBackgroundcolor', '#000000') . ";\n"
         . '   	}' . "\n"
         /* Background color of links (Override personal.css) */
@@ -55,26 +55,26 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
         . '   		color:  ' . $this->params->get('slideInfoZoneTextcolor', '#EEEEEE') . ";\n"
         . '   	}' . "\n"
         /* Carousel backgroundcolor, color item title, height */
-        . '   	.jdGallery .carousel { ' . "\n"
+        . '   	.sgGallery .carousel { ' . "\n"
         . '   		background-color:  ' . $this->params->get('carouselBackgroundcolor', '#000000') . ";\n"
         . '   		color:  ' . $this->params->get('carouselTextcolor', '#FFFFFF') . ";\n"
         . '   		height:	 ' . $this->params->get('carouselHeight', '135') . 'px' . ";\n"
         . '   	}' . "\n"
-        /* Carousel height for thumbs-text position (= .jdGallery .carousel {height} + 20px ) */
-        . '   	.jdGallery div.carouselContainer {' . "\n"
+        /* Carousel height for thumbs-text position (= .sgGallery .carousel {height} + 20px ) */
+        . '   	.sgGallery div.carouselContainer {' . "\n"
         . '   		height:	 ' . ($this->params->get('carouselHeight', '135') + 20) . 'px' . ";\n"
         . '   	}' . "\n"
         /* Carousel backgroundcolor thumbs-text */
-        . '   	.jdGallery a.carouselBtn {' . "\n"
+        . '   	.sgGallery a.carouselBtn {' . "\n"
         . '   		background:  ' . $this->params->get('carouselBackgroundcolor', '#333333') . ";\n"
         . '   		color:	 ' . $this->params->get('carouselTextcolor', '#FFFFFF') . ";\n"
         . '   	}' . "\n"
         /* Carousel color numberlabel */
-        . '   	.jdGallery .carousel .label .number {' . "\n"
+        . '   	.sgGallery .carousel .label .number {' . "\n"
         . '   		color: 	 ' . $this->params->get('carouselNumberlabelColor', '#B5B5B5') . ";\n"
         . '   	}' . "\n"
         /* slideInfoZone background color, height */
-        . '   	.jdGallery .slideInfoZone, .jdGallery .slideInfoZone h2 {' . "\n"
+        . '   	.sgGallery .slideInfoZone, .sgGallery .slideInfoZone h2 {' . "\n"
         . '   		background-color:  ' . $this->params->get('slideInfoZoneBackgroundcolor', '#333333') . ";\n"
         . '   		height:  ' . $this->params->get('slideInfoZoneHeight', '60') . 'px' . ";\n"
         . '   	}' . "\n";
