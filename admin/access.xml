@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id$ -->
 <!-- different actions can be defined by adding a new action name, e.g. core.test with its title and description -->
 <access component="com_rsgallery2">
 	<!-- define actions for com_rsgallery2 component (options button in control panel) -->
