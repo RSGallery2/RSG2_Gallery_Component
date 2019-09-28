@@ -35,6 +35,7 @@
 		</schemas>
 	</update>
 
+	<!-- Frond-end files -->
 	<files folder="site">
 		<folder>flash</folder>
 		<folder>images</folder>
@@ -68,9 +69,10 @@
 		<language tag="sl-SI">sl-SI/sl-SI.com_rsgallery2.ini</language>
 		<language tag="tr-TR">tr-TR/tr-TR.com_rsgallery2.ini</language>
 	</languages>
-	
+
+	<!-- Back-end files -->
 	<administration>
-		<!-- view="rsgallery2" -->
+		<!-- Menu entries -->
 		<menu 
 		      img="administrator/components/com_rsgallery2/images/rsg2_menu.png"
 			  link="option=com_rsgallery2"
