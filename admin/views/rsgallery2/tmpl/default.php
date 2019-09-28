@@ -165,7 +165,7 @@ function DisplayInfoRsgallery2($Rsg2Version)
 	echo '            <td>';
 	echo '                <a href="' . JRoute::_('index.php?option=com_rsgallery2&view=rsgallery2&layout=ChangeLog') . '"';
 	echo '                   title="' . JText::_('COM_RSGALLERY2_VIEW_CHANGE_LOG') . '""';
-	echo '                   class="modal">' . $Rsg2Version . '</span></a>';
+	echo '                   class="modal">' . $Rsg2Version . '</a>';
 	echo '            </td>';
 	echo '        </tr>';
 	/**/
@@ -247,7 +247,7 @@ $doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/css
 							//$link = 'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig';
 							$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;task=config.edit';
 							RsgIconMoonButton($link, 'icon-equalizer clsProperties', JText::_('COM_RSGALLERY2_CONFIGURATION'));
-				}
+						}
 
 						//$link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
 						$link = 'index.php?option=com_rsgallery2&view=galleries';
