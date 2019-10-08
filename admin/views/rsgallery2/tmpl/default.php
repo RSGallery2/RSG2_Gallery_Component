@@ -285,35 +285,14 @@ $doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/css
 					<div class="row-fluid">
 						<div class="span4 clsInfoAccordion">
 							<?php
-                            if ($Rsg2DebugActive) {
-                                JLog::add('    (D06) ');
-                            }
+                            echo JHtml::_('bootstrap.startAccordion', 'slide-example1', array('active' => 'slide1'));
+							echo JHtml::_('bootstrap.addSlide', 'slide-example1', JText::_('COM_RSGALLERY2_GALLERIES'), 'slide1');
 
-                            echo JHtml::_('bootstrap.startAccordion', 'slide-example', array('active' => 'slide1', 'toggle' => 'false'));
-                            if ($Rsg2DebugActive) {
-                                JLog::add('    (D07) ');
-                            }
-							echo JHtml::_('bootstrap.addSlide', 'slide-example', JText::_('COM_RSGALLERY2_GALLERIES'), 'slide1');
-
-                            if ($Rsg2DebugActive) {
-                                JLog::add('    (D08) ');
-                            }
 							// Info about last uploaded galleries
 							DisplayInfoGalleries($this->LastGalleries);
 
-                            if ($Rsg2DebugActive) {
-                                JLog::add('    (D09) ');
-                            }
 							echo JHtml::_('bootstrap.endSlide');
-                            if ($Rsg2DebugActive) {
-                                JLog::add('    (D10) ');
-                            }
 							echo JHtml::_('bootstrap.endAccordion');
-
-                            if ($Rsg2DebugActive) {
-                                JLog::add('    (D11) ');
-                            }
-
                             ?>
 						</div>
 						<div class="span8 clsInfoAccordion">
