@@ -4,10 +4,10 @@
            method="upgrade"
 >
 	<name>com_rsgallery2</name>
-	<version>4.5.0.0</version>
+	<version>4.4.0.0</version>
 	<author>RSGallery2 Team</author>
 	<creationDate>13. Jun. 2019</creationDate>
-	<copyright>(c) 2003-2019 RSGallery2 Team</copyright>
+	<copyright>(c) 2003-2018 RSGallery2 Team</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>team2@rsgallery2.org</authorEmail>
 	<authorUrl>https://www.rsgallery2.org</authorUrl>
