@@ -59,6 +59,8 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		$msg     = "controller.createImageDbItems: ";
 		$msgType = 'notice';
 
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
 		if (!$canAdmin)
 		{
