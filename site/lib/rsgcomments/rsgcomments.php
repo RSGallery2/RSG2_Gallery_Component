@@ -207,7 +207,7 @@ function saveComment($option)
  */
 function deleteComments($option)
 {
-	$mainframe = JFactory::getApplication();
+	$app = JFactory::getApplication();
 	$database  = JFactory::getDBO();
 
 	// Get the current JUser object
@@ -239,5 +239,5 @@ function deleteComments($option)
 			echo "<script> alert('" . $database->getErrorMsg() . "'); window.history.go(-1); </script>\n";
 		}
 	}
-	$mainframe->redirect(JRoute::_("index.php?option=" . $option . "&Itemid=$Itemid&page=inline&id=" . $item_id . "&catid=" . $catid, false), JText::_('COM_RSGALLERY2_COMMENT_DELETED_SUCCESFULLY'));
+	$app->redirect(JRoute::_("index.php?option=" . $option . "&Itemid=$Itemid&page=inline&id=" . $item_id . "&catid=" . $catid, false), JText::_('COM_RSGALLERY2_COMMENT_DELETED_SUCCESFULLY'));
 }

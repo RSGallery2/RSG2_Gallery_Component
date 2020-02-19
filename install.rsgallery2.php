@@ -3,12 +3,11 @@
  * This file contains the install routine for RSGallery2
  *
  * @package       RSGallery2
- * @copyright (C) 2003 - 2018 RSGallery2
+ * @copyright (C) 2003 - 2019 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
- **/
-
-// no direct access
+ */
+// No direct access to this file
 defined('_JEXEC') or die;
 
 // Include the JLog class.
@@ -47,6 +46,15 @@ JLog::add('Starting to log install.rsgallery2.php for installation X', JLog::DEB
 class com_rsgallery2InstallerScript
 {
 
+    protected $newRelease;
+    protected $oldRelease;
+    protected $minimum_joomla_release;
+    protected $actual_joomla_release;
+
+    // 	protected $;
+    // 	protected $;
+    // 	protected $;
+
     // ToDo: use information on links and use it on all following functions
     // http://docs.joomla.org/J2.5:Managing_Component_Updates_%28Script.php%29
 
@@ -64,15 +72,6 @@ class com_rsgallery2InstallerScript
     -------------------------------------------------------------------------*/
 
 // ToDO: #__schemas" Tabelle reparieren ??? -> http://vi-solutions.de/de/enjoy-joomla-blog/116-knowledgbase-tutorials
-
-    protected $newRelease;
-    protected $oldRelease;
-    protected $minimum_joomla_release;
-    protected $actual_joomla_release;
-
-    // 	protected $;
-    // 	protected $;
-    // 	protected $;
 
     /**
      * @param $type
@@ -477,7 +476,5 @@ class com_rsgallery2InstallerScript
             return $IsFileFound;
         }
     }
-
-
 
 }

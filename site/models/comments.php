@@ -27,7 +27,15 @@ class RSGallery2ModelComments extends JModelList
      */
     private $item;
 
-
+	/**
+	 * @param $imageId
+	 * @param $comment
+	 *
+	 * @return bool
+	 *
+	 * @throws Exception
+	 * @since version
+	 */
 	public function addComment($imageId, $comment)
 	{
 		$isCommented = false;
@@ -53,6 +61,14 @@ class RSGallery2ModelComments extends JModelList
 		return $isCommented;
 	}
 
+	/**
+	 * @param $imageId
+	 * @param $comment
+	 *
+	 * @return bool
+	 *
+	 * @since version
+	 */
 	public function saveComment($imageId, $comment)
 	{
 		$isCommented = false;
@@ -116,6 +132,14 @@ class RSGallery2ModelComments extends JModelList
 		return $isCommented;
 	}
 
+	/**
+	 * @param $imageId
+	 *
+	 * @return array|mixed
+	 *
+	 * @throws Exception
+	 * @since version
+	 */
 	public function getImageComments ($imageId)
 	{
 		$imageComments = [];
@@ -151,9 +175,13 @@ class RSGallery2ModelComments extends JModelList
 	}
 
 
-
-
-
+	/**
+	 * @param $imageId
+	 *
+	 *
+	 * @throws Exception
+	 * @since version
+	 */
 	public function SetUserHasCommented ($imageId)
 	{
 		global $rsgConfig;
@@ -175,8 +203,10 @@ class RSGallery2ModelComments extends JModelList
 	/**
 	 * Check if the user already voted for this item
 	 *
-	 * @param int ID of item to vote on
+	 * @param int $imageId ID of item to vote on
 	 *
+	 * @throws Exception
+	 * @since version
 	 * @return int 0 or user rating
 	 */
 	public function isUserHasCommented($imageId)

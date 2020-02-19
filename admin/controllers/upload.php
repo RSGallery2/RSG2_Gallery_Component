@@ -120,7 +120,9 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		            JLog::add($DebTxt); //, JLog::DEBUG);
 	            }
 
+	            //$app = JFactory::getApplication();
 	            //$app->setUserState('com_rsgallery2.last_used_uploaded_zip', $zip_file);
+	            //$rsgConfig->setLastUpdateType('upload_zip_pc');
 	            configDb::write2Config ('last_update_type', 'upload_zip_pc', $rsgConfig);
 
 	            //--- Check zip file name -------------------
@@ -132,7 +134,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	            if ($zip_file['name'] !== \JFile::makeSafe($zip_file['name']) || preg_match('/\s/', \JFile::makeSafe($zip_file['name'])))
 	            {
 		            //$app = JFactory::getApplication();
-		            $app->enqueueMessage(JText::_('COM_    _WARNFILENAME'), 'error');
+		            $app->enqueueMessage(JText::_('COM_RSGALLERY2_WARNFILENAME'), 'error');
 		            $isHasError = true;
 	            }
 
@@ -473,7 +475,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 							//--- Create Destination file name -----------------------
 
 							$filePathName = realpath ($filePathName);
-							$baseName = JFile::makeSafe(basename($filePathName));
+							$baseName = basename($filePathName);
 
 							// ToDo: use sub folder for each gallery and check within gallery
 							// Each filename is only allowed once so create a new one if file already exist
@@ -642,6 +644,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 		    $uploadFileName = $input->get('dstFileName', '', 'string');
 
 		    // for next upload tell where to start
+	        //$rsgConfig->setLastUpdateType('upload_drag_and_drop');
 		    configDb::write2Config ('last_update_type', 'upload_drag_and_drop', $rsgConfig);
 
 	        if ($Rsg2DebugActive)
@@ -792,6 +795,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
 			}
 
 			$input = JFactory::getApplication()->input;
+			//$oFile = $input->files->get('upload_file', array(), 'raw');
+			//$uploadFileName    = JFile::makeSafe($oFile['name']);
 
             //--- file name  --------------------------------------------
 

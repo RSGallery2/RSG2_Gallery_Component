@@ -272,4 +272,3 @@ JText::_('COM_RSGALLERY2_IMAGES_GRAFICS_LIBRARIES'), 'cfg_images_id_3'); ?>
 		<div id="loading"></div>
 	</div>
 
-	

@@ -21,6 +21,11 @@ function template()
 {
 	global $rsgConfig, $isDebugSiteActive;
 
+	if ($isDebugSiteActive)
+	{
+		JLog::add('main.rsgallery2::template()');
+	}
+
 	//Set template selection
 	//$template = preg_replace( '#\W#', '', JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template') ));
 	$input    = JFactory::getApplication()->input;
@@ -36,7 +41,9 @@ function template()
 	
 		if (!file_exists($templateLocation))
 	{
-		JFactory::getApplication()->enqueueMessage('RSGallery2 template:<pre>' . "Template $template does not exist.<br/>Please select an existing template in the Template Manager." . '</pre>', 'error');
+		JFactory::getApplication()->enqueueMessage('RSGallery2 template:<pre>'
+			. "Template $template does not exist.<br/>Please select an existing template in the Template Manager."
+			. '</pre>', 'error');
 		return false;
 	}
 	else
@@ -50,15 +57,23 @@ function template()
  */
 function xmlFile()
 {
+	global $isDebugSiteActive;
+
+	if ($isDebugSiteActive)
+	{
+		JLog::add('xmlFile: ');
+	}
+
 	// $template = preg_replace( '#\W#', '', JRequest::getCmd( 'xmlTemplate', 'meta' ) );
 	$input    = JFactory::getApplication()->input;
 	$template = preg_replace('#\W#', '', $input->get('xmlTemplate', 'meta', 'CMD'));
 	$template = strtolower($template);
 
 	// require generic template which all other templates should extend
-	require_once(JPATH_RSGALLERY2_SITE . '/templates' . '/meta' . '/xml.php');
+	require_once(JPATH_RSGALLERY2_SITE . '/templates/meta/xml.php');
+
 	// require the template specified to be used
-	require_once(JPATH_RSGALLERY2_SITE . '/templates' . '/' . $template . '/xml.php');
+	require_once(JPATH_RSGALLERY2_SITE . '/templates/' . $template . '/xml.php');
 
 	// prepare and output xml
 	$xmlTemplate = "rsgXmlGalleryTemplate_$template";
@@ -85,7 +100,13 @@ function xmlFile()
 //function downloadFile($id) {
 function downloadFile()
 {
-	global $rsgConfig;
+	global $isDebugSiteActive;
+
+	if ($isDebugSiteActive)
+	{
+		JLog::add('xmlFile: ');
+	}
+
 	//Clean and delete current output buffer 
 	ob_end_clean();
 
@@ -124,8 +145,12 @@ function downloadFile()
 				header("Content-type: application/octet-stream");
 				header("Content-Disposition: attachment; filename=\"" . $path_parts["basename"] . "\"");
 		}
+
+		//header("Content-Transfer-Encoding: binary");
+		//header('Accept-Ranges: bytes');
 		header("Content-length: $fsize");
 		header("Cache-control: private");
+
 		//Read the contents of the file
 		while (!feof($fd))
 		{
@@ -135,4 +160,9 @@ function downloadFile()
 	}
 	//Close file after use!
 	fclose($fd);
+
+	// Why that ? may be used for restart after including
+	// template sematic to include only slideshow templares
+	ob_flush();
+
 }

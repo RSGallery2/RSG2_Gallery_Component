@@ -18,7 +18,8 @@ require_once($templatePath . '/display.class.php');
 
 $rsgDisplay = new rsgDisplay_slideshowone();
 
-// set slideshow parameter from URL
-// $rsgDisplay->addUrlSlideshowParameter ();
+//$rsgDisplay->cleanStart = JRequest::getBool( 'cleanStart' );
+$input                  = JFactory::getApplication()->input;
+$rsgDisplay->cleanStart = $input->get('cleanStart', null, 'BOOL');
 
 $rsgDisplay->showSlideShow();

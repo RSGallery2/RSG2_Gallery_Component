@@ -521,9 +521,6 @@ jQuery(document).ready(function ($) {
 
                 var gallery_id = $('#SelectGalleries_03').val();
 
-                // for function sendFileToServer
-                var data = new FormData();
-
                 // fetch saved file data
                 var imagesDroppedListIdx = jData.data.imagesDroppedListIdx;
                 if (imagesDroppedListIdx < 0 || imagesDroppedList.length < imagesDroppedListIdx)
@@ -537,8 +534,10 @@ jQuery(document).ready(function ($) {
                 var UploadFile = imagesDroppedList [imagesDroppedListIdx];
                 console.log('imagesDroppedListIdx: ' + imagesDroppedListIdx);
                 console.log('UploadFile1: ' + UploadFile);
-                data.append('upload_file', UploadFile);
 
+                // for function sendFileToServer
+                var data = new FormData();
+                data.append('upload_file', UploadFile);
                 data.append(Token, '1');
                 data.append('gallery_id', gallery_id);
                 data.append('cid', jData.data.cid);
@@ -608,6 +607,8 @@ jQuery(document).ready(function ($) {
 
     function startUploadFile(uploadData, statusBar, fileName) {
 
+        // ToDo: redesign: always push, call uploadTryNext and let it determine if to send or not
+
         // Not too many upload parallel
         if (uploadCount < uploadLimit) {
 
@@ -625,6 +626,7 @@ jQuery(document).ready(function ($) {
         }
     }
 
+    // ToDo: redesign:  uploadTryNext
     function uploadFinishedTryNext ()
     {
         // other files to be uploaded

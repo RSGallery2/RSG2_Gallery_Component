@@ -8,17 +8,28 @@
  * RSGallery is Free Software
  */
 
+defined('_JEXEC') or die;
+
 use Joomla\CMS\MVC\Controller\BaseController;
 
-defined('_JEXEC') or die;
+/**
+ * @param bool
+ */
+global $isDebugSiteActive;
+
+if ($isDebugSiteActive) {
+	// Include the JLog class.
+	jimport('joomla.log.log');
+
+	// identify active file
+    JLog::add('==> base.controller.php');
+}
 
 /**
  * RSGgallery2 Controller
  *
+ * @since version
  */
-
-
-
 class Rsgallery2Controller extends BaseController 
 {
 
@@ -31,3 +42,4 @@ class Rsgallery2Controller extends BaseController
 	//protected $default_view = 'helloworlds';
 
 }
+

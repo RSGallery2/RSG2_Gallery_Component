@@ -41,6 +41,7 @@ class Rsgallery2ModelImages extends JModelList
 				'votes', 'a.votes',
 				'comments', 'a.comments',
 				'published', 'a.published',
+
 				'checked_out', 'a.checked_out',
 				'checked_out_time', 'a.checked_out_time',
 				'ordering', 'a.ordering',

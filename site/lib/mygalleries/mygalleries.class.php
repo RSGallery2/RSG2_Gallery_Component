@@ -536,7 +536,8 @@ class myGalleries
 	 */
 	static function showMyImages($images, $pageNav)
 	{
-		JHtml::_('behavior.tooltip');
+		//JHtml::_('behavior.tooltip');
+		JHtml::_('bootstrap.tooltip');
 		$input = JFactory::getApplication()->input;
 		//$option = JRequest::getCmd('option');
 		$option = $input->get('option', '', 'CMD');
