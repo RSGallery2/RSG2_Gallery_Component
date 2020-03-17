@@ -400,11 +400,28 @@ class com_rsgallery2InstallerScript
      */
     function getManifestParam($name)
     {
+		$result = ''
+		
         $db = JFactory::getDbo();
         $db->setQuery('SELECT manifest_cache FROM #__extensions WHERE name = "com_rsgallery2"');
-        $manifest = json_decode($db->loadResult(), true);
-
-        return $manifest[$name];
+		
+		values = $db->loadResult();
+		
+		if (! empty (values))
+		{
+			$manifest = json_decode(values, true);
+			if (! empty ($manifest))
+			{
+				
+				if(! empty ($manifest[$name])
+				{
+					$result = $manifest[$name];
+				}
+				
+			}
+		}
+		
+        return $result;
     }
 
     /*
