@@ -268,7 +268,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 	 * @return string
 	 *
 	 * @throws Exception
-	 * @since version
+	 * @since 4.5.0.0
 	 */
 	public function makeSafeUrlNameRSG2 ($inFilename='')
 	{

@@ -36,7 +36,7 @@ class Rsgallery2ControllerMaintRemoveLogFiles extends JControllerAdmin
      *
      * @param   array $config An optional associative array of configuration settings.
      *
-     * @since version
+     * @since 4.5.0.0
      */
 	public function __construct($config = array())
 	{
@@ -46,7 +46,7 @@ class Rsgallery2ControllerMaintRemoveLogFiles extends JControllerAdmin
     /**
      * Deletes rsgallery2 log files in \logs and \administrator\logs
      *
-     * @since version
+     * @since 4.5.0.0
      */
 	function DeleteLogFiles()
 	{
@@ -126,7 +126,7 @@ class Rsgallery2ControllerMaintRemoveLogFiles extends JControllerAdmin
 	 * Collects names and paths of rsgallery2 log files in \logs and \administrator\logs
 	 * @return array
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 * @throws Exception
 	 */
 	public function CollectRsg2LogFiles()
@@ -164,7 +164,7 @@ class Rsgallery2ControllerMaintRemoveLogFiles extends JControllerAdmin
 	 *
 	 * @return array
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 */
 	public function CollectRsg2LogFilesInFolder($folder)
 	{
