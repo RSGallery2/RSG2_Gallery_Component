@@ -9,5 +9,6 @@ admin/install.rsgallery2.php
 admin/rsgallery2.xml
 
 .build/*.log
+.build/*.*.log
 
 
