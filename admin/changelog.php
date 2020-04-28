@@ -23,6 +23,12 @@ Legend:
 ^ -> Change, - -> Removed, ! -> Note
 
 
+* --- 4.5.0 beta --- 2019-07-23 --- whazzup ------------------------------
+
+^ Moved configuration data from table _rsgallery2_config to 
+  extenstion table row RSG2 params (json string)
+  
+
 * --- 4.4.2 beta --- 2019-01-26 --- whazzup ------------------------------
 
 + Added maintenance: Slideshow configuration
