@@ -3,12 +3,11 @@
  * This file contains the install routine for RSGallery2
  *
  * @package       RSGallery2
- * @copyright (C) 2003 - 2020 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
- **/
-
-// no direct access
+ *
+ */
 defined('_JEXEC') or die;
 
 // Include the JLog class.
@@ -52,17 +51,6 @@ class com_rsgallery2InstallerScript
 
     // http://www.joomla-wiki.de/dokumentation/Joomla!_Programmierung/Programmierung/Aktualisierung_einer_Komponente/Teil_3
 
-    /*-------------------------------------------------------------------------
-    preflight
-    ---------------------------------------------------------------------------
-    This is where most of the checking should be done before install, update
-    or discover_install. Preflight is executed prior to any Joomla install,
-    update or discover_install actions. Preflight is not executed on uninstall.
-    A string denoting the type of action (install, update or discover_install)
-    is passed to preflight in the $type operand. Your code can use this string
-    to execute different checks and responses for the three cases.
-    -------------------------------------------------------------------------*/
-
 // ToDO: #__schemas" Tabelle reparieren ??? -> http://vi-solutions.de/de/enjoy-joomla-blog/116-knowledgbase-tutorials
 
     protected $newRelease;
@@ -73,6 +61,17 @@ class com_rsgallery2InstallerScript
     // 	protected $;
     // 	protected $;
     // 	protected $;
+
+    /*-------------------------------------------------------------------------
+    preflight
+    ---------------------------------------------------------------------------
+    This is where most of the checking should be done before install, update
+    or discover_install. Preflight is executed prior to any Joomla install,
+    update or discover_install actions. Preflight is not executed on uninstall.
+    A string denoting the type of action (install, update or discover_install)
+    is passed to preflight in the $type operand. Your code can use this string
+    to execute different checks and responses for the three cases.
+    -------------------------------------------------------------------------*/
 
     /**
      * @param $type
@@ -90,7 +89,6 @@ class com_rsgallery2InstallerScript
 
         // Installing component manifest file version
         $this->newRelease = $parent->get("manifest")->version;
-        $this->oldRelease = $this->getManifestParam('version');
 
         // Manifest file minimum Joomla version
         $this->minimum_joomla_release = $parent->get("manifest")->attributes()->version;
@@ -100,12 +98,6 @@ class com_rsgallery2InstallerScript
         $NextLine = 'Installing component manifest file version = ' . $this->newRelease;
         echo '<br/>' . $NextLine;
         JLog::add($NextLine, JLog::DEBUG);
-        if ($type == 'update')
-        {
-            $NextLine = 'Old/current component version (manifest cache) = ' . $this->oldRelease;
-            echo '<br/>' . $NextLine;
-            JLog::add($NextLine, JLog::DEBUG);
-        }
         JLog::add('Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release, JLog::DEBUG);
         JLog::add('Current Joomla version = ' . $this->actual_joomla_release, JLog::DEBUG);
 
@@ -118,12 +110,17 @@ class com_rsgallery2InstallerScript
             return false;
         }
 
-        JLog::add('After version compare', JLog::DEBUG);
+        JLog::add('After joomla version compare', JLog::DEBUG);
 
         if ($type == 'update')
         {
-
             JLog::add('-> pre update', JLog::DEBUG);
+			$this->oldRelease = $this->getVersionFromManifestParam();
+
+            $NextLine = 'Old/current component version (manifest cache) = ' . $this->oldRelease;
+            echo '<br/>' . $NextLine;
+            JLog::add($NextLine, JLog::DEBUG);
+
             $rel = $this->oldRelease . ' to ' . $this->newRelease;
 
             // Abort if the component being installed is older than the currently installed version
@@ -226,9 +223,15 @@ class com_rsgallery2InstallerScript
     is less risk that that their reversal may be done incorrectly.
     -------------------------------------------------------------------------*/
     /**
-     * @param $parent
+	 * Method to install the extension
+	 *
+	 * @param   InstallerAdapter  $parent  The class calling this method
+	 *
+	 * @return  boolean  True on success
+	 *
+	 * @since  1.0.0
      */
-    function install($parent)
+    public function install($parent)
     {
         JLog::add('install', JLog::DEBUG);
 
@@ -264,9 +267,16 @@ class com_rsgallery2InstallerScript
     that their reversal may be done incorrectly.
     -------------------------------------------------------------------------*/
     /**
-     * @param $parent
+	 * Method to update the extension
+	 *
+	 * @param   InstallerAdapter  $parent  The class calling this method
+	 *
+	 * @return  boolean  True on success
+	 *
+	 * @since  1.0.0
+	 *
      */
-    function update($parent)
+    public function update($parent)
     {
         JLog::add('do update', JLog::DEBUG);
 
@@ -349,10 +359,17 @@ class com_rsgallery2InstallerScript
     install, update or discover_install action.
     -------------------------------------------------------------------------*/
     /**
-     * @param $type
-     * @param $parent
+	 * Function called after extension installation/update/removal procedure commences
+	 *
+	 * @param   string            $type    The type of change (install, update or discover_install, not uninstall)
+	 * @param   InstallerAdapter  $parent  The class calling this method
+	 *
+	 * @return  boolean  True on success
+	 *
+	 * @since  1.0.0
+	 *
      */
-    function postflight($type, $parent)
+    public function postflight($type, $parent)
     {
         JLog::add('postflight', JLog::DEBUG);
         echo '<p>' . JText::_('COM_RSGALLERY2_POSTFLIGHT_' . strtoupper($type) . '_TEXT') . '</p>';
@@ -382,31 +399,71 @@ class com_rsgallery2InstallerScript
     waste of time
     -------------------------------------------------------------------------*/
     /**
-     * @param $parent
+	 * Method to uninstall the extension
+	 *
+	 * @param   InstallerAdapter  $parent  The class calling this method
+	 *
+	 * @return  boolean  True on success
+	 *
+	 * @since  1.0.0
      */
-    function uninstall($parent)
+    public function uninstall($parent)
     {
         JLog::add('uninstall', JLog::DEBUG);
         echo '<p>' . JText::_('COM_RSGALLERY2_UNINSTALL_TEXT') . '</p>';
         JLog::add('exit uninstall', JLog::DEBUG);
     }
 
-    /*
-     * get a variable from the manifest file (actually, from the manifest cache).
-     */
-    /**
-     * @param $name
-     *
-     * @return mixed
-     */
-    function getManifestParam($name)
+	function getVersionFromManifestParam ()
+	{
+		$oldRelease = '1.0.0.999';
+		
+		$this->oldManifestData = readRsg2ExtensionManifest ();
+		if ( ! empty ($this->oldManifestData['version'])) {
+			$oldRelease = $this->oldManifestData['version'];
+		}
+		
+		return $oldRelease;
+	}
+	
+    static function readRsg2ExtensionManifest ()
     {
-        $db = JFactory::getDbo();
-        $db->setQuery('SELECT manifest_cache FROM #__extensions WHERE name = "com_rsgallery2"');
-        $manifest = json_decode($db->loadResult(), true);
+        $manifest = [];
 
-        return $manifest[$name];
+        try
+        {
+            $db = Factory::getDbo();
+            $query = $db->getQuery(true)
+                ->select('manifest_cache')
+                ->from($db->quoteName('#__extensions'))
+                ->where($db->quoteName('name') . ' = ' . $db->quote('COM_RSGALLERY2'));
+            $db->setQuery($query);
+
+            $jsonStr = $db->loadResult();
+            // $result = $db->loadObjectList()
+
+            if ( ! empty ($jsonStr))
+            {
+                $manifest = json_decode($jsonStr, true);
+            }
+
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'readRsg2ExtensionManifest: Error executing query: "' . "" . '"' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = Factory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $manifest;
     }
+
+
+
+
 
     /*
      * sets parameter values in the component's row of the extension table
@@ -438,13 +495,12 @@ class com_rsgallery2InstallerScript
     }
 
 
-
     /**
      * @param $startDir Example: \administrator\language\
      * recursive delete joomla 1.5 version or older style component language files
      * @since 4.3
      */
-    function findAndDelete_1_5_LangFiles($startDir, &$msg) {
+    public function findAndDelete_1_5_LangFiles($startDir, &$msg) {
 
         $IsDeleted = false;
 
@@ -477,7 +533,6 @@ class com_rsgallery2InstallerScript
             return $IsFileFound;
         }
     }
-
 
 
 }
