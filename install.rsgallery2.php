@@ -95,7 +95,6 @@ class com_rsgallery2InstallerScript
 
         // Installing component manifest file version
         $this->newRelease = $parent->get("manifest")->version;
-        $this->oldRelease = $this->getManifestParam('version');
 
         // Manifest file minimum Joomla version
         $this->minimum_joomla_release = $parent->get("manifest")->attributes()->version;
@@ -107,9 +106,6 @@ class com_rsgallery2InstallerScript
         JLog::add($NextLine, JLog::DEBUG);
         if ($type == 'update')
         {
-            $NextLine = 'Old/current component version (manifest cache) = ' . $this->oldRelease;
-            echo '<br/>' . $NextLine;
-            JLog::add($NextLine, JLog::DEBUG);
         }
         JLog::add('Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release, JLog::DEBUG);
         JLog::add('Current Joomla version = ' . $this->actual_joomla_release, JLog::DEBUG);
@@ -123,12 +119,17 @@ class com_rsgallery2InstallerScript
             return false;
         }
 
-        JLog::add('After version compare', JLog::DEBUG);
+        JLog::add('After joomla version compare', JLog::DEBUG);
 
         if ($type == 'update')
         {
-
             JLog::add('-> pre update', JLog::DEBUG);
+			$this->oldRelease = $this->getVersionFromManifestParam();
+
+            $NextLine = 'Old/current component version (manifest cache) = ' . $this->oldRelease;
+            echo '<br/>' . $NextLine;
+            JLog::add($NextLine, JLog::DEBUG);
+
             $rel = $this->oldRelease . ' to ' . $this->newRelease;
 
             // Abort if the component being installed is older than the currently installed version
@@ -421,23 +422,57 @@ class com_rsgallery2InstallerScript
         echo '<p>' . JText::_('COM_RSGALLERY2_UNINSTALL_TEXT') . '</p>';
         JLog::add('exit uninstall', JLog::DEBUG);
     }
-
-    /*
-     * get a variable from the manifest file (actually, from the manifest cache).
-     */
-    /**
-     * @param $name
-     *
-     * @return mixed
-     */
-    function getManifestParam($name)
+	
+	function getVersionFromManifestParam ()
+	{
+		$oldRelease = '1.0.0.999';
+		
+		$this->oldManifestData = readRsg2ExtensionManifest ();
+		if ( ! empty ($this->oldManifestData['version'])) {
+			$oldRelease = $this->oldManifestData['version'];
+		}
+		
+		return $oldRelease;
+	}
+	
+    static function readRsg2ExtensionManifest ()
     {
-        $db = JFactory::getDbo();
-        $db->setQuery('SELECT manifest_cache FROM #__extensions WHERE name = "com_rsgallery2"');
-        $manifest = json_decode($db->loadResult(), true);
+        $manifest = [];
 
-        return $manifest[$name];
+        try
+        {
+            $db = Factory::getDbo();
+            $query = $db->getQuery(true)
+                ->select('manifest_cache')
+                ->from($db->quoteName('#__extensions'))
+                ->where($db->quoteName('name') . ' = ' . $db->quote('COM_RSGALLERY2'));
+            $db->setQuery($query);
+
+            $jsonStr = $db->loadResult();
+            // $result = $db->loadObjectList()
+
+            if ( ! empty ($jsonStr))
+            {
+                $manifest = json_decode($jsonStr, true);
+            }
+
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'readRsg2ExtensionManifest: Error executing query: "' . "" . '"' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = Factory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $manifest;
     }
+
+
+
+
 
     /*
      * sets parameter values in the component's row of the extension table
