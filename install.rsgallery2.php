@@ -74,12 +74,18 @@ class com_rsgallery2InstallerScript
     -------------------------------------------------------------------------*/
 
     /**
-     * @param $type
-     * @param $parent
-     *
-     * @return bool|void
+	 * Function called before extension installation/update/removal procedure commences
+	 *
+	 * @param   string            $type    The type of change (install, update or discover_install, not uninstall)
+	 * @param   InstallerAdapter  $parent  The class calling this method
+	 *
+	 * @return  boolean  True on success
+	 *
+	 * @since  1.0.0
+	 *
+	 * @throws Exception
      */
-    function preflight($type, $parent)
+    public function preflight($type, $parent)
     {
         JLog::add('preflight: ' . $type, JLog::DEBUG);
 
@@ -413,12 +419,12 @@ class com_rsgallery2InstallerScript
         echo '<p>' . JText::_('COM_RSGALLERY2_UNINSTALL_TEXT') . '</p>';
         JLog::add('exit uninstall', JLog::DEBUG);
     }
-
+	
 	function getVersionFromManifestParam ()
 	{
 		$oldRelease = '1.0.0.999';
 		
-		$this->oldManifestData = readRsg2ExtensionManifest ();
+		$this->oldManifestData = $this->readRsg2ExtensionManifest ();
 		if ( ! empty ($this->oldManifestData['version'])) {
 			$oldRelease = $this->oldManifestData['version'];
 		}
@@ -432,7 +438,7 @@ class com_rsgallery2InstallerScript
 
         try
         {
-            $db = Factory::getDbo();
+            $db = JFactory::getDbo();
             $query = $db->getQuery(true)
                 ->select('manifest_cache')
                 ->from($db->quoteName('#__extensions'))
@@ -454,7 +460,7 @@ class com_rsgallery2InstallerScript
             $OutTxt .= 'readRsg2ExtensionManifest: Error executing query: "' . "" . '"' . '<br>';
             $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-            $app = Factory::getApplication();
+            $app = JFactory::getApplication();
             $app->enqueueMessage($OutTxt, 'error');
         }
 
