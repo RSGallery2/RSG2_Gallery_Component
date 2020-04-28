@@ -1492,7 +1492,7 @@ FRONTEND
 
 ---------------- 1.11.3 alpha -- svn 280 -- 2006-06-29 ------------------
 
-2006-06-29 Danil Tulp
+2006-06-29 Daniel Tulp
  * secured rsgallery2.html.php against possible execution of arbitrary code.
 
 2006-06-16 Jonah Braun

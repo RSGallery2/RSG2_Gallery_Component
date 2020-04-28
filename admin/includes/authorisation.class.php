@@ -391,7 +391,7 @@ class rsgAuthorisation
 	{
 		$user = JFactory::getUser();
 
-		// Brute force method: get all gallery rows for the component and check each one
+		// B.rute f.orce method: get all gallery rows for the component and check each one
 		$db    = JFactory::getDBO();
 		$query = $db->getQuery(true);
 		$query->select("id, uid");

@@ -260,7 +260,7 @@ class Rsgallery2ModelMaintImageFiles extends JModelList
 					//$msg .= $pathFileName . ":" . $filePermission . ":" . $mode . ", ";
 					$count += 1;
 				}
-}
+			}
 		}
 
 		// $msg .= '<br>count:' . $count;
