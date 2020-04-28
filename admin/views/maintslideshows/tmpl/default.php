@@ -1,7 +1,7 @@
 <?php
 /**
  * @package       RSGallery2
- * @copyright (C) 2003-2019 RSGallery2 Team
+ * @copyright (C) 2003-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * RSGallery is Free Software
  */
@@ -12,7 +12,6 @@ $doc = JFactory::getDocument();
 $doc->addscript(JUri::root() . '/administrator/components/com_rsgallery2/views/maintslideshows/js/maintslideshows.js');
 
 JHtml::_('bootstrap.tooltip');
-//JHtml::_('jquery.framework', false);
 
 global $Rsg2DebugActive;
 

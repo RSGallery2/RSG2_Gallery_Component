@@ -7,7 +7,7 @@ defined('_JEXEC') or die;
  * abstract parent class for xml templates
  *
  * @package RSGallery2
- * @copyright (C) 2003 - 2019 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  * @author  Jonah Braun <Jonah@WhaleHosting.ca>

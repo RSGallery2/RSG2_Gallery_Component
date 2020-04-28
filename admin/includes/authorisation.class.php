@@ -4,7 +4,7 @@
  *
  * @version       $Id$
  * @package       RSGallery2
- * @copyright (C) 2005-2019 RSGallery2 Team
+ * @copyright (C) 2005-2020 RSGallery2 Team
  * @license       GNU General Public License version 2 or later; see LICENSE.txt
  *                RSGallery2 is Free Software
  */
@@ -391,7 +391,7 @@ class rsgAuthorisation
 	{
 		$user = JFactory::getUser();
 
-		// B.rute f.orce method: get all gallery rows for the component and check each one
+		// Brute force method: get all gallery rows for the component and check each one
 		$db    = JFactory::getDBO();
 		$query = $db->getQuery(true);
 		$query->select("id, uid");

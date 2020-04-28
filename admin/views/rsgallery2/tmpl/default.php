@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2019 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -285,8 +285,8 @@ $doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/css
 					<div class="row-fluid">
 						<div class="span4 clsInfoAccordion">
 							<?php
-                            echo JHtml::_('bootstrap.startAccordion', 'slide-example1', array('active' => 'slide1'));
-							echo JHtml::_('bootstrap.addSlide', 'slide-example1', JText::_('COM_RSGALLERY2_GALLERIES'), 'slide1');
+                            echo JHtml::_('bootstrap.startAccordion', 'slide-example', array('active' => 'slide1'));
+							echo JHtml::_('bootstrap.addSlide', 'slide-example', JText::_('COM_RSGALLERY2_GALLERIES'), 'slide1');
 
 							// Info about last uploaded galleries
 							DisplayInfoGalleries($this->LastGalleries);

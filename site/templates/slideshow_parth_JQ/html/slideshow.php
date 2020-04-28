@@ -2,7 +2,7 @@
 /**
  * @version       $Id $
  * @package       RSGallery2
- * @copyright (C) 2003 - 2019 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();

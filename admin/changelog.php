@@ -3,7 +3,7 @@
  * Changelog for RSGallery2
  *
  * @package       RSGallery2
- * @copyright (C) 2003-2019 RSGallery2 Team
+ * @copyright (C) 2003-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  **/
@@ -1492,7 +1492,7 @@ FRONTEND
 
 ---------------- 1.11.3 alpha -- svn 280 -- 2006-06-29 ------------------
 
-2006-06-29 Dani� Tulp
+2006-06-29 Danil Tulp
  * secured rsgallery2.html.php against possible execution of arbitrary code.
 
 2006-06-16 Jonah Braun
@@ -1537,7 +1537,7 @@ FRONTEND
 2006-05-04 Jonah Braun
  ^ streamlined install routine.  upgrades are now done without asking.
 
-2006-04-28 Dani� Tulp
+2006-04-28 Daniel Tulp
  + Itemid variable added, Itemid of component is now used throughout the gallery
 
 2006-04-20 Jonah Braun

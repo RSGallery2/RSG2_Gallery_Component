@@ -2,7 +2,7 @@
 /**
  * @version       $Id$
  * @package       RSGallery2
- * @copyright (C) 2003 - 2019 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
@@ -53,7 +53,7 @@ class rsgDisplay_slideshow_description extends rsgDisplay
 			$html[] = '    <h3>' . $item->title . '</h3>';
 			$html[] = '    <p>' . $item->descr . '</p>';
 			$html[] = '    <a href="#">';
-			$html[] = '    <img src="' . $display->url() . '" alt="' . $display->url() . '">';
+			$html[] = '    <img src="' . $display->url() . '" alt="' . $display->url() . '"></img>';
 			$html[] = '    </a>';
 			$html[] = '';
 			$html[] = '</div>';

@@ -2,7 +2,7 @@
 /**
  * @version       $Id: instance.class.php 1088 2012-07-05 19:28:28Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2005-2019 RSGallery2 Team
+ * @copyright (C) 2005-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * RSGallery2 is Free Software
  */
@@ -63,8 +63,6 @@ class rsgInstance
 
 			// push current instance on stack
 			array_push($instanceStack, $GLOBALS['_RSGINSTANCE']);
-
-
 		}
 
 		$GLOBALS['_RSGINSTANCE'] = $newInstance;
@@ -126,7 +124,7 @@ class rsgInstance
 						xmlFile();
 						break;
 					case "downloadfile":
-
+						// Todo Fix: downloadFile (id) Id is missing
 						downloadFile();
 						break;
 					default:
@@ -137,4 +135,5 @@ class rsgInstance
 				}
 		}
 	}
+
 }
