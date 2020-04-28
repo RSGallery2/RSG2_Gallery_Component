@@ -1,13 +1,14 @@
 <?php
 /**
- * This file handles the initialization required for core functionality.
- * It loads all necessary RSG2 libraries
- *
- * @version       $Id: init.rsgallery2.php 1083 2012-06-17 13:03:38Z mirjam $
  * @package       RSGallery2
+ *
  * @copyright (C) 2003-2019 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
+ *
+ * This file handles the initialization required for core functionality.
+ * It loads all necessary RSG2 libraries
+ *
  */
 defined('_JEXEC') or die();
 

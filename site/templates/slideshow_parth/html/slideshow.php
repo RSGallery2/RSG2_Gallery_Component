@@ -179,7 +179,7 @@ if (True)
 //--- Gallery images --------------------------------------
 
 echo '    <div class="rsg2-clr"></div>';
-echo '    <div id="myGallery<?php echo $this->gid; ?>" class="myGallery">';
+echo '    <div id="myGallery' . $this->gid . '" class="myGallery">';
 echo          $this->slides;
 echo '    </div><!-- end myGallery -->';
 
