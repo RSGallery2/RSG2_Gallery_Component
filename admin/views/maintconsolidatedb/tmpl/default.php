@@ -1,7 +1,7 @@
 <?php
 /**
  * @package       RSGallery2
- * @copyright (C) 2003-2018 RSGallery2 Team
+ * @copyright (C) 2003-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * RSGallery is Free Software
  */
@@ -520,7 +520,7 @@ function DisplayImageDataTable($ImageReferences, $form)
 			$html[] = '       <div class="img_border">';
 			//$html[] =         '11';
 			$html[] = '       <img  class="img_thumb" alt="' . $ImageData->imageName . '" '
-				. 'name="image" src="' . JUri::root(true) . $ImageData->imagePath . '">';
+				. 'name="image" src="' . JUri::root(false) . $ImageData->imagePath . '">';
 			$html[] = '       </div>';
 			$html[] = '   </td>';
 		}

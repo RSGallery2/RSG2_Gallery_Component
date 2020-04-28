@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -129,8 +129,12 @@ class Rsgallery2ViewConfig extends JViewLegacy
 		// Assign the Data
 		// $this->form = $form;
 
+		//--- tool  bar -------------------------
+
 		// different toolbar on different layouts
 		$this->addToolbar($Layout);
+
+		//--- side  bar -------------------------
 
         $View = JFactory::getApplication()->input->get('view');
         RSG2_SidebarLinks::addItems($View, $Layout);
@@ -162,6 +166,24 @@ class Rsgallery2ViewConfig extends JViewLegacy
 	*/
 	protected function addToolbar($Layout = 'default')
 	{
+		global $Rsg2DevelopActive;
+
+		// on develop show open tasks if existing
+		if (!empty ($Rsg2DevelopActive))
+		{
+			echo '<span style="color:red">'
+				. '* rename save in controller as it is used by Raw <br>'
+				. '*  Add root gallery section<br>'
+				. '* Config -> update gallery selection preselect last used gallery ? show combo opened for n entries <br>'
+				. '* Config -> update gallery selection preselect latest gallery  (User input ...) <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+				. '</span><br><br>';
+		}
+
 		switch ($Layout)
 		{
 			case 'RawView':
@@ -204,6 +226,7 @@ class Rsgallery2ViewConfig extends JViewLegacy
 				JToolBarHelper::apply('config.apply');
 				JToolBarHelper::save('config.save');
 				JToolBarHelper::cancel('config.cancel');
+
 				break;
 		}
 	}

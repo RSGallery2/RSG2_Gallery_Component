@@ -277,20 +277,19 @@ define("TAG_BRIGHTNESS", "0x9203");; //Brightness
 //--------------------------------
 /** error Description  */
 /**
-  1 - File does not exists!
-  2 -
-  3 - Filename not provided
-
-  10 - too many padding bytes
-  11 - "invalid marker"
-  12 - Premature end of file?
-
-
-  51 - "Illegal subdirectory link"
-  52 - "NOT EXIF FORMAT"
-  53 - "Invalid Exif alignment marker.\n"
-  54 - "Invalid Exif start (1)"
-
+ * 1 - File does not exists!
+ * 2 -
+ * 3 - Filename not provided
+ *
+ * 10 - too many padding bytes
+ * 11 - "invalid marker"
+ * 12 - Premature end of file?
+ *
+ *
+ * 51 - "Illegal subdirectory link"
+ * 52 - "NOT EXIF FORMAT"
+ * 53 - "Invalid Exif alignment marker.\n"
+ * 54 - "Invalid Exif start (1)"
  */
 
 /**

@@ -1,19 +1,19 @@
 <?php // no direct access
 /**
  * @package       RSGallery2
- * @copyright (C) 2003-2018 RSGallery2 Team
+ * @copyright (C) 2003-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * RSGallery is Free Software
  */
 
 defined('_JEXEC') or die;
 
-global $Rsg2DebugActive;
-// global $rsgConfig;
-
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.multiselect');
 JHtml::_('formbehavior.chosen', 'select');
+
+global $Rsg2DebugActive;
+// global $rsgConfig;
 
 $sortColumn    = $this->escape($this->state->get('list.ordering')); //Column
 $sortDirection = $this->escape($this->state->get('list.direction'));

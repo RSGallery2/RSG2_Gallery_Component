@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -84,6 +84,8 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	    $zipPathFileName = '';
 	    //$extractDir = '';
 
+	    JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 	    // Access check
         $canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
         if (!$canAdmin)
@@ -91,7 +93,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
             $msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
             $msgType = 'warning';
             // replace newlines with html line breaks.
-            str_replace('\n', '<br>', $msg);
+            $msg = nl2br ($msg);
         }
         else
         {
@@ -238,6 +240,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 				            $baseName = basename($filePathName);
 
 				            // ToDo: use sub folder for each gallery and check within gallery
+							// Avoid double names
 				            // Each filename is only allowed once so create a new one if file already exist
 				            $useFileName = $modelDb->generateNewImageName($baseName, $galleryId);
 
@@ -404,13 +407,15 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	    // Prepare variables needed /created inside brackets {} for phpstorm code check
 	    $isHasError = false;
 
+	    JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
         // Access check
         $canAdmin = JFactory::getUser()->authorise('core.admin', 'com_rsgallery2');
         if (!$canAdmin) {
             $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
             $msgType = 'warning';
             // replace newlines with html line breaks.
-            str_replace('\n', '<br>', $msg);
+            $msg = nl2br ($msg);
         } else {
             try {
 	            //--- Retrieve data from submit form -------------------
@@ -885,7 +890,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 				}
 
 				// replace newlines with html line breaks.
-				//str_replace('\n', '<br>', $msg);
+				//$msg = nl2br ($msg);
 				echo new JResponseJson($ajaxImgDbObject, $msg, true);
 
 				$app->close();

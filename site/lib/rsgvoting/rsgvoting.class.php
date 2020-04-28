@@ -4,7 +4,7 @@
  *
  * @version       $Id: rsgvoting.class.php 1085 2012-06-24 13:44:29Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003 - 2018 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  */
@@ -112,7 +112,6 @@ class rsgVoting
 	 */
 	static function voteAllowed()
 	{
-		//$item_id	= JRequest::getInt('id');
 		$input   = JFactory::getApplication()->input;
 		$item_id = $input->get('id', 0, 'INT');
 		$gid     = galleryUtils::getCatIdFromFileId($item_id);

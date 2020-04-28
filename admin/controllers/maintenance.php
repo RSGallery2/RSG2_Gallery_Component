@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -46,7 +46,8 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 	}
 
     /**
-     *
+     * Move to maintenance main page on cancel
+     * May be issued from other sub forms like maintconsolidatedb
      *
      * @since 4.3
      */
@@ -138,11 +139,13 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 			if ($IsFileFound)
 			{
 				// $IsDeleted = true;
-				$msg = 'Found files: ' . $msg;
+				$msg = $title . '<br>';
+				'Found files: ' . $msg;
 			}
 			else
 			{
-				$msg .= 'Good: No files needed to be deleted: ';
+				$msg = $title . '<br>' . 'OK: No files needed to be deleted: ';
+				$IsDeleted = True;
 			}
 
 			JFactory::getApplication()->enqueueMessage($msg, 'notice');
@@ -162,6 +165,8 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 		$msg = "Repaired image permissions: <br>";
 		$msgType = 'notice';
 
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 		// Access check
 		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
 		if (!$canAdmin)
@@ -169,15 +174,26 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 			$msgType = 'warning';
 			// replace newlines with html line breaks.
-			str_replace('\n', '<br>', $msg);
+			$msg = nl2br ($msg);
 		}
 		else
 		{
-
 			//--- Delete all images -------------------------------
 
+			try
+			{
 			$imageModel = $this->getModel('MaintImageFiles');
 			$msg .= $imageModel->repairImagePermissions();
+		}
+			catch (RuntimeException $e)
+			{
+				$OutTxt = '';
+				$OutTxt .= 'Error executing repairImagePermissions: "' . '<br>';
+				$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+				$app = JFactory::getApplication();
+				$app->enqueueMessage($OutTxt, 'error');
+			}
 		}
 
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);

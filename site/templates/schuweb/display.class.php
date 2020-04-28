@@ -1,7 +1,7 @@
 <?php
 /**
  * @package       RSGallery2
- * @copyright (C) 2019 - 2019 RSGallery2
+ * @copyright (C) 2019 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
@@ -13,6 +13,8 @@ jimport('joomla.html.pagination');
  *
  * @package RSGallery2
  * @author rsgallery2 team. Main parts extracted from SchuWeb gallery author Sven Schultschik (https://github.com/svanschu/SchuWeb-Gallery) 
+ *
+ * @since 4.5.0.0
  */
 class rsgDisplay_schuweb extends rsgDisplay
 {
@@ -24,7 +26,7 @@ class rsgDisplay_schuweb extends rsgDisplay
 	 * Show main gallery page
 	 *
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 * @throws Exception
 	 */
 	public function showMainGalleries()
@@ -50,7 +52,7 @@ class rsgDisplay_schuweb extends rsgDisplay
 	 *
 	 * @return bool|JPagination
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 * @throws Exception
 	 */
 	public function navigationGallery ($gallery)
@@ -89,6 +91,7 @@ class rsgDisplay_schuweb extends rsgDisplay
 	 * Shows thumbnails for gallery
 	 *
 	 * @throws Exception
+	 * @since 4.5.0.0
 	 */
 	public function showThumbs()
 	{
@@ -101,7 +104,6 @@ class rsgDisplay_schuweb extends rsgDisplay
 		$itemCount = $this->gallery->itemCount();
 
 		$limit = $rsgConfig->get("display_thumbs_maxPerPage");
-		//$limitstart = JRequest::getInt( 'limitstart' );
 		$limitstart = $input->get('limitstart', 0, 'INT');
 
 		//instantiate page navigation

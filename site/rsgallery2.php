@@ -5,7 +5,7 @@
  * @package       RSGallery2
  *
  * @author        RSGallery2 team
- * @copyright (C) 2003 - 2018 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  * @link       www.rsgallery2.org
@@ -40,6 +40,7 @@ $isDebugSiteActive |= ! empty($bValue);
 $isDevelopSiteActive = $rsgConfig->get('developSite');
 $bValue = $input->get('developSite', 0, 'INT');
 $isDevelopSiteActive |= ! empty($bValue);
+/**/
 
 // Activate logging
 if ($isDebugSiteActive)
@@ -67,12 +68,15 @@ if ($isDebugSiteActive)
 	JLog::add('Start rsgallery2.php in site: debug active in RSGallery2'); //, JLog::DEBUG);
 }
 
+//--- input settings ------------------------------------------------
+
 $task = $input->get('task', '', 'CMD');
 //$option = strtolower($input->get('option', '', 'CMD'));
 //$catid = $input->get('catid', null, 'INT');
 
 $view = $input->get('view', null, 'CMD');
 $layout = $input->get('layout', '', 'CMD');
+$rsgOption = $input->get('rsgOption', '', 'CMD');
 
 // List of id's (image, gallery ...
 // $cids = $input->get('cid', array(), 'ARRAY');
@@ -98,7 +102,7 @@ if ($isDebugSiteActive) {
 }
 
 
-// ToDO: Task and other vars
+// ToDo: Task and other vars
 
 
 // Use the old J25 files and tasks

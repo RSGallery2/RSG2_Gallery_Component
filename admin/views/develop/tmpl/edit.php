@@ -1,7 +1,7 @@
 <?php
 /**
  * @package       RSGallery2
- * @copyright (C) 2003-2018 RSGallery2 Team
+ * @copyright (C) 2003-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * RSGallery is Free Software
  */
@@ -13,7 +13,7 @@ global $Rsg2DebugActive;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
-// JHtml::_('behavior.tooltip');
+
 JHtml::_('bootstrap.tooltip');
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');

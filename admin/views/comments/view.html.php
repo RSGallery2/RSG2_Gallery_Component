@@ -1,7 +1,7 @@
 <?php
 /**
  * @package       RSGallery2
- * @copyright (C) 2003-2018 RSGallery2 Team
+ * @copyright (C) 2003-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * RSGallery is Free Software
  */
@@ -109,6 +109,24 @@ class Rsgallery2ViewComments extends JViewLegacy
 	*/
 	protected function addToolbar($Layout = 'default')
 	{
+		global $Rsg2DevelopActive;
+
+		// on develop show open tasks if existing
+		if (!empty ($Rsg2DevelopActive))
+		{
+			echo '<span style="color:red">'
+				. 'Tasks: <br>'
+				. '* $canChange, $canEdit, and  ...<br>'
+				. '* Search tools add image selection<br>'
+				. '* ??? Search tools add gallery selection<br>'
+				//. '* <br>'
+				//. '* <br>'
+				//. '* <br>'
+				. '</span><br><br>';
+		}
+		echo '<span style="color:red">Task: </span><br><br>';
+
+
 		switch ($Layout)
 		{
 			case 'comments_raw':

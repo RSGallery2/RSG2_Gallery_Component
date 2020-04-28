@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -58,6 +58,8 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 
 	    try
 	    {
+		    JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 		    // Access check
 		    $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
 		    if (!$canAdmin)
@@ -65,7 +67,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 			    $msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 			    $msgType = 'warning';
 			    // replace newlines with html line breaks.
-			    str_replace('\n', '<br>', $msg);
+			    $msg = nl2br ($msg);
 		    }
 		    else
 		    {
@@ -105,6 +107,8 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 
         try
         {
+	        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 	        // Access check
 	        $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
 	        if (!$canAdmin)
@@ -112,7 +116,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 		        $msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 		        $msgType = 'warning';
 		        // replace newlines with html line breaks.
-		        str_replace('\n', '<br>', $msg);
+		        $msg = nl2br ($msg);
 	        }
 	        else
 	        {
@@ -173,6 +177,8 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 
 	        // unset($ids[$i]);
 
+	        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 	        // Access check
 	        $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
 	        if (!$canAdmin)
@@ -180,7 +186,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 		        $msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 		        $msgType = 'warning';
 		        // replace newlines with html line breaks.
-		        str_replace('\n', '<br>', $msg);
+		        $msg = nl2br ($msg);
 	        }
 	        else
 	        {
@@ -285,6 +291,8 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 
 		try
 		{
+			JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 			// Access check
 			$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
 			if (!$canAdmin)
@@ -292,7 +300,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 				$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 				$msgType = 'warning';
 				// replace newlines with html line breaks.
-				str_replace('\n', '<br>', $msg);
+				$msg = nl2br ($msg);
 			}
 			else
 			{
@@ -394,6 +402,8 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 
 		try
 		{
+			JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 			// Access check
 			$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
 			if (!$canAdmin)
@@ -401,7 +411,7 @@ class Rsgallery2ControllerImagesProperties extends JControllerForm
 				$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 				$msgType = 'warning';
 				// replace newlines with html line breaks.
-				str_replace('\n', '<br>', $msg);
+				$msg = nl2br ($msg);
 			}
 			else
 			{

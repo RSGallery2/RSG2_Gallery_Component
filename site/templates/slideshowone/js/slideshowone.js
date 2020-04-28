@@ -14,10 +14,6 @@
  PerlScriptsJavaScripts.com: Free and commercial Perl and JavaScripts
  --------------------------------------------
  // ToDo: lightbox on click of image  (may be with own slideshow in big)
- // ToDo:
- // ToDo:
- // ToDo:
- // ToDo:
  */
 
 /*---------------------------------------------------

@@ -4,10 +4,10 @@
 	<version>2.0</version>
 	<creationDate>2011</creationDate>
 	<author>RSGallery2 Team</author>
+	<copyright>(c) 2005-2020 RSGallery2 Team</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>team@rsgallery2.org</authorEmail>
 	<authorUrl>http://www.rsgallery2.org</authorUrl>
-	<copyright>(c) 2005-2018 RSGallery2 Team</copyright>
-	<license>This component is released under the GNU/GPL License</license>
 	<description>COM_RSGALLERY2_SLIDESHOW_PARTH_DESC</description>
 	<files>
 		<folder>css</folder>

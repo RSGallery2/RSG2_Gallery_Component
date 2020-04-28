@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="3.1" type="rsgTemplate">
-	<name>schuweb</name>
+<extension type="template" 
+		   version="3.0" 
+           method="upgrade"
+		   client="site"
+>
+	<name>master example</name>
 	<version>1.0</version>
 	<creationDate>07.03.2019</creationDate>
-	<author>RSGallery2 Team / Schuweb creator</author>
+	<author>RSGallery2 Team</author>
+	<copyright>(c) 2019-2020 RSGallery2 Team</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>team@rsgallery2.org</authorEmail>
 	<authorUrl>http://www.rsgallery2.org</authorUrl>
-	<copyright>(c) 2019-2019 RSGallery2 Team</copyright>
-	<license>This component is released under the GNU/GPL License</license>
-	<description>Default slideshow that we have been shipping with for a while.</description>
+	<description>Example of using template parameters.</description>
 	<files>
 		<folder>html</folder>
 		<folder>css</folder>

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package       RSGallery2
- * @copyright (C) 2003 - 2018 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
@@ -26,7 +26,7 @@ class rsgDisplay_semantic extends rsgDisplay
 	 * Show main gallery page
 	 *
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 * @throws Exception
 	 */
 	public function showMainGalleries()
@@ -52,7 +52,7 @@ class rsgDisplay_semantic extends rsgDisplay
 	 *
 	 * @return bool|JPagination
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 * @throws Exception
 	 */
 	public function navigationRootGalleries ($gallery)
@@ -377,7 +377,6 @@ class rsgDisplay_semantic extends rsgDisplay
 	function showDisplayPageNav()
 	{//MK this is where the images are shown with limit=1
 		$gallery = rsgGalleryManager::get();
-		//$itemId = JRequest::getInt( 'id', 0 );
 		$input  = JFactory::getApplication()->input;
 		$itemId = $input->get('id', 0, 'INT');
 		if ($itemId != 0)
@@ -398,7 +397,6 @@ class rsgDisplay_semantic extends rsgDisplay
 			$itemIndex = $gallery->indexOfItem($itemId);
 			$router->setVar("limitstart", $itemIndex);
 			// Todo: 150130
-			// JRequest::setVar('limitstart', $itemIndex);
 			$input->set('limitstart', $itemIndex);
 		}
 
@@ -420,6 +418,9 @@ class rsgDisplay_semantic extends rsgDisplay
 	function showDisplayImageDetails()
 	{
 		global $rsgConfig;
+
+		$input = JFactory::getApplication()->input;
+		$selectTab = $input->get('tab', '', 'STRING');
 
 		$gallery = rsgGalleryManager::get();
 		$image    = $gallery->getItem();
@@ -587,7 +588,7 @@ class rsgDisplay_semantic extends rsgDisplay
 				{
 					// echo '                <p>' . JText::_('COM_RSGALLERY2_NO_EXIF_ITEM_SELECTED_') . '</p>';
 				}
-				echo '                <p>Howdy, I\'m in Section 4.</p>';
+				//echo '                <p>Howdy, I\'m in Section 4.</p>';
 				echo '            </div>';
 				echo '        </div>';
 			}
@@ -748,20 +749,6 @@ class rsgDisplay_semantic extends rsgDisplay
 		$html = [];
 
 
-		/**
-		$html[] = '<div class ="alert alert-info">';
-		$html[] = '</div>';
-		$html[] = '';
-		$html[] = '';
-		$html[] = '';
-		$html[] = '';
-		$html[] = '';
-		/**/
-		/**
-		$html[] = '<div class ="info">';
-		$html[] = '<caption>';
-		/**/
-
 		$html[] = '<div class="container span12">';
 
 		//--- Hits --------------------------------
@@ -797,15 +784,19 @@ class rsgDisplay_semantic extends rsgDisplay
 
 		return implode("\n", $html);
 	}
+//================================================================================================
+// htmlComments
+//================================================================================================
 
 	function htmlComments ($comments, $gid, $imageId)
 	{
-		// toDO improve ....
+		// toDo improve ....
 		// https://bootsnipp.com/snippets/Vp4P
 		// https://bootsnipp.com/snippets/featured/comment-posts-layout
 		// https://bootsnipp.com/snippets/featured/blog-post-footer
 		// sophisticated
 		// https://bootsnipp.com/snippets/featured/collapsible-tree-menu-with-accordion
+		// https://bootsnipp.com/snippets/a35Pl
 
 		$formFields = $comments->formFields;
 		$imgComments = $comments->comments;
@@ -835,25 +826,6 @@ class rsgDisplay_semantic extends rsgDisplay
 			// Comments existing
 
 			//--- add comment link bar -------------------------------------------------
-
-			/**
-			$html[] = '<div id="comment">';
-			$html[] = '    <table width="100%" class="comment_table">';
-			$html[] = '        <tr>';
-			//$html[] = '	           <td class="title" width="25%"' .  JText::_('COM_RSGALLERY2_COMMENTS') . '</td>';
-			//$html[] = '	           <td class="title" width="50%">' . JText::_('COM_RSGALLERY2_COMMENTS_ADDED') . '</td>';
-			$html[] = '	           <td class="title pull-right">';
-			//$html[] = '	               <div class="addcomment">';
-			$html[] = '    <i class="icon-comment"></i>';
-			$html[] = '	                   <a class="special" href="#lblAddCcomment">' . JText::_('COM_RSGALLERY2_ADD_COMMENT') . '</a>';
-			//$html[] = '	               </div>';
-			$html[] = '	           </td>';
-			$html[] = '	       </tr>';
-			$html[] = '    </table>';
-			$html[] = '    <br />';
-			$html[] = '</div>';
-			$html[] = '';
-			/**/
 
 			$html[] = '<div id="comment" class="title pull-right">';
 
@@ -1080,7 +1052,7 @@ class rsgDisplay_semantic extends rsgDisplay
 	 * @param $images
 	 *
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 */
 	public function AssignImageRatingData($images)
 	{
@@ -1137,7 +1109,7 @@ class rsgDisplay_semantic extends rsgDisplay
 	 * @param $images
 	 *
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 */
 	public function AssignImageComments($images)
 	{
@@ -1148,6 +1120,7 @@ class rsgDisplay_semantic extends rsgDisplay
 		$xmlFile    = JPATH_SITE . '/components/com_rsgallery2/models/forms/comment.xml';
 		$formFields = JForm::getInstance('comment', $xmlFile);
 
+		// toDO:add user name to "form" commentUserName
 		/**
 		$params = YireoHelper::toRegistry($this->item->params)->toArray();
 		$params_form = JForm::getInstance('params', $file);
@@ -1169,7 +1142,7 @@ class rsgDisplay_semantic extends rsgDisplay
 	 * @param $images
 	 *
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 */
 	public function AssignImageExifData($images)
 	{
@@ -1184,7 +1157,9 @@ class rsgDisplay_semantic extends rsgDisplay
 			// user requested EXIF tags
 			// $strExifTags = $rsgConfig->get('exifTags');
 			// $useExifTags = explode("|", $strExifTags);
-			$useExifTags = $rsgConfig->get('exifTags');
+			//$useExifTags = $rsgConfig->get('exifTags');
+			$useExifTags = explode("|", $rsgConfig->get('exifTags'));
+
 			if (is_array ($useExifTags))
 			{
 				$useExifTags = array_map('strtolower', $useExifTags);
@@ -1292,6 +1267,32 @@ class rsgDisplay_semantic extends rsgDisplay
 
 	}
 
+
+	private function  ExifValue2String ($exifKey, $exifValue)
+	{
+
+		try
+		{
+			switch ($exifKey)
+			{
+				case 'FileDateTime':  $exifValue = date("d-M-Y H:i:s", $exifValue); break;
+
+
+			}
+
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= ': Error executing ExifValue2String exifKey: ' . $exifKey . ' exifValue: ' . $exifValue . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return  $exifValue;
+	}
 
 
 

@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2018-2018 RSGallery2 Team
+ * @copyright   (C) 2018-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -28,7 +28,7 @@ if ($isDebugSiteActive) {
 /**
  * RSGgallery2 Controller
  *
- * @since version
+ * @since 4.5.0.0
  */
 class Rsgallery2Controller extends BaseController 
 {

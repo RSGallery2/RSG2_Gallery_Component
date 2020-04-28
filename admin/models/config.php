@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -100,25 +100,28 @@ class Rsgallery2ModelConfig extends JModelAdmin
      *
      * @since  4.3.0
      */
-	/** ToDo: function loadConfig hanldes old config: Assign to new config *
+	/** ToDo: function loadConfig handles old config: Assign to new config */
 	public function loadConfig()
 	{
 		$data = array();
 
-		$database = JFactory::getDBO();
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(true)
+			->select('*')
+			->from('#__rsgallery2_config');
+		$db->setQuery($query);
 
-		$query = "SELECT * FROM #__rsgallery2_config";
-		$database->setQuery($query);
-
-		if (!$database->execute())
+		/**
+		if (!$db->execute())
 		{
 			// database doesn't exist, use defaults
 			// for this->name = value association (see below)
 			// ToDo: ? May create database table write values and call itself
 			return;
 		}
+		/**/
 
-		$vars = $database->loadAssocList();
+		$vars = $db->loadAssocList();
 		if (!$vars)
 		{
 			// database doesn't exist, use defaults
@@ -252,6 +255,8 @@ class Rsgallery2ModelConfig extends JModelAdmin
 			$row = $this->getTable();
 			foreach ($data as $key => $value) #foreach ($input as $key => $value)
 			{
+				/*
+				 */
 				$row->id    = null;
 				$row->name  = $key;
 				$row->value = $value;

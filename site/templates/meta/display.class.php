@@ -4,10 +4,13 @@
  *
  * @version       $Id: display.class.php 1098 2012-07-31 11:54:19Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003 - 2018 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
+
+
+// ToDO: solution of b_Release_4_5_1 does look better
 
 // ToDo: Remove call of file helpers/parameter.php. actual needed for compatibility with 2.5
 jimport('joomla.filesystem.files');
@@ -81,7 +84,6 @@ class rsgDisplay extends JObject
 	{
 		global $rsgConfig;
 
-		//$page = JRequest::getCmd( 'page', '' );
 		$input = JFactory::getApplication()->input;
 		$page  = $input->get('page', '', 'CMD');
 		switch ($page)
@@ -90,15 +92,14 @@ class rsgDisplay extends JObject
 				$gallery = rsgGalleryManager::get();
 				if (!empty ($gallery))
 				{
-					//JRequest::setVar( 'rsgTemplate', $rsgConfig->get('current_slideshow'));
 					$input->set('rsgTemplate', $rsgConfig->get('current_slideshow'));
 
-					//@todo This bit is leftover from J!1.5: look into whether or not this can be removed and how.
+				//@todo This bit is leftover from J!1.5: look into whether or not this can be removed and how. remove first or second call to ::instance
 					rsgInstance::instance(array('rsgTemplate' => $rsgConfig->get('current_slideshow'), 'gid' => $gallery->id));
 				}
 				break;
 			case 'inline':
-				//@todo Methode inline not found in class rsgDisplay
+				// only semantic -> templates\semantic\display.class.php
 				$this->inline();
 				break;
 			case 'viewChangelog':
@@ -164,8 +165,6 @@ class rsgDisplay extends JObject
 	{
 		global $rsgConfig;
 
-		// $template = preg_replace( '#\W#', '', JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template') ));
-		// --> JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template') )
 		$input       = JFactory::getApplication()->input;
 		$PreTemplate = $input->get('rsgTemplate', $rsgConfig->get('template'), 'CMD');
 
@@ -174,7 +173,11 @@ class rsgDisplay extends JObject
 
 		$file = preg_replace('/[^A-Z0-9_\.-]/i', '', $file);
 
-		include $templateDir . '/' .  $file;
+		$includeName = $templateDir . '/' .  $file;
+		if (JFile::exists($includeName))
+		{
+			include $includeName;
+		}
 	}
 
 	/**
@@ -184,11 +187,9 @@ class rsgDisplay extends JObject
 	 */
 	function showRsgMyGalleryHeader()
 	{
-		// $rsgOption 	= JRequest::getCmd( 'rsgOption'  , '');
 		$input     = JFactory::getApplication()->input;
 		$rsgOption = $input->get('rsgOption', '', 'CMD');
 
-		//$gid 		= JRequest::getInt( 'gid', null);
 		$gid = $input->get('gid', null, 'INT');
 
 		if (!$rsgOption == 'mygalleries' AND !$gid)
@@ -228,8 +229,10 @@ class rsgDisplay extends JObject
 	 */
 	function showRSPathWay()
 	{
+		$app               = JFactory::getApplication();
+		$pathway   = $app->getPathway();
+
 		// Only show pathway if rsg2 is the component
-		//$option = JRequest::getCmd('option');
 		$input  = JFactory::getApplication()->input;
 		$option = $input->get('Option', '', 'CMD');
 		if ($option != 'com_rsgallery2')
@@ -240,9 +243,6 @@ class rsgDisplay extends JObject
 		//Check from where the path should be taken: if there is no gid in the 
 		// menu-link, it is the root, e.g. gid=0, if there is a gid that's the 
 		// start for this pathway
-
-		$app               = JFactory::getApplication();
-		$pathway   = $app->getPathway();
 
 		$theMenu           = $app->getMenu();
 		$theActiveMenuItem = $theMenu->getActive();
@@ -299,7 +299,6 @@ class rsgDisplay extends JObject
 		}
 
 		//Add image name to pathway if an image is displayed (page in URL is the string 'inline')
-		//$page = JRequest::getCmd( 'page', '' );
 		$page = $input->get('page', '', 'CMD');
 		if ($page == 'inline')
 		{
@@ -320,17 +319,11 @@ class rsgDisplay extends JObject
 
 		$input = JFactory::getApplication()->input;
 
-		//$option 	= JRequest::getCmd('option');
 		$option = $input->get('Option', '', 'CMD');
-		//$Itemid 	= JRequest::getInt('Itemid',Null);
 		$Itemid = $input->get('Itemid', null, 'INT');
-		//$gid 		= JRequest::getInt('gid',Null);
 		$gid = $input->get('gid', null, 'INT');
-		//$id 		= JRequest::getInt('id',Null);
 		$id = $input->get('id', null, 'INT');
-		//$limitstart = JRequest::getInt('limitstart',Null);
 		$limitstart = $input->get('limitstart', null, 'INT');
-		//$page		= JRequest::getCmd('page',Null);
 		$page = $input->get('page', '', 'CMD');
 
 		// Get the gid in the URL of the active menu item
@@ -739,7 +732,7 @@ class rsgDisplay extends JObject
 	 * @param $pagination
 	 *
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 */
 	function showNavLimitBox($pagination)
 	{

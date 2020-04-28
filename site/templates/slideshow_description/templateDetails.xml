@@ -2,12 +2,12 @@
 <extension version="3.1" type="rsgTemplate">
 	<name>Slideshow_Description</name>
 	<version>1.0</version>
-	<creationDate>2019</creationDate>
+	<creationDate>07.03.2019</creationDate>
 	<author>RSGallery2 Team</author>
+	<copyright>(c) 2019-2020 RSGallery2 Team</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>team@rsgallery2.org</authorEmail>
 	<authorUrl>http://www.rsgallery2.org</authorUrl>
-	<copyright>(c) 2019-2019 RSGallery2 Team</copyright>
-	<license>This component is released under the GNU/GPL License</license>
 	<description>Has the image description on the side of the image</description>
 	<files>
 		<folder>html</folder>

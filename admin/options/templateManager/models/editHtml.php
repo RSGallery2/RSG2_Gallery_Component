@@ -2,7 +2,7 @@
 /**
  * @package        RSGallery2
  * @subpackage     TemplateManager
- * @copyright      Copyright (C) 2005-2018 RSGallery2 Team
+ * @copyright      (C) 2005-2020 RSGallery2 Team
  * @license        GNU/GPL, see LICENSE.php
  */
 
@@ -88,7 +88,7 @@ class InstallerModelEditHtml extends InstallerModel
 	function save()
 	{
 
-		$app = &JFactory::getApplication();
+		$app = JFactory::getApplication();
 
 		// Set FTP credentials, if given
 		jimport('joomla.client.helper');

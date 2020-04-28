@@ -2,7 +2,7 @@
 /**
  * @version       $Id: display.class.php 1085 2012-06-24 13:44:29Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003 - 2018 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
@@ -72,7 +72,6 @@ class rsgDisplay_slideshow_parth extends rsgDisplay
 			$search[]    = '</p>';
 			$replace     = ' ';
 			$item->descr = str_replace($search, $replace, $item->descr);
-			//$openImageLink = 'index.php?option=com_rsgallery2&page=inline&Itemid='.JRequest::getInt('Itemid').'&id='.$item->id;
 			$input         = JFactory::getApplication()->input;
 			$itemId        = $input->get('Itemid', null, 'INT');
 			$openImageLink = 'index.php?option=com_rsgallery2&page=inline&Itemid=' . $itemId . '&id=' . $item->id;

@@ -1,14 +1,14 @@
 <?php
 /**
  * @package       RSGallery2
- * @copyright (C) 2003-2018 RSGallery2 Team
+ * @copyright (C) 2003-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * RSGallery is Free Software
  */
 
 defined('_JEXEC') or die();
 
-// JHtml::_('behavior.tooltip');
+
 JHtml::_('bootstrap.tooltip');
 // ToDo: Activate tooltips on every button
 
@@ -49,6 +49,7 @@ $doc->addScriptDeclaration($script);
 /**
  * Used to generate buttons
  *
+ * ToDo: Deprecated : remove when old J2.5 functions are not supported any more
  * @param string $link  URL for button link
  * @param string $image Image name for button image
  * @param string $title Command title

@@ -4,7 +4,7 @@
  *
  * @version       $Id: images.php 1085 2012-06-24 13:44:29Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003-2018 RSGallery2 Team
+ * @copyright (C) 2003-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  */
@@ -734,7 +734,7 @@ function cancelImage($option)
  *
  * @param string $option
  *
- * @since version
+ * @since 4.5.0.0
  *
  * @deprecated Old 1.5 code
  * @since 4.3.0

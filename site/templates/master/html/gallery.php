@@ -2,7 +2,7 @@
 /**
  * @version       $Id $
  * @package       RSGallery2
- * @copyright (C) 2019 - 2019 RSGallery2
+ * @copyright (C) 2019 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
@@ -21,9 +21,6 @@ $this->showSearchBox();
 
 /**
 
-// JHtml::_('behavior.framework', true);  // ToDo: Remove mootools
-
-global $mainframe;
 
 JHtml::_('jquery.ui');
 //JHtml::_('jquery.ui', array('core', 'sortable'));

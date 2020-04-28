@@ -2,13 +2,12 @@
 /**
  * @version       $Id $
  * @package       RSGallery2
- * @copyright (C) 2003 - 2018 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
 defined('_JEXEC') or die();
 
-//JHtml::_('behavior.framework', true);  // load mootools ToDo: Remove mootools
 JHtml::_('jquery.framework'); // load jquery
 //JHtml::_('jquery.ui'); // load jquery ui from Joomla
 //$this->document->addScript(JURI::root(true).'/components/com_mycomponent/assets/jquery.ui.slider.min.js'); // load *same version* widget code from jQuery UI archive
@@ -134,19 +133,23 @@ echo '	<form name="_slideShow">';
 echo '		<input type="Hidden" name="currSlide" value="0">';
 echo '		<input type="Hidden" name="delay">';
 
-echo '		<div id="myGallery<?php echo $this->gid; ?>" class="PlayerContainer">';
+echo '		<div id="myGallery' . $this->gid . '" class="PlayerContainer">';
 
 			if ($this->isDisplayButtons && $this->isButtonsAbove)
 			{
+				// echo '		test 01';
 				echo displayButtons();
 			}
+//echo '		test 02';
             echo '<img name="stage" class="PlayerImage" src="' . $firstImage->url() . '" style="filter: revealtrans(); font-size:12px;">';
+//echo '		test 03';
 
             if ($this->isDisplayButtons && ! $this->isButtonsAbove)
 			{
+				// echo '		test 04';
 				echo displayButtons ();
 			}
-			?>
+
 echo '	</div>';
 
 echo '	<div style="visibility:hidden;">';

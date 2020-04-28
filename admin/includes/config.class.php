@@ -4,7 +4,7 @@
  *
  * @version       $Id: config.class.php 1088 2012-07-05 19:28:28Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003-2018 RSGallery2 Team
+ * @copyright (C) 2003-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *
  * @since 1.0
@@ -158,7 +158,7 @@ class rsgConfig
     /**
      * Returns state of config variable if the latest gallery shall be preselected for upload
      * @var int
-     * @since version
+     * @since 4.5.0.0
      */
     var $isUseOneGalleryNameForAllImages = 1;
     var $isPreSelectLatestGallery = 0;
@@ -286,12 +286,12 @@ class rsgConfig
     function _loadConfig()
     {
         $db = JFactory::getDBO();
-        $query = $db->getQuery(true);
+	    $query = $db->getQuery(true)
+		    ->select('*')
+		    ->from('#__rsgallery2_config');
+	    $db->setQuery($query);
 
-        $query = "SELECT * FROM #__rsgallery2_config";
-        $db->setQuery($query);
-        // ToDO: FIX: Use standard query ...
-        //$query->select('*')
+/**
         //    ->from($db->quoteName('#__rsgallery2_config'));
         if (!$db->execute()) {
             // database doesn't exist, use defaults
@@ -299,6 +299,7 @@ class rsgConfig
             // ToDo: ? May create database table write values and call itself
             return;
         }
+		/**/
 
         $vars = $db->loadAssocList();
         if (!$vars) {
@@ -396,6 +397,18 @@ class rsgConfig
     {
         $this->$varName = $value;
     }
+
+    /* 2019 only on 'not' public variables
+	function __get($varName)
+	{
+		return $this->$varName;
+	}
+
+	function __set($varName, $value)
+	{
+		$this->$varName = $value;
+	}
+    /**/
 
     /**
      * @param string $varName name of variable

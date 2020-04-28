@@ -2,7 +2,7 @@
 /**
  * @package         RSGallery2
  * @subpackage      com_rsgallery2
- * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license         http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author          finnern
  * RSGallery is Free Software
@@ -122,7 +122,7 @@ class Rsg2TemplateParameter
 	 *
 	 * @return mixed
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 * @throws Exception
 	 */
 	function extractFormFieldParameters ($formFields)
@@ -188,6 +188,8 @@ class Rsg2TemplateParameter
 		{
 			//--- read XML of file ---------------------------------------
 
+			if (JFile::exists($xmlFile))
+			{
 			$xml = simplexml_load_file($xmlFile);
 			if (!empty($xml))
 			{
@@ -198,6 +200,7 @@ class Rsg2TemplateParameter
 					$formFields = $xml;
 				}
 			}
+		}
 		}
 		catch (RuntimeException $e)
 		{

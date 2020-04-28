@@ -2,7 +2,7 @@
 /**
  * @version       1.0
  * @package       RSGallery2 slideshoe_FiTh
- * @copyright (C) 2019 - 2019 RSGallery2
+ * @copyright (C) 2019 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
@@ -96,9 +96,9 @@ $firstImage = $firstImage->display();
 
 		<div class="slideshow_fith_content">
 			<h3>
-				<div style="text-align:center;font-size:24px;">
+				<span style="text-align:center;font-size:24px;">
 					<?php echo $this->galleryname; ?>
-				</div>
+				</span>
 			</h3>
 			<div class="rsg2-clr"></div>
 			<div id="myGallery<?php echo $this->gid; ?>" class="myGallery">

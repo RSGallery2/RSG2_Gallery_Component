@@ -1,7 +1,7 @@
 <?php
 /**
  * @package       RSGallery2
- * @copyright (C) 2019 - 2019 RSGallery2
+ * @copyright (C) 2019 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
@@ -22,7 +22,7 @@ class rsgDisplay_schuweb extends rsgDisplay
 	 * Show main gallery page
 	 *
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 * @throws Exception
 	 */
 	public function showMainGalleries()
@@ -47,7 +47,7 @@ class rsgDisplay_schuweb extends rsgDisplay
 	 *
 	 * @return bool|JPagination
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 * @throws Exception
 	 */
 	public function navigation ($gallery)
@@ -96,7 +96,6 @@ class rsgDisplay_schuweb extends rsgDisplay
 		$itemCount = $this->gallery->itemCount();
 
 		$limit = $rsgConfig->get("display_thumbs_maxPerPage");
-		//$limitstart = JRequest::getInt( 'limitstart' );
 		$input      = JFactory::getApplication()->input;
 		$limitstart = $input->get('limitstart', 0, 'INT');
 

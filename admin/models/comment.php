@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -59,9 +59,9 @@ class Rsgallery2ModelComment extends JModelAdmin
 	/**
 	 * Method to get the data that should be injected in the form.
 	 *
-	 * @return      mixed   The data for the form.
-     *
+	 * @return array|bool|JObject|mixed
 	 * @since       4.3.0
+	 * @throws Exception
 	 */
 	protected function loadFormData()
 	{

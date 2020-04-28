@@ -21,4 +21,5 @@ style="display:none;"
 	<use xlink:href="#shape" x="10" y="10" />
 	<use xlink:href="#shape" x="80" y="10" class="purple" />
 </svg>
-</svg>
+
+		</body>

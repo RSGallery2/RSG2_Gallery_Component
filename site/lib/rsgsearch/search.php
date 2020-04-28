@@ -4,7 +4,7 @@
  *
  * @version       xxx
  * @package       RSGallery2
- * @copyright (C) 2003 - 2018 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  */
@@ -16,9 +16,7 @@ global $rsgOptions_path, $input;
 require_once(JPATH_RSGALLERY2_SITE . '/lib/rsgsearch/search.html.php');
 
 $input = JFactory::getApplication()->input;
-//$cid = JRequest::getVar( 'cid' , array(), 'default', 'array' );
 $cid = $input->get('cid', array(), 'ARRAY');
-//$task = JRequest::getCmd( 'task', null);
 $task = $input->get('task', '', 'CMD');
 
 //Load stylesheet from current template
@@ -39,7 +37,6 @@ function showResults()
 	global $rsgOptions_path, $input;
 	$database = JFactory::getDBO();
 	//Retrieve search string
-	//$searchtext = JRequest::getVar( 'searchtext'  , '');
 	$searchtext = $input->get('searchtext', '', 'STRING');
 
 	//Check searchtext against database

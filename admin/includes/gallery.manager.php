@@ -4,7 +4,7 @@
  *
  * @version       $Id: gallery.manager.php 1085 2012-06-24 13:44:29Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2005-2018 RSGallery2 Team
+ * @copyright (C) 2005-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery2 is Free Software
  */
@@ -100,10 +100,10 @@ class rsgGalleryManager
 		if ($id === null)
 		{
 			$input = JFactory::getApplication()->input;
-			$id    = $input->get('catid', 0, 'INT');
+			// cat ID ??
+			//$id    = $input->get('catid', 0, 'INT');
 
 			$id = $input->get('gid', $id, 'INT');
-
 			if (!$id)
 			{
 				// check if an item id is set and if so return the gallery for that item id

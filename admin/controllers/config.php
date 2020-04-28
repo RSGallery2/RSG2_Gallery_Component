@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -90,21 +90,24 @@ class Rsgallery2ControllerConfig extends JControllerForm
         $msg = "apply_rawEdit: " . '<br>';
         $msgType = 'notice';
 
+	    JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
         // Access check
         $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
         if (!$canAdmin) {
             $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
             $msgType = 'warning';
             // replace newlines with html line breaks.
-            str_replace('\n', '<br>', $msg);
+			$msg = nl2br ($msg);
         } else {
             $model = $this->getModel('ConfigRaw');
-	        $isSaved = $model->save();
+            $msg .= $model->save();
 
         }
         $link = 'index.php?option=com_rsgallery2&view=config&layout=RawEdit';
         $this->setRedirect($link, $msg, $msgType);
     }
+
     /**
      * Save changes in raw edit view value by value
      *
@@ -117,16 +120,18 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		$msg     = "save_rawEdit: " . '<br>';
 		$msgType = 'notice';
 
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
         // Access check
         $canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
         if (!$canAdmin) {
             $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
             $msgType = 'warning';
             // replace newlines with html line breaks.
-            str_replace('\n', '<br>', $msg);
+			$msg = nl2br ($msg);
         } else {
             $model = $this->getModel('ConfigRaw');
-	        $isSaved = $model->save();
+            $msg .= $model->save();
         }
 
 		$link = 'index.php?option=com_rsgallery2&view=maintenance';
@@ -206,13 +211,15 @@ class Rsgallery2ControllerConfig extends JControllerForm
 		$msg     = "save_rawEdit: " . '<br>';
 		$msgType = 'notice';
 
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 		// Access check
 		$canAdmin = JFactory::getUser()->authorise('core.edit', 'com_rsgallery2');
 		if (!$canAdmin) {
 			$msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 			$msgType = 'warning';
 			// replace newlines with html line breaks.
-			str_replace('\n', '<br>', $msg);
+			$msg = nl2br ($msg);
 		} else {
 			$model = $this->getModel('ConfigRaw');
 			$isSaved = $model->save();

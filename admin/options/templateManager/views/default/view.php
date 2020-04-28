@@ -3,7 +3,7 @@
  * @version        $Id: view.php 1011 2011-01-26 15:36:02Z mirjam $
  * @package        Joomla
  * @subpackage     Menus
- * @copyright      Copyright (C) 2005-2018 RSGallery2 Team
+ * @copyright      (C) 2005-2020 RSGallery2 Team
  * @license        GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -72,7 +72,7 @@ class InstallerViewDefault extends JViewLegacy
 		$this->showMessage = $showMessage;
 		$this->state       = $state;
 
-		JHtml::_('behavior.tooltip');
+		JHtml::_('bootstrap.tooltip');
 		parent::display($tpl);
 	}
 

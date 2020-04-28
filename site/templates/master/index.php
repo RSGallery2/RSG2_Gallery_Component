@@ -3,7 +3,7 @@
  * Prep for slideshow
  *
  * @package       RSGallery2
- * @copyright (C) 2019 - 2019 RSGallery2
+ * @copyright (C) 2019 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  */
@@ -19,7 +19,8 @@ This is built to imitate the Joomla 1.5.* style of templating.  Hopefully that i
 defined('_JEXEC') or die();
 
 //Load Tooltips
-JHtml::_('behavior.tooltip');
+//JHtml::_('behavior.tooltip');
+JHtml::_('bootstrap.tooltip');
 
 //include page navigation
 jimport('joomla.html.pagination');//J!1.5

@@ -77,6 +77,23 @@ class RSGallery2ModelGalleries extends JModelList
         /**/
     }
 
+	/**
+	 * Method to get a table object, load it if necessary.
+	 *
+	 * @param   string  $type    The table name. Optional.
+	 * @param   string  $prefix  The class prefix. Optional.
+	 * @param   array   $config  Configuration array for model. Optional.
+	 *
+	 * @return  JTable  A JTable object
+	 *
+	 * @since   1.6
+	 */
+	public function getTable($type = 'Gallery', $prefix = 'Rsgallery2Table', $config = array())
+	{
+		return JTable::getInstance($type, $prefix, $config);
+	}
+ 	
+	
     protected function getListQuery()
     {
         /**/
@@ -101,7 +118,7 @@ class RSGallery2ModelGalleries extends JModelList
      *
      * @return  mixed  An array of objects on success, false on failure.
      *
-     * @since   1.6
+     * @since 4.5.0.0
      */
     public function getItems()
     {
@@ -141,7 +158,8 @@ class RSGallery2ModelGalleries extends JModelList
     /**
      * collects all data needed for displaying the root gallery on front page
      * 2018.01.01 Actually it supports the old 'legacy' view data
-     * @since version
+	 
+     * @since 4.5.0.0
      */
     public function getRootGalleryData()
     {
@@ -191,7 +209,7 @@ class RSGallery2ModelGalleries extends JModelList
      * @param $images
      *
      *
-     * @since version
+     * @since 4.5.0.0
      */
     public function AssignThumbUrls ($galleries)
     {
@@ -237,7 +255,7 @@ class RSGallery2ModelGalleries extends JModelList
      * @param $images
      *
      *
-     * @since version
+     * @since 4.5.0.0
      */
     public function AssignImageCount ($galleries)
     {
@@ -350,7 +368,7 @@ class RSGallery2ModelGalleries extends JModelList
      * @param $images
      *
      *
-     * @since version
+     * @since 4.5.0.0
      */
     public function AssignHasNewImages ($galleries)
     {
@@ -422,7 +440,7 @@ class RSGallery2ModelGalleries extends JModelList
      * @param $images
      *
      *
-     * @since version
+     * @since 4.5.0.0
      */
     public function AssignOwners ($galleries)
     {
@@ -538,7 +556,7 @@ class RSGallery2ModelGalleries extends JModelList
 	 * @param $galleries
 	 *
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 */
 	public function AddGalleryExtraData($galleries)
 	{

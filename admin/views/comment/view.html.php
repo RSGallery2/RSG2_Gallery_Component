@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -43,13 +43,13 @@ class Rsgallery2ViewComment extends JViewLegacy
 	*/
 	public function display($tpl = null)
 	{
+		global $rsgConfig;
+
 		//--- get needed form data ------------------------------------------
 
 		// Check rights of user
 		$this->UserIsRoot = $this->CheckUserIsRoot();
-
-		global $rsgConfig;
-		$this->rsgConfigData = $rsgConfig;
+//		$this->rsgConfigData = $rsgConfig;
 
 		$this->form  = $this->get('Form');
 		$this->item  = $this->get('Item');
@@ -104,8 +104,18 @@ class Rsgallery2ViewComment extends JViewLegacy
 		// on develop show open tasks if existing
 		if (!empty ($Rsg2DevelopActive))
 		{
-			echo '<span style="color:red">Task: </span><br><br>';
+			echo '<span style="color:red">'
+			. 'Tasks: <br>'
+//				. '* show image big as modal on  click<br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+			. '</span><br><br>';
 		}
+
 
 		switch ($Layout)
 		{

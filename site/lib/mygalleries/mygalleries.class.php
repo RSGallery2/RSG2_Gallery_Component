@@ -4,7 +4,7 @@
  *
  * @version       $Id: mygalleries.class.php 1085 2012-06-24 13:44:29Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003 - 2018 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  */
@@ -201,11 +201,9 @@ class myGalleries
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="option" value="com_rsgallery2" />
 			<!--input type="hidden" name="rsgOption" value="< ? php
-				// echo JRequest::getCmd('rsgOption');
 			?>" / -->
 			<input type="hidden" name="rsgOption" value="<?php echo JFactory::getApplication()->input->get('rsgOption', '', 'CMD'); ?>" />
 			<!--input type="hidden" name="Itemid" value="< ?php
-				// echo JRequest::getInt('Itemid');
 			?>" /-->
 			<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get('Itemid', 0, 'INT'); ?>" />
 			<?php echo JHtml::_('form.token'); ?>
@@ -338,7 +336,6 @@ class myGalleries
 	static function showMyGalleries($rows)
 	{
 		$database = JFactory::getDBO();
-		//$Itemid = JRequest::getInt('Itemid');
 		$input  = JFactory::getApplication()->input;
 		$Itemid = $input->get('Itemid', 0, 'INT');
 		//Set variables
@@ -539,13 +536,9 @@ class myGalleries
 		//JHtml::_('behavior.tooltip');
 		JHtml::_('bootstrap.tooltip');
 		$input = JFactory::getApplication()->input;
-		//$option = JRequest::getCmd('option');
 		$option = $input->get('option', '', 'CMD');
-		//$rsgOption = JRequest::getCmd('rsgOption');
 		$rsgOption = $input->get('rsgOption', null, 'CMD');
-		//$Itemid = JRequest::getInt('Itemid');
 		$Itemid = $input->get('Itemid', 0, 'INT');
-		//$limit = JRequest::getInt('limit');
 		$limit  = $input->get('limit', 0, 'INT');
 		$user   = JFactory::getUser();
 		$userId = $user->id;
@@ -879,11 +872,9 @@ class myGalleries
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="option" value="com_rsgallery2" />
 			<!-- input type="hidden" name="Itemid" value="<?php
-			// echo JRequest::getInt('Itemid');
 			?>" / -->
 			<input type="hidden" name="Itemid" value="<?php echo JFactory::getApplication()->input->get('Itemid', 0, 'INT'); ?>" />
 			<!-- input type="hidden" name="rsgOption" value="<?php
-			// echo JRequest::getCmd('rsgOption');
 			?>" / -->
 			<input type="hidden" name="rsgOption" value="<?php echo JFactory::getApplication()->input->get('rsgOption', '', 'CMD'); ?>" />
 

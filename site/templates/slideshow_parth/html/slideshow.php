@@ -2,7 +2,7 @@
 /**
  * @version       $Id $
  * @package       RSGallery2
- * @copyright (C) 2003 - 2018 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
@@ -183,7 +183,7 @@ if (True)
 //--- Gallery images --------------------------------------
 
 echo '    <div class="rsg2-clr"></div>';
-echo '    <div id="myGallery<?php echo $this->gid; ?>" class="myGallery">';
+echo '    <div id="myGallery' . $this->gid . '" class="myGallery">';
 echo          $this->slides;
 echo '    </div><!-- end myGallery -->';
 

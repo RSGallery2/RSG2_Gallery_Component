@@ -2,7 +2,7 @@
 /**
  * @version       $Id: instance.class.php 1088 2012-07-05 19:28:28Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2005-2018 RSGallery2 Team
+ * @copyright (C) 2005-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * RSGallery2 is Free Software
  */
@@ -22,14 +22,14 @@ $GLOBALS['_RSGINSTANCE'] = null;
  * @author  Jonah Braun <Jonah@WhaleHosting.ca>
  */
 class rsgInstance
-{//as of v2.1.0 SVN 975 no longer extending JRequest
-
+{
 	/**
 	 * Creates a new RSG2 instance and executes it.
 	 *
 	 * @static
 	 *
-	 * @param string $newInstance  What parameters to use for the new instance.  Your options are:
+	 * @param string $newInstance  What parameters to use for the new instance.
+	 *                             Your options are:
 	 *                             'request'    Use the request array (default).
 	 * @param bool   $showTemplate show a template or not.
 	 *

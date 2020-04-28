@@ -108,7 +108,7 @@ class RSGallery2ControllerComment extends BaseController
 
 // ToDo: captcha ? ...
 
-// check cooky comment once
+// check cookie comment once
 
 					$commentModel = $this->getModel('comments');
 					$isSaved      = $commentModel->addComment($imageId, $comment);
@@ -170,7 +170,7 @@ class RSGallery2ControllerComment extends BaseController
 			$msg     = $msg . JText::_('JERROR_ALERTNOAUTHOR');
 			$msgType = 'warning';
 			// replace newlines with html line breaks.
-			str_replace('\n', '<br>', $msg);
+			$msg = nl2br ($msg);
 		}
 		else
 		{

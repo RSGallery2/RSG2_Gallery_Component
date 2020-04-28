@@ -4,7 +4,7 @@
  *
  * @version       $Id: rsgcomments.class.php 1096 2012-07-31 11:27:31Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003 - 2018 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery2 is Free Software
  */

@@ -4,7 +4,7 @@
  *
  * @version       $Id: admin.rsgallery2.html.php 1090 2012-07-09 18:52:20Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003-2018 RSGallery2 Team
+ * @copyright (C) 2003-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * RSGallery is Free Software
  */
@@ -37,7 +37,7 @@ class HTML_RSGALLERY
 static function printAdminMsg($msg, $important = false)
 {
 	// replace newlines with html line breaks.
-	str_replace('\n', '<br>', $msg);
+	$msg = nl2br ($msg);
 
 	if ($important)
 	{

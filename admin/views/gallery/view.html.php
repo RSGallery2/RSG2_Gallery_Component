@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -43,12 +43,6 @@ class Rsgallery2ViewGallery extends JViewLegacy
 	{
 		global $Rsg2DevelopActive;
 
-		// on develop show open tasks if existing
-		if (!empty ($Rsg2DevelopActive))
-		{
-			// echo '<span style="color:red">Task: </span><br><br>';
-		}
-
 		//--- get needed form data ------------------------------------------
 
 		// Check rights of user
@@ -67,9 +61,13 @@ class Rsgallery2ViewGallery extends JViewLegacy
 		// Assign the Data
 		// $this->form = $form;
 
+		//--- tool  bar -------------------------
+
 		// different toolbar on different layouts
 		$Layout = JFactory::getApplication()->input->get('layout');
 		$this->addToolbar($Layout);
+
+		//--- side  bar -------------------------
 
         $View = JFactory::getApplication()->input->get('view');
         RSG2_SidebarLinks::addItems($View, $Layout);
@@ -102,6 +100,25 @@ class Rsgallery2ViewGallery extends JViewLegacy
 	*/
 	protected function addToolbar($Layout = 'default')
 	{
+		global $Rsg2DevelopActive;
+
+		// on develop show open tasks if existing
+		if (!empty ($Rsg2DevelopActive))
+		{
+			echo '<span style="color:red">'
+				. 'Tasks: <br>'
+				. '* Activate field parameters again -> Merge Jregistry in site ...<br>'
+				. '* Enable modal selection of thumbs ... <br>'
+				. '* Show selected gallery thumbnail (different separate control)'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+				. '</span><br><br>';
+		}
+
 		switch ($Layout)
 		{
 			case 'edit':

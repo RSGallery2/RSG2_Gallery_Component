@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2017-2018 RSGallery2 Team
+ * @copyright   (C) 2017-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -16,7 +16,6 @@ global $rsgConfig;
 $item = $this->currentItem;
 
 //$templatePath = JURI_SITE . "components/com_rsgallery2/templates/". 
-//	JRequest::getCmd( 'rsgTemplate', $rsgConfig->get('template'));
 $input       = JFactory::getApplication()->input;
 $PreTemplate = $input->get('rsgTemplate', $rsgConfig->get('template'), 'CMD');
 

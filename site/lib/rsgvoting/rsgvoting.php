@@ -4,7 +4,7 @@
  *
  * @version       $Id: rsgvoting.php 1085 2012-06-24 13:44:29Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003 - 2018 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  */
@@ -14,11 +14,8 @@ require_once(JPATH_RSGALLERY2_SITE . '/lib' . '/rsgvoting' . '/rsgvoting.class.p
 
 $input = JFactory::getApplication()->input;
 // 140503 $cid not used ?
-//$cid   = JRequest::getInt('cid', array(0) );
 $cid = $input->get('cid', 0, 'INT');
-//$task  = JRequest::getCmd('task', '' );
 $task = $input->get('task', '', 'CMD');
-//$id    = JRequest::getInt('id','' );
 $id = $input->get('id', 0, 'INT');
 
 switch ($task)
@@ -50,11 +47,8 @@ function saveVote($option)
 	$database  = JFactory::getDBO();
 	$my        = JFactory::getUser();
 	$input     = JFactory::getApplication()->input;
-	//$Itemid 	= JRequest::getInt('Itemid', '');	
 	$Itemid = $input->get('Itemid', 0, 'INT');
-	//$rating 	= JRequest::getInt('rating', '');
 	$rating = $input->get('rating', 0, 'INT');
-	//$id 		= JRequest::getInt('id', '');
 	$id   = $input->get('id', 0, 'INT');
 	$vote = new rsgVoting();
 
@@ -64,7 +58,7 @@ function saveVote($option)
 		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", false), JText::_('COM_RSGALLERY2_YOU_ARE_NOT_AUTHORIZED_TO_VOTE'));
 	}
 
-	//Check if user has already voted for this image
+	// Check if user has already voted for this image
 	if ($vote->alreadyVoted((int) $id))
 	{
 		$mainframe->redirect(JRoute::_("index.php?option=com_rsgallery2&Itemid=$Itemid&page=inline&id=$id", false), JText::_('COM_RSGALLERY2_YOU_ALREADY_VOTED_FOR_THIS_ITEM'));

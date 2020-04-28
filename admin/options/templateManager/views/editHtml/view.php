@@ -3,7 +3,7 @@
  * @version        $Id: view.php 1011 2011-01-26 15:36:02Z mirjam $
  * @package        RSGallery2
  * @subpackage     Template installer
- * @copyright      Copyright (C) 2005-2018 RSGallery2 Team
+ * @copyright      (C) 2005-2020 RSGallery2 Team
  * @license        GNU/GPL, see LICENSE.php
  */
 
@@ -41,7 +41,6 @@ class InstallerViewEditHtml extends InstallerViewDefault
 		JToolBarHelper::cancel('cancelHTML');
 		JToolBarHelper::help('screen.installerSelectCss');
 
-		// JRequest::setVar( 'hidemainmenu', 1 );
 		$app   = JFactory::getApplication();
 		$input = $app->input;
 		$input->set('hidemainmenu', 1);

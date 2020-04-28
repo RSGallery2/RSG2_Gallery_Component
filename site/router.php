@@ -2,7 +2,7 @@
 /**
  * @version        $Id: router.php 1085 2012-06-24 13:44:29Z mirjam $
  * @package        RSGallery2
- * @copyright      Copyright (C) 2005 - 2018 RSGallery2
+ * @copyright      (C) 2005 - 2020 RSGallery2
  * @license        GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -11,15 +11,40 @@
  * See COPYRIGHT.php for copyright notices and details.
  */
 
-/*	- 	Advanced SEF logic at the bottom of this file
-   -	Not advanced SEF logic:
-	   If gid, and it’s not part of a menulink: add ‘gallery’ (category was used <= v2.1.1) and add gid number
-	   If id then add ‘item’ and id number
-	   If start then add ‘itemPage’ and limitstart value - 1
-	   If page then add ‘as’ concatenated with page value
+/*
+- 	Advanced SEF logic at the bottom of this file
+
+-	Not advanced SEF logic:
+	* gid => gallery = gid value
+	* id =>  item = id value
+	* page -> as . upperCaseFirst (page)
+	* limitstartg => categoryPage = limitstartg value  (gallery paging)
+	* start => itemPage  = start value (image paging)
+	* catid (old) -> transforms to gid (see above), deprecated
+
+-	Advanced SEF logic:
+
+  * rsgOption -> no further changes to URL
+  * task == downloadfile -> no further changes to URL
+  * gid -> gid value "-" gallery alias
+    - page != inline -> remove gid
+  * page ->
+    - slideshow -> no further changes to URL
+      (gid-galleryname was already added) leave page in URL
+    - inline + (image) id
+      ->  gid value "-" gallery alias
+      ->  id value "-" image alias
+    - inline + gid ->
+      ->  (Start image) id value "-" image alias
+
+
+	ToDo: ? use language translation for gallery image ... ?
+    ToDo: New Joomla Router (allowing to register views into your system.)
+
+
  */
 
-// ToDO: class and support of SEF for J3! https://docs.joomla.org/J3.x:Supporting_SEF_URLs_in_your_component
+// ToDo: class and support of SEF for J3! https://docs.joomla.org/J3.x:Supporting_SEF_URLs_in_your_component
 
 defined('_JEXEC') or die;
 
@@ -43,6 +68,10 @@ function Rsgallery2BuildRoute(&$query)
 	//Now define non-advanced SEF as v2 way and advanced SEF as v3 way
 	if ($advancedSef == true)
 	{
+		//-------------------------------------------------------------------------------
+		//  advanced SEF
+		//-------------------------------------------------------------------------------
+
 		//Find gid from menu --> $menuGid (can be an independent function)
 		$app  = JFactory::getApplication();
 		$menu = $app->getMenu();
@@ -62,6 +91,7 @@ function Rsgallery2BuildRoute(&$query)
 			//do not SEFify (return now)
 			return $segments;
 		}
+
 		//if $task = downloadfile
 		if (isset($query['task']) AND ($query['task'] == 'downloadfile'))
 		{
@@ -91,6 +121,7 @@ function Rsgallery2BuildRoute(&$query)
 				}
 			} //else nothing to do
 		}
+
 		if (isset($query['page']))
 		{
 			switch ($query['page'])
@@ -101,15 +132,17 @@ function Rsgallery2BuildRoute(&$query)
 				case 'inline':
 					//remove page from URL
 					unset($query['page']);
+
 					if (isset($query['id']))
 					{
-						//find gid-galleryname based on id
+						// find gallery id based on image id
 						$gid = Rsgallery2GetGalleryIdFromItemId($query['id']);
 						if ($gid != $menuGid)
 						{
 							//add gid-galleryname based on found $gid (not query gid)
 							$segments[] = $gid . '-' . Rsgallery2GetGalleryName($gid);
 						}
+
 						//add id-itemname based on id
 						$segments[] = ($query['id']) . '-' . Rsgallery2GetItemName($query['id']);
 						//remove id from URL
@@ -134,7 +167,11 @@ function Rsgallery2BuildRoute(&$query)
 		}
 	}
 	else
-	{//not advancedSEF
+	{
+		//-------------------------------------------------------------------------------
+		//  not advancedSEF
+		//-------------------------------------------------------------------------------
+
 		// static $items;
 
 		//Find gid from menu --> $menuGid (can be an independent function)
@@ -440,7 +477,7 @@ function Rsgallery2GetItemId($itemName)
 }
 
 /**
- * Get an item alias based on its id
+ * Get an item (image) alias based on its id
  *
  * @param int $id Numeral id of the item
  *
@@ -452,7 +489,7 @@ function Rsgallery2GetItemName($id)
 	// Get config values
 	global $rsgConfig;
 
-	// Getch the item alias from the database if advanced sef is active,
+	// Get the item alias from the database if advanced sef is active,
 	// else return the numerical value	
 	if ($rsgConfig->get("advancedSef") == true)
 	{
@@ -481,7 +518,7 @@ function Rsgallery2GetItemName($id)
 }
 
 /**
- * Get the gallery id (gid) based on the id of an item
+ * Get the gallery id (gid) based on the id of an item (image)
  *
  * @param int $id Numeral id of the item
  *
@@ -522,6 +559,7 @@ function Rsgallery2GetGalleryIdFromItemId($id)
 			//...non unique id in table, should never happen
 			$msg = JText::_('COM_RSGALLERY2_SHOULD_NEVER_HAPPEN');
 		}
+
 		$app = JFactory::getApplication();
 		JFactory::getLanguage()->load("com_rsgallery2");
 		$app->redirect("index.php", $msg);
@@ -588,7 +626,7 @@ function Rsgallery2InitConfig()
 	/** 2018.09.02 
 	global $rsgConfig, $rsgVersion;
 
-	if ($rsgConfig == null)
+	if (empty ($rsgConfig))
 	{
 		if (!defined('JPATH_RSGALLERY2_ADMIN'))
 		{
@@ -606,7 +644,7 @@ function Rsgallery2InitConfig()
 }
 /**/
 
-/*	SEF logic and info (before RSG2 4.5
+/*	SEF logic and info (before RSG2 4.5)
 ==> All links have option and Itemid for the menu-item
 ==> Then we have
 	view	only in menulink: discard for now with only 1 view --> remove view from URL
@@ -619,6 +657,7 @@ function Rsgallery2InitConfig()
 			page=inline, needed to show item --> remove page from URL
 	limitstart	only in combination with gid --> see gid on what to do
 	task	task=downloadfile --> do not SEFify
+
 ==> Logic to SEFify link:
 	//Find task, view, gid, page, id from query
 	//Find gid from menu

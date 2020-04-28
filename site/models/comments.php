@@ -34,7 +34,7 @@ class RSGallery2ModelComments extends JModelList
 	 * @return bool
 	 *
 	 * @throws Exception
-	 * @since version
+	 * @since 4.5.0.0
 	 */
 	public function addComment($imageId, $comment)
 	{
@@ -67,7 +67,7 @@ class RSGallery2ModelComments extends JModelList
 	 *
 	 * @return bool
 	 *
-	 * @since version
+	 * @since 4.5.0.0
 	 */
 	public function saveComment($imageId, $comment)
 	{
@@ -138,7 +138,7 @@ class RSGallery2ModelComments extends JModelList
 	 * @return array|mixed
 	 *
 	 * @throws Exception
-	 * @since version
+	 * @since 4.5.0.0
 	 */
 	public function getImageComments ($imageId)
 	{
@@ -180,7 +180,7 @@ class RSGallery2ModelComments extends JModelList
 	 *
 	 *
 	 * @throws Exception
-	 * @since version
+	 * @since 4.5.0.0
 	 */
 	public function SetUserHasCommented ($imageId)
 	{
@@ -206,7 +206,7 @@ class RSGallery2ModelComments extends JModelList
 	 * @param int $imageId ID of item to vote on
 	 *
 	 * @throws Exception
-	 * @since version
+	 * @since 4.5.0.0
 	 * @return int 0 or user rating
 	 */
 	public function isUserHasCommented($imageId)

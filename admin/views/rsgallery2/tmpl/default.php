@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -10,7 +10,7 @@
 
 defined('_JEXEC') or die();
 
-// JHtml::_('behavior.tooltip');
+
 JHtml::_('bootstrap.tooltip');
 //JHTML::_('behavior.modal');
 
@@ -165,7 +165,7 @@ function DisplayInfoRsgallery2($Rsg2Version)
 	echo '            <td>';
 	echo '                <a href="' . JRoute::_('index.php?option=com_rsgallery2&view=rsgallery2&layout=ChangeLog') . '"';
 	echo '                   title="' . JText::_('COM_RSGALLERY2_VIEW_CHANGE_LOG') . '""';
-	echo '                   class="modal">' . $Rsg2Version . '</span></a>';
+	echo '                   class="modal">' . $Rsg2Version . '</a>';
 	echo '            </td>';
 	echo '        </tr>';
 	/**/

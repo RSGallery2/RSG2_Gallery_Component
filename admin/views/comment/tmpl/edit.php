@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -10,12 +10,12 @@
 
 defined('_JEXEC') or die();
 
-// JHtml::_('behavior.tooltip');
-JHtml::_('bootstrap.tooltip');
-
 global $Rsg2DebugActive;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+
+
+JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.formvalidator');
 //JHtml::_('behavior.keepalive'); 
 //JHtml::_('formbehavior.chosen', 'select');

@@ -2,7 +2,7 @@
 /**
  * @package        RSGallery2
  * @subpackage     TemplateManager
- * @copyright      Copyright (C) 2005-2018 RSGallery2 Team
+ * @copyright      (C) 2005-2020 RSGallery2 Team
  * @license        GNU/GPL, see LICENSE.php
  */
 
@@ -120,7 +120,7 @@ class InstallerModelTemplate extends InstallerModel
 
 		global $rsgConfig;
 
-		$app = &JFactory::getApplication();
+		$app = JFactory::getApplication();
 
 		if (!$this->template)
 		{

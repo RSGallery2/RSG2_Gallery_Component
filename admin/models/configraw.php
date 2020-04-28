@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -13,6 +13,9 @@ defined('_JEXEC') or die;
 // import Joomla modelform library
 jimport('joomla.application.component.modeladmin');
 jimport('joomla.application.component.helper');
+
+
+// ToDo: don't return message, return successful/error
 
 /**
  * Handle RAW display of configuration

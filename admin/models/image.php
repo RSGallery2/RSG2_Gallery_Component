@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -13,7 +13,17 @@ defined('_JEXEC') or die;
 use Joomla\Utilities\ArrayHelper;
 use Joomla\String\StringHelper;
 
+global $Rsg2DebugActive;
+
+if ($Rsg2DebugActive)
+{
+	// Include the JLog class.
+	jimport('joomla.log.log');
+
+}
+
 /**
+ * Class Rsgallery2ModelImage
  * Single image model
  * Db functions
  *
@@ -314,7 +324,6 @@ class Rsgallery2ModelImage extends JModelAdmin
 		// Create unique alias and title
 		list($title, $alias) = $this->generateNewTitle(null, $item->alias, $item->title);
 		$item->title = $title;
-		$item->title = $title;
 		$item->alias = $alias;
 
 		//--- date -------------------------------------------
@@ -398,6 +407,7 @@ class Rsgallery2ModelImage extends JModelAdmin
 		}
 		else
 		{
+			// ToDo: check: generateNewImageName may be already done
 			$item->title = $this->generateNewImageName($fileName);
 		}
 		$item->alias = $item->title;

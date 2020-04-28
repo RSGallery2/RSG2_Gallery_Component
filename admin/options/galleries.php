@@ -4,7 +4,7 @@
  *
  * @version       $Id: galleries.php 1084 2012-06-17 15:25:18Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003-2018 RSGallery2 Team
+ * @copyright (C) 2003-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  */
@@ -88,7 +88,7 @@ switch ($task)
      */
 function show()
 {
-	global $mosConfig_list_limit;    //Todo: $app = &JFactory::getApplication();$limit = $app->getCfg('list_limit'); replaces $mosConfig_list_limit
+	global $mosConfig_list_limit;    //Todo: $app = JFactory::getApplication();$limit = $app->getCfg('list_limit'); replaces $mosConfig_list_limit
 	global $Rsg2DebugActive;
 
 	if ($Rsg2DebugActive)

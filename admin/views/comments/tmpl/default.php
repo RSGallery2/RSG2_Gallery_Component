@@ -1,7 +1,7 @@
 <?php // no direct access
 /**
  * @package       RSGallery2
- * @copyright (C) 2003-2018 RSGallery2 Team
+ * @copyright (C) 2003-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * RSGallery is Free Software
  */
@@ -15,9 +15,6 @@ JHtml::_('formbehavior.chosen', 'select');
 global $Rsg2DebugActive;
 
 // public static $extension = 'COM_RSG2';
-
-//$doc = JFactory::getDocument();
-//$doc->addStyleSheet (JURI::root(true) . '/administrator/components/com_rsgallery2/css/Maintenance.css');
 
 $sortColumn    = $this->escape($this->state->get('list.ordering')); //Column
 $sortDirection = $this->escape($this->state->get('list.direction'));

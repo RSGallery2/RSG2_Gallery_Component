@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -13,7 +13,6 @@ defined('_JEXEC') or die;
 jimport('joomla.html.html.bootstrap');
 jimport('joomla.application.component.view');
 
-//require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/RSGallery2.php';
 require_once JPATH_COMPONENT_ADMINISTRATOR . '/includes/sidebarLinks.php';
 
 /**
@@ -70,7 +69,7 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 
         $View = JFactory::getApplication()->input->get('view');
         RSG2_SidebarLinks::addItems($View, $Layout);
-//        RSGallery2Helper::addSubmenu('rsgallery2');
+
         $this->sidebar = JHtmlSidebar::render();
 
 		parent::display($tpl);
@@ -99,7 +98,17 @@ class Rsgallery2ViewMaintenance extends JViewLegacy
 		// on develop show open tasks if existing
 		if (!empty ($Rsg2DevelopActive))
 		{
-			echo '<span style="color:red">Task: repair -> box: Check for left over upload files <br>  ==> finish comments list, add consolidate gallery database -> orphans without parents</span><br><br>';
+			echo '<span style="color:red">'
+				. '* Repair: remove for left over upload files  <br>'
+				. '* finish comments list<br>'
+				. '* add consolidate gallery database -> orphans(is child)  without parents<br>'
+				. '* JSession::checkToken not working. Test with reset config to default <br>'
+				. '* Repair wrong filenames -> view <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+//				. '*  <br>'
+				. '</span><br><br>';
 		}
 
 		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MAINTENANCE'), 'screwdriver'); // 'maintenance');

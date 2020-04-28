@@ -4,7 +4,7 @@
  *
  * @version       $Id: admin.rsgallery2.php 1085 2012-06-24 13:44:29Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003-2018 RSGallery2 Team
+ * @copyright (C) 2003-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  */
@@ -56,7 +56,12 @@ if ($Rsg2DebugActive)
 
     // start logging...
     JLog::add('--------------------------------------------------------'); //, JLog::DEBUG);
-    JLog::add('Start rsgallery2.php in admin: debug active in RSGallery2'); //, JLog::DEBUG);
+    JLog::add('Start rsgallery2.php in admin'); //, JLog::DEBUG);
+	JLog::add('    : debug active'); //, JLog::DEBUG);
+	if ( ! empty ($Rsg2DevelopActive))
+	{
+		JLog::add('    : develop active '); //, JLog::DEBUG);
+	}
 }
 
 //--- Config tests -----------------------------------------------------------

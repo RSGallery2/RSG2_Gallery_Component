@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -19,7 +19,7 @@ JModelLegacy::addIncludePath(JPATH_COMPONENT . '/models');
 /**
  * View of list of image discrepancies (missing images, Missing DB entries on images ...)
  *
- * @since 4.3.0
+ * @since 4.4.2
  */
 class Rsgallery2ViewMaintSlideshows extends JViewLegacy
 {

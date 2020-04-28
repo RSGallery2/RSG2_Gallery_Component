@@ -3,7 +3,7 @@
  * This file contains the main template file for RSGallery2.
  *
  * @package       RSGallery2
- * @copyright (C) 2003 - 2018 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  */
@@ -12,14 +12,15 @@
 
 ATTENTION!
 
-This is built to imitate the Joomla 1.5.* style of templating.  Hopeful that info is enlightening.
+This is built to imitate the Joomla 1.5.* style of templating.  
 
  **/
 
 defined('_JEXEC') or die();
 
 //Load Tooltips
-JHtml::_('behavior.tooltip');
+//JHtml::_('behavior.tooltip');
+JHtml::_('bootstrap.tooltip');
 
 //include page navigation
 jimport('joomla.html.pagination');//J!1.5
@@ -57,7 +58,6 @@ if (file_exists ($use_css))
 
 // ToDo: only when search is active
 $doc->addStyleSheet(JURI_SITE . "/components/com_rsgallery2/lib/rsgsearch/rsgsearch.css");
-
 
 ?>
 

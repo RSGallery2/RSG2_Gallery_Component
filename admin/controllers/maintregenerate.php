@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -21,6 +21,8 @@ if ($Rsg2DebugActive)
 	JLog::add('==> ctrl.maintRegenerate.php ');
 }
 
+// ToDo: Remove following / Make own resize function
+// rewrite to not use old J1,5 code....
 require_once(JPATH_RSGALLERY2_ADMIN . '/includes/img.utils.php');
 
 jimport('joomla.application.component.controlleradmin');
@@ -135,6 +137,8 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 		{
 			JLog::add('==> ctrl.maintenance.php/function RegenerateImagesDisplay');
 		}
+
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		//--- Check credits ----------------------------------------------
 		if (!$this->IsUserRoot())
@@ -272,6 +276,8 @@ class Rsgallery2ControllerMaintRegenerate extends JControllerAdmin
 		{
 			JLog::add('==> ctrl.maintenance.php/RegenerateImagesThumb');
 		}
+
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		//--- Check credits ----------------------------------------------
 		if (!$this->IsUserRoot())
