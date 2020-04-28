@@ -424,7 +424,7 @@ class com_rsgallery2InstallerScript
 	{
 		$oldRelease = '1.0.0.999';
 		
-		$this->oldManifestData = readRsg2ExtensionManifest ();
+		$this->oldManifestData = $this->readRsg2ExtensionManifest ();
 		if ( ! empty ($this->oldManifestData['version'])) {
 			$oldRelease = $this->oldManifestData['version'];
 		}
@@ -438,7 +438,7 @@ class com_rsgallery2InstallerScript
 
         try
         {
-            $db = Factory::getDbo();
+            $db = JFactory::getDbo();
             $query = $db->getQuery(true)
                 ->select('manifest_cache')
                 ->from($db->quoteName('#__extensions'))
@@ -460,7 +460,7 @@ class com_rsgallery2InstallerScript
             $OutTxt .= 'readRsg2ExtensionManifest: Error executing query: "' . "" . '"' . '<br>';
             $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
-            $app = Factory::getApplication();
+            $app = JFactory::getApplication();
             $app->enqueueMessage($OutTxt, 'error');
         }
 
