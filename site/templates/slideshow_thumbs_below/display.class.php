@@ -2,7 +2,7 @@
 /**
  * @version       $Id$
  * @package       RSGallery2
- * @copyright (C) 2003 - 2019 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
@@ -67,7 +67,7 @@ class rsgDisplay_slideshow_thumbs_below extends rsgDisplay
 
 			$htmlPanel[] = '<div class="panel" title="Panel ' . $k . '">';
 			$htmlPanel[] = '    <div class="wrapper">';
-			$htmlPanel[] = '        <img src="' . $display->url() . '" alt="' . $display->url() . '">';
+			$htmlPanel[] = '        <img src="' . $display->url() . '" alt="' . $display->url() . '"></img>';
 			$htmlPanel[] = '        <div  class="photo-meta-data">';
 			// $htmlPanel[] = '            <p>' . $item->descr . '</p>';
 			$htmlPanel[] = '            ' . $item->descr . '';

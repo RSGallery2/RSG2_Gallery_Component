@@ -2,7 +2,7 @@
 /**
  * @package         RSGallery2
  * @subpackage      com_rsgallery2
- * @copyright   (C) 2016-2019 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license         http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author          finnern
  * RSGallery is Free Software
@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.modeladmin');
 
 /**
- * support of maintenance slideshows handling
+ * Support to delete data or remove database tables for maintenance
  *
  * @since 4.4.2
  */

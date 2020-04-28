@@ -1,7 +1,7 @@
 <?php
 /**
  * @package       RSGallery2
- * @copyright (C) 2019 - 2019 RSGallery2
+ * @copyright (C) 2019 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
@@ -14,7 +14,7 @@ jimport('joomla.html.pagination');
  * @package RSGallery2
  * @author rsgallery2 team. Main parts extracted from SchuWeb gallery author Sven Schultschik (https://github.com/svanschu/SchuWeb-Gallery) 
  *
- * @since       version
+ * @since 4.5.0.0
  */
 class rsgDisplay_schuweb extends rsgDisplay
 {

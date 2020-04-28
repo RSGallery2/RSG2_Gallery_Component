@@ -4,7 +4,7 @@
  *
  * @version       $Id: gallery.manager.php 1085 2012-06-24 13:44:29Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2005-2019 RSGallery2 Team
+ * @copyright (C) 2005-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery2 is Free Software
  */
@@ -116,7 +116,8 @@ class rsgGalleryManager
 		}
 
 		$gallery = rsgGalleryManager::_get($id);
-
+		if (!empty ($gallery))
+		{
 		// Only show a gallery in the frontend if it's published and user has view access, 
 		// else only show it when user is owner (shows red H icon to show that the gallery is
 		// unpublished in the frontend) --> View Access Levels
@@ -135,6 +136,7 @@ class rsgGalleryManager
 					$mainframe->redirect("index.php");
 				}
 			}
+		}
 		}
 
 		//Add gallery to list to show
@@ -305,7 +307,8 @@ class rsgGalleryManager
 			{
 				if (count($row) == 0 && $gallery == 0)
 				{
-					// gallery is root, and it aint in the db, so we have to create it.
+					// gallery is root, and it ain't in the db, so we have to create it
+                    // with 'empty' data using Config->get("intro_text"),
 					return rsgGalleryManager::_getRootGallery();
 				}
 			}
@@ -319,10 +322,12 @@ class rsgGalleryManager
 
 	/**
 	 * return the top level gallery
-	 * this is a little interesting, because the top level gallery is a pseudo gallery, but we need to create some
+	 * this is a little interesting, because the top level
+     * gallery is a pseudo gallery, but we need to create some
 	 * useful values so that it can be used as a real gallery.
 	 *
-	 * @todo possibly have the top level gallery be a real gallery in the db.  this obviously needs to be discussed more.
+	 * @todo possibly have the top level gallery be a real
+     *  gallery in the db.  this obviously needs to be discussed more.
 	 * @todo are these good defaults?  not sure....
 	 * @return rsgGallery
 	 * @since 4.3.0

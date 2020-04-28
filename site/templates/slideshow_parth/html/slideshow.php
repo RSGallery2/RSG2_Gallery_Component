@@ -2,13 +2,17 @@
 /**
  * @version       $Id $
  * @package       RSGallery2
- * @copyright (C) 2003 - 2019 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
 
 JHtml::_('behavior.framework', true);  // load mootools ToDo: Remove mootools
 JHtml::_('jquery.framework'); // load jquery
+
+/* ToDo: checkout
+https://www.script-tutorials.com/creating-photo-albums-using-smoothgallery/
+*/
 
 global $rsgConfig;
 $doc = JFactory::getDocument();
@@ -26,11 +30,7 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
     $doc->addStyleSheet($css1);
     $css2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/template.css';
     $doc->addStyleSheet($css2);
-    $css1 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/user.css';
-    if(file_exists($css1))
-    {
-        $doc->addStyleSheet($css1);
-    }
+
     $js2 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/js/jd.gallery.js';
     $doc->addScript($js2);
     $js3 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/js/jd.gallery.transitions.js';
@@ -83,6 +83,12 @@ if (strpos(json_encode($script), 'startGalleries') === false) {
 
     $doc->addStyleDeclaration($style);
 
+	/* user has the last word ... */
+    $css3 = JURI::base() . 'components/com_rsgallery2/templates/slideshow_parth/css/user.css';
+    if(file_exists($css3))
+    {
+        $doc->addStyleSheet($css3);
+    }
     $javascript = '';
     {
         // Variable declaration

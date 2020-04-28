@@ -1,7 +1,7 @@
 <?php
 /*
 * @package RSGallery2
-* @copyright (C) 2005-2019 RSGallery2 Team
+* @copyright (C) 2005-2020 RSGallery2 Team
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * RSGallery2 is Free Software
 */
@@ -164,13 +164,17 @@ class JFormFieldGraficLibrarySelectList extends JFormFieldList
      */
 	private function ImageMagick_detect()
 	{
-		global $rsgConfig;
+		//global $rsgConfig;
 
 		$VersionId = '';
 
 		try
 		{
 			$status    = '';
+
+			//$app = JFactory::getApplication();
+			//$rsgConfig = $app->getParams();
+			$rsgConfig = JComponentHelper::getParams('com_rsgallery2');
 
 			// if path exists add the final /
 			$impath = $rsgConfig->get("imageMagick_path");

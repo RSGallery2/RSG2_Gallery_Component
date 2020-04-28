@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2019 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -35,6 +35,25 @@ ksort($configVars);
 	 */
 function configInputField($name = 'unknown', $value = '')
 {
+    try
+    {
+	    if (! is_string ($name))
+	    {
+		    $name = 'configInputField: Name is not a string';
+	    }
+
+	    if (! is_string ($value))
+	    {
+	        if (gettype($value) == 'array')
+            {
+	            $value = implode (',' , $value);
+            }
+            else
+            {
+	            $value = 'Value type is ' . gettype($value) . ' and not a string';
+            }
+	    }
+
 	?>
 
 	<div class="control-group">
@@ -64,6 +83,17 @@ function configInputField($name = 'unknown', $value = '')
 	</td>
 	*/
 }
+    catch (RuntimeException $e)
+    {
+	    $OutTxt = '';
+	    $OutTxt .= 'Error rawEdit view: "' . 'configInputField' . '"<br>';
+	    $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+	    $app = JFactory::getApplication();
+	    $app->enqueueMessage($OutTxt, 'error');
+    }
+
+}
 
 ?>
 
@@ -80,17 +110,33 @@ function configInputField($name = 'unknown', $value = '')
 			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=config&amp;layout=RawEdit'); ?>"
 					method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">
 
+				<legend><?php echo JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'); ?></legend>
+                <div><strong><?php echo JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'); ?></strong><br></div>
+
 				<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'ConfigRawView')); ?>
 
 				<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'ConfigRawView', JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT', true)); ?>
 
-				<legend><?php echo JText::_('COM_RSGALLERY2_CONFIG_MINUS_RAW_EDIT_TXT'); ?></legend>
 				<?php
+				try
+				{
+
 				/**/
 				foreach ($configVars as $name => $value)
 				{
 					configInputField($name, $value);
 				}
+				}
+                catch (RuntimeException $e)
+                {
+                    $OutTxt = '';
+                    $OutTxt .= 'Error rawEdit view: "' . 'configInputField' . '"<br>';
+                    $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+                    $app = JFactory::getApplication();
+                    $app->enqueueMessage($OutTxt, 'error');
+                }
+
 				?>
 
 				<?php echo JHtml::_('bootstrap.endTab'); ?>

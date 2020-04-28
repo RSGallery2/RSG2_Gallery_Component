@@ -4,7 +4,7 @@
  *
  * @version       $Id: rsgallery2.php 1019 2011-04-12 14:16:47Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003-2019 RSGallery2 Team
+ * @copyright (C) 2003-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  **/
 
@@ -28,7 +28,10 @@ class RSGallery2Helper // extends JHelperContent
      * @return    JObject
      * @since 4.3.0
      */
-    // ToDo: Warning: Declaration of RSGallery2Helper::getActions($galleryId = 0) should be compatible with JHelperContent::getActions($component = '', $section = '', $id = 0) in D:\xampp\htdocs\joomla3x\administrator\components\com_rsgallery2\helpers\rsgallery2.php on line 19
+	// ToDo: Warning: Declaration of RSGallery2Helper::getActions($galleryId = 0) 
+	// should be compatible with JHelperContent::getActions($component = '', 
+	//      $section = '', $id = 0) 
+	// in D:\xampp\htdocs\joomla3x\administrator\components\com_rsgallery2\helpers\rsgallery2.php on line 19
     public static function getActions($galleryId = 0)
     {
         $user = JFactory::getUser();
@@ -110,7 +113,7 @@ class RSGallery2Helper // extends JHelperContent
 
         if (substr($view, 0, 5) == 'devel') {
             $link = 'index.php?option=com_rsgallery2&view=maintenance';
-            // In config add maintenance
+			// In develop add maintenance
             JHtmlSidebar::addEntry(
                 '<span class="icon-screwdriver" >  </span>' .
                 JText::_('COM_RSGALLERY2_MAINTENANCE'),

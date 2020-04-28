@@ -4,7 +4,7 @@
  *
  * @version       $Id: images.html.php 1057 2012-01-09 17:00:55Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003-2019 RSGallery2 Team
+ * @copyright (C) 2003-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  */

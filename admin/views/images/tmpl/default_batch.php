@@ -3,7 +3,7 @@
  * @package     Joomla.Administrator
  * @subpackage  com_content
  *
- * @copyright      (C) 2005-2019 RSGallery2 Team
+ * @copyright      (C) 2005-2020 RSGallery2 Team
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  *
  * @deprecated  3.4 Use default_batch_body and default_batch_footer

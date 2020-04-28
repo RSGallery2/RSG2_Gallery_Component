@@ -4,7 +4,7 @@
  *
  * @version       $Id: display.class.php 1098 2012-07-31 11:54:19Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003 - 2019 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
@@ -662,7 +662,7 @@ class rsgDisplay extends JObject
 		require_once(JPATH_ROOT . '/components/com_rsgallery2/lib/exifreader/exifReader.php');
 		// $image = rsgInstance::getItem();
 		$gallery = rsgGalleryManager::get();
-		$image   = $gallery->getItem();;
+		$image   = $gallery->getItem();
 		$filename = JPATH_ROOT . $image->original->name;
 
 		$exif = new phpExifReader($filename);
@@ -697,7 +697,6 @@ class rsgDisplay extends JObject
 			echo '        <input type="hidden" name="task" value="showResults" />';
 			echo '	</form>';
 			echo '</div>';
-
 		}
 	}
 

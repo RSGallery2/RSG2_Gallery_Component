@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2019 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -132,7 +132,7 @@ class Rsgallery2ControllerUpload extends JControllerForm
 	            if ($zip_file['name'] !== \JFile::makeSafe($zip_file['name']) || preg_match('/\s/', \JFile::makeSafe($zip_file['name'])))
 	            {
 		            //$app = JFactory::getApplication();
-		            $app->enqueueMessage(JText::_('COM_    _WARNFILENAME'), 'error');
+		            $app->enqueueMessage(JText::_('COM_RSGALLERY2_WARNFILENAME'), 'error');
 		            $isHasError = true;
 	            }
 

@@ -1,7 +1,7 @@
 <?php // no direct access
 /**
  * @package       RSGallery2
- * @copyright (C) 2003-2019 RSGallery2 Team
+ * @copyright (C) 2003-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * RSGallery is Free Software
  */
@@ -31,19 +31,18 @@ $this->configVars = $rsgConfig;
 			<form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=config&amp;layout=RawView'); ?>"
 					method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">
 
+				<legend><?php echo JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'); ?></legend>
+                <div></div><strong><?php echo JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT'); ?></strong><br></div>
+
 				<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'ConfigRawView')); ?>
 
 				<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'ConfigRawView', JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW', true)); ?>
 
-				<legend><?php echo JText::_('COM_RSGALLERY2_CONFIGURATION_RAW_VIEW'); ?></legend>
-				<strong><?php echo JText::_('COM_RSGALLERY2_CONFIG_MINUS_VIEW_TXT'); ?></strong>
 				<?php
 
-				//echo '<pre>';
-				//    print_r( get_object_vars($this->rsgConfigData) );
-				//echo '</pre>';
 				echo '<pre>';
-				echo json_encode(get_object_vars($this->configVars), JSON_PRETTY_PRINT);
+				// Old RSG2 config vars echo json_encode(get_object_vars($this->configVars), JSON_PRETTY_PRINT);
+				echo json_encode($this->configVars, JSON_PRETTY_PRINT);
 				echo '</pre>';
 				?>
 

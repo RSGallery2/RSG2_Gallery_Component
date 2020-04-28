@@ -4,7 +4,7 @@
  *
  * @version       $Id: file.utils.php 1088 2012-07-05 19:28:28Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2005-2019 RSGallery2 Team
+ * @copyright (C) 2005-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery2 is Free Software
  */
@@ -13,7 +13,7 @@ defined('_JEXEC') or die();
 
 require_once(JPATH_RSGALLERY2_ADMIN . '/includes/mimetype.php');
 //require_once(JPATH_ROOT.'/includes/PEAR/PEAR.php');				//Mirjam: no longer used since SVN 975
-//require_once( $rsgClasses_path . 'file.utils.php' );
+//require_once(JPATH_RSGALLERY2_ADMIN . '/includes/file.utils.php' );
 
 //Load Joomla filesystem class
 jimport('joomla.base.tree');

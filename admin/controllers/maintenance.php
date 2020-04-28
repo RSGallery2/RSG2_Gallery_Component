@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2019 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -46,7 +46,7 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 	}
 
     /**
-     * Move to maintenance main page on canlel
+     * Move to maintenance main page on cancel
      * May be issued from other sub forms like maintconsolidatedb
      *
      * @since 4.3
@@ -70,7 +70,6 @@ class Rsgallery2ControllerMaintenance extends JControllerAdmin
 		// ToDo: Use Jroute before link for setRedirect :: check all apperances
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintenance', $msg, $msgType);
 	}
-
 
     /**
      * Delete RSGallery language files not inside RSG2 component

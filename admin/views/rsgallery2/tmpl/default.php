@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2019 RSGallery2 Team
+ * @copyright   (C) 2016-2020 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -247,7 +247,7 @@ $doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/css
 							//$link = 'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig';
 							$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;task=config.edit';
 							RsgIconMoonButton($link, 'icon-equalizer clsProperties', JText::_('COM_RSGALLERY2_CONFIGURATION'));
-				}
+						}
 
 						//$link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
 						$link = 'index.php?option=com_rsgallery2&view=galleries';
@@ -285,35 +285,14 @@ $doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/css
 					<div class="row-fluid">
 						<div class="span4 clsInfoAccordion">
 							<?php
-                            if ($Rsg2DebugActive) {
-                                JLog::add('    (D06) ');
-                            }
-
-                            echo JHtml::_('bootstrap.startAccordion', 'slide-example', array('active' => 'slide1', 'toggle' => 'false'));
-                            if ($Rsg2DebugActive) {
-                                JLog::add('    (D07) ');
-                            }
+                            echo JHtml::_('bootstrap.startAccordion', 'slide-example', array('active' => 'slide1'));
 							echo JHtml::_('bootstrap.addSlide', 'slide-example', JText::_('COM_RSGALLERY2_GALLERIES'), 'slide1');
 
-                            if ($Rsg2DebugActive) {
-                                JLog::add('    (D08) ');
-                            }
 							// Info about last uploaded galleries
 							DisplayInfoGalleries($this->LastGalleries);
 
-                            if ($Rsg2DebugActive) {
-                                JLog::add('    (D09) ');
-                            }
 							echo JHtml::_('bootstrap.endSlide');
-                            if ($Rsg2DebugActive) {
-                                JLog::add('    (D10) ');
-                            }
 							echo JHtml::_('bootstrap.endAccordion');
-
-                            if ($Rsg2DebugActive) {
-                                JLog::add('    (D11) ');
-                            }
-
                             ?>
 						</div>
 						<div class="span8 clsInfoAccordion">

@@ -10,7 +10,7 @@
 				size="10"
 				default=""
 				filter="username"
-				readonly="false"
+				readonly="true"
 		/>
 
 		<field

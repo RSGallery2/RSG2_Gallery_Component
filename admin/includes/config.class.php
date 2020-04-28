@@ -4,7 +4,7 @@
  *
  * @version       $Id: config.class.php 1088 2012-07-05 19:28:28Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003-2019 RSGallery2 Team
+ * @copyright (C) 2003-2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *
  * @since 1.0
