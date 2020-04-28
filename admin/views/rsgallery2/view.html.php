@@ -116,33 +116,12 @@ class Rsgallery2ViewRsgallery2 extends JViewLegacy
         }
 		*/
 
-        if ($Rsg2DebugActive) {
-            JLog::add('    (V10) ');
-        }
-
-        // Check for errors.
-        if (count($errors = $this->get('Errors')))
-        {
-            throw new RuntimeException(implode('<br />', $errors), 500);
-        }
-
-        if ($Rsg2DebugActive) {
-            JLog::add('    (V11) ');
-        }
 
         // Assign the Data
 		$this->form = $form;
 
-        if ($Rsg2DebugActive) {
-            JLog::add('    (V12) ');
-        }
-
         //$this->addToolbar ();
 		JToolBarHelper::title(JText::_('COM_RSGALLERY2_MENU_CONTROL_PANEL'), 'home-2');
-
-        if ($Rsg2DebugActive) {
-            JLog::add('    (V13) ');
-        }
 
         $Layout = JFactory::getApplication()->input->get('layout');
         $View = JFactory::getApplication()->input->get('view');
@@ -155,21 +134,11 @@ class Rsgallery2ViewRsgallery2 extends JViewLegacy
 /**/
         $this->sidebar = JHtmlSidebar::render();
 
-        if ($Rsg2DebugActive) {
-            JLog::add('    (V14) ');
-        }
-
         parent::display($tpl);
-
-        if ($Rsg2DebugActive) {
-            JLog::add('    (V15) ');
-        }
-
 
         if ($Rsg2DebugActive) {
             JLog::add('<== rsgallery2 view display');
         }
-
 
         return;
 	}
