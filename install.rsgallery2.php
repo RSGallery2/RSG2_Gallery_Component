@@ -104,9 +104,6 @@ class com_rsgallery2InstallerScript
         $NextLine = 'Installing component manifest file version = ' . $this->newRelease;
         echo '<br/>' . $NextLine;
         JLog::add($NextLine, JLog::DEBUG);
-        if ($type == 'update')
-        {
-        }
         JLog::add('Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release, JLog::DEBUG);
         JLog::add('Current Joomla version = ' . $this->actual_joomla_release, JLog::DEBUG);
 
