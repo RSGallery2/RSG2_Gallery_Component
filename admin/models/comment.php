@@ -10,6 +10,9 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\Utilities\ArrayHelper;
+use Joomla\String\StringHelper;
+
 /**
  * Class Rsgallery2ModelComment
  *

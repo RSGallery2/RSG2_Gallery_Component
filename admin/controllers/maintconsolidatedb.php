@@ -204,6 +204,8 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		$msg     = "controller.createMissingImages: ";
 		$msgType = 'notice';
 
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
 		if (!$canAdmin)
 		{
@@ -553,6 +555,8 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		$msg     = "controller.assignGallery: ";
 		$msgType = 'notice';
 
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
 		if (!$canAdmin)
 		{
@@ -691,6 +695,8 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 	{
 		$msg     = "controller.repairItemsAllIssues: ";
 		$msgType = 'notice';
+
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
 		if (!$canAdmin)
@@ -861,6 +867,8 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 	{
 		$msg     = "controller.deleteRowItems: ";
 		$msgType = 'notice';
+
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		$canAdmin = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
 		if (!$canAdmin)

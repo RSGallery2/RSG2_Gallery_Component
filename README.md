@@ -1,3 +1,16 @@
+![RSGallery logo with text](https://github.com/RSGallery2/RSGallery2_Project/blob/master/RSGallery2_Logo/RSG2_logoText.svg) 
+
+# This branch b_new_site:
+
+* !!! Configuration from joomla standard option .... -> manifest data of extensions table
+* router may be different
+* config controller: functions copy_rawEditFromOld remove_OldConfigData, save_rawEdit2Text ...
+* config_j25.php
+* 
+* 
+* 
+* 
+
 # RSGallery2_Component
 RSGallery2 is one of several gallery extensions/components for the well known CMS Joomla!
 

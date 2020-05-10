@@ -259,7 +259,76 @@ class Rsgallery2ModelImage extends JModelAdmin
 	}
 
 	/**
-	 * Method to retrive unused image name from database
+	 * Removes "unknown" URL characters from name to be URL save
+	 * and replaces them with blanks
+	 * This includes UTF characters
+	 *
+	 * @param string $inFilename
+	 *
+	 * @return string
+	 *
+	 * @throws Exception
+	 * @since 4.5.0.0
+	 */
+	public function makeSafeUrlNameRSG2 ($inFilename='')
+	{
+		global $rsgConfig;
+		// dummy fall back with clear ID
+		$fixedFileName = 'Error on SafeUrlNameRSG2';
+		$fixedFileName = '';
+
+		$FileNames = []; // for $IsDebugFileNames
+
+		try
+		{
+			// strval: a little bit of paranoia
+			$saveFileName = \JFile::makeSafe(strval($inFilename));
+
+			//  url safe name
+			$punycodeFileName = \JStringPunycode::toPunycode($saveFileName);
+
+
+			$fileName = pathinfo($punycodeFileName, PATHINFO_FILENAME);
+			$ext      = strtolower(pathinfo($punycodeFileName, PATHINFO_EXTENSION));
+
+			// Neglect other than non-alphanumeric characters, hyphens & underscores.
+			// Joomla: $fixedFileName = preg_replace(array("/[\\s]/", '/[^a-zA-Z0-9_\-]/'), array('_', ''), $punycodeFileName);
+			$fixedFileName = preg_replace(array("/[\\s]/", '/[^a-zA-Z0-9_\-\.]/'), array('_', ''), $fileName);
+			$fixedFileName .= '.' . $ext;
+
+			//--- debug results --------------------------
+
+			// collect all variations of the filename
+			$IsDebugFileNames = $rsgConfig->get('debug');
+			//$IsDebugFileNames = $rsgConfig->get('develop');
+			if ($IsDebugFileNames)
+			{
+				$FileNames = 'in:        ' . $inFilename . '\n';
+				$FileNames .= 'makeSafe: ' . $saveFileName . '\n';
+				$FileNames .= 'Punycode: ' . $punycodeFileName . '\n';
+				$FileNames .= 'replace : ' . $fixedFileName . '\n';
+
+				// message to log on debug
+				$OuTxt = 'makeSafeUrlNameRSG2' . '\n';
+				$OuTxt .= $FileNames;
+
+				JLog::add($OuTxt); //, JLog::DEBUG);
+			}
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing makeSafeUrlName: "' . strval($inFilename) . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $fixedFileName;
+	}
+
+	/**
+	 * Method to retrieve unused image name from database
 	 *
 	 * @param string $name image name.
 	 * @param int $galleryId

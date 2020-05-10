@@ -45,6 +45,52 @@
 	background-color : sandybrown;
 }
 
+.rsg2-icon-bar button {
+	float            : left; /**/
+
+	background-color : white; /**/
+	border-radius    : 8px; /**/
+	border           : 5px solid lightgrey; /**/
+
+	/*	margin: 10px 20px; /**/
+	/*	margin: 5px 10px; /**/
+	margin           : 5px 15px; /**/
+	/*	padding: 7px; /**/
+	/*	width: 80%; /**/
+
+	/*	display: block; /**/
+	display          : inline-block; /**/
+
+	/* width: 448px !important; /**/
+	/* width: 450px;  /**/
+
+	vertical-align   : middle;
+
+	box-shadow       : 2px 2px 1px #888888; /**/
+}
+
+.rsg2-icon-bar button:link {
+	color : #808080;
+}
+
+.rsg2-icon-bar button:hover {
+	/*	color : #333;  /**/
+	/*    color: #08c; /**/
+	/*	background-color: #f1e8e6;  /**/
+	border-color : green; /**/
+	/*	border: 1px solid #c24733; /**/
+	/*	padding: 3px 4px 0px 6px; /**/
+	/*	position: relative; /**/
+	/*	left: -3px; /**/
+	/*	top: -3px; /**/
+}
+
+/**/
+.rsg2-icon-bar button:active {
+	/*	color : darkred; /**/
+	background-color : sandybrown;
+}
+
 /**/
 
 .grey-background {

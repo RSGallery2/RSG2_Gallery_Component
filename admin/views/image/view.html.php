@@ -47,7 +47,6 @@ class Rsgallery2ViewImage extends JViewLegacy
 	*/
 	public function display($tpl = null)
 	{
-		global $Rsg2DevelopActive;
 		global $rsgConfig;
 
 		//--- get needed data ------------------------------------------
@@ -108,15 +107,16 @@ class Rsgallery2ViewImage extends JViewLegacy
 	*/
 	protected function addToolbar($Layout = 'default')
 	{
+		global $Rsg2DevelopActive;
+
 		// on develop show open tasks if existing
 		if (!empty ($Rsg2DevelopActive))
 		{
 			echo '<span style="color:red">'
 				. 'Tasks: <br>'
-//				. '* show image big as modal on  click<br>'
-//				. '*  <br>'
-//				. '*  <br>'
-				. '* Rotate left, right, flip<br>'
+				. '* Fix: show image big as modal on click or create modal thumbs selection view<br>'
+				. '* Activate field parameters again -> Merge Jregistry in site ...<br>'
+				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'
 //				. '*  <br>'

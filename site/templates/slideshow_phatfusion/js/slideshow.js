@@ -286,7 +286,6 @@ var SlideShow = new Class({
 		}
 	},
 
-	// ToDo: use next idx
 	play: function (nextIdx) {
 		try {
 			console.log("Slide:play");
@@ -347,7 +346,7 @@ var SlideShow = new Class({
 				// this.clearTimeout(this.timer);
 				//$clear(this.timer);
 
-				// Todo: Check Mode loop (seee commented below)
+				// Todo: Check mode loop (see comment below)
 				this.imageIdx = this.nextIdx (this.imageIdx, this.images.length);
 
 				if (doWait) {
