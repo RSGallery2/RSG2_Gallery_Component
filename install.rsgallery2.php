@@ -124,7 +124,7 @@ class com_rsgallery2InstallerScript
 
             // old release not found but rsgallery2 data still kept in database -> error message
             if (empty ($this->oldRelease)) {
-                JFactory::getApplication()->enqueueMessage('Can not install: Old Rsgallery2 data found in db. Please deinstall previous version ', 'error');
+                JFactory::getApplication()->enqueueMessage('Can not install: Old Rsgallery2 data found in db or RSG2 folders. Please try to deinstall previous version or remove folder artifacts', 'error');
 
                 return false;
             }
