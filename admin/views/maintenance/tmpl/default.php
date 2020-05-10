@@ -112,7 +112,7 @@ function quickIconMoonBar($link, $imageClass, $title, $text = "", $addClass = ''
  * @param string $addClass
  *
  * @since 4.3.0
- *
+ */
 function quickTwoIconMoonBar($link, $imageClass1, $imageClass2, $title, $text = "", $addClass = '')
 {
 	?>
