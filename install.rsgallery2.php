@@ -3,11 +3,11 @@
  * This file contains the install routine for RSGallery2
  *
  * @package       RSGallery2
- * @copyright (C) 2003 - 2020 RSGallery2
+ * @copyright (C) 2003 - 2020 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
+ *
  */
-// No direct access to this file
 defined('_JEXEC') or die;
 
 // Include the JLog class.
@@ -46,6 +46,13 @@ JLog::add('Starting to log install.rsgallery2.php for installation X', JLog::DEB
 class com_rsgallery2InstallerScript
 {
 
+    // ToDo: use information on links and use it on all following functions
+    // http://docs.joomla.org/J2.5:Managing_Component_Updates_%28Script.php%29
+
+    // http://www.joomla-wiki.de/dokumentation/Joomla!_Programmierung/Programmierung/Aktualisierung_einer_Komponente/Teil_3
+
+// ToDO: #__schemas" Tabelle reparieren ??? -> http://vi-solutions.de/de/enjoy-joomla-blog/116-knowledgbase-tutorials
+
     protected $newRelease;
     protected $oldRelease;
     protected $minimum_joomla_release;
@@ -54,11 +61,6 @@ class com_rsgallery2InstallerScript
     // 	protected $;
     // 	protected $;
     // 	protected $;
-
-    // ToDo: use information on links and use it on all following functions
-    // http://docs.joomla.org/J2.5:Managing_Component_Updates_%28Script.php%29
-
-    // http://www.joomla-wiki.de/dokumentation/Joomla!_Programmierung/Programmierung/Aktualisierung_einer_Komponente/Teil_3
 
     /*-------------------------------------------------------------------------
     preflight
@@ -71,15 +73,19 @@ class com_rsgallery2InstallerScript
     to execute different checks and responses for the three cases.
     -------------------------------------------------------------------------*/
 
-// ToDO: #__schemas" Tabelle reparieren ??? -> http://vi-solutions.de/de/enjoy-joomla-blog/116-knowledgbase-tutorials
-
     /**
-     * @param $type
-     * @param $parent
+     * Function called before extension installation/update/removal procedure commences
      *
-     * @return bool|void
+     * @param string $type The type of change (install, update or discover_install, not uninstall)
+     * @param InstallerAdapter $parent The class calling this method
+     *
+     * @return  boolean  True on success
+     *
+     * @throws Exception
+     * @since  1.0.0
+     *
      */
-    function preflight($type, $parent)
+    public function preflight($type, $parent)
     {
         JLog::add('preflight: ' . $type, JLog::DEBUG);
 
@@ -89,48 +95,50 @@ class com_rsgallery2InstallerScript
 
         // Installing component manifest file version
         $this->newRelease = $parent->get("manifest")->version;
-        $this->oldRelease = $this->getManifestParam('version');
 
         // Manifest file minimum Joomla version
         $this->minimum_joomla_release = $parent->get("manifest")->attributes()->version;
-        $this->actual_joomla_release  = $jversion->getShortVersion();
+        $this->actual_joomla_release = $jversion->getShortVersion();
 
         // Show the essential information at the install/update back-end
         $NextLine = 'Installing component manifest file version = ' . $this->newRelease;
         echo '<br/>' . $NextLine;
         JLog::add($NextLine, JLog::DEBUG);
-        if ($type == 'update')
-        {
-            $NextLine = 'Old/current component version (manifest cache) = ' . $this->oldRelease;
-            echo '<br/>' . $NextLine;
-            JLog::add($NextLine, JLog::DEBUG);
-        }
         JLog::add('Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release, JLog::DEBUG);
         JLog::add('Current Joomla version = ' . $this->actual_joomla_release, JLog::DEBUG);
 
         // Abort if the current Joomla release is older
-        if (version_compare($this->actual_joomla_release, $this->minimum_joomla_release, 'lt'))
-        {
+        if (version_compare($this->actual_joomla_release, $this->minimum_joomla_release, 'lt')) {
             echo '    Installing component manifest file minimum Joomla version = ' . $this->minimum_joomla_release;
             echo '    Current Joomla version = ' . $this->actual_joomla_release;
             JFactory::getApplication()->enqueueMessage('Cannot install com_rsgallery2 in a Joomla release prior to ' . $this->minimum_joomla_release, 'warning');
             return false;
         }
 
-        JLog::add('After version compare', JLog::DEBUG);
+        JLog::add('After joomla version compare', JLog::DEBUG);
 
-        if ($type == 'update')
-        {
-
+        if ($type == 'update') {
             JLog::add('-> pre update', JLog::DEBUG);
+
+            $this->oldRelease = $this->getVersionFromManifestParam();
+
+            // old release not found but rsgallery2 data still kept in database -> error message
+            if (empty ($this->oldRelease)) {
+                JFactory::getApplication()->enqueueMessage('Can not install: Old Rsgallery2 data found in db. Please deinstall previous version ', 'error');
+
+                return false;
+            }
+
+            $NextLine = 'Old/current component version (manifest cache) = ' . $this->oldRelease;
+            echo '<br/>' . $NextLine;
+            JLog::add($NextLine, JLog::DEBUG);
+
             $rel = $this->oldRelease . ' to ' . $this->newRelease;
 
             // Abort if the component being installed is older than the currently installed version
             // (overwrite same version is permitted)
-            if (version_compare($this->newRelease, $this->oldRelease, 'lt'))
-            {
-				JFactory::getApplication()->enqueueMessage('Incorrect version sequence. Cannot upgrade ' . $rel, 'warning');
-            
+            if (version_compare($this->newRelease, $this->oldRelease, 'lt')) {
+                JFactory::getApplication()->enqueueMessage('Incorrect version sequence. Cannot upgrade ' . $rel, 'warning');
 
                 return false;
             }
@@ -141,11 +149,11 @@ class com_rsgallery2InstallerScript
 
             //--------------------------------------------------------------------------------
             // Check if version is already set in "_schemas" table
-            // Create table #__schema entry for rsgallery if not used before
+            // Create table #__schema entry for rsgallery2 if not used before
             //--------------------------------------------------------------------------------
 
             //--- Determine rsgallery2 extension id ------------------
-            $db    = JFactory::getDbo();
+            $db = JFactory::getDbo();
             $query = $db->getQuery(true);
             $query->select($db->quoteName('extension_id'))
                 ->from('#__extensions')
@@ -169,8 +177,7 @@ class com_rsgallery2InstallerScript
 
             // Create component entry (version) in __schemas
             // Rsg2id not set
-            if ($SchemaVersionCount != 1)
-            {
+            if ($SchemaVersionCount != 1) {
                 JLog::add('Create RSG2 version in __schemas: ', JLog::DEBUG);
 
                 //	UPDATE #__schemas SET version_id = 'NEWVERSION' WHERE extension_id = 700
@@ -187,17 +194,14 @@ class com_rsgallery2InstallerScript
             // Shall care for issue(s) when a user directly upgrades from J1.5 to J3
             //--------------------------------------------------------------------------------
 
-            if (version_compare($this->oldRelease, '3.2.0', 'lt'))
-            {
+            if (version_compare($this->oldRelease, '3.2.0', 'lt')) {
 
                 require_once(JPATH_SITE . '/administrator/components/com_rsgallery2/includes/install.upgrade.To.03.02.00.php');
                 $upgrade_to_03_02_00 = new upgrade_com_rsgallery2_03_02_00 ();
-                $failed              = $upgrade_to_03_02_00->upgrade($this->oldRelease);
+                $failed = $upgrade_to_03_02_00->upgrade($this->oldRelease);
             }
 
-        }
-        else
-        { // $type == 'install'
+        } else { // $type == 'install'
             JLog::add('-> pre freshInstall', JLog::DEBUG);
             $rel = $this->newRelease;
 
@@ -225,9 +229,15 @@ class com_rsgallery2InstallerScript
     is less risk that that their reversal may be done incorrectly.
     -------------------------------------------------------------------------*/
     /**
-     * @param $parent
+     * Method to install the extension
+     *
+     * @param InstallerAdapter $parent The class calling this method
+     *
+     * @return  boolean  True on success
+     *
+     * @since  1.0.0
      */
-    function install($parent)
+    public function install($parent)
     {
         JLog::add('install', JLog::DEBUG);
 
@@ -263,9 +273,16 @@ class com_rsgallery2InstallerScript
     that their reversal may be done incorrectly.
     -------------------------------------------------------------------------*/
     /**
-     * @param $parent
+     * Method to update the extension
+     *
+     * @param InstallerAdapter $parent The class calling this method
+     *
+     * @return  boolean  True on success
+     *
+     * @since  1.0.0
+     *
      */
-    function update($parent)
+    public function update($parent)
     {
         JLog::add('do update', JLog::DEBUG);
 
@@ -281,7 +298,7 @@ class com_rsgallery2InstallerScript
         $rsgInstall = new rsgInstall();
         $rsgInstall->writeInstallMsg(JText::sprintf('COM_RSGALLERY2_MIGRATING_FROM_RSGALLERY2', $this->oldRelease), 'ok');
 
-		/* Removed as plugins couldn't find lang files *
+        /* Removed as plugins couldn't find lang files *
         //--- delete RSG2 J!1.5 language files ------------------------------
 
         // .../administrator/language/
@@ -302,8 +319,8 @@ class com_rsgallery2InstallerScript
             $msg = 'Deleted old RSGallery2 J!1.5 site language files: <br>' . $msg;
             $rsgInstall->writeInstallMsg ($msg, 'ok');
         }
-		/**/
-		
+        /**/
+
         //--- install complete message --------------------------------
 
         // Now wish the user good luck and link to the control panel
@@ -348,22 +365,26 @@ class com_rsgallery2InstallerScript
     install, update or discover_install action.
     -------------------------------------------------------------------------*/
     /**
-     * @param $type
-     * @param $parent
+     * Function called after extension installation/update/removal procedure commences
+     *
+     * @param string $type The type of change (install, update or discover_install, not uninstall)
+     * @param InstallerAdapter $parent The class calling this method
+     *
+     * @return  boolean  True on success
+     *
+     * @since  1.0.0
+     *
      */
-    function postflight($type, $parent)
+    public function postflight($type, $parent)
     {
         JLog::add('postflight', JLog::DEBUG);
         echo '<p>' . JText::_('COM_RSGALLERY2_POSTFLIGHT_' . strtoupper($type) . '_TEXT') . '</p>';
 
-        if ($type == 'update')
-        {
+        if ($type == 'update') {
             JLog::add('-> post update', JLog::DEBUG);
 
             // $this->installComplete(JText::_('COM_RSGALLERY2_UPGRADE_SUCCESS'));
-        }
-        else
-        { // $type == 'install'
+        } else { // $type == 'install'
             JLog::add('-> post freshInstall', JLog::DEBUG);
 
             //$this->installComplete(JText::_('COM_RSGALLERY2_INSTALLATION_OF_RSGALLERY_IS_COMPLETED'));
@@ -381,48 +402,68 @@ class com_rsgallery2InstallerScript
     waste of time
     -------------------------------------------------------------------------*/
     /**
-     * @param $parent
+     * Method to uninstall the extension
+     *
+     * @param InstallerAdapter $parent The class calling this method
+     *
+     * @return  boolean  True on success
+     *
+     * @since  1.0.0
      */
-    function uninstall($parent)
+    public function uninstall($parent)
     {
         JLog::add('uninstall', JLog::DEBUG);
         echo '<p>' . JText::_('COM_RSGALLERY2_UNINSTALL_TEXT') . '</p>';
         JLog::add('exit uninstall', JLog::DEBUG);
     }
 
-    /*
-     * get a variable from the manifest file (actually, from the manifest cache).
-     */
-    /**
-     * @param $name
-     *
-     * @return mixed
-     */
-    function getManifestParam($name)
+    function getVersionFromManifestParam()
     {
-		$result = ''
-		
-        $db = JFactory::getDbo();
-        $db->setQuery('SELECT manifest_cache FROM #__extensions WHERE name = "com_rsgallery2"');
-		
-		values = $db->loadResult();
-		
-		if (! empty (values))
-		{
-			$manifest = json_decode(values, true);
-			if (! empty ($manifest))
-			{
-				
-				if(! empty ($manifest[$name])
-				{
-					$result = $manifest[$name];
-				}
-				
-			}
-		}
-		
-        return $result;
+        //$oldRelease = '1.0.0.999';
+        $oldRelease = '';
+
+        $this->oldManifestData = $this->readRsg2ExtensionManifest();
+        if (!empty ($this->oldManifestData['version'])) {
+            $oldRelease = $this->oldManifestData['version'];
+        }
+
+        return $oldRelease;
     }
+
+    static function readRsg2ExtensionManifest()
+    {
+        $manifest = [];
+
+        try {
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true)
+                ->select('manifest_cache')
+                ->from($db->quoteName('#__extensions'))
+                ->where($db->quoteName('name') . ' = ' . $db->quote('COM_RSGALLERY2'));
+            $db->setQuery($query);
+
+            $jsonStr = $db->loadResult();
+            // $result = $db->loadObjectList()
+
+            if (!empty ($jsonStr)) {
+                $manifest = json_decode($jsonStr, true);
+            }
+
+        } catch (RuntimeException $e) {
+            $OutTxt = '';
+            $OutTxt .= 'readRsg2ExtensionManifest: Error executing query: "' . "" . '"' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $manifest;
+    }
+
+
+
+
 
     /*
      * sets parameter values in the component's row of the extension table
@@ -432,17 +473,15 @@ class com_rsgallery2InstallerScript
      */
     function setParams($param_array)
     {
-        if (count($param_array) > 0)
-        {
+        if (count($param_array) > 0) {
             // read the existing component value(s)
             $db = JFactory::getDbo();
             $db->setQuery('SELECT params FROM #__extensions WHERE name = "com_rsgallery2"');
             $params = json_decode($db->loadResult(), true);
 
             // add the new variable(s) to the existing one(s)
-            foreach ($param_array as $name => $value)
-            {
-                $params[(string) $name] = (string) $value;
+            foreach ($param_array as $name => $value) {
+                $params[(string)$name] = (string)$value;
             }
             // store the combined new and existing values back as a JSON string
             $paramsString = json_encode($params);
@@ -454,17 +493,17 @@ class com_rsgallery2InstallerScript
     }
 
 
-
     /**
      * @param $startDir Example: \administrator\language\
      * recursive delete joomla 1.5 version or older style component language files
-     * @since version 4.3
+     * @since 4.3
      */
-    function findAndDelete_1_5_LangFiles($startDir, &$msg) {
+    public function findAndDelete_1_5_LangFiles($startDir, &$msg)
+    {
 
         $IsDeleted = false;
 
-        if($startDir != '') {
+        if ($startDir != '') {
             // ...original function code...
             // ...\en-GB\en-GB.com_rsgallery2.ini
             // ...\en-GB\en-GB.com_rsgallery2.sys.ini
@@ -476,12 +515,11 @@ class com_rsgallery2InstallerScript
 
             $msg = '';
             $IsFileFound = false;
-            foreach ($LangFiles as $LangFile)
-            {
+            foreach ($LangFiles as $LangFile) {
                 $IsFileFound = true;
 
                 $msg .= '<br>' . $LangFile[0];
-                $IsDeleted = unlink ($LangFile[0]);
+                $IsDeleted = unlink($LangFile[0]);
                 if ($IsDeleted) {
                     $msg .= ' is deleted';
 
@@ -493,5 +531,6 @@ class com_rsgallery2InstallerScript
             return $IsFileFound;
         }
     }
+
 
 }
