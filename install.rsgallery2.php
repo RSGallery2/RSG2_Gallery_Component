@@ -117,7 +117,6 @@ class com_rsgallery2InstallerScript
 
         JLog::add('After joomla version compare', JLog::DEBUG);
 
-        // surprisingly type is 'update' even on a first intall (? repeated?)
         if ($type == 'update') {
             JLog::add('-> pre update', JLog::DEBUG);
 
