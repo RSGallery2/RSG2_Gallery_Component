@@ -119,7 +119,7 @@ class Rsgallery2ModelImages extends JModelList
 		$db    = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-		// . 'a.date, a.rating, a.votes, a.comments, a.published, '
+		// . a.comments, a.published, '
 		// Query for all images data.
 		$actState =
 			$this->getState(

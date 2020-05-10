@@ -271,3 +271,4 @@ class Rsgallery2ModelMaintImageFiles extends JModelList
 
 
 }
+
