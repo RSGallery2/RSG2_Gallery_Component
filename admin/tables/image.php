@@ -119,5 +119,5 @@ class Rsgallery2TableImage extends JTable
 		}
 
 		return $IsDeleted;
-	}  // class
-}
+	}
+}  // class

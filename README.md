@@ -1,5 +1,22 @@
 ![RSGallery logo with text](https://github.com/RSGallery2/RSGallery2_Project/blob/master/RSGallery2_Logo/RSG2_logoText.svg) 
 
+# This branch b_Release_4_5_1:
+
+* Comments and votes can be better then in b_new_site
+* isDebugSiteActive
+* router may be different
+* debugSite by url
+* isUseJ25View
+* ? outdated slideshow_parth_JQ
+* 
+
+better in master 
+
+- site: gallery layouts
+- site: models for images and gallery
+- site: views: galleries, gallery, sideshows, slides single 
+
+
 # RSGallery2_Component
 RSGallery2 is one of several gallery extensions/components for the well known CMS Joomla!
 

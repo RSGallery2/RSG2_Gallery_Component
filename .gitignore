@@ -1,9 +1,12 @@
 //.build/
-.build/Translations/.idea/
 .build/*.log
 .build/*.*.log
 
+.build/Translations/.idea/
+
 .packages/
+
+rsgallery2.org.xml
 
 admin/install.rsgallery2.php
 admin/rsgallery2.xml
@@ -11,4 +14,5 @@ admin/rsgallery2.xml
 # python
 **/__pycache__
 **/*.pyc
+
 
