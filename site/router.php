@@ -302,8 +302,9 @@ function getMenuGid($query)
 		$menuItem = $menu->getItem($query['Itemid']);
 	}
 
-	// old:$menuGid = (empty($menuItem->execute['gid'])) ? null : $menuItem->execute['gid'];
-	$menuGid = $menuItem->execute['gid'];
+    // bad: shows exception ==>  $menuGid = $menuItem->execute['gid'];
+	// useful: empty does catch exception
+    $menuGid = (empty($menuItem->execute['gid'])) ? null : $menuItem->execute['gid'];
 
 	return $menuGid;
 }
