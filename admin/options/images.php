@@ -734,7 +734,7 @@ function cancelImage($option)
  *
  * @param string $option
  *
- * @since 4.5.0.0
+ * @since version
  *
  * @deprecated Old 1.5 code
  * @since 4.3.0

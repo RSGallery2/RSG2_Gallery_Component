@@ -28,7 +28,7 @@ if ($isDebugSiteActive) {
 /**
  * RSGgallery2 Controller
  *
- * @since 4.5.0.0
+ * @since version
  */
 class Rsgallery2Controller extends BaseController 
 {

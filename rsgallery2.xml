@@ -6,7 +6,7 @@
 	<name>com_rsgallery2</name>
 	<version>4.5.0.0</version>
 	<author>RSGallery2 Team</author>
-	<creationDate>13. Jun. 2019</creationDate>
+	<creationDate>21. Jul. 2019</creationDate>
 	<copyright>(c) 2003-2019 RSGallery2 Team</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>team2@rsgallery2.org</authorEmail>
@@ -36,15 +36,18 @@
 	</update>
 
 	<files folder="site">
+		<folder>controllers</folder>
 		<folder>flash</folder>
 		<folder>images</folder>
+		<folder>language</folder>
+		<folder>layout</folder>
 		<folder>lib</folder>
+		<folder>models</folder>
 		<folder>templates</folder>
 		<folder>views</folder>
-		<folder>language</folder>
+		<filename>controller.php</filename>
 		<filename>index.html</filename>
 		<filename>main.rsgallery2.php</filename>
-		<filename>controller.php</filename>
 		<filename>router.php</filename>
 		<filename>rsgallery.css</filename>
 		<filename>rsgallery2.php</filename>
@@ -72,9 +75,9 @@
 	<administration>
 		<menu view="com_rsgallery2"
 		      img="administrator/components/com_rsgallery2/images/rsg2_menu.png"
-			  link="option=com_rsgallery2&amp;view=rsgallery2"
+			  link="option=com_rsgallery2&amp;view=rsgallery2">
 		>
-			COM_RSGALLERY2_MENU
+				COM_RSGALLERY2_MENU
 		</menu>
 		<submenu>
 			<!-- Note that all & must be escaped to &amp; for the file to be valid XML and be parsed by the installer -->
@@ -106,9 +109,9 @@
 			<folder>fonts</folder>
 			<folder>help</folder>
 			<folder>helpers</folder>
-			<folder>js</folder>
 			<folder>images</folder>
 			<folder>includes</folder>
+			<folder>js</folder>
 			<folder>language</folder>
 			<folder>models</folder>
 			<folder>options</folder>

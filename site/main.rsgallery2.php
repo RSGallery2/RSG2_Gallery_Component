@@ -26,6 +26,7 @@ function template()
 		JLog::add('main.rsgallery2::template()');
 	}
 
+	//Set template selection
 	$input    = JFactory::getApplication()->input;
 	$template = preg_replace('#\W#', '', $input->get('rsgTemplate', $rsgConfig->get('template'), 'CMD'));
 	$template = strtolower($template);
@@ -36,7 +37,7 @@ function template()
 	{
 		JLog::add('template: "' . $templateLocation . '"');
 	}
-
+	
 	if (!file_exists($templateLocation))
 	{
 		JFactory::getApplication()->enqueueMessage('RSGallery2 template:<pre>'
@@ -68,7 +69,7 @@ function xmlFile()
 
 	// require generic template which all other templates should extend
 	require_once(JPATH_RSGALLERY2_SITE . '/templates/meta/xml.php');
-
+	
 	// require the template specified to be used
 	require_once(JPATH_RSGALLERY2_SITE . '/templates/' . $template . '/xml.php');
 
@@ -158,7 +159,7 @@ function downloadFile()
 	//Close file after use!
 	fclose($fd);
 
-	// Why that ? may be used for restart after including
+	// Why that ? may be used for restart after including 
 	// template sematic to include only slideshow templares
 	ob_flush();
 

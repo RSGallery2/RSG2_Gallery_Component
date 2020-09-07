@@ -162,7 +162,7 @@ class rsgConfig
     /**
      * Returns state of config variable if the latest gallery shall be preselected for upload
      * @var int
-     * @since 4.5.0.0
+     * @since version
      */
     var $isUseOneGalleryNameForAllImages = 1;
     var $isPreSelectLatestGallery = 0;

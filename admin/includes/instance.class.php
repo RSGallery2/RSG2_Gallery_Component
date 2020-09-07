@@ -23,6 +23,7 @@ $GLOBALS['_RSGINSTANCE'] = null;
  */
 class rsgInstance
 {
+
 	/**
 	 * Creates a new RSG2 instance and executes it.
 	 *

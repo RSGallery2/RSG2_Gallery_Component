@@ -66,7 +66,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
      *
      * @return bool
      *
-     * @since 4.5.0.0 4.3
+     * @since version 4.3
      */
 	public function cancel_rawView($key = null)
 	{
@@ -81,7 +81,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
     /**
      * Save changes in raw edit view value by value
      *
-     * @since 4.5.0.0 4.3
+     * @since version 4.3
      */
 	public function apply_rawEdit()
     {
@@ -98,7 +98,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
             $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
             $msgType = 'warning';
             // replace newlines with html line breaks.
-            $msg = nl2br ($msg);
+			$msg = nl2br ($msg);
         } else {
             $model = $this->getModel('ConfigRaw');
             $msg .= $model->save();
@@ -111,7 +111,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
     /**
      * Save changes in raw edit view value by value
      *
-     * @since 4.5.0.0 4.3
+     * @since version 4.3
      */
 	public function save_rawEdit()
 	{
@@ -128,7 +128,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
             $msg = $msg . JText::_('JERROR_ALERTNOAUTHOR');
             $msgType = 'warning';
             // replace newlines with html line breaks.
-            $msg = nl2br ($msg);
+			$msg = nl2br ($msg);
         } else {
             $model = $this->getModel('ConfigRaw');
             $msg .= $model->save();
@@ -144,7 +144,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
      *
      * @return bool
      *
-     * @since 4.5.0.0 4.3
+     * @since version 4.3
      */
 	public function cancel_rawEdit($key = null)
 	{
@@ -160,7 +160,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
 	/**
 	 * Save changes in raw edit view value by value
 	 *
-	 * @since 4.5.0.0 4.3
+	 * @since version 4.3
 	 */
 	public function reset2default()
 	{
@@ -206,7 +206,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
 	 *
 	 * @return bool
      *
-     * @since 4.5.0.0 4.3
+     * @since version 4.3
 	 */
 	public function cancel($key = null)
 	{
@@ -225,7 +225,7 @@ class Rsgallery2ControllerConfig extends JControllerForm
      * @param null $key
      * @param null $urlVar
      *
-     * @since 4.5.0.0 4.3
+     * @since version 4.3
      */
 	function save($key = null, $urlVar = null)
 	{
