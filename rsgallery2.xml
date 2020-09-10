@@ -7,7 +7,7 @@
 	<version>4.5.0.0</version>
 	<author>RSGallery2 Team</author>
 	<creationDate>13. Jun. 2019</creationDate>
-	<copyright>(c) 2003-2020 RSGallery2 Team</copyright>
+	<copyright>(c) 2005-2020 RSGallery2 Team</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>team2@rsgallery2.org</authorEmail>
 	<authorUrl>https://www.rsgallery2.org</authorUrl>
@@ -37,15 +37,17 @@
 
 	<!-- Frond-end files -->
 	<files folder="site">
+		<folder>controllers</folder>
 		<folder>flash</folder>
 		<folder>images</folder>
+		<folder>language</folder>
 		<folder>lib</folder>
+		<folder>models</folder>
 		<folder>templates</folder>
 		<folder>views</folder>
-		<folder>language</folder>
+		<filename>controller.php</filename>
 		<filename>index.html</filename>
 		<filename>main.rsgallery2.php</filename>
-		<filename>controller.php</filename>
 		<filename>router.php</filename>
 		<filename>rsgallery.css</filename>
 		<filename>rsgallery2.php</filename>
@@ -109,28 +111,27 @@
 			<folder>fonts</folder>
 			<folder>help</folder>
 			<folder>helpers</folder>
-			<folder>js</folder>
 			<folder>images</folder>
 			<folder>includes</folder>
+			<folder>js</folder>
 			<folder>language</folder>
 			<folder>models</folder>
 			<folder>options</folder>
 			<folder>sql</folder>
 			<folder>tables</folder>
 			<folder>views</folder>
-			<filename>index.html</filename>
 			<filename>access.xml</filename>
-			<filename>config.xml</filename>
-			<filename>controller.php</filename>
 			<filename>admin.rsgallery2.html.php</filename>
-			<filename>rsgallery2.php</filename>
 			<filename>changelog.php</filename>
+			<filename>config.xml</filename>
 			<filename>config.rsgallery2.php</filename>
+			<filename>controller.php</filename>
 			<filename>index.html</filename>
 			<filename>init.rsgallery2.php</filename>
-			<filename>toolbar.rsgallery2.html.php</filename>
-			<filename>toolbar.rsgallery2.php</filename>
+			<filename>rsgallery2.php</filename>
 			<filename>template.css</filename>
+			<filename>toolbar.rsgallery2.php</filename>
+			<filename>toolbar.rsgallery2.html.php</filename>
 		</files>
 
 		<languages folder="admin/language">
