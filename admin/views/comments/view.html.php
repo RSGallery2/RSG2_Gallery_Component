@@ -66,11 +66,21 @@ class Rsgallery2ViewComments extends JViewLegacy
 //		$xmlFile    = JPATH_COMPONENT . '/models/forms/comments.xml';
 //		$this->form = JForm::getInstance('comments', $xmlFile);
 
-		// Check for errors.
-        if (count($errors = $this->get('Errors')))
-        {
-            throw new RuntimeException(implode('<br />', $errors), 500);
-        }
+		// 2020.10.28 php 7.2 -> 7.4
+        //// Check for errors.
+        //if (count($errors = $this->get('Errors')))
+        //{
+        //    throw new RuntimeException(implode('<br />', $errors), 500);
+        //}
+
+        // Check for errors.
+		if ($errors = $this->get('Errors'))
+		{
+			if (count($errors))
+			{
+				throw new RuntimeException(implode('<br />', $errors), 500);
+			}
+		}
 
 		// different toolbar on different layouts
 		$Layout = JFactory::getApplication()->input->get('layout');
