@@ -1115,18 +1115,18 @@ class galleryUtils
 						$replace_string = substr($string, $position, strlen($word));
 						if ($position == 0)
 						{
-							if (!ctype_alnum($string{strlen($word)}))
+							if (!ctype_alnum($string[strlen($word)]))
 							{
 								$replace_string = "<span style=\"background-color: yellow;\">" . $replace_string . "</span>";
 								$string         = substr_replace($string, $replace_string, $position, strlen($word));
 							}
 						}
-                        elseif (!ctype_alnum($string{$position - 1}) && strlen($string) == $position + strlen($word))
+						elseif (!ctype_alnum($string[$position - 1]) && strlen($string) == $position + strlen($word))
 						{
 							$replace_string = "<span style=\"background-color: yellow;\">" . $replace_string . "</span>";
 							$string         = substr_replace($string, $replace_string, $position, strlen($word));
 						}
-                        elseif (!ctype_alnum($string{$position - 1}) && !ctype_alnum($string{$position + strlen($word)}))
+						elseif (!ctype_alnum($string[$position - 1]) && !ctype_alnum($string[$position + strlen($word)]))
 						{
 							$replace_string = "<span style=\"background-color: yellow;\">" . $replace_string . "</span>";
 							$string         = substr_replace($string, $replace_string, $position, strlen($word));

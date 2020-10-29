@@ -198,7 +198,7 @@ class rsgConfig
         $vars = array_keys(get_class_vars(get_class($this)));
         sort($vars);
         foreach ($vars as $v) {
-            if ($v{0} != '_') {
+            if ($v[0] != '_') {
                 $public[] = $v;
             }
         }

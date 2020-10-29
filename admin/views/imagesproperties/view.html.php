@@ -92,11 +92,21 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 		/**/		
 //		$this->form = JForm::getInstance('imagesProperties', $xmlFile);
 
+		// 2020.10.28 php 7.2 -> 7.4
+        //// Check for errors.
+        //if (count($errors = $this->get('Errors')))
+        //{
+        //    throw new RuntimeException(implode('<br />', $errors), 500);
+        //}
+
         // Check for errors.
-        if (count($errors = $this->get('Errors')))
-        {
-            throw new RuntimeException(implode('<br />', $errors), 500);
-        }
+		if ($errors = $this->get('Errors'))
+		{
+			if (count($errors))
+			{
+				throw new RuntimeException(implode('<br />', $errors), 500);
+			}
+		}
 
 		// different toolbar on different layouts
 		$Layout = JFactory::getApplication()->input->get('layout');
