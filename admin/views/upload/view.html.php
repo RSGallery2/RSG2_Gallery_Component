@@ -130,11 +130,21 @@ class Rsgallery2ViewUpload extends JViewLegacy
 
         $form->bind($formParam);
 
+		// 2020.10.28 php 7.2 -> 7.4
+        //// Check for errors.
+        //if (count($errors = $this->get('Errors')))
+        //{
+        //    throw new RuntimeException(implode('<br />', $errors), 500);
+        //}
+
         // Check for errors.
-        if (count($errors = $this->get('Errors')))
-        {
-            throw new RuntimeException(implode('<br />', $errors), 500);
-        }
+		if ($errors = $this->get('Errors'))
+		{
+			if (count($errors))
+			{
+				throw new RuntimeException(implode('<br />', $errors), 500);
+			}
+		}
 
 	    // Assign the Data
         $this->form = $form;

@@ -83,10 +83,20 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 
 				//		Rsg2Helper::addSubMenu('rsg2');
 
+				// 2020.10.28 php 7.2 -> 7.4
+				//// Check for errors.
+				//if (count($errors = $this->get('Errors')))
+				//{
+				//    throw new RuntimeException(implode('<br />', $errors), 500);
+				//}
+
 				// Check for errors.
-				if (count($errors = $this->get('Errors')))
+				if ($errors = $this->get('Errors'))
 				{
-					throw new RuntimeException(implode('<br />', $errors), 500);
+					if (count($errors))
+					{
+						throw new RuntimeException(implode('<br />', $errors), 500);
+					}
 				}
 
                 // Assign the Data
