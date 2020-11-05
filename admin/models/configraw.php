@@ -1,6 +1,3 @@
-// may be better in b_new_site
-
-
 <?php
 /**
  * @package     RSGallery2
