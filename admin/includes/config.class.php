@@ -267,6 +267,10 @@ class rsgConfig
                     }
 
                     if (isset($array[$ak])) {
+						/* 2020.12.05 removed code for php 8.0 deprecated get_magic_quotes_gpc() is removed 
+						   Since PHP no longer adds slashes to request parameters (removed in PHP 5.4), 
+						   get_magic_quotes_gpc() always returns false. With that in mind, you don't 
+						   have to do anything to your strings, they should always be clean						
                         if ($checkSlashes && get_magic_quotes_gpc()) {
                             if (is_string($array[$ak])) {
                                 //if it is a string, we can use stripslashes e.g. when multiple exifTags are selected is is an array
@@ -277,6 +281,9 @@ class rsgConfig
                         } else {
                             $obj->$k = $array[$ak];
                         }
+						/**/
+						// 2020.12.05 used leftover from above
+                        $obj->$k = $array[$ak];
                     }
                 }
             }

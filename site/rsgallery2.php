@@ -44,7 +44,7 @@ $isUseJ25View |= ! empty($bValue);
 
 /* debugSite from config or URL */
 $isDebugSiteActive = $rsgConfig->get('debugSite');
-$bUrlValue = $input->get('debugSite', 0, 'INT');
+$bUrlValue = (bool) $input->get('debugSite', 0, 'INT');
 $isDebugSiteActive |= ! empty($bUrlValue);
 /**
 $isDevelopSiteActive = $rsgConfig->get('developSite');
