@@ -13,18 +13,17 @@ $published = $this->state->get('filter.published');
 <div class="row-fluid">
 	<?php
 	/**
-	<div class="control-group span6">
-		<div class="controls">
-			<?php echo JHtml::_('batch.language'); ?>
+		<div class="control-group span6">
+			<div class="controls">
+				<?php echo JHtml::_('batch.language'); ?>
+			</div>
 		</div>
-	</div>
-	<div class="control-group span6">
-		<div class="controls">
-			<?php echo JHtml::_('batch.access'); ?>
+		<div class="control-group span6">
+			<div class="controls">
+				<?php echo JHtml::_('batch.access'); ?>
+			</div>
 		</div>
-	</div>
-</div>
-	 */
+	*/
 	?>
 	<div class="row-fluid">
 		<?php if ($published >= 0) : ?>
@@ -35,22 +34,23 @@ $published = $this->state->get('filter.published');
 				echo $this->form->renderFieldset('Select4MoveCopy');
 				?>
 			</div>
-			<?php /*
-        <div class="control-group span6">
-			<div class="controls">
-				<?php echo JHtml::_('batch.item', 'com_content'); ?>
+			<?php
+			/*
+	        <div class="control-group span6">
+				<div class="controls">
+					<?php echo JHtml::_('batch.item', 'com_content'); ?>
+				</div>
 			</div>
-		</div>
-        /**/
+	        /**/
 			?>
 		<?php endif; ?>
 		<?php
 		/**
-	<div class="control-group span6">
-		<div class="controls">
-			<?php echo JHtml::_('batch.tag'); ?>
-		</div>
-	</div>
-/**/
+			<div class="control-group span6">
+				<div class="controls">
+					<?php echo JHtml::_('batch.tag'); ?>
+				</div>
+			</div>
+		/**/
 		?>
 	</div>
