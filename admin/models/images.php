@@ -47,7 +47,8 @@ class Rsgallery2ModelImages extends JModelList
 				'approved', 'a.approved',
 				'userid', 'a.userid',
 				'params', 'a.params',
-				'asset_id', 'a.asset_id'
+				'asset_id', 'a.asset_id',
+				'gallery_name'
 			);
 		}
 
