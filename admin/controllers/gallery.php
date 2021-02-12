@@ -68,7 +68,7 @@ class Rsgallery2ControllerGallery extends JControllerForm
 				$link .= '&id=' . $Id;
 			}
 
-			$msg .= ' successful';
+			$msg .= ' successfully';
 			$this->setRedirect($link, $msg, $msgType);
 		}
 		else

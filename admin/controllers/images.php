@@ -133,7 +133,7 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 				$IsMoved = $model->moveImagesTo();
 				if ($IsMoved)
 				{
-					$msg .= 'Move of images ... sucessfull';
+					$msg .= 'Move of images ... successful';
 				}
 				else
 				{
@@ -188,7 +188,7 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 				$IsCopied = $model->copyImagesTo();
 				if ($IsCopied)
 				{
-					$msg .= 'Copy of images ... sucessfull';
+					$msg .= 'Copy of images ... successful';
 				}
 				else
 				{
