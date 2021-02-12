@@ -133,7 +133,7 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 				$IsMoved = $model->moveImagesTo();
 				if ($IsMoved)
 				{
-					$msg .= 'Move of images ... sucessfull';
+					$msg .= 'Move of images ... successfully';
 				}
 				else
 				{
@@ -188,7 +188,7 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 				$IsCopied = $model->copyImagesTo();
 				if ($IsCopied)
 				{
-					$msg .= 'Copy of images ... sucessfull';
+					$msg .= 'Copy of images ... successfully';
 				}
 				else
 				{
@@ -260,7 +260,7 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 				$result = $model->resetHits();
 				if ($result == true)
 				{
-					$msg = $msg . JText::_('COM_RSGALLERY2_HITS_RESET_TO_ZERO_SUCCESSFUL');
+					$msg = $msg . JText::_('COM_RSGALLERY2_HITS_RESET_TO_ZERO_successfully');
 				}
 
 			}

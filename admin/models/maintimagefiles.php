@@ -108,7 +108,7 @@ class Rsgallery2ModelMaintImageFiles extends JModelList
 				}
 			}
 
-			$msg .= ' successful';
+			$msg .= ' successfully';
 		}
 		catch (Exception $e)
 		{

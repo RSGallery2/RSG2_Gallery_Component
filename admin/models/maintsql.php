@@ -318,7 +318,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 			$IsTableCreated = $this->createSqlFileTable($missingTableName, $this->sqlFile);
 			if ($IsTableCreated)
 			{
-				$msg .= 'Table: ' . $missingTableName . ' created successful' . '<br>';
+				$msg .= 'Table: ' . $missingTableName . ' created successfully' . '<br>';
 			}
 			else
 			{
@@ -340,7 +340,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 			$IsColumnCreated = $this->createSqlFileColumn($missingTableName, $missingColumnName, $TableColumnsProperty);
 			if ($IsColumnCreated)
 			{
-				$msg .= 'Column: ' . $missingColumnName . ' in table  ' . $missingTableName . ' created successful' . '<br>';
+				$msg .= 'Column: ' . $missingColumnName . ' in table  ' . $missingTableName . ' created successfully' . '<br>';
 			}
 			else
 			{
@@ -378,7 +378,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 			$IsTableDeleted = $this->deleteTable($superfluousTableName);
 			if ($IsTableDeleted)
 			{
-				$msg .= 'Table: ' . $superfluousTableName . ' deleted successful' . '<br>';
+				$msg .= 'Table: ' . $superfluousTableName . ' deleted successfully' . '<br>';
 			}
 			else
 			{
@@ -396,7 +396,7 @@ class Rsgallery2ModelMaintSql extends JModelList
 			$IsColumnDeleted = $this->DeleteColumn($superfluousTableName, $superfluousColumnName);
 			if ($IsColumnDeleted)
 			{
-				$msg .= 'Column: ' . $superfluousColumnName . ' in table  ' . $superfluousTableName . ' deleted successful' . '<br>';
+				$msg .= 'Column: ' . $superfluousColumnName . ' in table  ' . $superfluousTableName . ' deleted successfully' . '<br>';
 			}
 			else
 			{
