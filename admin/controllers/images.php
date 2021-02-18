@@ -106,7 +106,7 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 	 * @throws Exception
 	 * @since 4.3.0
      */
-	public function moveImagesTo()
+	public function moveImagesToGallery()
 	{
 		//JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 		$msg     = "Control:moveTo: ";
@@ -130,7 +130,7 @@ class Rsgallery2ControllerImages extends JControllerAdmin
 				// Model tells if successful
 				$model = $this->getModel('image');
 
-				$IsMoved = $model->moveImagesTo();
+				$IsMoved = $model->moveImagesToGallery();
 				if ($IsMoved)
 				{
 					$msg .= 'Move of images ... successful';
