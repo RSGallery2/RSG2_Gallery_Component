@@ -2,7 +2,7 @@
 /**
  * @package     RSGallery2
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2020 RSGallery2 Team
+ * @copyright   (C) 2016-2021 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * RSGallery is Free Software
@@ -185,7 +185,6 @@ class Rsgallery2ModelImagesProperties extends JModelList
 			// identify active file
 			JLog::add('cids: "' . json_encode($cids));
 		}
-
 
 		if (is_array ($cids))
 		{
