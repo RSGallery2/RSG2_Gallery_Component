@@ -149,7 +149,7 @@ class InstallerModel extends JModelLegacy
 		}
 		else
 		{
-			// Package uninstalled successfuly
+			// Package uninstalled sucessfully
 			$msg    = JText::sprintf('COM_RSGALLERY2_UNINSTALLEXT', JText::_($this->_type), JText::_('COM_RSGALLERY2_SUCCESS'));
 			$result = true;
 		}

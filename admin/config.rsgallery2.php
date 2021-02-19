@@ -806,10 +806,11 @@ class galleryUtils
 	{
 		global $rsgConfig;
 		require_once(JPATH_COMPONENT_ADMINISTRATOR . '/includes/img.utils.php');
+		
 		//Detect image libraries
 		$html  = '';
 		$count = 0;
-		if ((!GD2::detect()) and (!imageMagick::detect()) and (!Netpbm::detect()))
+		if ((!GD2::detect()) and (!GD::detect()) and (!imageMagick::detect()) and (!Netpbm::detect()))
 		{
 			$html .= "<p style=\"color: #CC0000;font-size:smaller;\"><img src=\"" . JURI_SITE . "/includes/js/ThemeOffice/warning.png\" alt=\"\">&nbsp;" . JText::_('COM_RSGALLERY2_NO_IMGLIBRARY') . "</p>";
 		}
