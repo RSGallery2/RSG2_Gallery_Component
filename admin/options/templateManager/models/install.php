@@ -105,7 +105,7 @@ class InstallerModelInstall extends JModelLegacy
 		}
 		else
 		{
-			// Package installed successfuly
+			// Package installed sucessfully
 			$msg    = JText::sprintf('COM_RSGALLERY2_INSTALLEXT', JText::_($package['type']), JText::_('COM_RSGALLERY2_SUCCESS'));
 			$result = true;
 		}
