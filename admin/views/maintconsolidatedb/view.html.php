@@ -59,8 +59,6 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
-//		$xmlFile = JPATH_COMPONENT . '/models/forms/maintregenerateimages.xml';
-//		$this->form = JForm::getInstance('maintRegenerateImages', $xmlFile);
 
 		//--- get needed data ------------------------------------------
 
@@ -69,45 +67,6 @@ class Rsgallery2ViewMaintConsolidateDB extends JViewLegacy
 
 		$ConsolidateModel      = JModelLegacy::getInstance('MaintConsolidateDB', 'rsgallery2Model');
 		$this->ImageReferences = $ConsolidateModel->GetImageReferences();
-
-		// echo json_encode($this->DisplayImageData);
-
-		/*
-                global $rsgConfig;
-                // $this->rsgConfigData = $rsgConfig;
-                $this->imageWidth = $rsgConfig->get('image_width');
-                $this->thumbWidth = $rsgConfig->get('thumb_width');
-
-
-                //--- begin to display --------------------------------------------
-
-				//		Rsg2Helper::addSubMenu('rsg2');
-
-				// 2020.10.28 php 7.2 -> 7.4
-				//// Check for errors.
-				//if (count($errors = $this->get('Errors')))
-				//{
-				//    throw new RuntimeException(implode('<br />', $errors), 500);
-				//}
-
-				// Check for errors.
-				if ($errors = $this->get('Errors'))
-				{
-					if (count($errors))
-					{
-						throw new RuntimeException(implode('<br />', $errors), 500);
-					}
-				}
-
-                // Assign the Data
-                // $this->form = $form;
-
-                // different toolbar on different layouts
-                // $Layout = JFactory::getApplication()->input->get('layout');
-
-                // Assign the Data
-        //		$this->form = $form;
-        */
 
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/maintConsolidateDB.xml';
 		$this->form = JForm::getInstance('maintConsolidateDB', $xmlFile);
