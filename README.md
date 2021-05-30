@@ -1,9 +1,31 @@
-![RSGallery logo with text](https://github.com/RSGallery2/RSGallery2_Project/blob/master/RSGallery2_Logo/RSG2_logoText.svg) 
+![RSGallery logo with text](https://github.com/RSGallery2/RSGallery2_Project/blob/master/RSGallery2_Logo/RSG2_logoText.svg)
 
 # RSGallery2_Component
 RSGallery2 is one of several gallery extensions/components for the well known CMS Joomla!
 
-## About RSGallery2
+<hr>
+
+# This branch b_j_3_10_compatibility_layer:
+
+The code attempts to pave the way to more or less smooth trnaisition to joomla!4x version
+
+**!!! Attention: Breaking changes !!!**
+
+Rsgallery2 lived for a long time on jquery and mootools. Especially the display functions like slideshows are outdated and must be replaced completely. This can't be done without some changes by the user.
+
+* templates
+* slideshows
+* user galleries -> not supported (? for a while)
+* .
+* .
+* .
+*
+
+On the other side this enables us to initiate major improvements with small changes which may later be coded as time allows us. There is already a little bit of documantation retrieved by the parallel project "RSGallery2_J4" which is a test project for j!4x direct. Sometime in the future they will merge.
+
+
+-<hr>
+# About RSGallery2
 RSGallery2 is around since the Mambo days (2003) and is originally developed by Ronald Smit. Since then RSGallery2 has evolved with the Joomla! content management into what it is nowadays.
 
 RSGallery2 is released by the GPL license and will be **free to use** (as in free beer).
@@ -91,11 +113,11 @@ And please let us know if you use RSGallery2. We are keen to understand how you'
 
 If you like the project and want to give something back, please help out other users in the forums and share your code.
 RSGallery2 is a project run by volunteers. People who just love Joomla! and this gallery component. So RSGallery2 needs you!
-How? 
+How?
 * By reporting bugs and problems in the forum
 * By answering questions of other users on the forum
-* By submitting fixes for bugs, 
-* By writing documentation... 
+* By submitting fixes for bugs,
+* By writing documentation...
 
 Just send a message to team2 and you will be a member of the RSGallery2 team
    ==> team2 at rsgallery2.org (correct address to match ...)
