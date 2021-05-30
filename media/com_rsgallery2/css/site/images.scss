@@ -1,0 +1,303 @@
+
+
+// figure, figcaption { display: block; }
+
+
+//
+//.rsg2_gallery {
+//
+//  background: lightyellow;
+//
+//}
+//
+//
+//.rsg2_gallery__images {
+//
+//  display: flex;
+//
+//  border: 2px solid #00c4ff;
+//}
+
+.rsg2_gallery__images {
+
+  display: flex;
+
+  flex-flow: wrap;
+  align-items: center;
+//  justify-content: center; // space-around; // center; //
+  justify-content: space-around; // center; //
+
+  //flex-basis: 100%;
+  //flex: 1 1 0px;
+
+  border: 1px solid #00c4ff;
+}
+
+.rsg2_gallery__images_image {
+  //
+  //  flex-direction: row;
+  ////  flex-wrap: wrap;
+  //  flex-flow: column wrap;
+  ////  align-items: center;
+  //
+  flex-basis: 20vw;
+
+  background: lightgrey;
+  border: 2px solid #2A00FF;
+  //
+}
+
+.rsg2_gallery__images figure {
+
+  text-align:center;
+  flex-basis: 20vw;
+
+
+  border: 1px solid blue;
+
+}
+
+
+//
+//.rsg2_gallery__images_image img {
+//  text-align:center;
+//}
+//
+//
+//.rsg2_gallery__images_image {
+//
+////  flex-direction: row;
+////  flex-wrap: wrap;
+//  flex-flow: column wrap;
+//  justify-content: space-around; // center; //
+//  align-items: center;
+//
+////  text-align:center;
+//  background: lightgrey;
+//  border: 2px solid #2A00FF;
+//
+//}
+//
+//.rsg2_gallery__images_image img {
+//  text-align:center;
+//}
+
+///**
+//// Center images
+// */
+//.thumbnail {
+////  text-align:center;
+//}
+//
+//.thumbnail > li {
+//  display: inline-block;
+//  *display:inline; /* ie7 fix */
+//  float: none; /* this is the part that makes it work */
+//}
+///**/
+
+
+//
+//@mixin modal-fullscreen() {
+//  padding: 0 !important; // override inline padding-right added from js
+//
+//  .modal-dialog {
+//    width: 100%;
+//    max-width: none;
+//    height: 100%;
+//    margin: 0;
+//  }
+//
+//  .modal-content {
+//    height: 100%;
+//    border: 0;
+//    border-radius: 0;
+//  }
+//
+//  .modal-body {
+//    overflow-y: auto;
+//  }
+//
+//}
+//
+//@each $breakpoint in map-keys($grid-breakpoints) {
+//  @include media-breakpoint-down($breakpoint) {
+//    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+//
+//    .modal-fullscreen#{$infix} {
+//      @include modal-fullscreen();
+//    }
+//  }
+//}
+
+.modal {
+  padding: 0 !important; // override inline padding-right added from js
+}
+.modal .modal-dialog {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  margin: 0;
+}
+//.modal .modal-content {
+//  height: 100%;
+//  border: 0;
+//  border-radius: 0;
+//}
+//.modal .modal-body {
+//  overflow-y: auto;
+//}
+
+
+
+
+
+.carousel-inner {
+
+  //width: 100vw;
+  //height: 100vh;
+
+  height: 90vh;
+  min-height: 400px;
+
+}
+
+//---------------------------------------
+//
+//---------------------------------------
+
+////--------------------------------------
+//.carousel-control-prev,
+//.carousel-control-next{
+//  height: 50px;
+//  width: 50px;
+////  outline: green solid 2px; // arrows $color-white;
+//  background-size: 100%, 100%;
+//  border-radius: 50%;
+//  border: 2px solid lightgrey;; // $color-white;
+//  background-color: white; // $color-white;
+//}
+//
+//.carousel-control-prev-icon {
+//  background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23009be1' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+//  width: 30px;
+//  height: 48px;
+//}
+//.carousel-control-next-icon {
+//  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23009be1' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+//  width: 30px;
+//  height: 48px;
+//}
+
+//$carousel-control-color: red; // #7b277d;
+
+////--------------------------------------
+//.carousel-control-prev-icon,
+//.carousel-control-next-icon {
+//  offset: 25px 25px;
+//  height: 50px;
+//  width: 50px;
+//  outline: black;
+//  background-size: 100%, 100%;
+//  border-radius: 50%;
+//  border: 4px solid black;
+//  background-image: none;
+//}
+//
+//.carousel-control-next-icon:after {
+////.carousel-control-next-icon:after {
+//  position:relative; left:0px; top:-25px;
+//  content: '>';
+//  font-size: 45px;
+//  color: grey;
+//}
+//
+//.carousel-control-prev-icon:after {
+////.carousel-control-prev-icon:before {
+//  position:relative; left:0px; top:-25px;
+//  content: '<';
+//  font-size: 45px;
+//  color: grey;
+//}
+
+////--------------------------------------
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  offset: 50px 50px;
+  height: 100px;
+  width: 100px;
+  //outline: black;
+  background-size: 100%, 100%;
+  border-radius: 50%;
+  border: 4px solid black;
+//  background-image: none;
+//  background-color: transparent;
+
+  //  :hover {
+  //    border-radius: 60px;
+  //    box-shadow: 0px 0px 2px #888;
+  //    padding: 0.5em 0.6em;
+  //
+  ////    background: white;
+  //    mix-blend-mode: difference;
+  //  }
+
+}
+
+
+////--------------------------------------
+//.carousel-control-prev-icon {
+//  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ff0000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+//}
+//
+//.carousel-control-next-icon {
+//  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ff0000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+//}
+
+////--------------------------------------
+//// https://stackoverflow.com/questions/43254048/change-circle-background-on-hover-using-css-animation
+//#rsg2_carousel a.carousel-control-prev, a.carousel-control-next {
+//
+////  background: lightgrey;
+//  mix-blend-mode: difference;
+//
+//  :hover {
+//
+////    border-radius: 260px;
+////    box-shadow: 0px 0px 2px #888;
+////    padding: 0.5em 0.6em;
+//
+//    background: black;
+//
+////    transition: all 0.5s ease;
+//
+//  }
+//}
+//a.carousel-control-prev-icon, a.carousel-control-next-icon {
+//  mix-blend-mode: difference;
+//}
+
+//.carousel-control-prev {
+//
+//  mix-blend-mode: difference;
+//  :hover {
+//
+//    border-radius: 160px;
+//    box-shadow: 0px 0px 2px #888;
+//    padding: 0.5em 0.6em;
+//
+////    background: lightgrey;
+//  }
+//}
+//.carousel-control-next {
+//
+//  mix-blend-mode: difference;
+//  :hover {
+//    border-radius: 60px;
+//    box-shadow: 0px 0px 2px #888;
+//    padding: 0.5em 0.6em;
+//
+////    background: white;
+//  }
+//}
+
