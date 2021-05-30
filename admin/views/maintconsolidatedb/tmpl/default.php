@@ -593,7 +593,7 @@ function DisplayImageDataTable($ImageReferences, $form)
 						<div class="row-fluid">
 							<!-- div class="span4 clsInfoAccordion" -->
 							<?php
-							// Info about last uploaded galleries
+							// Info about lost and found images
 							DisplayImageDataTable($this->ImageReferences, $this->form);
 							?>
 							<!-- /div -->

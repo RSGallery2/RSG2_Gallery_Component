@@ -49,6 +49,27 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		parent::__construct($config);
 	}
 
+    /**
+	 * Proxy for getModel
+     *
+	 * @param   string  $name    The model name. Optional.
+	 * @param   string  $prefix  The class prefix. Optional.
+	 * @param   array   $config  The array of possible config values. Optional.
+	 * 
+	 * @return  \Joomla\CMS\MVC\Model\BaseDatabaseModel  The model.
+	 * 
+     * @since 4.3.0
+     */
+	public function getModel($name = 'maintConsolidateDB',
+		$prefix = 'rsgallery2Model',
+		$config = array())
+	{
+		$config ['ignore_request'] = true;
+		$model                     = parent::getModel($name, $prefix, $config);
+
+		return $model;
+	}
+
 	/**
      * Creates a database entry (row) for all mismatched items
      *
@@ -131,26 +152,6 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 		$this->setRedirect('index.php?option=com_rsgallery2&view=maintConsolidateDB', $msg, $msgType);
 	}
 
-
-    /**
-     *
-     * @param string $name
-     * @param string $prefix
-     * @param array $config
-     * @return bool|rsgallery2ModelMaintConsolidateDB
-     *
-     * @since 4.3.0
-     */
-	public function getModel($name = 'maintConsolidateDB',
-		$prefix = 'rsgallery2Model',
-		$config = array())
-	{
-		$config ['ignore_request'] = true;
-		$model                     = parent::getModel($name, $prefix, $config);
-
-		return $model;
-	}
-
     /**
      * Creates a database entry (row) for given item
      *
@@ -191,6 +192,7 @@ class Rsgallery2ControllerMaintConsolidateDb extends JControllerAdmin
 
 		return $IsImageDbCreated;
 	}
+
 
 	/**
 	 * Creates all missing image files
