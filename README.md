@@ -3,11 +3,16 @@
 # RSGallery2_Component
 RSGallery2 is one of several gallery extensions/components for the well known CMS Joomla!
 
+**!!! 2021.06.03: This attempt was not succesful as it did not fulfil the need of J!4 code matching J3.0!!!**
+The developer may be wrong here but this was the found state when starting coding for J3.10
+
+So **RSGallery2** will upgrade directly inside J4!x
+
 <hr>
 
 # This branch b_j_3_10_compatibility_layer:
 
-The code attempts to pave the way to more or less smooth trnaisition to joomla!4x version
+The code attempts to pave the way to more or less smooth transition to joomla!4x version
 
 **!!! Attention: Breaking changes !!!**
 
