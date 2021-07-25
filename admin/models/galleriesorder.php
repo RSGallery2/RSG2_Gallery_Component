@@ -489,7 +489,7 @@ class rsgallery2ModelGalleriesOrder extends JModelList
         catch (RuntimeException $e)
         {
             $OutTxt = '';
-            $OutTxt .= 'Error executing SortByOrdering: "' . '<br>';
+            $OutTxt .= 'Error executing UserOrderingFromId: "' . '<br>';
             $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
 
             $app = JFactory::getApplication();

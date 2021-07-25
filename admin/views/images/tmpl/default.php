@@ -26,15 +26,15 @@ $userId = $user->id;
 
 	//This will sort your array
 	function SortByIntValue(a, b) {
-		var aValue = parseInt($(a).value, 10);
-		var bValue = parseInt($(b).value, 10);
+		var aValue = parseInt(jQuery(a).value, 10);
+		var bValue = parseInt(jQuery(b).value, 10);
 		return aValue - bValue;
 	}
 
 
 	// :
 	jQuery(document).ready(function ($) {
-		//alert ("assign");
+		// alert ("assign");
 
 		jQuery(".changeOrder").on('keyup mouseup',
 			function (event) {
@@ -145,6 +145,7 @@ $userId = $user->id;
 					OutTxt += element.value + ",";
 				}
 
+				console.log("Order: " + OutTxt);
 				/**/
 
 			}
@@ -334,7 +335,7 @@ $userId = $user->id;
 										//$link = JRoute::_("index.php?option=com_rsgallery2&amp;rsgOption=images&amp;task=editA&amp;hidemainmenu=1&amp;id=" . $item->id);
 										if ($canEditImage)
 										{
-											echo '<a href="' . $link . '"">' . $this->escape($item->name) . '</a>';
+											echo '<a href="' . $link . '">' . $this->escape($item->name) . '</a>';
 										}
 										else
 										{
@@ -348,8 +349,8 @@ $userId = $user->id;
 									<?php
 									$link = JRoute::_("index.php?option=com_rsgallery2&view=gallery&task=gallery.edit&id=" . $item->gallery_id);
 									//$link = JRoute::_("index.php?option=com_rsgallery2&rsgOption=galleries&task=editA&hidemainmenu=1&id=". $item->gallery_id);
-									//echo '<a href="' . $link . '"">' . $item->gallery_id . '</a>';
-									echo '<a href="' . $link . '"">' . $this->escape($item->gallery_name) . '</a>';
+									//echo '<a href="' . $link . '">' . $item->gallery_id . '</a>';
+									echo '<a href="' . $link . '">' . $this->escape($item->gallery_name) . '</a>';
 									?>
 								</td>
 
