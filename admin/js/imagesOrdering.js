@@ -1,18 +1,18 @@
 /**
  * @package     RSGallery2
  *
- * resorting galleries in galleries view
+ * resorting images in images view
  *
  * @subpackage  com_rsgallery2
- * @copyright   (C) 2016-2018 RSGallery2 Team
+ * @copyright   (C) 2016-2021 RSGallery2 Team
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @author      finnern
  * @since       4.3.0
  */
 
-var GalleriesOrdering = {
+var ImagesOrdering = {
     /**
-     * Keeps server database gallery objects (Id,Parent, ordering, name)
+     * Keeps server database images objects (Id,Parent, ordering, name)
      */
     dbOrdering: [],
 
@@ -62,7 +62,7 @@ var GalleriesOrdering = {
     clearDebugTextArea: function () {
         jQuery("#debug").val("");
     },
-
+	
     /**
      * Add Text to debug view area
      *
@@ -166,48 +166,6 @@ var GalleriesOrdering = {
     },
 
     /**
-     * Remove child parent value if parent doesn't exist
-     * Will have no parent now locally.
-     * Replace it with parent id '0'.
-     */
-    RemoveOrphanIds: function () {
-
-        //for (var dbGallery of this.dbOrdering) {
-        for (var idx = 0; idx < this.dbOrdering.length; idx++) {
-
-            if (this.dbOrdering[idx].parent != 0) {
-
-                if (!this.IsParentExisting(this.dbOrdering[idx].parent)) {
-                    var outText = "Orphan:" + JSON.stringify(this.dbOrdering[idx]) + "\n";
-                    this.add2DebugTextArea(outText);
-                    this.dbOrdering[idx].parent = 0;
-                }
-            }
-        }
-
-        return;
-    },
-
-    /**
-     * Determines if given ID does exist in gallery array
-     * @param {number} ParentId ID which is searched
-     * @returns {boolean} true if exists
-     */
-    IsParentExisting: function (ParentId) {
-        var bIsParentExisting = false;
-
-        //for (var dbGallery of this.dbOrdering) {
-        for (var idx = 0; idx < this.dbOrdering.length; idx++) {
-            if (this.dbOrdering[idx].id == ParentId) {
-                bIsParentExisting = true;
-                break;
-            }
-        }
-
-        return bIsParentExisting;
-    },
-
-    /**
      * sorts element of array regarding
      * actual ordering settings
      */
@@ -288,6 +246,8 @@ var GalleriesOrdering = {
         /**/
     },
 
+
+	
 // Reassign as Versions of $.3.0 may contain no parent child order
 // Recursive assignment of ordering  (child direct after parent)
 // May leave out some ordering numbers
@@ -322,5 +282,6 @@ var GalleriesOrdering = {
 
         return actIdx;
     }
+
 
 };

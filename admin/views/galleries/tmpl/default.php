@@ -14,7 +14,6 @@ JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.multiselect');
 JHtml::_('formbehavior.chosen', 'select');
 
-
 $doc = JFactory::getDocument();
 $script = JUri::root(true) . '/administrator/components/com_rsgallery2/js/galleriesOrdering.js';
 $doc->addScript($script);
@@ -33,23 +32,22 @@ $userId = $user->id;
 ?>
 <script type="text/javascript">
 
-
-	// Change request from order element of gallery row:
-	jQuery(document).ready(function ($) {
+    // Change request from order element of gallery row:
+    jQuery(document).ready(function ($) {
         var IsActive = false;
 
         jQuery(".changeOrder").change(
-  			function (event) {
-				var Idx;
-				var element;
-				var Count;
+            function (event) {
+                var Idx;
+                var element;
+                var Count;
 
-				// Dont handle "Enter" otherwise for this control
+                // Don't handle "Enter" otherwise for this control
                 event.preventDefault();
 
                 // alert ("Change ?");
 
-                // Exit for reentrance check
+                // Exit for reentry check
                 if (IsActive == true)
                 {
                     alert ("Already started !!!");
@@ -59,19 +57,19 @@ $userId = $user->id;
                 // activate re entrance check
                 IsActive = true;
 
-				var actElement = event.target;
+                var actElement = event.target;
 
-				// Empty input
-				if (actElement.value == '') {
+                // Empty input
+                if (actElement.value == '') {
                     alert ("Empty yes");
-					return;
-				}
+                    return;
+                }
 
                 var Ordering = GalleriesOrdering;
 
                 //--- User element order value --------------------------------------
 
-				var strUserOrdering = actElement.value;
+                var strUserOrdering = actElement.value;
                 var UserOrdering = parseInt(actElement.value);
                 // var UserId = Ordering.GetGalleryId(actElement.id);
                 var UserIdString = actElement.id; //
@@ -82,10 +80,10 @@ $userId = $user->id;
                 //--- Check limit user value --------------------------------------
 
                 // Negative value will be corrected to lowest value
-				if (UserOrdering < 0) {
-					UserOrdering = 0;
-					actElement.value = UserOrdering;
-				}
+                if (UserOrdering < 0) {
+                    UserOrdering = 0;
+                    actElement.value = UserOrdering;
+                }
 
                 // Value higher than the count will be set to highest possible
                 /* ==> may be set behind to ensure as last element
@@ -111,7 +109,7 @@ $userId = $user->id;
                 // Order by parent / child
                 //-----------------------------------------
 
-                // Empty debug areay
+                // Empty debug array
                 Ordering.clearDebugTextArea ();
 
                 //
@@ -122,7 +120,7 @@ $userId = $user->id;
                 Ordering.InsertUserOrdering (UserId, UserOrdering);
                 //Ordering.displayDbOrderingArray ("(03) User ordering added");
 
-                // Check for gallaries with missing parent assigned
+                // Check for galleries with missing parent assigned
                 Ordering.RemoveOrphanIds ();
                 //Ordering.displayDbOrderingArray ("(04) Remove Orphans");
 
@@ -148,11 +146,11 @@ $userId = $user->id;
                 // Deactivate re entrance check
                 IsActive = false;
             }
-		);
+        );
 
         // For debug purposes: If activated it tells if jscript is working
-		// alert ("assign successful");
-	});
+        // alert ("assign successful");
+    });
 
 </script>
 
@@ -161,13 +159,13 @@ $userId = $user->id;
 ?>
 
 <div id="installer-install" class="clearfix">
-	<?php if (!empty($this->sidebar)) : ?>
+    <?php if (!empty($this->sidebar)) : ?>
     <div id="j-sidebar-container" class="span2">
         <?php echo $this->sidebar; ?>
     </div>
     <div id="j-main-container" class="span10">
-	<?php else : ?>
-	<div id="j-main-container">
+    <?php else : ?>
+    <div id="j-main-container">
     <?php endif; ?>
 
         <form action="<?php echo JRoute::_('index.php?option=com_rsgallery2&view=galleries'); ?>"
@@ -520,6 +518,6 @@ $userId = $user->id;
                   style="resize: horizontal; display: none;">debug area</textarea>
     </div>
 
-	<div id="loading"></div>
+    <div id="loading"></div>
 </div>
 
