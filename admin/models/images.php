@@ -267,13 +267,20 @@ class Rsgallery2ModelImages extends JModelList
 			// $this->displayDbOrderingArray ("NewOrdering");
 
 			// Do standard ordering with save
-			$IsSaved = $this->doOrdering($dbOrdering);
+			// $IsSaved = $this->doOrdering($dbOrdering);
+
+            // ToDo: Remove: Use $dbOrdering always as function parameter
+            $this->dbOrdering = $dbOrdering;
+
+            // Sort array by (new) ordering
+            $this->SortByOrdering ();
+            //$this->displayDbOrderingArray("After sort (1)");
+
+            // Save Ordering in HTML elements
+            $IsSaved = $this->AssignNewOrdering ($this->dbOrdering);
 
 
-
-
-
-			// parent::reorder();
+            // parent::reorder();
 		}
 		catch (RuntimeException $e)
 		{
@@ -697,49 +704,6 @@ class Rsgallery2ModelImages extends JModelList
 	}
 
 	/**
-	 * Does the ordering with the given data and saves it
-	 *
-	 * @param $dbOrdering Object with IS,Parent id and ordering of a gallery object
-	 * @return bool true if successful
-	 *
-	 * @since 4.3.1
-	 */
-	public function doOrdering ($dbOrdering)
-	{
-		$IsSaved = false;
-
-		try {
-			// ToDo: Remove: Use $dbOrdering always as function parameter
-			$this->dbOrdering = $dbOrdering;
-
-			// Sort array by (new) ordering
-			$this->SortByOrdering ();
-			//$this->displayDbOrderingArray("After sort (1)");
-
-			// Reassign as Versions of $.3.0 may contain no parent child order
-			// Recursive assignment of ordering  (child direct after parent)
-			$this->PreAssignOrdering ();
-			//$this->displayDbOrderingArray("After DoPreOrdering");
-
-			// Save Ordering in HTML elements
-			$IsSaved = $this->AssignNewOrdering ($this->dbOrdering);
-
-			// parent::reorder();
-		}
-		catch (RuntimeException $e)
-		{
-			$OutTxt = '';
-			$OutTxt .= 'Error executing saveOrdering: "' . '<br>';
-			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
-
-			$app = JFactory::getApplication();
-			$app->enqueueMessage($OutTxt, 'error');
-		}
-
-		return $IsSaved;
-	}
-
-	/**
 	 * sort by ordering and assign new ordering "1..n" from first element
 	 * @return bool
 	 *
@@ -758,10 +722,15 @@ class Rsgallery2ModelImages extends JModelList
 				return intval ($a->ordering) > intval ($b->ordering);
 			});
 
-			/** ToDo:
-			// Close gaps
+			/** ToDo: */
+			// Close gaps, remove doubles
 			for ($arrayIdx=0; $arrayIdx < count($this->dbOrdering); $arrayIdx++) {
-			$this->dbOrdering[$arrayIdx]['ordering'] = $arrayIdx+1;
+	            if ($this->dbOrdering[$arrayIdx]['ordering'] != $arrayIdx+1) {
+
+                    // $this->dbOrdering[$arrayIdx]['ordering'] = $arrayIdx + 1;
+                    // debug
+                    $this->dbOrdering[$arrayIdx]['ordering'] = $this->dbOrdering[$arrayIdx]['ordering'];
+                }
 			}
 			/**/
 		}
@@ -778,6 +747,168 @@ class Rsgallery2ModelImages extends JModelList
 		return $IsSaved;
 	}
 
+    /**
+     *
+     * Only when order is changed it will be written back
+     * @param $dbOrdering
+     *
+     * @return bool
+     *
+     * @since version 4.3.1
+     */
+    public function AssignNewOrdering ($dbOrdering)
+    {
+        $IsAssigned = false;
+
+        try
+        {
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+
+            $app = JFactory::getApplication();
+            //$app->enqueueMessage('AssignNewOrdering (A)', 'notice');
+
+            // Collect all images id/name/ordering to check the ordering
+            $images = $this->OrderedImages ();
+
+            // ordering of parents
+            $IsAssigned = true; //  true until further notice
+            foreach ($images as $image) {
+
+                $NewOrdering = $this->UserOrderingFromId ($image->id);
+                /*
+                    $OutText = '';
+                    $OutText .= 'Id: ' . $image->id;
+                    $OutText .= ' ordering: ' . $image->ordering;
+                    $OutText .= ' ==> $NewOrdering: ' . $NewOrdering;
+                    $app->enqueueMessage($OutText, 'notice');
+                /**/
+                // image not defined in user view
+                if($NewOrdering == -1){
+                    continue;
+                }
+
+                if($NewOrdering != $image->ordering) {
+
+                    $OutText = '';
+                    $OutText .= 'Id: ' . $image->id;
+//                    $OutText .= ' ordering: ' . $image->ordering;
+//                    $OutText .= ' ==> $NewOrdering: ' . $NewOrdering;
+                    $OutText .= ' ==> ' . $NewOrdering;
+//                    $OutText .= ' (' . $image->ordering . ")";
+//                    $app->enqueueMessage($OutText, 'notice');
+
+                    $query->clear();
+                    $query->update($db->quoteName('#__rsgallery2_images'))
+                        ->set($db->quoteName('ordering') . '=' . $db->quote((int) $NewOrdering))
+                        ->where(array($db->quoteName('id') . '=' . $db->quote((int) $image->id)));
+                    $db->setQuery($query);
+
+                    $result = $db->execute();
+//                    $OutText = 'Result: ' . $result;
+//                    $app->enqueueMessage($OutText, 'notice');
+
+                    if (empty($result))
+                    {
+                        $app->enqueueMessage('AssignNewOrdering failed for $image->id: ' . $image->id . ' '
+                            . '$NewOrdering: ' . $NewOrdering . ' '
+                            , 'notice');
+
+                        $IsAssigned = false;
+                        break;
+                    }
+                }
+            }
+
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing AssignNewOrdering: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $IsAssigned;
+    }
+
+    /**
+     * Collects 'id', 'ordering', 'parent', 'name' of all gelleries in an array
+     * @return array|mixed 'id', 'ordering', 'parent', 'name'
+     *
+     * @since 4.3.0
+     */
+    public static function OrderedImages ()
+    {
+        $OrderedImages = array();
+
+        try {
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+
+            /**/
+            $query->select($db->quoteName(
+//                array ('id', 'ordering', 'parent', 'name')))
+                array ('id', 'ordering', 'name')))
+                ->from($db->quoteName('#__rsgallery2_files'))
+                ->order('ordering ASC');
+            $db->setQuery($query);
+
+            $OrderedImages = $db->loadObjectList();
+
+            // echo '$OrderedImages: ' . json_encode($OrderedImages) . '<br>';
+
+        } catch (RuntimeException $e) {
+            $OutTxt = '';
+            $OutTxt .= 'OrderedImages: Error executing query: "' . $query . '"' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $OrderedImages;
+    }
+
+
+    /**
+     * @param $galleryId
+     *
+     * @return int
+     *
+     * @since 4.3.0
+     */
+    public function UserOrderingFromId ($galleryId)
+    {
+        $Order = -1;
+
+        try
+        {
+            // each user ordering
+            foreach ($this->dbOrdering as $dbImage) {
+
+                $id = $dbImage->id;
+
+                // Found
+                if ($id == $galleryId) {
+                    $Order = $dbImage->ordering;
+                }
+            }
+        }
+        catch (RuntimeException $e)
+        {
+            $OutTxt = '';
+            $OutTxt .= 'Error executing UserOrderingFromId: "' . '<br>';
+            $OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+            $app = JFactory::getApplication();
+            $app->enqueueMessage($OutTxt, 'error');
+        }
+
+        return $Order;
+    }
 
 
 
