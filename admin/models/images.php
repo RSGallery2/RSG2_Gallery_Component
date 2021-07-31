@@ -195,42 +195,83 @@ class Rsgallery2ModelImages extends JModelList
 	{
 		$IsSaved = false;
 
-		try
-		{
+//		try
+//		{
+//
+//			$input  = JFactory::getApplication()->input;
+//			$orders = $input->post->get('order', array(), 'ARRAY');
+//			$ids    = $input->post->get('ids', array(), 'ARRAY');
+//
+//			// $CountOrders = count($ids);
+//			$CountIds = count($ids);
+//
+//			$db    = JFactory::getDbo();
+//			$query = $db->getQuery(true);
+//			$db->setQuery($query);
+//
+//			for ($idx = 0; $idx < $CountIds; $idx++)
+//			{
+//				$id       = $ids[$idx];
+//				$orderIdx = $orders[$idx];
+//				// $msg .= "<br>" . '$id: ' . $id . '$orderIdx: ' . $orderIdx;
+//
+//				$query->clear();
+//
+//				$query->update($db->quoteName('#__rsgallery2_files'))
+//					->set(array($db->quoteName('ordering') . '=' . $orderIdx))
+//					->where(array($db->quoteName('id') . '=' . $id));
+//
+//				$result = $db->execute();
+//				if (empty($result))
+//				{
+//					break;
+//				}
+//			}
+//			if (!empty($result))
+//			{
+//				$IsSaved = true;
+//			}
+//
+//			// parent::reorder();
+//		}
+//		catch (RuntimeException $e)
+//		{
+//			$OutTxt = '';
+//			$OutTxt .= 'Error executing saveOrdering: "' . '<br>';
+//			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+//
+//			$app = JFactory::getApplication();
+//			$app->enqueueMessage($OutTxt, 'error');
+//		}
 
-			$input  = JFactory::getApplication()->input;
-			$orders = $input->post->get('order', array(), 'ARRAY');
-			$ids    = $input->post->get('ids', array(), 'ARRAY');
+		try {
 
-			// $CountOrders = count($ids);
-			$CountIds = count($ids);
+			//--- Collect data -------------------------------
 
-			$db    = JFactory::getDbo();
-			$query = $db->getQuery(true);
-			$db->setQuery($query);
+			$input = JFactory::getApplication()->input;
+			$newOrderingHtml = $input->post->get('dbOrdering', '', 'STRING');
 
-			for ($idx = 0; $idx < $CountIds; $idx++)
-			{
-				$id       = $ids[$idx];
-				$orderIdx = $orders[$idx];
-				// $msg .= "<br>" . '$id: ' . $id . '$orderIdx: ' . $orderIdx;
 
-				$query->clear();
+			/** ToDo: ? empty ? wrong data ? *
+			 * if ((typeof(serverDbOrderingValue) === 'undefined') || (serverDbOrderingValue === null)) {
+			 * alert("serverDbOrdering is not defined ==> Server ordering values not exsisting");
+			 * return;
+			 * }
+			 * /**/
 
-				$query->update($db->quoteName('#__rsgallery2_files'))
-					->set(array($db->quoteName('ordering') . '=' . $orderIdx))
-					->where(array($db->quoteName('id') . '=' . $id));
+			// User changes
+			$newOrdering = json_decode($newOrderingHtml, true);
 
-				$result = $db->execute();
-				if (empty($result))
-				{
-					break;
-				}
-			}
-			if (!empty($result))
-			{
-				$IsSaved = true;
-			}
+			// ...
+			$dbOrdering = $this->ConvertOrderingHtml2PhpObject($newOrdering);
+			// $this->displayDbOrderingArray ("NewOrdering");
+
+			// Do standard ordering with save
+			$IsSaved = $this->doOrdering($dbOrdering);
+
+
+
+
 
 			// parent::reorder();
 		}
@@ -244,7 +285,9 @@ class Rsgallery2ModelImages extends JModelList
 			$app->enqueueMessage($OutTxt, 'error');
 		}
 
-		return $IsSaved;
+
+
+			return $IsSaved;
 	}
 
 	/**
@@ -615,5 +658,129 @@ class Rsgallery2ModelImages extends JModelList
 
 		return $galleryId;
 	}
+
+
+	/**
+	 * @param $HtmlArray
+	 *
+	 * @return array
+	 *
+	 * @since 4.3.0
+	 */
+	function ConvertOrderingHtml2PhpObject ($HtmlArray)
+	{
+		//  init arrays
+		$dbOrdering = array ();
+
+		// all Html gallery data
+		foreach ($HtmlArray as $HtmlGallery) {
+
+			// New object
+			$PhpGallery = new stdClass();
+			$PhpGallery->id = $HtmlGallery['id'];
+			$PhpGallery->parent = $HtmlGallery['parent'];
+			$PhpGallery->ordering = $HtmlGallery['ordering'];
+
+			$dbOrdering [] = $PhpGallery;
+		}
+
+		/**
+		$OutTxt = '';
+		$OutTxt .= '$HtmlArray: "' . json_encode($HtmlArray) . '<br>';
+		$OutTxt .= '$dbOrdering: "' . json_encode($dbOrdering) . '<br>';
+
+		$app = JFactory::getApplication();
+		$app->enqueueMessage($OutTxt, 'notice');
+		/**/
+
+		return $dbOrdering;
+	}
+
+	/**
+	 * Does the ordering with the given data and saves it
+	 *
+	 * @param $dbOrdering Object with IS,Parent id and ordering of a gallery object
+	 * @return bool true if successful
+	 *
+	 * @since 4.3.1
+	 */
+	public function doOrdering ($dbOrdering)
+	{
+		$IsSaved = false;
+
+		try {
+			// ToDo: Remove: Use $dbOrdering always as function parameter
+			$this->dbOrdering = $dbOrdering;
+
+			// Sort array by (new) ordering
+			$this->SortByOrdering ();
+			//$this->displayDbOrderingArray("After sort (1)");
+
+			// Reassign as Versions of $.3.0 may contain no parent child order
+			// Recursive assignment of ordering  (child direct after parent)
+			$this->PreAssignOrdering ();
+			//$this->displayDbOrderingArray("After DoPreOrdering");
+
+			// Save Ordering in HTML elements
+			$IsSaved = $this->AssignNewOrdering ($this->dbOrdering);
+
+			// parent::reorder();
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing saveOrdering: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $IsSaved;
+	}
+
+	/**
+	 * sort by ordering and assign new ordering "1..n" from first element
+	 * @return bool
+	 *
+	 * @since 4.3.0
+	 */
+	public function SortByOrdering()
+	{
+		$IsSaved = false;
+
+		try
+		{
+			// sort by ordering
+			usort($this->dbOrdering, function($a, $b)
+			{
+				// return strcmp(intval ($a['ordering']), intval ($b['ordering']));
+				return intval ($a->ordering) > intval ($b->ordering);
+			});
+
+			/** ToDo:
+			// Close gaps
+			for ($arrayIdx=0; $arrayIdx < count($this->dbOrdering); $arrayIdx++) {
+			$this->dbOrdering[$arrayIdx]['ordering'] = $arrayIdx+1;
+			}
+			/**/
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing SortByOrdering: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $IsSaved;
+	}
+
+
+
+
+
 }
 

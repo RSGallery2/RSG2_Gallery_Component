@@ -424,7 +424,7 @@ class rsgallery2ModelGalleriesOrder extends JModelList
 
 
     /**
-     * sort by ordering and assing new ordering "1..n" from first element
+     * sort by ordering and assign new ordering "1..n" from first element
      * @return bool
      *
      * @since 4.3.0
