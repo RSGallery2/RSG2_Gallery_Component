@@ -23,7 +23,7 @@
                 // Don't handle "Enter" otherwise for this control
                 event.preventDefault();
 
-                alert ("Start reordering");
+                // alert ("Start reordering");
 
                 // Exit for reentry check
                 if (IsActive == true)
@@ -39,7 +39,7 @@
 
                 // Empty input
                 if (actElement.value == '') {
-                    alert ("Empty yes");
+                    alert ("Element Empty");
                     return;
                 }
 
@@ -54,6 +54,9 @@
 
                 UserIdString = UserIdString.replace( /^\D+/g, ''); // replace all leading non-digits with nothing
                 var UserId = parseInt(UserIdString);
+
+                var GalleryId = actElement.getAttribute('gallery_id');
+                // alert ("Gallery ID: " + GalleryId);
 
                 //--- Check limit user value --------------------------------------
 
@@ -91,28 +94,28 @@
                 Ordering.clearDebugTextArea ();
 
                 //
-                Ordering.initialize (oServerDbOrdering);
+                Ordering.initialize (oServerDbOrdering, GalleryId);
                 //Ordering.displayDbOrderingArray ("(01) initialize");
 
-                // Assign changed ordering to element
+                // Assign changed ordering to db elements
                 Ordering.InsertUserOrdering (UserId, UserOrdering);
                 //Ordering.displayDbOrderingArray ("(03) User ordering added");
 
-                // Sort array by (old) ordering
+                // Sort db array by ordering 
                 Ordering.SortByOrdering ();
                 //Ordering.displayDbOrderingArray ("(05) SortByOrdering");
 
                 // Reassign as Versions of $.3.0 may contain no parent child order
-                Ordering.ReAssignOrdering (1, 0); // actIdx=1, parentId=0
-                //Ordering.displayDbOrderingArray ("(06) ReAssignOrdering");
+                Ordering.ResetOrdering (1); // actIdx=1, parentId=0
+                //Ordering.displayDbOrderingArray ("(06) ResetOrdering");
 
                 // Sort array by (new) ordering
-                Ordering.SortByOrdering ();
+                // Ordering.SortByOrdering ();
                 //Ordering.displayDbOrderingArray ("(05) SortByOrdering");
 
                 // Values for Get input in PHP
                 serverDbOrderingElement.val(JSON.stringify(Ordering.dbOrdering));
-                //Ordering.displayDbOrderingArray ("Saved back to 'INSERT'");
+                Ordering.displayDbOrderingArray ("Saved back to 'INSERT'");
 
                 // Save Ordering in HTML elements
                 Ordering.AssignNewOrdering ();
@@ -126,6 +129,6 @@
         );
 
         // For debug purposes: If activated it tells if jscript is working
-        alert ("assign successful");
+        //alert ("assign successful");
     });
   

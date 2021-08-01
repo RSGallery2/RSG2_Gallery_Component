@@ -24,8 +24,9 @@ var ImagesOrdering = {
      * @param {Array} dbOrdering array ('id', 'ordering', 'parent', 'name')
      */
     // constructor (dbOrdering) {
-    initialize: function (dbOrdering) {
+    initialize: function (dbOrdering, GalleryId) {
         this.dbOrdering = dbOrdering;
+        this.gallery_id = GalleryId;
     },
 
     // This will sort the array
@@ -81,10 +82,10 @@ var ImagesOrdering = {
      * to the place indicated by UserOrdering
      * It will move up or down all elements within
      *
-     * @param {number} UserId Used to find the source HTML element and previous ordering
+     * @param {number} ImageId Used to find the source HTML element and previous ordering
      * @param {number} UserOrdering required changed ordering
      */
-    InsertUserOrdering: function (UserId, UserOrdering) {
+    InsertUserOrdering: function (ImageId, UserOrdering) {
         var LimitLower;
         var LimitUpper;
         var PrevOrdering;
@@ -93,7 +94,7 @@ var ImagesOrdering = {
         var MovedOrdering;
 
         // No change ?
-        PrevOrdering = parseInt(this.GetOrderingValue(UserId));
+        PrevOrdering = parseInt(this.GetOrderingValue(ImageId));
         UserOrdering = parseInt(UserOrdering);
         if (PrevOrdering == UserOrdering) {
             return;
@@ -110,51 +111,55 @@ var ImagesOrdering = {
             bDirMoveUp = false;
         }
 
-        // Move elements between lower and upper
-        for (var idx = 0; idx < this.dbOrdering.length; idx++) {
+        // gallery is defined
+        if (typeof this.dbOrdering[this.gallery_id] !== 'undefined') {
 
-            // Assign new ordering on user element
-            if (this.dbOrdering[idx].id == UserId) {
-                this.dbOrdering[idx].ordering = UserOrdering;
-            }
-            else {
-                ActOrdering = parseInt(this.dbOrdering[idx].ordering);
+            var images = this.dbOrdering[this.gallery_id];
 
-                // Moving area
-                if (LimitLower <= ActOrdering && ActOrdering <= LimitUpper) {
+            // Move elements between lower and upper
+            for (var idx = 0; idx < images.length; idx++) {
 
-                    if (bDirMoveUp) {
-                        // Make space below new ordering
-                        MovedOrdering = parseInt(this.dbOrdering[idx].ordering) - 1;
+                // Assign new ordering on user element
+                if (images[idx].id == ImageId) {
+                    images[idx].ordering = UserOrdering;
+                } else {
+                    ActOrdering = parseInt(images[idx].ordering);
+
+                    // Moving area
+                    if (LimitLower <= ActOrdering && ActOrdering <= LimitUpper) {
+
+                        if (bDirMoveUp) {
+                            // Make space below new ordering
+                            MovedOrdering = parseInt(images[idx].ordering) - 1;
+                            /**
+                             alert ("idx: " + idx
+                             + " Id:" + [idx].id
+                             + " Up"
+                             + " ActOrdering: " + ActOrdering
+                             + " MovedOrdering" + MovedOrdering);
+                             /**/
+                        } else {
+                            // Make space above new ordering
+                            MovedOrdering = parseInt(images[idx].ordering) + 1;
+                            /**
+                             alert ("idx: " + idx
+                             + " Id:" + [idx].id
+                             + " Up"
+                             + " ActOrdering: " + ActOrdering
+                             + " MovedOrdering" + MovedOrdering);
+                             /**/
+                        }
+
+                        images[idx].ordering = MovedOrdering;
                         /**
                          alert ("idx: " + idx
-                         + " Id:" + this.dbOrdering[idx].id
-                         + " Up"
+                         + " Id:" + [idx].id
+                         + " After"
                          + " ActOrdering: " + ActOrdering
-                         + " MovedOrdering" + MovedOrdering);
+                         + " MovedOrdering" + MovedOrdering
+                         + " Changed: " + [idx].ordering);
                          /**/
                     }
-                    else {
-                        // Make space above new ordering
-                        MovedOrdering = parseInt(this.dbOrdering[idx].ordering) + 1;
-                        /**
-                         alert ("idx: " + idx
-                         + " Id:" + this.dbOrdering[idx].id
-                         + " Up"
-                         + " ActOrdering: " + ActOrdering
-                         + " MovedOrdering" + MovedOrdering);
-                         /**/
-                    }
-
-                    this.dbOrdering[idx].ordering = MovedOrdering;
-                    /**
-                     alert ("idx: " + idx
-                     + " Id:" + this.dbOrdering[idx].id
-                     + " After"
-                     + " ActOrdering: " + ActOrdering
-                     + " MovedOrdering" + MovedOrdering
-                     + " Changed: " + this.dbOrdering[idx].ordering);
-                     /**/
                 }
             }
         }
@@ -170,33 +175,51 @@ var ImagesOrdering = {
      * actual ordering settings
      */
     SortByOrdering: function () {
-        var SortedOrdering = this.dbOrdering.slice(0);
+        var images = this.dbOrdering[this.gallery_id];
+
+        var SortedOrdering = images.slice(0);
 
         SortedOrdering.sort(this.SortByIntOrdering);
 
-        this.dbOrdering = SortedOrdering;
+        this.dbOrdering[this.gallery_id] = SortedOrdering;
 
         return;
     },
 
 
     /**
-     * Returns ordering value of given gallery ID
+     * Returns ordering value of given image ID
      *
-     * @param {number} GalleryId
+     * @param {number} ImageId
      * @returns {number} Ordering number if found
      */
-    GetOrderingValue: function (GalleryId) {
+    GetOrderingValue: function (ImageId) {
         var ordering = -1;
 
-        //for (var dbGallery of dbOrdering) {
+        var isFound = false;
+
         for (var idx = 0; idx < this.dbOrdering.length; idx++) {
-            // Gallery item found
-            if (this.dbOrdering[idx].id == GalleryId) {
-                ordering = this.dbOrdering[idx].ordering;
+        for (var gallery_idx = 0; gallery_idx < this.dbOrdering.length; gallery_idx++) {
+
+            var images = this.dbOrdering[gallery_idx];
+
+            // all images in gallery
+            for (var idx = 0; idx < images.length; idx++) {
+                // image item found
+                if (images[idx].id == ImageId) {
+                    ordering = images[idx].ordering;
+
+                    isFound = true;
+                    break;
+                }
+            }
+
+            if (isFound) {
                 break;
             }
+
         }
+
 
         return ordering;
     },
@@ -208,15 +231,15 @@ var ImagesOrdering = {
      * @returns {Number|*}
      * @constructor
      */
-    GetGalleryId: function (ElementId) {
-        var GalleryIdString;
-        var GalleryId;
+    GetImageId: function (ElementId) {
+        var ImageIdString;
+        var ImageId;
 
-        //var GalleryIdString = actElement.id; //
-        GalleryIdString = ElementId.replace(/^\D+/g, ''); // replace all leading non-digits with nothing
-        GalleryId = parseInt(GalleryIdString);
+        //var ImageIdString = actElement.id; //
+        ImageIdString = ElementId.replace(/^\D+/g, ''); // replace all leading non-digits with nothing
+        ImageId = parseInt(ImageIdString);
 
-        return GalleryId;
+        return ImageId;
     },
 
 
@@ -233,9 +256,10 @@ var ImagesOrdering = {
 
         jQuery(".changeOrder").each(function () {
             Element = jQuery(this);
+
             var UserOrdering = parseInt(Element.val());
-            var galleryId = self.GetGalleryId(Element.attr('id'));
-            var newOrdering = self.GetOrderingValue(galleryId);
+            var imageId = self.GetImageId(Element.attr('id'));
+            var newOrdering = self.GetOrderingValue(imageId);
 
             if (newOrdering != UserOrdering) {
                 Element.val(newOrdering);
@@ -252,7 +276,7 @@ var ImagesOrdering = {
 // Recursive assignment of ordering  (child direct after parent)
 // May leave out some ordering numbers
     /**
-     * ReAssignOrdering using position in array
+     * ResetOrdering using position in array
      * In the array field after sorting may be gaps or doubles ...
      * Here the ordering will be standardized to 1... n with step 1
      *
@@ -262,24 +286,28 @@ var ImagesOrdering = {
      * @returns {*}
      * @constructor
      */
-    // ToDo active when all browser supporst initialised variables: ReAssignOrdering: function (actIdx=1, parentId=0) {
-    ReAssignOrdering: function (actIdx, parentId) {
+    // ToDo active when all browser supporst initialised variables: ResetOrdering: function (actIdx=1, parentId=0) {
+    ResetOrdering: function (actIdx) {
 
         // Assign Order 1..n to each parent.
         // Children get the ordering direct after parent.
         // So the next parent may have bigger distance
         // than one to the previous parent
-        //for (var dbGallery of dbOrdering) {
-        for (var idx = 0; idx < this.dbOrdering.length; idx++) {
-            if (this.dbOrdering[idx].parent == parentId) {
-                this.dbOrdering[idx].ordering = actIdx;
+
+        // gallery is defined
+        if (typeof this.dbOrdering[this.gallery_id] !== 'undefined') {
+
+            var images = this.dbOrdering[this.gallery_id];
+
+            // Move elements between lower and upper
+            for (var idx = 0; idx < images.length; idx++) {
+
+                images[idx].ordering = actIdx;
                 actIdx++;
 
-                // recursive call of ordering on child
-                actIdx = this.ReAssignOrdering(actIdx, this.dbOrdering[idx].id);
             }
         }
-
+        
         return actIdx;
     }
 

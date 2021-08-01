@@ -241,14 +241,26 @@ class Rsgallery2ViewImages extends JViewLegacy
 
             /**/
             $query->select($db->quoteName(
-                array ('id', 'ordering', 'name')))
+                array ('id', 'gallery_id', 'ordering', 'name')))
                 ->from($db->quoteName('#__rsgallery2_files'))
                 ->order('ordering ASC');
             $db->setQuery($query);
 
-            $OrderedImages = $db->loadObjectList();
+            $DbOrderedImages = $db->loadObjectList();
 
             // echo '$OrderedImages: ' . json_encode($OrderedImages) . '<br>';
+
+
+	        foreach ($DbOrderedImages as $dbOrderedImage)
+	        {
+		        $OrderedImage = new stdClass();
+
+		        $OrderedImage->id = $dbOrderedImage->id;
+		        $OrderedImage->ordering = $dbOrderedImage->ordering;
+		        $OrderedImage->name = $dbOrderedImage->name;
+
+		        $OrderedImages [ $dbOrderedImage->gallery_id][] = $OrderedImage;
+	        }
 
         } catch (RuntimeException $e) {
             $OutTxt = '';
