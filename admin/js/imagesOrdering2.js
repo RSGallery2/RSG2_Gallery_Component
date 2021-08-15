@@ -15,9 +15,10 @@ var ImagesOrdering = {
      * Keeps server database images objects (Id,Parent, ordering, name)
      */
     dbOrdering: [],
+    gallery_id: -1,
+    dbGalleries: [],
 
     //  @param {Array.<{myNumber: Number, myString: String, myArray: Array}>} myObjects
-
 
     /**
      * initialize
@@ -94,28 +95,27 @@ var ImagesOrdering = {
         var ActOrdering;
         var MovedOrdering;
 
-        // No change ?
-        PrevOrdering = parseInt(this.GetOrderingValue(ImageId));
-        UserOrdering = parseInt(UserOrdering);
-        if (PrevOrdering == UserOrdering) {
-            return;
-        }
-
-        if (PrevOrdering < UserOrdering) {
-            LimitLower = PrevOrdering;
-            LimitUpper = UserOrdering;
-            bDirMoveUp = true;
-        }
-        else {
-            LimitLower = UserOrdering;
-            LimitUpper = PrevOrdering;
-            bDirMoveUp = false;
-        }
-
         // gallery is defined
         if (typeof this.dbOrdering[this.gallery_id] !== 'undefined') {
 
             var images = this.dbOrdering[this.gallery_id];
+
+            // No change ?
+            PrevOrdering = parseInt(this.GetOrderingValue(images, ImageId));
+            UserOrdering = parseInt(UserOrdering);
+            if (PrevOrdering == UserOrdering) {
+                return;
+            }
+
+            if (PrevOrdering < UserOrdering) {
+                LimitLower = PrevOrdering;
+                LimitUpper = UserOrdering;
+                bDirMoveUp = true;
+            } else {
+                LimitLower = UserOrdering;
+                LimitUpper = PrevOrdering;
+                bDirMoveUp = false;
+            }
 
             // Move elements between lower and upper
             for (var idx = 0; idx < images.length; idx++) {
@@ -191,36 +191,26 @@ var ImagesOrdering = {
     /**
      * Returns ordering value of given image ID
      *
+     * @param {array} ImageId
      * @param {number} ImageId
      * @returns {number} Ordering number if found
      */
-    GetOrderingValue: function (ImageId) {
+    GetOrderingValue: function (images, ImageId) {
         var ordering = -1;
 
         var isFound = false;
 
-        // All geleries
-        for (var gallery_idx = 0; gallery_idx < this.dbGalleries.length; gallery_idx++) {
 
-            var images = this.dbGalleries[gallery_idx];
+        // all images in gallery
+        for (var idx = 0; idx < images.length; idx++) {
+            // image item found
+            if (images[idx].id == ImageId) {
+                ordering = images[idx].ordering;
 
-            // all images in gallery
-            for (var idx = 0; idx < images.length; idx++) {
-                // image item found
-                if (images[idx].id == ImageId) {
-                    ordering = images[idx].ordering;
-
-                    isFound = true;
-                    break;
-                }
-            }
-
-            if (isFound) {
+                isFound = true;
                 break;
             }
-
         }
-
 
         return ordering;
     },
@@ -252,20 +242,34 @@ var ImagesOrdering = {
     AssignNewOrdering: function () {
         /**/
         var self = this; // save "this" for jquery overwrite
+        var images = [];
+        var GalleryId;
 
-        //--- all input variables ----------------------
+        // gallery is defined
+        if (typeof this.dbOrdering[this.gallery_id] !== 'undefined') {
 
-        jQuery(".changeOrder").each(function () {
-            Element = jQuery(this);
+            images = this.dbOrdering[this.gallery_id];
+            GalleryId = this.gallery_id;
 
-            var UserOrdering = parseInt(Element.val());
-            var imageId = self.GetImageId(Element.attr('id'));
-            var newOrdering = self.GetOrderingValue(imageId);
+            //--- all input variables ----------------------
 
-            if (newOrdering != UserOrdering) {
-                Element.val(newOrdering);
-            }
-        });
+            jQuery(".changeOrder").each(function () {
+                Element = jQuery(this);
+                //Element = this;
+
+                var ElementGalleryId = Element.attr('gallery_id');
+
+                if (ElementGalleryId == GalleryId)
+                {
+                    var UserOrdering = parseInt(Element.val());
+                    var imageId = self.GetImageId(Element.attr('id'));
+                    var newOrdering = self.GetOrderingValue(images, imageId);
+                    if (newOrdering != UserOrdering) {
+                        Element.val(newOrdering);
+                    }
+                }
+            });
+        }
         /**/
         return;
         /**/

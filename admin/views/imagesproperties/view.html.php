@@ -244,7 +244,7 @@ class Rsgallery2ViewImagesProperties extends JViewLegacy
 				JToolBarHelper::custom('imagesProperties.flip_images_vertical', 'arrow-down-4', '', 'COM_RSGALLERY2_FLIP_VERTICAL', true);
 
 				break;
-		}
+		 }
 	}
 
 	/**

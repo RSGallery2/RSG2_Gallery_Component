@@ -680,17 +680,20 @@ class Rsgallery2ModelImages extends JModelList
 		$dbOrdering = array ();
 
 		// all Html gallery data
-		foreach ($HtmlArray as $HtmlGallery) {
+		foreach ($HtmlArray as $galleryId=>$HtmlImages) {
 
-			// New object
-			$PhpGallery = new stdClass();
-			$PhpGallery->id = $HtmlGallery['id'];
-			$PhpGallery->parent = $HtmlGallery['parent'];
-			$PhpGallery->ordering = $HtmlGallery['ordering'];
+            foreach ($HtmlImages as $HtmlImage) {
 
-			$dbOrdering [] = $PhpGallery;
-		}
+                // New object
+                $DbImgeUpdate = new stdClass();
+                $DbImgeUpdate->id = $HtmlImage['id'];
+                $DbImgeUpdate->ordering = $HtmlImages['ordering'];
+                $DbImgeUpdate->gallery_id = $galleryId;
 
+                $dbOrdering [] = $DbImgeUpdate;
+            }
+
+        }
 		/**
 		$OutTxt = '';
 		$OutTxt .= '$HtmlArray: "' . json_encode($HtmlArray) . '<br>';
@@ -715,6 +718,9 @@ class Rsgallery2ModelImages extends JModelList
 
 		try
 		{
+		    // sorting must be within sepearate gallery
+
+		    /**
 			// sort by ordering
 			usort($this->dbOrdering, function($a, $b)
 			{
@@ -722,7 +728,7 @@ class Rsgallery2ModelImages extends JModelList
 				return intval ($a->ordering) > intval ($b->ordering);
 			});
 
-			/** ToDo: */
+			/** ToDo: *
 			// Close gaps, remove doubles
 			for ($arrayIdx=0; $arrayIdx < count($this->dbOrdering); $arrayIdx++) {
 	            if ($this->dbOrdering[$arrayIdx]['ordering'] != $arrayIdx+1) {
@@ -733,6 +739,9 @@ class Rsgallery2ModelImages extends JModelList
                 }
 			}
 			/**/
+
+
+
 		}
 		catch (RuntimeException $e)
 		{
@@ -775,6 +784,8 @@ class Rsgallery2ModelImages extends JModelList
             $IsAssigned = true; //  true until further notice
             foreach ($images as $image) {
 
+
+                // ToDo: sorting withing gallery ....
                 $NewOrdering = $this->UserOrderingFromId ($image->id);
                 /*
                     $OutText = '';

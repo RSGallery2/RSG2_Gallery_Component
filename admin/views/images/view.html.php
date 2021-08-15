@@ -294,7 +294,7 @@ class Rsgallery2ViewImages extends JViewLegacy
 			/**/
 			$query->select($db->quoteName(array ('id')))
 				->from($db->quoteName('#__rsgallery2_galleries'))
-				->order('ordering ASC');
+				->order('id ASC');
 			$db->setQuery($query);
 
 			$DbGalleries = $db->loadObjectList();

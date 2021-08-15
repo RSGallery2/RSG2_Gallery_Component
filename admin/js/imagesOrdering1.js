@@ -127,12 +127,12 @@
 
                 // Values for Get input in PHP
                 serverDbOrderingElement.val(JSON.stringify(Ordering.dbOrdering));
-                Ordering.displayDbOrderingArray ("Saved back to 'INSERT'");
+                //Ordering.displayDbOrderingArray ("Saved back to 'INSERT'");
 
                 // Save Ordering in HTML elements
                 Ordering.AssignNewOrdering ();
 
-                alert ("end reordering");
+                // alert ("end reordering");
 
                 // Deactivate re entrance check
                 IsActive = false;

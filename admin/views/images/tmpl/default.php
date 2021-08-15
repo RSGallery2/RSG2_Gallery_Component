@@ -37,7 +37,9 @@ $userId = $user->id;
 //	$jsonDbOrder = nl2br (json_encode($this->dbOrdering, JSON_PRETTY_PRINT));
 //     echo '$OrderedImages: ' . $jsonDbOrder . '<br><br><br><br>';
 	$jsonDbOrder = json_encode($this->dbOrdering, JSON_PRETTY_PRINT);
-     echo '$OrderedImages: ' . $jsonDbOrder . '<br><br><br><br>';
+     echo '$OrderedImages: ' . $jsonDbOrder . '<br><br>';
+	$jsonDbGalleries = json_encode($this->dbGalleries, JSON_PRETTY_PRINT);
+     echo '$DbGalleries: ' . $jsonDbGalleries . '<br><br><br><br>';
 ?>
 
 
