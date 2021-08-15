@@ -72,8 +72,10 @@ class Rsgallery2ViewImages extends JViewLegacy
 		$xmlFile    = JPATH_COMPONENT . '/models/forms/images.xml';
 		$this->form = JForm::getInstance('images', $xmlFile);
 
-		// Actual List to order all galleries
+		// Actual List to order all images
 		$this->dbOrdering = $this->OrderedImages();
+
+		$this->dbGalleries = $this->DbGalleries();
 		
 		// 2020.10.28 php 7.2 -> 7.4
         //// Check for errors.
@@ -274,7 +276,41 @@ class Rsgallery2ViewImages extends JViewLegacy
         return $OrderedImages;
     }
 
- 	
+
+	/**
+	 * Collects 'id', 'ordering', 'parent', 'name' of all gelleries in an array
+	 * @return array|mixed 'id', 'ordering', 'parent', 'name'
+	 *
+	 * @since 4.3.0
+	 */
+	public static function DbGalleries ()
+	{
+		$DbGalleries = array();
+
+		try {
+			$db = JFactory::getDBO();
+			$query = $db->getQuery(true);
+
+			/**/
+			$query->select($db->quoteName(array ('id')))
+				->from($db->quoteName('#__rsgallery2_galleries'))
+				->order('ordering ASC');
+			$db->setQuery($query);
+
+			$DbGalleries = $db->loadObjectList();
+
+		} catch (RuntimeException $e) {
+			$OutTxt = '';
+			$OutTxt .= 'DbGalleries: Error executing query: "' . $query . '"' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $DbGalleries;
+	}
+
 }
 
 

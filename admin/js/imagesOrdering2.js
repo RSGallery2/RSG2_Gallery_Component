@@ -24,9 +24,10 @@ var ImagesOrdering = {
      * @param {Array} dbOrdering array ('id', 'ordering', 'parent', 'name')
      */
     // constructor (dbOrdering) {
-    initialize: function (dbOrdering, GalleryId) {
+    initialize: function (dbOrdering, GalleryId, dbGalleries) {
         this.dbOrdering = dbOrdering;
         this.gallery_id = GalleryId;
+        this.dbGalleries = dbGalleries;
     },
 
     // This will sort the array
@@ -198,10 +199,10 @@ var ImagesOrdering = {
 
         var isFound = false;
 
-        for (var idx = 0; idx < this.dbOrdering.length; idx++) {
-        for (var gallery_idx = 0; gallery_idx < this.dbOrdering.length; gallery_idx++) {
+        // All geleries
+        for (var gallery_idx = 0; gallery_idx < this.dbGalleries.length; gallery_idx++) {
 
-            var images = this.dbOrdering[gallery_idx];
+            var images = this.dbGalleries[gallery_idx];
 
             // all images in gallery
             for (var idx = 0; idx < images.length; idx++) {

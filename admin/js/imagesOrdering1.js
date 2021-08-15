@@ -86,6 +86,18 @@
 
                 var oServerDbOrdering = jQuery.parseJSON (serverDbOrderingValue);
 
+                //--- Fetch database galleries --------------------------------------
+
+                var serverDbGalleriesElement = jQuery("#dbGalleries");
+
+                var serverDbGalleriesValue = serverDbGalleriesElement.val();
+                if ((typeof(serverDbGalleriesValue) === 'undefined') || (serverDbGalleriesValue === null)) {
+                    alert("serverDbGalleriesValue is not defined ==> Server ordering values not exsisting");
+                    return;
+                }
+
+                var oServerDbGalleries = jQuery.parseJSON (serverDbGalleriesValue);
+
                 //-----------------------------------------
                 // Order by parent / child
                 //-----------------------------------------
@@ -94,7 +106,7 @@
                 Ordering.clearDebugTextArea ();
 
                 //
-                Ordering.initialize (oServerDbOrdering, GalleryId);
+                Ordering.initialize (oServerDbOrdering, GalleryId, oServerDbGalleries);
                 //Ordering.displayDbOrderingArray ("(01) initialize");
 
                 // Assign changed ordering to db elements

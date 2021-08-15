@@ -326,6 +326,15 @@ $userId = $user->id;
 							echo  $HtmlOut;
 							?></textarea>
 					<br>
+					<!-- keeps the ordering for sending to server -->
+					<label for="dbGalleries" style="font-weight: bold; display: none;">dbGalleries:</label>
+					<textarea id="dbGalleries" name="dbGalleries" cols="140" rows="15" class="span10"
+							  style="display: none;"><?php
+							$JsonEncoded = json_encode($this->dbGalleries);
+							$HtmlOut = htmlentities($JsonEncoded, ENT_QUOTES, "UTF-8");
+							echo  $HtmlOut;
+							?></textarea>
+					<br>
 
                     <?php echo JHtml::_('form.token'); ?>
                 </div>
