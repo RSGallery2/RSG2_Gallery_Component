@@ -272,9 +272,11 @@ class Rsgallery2ModelImages extends JModelList
             // ToDo: Remove: Use $dbOrdering always as function parameter
             $this->dbOrdering = $dbOrdering;
 
-            // Sort array by (new) ordering
+            // Sort array by (new) user ordering
             $this->SortByOrdering ();
-            //$this->displayDbOrderingArray("After sort (1)");
+
+            // Reassign without any holes '1,2,3,4,5 ...'
+            $this->ResetOrdering (); // actIdx=1, parentId=0
 
             // Save Ordering in HTML elements
             $IsSaved = $this->AssignNewOrdering ($this->dbOrdering);
@@ -690,7 +692,7 @@ class Rsgallery2ModelImages extends JModelList
                 $DbImgeUpdate->ordering = $HtmlImages['ordering'];
                 $DbImgeUpdate->gallery_id = $galleryId;
 
-                $dbOrdering [] = $DbImgeUpdate;
+                $dbOrdering [$galleryId] = $DbImgeUpdate;
             }
 
         }
@@ -707,41 +709,31 @@ class Rsgallery2ModelImages extends JModelList
 	}
 
 	/**
-	 * sort by ordering and assign new ordering "1..n" from first element
+	 * sort each gallery by ordering
 	 * @return bool
 	 *
 	 * @since 4.3.0
 	 */
 	public function SortByOrdering()
 	{
-		$IsSaved = false;
+		$IsSorted = false;
 
 		try
 		{
-		    // sorting must be within sepearate gallery
+		    // sorting must be within each separate gallery
 
-		    /**
-			// sort by ordering
-			usort($this->dbOrdering, function($a, $b)
-			{
-				// return strcmp(intval ($a['ordering']), intval ($b['ordering']));
-				return intval ($a->ordering) > intval ($b->ordering);
-			});
+            foreach ($this->dbOrdering as $galleryId => $images) {
+                echo "<br>'gallery ID': " . $galleryId;
 
-			/** ToDo: *
-			// Close gaps, remove doubles
-			for ($arrayIdx=0; $arrayIdx < count($this->dbOrdering); $arrayIdx++) {
-	            if ($this->dbOrdering[$arrayIdx]['ordering'] != $arrayIdx+1) {
+                // sort by ordering
+                usort($images, function($a, $b)
+                {
+                    return intval ($a->ordering) > intval ($b->ordering);
+                });
 
-                    // $this->dbOrdering[$arrayIdx]['ordering'] = $arrayIdx + 1;
-                    // debug
-                    $this->dbOrdering[$arrayIdx]['ordering'] = $this->dbOrdering[$arrayIdx]['ordering'];
-                }
-			}
-			/**/
+            }
 
-
-
+            $IsSorted = true;
 		}
 		catch (RuntimeException $e)
 		{
@@ -753,7 +745,46 @@ class Rsgallery2ModelImages extends JModelList
 			$app->enqueueMessage($OutTxt, 'error');
 		}
 
-		return $IsSaved;
+		return $IsSorted;
+	}
+
+	/**
+	 * sort each gallery by ordering
+	 * @return bool
+	 *
+	 * @since 4.3.0
+	 */
+	public function ResetOrdering()
+	{
+		$IsResetted = false;
+
+		try
+		{
+		    // reassign ordering for continuous items
+            foreach ($this->dbOrdering as $galleryId => $images) {
+
+                $order = 0;
+
+                foreach ($images as $image) {
+                    $order++;  // starts with one
+
+                    $image->ordering = $order;
+                }
+            }
+
+            $IsResetted = true;
+		}
+		catch (RuntimeException $e)
+		{
+			$OutTxt = '';
+			$OutTxt .= 'Error executing ResetOrdering: "' . '<br>';
+			$OutTxt .= 'Error: "' . $e->getMessage() . '"' . '<br>';
+
+			$app = JFactory::getApplication();
+			$app->enqueueMessage($OutTxt, 'error');
+		}
+
+		return $IsResetted;
 	}
 
     /**

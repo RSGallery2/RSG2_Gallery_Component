@@ -109,7 +109,7 @@
                 Ordering.initialize (oServerDbOrdering, GalleryId, oServerDbGalleries);
                 //Ordering.displayDbOrderingArray ("(01) initialize");
 
-                // Assign changed ordering to db elements
+                // Assign changed ordering by user to db elements
                 Ordering.InsertUserOrdering (UserId, UserOrdering);
                 //Ordering.displayDbOrderingArray ("(03) User ordering added");
 
@@ -117,8 +117,8 @@
                 Ordering.SortByOrdering ();
                 //Ordering.displayDbOrderingArray ("(05) SortByOrdering");
 
-                // Reassign as Versions of $.3.0 may contain no parent child order
-                Ordering.ResetOrdering (1); // actIdx=1, parentId=0
+                // Reassign without any holes '1,2,3,4,5 ...'
+                Ordering.ResetOrdering (1); // actIdx=1
                 //Ordering.displayDbOrderingArray ("(06) ResetOrdering");
 
                 // Sort array by (new) ordering
