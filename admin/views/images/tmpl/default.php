@@ -34,12 +34,14 @@ $userId = $user->id;
 ?>
 
 <?php
+/**
 //	$jsonDbOrder = nl2br (json_encode($this->dbOrdering, JSON_PRETTY_PRINT));
 //     echo '$OrderedImages: ' . $jsonDbOrder . '<br><br><br><br>';
 	$jsonDbOrder = json_encode($this->dbOrdering, JSON_PRETTY_PRINT);
      echo '$OrderedImages: ' . $jsonDbOrder . '<br><br>';
 	$jsonDbGalleries = json_encode($this->dbGalleries, JSON_PRETTY_PRINT);
      echo '$DbGalleries: ' . $jsonDbGalleries . '<br><br><br><br>';
+/**/
 ?>
 
 
@@ -346,9 +348,9 @@ $userId = $user->id;
         </div>
 
 		</div>
-			<label for="debug" style="font-weight: bold; Xdisplay: none;">debug text:</label>
+			<label for="debug" style="font-weight: bold; display: none;">debug text:</label>
 			<textarea id="debug" name="debug" cols="140" rows="50" class="span6"
-					  style="resize: horizontal; Xdisplay: none;">debug area</textarea>
+					  style="resize: horizontal; display: none;">debug area</textarea>
 		</div>
 
         <div id="loading"></div>
