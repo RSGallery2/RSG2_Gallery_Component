@@ -3,7 +3,7 @@
  * RSGallery2 root or single gallery view
  *
  * @package       RSGallery2
- * @copyright (C) 2019 - 2020 RSGallery2
+ * @copyright (C) 2019 - 2021 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();

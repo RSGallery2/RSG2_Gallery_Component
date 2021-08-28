@@ -3,7 +3,7 @@
  * Changelog for RSGallery2
  *
  * @package       RSGallery2
- * @copyright (C) 2003-2020 RSGallery2 Team
+ * @copyright (C) 2003-2021 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  **/
@@ -23,12 +23,19 @@ Legend:
 ^ -> Change, - -> Removed, ! -> Note
 
 
-* --- 4.5.0 beta --- 2019-07-23 --- whazzup ------------------------------
+* --- 4.5.2 --- 2021-08-28 --- whazzup ------------------------------
 
-^ Moved configuration data from table _rsgallery2_config to 
-  extenstion table row RSG2 params (json string)
+# Fixed: Sorting of images in images view: 
+	running endless, not doing it at all ...
   
+* --- 4.5.1 --- 2020-10-30 --- whazzup ------------------------------
 
+^ Site: 
+  * Added (improved) votes display
+  * Added (improved) comments display
+  * Slideshow configuration online (<== Maintenance)
+  * Template configuration online (<== Maintenance)
+  
 * --- 4.4.2 beta --- 2019-01-26 --- whazzup ------------------------------
 
 + Added maintenance: Slideshow configuration

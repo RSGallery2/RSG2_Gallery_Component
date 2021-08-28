@@ -3,7 +3,7 @@
  * @version        $Id: template.php 1011 2011-01-26 15:36:02Z mirjam $
  * @package        Joomla
  * @subpackage     Templates
- * @copyright      (C) 2005-2020 RSGallery2 Team
+ * @copyright      (C) 2005-2021 RSGallery2 Team
  * @license        GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative

@@ -11,7 +11,7 @@
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>team@rsgallery2.org</authorEmail>
 	<authorUrl>http://www.rsgallery2.org</authorUrl>
-	<copyright>(c) 2019-2020 RSGallery2 Team</copyright>
+	<copyright>(c) 2019-2021 RSGallery2 Team</copyright>
 	<description>Default slideshow that we have been shipping with for a while.</description>
 	<files>
 		<folder>html</folder>
