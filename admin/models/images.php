@@ -260,26 +260,16 @@ class Rsgallery2ModelImages extends JModelList
 			 * /**/
 
 			// User changes
-			$newOrdering = json_decode($newOrderingHtml, true);
-
-			// ...
-			$dbOrdering = $this->ConvertOrderingHtml2PhpObject($newOrdering);
-			// $this->displayDbOrderingArray ("NewOrdering");
-
-			// Do standard ordering with save
-			// $IsSaved = $this->doOrdering($dbOrdering);
-
-            // ToDo: Remove: Use $dbOrdering always as function parameter
-            $this->dbOrdering = $dbOrdering;
+            $newOrdering = json_decode($newOrderingHtml, true);
 
             // Sort array by (new) user ordering
-            $this->SortByOrdering ();
+            $this->SortByOrdering ($newOrdering);
 
             // Reassign without any holes '1,2,3,4,5 ...'
-            $this->ResetOrdering (); // actIdx=1, parentId=0
+            $this->ResetOrdering ($newOrdering); // actIdx=1, parentId=0
 
             // Save Ordering in HTML elements
-            $IsSaved = $this->AssignNewOrdering ($this->dbOrdering);
+            $IsSaved = $this->AssignNewOrdering ($newOrdering);
 
 
             // parent::reorder();
@@ -678,6 +668,7 @@ class Rsgallery2ModelImages extends JModelList
 	 */
 	function ConvertOrderingHtml2PhpObject ($HtmlArray)
 	{
+	    /**
 		//  init arrays
 		$dbOrdering = array ();
 
@@ -705,6 +696,9 @@ class Rsgallery2ModelImages extends JModelList
 		$app->enqueueMessage($OutTxt, 'notice');
 		/**/
 
+	    // Looks fine
+        $dbOrdering = $HtmlArray;
+
 		return $dbOrdering;
 	}
 
@@ -714,7 +708,7 @@ class Rsgallery2ModelImages extends JModelList
 	 *
 	 * @since 4.3.0
 	 */
-	public function SortByOrdering()
+	public function SortByOrdering($newOrdering)
 	{
 		$IsSorted = false;
 
@@ -722,7 +716,7 @@ class Rsgallery2ModelImages extends JModelList
 		{
 		    // sorting must be within each separate gallery
 
-            foreach ($this->dbOrdering as $galleryId => $images) {
+            foreach ($newOrdering as $galleryId => $images) {
                 echo "<br>'gallery ID': " . $galleryId;
 
                 // sort by ordering
@@ -754,14 +748,14 @@ class Rsgallery2ModelImages extends JModelList
 	 *
 	 * @since 4.3.0
 	 */
-	public function ResetOrdering()
+	public function ResetOrdering($newOrdering)
 	{
 		$IsResetted = false;
 
 		try
 		{
 		    // reassign ordering for continuous items
-            foreach ($this->dbOrdering as $galleryId => $images) {
+            foreach ($newOrdering as $galleryId => $images) {
 
                 $order = 0;
 
@@ -790,13 +784,13 @@ class Rsgallery2ModelImages extends JModelList
     /**
      *
      * Only when order is changed it will be written back
-     * @param $dbOrdering
+     * @param $UserOrdering
      *
      * @return bool
      *
      * @since version 4.3.1
      */
-    public function AssignNewOrdering ($dbOrdering)
+    public function AssignNewOrdering ($UserOrdering)
     {
         $IsAssigned = false;
 
@@ -808,51 +802,33 @@ class Rsgallery2ModelImages extends JModelList
             $app = JFactory::getApplication();
             //$app->enqueueMessage('AssignNewOrdering (A)', 'notice');
 
-            // Collect all images id/name/ordering to check the ordering
-            $images = $this->OrderedImages ();
+            // Collect actual dbImagesOrdering id/name/ordering to check the ordering
+            $dbImagesOrdering = $this->OrderedImages ();
 
             // ordering of parents
             $IsAssigned = true; //  true until further notice
-            foreach ($images as $image) {
+            foreach ($dbImagesOrdering as $dbImageOrder) {
 
+                $NewOrdering = $this->UserOrderingFromId ($UserOrdering, $dbImageOrder->id);
 
-                // ToDo: sorting withing gallery ....
-                $NewOrdering = $this->UserOrderingFromId ($image->id);
-                /*
-                    $OutText = '';
-                    $OutText .= 'Id: ' . $image->id;
-                    $OutText .= ' ordering: ' . $image->ordering;
-                    $OutText .= ' ==> $NewOrdering: ' . $NewOrdering;
-                    $app->enqueueMessage($OutText, 'notice');
-                /**/
-                // image not defined in user view
+                // dbImageOrder not defined in user view
                 if($NewOrdering == -1){
                     continue;
                 }
 
-                if($NewOrdering != $image->ordering) {
-
-                    $OutText = '';
-                    $OutText .= 'Id: ' . $image->id;
-//                    $OutText .= ' ordering: ' . $image->ordering;
-//                    $OutText .= ' ==> $NewOrdering: ' . $NewOrdering;
-                    $OutText .= ' ==> ' . $NewOrdering;
-//                    $OutText .= ' (' . $image->ordering . ")";
-//                    $app->enqueueMessage($OutText, 'notice');
+                if($NewOrdering != $dbImageOrder->ordering) {
 
                     $query->clear();
-                    $query->update($db->quoteName('#__rsgallery2_images'))
+                    $query->update($db->quoteName('#__rsgallery2_files'))
                         ->set($db->quoteName('ordering') . '=' . $db->quote((int) $NewOrdering))
-                        ->where(array($db->quoteName('id') . '=' . $db->quote((int) $image->id)));
+                        ->where(array($db->quoteName('id') . '=' . $db->quote((int) $dbImageOrder->id)));
                     $db->setQuery($query);
 
                     $result = $db->execute();
-//                    $OutText = 'Result: ' . $result;
-//                    $app->enqueueMessage($OutText, 'notice');
 
                     if (empty($result))
                     {
-                        $app->enqueueMessage('AssignNewOrdering failed for $image->id: ' . $image->id . ' '
+                        $app->enqueueMessage('AssignNewOrdering failed for $dbImageOrder->id: ' . $dbImageOrder->id . ' '
                             . '$NewOrdering: ' . $NewOrdering . ' '
                             , 'notice');
 
@@ -877,7 +853,7 @@ class Rsgallery2ModelImages extends JModelList
     }
 
     /**
-     * Collects 'id', 'ordering', 'parent', 'name' of all gelleries in an array
+     * Collects 'id', 'ordering', 'parent', 'name' of all images in an array
      * @return array|mixed 'id', 'ordering', 'parent', 'name'
      *
      * @since 4.3.0
@@ -916,26 +892,37 @@ class Rsgallery2ModelImages extends JModelList
 
 
     /**
-     * @param $galleryId
+     * @param $imageId
      *
      * @return int
      *
      * @since 4.3.0
      */
-    public function UserOrderingFromId ($galleryId)
+    public function UserOrderingFromId ($UserOrdering, $imageId)
     {
         $Order = -1;
 
         try
         {
             // each user ordering
-            foreach ($this->dbOrdering as $dbImage) {
+            foreach ($UserOrdering as $galleryId => $images) {
 
-                $id = $dbImage->id;
 
-                // Found
-                if ($id == $galleryId) {
-                    $Order = $dbImage->ordering;
+                foreach ($images as $image) {
+
+                    // $id = $image->id;
+                    $id = $image['id'];
+
+                    // Found
+                    if ($id == $imageId) {
+                        $Order = $image['ordering'];
+                        break;
+                    }
+                }
+
+                // order defined ?
+                if ($Order != -1) {
+                    break;
                 }
             }
         }
