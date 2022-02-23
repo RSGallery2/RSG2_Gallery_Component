@@ -23,9 +23,10 @@ class RSGallery2ControllerRating extends BaseController
 /**
 You do a task=controller.function
 
-As an example: You want to call the MycomponentControllerFoo in /controllers/foo.php and execute the function bar(). You use the following URL to call this:
+As an example: You want to call the MycomponentControllerFoo in 
+/controllers/foo.php and execute the function bar(). 
+You use the following URL to call this:
 index.php?option=com_mycomponent&task=foo.bar
-
 
 Or you can use a form where there is a hidden task field.
 /**/
