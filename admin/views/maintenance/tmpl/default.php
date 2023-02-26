@@ -87,7 +87,7 @@ function quickIconBar($link, $image, $title, $text = "", $addClass = '')
  *
  * @since 4.3.0
  */
-function quickIcons4Link($link, $imageClasses=array(), $title, $text = "", $addClass = '')
+function quickIcons4Link($link, $imageClasses=array(), $title='', $text = "", $addClass = '')
 {
 ?>
 <div class="rsg2-icon-bar">
@@ -123,7 +123,7 @@ function quickIcons4Link($link, $imageClasses=array(), $title, $text = "", $addC
  *
  * @since 4.3.0
  */
-function quickIcons4Task($task, $imageClasses=array(), $title, $text = "", $addClass = '')
+function quickIcons4Task($task, $imageClasses=array(), $title='', $text = "", $addClass = '')
 {
     // btn btn-primary
 ?>
