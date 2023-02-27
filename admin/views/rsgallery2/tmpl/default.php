@@ -164,8 +164,9 @@ function DisplayInfoRsgallery2($Rsg2Version)
 	echo '            <td>' . JText::_('COM_RSGALLERY2_INSTALLED_VERSION') . ': ' . '</td>';
 	echo '            <td>';
 	echo '                <a href="' . JRoute::_('index.php?option=com_rsgallery2&view=rsgallery2&layout=ChangeLog') . '"';
-	echo '                   title="' . JText::_('COM_RSGALLERY2_VIEW_CHANGE_LOG') . '""';
-	echo '                   class="modal">' . $Rsg2Version . '</a>';
+	echo '                   title="' . JText::_('COM_RSGALLERY2_VIEW_CHANGE_LOG') . '"';
+// ToDo: activate modal 	echo '                   class="modal">' . $Rsg2Version . '</a>';
+	echo '                 >' . $Rsg2Version . '</a>';
 	echo '            </td>';
 	echo '        </tr>';
 	/**/
