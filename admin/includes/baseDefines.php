@@ -32,7 +32,7 @@ if (!defined('JPATH_RSGALLERY2_LIBS')){
 //$app = JFactory::getApplication();
 
 // ToDo: Explain when site, when admin ? rename "JURI_SITE" -> RSG_URI_ROOT as it is confusing
-// Old 2017define('JURI_SITE', $app->isSite() ? JUri::base() : JUri::root()); // old code should lead to base / root on site and backend
+// Old 2017define('JURI_SITE', $app->->isClient('site') ? JUri::base() : JUri::root()); // old code should lead to base / root on site and backend
 if (!defined('JURI_SITE')) {
     define('JURI_SITE', JUri::root());
 }

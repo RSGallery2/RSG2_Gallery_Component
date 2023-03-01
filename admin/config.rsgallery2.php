@@ -378,7 +378,7 @@ class galleryUtils
 					->where($database->quoteName('gallery_id') . ' IN (' . $list . ') AND '
 						. $database->quoteName('published') . ' = ' . (int) 1)
 					->order('rand()')
-					->limit('1');
+					->setLimit('1');
 				$database->setQuery($query);
 				$thumb_name = $database->loadResult();
 			}
@@ -1074,7 +1074,7 @@ class galleryUtils
 		$query->select('name')
 			->from('#__extensions')
 			->where('element=' . $database->quote($component_name))
-			->limit('1');
+			->setLimit('1');
 		$database->setQuery($query);
 
 		$result = $database->loadResult();

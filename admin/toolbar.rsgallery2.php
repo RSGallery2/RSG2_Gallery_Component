@@ -30,7 +30,7 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . '/toolbar.rsgallery2.html.php');///
 //-----------------------------------------------
 // Only show RSG2 submenu in the backend
 //$app = JFactory::getApplication();
-//if ($app->isAdmin()){
+//if (JFactory::getApplication()->isClient('administrator')){
 $canManage = JFactory::getUser()->authorise('core.manage', 'com_rsgallery2');
 if ($canManage)
 {

@@ -216,7 +216,7 @@ function editItem()
 	if ($id)
 	{
 
-		JHtml::_('behavior.framework', true);   // ToDo: Remove mootools
+		//JHtml::_('behavior.framework', true);   // ToDo: Remove mootools
 
 		$query = 'SELECT * FROM `#__rsgallery2_files` WHERE `id` = ' . (int) $id;
 		$database->setQuery($query);
@@ -426,7 +426,7 @@ function editCat($id)
 			$mainframe->redirect(JRoute::_($redirect));
 		}
 
-		JHtml::_('behavior.framework', true);  // ToDo: Remove mootools
+		//JHtml::_('behavior.framework', true);  // ToDo: Remove mootools
 
 		//Edit category
 		$query = 'SELECT * FROM `#__rsgallery2_galleries` WHERE `id` =' . (int) $id;
@@ -445,7 +445,7 @@ function editCat($id)
 		}
 		else
 		{
-			JHtml::_('behavior.framework', true);   // ToDo: Remove mootools
+			//JHtml::_('behavior.framework', true);   // ToDo: Remove mootools
 
 			//New category
 			myGalleries::editCat();
