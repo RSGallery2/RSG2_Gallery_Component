@@ -53,7 +53,7 @@
 	-->
 	
     <!-- Version number of build -->
-    <property name="build.version" value="4.5.2.0" override="true" />
+    <property name="build.version" value="4.5.3.0" override="true" />
 	    <!-- additional naming postfix -->
     <!--property name="build.postfix" value="prepare." override="true" /-->
     <property name="build.postfix" value="" override="true" />
