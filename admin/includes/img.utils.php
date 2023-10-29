@@ -69,9 +69,13 @@ class imgUtils extends fileUtils
 	 * @return true if successfull, false if error
 	 * @since 4.3.0
      */
-	static function makeDisplayImage($source, $name = '', $width=800)
+	static function makeDisplayImage($source, $name = '', $width == '')
 	{
-
+		if ($width == '')
+		{
+			$width=800;
+		}
+		
 		if ($name == '')
 		{
 			$parts = pathinfo($source);
