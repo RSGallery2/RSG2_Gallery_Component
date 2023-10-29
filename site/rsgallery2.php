@@ -5,7 +5,7 @@
  * @package       RSGallery2
  *
  * @author        RSGallery2 team
- * @copyright (C) 2003 - 2021 RSGallery2
+ * @copyright (C) 2003 - 2023 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery is Free Software
  * @link       www.rsgallery2.org

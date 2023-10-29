@@ -4,7 +4,7 @@
  *
  * @version
  * @package       RSGallery2
- * @copyright (C) 2005-2021 RSGallery2 Team
+ * @copyright (C) 2005-2023 RSGallery2 Team
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  *                RSGallery2 is Free Software
  * @Since         4.3.2

@@ -3,7 +3,7 @@
  * @version        $Id:template.php 6961 2007-03-15 16:06:53Z tcp $
  * @package        Joomla.Framework
  * @subpackage     Installer
- * @copyright      (C) 2005-2021 RSGallery2 Team
+ * @copyright      (C) 2005-2023 RSGallery2 Team
  * @license        GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or

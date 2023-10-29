@@ -4,7 +4,7 @@
  *
  * @version       $Id: display.class.php 1098 2012-07-31 11:54:19Z mirjam $
  * @package       RSGallery2
- * @copyright (C) 2003 - 2021 RSGallery2
+ * @copyright (C) 2003 - 2023 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
