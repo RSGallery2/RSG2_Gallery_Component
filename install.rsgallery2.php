@@ -58,9 +58,9 @@ class com_rsgallery2InstallerScript
     protected $minimum_joomla_release;
     protected $actual_joomla_release;
 
-    // 	protected $;
-    // 	protected $;
-    // 	protected $;
+    //  protected $;
+    //  protected $;
+    //  protected $;
 
     /*-------------------------------------------------------------------------
     preflight
@@ -180,7 +180,7 @@ class com_rsgallery2InstallerScript
             if ($SchemaVersionCount != 1) {
                 JLog::add('Create RSG2 version in __schemas: ', JLog::DEBUG);
 
-                //	UPDATE #__schemas SET version_id = 'NEWVERSION' WHERE extension_id = 700
+                //  UPDATE #__schemas SET version_id = 'NEWVERSION' WHERE extension_id = 700
                 $query->clear()
                     ->insert($db->quoteName('#__schemas'))
                     ->columns(array($db->quoteName('extension_id'), $db->quoteName('version_id')))
@@ -320,6 +320,16 @@ class com_rsgallery2InstallerScript
             $rsgInstall->writeInstallMsg ($msg, 'ok');
         }
         /**/
+
+        //--- Delete misspelled rsgallery2.xml -------------------------------------------
+
+        // RSGallery2.xml first three characters were upper case accidentally
+
+        $pathFileName = JPATH_SITE . '/administrator/components/com_rsgallery2/' .  'RSGallery2.xml';
+
+        if (file_exists($pathFileName)) {
+            unlink ($pathFileName);
+        }
 
         //--- install complete message --------------------------------
 

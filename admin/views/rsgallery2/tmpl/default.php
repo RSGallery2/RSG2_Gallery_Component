@@ -142,6 +142,31 @@ function DisplayInfoImages($infoImages)
 	return;
 }
 
+/**
+ * Used to generate buttons. Uses iconmoon font to display the main icon of the button
+ *
+ * @param string $link       URL for button link
+ * @param string $imageClass Class name for icomoon image
+ * @param string $text       Text to show in button
+ * @param string $addClass   Additional class to style the element
+ */
+function DisplayUpgradeInfo()
+{
+	?>
+    <row>
+        <div class="rsg2logo-container">
+            <h4><?php echo JText::_('COM_RSGALLERY2_UPGRADE_INSTRUCTION'); ?></h4>
+            <!--div class="rsg2logo"-->
+            <div>
+                <?php echo JText::_('COM_RSGALLERY2_UPGRADE_INSTRUCTION_DESC'); ?>
+            </div>
+            <br>
+        </div>
+    </row>
+	<?php
+}
+
+
 function DisplayInfoRsgallery2($Rsg2Version)
 {
 	// Logo
@@ -240,38 +265,51 @@ $doc->addStyleSheet(JUri::root() . '/administrator/components/com_rsgallery2/css
 
 			<div class="row greyBackground">
 				<div class="span12">
-					<div class="row-fluid">
-						<?php
-						if ($this->UserIsAdmin)
-						{
-							//$link = 'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig';
-							$link = 'index.php?option=com_rsgallery2&amp;view=config&amp;task=config.edit';
-							RsgIconMoonButton($link, 'icon-equalizer clsProperties', JText::_('COM_RSGALLERY2_CONFIGURATION'));
-						}
+                    <div class="row-fluid">
+                        <row>
+                            <div class="rsg2logo-container">
+                                <?php
+                                if ($this->UserIsAdmin)
+                                {
+                                    //$link = 'index.php?option=com_rsgallery2&rsgOption=config&task=showConfig';
+                                    $link = 'index.php?option=com_rsgallery2&amp;view=config&amp;task=config.edit';
+                                    RsgIconMoonButton($link, 'icon-equalizer clsProperties', JText::_('COM_RSGALLERY2_CONFIGURATION'));
+                                }
 
-						//$link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
-						$link = 'index.php?option=com_rsgallery2&view=galleries';
-						RsgIconMoonButton($link, 'icon-images clsGalleries', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES'));
+                                //$link = 'index.php?option=com_rsgallery2&rsgOption=galleries';
+                                $link = 'index.php?option=com_rsgallery2&view=galleries';
+                                RsgIconMoonButton($link, 'icon-images clsGalleries', JText::_('COM_RSGALLERY2_MANAGE_GALLERIES'));
 
-						$link = 'index.php?option=com_rsgallery2&view=upload';
-						RsgIconMoonButton($link, 'icon-upload clsUpload', JText::_('COM_RSGALLERY2_UPLOAD'));
+                                $link = 'index.php?option=com_rsgallery2&view=upload';
+                                RsgIconMoonButton($link, 'icon-upload clsUpload', JText::_('COM_RSGALLERY2_UPLOAD'));
 
-						//$link = 'index.php?option=com_rsgallery2&rsgOption=images&task=view_images';
-						$link = 'index.php?option=com_rsgallery2&view=images';
-						RsgIconMoonButton($link, 'icon-image clsImages', JText::_('COM_RSGALLERY2_MANAGE_IMAGES'));
+                                //$link = 'index.php?option=com_rsgallery2&rsgOption=images&task=view_images';
+                                $link = 'index.php?option=com_rsgallery2&view=images';
+                                RsgIconMoonButton($link, 'icon-image clsImages', JText::_('COM_RSGALLERY2_MANAGE_IMAGES'));
 
-						if ($this->UserIsAdmin)
-						{
-							$link = 'index.php?option=com_rsgallery2&view=maintenance';
-							RsgIconMoonButton($link, 'icon-screwdriver clsMaintenance', JText::_('COM_RSGALLERY2_MAINTENANCE'));
-						}
-						?>
-					</div>
+                                if ($this->UserIsAdmin)
+                                {
+                                    $link = 'index.php?option=com_rsgallery2&view=maintenance';
+                                    RsgIconMoonButton($link, 'icon-screwdriver clsMaintenance', JText::_('COM_RSGALLERY2_MAINTENANCE'));
+                                }
+                                ?>
+                            </div>
+                        <row>
+                    </div>
 				</div>
 
 				<br>
 				<br>
 
+				<div class="span12">
+					<div class="row-fluid">
+						<div class="span6">
+							<?php
+							DisplayUpgradeInfo();
+							?>
+						</div>
+					</div>
+				</div>
 				<div class="span12">
 					<div class="row-fluid">
 						<div class="span6">

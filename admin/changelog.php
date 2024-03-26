@@ -23,10 +23,19 @@ Legend:
 ^ -> Change, - -> Removed, ! -> Note
 
 
+* --- 4.5.4 --- 2024-02-25 --- whazzup ------------------------------
+
+^ Hints for upgrade in control panel
+# Fixed wrong name of RSGallery2.xml file in root of gallery
+
+* --- 4.5.3 --- 2023-10-29 --- whazzup ------------------------------
+
+^ Changes for PHP 8.0 
+
 * --- 4.5.2 --- 2021-08-28 --- whazzup ------------------------------
 
 # Fixed: Sorting of images in images view: 
-	running endless, not doing it at all ...
+    Was running endless, not doing it at all ...
   
 * --- 4.5.1 --- 2020-10-30 --- whazzup ------------------------------
 

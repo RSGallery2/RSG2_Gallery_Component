@@ -30,7 +30,13 @@ class RSG2_SidebarLinks {
     {
 
         $view = strtolower ($view);
-        $layout = strtolower ($layout);
+
+        // sanitize null on $layout
+        if (empty($layout)) {
+            $layout = '';
+        } else {
+            $layout = strtolower($layout);
+        }
 
         /**
          echo 'sidebarLinks:Additems'. '<br>';
@@ -120,13 +126,13 @@ class RSG2_SidebarLinks {
 
         // inside maintenance ....
         if (substr($view, 0, 5) == 'maint') {
-	        $link = 'index.php?option=com_rsgallery2&view=config&task=config.edit';
-	        // In maintenance add config
-	        JHtmlSidebar::addEntry(
-		        '<span class="icon-equalizer" >  </span>' .
-		        JText::_('COM_RSGALLERY2_CONFIGURATION'),
-		        $link,
-		        false);
+            $link = 'index.php?option=com_rsgallery2&view=config&task=config.edit';
+            // In maintenance add config
+            JHtmlSidebar::addEntry(
+                '<span class="icon-equalizer" >  </span>' .
+                JText::_('COM_RSGALLERY2_CONFIGURATION'),
+                $link,
+                false);
             if ($view != 'maintenance') {
                 $link = 'index.php?option=com_rsgallery2&view=maintenance';
                 // In config add maintenance
@@ -143,6 +149,6 @@ class RSG2_SidebarLinks {
 
 
     }
-	
-} // class 
+
+} // class
 
