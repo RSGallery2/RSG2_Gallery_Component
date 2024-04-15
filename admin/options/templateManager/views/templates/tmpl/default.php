@@ -3,7 +3,7 @@
  * @version        $Id: default.php 1012 2011-02-01 15:13:13Z mirjam $
  * @package        RSGallery2
  * @subpackage     Template installer
- * @copyright      (C) 2005-2023 RSGallery2 Team
+ * @copyright      (C) 2005-2024 RSGallery2 Team
  * @license        GNU/GPL, see LICENSE.php
  */
  

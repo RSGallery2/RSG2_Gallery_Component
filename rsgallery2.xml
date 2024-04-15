@@ -4,9 +4,9 @@
            method="upgrade"
 >
 	<name>com_rsgallery2</name>
-	<version>4.5.4.0</version>
+	<version>4.5.5.0</version>
 	<author>RSGallery2 Team</author>
-	<creationDate>08. Jan. 2024</creationDate>
+	<creationDate>15. Apr. 2024</creationDate>
 	<copyright>(c) 2005-2024 RSGallery2 Team</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>team2@rsgallery2.org</authorEmail>
@@ -159,7 +159,8 @@
 	<updateservers>
 		<server type="extension"
 		        priority="1"
-		        name="Github RSGallery2 component updates">https://raw.githubusercontent.com/RSGallery2/RSGallery2_Project/master/UpdateServer/RSG2_component_update.xml
+		        name="Github RSGallery2 component updates"
+			>https://raw.githubusercontent.com/RSGallery2/RSGallery2_Project/master/UpdateServer/RSG2_component_update.xml
 		</server>
 	</updateservers>
 </extension>

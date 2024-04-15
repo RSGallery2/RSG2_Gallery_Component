@@ -2,7 +2,7 @@
 /**
  * @version       1.0
  * @package       RSGallery2 slideshoe_FiTh
- * @copyright (C) 2019 - 2023 RSGallery2
+ * @copyright (C) 2019 - 2024 RSGallery2
  * @license       http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 

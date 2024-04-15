@@ -10,7 +10,7 @@
 	<author>RSGallery2</author>
 	<authorEmail>team@rsgallery2.org</authorEmail>
 	<authorUrl>http://www.rsgallery2.org</authorUrl>
-	<copyright>(c) 2005-2023 RSGallery2 Team</copyright>
+	<copyright>(c) 2005-2024 RSGallery2 Team</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<description>Meta template for all child templates.</description>
 	<files>
